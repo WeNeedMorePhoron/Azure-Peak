@@ -224,7 +224,11 @@
 	id = /obj/item/clothing/ring/gold
 	r_hand = /obj/item/rogueweapon/woodstaff
 	backl = /obj/item/storage/backpack/rogue/satchel
-	backpack_contents = list(/obj/item/reagent_containers/glass/bottle/rogue/poison,/obj/item/reagent_containers/glass/bottle/rogue/healthpot)
+	backpack_contents = list(
+		/obj/item/reagent_containers/glass/bottle/rogue/poison,
+		/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
+		/obj/item/recipe_book/alchemy,
+		/obj/item/rogueweapon/huntingknife/idagger/silver/arcyne)
 	ADD_TRAIT(H, TRAIT_SEEPRICES, "[type]")
 	ADD_TRAIT(H, TRAIT_ARCYNE_T4, TRAIT_GENERIC)
 	if(H.mind)

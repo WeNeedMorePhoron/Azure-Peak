@@ -305,13 +305,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/ravox_burden
 	effectedstats = list("speed" = -2, "endurance" = -3)
 	duration = 12 SECONDS
-/*
-/datum/status_effect/debuff/ravox_burden/on_apply()
-	if(owner.mob_biotypes & MOB_UNDEAD)
-		effectedstats = list("speed" -= 1,)
-		effectedstats = list("endurance" -= 1)
-	. = ..()
-*/
+
 /atom/movable/screen/alert/status_effect/debuff/ravox_burden
 	name = "Ravox's Burden"
 	desc = "My arms and legs are restrained by divine chains!\n"
@@ -379,6 +373,24 @@
 	name = "Dazed"
 	desc = "You've been smacked on the head very hard. Which way is left, again?"
 	icon_state = "dazed"
+
+/datum/status_effect/debuff/cold
+	id = "Frostveiled"
+	alert_type =  /atom/movable/screen/alert/status_effect/debuff/cold
+	effectedstats = list("speed" = -2)
+	duration = 12 SECONDS
+
+/datum/status_effect/debuff/cold/on_apply()
+	. = ..()
+	var/mob/living/target = owner
+	var/newcolor = rgb(136, 191, 255)
+	target.add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/atom, remove_atom_colour), TEMPORARY_COLOUR_PRIORITY, newcolor), 12 SECONDS)
+
+/atom/movable/screen/alert/status_effect/debuff/cold
+	name = "Cold"
+	desc = "Something has chilled me to the bone! It's hard to move."
+	icon_state = "muscles"
 
 /*/atom/movable/screen/alert/status_effect/debuff/dazed/shield
 	name = "Dazed by fencer's wrap"

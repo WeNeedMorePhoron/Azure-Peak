@@ -57,7 +57,6 @@
 	..()
 	. = 1
 
-//Someone please remember to change this to actually do mana at some point?
 /datum/reagent/medicine/manapot
 	name = "Mana Potion"
 	description = "Gradually regenerates energy."

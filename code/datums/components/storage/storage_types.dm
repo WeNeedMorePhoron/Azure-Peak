@@ -100,6 +100,31 @@
 	allow_quick_gather = FALSE
 	allow_quick_empty = FALSE
 
+/datum/component/storage/concrete/grid/meatsack // our rucksack is different from
+// Vanderlin so we use a separate one for meatsack
+	max_w_class = WEIGHT_CLASS_NORMAL
+	screen_max_rows = 5
+	screen_max_columns = 4
+	click_gather = TRUE
+	collection_mode = COLLECT_EVERYTHING
+	dump_time = 0
+	allow_quick_gather = TRUE
+	allow_quick_empty = TRUE
+	allow_dump_out = TRUE
+	insert_preposition = "in"
+
+/datum/component/storage/concrete/grid/meatsack/New(datum/P, ...)
+	. = ..()
+	set_holdable(list(
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/fat,
+		/obj/item/natural/fur,
+		/obj/item/natural/hide,
+		/obj/item/alch/sinew,
+		/obj/item/alch/viscera,
+		/obj/item/alch/bone
+		))
+
 /datum/component/storage/concrete/roguetown/saddle
 	screen_max_rows = 4
 	screen_max_columns = 4

@@ -47,6 +47,48 @@
 	desc = "A melding of arcane fusion and voidstone. It pulses erratically, power coiled tightly within and dangerous. Many would be afraid of going near this, let alone holding it."
 	sellprice = 100
 
+//mapfetchable items
+/obj/item/magic/obsidian
+	name = "obsidian fragment"
+	icon = 'icons/obj/shards.dmi'
+	icon_state = "obsidian"
+	desc = "Volcanic glass cooled from molten lava rapidly."
+	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/magic/leyline
+	name = "leyline shards"
+	icon_state = "leyline"
+	desc = "A shard of a fractured leyline, it glows with lost power."
+	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/reagent_containers/food/snacks/grown/manabloom
+	name = "mana bloom"
+	icon_state = "manabloom"
+	desc = "Dense mana that has taken the form of plant life."
+	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_MASK
+	body_parts_covered = NONE
+	alternate_worn_layer  = 8.9
+	list_reagents = list(/datum/reagent/toxin/manabloom_juice = SNACK_CHUNKY)
+	seed = /obj/item/seeds/manabloom
+
+/obj/item/magic/artifact
+	name = "runed artifact"
+	icon_state = "runedartifact"
+	desc = "An old stone from age long ago, marked with glowing sigils."
+	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/magic/voidstone
+	name = "voidstone"
+	icon_state = "wessence"
+	desc = "A piece of blackstone, it feels off to stare at it for long."
+	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_SMALL
+
 // INFERNAL
 /obj/item/magic/infernalash//T1 mage summon loot
     name = "infernal ash"
@@ -145,3 +187,11 @@
     resistance_flags = FIRE_PROOF
     w_class = WEIGHT_CLASS_SMALL
     sellprice = 250
+
+/obj/item/magic/voidstone
+	name = "voidstone"
+	icon_state = "voidstone"
+	desc = "A stone that seems to absorb all light around it. It is cold to the touch and seems to hum with a strange energy."
+	resistance_flags = FIRE_PROOF
+	w_class = WEIGHT_CLASS_SMALL
+	sellprice = 250

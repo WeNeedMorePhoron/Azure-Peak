@@ -6,7 +6,9 @@
 	. = ..()
 	if(controller.blackboard[BB_BASIC_MOB_FOOD_TARGET]) // this means we are likely eating a corpse (maybe also moving)
 		return
-	var/mob/living/living_pawn = controller.pawn
+	var/mob/living/simple_animal/wanderer = controller.pawn
+	if(wanderer.binded == TRUE) // If it is binded it don't move.
+		return
 	if (living_pawn.doing) //Doing something (like eating)
 		return
 	if(prob(walk_chance) && (living_pawn.mobility_flags & MOBILITY_MOVE) && isturf(living_pawn.loc) && !living_pawn.pulledby)

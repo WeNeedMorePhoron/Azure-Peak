@@ -11,6 +11,25 @@
 	sellprice = 6
 	craftdiff = 0
 
+/datum/repeatable_crafting_recipe/leather/container/magepouch
+	name = "summoner's pouch"
+	requirements = list(
+		/obj/item/natural/hide/cured = 2,
+		/obj/item/natural/fibers = 1,
+	)
+	output = /obj/item/storage/magebag
+	craftdiff = 1
+
+/datum/repeatable_crafting_recipe/leather/meatbag
+	name = "game satchel"
+	attacked_atom = /obj/item/natural/hide
+	requirements = list(
+		/obj/item/natural/hide = 1,
+		/obj/item/natural/cloth = 1,
+	)
+	output = /obj/item/storage/meatbag
+	craftdiff = 1
+
 /datum/crafting_recipe/roguetown/leather/container/satchel
 	name = "satchel (1 fibers, 2 leather)"
 	result = /obj/item/storage/backpack/rogue/satchel
