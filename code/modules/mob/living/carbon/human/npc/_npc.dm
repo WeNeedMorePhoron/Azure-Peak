@@ -46,6 +46,12 @@
 	/// When above this amount of stamina (Stamina is stamina damage), the NPC will not attempt to jump.
 	var/npc_max_jump_stamina = 50
 
+	// RETREATING
+	/// Above this percentage of stamloss, retreat to regain stamina.
+	var/stamina_retreat_threshold = 0.8
+	/// Do not finish retreating until below this percentage of stamina loss.
+	var/stamina_finish_retreat_threshold = 0.6
+
 /mob/living/carbon/human/proc/IsStandingStill()
 	return doing || resisting || pickpocketing
 
@@ -99,9 +105,14 @@
 		if(!ai_when_client)
 			walk_to(src,0)
 			return TRUE //remove us from processing
-	cmode = 1
+	cmode = TRUE
 	update_cone_show()
 	steps_moved_this_turn = 0
+	// Manage mob state here, like mode/movement intent/etc.
+	if(stamina >= (max_stamina * stamina_retreat_threshold))
+		m_intent = MOVE_INTENT_WALK
+		cmode = FALSE // try to regen stamina!
+		mode = NPC_AI_RETREAT
 	if(resisting) // already busy from a prior turn! stop!
 		walk_to(src, 0)
 		NPC_THINK("Still resisting, passing turn!")
@@ -664,7 +675,7 @@
 			else if(should_frustrate) // not next to perp, and we didn't fail due to reaction time
 				frustration++
 
-		if(NPC_AI_FLEE)
+		if(NPC_AI_FLEE, NPC_AI_RETREAT)
 			var/const/NPC_FLEE_DISTANCE = 8
 			if(!target || get_dist(src, target) >= NPC_FLEE_DISTANCE)
 				// try to flee from any enemies who aren't incapacitated
@@ -682,9 +693,14 @@
 					// we assume if we want to hurt them they want to hurt us back
 					if(should_target(bystander))
 						target = bystander // We're trying to run from this person now
-			if(!target || get_dist(src, target) >= NPC_FLEE_DISTANCE)
+			if(!target || (mode == NPC_AI_FLEE && get_dist(src, target) >= NPC_FLEE_DISTANCE))
 				NPC_THINK("Done fleeing!")
 				back_to_idle()
+				return TRUE
+			else if(mode == NPC_AI_RETREAT && (stamina < (max_stamina * stamina_finish_retreat_threshold)))
+				NPC_THINK("Done retreating!")
+				mode = NPC_AI_HUNT // back into the fray!
+				return TRUE
 			else if(!is_move_blocked_by_grab()) // try to run offscreen if we aren't being grabbed by someone else
 				NPC_THINK("Fleeing from [target]!")
 				// todo: use A* to find the shortest path to the farthest tile away from the flee target?
