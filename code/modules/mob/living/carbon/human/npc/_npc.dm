@@ -369,7 +369,7 @@
 			clear_path()
 			return
 		var/movespeed = cached_multiplicative_slowdown // this is recalculated on Moved() so we don't need to do it ourselves
-		if(!(mobility_flags & MOBILITY_MOVE) || IsDeadOrIncap() || IsStandingStill() || is_move_blocked_by_grab())
+		if(!(mobility_flags & MOBILITY_MOVE) || IsDeadOrIncap() || IsStandingStill() || throwing || is_move_blocked_by_grab())
 			NPC_THINK("MOVEMENT TURN [movement_turn]: Waiting to move!")
 			sleep(1) // wait 1ds to see if we're finished/recovered
 			continue
@@ -701,7 +701,7 @@
 				NPC_THINK("Done retreating!")
 				mode = NPC_AI_HUNT // back into the fray!
 				return TRUE
-			else if(!is_move_blocked_by_grab()) // try to run offscreen if we aren't being grabbed by someone else
+			else if(!throwing && !is_move_blocked_by_grab()) // try to run offscreen if we aren't being grabbed by someone else
 				NPC_THINK("Fleeing from [target]!")
 				// todo: use A* to find the shortest path to the farthest tile away from the flee target?
 				walk_away(src, target, NPC_FLEE_DISTANCE, cached_multiplicative_slowdown)
