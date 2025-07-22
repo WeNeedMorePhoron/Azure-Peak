@@ -112,7 +112,10 @@
 	if(stamina >= (max_stamina * stamina_retreat_threshold))
 		m_intent = MOVE_INTENT_WALK
 		cmode = FALSE // try to regen stamina!
+		// todo: switch_mode() that clears path, resets m_intent, clears autowalk?
 		mode = NPC_AI_RETREAT
+		walk_to(src,0)
+		clear_path()
 	if(resisting) // already busy from a prior turn! stop!
 		walk_to(src, 0)
 		NPC_THINK("Still resisting, passing turn!")
@@ -218,6 +221,9 @@
 
 /// Attempts to jump towards our next pathfinding step if it's far enough, or our target if we don't have a path planned.
 /mob/living/carbon/human/proc/npc_try_jump(force = FALSE)
+	if(throwing)
+		// Don't jump while ALREADY jumping!
+		return FALSE
 	if(!prob(npc_jump_chance))
 		return FALSE
 	if(next_move > world.time) // Jumped too recently!
@@ -334,6 +340,7 @@
 /// progress along an existing path or cancel it
 /// returns # of steps taken
 /mob/living/carbon/human/proc/move_along_path()
+	walk(src, 0) // cancel any other automated movement we're doing
 	if(!length(myPath))
 		// no path, quit early
 		NPC_THINK("Tried to move along a nonexistent path?!")
@@ -700,6 +707,7 @@
 			else if(mode == NPC_AI_RETREAT && (stamina < (max_stamina * stamina_finish_retreat_threshold)))
 				NPC_THINK("Done retreating!")
 				mode = NPC_AI_HUNT // back into the fray!
+				walk_to(src, 0) // stop running off
 				return TRUE
 			else if(!throwing && !is_move_blocked_by_grab()) // try to run offscreen if we aren't being grabbed by someone else
 				NPC_THINK("Fleeing from [target]!")
