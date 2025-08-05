@@ -215,11 +215,6 @@
 /proc/log_tgui(text)
 	WRITE_LOG(GLOB.tgui_log, "\[[logtime]] [text]")
 
-/* harddel ref log */
-
-/proc/log_garbage(text)
-	WRITE_LOG(GLOB.garbage_log, "\[[logtime]] [text]")
-
 /* storyteller logging */
 /proc/log_storyteller(text, list/data)
 	WRITE_LOG(GLOB.world_game_log, "STORYTELLERS: [text]")
