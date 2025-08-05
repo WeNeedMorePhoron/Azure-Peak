@@ -1,5 +1,6 @@
 /obj/effect/proc_holder/spell/invoked/vigorousexchange
 	name = "Vigorous Exchange"
+	desc = "Restores the targets Energy, Twice as effective on someone else."
 	overlay_state = "vigorousexchange"
 	releasedrain = 0
 	chargedrain = 0
@@ -22,6 +23,7 @@
 	
 /obj/effect/proc_holder/spell/invoked/heatmetal
 	name = "Heat Metal"
+	desc= "Damages Armor, Forces target to drop a metallic weapon, heats up an ingot in tongs or smelts a single item."
 	overlay_state = "heatmetal"
 	releasedrain = 30
 	chargedrain = 0
@@ -45,6 +47,7 @@
 
 /obj/effect/proc_holder/spell/invoked/hammerfall
 	name = "Hammerfall"
+	desc = "Damages structures in an area while possibly knocking down mobs in the area."
 	overlay_state = "Hammerfall"
 	releasedrain = 30
 	chargedrain = 0
@@ -68,6 +71,7 @@
 
 /obj/effect/proc_holder/spell/invoked/craftercovenant
 	name = "The Crafter’s Covenant"
+	desc = "Melt a pile of valuables and convert them into a single item. Sacrifice is accepted even if its not valuable enough to make anything."
 	overlay_state = "craftercovenant"
 	releasedrain = 30
 	chargedrain = 0
@@ -243,11 +247,11 @@
 	if (!iscarbon(target)) 
 		return
 	if (target == user)
-		target.rogstam_add(starminatoregen)
+		target.energy_add(starminatoregen)
 		show_visible_message(usr, "As [user] intones the incantation, vibrant flames swirl around them.", "As you intones the incantation, vibrant flames swirl around you, You feel refreshed.")
-	else if (user.rogstam > (starminatoregen * 2))
-		user.rogstam_add(-(starminatoregen * 2))
-		target.rogstam_add(starminatoregen * 2)
+	else if (user.energy > (starminatoregen * 2))
+		user.energy_add(-(starminatoregen * 2))
+		target.energy_add(starminatoregen * 2)
 		show_visible_message(target, "As [user] intones the incantation, vibrant flames swirl around them, a dance of energy flowing towards [target].", "As [user] intones the incantation, vibrant flames swirl around them, a dance of energy flowing towards you. You feel refreshed")
 
 /obj/effect/proc_holder/spell/invoked/craftercovenant/cast(list/targets, mob/user = usr)
@@ -383,6 +387,7 @@ var/global/list/anvil_recipe_prices[][]
 
 /obj/effect/proc_holder/spell/invoked/malum_flame_rogue
 	name = "Malum's Fire"
+	desc = "Ignites target."
 	overlay_state = "sacredflame"
 	releasedrain = 15
 	chargedrain = 0
@@ -408,7 +413,7 @@ var/global/list/anvil_recipe_prices[][]
 		user.visible_message("<font color='yellow'>[user] points at [L]!</font>")
 		if(L.anti_magic_check(TRUE, TRUE))
 			return FALSE
-		L.adjust_fire_stacks(1)
+		L.adjust_divine_fire_stacks(1)
 		L.IgniteMob()
 		return TRUE
 

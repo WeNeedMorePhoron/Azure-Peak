@@ -4,8 +4,8 @@
 	flag = WRETCH
 	department_flag = PEASANTS
 	faction = "Station"
-	total_positions = 5
-	spawn_positions = 5
+	total_positions = 8
+	spawn_positions = 8
 	allowed_races = RACES_ALL_KINDS
 	tutorial = "Somewhere in your lyfe, you fell to the wrong side of civilization. Hounded by the consequences of your actions, you now threaten the peace of those who still heed the authority that condemned you."
 	outfit = null
@@ -14,6 +14,8 @@
 	show_in_credits = FALSE
 	min_pq = 20
 	max_pq = null
+
+	obsfuscated_job = TRUE
 
 	advclass_cat_rolls = list(CTAG_WRETCH = 20)
 	PQ_boost_divider = 10
@@ -25,6 +27,7 @@
 	always_show_on_latechoices = TRUE
 	job_reopens_slots_on_death = TRUE
 	same_job_respawn_delay = 1 MINUTES
+	virtue_restrictions = list(/datum/virtue/heretic/zchurch_keyholder) //all wretch classes automatically get this
 
 /datum/job/roguetown/wretch/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	..()
@@ -46,14 +49,14 @@
 		GLOB.excommunicated_players += H.real_name
 	// Felinid said we should gate it at 100 or so on at the lowest, so that wretch cannot ezmode it.
 	var/bounty_severity = input(H, "How severe are your crimes?", "Bounty Amount") as anything in list("Misdeed", "Harm towards lyfe", "Horrific atrocities")
-	var/bounty_total = rand(350, 500) // Just in case
+	var/bounty_total = rand(100, 400) // Just in case
 	switch(bounty_severity)
 		if("Misdeed")
-			bounty_total = rand(130, 200)
+			bounty_total = rand(100, 200)
 		if("Harm towards lyfe")
-			bounty_total = rand(200, 350)
+			bounty_total = rand(200, 300)
 		if("Horrific atrocities")
-			bounty_total = rand(350, 500) // Let's not make it TOO profitable
+			bounty_total = rand(300, 400) // Let's not make it TOO profitable
 	var/my_crime = input(H, "What is your crime?", "Crime") as text|null
 	if (!my_crime)
 		my_crime = "crimes against the Crown"

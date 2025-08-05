@@ -8,6 +8,7 @@
 	obj_flags = CAN_BE_HIT
 	var/dead = TRUE
 	var/no_rarity_sprite = FALSE // Whether this fish has rarity based sprites. If not, don't change icon states
+	var/sinkable = TRUE
 	max_integrity = 50
 	sellprice = 10
 	dropshrink = 0.6
@@ -32,12 +33,15 @@
 		if("gold")
 			sellprice = sellprice * 10
 			name = "legendary [initial(name)]"
+			rarity_rank = 3
 		if("ultra")
 			sellprice = sellprice * 4
 			name = "ultra-rare [initial(name)]"
+			rarity_rank = 2
 		if("rare")
 			sellprice = sellprice * 2
 			name = "rare [initial(name)]"
+			rarity_rank = 1
 		if("com")
 			name = "common [initial(name)]"
 	if(!dead)
@@ -48,7 +52,7 @@
 		var/mob/living/L = user
 		if(!(L.mobility_flags & MOBILITY_PICKUP))
 			return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
 	if(dead)
 		..()
 	else
@@ -75,6 +79,9 @@
 		STOP_PROCESSING(SSobj, src)
 		return 1
 
+/obj/item/reagent_containers/food/snacks/fish/after_throw(datum/callback/callback)
+	. = ..()
+	sinkable = TRUE
 
 /obj/item/reagent_containers/food/snacks/fish/salmon
 	name = "salmon"

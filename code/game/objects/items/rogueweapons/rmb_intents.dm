@@ -2,7 +2,10 @@
 	var/name = "intent"
 	var/desc = ""
 	var/icon_state = ""
+	/// Whether this intent requires user to be adjacent to their target or not
 	var/adjacency = TRUE
+	/// Determines whether this intent can be used during click cd
+	var/bypasses_click_cd = FALSE
 
 /mob/living/carbon/human
 	var/bait_stacks
@@ -10,16 +13,6 @@
 /mob/living/carbon/human/on_cmode()
 	if(!cmode)	//We just toggled it off.
 		addtimer(CALLBACK(src, PROC_REF(purge_bait)), 30 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
-
-/mob/living/carbon/human/RightClickOn(atom/A, params)
-	if(rmb_intent && !rmb_intent.adjacency && !istype(A, /obj/item/clothing) && cmode && !istype(src, /mob/living/carbon/human/species/skeleton) && !istype(A, /obj/item/quiver) && !istype(A, /obj/item/storage))
-		var/held = get_active_held_item()
-		if(held && istype(held, /obj/item))
-			var/obj/item/I = held
-			if(I.associated_skill)
-				rmb_intent.special_attack(src, A)
-	else
-		. = ..()
 
 /datum/rmb_intent/proc/special_attack(mob/living/user, atom/target)
 	return
@@ -53,12 +46,12 @@
 
 	HU.visible_message(span_danger("[HU] baits an attack from [HT]!"))
 	HU.apply_status_effect(/datum/status_effect/debuff/baitcd)
-	HU.rogfat_add(HU.maxrogfat * 0.2)
 
-	if((target_zone != user_zone) || ((target_zone == BODY_ZONE_CHEST) || (user_zone == BODY_ZONE_CHEST))) //Our zones match and it's not the chest//Our zones do not match, or we were targeting chest
+	if((target_zone != user_zone) || ((target_zone == BODY_ZONE_CHEST) || (user_zone == BODY_ZONE_CHEST))) //Our zones match and it's not the chest | Our zones do not match, or we were targeting chest
 		to_chat(HU, span_danger("It didn't work! Their footing returned!"))
 		to_chat(HT, span_notice("I fooled him! I've regained my footing!"))
 		HU.emote("groan")
+		HU.stamina_add(HU.max_stamina * 0.2)
 		HT.bait_stacks = 0
 		return
 
@@ -79,7 +72,7 @@
 	HT.bait_stacks++
 	if(HT.bait_stacks <= 1)
 		HT.Immobilize(0.5 SECONDS)
-		HT.rogfat_add(HT.maxrogfat / fatiguemod)
+		HT.stamina_add(HT.max_stamina / fatiguemod)
 		HT.Slowdown(3)
 		HT.emote("huh")
 		HU.purge_peel(BAIT_PEEL_REDUCTION)
@@ -148,20 +141,17 @@
 	var/skill_factor = 0
 	if(I)
 		if(I.associated_skill)
-			ourskill = user.mind.get_skill_level(I.associated_skill)
+			ourskill = user.get_skill_level(I.associated_skill)
 		if(L.mind)
 			I = L.get_active_held_item()
 			if(I?.associated_skill)
-				theirskill = L.mind.get_skill_level(I.associated_skill)
+				theirskill = L.get_skill_level(I.associated_skill)
 	perc += (ourskill - theirskill)*15 	//skill is of the essence
 	perc += (user.STAINT - L.STAINT)*10	//but it's also mostly a mindgame
 	skill_factor = (ourskill - theirskill)/2
 
 	if(L.has_status_effect(/datum/status_effect/debuff/exposed))
 		perc = 0
-
-	if(HAS_TRAIT(L,TRAIT_DECEIVING_MEEKNESS))
-		perc -= 30
 
 	user.apply_status_effect(/datum/status_effect/debuff/feintcd)
 	perc = CLAMP(perc, 0, 90)
@@ -178,7 +168,7 @@
 	L.apply_status_effect(/datum/status_effect/debuff/exposed, 7.5 SECONDS)
 	L.apply_status_effect(/datum/status_effect/debuff/clickcd, max(1.5 SECONDS + skill_factor, 2.5 SECONDS))
 	L.Immobilize(0.5 SECONDS)
-	L.rogfat_add(L.rogfat * 0.1)
+	L.stamina_add(L.stamina * 0.1)
 	L.Slowdown(2)
 	to_chat(user, span_notice("[L] fell for my feint attack!"))
 	to_chat(L, span_danger("I fall for [user]'s feint attack!"))
@@ -190,6 +180,7 @@
 	desc = "No delay between dodge and parry rolls.\n(RMB WHILE NOT GRABBING ANYTHING AND HOLDING A WEAPON)\nEnter a defensive stance, guaranteeing the next hit is defended against.\nTwo people who hit each other with the Guard up will have their weapons Clash, potentially disarming them.\nLetting it expire or hitting someone with it who has no Guard up is tiresome."
 	icon_state = "rmbdef"
 	adjacency = FALSE
+	bypasses_click_cd = TRUE
 
 /datum/rmb_intent/riposte/special_attack(mob/living/user, atom/target)	//Wish we could breakline these somehow.
 	if(!user.has_status_effect(/datum/status_effect/buff/clash) && !user.has_status_effect(/datum/status_effect/debuff/clashcd))

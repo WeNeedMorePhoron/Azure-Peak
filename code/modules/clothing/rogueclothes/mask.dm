@@ -126,10 +126,12 @@
 
 /obj/item/clothing/mask/rogue/facemask/aalloy
 	name = "decrepit mask"
-	desc = "A decrepit creepy old mask. Aeon's grasp is upon it."
+	desc = "Frayed bronze, molded into an unblinking visage. Only the statues, buried within the innards of Mount Decapitation, share its wrinkled lip and sneer of cold command."
 	icon_state = "ancientmask"
 	max_integrity = 75
-	smeltresult = /obj/item/ingot/aalloy
+	color = "#bb9696"
+	smeltresult = /obj/item/ingot/aaslag
+	anvilrepair = null
 
 /obj/item/clothing/mask/rogue/facemask/copper
 	name = "copper mask"
@@ -165,6 +167,7 @@
 /obj/item/clothing/mask/rogue/facemask/prisoner
 	name = "cursed mask"
 	desc = "An iron mask that seals around the head, making it impossible to remove. It seems to be enchanted with some kind of vile magic..."
+	body_parts_covered = NONE //So that surgery can be done through the mask.
 	var/active_item
 	var/bounty_amount
 
@@ -188,7 +191,7 @@
 	for(var/name in GLOB.outlawed_players)
 		if(user.real_name == name)
 			GLOB.outlawed_players -= user.real_name
-			priority_announce("[user.real_name] has completed their penance. Justice has been served in the eyes of Ravox.", "PENANCE", 'sound/misc/bell.ogg', "Captain")
+			priority_announce("[user.real_name] has completed their penance. Justice has been served in the eyes of Ravox.", "PENANCE", 'sound/misc/bell.ogg')
 	playsound(src.loc, pick('sound/items/pickgood1.ogg','sound/items/pickgood2.ogg'), 5, TRUE)
 	if(QDELETED(src))
 		return
@@ -206,10 +209,10 @@
 		ADD_TRAIT(user, TRAIT_SPELLCOCKBLOCK, "cursedmask")
 		if(HAS_TRAIT(user, TRAIT_RITUALIST))
 			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
-		var/timer = 20 MINUTES
+		var/timer = 5 MINUTES //Base timer is 5 minutes, additional time added per bounty amount
 
-		if(bounty_amount >= 100)
-			var/additional_time = bounty_amount * 0.1
+		if(bounty_amount >= 10)
+			var/additional_time = bounty_amount * 0.1 // 10 mammon = 1 minute
 			additional_time = round(additional_time)
 			timer += additional_time MINUTES
 
@@ -227,9 +230,9 @@
 
 /obj/item/clothing/mask/rogue/facemask/steel/paalloy
 	name = "ancient mask"
-	desc = "A mask forged of ancient alloys. Aeon's grasp has been lifted from its form."
+	desc = "Polished gilbranze, molded into an intimidating visage. Touch the cheek; it is warm, like flesh. But it is not flesh. Not yet."
 	icon_state = "ancientmask"
-
+	smeltresult = /obj/item/ingot/aaslag
 
 /obj/item/clothing/mask/rogue/facemask/steel/hound
 	name = "steel hound mask"

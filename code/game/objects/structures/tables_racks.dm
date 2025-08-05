@@ -102,10 +102,10 @@
 		return !density
 
 /obj/structure/table/CanAStarPass(ID, dir, caller)
-	. = !density
+	. = ..()
 	if(ismovableatom(caller))
 		var/atom/movable/mover = caller
-		. = . || (mover.pass_flags & PASSTABLE)
+		. ||= (mover.pass_flags & PASSTABLE)
 
 /obj/structure/table/proc/tableplace(mob/living/user, mob/living/pushed_mob)
 	pushed_mob.forceMove(loc)
@@ -237,6 +237,79 @@
 	if(!total_override)
 		..()
 
+/obj/structure/table/wood/poor
+	icon_state = "tablewood1"
+
+/obj/structure/table/wood/poor/alt
+	icon_state = "tablewood2"
+
+/obj/structure/table/wood/poor/alt_alt
+	icon_state = "tablewood3"
+
+/obj/structure/table/wood/large_table
+	icon_state = "largetable"
+
+/obj/structure/table/wood/large_table/south_west
+	dir = 10
+
+/obj/structure/table/wood/large_table/south_east
+	dir = 6
+
+/obj/structure/table/wood/large_table/north_west
+	dir = 9
+
+/obj/structure/table/wood/large_table/north_east
+	dir = 5
+
+/obj/structure/table/wood/large_table/middle_east
+	dir = 4
+
+/obj/structure/table/wood/large_table/middle_west
+	dir = 8
+
+/obj/structure/table/wood/large_table/middle
+	dir = 4
+
+/obj/structure/table/wood/large_table/north
+	dir = 1
+
+/obj/structure/table/wood/long_table
+	icon_state = "longtable"
+
+/obj/structure/table/wood/long_table/right
+	dir = 1
+
+/obj/structure/table/wood/long_table/north_east
+	dir = 4
+
+/obj/structure/table/wood/long_table/east
+	dir = 8
+
+/obj/structure/table/wood/long_table/mid
+	icon_state = "longtable_mid"
+
+/obj/structure/table/wood/long_table/mid/alt
+	icon_state = "longtable_mid"
+	dir = 1
+
+/obj/structure/table/wood/map
+	icon_state = "map1"
+
+/obj/structure/table/wood/map/two
+	icon_state = "map2"
+
+/obj/structure/table/wood/map/three
+	icon_state = "map3"
+
+/obj/structure/table/wood/map/four
+	icon_state = "map4"
+
+/obj/structure/table/wood/map/five
+	icon_state = "map5"
+
+/obj/structure/table/wood/map/six
+	icon_state = "map6"
+
 /obj/structure/table/church
 	name = "stone table"
 	desc = ""
@@ -257,9 +330,25 @@
 		icon_state = "churchtable_end"
 	. = ..()
 
+/obj/structure/table/church/alt
+	icon_state = "churchtable_alt"
+
+/obj/structure/table/church/end
+	icon_state = "churchtable_end"
+
+/obj/structure/table/church/end/alt
+	icon_state = "churchtable_end_alt"
+
+/obj/structure/table/church/end/alt/north
+	icon_state = "churchtable_end_alt"
+	dir = 1
+
 /obj/structure/table/church/m
 	icon = 'icons/roguetown/misc/tables.dmi'
 	icon_state = "churchtable_mid"
+
+/obj/structure/table/church/m/alt
+	icon_state = "churchtable_mid_alt"
 
 /obj/structure/table/vtable
 	name = "ancient wooden table"
@@ -370,6 +459,28 @@
 	icon_state = "fancy_table_royalblue"
 	smooth_icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
 
+/obj/structure/table/wood/folding
+	name = "folding table"
+	desc = "A folding table, useful for setting up a temporary workspace."
+	icon = 'icons/roguetown/misc/gadgets.dmi'
+	icon_state = "foldingtableDeployed"
+	resistance_flags = FLAMMABLE
+	max_integrity = 50
+	smooth = 0
+	debris = list(/obj/item/grown/log/tree/small = 1)
+	climbable = TRUE
+	climb_offset = 10
+
+/obj/structure/table/wood/folding/examine()
+	. = ..()
+	. += span_blue("Right-Click to fold the table.")
+
+/obj/structure/table/wood/folding/attack_right(mob/user)
+	user.visible_message(span_notice("[user] folds [src]."), span_notice("You fold [src]."))
+	new /obj/item/folding_table_stored(drop_location())
+	qdel(src)
+	return ..()
+
 /*
  * Racks
  */
@@ -400,10 +511,10 @@
 		return 0
 
 /obj/structure/rack/CanAStarPass(ID, dir, caller)
-	. = !density
+	. = ..()
 	if(ismovableatom(caller))
 		var/atom/movable/mover = caller
-		. = . || (mover.pass_flags & PASSTABLE)
+		. ||= (mover.pass_flags & PASSTABLE)
 
 /obj/structure/rack/MouseDrop_T(obj/O, mob/user)
 	. = ..()

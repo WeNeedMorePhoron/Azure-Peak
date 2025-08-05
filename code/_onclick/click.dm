@@ -101,6 +101,10 @@
 	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, params) & COMSIG_MOB_CANCEL_CLICKON)
 		return
 
+	if(modifiers["right"] && !modifiers["shift"] && !modifiers["alt"] && !modifiers["ctrl"])
+		if(try_special_attack(A, modifiers))
+			return
+
 	if(next_move > world.time)
 		return
 
@@ -123,9 +127,9 @@
 			if(used_intent.no_early_release && client?.chargedprog < 100)
 				var/adf = used_intent.clickcd
 				if(istype(rmb_intent, /datum/rmb_intent/aimed))
-					adf = round(adf * 1.4)
+					adf = round(adf * CLICK_CD_MOD_AIMED)
 				if(istype(rmb_intent, /datum/rmb_intent/swift))
-					adf = round(adf * 0.6)
+					adf = max(round(adf * CLICK_CD_MOD_SWIFT), CLICK_CD_INTENTCAP)
 				changeNext_move(adf,used_hand)
 				return
 	if(modifiers["right"] && oactive && atkswinging == "right")
@@ -302,16 +306,16 @@
 					if(cmode)
 						resolveAdjacentClick(T,W,params,used_hand) //hit the turf
 					if(!used_intent.noaa)
-						changeNext_move(CLICK_CD_MELEE)
+						changeNext_move(CLICK_CD_RAPID)
 						if(get_dist(get_turf(src), T) <= used_intent.reach)
 							do_attack_animation(T, used_intent.animname, used_intent.masteritem, used_intent = src.used_intent)
 						if(W)
 							playsound(get_turf(src), pick(W.swingsound), 100, FALSE)
 							var/adf = used_intent.clickcd
 							if(istype(rmb_intent, /datum/rmb_intent/aimed))
-								adf = round(adf * 1.4)
+								adf = round(adf * CLICK_CD_MOD_AIMED)
 							if(istype(rmb_intent, /datum/rmb_intent/swift))
-								adf = round(adf * 0.6)
+								adf = max(round(adf * CLICK_CD_MOD_SWIFT), CLICK_CD_INTENTCAP)
 							changeNext_move(adf)
 						else
 							playsound(get_turf(src), used_intent.miss_sound, 100, FALSE)
@@ -347,9 +351,9 @@
 		if(ismob(A))
 			var/adf = used_intent.clickcd
 			if(istype(rmb_intent, /datum/rmb_intent/aimed))
-				adf = round(adf * 1.4)
+				adf = round(adf * CLICK_CD_MOD_AIMED)
 			if(istype(rmb_intent, /datum/rmb_intent/swift))
-				adf = round(adf * 0.6)
+				adf = max(round(adf * CLICK_CD_MOD_SWIFT), CLICK_CD_INTENTCAP)
 			changeNext_move(adf)
 		UnarmedAttack(A,1,params)
 	if(mob_timers[MT_INVISIBILITY] > world.time)			
@@ -376,7 +380,7 @@
 /mob/proc/aftermiss()
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		H.rogfat_add(used_intent.misscost)
+		H.stamina_add(used_intent.misscost)
 
 //Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
 /atom/proc/IsObscured()
@@ -814,7 +818,7 @@
 			rmb_on(A, params)
 	else if(used_intent.rmb_ranged)
 		used_intent.rmb_ranged(A, src) //get the message from the intent
-	changeNext_move(CLICK_CD_MELEE)
+	changeNext_move(CLICK_CD_RAPID)
 	if(isturf(A.loc))
 		face_atom(A)
 
@@ -891,3 +895,46 @@
 	tempfixeye = TRUE
 	for(var/atom/movable/screen/eye_intent/eyet in hud_used.static_inventory)
 		eyet.update_icon(src) //Update eye icon
+
+/// A special proc to fire rmb_intents *before* checking click cooldown, since some intents (guard) should be used regardless of CD.
+/mob/proc/try_special_attack(atom/A, list/modifiers)
+	return FALSE
+
+/mob/living/try_special_attack(atom/A, list/modifiers)
+	if(!rmb_intent || !cmode || istype(A, /obj/item/clothing) || istype(A, /obj/item/quiver) || istype(A, /obj/item/storage))
+		return FALSE
+
+	if(next_move > world.time && !rmb_intent?.bypasses_click_cd)
+		return FALSE
+
+	if(rmb_intent?.adjacency && !Adjacent(A))
+		return FALSE
+
+	rmb_intent.special_attack(src, ismob(A) ? A : get_foe_from_turf(get_turf(A)))
+	return TRUE
+
+/mob/living/carbon/human/species/skeleton/try_special_attack(atom/A, list/modifiers)
+	return FALSE
+
+/// Used for "directional" style rmb attacks on a turf, prioritizing standing targets
+/mob/living/proc/get_foe_from_turf(turf/T)
+	if(!istype(T))
+		return
+
+	var/list/mob/living/foes = list()
+	for(var/mob/living/foe_in_turf in T)
+		var/foe_prio = rand(4, 8)
+		if(foe_in_turf.mobility_flags & MOBILITY_STAND)
+			foe_prio += 10
+		else if(foe_in_turf == src)
+			foe_prio = -10
+		else if(foe_in_turf.stat != CONSCIOUS)
+			foe_prio = 2
+		else if(foe_in_turf.surrendering)
+			foe_prio = -5
+
+		foes[foe_in_turf] = foe_prio
+
+	if(foes.len > 1)
+		sortTim(foes, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
+	return foes[1]

@@ -245,10 +245,13 @@
 #define AI_OFF		3
 #define AI_Z_OFF	4
 
-#define AI_COMBAT	5
-#define AI_RETREAT	6
-#define AI_HUNT		7
-#define AI_FLEE		8
+// these are exclusively for hostile humantype mobs
+#define NPC_AI_OFF		0
+#define NPC_AI_IDLE		1
+#define NPC_AI_COMBAT	2
+#define NPC_AI_RETREAT	3
+#define NPC_AI_HUNT		4
+#define NPC_AI_FLEE		5
 
 //determines if a mob can smash through it
 #define ENVIRONMENT_SMASH_NONE			0
@@ -408,6 +411,7 @@
 #define SKIN_COLOR_OBSIDIAN "3b2e27"
 #define SKIN_COLOR_BRIMSTONE "271f1a"
 #define SKIN_COLOR_JADE "d6bea9"
+#define SKIN_COLOR_CERAGYRITE "4c4a4f"
 
 //DARK ELF SKIN TONES
 #define SKIN_COLOR_COMMORAH "9796a9"
@@ -446,6 +450,7 @@
 #define SKIN_COLOR_LALVESTINE "9c6f52"
 #define SKIN_COLOR_NALEDI "4e3729"
 #define SKIN_COLOR_KAZENGUN "dbcca9"
+#define SKIN_COLOR_NALEDI_LIGHT "5d4c41"
 
 //AASIMAR SKIN TONES
 #define SKIN_COLOR_CULTOR "b5a4a4"
@@ -499,6 +504,8 @@
 #define SKIN_COLOR_CALVUS "E0CED8"
 #define SKIN_COLOR_VOIBION "53392f"
 #define SKIN_COLOR_CHYERNO "252e41"
+#define SKIN_COLOR_DREMA "D16A51"
+#define SKIN_COLOR_CHIR "549ab6"
 
 //GOBLIN SKIN TONES
 #define SKIN_COLOR_OCHRE "968127"
@@ -551,3 +558,10 @@
 #define PIXEL_SHIFT_PASSABLE_THRESHOLD 8
 
 #define TYPING_INDICATOR_TIMEOUT 20 MINUTES
+
+// NPC Debugging
+#ifdef NPC_THINK_DEBUG
+#define NPC_THINK(message) visible_message(message, runechat_message = message)
+#else
+#define NPC_THINK(message)
+#endif

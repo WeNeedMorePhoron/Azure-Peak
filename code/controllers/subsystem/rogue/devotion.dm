@@ -7,14 +7,14 @@
 #define CLERIC_T4 4
 
 #define CLERIC_REQ_0 0
-#define CLERIC_REQ_1 100
-#define CLERIC_REQ_2 250
-#define CLERIC_REQ_3 500
-#define CLERIC_REQ_4 750
+#define CLERIC_REQ_1 250
+#define CLERIC_REQ_2 400
+#define CLERIC_REQ_3 750
+#define CLERIC_REQ_4 1000
 
-#define CLERIC_REGEN_DEVOTEE 0.15
-#define CLERIC_REGEN_MINOR 0.25
-#define CLERIC_REGEN_MAJOR 1
+#define CLERIC_REGEN_DEVOTEE 0.3
+#define CLERIC_REGEN_MINOR 0.5
+#define CLERIC_REGEN_MAJOR 0.8
 
 // Cleric Holder Datums
 
@@ -26,7 +26,7 @@
 	/// Current devotion we are holding
 	var/devotion = 0
 	/// Maximum devotion we can hold at once
-	var/max_devotion = CLERIC_REQ_3 * 2
+	var/max_devotion = CLERIC_REQ_1
 	/// Current progression (experience)
 	var/progression = 0
 	/// Maximum progression (experience) we can achieve
@@ -67,7 +67,7 @@
 		return PROCESS_KILL
 	var/devotion_multiplier = 1
 	if(holder?.mind)
-		devotion_multiplier += (holder.mind.get_skill_level(/datum/skill/magic/holy) / SKILL_LEVEL_LEGENDARY)
+		devotion_multiplier += (holder.get_skill_level(/datum/skill/magic/holy) / SKILL_LEVEL_LEGENDARY)
 	update_devotion((passive_devotion_gain * devotion_multiplier), (passive_progression_gain * devotion_multiplier), silent = TRUE)
 
 /datum/devotion/proc/check_devotion(obj/effect/proc_holder/spell/spell)
@@ -115,6 +115,10 @@
 						to_chat(holder, span_boldnotice("I have unlocked a new spell: [newspell]"))
 					holder.mind.AddSpell(newspell)
 					LAZYADD(granted_spells, newspell)
+	if(length(patron.traits_tier))
+		for(var/trait in patron.traits_tier)
+			if(patron.traits_tier[trait] <= level)
+				ADD_TRAIT(holder, trait, TRAIT_MIRACLE)
 
 
 //The main proc that distributes all the needed devotion tweaks to the given class.
@@ -134,6 +138,7 @@
 		passive_progression_gain = passive_gain
 		START_PROCESSING(SSobj, src)
 	if(start_maxed)		//Mainly for Acolytes & Priests
+		max_devotion = CLERIC_REQ_4
 		devotion = max_devotion
 		update_devotion(max_devotion, CLERIC_REQ_4, silent = TRUE)
 	else
@@ -181,7 +186,7 @@
 			break
 		var/devotion_multiplier = 1
 		if(mind)
-			devotion_multiplier += (mind.get_skill_level(/datum/skill/magic/holy) / SKILL_LEVEL_LEGENDARY)
+			devotion_multiplier += (get_skill_level(/datum/skill/magic/holy) / SKILL_LEVEL_LEGENDARY)
 		var/prayer_effectiveness = round(devotion.prayer_effectiveness * devotion_multiplier)
 		devotion.update_devotion(prayer_effectiveness, prayer_effectiveness)
 		prayersesh += prayer_effectiveness
@@ -225,3 +230,23 @@
 		add_client_colour(/datum/client_colour/monochrome)
 	else
 		remove_client_colour(/datum/client_colour/monochrome)
+
+/datum/devotion/proc/excommunicate(mob/living/carbon/human/H)
+    if (!devotion)
+        return
+
+    prayer_effectiveness = 0
+    devotion = 0
+    passive_devotion_gain = 0
+    passive_progression_gain = 0
+    STOP_PROCESSING(SSobj, src)
+    to_chat(H, span_boldnotice("I have been excommunicated. I am now unable to gain devotion."))
+
+/datum/devotion/proc/recommunicate(mob/living/carbon/human/H)
+    prayer_effectiveness = 2
+    if (!passive_devotion_gain && !passive_progression_gain)
+        passive_devotion_gain = CLERIC_REGEN_DEVOTEE
+        passive_progression_gain = CLERIC_REGEN_DEVOTEE
+        START_PROCESSING(SSobj, src)
+
+    to_chat(H, span_boldnotice("I have been welcomed back to the Church. I am now able to gain devotion again."))

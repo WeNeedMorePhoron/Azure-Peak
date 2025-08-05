@@ -104,6 +104,8 @@
 				bodypart_status += "<a href='?src=[owner_ref];bandage=[REF(bandage)];bandaged_limb=[REF(src)]' class='[usedclass]'>Bandaged</a>"
 			if(!bandage || observer_privilege)
 				for(var/datum/wound/wound as anything in wounds)
+					if(wound == null)
+						continue
 					bodypart_status += wound.get_visible_name(user)
 		
 	if(length(bodypart_status) <= 1)
@@ -178,7 +180,9 @@
 	var/crazy_infection = FALSE
 	var/list/wound_strings = list()
 	for(var/datum/wound/wound as anything in wounds)
-		crazy_infection ||= wound.has_special_infection()
+		if(wound == null)
+			continue
+		crazy_infection ||= wound?.has_special_infection()
 		if(!wound.check_name)
 			continue
 		wound_strings |= wound.get_check_name(user)

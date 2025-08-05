@@ -21,6 +21,9 @@
 /datum/targetting_datum/basic/can_attack(mob/living/living_mob, atom/the_target)
 	if(isturf(the_target) || !the_target) // bail out on invalids
 		return FALSE
+	var/mob/living/simple_animal/attacker = living_mob
+	if(attacker.binded == TRUE)
+		return FALSE
 
 	if(ismob(the_target)) //Target is in godmode, ignore it.
 		var/mob/M = the_target
@@ -35,7 +38,7 @@
 
 	if(isliving(the_target)) //Targetting vs living mobs
 		var/mob/living/L = the_target
-		if(L.summoner && L.summoner == the_target.name) // won't attack whomever summoned it
+		if(living_mob.summoner && living_mob.summoner == the_target.name) // won't attack whomever summoned it
 			return FALSE
 		if(faction_check(living_mob, L) || L.stat)
 			return FALSE

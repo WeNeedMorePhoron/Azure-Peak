@@ -25,14 +25,16 @@
 
 /obj/item/ammo_casing/caseless/rogue/bolt/aalloy
 	name = "decrepit bolt"
-	desc = "a decrepit old bolt, the head is nearly in shambles. Aeon's grasp is upon it."
+	desc = "An ancient bolt, tipped with frayed bronze. It lacks the luster that it once held, many centuries ago."
 	icon_state = "ancientbolt"
 	projectile_type = /obj/projectile/bullet/reusable/bolt/aalloy
+	color = "#bb9696"
 
 /obj/item/ammo_casing/caseless/rogue/bolt/paalloy
 	name = "ancient bolt"
-	desc = "A ancient bolt. Aeon's grasp has been lifted from its form."
+	desc = "An ancient bolt, tipped with polished gilbranze. The razor-thin tip resembles a sabot more than an arrowhead; something that most alloys cannot reliably withstand."
 	icon_state = "ancientbolt"
+	projectile_type = /obj/projectile/bullet/reusable/bolt/paalloy
 
 /obj/projectile/bullet/reusable/bolt
 	name = "bolt"
@@ -45,7 +47,7 @@
 	range = 15
 	hitsound = 'sound/combat/hits/hi_arrow2.ogg'
 	embedchance = 100
-	woundclass = BCLASS_STAB
+	woundclass = BCLASS_PIERCE
 	flag = "piercing"
 	speed = 0.5
 	npc_damage_mult = 2
@@ -53,6 +55,10 @@
 /obj/projectile/bullet/reusable/bolt/aalloy
 	damage = 40
 	armor_penetration = 30
+
+/obj/projectile/bullet/reusable/bolt/paalloy
+	damage = 50
+	armor_penetration = 35
 
 /obj/projectile/bullet/reusable/bolt/on_hit(atom/target)
 	. = ..()
@@ -81,7 +87,7 @@
 	projectile_type = /obj/projectile/bullet/reusable/arrow
 	caliber = "arrow"
 	icon = 'icons/roguetown/weapons/ammo.dmi'
-	icon_state = "stonearrow"
+	icon_state = "arrow"
 	force = 10
 	dropshrink = 0.6
 	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/thrust)
@@ -105,9 +111,10 @@
 
 /obj/item/ammo_casing/caseless/rogue/arrow/iron/aalloy 
 	name = "decrepit broadhead arrow"
-	desc = "A decrepit old arrow. Seems unlikely to penetrate anything."
+	desc = "An arrow; one end, tipped with flattened and frayed bronze - the other, inlaid with decayed feathers. The alloy's decrepity forces it to burst into shrapnel upon impact, shredding flesh."
 	icon_state = "ancientarrow"
 	projectile_type = /obj/projectile/bullet/reusable/arrow/iron/aalloy
+	color = "#bb9696"
 
 /obj/item/ammo_casing/caseless/rogue/arrow/steel
 	name = "steel bodkin arrow"
@@ -118,8 +125,9 @@
 
 /obj/item/ammo_casing/caseless/rogue/arrow/steel/paalloy
 	name = "ancient bodkin arrow"
-	desc = "a bodkin formed of ancient metals. Aeon's grasp lifted from its form."
+	desc = "An arrow; one end, tipped with a sharpened rod of polished gilbranze - the other, inlaid with feathers. The razor-thin tip resembles a sabot; an alloyed sliver that can punch straight through steel."
 	icon_state = "ancientarrow"
+	projectile_type = /obj/projectile/bullet/reusable/arrow/steel/paalloy
 
 /obj/projectile/bullet/reusable/arrow
 	name = "arrow"
@@ -133,7 +141,7 @@
 	range = 15
 	hitsound = 'sound/combat/hits/hi_arrow2.ogg'
 	embedchance = 25
-	woundclass = BCLASS_STAB
+	woundclass = BCLASS_PIERCE
 	flag = "piercing"
 	speed = 0.4
 
@@ -185,6 +193,11 @@
 	speed = 0.6
 	npc_damage_mult = 3
 
+/obj/projectile/bullet/reusable/arrow/steel/paalloy
+	name = "decrepit bodkin arrow"
+	ammo_type = /obj/item/ammo_casing/caseless/rogue/arrow/steel/paalloy
+	damage = 15
+	armor_penetration = 25
 
 // POISON AMMO
 
@@ -534,11 +547,13 @@
 
 /obj/item/ammo_casing/caseless/rogue/javelin/aalloy
 	name = "decrepit javelin"
-	desc = "A decrepit old javelin, surely used centuries ago. Aeon's grasp is upon its form."
+	desc = "A missile of frayed bronze. Before you is your weapon; that which rose Man out of the mud, and brought the Beasts of Old Syon to heel. When were you last aware of any other part of you? Do you recall seeing the world in any other way?"
 	icon_state = "ajavelin"
-	smeltresult = /obj/item/ingot/aalloy
 	throwforce = 20
 	force = 9
+	color = "#bb9696"
+	smeltresult = /obj/item/ingot/aaslag
+	anvilrepair = null
 
 /obj/item/ammo_casing/caseless/rogue/javelin/steel
 	force = 16
@@ -554,7 +569,7 @@
 
 /obj/item/ammo_casing/caseless/rogue/javelin/steel/paalloy
 	name = "ancient javelin"
-	desc = "A javelin made of ancient alloys. Aeon's grasp lifted from its form."
+	desc = "A missile of polished gilbranze. Old Syon had drowned beneath His tears, and Her ascension had brought forth this world's end - so that You, with the killing blow, could become God."
 	icon_state = "ajavelin"
 	smeltresult = /obj/item/ingot/aaslag
 
@@ -632,14 +647,15 @@
 
 /obj/item/ammo_casing/caseless/rogue/sling_bullet/aalloy
 	name = "decrepit sling bullet"
-	desc = "A decrepit ball of withered metal."
+	desc = "A pellet of frayed bronze. The alloy flakes apart in your grasp, staining the palm with flecks of brown-and-red."
 	projectile_type = /obj/projectile/bullet/reusable/sling_bullet/aalloy
 	icon = 'icons/roguetown/weapons/ammo.dmi'
 	icon_state = "ancient_sling_bullet"
+	color = "#bb9696"
 
 /obj/item/ammo_casing/caseless/rogue/sling_bullet/paalloy
 	name = "ancient sling bullet"
-	desc = "A ancient ball of re-awakened metal."
+	desc = "A pellet of polished gilbranze. The bigger they are, the harder they'll fall; be it Man or God."
 	projectile_type = /obj/projectile/bullet/reusable/sling_bullet/paalloy
 	icon = 'icons/roguetown/weapons/ammo.dmi'
 	icon_state = "ancient_sling_bullet"
@@ -657,6 +673,7 @@
 	damage = 25
 	damage_type = BRUTE
 	armor_penetration = 0
+	npc_damage_mult = 2
 	icon = 'icons/roguetown/items/natural.dmi'
 	icon_state = "stone1"
 	range = 15

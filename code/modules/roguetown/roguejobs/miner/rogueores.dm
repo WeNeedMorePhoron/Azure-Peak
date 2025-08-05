@@ -78,15 +78,22 @@
 	icon_state = "orecoal[rand(1,3)]"
 	..()
 
-/obj/item/rogueore/charcoal
+/obj/item/rogueore/coal/charcoal
 	name = "charcoal"
 	icon_state = "oreada"
-	desc = "Burnt lumps of wood."
+	desc = "Wood that has been burnt and transformed into charcoal. Can be used to fuel fires or used to smelt iron."
 	dropshrink = 0.8
 	color = "#929292"
 	firefuel = 15 MINUTES
-	smeltresult = /obj/item/rogueore/charcoal
+	smeltresult = /obj/item/rogueore/coal/charcoal
 	sellprice = 1
+
+/obj/item/rogueore/cinnabar
+	name = "cinnabar"
+	desc = "Red gems that contain the essence of quicksilver."
+	icon_state = "orecinnabar"
+	grind_results = list(/datum/reagent/mercury = 15)
+	sellprice = 5
 
 /obj/item/ingot
 	name = "ingot"
@@ -168,7 +175,7 @@
 	desc = "Forged strength. Essential for crafting."
 	icon_state = "ingotiron"
 	smeltresult = /obj/item/ingot/iron
-	sellprice = 25
+	sellprice = 15
 
 /obj/item/ingot/iron/Initialize(mapload, smelt_quality)
 	. = ..()
@@ -206,7 +213,7 @@
 	desc = "A hard and durable alloy favored by engineers and followers of Ravox alike."
 	icon_state = "ingotbronze"
 	smeltresult = /obj/item/ingot/bronze
-	sellprice = 30
+	sellprice = 25
 
 /obj/item/ingot/silver
 	name = "silver bar"
@@ -220,14 +227,14 @@
 	desc = "This ingot is a stalwart defender of the realm."
 	icon_state = "ingotsteel"
 	smeltresult = /obj/item/ingot/steel
-	sellprice = 40
+	sellprice = 20
 
 /obj/item/ingot/blacksteel
 	name = "blacksteel bar"
 	desc = "Sacrificing the holy elements of silver for raw strength, this strange and powerful ingot's origin carries dark rumors.."
 	icon_state = "ingotblacksteel"
 	smeltresult = /obj/item/ingot/blacksteel
-	sellprice = 90
+	sellprice = 100
 
 //Blessed Ingots
 /obj/item/ingot/steelholy/
@@ -235,7 +242,7 @@
 	desc = "This ingot of steel has been touched by Malum. It radiates heat, even when outside a forge."
 	icon_state = "ingotsteelholy"
 	smeltresult = /obj/item/ingot/steel //Smelting it removes the blessing
-	sellprice = 60
+	sellprice = 20
 
 /obj/item/ingot/silverblessed/
 	name = "blessed silver bar"
@@ -245,24 +252,25 @@
 	sellprice = 100
 
 /obj/item/ingot/aalloy
-	name = "ancient alloy"
-	desc = "An old, decrepit slab of metal. Aeon has withered it's strength."
+	name = "decrepit ingot"
+	desc = "A decrepit slab of wrought bronze, uncomfortably cold to the touch. The gales shift into whispers, when held for long enough; 'progress commands sacrifice'."
 	icon_state = "ingotancient"
-	smeltresult = /obj/item/ingot/aalloy
-	sellprice = 5
+	smeltresult = /obj/item/ingot/aaslag
+	color = "#bb9696"
+	sellprice = 33
 
 
 /obj/item/ingot/purifiedaalloy
-	name = "purified ancient alloy"
-	desc = "An old slab of metal, sparked to life by Malum's craft."
+	name = "ancient alloy"
+	desc = "An ingot of polished gilbranze, teeming with forbidden knowledge. The reflection on its surface isn't yours; it smiles back at you with eternal malice."
 	icon_state = "ingotancient"
-	smeltresult = /obj/item/ingot/aaslag
-	sellprice = 100
+	smeltresult = /obj/item/ingot/purifiedaalloy
+	sellprice = 111
 
 
 /obj/item/ingot/aaslag
-	name = "ancient slag"
-	desc = "What was once great, cannot be maintained forever."
+	name = "glimmering slag"
+	desc = "A mass of wrought bronze, rendered lame from the forge's heat. Sometimes, dead is better."
 	icon_state = "ancientslag"
 	smeltresult = /obj/item/ingot/aaslag
-	sellprice = 0
+	sellprice = 1

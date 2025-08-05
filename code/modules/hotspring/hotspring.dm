@@ -19,10 +19,13 @@
 ///the issue is they would need atleast a 2x2 to smooth proper.
 /obj/structure/hotspring
 	abstract_type = /obj/structure/hotspring
-	nomouseover = TRUE
-	plane = FLOOR_PLANE
+	name = "hot spring"
 	icon = 'icons/obj/structures/hotspring.dmi'
 	icon_state = "hotspring"
+	nomouseover = TRUE
+	plane = FLOOR_PLANE
+	blade_dulling = DULLING_BASH
+	max_integrity = 0
 	object_slowdown = 5
 
 	var/edge = FALSE
@@ -35,6 +38,19 @@
 	//render the steam over mobs and objects on the game plane
 	particle_effect.vis_flags &= ~VIS_INHERIT_PLANE
 
+	var/turf/turf = get_turf(src)
+	turf.turf_flags |= TURF_NO_LIQUID_SPREAD
+	if(!edge)
+		turf.path_weight += 1
+		AddElement(/datum/element/mob_overlay_effect, 2, -2, 100)
+
+/obj/structure/hotspring/Destroy()
+	var/turf/turf = get_turf(src)
+	turf.turf_flags &= ~TURF_NO_LIQUID_SPREAD
+	if(!edge)
+		turf.path_weight -= 1
+	. = ..()
+
 /obj/structure/hotspring/Crossed(atom/movable/AM)
 	. = ..()
 	for(var/obj/structure/S in get_turf(src))
@@ -45,7 +61,6 @@
 		playsound(AM, pick('sound/foley/watermove (1).ogg','sound/foley/watermove (2).ogg'), 40, FALSE)
 
 /obj/structure/hotspring/border
-	name = "hotspring border"
 	icon_state = "hotspring_border_1"
 	object_slowdown = 0
 	edge = TRUE
@@ -150,13 +165,13 @@
 	icon = 'icons/obj/structures/hotspring.dmi'
 	icon_state = "stonelantern1"
 	torch_off_state = "stonelantern0"
-	base_state = "stonelantern0"
+	base_state = "stonelantern"
 
 /obj/machinery/light/rogue/torchholder/hotspring/standing
 	name = "standing stone lantern"
 	icon_state = "stonelantern_standing1"
 	torch_off_state = "stonelantern_standing0"
-	base_state = "stonelantern_standing0"
+	base_state = "stonelantern_standing"
 
 /obj/effect/lily_petal
 	name = "lily petals"
@@ -175,6 +190,7 @@
 	icon = 'icons/obj/structures/hotspring.dmi'
 	buildstackamount = 1
 	item_chair = null
+	anchored = TRUE
 
 /obj/structure/chair/hotspring_bench/left
 	icon_state = "parkbench_sofaend_left"
@@ -192,6 +208,8 @@
 	icon = 'icons/obj/structures/sakura_tree.dmi'
 	icon_state = "sakura_tree"
 	obj_flags = CAN_BE_HIT | IGNORE_SINK
+	layer = ABOVE_ALL_MOB_LAYER
+	plane = GAME_PLANE_UPPER
 
 	bound_height = 128
 	bound_width = 128

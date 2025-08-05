@@ -24,20 +24,21 @@
 		if("Varangian")
 			H.set_blindness(0)
 			to_chat(H, span_warning("You are a Varangian of the Gronn Highlands. Warrior-Traders whose exploits into the Raneshen Empire will be forever remembered by historians."))
-			H.mind.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 2, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/combat/axes, 4, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/combat/bows, 2, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/combat/swords, 2, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/combat/shields, 4, TRUE)	
-			H.mind.adjust_skillrank(/datum/skill/combat/polearms, 2, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/combat/maces, 2, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/combat/knives, 2, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)	
+			H.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/misc/sneaking, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/axes, 4, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/bows, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/swords, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/shields, 4, TRUE)	
+			H.adjust_skillrank(/datum/skill/combat/polearms, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/maces, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/knives, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
+			H.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)
+			H.adjust_skillrank(/datum/skill/magic/holy, 2, TRUE)
 
 			H.change_stat("strength", 2)	
 			H.change_stat("endurance", 3)
@@ -56,8 +57,11 @@
 			backl = /obj/item/storage/backpack/rogue/satchel/black
 			beltr = /obj/item/rogueweapon/stoneaxe/woodcut/steel/atgervi
 			belt = /obj/item/storage/belt/rogue/leather
-			neck = /obj/item/storage/belt/rogue/pouch/coins/poor
-			beltl = /obj/item/flashlight/flare/torch
+			neck = /obj/item/clothing/neck/roguetown/chaincoif/chainmantle //They didn't have neck protection before.
+			beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
+
+			var/datum/devotion/C = new /datum/devotion(H, H.patron)
+			C.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = FALSE, devotion_limit = CLERIC_REQ_2)	//Capped to T1 miracles.
 
 			ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 			ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)	
@@ -65,14 +69,15 @@
 		if("Shaman")
 			H.set_blindness(0)
 			to_chat(H, span_warning("You are a Shaman of the Fjall, The Northern Empty. Savage combatants who commune with the Ecclesical Beast gods through ritualistic violence, rather than idle prayer."))
-			H.mind.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 2, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 4, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 4, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/misc/reading, 2, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/craft/tanning, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/misc/sneaking, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/wrestling, 4, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/unarmed, 4, TRUE)
+			H.adjust_skillrank(/datum/skill/misc/reading, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/misc/athletics, 4, TRUE)
+			H.adjust_skillrank(/datum/skill/craft/tanning, 2, TRUE)
+			H.adjust_skillrank(/datum/skill/magic/holy, 3, TRUE)
 			H.dna.species.soundpack_m = new /datum/voicepack/male/warrior()
 			H.change_stat("strength", 3) 
 			H.change_stat("endurance", 1)
@@ -93,6 +98,9 @@
 			neck = /obj/item/storage/belt/rogue/pouch/coins/poor
 			beltl = /obj/item/flashlight/flare/torch
 
+			var/datum/devotion/C = new /datum/devotion(H, H.patron)
+			C.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = FALSE, devotion_limit = CLERIC_REQ_2)	//Capped to T2 miracles.
+
 			ADD_TRAIT(H, TRAIT_STRONGBITE, TRAIT_GENERIC)
 			ADD_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN, TRAIT_GENERIC) //No weapons. Just beating them to death as God intended.
 			ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC) //Their entire purpose is to rip people apart with their hands and teeth. I don't think they'd be too preturbed to see someone lose a limb.
@@ -101,7 +109,12 @@
 			H.cmode_music = 'sound/music/combat_shaman2.ogg'
 
 	H.grant_language(/datum/language/gronnic)
-	backpack_contents = list(/obj/item/roguekey/mercenary, /obj/item/rogueweapon/huntingknife)
+	backpack_contents = list(
+		/obj/item/roguekey/mercenary = 1,
+		/obj/item/rogueweapon/huntingknife = 1,
+		/obj/item/rogueweapon/scabbard/sheath = 1
+		)
+	H.merctype = 1
 
 
 /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/atgervi
@@ -140,6 +153,7 @@
 	icon_state = "atgervi_raider"
 	item_state = "atgervi_raider"
 	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDESNOUT
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/32x48/atgervi.dmi'
 	block2add = null
 	worn_x_dimension = 32
@@ -160,7 +174,7 @@
 	experimental_onhip = FALSE
 
 /obj/item/clothing/shoes/roguetown/boots/leather/atgervi
-	name = "hardened leather boots"
+	name = "atgervi leather boots"
 	desc = "A pair of strong leather boots, designed to endure battle and the chill of the frozen north both."
 	icon_state = "atgervi_boots"
 	item_state = "atgervi_boots"

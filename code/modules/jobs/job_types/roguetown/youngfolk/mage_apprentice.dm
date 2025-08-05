@@ -20,13 +20,14 @@
 	min_pq = 0
 	max_pq = null
 	round_contrib_points = 2
-	cmode_music = 'sound/music/combat_bandit_mage.ogg'
+	cmode_music = 'sound/music/cmode/nobility/combat_courtmage.ogg'
 	advjob_examine = TRUE // So that Court Magicians can know if they're teachin' a Apprentice or if someone's a bit more advanced of a player. Just makes the title show up as the advjob's name.
 
 /datum/outfit/job/roguetown/wapprentice
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
 	pants = /obj/item/clothing/under/roguetown/tights/random
 	belt = /obj/item/storage/belt/rogue/leather
+	beltl = /obj/item/storage/magebag
 	beltr = /obj/item/storage/keyring/mageapprentice
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backr = /obj/item/rogueweapon/woodstaff
@@ -53,36 +54,37 @@
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1, 
 		/obj/item/spellbook_unfinished/pre_arcyne = 1,
-		/obj/item/recipe_book/alchemy = 1
+		/obj/item/recipe_book/alchemy = 1,
+		/obj/item/recipe_book/magic = 1,
+		/obj/item/chalk = 1,
 		)
-	if(H.mind)
-		H.mind.adjust_skillrank(/datum/skill/combat/polearms, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/swimming, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/athletics, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/craft/crafting, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/medicine, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/riding, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/reading, 5, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/craft/alchemy, 3, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/magic/arcane, 3, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/craft/cooking, 1, TRUE)
-		if(H.age == AGE_OLD)
-			H.mind.adjust_skillrank(/datum/skill/magic/arcane, 1, TRUE)
-			H.change_stat("speed", -1)
-			H.change_stat("intelligence", 1)
-			H.mind.adjust_spellpoints(6)
-		H.mind.adjust_spellpoints(21)
-		ADD_TRAIT(H, TRAIT_MAGEARMOR, TRAIT_GENERIC)
-		ADD_TRAIT(H, TRAIT_ARCYNE_T3, TRAIT_GENERIC)
-		H.change_stat("intelligence", 3)
-		H.change_stat("perception", 2)
-		H.change_stat("speed", 1)
-		switch(H.patron?.type)
-			if(/datum/patron/inhumen/zizo)
-				H.cmode_music = 'sound/music/combat_cult.ogg'
+	H.adjust_skillrank(/datum/skill/combat/polearms, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/wrestling, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/unarmed, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/swimming, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/athletics, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/craft/crafting, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/medicine, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/riding, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/reading, 5, TRUE)
+	H.adjust_skillrank(/datum/skill/craft/alchemy, 3, TRUE)
+	H.adjust_skillrank(/datum/skill/magic/arcane, 3, TRUE)
+	H.adjust_skillrank(/datum/skill/craft/cooking, 1, TRUE)
+	if(H.age == AGE_OLD)
+		H.adjust_skillrank(/datum/skill/magic/arcane, 1, TRUE)
+		H.change_stat("speed", -1)
+		H.change_stat("intelligence", 1)
+		H.mind?.adjust_spellpoints(6)
+	H.mind?.adjust_spellpoints(21)
+	ADD_TRAIT(H, TRAIT_MAGEARMOR, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_ARCYNE_T3, TRAIT_GENERIC)
+	H.change_stat("intelligence", 3)
+	H.change_stat("perception", 2)
+	H.change_stat("speed", 1)
+	switch(H.patron?.type)
+		if(/datum/patron/inhumen/zizo)
+			H.cmode_music = 'sound/music/combat_heretic.ogg'
 
 /datum/advclass/wapprentice/alchemist
 	name = "Alchemist Associate"
@@ -94,40 +96,41 @@
 /datum/outfit/job/roguetown/wapprentice/alchemist/pre_equip(mob/living/carbon/human/H)
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1, 
-		/obj/item/seeds/sweetleaf = 1, 
+		/obj/item/seeds/swampweed = 1, 
 		/obj/item/seeds/pipeweed = 1,
 		/obj/item/recipe_book/alchemy = 1,
+		/obj/item/recipe_book/magic = 1,
+		/obj/item/chalk = 1,
 		/obj/item/spellbook_unfinished/pre_arcyne = 1
 		)
-	if(H.mind)
-		H.mind.adjust_skillrank(/datum/skill/combat/polearms, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/reading, 5, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/craft/alchemy, 4, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/medicine, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/swimming, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/climbing, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/magic/arcane, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/labor/farming, 3, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/sewing, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/craft/cooking, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/labor/mining, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/labor/fishing, 1, TRUE)
-		if(H.age == AGE_OLD)
-			H.mind.adjust_skillrank(/datum/skill/craft/alchemy, 1, TRUE)
-			H.change_stat("perception", -1)
-			H.change_stat("intelligence", 1)
-		H.mind.adjust_spellpoints(18)
-		ADD_TRAIT(H, TRAIT_MAGEARMOR, TRAIT_GENERIC)
-		ADD_TRAIT(H, TRAIT_ARCYNE_T3, TRAIT_GENERIC)
-		H.change_stat("intelligence", 3)
-		H.change_stat("perception", 3)
-		H.change_stat("endurance", 1)
-		ADD_TRAIT(H, TRAIT_SEEDKNOW, TRAIT_GENERIC)
-		switch(H.patron?.type)
-			if(/datum/patron/inhumen/zizo)
-				H.cmode_music = 'sound/music/combat_cult.ogg'
+	H.adjust_skillrank(/datum/skill/combat/polearms, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/reading, 5, TRUE)
+	H.adjust_skillrank(/datum/skill/craft/alchemy, 4, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/medicine, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/wrestling, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/unarmed, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/swimming, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/climbing, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/magic/arcane, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/labor/farming, 3, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/sewing, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/craft/cooking, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/labor/mining, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/labor/fishing, 1, TRUE)
+	if(H.age == AGE_OLD)
+		H.adjust_skillrank(/datum/skill/craft/alchemy, 1, TRUE)
+		H.change_stat("perception", -1)
+		H.change_stat("intelligence", 1)
+	H.mind?.adjust_spellpoints(18)
+	ADD_TRAIT(H, TRAIT_MAGEARMOR, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_ARCYNE_T3, TRAIT_GENERIC)
+	H.change_stat("intelligence", 3)
+	H.change_stat("perception", 3)
+	H.change_stat("endurance", 1)
+	ADD_TRAIT(H, TRAIT_SEEDKNOW, TRAIT_GENERIC)
+	switch(H.patron?.type)
+		if(/datum/patron/inhumen/zizo)
+			H.cmode_music = 'sound/music/combat_heretic.ogg'
 
 /datum/advclass/wapprentice/apprentice
 	name = "Magician's Apprentice"
@@ -140,27 +143,28 @@
 	backpack_contents = list(
 		/obj/item/roguegem/amethyst = 1, 
 		/obj/item/recipe_book/alchemy = 1,
-    	/obj/item/spellbook_unfinished/pre_arcyne = 1
+		/obj/item/recipe_book/magic = 1,
+		/obj/item/spellbook_unfinished/pre_arcyne = 1,
+		/obj/item/chalk = 1,
 		)
-	if(H.mind)
-		H.mind.adjust_skillrank(/datum/skill/misc/reading, 5, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/magic/arcane, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/craft/crafting, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/craft/alchemy, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/combat/polearms, 1, TRUE)
-		H.mind.adjust_spellpoints(18)
-		ADD_TRAIT(H, TRAIT_MAGEARMOR, TRAIT_GENERIC)
-		ADD_TRAIT(H, TRAIT_ARCYNE_T3, TRAIT_GENERIC)
-		H.change_stat("intelligence", 4)
-		H.change_stat("speed", 1)
-		H.change_stat("endurance", 1)
-		H.change_stat("fortune", 1) // this is just a carrot for the folk who are mad enough to take this role...
-		if(H.age == AGE_OLD)
-			H.mind.adjust_skillrank(/datum/skill/craft/alchemy, 1, TRUE)
-			H.mind.adjust_skillrank(/datum/skill/magic/arcane, 1, TRUE)
-			H.change_stat("speed", -1)
-			H.change_stat("intelligence", 1)
-			H.mind.adjust_spellpoints(3)
-		switch(H.patron?.type)
-			if(/datum/patron/inhumen/zizo)
-				H.cmode_music = 'sound/music/combat_cult.ogg'
+	H.adjust_skillrank(/datum/skill/misc/reading, 5, TRUE)
+	H.adjust_skillrank(/datum/skill/magic/arcane, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/craft/crafting, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/craft/alchemy, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/polearms, 1, TRUE)
+	H.mind?.adjust_spellpoints(18)
+	ADD_TRAIT(H, TRAIT_MAGEARMOR, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_ARCYNE_T3, TRAIT_GENERIC)
+	H.change_stat("intelligence", 4)
+	H.change_stat("speed", 1)
+	H.change_stat("endurance", 1)
+	H.change_stat("fortune", 1) // this is just a carrot for the folk who are mad enough to take this role...
+	if(H.age == AGE_OLD)
+		H.adjust_skillrank(/datum/skill/craft/alchemy, 1, TRUE)
+		H.adjust_skillrank(/datum/skill/magic/arcane, 1, TRUE)
+		H.change_stat("speed", -1)
+		H.change_stat("intelligence", 1)
+		H.mind?.adjust_spellpoints(3)
+	switch(H.patron?.type)
+		if(/datum/patron/inhumen/zizo)
+			H.cmode_music = 'sound/music/combat_heretic.ogg'

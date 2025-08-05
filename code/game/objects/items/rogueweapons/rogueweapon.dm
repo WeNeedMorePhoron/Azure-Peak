@@ -16,9 +16,8 @@
 	sharpness = IS_SHARP
 	possible_item_intents = list(SWORD_CUT, SWORD_THRUST)
 	can_parry = TRUE
-	wlength = 45
+	wlength = WLENGTH_NORMAL
 	sellprice = 1
-	has_inspect_verb = TRUE
 	parrysound = list('sound/combat/parry/parrygen.ogg')
 	break_sound = 'sound/foley/breaksound.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
@@ -27,16 +26,18 @@
 	max_integrity = 250
 	integrity_failure = 0.2
 	wdefense = 3
+	wdefense_wbonus = 3 //Default is 3.
 	experimental_onhip = TRUE
 	experimental_onback = TRUE
+	resistance_flags = FIRE_PROOF
 	embedding = list(
 		"embed_chance" = 20,
 		"embedded_pain_multiplier" = 1,
 		"embedded_fall_chance" = 0,
 	)
-	var/initial_sl
-	var/list/possible_enhancements
-	resistance_flags = FIRE_PROOF
+
+	/// Icon for sheathing. Only null for weapons that are unsheathable.
+	var/sheathe_icon = null
 
 /obj/item/rogueweapon/Initialize()
 	. = ..()
@@ -94,25 +95,36 @@
 
 /obj/item/rogueweapon/obj_break(damage_flag)
 	..()
-	if (force)
+	if(force)
 		force /= 5
-	if (armor_penetration)
+	if(force_wielded)
+		force_wielded /= 5
+	force_dynamic = (wielded ? force_wielded : force)
+	if(armor_penetration)
 		armor_penetration /= 5
-	if (wdefense)
+	if(wdefense)
 		wdefense /= 2
-	if (sharpness & IS_SHARP)
+	if(wdefense_wbonus)
+		wdefense_wbonus = -3
+	wdefense_dynamic = wdefense
+	if(sharpness & IS_SHARP)
 		sharpness = IS_BLUNT
-	if (can_parry)
+	if(can_parry)
 		can_parry = FALSE
 
 /obj/item/rogueweapon/obj_fix()
 	..()
 
 	force = initial(force)
+	force_wielded = initial(force_wielded)
+	force_dynamic = force
 	armor_penetration = initial(armor_penetration)
 	wdefense = initial(wdefense)
+	wdefense_wbonus = initial(wdefense_wbonus)
+	wdefense_dynamic = wdefense
 	sharpness = initial(sharpness)
 	can_parry = initial(can_parry)
+	SEND_SIGNAL(src, COMSIG_ROGUEWEAPON_OBJFIX)
 
 /obj/item/rogueweapon/rmb_self(mob/user)
 	if(length(alt_intents))
@@ -130,6 +142,8 @@
 	desc = "you should not see this"
 	icon = 'icons/roguetown/misc/shafts.dmi'
 	icon_state = "woodshaft"
+	grid_height = 32
+	grid_width = 32
 
 /obj/item/shaft/wood
 	name = "wood shaft"

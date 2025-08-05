@@ -361,7 +361,7 @@
 		if(istype(attacking_item, /obj/item/needle))
 			var/obj/item/needle/sewer = attacking_item
 			var/obj/item/storage/this_item = parent
-			if(sewer.can_repair && this_item.sewrepair && this_item.max_integrity && !this_item.obj_broken && this_item.obj_integrity < this_item.max_integrity && user.mind.get_skill_level(/datum/skill/misc/sewing) >= 1 && this_item.ontable() && !being_repaired)
+			if(sewer.can_repair && this_item.sewrepair && this_item.max_integrity && !this_item.obj_broken && this_item.obj_integrity < this_item.max_integrity && user.get_skill_level(/datum/skill/misc/sewing) >= 1 && this_item.ontable() && !being_repaired)
 				being_repaired = TRUE
 				return FALSE
 		if(user.used_intent.type == /datum/intent/snip) //This makes it so we can salvage
@@ -374,6 +374,9 @@
 		if(LAZYLEN(real_location.contents) >= max_items) //don't use items on the backpack if they don't fit
 			return TRUE
 		return FALSE
+	if(attacking_item.inv_storage_delay)
+		if(!move_after(user, attacking_item.inv_storage_delay, target = attacking_item, progress = TRUE))
+			return FALSE
 	return handle_item_insertion(attacking_item, FALSE, user, params = params, storage_click = storage_click)
 
 /datum/component/storage/proc/on_equipped(obj/item/source, mob/user, slot)

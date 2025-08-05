@@ -26,13 +26,19 @@
 	contains = list(/obj/item/reagent_containers/powder/spice)
 
 /datum/supply_pack/rogue/luxury/fancyteaset
-	name = "Fancy Tea Set"
+	name = "Fancy Tea Set (1 Teapot, 4 Cups)"
 	cost = 110
+	no_name_quantity = TRUE
 	contains = list(/obj/item/reagent_containers/glass/bucket/pot/teapot/fancy, 
 	/obj/item/reagent_containers/glass/cup/ceramic/fancy,
 	/obj/item/reagent_containers/glass/cup/ceramic/fancy,
 	/obj/item/reagent_containers/glass/cup/ceramic/fancy,
 	/obj/item/reagent_containers/glass/cup/ceramic/fancy)
+
+/datum/supply_pack/rogue/luxury/silverpsicross
+	name = "Silver Psycross"
+	cost = 200
+	contains = list(/obj/item/clothing/neck/roguetown/psicross/silver)
 
 /datum/supply_pack/rogue/luxury/silverdagger
 	name = "Silver Dagger"
@@ -54,19 +60,15 @@
 	cost = 250
 	contains = list(/obj/item/listenstone)
 
-/datum/supply_pack/rogue/luxury/riddleofsteel
-	name = "Riddle of Steel"
-	cost = 500
-	contains = list(/obj/item/riddleofsteel)
-
 /datum/supply_pack/rogue/luxury/polishing_kit
 	name = "Polishing Kit"
+	no_name_quantity = TRUE
 	cost = 100
 	contains = list(/obj/item/polishing_cream, /obj/item/armor_brush)
 
 /datum/supply_pack/rogue/luxury/talkstone
 	name = "Talkstone"
-	cost = 150
+	cost = 100
 	contains = list(/obj/item/clothing/neck/roguetown/talkstone)
 
 /datum/supply_pack/rogue/luxury/circlet
@@ -83,3 +85,35 @@
 	name = "Signet"
 	cost = 220
 	contains = list(/obj/item/clothing/ring/signet)
+
+/datum/supply_pack/rogue/luxury/obsidianfragment
+	name = "Obsidian Fragments"
+	cost = 55
+	contains = list(	
+			/obj/item/magic/obsidian,
+			/obj/item/magic/obsidian,
+			/obj/item/magic/obsidian,
+			)
+
+/datum/supply_pack/rogue/luxury/manaflower
+	name = "Manabloom Flowers"
+	cost = 55
+	contains = list(	
+			/obj/item/reagent_containers/food/snacks/grown/manabloom,
+			/obj/item/reagent_containers/food/snacks/grown/manabloom,
+			/obj/item/reagent_containers/food/snacks/grown/manabloom,
+			)
+
+/datum/supply_pack/rogue/luxury/manacrystal
+	name = "Mana Crystals"
+	cost = 55
+	contains = list(	
+			/obj/item/magic/manacrystal,
+			/obj/item/magic/manacrystal,
+			/obj/item/magic/manacrystal,
+			)
+
+/datum/supply_pack/rogue/luxury/merctoken
+	name = "Writ of Commendation"
+	cost = 80
+	contains = list(/obj/item/merctoken)

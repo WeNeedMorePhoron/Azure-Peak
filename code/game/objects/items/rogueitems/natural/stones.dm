@@ -85,7 +85,6 @@ GLOBAL_LIST_INIT(stone_personalities, list(
 	"Barbarics",
 	"Fanciness",
 	"Relaxing",	
-	"Blacked",
 	"Greed",
 	"Evil",
 	"Good",
@@ -138,6 +137,7 @@ GLOBAL_LIST_INIT(stone_personality_descs, list(
 	obj_flags = null
 	w_class = WEIGHT_CLASS_TINY
 	experimental_inhand = FALSE
+	associated_skill = /datum/skill/combat/unarmed
 	mill_result = /obj/item/reagent_containers/powder/mineral
 	/// If our stone is magical, this lets us know -how- magical. Maximum is 15.
 	var/magic_power = 0
@@ -309,7 +309,7 @@ GLOBAL_LIST_INIT(stone_personality_descs, list(
 
 /obj/item/natural/stone/attackby(obj/item/W, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	var/skill_level = user.mind.get_skill_level(/datum/skill/craft/masonry)
+	var/skill_level = user.get_skill_level(/datum/skill/craft/masonry)
 	var/work_time = (35 - (skill_level * 5))
 	if(istype(W, /obj/item/natural/stone))
 		playsound(src.loc, pick('sound/items/stonestone.ogg'), 100)
@@ -336,14 +336,19 @@ GLOBAL_LIST_INIT(stone_personality_descs, list(
 //rock munching
 /obj/item/natural/stone/attack(mob/living/M, mob/user)
 	testing("attack")
-	if(M.construct)
-		var/healydoodle = magic_power+1
-		M.apply_status_effect(/datum/status_effect/buff/rockmuncher, healydoodle)
-		qdel(src)
-		if(M == user)
-			user.visible_message(span_notice("[user] presses the stone to [user]'s body, and it is absorbed."), span_notice("I absorb the stone."))
-		else
-			user.visible_message(span_notice("[user] presses the stone to [M]'s body, and it is absorbed."), span_notice("I press the stone to [M], and it is absorbed."))
+	if(!user.cmode)
+		if(M.construct)
+			var/healydoodle = magic_power+1
+			M.apply_status_effect(/datum/status_effect/buff/rockmuncher, healydoodle)
+			qdel(src)
+			if(M == user)
+				user.visible_message(span_notice("[user] presses the stone to [user]'s body, and it is absorbed."), span_notice("I absorb the stone."))
+			else
+				user.visible_message(span_notice("[user] presses the stone to [M]'s body, and it is absorbed."), span_notice("I press the stone to [M], and it is absorbed."))
+		else // if theyre not a construct, but we're not in cmode, beat them 2 death with rocks.
+			return ..()
+	else // if we're in cmode, beat them to death with rocks.
+		return ..()
 
 /obj/item/natural/rock
 	name = "rock"
@@ -352,16 +357,18 @@ GLOBAL_LIST_INIT(stone_personality_descs, list(
 	dropshrink = 0
 	throwforce = 25
 	throw_range = 2
-	force = 18
+	force = 20
 	obj_flags = CAN_BE_HIT
-	force_wielded = 15
+	force_wielded = 22
 	gripped_intents = list(INTENT_GENERIC)
 	w_class = WEIGHT_CLASS_HUGE
 	twohands_required = TRUE
 	var/obj/item/rogueore/mineralType = null
 	var/mineralAmt = 1
+	associated_skill = /datum/skill/combat/unarmed
 	blade_dulling = DULLING_BASH
-	max_integrity = 90
+	max_integrity = 100
+	minstr = 11
 	destroy_sound = 'sound/foley/smash_rock.ogg'
 	attacked_sound = 'sound/foley/hit_rock.ogg'
 
@@ -411,7 +418,7 @@ GLOBAL_LIST_INIT(stone_personality_descs, list(
 
 /obj/item/natural/rock/attackby(obj/item/W, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	var/skill_level = user.mind.get_skill_level(/datum/skill/craft/masonry)
+	var/skill_level = user.get_skill_level(/datum/skill/craft/masonry)
 	var/work_time = (120 - (skill_level * 15))
 	if(istype(W, /obj/item/natural/stone))
 		user.visible_message(span_info("[user] strikes the stone against the rock."))
@@ -465,6 +472,9 @@ GLOBAL_LIST_INIT(stone_personality_descs, list(
 
 /obj/item/natural/rock/coal
 	mineralType = /obj/item/rogueore/coal
+
+/obj/item/natural/rock/cinnabar
+	mineralType = /obj/item/rogueore/cinnabar
 
 /obj/item/natural/rock/salt
 	mineralType = /obj/item/reagent_containers/powder/salt

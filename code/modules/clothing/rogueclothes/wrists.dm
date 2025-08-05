@@ -10,6 +10,20 @@
 	experimental_inhand = FALSE
 	grid_width = 32
 	grid_height = 64
+	var/overarmor
+
+/obj/item/clothing/wrists/roguetown/MiddleClick(mob/user, params)
+	. = ..()
+	overarmor = !overarmor
+	to_chat(user, span_info("I [overarmor ? "wear \the [src] over my armor" : "wear \the [src] under my armor"]."))
+	if(overarmor)
+		alternate_worn_layer = WRISTS_LAYER
+	else
+		alternate_worn_layer = UNDER_ARMOR_LAYER
+	user.update_inv_wrists()
+	user.update_inv_gloves()
+	user.update_inv_armor()
+	user.update_inv_shirt()
 
 /obj/item/clothing/wrists/roguetown/bracers
 	name = "bracers"
@@ -21,21 +35,23 @@
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_TWIST)
 	blocksound = PLATEHIT
 	resistance_flags = FIRE_PROOF
-	max_integrity = 300
+	max_integrity = ARMOR_INT_SIDE_STEEL
 	anvilrepair = /datum/skill/craft/armorsmithing
 	sewrepair = FALSE
 	smeltresult = /obj/item/ingot/steel
 
 /obj/item/clothing/wrists/roguetown/bracers/aalloy
 	name = "decrepit bracers"
-	desc = "Decrepit old bracers. Aeon's grasp is upon them."
-	max_integrity = 150
+	desc = "Frayed bronze cuffings, bound across the wrists. Don't bother counting the tallies left behind by their former legionnaires; none of them ever returned from the battlefields."
+	max_integrity = ARMOR_INT_SIDE_DECREPIT
 	icon_state = "ancientbracers"
-	smeltresult = /obj/item/ingot/aalloy
+	color = "#bb9696"
+	smeltresult = /obj/item/ingot/aaslag
+	anvilrepair = null
 
 /obj/item/clothing/wrists/roguetown/bracers/paalloy
 	name = "ancient bracers"
-	desc = "Bracers formed of ancient alloys. Aeon's grasp is lifted from their form."
+	desc = "Polished gilbranze cuffings, clasped around the wrists. Through ascension, the chains of mortality are broken; and only through death will the spirit be ready to embrace divinity."
 	icon_state = "ancientbracers"
 	smeltresult = /obj/item/ingot/aaslag
 
@@ -51,8 +67,10 @@
 	break_sound = 'sound/foley/cloth_rip.ogg'
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	anvilrepair = null
+	smeltresult = null
 	sewrepair = TRUE
-	salvage_amount = 1
+	smeltresult = null
+	salvage_amount = 0 // sry
 	salvage_result = /obj/item/natural/hide/cured
 
 /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
@@ -61,7 +79,8 @@
 	icon_state = "albracers"
 	armor = ARMOR_LEATHER_GOOD
 	prevent_crits = list(BCLASS_CUT, BCLASS_BLUNT, BCLASS_TWIST, BCLASS_CHOP, BCLASS_SMASH)
-	max_integrity = 250
+	max_integrity = ARMOR_INT_SIDE_HARDLEATHER
+	sellprice = 10
 	salvage_amount = 1
 	salvage_result = /obj/item/natural/hide/cured
 
@@ -127,12 +146,46 @@
 	body_parts_covered = ARMS
 	icon_state = "splintarms"
 	item_state = "splintarms"
-	armor = ARMOR_LEATHER_STUDDED
+	armor = ARMOR_PLATE
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT)
 	blocksound = SOFTHIT
-	max_integrity = 250
-	anvilrepair = /datum/skill/craft/blacksmithing
+	max_integrity = ARMOR_INT_SIDE_IRON
+	anvilrepair = /datum/skill/craft/armorsmithing
+	smeltresult = /obj/item/ingot/steel
+	w_class = WEIGHT_CLASS_NORMAL
+	resistance_flags = FIRE_PROOF
+	sewrepair = FALSE
+
+/obj/item/clothing/wrists/roguetown/splintarms/iron
+	name = "splint bracers"
+	desc = "A pair of leather sleeves backed with iron splints, couters, and shoulderpieces that protect your arms and remain decently light."
+	body_parts_covered = ARMS
+	icon_state = "ironsplintarms"
+	item_state = "ironsplintarms"
+	armor = ARMOR_LEATHER_STUDDED //not plate armor, is leather + iron bits
+	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT)
+	blocksound = SOFTHIT
+	max_integrity = ARMOR_INT_SIDE_LEATHER
+	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/iron
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF
 	sewrepair = FALSE
+
+/obj/item/clothing/wrists/roguetown/bracers/iron
+	name = "iron bracers"
+	desc = "Iron bracers that protect the arms."
+	body_parts_covered = ARMS
+	icon_state = "ibracers"
+	item_state = "ibracers"
+	max_integrity = ARMOR_INT_SIDE_IRON
+	smeltresult = /obj/item/ingot/iron
+
+/obj/item/clothing/wrists/roguetown/bracers/jackchain
+	name = "jack chains"
+	desc = "Thin strips of steel attached to small shoulder and elbow plates, worn on the outside of the arms to protect against slashes."
+	icon_state = "jackchain"
+	item_state = "jackchain"
+	armor = ARMOR_LEATHER_STUDDED // Please help me make this make sense this has the same stab protection vro.
+	max_integrity = ARMOR_INT_SIDE_LEATHER // Make it slightly worse
+	smeltresult = null

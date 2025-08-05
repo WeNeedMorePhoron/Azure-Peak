@@ -34,6 +34,7 @@
 	var/motespeed = 20 // mote summoning speed
 	var/sparkspeed = 30 // spark summoning speed
 	var/spark_cd = 0
+	var/gatherspeed = 35
 
 /obj/item/melee/touch_attack/prestidigitation/Initialize()
 	. = ..()
@@ -51,6 +52,9 @@
 	switch (user.used_intent.type)
 		if (INTENT_HELP) // Clean something like a bar of soap
 			handle_cost(user, PRESTI_CLEAN)
+			if(istype(target, /obj/structure/well/fountain/mana) || istype(target, /turf/open/lava))
+				gather_thing(target, user)
+				return
 			clean_thing(target, user)
 		if (INTENT_DISARM) // Snap your fingers and produce a spark
 			handle_cost(user, PRESTI_SPARK)
@@ -72,9 +76,9 @@
 		if (PRESTI_MOTE)
 			extra_fatigue = 15 // same deal here
 
-	user.rogfat_add(fatigue_used + extra_fatigue)
+	user.stamina_add(fatigue_used + extra_fatigue)
 
-	var/skill_level = user.mind?.get_skill_level(attached_spell.associated_skill)
+	var/skill_level = user.get_skill_level(attached_spell.associated_skill)
 	if (skill_level >= SKILL_LEVEL_EXPERT)
 		fatigue_used = 0 // we do this after we've actually changed fatigue because we're hard-capping the raises this gives to Expert
 
@@ -86,7 +90,7 @@
 		return // should really never happen
 
 	//let's adjust the light power based on our skill, too
-	var/skill_level = user.mind?.get_skill_level(attached_spell.associated_skill)
+	var/skill_level = user.get_skill_level(attached_spell.associated_skill)
 	var/mote_power = clamp(4 + (skill_level - 3), 4, 7) // every step above journeyman should get us 1 more tile of brightness
 	mote.set_light_range(mote_power)
 	if(mote.light_system == STATIC_LIGHT)
@@ -129,31 +133,46 @@
 	// adjusted from /obj/item/soap in clown_items.dm, some duplication unfortunately (needed for flavor)
 
 	// let's adjust the clean speed based on our skill level
-	var/skill_level = user.mind?.get_skill_level(attached_spell.associated_skill)
+	var/skill_level = user.get_skill_level(attached_spell.associated_skill)
 	cleanspeed = initial(cleanspeed) - (skill_level * 3) // 3 cleanspeed per skill level, from 35 down to a maximum of 17 (pretty quick)
 
 	if (istype(target, /obj/structure/roguewindow))
-		user.visible_message(span_notice("[user] gestures at \the [target.name], tiny motes of arcyne power running across its surface..."), span_notice("I begin to clean \the [target.name] with my arcyne power..."))
+		user.visible_message(span_notice("[user] gestures at \the [target.name]. Tiny motes of arcyne power dance across its surface..."), span_notice("I begin to clean \the [target.name] with my arcyne power..."))
 		if (do_after(user, src.cleanspeed, target = target))
 			wash_atom(target,CLEAN_MEDIUM)
 			to_chat(user, span_notice("I render \the [target.name] clean."))
 			return TRUE
 		return FALSE
 	else if (istype(target, /obj/effect/decal/cleanable))
-		user.visible_message(span_notice("[user] gestures at \the [target.name], arcyne power slowly scouring it away..."), span_notice("I begin to scour \the [target.name] away with my arcyne power..."))
+		user.visible_message(span_notice("[user] gestures at \the [target.name]. Arcyne power slowly scours it away..."), span_notice("I begin to scour \the [target.name] away with my arcyne power..."))
 		if (do_after(user, src.cleanspeed, target = target))
 			wash_atom(get_turf(target),CLEAN_MEDIUM)
 			to_chat(user, span_notice("I expunge \the [target.name] with my mana."))
 			return TRUE
 		return FALSE
 	else
-		user.visible_message(span_notice("[user] gestures at \the [target.name], tiny motes of arcyne power surging over [target.p_them()]..."), span_notice("I begin to clean \the [target.name] with my arcyne power..."))
+		user.visible_message(span_notice("[user] gestures at \the [target.name]. Tiny motes of arcyne power surge over [target.p_them()]..."), span_notice("I begin to clean \the [target.name] with my arcyne power..."))
 		if (do_after(user, src.cleanspeed, target = target))
 			wash_atom(target,CLEAN_MEDIUM)
 			to_chat(user, span_notice("I render \the [target.name] clean."))
 			return TRUE
 		return FALSE
 
+/obj/item/melee/touch_attack/prestidigitation/proc/gather_thing(atom/target, mob/living/carbon/human/user)
+
+	var/skill_level = user.get_skill_level(attached_spell.associated_skill)
+	gatherspeed = initial(gatherspeed) - (skill_level * 3) // 3 cleanspeed per skill level, from 35 down to a maximum of 17 (pretty quick)
+	var/turf/Turf = get_turf(target)
+	if (istype(target, /obj/structure/well/fountain/mana))
+		if (do_after(user, src.gatherspeed, target = target))
+			to_chat(user, span_notice("I mold the liquid mana in \the [target.name] with my arcane power, crystalizing it!"))
+			new /obj/item/magic/manacrystal(Turf)
+	if (istype(target, /turf/open/lava))
+		if (do_after(user, src.gatherspeed, target = target))
+			to_chat(user, span_notice("I mold a handful of oozing lava  with my arcane power, rapidly hardening it!"))
+			new /obj/item/magic/obsidian(user.loc)
+
+// Intents for prestidigitation
 // Intents for prestidigitation
 
 /obj/effect/wisp/prestidigitation

@@ -81,6 +81,7 @@
 		/datum/body_marking_set/bellysocks,
 		/datum/body_marking_set/bellysockstertiary,
 		/datum/body_marking_set/belly,
+		/datum/body_marking_set/gradient,
 	)
 	body_markings = list(
 		/datum/body_marking/flushed_cheeks,
@@ -103,6 +104,9 @@
 		/datum/body_marking/nose,
 		/datum/body_marking/harlequin,
 		/datum/body_marking/harlequinreversed,
+		/datum/body_marking/bangs,
+		/datum/body_marking/bun,
+		/datum/body_marking/gradient,
 	)
 	languages = list(
 		/datum/language/common

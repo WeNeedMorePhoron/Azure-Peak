@@ -80,6 +80,7 @@
 	name = "hunting knife"
 	desc = "A hunter's prized possession. Keep it sharp, and it might last you through the wild."
 	icon_state = "huntingknife"
+	sheathe_icon = "huntingknife"
 	icon = 'icons/roguetown/weapons/32.dmi'
 	item_state = "bone_dagger"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
@@ -104,8 +105,16 @@
 	grid_height = 64
 	grid_width = 32
 
+	equip_delay_self = 1 SECONDS
+	unequip_delay_self = 1 SECONDS
+	inv_storage_delay = 1 SECONDS
+	edelay_type = 1
+
+	//flipping knives has a cooldown on to_chat to reduce chatspam
+	COOLDOWN_DECLARE(flip_cooldown)
+
 /obj/item/rogueweapon/huntingknife/Initialize()
-	. = ..()
+	..()
 	var/static/list/slapcraft_recipe_list = list(
 		/datum/crafting_recipe/roguetown/survival/peasantry/maciejowski_knife,
 		)
@@ -124,6 +133,38 @@
 			if("onbelt")
 				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
 
+/obj/item/rogueweapon/huntingknife/rmb_self(mob/user)
+	. = ..()
+	if(.)
+		return
+
+	SpinAnimation(4, 2) // The spin happens regardless of the cooldown
+
+	if(!COOLDOWN_FINISHED(src, flip_cooldown))
+		return
+
+	COOLDOWN_START(src, flip_cooldown, 3 SECONDS)
+	if((user.get_skill_level(/datum/skill/combat/knives) < 3) && prob(40))
+		user.visible_message(
+			span_danger("While trying to flip [src] [user] drops it instead!"),
+			span_userdanger("While trying to flip [src] you drop it instead!"),
+		)
+		var/mob/living/carbon/human/unfortunate_idiot = user
+		var/dropped_knife_target = pick(
+			BODY_ZONE_PRECISE_L_FOOT,
+			BODY_ZONE_PRECISE_R_FOOT,
+			)
+		unfortunate_idiot.apply_damage(src.force, BRUTE, dropped_knife_target)
+		user.dropItemToGround(src, TRUE)
+	else
+		user.visible_message(
+			span_notice("[user] spins [src] around [user.p_their()] finger"),
+			span_notice("You spin [src] around your finger"),
+		)
+		playsound(src, 'sound/foley/equip/swordsmall1.ogg', 20, FALSE)
+
+	return
+
 /obj/item/rogueweapon/huntingknife/copper
 	name = "copper knife"
 	desc = "A knife made of copper. Lacking in durability."
@@ -136,7 +177,7 @@
 	name = "cleaver"
 	desc = "Chop, chop, chop!"
 	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/chop/cleaver)
-	icon_state = "cleav"
+	icon_state = "cleaver"
 	icon = 'icons/roguetown/weapons/32.dmi'
 	parrysound = list('sound/combat/parry/bladed/bladedmedium (1).ogg','sound/combat/parry/bladed/bladedmedium (2).ogg','sound/combat/parry/bladed/bladedmedium (3).ogg')
 	swingsound = list('sound/combat/wooshes/bladed/wooshmed (1).ogg','sound/combat/wooshes/bladed/wooshmed (2).ogg','sound/combat/wooshes/bladed/wooshmed (3).ogg')
@@ -197,6 +238,7 @@
 	tool of daily life and as a capable fighting knife."
 	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/chop/cleaver, /datum/intent/dagger/sucker_punch,)
 	icon_state = "combatknife"
+	sheathe_icon = "combatknife"
 	icon = 'icons/roguetown/weapons/32.dmi'
 	parrysound = list('sound/combat/parry/bladed/bladedmedium (1).ogg','sound/combat/parry/bladed/bladedmedium (2).ogg','sound/combat/parry/bladed/bladedmedium (3).ogg')
 	swingsound = list('sound/combat/wooshes/bladed/wooshmed (1).ogg','sound/combat/wooshes/bladed/wooshmed (2).ogg','sound/combat/wooshes/bladed/wooshmed (3).ogg')
@@ -220,21 +262,25 @@
 	name = "iron dagger"
 	desc = "This is a common dagger of iron."
 	icon_state = "idagger"
+	sheathe_icon = "idagger"
 	smeltresult = /obj/item/ingot/iron
 	blade_dulling = DULLING_SHAFT_REINFORCED
 
 /obj/item/rogueweapon/huntingknife/idagger/adagger
 	name = "decrepit dagger"
-	desc = "an incredibly withered daggered. Aeon's grasp is upon its form."
+	desc = "A short blade, wrought from frayed bronze and tanged within a rotwooden grip. Pieces of a former legionnaire's scabbard cling to the glimmerless alloy."
 	force = 12
 	max_integrity = 75
 	icon_state = "adagger"
-	smeltresult = /obj/item/ingot/aalloy
+	sheathe_icon = "adagger"
 	blade_dulling = DULLING_SHAFT_CONJURED
+	color = "#bb9696"
+	smeltresult = /obj/item/ingot/aaslag
+	anvilrepair = null
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/padagger
 	name = "ancient dagger"
-	desc = "A dagger made of ancient alloys. Aeon's grasp has been lifted from its form."
+	desc = "A short blade, forged from polished gilbranze. It is violence that shepherds progress, and it is progress that will free this world from mortality's chains. Zizo, Zizo, Zizo - I call upon thee; bring forth the undying, so that your works may yet be done!"
 	icon_state = "adagger"
 	smeltresult = /obj/item/ingot/aaslag
 
@@ -242,9 +288,20 @@
 	name = "steel dagger"
 	desc = "This is a dagger made of solid steel, more durable."
 	icon_state = "sdagger"
+	sheathe_icon = "sdagger"
 	force = 20
 	max_integrity = 150
 	smeltresult = /obj/item/ingot/steel
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/corroded
+	name = "corroded dagger"
+	desc = "While this is a dagger made of solid steel it has become discolored; the leftovers of the poisons used on this blade.."
+	icon_state = "pdagger"
+	sheathe_icon = "pdagger"
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/corroded/Initialize()
+	. = ..()
+	AddElement(/datum/element/tipped_item)	//Lets you tip your weapon in poison
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/holysee
 	name = "eclipsum dagger"
@@ -252,7 +309,7 @@
 	force = 25
 	max_integrity = 200
 	icon_state = "gsdagger"
-
+	sheathe_icon = "gsdagger"
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/pestrasickle
 	name ="plaguebringer sickle"
@@ -260,11 +317,15 @@
 	icon_state = "pestrasickle"
 	max_integrity = 200
 
+/obj/item/rogueweapon/huntingknife/idagger/steel/pestrasickle/Initialize()
+	. = ..()
+	AddElement(/datum/element/tipped_item)	//Lets you tip your weapon in poison
 
 /obj/item/rogueweapon/huntingknife/idagger/dtace
 	name = "'De Tace'"
 	desc = "The right hand of the right hand, this narrow length of steel serves as a quick solution to petty greviences."
 	icon_state = "stiletto"
+	sheathe_icon = "stiletto"
 	force = 25
 	max_integrity = 200
 	smeltresult = /obj/item/ingot/steel
@@ -274,24 +335,32 @@
 	force = 12
 	throwforce = 12
 	desc = "This is a parrying dagger made of solid steel, used to catch opponent's weapons in the handguard. It's a bit more dull, however."
-	icon_state = "spdagger"
-	wdefense = 6
+	sheathe_icon = "spdagger"
+	wdefense = 8		//This way with expert dagger skill you'd have ~12 defense. 1 higher than a kiteshield, but no arrow protection.
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/parrying/vaquero
 	name = "sail dagger"
 	force = 15
 	throwforce = 15
 	desc = "An exceptionally protective parrying dagger popular in the Etruscan Isles, this dagger features a plain metal guard in the shape of a ship's sail."
-	wdefense = 7
+	wdefense = 9		//This way with expert dagger skill you'd have ~13 defense. 2 higher than a kiteshield, but no arrow protection.
 	icon_state = "sail_dagger"
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/special
 	icon_state = "sdaggeralt"
+	sheathe_icon = "sdaggeralt"
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/kazengun
+	name = "steel tanto"
+	desc = "A steel dagger imported from the Kazengunese archipelago. A sturdy blade bears a subtle curve, set into a decorated circular crossguard. A waxed \
+	wrapping of twisted cordage provides a secure grip."
+	icon_state = "eastdagger"
 
 /obj/item/rogueweapon/huntingknife/idagger/silver
 	name = "silver dagger"
 	desc = "This silver dagger can be the banishment of vampires and werewolves."
 	icon_state = "sildagger"
+	sheathe_icon = "sildagger"
 	sellprice = 50
 	smeltresult = /obj/item/ingot/silver
 	last_used = 0
@@ -301,6 +370,7 @@
 	name = "psydonian dagger"
 	desc = "An ornate dagger, plated in a ceremonial veneer of silver. The bane of vampyres and verevolves, in the hands of a faithful hunter."
 	icon_state = "psydagger"
+	sheathe_icon = "psydagger"
 	sellprice = 70
 
 /obj/item/rogueweapon/huntingknife/idagger/silver/psydagger/ComponentInitialize()
@@ -359,6 +429,81 @@
 			H.adjustFireLoss(25)
 			H.fire_act(1,10)
 
+/obj/item/weapon/knife/dagger/silver/arcyne
+	name = "glowing purple silver dagger"
+	desc = "This dagger glows a faint purple. Quicksilver runs across its blade."
+	var/is_bled = FALSE
+
+/obj/item/weapon/knife/dagger/silver/arcyne/Initialize()
+	. = ..()
+	filter(type="drop_shadow", x=0, y=0, size=2, offset=1, color=rgb(128, 0, 128, 1))
+
+/obj/item/weapon/knife/dagger/silver/attackby(obj/item/M, mob/user, params)
+	if(istype(M,/obj/item/rogueore/cinnabar))
+		var/crafttime = (60 - ((user.get_skill_level(/datum/skill/magic/arcane)) * 5))
+		if(do_after(user, crafttime, target = src))
+			playsound(loc, 'sound/magic/scrapeblade.ogg', 100, TRUE)
+			to_chat(user, span_notice("I press acryne magic into the blade and it throbs in a deep purple..."))
+			var/obj/arcyne_knife = new /obj/item/weapon/knife/dagger/silver/arcyne
+			qdel(M)
+			qdel(src)
+			user.put_in_active_hand(arcyne_knife)
+	else
+		return ..()
+
+/obj/item/weapon/knife/dagger/silver/arcyne/attack_self(mob/living/carbon/human/user)
+	if(!isarcyne(user))
+		return
+	var/obj/effect/decal/cleanable/roguerune/pickrune
+	var/runenameinput = input(user, "Runes", "All Runes") as null|anything in GLOB.t4rune_types
+	pickrune = GLOB.rune_types[runenameinput]
+	if(!pickrune)
+		return
+	var/turf/Turf = get_turf(user)
+	if(locate(/obj/effect/decal/cleanable/roguerune) in Turf)
+		to_chat(user, span_cult("There is already a rune here."))
+		return
+	var/structures_in_way = check_for_structures_and_closed_turfs(loc, pickrune)
+	if(structures_in_way == TRUE)
+		to_chat(user, span_cult("There is a structure, rune or wall in the way."))
+		return
+	var/chosen_keyword
+	if(pickrune.req_keyword)
+		chosen_keyword = stripped_input(user, "Keyword for the new rune", "Runes", max_length = MAX_NAME_LEN)
+		if(!chosen_keyword)
+			return FALSE
+	if(!is_bled)
+		playsound(loc, get_sfx("genslash"), 100, TRUE)
+		user.visible_message(span_warning("[user] cuts open [user.p_their()] palm!"), \
+			span_cult("I slice open my palm!"))
+		if(user.blood_volume)
+			user.apply_damage(pickrune.scribe_damage, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		is_bled = TRUE
+	var/crafttime = (10 SECONDS - ((user.get_skill_level(/datum/skill/magic/arcane)) * 5))
+
+	user.visible_message(span_warning("[user] begins to carve something with [user.p_their()] blade!"), \
+		span_notice("I start to drag the blade in the shape of symbols and sigils."))
+	playsound(loc, 'sound/magic/bladescrape.ogg', 100, TRUE)
+	if(do_after(user, crafttime, target = src))
+		if(QDELETED(src) || !pickrune)
+			return
+		user.visible_message(span_warning("[user] carves an arcyne rune with [user.p_their()] [src]!"), \
+		span_notice("I finish dragging the blade in symbols and circles, leaving behind a [pickrune.name]."))
+		new pickrune(Turf, chosen_keyword)
+
+/obj/item/weapon/knife/dagger/proc/check_for_structures_and_closed_turfs(loc, obj/effect/decal/cleanable/roguerune/rune_to_scribe)
+	for(var/turf/T in range(loc, rune_to_scribe.runesize))
+		//check for /sturcture subtypes in the turf's contents
+		for(var/obj/structure/S in T.contents)
+			return TRUE		//Found a structure, no need to continue
+		//check if turf itself is a /turf/closed subtype
+		if(istype(T,/turf/closed))
+			return TRUE
+		//check if rune in the turfs contents
+		for(var/obj/effect/decal/cleanable/roguerune/R in T.contents)
+			return TRUE
+		//Return false if nothing in range was found
+	return FALSE
 
 /obj/item/rogueweapon/huntingknife/stoneknife
 	possible_item_intents = list(/datum/intent/dagger/cut,/datum/intent/dagger/chop)
@@ -445,10 +590,17 @@
 			if("onbelt")
 				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
 
+/obj/item/rogueweapon/huntingknife/throwingknife/kazengun
+	name = "eastern tossblade"
+	desc = "A four pointed throwing knife ground and sharpened from a single piece of metal. The design is intended to solve one of weaknesses of basic tossblades; \
+	more points means these are more likely to land point-first."
+	icon_state = "easttossblade"
+
 /obj/item/rogueweapon/huntingknife/throwingknife/aalloy
 	name = "decrepit tossblade"
-	desc = "A decrepit old tossblade. You ought to throw cutlery instead."
+	desc = "Chunks of frayed bronze, crudely sharpened into throwing daggers. You might be better off chucking the silverware at them, at this rate."
 	icon_state = "throw_knifea"
+	color = "#bb9696"
 	force = 7
 	throwforce = 16
 
@@ -465,7 +617,7 @@
 
 /obj/item/rogueweapon/huntingknife/throwingknife/steel/palloy
 	name = "ancient alloy tossblade"
-	desc = "A tossblade crafted of ancient alloy. Aeon's grasp has been lifted from its form."
+	desc = "A sliver of polished gilbranze, delicately carved into a throwing dagger. A favorite amongst Zizo's undying cabal, and especially amongst Her assassins; what better-a-tool to slip through another's neck?"
 	icon_state = "throw_knifea"
 
 /obj/item/rogueweapon/huntingknife/throwingknife/psydon
@@ -488,6 +640,7 @@
 	name = "iron scissors"
 	desc = "Scissors made of iron that may be used to salvage usable materials from clothing."
 	icon_state = "iscissors"
+	inv_storage_delay = null
 
 /obj/item/rogueweapon/huntingknife/scissors/steel
 	force = 14
@@ -704,7 +857,7 @@
 		var/obj/item/item = O
 		if(item.sewrepair && item.salvage_result) // We can only salvage objects which can be sewn!
 			var/salvage_time = 70
-			salvage_time = (70 - ((user.mind.get_skill_level(/datum/skill/misc/sewing)) * 10))
+			salvage_time = (70 - ((user.get_skill_level(/datum/skill/misc/sewing)) * 10))
 			if(!do_after(user, salvage_time, target = user))
 				return
 			
@@ -713,7 +866,7 @@
 			if(istype(item, /obj/item/storage))
 				var/obj/item/storage/bag = item
 				bag.emptyStorage()
-			var/skill_level = user.mind.get_skill_level(/datum/skill/misc/sewing)
+			var/skill_level = user.get_skill_level(/datum/skill/misc/sewing)
 			if(prob(50 - (skill_level * 10))) // We are dumb and we failed!
 				to_chat(user, span_info("I ruined some of the materials due to my lack of skill..."))
 				playsound(item, 'sound/foley/cloth_rip.ogg', 50, TRUE)

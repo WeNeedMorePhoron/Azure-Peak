@@ -43,14 +43,25 @@
 
 /obj/item/reagent_containers/glass/bucket/pot/aalloy
 	name = "decrepit pot"
-	desc = "A decrepit old pot. Aeon's grasp is upon it."
+	desc = "A kettle of wrought bronze. One could only imagine what the stews of millenia prior must've tasted like; do you suppose they knew of seasonings-and-spices, too?"
 	icon_state = "apote"
 	volume = 99
+	color = "#bb9696"
+	sellprice = 25
 
 /obj/item/reagent_containers/glass/bucket/pot/stone
 	name = "stone pot"
 	desc = "A pot made out of stone. It can hold less than a metal pot."
 	volume = 99 // 99 is the max volume for a stone pot
+
+/obj/item/reagent_containers/glass/bucket/pot/kettle
+	name = "kettle"
+	desc = "A kettle made out of iron. It is portable."
+	icon_state = "kettle"
+	w_class = WEIGHT_CLASS_NORMAL
+	grid_width = 32
+	grid_height = 64
+	volume = 99
 
 /obj/item/reagent_containers/glass/bucket/pot/copper
 	name = "copper pot"

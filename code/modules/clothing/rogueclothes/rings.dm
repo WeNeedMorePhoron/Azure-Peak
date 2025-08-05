@@ -22,9 +22,9 @@
 
 /obj/item/clothing/ring/aalloy
 	name = "decrepit ring"
-	desc = "A decrepit old ring"
+	desc = "A coil of frayed bronze."
 	icon_state = "ring_a"
-	sellprice = 5
+	sellprice = 11
 
 
 /obj/item/clothing/ring/gold
@@ -201,3 +201,71 @@
 	desc = "Born out of duelists desire for theatrics, this ring denotes a proposal — an honorable duel, with stakes set ahigh.\nIf both duelists wear this ring, successful baits will off balance them, and clashing disarms will never be unlikely.\n<i>'You shall know his name. You shall know his purpose. You shall die.'</i>"
 	icon_state = "ring_duel"
 	sellprice = 10
+
+/obj/item/clothing/ring/fate_weaver
+	name = "fate weaver"
+	desc = "An arcyne creation first theorized by malcontents with the resolution of Xylix's plays. It protects is wearer by tugging things gently toward less fatal potentials."
+	icon_state = "ring_s"
+	max_integrity = 75
+	body_parts_covered = COVERAGE_FULL | COVERAGE_HEAD_NOSE | NECK | HANDS | FEET //field covers the whole body
+	armor = ARMOR_MASK_METAL_BAD //even protection against most damage types
+	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_BLUNT)
+	blade_dulling = DULLING_BASHCHOP
+	blocksound = PLATEHIT
+	break_sound = 'sound/foley/breaksound.ogg'
+	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
+	armor_class = ARMOR_CLASS_LIGHT
+
+/obj/item/clothing/ring/fate_weaver/proc/dispel()
+	if(!QDELETED(src))
+		src.visible_message(span_warning("The [src]'s borders begin to shimmer and fade, before it vanishes entirely!"))
+		qdel(src)
+
+/obj/item/clothing/ring/fate_weaver/obj_break()
+	. = ..()
+	if(!QDELETED(src))
+		dispel()
+
+/obj/item/clothing/ring/fate_weaver/attack_hand(mob/user)
+	. = ..()
+	if(!QDELETED(src))
+		dispel()
+	
+/obj/item/clothing/ring/fate_weaver/dropped()
+	. = ..()
+	if(!QDELETED(src))
+		dispel()
+
+/////////////////////////
+// Wedding Rings/Bands //
+/////////////////////////
+
+// These are meant to not be smelted down for anything or sell for much. Loadout items for roleplay, kinda simple.
+// Also, can rename their name/desc to put parnters name in it and stuff. Some customization. TODO: allow sprite selection between 2-3 types of wedding band sprites.
+/obj/item/clothing/ring/band
+	name = "silver weddingband"
+	desc = "A simple silver wedding band complete with an ornate design of a lover's name."
+	icon_state = "s_ring_wedding"
+	sellprice = 3	//You don't get to smelt this down or sell it. No free mams for a loadout item.
+	var/choicename = FALSE
+	var/choicedesc = FALSE
+
+/obj/item/clothing/ring/band/attack_right(mob/user)
+	if(choicename)
+		return
+	if(choicedesc)
+		return
+	var/current_time = world.time
+	var/namechoice = input(user, "Input a new name", "Rename Object")
+	var/descchoice = input(user, "Input a new description", "Describe Object")
+	if(namechoice)
+		name = namechoice
+		choicename = TRUE
+	if(descchoice)
+		desc = descchoice
+		choicedesc = TRUE
+	else
+		return
+	if(world.time > (current_time + 30 SECONDS))
+		return
+

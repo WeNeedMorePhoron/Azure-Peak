@@ -59,23 +59,20 @@
 
 		if(wear_armor)
 			if(mobility_flags & MOBILITY_STAND)
-				var/obj/item/clothing/C = wear_armor
-				C.step_action()
+				wear_armor.step_action()
 
 		if(wear_shirt)
 			if(mobility_flags & MOBILITY_STAND)
-				var/obj/item/clothing/C = wear_shirt
-				C.step_action()
+				wear_shirt.step_action()
 
 		if(cloak)
 			if(mobility_flags & MOBILITY_STAND)
-				var/obj/item/clothing/C = cloak
-				C.step_action()
+				var/obj/item/clothing/C = isclothing(cloak) ? cloak : null
+				C?.step_action()
 
 		if(shoes)
-			if(mobility_flags & MOBILITY_STAND)
-				var/obj/item/clothing/shoes/S = shoes
-
+			var/obj/item/clothing/shoes/S = shoes
+			if(mobility_flags & MOBILITY_STAND && istype(S))
 				//Bloody footprints
 				var/turf/T = get_turf(src)
 				if(S.bloody_shoes && S.bloody_shoes[S.blood_state])
@@ -102,15 +99,6 @@
 			if(src.mind?.has_antag_datum(/datum/antagonist/zombie) && (!src.handcuffed) && prob(50))
 				visible_message(span_warning("[src] spits out [mouth]."))
 				dropItemToGround(mouth, silent = FALSE)
-		if(held_items.len)
-			for(var/obj/item/I in held_items)
-				if(I.minstr)
-					var/effective = I.minstr
-					if(I.wielded)
-						effective = max(I.minstr / 2, 1)
-					if(effective > STASTR)
-						if(prob(effective))
-							dropItemToGround(I, silent = FALSE)
 
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0) //Temporary laziness thing. Will change to handles by species reee.
 	if(dna.species.space_move(src))

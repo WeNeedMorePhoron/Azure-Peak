@@ -58,13 +58,13 @@
 
 /datum/alch_grind_recipe/swampweed
 	name = "Swampweed"
-	valid_input = /obj/item/reagent_containers/food/snacks/grown/rogue/sweetleaf
+	valid_input = /obj/item/reagent_containers/food/snacks/grown/rogue/swampweed
 	valid_outputs = list(/obj/item/alch/swampdust = 1)
 	bonus_chance_outputs = list(/obj/item/alch/earthdust = 33)
 
 /datum/alch_grind_recipe/swampweed_dried
 	name = "Dried Swampweed"
-	valid_input = /obj/item/reagent_containers/food/snacks/grown/rogue/sweetleafdry
+	valid_input = /obj/item/reagent_containers/food/snacks/grown/rogue/swampweeddry
 	valid_outputs = list(/obj/item/alch/swampdust = 1)
 	bonus_chance_outputs = list(/obj/item/alch/earthdust = 50,/obj/item/alch/swampdust = 50)
 
@@ -281,3 +281,8 @@
 	name = "Herb Seed (Rosa)"
 	valid_input = /obj/item/alch/rosa
 	valid_outputs = list(/obj/item/herbseed/rosa = 1)
+
+/datum/alch_grind_recipe/manabloom_seed
+	name = "Herb Seed (Manabloom)"
+	valid_input = /obj/item/reagent_containers/food/snacks/grown/manabloom
+	valid_outputs = list(/obj/item/herbseed/manabloom = 1)

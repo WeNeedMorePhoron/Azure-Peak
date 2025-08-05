@@ -54,7 +54,7 @@
 			C.visible_message(span_notice("\the [src] is locked."))
 			playsound(src, 'sound/foley/doors/lock.ogg', 100)
 			return FALSE
-		if(C.mind.get_skill_level(/datum/skill/craft/traps) < 1)
+		if(C.get_skill_level(/datum/skill/craft/traps) < 1)
 			bust_open()
 			trap_effect()
 			armed = FALSE
@@ -62,7 +62,7 @@
 		else
 			used_time = 14 SECONDS
 			if(C.mind)
-				used_time -= max((C.mind.get_skill_level(/datum/skill/craft/traps) * 2 SECONDS), 2 SECONDS)
+				used_time -= max((C.get_skill_level(/datum/skill/craft/traps) * 2 SECONDS), 2 SECONDS)
 				C.visible_message(span_notice("[C] begins disarming \the [src]."), \
 						span_notice("I start disarming \the [src]."))
 			if(do_after(user, used_time, target = src))
@@ -84,3 +84,15 @@
 	icon = 'icons/roguetown/misc/structure.dmi'
 	icon_state = "chest3s"
 	locked = TRUE
+	var/list/loot_weighted_list = list(
+		/obj/effect/spawner/lootdrop/general_loot_hi = 4,
+		/obj/effect/spawner/lootdrop/general_loot_mid = 1,
+	)
+	var/loot_spawn_dice_string = "1d4+1"
+
+/obj/structure/closet/crate/chest/trapped/locked/Initialize()
+	. = ..()
+	var/random_loot_amount = roll(loot_spawn_dice_string)
+	for(var/loot_spawn in 1 to random_loot_amount)
+		var/obj/new_loot = pick(loot_weighted_list)
+		new new_loot(src)

@@ -3,7 +3,7 @@
 	roundend_category = "Werewolves"
 	antagpanel_category = "Werewolf"
 	job_rank = ROLE_WEREWOLF
-	var/list/inherent_traits = list(TRAIT_NOPAIN, TRAIT_NOPAINSTUN, TRAIT_CRITICAL_RESISTANCE, TRAIT_NOFALLDAMAGE1, TRAIT_KNEESTINGER_IMMUNITY, TRAIT_SHOCKIMMUNE)
+	var/list/inherent_traits = list(TRAIT_NOPAIN, TRAIT_NOPAINSTUN, TRAIT_CRITICAL_RESISTANCE, TRAIT_NOFALLDAMAGE1, TRAIT_KNEESTINGER_IMMUNITY, TRAIT_SHOCKIMMUNE, TRAIT_GRABIMMUNE)
 	confess_lines = list(
 		"THE BEAST INSIDE ME!",
 		"BEWARE THE BEAST!",
@@ -37,10 +37,11 @@
 				return span_boldwarning("An Ancient Vampire. I must be careful!")
 
 /datum/antagonist/werewolf/on_gain()
+	greet()
 	owner.special_role = name
 	if(increase_votepwr)
 		forge_werewolf_objectives()
-
+	
 	wolfname = "[pick(GLOB.wolf_prefixes)] [pick(GLOB.wolf_suffixes)]"
 	return ..()
 
@@ -64,9 +65,12 @@
 		return
 
 /datum/antagonist/werewolf/greet()
-	to_chat(owner.current, span_userdanger("Ever since that bite, I have been a [name]."))
-	owner.announce_objectives()
+	to_chat(owner.current, span_userdanger("Since a bite long, long ago, Dendor's Madness has welled within me. Before the Moonlight, I will sate my hallowed Hunger."))
 	return ..()
+
+/datum/antagonist/werewolf/lesser/greet()
+	// leave this empty so that lesser verevolf's dont get the greeting on bite.
+	// there is probably a better way to do this but this works until sm1 smarter inevitably rewrites WW.
 
 /mob/living/carbon/human/proc/can_werewolf()
 	if(!mind)

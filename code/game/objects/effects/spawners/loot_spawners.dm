@@ -7,6 +7,7 @@
 
 /obj/effect/spawner/lootdrop/general_loot_low
 	name = "low tier general loot spawner"
+	icon_state = "genlow"
 	lootcount = 1
 	loot = list(
 		//mats
@@ -45,7 +46,7 @@
 		//junk
 		/obj/item/rogue/instrument/flute = 3,
 		/obj/item/ash = 5,
-		/obj/item/natural/glass/shard = 5,
+		/obj/item/natural/glass_shard = 5,
 		/obj/item/candle/yellow = 3,
 		/obj/item/flashlight/flare/torch = 3,
 		/obj/item/reagent_containers/glass/bowl = 4,
@@ -145,6 +146,7 @@
 
 /obj/effect/spawner/lootdrop/general_loot_mid
 	name = "mid tier general loot spawner"
+	icon_state = "genmid"
 	lootcount = 1
 	loot = list(
 		//mats
@@ -187,7 +189,7 @@
 		//junk
 		/obj/item/rogue/instrument/flute = 3,
 		/obj/item/ash = 5,
-		/obj/item/natural/glass/shard = 5,
+		/obj/item/natural/glass_shard = 5,
 		/obj/item/candle/yellow = 3,
 		/obj/item/flashlight/flare/torch = 3,
 		/obj/item/reagent_containers/glass/bowl = 4,
@@ -303,6 +305,7 @@
 
 /obj/effect/spawner/lootdrop/general_loot_hi
 	name = "high tier general loot spawner"
+	icon_state = "genhi"
 	lootcount = 1
 	loot = list(
 		//mats
@@ -423,14 +426,17 @@
 
 /obj/effect/spawner/lootdrop/general_loot_low/x3
 	name = "low tier general loot spawnerx3"
+	icon_state = "genlowx3"
 	lootcount = 3
 
 /obj/effect/spawner/lootdrop/general_loot_mid/x3
 	name = "mid tier general loot spawnerx3"
+	icon_state = "genmidx3"
 	lootcount = 3
 
 /obj/effect/spawner/lootdrop/general_loot_hi/x3
 	name = "high tier general loot spawnerx3"
+	icon_state = "genhix3"
 	lootcount = 3
 
 /*

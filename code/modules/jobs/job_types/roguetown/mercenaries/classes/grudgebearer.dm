@@ -23,16 +23,16 @@
 				H.change_stat("endurance", 3)
 				H.change_stat("strength", 1)
 				H.change_stat("speed", -2)
-				H.mind.adjust_skillrank(/datum/skill/misc/reading, 4, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/craft/armorsmithing, 4, TRUE)	//Shouldn't be better than the smith (though the stats are already)
-				H.mind.adjust_skillrank(/datum/skill/craft/blacksmithing, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/craft/smelting, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/combat/maces, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/craft/weaponsmithing, 1, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/misc/climbing, 1, TRUE)
+				H.adjust_skillrank(/datum/skill/misc/reading, 4, TRUE)
+				H.adjust_skillrank(/datum/skill/craft/armorsmithing, 4, TRUE)	//Shouldn't be better than the smith (though the stats are already)
+				H.adjust_skillrank(/datum/skill/craft/blacksmithing, 3, TRUE)
+				H.adjust_skillrank(/datum/skill/craft/smelting, 3, TRUE)
+				H.adjust_skillrank(/datum/skill/combat/maces, 3, TRUE)
+				H.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE)
+				H.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE)
+				H.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
+				H.adjust_skillrank(/datum/skill/craft/weaponsmithing, 1, TRUE)
+				H.adjust_skillrank(/datum/skill/misc/climbing, 1, TRUE)
 				shoes = /obj/item/clothing/shoes/roguetown/boots/armor/dwarven
 				cloak = /obj/item/clothing/cloak/forrestercloak/snow
 				belt = /obj/item/storage/belt/rogue/leather/black
@@ -43,7 +43,15 @@
 				gloves = /obj/item/clothing/gloves/roguetown/plate/dwarven
 				pants = /obj/item/clothing/under/roguetown/trou/leather
 				armor = /obj/item/clothing/suit/roguetown/armor/plate/half
-				backpack_contents = list(/obj/item/roguekey/mercenary, /obj/item/storage/belt/rogue/pouch/coins/poor, /obj/item/rogueweapon/hammer/iron, /obj/item/paper/scroll/grudge, /obj/item/natural/feather, /obj/item/rogueweapon/tongs = 1, /obj/item/clothing/head/roguetown/helmet/heavy/dwarven)
+				backpack_contents = list(
+					/obj/item/roguekey/mercenary,
+					/obj/item/storage/belt/rogue/pouch/coins/poor,
+					/obj/item/rogueweapon/hammer/iron,
+					/obj/item/paper/scroll/grudge,
+					/obj/item/natural/feather,
+					/obj/item/rogueweapon/tongs = 1,
+					/obj/item/clothing/head/roguetown/helmet/heavy/dwarven,
+					)
 				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 				ADD_TRAIT(H, TRAIT_TRAINED_SMITH, TRAIT_GENERIC)
 			if("Soldier")
@@ -51,15 +59,15 @@
 				H.change_stat("endurance", 4)
 				H.change_stat("strength", 2)
 				H.change_stat("speed", -2)
-				H.mind.adjust_skillrank(/datum/skill/combat/axes, 4, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/combat/maces, 4, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/misc/reading, 4, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/misc/tracking, 3, TRUE)
-				H.mind.adjust_skillrank(/datum/skill/craft/armorsmithing, 2, TRUE)	//Only here so they'd be able to repair their own armor integrity
-				H.mind.adjust_skillrank(/datum/skill/misc/climbing, 1, TRUE)
+				H.adjust_skillrank(/datum/skill/combat/axes, 4, TRUE)
+				H.adjust_skillrank(/datum/skill/combat/maces, 4, TRUE)
+				H.adjust_skillrank(/datum/skill/misc/reading, 4, TRUE)
+				H.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE)
+				H.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE)
+				H.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
+				H.adjust_skillrank(/datum/skill/misc/tracking, 3, TRUE)
+				H.adjust_skillrank(/datum/skill/craft/armorsmithing, 2, TRUE)	//Only here so they'd be able to repair their own armor integrity
+				H.adjust_skillrank(/datum/skill/misc/climbing, 1, TRUE)
 				shoes = /obj/item/clothing/shoes/roguetown/boots/armor/dwarven
 				cloak = /obj/item/clothing/cloak/forrestercloak/snow
 				belt = /obj/item/storage/belt/rogue/leather/black
@@ -70,7 +78,13 @@
 				pants = /obj/item/clothing/under/roguetown/trou/leather
 				armor = /obj/item/clothing/suit/roguetown/armor/plate/full/dwarven
 				head = /obj/item/clothing/head/roguetown/helmet/heavy/dwarven
-				backpack_contents = list(/obj/item/roguekey/mercenary, /obj/item/storage/belt/rogue/pouch/coins/poor, /obj/item/rogueweapon/hammer/iron, /obj/item/paper/scroll/grudge, /obj/item/natural/feather)
+				backpack_contents = list(
+					/obj/item/roguekey/mercenary,
+					/obj/item/storage/belt/rogue/pouch/coins/poor,
+					/obj/item/rogueweapon/hammer/iron,
+					/obj/item/paper/scroll/grudge,
+					/obj/item/natural/feather,
+					)
 				var/weapons = list("Axe", "Mace")
 				var/wepchoice = input("Choose your weapon", "Available weapons") as anything in weapons
 				switch(wepchoice)
@@ -80,6 +94,7 @@
 						backr = /obj/item/rogueweapon/mace/goden/steel
 				ADD_TRAIT(H, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
+	H.merctype = 8
 
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/dwarven

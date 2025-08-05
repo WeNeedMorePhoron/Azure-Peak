@@ -54,12 +54,28 @@
 	color = "#859e56"
 	taste_description = "watery cabbage"
 
+/datum/reagent/consumable/soup/veggie/turnip
+	name = "turnip soup"
+	color = "#becf9d"
+	taste_description = "boiled turnip"
+
 /datum/reagent/consumable/soup/stew
 	name = "thick stew"
 	description = "All manners of edible bits went into this."
 	reagent_state = LIQUID
 	nutriment_factor = 20
 	taste_mult = 4
+
+/datum/reagent/consumable/soup/stew/egg
+	name = "egg drop soup"
+	color = "#dedbaf"
+	taste_description = "egg soup"
+
+/datum/reagent/consumable/soup/stew/cheese
+	name = "cheese soup"
+	description = "A thick cheese soup. Creamy and comforting."
+	color = "#c4be70"
+	taste_description = "creamy cheese"
 
 /datum/reagent/consumable/soup/stew/chicken
 	name = "chicken stew"
@@ -100,6 +116,47 @@
 	name = "berry stew"
 	color = "#863333"
 	taste_description = "suspiciously bitter berries"
+
+/datum/reagent/consumable/soup/stew/garlick_soup
+	name = "garlick soup"
+	color = "#FAF9F6"
+	taste_description = "clear sinuses"
+
+/datum/reagent/consumable/soup/stew/cucumber_soup
+	name = "cucumber soup"
+	color = "#98fb98"
+	taste_description = "rich cucumber"
+
+/datum/reagent/consumable/soup/stew/eggplant_soup
+	name = "eggplant soup"
+	color = "#fff8e3"
+	taste_description = "tasty eggplant"
+
+/datum/reagent/consumable/soup/stew/carrot_stew
+	name = "carrot stew"
+	color = "#f26818"
+	taste_description = "savory carrot"
+
+/datum/reagent/consumable/soup/stew/nutty_stew
+	name = "nutty stew"
+	color = "#807b78"
+	taste_description = "nutty"
+
+/datum/reagent/consumable/soup/stew/tomato_soup
+	name = "tomato soup"
+	color = "#db5230"
+	taste_description = "home"
+	metabolization_rate = 0.5 // half as fast as normal, last twice as long - it is the best soup after all
+
+/datum/reagent/consumable/soup/stew/plum_soup
+	name = "plum soup"
+	color = "#9c305b"
+	taste_description = "sweet plums"
+
+/datum/reagent/consumable/soup/stew/tangerine_marmalade
+	name = "tangerine marmalade"
+	color = "#f0935d"
+	taste_description = "extremely sweet tangerine"
 
 // Copy pasted from berry poison, but stew metabolizes much faster so it is less deadly. You CAN use it as a source of hydration / nutrition if you are desperate enough???
 /datum/reagent/consumable/soup/stew/berry_poisoned/on_mob_life(mob/living/carbon/M)

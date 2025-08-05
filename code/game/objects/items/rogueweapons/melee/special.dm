@@ -1,25 +1,29 @@
-/obj/item/rogueweapon/lordscepter
-	force = 20
-	force_wielded = 20
-	possible_item_intents = list(/datum/intent/lordbash, /datum/intent/lord_electrocute, /datum/intent/lord_silence)
-	gripped_intents = list(/datum/intent/lordbash)
-	name = "master's rod"
-	desc = "Bend the knee. Can't be used outside of the manor."
-	icon_state = "scepter"
-	icon = 'icons/roguetown/weapons/32.dmi'
-	sharpness = IS_BLUNT
-	//dropshrink = 0.75
-	wlength = WLENGTH_NORMAL
-	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = ITEM_SLOT_HIP
-	associated_skill = /datum/skill/combat/maces
-	smeltresult = /obj/item/ingot/iron
-	swingsound = BLUNTWOOSH_MED
-	minstr = 5
-	blade_dulling = DULLING_SHAFT_WOOD
+/// INTENT DATUMS	v
+/datum/intent/katar/cut
+	name = "cut"
+	icon_state = "incut"
+	attack_verb = list("cuts", "slashes")
+	animname = "cut"
+	blade_class = BCLASS_CUT
+	hitsound = list('sound/combat/hits/bladed/smallslash (1).ogg', 'sound/combat/hits/bladed/smallslash (2).ogg', 'sound/combat/hits/bladed/smallslash (3).ogg')
+	penfactor = 0
+	chargetime = 0
+	swingdelay = 0
+	damfactor = 1.3
+	clickcd = CLICK_CD_INTENTCAP
+	item_d_type = "slash"
 
-	grid_height = 96
-	grid_width = 32
+/datum/intent/katar/thrust
+	name = "thrust"
+	icon_state = "instab"
+	attack_verb = list("thrusts")
+	animname = "stab"
+	blade_class = BCLASS_STAB
+	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
+	penfactor = 40
+	chargetime = 0
+	clickcd = CLICK_CD_INTENTCAP
+	item_d_type = "stab"
 
 /datum/intent/lordbash
 	name = "bash"
@@ -43,6 +47,56 @@
 	tranged = TRUE
 	noaa = TRUE
 
+/datum/intent/knuckles/strike
+	name = "punch"
+	blade_class = BCLASS_BLUNT
+	attack_verb = list("punches", "clocks")
+	hitsound = list('sound/combat/hits/punch/punch_hard (1).ogg', 'sound/combat/hits/punch/punch_hard (2).ogg', 'sound/combat/hits/punch/punch_hard (3).ogg')
+	chargetime = 0
+	penfactor = BLUNT_DEFAULT_PENFACTOR
+	clickcd = 8
+	damfactor = 1.1
+	swingdelay = 0
+	icon_state = "inpunch"
+	item_d_type = "blunt"
+
+/datum/intent/knuckles/smash
+	name = "smash"
+	blade_class = BCLASS_SMASH
+	attack_verb = list("smashes")
+	hitsound = list('sound/combat/hits/punch/punch_hard (1).ogg', 'sound/combat/hits/punch/punch_hard (2).ogg', 'sound/combat/hits/punch/punch_hard (3).ogg')
+	penfactor = BLUNT_DEFAULT_PENFACTOR
+	damfactor = 1.1
+	clickcd = CLICK_CD_MELEE
+	swingdelay = 8
+	intent_intdamage_factor = 1.8
+	icon_state = "insmash"
+	item_d_type = "blunt"
+/// INTENT DATUMS	^
+
+/obj/item/rogueweapon/lordscepter
+	force = 20
+	force_wielded = 20
+	possible_item_intents = list(/datum/intent/lordbash, /datum/intent/lord_electrocute, /datum/intent/lord_silence)
+	gripped_intents = list(/datum/intent/lordbash)
+	name = "master's rod"
+	desc = "Bend the knee. Can't be used outside of the manor."
+	icon_state = "scepter"
+	icon = 'icons/roguetown/weapons/32.dmi'
+	sharpness = IS_BLUNT
+	//dropshrink = 0.75
+	wlength = WLENGTH_NORMAL
+	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags = ITEM_SLOT_HIP
+	associated_skill = /datum/skill/combat/maces
+	smeltresult = /obj/item/ingot/iron
+	swingsound = BLUNTWOOSH_MED
+	minstr = 5
+	blade_dulling = DULLING_SHAFT_WOOD
+
+	grid_height = 96
+	grid_width = 32
+
 /obj/item/rogueweapon/lordscepter/getonmobprop(tag)
 	if(tag)
 		switch(tag)
@@ -63,7 +117,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/HU = user
 
-		if((HU.job != "Grand Duke") && (HU.job != "Consort"))
+		if(HU.job != "Grand Duke")
 			to_chat(user, span_danger("The rod doesn't obey me."))
 			return
 
@@ -208,7 +262,7 @@
 
 /obj/item/rogueweapon/katar
 	slot_flags = ITEM_SLOT_HIP
-	force = 16
+	force = 24
 	possible_item_intents = list(/datum/intent/katar/cut, /datum/intent/katar/thrust)
 	name = "katar"
 	desc = "A blade that sits above the users fist. Commonly used by those proficient at unarmed fighting"
@@ -219,7 +273,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	parrysound = list('sound/combat/parry/bladed/bladedsmall (1).ogg','sound/combat/parry/bladed/bladedsmall (2).ogg','sound/combat/parry/bladed/bladedsmall (3).ogg')
 	max_blade_int = 150
-	max_integrity = 300
+	max_integrity = 80
 	swingsound = list('sound/combat/wooshes/bladed/wooshsmall (1).ogg','sound/combat/wooshes/bladed/wooshsmall (2).ogg','sound/combat/wooshes/bladed/wooshsmall (3).ogg')
 	associated_skill = /datum/skill/combat/unarmed
 	pickup_sound = 'sound/foley/equip/swordsmall2.ogg'
@@ -229,34 +283,6 @@
 	thrown_bclass = BCLASS_CUT
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/steel
-
-/datum/intent/katar
-	clickcd = 8
-
-/datum/intent/katar/cut
-	name = "cut"
-	icon_state = "incut"
-	attack_verb = list("cuts", "slashes")
-	animname = "cut"
-	blade_class = BCLASS_CUT
-	hitsound = list('sound/combat/hits/bladed/smallslash (1).ogg', 'sound/combat/hits/bladed/smallslash (2).ogg', 'sound/combat/hits/bladed/smallslash (3).ogg')
-	penfactor = 0
-	chargetime = 0
-	swingdelay = 0
-	clickcd = 8
-	item_d_type = "slash"
-
-/datum/intent/katar/thrust
-	name = "thrust"
-	icon_state = "instab"
-	attack_verb = list("thrusts")
-	animname = "stab"
-	blade_class = BCLASS_STAB
-	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
-	penfactor = 40
-	chargetime = 0
-	clickcd = 8
-	item_d_type = "stab"
 
 /obj/item/rogueweapon/katar/getonmobprop(tag)
 	. = ..()
@@ -272,13 +298,31 @@
 	name = "barotrauma"
 	desc = "A gift from a creature of the sea. The claw is sharpened to a wicked edge."
 	icon_state = "abyssorclaw"
-	force = 20
+	force = 27	//Its thrust will be able to pen 80 stab armor if the wielder has 17 STR. (With softcap)
+	max_integrity = 120
 
+/obj/item/rogueweapon/katar/punchdagger
+	name = "punch dagger"
+	desc = "A weapon that combines the ergonomics of the Ranesheni katar with the capabilities of the Western Psydonian \"knight-killers\". It can be tied around the wrist."
+	slot_flags = ITEM_SLOT_WRISTS
+	max_integrity = 120		//Steel dagger -30
+	force = 15		//Steel dagger -5
+	throwforce = 8
+	wdefense = 1	//Hell no!
+	thrown_bclass = BCLASS_STAB
+	possible_item_intents = list(/datum/intent/dagger/thrust, /datum/intent/dagger/thrust/pick)
+	icon_state = "plug"
+
+/obj/item/rogueweapon/katar/punchdagger/frei
+	name = "vývrtka"
+	desc = "A type of punch dagger of Aavnic make initially designed to level the playing field with an orc in fisticuffs, its serrated edges and longer, thinner point are designed to maximize pain for the recipient. It's aptly given the name of \"corkscrew\", and this specific one has the colours of Szöréndnížina. Can be worn on your ring slot."
+	icon_state = "freiplug"
+	slot_flags = ITEM_SLOT_RING
 
 /obj/item/rogueweapon/knuckles
 	name = "steel knuckles"
 	desc = "A mean looking pair of steel knuckles."
-	force = 15
+	force = 22
 	possible_item_intents = list(/datum/intent/knuckles/strike,/datum/intent/knuckles/smash)
 	icon = 'icons/roguetown/weapons/32.dmi'
 	icon_state = "steelknuckle"
@@ -292,14 +336,14 @@
 	swingsound = list('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
 	associated_skill = /datum/skill/combat/unarmed
 	throwforce = 12
-	wdefense = 4
-	wbalance = WBALANCE_SWIFT
+	wdefense = 7
+	wbalance = WBALANCE_HEAVY
 	blade_dulling = DULLING_SHAFT_WOOD
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/steel
 	grid_width = 64
 	grid_height = 32
-	intdamage_factor = 1.45
+	intdamage_factor = 1.2
 
 /obj/item/rogueweapon/knuckles/getonmobprop(tag)
 	. = ..()
@@ -313,7 +357,7 @@
 /obj/item/rogueweapon/knuckles/bronzeknuckles
 	name = "bronze knuckles"
 	desc = "A mean looking pair of bronze knuckles. Mildly heavier than it's steel counterpart, making it a solid defensive option, if less wieldy."
-	force = 13
+	force = 20
 	possible_item_intents = list(/datum/intent/knuckles/strike,/datum/intent/knuckles/smash)
 	icon = 'icons/roguetown/weapons/32.dmi'
 	icon_state = "bronzeknuckle"
@@ -323,50 +367,24 @@
 	slot_flags = ITEM_SLOT_HIP
 	parrysound = list('sound/combat/parry/pugilism/unarmparry (1).ogg','sound/combat/parry/pugilism/unarmparry (2).ogg','sound/combat/parry/pugilism/unarmparry (3).ogg')
 	sharpness = IS_BLUNT
-	max_integrity = 300
+	max_integrity = 250
 	swingsound = list('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
 	associated_skill = /datum/skill/combat/unarmed
 	throwforce = 12
-	wdefense = 5
-	wbalance = WBALANCE_SWIFT
+	wdefense = 6
+	wbalance = WBALANCE_HEAVY
 	blade_dulling = DULLING_SHAFT_WOOD
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/bronze
-	intdamage_factor = 1.30
-
-/datum/intent/knuckles
-	clickcd = 8
-
-/datum/intent/knuckles/strike
-	name = "punch"
-	blade_class = BCLASS_BLUNT
-	attack_verb = list("punches", "clocks")
-	hitsound = list('sound/combat/hits/punch/punch_hard (1).ogg', 'sound/combat/hits/punch/punch_hard (2).ogg', 'sound/combat/hits/punch/punch_hard (3).ogg')
-	chargetime = 0
-	penfactor = BLUNT_DEFAULT_PENFACTOR
-	damfactor = 1
-	swingdelay = 0
-	icon_state = "inpunch"
-	item_d_type = "blunt"
-
-
-/datum/intent/knuckles/smash
-	name = "smash"
-	blade_class = BCLASS_SMASH
-	attack_verb = list("smashes")
-	hitsound = list('sound/combat/hits/punch/punch_hard (1).ogg', 'sound/combat/hits/punch/punch_hard (2).ogg', 'sound/combat/hits/punch/punch_hard (3).ogg')
-	penfactor = BLUNT_DEFAULT_PENFACTOR
-	damfactor = 1.3
-	swingdelay = 6
-	icon_state = "insmash"
-	item_d_type = "blunt"
+	intdamage_factor = 1.2
 
 /obj/item/rogueweapon/knuckles/aknuckles
 	name = "decrepit knuckles"
 	desc = "a set of knuckles made of ancient metals, Aeon's grasp wither their form."
 	icon_state = "aknuckle"
 	force = 12
-	max_integrity = 225
+	max_integrity = 150
+	wdefense = 5
 	smeltresult = /obj/item/ingot/aalloy
 	blade_dulling = DULLING_SHAFT_CONJURED
 
@@ -380,7 +398,7 @@
 /obj/item/rogueweapon/knuckles/eora
 	name = "close caress"
 	desc = "Some times call for a more intimate approach."
-	force = 20
+	force = 25
 	icon_state = "eoraknuckle"
 
 ///Peasantry / Militia Weapon Pack///

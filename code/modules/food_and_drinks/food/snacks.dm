@@ -44,6 +44,7 @@ All foods are distributed among various categories. Use common sense.
 	var/slice_path    // for sliceable food. path of the item resulting from the slicing
 	var/slice_bclass = BCLASS_CUT
 	var/slices_num
+	var/slice_name
 	var/slice_batch = TRUE
 	var/eatverb
 	var/dried_type = null
@@ -349,11 +350,11 @@ All foods are distributed among various categories. Use common sense.
 				if(0 to NUTRITION_LEVEL_STARVING)
 					user.visible_message(span_notice("[user] hungrily [eatverb]s \the [src], gobbling it down!"), span_notice("I hungrily [eatverb] \the [src], gobbling it down!"))
 					M.changeNext_move(CLICK_CD_MELEE * 0.5)
-/*			if(M.rogstam <= 50)
+/*			if(M.energy <= 50)
 				user.visible_message(span_notice("[user] hungrily [eatverb]s \the [src], gobbling it down!"), span_notice("I hungrily [eatverb] \the [src], gobbling it down!"))
-			else if(M.rogstam > 50 && M.rogstam < 500)
+			else if(M.energy > 50 && M.energy < 500)
 				user.visible_message(span_notice("[user] hungrily [eatverb]s \the [src]."), span_notice("I hungrily [eatverb] \the [src]."))
-			else if(M.rogstam > 500 && M.rogstam < 1000)
+			else if(M.energy > 500 && M.energy < 1000)
 				user.visible_message(span_notice("[user] [eatverb]s \the [src]."), span_notice("I [eatverb] \the [src]."))
 			if(HAS_TRAIT(M, TRAIT_VORACIOUS))
 			M.changeNext_move(CLICK_CD_MELEE * 0.5) nom nom nom*/
@@ -398,6 +399,13 @@ All foods are distributed among various categories. Use common sense.
 				checkLiked(fraction, M)
 				if(bitecount >= bitesize)
 					qdel(src)
+				else if(user.client?.prefs.autoconsume)
+					if(M == user && do_after(user, CLICK_CD_MELEE))
+						INVOKE_ASYNC(src, PROC_REF(attack), M, user, def_zone)
+						user.changeNext_move(CLICK_CD_MELEE)
+					else if(M != user)
+						INVOKE_ASYNC(src, PROC_REF(attack), M, user, def_zone)
+						user.changeNext_move(CLICK_CD_MELEE)
 				return TRUE
 		playsound(M.loc,'sound/misc/eat.ogg', rand(30,60), TRUE)
 		qdel(src)
@@ -524,18 +532,15 @@ All foods are distributed among various categories. Use common sense.
 		var/reagents_per_slice = reagents.total_volume/slices_num
 		for(var/i in 1 to slices_num)
 			var/obj/item/reagent_containers/food/snacks/slice = new slice_path(loc)
-			slice.filling_color = filling_color
 			initialize_slice(slice, reagents_per_slice)
 		qdel(src)
 	else
 		var/reagents_per_slice = reagents.total_volume/slices_num
 		var/obj/item/reagent_containers/food/snacks/slice = new slice_path(loc)
-		slice.filling_color = filling_color
 		initialize_slice(slice, reagents_per_slice)
 		slices_num--
 		if(slices_num == 1)
 			slice = new slice_path(loc)
-			slice.filling_color = filling_color
 			initialize_slice(slice, reagents_per_slice)
 			qdel(src)
 			return TRUE
@@ -549,6 +554,7 @@ All foods are distributed among various categories. Use common sense.
 	slice.create_reagents(slice.volume)
 	reagents.trans_to(slice,reagents_per_slice)
 	slice.filling_color = filling_color
+	slice.name = slice_name ? slice_name : slice.name
 	slice.update_snack_overlays(src)
 //	if(name != initial(name))
 //		slice.name = "slice of [name]"

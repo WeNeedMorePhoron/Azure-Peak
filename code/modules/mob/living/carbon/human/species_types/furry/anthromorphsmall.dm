@@ -4,7 +4,7 @@
 /datum/species/anthromorphsmall
 	name = "Verminvolk"
 	id = "anthromorphsmall"
-	desc = "A race akin to wild-kin, except afflicted with significantly smaller stature. A bit less respected than their kin due to their closer resemblance to vermin, like the dichotomy between Kobold and Sissean.<br>\
+	desc = "A race akin to wild-kin, except afflicted with significantly smaller stature. A bit less respected than their kin due to their closer resemblance to vermin, like the dichotomy between Kobold and Zardman.<br>\
 	(+1 Speed)"
 	default_color = "444"
 	species_traits = list(
@@ -98,6 +98,8 @@
 		/datum/body_marking/small/front,
 		/datum/body_marking/small/spotted,
 		/datum/body_marking/small/nose,
+		/datum/body_marking/small/bangs,
+		/datum/body_marking/small/bun,
 	)
 	stress_examine = TRUE
 	stress_desc = span_red("Filthy vermin...")

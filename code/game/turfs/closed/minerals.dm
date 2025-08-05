@@ -68,22 +68,37 @@
 		return
 	lastminer = user
 	..()
-	var/olddam = turf_integrity
-	if(turf_integrity && turf_integrity > 10)
-		if(turf_integrity < olddam)
-			if(prob(50))
-				if(user.Adjacent(src))
-					var/obj/item/natural/stone/S = new(src)
-					S.forceMove(get_turf(user))
+	if(istype(I, /obj/item/rogueweapon/pick))
+		if(!isliving(user))
+			return
+
+		var/mob/living/L = user
+		user.doing = FALSE
+		// Makes more sense for the check since they always
+		// become an open tile afterwards
+		while(density && user.Adjacent(src))
+			if((L.energy > 0) && (do_after(user, CLICK_CD_MELEE, TRUE, src)))
+				..()
+				var/olddam = turf_integrity
+				if(turf_integrity && turf_integrity > 10)
+					if(turf_integrity < olddam)
+						if(prob(50))
+							if(user.Adjacent(src))
+								var/obj/item/natural/stone/S = new(src)
+								S.forceMove(get_turf(user))
+					if(!density)
+						break
+			else
+				break
 
 /turf/closed/mineral/attack_right(mob/user)
 	var/obj/item = user.get_active_held_item()
-	if(user.used_intent.type == /datum/intent/pick && (user.mind.get_skill_level(/datum/skill/labor/mining) >= SKILL_LEVEL_JOURNEYMAN))
+	if(user.used_intent.type == /datum/intent/pick && (user.get_skill_level(/datum/skill/labor/mining) >= SKILL_LEVEL_JOURNEYMAN))
 		if(do_after(user, 4 SECONDS, TRUE, src))
 			if(!ismineralturf(src))
 				return
 			src.attackby(item, user, multiplier = 4)
-			user.rogfat_add(25)
+			user.stamina_add(25)
 	..()
 
 /turf/closed/mineral/turf_destruction(damage_flag)
@@ -202,19 +217,41 @@
 	turf_type = /turf/open/floor/rogue/naturalstone
 	above_floor = /turf/open/floor/rogue/naturalstone
 	baseturfs = list(/turf/open/floor/rogue/naturalstone)
-	mineralSpawnChanceList = list(/turf/closed/mineral/rogue/salt = 5,/turf/closed/mineral/rogue/iron = 15,/turf/closed/mineral/rogue/copper = 10,/turf/closed/mineral/rogue/coal = 25)
+	mineralSpawnChanceList = list(
+		/turf/closed/mineral/rogue/salt = 5,
+		/turf/closed/mineral/rogue/iron = 15,
+		/turf/closed/mineral/rogue/copper = 10,
+		/turf/closed/mineral/rogue/coal = 25)
 	mineralChance = 23
 
 
 /turf/closed/mineral/random/rogue/med
 	icon_state = "minrandmed"
 	mineralChance = 10
-	mineralSpawnChanceList = list(/turf/closed/mineral/rogue/salt = 5,/turf/closed/mineral/rogue/gold = 3,/turf/closed/mineral/rogue/silver = 2,/turf/closed/mineral/rogue/iron = 33,/turf/closed/mineral/rogue/copper = 15,/turf/closed/mineral/rogue/tin = 10,/turf/closed/mineral/rogue/coal = 14, /turf/closed/mineral/rogue/gem = 1)
+	mineralSpawnChanceList = list(
+		/turf/closed/mineral/rogue/salt = 5,
+		/turf/closed/mineral/rogue/gold = 3,
+		/turf/closed/mineral/rogue/silver = 2,
+		/turf/closed/mineral/rogue/iron = 33,
+		/turf/closed/mineral/rogue/cinnabar = 15,
+		/turf/closed/mineral/rogue/copper = 15,
+		/turf/closed/mineral/rogue/tin = 10,
+		/turf/closed/mineral/rogue/coal = 14, 
+		/turf/closed/mineral/rogue/gem = 1)
 
 /turf/closed/mineral/random/rogue/high
 	icon_state = "minrandhigh"
 	mineralChance = 33
-	mineralSpawnChanceList = list(/turf/closed/mineral/rogue/salt = 5,/turf/closed/mineral/rogue/gold = 9,/turf/closed/mineral/rogue/silver = 5,/turf/closed/mineral/rogue/iron = 33,/turf/closed/mineral/rogue/copper = 20,/turf/closed/mineral/rogue/tin = 12,/turf/closed/mineral/rogue/coal = 19, /turf/closed/mineral/rogue/gem = 3)
+	mineralSpawnChanceList = list(
+		/turf/closed/mineral/rogue/cinnabar = 15,
+		/turf/closed/mineral/rogue/salt = 5,
+		/turf/closed/mineral/rogue/gold = 9,
+		/turf/closed/mineral/rogue/silver = 5,
+		/turf/closed/mineral/rogue/iron = 33,
+		/turf/closed/mineral/rogue/copper = 20,
+		/turf/closed/mineral/rogue/tin = 12,
+		/turf/closed/mineral/rogue/coal = 19, 
+		/turf/closed/mineral/rogue/gem = 3)
 
 
 //begin actual mineral turfs
@@ -285,6 +322,13 @@
 	rockType = /obj/item/natural/rock/coal
 	spreadChance = 33
 	spread = 11
+
+/turf/closed/mineral/rogue/cinnabar
+	icon_state = "mingold"
+	mineralType = /obj/item/rogueore/cinnabar
+	rockType = /obj/item/natural/rock/cinnabar
+	spreadChance = 23
+	spread = 5
 
 /turf/closed/mineral/rogue/gem
 	icon_state = "mingold"

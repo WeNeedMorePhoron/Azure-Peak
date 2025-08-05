@@ -533,7 +533,7 @@
 		if(istype(I, /obj/item/needle))
 			var/obj/item/needle/sewer = I
 			var/obj/item/storage/this_item = parent
-			if(sewer.can_repair && this_item.sewrepair && this_item.max_integrity && !this_item.obj_broken && this_item.obj_integrity < this_item.max_integrity && M.mind.get_skill_level(/datum/skill/misc/sewing) >= 1 && this_item.ontable() && !being_repaired)
+			if(sewer.can_repair && this_item.sewrepair && this_item.max_integrity && !this_item.obj_broken && this_item.obj_integrity < this_item.max_integrity && M.get_skill_level(/datum/skill/misc/sewing) >= 1 && this_item.ontable() && !being_repaired)
 				being_repaired = TRUE
 				return FALSE
 		if(M.used_intent.type == /datum/intent/snip) //This makes it so we can salvage
@@ -758,6 +758,9 @@
 /datum/component/storage/proc/signal_insertion_attempt(datum/source, obj/item/I, mob/M, silent = FALSE, force = FALSE)
 	if((!force && !can_be_inserted(I, TRUE, M)) || (I == parent))
 		return FALSE
+	if(I.inv_storage_delay)
+		if(!move_after(M, I.inv_storage_delay, target = I, progress = TRUE))
+			return FALSE
 	return handle_item_insertion(I, silent, M)
 
 /datum/component/storage/proc/signal_can_insert(datum/source, obj/item/I, mob/M, silent = FALSE)

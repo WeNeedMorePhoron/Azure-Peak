@@ -56,7 +56,6 @@
 	fancy_open = TRUE
 	update_icon()
 
-
 /*
  * Egg Box
  */

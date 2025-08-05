@@ -109,7 +109,7 @@
 
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
-		H.mind.print_levels(H)
+		H.print_levels(H)
 
 /atom/movable/screen/craft
 	name = "crafting menu"
@@ -621,6 +621,8 @@
 		L.playsound_local(L, 'sound/misc/click.ogg', 100)
 		if(modifiers["right"])
 			L.submit()
+		else if(modifiers["middle"])
+			L.toggle_compliance()
 		else
 			L.toggle_cmode()
 			update_icon()
@@ -801,7 +803,7 @@
 			iris.icon_state = "oeye_fixed"
 		else
 			iris.icon_state = "oeye"
-	iris.color = "#" + human.eye_color
+	iris.color = human.get_eye_color()
 	. += iris
 
 /atom/movable/screen/eye_intent/proc/toggle(mob/user)
@@ -898,6 +900,8 @@
 	if(modifiers["right"])
 		if(master)
 			var/obj/item/flipper = usr.get_active_held_item()
+			if(!flipper)
+				return
 			if((!usr.Adjacent(flipper) && !usr.DirectAccess(flipper)) || !isliving(usr) || usr.incapacitated())
 				return
 			var/old_width = flipper.grid_width
@@ -1788,15 +1792,15 @@
 		if(R.stage == 2)
 			add_overlay("rainlay")
 
-/atom/movable/screen/rogfat
+/atom/movable/screen/stamina
 	name = "stamina"
-	icon_state = "fat100"
+	icon_state = "stam100"
 	icon = 'icons/mob/rogueheat.dmi'
 	screen_loc = rogueui_fat
 
-/atom/movable/screen/rogstam
-	name = "fatigue"
-	icon_state = "stam100"
+/atom/movable/screen/energy
+	name = "energy"
+	icon_state = "energy100"
 	icon = 'icons/mob/rogueheat.dmi'
 	screen_loc = rogueui_fat
 

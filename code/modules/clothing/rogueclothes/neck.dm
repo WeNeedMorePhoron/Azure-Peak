@@ -26,6 +26,7 @@
 	desc = "Cheap and easy to make. It's better than leaving your neck exposed."
 	icon_state = "coif"
 	item_state = "coif"
+	color = CLOTHING_BROWN
 	flags_inv = HIDEHAIR
 	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_HEAD
 	blocksound = SOFTHIT
@@ -35,6 +36,70 @@
 	adjustable = CAN_CADJUST
 	toggle_icon_state = TRUE
 	sewrepair = TRUE
+
+/obj/item/clothing/neck/roguetown/coif/padded
+	name = "padded coif"
+	desc = "A cheap and simple gambeson coif meant to be worn on its own or under a helmet. It's better than nothing."
+	icon_state = "ccoif"
+	item_state = "ccoif"
+	color = "#ad977d"
+	flags_inv = HIDEHAIR
+	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_HEAD
+	blocksound = SOFTHIT
+	body_parts_covered = NECK|HAIR|EARS|HEAD
+	armor = ARMOR_PADDED //gambeson for head
+	prevent_crits = list(BCLASS_CUT, BCLASS_BLUNT)
+	adjustable = CAN_CADJUST
+	toggle_icon_state = TRUE
+	sewrepair = TRUE
+
+/obj/item/clothing/neck/roguetown/coif/heavypadding
+	name = "heavy padded coif"
+	desc = "A heavier padded coif meant to be worn on its own or under a helmet. Layered properly, it can last through even the busiest of daes."
+	icon_state = "fullpadded"
+	item_state = "fullpadded"
+	color = "#976E6B"
+	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_HEAD
+	blocksound = SOFTHIT
+	body_parts_covered = NECK|HAIR|EARS|HEAD|MOUTH
+	armor = ARMOR_PADDED_GOOD //full padded gambeson basically
+	prevent_crits = list(BCLASS_CUT, BCLASS_BLUNT)
+	adjustable = CAN_CADJUST
+	toggle_icon_state = TRUE
+	sewrepair = TRUE
+
+/obj/item/clothing/neck/roguetown/coif/heavypadding/ComponentInitialize()
+	return
+
+/obj/item/clothing/neck/roguetown/coif/heavypadding/AdjustClothes(mob/user)
+	if(loc == user)
+		if(adjustable == CAN_CADJUST)
+			adjustable = CADJUSTED
+			if(toggle_icon_state)
+				icon_state = "fullpadded_down"
+			flags_inv = HIDEHAIR
+			body_parts_covered = NECK|HAIR|EARS|HEAD
+			if(ishuman(user))
+				var/mob/living/carbon/H = user
+				H.update_inv_neck()
+				H.update_inv_head()
+		else if(adjustable == CADJUSTED)
+			adjustable = CADJUSTED_MORE
+			if(toggle_icon_state)
+				icon_state = "fullpadded_neck"
+			flags_inv = null
+			body_parts_covered = NECK
+			if(ishuman(user))
+				var/mob/living/carbon/H = user
+				H.update_inv_neck()
+				H.update_inv_head()
+		else if(adjustable == CADJUSTED_MORE)
+			ResetAdjust(user)
+		if(ishuman(user))
+			var/mob/living/carbon/H = user
+			H.update_inv_neck()
+			H.update_inv_head()
 
 /obj/item/clothing/neck/roguetown/coif/ComponentInitialize()
 	AddComponent(/datum/component/adjustable_clothing, NECK, null, null, null, null, (UPD_HEAD|UPD_MASK|UPD_NECK))	//Soundless coif
@@ -50,7 +115,8 @@
 	armor = ARMOR_LEATHER_GOOD
 	prevent_crits = list(BCLASS_CUT, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_TWIST, BCLASS_SMASH)
 	sewrepair = TRUE
-	max_integrity = 150
+	sellprice = 10
+	max_integrity = ARMOR_INT_SIDE_HARDLEATHER
 	salvage_result = /obj/item/natural/hide/cured
 	salvage_amount = 1
 
@@ -61,7 +127,7 @@
 	item_state = "chaincoif"
 	flags_inv = HIDEHAIR
 	armor = ARMOR_MAILLE
-	max_integrity = 200
+	max_integrity = ARMOR_INT_SIDE_STEEL
 	resistance_flags = FIRE_PROOF
 	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_HEAD
 	body_parts_covered = NECK|HAIR|EARS|HEAD
@@ -72,21 +138,28 @@
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/steel
 
-
 /obj/item/clothing/neck/roguetown/chaincoif/ComponentInitialize()
 	AddComponent(/datum/component/adjustable_clothing, NECK, null, null, 'sound/foley/equip/chain_equip.ogg', null, (UPD_HEAD|UPD_MASK|UPD_NECK))	//Chain coif.
 
 /obj/item/clothing/neck/roguetown/chaincoif/paalloy
 	name = "ancient coif"
-	desc = "a coif made of ancient alloys. Aeon's grasp lifted from its form."
+	desc = "Polished gilbranze rings, linked together to form a billowing hood. Let it not be a crown of thorns that saves this dying world, but a crown of progress; of fettered metal and stained bone, rejuvenated by Zizo's will to herald Her greatest works yet."
 	icon_state = "achaincoif"
 	smeltresult = /obj/item/ingot/aaslag
+
+/obj/item/clothing/neck/roguetown/chaincoif/iron/aalloy
+	name = "decrepit coif"
+	desc = "Frayed bronze rings, linked together to form a billowing hood. Shrapnel peppers the linkage; arrowheads and speartips, brought along from a battlefield who's history - and legionnaires - have been lost to tyme."
+	icon_state = "achaincoif"
+	max_integrity = ARMOR_INT_SIDE_DECREPIT
+	color = "#bb9696"
+	smeltresult = /obj/item/ingot/aaslag
+	anvilrepair = null
 
 /obj/item/clothing/neck/roguetown/chaincoif/chainmantle
 	name = "chain mantle"
 	desc = "A thicker and more durable piece of neck protection that also covers the mouth when pulled up."
 	icon_state = "chainmantle"
-	max_integrity = 300
 	armor = ARMOR_MAILLE
 	body_parts_covered = NECK|MOUTH
 	slot_flags = ITEM_SLOT_NECK
@@ -101,16 +174,7 @@
 	icon_state = "ichaincoif"
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/iron
-	max_integrity = 150
-
-
-/obj/item/clothing/neck/roguetown/chaincoif/iron/aalloy
-	name = "decrepit coif"
-	desc = "a decrepit old coif. Aeon's grasp is upon it."
-	icon_state = "achaincoif"
-	smeltresult = /obj/item/ingot/aalloy
-	max_integrity = 100
-
+	max_integrity = ARMOR_INT_SIDE_IRON
 
 /obj/item/clothing/neck/roguetown/chaincoif/full
 	name = "full chain coif"
@@ -161,12 +225,20 @@
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/steel
 
-	max_integrity = 300
+	max_integrity = ARMOR_INT_SIDE_STEEL
 	resistance_flags = FIRE_PROOF
 	slot_flags = ITEM_SLOT_NECK
 	body_parts_covered = NECK|MOUTH|NOSE
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_TWIST)
 	blocksound = PLATEHIT
+
+/obj/item/clothing/neck/roguetown/bevor/iron
+	name = "iron bevor"
+	desc = "A series of iron plates designed to protect the neck."
+	icon_state = "ibevor"
+	smeltresult = /obj/item/ingot/iron
+	max_integrity = ARMOR_INT_SIDE_IRON
+	anvilrepair = /datum/skill/craft/armorsmithing
 
 /obj/item/clothing/neck/roguetown/gorget
 	name = "gorget"
@@ -175,7 +247,7 @@
 	armor = ARMOR_GORGET
 	smeltresult = /obj/item/ingot/iron
 	anvilrepair = /datum/skill/craft/armorsmithing
-	max_integrity = 150
+	max_integrity = ARMOR_INT_SIDE_IRON
 	resistance_flags = FIRE_PROOF
 	body_parts_inherent = NECK
 	slot_flags = ITEM_SLOT_NECK
@@ -185,10 +257,12 @@
 
 /obj/item/clothing/neck/roguetown/gorget/aalloy
 	name = "decrepit gorget"
-	desc = "a decrepit, worn out gorget. Aeon's grasp is upon it."
+	desc = "Frayed bronze plates, shingled together to shroud the neck. Primitive scrapes line the flanks, yet the center seems to've been cored out by a spear's thrust."
 	icon_state = "ancientgorget"
-	max_integrity = 100
-	smeltresult = /obj/item/ingot/aalloy
+	max_integrity = ARMOR_INT_SIDE_DECREPIT
+	color = "#bb9696"
+	smeltresult = /obj/item/ingot/aaslag
+	anvilrepair = null
 
 /obj/item/clothing/neck/roguetown/gorget/copper
 	name = "neck protector"
@@ -198,12 +272,12 @@
 	smeltresult = /obj/item/ingot/copper
 
 /obj/item/clothing/neck/roguetown/fencerguard
-	name = "fencer neckguard"
+	name = "fencing guard"
 	icon_state = "fencercollar"
 	armor = ARMOR_BEVOR
-	smeltresult = /obj/item/ingot/iron
+	smeltresult = /obj/item/ingot/steel
 	anvilrepair = /datum/skill/craft/armorsmithing
-	max_integrity = 150
+	max_integrity = ARMOR_INT_SIDE_STEEL
 	body_parts_inherent = NECK
 	resistance_flags = FIRE_PROOF
 	slot_flags = ITEM_SLOT_NECK
@@ -211,6 +285,33 @@
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_TWIST)
 	blocksound = PLATEHIT
 	allowed_race = NON_DWARVEN_RACE_TYPES
+	detail_tag = "_detail"
+	color = "#5058c1"
+	detail_color = "#e98738"
+	var/picked = FALSE
+
+/obj/item/clothing/neck/roguetown/fencerguard/attack_right(mob/user)
+	..()
+	if(!picked)
+		var/choice = input(user, "Choose a color.", "Otavan colors") as anything in colorlist
+		var/playerchoice = colorlist[choice]
+		picked = TRUE
+		detail_color = playerchoice
+		detail_tag = "_detail"
+		update_icon()
+		if(loc == user && ishuman(user))
+			var/mob/living/carbon/H = user
+			H.update_inv_shirt()
+			H.update_icon()
+
+/obj/item/clothing/neck/roguetown/fencerguard/update_icon()
+	cut_overlays()
+	if(get_detail_tag())
+		var/mutable_appearance/pic = mutable_appearance(icon(icon, "[icon_state][detail_tag]"))
+		pic.appearance_flags = RESET_COLOR
+		if(get_detail_color())
+			pic.color = get_detail_color()
+		add_overlay(pic)
 
 /obj/item/clothing/neck/roguetown/gorget/forlorncollar
 	name = "forlorn collar"
@@ -218,16 +319,16 @@
 	icon_state = "iwolfcollaralt"
 
 /obj/item/clothing/neck/roguetown/gorget/steel
-	name ="steel gorget"
+	name = "steel gorget"
 	smeltresult = /obj/item/ingot/steel
-	max_integrity = 300
+	max_integrity = ARMOR_INT_SIDE_STEEL
 	icon_state = "sgorget"
 
 /obj/item/clothing/neck/roguetown/gorget/paalloy
 	name = "ancient gorget"
-	desc = "A gorget made of ancient alloys. Aeon's grasp lifted from its form."
+	desc = "Polished gilbranze plates, layered atop one-another to guard the neck. The spine; a sacred leyline between spirit and sinew. It must remain unsevered, lest Her blessings be lost."
 	icon_state = "ancientgorget"
-	max_integrity = 300
+	max_integrity = ARMOR_INT_SIDE_STEEL
 	smeltresult = /obj/item/ingot/aaslag
 
 /obj/item/clothing/neck/roguetown/gorget/prisoner/Initialize()
@@ -249,7 +350,7 @@
 	armor = ARMOR_CLOTHING
 	smeltresult = /obj/item/ingot/iron
 	anvilrepair = /datum/skill/craft/armorsmithing
-	max_integrity = 150
+	max_integrity = ARMOR_INT_SIDE_DECREPIT
 	resistance_flags = FIRE_PROOF
 	slot_flags = ITEM_SLOT_NECK
 	body_parts_covered = NECK
@@ -278,19 +379,25 @@
 	if(slot == SLOT_NECK)
 		mob_overlay_icon = initial(mob_overlay_icon)
 		sleeved = initial(sleeved)
-	
+
 	return TRUE
+
+/obj/item/clothing/neck/roguetown/psicross/attack_right(mob/user)
+	..()
+	user.emote("pray")
+	return
 
 /obj/item/clothing/neck/roguetown/psicross/aalloy
 	name = "decrepit psicross"
-	desc = "Surely this one endures?"
+	desc = "'A comet capable of rending all the enemies of humanity apart; oh, how graceful His power was! And His sacrifice, ever so noble! Yet now He slumbers, unaware of the fruits His efforts came to give. And He sighs. And He weeps.'"
 	icon_state = "psycross_a"
-
+	color = "#bb9696"
 
 /obj/item/clothing/neck/roguetown/zcross/aalloy
 	name = "decrepit zcross"
-	desc = "A symbol of progress from an era that had reason to believe in it."
+	desc = "'Progress. Ascension. Destiny. A mandate, commanded by God, to be fufilled by Man. She called us forth from the edge of reality - and with Her dying breath, rasped out the final truth; the fire is gone, and the world will soon follow.'"
 	icon_state = "zcross_a"
+	color = "#bb9696"
 
 /obj/item/clothing/neck/roguetown/psicross/astrata
 	name = "amulet of Astrata"
@@ -449,17 +556,35 @@
 	//dropshrink = 0.75
 	resistance_flags = FIRE_PROOF
 	allowed_race = CLOTHED_RACES_TYPES
-	sellprice = 98
+	sellprice = 70
 	anvilrepair = /datum/skill/craft/armorsmithing
 
 /obj/item/clothing/neck/roguetown/horus
-	name = "eye of horuz"
-	desc = ""
+	name = "amulet of appraisal"
+	desc = "An amulet with a pristine eye embedded into it. Blind to everything, but to that which shines in gold."
 	icon_state = "horus"
 	//dropshrink = 0.75
 	resistance_flags = FIRE_PROOF
-	sellprice = 30
+	sellprice = 80
 	anvilrepair = /datum/skill/craft/armorsmithing
+
+/obj/item/clothing/neck/roguetown/horus/examine()
+	. = ..()
+	. += span_info("Click on a turf or an item to see how much it is worth. Avoid tables.")
+
+/obj/item/clothing/neck/roguetown/horus/afterattack(atom/A, mob/user, params)
+	. = ..()
+	var/total_sellprice = 0
+	if(isturf(A))
+		for(var/obj/item/I in A.contents)
+			total_sellprice += I.sellprice
+		to_chat(user, span_notice("Everything on the ground is worth [total_sellprice] mammons."))
+	else if(istype(A, /obj/item))
+		var/obj/item/I = A
+		total_sellprice += I.sellprice
+		for(var/obj/item/item in I.contents)
+			total_sellprice += item.sellprice
+		to_chat(user, span_notice("The item and its contents is worth [total_sellprice] mammons."))
 
 /obj/item/clothing/neck/roguetown/shalal
 	name = "desert rider medal"
@@ -521,6 +646,11 @@
 	item_state = "collar"
 	resistance_flags = FIRE_PROOF
 	dropshrink = 0.5
+
+/obj/item/clothing/neck/roguetown/collar/forlorn
+	name = "light forlorn collar"
+	desc = "A old reminder. A lighter version often used more as a status symbol for slaves. Then and now."
+	icon_state = "iwolfcollaralt"
 
 /obj/item/clothing/neck/roguetown/collar/bell_collar
 	name = "bell collar"

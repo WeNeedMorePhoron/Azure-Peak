@@ -5,22 +5,21 @@
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/adventurer/potter
-
+	
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 
 /datum/outfit/job/roguetown/adventurer/potter/pre_equip(mob/living/carbon/human/H)
 	..()
-	if(H.mind)
-		H.mind.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE) // Potters are fairly active, having to source their own clay.
-		H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE) // They mostly work with their bare hands...?
-		H.mind.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE) // Something about wrestling clay into shape?
-		H.mind.adjust_skillrank(/datum/skill/combat/knives, 1, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/craft/crafting, 3, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/craft/carpentry, 2, TRUE) // They probably have some insight in carpentry and masonry.
-		H.mind.adjust_skillrank(/datum/skill/craft/masonry, 2, TRUE) // They probably have some insight in carpentry and masonry.
-		H.mind.adjust_skillrank(/datum/skill/misc/reading, 2, TRUE)
-		H.mind.adjust_skillrank(/datum/skill/misc/ceramics, 5, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE) // Potters are fairly active, having to source their own clay.
+	H.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE) // They mostly work with their bare hands...?
+	H.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE) // Something about wrestling clay into shape?
+	H.adjust_skillrank(/datum/skill/combat/knives, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/craft/crafting, 3, TRUE)
+	H.adjust_skillrank(/datum/skill/craft/carpentry, 2, TRUE) // They probably have some insight in carpentry and masonry.
+	H.adjust_skillrank(/datum/skill/craft/masonry, 2, TRUE) // They probably have some insight in carpentry and masonry.
+	H.adjust_skillrank(/datum/skill/misc/reading, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/ceramics, 5, TRUE)
 	head = /obj/item/clothing/head/roguetown/hatfur
 	if(prob(50))
 		head = /obj/item/clothing/head/roguetown/hatblu

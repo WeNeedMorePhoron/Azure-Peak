@@ -15,7 +15,7 @@
 	maximum_antags = 2
 
 	weight = 2	//i hate you
-	max_occurrences = 0	//event antag stuff for staff, no more.
+	max_occurrences = 1 // mashallah
 
 	earliest_start = 0 SECONDS
 
@@ -31,7 +31,7 @@
 		"Men-at-arms",
 		"Marshal",
 		"Merchant",
-		"Priest",
+		"Bishop",
 		"Acolyte",
 		"Martyr",
 		"Templar",
@@ -43,7 +43,7 @@
 		"Steward",
 		"Court Physician",
 		"Town Elder",
-		"Captain",
+		"Knight Captain",
 		"Archivist",
 		"Knight",
 		"Court Magician",

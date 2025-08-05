@@ -8,7 +8,7 @@
 	pixel_y = 32
 	var/stockpile_index = 1
 	var/current_category = "Raw Materials"
-	var/list/categories = list("Raw Materials", "Foodstuffs")
+	var/list/categories = list("Raw Materials", "Foodstuffs", "Fruits")
 	var/datum/withdraw_tab/withdraw_tab = null
 
 /obj/structure/roguemachine/stockpile/Initialize()
@@ -20,6 +20,10 @@
 /obj/structure/roguemachine/stockpile/Destroy()
 	SSroguemachine.stock_machines -= src
 	return ..()
+
+/obj/structure/roguemachine/stockpile/examine(mob/user)
+	. = ..()
+	. += span_info("Right click to sell everything on your turf into the stockpile.")
 
 /obj/structure/roguemachine/stockpile/Topic(href, href_list)
 	. = ..()
@@ -85,7 +89,7 @@
 	. = ..()
 	if(.)
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
 	playsound(loc, 'sound/misc/keyboard_enter.ogg', 100, FALSE, -1)
 
 	var/contents
@@ -96,7 +100,7 @@
 	else
 		contents = get_directory_contents()
 
-	var/datum/browser/popup = new(user, "VENDORTHING", "", 370, 800)
+	var/datum/browser/popup = new(user, "VENDORTHING", "", 700, 800)
 	popup.set_content(contents)
 	popup.open()
 
@@ -162,7 +166,7 @@
 
 /obj/structure/roguemachine/stockpile/attack_right(mob/user)
 	if(ishuman(user))
-		for(var/obj/I in get_turf(src))
+		for(var/obj/I in get_turf(user))
 			attemptsell(I, user, FALSE, FALSE)
 		say("Bulk selling in progress...")
 		playsound(loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)

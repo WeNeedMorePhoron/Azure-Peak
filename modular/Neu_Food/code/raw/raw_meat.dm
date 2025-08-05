@@ -122,6 +122,22 @@
 	ingredient_size = 1
 	cooked_smell = /datum/pollutant/food/fried_crab
 
+/obj/item/reagent_containers/food/snacks/rogue/meat/crab/attackby(obj/item/I, mob/living/user, params)
+	var/found_table = locate(/obj/structure/table) in (loc)
+	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/butterdoughslice))
+		if(isturf(loc)&& (found_table))
+			playsound(get_turf(user), 'modular/Neu_Food/sound/kneading.ogg', 100, TRUE, -1)
+			to_chat(user, "<span class='notice'>Covering the crab with butterdough...</span>")
+			if(do_after(user,short_cooktime, target = src))
+				user.mind.add_sleep_experience(/datum/skill/craft/cooking, user.STAINT)
+				new /obj/item/reagent_containers/food/snacks/rogue/foodbase/crabcakeraw(loc)
+				qdel(I)
+				qdel(src)
+		else
+			to_chat(user, span_warning("You need to put it on a table!"))
+		return TRUE
+	. = ..()
+
 /* ............. Cabbit Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit
 	name = "raw cabbit meat"

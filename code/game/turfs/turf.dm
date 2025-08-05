@@ -2,6 +2,10 @@
 	icon = 'icons/turf/floors.dmi'
 	level = 1
 
+	///what /mob/oranges_ear instance is already assigned to us as there should only ever be one.
+	///used for guaranteeing there is only one oranges_ear per turf when assigned, speeds up view() iteration
+	var/mob/oranges_ear/assigned_oranges_ear
+
 	var/intact = 1
 
 	// baseturfs can be either a list or a single turf type.
@@ -243,7 +247,7 @@
  * * type_list - are we checking for types of atoms to ignore and not physical atoms
  */
 /turf/proc/is_blocked_turf(exclude_mobs = FALSE, source_atom = null, list/ignore_atoms, type_list = FALSE)
-	if(density)
+	if((!isnull(source_atom) && !CanPass(source_atom, get_dir(src, source_atom))) || density)
 		return TRUE
 
 	for(var/atom/movable/movable_content as anything in contents)
@@ -399,6 +403,9 @@
 
 /turf/Entered(atom/movable/AM)
 	..()
+	SEND_SIGNAL(src, COMSIG_TURF_ENTERED, AM)
+	SEND_SIGNAL(AM, COMSIG_MOVABLE_TURF_ENTERED, src)
+
 	if(explosion_level && AM.ex_check(explosion_id))
 		AM.ex_act(explosion_level)
 
@@ -503,20 +510,52 @@
 	return TRUE
 
 //////////////////////////////
-//Distance procs
+//A* Distance procs
 //////////////////////////////
 
 //Distance associates with all directions movement
-/turf/proc/Distance(turf/T)
+/turf/proc/Distance(turf/T, mob/traverser)
 	return get_dist(src,T)
 
 //  This Distance proc assumes that only cardinal movement is
 //  possible. It results in more efficient (CPU-wise) pathing
 //  for bots and anything else that only moves in cardinal dirs.
-/turf/proc/Distance_cardinal(turf/T)
+/turf/proc/Distance_cardinal(turf/T, mob/traverser)
 	if(!src || !T)
 		return FALSE
 	return abs(x - T.x) + abs(y - T.y)
+
+/// Returns the number of node moves. Used for AStar node-length checking.
+/turf/proc/Distance_cardinal_3d(turf/T, mob/traverser)
+	if(!src || !T)
+		return FALSE
+	return abs(x - T.x) + abs(y - T.y) + abs(z - T.z)
+
+/// Returns an additional distance factor based on slowdown and other factors.
+/turf/proc/get_heuristic_slowdown(mob/traverser, travel_dir)
+	. = get_slowdown(traverser)
+	// add cost from climbable obstacles
+	for(var/obj/structure/some_object in src)
+		if(some_object.density && some_object.climbable)
+			. += 1 // extra tile penalty
+			break
+	var/obj/structure/mineral_door/door = locate() in src
+	if(door && door.density && !door.locked && door.anchored) // door will have to be opened
+		. += 2 // try to avoid closed doors where possible
+
+	for(var/obj/structure/O in contents)
+		if(O.obj_flags & BLOCK_Z_OUT_DOWN)
+			return
+	. += path_weight
+
+// Like Distance_cardinal, but includes additional weighting to make A* prefer turfs that are easier to pass through.
+/turf/proc/Heuristic_cardinal(turf/T, mob/traverser)
+	var/travel_dir = get_dir(src, T)
+	. = Distance_cardinal(T, traverser) + get_heuristic_slowdown(traverser, travel_dir)
+
+/// A 3d-aware version of Heuristic_cardinal that just... adds the Z-axis distance with a multiplier.
+/turf/proc/Heuristic_cardinal_3d(turf/T, mob/traverser)
+	return Heuristic_cardinal(T, traverser) + abs(z - T.z) * 5 // Weight z-level differences higher so that we try to change Z-level sooner
 
 ////////////////////////////////////////////////////
 

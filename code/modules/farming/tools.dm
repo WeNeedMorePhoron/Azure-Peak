@@ -13,7 +13,7 @@
 	sharpness = IS_BLUNT
 	//dropshrink = 0.8
 	slot_flags = ITEM_SLOT_BACK
-	wlength = 33
+	wlength = WLENGTH_NORMAL
 	gripsprite = TRUE
 	drop_sound = 'sound/foley/dropsound/wooden_drop.ogg'
 	smeltresult = /obj/item/ingot/iron
@@ -57,11 +57,13 @@
 
 /obj/item/rogueweapon/thresher/aalloy
 	name = "decrepit thresher"
-	desc = "A withered old thresher. Aeon's grasp is upon it."
+	desc = "A thresher of wrought bronze; from when the wheat was plentiful, and when Man wasn't burdened with the weight of sin."
 	force = 5
 	force_wielded = 7
 	icon_state = "athresh"
 	smeltresult = /obj/item/ingot/aalloy
+	color = "#bb9696"
+	sellprice = 15
 
 
 /obj/item/rogueweapon/sickle
@@ -76,7 +78,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	sharpness = IS_SHARP
 	//dropshrink = 0.8
-	wlength = 10
+	wlength = WLENGTH_SHORT
 	slot_flags = ITEM_SLOT_HIP
 	max_blade_int = 50
 	smeltresult = /obj/item/ingot/iron
@@ -94,7 +96,10 @@
 
 /obj/item/rogueweapon/sickle/aalloy
 	name = "decrepit sickle"
+	desc = "Her thought was simple; to seperate the wheat from the chaff. By removing the limitations set upon one's spirit by lyfe, only then could divinity be obtained. She was correct - yet Her ascension had gone terribly awry, all-the-same."
 	icon_state = "asickle"
+	color = "#bb9696"
+	sellprice = 15
 
 /obj/item/rogueweapon/sickle/copper
 	name = "copper sickle"
@@ -116,7 +121,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
 	sharpness = IS_BLUNT
 	//dropshrink = 0.8
-	wlength = 33
+	wlength = WLENGTH_NORMAL
 	drop_sound = 'sound/foley/dropsound/wooden_drop.ogg'
 	smeltresult = /obj/item/ingot/iron
 	var/hoe_damage = null //the durability damage recieved for every work cycle
@@ -124,8 +129,11 @@
 
 /obj/item/rogueweapon/hoe/aalloy
 	name = "decrepit hoe"
+	desc = "Food is what cultivates lyfe; and without lyfe, there would be nothing left. At least, that is what His children would want you to believe."
 	icon_state = "ahoe"
 	smeltresult = /obj/item/ingot/aalloy
+	color = "#bb9696"
+	sellprice = 15
 
 /obj/item/rogueweapon/hoe/copper
 	name = "copper hoe"
@@ -202,10 +210,10 @@
 
 /obj/item/rogueweapon/hoe/attack_turf(turf/T, mob/living/user)
 	if(user.used_intent.type == /datum/intent/till)
-		if(user.mind.get_skill_level(/datum/skill/labor/farming) == SKILL_LEVEL_LEGENDARY) //check if the user has legendary farming skill
+		if(user.get_skill_level(/datum/skill/labor/farming) == SKILL_LEVEL_LEGENDARY) //check if the user has legendary farming skill
 			work_time = 0.5 SECONDS //if legendary skill, do_afters take half a second instead of 3
 
-		user.changeNext_move(CLICK_CD_MELEE)
+		user.changeNext_move(CLICK_CD_INTENTCAP)
 		if(istype(T, /turf/open/floor/rogue/snow) || istype(T, /turf/open/floor/rogue/snowrough) || istype(T, /turf/open/floor/rogue/snowpatchy))
 			playsound(T,'sound/items/dig_shovel.ogg', 100, TRUE)
 			if (do_after(user, work_time, target = src))
@@ -289,7 +297,7 @@
 	sharpness = IS_BLUNT
 	associated_skill = /datum/skill/combat/polearms
 	//dropshrink = 0.8
-	wlength = 33
+	wlength = WLENGTH_GREAT
 	var/list/forked = list()
 	slot_flags = ITEM_SLOT_BACK
 	drop_sound = 'sound/foley/dropsound/wooden_drop.ogg'
@@ -309,8 +317,11 @@
 
 /obj/item/rogueweapon/pitchfork/aalloy
 	name = "decrepit pitchfork"
+	desc = "Do not fault the layman for fearing Her disciples, nor for driving them out of the villages with pitchforks-and-torches. They, too, will come to see the blessings of Zizo, all in due tyme." 
 	icon_state = "apitchfork"
 	smeltresult = /obj/item/ingot/aalloy
+	color = "#bb9696"
+	sellprice = 15
 
 /obj/item/rogueweapon/pitchfork/copper
 	name = "copper pitchfork"

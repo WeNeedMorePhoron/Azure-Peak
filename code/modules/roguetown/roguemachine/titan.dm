@@ -2,6 +2,7 @@ GLOBAL_LIST_EMPTY(outlawed_players)
 GLOBAL_LIST_EMPTY(lord_decrees)
 GLOBAL_LIST_EMPTY(court_agents)
 GLOBAL_LIST_INIT(laws_of_the_land, initialize_laws_of_the_land())
+GLOBAL_VAR_INIT(last_crown_announcement_time, -1000)
 
 /proc/initialize_laws_of_the_land()
 	var/list/laws = strings("laws_of_the_land.json", "lawsets")
@@ -21,10 +22,8 @@ GLOBAL_LIST_INIT(laws_of_the_land, initialize_laws_of_the_land())
 	blade_dulling = DULLING_BASH
 	integrity_failure = 0.5
 	max_integrity = 0
-	flags_1 = HEAR_1
 	anchored = TRUE
 	var/mode = 0
-
 
 /obj/structure/roguemachine/titan/obj_break(damage_flag)
 	..()
@@ -34,12 +33,14 @@ GLOBAL_LIST_INIT(laws_of_the_land, initialize_laws_of_the_land())
 	return
 
 /obj/structure/roguemachine/titan/Destroy()
+	lose_hearing_sensitivity()
 	set_light(0)
-	..()
+	return ..()
 
 /obj/structure/roguemachine/titan/Initialize()
 	. = ..()
 	icon_state = null
+	become_hearing_sensitive()
 //	var/mutable_appearance/eye_lights = mutable_appearance(icon, "titan-eyes")
 //	eye_lights.plane = ABOVE_LIGHTING_PLANE //glowy eyes
 //	eye_lights.layer = ABOVE_LIGHTING_LAYER
@@ -60,9 +61,9 @@ GLOBAL_LIST_INIT(laws_of_the_land, initialize_laws_of_the_land())
 	var/nocrown
 	if(!istype(H.head, /obj/item/clothing/head/roguetown/crown/serpcrown))
 		nocrown = TRUE
-	var/notlord
-	if(SSticker.rulermob != H)
-		notlord = TRUE
+	var/notlord = TRUE
+	if(SSticker.rulermob == H || SSticker.regentmob == H)
+		notlord = FALSE
 
 	if(mode)
 		if(findtext(message, "nevermind"))
@@ -143,12 +144,15 @@ GLOBAL_LIST_INIT(laws_of_the_land, initialize_laws_of_the_land())
 	switch(mode)
 		if(0)
 			if(findtext(message, "secrets of the throat"))
-				say("My commands are: Make Decree, Make Announcement, Set Taxes, Declare Outlaw, Summon Crown, Summon Key, Make Law, Remove Law, Purge Laws, Purge Decrees, Nevermind")
+				say("My commands are: Make Decree, Make Announcement, Set Taxes, Declare Outlaw, Summon Crown, Summon Key, Make Law, Remove Law, Purge Laws, Purge Decrees, Become Regent, Nevermind")
 				playsound(src, 'sound/misc/machinelong.ogg', 100, FALSE, -1)
 			if(findtext(message, "make announcement"))
 				if(nocrown)
 					say("You need the crown.")
 					playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
+					return
+				if (world.time < GLOB.last_crown_announcement_time + 5 MINUTES)
+					say(("My throat is sore."))
 					return
 				if(!SScommunications.can_announce(H))
 					say("I must gather my strength!")
@@ -245,6 +249,39 @@ GLOBAL_LIST_INIT(laws_of_the_land, initialize_laws_of_the_land())
 				playsound(src, 'sound/misc/machinetalk.ogg', 100, FALSE, -1)
 				give_tax_popup(H)
 				return
+			if(findtext(message, "become regent"))
+				if(nocrown)
+					say("You need the crown.")
+					playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
+					return
+				if(SSticker.rulermob && SSticker.rulermob == H) //failsafe for edge cases
+					say("No others share the throne with you, master.")
+					playsound(src, 'sound/misc/machinetalk.ogg', 100, FALSE, -1)
+					SSticker.regentmob = null
+					return
+				if(SSticker.rulermob != null)
+					say("The true lord is already present in the realm.")
+					playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
+					return
+				if(!(HAS_TRAIT(H, TRAIT_NOBLE)))
+					say("You have not the noble blood to be regent.")
+					playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
+					return
+				if(HAS_TRAIT(H, TRAIT_OUTLANDER))
+					say("You are too estranged from this realm to be regent.")
+					playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
+					return
+				if(SSticker.regentday == GLOB.dayspassed)
+					say("A regent has already been declared this dae!")
+					playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
+					return
+				if(SSticker.regentmob == H)
+					say("You are already the regent!")
+					playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
+					return
+				become_regent(H)
+				return
+
 		if(1)
 			make_announcement(H, raw_message)
 			mode = 0
@@ -280,6 +317,7 @@ GLOBAL_LIST_INIT(laws_of_the_land, initialize_laws_of_the_land())
 	try_make_rebel_decree(user)
 
 	SScommunications.make_announcement(user, FALSE, raw_message)
+	GLOB.last_crown_announcement_time = world.time 
 
 /obj/structure/roguemachine/titan/proc/try_make_rebel_decree(mob/living/user)
 	if(!SScommunications.can_announce(user))
@@ -355,3 +393,8 @@ GLOBAL_LIST_INIT(laws_of_the_land, initialize_laws_of_the_land())
 /proc/purge_decrees()
 	GLOB.lord_decrees = list()
 	priority_announce("All of the land's prior decrees have been purged!", "DECREES PURGED", pick('sound/misc/royal_decree.ogg', 'sound/misc/royal_decree2.ogg'), "Captain")
+
+/proc/become_regent(mob/living/carbon/human/H)
+	priority_announce("[H.name], the [H.get_role_title()], sits as the regent of the realm.", "A New Regent Resides", pick('sound/misc/royal_decree.ogg', 'sound/misc/royal_decree2.ogg'), "Captain")
+	SSticker.regentmob = H
+	SSticker.regentday = GLOB.dayspassed

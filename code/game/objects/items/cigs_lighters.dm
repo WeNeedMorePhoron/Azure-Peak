@@ -136,6 +136,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon = 'icons/roguetown/items/lighting.dmi'
 	heat = 1000
 	spitoutmouth = FALSE
+	light_outer_range = 1
+	light_system = MOVABLE_LIGHT
+	light_color = "#f5a885"
+	light_on = FALSE
 
 	grid_width = 32
 	grid_height = 32
@@ -189,7 +193,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		return
 
 	lit = TRUE
-//	name = "lit [name]"
+	set_light_on(TRUE)
+	name = "lit [name]"
 	attack_verb = list("burnt", "singed")
 	hitsound = list('sound/blank.ogg')
 	damtype = "fire"
@@ -226,13 +231,14 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 /obj/item/clothing/mask/cigarette/extinguish()
 	if(!lit)
 		return
-	name = copytext(name,5,length(name)+1)
+	name = "[initial(name)]"
 	attack_verb = null
 	hitsound = null
 	damtype = BRUTE
 	force = 0
 	icon_state = icon_off
 	item_state = icon_off
+	set_light_on(FALSE)
 	STOP_PROCESSING(SSobj, src)
 	ENABLE_BITFIELD(reagents.flags, NO_REACT)
 	lit = FALSE
@@ -492,7 +498,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			item_state = icon_off
 			M.update_inv_mouth()
 			packeditem = 0
-//			name = "empty [initial(name)]"
+			name = "empty [initial(name)]"
 		STOP_PROCESSING(SSobj, src)
 		return
 	open_flame()
@@ -541,8 +547,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 /obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user)
 	var/turf/location = get_turf(user)
 	if(lit)
+		name = copytext(name,5,length(name)+1)
 		user.visible_message(span_notice("[user] puts out [src]."), span_notice("I put out [src]."))
 		lit = 0
+		set_light_on(FALSE)
 		icon_state = icon_off
 		item_state = icon_off
 		STOP_PROCESSING(SSobj, src)

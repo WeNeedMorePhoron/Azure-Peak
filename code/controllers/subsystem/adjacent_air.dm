@@ -54,6 +54,8 @@ SUBSYSTEM_DEF(adjacent_air)
 	var/obj/effect/abstract/liquid_turf/liquids
 	var/liquid_height = 0
 	var/turf_height = 0
+	var/path_weight = 0
+
 /turf/open
 	var/obj/effect/hotspot/active_hotspot
 /turf/CanAtmosPass = ATMOS_PASS_NO
@@ -100,7 +102,10 @@ SUBSYSTEM_DEF(adjacent_air)
 /turf/proc/GetAtmosAdjacentTurfs(alldir = 0)
 	var/adjacent_turfs
 	air_update_turf(TRUE) // since no atmos subsystem, we need to generate turf atmos adjacency manually
-	adjacent_turfs = atmos_adjacent_turfs.Copy()
+	if(length(atmos_adjacent_turfs))
+		adjacent_turfs = atmos_adjacent_turfs.Copy()
+	else
+		return null
 	if (!alldir)
 		return adjacent_turfs
 	var/turf/curloc = src

@@ -50,14 +50,17 @@
 
 /obj/item/reagent_containers/glass/cup/aalloymug
 	name = "decrepit mug"
-	desc = "A decrepit mug. Aeon's grasp is upon its form."
+	desc = "Frayed bronze, coiled into a cup. Here, adventurers of centuries-past would laugh and legendize; but now, nothing but empty chairs and empty tables remain."
+	color = "#bb9696"
 	icon_state = "amug"
+	sellprice = 10
 
 /obj/item/reagent_containers/glass/cup/aalloygob
 	name = "decrepit goblet"
-	desc = "A decrepit goblet. Aeon's grasp is upon its form."
+	desc = "Frayed bronze, coiled into a hooked vessel. To think that this was once a nobleman's goblet; yet, it has endured far longer than their now-withered bloodline."
+	color = "#bb9696"
 	icon_state = "agoblet"
-	sellprice = 0
+	sellprice = 20
 
 /obj/item/reagent_containers/glass/cup/silver
 	name = "silver goblet"
@@ -132,7 +135,7 @@
 	desc = "Adorned with gemstones, this goblet radiates opulence and grandeur."
 	icon_state = "golden"
 	sellprice = 50
-	list_reagents = list(/datum/reagent/toxin/killersice = 1, /datum/reagent/consumable/ethanol/beer/elfred = 20)
+	list_reagents = list(/datum/reagent/toxin/killersice = 1, /datum/reagent/consumable/ethanol/elfred = 20)
 
 /obj/item/reagent_containers/glass/cup/skull
 	name = "skull goblet"

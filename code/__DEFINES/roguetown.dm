@@ -1,3 +1,73 @@
+/*------------------------\
+| ARMOR INTEGRITY DEFINES | // Use these when possible on armor to keep value consistent.	
+\------------------------*/
+// Side = Non-chest armor integrity 
+// For now. Steel vs Iron will be a difference of 75% integrity without rating differences.
+// So Iron will actually be pretty decent and there shouldn't be a compulsive need to upgrade.
+
+// Helmet
+#define ARMOR_INT_HELMET_ANTAG 600
+#define ARMOR_INT_HELMET_BLACKSTEEL 500
+#define ARMOR_INT_HELMET_HEAVY_STEEL 400
+#define ARMOR_INT_HELMET_HEAVY_IRON 300
+#define ARMOR_INT_HELMET_HEAVY_DECREPIT 200
+#define ARMOR_INT_HELMET_HEAVY_ADJUSTABLE_PENALTY 50 // Integrity reduction, if a helmet is adjustable
+#define ARMOR_INT_HELMET_STEEL 300 
+#define ARMOR_INT_HELMET_IRON 225
+#define ARMOR_INT_HELMET_HARDLEATHER 250
+#define ARMOR_INT_HELMET_LEATHER 200
+#define ARMOR_INT_HELMET_CLOTH 100
+
+// Chest / Armor Pieces 
+
+// HEAVY
+#define ARMOR_INT_CHEST_PLATE_ANTAG 700
+#define ARMOR_INT_CHEST_PLATE_BLACKSTEEL 600
+#define ARMOR_INT_CHEST_PLATE_STEEL 500
+#define ARMOR_INT_CHEST_PLATE_BRIGANDINE 350
+#define ARMOR_INT_CHEST_PLATE_PSYDON 400 // You get free training, less int
+#define ARMOR_INT_CHEST_PLATE_IRON 375
+#define ARMOR_INT_CHEST_PLATE_DECREPIT 250
+
+// MEDIUM
+#define ARMOR_INT_CHEST_MEDIUM_STEEL 300
+#define ARMOR_INT_CHEST_MEDIUM_HATANGA 250
+#define ARMOR_INT_CHEST_MEDIUM_IRON 225
+#define ARMOR_INT_CHEST_MEDIUM_SCALE 200 // More coverage, less integrity
+#define ARMOR_INT_CHEST_MEDIUM_DECREPIT 150
+
+// LIGHT
+#define ARMOR_INT_CHEST_LIGHT_MASTER 300 // High tier cloth / leather armor
+#define ARMOR_INT_CHEST_LIGHT_MEDIUM 250 // Medium tier cloth / leather armor
+#define ARMOR_INT_CHEST_LIGHT_BASE 200
+#define ARMOR_INT_CHEST_LIGHT_STEEL 180
+#define ARMOR_INT_CHEST_CIVILIAN 100
+
+// LEG PIECES - Leg Armor
+#define ARMOR_INT_LEG_ANTAG 600
+#define ARMOR_INT_LEG_BLACKSTEEL 500 
+#define ARMOR_INT_LEG_STEEL_PLATE 400
+#define ARMOR_INT_LEG_IRON_PLATE 300
+#define ARMOR_INT_LEG_DECREPIT_PLATE 200
+#define ARMOR_INT_LEG_STEEL_CHAIN 300
+#define ARMOR_INT_LEG_BRIGANDINE 250 // Iron grade but whatever.
+#define ARMOR_INT_LEG_IRON_CHAIN 225
+#define ARMOR_INT_LEG_DECREPIT_CHAIN 150
+#define ARMOR_INT_LEG_HARDLEATHER 250
+#define ARMOR_INT_LEG_LEATHER 200
+#define ARMOR_INT_LEG_CLOTH 10
+
+// SIDE PIECES - Non-Chest armor
+#define ARMOR_INT_SIDE_ANTAG 500 // Integrity for antag pieces
+#define ARMOR_INT_SIDE_BLACKSTEEL 400 // Integrity for blacksteel pieces
+#define ARMOR_INT_SIDE_STEEL 300 // Integrity for steel pieces
+#define ARMOR_INT_SIDE_IRON 225 // Integrity for iron pieces
+#define ARMOR_INT_SIDE_HARDLEATHER 250 // Integrity for hardened leather pieces
+#define ARMOR_INT_SIDE_LEATHER 200 // Integrity for leather / copper pieces
+#define ARMOR_INT_SIDE_DECREPIT 150 // Integrity for decrepit pieces
+#define ARMOR_INT_SIDE_CLOTH 100 // Integrity for cloth / aesthetic oriented pieces
+
+
 /*--------------------\
 | ARMOR VALUE DEFINES |	
 \--------------------*/
@@ -24,6 +94,7 @@
 // Heavy AC | Chest
 #define ARMOR_PLATE list("blunt" = 10, "slash" = 100, "stab" = 80, "piercing" = 40, "fire" = 0, "acid" = 0)
 #define ARMOR_PLATE_GOOD list("blunt" = 50, "slash" = 100, "stab" = 80, "piercing" = 80, "fire" = 0, "acid" = 0)
+#define ARMOR_PLATE_BSTEEL list("blunt" = 80, "slash" = 100, "stab" = 90, "piercing" = 80, "fire" = 0, "acid" = 0) // It's EVIL. OH GOD.
 
 // Boot Armor
 #define ARMOR_BOOTS_PLATED list("blunt" = 10, "slash" = 100, "stab" = 80, "piercing" = 50, "fire" = 0, "acid" = 0)
@@ -34,7 +105,7 @@
 // Glove Armor
 #define ARMOR_GLOVES_LEATHER list("blunt" = 60, "slash" = 10, "stab" = 20, "piercing" = 0, "fire" = 0, "acid" = 0)
 #define ARMOR_GLOVES_LEATHER_GOOD list("blunt" = 60, "slash" = 25, "stab" = 40, "piercing" = 10, "fire" = 0, "acid" = 0)
-#define ARMOR_GLOVES_CHAIN list("blunt" = 20, "slash" = 100, "stab" = 80, "piercing" = 20, "fire" = 0, "acid" = 0)
+#define ARMOR_GLOVES_CHAIN list("blunt" = 20, "slash" = 100, "stab" = 70, "piercing" = 20, "fire" = 0, "acid" = 0)
 #define ARMOR_GLOVES_PLATE list("blunt" = 5, "slash" = 100, "stab" = 80, "piercing" = 40, "fire" = 0, "acid" = 0)
 #define ARMOR_GLOVES_PLATE_GOOD list("blunt" = 20, "slash" = 100, "stab" = 80, "piercing" = 50, "fire" = 0, "acid" = 0)
 
@@ -203,6 +274,7 @@
 	/datum/species/anthromorphsmall,\
 	/datum/species/demihuman,\
 	/datum/species/halforc,\
+	/datum/species/orc,\
 	/datum/species/kobold,\
 	/datum/species/goblinp,\
 	/datum/species/construct/metal,\
@@ -299,6 +371,9 @@ GLOBAL_LIST_EMPTY(confessors)
 
 GLOBAL_LIST_EMPTY(sunlights)
 GLOBAL_LIST_EMPTY(head_bounties)
+GLOBAL_LIST_EMPTY(board_viewers)
+GLOBAL_LIST_EMPTY(noticeboard_posts)
+GLOBAL_LIST_EMPTY(premium_noticeboardposts)
 GLOBAL_LIST_EMPTY(job_respawn_delays)
 GLOBAL_LIST_EMPTY(round_join_times)
 
@@ -327,27 +402,32 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_VAGABOND		"CAT_VAGABOND"		// Vagabond class - start with nothing and work your way up
 #define CTAG_INQUISITION	"CAT_INQUISITION"	// For Orthodoxist subclasses
 #define CTAG_PURITAN		"CAT_PURITAN"		// For Inquisitor subclasses
-#define CTAG_COURTAGENT		"CAT_COURTAGENT"	//Court agent classes
+#define CTAG_COURTAGENT		"CAT_COURTAGENT"	// Court agent classes
 #define CTAG_WRETCH			"CAT_WRETCH"		// Wretch classes untethered from adventurer
+#define CTAG_LSKELETON		"CAT_LSKELETON"		// Lich Fortified Skeleton classes
+#define CTAG_NSKELETON		"CAT_NSKELETON"		// Necromancer Greater Skeleton classes
 
-#define CTAG_WARDEN			"CAT_WARDEN"			// Warden class - Handles warden class selector.
+#define CTAG_WARDEN			"CAT_WARDEN"		// Warden class - Handles warden class selector.
 #define CTAG_WATCH			"CAT_WATCH"			// Watch class - Handles Town Watch class selector
 #define CTAG_MENATARMS		"CAT_MENATARMS"		// Men-at-Arms class - Handles Men-at-Arms class selector
 #define CTAG_SERGEANT		"CAT_SERGEANT"		// Sergeant class - Handles Sergeant class selector (weapons selection)
 #define CTAG_ROYALGUARD		"CAT_ROYALGUARD"	// Royal Guard class - Handles Royal Guard class selector
+#define CTAG_CONSORT		"CAT_CONSORT"		// Consort/Suitor subclasses
 #define CTAG_MERCENARY		"CAT_MERCENARY"		// Mercenary class - Handles Mercenary class selector
 #define CTAG_HAND			"CAT_HAND"			// Hand class - Handles Hand class selector
 #define CTAG_TEMPLAR		"CAT_TEMPLAR"		// Templar class - Handles Templar class selector
 #define CTAG_HEIR			"CAT_HEIR"			// Prince(cess) class - Handles Heir class selector
+#define CTAG_LORD			"CAT_LORD"			// Lord class - Handles Lord class selector
 #define CTAG_SQUIRE			"CAT_SQUIRE"		// Squire class - Handles Squire class selector
 #define CTAG_VETERAN		"CAT_VETERAN"		// Veteran class - Handles Veteran class selector
 #define CTAG_MARSHAL		"CAT_MARSHAL"		// Marshal class
 #define CTAG_SENESCHAL		"CAT_SENESCHAL"		// Seneschal's aesthetic choices. 
 #define CTAG_SERVANT		"CAT_SERVANT"		// Servant's aesthetic choices.
 #define CTAG_CAPTAIN		"CAT_CAPTAIN"		// Handles Captain class selector
-#define CTAG_WAPPRENTICE	"CTAG_WAPPRENTICE"	// Mage Apprentice Classes - Handles Mage Apprentices class selector 
+#define CTAG_WAPPRENTICE	"CTAG_WAPPRENTICE"	// Mage Apprentice Classes - Handles Mage Apprentices class selector
+#define CTAG_GUILDSMASTER 	"CAT_GUILDSMASTER"	// Guildsmaster class - Handles Guildsmaster class selector 
+#define CTAG_GUILDSMEN 		"CAT_GUILDSMEN"		// Guildsmen class - Handles Guildsmen class selector
 #define CTAG_NIGHTMAIDEN	"CAT_NIGHTMAIDEN"	// Bathhouse Attendant's aesthetic choices.
-
 /*
 	Defines for the triumph buy datum categories
 */

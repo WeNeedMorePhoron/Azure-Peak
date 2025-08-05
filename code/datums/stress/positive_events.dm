@@ -221,3 +221,18 @@
 	stressadd = -1
 	desc = span_green("I have prevailed over my rival! Graggar favours me now!")
 	timer = INFINITY
+
+/datum/stressevent/eoran_blessing
+	stressadd = -1
+	desc = span_info("An Eoran shone their brightness upon me.")
+	timer = 5 MINUTES
+
+/datum/stressevent/eoran_blessing_greater
+	stressadd = -2
+	desc = span_info("A Devout Eoran shone their brightness upon me.")
+	timer = 10 MINUTES
+
+/datum/stressevent/sermon
+	stressadd = -5
+	desc = span_green("I feel inspired by the sermon.")
+	timer = 20 MINUTES

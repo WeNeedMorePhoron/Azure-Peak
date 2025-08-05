@@ -64,21 +64,22 @@ GLOBAL_LIST_INIT(primordial_wounds, init_primordial_wounds())
 	var/disabling = FALSE
 	/// If TRUE, this is a crit wound
 	var/critical = FALSE
-
+	/// Some wounds cause instant death for CRITICAL_WEAKNESS
+	var/mortal = FALSE
 	/// Amount we heal passively while sleeping
 	var/sleep_healing = 1
 	/// Amount we heal passively, always
 	var/passive_healing = 0
 	/// Embed chance if this wound allows embedding
 	var/embed_chance = 0
-
+	/// Bypass bloody wound checks, used for fractures so they apply to skeleton-mobs.
+	var/bypass_bloody_wound_check = FALSE
 	/// Some wounds make no sense on a dismembered limb and need to go
 	var/qdel_on_droplimb = FALSE
 
 
 
 /datum/wound/Destroy(force)
-	. = ..()
 	if(bodypart_owner)
 		remove_from_bodypart()
 	else if(owner)
@@ -88,6 +89,7 @@ GLOBAL_LIST_INIT(primordial_wounds, init_primordial_wounds())
 		werewolf_infection_timer = null
 	bodypart_owner = null
 	owner = null
+	. = ..()
 
 /// Description of this wound returned to the player when a bodypart is examined and such
 /datum/wound/proc/get_visible_name(mob/user)
@@ -133,7 +135,7 @@ GLOBAL_LIST_INIT(primordial_wounds, init_primordial_wounds())
 /datum/wound/proc/can_apply_to_bodypart(obj/item/bodypart/affected)
 	if(bodypart_owner || owner || QDELETED(affected) || QDELETED(affected.owner))
 		return FALSE
-	if(!isnull(bleed_rate) && !affected.can_bloody_wound())
+	if(!isnull(bleed_rate) && !affected.can_bloody_wound() && !bypass_bloody_wound_check)
 		return FALSE
 	for(var/datum/wound/other_wound as anything in affected.wounds)
 		if(!can_stack_with(other_wound))
@@ -233,7 +235,8 @@ GLOBAL_LIST_INIT(primordial_wounds, init_primordial_wounds())
 		deltimer(werewolf_infection_timer)
 		werewolf_infection_timer = null
 		werewolf_infect_attempt()
-
+	if(mortal && HAS_TRAIT(affected, TRAIT_CRITICAL_WEAKNESS))
+		affected.death()
 
 /// Removes this wound from a given, simpler than adding to a bodypart - No extra effects
 /datum/wound/proc/remove_from_mob()
@@ -267,7 +270,9 @@ GLOBAL_LIST_INIT(primordial_wounds, init_primordial_wounds())
 	if(isnull(whp))
 		return 0
 	var/amount_healed = min(whp, round(heal_amount, DAMAGE_PRECISION))
+	var/pain_healed = min(woundpain, round(heal_amount / 2, DAMAGE_PRECISION))
 	whp -= amount_healed
+	woundpain -= pain_healed
 	if(whp <= 0)
 		if(!should_persist())
 			if(bodypart_owner)

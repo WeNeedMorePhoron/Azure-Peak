@@ -39,6 +39,7 @@
 				identify_difficulty = 0 //anyone can clear this
 
 			var/identified = FALSE
+			HL.playsound_local(HL, 'sound/magic/message.ogg', 100)
 			if(HL.STAPER >= identify_difficulty) //quick stat check
 				if(HL.mind)
 					if(HL.mind.do_i_know(name=user.real_name)) //do we know who this person is?

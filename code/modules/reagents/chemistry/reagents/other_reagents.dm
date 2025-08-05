@@ -38,6 +38,12 @@
 	if(data["blood_DNA"])
 		B.add_blood_DNA(list(data["blood_DNA"] = data["blood_type"]))
 
+/datum/reagent/blood/on_mob_life(mob/living/carbon/H)//I hate you
+	..()
+	if(HAS_TRAIT(H, TRAIT_NASTY_EATER))
+		return
+	H.add_nausea(12) //Over 8 units will cause puking
+
 /datum/reagent/blood/green
 	color = "#05af01"
 
@@ -68,15 +74,16 @@
 	results = list(/datum/reagent/water/gross = 2)
 	required_reagents = list(/datum/reagent/water/gross = 1, /datum/reagent/water = 1)
 
-
+#define WATER_BLOOD_RESTORE 5
 /datum/reagent/water/on_mob_life(mob/living/carbon/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!HAS_TRAIT(H, TRAIT_NOHUNGER))
 			H.adjust_hydration(hydration)
 		if(M.blood_volume < BLOOD_VOLUME_NORMAL)
-			M.blood_volume = min(M.blood_volume+10, BLOOD_VOLUME_NORMAL)
+			M.blood_volume = min(M.blood_volume+WATER_BLOOD_RESTORE, BLOOD_VOLUME_NORMAL)
 	..()
+#undef WATER_BLOOD_RESTORE
 
 /datum/reagent/water/gross
 	taste_description = "something vile"
@@ -89,7 +96,7 @@
 
 /datum/reagent/water/gross/on_mob_life(mob/living/carbon/M)
 	..()
-	if(HAS_TRAIT(M, TRAIT_NASTY_EATER )) // lets orcs and goblins drink bogwater
+	if(HAS_TRAIT(M, TRAIT_NASTY_EATER)) // lets orcs and goblins drink bogwater
 		return
 	M.adjustToxLoss(1)
 	M.add_nausea(12) //Over 8 units will cause puking

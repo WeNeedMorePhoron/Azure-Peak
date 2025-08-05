@@ -235,8 +235,7 @@
 	user.set_machine(src)
 	interact(user)
 
-/obj/item/toy/cards/cardhand/ui_interact(mob/user)
-	. = ..()
+/obj/item/toy/cards/cardhand/interact(mob/user)
 	var/dat = "You have:<BR>"
 	for(var/t in currenthand)
 		dat += "<A href='?src=[REF(src)];pick=[t]'>A [t].</A><BR>"
@@ -442,10 +441,11 @@
 
 /obj/item/toy/cards/deck/tarot/populate_deck()
 	icon_state = "deck_[deckstyle]_full"
-	for(var/suit in list("Hearts", "Pikes", "Clovers", "Tiles"))
-		for(var/i in 1 to 10)
+	for(var/suit in list("Pentacles", "Swords", "Wands", "Cups"))
+		cards += "Ace of [suit]"
+		for(var/i in 2 to 10)
 			cards += "[i] of [suit]"
-		for(var/person in list("Valet", "Chevalier", "Dame", "Roi"))
+		for(var/person in list("Page", "Knight", "Queen", "King"))
 			cards += "[person] of [suit]"
 	for(var/trump in list("The Magician", "The High Priestess", "The Empress", "The Emperor", "The Hierophant", "The Lover", "The Chariot", "Justice", "The Hermit", "The Wheel of Fortune", "Strength", "The Hanged Man", "Death", "Temperance", "The Devil", "The Tower", "The Star", "The Moon", "The Sun", "Judgement", "The World", "The Fool"))
 		cards += trump

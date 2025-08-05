@@ -63,6 +63,10 @@
 	icon_state = "inuse"
 	no_attack = TRUE
 
+/datum/intent/spear/cut/naginata
+	damfactor = 1.2
+	chargetime = 0
+
 /datum/intent/sword/cut/zwei
 	reach = 2
 
@@ -113,6 +117,7 @@
 	hitsound = list('sound/combat/hits/bladed/genslash (1).ogg', 'sound/combat/hits/bladed/genslash (2).ogg', 'sound/combat/hits/bladed/genslash (3).ogg')
 	item_d_type = "slash"
 	misscost = 10
+	intent_intdamage_factor = 0.25
 
 /datum/intent/rend/reach
 	name = "long rend"
@@ -133,6 +138,7 @@
 	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
 	item_d_type = "stab"
 	no_early_release = TRUE
+	intent_intdamage_factor = 0.1
 
 /datum/intent/partizan/peel
 	name = "armor peel"
@@ -149,6 +155,8 @@
 	peel_divisor = 4
 	reach = 2
 
+
+
 /datum/intent/spear/bash/ranged/quarterstaff
 	damfactor = 1
 
@@ -158,6 +166,23 @@
 	penfactor = BLUNT_DEFAULT_PENFACTOR
 	damfactor = 1.3 // Adds up to be slightly stronger than an unenhanced ebeak strike.
 	chargetime = 6 // Meant to be stronger than a bash, but with a delay.
+
+/datum/intent/spear/thrust/lance
+	damfactor = 1.5 // Turns its base damage into 30 on the 2hand thrust. It keeps the spear thrust one handed.
+
+/datum/intent/lance/
+	name = "lance"
+	icon_state = "inlance"
+	attack_verb = list("lances", "runs through", "skewers")
+	animname = "stab"
+	item_d_type = "stab"
+	penfactor = BLUNT_DEFAULT_PENFACTOR // Not a mistake, to prevent it from nuking through armor.
+	chargetime = 4 SECONDS
+	damfactor = 4 // 80 damage on hit. It is gonna hurt.
+	reach = 3 // Yep! 3 tiles
+
+/datum/intent/lance/onehand
+	chargetime = 5 SECONDS
 
 //polearm objs ฅ^•ﻌ•^ฅ
 
@@ -228,7 +253,7 @@
 
 
 /obj/item/rogueweapon/spear
-	force = 18
+	force = 20
 	force_wielded = 30
 	possible_item_intents = list(SPEAR_THRUST, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
 	gripped_intents = list(SPEAR_THRUST, SPEAR_CUT, SPEAR_BASH)
@@ -258,17 +283,19 @@
 
 /obj/item/rogueweapon/spear/aalloy
 	name = "decrepit spear"
-	desc = "A decrepit old spear. Aeon's grasp is upon it."
+	desc = "A rotting staff, tipped with frayed bronze. After the stone, but before the sword; an interlude for the violence that would soon engulf His world."
 	icon_state = "ancient_spear"
-	smeltresult = /obj/item/ingot/aalloy
 	force = 13
 	force_wielded = 22
 	max_integrity = 180
 	blade_dulling = DULLING_SHAFT_CONJURED
+	color = "#bb9696"
+	smeltresult = /obj/item/ingot/aaslag
+	anvilrepair = null
 
 /obj/item/rogueweapon/spear/paalloy
 	name = "ancient spear"
-	desc = "A spear made of ancient alloys. Aeon's grasp has been lifted from it."
+	desc = "A gnarled staff, tipped with polished gilbranze. Your breathing hilts, and your knuckles tighten around the staff; you see what is yet to come, yet your mind refuses to retain it. To know what fate this dying world has - it would drive any man inzane."
 	smeltresult = /obj/item/ingot/aaslag
 	icon_state = "ancient_spear"
 
@@ -398,6 +425,14 @@
 	thrown_bclass = BCLASS_STAB
 	throwforce = 35
 	resistance_flags = FLAMMABLE
+	fishingMods=list(
+		"commonFishingMod" = 0.8,
+		"rareFishingMod" = 1.4,
+		"treasureFishingMod" = 0,
+		"trashFishingMod" = 0,
+		"dangerFishingMod" = 1,
+		"ceruleanFishingMod" = 0, // 1 on cerulean aril, 0 on everything else
+	)
 
 /obj/item/rogueweapon/fishspear/depthseek //DO NOT ADD RECIPE. MEANT TO BE AN ABYSSORITE RELIC. IDEA COURTESY OF LORDINQPLAS
 	force = 45
@@ -415,36 +450,12 @@
 			user.doing = 0
 
 /obj/item/rogueweapon/fishspear/afterattack(obj/target, mob/user, proximity)
-	freshfishloot = list(
-		/obj/item/reagent_containers/food/snacks/fish/carp = 200,
-		/obj/item/reagent_containers/food/snacks/fish/sunny = 300,
-		/obj/item/reagent_containers/food/snacks/fish/salmon = 200,
-		/obj/item/reagent_containers/food/snacks/fish/eel = 150,
-		/mob/living/simple_animal/hostile/retaliate/rogue/mudcrab = 20,
-	)
-	seafishloot = list(
-		/obj/item/reagent_containers/food/snacks/fish/cod = 200,
-		/obj/item/reagent_containers/food/snacks/fish/plaice = 200,
-		/obj/item/reagent_containers/food/snacks/fish/sole = 305,
-		/obj/item/reagent_containers/food/snacks/fish/angler = 150,
-		/obj/item/reagent_containers/food/snacks/fish/lobster = 300,
-		/obj/item/reagent_containers/food/snacks/fish/bass = 200,
-		/obj/item/reagent_containers/food/snacks/fish/clam = 100,
-		/obj/item/reagent_containers/food/snacks/fish/clownfish = 50,
-		/mob/living/carbon/human/species/goblin/npc/sea = 25,
-		/mob/living/simple_animal/hostile/rogue/deepone = 30,
-		/mob/living/simple_animal/hostile/rogue/deepone/spit = 30,
-	)
-	mudfishloot = list(
-		/obj/item/reagent_containers/food/snacks/fish/mudskipper = 200,
-		/obj/item/natural/worms/leech = 50,
-		/mob/living/simple_animal/hostile/retaliate/rogue/mudcrab = 25,
-	)
-	var/sl = user.mind.get_skill_level(/datum/skill/labor/fishing) // User's skill level
+	var/sl = user.get_skill_level(/datum/skill/labor/fishing) // User's skill level
 	var/ft = 160 //Time to get a catch, in ticks
 	var/fpp =  130 - (40 + (sl * 15)) // Fishing power penalty based on fishing skill level
 	var/frwt = list(/turf/open/water/river, /turf/open/water/cleanshallow, /turf/open/water/pond)
-	var/salwt = list(/turf/open/water/ocean, /turf/open/water/ocean/deep)
+	var/salwt_coast = list(/turf/open/water/ocean)
+	var/salwt_deep = list(/turf/open/water/ocean/deep)
 	var/mud = list(/turf/open/water/swamp, /turf/open/water/swamp/deep)
 	if(istype(target, /turf/open/water))
 		if(user.used_intent.type == SPEAR_CAST && !user.doing)
@@ -463,8 +474,16 @@
 							fishchance -= fpp // Deduct a penalty the lower our fishing level is (-0 at legendary)
 					var/mob/living/fisherman = user
 					if(prob(fishchance)) // Finally, roll the dice to see if we fish.
+						var/A
 						if(target.type in frwt)
-							var/A = pickweight(freshfishloot)
+							A = pickweightAllowZero(createFreshWaterFishWeightListModlist(fishingMods))
+						else if(target.type in salwt_coast)
+							A = pickweightAllowZero(createCoastalSeaFishWeightListModlist(fishingMods))
+						else if(target.type in salwt_deep)
+							A = pickweightAllowZero(createDeepSeaFishWeightListModlist(fishingMods))
+						else if(target.type in mud)
+							A = pickweightAllowZero(createMudFishWeightListModlist(fishingMods))
+						if(A)
 							var/ow = 30 + (sl * 10) // Opportunity window, in ticks. Longer means you get more time to cancel your bait
 							to_chat(user, "<span class='notice'>You see something!</span>")
 							playsound(src.loc, 'sound/items/fishing_plouf.ogg', 100, TRUE)
@@ -480,49 +499,11 @@
 									new A(user.loc)
 									to_chat(user, "<span class='warning'>Pull 'em in!</span>")
 									user.mind.add_sleep_experience(/datum/skill/labor/fishing, round(fisherman.STAINT, 2), FALSE) // Level up!
+									record_featured_stat(FEATURED_STATS_FISHERS, fisherman)
+									GLOB.azure_round_stats[STATS_FISH_CAUGHT]++
 									playsound(src.loc, 'sound/items/Fish_out.ogg', 100, TRUE)	
 							else
 								to_chat(user, "<span class='warning'>Damn, it got away... I should <b>pull away</b> next time.</span>")								
-						if(target.type in salwt)
-							var/A = pickweight(seafishloot)
-							var/ow = 30 + (sl * 10) // Opportunity window, in ticks. Longer means you get more time to cancel your bait
-							to_chat(user, "<span class='notice'>You see something!</span>")
-							playsound(src.loc, 'sound/items/fishing_plouf.ogg', 100, TRUE)
-							if(!do_after(user,ow, target = target))
-								if(ismob(A)) // TODO: Baits with mobs on their fishloot lists OR water tiles with their own fish loot pools
-									var/mob/M = A
-									if(M.type in subtypesof(/mob/living/simple_animal/hostile))
-										new M(target)
-									else
-										new M(user.loc)
-									user.mind.add_sleep_experience(/datum/skill/labor/fishing, fisherman.STAINT*2) // High risk high reward
-								else
-									new A(user.loc)
-									to_chat(user, "<span class='warning'>Pull 'em in!</span>")
-									user.mind.add_sleep_experience(/datum/skill/labor/fishing, round(fisherman.STAINT, 2), FALSE) // Level up!
-									playsound(src.loc, 'sound/items/Fish_out.ogg', 100, TRUE)	
-							else
-								to_chat(user, "<span class='warning'>Damn, it got away... I should <b>pull away</b> next time.</span>")							
-						if(target.type in mud)
-							var/A = pickweight(mudfishloot)
-							var/ow = 30 + (sl * 10) // Opportunity window, in ticks. Longer means you get more time to cancel your bait
-							to_chat(user, "<span class='notice'>You see something!</span>")
-							playsound(src.loc, 'sound/items/fishing_plouf.ogg', 100, TRUE)
-							if(!do_after(user,ow, target = target))
-								if(ismob(A)) // TODO: Baits with mobs on their fishloot lists OR water tiles with their own fish loot pools
-									var/mob/M = A
-									if(M.type in subtypesof(/mob/living/simple_animal/hostile))
-										new M(target)
-									else
-										new M(user.loc)
-									user.mind.add_sleep_experience(/datum/skill/labor/fishing, fisherman.STAINT*2) // High risk high reward
-								else
-									new A(user.loc)
-									to_chat(user, "<span class='warning'>Pull 'em in!</span>")
-									user.mind.add_sleep_experience(/datum/skill/labor/fishing, round(fisherman.STAINT, 2), FALSE) // Level up!
-									playsound(src.loc, 'sound/items/Fish_out.ogg', 100, TRUE)
-							else
-								to_chat(user, "<span class='warning'>Damn, it got away... I should <b>pull away</b> next time.</span>")
 					else
 						to_chat(user, "<span class='warning'>Not a single fish...</span>")
 						user.mind.add_sleep_experience(/datum/skill/labor/fishing, fisherman.STAINT/2) // Pity XP.
@@ -640,17 +621,19 @@
 
 /obj/item/rogueweapon/halberd/bardiche/aalloy
 	name = "decrepit bardiche"
-	desc = "A decrepit bardiche. Aeon's grasp upon it."
+	desc = "An imposing poleaxe, wrought from frayed bronze. Whatever noble purpose this weapon held has long since decayed; for it now persists to sunder the chaff that clings to this dying world."
 	max_integrity = 180
 	force = 12
 	force_wielded = 22
 	icon_state = "ancient_bardiche"
-	smeltresult = /obj/item/ingot/aalloy
 	blade_dulling = DULLING_SHAFT_CONJURED
+	color = "#bb9696"
+	smeltresult = /obj/item/ingot/aaslag
+	anvilrepair = null
 
 /obj/item/rogueweapon/halberd/bardiche/paalloy
 	name = "ancient bardiche"
-	desc = "A bardiche made of ancient alloys. Aeon's grasp lifted from its form."
+	desc = "A terrifying poleaxe, forged from polished gilbranze. When Her ascension came, these weapons - bereft of their wielders - sunk deep into the earth. Shadowed hands cradled the blades over the centuries, and would eventually create its steel-tipped successor; the glaive."
 	icon_state = "ancient_bardiche"
 	smeltresult = /obj/item/ingot/aaslag
 
@@ -815,18 +798,20 @@
 
 /obj/item/rogueweapon/greatsword/aalloy
 	name = "decrepit greatsword"
-	desc = "A decrepit old greatsword. You'd be lucky if it chopped anything in half. Aeon's grasp is upon its form."
+	desc = "A massive blade, wrought in frayed bronze. It is too big to be called a sword; massive, thick, heavy, and far too rough. Indeed, this blade was more like a heap of raw metal."
 	force = 10
 	force_wielded = 25
 	max_integrity = 180
 	icon_state = "ancient_gsw"
-	smeltresult = /obj/item/ingot/aalloy
 	blade_dulling = DULLING_SHAFT_CONJURED
+	color = "#bb9696"
+	smeltresult = /obj/item/ingot/aaslag
+	anvilrepair = null
 
 
 /obj/item/rogueweapon/greatsword/paalloy
 	name = "ancient greatsword"
-	desc = "An ancient greatsword. Aeon's grasp lifted from its form."
+	desc = "A massive blade, forged from polished gilbronze. Your kind will discover your true nature, in wrath and ruin. You will take to the stars and burn them out, one by one. Only when the last star turns to dust, will you finally realize that She was trying to save you from Man's greatest foe; oblivion."
 	icon_state = "ancient_gsw"
 	smeltresult = /obj/item/ingot/aaslag
 
@@ -992,7 +977,7 @@
 	force_wielded = 25
 	gripped_intents = list(/datum/intent/spear/bash/ranged/quarterstaff, /datum/intent/spear/thrust/quarterstaff)
 	icon_state = "quarterstaff_steel"
-	max_integrity = 500
+	max_integrity = 400
 	blade_dulling = DULLING_SHAFT_REINFORCED
 	intdamage_factor = 1.2
 
@@ -1005,25 +990,70 @@
 	gripped_intents = list(SPEAR_THRUST, PARTIZAN_REND, PARTIZAN_PEEL)
 	icon_state = "partizan"
 	icon = 'icons/roguetown/weapons/64.dmi'
-	pixel_y = -16
-	pixel_x = -16
-	inhand_x_dimension = 64
-	inhand_y_dimension = 64
-	bigboy = TRUE
-	gripsprite = TRUE
-	wlength = WLENGTH_GREAT
-	w_class = WEIGHT_CLASS_BULKY
 	minstr = 10
 	max_blade_int = 200
 	wdefense = 6
-	thrown_bclass = BCLASS_STAB
 	throwforce = 12	//Not a throwing weapon. Too heavy!
-	max_integrity = 250
 	blade_dulling = DULLING_SHAFT_REINFORCED
-	intdamage_factor = 0.6
 	icon_angle_wielded = 50
 
 /obj/item/rogueweapon/spear/partizan/getonmobprop(tag)
+	. = ..()
+	if(tag)
+		switch(tag)
+			if("gen")
+				return list("shrink" = 0.6,"sx" = -6,"sy" = 2,"nx" = 8,"ny" = 2,"wx" = -4,"wy" = 2,"ex" = 1,"ey" = 2,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = -38,"sturn" = 300,"wturn" = 32,"eturn" = -23,"nflip" = 0,"sflip" = 100,"wflip" = 8,"eflip" = 0)
+			if("wielded")
+				return list("shrink" = 0.6,"sx" = 4,"sy" = -2,"nx" = -3,"ny" = -2,"wx" = -5,"wy" = -1,"ex" = 3,"ey" = -2,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 7,"sturn" = -7,"wturn" = 16,"eturn" = -22,"nflip" = 8,"sflip" = 0,"wflip" = 8,"eflip" = 0)
+
+/obj/item/rogueweapon/spear/boar
+	name = "boar spear"
+	desc = "A spear with a wide head and a pair of wings below the head. The wings are designed to prevent a boar from charging past the spearhead. \
+	It is also useful for parrying and stopping a charging opponent."
+	icon = 'icons/roguetown/weapons/polearms64.dmi'
+	icon_state = "boarspear"
+	force_wielded = 33 // 10% base damage increase
+	wdefense = 6 // A little bit extra
+	max_blade_int = 150 // 50% more sharpness but it barely matter lol
+
+/obj/item/rogueweapon/spear/boar/frei
+	name = "Aavnic lándzsa"
+	desc = "A regional earspoon lance with a carved handle, adorned with the colours of the Freifechters. These are smithed by the legendary armourers of Vyšvou and given to distinguished lancers upon their graduation."
+	icon_state = "praguespear"
+
+/obj/item/rogueweapon/spear/lance
+	name = "lance"
+	desc = "A long polearm designed to be used from horseback, couched under the arm. It has a vambrace to prevent the arm sliding up \
+	the shaft on impact. "
+	icon = 'icons/roguetown/weapons/polearms64.dmi'
+	icon_state = "lance"
+	force = 15 // Its gonna sucks for 1 handed use
+	force_wielded = 20 // Lower damage because a 3 tiles thrust without full charge time still deal base damage. 
+	wdefense = 4 // 2 Lower than spear
+	max_integrity = 200
+	max_blade_int = 200 // Better sharpness
+	possible_item_intents = list(SPEAR_THRUST, /datum/intent/lance/onehand, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
+	gripped_intents = list(/datum/intent/spear/thrust/lance, /datum/intent/lance, SPEAR_BASH)
+	resistance_flags = null
+	blade_dulling = DULLING_SHAFT_REINFORCED
+
+/obj/item/rogueweapon/spear/naginata
+	name = "Naginata"
+	desc = "A traditional Kazengunese polearm, combining the reach of a spear with the cutting power of a curved blade. Due to the brittle quality of Kazengunese bladesmithing, weaponsmiths have adapted its blade to be easily replaceable when broken by a peg upon the end of the shaft."
+	force = 16
+	force_wielded = 30
+	possible_item_intents = list(/datum/intent/spear/cut/naginata, SPEAR_BASH) // no stab for you little chuddy, it's a slashing weapon
+	gripped_intents = list(/datum/intent/rend/reach, /datum/intent/spear/cut/naginata, PARTIZAN_PEEL, SPEAR_BASH)
+	icon_state = "naginata"
+	icon = 'icons/roguetown/weapons/64.dmi'
+	minstr = 7
+	max_blade_int = 50 //Nippon suteeru (dogshit)
+	wdefense = 5
+	throwforce = 12	//Not a throwing weapon. 
+	blade_dulling = DULLING_SHAFT_REINFORCED
+	icon_angle_wielded = 50
+
+/obj/item/rogueweapon/spear/naginata/getonmobprop(tag)
 	. = ..()
 	if(tag)
 		switch(tag)

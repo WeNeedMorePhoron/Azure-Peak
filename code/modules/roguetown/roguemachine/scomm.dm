@@ -9,7 +9,6 @@
 	blade_dulling = DULLING_BASH
 	max_integrity = 0
 	pixel_y = 32
-	flags_1 = HEAR_1
 	anchored = TRUE
 	var/next_decree = 0
 	var/listening = TRUE
@@ -20,6 +19,14 @@
 	var/obj/structure/roguemachine/scomm/called_by = null
 	var/spawned_rat = FALSE
 	var/garrisonline = FALSE
+
+/obj/structure/roguemachine/scomm/Initialize()
+	. = ..()
+	become_hearing_sensitive()
+
+/obj/structure/roguemachine/scomm/Destroy()
+	lose_hearing_sensitivity()
+	return ..()
 
 /obj/structure/roguemachine/scomm/OnCrafted(dirin, mob/user)
 	. = ..()
@@ -72,7 +79,7 @@
 	. = ..()
 	if(.)
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
 	playsound(loc, 'sound/misc/beep.ogg', 100, FALSE, -1)
 	if(called_by && !calling)
 		calling = called_by
@@ -92,7 +99,7 @@
 /obj/structure/roguemachine/scomm/attack_right(mob/user)
 	if(.)
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
 	playsound(loc, 'sound/misc/beep.ogg', 100, FALSE, -1)
 	if(called_by && !calling)
 		called_by.say("Jabberline refused.", spans = list("info"))
@@ -129,7 +136,7 @@
 			playsound(loc, 'sound/misc/garrisonscom.ogg', 100, FALSE, -1)
 			update_icon()
 			return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
 	playsound(loc, 'sound/misc/beep.ogg', 100, FALSE, -1)
 	if(calling)
 		calling.say("Jabberline severed.", spans = list("info"))
@@ -329,7 +336,6 @@
 	icon = 'icons/roguetown/items/misc.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	experimental_inhand = FALSE
-	flags_1 = HEAR_1
 	muteinmouth = TRUE
 	var/listening = TRUE
 	var/speaking = TRUE
@@ -341,7 +347,8 @@
 	grid_height = 32
 //wip
 /obj/item/scomstone/attack_right(mob/living/carbon/human/user)
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
+	visible_message(span_notice ("[user] presses their ring against their mouth."))
 	var/input_text = input(user, "Enter your message:", "Message")
 	if(!input_text)
 		return
@@ -362,7 +369,7 @@
 /obj/item/scomstone/MiddleClick(mob/user)
 	if(.)
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
 	playsound(loc, 'sound/misc/beep.ogg', 100, FALSE, -1)
 	listening = !listening
 	speaking = !speaking
@@ -371,10 +378,12 @@
 
 /obj/item/scomstone/Destroy()
 	SSroguemachine.scomm_machines -= src
+	lose_hearing_sensitivity()
 	return ..()
 
 /obj/item/scomstone/Initialize()
 	. = ..()
+	become_hearing_sensitive()
 	update_icon()
 	SSroguemachine.scomm_machines += src
 
@@ -430,7 +439,6 @@
 	icon = 'icons/roguetown/clothing/neck.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	experimental_inhand = FALSE
-	flags_1 = HEAR_1
 	muteinmouth = TRUE
 	var/listening = TRUE
 	var/speaking = TRUE
@@ -441,7 +449,7 @@
 /obj/item/listenstone/MiddleClick(mob/user)
 	if(.)
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
 	playsound(loc, 'sound/misc/beep.ogg', 100, FALSE, -1)
 	listening = !listening
 	speaking = !speaking
@@ -500,7 +508,6 @@
 	icon = 'icons/roguetown/items/misc.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	experimental_inhand = FALSE
-	flags_1 = HEAR_1
 	muteinmouth = TRUE
 	var/listening = TRUE
 	var/speaking = TRUE
@@ -508,8 +515,11 @@
 	grid_width = 32
 	grid_height = 32
 
-/obj/item/mattcoin/New(loc, ...)
+/obj/item/mattcoin/Initialize()
 	. = ..()
+	become_hearing_sensitive()
+	update_icon()
+	SSroguemachine.scomm_machines += src
 	name = pick("rontz ring", "gold ring")
 
 /obj/item/mattcoin/pickup(mob/living/user)
@@ -528,7 +538,7 @@
 	. = ..()
 
 /obj/item/mattcoin/attack_right(mob/living/carbon/human/user)
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
 	var/input_text = input(user, "Enter your message:", "Message")
 	if(input_text)
 		var/usedcolor = user.voice_color
@@ -543,7 +553,7 @@
 /obj/item/mattcoin/MiddleClick(mob/user)
 	if(.)
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
 	playsound(loc, 'sound/misc/coindispense.ogg', 100, FALSE, -1)
 	listening = !listening
 	speaking = !speaking
@@ -551,13 +561,9 @@
 	update_icon()
 
 /obj/item/mattcoin/Destroy()
+	lose_hearing_sensitivity()
 	SSroguemachine.scomm_machines -= src
 	return ..()
-
-/obj/item/mattcoin/Initialize()
-	. = ..()
-	update_icon()
-	SSroguemachine.scomm_machines += src
 
 /obj/item/mattcoin/proc/repeat_message(message, atom/A, tcolor, message_language)
 	if(A == src)
@@ -647,7 +653,7 @@
 /obj/item/speakerinq/MiddleClick(mob/user)
 	if(.)
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
 	playsound(loc, 'sound/misc/beep.ogg', 100, FALSE, -1)
 	speaking = !speaking
 	to_chat(user, span_info("I [speaking ? "unmute" : "mute"] the listener."))
@@ -668,7 +674,6 @@
 	grid_width = 32
 	grid_height = 32
 
-
 /obj/item/listeningdevice/attack_self(mob/living/user)
 	var/turf/step_turf = get_step(get_turf(user), user.dir)
 	to_chat(user, span_tinynotice("I begin planting the listen-stone..."))
@@ -687,10 +692,16 @@
 	var/listening = TRUE
 	density = FALSE
 	anchored = TRUE
-	flags_1 = HEAR_1
 	alpha = 0
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 
+/obj/structure/listeningdeviceactive/Initialize()
+	. = ..()
+	become_hearing_sensitive()
+
+/obj/structure/listeningdeviceactive/Destroy()
+	lose_hearing_sensitivity()
+	return ..()
 
 /obj/structure/listeningdeviceactive/attack_right(mob/user)
 	to_chat(user, span_info("I begin dismounting the listen-stone..."))
@@ -727,7 +738,8 @@
 	sellprice = 100
 
 /obj/item/scomstone/garrison/attack_right(mob/living/carbon/human/user)
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
+	visible_message(span_notice ("[user] presses their ring against their mouth."))
 	var/input_text = input(user, "Enter your message:", "Message")
 	if(!input_text)
 		return
@@ -759,7 +771,7 @@
 /obj/item/scomstone/garrison/attack_self(mob/living/user)
 	if(.)
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(CLICK_CD_INTENTCAP)
 	playsound(loc, 'sound/misc/beep.ogg', 100, FALSE, -1)
 	garrisonline = !garrisonline
 	to_chat(user, span_info("I [garrisonline ? "connect to the garrison SCOMline" : "connect to the general SCOMline"]"))

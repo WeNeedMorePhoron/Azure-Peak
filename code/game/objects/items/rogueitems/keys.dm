@@ -377,15 +377,17 @@
 	lockid = "mansionvampire"
 //
 
-/obj/item/roguekey/blacksmith
-	name = "blacksmith key"
-	desc = "This key opens a blacksmith's workshop."
+/obj/item/roguekey/crafterguild
+	name = "guild's key"
+	desc = "The key to the Crafter's Guild."
 	icon_state = "brownkey"
-	lockid = "blacksmith"
+	lockid = "crafterguild"
 
-/obj/item/roguekey/blacksmith/town
-	name = "town blacksmith key"
-	lockid = "townblacksmith"
+/obj/item/roguekey/craftermaster
+	name = "guildmaster's key"
+	desc = "The key of the Crafter's Guild Guildmaster."
+	icon_state = "hornkey"
+	lockid = "craftermaster"
 
 /obj/item/roguekey/walls
 	name = "walls key"
@@ -412,7 +414,7 @@
 	lockid = "church"
 
 /obj/item/roguekey/priest
-	name = "priest's key"
+	name = "Bishop's key"
 	desc = "This is the master key of the church."
 	icon_state = "cheesekey"
 	lockid = "priest"
@@ -435,11 +437,6 @@
 	icon_state = "rustkey"
 	lockid = "graveyard"
 
-/obj/item/roguekey/artificer
-	name = "artificer's key"
-	desc = "This bronze key should open the Artificer's guild."
-	icon_state = "brownkey"
-	lockid = "artificer"
 
 /obj/item/roguekey/tailor
 	name = "tailor's key"
@@ -465,6 +462,41 @@
 	icon_state = "greenkey"
 	lockid = "merc"
 
+/obj/item/roguekey/mercenary/bedrooms
+	name = "mercenary bunk i key"
+	desc = "Why, a mercenary would not kick doors down."
+	icon_state = "greenkey"
+	lockid = "merc_bunk_i"
+
+/obj/item/roguekey/mercenary/bedrooms/ii
+	name = "mercenary bunk ii key"
+	lockid = "merc_bunk_ii"
+
+/obj/item/roguekey/mercenary/bedrooms/iii
+	name = "mercenary bunk iii key"
+	lockid = "merc_bunk_iii"
+
+
+/obj/item/roguekey/mercenary/bedrooms/iv
+	name = "mercenary bunk iv key"
+	lockid = "merc_bunk_iv"
+
+/obj/item/roguekey/mercenary/bedrooms/v
+	name = "mercenary bunk v key"
+	lockid = "merc_bunk_v"
+
+/obj/item/roguekey/mercenary/bedrooms/vi
+	name = "mercenary bunk vi key"
+	lockid = "merc_bunk_vi"
+
+/obj/item/roguekey/mercenary/bedrooms/vii
+	name = "mercenary bunk vii key"
+	lockid = "merc_bunk_vii"
+
+/obj/item/roguekey/mercenary/bedrooms/viii
+	name = "mercenary bunk viii key"
+	lockid = "merc_bunk_viii"
+
 /obj/item/roguekey/physician
 	name = "physician key"
 	desc = "The key smells of herbs, feeling soothing to the touch."
@@ -484,8 +516,8 @@
 	lockid = "inquisition"
 
 /obj/item/roguekey/inhumen
-	name = "ancient key"
-	desc = "A ancient, rusty key. There's no telling where this leads."
+	name = "old cell key"
+	desc = "A ancient, rusty key. Seems like it goes to some kind of cell."
 	icon_state = "rustkey"
 	lockid = "inhumen"
 

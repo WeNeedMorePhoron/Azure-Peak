@@ -180,7 +180,7 @@
 				M.change_mob_type( /mob/living/simple_animal/pet/dog/pug , null, null, delmob )
 
 	else if(href_list["boot2"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/mob/M = locate(href_list["boot2"])
 		if(ismob(M))
@@ -201,45 +201,45 @@
 			qdel(M.client)
 
 	else if(href_list["addmessage"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/target_key = href_list["addmessage"]
 		create_message("message", target_key, secret = 0)
 
 	else if(href_list["addnote"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/target_key = href_list["addnote"]
 		create_message("note", target_key)
 
 	else if(href_list["addwatch"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/target_key = href_list["addwatch"]
 		create_message("watchlist entry", target_key, secret = 1)
 
 	else if(href_list["addmemo"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		create_message("memo", secret = 0, browse = 1)
 
 	else if(href_list["addmessageempty"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		create_message("message", secret = 0)
 
 	else if(href_list["addnoteempty"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		create_message("note")
 
 	else if(href_list["addwatchempty"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		create_message("watchlist entry", secret = 1)
 
 	else if(href_list["deletemessage"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/safety = alert("Delete message/note?",,"Yes","No");
 		if (safety == "Yes")
@@ -247,7 +247,7 @@
 			delete_message(message_id)
 
 	else if(href_list["deletemessageempty"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/safety = alert("Delete message/note?",,"Yes","No");
 		if (safety == "Yes")
@@ -255,77 +255,77 @@
 			delete_message(message_id, browse = TRUE)
 
 	else if(href_list["editmessage"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/message_id = href_list["editmessage"]
 		edit_message(message_id)
 
 	else if(href_list["editmessageempty"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/message_id = href_list["editmessageempty"]
 		edit_message(message_id, browse = 1)
 
 	else if(href_list["editmessageexpiry"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/message_id = href_list["editmessageexpiry"]
 		edit_message_expiry(message_id)
 
 	else if(href_list["editmessageexpiryempty"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/message_id = href_list["editmessageexpiryempty"]
 		edit_message_expiry(message_id, browse = 1)
 
 	else if(href_list["editmessageseverity"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/message_id = href_list["editmessageseverity"]
 		edit_message_severity(message_id)
 
 	else if(href_list["secretmessage"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/message_id = href_list["secretmessage"]
 		toggle_message_secrecy(message_id)
 
 	else if(href_list["searchmessages"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/target = href_list["searchmessages"]
 		browse_messages(index = target)
 
 	else if(href_list["nonalpha"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/target = href_list["nonalpha"]
 		target = text2num(target)
 		browse_messages(index = target)
 
 	else if(href_list["showmessages"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/target = href_list["showmessages"]
 		browse_messages(index = target)
 
 	else if(href_list["showmemo"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		browse_messages("memo")
 
 	else if(href_list["showwatch"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		browse_messages("watchlist entry")
 
 	else if(href_list["showwatchfilter"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		browse_messages("watchlist entry", filter = 1)
 
 	else if(href_list["showmessageckey"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/target = href_list["showmessageckey"]
 		var/agegate = TRUE
@@ -338,7 +338,7 @@
 		browse_messages(target_ckey = target, linkless = 1)
 
 	else if(href_list["messageedits"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/datum/DBQuery/query_get_message_edits = SSdbcore.NewQuery(
 			"SELECT edits FROM [format_table_name("messages")] WHERE id = :message_id",
@@ -356,7 +356,7 @@
 		qdel(query_get_message_edits)
 
 	else if(href_list["mute"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		cmd_admin_mute(href_list["mute"], text2num(href_list["mute_type"]))
 
@@ -455,7 +455,7 @@
 		message_admins(span_adminnotice("[key_name_admin(usr)] forced [key_name_admin(M)] to say: [speech]"))
 
 	else if(href_list["sendtoprison"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 
 		var/mob/M = locate(href_list["sendtoprison"])
@@ -711,7 +711,7 @@
 		src.manage_free_slots()
 
 	else if(href_list["adminsmite"])
-		if(!check_rights(R_ADMIN|R_FUN))
+		if(!check_rights(R_BAN|R_FUN))
 			return
 
 		var/mob/living/carbon/human/H = locate(href_list["adminsmite"]) in GLOB.mob_list
@@ -761,7 +761,7 @@
 	else if(href_list["increase_skill"])
 		var/mob/M = locate(href_list["increase_skill"])
 		var/datum/skill/skill = href_list["skill"]
-		M.mind?.adjust_skillrank(text2path(skill), 1)
+		M.adjust_skillrank(text2path(skill), 1)
 		message_admins(span_danger("Admin [key_name_admin(usr)] increased [key_name_admin(M)]'s [skill]"))
 		log_admin("[usr] increased [M]'s [initial(skill.name)] skill.")
 		show_player_panel_next(M, "skills")
@@ -769,7 +769,7 @@
 	else if(href_list["decrease_skill"])
 		var/mob/M = locate(href_list["decrease_skill"])
 		var/datum/skill/skill = href_list["skill"]
-		M.mind?.adjust_skillrank(text2path(skill), -1)
+		M.adjust_skillrank(text2path(skill), -1)
 		message_admins(span_danger("Admin [key_name_admin(usr)] decreased [key_name_admin(M)]'s [skill]"))
 		log_admin("[usr] decreased [M]'s [initial(skill.name)] skill.")
 		show_player_panel_next(M, "skills")
@@ -828,7 +828,7 @@
 		usr.client.cmd_admin_subtle_message(M)
 
 	else if(href_list["individuallog"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 
 		var/mob/M = locate(href_list["individuallog"]) in GLOB.mob_list
@@ -849,7 +849,7 @@
 		H.open_language_menu(usr)
 
 	else if(href_list["traitor"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 
 		if(!SSticker.HasRoundStarted())
@@ -1025,12 +1025,12 @@
 		Secrets_topic(href_list["secrets"],href_list)
 
 	else if(href_list["check_antagonist"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		usr.client.check_antagonists()
 
 	else if(href_list["kick_all_from_lobby"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		if(SSticker.IsRoundInProgress())
 			var/afkonly = text2num(href_list["afkonly"])
@@ -1108,14 +1108,14 @@
 		show_player_panel(M)
 
 	else if(href_list["modtriumphs"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/mob/M = locate(href_list["mob"]) in GLOB.mob_list
 		usr.client.cmd_admin_mod_triumphs(M, href_list["modtriumphs"])
 		show_player_panel(M)
 
 	else if(href_list["modpq"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/mob/M = locate(href_list["mob"]) in GLOB.mob_list
 		usr.client.cmd_admin_mod_pq(M, href_list["modpq"])
@@ -1191,12 +1191,12 @@
 		check_teams()
 
 	else if(href_list["editpq"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/mob/M = locate(href_list["mob"]) in GLOB.mob_list
 		var/client/mob_client = M.client
 		var/amt2change = input("How much to modify the PQ by? (20 to -20, or 0 to just add a note)") as null|num
-		if(!check_rights(R_ADMIN,0))
+		if(!check_rights(R_BAN,0))
 			amt2change = CLAMP(amt2change, -20, 20)
 		var/raisin = stripped_input("State a short reason for this change", "Game Master", "", null)
 		if(!amt2change && !raisin)
@@ -1207,14 +1207,14 @@
 				to_chat(C, "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message linkify\">Your PQ has been adjusted by [amt2change] by [usr.key] for reason: [raisin]</span></span>")
 				return
 	else if(href_list["showpq"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/mob/M = locate(href_list["mob"]) in GLOB.mob_list
 		var/client/mob_client = M.client
 		check_pq_menu(mob_client.key)
 
 	else if(href_list["edittriumphs"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_BAN))
 			return
 		var/mob/M = (locate(href_list["mob"]) in GLOB.mob_list)
 		if(!M?.key)

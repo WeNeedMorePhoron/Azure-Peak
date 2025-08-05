@@ -76,17 +76,17 @@
 				spawn(50)
 					if(C && (C.buckled == src))
 						var/obj/item/bodypart/limb
-						var/list/limb_list = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+						var/list/limb_list = shuffle(list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 						for(var/zone in limb_list)
 							limb = C.get_bodypart(zone)
 							if(limb)
 								playsound(src,'sound/misc/eat.ogg', rand(30,60), TRUE)
-								limb.dismember()
-								qdel(limb)
-								seednutrition += 20
-								if(C.mind) // eat only one limb of things with minds
-									maneater_spit_out(C)
-									return
+								if(limb.dismember())
+									qdel(limb)
+									seednutrition += 20
+									if(C.mind) // eat only one limb of things with minds
+										maneater_spit_out(C)
+										return
 								return
 						if(C.mind) // nugget case, just spit them out
 							maneater_spit_out(C)
@@ -94,8 +94,8 @@
 						limb = C.get_bodypart(BODY_ZONE_HEAD)
 						if(limb)
 							playsound(src,'sound/misc/eat.ogg', rand(30,60), TRUE)
-							limb.dismember()
-							qdel(limb)
+							if(limb.dismember())
+								qdel(limb)
 							return
 						limb = C.get_bodypart(BODY_ZONE_CHEST)
 						if(limb)

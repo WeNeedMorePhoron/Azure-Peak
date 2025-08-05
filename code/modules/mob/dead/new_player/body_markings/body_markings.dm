@@ -89,6 +89,13 @@
 	name = "Tiger (Dark)"
 	default_color = "444444"
 
+/datum/body_marking/gradient
+	icon = 'icons/mob/body_markings/gradient_markings.dmi'
+	name = "Gradient"
+	icon_state = "gradient"
+	affected_bodyparts = ARM_LEFT | ARM_RIGHT | HAND_LEFT | HAND_RIGHT | LEG_LEFT | LEG_RIGHT
+	default_color = DEFAULT_SECONDARY
+
 /datum/body_marking/sock
 	icon = 'icons/mob/body_markings/sock_markings.dmi'
 	name = "Sock"
@@ -345,3 +352,33 @@
 	affected_bodyparts = HEAD | CHEST
 	default_color = DEFAULT_SECONDARY
 	covers_chest = TRUE
+
+//Bangs and buns addition - hair addons!
+
+/datum/body_marking/bangs
+	icon = 'icons/mob/body_markings/other_markings.dmi'
+	name = "Bangs"
+	icon_state = "bangs"
+	default_color = "FFFFFF"
+	affected_bodyparts = HEAD
+	
+/datum/body_marking/small/bangs
+	icon = 'icons/mob/body_markings/other_markings.dmi'
+	name = "Bangs (Volk)"
+	icon_state = "bangs_s"
+	default_color = "FFFFFF"
+	affected_bodyparts = HEAD
+	
+/datum/body_marking/bun
+	icon = 'icons/mob/body_markings/other_markings.dmi'
+	name = "Bun"
+	icon_state = "bun"
+	default_color = "FFFFFF"
+	affected_bodyparts = HEAD
+
+/datum/body_marking/small/bun
+	icon = 'icons/mob/body_markings/other_markings.dmi'
+	name = "Bun (Volk)"
+	icon_state = "bun_s"
+	default_color = "FFFFFF"
+	affected_bodyparts = HEAD

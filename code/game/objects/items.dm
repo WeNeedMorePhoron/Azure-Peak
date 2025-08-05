@@ -73,6 +73,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/body_parts_covered = 0 //see setup.dm for appropriate bit flags
 	var/body_parts_covered_dynamic = 0
 	var/body_parts_inherent	= 0 //bodypart coverage areas you cannot peel off because it wouldn't make any sense (peeling chest off of torso armor, hands off of gloves, head off of helmets, etc)
+	var/surgery_cover = TRUE // binary, whether this item is considered covering its bodyparts in respect to surgery. Tattoos, etc. are false. 
 	var/gas_transfer_coefficient = 1 // for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
 	var/permeability_coefficient = 1 // for chemicals/diseases
 	var/siemens_coefficient = 1 // for electrical admittance/conductance (electrocution checks and shit)
@@ -80,6 +81,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/armor_penetration = 0 //percentage of armour effectiveness to remove
 	var/list/allowed = null //suit storage stuff.
 	var/equip_delay_self = 1 //In deciseconds, how long an item takes to equip; counts only for normal clothing slots, not pockets etc.
+	var/unequip_delay_self = 1 //In deciseconds, how long an item takes to unequip; counts only for normal clothing slots, not pockets etc.
+	var/inv_storage_delay = 0 //In deciseconds, how long an item takes to store in/pull out of a mob storage item (like, bags).
 	var/edelay_type = 1 //if 1, can be moving while equipping (for helmets etc)
 	var/equip_delay_other = 20 //In deciseconds, how long an item takes to put on another person
 	var/strip_delay = 40 //In deciseconds, how long an item takes to remove from another person
@@ -146,12 +149,22 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/gripsprite = FALSE //use alternate grip sprite for inhand
 
 	var/dropshrink = 0
-
-	var/wlength = WLENGTH_NORMAL		//each weapon length class has its own inherent dodge properties
+	/// Force value that is force or force_wielded, with any added bonuses from external sources. (Mainly components for enchantments)
+	var/force_dynamic = 0
+	/// Weapon's length. Indicates what limbs it can target without extra circumstances (like grabs / on a prone target). 
+	var/wlength = WLENGTH_NORMAL
+	/// Weapon's balance. Swift uses SPD difference between attacker and defender to increase hit%. Heavy increases parry stamina drain based on STR diff.
 	var/wbalance = WBALANCE_NORMAL
-	var/wdefense = 0 //better at defending
-	var/minstr = 0  //for weapons
-	var/intdamage_factor = 0	//%-age of our raw damage that is dealt to armor or weapon on hit / parry.
+	/// Weapon's defense. Multiplied by 10 and added to the defender's parry / dodge %-age.
+	var/wdefense = 0 
+	/// Weapon's defense bonus from wielding it. Added to wdefense upon wielding.
+	var/wdefense_wbonus = 0
+	/// Weapon's dynamic defense of the wbonus and wdefense added together. This var allows wdefense and the wbonus to be altered by other code / status effects etc.
+	var/wdefense_dynamic = 0
+	/// Minimum STR required to use the weapon. Will reduce damage by 70% if not met. Wielding halves the requirement.
+	var/minstr = 0 
+	/// %-age of our raw damage that is dealt to armor or weapon on hit / parry / clip.
+	var/intdamage_factor = 1
 
 	var/sleeved = null
 	var/sleevetype = null
@@ -183,8 +196,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	///using spit emote spits the item out of our mouth and falls out after some time
 	var/spitoutmouth = TRUE
 
-	var/has_inspect_verb = FALSE
-
 	///The appropriate skill to repair this obj/item. If null, our object cannot be placed on an anvil to be repaired
 	var/anvilrepair
 	//this should be true or false
@@ -206,7 +217,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	var/thrown_damage_flag = "blunt"
 
-	var/sheathe_sound // played when item is placed on hip_r or hip_l, the belt side slots
+	var/holster_sound // played when item is placed on hip_r or hip_l, the belt side slots
 
 	var/visual_replacement //Path. For use in generating dummies for one-off items that would break the game like the crown.
 
@@ -216,6 +227,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// This is what we get when we either tear up or salvage a piece of clothing
 	var/obj/item/salvage_result = null
 
+	var/craft_blocked = FALSE //blocks the item from being used in crafts, such as conjured items
+
 	/// The amount of salvage we get out of salvaging with scissors
 	var/salvage_amount = 0 //This will be more accurate when sewing recipes get sorted
 
@@ -224,7 +237,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 	/// Number of torn sleves, important for salvaging calculations and examine text
 	var/torn_sleeve_number = 0
-	
+
 	/// Angle of the icon, these are used for attack animations.
 	var/icon_angle = 50 // most of our icons are angled
 
@@ -236,9 +249,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!pixel_x && !pixel_y && !bigboy)
 		pixel_x = rand(-5,5)
 		pixel_y = rand(-5,5)
-		
-	if(twohands_required)
-		has_inspect_verb = TRUE
 
 	if(grid_width <= 0)
 		grid_width = (w_class * world.icon_size)
@@ -331,6 +341,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				getmoboverlay(i,prop,behind=TRUE,mirrored=FALSE)
 				getmoboverlay(i,prop,behind=FALSE,mirrored=TRUE)
 				getmoboverlay(i,prop,behind=TRUE,mirrored=TRUE)
+	
+	wdefense_dynamic = wdefense
+	force_dynamic = force
 
 	. = ..()
 	for(var/path in actions_types)
@@ -414,6 +427,15 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/Topic(href, href_list)
 	. = ..()
 
+	if(href_list["explainshaft"])
+		to_chat(usr, span_info("Your weapon's shaft determines what kind of damage it is weak and strong against. Shafts other than Grand & Conjured Shaft can be swapped out.\n\
+		<b>Metal Shaft</b>: [DULLFACTOR_COUNTERED_BY]x vs Blunt/Smash, [DULLFACTOR_COUNTERS] vs Cut/Chop. 1x Everything Else. \n\
+		<b>Reinforced Shaft</b>: [DULLFACTOR_COUNTERED_BY]x vs Stab/Pick, [DULLFACTOR_COUNTERS] vs Blunt/Smash. 1x Everything Else. \n\
+		<b>Wooden Shaft</b>: [DULLFACTOR_COUNTERED_BY]x vs Cut/Chop, [DULLFACTOR_COUNTERS] vs Blunt/Smash. 1x Everything Else. \n\
+		<b>Grand Shaft</b>: [DULLFACTOR_ANTAG]x vs Everything but Smash. 1x vs Smash. Only present on certain special weapons. \n\
+		<b>Conjured Shaft</b>: [DULLFACTOR_COUNTERED_BY]x vs Everything. Present on Conjured or Decrepit weapons. Also meant to represent crumbling weapons. \n\
+		"))
+	
 	if(href_list["inspect"])
 		if(!usr.canUseTopic(src, be_close=TRUE))
 			return
@@ -448,7 +470,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 		var/shafttext = get_blade_dulling_text(src, verbose = TRUE)
 		if(shafttext)
-			inspec += "\n<b>SHAFT:</b> [shafttext]"
+			inspec += "\n<b>SHAFT:</b> [shafttext] <span class='info'><a href='?src=[REF(src)];explainshaft=1'>{?}</a></span>"
 
 		if(gripped_intents)
 			inspec += "\n<b>TWO-HANDED</b>"
@@ -457,7 +479,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			inspec += "\n<b>BULKY</b>"
 
 		if(can_parry)
-			inspec += "\n<b>DEFENSE:</b> [wdefense]"
+			inspec += "\n<b>DEFENSE:</b> [wdefense_dynamic]"
 
 		if(max_blade_int)
 			inspec += "\n<b>SHARPNESS:</b> "
@@ -467,7 +489,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(associated_skill && associated_skill.name)
 			inspec += "\n<b>SKILL:</b> [associated_skill.name]"
 		
-		if(intdamage_factor)
+		if(intdamage_factor && force >= 5)
 			inspec += "\n<b>INTEGRITY DAMAGE:</b> [intdamage_factor * 100]%"
 
 //**** CLOTHING STUFF
@@ -516,8 +538,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 		if(max_integrity)
 			inspec += "\n<b>DURABILITY:</b> "
-			var/meme = round(((obj_integrity / max_integrity) * 100), 1)
-			inspec += "[meme]%"
+			var/percent = round(((obj_integrity / max_integrity) * 100), 1)
+			inspec += "[percent]% ([obj_integrity])"
 
 		to_chat(usr, "[inspec.Join()]")
 
@@ -525,9 +547,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/simpleton_price = FALSE
 
 /obj/item/get_inspect_button()
-	if(has_inspect_verb || (obj_integrity < max_integrity))
-		return " <span class='info'><a href='?src=[REF(src)];inspect=1'>{?}</a></span>"
-	return ..()
+	return " <span class='info'><a href='?src=[REF(src)];inspect=1'>{?}</a></span>"
 
 
 /obj/item/interact(mob/user)
@@ -605,6 +625,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 
 
 	//If the item is in a storage item, take it out
+	if(inv_storage_delay && SEND_SIGNAL(loc, COMSIG_CONTAINS_STORAGE))
+		if(!move_after(user, inv_storage_delay, target = iscarbon(loc) ? src : src.loc, progress = TRUE))
+			return
 	SEND_SIGNAL(loc, COMSIG_TRY_STORAGE_TAKE, src, user.loc, TRUE)
 	if(QDELETED(src)) //moving it out of the storage to the floor destroyed it.
 		return
@@ -665,6 +688,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"))
 		return 1
 	return 0
+
+/obj/item/proc/hit_response(mob/living/carbon/human/owner, mob/living/carbon/human/attacker)
+	SEND_SIGNAL(src, COMSIG_ITEM_HIT_RESPONSE, owner, attacker)		//sends signal for Magic_items. Used to call enchantments effects for worn items
 
 /obj/item/proc/talk_into(mob/M, input, channel, spans, datum/language/language)
 	return ITALICS | REDUCE_RANGE
@@ -849,7 +875,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(prob(50))
 			if(M.stat != DEAD)
 				if(M.drop_all_held_items())
-					to_chat(M, span_danger("I drop what you're holding and clutch at my eyes!"))
+					to_chat(M, span_danger("I drop what I'm holding and clutch at my eyes!"))
 			M.adjust_blurriness(10)
 			M.Unconscious(20)
 			M.Paralyze(40)
@@ -1081,7 +1107,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/MouseExited()
 	. = ..()
 	deltimer(tip_timer)//delete any in-progress timer if the mouse is moved off the item before it finishes
-	closeToolTip(usr)
 
 
 // Called when a mob tries to use the item as a tool.
@@ -1179,6 +1204,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	return ..()
 
 /obj/item/proc/canStrip(mob/stripper, mob/owner)
+	if(HAS_TRAIT(loc, TRAIT_STUCKITEMS))
+		return FALSE
+
 	return !HAS_TRAIT(src, TRAIT_NODROP)
 
 /obj/item/proc/doStrip(mob/stripper, mob/owner)
@@ -1200,8 +1228,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(wielded)
 		wielded = FALSE
 		if(force_wielded)
-			force = initial(force)
-		wdefense = initial(wdefense)
+			force_dynamic = force
+		wdefense_dynamic = wdefense
 	if(altgripped)
 		altgripped = FALSE
 	update_transform()
@@ -1240,8 +1268,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return
 	wielded = TRUE
 	if(force_wielded)
-		force = force_wielded
-	wdefense = wdefense + 3
+		force_dynamic = force_wielded
+	wdefense_dynamic = (wdefense + wdefense_wbonus)
 	update_transform()
 	to_chat(user, span_notice("I wield [src] with both hands."))
 	playsound(loc, pick('sound/combat/weaponr1.ogg','sound/combat/weaponr2.ogg'), 100, TRUE)

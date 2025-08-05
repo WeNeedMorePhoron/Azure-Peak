@@ -40,7 +40,7 @@
 	if(!user.mind || !user.mind.do_i_know(name=input))
 		to_chat(user, span_warning("I don't know anyone by that name."))
 		return
-	var/arcane_skill = user.mind.get_skill_level(/datum/skill/magic/arcane)
+	var/arcane_skill = user.get_skill_level(/datum/skill/magic/arcane)
 	var/success_chance = 0
 	switch(arcane_skill)
 		if(SKILL_LEVEL_NONE)
@@ -61,7 +61,7 @@
 		to_chat(user, span_boldwarning("You focus your thoughts on the orb, but feel a sharp pain!"))
 		visible_message("\The [src] shatters!")
 		user.flash_fullscreen("redflash1")
-		new /obj/item/natural/glass/shard(get_turf(src))
+		new /obj/item/natural/glass_shard(get_turf(src))
 		playsound(src, "shatter", 70, TRUE)
 		qdel(src)
 		return

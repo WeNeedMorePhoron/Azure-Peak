@@ -9,12 +9,15 @@
 	throwforce = 0
 	slot_flags = ITEM_SLOT_HIP
 	throw_speed = 0.5
-	var/fuze = 50
+	var/fuze = null //randomized on init
 	var/lit = FALSE
-	var/prob2fail = 23
+	var/prob2fail = 5
 	grid_width = 32
 	grid_height = 64
 
+/obj/item/bomb/Initialize()
+	. = ..()
+	fuze = rand(40,60)
 
 /obj/item/bomb/spark_act()
 	light()
@@ -64,7 +67,7 @@
 				snuff()
 			else
 				playsound(T, 'sound/items/firesnuff.ogg', 100)
-				new /obj/item/natural/glass/shard (T)
+				new /obj/item/natural/glass_shard (T)
 	qdel(src)
 
 /obj/item/bomb/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)

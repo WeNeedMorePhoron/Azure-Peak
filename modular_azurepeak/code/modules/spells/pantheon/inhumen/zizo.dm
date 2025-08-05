@@ -99,7 +99,7 @@
 
 /obj/effect/proc_holder/spell/invoked/rituos
 	name = "Rituos"
-	desc = "Draw upon the Lesser Work of She Who Is Z, and expunge the trappings of mortal flesh from your form in exchange for power unimaginable. Be warned: indulging in even the first step of this ritual will make you more deadite than not..."
+	desc = "Do a ritual for she of Z that skeletonises a part of your body and bestows upon you arcyne magycks until you next sleep. Once your whole body has become skeletonised you gain full access to the Arcyne, bolstering your knowledge of spells with each additional ritual."
 	clothes_req = FALSE
 	overlay_state = "rituos"
 	associated_skill = /datum/skill/magic/arcane
@@ -201,7 +201,7 @@
 	var/post_rituos = check_ritual_progress(user)
 	if (post_rituos)
 		//everything but our head is skeletonized now, so grant them journeyman rank and 3 extra spellpoints to grief people with
-		user.mind?.adjust_skillrank(/datum/skill/magic/arcane, 3, TRUE)
+		user.adjust_skillrank(/datum/skill/magic/arcane, 3, TRUE)
 		user.mind?.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 		user.mind?.adjust_spellpoints(18)
 		user.visible_message(span_boldwarning("[user]'s form swells with terrible power as they cast away almost all of the remnants of their mortal flesh, arcyne runes glowing upon their exposed bones..."), span_notice("I HAVE DONE IT! I HAVE COMPLETED HER LESSER WORK! I stand at the cusp of unspeakable power, but something is yet missing..."))
@@ -216,3 +216,33 @@
 		user.mind.rituos_spell = item
 		user.mind.AddSpell(new item)
 		return TRUE
+
+
+/obj/effect/proc_holder/spell/self/zizo_snuff
+	name = "Snuff Lights"
+	desc = "Extinguish all lights in range, with your Miracles skill increasing range."
+	releasedrain = 10
+	chargedrain = 0
+	chargetime = 0
+	chargedloop = /datum/looping_sound/invokeholy
+	sound = 'sound/magic/zizo_snuff.ogg'
+	overlay_state = "rune2"
+	associated_skill = /datum/skill/magic/holy
+	antimagic_allowed = FALSE
+	recharge_time = 12 SECONDS
+	miracle = TRUE
+	devotion_cost = 30
+	range = 2
+	
+/obj/effect/proc_holder/spell/self/zizo_snuff/cast(list/targets, mob/user = usr)
+	. = ..()
+	if(!ishuman(user))
+		revert_cast()
+		return FALSE
+	var/checkrange = (range + user.get_skill_level(/datum/skill/magic/holy)) //+1 range per holy skill up to a potential of 8.
+	for(var/obj/O in range(checkrange, user))	
+		O.extinguish()
+	for(var/mob/M in range(checkrange, user))
+		for(var/obj/O in M.contents)
+			O.extinguish()
+	return TRUE
