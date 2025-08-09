@@ -178,7 +178,7 @@ GLOBAL_VAR(restart_counter)
 	GLOB.world_job_debug_log = "[GLOB.log_directory]/job_debug.log"
 	GLOB.world_paper_log = "[GLOB.log_directory]/paper.log"
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
-#ifdef REFERENCE_DOING_IT_LIVE
+#ifdef REFERENCE_TRACKING_LOG_APART
 	GLOB.harddel_log = "[GLOB.log_directory]/harddel.log"
 #endif
 
