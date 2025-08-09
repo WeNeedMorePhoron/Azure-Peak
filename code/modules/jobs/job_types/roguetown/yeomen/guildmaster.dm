@@ -90,7 +90,7 @@
 			to_chat(src,span_warning("I can't speak!"))
 			return FALSE
 		if (!COOLDOWN_FINISHED(src, guildmaster_announcement))
-			to_chat(src, span_warning("You must wait [GUILDMASTER_ANNOUNCEMENT_COOLDOWN] before speaking again."))
+			to_chat(src, span_warning("You must wait before speaking again."))
 			return FALSE
 		visible_message(span_warning("[src] takes a deep breath, preparing to make an announcement.."))
 		if(do_after(src, 15 SECONDS, target = src)) // Reduced to 15 seconds from 30 on the original Herald PR. 15 is well enough time for sm1 to shove you.
