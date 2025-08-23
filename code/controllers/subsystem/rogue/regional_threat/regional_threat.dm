@@ -47,17 +47,17 @@ SUBSYSTEM_DEF(regionthreat)
 			_min_ambush = DANGER_SAFE_FLOOR,
 			_max_ambush = DANGER_DIRE_LIMIT,
 			_fixed_ambush = FALSE,
-			_lowpop_tick = 2,
-			_highpop_tick = 3 // It is not the terrorbog.
+			_lowpop_tick = 1,
+			_highpop_tick = 2 // It is not the terrorbog.
 		),
 		new /datum/threat_region(
 			_region_name = THREAT_REGION_TERRORBOG,
 			_latent_ambush = DANGER_DIRE_LIMIT,
 			_min_ambush = DANGER_SAFE_FLOOR, // This is intended. A warden can engage in a long war to tame the terrorbog.
 			_max_ambush = DANGER_DIRE_LIMIT,
-			_fixed_ambush = 2,
+			_fixed_ambush = FALSE,
 			_lowpop_tick = 2,
-			_highpop_tick = 4
+			_highpop_tick = 3
 		),
 		// All regions after are meant to stay somewhat dangerous no matter what
 		new /datum/threat_region(
@@ -66,8 +66,8 @@ SUBSYSTEM_DEF(regionthreat)
 			_min_ambush = DANGER_MODERATE_FLOOR,
 			_max_ambush = DANGER_DIRE_LIMIT,
 			_fixed_ambush = FALSE,
-			_lowpop_tick = 2,
-			_highpop_tick = 4
+			_lowpop_tick = 1,
+			_highpop_tick = 2
 		),
 		new /datum/threat_region(
 			_region_name = THREAT_REGION_NORTH_AZUREAN_COAST,
@@ -75,8 +75,8 @@ SUBSYSTEM_DEF(regionthreat)
 			_min_ambush = DANGER_MODERATE_FLOOR,
 			_max_ambush = DANGER_DIRE_LIMIT,
 			_fixed_ambush = FALSE,
-			_lowpop_tick = 2,
-			_highpop_tick = 4
+			_lowpop_tick = 1,
+			_highpop_tick = 2
 		),
 		new /datum/threat_region(
 			_region_name = THREAT_REGION_MOUNT_DECAP,
@@ -84,8 +84,8 @@ SUBSYSTEM_DEF(regionthreat)
 			_min_ambush = DANGER_MODERATE_FLOOR,
 			_max_ambush = DANGER_DIRE_LIMIT,
 			_fixed_ambush = FALSE,
-			_lowpop_tick = 2,
-			_highpop_tick = 4
+			_lowpop_tick = 1,
+			_highpop_tick = 2
 		)
 	)
 
