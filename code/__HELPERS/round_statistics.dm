@@ -74,6 +74,7 @@
 
 //Necra
 #define STATS_SKELETONS_KILLED "skeletons_killed"
+#define STATS_GRAVES_CONSECRATED "graves_consecrated"
 #define STATS_GRAVES_ROBBED "graves_robbed"
 #define STATS_DEADITES_KILLED "deadites_killed"
 #define STATS_VAMPIRES_KILLED "vampires_killed"
@@ -252,6 +253,26 @@ GLOBAL_LIST_INIT(azure_round_stats, list(
 	STATS_LUX_REVIVALS = 0,
 	STATS_PLEASURES = 0,
 	STATS_SKILLS_DREAMED = 0,
+	STATS_REGULAR_VAULT_INCOME = 0,
+	STATS_VAULT_TOTAL_REVENUE = 0,
+	STATS_WAGES_PAID = 0,
+	STATS_FINES_INCOME = 0,
+	STATS_TRADE_VALUE_EXPORTED = 0,
+	STATS_TRADE_VALUE_IMPORTED = 0,
+	STATS_GOLDFACE_VALUE_SPENT = 0,
+	STATS_PURITY_VALUE_SPENT = 0,
+	STATS_TAXES_EVADED = 0,
+	STATS_NOBLE_INCOME_TOTAL = 0,
+	STATS_DIRECT_TREASURY_TRANSFERS = 0,
+	STATS_STOCKPILE_EXPORTS_VALUE = 0,
+	STATS_STOCKPILE_IMPORTS_VALUE = 0,
+	STATS_STOCKPILE_EXPANSES = 0,
+	STATS_STOCKPILE_REVENUE = 0,
+	STATS_PEDDLER_REVENUE = 0,
+	STATS_MAMMONS_HELD = 0,
+	STATS_MAMMONS_DEPOSITED = 0,
+	STATS_MAMMONS_WITHDRAWN = 0,
+	STATS_STARTING_TREASURY = 0,
 ))
 
 GLOBAL_LIST_EMPTY(patron_follower_counts)
@@ -367,7 +388,25 @@ GLOBAL_LIST_INIT(featured_stats, list(
 	),
 ))
 
-/proc/format_top_ten(stat_category)
+/// Increment a round statistic by a given amount
+/proc/record_round_statistic(name, amount = 1)
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		return
+	if(!name || isnull(GLOB.azure_round_stats[name]))
+		return
+
+	GLOB.azure_round_stats[name] += amount
+
+/// Force set a value of a specific round statistic to a given value
+/proc/force_set_round_statistic(name, value)
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		return
+	if(!name || isnull(GLOB.azure_round_stats[name]))
+		return
+
+	GLOB.azure_round_stats[name] = value
+
+/proc/format_top_stats(stat_category)
 	var/list/stat_data = GLOB.featured_stats[stat_category]
 	if(!stat_data || !stat_data["entries"])
 		return "Nobody"
@@ -376,17 +415,17 @@ GLOBAL_LIST_INIT(featured_stats, list(
 	for(var/key in stat_data["entries"])
 		entries += list(list("name" = key, "count" = stat_data["entries"][key]))
 
-	entries = sortList(entries, /proc/cmp_stat_count_desc)
+	sortTim(entries, GLOBAL_PROC_REF(cmp_stat_count_desc))
 
 	var/list/result = list()
-	for(var/i in 1 to min(10, entries.len))
+	for(var/i in 1 to min(14, entries.len))
 		var/list/entry = entries[i]
 		var/rounded_count = round(entry["count"])
 		result += "[i]. [entry["name"]] - [rounded_count]"
 
 	return result.Join("<br>")
 
-/proc/format_top_ten_objects(stat_category)
+/proc/format_top_stats_objects(stat_category)
 	var/list/stat_data = GLOB.featured_stats[stat_category]
 	if(!stat_data || !stat_data["entries"])
 		return "None"
@@ -395,10 +434,10 @@ GLOBAL_LIST_INIT(featured_stats, list(
 	for(var/key in stat_data["entries"])
 		entries += list(list("name" = key, "count" = stat_data["entries"][key]))
 
-	entries = sortList(entries, /proc/cmp_stat_count_desc)
+	sortTim(entries, GLOBAL_PROC_REF(cmp_stat_count_desc))
 
 	var/list/result = list()
-	for(var/i in 1 to min(10, entries.len))
+	for(var/i in 1 to min(14, entries.len))
 		var/list/entry = entries[i]
 		var/rounded_count = round(entry["count"])
 		result += "[i]. [entry["name"]] - [rounded_count]"
@@ -409,21 +448,27 @@ GLOBAL_LIST_INIT(featured_stats, list(
 	return b["count"] - a["count"]
 
 /proc/record_featured_stat(stat_category, mob/living/user, increment = 1)
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		return
 	if(!stat_category || !user?.real_name || !GLOB.featured_stats[stat_category])
+		return
+	if(!user)
 		return
 
 	var/list/stat_data = GLOB.featured_stats[stat_category]
-	var/job_title = ""
+	var/job_title = " (Jobless)"
+	var/datum/mind/M = user.mind
 
-	if(user.mind?.assigned_role)
-		if(user.gender == FEMALE && user.mind.assigned_role)
-			job_title = " ([user.mind.assigned_role])"
-		else
-			job_title = " ([user.mind.assigned_role])"
-	else if(user.mind?.special_role)
-		job_title = " ([user.mind.special_role])"
-	else if(user.job && user.job != "Unassigned")
-		job_title = " ([user.job])"
+	if(M)
+		if(M.assigned_role.title != "Unassigned" && !is_unassigned_job(M.assigned_role))
+			if(user.gender == FEMALE && M.assigned_role.f_title)
+				job_title = " ([M.assigned_role.f_title])"
+			else
+				job_title = " ([M.assigned_role.title])"
+		else if(user.job && user.job != "Unassigned")
+			job_title = " ([user.job])"
+		else if(M.special_role)
+			job_title = " ([M.special_role])"
 
 	var/key = "[user.real_name][job_title]"
 
@@ -432,8 +477,9 @@ GLOBAL_LIST_INIT(featured_stats, list(
 
 	stat_data["entries"][key] = (stat_data["entries"][key] || 0) + increment
 
-
 /proc/record_featured_object_stat(stat_category, object_name, increment = 1)
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		return
 	if(!stat_category || !object_name || !GLOB.featured_stats[stat_category])
 		return
 
@@ -443,3 +489,25 @@ GLOBAL_LIST_INIT(featured_stats, list(
 		stat_data["entries"] = list()
 
 	stat_data["entries"][object_name] = (stat_data["entries"][object_name] || 0) + increment
+
+/// Records a chronicle stat with all display information
+/proc/set_chronicle_stat(stat_name, atom/target, title, title_color, value_text)
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		return
+	if(!stat_name || !target || !GLOB.chronicle_stats)
+		return
+
+	GLOB.chronicle_stats[stat_name] = list(
+		"holder" = WEAKREF(target),
+		"title" = title,
+		"title_color" = title_color,
+		"value_text" = value_text
+	)
+
+/// Gets the recorded chronicle stat holder (returns the resolved weakref or null)
+/proc/get_chronicle_stat_holder(stat_name)
+	if(!stat_name || !GLOB.chronicle_stats)
+		return null
+
+	var/datum/weakref/ref = GLOB.chronicle_stats[stat_name]
+	return ref?.resolve()

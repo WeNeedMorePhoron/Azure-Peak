@@ -91,6 +91,7 @@ GLOBAL_LIST_EMPTY(preference_patrons)
         follower.mob_timers[MT_PSYPRAY] = world.time
 
     . = TRUE //the prayer has succeeded by this point forward
+	record_round_statistic(STATS_PRAYERS_MADE)
 
     var/regex/p_name = regex("([patron_name])", "im")
     if(p_name.Find(prayer))
@@ -100,6 +101,7 @@ GLOBAL_LIST_EMPTY(preference_patrons)
 /datum/patron/proc/punish_prayer(mob/living/follower)
 	follower.adjust_divine_fire_stacks(20)
 	follower.IgniteMob()
+	record_round_statistics(STATS_PEOPLE_SMITTEN)
 	follower.add_stress(/datum/stressevent/psycurse)
 
 /// The follower has prayed in a special way to the patron and is being rewarded.
