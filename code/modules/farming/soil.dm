@@ -596,7 +596,19 @@
 		// Otherwise, "decay" the soil
 		soil_decay_time = max(soil_decay_time - dt, 0)
 
-	adjust_water(-dt * SOIL_WATER_DECAY_RATE)
+	// Check for nearby irrigation channels
+	var/found_irrigation = FALSE
+	for(var/obj/structure/irrigation_channel/channel in range(1, src))
+		if(channel.water_logged && channel.water_amount > 0)
+			found_irrigation = TRUE
+			break
+
+	// If irrigation is found, add water instead of decaying it
+	if(found_irrigation)
+		adjust_water(dt * 2) // Irrigation adds water at 2x the normal decay rate
+	else
+		adjust_water(-dt * SOIL_WATER_DECAY_RATE)
+
 	adjust_nutrition(-dt * SOIL_NUTRIMENT_DECAY_RATE)
 	if(fertilized_time > 0)
 		nutrition = 100

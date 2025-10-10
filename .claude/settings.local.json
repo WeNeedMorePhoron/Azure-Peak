@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s \"https://raw.githubusercontent.com/Monkestation/Vanderlin/master/code/modules/farming/soil.dm\")",
+      "Bash(curl -s \"https://api.github.com/repos/Monkestation/Vanderlin/git/trees/master?recursive=1\")",
+      "Read(//c/**)",
+      "Bash(curl:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

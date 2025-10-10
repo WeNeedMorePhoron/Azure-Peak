@@ -1,7 +1,7 @@
 /obj/item/rogueweapon/shovel
 	force = 21
 	possible_item_intents = list(/datum/intent/shovelscoop, /datum/intent/mace/strike/shovel)
-	gripped_intents = list(/datum/intent/shovelscoop, /datum/intent/mace/strike/shovel, /datum/intent/axe/chop/stone)
+	gripped_intents = list(/datum/intent/shovelscoop,  /datum/intent/irrigate, /datum/intent/mace/strike/shovel, /datum/intent/axe/chop/stone)
 	name = "shovel"
 	desc = "Essential for digging (graves) in this darkened earth."
 	icon_state = "shovel"
@@ -49,6 +49,15 @@
 	noaa = TRUE
 	candodge = FALSE
 	misscost = 0
+	no_attack = TRUE
+
+/datum/intent/irrigate
+	name = "irrigate"
+	icon_state = "inhoe"
+	chargetime = 0
+	noaa = TRUE
+	candodge = FALSE
+	misscost = 10
 	no_attack = TRUE
 
 /obj/item/rogueweapon/shovel/attack(mob/living/M, mob/living/user)
@@ -101,6 +110,26 @@
 		if(istype(T, /turf/open/floor/rogue/grass) || istype(T, /turf/open/floor/rogue/grassred) || istype(T, /turf/open/floor/rogue/grassyel) || istype(T, /turf/open/floor/rogue/grasscold))
 			to_chat(user, span_warning("There is grass in the way."))
 			return
+	// Non-scoop intent: check for irrigation channel creation
+	else if(istype(T, /turf/open/floor/rogue/dirt))
+		// Check if there's already an irrigation channel here
+		var/obj/structure/irrigation_channel/existing = locate(/obj/structure/irrigation_channel) in T
+		if(existing)
+			to_chat(user, span_warning("There is already an irrigation channel here!"))
+			return
+		// Check if there's soil here
+		var/obj/structure/soil/soil = get_soil_on_turf(T)
+		if(soil)
+			to_chat(user, span_warning("There is already soil here!"))
+			return
+		// Create irrigation channel
+		to_chat(user, span_notice("I begin digging an irrigation channel..."))
+		playsound(T,'sound/items/dig_shovel.ogg', 100, TRUE)
+		if(do_after(user, get_farming_do_time(user, 6 SECONDS), target = src))
+			to_chat(user, span_notice("I dig an irrigation channel."))
+			apply_farming_fatigue(user, 15)
+			new /obj/structure/irrigation_channel(T)
+			playsound(T,'sound/items/dig_shovel.ogg', 100, TRUE)
 		return
 	. = ..()
 

@@ -27,6 +27,11 @@
 		return
 	if(istype(location, /turf/open/floor/rogue/dirt))
 		playsound(location,'sound/items/dig_shovel.ogg', 100, TRUE)
+		// Check if there's an irrigation channel in the way
+		var/obj/structure/irrigation_channel/channel = locate(/obj/structure/irrigation_channel) in location
+		if(channel)
+			to_chat(user, span_notice("The [channel.name] is in the way!"))
+			return
 		var/obj/structure/soil/soil = get_soil_on_turf(location)
 		if(soil)
 			soil.user_till_soil(user)

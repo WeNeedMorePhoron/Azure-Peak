@@ -33,8 +33,8 @@
 	landsound = 'sound/foley/jumpland/waterland.wav'
 	neighborlay_override = "edge"
 	var/water_color = "#6a9295"
-	var/water_reagent = /datum/reagent/water
-	var/water_reagent_purified = /datum/reagent/water // If put through a water filtration device, provides this reagent instead
+	var/datum/reagent/water_reagent = /datum/reagent/water
+	var/datum/reagent/water_reagent_purified = /datum/reagent/water // If put through a water filtration device, provides this reagent instead
 	var/mapped = TRUE // infinite source of water
 	var/water_volume = 100 // 100 is 1 bucket
 	var/water_maximum = 100

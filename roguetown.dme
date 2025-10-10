@@ -1564,6 +1564,7 @@
 #include "code\modules\farming\crafting_recipes.dm"
 #include "code\modules\farming\fermentation_keg.dm"
 #include "code\modules\farming\helpers.dm"
+#include "code\modules\farming\irrigation_channel.dm"
 #include "code\modules\farming\plant_def.dm"
 #include "code\modules\farming\plough.dm"
 #include "code\modules\farming\produce.dm"
