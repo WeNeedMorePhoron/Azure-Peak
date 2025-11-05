@@ -24,7 +24,7 @@
 /area/rouge/under/tomb/wilds/ambush)
 "w" = (
 /obj/effect/spawner/roguemap/treeorbush,
-/obj/structure/flora/tree/evil,
+/obj/structure/flora/roguetree/evil,
 /turf/open/floor/rogue/dirt,
 /area/rouge/under/tomb/wilds/ambush)
 "y" = (

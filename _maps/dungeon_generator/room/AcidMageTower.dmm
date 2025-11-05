@@ -643,7 +643,7 @@
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/under/tomb/indoors/magic)
 "yR" = (
-/obj/structure/flora/tree/evil,
+/obj/structure/flora/roguetree/evil,
 /turf/open/floor/rogue/grasscold,
 /area/rogue/under/tomb/indoors/magic)
 "yV" = (

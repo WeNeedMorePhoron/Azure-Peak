@@ -1634,7 +1634,7 @@
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/under/tomb/indoors)
 "xs" = (
-/obj/structure/flora/tree/evil,
+/obj/structure/flora/roguetree/evil,
 /obj/structure/flora/roguegrass,
 /turf/open/floor/rogue/grass,
 /area/rogue/under/tomb/wilds)
