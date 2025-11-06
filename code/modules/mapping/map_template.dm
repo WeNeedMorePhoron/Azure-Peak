@@ -64,7 +64,7 @@
 		y,
 		level.z_value,
 		no_changeturf = (SSatoms.initialized == INITIALIZATION_INSSATOMS),
-		placeOnTop = TRUE,
+		place_on_top = TRUE,
 	)
 	var/list/bounds = parsed.bounds
 	if(!bounds)
