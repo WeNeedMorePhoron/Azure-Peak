@@ -72,6 +72,12 @@
 	contains = list(
 					/obj/item/clothing/neck/roguetown/psicross/noc,)
 
+/datum/supply_pack/rogue/apparel/crosses/divinepantheonten
+	name = "Undivided Amulet"
+	cost = 10
+	contains = list(
+					/obj/item/clothing/neck/roguetown/psicross/undivided,)
+
 /datum/supply_pack/rogue/apparel/crosses/psicross
 	name = "Psicross"
 	cost = 20
@@ -148,3 +154,8 @@
 					/obj/item/hair_dye_cream,
 					/obj/item/hair_dye_cream,
 				)
+
+/datum/supply_pack/rogue/apparel/merchant_pouch
+	name = "Merchant Pouch"
+	cost = 100
+	contains = list(/obj/item/storage/belt/rogue/pouch/merchant)

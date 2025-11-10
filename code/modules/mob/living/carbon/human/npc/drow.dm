@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 		wander = TRUE
 	if(!is_silent && target != newtarg)
 		say(pick(GLOB.drowraider_aggro))
-		linepoint(target)
+		pointed(target)
 
 /mob/living/carbon/human/species/elf/dark/drowraider/should_target(mob/living/L)
 	if(L.stat != CONSCIOUS)
@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOHUNGER, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_LEECHIMMUNE, INNATE_TRAIT)
-	ADD_TRAIT(src, TRAIT_INFINITE_ENERGY, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_BREADY, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 	equipOutfit(new /datum/outfit/job/roguetown/human/species/elf/dark/drowraider)
 	gender = pick(MALE, FEMALE)
@@ -52,13 +52,13 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
-	var/hairf = pick(list(/datum/sprite_accessory/hair/head/himecut, 
-						/datum/sprite_accessory/hair/head/countryponytailalt, 
-						/datum/sprite_accessory/hair/head/stacy, 
+	var/hairf = pick(list(/datum/sprite_accessory/hair/head/himecut,
+						/datum/sprite_accessory/hair/head/countryponytailalt,
+						/datum/sprite_accessory/hair/head/stacy,
 						/datum/sprite_accessory/hair/head/kusanagi_alt))
-	var/hairm = pick(list(/datum/sprite_accessory/hair/head/ponytailwitcher, 
-						/datum/sprite_accessory/hair/head/dave, 
-						/datum/sprite_accessory/hair/head/emo, 
+	var/hairm = pick(list(/datum/sprite_accessory/hair/head/ponytailwitcher,
+						/datum/sprite_accessory/hair/head/dave,
+						/datum/sprite_accessory/hair/head/emo,
 						/datum/sprite_accessory/hair/head/sabitsuki,
 						/datum/sprite_accessory/hair/head/sabitsuki_ponytail))
 
@@ -74,6 +74,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	hair_color = "#DDDDDD"
 
 	head.add_bodypart_feature(new_hair)
+	head.sellprice = 40
 
 	dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
 	dna.species.handle_body(src)
@@ -81,10 +82,10 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	if(organ_eyes)
 		organ_eyes.eye_color = "#FFBF00"
 		organ_eyes.accessory_colors = "#FFBF00#FFBF00"
-	
+
 	if(organ_ears)
 		organ_ears.accessory_colors = "#5f5f70"
-	
+
 	skin_tone = "5f5f70"
 
 	if(gender == FEMALE)
@@ -135,14 +136,14 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	H.STASTR = 14 // 8 Points
 	H.STASPD = 11 // +1 - Drow
 	H.STACON = 14 // 4 points
-	H.STAEND = 12 // 2 points - 14 points spread. Equal to 1 more than a KC accounting for Statpack.
+	H.STAWIL = 12 // 2 points - 14 points spread. Equal to 1 more than a KC accounting for Statpack.
 	H.STAPER = 10
-	H.STAINT = 10  
+	H.STAINT = 10
 	if(prob(50))
 		r_hand = /obj/item/rogueweapon/sword/falx
 		l_hand = /obj/item/rogueweapon/shield/tower
 	else
-		r_hand = /obj/item/rogueweapon/halberd/glaive
+		r_hand = /obj/item/rogueweapon/halberd/bardiche
 	H.adjust_skillrank(/datum/skill/combat/polearms, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/maces, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/axes, 4, TRUE)

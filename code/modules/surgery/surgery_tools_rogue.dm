@@ -12,7 +12,7 @@
 	throwforce = 12
 	wdefense = 3
 	wbalance = WBALANCE_SWIFT
-	max_blade_int = 100
+	max_blade_int = 200
 	max_integrity = 175
 	thrown_bclass = BCLASS_CUT
 	associated_skill = /datum/skill/combat/knives
@@ -199,14 +199,15 @@
 /obj/item/rogueweapon/surgery/hammer/pre_attack(atom/A, mob/living/user, params)
 	if(!istype(user.a_intent, /datum/intent/use))
 		return ..()
-	if(user.get_skill_level(/datum/skill/misc/medicine) < 1)
+	var/medskill = user.get_skill_level(/datum/skill/misc/medicine)
+	if(medskill < SKILL_LEVEL_NOVICE)
 		return ..()
 	if(ishuman(A))
 		if(A == user)
 			user.visible_message("<span class='info'>[user] begins smacking themself with a small hammer.</span>")
 		else
 			user.visible_message("<span class='info'>[user] begins to smack [A] with a small hammer.</span>")
-		if(do_after(user, 2.5 SECONDS, target = A))
+		if(do_after(user, ((medskill > SKILL_LEVEL_EXPERT) ? 1 SECONDS : 2.5 SECONDS), target = A))
 			A.visible_message("<span class='info'>[A] jerks their knee after the hammer strikes!</span>")
 			if(prob(1))
 				playsound(user, 'sound/misc/bonk.ogg', 100, FALSE, -1)

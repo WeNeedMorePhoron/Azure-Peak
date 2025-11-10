@@ -45,6 +45,25 @@
 
 	return zone
 
+/// Returns the targeting zone equivalent of a given bodypart. Kudos to you if you find a use for this.
+/proc/bodypart_to_zone(part)
+	var/obj/item/bodypart/B = part
+	switch(B::type)
+		if(/obj/item/bodypart/chest)
+			return BODY_ZONE_CHEST
+		if(/obj/item/bodypart/head)
+			return BODY_ZONE_HEAD
+		if(/obj/item/bodypart/l_arm)
+			return BODY_ZONE_L_ARM
+		if(/obj/item/bodypart/r_arm)
+			return BODY_ZONE_R_ARM
+		if(/obj/item/bodypart/l_leg)
+			return BODY_ZONE_L_LEG
+		if(/obj/item/bodypart/r_leg)
+			return BODY_ZONE_R_LEG
+		else
+			return BODY_ZONE_CHEST
+
 /**
   * Return the zone or randomly, another valid zone
   *
@@ -217,6 +236,60 @@
 	if(!stuttering && prob(15))
 		message = stutter(message)
 	return message
+
+/// Forces the user to speak with only the 1000 most common (English-language) words.
+/// Other words will be replaced with filler or scrambled.
+/proc/simplespeech(message)
+	var/static/list/common_words = world.file2list("strings/1000_most_common.txt")
+
+	if(message)
+		var/list/message_split = splittext(message, " ")
+		var/list/new_message = list()
+
+		for(var/word in message_split)
+			word = html_decode(word)
+
+			// Find all leading and trailing special characters - we'll re-add them to the word later.
+			// This should cover quotes, formatting, and just about any other characters.
+			var/first_letter = findtext(word, regex("\[a-zA-Z\]+"))
+			var/last_letter = findtext(word, regex("\[^a-zA-Z\]+"), first_letter) - 1
+
+			var/suffix = copytext(word, last_letter + 1)
+			var/prefix = copytext(word, 1, first_letter)
+
+			word = copytext(word, first_letter, last_letter + 1)
+
+			// Common words or words of three or fewer characters don't need replacing.
+			if((lowertext(word) in common_words) || length(word) <= 3)
+				new_message += prefix + word + suffix
+			else
+				var/chance = rand(0, 99)
+				// 25% chance to add a filler word as the character stumbles over the word
+				if(chance < 30 && message_split.len > 2)
+					new_message += pick("uh...", "um...")
+					// 1/6 chance of giving up on the sentence entirely
+					if (chance < 5)
+						break
+					else if (chance < 10) // 1/6 chance of skipping the word after stumbling
+						continue
+					// 2/3 chance of proceeding to the word (still scrambling it)
+
+				var/list/charlist = splittext(word, "")
+				// Functions like shuffle_inplace but does not touch the first or last characters.
+				// Should allow most words to still be understood (with context) while communicating the idea of struggling with them.
+				// In time, we might refine this somewhat to make words generally more pronounceable...
+				for (var/i = 2; i<charlist.len-1; ++i)
+					charlist.Swap(i,rand(i,charlist.len-1))
+
+				// If we reach this point, 50% chance of stammering a little
+				if (chance < 55)
+					new_message += prefix + charlist[1] + "-" + html_encode(jointext(charlist,"")) + suffix
+				else
+					new_message += prefix + html_encode(jointext(charlist,"")) + suffix
+
+		message = jointext(new_message, " ")
+
+	return trim(message)
 
 /**
   * Turn text into complete gibberish!
@@ -408,8 +481,8 @@
 		hud_used.action_intent.switch_intent(r_index,l_index,oactive)
 
 /mob/proc/update_a_intents()
-	possible_a_intents.Cut()
-	possible_offhand_intents.Cut()
+	QDEL_LIST(possible_a_intents)
+	QDEL_LIST(possible_offhand_intents)
 	var/list/intents = list()
 	var/obj/item/Masteritem = get_active_held_item()
 	if(Masteritem)
@@ -517,7 +590,7 @@
 		if(QINTENT_SPELL)
 			if(mmb_intent)
 				qdel(mmb_intent)
-			testing("spellselect [ranged_ability]")
+
 			mmb_intent = new INTENT_SPELL(src)
 			mmb_intent.releasedrain = ranged_ability.get_fatigue_drain()
 			mmb_intent.chargedrain = ranged_ability.chargedrain
@@ -532,11 +605,10 @@
 			mmb_intent.glow_color = ranged_ability.glow_color
 			mmb_intent.mob_charge_effect = ranged_ability.mob_charge_effect
 			mmb_intent.update_chargeloop()
-	
-	if(hud_used)		
+
+	if(hud_used)
 		hud_used.quad_intents?.switch_intent(input)
 		hud_used.give_intent?.switch_intent(input)
-	givingto = null
 
 /mob/verb/def_intent_change(input as num)
 	set name = "def-change"
@@ -585,7 +657,7 @@
 			SSdroning.play_combat_music(L.cmode_music_override, client)
 		else if(L.cmode_music)
 			SSdroning.play_combat_music(L.cmode_music, client)
-		if(client && HAS_TRAIT(src, TRAIT_SCHIZO_AMBIENCE))
+		if(client && HAS_TRAIT(src, TRAIT_PSYCHOSIS))
 			animate(client, pixel_y = 1, time = 1, loop = -1, flags = ANIMATION_RELATIVE)
 			animate(pixel_y = -1, time = 1, flags = ANIMATION_RELATIVE)
 	if(hud_used)
@@ -962,7 +1034,7 @@
 		var/datum/job/J = SSjob.GetJob(job)
 		if(!J)
 			return "unknown"
-		used_title = J.title
+		used_title =  J.display_title || J.title
 		if(J.f_title && (pronouns == SHE_HER || pronouns == THEY_THEM_F))
 			used_title = J.f_title
 		if(J.advjob_examine)

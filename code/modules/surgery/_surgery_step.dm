@@ -88,6 +88,7 @@
 	var/preop_sound //Sound played when the step is started
 	var/success_sound //Sound played if the step succeeded
 	var/failure_sound //Sound played if the step fails
+	var/visible_required_skill = FALSE //gives you a message about lacking skill, just used for re-adding limbs
 
 /datum/surgery_step/proc/can_do_step(mob/user, mob/living/target, target_zone, obj/item/tool, datum/intent/intent, try_to_fail = FALSE)
 	if(!user || !target)
@@ -136,6 +137,8 @@
 		if(!found_intent)
 			return FALSE
 	if(skill_used && skill_min && (user.get_skill_level(skill_used) < skill_min))
+		if(visible_required_skill)
+			to_chat(user, span_warning("I'm not skilled enough to do this!"))
 		return FALSE
 	return TRUE
 
@@ -262,7 +265,7 @@
 	return english_list(chems, and_text = require_all_chems ? " and " : " or ")
 
 /datum/surgery_step/proc/try_op(mob/user, mob/living/target, target_zone, obj/item/tool, datum/intent/intent, try_to_fail = FALSE)
-	testing("[user] doing surgery step [name] on [target] [target_zone || "body"] with tool [tool || "hands"] and [intent || "none"] intent")
+
 	if(!can_do_step(user, target, target_zone, tool, intent, try_to_fail))
 		return FALSE
 
@@ -373,7 +376,12 @@
 		var/implement_type = tool_check(user, tool)
 		if(implement_type)
 			speed_mod *= implements_speed[implement_type] || 1
-	speed_mod *= get_location_modifier(target)
+	speed_mod *= get_speed_location_modifier(target)
+	var/medskill = user.get_skill_level(/datum/skill/misc/medicine)
+	if(medskill == SKILL_LEVEL_MASTER)
+		speed_mod -= 0.2
+	else if(medskill == SKILL_LEVEL_LEGENDARY)
+		speed_mod -= 0.4
 
 	return speed_mod
 
@@ -412,6 +420,17 @@
 	else if(locate(/obj/structure/table) in patient_turf)
 		return 0.8
 	return 0.7
+
+/datum/surgery_step/proc/get_speed_location_modifier(mob/living/target)
+	var/turf/patient_turf = get_turf(target)
+	var/is_lying = !(target.mobility_flags & MOBILITY_STAND)
+	if(!is_lying)
+		return 1.4
+	if(locate(/obj/structure/bed) in patient_turf)
+		return 0.9
+	else if(locate(/obj/structure/table) in patient_turf)
+		return 0.8
+	return 1.1
 	/*
 	if(locate(/obj/structure/table/optable) in patient_turf)
 		return 1

@@ -21,6 +21,8 @@
 			ritechoices+="Rune of Transaction" 
 		if(/datum/patron/inhumen/baotha)
 			ritechoices+="Rune of Hedonism"
+		if(/datum/patron/divine/undivided)
+			ritechoices+= "Rune of Deca Divinity"
 		if(/datum/patron/divine/astrata)
 			ritechoices+="Rune of Sun"
 		if(/datum/patron/divine/noc)
@@ -41,8 +43,12 @@
 			ritechoices+="Rune of Justice"
 		if(/datum/patron/divine/abyssor)
 			ritechoices+="Rune of Storm"
+			ritechoices+="Rune of Stirring"
 		if(/datum/patron/old_god)
 			ritechoices+="Rune of Enduring"
+
+	if(HAS_TRAIT(user, TRAIT_DREAMWALKER) && !("Rune of Stirring" in ritechoices))
+		ritechoices+="Rune of Stirring"
 
 	var/runeselection = input(user, "Which rune shall I inscribe?", src) as null|anything in ritechoices
 	var/turf/step_turf = get_step(get_turf(user), user.dir)
@@ -87,8 +93,8 @@
 			if(do_after(user, 30, src))
 				playsound(src, 'sound/foley/scribble.ogg', 40, TRUE)
 				new /obj/structure/ritualcircle/eora(step_turf)
-		if("Rune of War")
-			to_chat(user,span_cultsmall("I begin inscribing the rune of His Prowess..."))
+		if("Rune of Justice")
+			to_chat(user,span_cultsmall("I begin inscribing the rune of His Justice..."))
 			if(do_after(user, 30, src))
 				playsound(src, 'sound/foley/scribble.ogg', 40, TRUE)
 				new /obj/structure/ritualcircle/ravox(step_turf)
@@ -97,6 +103,11 @@
 			if(do_after(user, 30, src))
 				playsound(src, 'sound/foley/scribble.ogg', 40, TRUE)
 				new /obj/structure/ritualcircle/abyssor(step_turf)
+		if("Rune of Stirring")
+			to_chat(user,span_cultsmall("I begin inscribing the rune of His Dream..."))
+			if(do_after(user, 30, src))
+				playsound(src, 'sound/foley/scribble.ogg', 40, TRUE)
+				new /obj/structure/ritualcircle/abyssor_alt_inactive(step_turf)
 		if("Rune of ZIZO")
 			to_chat(user,span_cultsmall("I begin inscribing the rune of Her Knowledge..."))
 			if(do_after(user, 30, src))
@@ -122,3 +133,8 @@
 			if(do_after(user, 30, src))
 				playsound(src, 'sound/foley/scribble.ogg', 40, TRUE)
 				new /obj/structure/ritualcircle/psydon(step_turf)
+		if("Rune of Deca Divinity")
+			to_chat(user,span_cultsmall("I begin inscribing the rune of the Ten Undivided"))
+			if(do_after(user, 30, src))
+				playsound(src, 'sound/foley/scribble.ogg', 40, TRUE)
+				new /obj/structure/ritualcircle/undivided(step_turf)

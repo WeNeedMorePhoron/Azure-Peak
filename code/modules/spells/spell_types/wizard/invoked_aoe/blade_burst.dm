@@ -17,7 +17,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	overlay_state = "blade_burst"
 	spell_tier = 2 // AOE, but this is essential for PVE
-	invocation = "Erumpere Gladios!"
+	invocations = list("Erumpere Gladios!")
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_HIGH
@@ -68,6 +68,11 @@
 		if(!(affected_turf in view(source_turf)))
 			continue
 		for(var/mob/living/L in affected_turf.contents)
+			if(L.anti_magic_check())
+				visible_message(span_warning("The blades dispel when they near [L]!"))
+				playsound(get_turf(L), 'sound/magic/magic_nulled.ogg', 100)
+				qdel(src)
+				continue
 			play_cleave = TRUE
 			L.adjustBruteLoss(damage)
 			playsound(affected_turf, "genslash", 80, TRUE)

@@ -3,7 +3,35 @@
 	roundend_category = "Werewolves"
 	antagpanel_category = "Werewolf"
 	job_rank = ROLE_WEREWOLF
-	var/list/inherent_traits = list(TRAIT_NOPAIN, TRAIT_NOPAINSTUN, TRAIT_CRITICAL_RESISTANCE, TRAIT_NOFALLDAMAGE1, TRAIT_KNEESTINGER_IMMUNITY, TRAIT_SHOCKIMMUNE) // this doesn't do anything. that's pretty funny.
+	var/list/inherent_traits = list(
+		TRAIT_IGNORESLOWDOWN,
+		TRAIT_IGNOREDAMAGESLOWDOWN,
+		TRAIT_NOPAIN, 
+		TRAIT_NOPAINSTUN, 
+		TRAIT_CRITICAL_RESISTANCE, 
+		TRAIT_NOFALLDAMAGE1, 
+		TRAIT_KNEESTINGER_IMMUNITY, 
+		TRAIT_SHOCKIMMUNE,
+		TRAIT_SILVER_WEAK,
+		TRAIT_STRENGTH_UNCAPPED,
+		TRAIT_LONGSTRIDER,
+		TRAIT_SPELLCOCKBLOCK,
+		TRAIT_PIERCEIMMUNE,
+		TRAIT_HARDDISMEMBER,
+		TRAIT_NOSTINK,
+		TRAIT_NASTY_EATER,
+		TRAIT_ORGAN_EATER,
+		TRAIT_TOXIMMUNE,
+		TRAIT_BREADY,
+		TRAIT_STEELHEARTED,
+		TRAIT_BASHDOORS,
+		TRAIT_INFINITE_STAMINA,
+		TRAIT_ZJUMP,
+		TRAIT_NOSLEEP,
+		TRAIT_GRABIMMUNE,
+		TRAIT_STRONGBITE,
+		TRAIT_LYCANRESILENCE,
+	)
 	confess_lines = list(
 		"THE BEAST INSIDE ME!",
 		"BEWARE THE BEAST!",
@@ -29,10 +57,7 @@
 	if(istype(examined_datum, /datum/antagonist/werewolf))
 		return span_boldnotice("An elder lupine kin.")
 	if(examiner.Adjacent(examined))
-		if(istype(examined_datum, /datum/antagonist/vampirelord/lesser))
-			if(transformed)
-				return span_boldwarning("A lesser Vampire.")
-		if(istype(examined_datum, /datum/antagonist/vampirelord))
+		if(istype(examined_datum, /datum/antagonist/vampire))
 			if(transformed)
 				return span_boldwarning("An Ancient Vampire. I must be careful!")
 
@@ -75,7 +100,7 @@
 /mob/living/carbon/human/proc/can_werewolf()
 	if(!mind)
 		return FALSE
-	if(mind.has_antag_datum(/datum/antagonist/vampirelord))
+	if(mind.has_antag_datum(/datum/antagonist/vampire))
 		return FALSE
 	if(mind.has_antag_datum(/datum/antagonist/werewolf))
 		return FALSE
@@ -109,14 +134,14 @@
 /mob/living/carbon/human/proc/werewolf_feed(mob/living/carbon/human/target, healing_amount = 10)
 	if(!istype(target))
 		return
-	if(src.has_status_effect(/datum/status_effect/debuff/silver_curse))
+	if(has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder) || has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed))
 		to_chat(src, span_notice("My power is weakened, I cannot heal!"))
 		return
 	if(target.mind)
 		if(target.mind.has_antag_datum(/datum/antagonist/zombie))
 			to_chat(src, span_warning("I should not feed on rotten flesh."))
 			return
-		if(target.mind.has_antag_datum(/datum/antagonist/vampirelord))
+		if(target.mind.has_antag_datum(/datum/antagonist/vampire))
 			to_chat(src, span_warning("I should not feed on corrupted flesh."))
 			return
 		if(target.mind.has_antag_datum(/datum/antagonist/werewolf))
@@ -126,20 +151,23 @@
 	to_chat(src, span_warning("I feed on succulent flesh. I feel reinvigorated."))
 	return src.reagents.add_reagent(/datum/reagent/medicine/healthpot, healing_amount)
 
-/obj/item/clothing/suit/roguetown/armor/skin_armor/werewolf_skin
+/obj/item/clothing/suit/roguetown/armor/regenerating/skin/werewolf_skin
 	slot_flags = null
 	name = "verewolf's skin"
-	desc = ""
+	desc = "an impenetrable hide of dendor's fury"
 	icon_state = null
 	body_parts_covered = FULL_BODY
 	body_parts_inherent = FULL_BODY
 	armor = ARMOR_WWOLF
-	prevent_crits = list(BCLASS_CUT, BCLASS_CHOP, BCLASS_STAB, BCLASS_BLUNT, BCLASS_TWIST)
+	prevent_crits = list(BCLASS_CUT, BCLASS_CHOP, BCLASS_STAB, BCLASS_BLUNT, BCLASS_TWIST, BCLASS_PICK, BCLASS_SMASH)
 	blocksound = SOFTHIT
 	blade_dulling = DULLING_BASHCHOP
 	sewrepair = FALSE
 	max_integrity = 550
 	item_flags = DROPDEL
+	repair_time = 15 SECONDS
+	interrupt_damount = 35
+
 
 /datum/intent/simple/werewolf
 	name = "claw"
@@ -155,20 +183,28 @@
 	miss_sound = "bluntwooshlarge"
 	item_d_type = "slash"
 
+
+/datum/intent/mace/smash/werewolf
+	name = "thrash"
+	desc = "A powerful, smash of lycan muscle that deals normal damage but can throw a standing opponent back and slow them down, based on your strength. Ineffective below 10 strength. Slowdown & Knockback scales to your Strength up to 15 (1 - 5 tiles). Cannot be used consecutively more than every 5 seconds on the same target. Prone targets halve the knockback distance."
+	icon_state = "insmash"
+	maxrange = 5
+	chargetime = 1
+	penfactor = 50
+
+
 /obj/item/rogueweapon/werewolf_claw
 	name = "Verevolf Claw"
 	desc = ""
 	item_state = null
 	lefthand_file = null
 	righthand_file = null
-	icon = 'icons/roguetown/weapons/32.dmi'
+	icon = 'icons/roguetown/weapons/unarmed32.dmi'
 	max_blade_int = 900
 	max_integrity = 900
 	force = 25
 	block_chance = 0
 	wdefense = 2
-	blade_dulling = DULLING_SHAFT_GRAND
-	armor_penetration = 15
 	associated_skill = /datum/skill/combat/unarmed
 	wlength = WLENGTH_NORMAL
 	wbalance = WBALANCE_HEAVY
@@ -177,7 +213,7 @@
 	sharpness = IS_SHARP
 	parrysound = "bladedmedium"
 	swingsound = BLADEWOOSH_MED
-	possible_item_intents = list(/datum/intent/simple/werewolf)
+	possible_item_intents = list(/datum/intent/simple/werewolf, /datum/intent/mace/smash/werewolf)
 	parrysound = list('sound/combat/parry/parrygen.ogg')
 	embedding = list("embedded_pain_multiplier" = 0, "embed_chance" = 0, "embedded_fall_chance" = 0)
 	item_flags = DROPDEL
@@ -190,5 +226,4 @@
 
 /obj/item/rogueweapon/werewolf_claw/Initialize()
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOEMBED, TRAIT_GENERIC)

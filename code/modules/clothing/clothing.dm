@@ -258,10 +258,10 @@
 			return
 		user.changeNext_move(CLICK_CD_MELEE)
 		M.visible_message(span_warning("[user] pats out the flames on [M] with [src]!"))
-		if(M.divine_fire_stacks > 0)
-			M.adjust_divine_fire_stacks(-2)
-		if(M.fire_stacks > 0)
-			M.adjust_fire_stacks(-2)
+		M.adjust_fire_stacks(-2, /datum/status_effect/fire_handler/fire_stacks/divine)
+		M.adjust_fire_stacks(-2)
+		M.adjust_fire_stacks(-2, /datum/status_effect/fire_handler/fire_stacks/sunder)
+		M.adjust_fire_stacks(-2, /datum/status_effect/fire_handler/fire_stacks/sunder/blessed)
 		take_damage(10, BURN, "fire")
 	else
 		return ..()
@@ -340,7 +340,7 @@
 			armorlist[x] = 0
 	..()
 
-/obj/item/clothing/obj_fix()
+/obj/item/clothing/obj_fix(mob/user, full_repair = TRUE)
 	..()
 	armor = original_armor
 
@@ -362,7 +362,7 @@ BLIND     // can't see anything
 	GLOB.female_clothing_icons[index] = female_clothing_icon
 
 /proc/generate_dismembered_clothing(index, t_color, icon, sleeveindex, sleevetype)
-	testing("GDC [index]")
+
 	if(sleevetype)
 		var/icon/dismembered		= icon("icon"=icon, "icon_state"=t_color)
 		var/icon/r_mask				= icon("icon"='icons/roguetown/clothing/onmob/helpers/dismemberment.dmi', "icon_state"="r_[sleevetype]")
@@ -376,7 +376,7 @@ BLIND     // can't see anything
 			if(3)
 				dismembered.Blend(r_mask, ICON_MULTIPLY)
 		dismembered 			= fcopy_rsc(dismembered)
-		testing("GDC added [index]")
+
 		GLOB.dismembered_clothing_icons[index] = dismembered
 
 /obj/item/clothing/under/verb/toggle()
@@ -511,3 +511,24 @@ BLIND     // can't see anything
 
 /obj/item/clothing/proc/step_action() //this was made to rewrite clown shoes squeaking
 	SEND_SIGNAL(src, COMSIG_CLOTHING_STEP_ACTION)
+
+/obj/item/clothing/take_damage(damage_amount, damage_type = BRUTE, damage_flag, sound_effect, attack_dir, armor_penetration)
+	var/newdam = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armor_penetration)
+	var/eff_maxint = max_integrity - (max_integrity * integrity_failure)
+	var/eff_currint = max(obj_integrity - (max_integrity * integrity_failure), 0)
+	var/ratio =	(eff_currint / eff_maxint)
+	var/ratio_newinteg = (eff_currint - newdam) / eff_maxint
+	var/text
+	var/y_offset
+	if(ratio > 0.75 && ratio_newinteg < 0.75)
+		text = "Armor <br><font color = '#8aaa4d'>marred</font>"
+		y_offset = -5
+	if(ratio > 0.5 && ratio_newinteg < 0.5)
+		text = "Armor <br><font color = '#d4d36c'>damaged</font>"
+		y_offset = 15
+	if(ratio > 0.25 && ratio_newinteg < 0.25)
+		text = "Armor <br><font color = '#a8705a'>sundered</font>"
+		y_offset = 30
+	if(text)
+		filtered_balloon_alert(TRAIT_COMBAT_AWARE, text, -20, y_offset)
+	. = ..()

@@ -7,7 +7,8 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/pants.dmi'
 	sleevetype = "skirt"
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_pants.dmi'
-	alternate_worn_layer = (SHOESLEEVE_LAYER-1)
+	alternate_worn_layer = (SHIRT_LAYER)
+	salvage_amount = 1
 
 /obj/item/clothing/under/roguetown/skirt/random
 	name = "skirt"
@@ -27,3 +28,12 @@
 
 /obj/item/clothing/under/roguetown/skirt/brown
 	color = CLOTHING_BROWN
+
+/obj/item/clothing/under/roguetown/skirt/black
+	color = CLOTHING_BLACK
+
+/obj/item/clothing/under/roguetown/skirt/desert
+	name = "desert skirt"
+	desc = "At least it cools me off, but what of the modesty?"
+	icon_state = "desertskirt"
+	item_state = "desertskirt"

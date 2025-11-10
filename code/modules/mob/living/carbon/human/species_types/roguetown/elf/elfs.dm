@@ -16,15 +16,16 @@
 	territorial disputes. This, however, does not stop many Humens and Elves from forming \
 	relationships, which are capable of producing half-elven children. Elves are known for \
 	their intelligence and sharp eyes, but their graceful nature typically leaves their bodies \
-	more frail and fagile than most. In these lands, only a handful of the many Elvish tribes are seen.<br>\
+	more frail and fragile than most. In these lands, only a handful of the many Elvish tribes are seen.<br>\
 	(+1 Speed)"
 
 	skin_tone_wording = "Tribal Identity"
+	max_age = 850
 
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS,OLDGREY)
 	default_features = MANDATORY_FEATURE_LIST
-	use_skintones = 1
+	use_skintones = TRUE
 	disliked_food = NONE
 	liked_food = NONE
 	possible_ages = ALL_AGES_LIST

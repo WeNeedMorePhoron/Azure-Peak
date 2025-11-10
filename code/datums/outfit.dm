@@ -234,7 +234,7 @@
 		if(l_hand)
 			H.put_in_hands(new l_hand(get_turf(H)), FALSE, forced = TRUE)
 		if(r_hand)
-			testing("PIH")
+
 			H.put_in_hands(new r_hand(get_turf(H)), FALSE, forced = TRUE)
 
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
@@ -249,7 +249,7 @@
 //			backpack_contents.Insert(1, box)
 //			backpack_contents[box] = 1
 
-		if(backpack_contents)
+		if(backpack_contents && !visualsOnly)
 			for(var/path in backpack_contents)
 				var/number = backpack_contents[path]
 				if(!isnum(number))//Default to 1

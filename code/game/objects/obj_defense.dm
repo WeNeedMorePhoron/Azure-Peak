@@ -9,7 +9,7 @@
 		return
 	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armor_penetration)
 	SEND_SIGNAL(src, COMSIG_OBJ_TAKE_DAMAGE, damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armor_penetration)
-	testing("damamount [damage_amount]")
+
 	if(damage_amount < DAMAGE_PRECISION)
 		return
 	. = damage_amount
@@ -24,17 +24,17 @@
 		obj_break(damage_flag)
 	//DESTROYING SECOND
 	if(!obj_destroyed && obj_integrity <= 0)
-		testing("destroy1")
+
 		obj_destruction(damage_flag)
 
 
 ///returns the damage value of the attack after processing the obj's various armor protections
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armor_penetration = 0)
 	if((damage_flag == "blunt" || damage_flag == "slash" || damage_flag == "stab") && damage_amount < damage_deflection)
-		testing("damtest55")
+
 		return 1
 	if(damage_type != BRUTE && damage_type != BURN)
-		testing("damtest66")
+
 		return 0
 	var/armor_protection = 0
 	if(damage_flag)
@@ -235,11 +235,15 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		playsound(get_turf(src), break_sound, 80, TRUE)
 	if(break_message)
 		visible_message(break_message)
+	SEND_SIGNAL(src, COMSIG_ITEM_BROKEN)
+	balloon_alert_to_viewers("<font color = '#bb2b2b'>[src]<br>breaks!</font>")
 
 /// Called after obj is repaired (needle/hammer for items). Do not call unless obj_broken is true to avoid breaking armor.
-/obj/proc/obj_fix(mob/user)
+/obj/proc/obj_fix(mob/user, full_repair = TRUE)
 	obj_broken = FALSE
-	obj_integrity = max_integrity
+	if(full_repair)
+		obj_integrity = max_integrity
+	SEND_SIGNAL(src, COMSIG_ITEM_OBJFIX)
 
 ///what happens when the obj's integrity reaches zero.
 /obj/proc/obj_destruction(damage_flag)

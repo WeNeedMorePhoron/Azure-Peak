@@ -43,12 +43,18 @@ GLOBAL_VAR_INIT(mobids, 1)
 	qdel(hud_used)
 	for(var/cc in client_colours)
 		qdel(cc)
-	for(var/datum/intent in base_intents)
-		qdel(intent)
+	if(used_intent)
+		qdel(used_intent)
+	if(a_intent && a_intent.mastermob == src)
+		a_intent.mastermob = null
+	QDEL_LIST(possible_a_intents)
+	QDEL_LIST(possible_offhand_intents)
+	SStreasury.remove_person(src) // Call me overly cautious I dunno when they giving dogs bank account
 	if(skills && skills.current == src)
-		qdel(skills)
+		var/datum/skill_holder/my_skill = skills
+		my_skill.current = null
+		QDEL_NULL(skills)
 	client_colours = null
-	testing("EPICWIN!! [src] [type]")
 	ghostize(drawskip=TRUE)
 	..()
 	return QDEL_HINT_QUEUE
@@ -227,7 +233,7 @@ GLOBAL_VAR_INIT(mobids, 1)
 		log_seen(src, null, hearers, (log_seen_msg ? log_seen_msg : message), log_seen)
 
 /**
- * Show a message to all mobs in a vertical plane around the source atom. 
+ * Show a message to all mobs in a vertical plane around the source atom.
  * Only use this for cases where the action being done is important enough to ignore z level / LOS.
  * vars:
  * * message is the message output. Keep in mind that its end will be appended with "Far Above / Above / Below / Far Below" & "North / East / West / South" etc
@@ -252,7 +258,7 @@ GLOBAL_VAR_INIT(mobids, 1)
 		if(!is_in_zweb(src.z,M.z))
 			continue
 		listening |= M
-	
+
 	for(var/mob/living/L in listening)
 		var/strz
 		var/strdir
@@ -320,9 +326,9 @@ GLOBAL_VAR_INIT(mobids, 1)
 	var/obj/item/W = get_active_held_item()
 
 	if(istype(W))
-		testing("clothes1")
+
 		if(equip_to_slot_if_possible(W, slot,0,0,0))
-			testing("clothes2")
+
 			return 1
 
 	if(!W)
@@ -497,65 +503,8 @@ GLOBAL_VAR_INIT(mobids, 1)
 
 	var/list/result = A.examine(src)
 	if(result)
-		to_chat(src, result.Join("\n"))
+		to_chat(src, usr.client.prefs.no_examine_blocks ? result.Join("\n") : examine_block(result.Join("\n")))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
-
-/**
- * Point at an atom
- *
- * mob verbs are faster than object verbs. See
- * [this byond forum post](https://secure.byond.com/forum/?post=1326139&page=2#comment8198716)
- * for why this isn't atom/verb/pointed()
- *
- * note: ghosts can point, this is intended
- *
- * visible_message will handle invisibility properly
- *
- * overridden here and in /mob/dead/observer for different point span classes and sanity checks
- */
-/mob/verb/pointed(atom/A as mob|obj|turf in view())
-	set name = "Point To"
-	set hidden = 1
-	if(!src || !isturf(src.loc) || !(A in view(client.view, src)))
-		return FALSE
-	if(istype(A, /obj/effect/temp_visual/point))
-		return FALSE
-
-	var/tile = get_turf(A)
-	if (!tile)
-		return FALSE
-
-	new /obj/effect/temp_visual/point(src,invisibility)
-
-	return TRUE
-
-/mob/proc/linepoint(atom/A as mob|obj|turf in view(), params)
-	if(world.time < lastpoint + 50)
-		return FALSE
-
-	if(stat)
-		return FALSE
-
-	if(client)
-		if(!src || !isturf(src.loc) || !(A in view(client.view, src)))
-			return FALSE
-
-	var/turf/tile = get_turf(A)
-	if (!tile)
-		return FALSE
-
-	var/turf/our_tile = get_turf(src)
-	var/obj/visual = new /obj/effect/temp_visual/point/still(our_tile, invisibility)
-	animate(visual, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 2, easing = EASE_OUT)
-
-	lastpoint = world.time
-	var/obj/I = get_active_held_item()
-	if(I)
-		src.visible_message("<span class='info'>[src] points [I] at [A].</span>", "<span class='info'>I point [I] at [A].</span>")
-	else
-		src.visible_message("<span class='info'>[src] points at [A].</span>", "<span class='info'>I point at [A].</span>")
-
-	return TRUE
 
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()
@@ -790,8 +739,7 @@ GLOBAL_VAR_INIT(mobids, 1)
 /mob/Stat()
 	..()
 	// && check_rights(R_ADMIN,0)
-	var/ticker_time = world.time - SSticker.round_start_time
-	var/time_left = SSgamemode.round_ends_at - ticker_time
+	var/time_left = SSgamemode.round_ends_at - world.time
 	var/days = "TWILIGHT"
 	switch(GLOB.dayspassed)
 		if(1)
@@ -809,34 +757,24 @@ GLOBAL_VAR_INIT(mobids, 1)
 		if(7)
 			days = "SUN'S DAE"
 
-	if(client && client.holder)
-		if(statpanel("Status"))
-			if (client)
-				stat(null, "PING: [round(client.lastping, 1)]ms (Average: [round(client.avgping, 1)]ms)")
+	if(client)
+		if(statpanel("RoundInfo"))
 			stat(null, "MAP: [SSmapping.config?.map_name || "Loading..."]")
 			var/datum/map_config/cached = SSmapping.next_map_config
 			if(cached)
 				stat(null, "Next Map: [cached.map_name]")
 			stat(null, "ROUND ID: [GLOB.rogue_round_id ? GLOB.rogue_round_id : "NULL"]")
-//			stat(null, "Server Time: [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]")
 			stat(null, "ROUND TIME: [time2text(STATION_TIME_PASSED(), "hh:mm:ss", 0)] [world.time - SSticker.round_start_time]")
 			if(SSgamemode.roundvoteend)
 				stat("ROUND END: [DisplayTimeText(time_left)]")
-			stat(null, "ROUND TrueTime: [worldtime2text()] [world.time]")
+			if(client?.holder)
+				stat(null, "ROUND TrueTime: [worldtime2text()] [world.time]")
 			stat(null, "TIMEOFDAY: [days] ᛉ [uppertext(GLOB.tod)] ᛉ [station_time_timestamp("hh:mm")]")
 			stat(null, "IC Time: [station_time_timestamp()] [station_time()]")
+			stat(null, "PING: [round(client.lastping, 1)]ms (Average: [round(client.avgping, 1)]ms)")
 			stat(null, "TIME DILATION: [round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)")
 			if(check_rights(R_ADMIN,0))
 				stat(null, SSmigrants.get_status_line())
-
-	if(client)
-		if(statpanel("RoundInfo"))
-			stat("ROUND ID: [GLOB.rogue_round_id]")
-			stat("ROUND TIME: [time2text(STATION_TIME_PASSED(), "hh:mm:ss", 0)] [world.time - SSticker.round_start_time]")
-			if(SSgamemode.roundvoteend)
-				stat("ROUND END: [DisplayTimeText(time_left)]")
-			stat("DAY OF WEEK: [days]" )
-			stat("TIME OF DAY: [uppertext(GLOB.tod)] ᛉ [station_time_timestamp("hh")]")
 
 	if(client && client.holder && check_rights(R_DEBUG,0))
 		if(statpanel("MC"))

@@ -1,5 +1,7 @@
+#define TRAIT_SOURCE_WILDSHAPE "wildshape_transform"
+
 /mob/living/carbon/human/species/wildshape/death(gibbed, nocutscene = FALSE)
-	werewolf_untransform(TRUE, gibbed)
+	wildshape_untransform(TRUE, gibbed)
 
 /mob/living/carbon/human/proc/wildshape_transformation(shapepath)
 	if(!mind)
@@ -15,8 +17,6 @@
 	if(client)
 		SSdroning.play_area_sound(get_area(src), client)
 
-	fully_heal(FALSE) //If we don't do this, even a single cut will mean the player's real body will die in the void while they run around wildshaped
-	
 	var/mob/living/carbon/human/species/wildshape/W = new shapepath(loc) //We crate a new mob for the wildshaping player to inhabit
 
 	W.set_patron(src.patron)
@@ -37,6 +37,34 @@
 	W.voice_color = voice_color
 	W.cmode_music_override = cmode_music_override
 	W.cmode_music_override_name = cmode_music_override_name
+
+	for(var/datum/wound/old_wound in W.get_wounds())
+		var/obj/item/bodypart/bp = W.get_bodypart(old_wound.bodypart_owner.body_zone)
+		bp?.remove_wound(old_wound.type)
+
+	var/list/datum/wound/woundlist = get_wounds()
+	if(woundlist.len)
+		for(var/datum/wound/wound in woundlist)
+			var/obj/item/bodypart/c_BP = get_bodypart(wound.bodypart_owner.body_zone)
+			var/obj/item/bodypart/w_BP = W.get_bodypart(wound.bodypart_owner.body_zone)
+			w_BP.add_wound(wound.type)
+			c_BP.remove_wound(wound.type)
+
+	W.adjustBruteLoss(getBruteLoss())
+	W.adjustFireLoss(getFireLoss())
+	W.adjustOxyLoss(getOxyLoss())
+
+	src.adjustBruteLoss(-src.getBruteLoss())
+	src.adjustFireLoss(-src.getFireLoss())
+	src.adjustOxyLoss(-src.getOxyLoss())
+	W.blood_volume = blood_volume
+	W.bleed_rate = bleed_rate
+	W.bleedsuppress = bleedsuppress
+	bleed_rate = 0
+	bleedsuppress = TRUE
+	W.set_nutrition(nutrition)
+	W.set_hydration(hydration)
+
 	mind.transfer_to(W)
 	skills?.known_skills = list()
 	skills?.skill_experience = list()
@@ -44,8 +72,15 @@
 	W.base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB)
 	W.update_a_intents()
 
-	ADD_TRAIT(src, TRAIT_NOSLEEP, TRAIT_GENERIC) //If we don't do this, the original body will fall asleep and snore on us
-
+	// temporal traits so our body won't die or snore
+	ADD_TRAIT(src, TRAIT_NOSLEEP, TRAIT_SOURCE_WILDSHAPE)
+	ADD_TRAIT(src, TRAIT_NOBREATH, TRAIT_SOURCE_WILDSHAPE)
+	ADD_TRAIT(src, TRAIT_NOPAIN, TRAIT_SOURCE_WILDSHAPE)
+	ADD_TRAIT(src, TRAIT_TOXIMMUNE, TRAIT_SOURCE_WILDSHAPE)	
+	ADD_TRAIT(src, TRAIT_NOHUNGER, TRAIT_SOURCE_WILDSHAPE)
+	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_SOURCE_WILDSHAPE)
+	ADD_TRAIT(src, TRAIT_PACIFISM, TRAIT_SOURCE_WILDSHAPE) // just an extra layer of protection in case something will go wrong
+	src.status_flags |= GODMODE // so they won't die by any means
 	invisibility = oldinv
 
 	W.gain_inherent_skills()
@@ -64,13 +99,44 @@
 	var/mob/living/carbon/human/W = stored_mob
 	stored_mob = null
 
-	REMOVE_TRAIT(W, TRAIT_NOSLEEP, TRAIT_GENERIC)
+	REMOVE_TRAIT(W, TRAIT_NOSLEEP, TRAIT_SOURCE_WILDSHAPE)
+	REMOVE_TRAIT(W, TRAIT_NOBREATH, TRAIT_SOURCE_WILDSHAPE)
+	REMOVE_TRAIT(W, TRAIT_NOPAIN, TRAIT_SOURCE_WILDSHAPE)
+	REMOVE_TRAIT(W, TRAIT_TOXIMMUNE, TRAIT_SOURCE_WILDSHAPE)
+	REMOVE_TRAIT(W, TRAIT_NOHUNGER, TRAIT_SOURCE_WILDSHAPE)
+	REMOVE_TRAIT(W, TRAIT_NOMOOD, TRAIT_SOURCE_WILDSHAPE)
+	REMOVE_TRAIT(W, TRAIT_PACIFISM, TRAIT_SOURCE_WILDSHAPE)
+	W.status_flags &= ~GODMODE
 
 	if(dead)
 		W.death()
 
-	W.forceMove(get_turf(src))
+	for(var/datum/wound/old_wound in W.get_wounds())
+		var/obj/item/bodypart/bp = W.get_bodypart(old_wound.bodypart_owner.body_zone)
+		bp?.remove_wound(old_wound.type)
 
+	var/list/datum/wound/woundlist = get_wounds()
+	if(woundlist.len)
+		for(var/datum/wound/wound in woundlist)
+			var/obj/item/bodypart/c_BP = get_bodypart(wound.bodypart_owner.body_zone)
+			var/obj/item/bodypart/w_BP = W.get_bodypart(wound.bodypart_owner.body_zone)
+			w_BP.add_wound(wound.type)
+			c_BP.remove_wound(wound.type)
+
+	W.adjustBruteLoss(getBruteLoss())
+	W.adjustFireLoss(getFireLoss())
+	W.adjustOxyLoss(getOxyLoss())
+
+	src.adjustBruteLoss(-src.getBruteLoss())
+	src.adjustFireLoss(-src.getFireLoss())
+	src.adjustOxyLoss(-src.getOxyLoss())
+	W.blood_volume = blood_volume
+	W.bleed_rate = bleed_rate
+	W.bleedsuppress = bleedsuppress
+	W.set_nutrition(nutrition)
+	W.set_hydration(hydration)
+
+	W.forceMove(get_turf(src))
 	mind.transfer_to(W)
 
 	var/mob/living/carbon/human/species/wildshape/WA = src
@@ -85,7 +151,6 @@
 				W.RemoveSpell(wildspell)
 
 	W.regenerate_icons()
-
 	to_chat(W, span_userdanger("I return to my old form."))
 
 	qdel(src)

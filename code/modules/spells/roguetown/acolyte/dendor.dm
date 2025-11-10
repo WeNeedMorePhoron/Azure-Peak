@@ -11,7 +11,7 @@
 	cast_without_targets = TRUE
 	sound = 'sound/magic/churn.ogg'
 	associated_skill = /datum/skill/magic/holy
-	invocation = "The Treefather commands thee, be fruitful!"
+	invocations = list("The Treefather commands thee, be fruitful!")
 	invocation_type = "shout" //can be none, whisper, emote and shout
 	miracle = TRUE
 	devotion_cost = 20
@@ -44,7 +44,7 @@
 	cast_without_targets = TRUE
 	sound = 'sound/magic/churn.ogg'
 	associated_skill = /datum/skill/magic/holy
-	invocation = "Be still and calm, brotherbeast."
+	invocations = list("Be still and calm, brotherbeast.")
 	invocation_type = "whisper" //can be none, whisper, emote and shout
 	miracle = TRUE
 	devotion_cost = 20
@@ -79,12 +79,18 @@
 	cast_without_targets = TRUE
 	sound = 'sound/items/dig_shovel.ogg'
 	associated_skill = /datum/skill/magic/holy
-	invocation = "Treefather light the way."
+	invocations = list("Treefather light the way.")
 	invocation_type = "whisper" //can be none, whisper, emote and shout
 	devotion_cost = 30
 
 /obj/effect/proc_holder/spell/targeted/conjure_glowshroom/cast(list/targets, mob/user = usr)
-	. = ..()
+	..()
+
+	to_chat(user, span_notice("I begin enriching the soil around me!"))
+	if(!do_after(user, 2 SECONDS, progress = TRUE))
+		revert_cast()
+		return FALSE
+
 	var/turf/T = user.loc
 	for(var/X in GLOB.cardinals)
 		var/turf/TT = get_step(T, X)
@@ -130,7 +136,7 @@
 	warnie = "sydwarning"
 	movement_interrupt = FALSE
 	sound = 'sound/magic/churn.ogg'
-	invocation = "Spiders of psydonia, allow me to pass safely!"
+	invocations = list("Spiders of Psydonia, allow me to pass safely!")
 	invocation_type = "shout"
 	associated_skill = /datum/skill/magic/holy
 	recharge_time = 4 SECONDS

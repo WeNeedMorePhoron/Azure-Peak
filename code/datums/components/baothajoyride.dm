@@ -59,28 +59,26 @@
 	id = "baotha_joyride"
 	duration = -1
 	alert_type = /atom/movable/screen/alert/status_effect/baotha_joyride
-	effectedstats = list("speed" = 5, "endurance" = 3)
+	effectedstats = list(STATKEY_SPD = 5, STATKEY_WIL = 3)
 	var/outline_colour = "#c6307b"
 
 /datum/status_effect/baotha_joyride/on_apply()
 	. = ..()
+
+	var/filter = owner.get_filter(JOYRIDE_FILTER)
+	if (!filter)
+		owner.add_filter(JOYRIDE_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 60, "size" = 2))
+		
 	ADD_TRAIT(owner, TRAIT_NOPAIN, src)
 
 /datum/status_effect/baotha_joyride/on_remove()
 	. = ..()
+
+	owner.remove_filter(JOYRIDE_FILTER)
 	REMOVE_TRAIT(owner, TRAIT_NOPAIN, src)
 
 /atom/movable/screen/alert/status_effect/baotha_joyride
 	name = "Joyride"
 	desc = "At the tip of the tongue, Baotha's blessing in purest form."
-
-/datum/status_effect/baotha_joyride/on_apply()
-	var/filter = owner.get_filter(JOYRIDE_FILTER)
-	if (!filter)
-		owner.add_filter(JOYRIDE_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 60, "size" = 2))
-	return TRUE
-
-/datum/status_effect/baotha_joyride/on_remove()
-	owner.remove_filter(JOYRIDE_FILTER)
 
 #undef JOYRIDE_FILTER

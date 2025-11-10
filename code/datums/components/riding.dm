@@ -13,7 +13,6 @@
 	var/list/allowed_turf_typecache
 	var/list/forbid_turf_typecache					//allow typecache for only certain turfs, forbid to allow all but those. allow only certain turfs will take precedence.
 	var/allow_one_away_from_valid_turf = TRUE		//allow moving one tile away from a valid turf but not more.
-	var/override_allow_spacemove = FALSE
 	var/drive_verb = "drive"
 	var/ride_check_rider_incapacitated = FALSE
 	var/ride_check_rider_restrained = FALSE
@@ -179,7 +178,7 @@
 		if(!turf_check(next, current))
 			to_chat(user, span_warning("My [AM] can not go onto [next]!"))
 			return
-		if(!Process_Spacemove(direction) || !isturf(AM.loc))
+		if(!isturf(AM.loc))
 			return
 		step(AM, direction)
 
@@ -196,10 +195,6 @@
 
 /datum/component/riding/proc/Unbuckle(atom/movable/M)
 	addtimer(CALLBACK(parent, TYPE_PROC_REF(/atom/movable, unbuckle_mob), M), 0, TIMER_UNIQUE)
-
-/datum/component/riding/proc/Process_Spacemove(direction)
-	var/atom/movable/AM = parent
-	return override_allow_spacemove || AM.has_gravity()
 
 /datum/component/riding/proc/account_limbs(mob/living/M)
 	if(M.get_num_legs() < 2 && !slowed)
@@ -259,11 +254,14 @@
 		AM.layer = MOB_LAYER
 
 /datum/component/riding/human/get_offsets(pass_index)
-	var/mob/living/carbon/human/H = parent
-	if(H.buckle_lying)
+	var/mob/living/carbon/human/human = parent
+	var/obj/item/bodypart/taur/taur = human.get_taur_tail()
+	if(human.buckle_lying)
 		return list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(0, 6), TEXT_WEST = list(0, 6))
 	else if(istype(parent, /mob/living/carbon/human/species/wildshape)) //Snowflake druid travel
 		return list(TEXT_NORTH = list(8, 6), TEXT_SOUTH = list(8, 6), TEXT_EAST = list(8, 6), TEXT_WEST = list(8, 6))
+	else if(taur)
+		return list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(-12, 4), TEXT_WEST = list(12, 4))
 	else
 		return list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(-6, 4), TEXT_WEST = list(6, 4))
 

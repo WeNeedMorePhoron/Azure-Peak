@@ -7,7 +7,7 @@
 	id = "constructm"
 	desc = "<b>Metallic Construct</b><br>\
 	Masterworks of artifice, metal constructs are as the name implies- entirely constructed by mortal hands. They are beings not of flesh and blood, but cold metal and the arcyne. Constructs are said to originate from works of Zizo, and they hail from the far-off lands of the Southern Empty- a great city of artifice, where the only artificers capable of understanding what is necessary to create the constructs live. For some reason, they have found themselves travelling out of the empty, as of late. Children of the Resonator Siphon.<br>\
-	(+1 Endurance, -2 Speed)<br>\
+	(+1 Willpower, -2 Speed)<br>\
 	(Insomnia, No hunger, no blood.)"
 
 	construct = 1
@@ -15,12 +15,17 @@
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS,STUBBLE,OLDGREY,NOBLOOD)
 	default_features = MANDATORY_FEATURE_LIST
-	use_skintones = 1
+	use_skintones = TRUE
 	possible_ages = ALL_AGES_LIST
 	skinned_type = /obj/item/ingot/steel
 	disliked_food = NONE
 	liked_food = NONE
-	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_BLOODLOSS_IMMUNE, TRAIT_NOBREATH, TRAIT_NOSLEEP)
+	inherent_traits = list(
+		TRAIT_NOHUNGER,
+		TRAIT_BLOODLOSS_IMMUNE,
+		TRAIT_NOBREATH,
+		TRAIT_ZOMBIE_IMMUNE
+		)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | SLIME_EXTRACT
 	limbs_icon_m = 'icons/roguetown/mob/bodies/m/mcom.dmi'
 	limbs_icon_f = 'icons/roguetown/mob/bodies/f/fcom.dmi'
@@ -40,7 +45,7 @@
 		OFFSET_NECK_F = list(0,-1), OFFSET_MOUTH_F = list(0,-1), OFFSET_PANTS_F = list(0,0), \
 		OFFSET_SHIRT_F = list(0,0), OFFSET_ARMOR_F = list(0,0), OFFSET_UNDIES_F = list(0,-1), \
 		)
-	race_bonus = list(STAT_ENDURANCE = 1, STAT_SPEED = -2)
+	race_bonus = list(STAT_WILLPOWER = 1, STAT_SPEED = -2)
 	enflamed_icon = "widefire"
 	organs = list(
 		ORGAN_SLOT_BRAIN = /obj/item/organ/brain/construct,
@@ -65,14 +70,25 @@
 		)
 	body_marking_sets = list(
 		/datum/body_marking_set/none,
-	)
+		/datum/body_marking_set/construct_plating_light,
+		/datum/body_marking_set/construct_plating_medium,
+		/datum/body_marking_set/construct_plating_heavy,
+		)
 	body_markings = list(
 		/datum/body_marking/eyeliner,
 		/datum/body_marking/tonage,
 		/datum/body_marking/nose,
 		/datum/body_marking/construct_plating_light,
-		
+		/datum/body_marking/construct_plating_medium,
+		/datum/body_marking/construct_plating_heavy,
+		/datum/body_marking/construct_head_standard,
+		/datum/body_marking/construct_head_round,
+		/datum/body_marking/construct_standard_eyes,
+		/datum/body_marking/construct_visor_eyes,
+		/datum/body_marking/construct_psyclops_eye,
 	)
+
+	restricted_virtues = list(/datum/virtue/utility/noble, /datum/virtue/utility/deathless)
 
 /datum/species/construct/metal/check_roundstart_eligible()
 	return TRUE

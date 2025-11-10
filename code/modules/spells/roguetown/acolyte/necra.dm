@@ -11,7 +11,7 @@
 	cast_without_targets = TRUE
 	sound = 'sound/magic/churn.ogg'
 	associated_skill = /datum/skill/magic/holy
-	invocation = "Undermaiden grant thee passage forth and spare the trials of the forgotten."
+	invocations = list("Undermaiden grant thee passage forth and spare the trials of the forgotten.")
 	invocation_type = "whisper" //can be none, whisper, emote and shout
 	miracle = TRUE
 	devotion_cost = 5 //very weak spell, you can just make a grave marker with a literal stick
@@ -28,6 +28,7 @@
 		success = pacify_coffin(hole, user)
 		if(success)
 			user.visible_message("[user] consecrates [hole]!", "My funeral rites have been performed on [hole]!")
+			record_round_statistic(STATS_GRAVES_CONSECRATED)
 			return
 	to_chat(user, span_red("I failed to perform the rites."))
 
@@ -44,7 +45,7 @@
 	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
 	sound = 'sound/magic/churn.ogg'
 	associated_skill = /datum/skill/magic/holy
-	invocation = "The Undermaiden rebukes!"
+	invocations = list("The Undermaiden rebukes!")
 	invocation_type = "shout" //can be none, whisper, emote and shout
 	miracle = TRUE
 	devotion_cost = 50
@@ -61,10 +62,9 @@
 		if(L.stat == DEAD)
 			continue
 		if(L.mind)
-			var/datum/antagonist/vampirelord/lesser/V = L.mind.has_antag_datum(/datum/antagonist/vampirelord/lesser)
-			if(V)
-				if(!V.disguised)
-					isvampire = TRUE
+			var/datum/antagonist/vampire/V = L.mind.has_antag_datum(/datum/antagonist/vampire)
+			if(V && !SEND_SIGNAL(L, COMSIG_DISGUISE_STATUS))
+				isvampire = TRUE
 			if(L.mind.has_antag_datum(/datum/antagonist/zombie))
 				iszombie = TRUE
 			if(L.mind.special_role == "Vampire Lord" || L.mind.special_role == "Lich")	//Won't detonate Lich's or VLs but will fling them away.
@@ -99,11 +99,11 @@
 	charging_slowdown = 1
 	releasedrain = 20
 	chargedrain = 0
-	overlay_state = "speakwithdead"
+	overlay_state = "deathdoor" // Icon Credit to DelineFortune
 	chargetime = 2 SECONDS
 	chargedloop = null
 	sound = 'sound/misc/deadbell.ogg'
-	invocation = "Necra, show me my destination!"
+	invocations = list("Necra, show me my destination!")
 	invocation_type = "shout"
 	associated_skill = /datum/skill/magic/holy
 	antimagic_allowed = TRUE
@@ -316,7 +316,7 @@
 	cast_without_targets = TRUE
 	sound = 'sound/magic/churn.ogg'
 	associated_skill = /datum/skill/magic/holy
-	invocation = "She-Below brooks thee respite, be heard, wanderer."
+	invocations = list("She-Below brooks thee respite, be heard, wanderer.")
 	invocation_type = "whisper" //can be none, whisper, emote and shout
 	miracle = TRUE
 	devotion_cost = 30

@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(zizoconstruct_aggro, world.file2list("strings/rt/zconstructaggr
 	.=..()
 	if(prob(5))
 		say(pick(GLOB.zizoconstruct_aggro))
-		linepoint(target)
+		pointed(target)
 
 /mob/living/carbon/human/species/construct/metal/zizoconstruct/should_target(mob/living/L)
 	if(L.stat != CONSCIOUS)
@@ -43,7 +43,7 @@ GLOBAL_LIST_INIT(zizoconstruct_aggro, world.file2list("strings/rt/zconstructaggr
 	..()
 	job = "Zizo Construct"
 	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_INFINITE_ENERGY, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_BREADY, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOPAIN, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_TOXIMMUNE, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_CIVILIZEDBARBARIAN, TRAIT_GENERIC)
@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(zizoconstruct_aggro, world.file2list("strings/rt/zconstructaggr
 	gender = pick(MALE, FEMALE)
 	regenerate_icons()
 	skin_tone = "e2a670"
-	
+
 	if(gender == FEMALE)
 		real_name = pick("Bronze Construct")
 	else
@@ -72,7 +72,7 @@ GLOBAL_LIST_INIT(zizoconstruct_aggro, world.file2list("strings/rt/zconstructaggr
 	H.STASTR = 20
 	H.STASPD = 8
 	H.STACON = 20
-	H.STAEND = 20
+	H.STAWIL = 20
 	H.STAPER = 8
 	H.STAINT = 1
 	H.adjust_skillrank(/datum/skill/combat/unarmed, 5, TRUE)
@@ -93,7 +93,7 @@ GLOBAL_LIST_INIT(zizoconstruct_aggro, world.file2list("strings/rt/zconstructaggr
 		to_chat(user, "<font color='purple'> You attempt to wield the knuckles. The spike sinks deeply into your hand, piercing it and drinking deep of your vital energies!</font>")
 		user.adjustBruteLoss(15)
 		user.Stun(40)
-		playsound(get_turf(user), 'sound/misc/drink_blood.ogg', 100) 
+		playsound(get_turf(user), 'sound/misc/drink_blood.ogg', 100)
 	..()
 
 /obj/item/clothing/suit/roguetown/armor/skin_armor/zizoconstructarmor //ww armor but for construct

@@ -5,7 +5,7 @@
 	var/STAPER = 10
 	var/STAINT = 10
 	var/STACON = 10
-	var/STAEND = 10
+	var/STAWIL = 10
 	var/STASPD = 10
 	var/STALUC = 10
 	//buffers, the 'true' amount of each stat
@@ -46,7 +46,7 @@
 	STAPER = 10
 	STAINT = 10
 	STACON = 10
-	STAEND = 10
+	STAWIL = 10
 	STASPD = 10
 	STALUC = 10
 	if(ishuman(src))
@@ -62,25 +62,26 @@
 					H.change_stat(stat, amt)
 		switch(H.age)
 			if(AGE_MIDDLEAGED)
-				change_stat("speed", -1)
-				change_stat("endurance", 1)
+				change_stat(STATKEY_SPD, -1)
+				change_stat(STATKEY_WIL, 1)
+				change_stat(STATKEY_LCK, 1)
 			if(AGE_OLD)
-				change_stat("strength", -1)
-				change_stat("speed", -2)
-				change_stat("perception", -1)
-				change_stat("constitution", -2)
-				change_stat("intelligence", 2)
-				change_stat("fortune", 1)
+				change_stat(STATKEY_STR, -1)
+				change_stat(STATKEY_SPD, -2)
+				change_stat(STATKEY_PER, -1)
+				change_stat(STATKEY_CON, -2)
+				change_stat(STATKEY_INT, 2)
+				change_stat(STATKEY_LCK, 1)
 		if(key)
 			if(check_blacklist(ckey(key)))
-				change_stat("strength", -5)
-				change_stat("speed", -20)
-				change_stat("endurance", -2)
-				change_stat("constitution", -2)
-				change_stat("intelligence", -20)
-				change_stat("fortune", -20)
+				change_stat(STATKEY_STR, -5)
+				change_stat(STATKEY_SPD, -20)
+				change_stat(STATKEY_WIL, -2)
+				change_stat(STATKEY_CON, -2)
+				change_stat(STATKEY_INT, -20)
+				change_stat(STATKEY_LCK, -20)
 			if(check_psychokiller(ckey(key)))
-				testing("foundpsych")
+
 				H.eye_color = "ff0000"
 				H.voice_color = "ff0000"
 
@@ -96,8 +97,8 @@
 			return STAINT
 		if(STAT_CONSTITUTION)
 			return STACON
-		if(STAT_ENDURANCE)
-			return STAEND
+		if(STAT_WILLPOWER)
+			return STAWIL
 		if(STAT_SPEED)
 			return STASPD
 		if(STAT_FORTUNE)
@@ -124,7 +125,7 @@
 //			statindex[index]["amt"] = amt
 	var/newamt = 0
 	switch(stat)
-		if("strength")
+		if(STATKEY_STR)
 			newamt = STASTR + amt
 			if(BUFSTR < 0)
 				BUFSTR = BUFSTR + amt
@@ -144,7 +145,7 @@
 				BUFSTR++
 			STASTR = newamt
 
-		if("perception")
+		if(STATKEY_PER)
 			newamt = STAPER + amt
 			if(BUFPER < 0)
 				BUFPER = BUFPER + amt
@@ -166,7 +167,7 @@
 
 			update_fov_angles()
 
-		if("intelligence")
+		if(STATKEY_INT)
 			newamt = STAINT + amt
 			if(BUFINT < 0)
 				BUFINT = BUFINT + amt
@@ -186,7 +187,7 @@
 				BUFINT++
 			STAINT = newamt
 
-		if("constitution")
+		if(STATKEY_CON)
 			newamt = STACON + amt
 			if(BUFCON < 0)
 				BUFCON = BUFCON + amt
@@ -206,17 +207,17 @@
 				BUFCON++
 			STACON = newamt
 
-		if("endurance")
-			newamt = STAEND + amt
+		if(STATKEY_WIL)
+			newamt = STAWIL + amt
 			if(BUFEND < 0)
 				BUFEND = BUFEND + amt
 				if(BUFEND > 0)
-					newamt = STAEND + BUFEND
+					newamt = STAWIL + BUFEND
 					BUFEND = 0
 			if(BUFEND > 0)
 				BUFEND = BUFEND + amt
 				if(BUFEND < 0)
-					newamt = STAEND + BUFEND
+					newamt = STAWIL + BUFEND
 					BUFEND = 0
 			while(newamt < 1)
 				newamt++
@@ -224,9 +225,9 @@
 			while(newamt > 20)
 				newamt--
 				BUFEND++
-			STAEND = newamt
+			STAWIL = newamt
 
-		if("speed")
+		if(STATKEY_SPD)
 			newamt = STASPD + amt
 			if(BUFSPE < 0)
 				BUFSPE = BUFSPE + amt
@@ -247,7 +248,7 @@
 			STASPD = newamt
 			update_move_intent_slowdown()
 
-		if("fortune")
+		if(STATKEY_LCK)
 			newamt = STALUC + amt
 			if(BUFLUC < 0)
 				BUFLUC = BUFLUC + amt
@@ -267,6 +268,22 @@
 				BUFLUC++
 			STALUC = newamt
 
+/// Calculates a luck value in the range [1, 400] (calculated as STALUC^2), then maps the result linearly to the given range
+/// min must be >= 0, max must be <= 100, and min must be <= max
+/// For giving 
+/mob/living/proc/get_scaled_sq_luck(min, max)
+	if (min < 0)
+		min = 0
+	if (max > 100)
+		max = 100
+	if (min > max)
+		var/temp = min
+		min = max
+		max = temp
+	var/adjusted_luck = (src.STALUC * src.STALUC) / 400
+
+	return LERP(min, max, adjusted_luck)
+
 /proc/generic_stat_comparison(userstat as num, targetstat as num)
 	var/difference = userstat - targetstat
 	if(difference > 1 || difference < -1)
@@ -274,8 +291,12 @@
 	else
 		return 0
 
-/mob/living/proc/badluck(multi = 3)
-	if(STALUC < 10)
+/mob/living/proc/badluck(multi = 3, ignore_effects = FALSE)
+	if(ignore_effects)
+		var/truefor = get_true_stat(STATKEY_LCK)
+		if(truefor < 10)
+			return prob((10 - truefor) * multi)
+	else if(STALUC < 10)
 		return prob((10 - STALUC) * multi)
 
 /mob/living/proc/goodluck(multi = 3)
@@ -288,8 +309,8 @@
 			return STASTR
 		if(STATKEY_PER)
 			return STAPER
-		if(STATKEY_END)
-			return STAEND
+		if(STATKEY_WIL)
+			return STAWIL
 		if(STATKEY_CON)
 			return STACON
 		if(STATKEY_INT)
@@ -298,3 +319,31 @@
 			return STASPD
 		if(STATKEY_LCK)
 			return STALUC
+
+///Effectively rolls a d20, with each point in the stat being a chance_per_point% chance to succeed per point in the stat. If no stat is provided, just returns 0.
+///dee_cee is a difficulty mod, a positive value makes the check harder, a negative value makes it easier.
+///invert_dc changes it from stat - dc to dc - stat, for inverted checks.
+///EG: A person with 10 luck and a dc of -10 effectively has a 100% chance of success. Or an inverted DC with 10 means 0% chance of success.
+/mob/living/proc/stat_roll(stat_key,chance_per_point = 5, dee_cee = null, invert_dc = FALSE)
+	if(!stat_key)
+		return FALSE
+	var/tocheck
+	switch(stat_key)
+		if(STATKEY_STR)
+			tocheck = STASTR
+		if(STATKEY_PER)
+			tocheck = STAPER
+		if(STATKEY_WIL)
+			tocheck = STAWIL
+		if(STATKEY_CON)
+			tocheck = STACON
+		if(STATKEY_INT)
+			tocheck = STAINT
+		if(STATKEY_SPD)
+			tocheck = STASPD
+		if(STATKEY_LCK)
+			tocheck = STALUC
+	if(invert_dc)
+		return isnull(dee_cee) ? prob(tocheck * chance_per_point) : prob(clamp((dee_cee - tocheck) * chance_per_point,0,100))
+	else
+		return isnull(dee_cee) ? prob(tocheck * chance_per_point) : prob(clamp((tocheck - dee_cee) * chance_per_point,0,100))

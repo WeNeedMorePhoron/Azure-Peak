@@ -10,7 +10,7 @@
 	Taller than humans and powerfully built, zardmen are often between 6 and 7 feet tall. \
 	Zardmen have non-prehensile muscular tails that grow to three or four feet in length, and these are used for balance. \
 	They also have sharp claws and teeth.<br>\
-	(+1 Constitution, +1 Endurance)"
+	(+1 Constitution, +1 Willpower)"
 	skin_tone_wording = "Skin Colors"
 	species_traits = list(EYECOLOR,LIPS,STUBBLE,MUTCOLORS)
 	possible_ages = ALL_AGES_LIST
@@ -33,7 +33,7 @@
 		OFFSET_NECK_F = list(0,-1), OFFSET_MOUTH_F = list(0,-1), OFFSET_PANTS_F = list(0,0), \
 		OFFSET_SHIRT_F = list(0,0), OFFSET_ARMOR_F = list(0,0), OFFSET_UNDIES_F = list(0,-1), \
 		)
-	race_bonus = list(STAT_CONSTITUTION = 1, STAT_ENDURANCE = 1)
+	race_bonus = list(STAT_CONSTITUTION = 1, STAT_WILLPOWER = 1)
 	enflamed_icon = "widefire"
 	attack_verb = "slash"
 	attack_sound = 'sound/blank.ogg'
@@ -87,10 +87,14 @@
 	body_markings = list(
 		/datum/body_marking/flushed_cheeks,
 		/datum/body_marking/eyeliner,
+		/datum/body_marking/plain,
 		/datum/body_marking/bellyscale,
 		/datum/body_marking/bellyscaleslim,
 		/datum/body_marking/bellyscaleslimsmooth,
 		/datum/body_marking/buttscale,
+		/datum/body_marking/tie,
+		/datum/body_marking/tiesmall,
+		/datum/body_marking/front,
 		/datum/body_marking/tiger,
 		/datum/body_marking/tiger/dark,
 		/datum/body_marking/drake_eyes,
@@ -99,15 +103,17 @@
 		/datum/body_marking/bangs,
 		/datum/body_marking/bun,
 		/datum/body_marking/gradient,
+		/datum/body_marking/tips,
 	)
 	languages = list(
 		/datum/language/common,
 		/datum/language/draconic
 	)
 	descriptor_choices = list(
+		/datum/descriptor_choice/trait,
+		/datum/descriptor_choice/stature,
 		/datum/descriptor_choice/height,
 		/datum/descriptor_choice/body,
-		/datum/descriptor_choice/stature,
 		/datum/descriptor_choice/face,
 		/datum/descriptor_choice/face_exp,
 		/datum/descriptor_choice/scales,

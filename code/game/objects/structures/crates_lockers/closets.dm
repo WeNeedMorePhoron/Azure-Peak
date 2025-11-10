@@ -195,7 +195,7 @@
 
 /obj/structure/closet/proc/insertion_allowed(atom/movable/AM)
 	if(ismob(AM))
-		testing("begin")
+
 		if(!isliving(AM)) //let's not put ghosts or camera mobs inside closets...
 			return FALSE
 		var/mob/living/L = AM
@@ -213,7 +213,7 @@
 			for(var/obj/structure/closet/crate/C in contents)
 				if(C != src)
 					return FALSE
-		testing("enmd")
+
 		L.stop_pulling()
 
 	else if(isobj(AM))
@@ -365,7 +365,7 @@
 				if(lockprogress >= locktreshold)
 					to_chat(user, "<span class='deadsay'>The locking mechanism gives.</span>")
 					record_featured_stat(FEATURED_STATS_CRIMINALS, user)
-					GLOB.azure_round_stats[STATS_LOCKS_PICKED]++
+					record_round_statistic(STATS_LOCKS_PICKED)
 					togglelock(user)
 					break
 				else

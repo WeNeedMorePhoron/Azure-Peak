@@ -26,7 +26,7 @@
 	var/STASPD
 	var/STAINT
 	var/STACON
-	var/STAEND
+	var/STAWIL
 	var/cmode_music
 	var/list/base_intents
 
@@ -36,7 +36,6 @@
 	var/last_bite
 	/// Traits applied to the owner mob when we turn into a zombie
 	var/static/list/traits_zombie = list(
-		TRAIT_CRITICAL_RESISTANCE,
 		TRAIT_INFINITE_STAMINA,
 		TRAIT_NOMOOD,
 		TRAIT_NOHUNGER,
@@ -54,7 +53,8 @@
 		TRAIT_ZOMBIE_SPEECH,
 		TRAIT_ZOMBIE_IMMUNE,
 		TRAIT_ROTMAN,
-		TRAIT_NORUN
+		TRAIT_NORUN,
+		TRAIT_SILVER_WEAK
 	)
 	/// Traits applied to the owner when we are cured and turn into just "rotmen"
 	var/static/list/traits_rotman = list(
@@ -65,12 +65,12 @@
 		TRAIT_TOXIMMUNE,
 		TRAIT_ZOMBIE_IMMUNE,
 		TRAIT_ROTMAN,
+		TRAIT_SILVER_WEAK,
 	)
 
 /datum/antagonist/zombie/examine_friendorfoe(datum/antagonist/examined_datum,mob/examiner,mob/examined)
-	if(istype(examined_datum, /datum/antagonist/vampirelord))
-		var/datum/antagonist/vampirelord/V = examined_datum
-		if(!V.disguised)
+	if(istype(examined_datum, /datum/antagonist/vampire))
+		if(!SEND_SIGNAL(examined_datum.owner, COMSIG_DISGUISE_STATUS))
 			return span_boldnotice("Another deadite.")
 	if(istype(examined_datum, /datum/antagonist/zombie))
 		var/datum/antagonist/zombie/fellow_zombie = examined_datum
@@ -131,7 +131,7 @@
 	src.STASPD = zombie.STASPD
 	src.STAINT = zombie.STAINT
 	src.STACON = zombie.STACON
-	src.STAEND = zombie.STAEND
+	src.STAWIL = zombie.STAWIL
 	cmode_music = zombie.cmode_music
 
 	//Special because deadite status is latent as opposed to the others. 
@@ -171,7 +171,7 @@
 		zombie.STASPD = src.STASPD
 		zombie.STAINT = src.STAINT
 		zombie.STACON = src.STACON
-		zombie.STAEND = src.STAEND
+		zombie.STAWIL = src.STAWIL
 
 
 
@@ -362,7 +362,7 @@
 		qdel(zombie)
 		return
 
-	GLOB.azure_round_stats[STATS_DEADITES_WOKEN_UP]++
+	record_round_statistic(STATS_DEADITES_WOKEN_UP)
 	// Heal the zombie
 	zombie.blood_volume = BLOOD_VOLUME_NORMAL
 	zombie.setOxyLoss(0, updating_health = FALSE, forced = TRUE) // Zombies don't breathe
@@ -401,7 +401,7 @@
 /mob/living/carbon/human/proc/zombie_check_can_convert()
 	if(!mind)
 		return
-	if(mind.has_antag_datum(/datum/antagonist/vampirelord))
+	if(mind.has_antag_datum(/datum/antagonist/vampire))
 		return
 	if(mind.has_antag_datum(/datum/antagonist/werewolf))
 		return

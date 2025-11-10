@@ -21,7 +21,7 @@
 	melee_damage_upper = 17
 	vision_range = 8
 	aggro_vision_range = 11
-	environment_smash = ENVIRONMENT_SMASH_NONE
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	simple_detect_bonus = 20
 	retreat_distance = 0
 	minimum_distance = 0
@@ -30,7 +30,8 @@
 	pooptype = null
 	simple_detect_bonus = 20
 	deaggroprob = 0
-	defprob = 40
+	defprob = 20
+	candodge = TRUE
 	// del_on_deaggro = 44 SECONDS
 	retreat_health = 0.3
 	food = 0
@@ -41,22 +42,23 @@
 	aggressive = 1
 
 	STACON = 13
-	STAEND = 13
+	STAWIL = 13
 	STASTR = 8
 	STASPD = 8
 
 /mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler/Initialize()
+	src.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
 	. = ..()
 
 /mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler/death(gibbed)
 	..()
 	var/turf/deathspot = get_turf(src)
-	new /obj/item/magic/elementalmote(deathspot)
-	new /obj/item/magic/elementalmote(deathspot)
-	new /obj/item/magic/elementalmote(deathspot)
-	new /obj/item/magic/elementalmote(deathspot)
-	new /obj/item/magic/elementalmote(deathspot)
-	new /obj/item/magic/elementalmote(deathspot)
+	new /obj/item/magic/elemental/mote(deathspot)
+	new /obj/item/magic/elemental/mote(deathspot)
+	new /obj/item/magic/elemental/mote(deathspot)
+	new /obj/item/magic/elemental/mote(deathspot)
+	new /obj/item/magic/elemental/mote(deathspot)
+	new /obj/item/magic/elemental/mote(deathspot)
 	update_icon()
 	sleep(1)
 	qdel(src)

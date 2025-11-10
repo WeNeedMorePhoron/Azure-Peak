@@ -1,6 +1,6 @@
 /obj/item/storage/magebag
-	name = "summoners pouch"
-	desc = "A pouch for carrying handfuls of summoning ingredients."
+	name = "scholar's pouch"
+	desc = "A pouch to carry handfuls of ingredients for summoning and alchemy."
 	icon_state = "summoning"
 	item_state = "summoning"
 	icon = 'icons/roguetown/clothing/storage.dmi'
@@ -37,6 +37,18 @@
 		icon_state = "summoning"
 		w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/storage/magebag/associate
+	populate_contents = list(
+		/obj/item/magic/manacrystal,
+		/obj/item/magic/manacrystal,
+		/obj/item/magic/manacrystal,
+		/obj/item/magic/obsidian,
+		/obj/item/magic/obsidian,
+		/obj/item/magic/obsidian,
+		/obj/item/reagent_containers/food/snacks/grown/manabloom,
+		/obj/item/reagent_containers/food/snacks/grown/manabloom,
+		/obj/item/reagent_containers/food/snacks/grown/manabloom
+	)
 
 /obj/item/chalk
 	name = "stick of chalk"
@@ -71,7 +83,7 @@
 		return
 	var/obj/effect/decal/cleanable/roguerune/pickrune
 	var/runenameinput = input(user, "Runes", "Tier 1 and 2 Runes") as null|anything in GLOB.t2rune_types
-	testing("runenameinput [runenameinput]")
+
 	pickrune = GLOB.rune_types[runenameinput]
 	rune_to_scribe = pickrune
 	if(rune_to_scribe == null)
@@ -151,7 +163,7 @@
 		return
 	var/obj/effect/decal/cleanable/roguerune/pickrune
 	var/runenameinput = input(user, "Runes", "T4 Runes") as null|anything in GLOB.t4rune_types
-	testing("runenameinput [runenameinput]")
+
 	pickrune = GLOB.rune_types[runenameinput]
 	rune_to_scribe = pickrune
 	if(rune_to_scribe == null)
@@ -289,6 +301,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	cdtime = 10 MINUTES
 	activetime = 30 SECONDS
+	salvage_result = null
 
 /obj/item/clothing/ring/active/shimmeringlens/attack_right(mob/user)
 	if(loc != user)
@@ -344,8 +357,7 @@
 	icon_state = "manabindingcollar"
 	color = null
 	slot_flags = ITEM_SLOT_NECK
-	salvage_amount = 1
-	salvage_result = /obj/item/natural/hide/cured
+	salvage_result = null
 	unequip_delay_self = 1200
 
 /obj/item/clothing/neck/roguetown/collar/leather/nomagic/Initialize(mapload)
@@ -363,6 +375,7 @@
 	equip_delay_self = 60
 	equip_delay_other = 60
 	strip_delay = 300
+	salvage_result = null
 
 /obj/item/clothing/gloves/roguetown/nomagic/Initialize(mapload)
 	. = ..()
@@ -458,6 +471,9 @@
 
 	to_chat(src, span_userdanger("My summoner is [master.real_name]. They will need to convince me to obey them."))
 	to_chat(src, span_notice("[summon_primer]"))
+
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE//easiest way to give mage summons proper darksight, although I'm wracking my brain for other angles since admin-spawned guys might happen
 
 /obj/item/rope/chain/bindingshackles/proc/custom_name(mob/awakener, var/mob/chosen_one, iteration = 1)
 	if(iteration > 5)

@@ -42,6 +42,9 @@
 	var/is_cdr_exempt = FALSE
 	var/obj/effect/mob_charge_effect = null
 
+	/// This "spell" (miracle) is excluded from Priest's round-start selection.
+	var/priest_excluded = FALSE
+
 /obj/effect/proc_holder/Initialize()
 	. = ..()
 	if(has_action)
@@ -164,7 +167,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/stat_allowed = FALSE //see if it requires being conscious/alive, need to set to 1 for ghostpells
 	var/phase_allowed = FALSE // If true, the spell can be cast while phased, eg. blood crawling, ethereal jaunting
 	var/antimagic_allowed = FALSE // If false, the spell cannot be cast while under the effect of antimagic
-	var/invocation = "" //what is uttered when the wizard casts the spell
+	var/list/invocations = list() //what is uttered when the wizard casts the spell
 	var/invocation_emote_self = null
 	var/invocation_type = "none" //can be none, whisper, emote and shout
 	var/range = 7 //the range of the spell; outer radius for aoe spells
@@ -175,6 +178,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/gesture_required = FALSE // Can it be cast while cuffed? Rule of thumb: Offensive spells + Mobility cannot be cast
 	var/spell_tier = 1 // Tier of the spell, used to determine whether you can learn it based on your spell. Starts at 1.
 	var/refundable = FALSE // If true, the spell can be refunded. This is modified at the point it is added to the user's mind by learnspell.
+	var/zizo_spell = FALSE // If this spell is fucked up & evil and can only be learned by heretics.
 
 	var/overlay = 0
 	var/overlay_icon = 'icons/obj/wizard.dmi'
@@ -248,7 +252,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			return FALSE
 	else
 		if(!(src in user.mob_spell_list))
-			testing("cast1")
+
 			return FALSE
 
 	var/turf/T = get_turf(user)
@@ -258,7 +262,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 	if(!skipcharge)
 		if(!charge_check(user))
-			testing("cast2")
+
 			return FALSE
 
 	if(user.stat && !stat_allowed)
@@ -292,7 +296,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			to_chat(user, span_warning("I can't get the words out!"))
 			return FALSE
 
-		if(HAS_TRAIT(H, TRAIT_PARALYSIS))
+		if(HAS_TRAIT(H, TRAIT_PARALYSIS) && !stat_allowed)
 			to_chat(user, span_warning("My body is paralyzed!"))
 			return FALSE
 
@@ -316,21 +320,26 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			return FALSE
 
 	if(req_items.len)
-		var/list/confirmed_items = list()
+		var/list/missing_names = list()
+		var/met_requirement = FALSE
 		for(var/I in req_items)
-			testing("req item [I]")
+			met_requirement = FALSE
 			for(var/obj/item/IN in user.contents)
 				if(istype(IN, I))
-					testing("confirmed [I]")
-					confirmed_items += IN
+					met_requirement = TRUE
 					continue
-		if(confirmed_items.len != req_items.len)
-			to_chat(user, span_warning("I'm missing something to cast this."))
+			if(!met_requirement)
+				var/obj/item/M = I
+				missing_names.Add(M.name)
+		if(!met_requirement)
+			to_chat(user, span_warning("I'm missing [missing_names.Join(", ")] to cast this."))
 			return FALSE
 
 	if(req_inhand)
 		if(!istype(user.get_active_held_item(), req_inhand))
-			to_chat(user, span_warning("I'm missing something to cast this."))
+			var/obj/item/M = req_inhand
+			var/req_name = M.name
+			to_chat(user, span_warning("I'm missing [req_name] in my hand to cast this."))
 			return FALSE
 
 	if(!skipcharge)
@@ -361,21 +370,23 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	return TRUE
 
 /obj/effect/proc_holder/spell/proc/invocation(mob/user = usr)
-	if(!invocation)
+	if(!invocations || !invocations.len)
 		return
+	var/chosen_invocation = pick(invocations)
 	switch(invocation_type)
 		if("shout")
 			if(prob(50))//Auto-mute? Fuck that noise
-				user.say(invocation, forced = "spell")
+				user.say(chosen_invocation, forced = "spell")
 			else
-				user.say(invocation, forced = "spell")
+				user.say(chosen_invocation, forced = "spell")
 		if("whisper")
 			if(prob(50))
-				user.whisper(invocation)
+				user.whisper(chosen_invocation)
 			else
-				user.whisper(invocation)
+				user.whisper(chosen_invocation)
 		if("emote")
-			user.visible_message(invocation, invocation_emote_self) //same style as in mob/living/emote.dm
+			var/emote_incantation = "<b>[usr.real_name]</b> [chosen_invocation]"
+			user.visible_message(emote_incantation, emote_incantation) //this is stupid, but it works.
 
 /obj/effect/proc_holder/spell/proc/playMagSound()
 	var/ss = sound
@@ -489,6 +500,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		QDEL_IN(spell, overlay_lifespan)
 
 /obj/effect/proc_holder/spell/proc/cast(list/targets, mob/user = usr)
+	record_featured_object_stat(FEATURED_STATS_SPELLS, name)
 	return TRUE
 
 /obj/effect/proc_holder/spell/proc/after_cast(list/targets, mob/user = usr)
@@ -716,7 +728,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		if(ishuman(user) && !living_user.getorganslot(ORGAN_SLOT_TONGUE)) // Shapeshifter has no tongue yeah
 			return FALSE
 
-	if(HAS_TRAIT(user, TRAIT_PARALYSIS))
+	if(HAS_TRAIT(user, TRAIT_PARALYSIS) && !stat_allowed)
 		return FALSE
 
 	return TRUE
@@ -735,7 +747,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	human_req = TRUE
 	clothes_req = FALSE
 	recharge_time = 100
-	invocation = "Victus sano!"
+	invocations = list("Victus sano!")
 	invocation_type = "whisper"
 	school = "restoration"
 	sound = 'sound/blank.ogg'

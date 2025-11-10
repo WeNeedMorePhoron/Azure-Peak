@@ -4,7 +4,8 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	ambushable = FALSE
 	skin_armor = new /obj/item/clothing/suit/roguetown/armor/skin_armor/cat_skin
-	// Someone else balance this, I am here for code, not numbers
+	wildshape_icon = 'icons/mob/pets.dmi'
+	wildshape_icon_state = "cat2"
 
 /mob/living/carbon/human/species/wildshape/cat/gain_inherent_skills()
 	. = ..()
@@ -19,7 +20,7 @@
 
 		src.STASTR = 2
 		src.STACON = 2
-		src.STAEND = 7
+		src.STAWIL = 7
 		src.STAPER = 14
 		src.STASPD = 18 //May be overtuned with dodge expert, but this thing is so fragile
 		src.STALUC = 12 //Xylyx's critters
@@ -115,7 +116,7 @@
 	item_state = null
 	lefthand_file = null
 	righthand_file = null
-	icon = 'icons/roguetown/weapons/32.dmi'
+	icon = 'icons/roguetown/weapons/unarmed32.dmi'
 	max_blade_int = 200
 	max_integrity = 200
 	force = 8 //Pitiful, literally less than a wooden stick or a thrown toy
@@ -198,7 +199,7 @@
             if(target.mind.has_antag_datum(/datum/antagonist/zombie))
                 to_chat(src, span_warning("I shall not lick it..."))
                 return
-            if(target.mind.has_antag_datum(/datum/antagonist/vampirelord))
+            if(target.mind.has_antag_datum(/datum/antagonist/vampire))
                 to_chat(src, span_warning("... What? Its an elder vampire!"))
                 return
         (!do_after(user, 7 SECONDS, target = target))

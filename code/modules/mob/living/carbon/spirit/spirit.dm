@@ -62,7 +62,7 @@
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_BAREFOOT, 1, 2)
 	addtimer(CALLBACK(src, PROC_REF(give_patron_toll)), 10 SECONDS) // For you, no charge.
 
-/mob/living/carbon/spirit/IgniteMob() // Override so they don't catch on fire.
+/mob/living/carbon/spirit/ignite_mob() // Override so they don't catch on fire.
 	return
 
 /mob/living/carbon/spirit/proc/give_patron_toll()
@@ -243,13 +243,11 @@
 		ghost = corpse.ghostize(force_respawn = TRUE)
 
 	if(ghost)
-		testing("pacify_corpse success ([corpse.mind?.key || "no key"])")
 		var/user_acknowledgement = user ? user.real_name : "a mysterious force"
 		to_chat(ghost, span_rose("My soul finds peace buried in creation, thanks to [user_acknowledgement]."))
 		burial_rite_return_ghost_to_lobby(ghost)
 		return TRUE
 
-	testing("pacify_corpse fail ([corpse.mind?.key || "no key"])")
 	return FALSE
 
 /proc/burial_rite_return_ghost_to_lobby(mob/dead/observer/ghost)

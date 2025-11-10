@@ -127,6 +127,7 @@
 /datum/sprite_accessory/tail/horse
 	name = "Horse"
 	icon_state = "horse"
+	can_wag = TRUE
 
 /datum/sprite_accessory/tail/husky
 	name = "Husky"
@@ -352,6 +353,20 @@
 	color_key_defaults = list(KEY_SKIN_COLOR)
 	can_wag = TRUE
 
+/datum/sprite_accessory/tail/dullahan
+	name = "Revenant"
+	icon = 'icons/mob/sprite_accessory/tails/tiefling.dmi'
+	icon_state = "tiebtail"
+	color_key_defaults = list(KEY_SKIN_COLOR)
+	can_wag = TRUE
+
+/datum/sprite_accessory/tail/dullahan/heart
+	name = "Succubus"
+	icon = 'icons/mob/sprite_accessory/tails/tiefling.dmi'
+	icon_state = "hearttail"
+	color_key_defaults = list(KEY_SKIN_COLOR)
+	can_wag = TRUE
+
 /datum/sprite_accessory/tail/rattlesnake
 	name = "Rattlesnake"
 	icon_state = "rattlesnake"
@@ -368,3 +383,34 @@
 /datum/sprite_accessory/tail/owl
 	name = "Owl"
 	icon_state = "owl"
+
+/datum/sprite_accessory/tail/forked_long
+	name = "Forked Long"
+	icon_state = "forked_long"
+
+/datum/sprite_accessory/tail/haven
+	name = "Haven"
+	icon_state = "haven"
+
+/datum/sprite_accessory/tail/swallow
+	name = "Swallow"
+	icon_state = "swallow"
+
+/datum/sprite_accessory/tail/zorzor
+	name = "Zorgoia"
+	icon_state = "zorgoia"
+	color_keys = 3
+	color_key_names = list("Tail", "Tail Fluff", "Tail Barb")
+
+//From Caustic Cove
+/datum/sprite_accessory/tail/large_snake
+	icon = 'modular_causticcove/icons/mob/tails/large_snake.dmi'
+	name = "Large Snake"
+	icon_state = "large_snake"
+	color_keys = 2
+	color_key_names = list("Tail", "Underbelly")
+
+/datum/sprite_accessory/tail/large_snake_plain
+	icon = 'modular_causticcove/icons/mob/tails/large_snake.dmi'
+	name = "Large Snake Plain"
+	icon_state = "large_snake_plain"	

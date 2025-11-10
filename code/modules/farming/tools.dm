@@ -80,7 +80,7 @@
 	//dropshrink = 0.8
 	wlength = WLENGTH_SHORT
 	slot_flags = ITEM_SLOT_HIP
-	max_blade_int = 50
+	max_blade_int = 300
 	smeltresult = /obj/item/ingot/iron
 
 /obj/item/rogueweapon/sickle/examine(mob/user)
@@ -100,6 +100,7 @@
 	icon_state = "asickle"
 	color = "#bb9696"
 	sellprice = 15
+	smeltresult = /obj/item/ingot/aaslag
 
 /obj/item/rogueweapon/sickle/copper
 	name = "copper sickle"
@@ -345,7 +346,7 @@
 /obj/item/rogueweapon/pitchfork/afterattack(obj/target, mob/user, proximity)
 	if((!proximity) || (!wielded))
 		return ..()
-	testing("fuck")
+
 	if(isopenturf(target))
 		if(forked.len)
 			for(var/obj/item/I in forked)

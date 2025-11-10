@@ -3,8 +3,6 @@
 	desc = "Deals damage and ignites target, Deals extra damage to undead."
 	overlay_state = "sacredflame"
 	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
-	invocation = null
-	invocation_type = "shout"
 	associated_skill = /datum/skill/magic/holy
 	antimagic_allowed = TRUE
 	recharge_time = 25 SECONDS
@@ -35,7 +33,7 @@
 	if(M.mob_biotypes & biotype_we_look_for || istype(M, /mob/living/simple_animal/hostile/rogue/skeleton))
 		damage *= fuck_that_guy_multiplier
 	M.adjust_fire_stacks(4)
-	M.IgniteMob()
+	M.ignite_mob()
 	visible_message(span_warning("[src] ignites [target] in holy flame!"))
 	return TRUE
 
@@ -51,8 +49,6 @@
 	movement_interrupt = FALSE
 	chargedloop = null
 	sound = 'sound/magic/heal.ogg'
-	invocation = null
-	invocation_type = null
 	associated_skill = /datum/skill/magic/holy
 	antimagic_allowed = TRUE
 	recharge_time = 5 SECONDS
@@ -95,30 +91,22 @@
 	/// Amount of PQ gained for reviving people
 	var/revive_pq = PQ_GAIN_REVIVE
 
+/obj/effect/proc_holder/spell/invoked/revive/start_recharge()
+	// Because the cooldown for anastasis is so incredibly low, not having tech impacts them more heavily than other faiths
+	var/tech_resurrection_modifier = SSchimeric_tech.get_resurrection_multiplier()
+	if(tech_resurrection_modifier > 1)
+		recharge_time = initial(recharge_time) * (tech_resurrection_modifier * 2.5)
+	. = ..()
+
 /obj/effect/proc_holder/spell/invoked/revive/cast(list/targets, mob/living/user)
 	..()
 
 	if(!isliving(targets[1]))
 		revert_cast()
 		return FALSE
-	testing("revived1")
+
 	var/mob/living/target = targets[1]
-	if(!target.mind)
-		revert_cast()
-		return FALSE
-	if(HAS_TRAIT(target, TRAIT_NECRAS_VOW))
-		to_chat(user, "This one has pledged themselves whole to Necra. They are Hers.")
-		revert_cast()
-		return FALSE
-	if(!target.mind.active)
-		to_chat(user, "Astrata is not done with [target], yet.")
-		revert_cast()
-		return FALSE
-	if(target == user)
-		revert_cast()
-		return FALSE
-	if(target.stat < DEAD)
-		to_chat(user, span_warning("Nothing happens."))
+	if(!target.check_revive(user))
 		revert_cast()
 		return FALSE
 	if(GLOB.tod == "night")
@@ -126,7 +114,10 @@
 	for(var/obj/structure/fluff/psycross/S in oview(5, user))
 		S.AOE_flash(user, range = 8)
 	if(target.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
-		target.visible_message(span_danger("[target] is unmade by holy light!"), span_userdanger("I'm unmade by holy light!"))
+		target.visible_message(
+			span_danger("[target] is unmade by holy light!"), 
+			span_userdanger("I'm unmade by holy light!")
+		)
 		target.gib()
 		return TRUE
 	if(alert(target, "They are calling for you. Are you ready?", "Revival", "I need to wake up", "Don't let me go") != "I need to wake up")
@@ -137,7 +128,7 @@
 		to_chat(user, span_warning("Nothing happens."))
 		revert_cast()
 		return FALSE
-	testing("revived2")
+
 	var/mob/living/carbon/spirit/underworld_spirit = target.get_spirit()
 	//GET OVER HERE!
 	if(underworld_spirit)
@@ -147,7 +138,7 @@
 	target.grab_ghost(force = TRUE) // even suicides
 	target.emote("breathgasp")
 	target.Jitter(100)
-	GLOB.azure_round_stats[STATS_ASTRATA_REVIVALS]++
+	record_round_statistic(STATS_ASTRATA_REVIVALS)
 	target.update_body()
 	target.visible_message(span_notice("[target] is revived by holy light!"), span_green("I awake from the void."))
 	if(revive_pq && !HAS_TRAIT(target, TRAIT_IWASREVIVED) && user?.ckey)
@@ -181,7 +172,7 @@
 	sound = 'sound/magic/astrata_choir.ogg'
 	associated_skill = /datum/skill/magic/holy
 	antimagic_allowed = FALSE
-	invocation = "Astrata show me true."
+	invocations = list("Astrata show me true.")
 	invocation_type = "shout"
 	recharge_time = 120 SECONDS
 	devotion_cost = 30
@@ -220,7 +211,7 @@
 		per_bonus++
 		duration *= 2
 	if(per_bonus > 0)
-		effectedstats = list("perception" = per_bonus)
+		effectedstats = list(STATKEY_PER = per_bonus)
 	to_chat(owner, span_info("She shines through me! I can perceive all clear as dae!"))
 	. = ..()
 
@@ -403,7 +394,7 @@
 	overlay_state = "immolation"
 	range = 2
 	chargetime = 0.5 SECONDS
-	invocation = "By sacred fire, be cleansed!"
+	invocations = list("By sacred fire, be cleansed!")
 	sound = 'sound/magic/fireball.ogg'
 	recharge_time = 600 SECONDS
 	miracle = TRUE

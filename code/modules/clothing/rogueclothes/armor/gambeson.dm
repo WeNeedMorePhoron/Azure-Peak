@@ -1,4 +1,4 @@
-//gambeson family
+// GAMBESON ARMOUR
 
 /obj/item/clothing/suit/roguetown/armor/gambeson
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
@@ -10,6 +10,7 @@
 	prevent_crits = list(BCLASS_CUT,BCLASS_BLUNT)
 	blocksound = SOFTUNDERHIT
 	blade_dulling = DULLING_BASHCHOP
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MEDIUM
 	break_sound = 'sound/foley/cloth_rip.ogg'
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	sewrepair = TRUE
@@ -38,6 +39,7 @@
 	name = "light gambeson"
 	desc = "A thin barely-padded gambeson, typically worn by the peasantry as cheap yet fashionable armor for the whole body. May stop an arrow."
 	armor = ARMOR_PADDED_BAD
+	max_integrity = ARMOR_INT_CHEST_LIGHT_BASE
 	prevent_crits = null // It won't help, like, at all.
 	sellprice = 10
 
@@ -47,6 +49,7 @@
 	icon_state = "gambesonp"
 	prevent_crits = list(BCLASS_CUT, BCLASS_BLUNT, BCLASS_CHOP)
 	armor = ARMOR_PADDED_GOOD
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
 	sellprice = 25
 	color = "#976E6B"
 	var/shiftable = TRUE
@@ -129,10 +132,10 @@
 	shiftable = FALSE
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/chargah
-	name = "steppesman chargah robe"
-	desc = "A light yet thick robe padded with fine silks and cloth, acting as a mix of traditional gambeson and imported silks of the east. Popular among Aavnr steppesmen."
+	name = "padded caftan"
+	desc = "A long overcoat commonly worn in Naledi, Kazengun, and Aavnr - but mostly associated with steppesmen. This specific kind rivals a gambeson in protection."
 	icon_state = "chargah"
-	color = "#864a4a"
+	color = "#ffffff"
 	boobed = TRUE
 	shiftable = FALSE
 
@@ -143,7 +146,7 @@
 	body_parts_covered = COVERAGE_ALL_BUT_LEGS
 	icon_state = "grenzelshirt"
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/stonekeep_merc.dmi'
-	boobed = TRUE
+	boobed = FALSE // Temporary fix, set to FALSE because for some reason boobed and details don't want to work together, removing the ability to dye it or it's details for the onmob
 	detail_tag = "_detail"
 	detail_color = CLOTHING_WHITE
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MEDIUM
@@ -208,3 +211,11 @@
 	armor = ARMOR_PADDED
 	shiftable = FALSE
 	body_parts_covered = COVERAGE_ALL_BUT_LEGS
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/shadowrobe
+	name = "stalker robe"
+	desc = "A robe-like gambeson of moth-eaten cloth and cheap purple dye. No self-respecting elf would be seen wearing this."
+	allowed_race = NON_DWARVEN_RACE_TYPES
+	icon_state = "shadowrobe"
+	armor = ARMOR_PADDED_GOOD
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MEDIUM + 30 //280

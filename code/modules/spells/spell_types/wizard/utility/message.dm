@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/self/message
 	name = "Message"
 	desc = "Latch onto the mind of one who is familiar to you, whispering a message into their head."
-	cost = 2 // Message is quite powefrful so 1 cost is too low
+	cost = 2
 	xp_gain = TRUE
 	releasedrain = 30
 	recharge_time = 60 SECONDS
@@ -24,6 +24,7 @@
 		revert_cast()
 		return
 	eligible_players = sortList(eligible_players)
+	user.emote("me", 1, "mutters an incantation and their mouth briefly flashes white.", TRUE, custom_me = TRUE)
 	var/input = input(user, "Who do you wish to contact?", src) as null|anything in eligible_players
 	if(isnull(input))
 		to_chat(user, span_warning("No target selected."))
@@ -48,8 +49,6 @@
 
 			if(!identified) //we failed the check OR we just dont know who that is
 				to_chat(HL, "Arcyne whispers fill the back of my head, resolving into an unknown [user.gender == FEMALE ? "woman" : "man"]'s voice: <font color=#7246ff>[message]</font>")
-
-			user.visible_message("[user] mutters an incantation and their mouth briefly flashes white.")
 			user.whisper(message)
 			log_game("[key_name(user)] sent a message to [key_name(HL)] with contents [message]")
 			// maybe an option to return a message, here?

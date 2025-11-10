@@ -13,7 +13,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	hand_path = /obj/item/melee/touch_attack/lesserknock
 	spell_tier = 1
-	invocation = "Parvus Pulso"
+	invocations = list("Parvus Pulso")
 	invocation_type = "whisper" // It is a fake stealth spell (lockpicking is very loud)
 	hide_charge_effect = TRUE
 	cost = 2 // Utility and needs lockpicking skills
@@ -23,7 +23,7 @@
 	desc = "A simple prayer to the free-god that forms into an instrument for lockpicking. Can be dispelled by using it on anything that isn't a locked/unlocked door." //Slightly more appropriate
 	miracle = TRUE
 	devotion_cost = 30
-	invocation = "From One to Many"
+	invocations = list("From One to Many")
 	invocation_type = "whisper" // It is a fake stealth spell (lockpicking is very loud)
 	associated_skill = /datum/skill/magic/holy
 
@@ -35,7 +35,7 @@
 	icon = 'icons/roguetown/items/keys.dmi'
 	icon_state = "lockpick"
 	color = "#3FBAFD" // spooky magic blue color that's also used by presti
-	picklvl = 1
+	picklvl = 0.99
 	max_integrity = 30
 	destroy_sound = 'sound/items/pickbreak.ogg'
 	resistance_flags = FIRE_PROOF

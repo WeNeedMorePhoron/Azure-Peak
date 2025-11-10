@@ -59,6 +59,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/deadchat_name
 	var/datum/spawners_menu/spawners_menu
 	var/ghostize_time = 0
+	move_resist = INFINITY
 
 /mob/dead/observer/rogue
 //	see_invisible = SEE_INVISIBLE_LIVING
@@ -76,15 +77,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	icon = 'icons/roguetown/mob/misc.dmi'
 	icon_state = "hollow"
 	alpha = 150
-
-/mob/dead/observer/rogue/Move(n, direct)
-	if(world.time < next_gmove)
-		return
-	next_gmove = world.time + 2
-
-	setDir(direct)
-
-	. = ..()
 
 /mob/dead/observer/screye
 //	see_invisible = SEE_INVISIBLE_LIVING
@@ -127,18 +119,18 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	updateallghostimages()
 
-	testing("BEGIN LOC [loc]")
+
 
 	var/turf/T
 	var/mob/body = loc
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
-		testing("body [body] loc [body.loc]")
+
 		if(!T)
-			testing("no t yyy")
+
 			if(istype(body, /mob/living/brain))
 				var/obj/Y = body.loc
-				testing("Y [Y] loc [Y.loc]")
+
 				T = get_turf(Y)
 
 		gender = body.gender
@@ -188,7 +180,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	update_icon()
 
 	if(!T)
-		testing("NO T")
+
 		T = SSmapping.get_station_center()
 
 	forceMove(T)
@@ -652,6 +644,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/orbit()
 	setDir(2)//reset dir so the right directional sprites show up
+	pixel_x = 25 //it's coal sire but it works to properly orbit around your target instead of a tile off to the side
 	return ..()
 
 /mob/dead/observer/stop_orbit(datum/component/orbiter/orbits)
@@ -659,7 +652,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//restart our floating animation after orbit is done.
 	pixel_y = 0
 	pixel_x = 0
-//	animate(src, pixel_y = 2, time = 10, loop = -1)
+	animate(src, pixel_y = 2, time = 10, loop = -1)
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = "Ghost"
@@ -842,15 +835,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	target.key = key
 	target.faction = list("neutral")
-	return TRUE
-
-//this is a mob verb instead of atom for performance reasons
-//see /mob/verb/examinate() in mob.dm for more info
-//overridden here and in /mob/living for different point span classes and sanity checks
-/mob/dead/observer/pointed(atom/A as mob|obj|turf in view(client.view, src))
-	if(!..())
-		return FALSE
-	usr.visible_message(span_deadsay("<b>[src]</b> points to [A]."))
 	return TRUE
 
 /mob/dead/observer/verb/view_manifest()
@@ -1065,10 +1049,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		set_light(1, 1, 2)
 	else
 		set_light(0, 0, 0)
-
-// Ghosts have no momentum, being massless ectoplasm
-/mob/dead/observer/Process_Spacemove(movement_dir)
-	return 1
 
 /mob/dead/observer/vv_edit_var(var_name, var_value)
 	. = ..()

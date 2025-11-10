@@ -38,13 +38,14 @@
 	They typically trace their beginnings to how their progenator died before being raised."
 */
 	skin_tone_wording = "Origin City-State"
+	max_age = 850
 
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS,OLDGREY)
 	allowed_taur_types = list(
 		/obj/item/bodypart/taur/spider,
 	)
 	default_features = MANDATORY_FEATURE_LIST
-	use_skintones = 1
+	use_skintones = TRUE
 	disliked_food = NONE
 	liked_food = NONE
 	possible_ages = ALL_AGES_LIST
@@ -121,6 +122,9 @@
 	stress_examine = TRUE
 	stress_desc = span_red("A loathesome dark elf.")
 
+/datum/species/elf/dark/after_creation(mob/living/carbon/C)
+	C.faction += "spider_lowers"
+
 /datum/species/elf/dark/get_span_language(datum/language/message_language)
 	if(!message_language)
 		return
@@ -137,6 +141,10 @@
 		"Llurth Dreir" = SKIN_COLOR_LLURTH_DREIR,
 		"Tafravma" = SKIN_COLOR_TAFRAVMA,
 		"Yuethindrynn" = SKIN_COLOR_YUETHINDRYNN,
+		"Koredynn" = SKIN_COLOR_KOREDYNN,
+		"Aiseedrynn" = SKIN_COLOR_AISEEDRYNN,
+		"Grenduskra" = SKIN_COLOR_GRENDUSKRA,
+		"Hun'sek" = SKIN_COLOR_HUNSEK
 	)
 
 /datum/species/elf/dark/get_hairc_list()

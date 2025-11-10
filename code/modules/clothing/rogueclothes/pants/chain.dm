@@ -5,11 +5,13 @@
 	icon_state = "chain_legs"
 	item_state = "chain_legs"
 	sewrepair = FALSE
-	armor = ARMOR_PANTS_CHAIN
+	armor = ARMOR_MAILLE
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT)
 	blocksound = CHAINHIT
 	max_integrity = ARMOR_INT_LEG_STEEL_CHAIN
 	drop_sound = 'sound/foley/dropsound/chain_drop.ogg'
+	pickup_sound = 'sound/foley/equip/equip_armor_chain.ogg'
+	equip_sound = 'sound/foley/equip/equip_armor_chain.ogg'
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/steel
 	r_sleeve_status = SLEEVE_NOMOD
@@ -27,10 +29,12 @@
 	icon_state = "splintlegs"
 	item_state = "splintlegs"
 	max_integrity = ARMOR_INT_LEG_BRIGANDINE
-	armor = ARMOR_PANTS_BRIGANDINE
+	armor = ARMOR_LEATHER_STUDDED
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT)
 	blocksound = SOFTHIT
 	drop_sound = 'sound/foley/dropsound/chain_drop.ogg'
+	pickup_sound = 'sound/foley/equip/equip_armor_chain.ogg'
+	equip_sound = 'sound/foley/equip/equip_armor_chain.ogg'
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/iron
 	r_sleeve_status = SLEEVE_NOMOD
@@ -51,10 +55,9 @@
 	icon_state = "ironsplintlegs"
 	item_state = "ironsplintlegs"
 	max_integrity = ARMOR_INT_LEG_IRON_CHAIN
-	armor = ARMOR_PANTS_BRIGANDINE
+	armor = ARMOR_LEATHER_STUDDED
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT)
 	blocksound = SOFTHIT
-	drop_sound = 'sound/foley/dropsound/chain_drop.ogg'
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/iron
 	r_sleeve_status = SLEEVE_NOMOD
@@ -72,12 +75,14 @@
 	icon_state = "chain_bootyshorts"
 	item_state = "chain_bootyshorts"
 	sewrepair = FALSE
-	armor = ARMOR_PANTS_CHAIN
+	armor = ARMOR_MAILLE
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT)
 	body_parts_covered = GROIN
 	blocksound = CHAINHIT
 	max_integrity = ARMOR_INT_LEG_STEEL_CHAIN
 	drop_sound = 'sound/foley/dropsound/chain_drop.ogg'
+	pickup_sound = 'sound/foley/equip/equip_armor_chain.ogg'
+	equip_sound = 'sound/foley/equip/equip_armor_chain.ogg'
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/steel
 	r_sleeve_status = SLEEVE_NOMOD
@@ -107,7 +112,7 @@
 	item_state = "chainkilt"
 	sleevetype = "chainkilt"
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_pants.dmi'
-	alternate_worn_layer = (SHOESLEEVE_LAYER-1)
+	alternate_worn_layer = (SHIRT_LAYER)
 
 /obj/item/clothing/under/roguetown/chainlegs/kilt/aalloy
 	name = "decrepit chain kilt"
@@ -132,4 +137,12 @@
 	item_state = "ichainkilt"
 	sleevetype = "ichainkilt"
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_pants.dmi'
-	alternate_worn_layer = (SHOESLEEVE_LAYER-1)
+	alternate_worn_layer = (SHIRT_LAYER)
+
+/obj/item/clothing/under/roguetown/chainlegs/captain
+	name = "captain's chausses"
+	desc = "Cuisses made of plated steel, offering additional protection against blunt force. These are specially fitted for the captain."
+	icon_state = "capplateleg"
+	item_state = "capplateleg"
+	icon = 'icons/roguetown/clothing/special/captain.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/captain.dmi'

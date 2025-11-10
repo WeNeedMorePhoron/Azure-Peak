@@ -75,7 +75,7 @@
 	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
 	sound = 'sound/magic/churn.ogg'
 	associated_skill = /datum/skill/magic/holy
-	invocation = "The Undermaiden rebukes!"
+	invocations = list("The Undermaiden rebukes!")
 	invocation_type = "shout" //can be none, whisper, emote and shout
 	miracle = TRUE
 	devotion_cost = 20
@@ -95,8 +95,8 @@
 		if(L.stat == DEAD)
 			continue
 		if (L.mind)
-			var/datum/antagonist/vampirelord/lesser/V = L.mind.has_antag_datum(/datum/antagonist/vampirelord/lesser)
-			if (V && !V.disguised)
+			var/datum/antagonist/vampire/V = L.mind.has_antag_datum(/datum/antagonist/vampire)
+			if(V && SEND_SIGNAL(L, COMSIG_DISGUISE_STATUS))
 				is_vampire = TRUE
 			if (L.mind.has_antag_datum(/datum/antagonist/zombie))
 				is_zombie = TRUE
@@ -136,7 +136,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/churned
 	duration = 30 SECONDS
 	examine_text = "<b>SUBJECTPRONOUN is wreathed in a wild frenzy of ghostly motes!</b>"
-	effectedstats = list("strength" = -2, "constitution" = -2, "endurance" = -2, "speed" = -2)
+	effectedstats = list(STATKEY_STR = -2, STATKEY_CON = -2, STATKEY_WIL = -2, STATKEY_SPD = -2)
 	status_type = STATUS_EFFECT_REFRESH
 	var/datum/weakref/debuffer
 	var/outline_colour = "#33cabc"
@@ -196,7 +196,7 @@
 	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
 	sound = 'sound/magic/churn.ogg'
 	associated_skill = /datum/skill/magic/holy
-	invocation = "The Undermaiden Protects."
+	invocations = list("The Undermaiden Protects.")
 	invocation_type = "shout"
 	miracle = TRUE
 	devotion_cost = 100
@@ -232,7 +232,7 @@
 	var/outline_colour ="#929186" // A dull grey.
 	id = "necravow"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/necras_vow
-	effectedstats = list("constitution" = 2)
+	effectedstats = list(STATKEY_CON = 2)
 	duration = -1
 
 /datum/status_effect/buff/necras_vow/on_apply()
@@ -259,7 +259,7 @@
 	recharge_time = 10 SECONDS
 	warnie = "spellwarning"
 	invocation_type = "whisper"
-	invocation = "Undermaiden guide my gaze..."
+	invocations = list("Undermaiden guide my gaze...")
 	associated_skill = /datum/skill/magic/holy
 	overlay_state = "necraeye"
 	miracle = TRUE
@@ -360,8 +360,8 @@
 	overlay_state = "vengeful_spirit"
 	action_icon_state = "vengeful_spirit"
 	action_icon = 'icons/mob/actions/necramiracles.dmi'
+	invocations = list("Awaken, rancor!!")
 	invocation_type = "shout"
-	invocation = "Awaken, rancor!!"
 
 
 

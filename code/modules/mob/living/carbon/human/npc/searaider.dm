@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 		wander = TRUE
 		if(!is_silent && target != newtarg)
 			say(pick(GLOB.searaider_aggro))
-			linepoint(target)
+			pointed(target)
 
 /mob/living/carbon/human/species/human/northern/searaider/should_target(mob/living/L)
 	if(L.stat != CONSCIOUS)
@@ -46,14 +46,14 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 	ADD_TRAIT(src, TRAIT_NOHUNGER, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_LEECHIMMUNE, INNATE_TRAIT)
-	ADD_TRAIT(src, TRAIT_INFINITE_ENERGY, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_BREADY, TRAIT_GENERIC)
 	equipOutfit(new /datum/outfit/job/roguetown/human/species/human/northern/searaider)
 	gender = pick(MALE, FEMALE)
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
-	var/hairf = pick(list(/datum/sprite_accessory/hair/head/lowbraid, 
+	var/hairf = pick(list(/datum/sprite_accessory/hair/head/lowbraid,
 						/datum/sprite_accessory/hair/head/countryponytailalt))
-	var/hairm = pick(list(/datum/sprite_accessory/hair/head/ponytailwitcher, 
+	var/hairm = pick(list(/datum/sprite_accessory/hair/head/ponytailwitcher,
 						/datum/sprite_accessory/hair/head/lowbraid))
 	var/beard = pick(list(/datum/sprite_accessory/hair/facial/viking,
 						/datum/sprite_accessory/hair/facial/manly,
@@ -139,15 +139,21 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 		neck = /obj/item/clothing/neck/roguetown/gorget
 	if(prob(50))
 		gloves = /obj/item/clothing/gloves/roguetown/leather
-	if(prob(50))
-		r_hand = /obj/item/rogueweapon/sword/iron
-		l_hand = /obj/item/rogueweapon/shield/wood
-	else
-		r_hand = /obj/item/rogueweapon/greataxe
+	switch(rand(1, 4))
+		if(1)
+			r_hand = /obj/item/rogueweapon/sword/iron
+			l_hand = /obj/item/rogueweapon/shield/wood
+		if(2)
+			r_hand = /obj/item/rogueweapon/spear
+		if(3)
+			r_hand = /obj/item/rogueweapon/greataxe
+		if(4)
+			r_hand = /obj/item/rogueweapon/greatsword/zwei
+
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	H.STASPD = 9
 	H.STACON = rand(10,12) //so their limbs no longer pop off like a skeleton
-	H.STAEND = 15
+	H.STAWIL = 15
 	H.STAPER = 10
 	H.STAINT = 1
 	H.STASTR = 14

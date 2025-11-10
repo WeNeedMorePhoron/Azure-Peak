@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(players_in_dream)
+
 /obj/effect/dream_horror
 	name = "Dream Horror"
 	desc = "?????"
@@ -10,19 +12,29 @@
 		name = "Dad"
 		desc = "Dad is back! He even brought the milk!"
 
+/obj/effect/dream_horror/examine(mob/user)
+	. = ..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.patron.type == /datum/patron/divine/abyssor)
+			. += span_danger("One of the greatest and eldest of the dreamfiends. It's said creatures of the dream take ages to grow in size... And this one is a true leviathan.")
+
 /datum/stressevent/dream_horror
 	timer = 999 MINUTES
 	stressadd = 20
 	desc = span_userdanger("WHAT IS THAT THING?!")
 
-/proc/teleport_to_dream(mob/living/carbon/human/user, probability = 0.1)
+/proc/teleport_to_dream(mob/living/carbon/human/user, base_probability = 10000, probability = 10, weapons = TRUE)
 	if(!ishuman(user))
 		return
 
-	if(user.patron == /datum/patron/divine/abyssor)
-		probability *= 5
+	var/effective_probability = probability
+	if(user.patron.type == /datum/patron/divine/abyssor)
+		effective_probability *= 5
 
-	if(!prob(probability))
+	// Look kids, if you want accurate probability, don't use fractional numbers. Pickweight is safer and more accurate than prob() here.
+	var/list/options = list("teleport" = effective_probability, "no_teleport" = base_probability - effective_probability)
+	if(pickweight(options) == "no_teleport")
 		return
 
 	var/area/dream_area = GLOB.areas_by_type[/area/rogue/underworld/dream]
@@ -54,6 +66,7 @@
 	if(!do_teleport(user, destination))
 		return
 
+	GLOB.players_in_dream |= user
 	original_turf.visible_message(span_danger("[user] seems to vanish into thin air completely."))
 	playsound(original_turf, 'sound/misc/area.ogg')
 	user.add_stress(/datum/stressevent/dream_horror)
@@ -63,28 +76,52 @@
 		ADD_TRAIT(user, TRAIT_DARKVISION, CULT_TRAIT)
 
 	// Spawn weapons
-	for(var/i in 1 to 2)
-		var/turf/weapon_turf = pick(safe_turfs)
-		new /obj/effect/spawner/lootdrop/roguetown/abyssor(weapon_turf)
+	if (weapons) 
+		for(var/i in 1 to 2)
+			var/turf/weapon_turf = pick(safe_turfs)
+			new /obj/effect/spawner/lootdrop/roguetown/abyssor(weapon_turf)
 
 	// Schedule return
 	user.apply_status_effect(/datum/status_effect/dream_teleport, original_turf)
+	return TRUE
 
 /proc/return_from_dream(mob/living/carbon/human/user, turf/original_turf)
 	if(!user || QDELETED(user) || !original_turf)
 		return
 
+	GLOB.players_in_dream -= user
 	user.remove_stress(/datum/stressevent/dream_horror)
 	REMOVE_TRAIT(user, TRAIT_DARKVISION, CULT_TRAIT)
 	user.blind_eyes(2)
 	do_teleport(user, original_turf)
 	qdel(user.GetComponent(/datum/component/dream_echo))
+	if(!length(GLOB.players_in_dream))
+		clean_dream_area(original_turf)
+
+/proc/clean_dream_area(turf/target_turf)
+	var/area/dream_area = GLOB.areas_by_type[/area/rogue/underworld/dream]
+	if(!dream_area || !target_turf)
+		return
+
+	var/list/items_to_return = list()
+
+	for(var/turf/T in dream_area)
+		for(var/obj/item/I in T)
+			//If you build a statue in here, MORE POWER TO YOU...
+			if(!I.anchored)
+				items_to_return += I
+
+	for(var/obj/item/I in items_to_return)
+		do_teleport(I, target_turf)
 
 /obj/effect/spawner/lootdrop/roguetown/abyssor
 	icon_state = "cot"
 	loot = list(
 		/obj/item/rogueweapon/greataxe/dreamscape = 50,
-		/obj/item/abyssal_marker/volatile = 75,
+		/obj/item/rogueweapon/halberd/glaive/dreamscape = 25,
+		/obj/item/rogueweapon/greatsword/bsword/dreamscape = 25,
+		/obj/item/abyssal_marker/volatile = 150,
+		/obj/item/rogueweapon/spear/dreamscape_trident = 5,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_shark = 1,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_squid = 1,
 	)
@@ -123,7 +160,7 @@
 
 /datum/status_effect/dream_teleport
 	id = "dream_teleport"
-	duration = 3 MINUTES
+	duration = 2 MINUTES
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/dream_teleport
 	var/turf/original_turf
 

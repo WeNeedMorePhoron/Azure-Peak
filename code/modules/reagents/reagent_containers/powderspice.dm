@@ -90,7 +90,7 @@
 		if(canconsume(C, silent = TRUE))
 			if(reagents.total_volume)
 				playsound(C, 'sound/items/sniff.ogg', 100, FALSE)
-				GLOB.azure_round_stats[STATS_DRUGS_SNORTED]++
+				record_round_statistic(STATS_DRUGS_SNORTED)
 				reagents.trans_to(C, 1, transfered_by = thrownthing.thrower, method = "swallow")
 	qdel(src)
 
@@ -117,13 +117,13 @@
 				return FALSE
 
 	playsound(M, 'sound/items/sniff.ogg', 100, FALSE)
-	GLOB.azure_round_stats[STATS_DRUGS_SNORTED]++
+	record_round_statistic(STATS_DRUGS_SNORTED)
 
 	if(reagents.total_volume)
 		reagents.trans_to(M, reagents.total_volume, transfered_by = user, method = "swallow")
 		SEND_SIGNAL(M, COMSIG_DRUG_SNIFFED, user)
 		record_featured_stat(FEATURED_STATS_CRIMINALS, user)
-		GLOB.azure_round_stats[STATS_DRUGS_SNORTED]++
+		record_round_statistic(STATS_DRUGS_SNORTED)
 	qdel(src)
 	return TRUE
 
@@ -240,6 +240,7 @@
 	. = 1
 
 /datum/reagent/ozium/on_mob_life(mob/living/carbon/M)
+	sleepless_drug_up(M)
 	if(M.has_flaw(/datum/charflaw/addiction/junkie))
 		M.sate_addiction()
 	M.apply_status_effect(/datum/status_effect/buff/ozium)

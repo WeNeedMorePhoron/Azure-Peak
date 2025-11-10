@@ -6,11 +6,14 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	var/path
 	var/donoritem			//autoset on new if null
 	var/list/ckeywhitelist
+	var/triumph_cost
 
 /datum/loadout_item/New()
 	if(isnull(donoritem))
 		if(ckeywhitelist)
 			donoritem = TRUE
+	if (triumph_cost)
+		desc += "<b>Costs [triumph_cost] TRIUMPH.</b>"
 
 /datum/loadout_item/proc/donator_ckey_check(key)
 	if(ckeywhitelist && ckeywhitelist.Find(key))
@@ -31,6 +34,17 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Tarot Deck"
 	path = /obj/item/toy/cards/deck/tarot
 
+/datum/loadout_item/custom_book
+	name = "Custom Book"
+	path = /obj/item/book/rogue/loadoutbook
+
+//TOOLS
+
+/datum/loadout_item/bauernwehr
+	name = "Bauernwehr (-3 TRI)"
+	path = /obj/item/rogueweapon/huntingknife/throwingknife/bauernwehr
+	triumph_cost = 3
+
 //HATS
 /datum/loadout_item/shalal
 	name = "Keffiyeh"
@@ -39,6 +53,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/tricorn
 	name = "Tricorn Hat"
 	path = /obj/item/clothing/head/roguetown/helmet/tricorn
+
+/datum/loadout_item/nurseveil
+	name = "Nurse's Veil"
+	path = /obj/item/clothing/head/roguetown/veiled
 
 /datum/loadout_item/archercap
 	name = "Archer's cap"
@@ -104,6 +122,14 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Papakha"
 	path = /obj/item/clothing/head/roguetown/papakha
 
+/datum/loadout_item/rosa_crown
+	name = "Rosa Crown"
+	path = /obj/item/flowercrown/rosa
+
+/datum/loadout_item/salvia_crown
+	name = "Salvia Crown"
+	path = /obj/item/flowercrown/salvia
+
 //CLOAKS
 /datum/loadout_item/tabard
 	name = "Tabard"
@@ -156,6 +182,26 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/thief_cloak
 	name = "Rapscallion's Shawl"
 	path = /obj/item/clothing/cloak/thief_cloak
+
+/datum/loadout_item/tabardscarlet
+	name = "Tabard, Scarlet"
+	path = /obj/item/clothing/suit/roguetown/shirt/robe/tabardscarlet
+
+/datum/loadout_item/shroudscarlet
+	name = "Tabard's Shroud, Scarlet"
+	path = /obj/item/clothing/head/roguetown/roguehood/shroudscarlet
+
+/datum/loadout_item/tabardblack
+	name = "Tabard, Black"
+	path = /obj/item/clothing/suit/roguetown/shirt/robe/tabardblack
+
+/datum/loadout_item/shroudblack
+	name = "Tabard's Shroud, Black"
+	path = /obj/item/clothing/head/roguetown/roguehood/shroudblack
+
+/datum/loadout_item/poncho
+	name = "Poncho"
+	path = /obj/item/clothing/cloak/poncho
 
 //SHOES
 /datum/loadout_item/darkboots
@@ -211,6 +257,14 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Robe"
 	path = /obj/item/clothing/suit/roguetown/shirt/robe
 
+/datum/loadout_item/phys_robe
+	name = "Physicker's Robe"
+	path = /obj/item/clothing/suit/roguetown/shirt/robe/phys
+
+/datum/loadout_item/feld_robe
+	name = "Feldsher's Robe"
+	path = /obj/item/clothing/suit/roguetown/shirt/robe/feld
+
 /datum/loadout_item/formalsilks
 	name = "Formal Silks"
 	path = /obj/item/clothing/suit/roguetown/shirt/undershirt/puritan
@@ -238,6 +292,34 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/exoticsilkbra
 	name = "Exotic Silk Bra"
 	path = /obj/item/clothing/suit/roguetown/shirt/exoticsilkbra
+
+/datum/loadout_item/desertbra
+	name = "Desert Bra"
+	path = /obj/item/clothing/suit/roguetown/shirt/desertbra
+
+/datum/loadout_item/deserthood
+	name = "Desert Hood"
+	path = /obj/item/clothing/head/roguetown/deserthood
+
+/datum/loadout_item/desertskirt
+	name = "Desert Skirt"
+	path = /obj/item/clothing/under/roguetown/skirt/desert
+
+/datum/loadout_item/explorerhat
+	name = "Explorer Hat"
+	path = /obj/item/clothing/head/roguetown/explorerhat
+
+/datum/loadout_item/explorervest
+	name = "Explorer Vest"
+	path = /obj/item/clothing/suit/roguetown/shirt/explorer
+
+/datum/loadout_item/fancycoat
+	name = "Fancy Coat"
+	path = /obj/item/clothing/cloak/poncho/fancycoat
+
+/datum/loadout_item/explorerpants
+	name = "Explorer Pants"
+	path = /obj/item/clothing/under/roguetown/tights/explorerpants
 
 /datum/loadout_item/bottomtunic
 	name = "Low-cut Tunic"
@@ -331,6 +413,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Leather Trousers"
 	path = /obj/item/clothing/under/roguetown/trou/leather
 
+/datum/loadout_item/leathershorts
+	name = "Leather Shorts"
+	path = /obj/item/clothing/under/roguetown/heavy_leather_pants/shorts
+
 /datum/loadout_item/sailorpants
 	name = "Seafaring Pants"
 	path = /obj/item/clothing/under/roguetown/tights/sailor
@@ -340,10 +426,13 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/clothing/under/roguetown/skirt
 
 //ACCESSORIES
-
 /datum/loadout_item/wrappings
 	name = "Handwraps"
 	path = /obj/item/clothing/wrists/roguetown/wrappings
+
+/datum/loadout_item/allwrappings
+	name = "Cloth Wrappings"
+	path = /obj/item/clothing/wrists/roguetown/allwrappings
 
 /datum/loadout_item/loincloth
 	name = "Loincloth"
@@ -356,6 +445,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/fingerless
 	name = "Fingerless Gloves"
 	path = /obj/item/clothing/gloves/roguetown/fingerless
+
+/datum/loadout_item/bandages
+	name = "Bandages, Gloves"
+	path = /obj/item/clothing/gloves/roguetown/bandages
 
 /datum/loadout_item/exoticsilkbelt
 	name = "Exotic Silk Belt"
@@ -413,6 +506,18 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Cloth Blindfold"
 	path = /obj/item/clothing/mask/rogue/blindfold
 
+/datum/loadout_item/fake_blindfold
+	name = "Fake Blindfold"
+	path = /obj/item/clothing/mask/rogue/blindfold/fake
+
+/datum/loadout_item/bases
+	name = "Cloth military skirt"
+	path = /obj/item/storage/belt/rogue/leather/battleskirt
+
+/datum/loadout_item/fauldedbelt
+	name = "Belt with faulds"
+	path = /obj/item/storage/belt/rogue/leather/battleskirt/faulds
+
 /datum/loadout_item/psicross
 	name = "Psydonian Cross"
 	path = /obj/item/clothing/neck/roguetown/psicross
@@ -453,6 +558,14 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Amulet of Eora"
 	path = /obj/item/clothing/neck/roguetown/psicross/eora
 
+/datum/loadout_item/psicross/undivided
+	name = "Amulet of Ten"
+	path = /obj/item/clothing/neck/roguetown/psicross/undivided
+
+/datum/loadout_item/psicross/zizo
+	name = "Decrepit Zcross"
+	path = /obj/item/clothing/neck/roguetown/psicross/inhumen/aalloy
+
 /datum/loadout_item/wedding_band
 	name = "silver wedding band"
 	path = /obj/item/clothing/ring/band
@@ -480,6 +593,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/jestershoes
     name = "Jester's Shoes"
     path = /obj/item/clothing/shoes/roguetown/jester
+
+/datum/loadout_item/cotehardie
+	name = "Fitted Coat"
+	path = /obj/item/clothing/cloak/cotehardie
 
 //Donator Section
 //All these items are stored in the donator_fluff.dm in the azure modular folder for simplicity.
@@ -515,7 +632,47 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/enchantingkit/rebel
 	ckeywhitelist = list("rebel0")
 
+/datum/loadout_item/donator_bigfoot
+	name = "Donator Kit - Gilded Knight Helm"
+	path = /obj/item/enchantingkit/bigfoot
+	ckeywhitelist = list("bigfoot02")
+
+/datum/loadout_item/donator_bigfoot_axe
+	name = "Donator kit - Gilded Greataxe"
+	path = /obj/item/enchantingkit/bigfoot_axe
+	ckeywhitelist = list("bigfoot02")
+
 /datum/loadout_item/donator_zydras
 	name = "Donator Kit - Padded silky dress"
 	path = /obj/item/enchantingkit/zydras
 	ckeywhitelist = list("1ceres")
+
+/datum/loadout_item/donator_eiren
+	name = "Donator Kit - Regret"
+	path = /obj/item/enchantingkit/eiren
+	ckeywhitelist = list("eirenxiv")
+
+/datum/loadout_item/donator_eiren2
+	name = "Donator Kit - Lunae"
+	path = /obj/item/enchantingkit/eirensabre
+	ckeywhitelist = list("eirenxiv")
+
+/datum/loadout_item/donator_eiren3
+	name = "Donator Kit - Cinis"
+	path = /obj/item/enchantingkit/eirensabre2
+	ckeywhitelist = list("eirenxiv")
+
+/datum/loadout_item/donator_waff
+	name = "Donator Kit - Weeper's Lathe"
+	path = /obj/item/enchantingkit/waff
+	ckeywhitelist = list("waffai")
+
+/datum/loadout_item/donator_inverserun
+	name = "Donator Kit - Votive Thorns"
+	path = /obj/item/enchantingkit/inverserun
+	ckeywhitelist = list("inverserun")
+
+/datum/loadout_item/donator_zoe
+	name = "Donator Kit - Shroud of the Undermaiden"
+	path = /obj/item/enchantingkit/zoe
+	ckeywhitelist = list("zoetheorc")

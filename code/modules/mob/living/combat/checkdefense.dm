@@ -1,12 +1,10 @@
 /mob/living/proc/checkdefense(datum/intent/intenty, mob/living/user)
-	testing("begin defense")
+
 	if(!cmode)
 		return FALSE
 	if(stat)
 		return FALSE
 	if(!canparry && !candodge) //mob can do neither of these
-		return FALSE
-	if(!cmode)
 		return FALSE
 	if(user == src)
 		return FALSE

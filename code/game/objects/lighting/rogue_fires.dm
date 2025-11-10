@@ -1,5 +1,5 @@
 #define MIN_STEW_TEMPERATURE 374 // For cooking
-#define VOLUME_PER_STEW_COOK 32 // Volume to cook per ingredient
+#define VOLUME_PER_STEW_COOK 29 // Volume to cook per ingredient
 #define VOLUME_PER_STEW_COOK_AFTER 1 // Volume to deduct after the sleep is over
 #define DEEP_FRY_TIME 5 SECONDS // Default deep fry time
 #define OIL_CONSUMED 5 // Amount of oil consumed per deep fry (1 fat = 4 fry)
@@ -410,7 +410,7 @@
 	cookonme = TRUE
 	soundloop = /datum/looping_sound/fireloop
 	var/obj/item/attachment = null
-	var/obj/item/reagent_containers/food/snacks/food = null
+	var/obj/item/food = null
 	var/mob/living/carbon/human/lastuser
 	var/datum/looping_sound/boilloop/boilloop
 
@@ -458,7 +458,7 @@
 	var/cooktime_divisor = get_cooktime_divisor(cs)
 
 	if(!attachment)
-		if(istype(W, /obj/item/cooking/pan) || istype(W, /obj/item/reagent_containers/glass/bucket/pot))
+		if(istype(W, /obj/item/cooking/pan) || istype(W, /obj/item/reagent_containers/glass/bucket/pot ) || istype(W, /obj/item/reagent_containers/glass/crucible))
 			playsound(get_turf(user), 'sound/foley/dropsound/shovel_drop.ogg', 40, TRUE, -1)
 			attachment = W
 			user.doUnEquip(W)
@@ -466,6 +466,23 @@
 			update_icon()
 			return
 	else
+		if(istype(attachment, /obj/item/reagent_containers/glass/crucible))
+			var/obj/item/reagent_containers/glass/crucible/crucible = attachment
+			if(crucible.hot)
+				to_chat(user, span_warning("The crucible is too hot to add ingots! Wait for it to cool down."))
+				return
+
+			if(istype(W, /obj/item/ingot/iron) || istype(W, /obj/item/ingot/steel))
+				if(crucible.get_total_ingots() >= crucible.max_ingots)
+					to_chat(user, span_warning("The crucible is full."))
+					return
+
+				user.visible_message(span_info("[user] places an ingot into the crucible."))
+				if(do_after(user, 10, target = src))
+					var/ingot_type = W.type
+					if(crucible.add_ingot(ingot_type, user) > 0)
+						qdel(W)
+				return
 		if(istype(W, /obj/item/reagent_containers/glass/bowl))
 			to_chat(user, "<span class='notice'>Remove the pot from the hearth first.</span>")
 			return
@@ -477,6 +494,14 @@
 						playsound(get_turf(user), 'modular/Neu_Food/sound/eggbreak.ogg', 100, TRUE, -1)
 						sleep(25) // to get egg crack before frying hiss
 						W.icon_state = "rawegg" // added
+				if(!food)
+					S.forceMove(src)
+					food = S
+					update_icon()
+					playsound(src.loc, 'sound/misc/frying.ogg', 80, FALSE, extrarange = 5)
+					return
+			if(W.type in subtypesof(/obj/item/seeds))
+				var/obj/item/seeds/S = W
 				if(!food)
 					S.forceMove(src)
 					food = S
@@ -539,7 +564,7 @@
 	cut_overlays()
 	icon_state = "[base_state][on]"
 	if(attachment)
-		if(istype(attachment, /obj/item/cooking/pan) || istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
+		if(istype(attachment, /obj/item/cooking/pan) || istype(attachment, /obj/item/reagent_containers/glass/bucket/pot)  || istype(attachment, /obj/item/reagent_containers/glass/crucible))
 			var/obj/item/I = attachment
 			I.pixel_x = 0
 			I.pixel_y = 0
@@ -567,7 +592,7 @@
 					attachment.forceMove(user.loc)
 				attachment = null
 				update_icon()
-		if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
+		if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot) || istype(attachment, /obj/item/reagent_containers/glass/crucible))
 			if(!user.put_in_active_hand(attachment))
 				attachment.forceMove(user.loc)
 			attachment = null
@@ -604,6 +629,12 @@
 		if(fueluse == 0)
 			burn_out()
 	if(attachment)
+		if(istype(attachment, /obj/item/reagent_containers/glass/crucible))
+			var/obj/item/reagent_containers/glass/crucible/crucible = attachment
+			if(crucible.get_total_ingots() > 0 && on)
+				crucible.heat_up(crucible.heat_rate)
+			else if(!on)
+				crucible.cool_down(crucible.cool_rate)
 		if(istype(attachment, /obj/item/cooking/pan))
 			if(food)
 				var/obj/item/C = food.cooking(20 * cooktime_divisor, 20, src)
@@ -739,6 +770,7 @@
 	cookonme = TRUE
 	max_integrity = 30
 	soundloop = /datum/looping_sound/fireloop
+	var/healing_range = 2
 
 /obj/machinery/light/rogue/campfire/process()
 	..()
@@ -746,6 +778,20 @@
 		var/turf/open/O = loc
 		if(IS_WET_OPEN_TURF(O))
 			extinguish()
+
+	var/list/hearers_in_range = SSspatial_grid.orthogonal_range_search(src, SPATIAL_GRID_CONTENTS_TYPE_HEARING, healing_range)
+	for(var/mob/living/carbon/human/human in hearers_in_range)
+		var/distance = get_dist(src, human)
+		if(distance > healing_range)
+			continue
+		if(!human.has_status_effect(/datum/status_effect/buff/healing/campfire))
+			to_chat(human, "The warmth of the fire comforts me, affording me a short rest.")
+		// Astrata followers get enhanced fire healing
+		var/buff_strength = 1
+		if(human.patron?.type == /datum/patron/divine/astrata || human.patron?.type == /datum/patron/inhumen/matthios) //Fire and the fire-stealer
+			buff_strength = 2
+		human.apply_status_effect(/datum/status_effect/buff/healing/campfire, buff_strength)
+		human.add_stress(/datum/stressevent/campfire)
 
 /obj/machinery/light/rogue/campfire/onkick(mob/user)
 	if(isliving(user) && on)
@@ -760,15 +806,8 @@
 
 	if(on)
 		var/mob/living/carbon/human/H = user
-
-		if(istype(H))
+		if(ishuman(H))
 			H.visible_message("<span class='info'>[H] warms [user.p_their()] hand near the fire.</span>")
-
-			if(do_after(H, 100, target = src))
-				H.apply_status_effect(/datum/status_effect/buff/healing, 1)
-				H.add_stress(/datum/stressevent/campfire)
-				to_chat(H, "<span class='info'>The warmth of the fire comforts me, affording me a short rest.</span>")
-		return TRUE //fires that are on always have this interaction with lmb unless its a torch
 
 /obj/machinery/light/rogue/campfire/densefire
 	icon_state = "densefire1"
@@ -783,6 +822,7 @@
 	pass_flags = LETPASSTHROW
 	bulb_colour = "#eea96a"
 	max_integrity = 60
+	healing_range = 4
 
 /obj/machinery/light/rogue/campfire/densefire/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && (mover.pass_flags & PASSTABLE))

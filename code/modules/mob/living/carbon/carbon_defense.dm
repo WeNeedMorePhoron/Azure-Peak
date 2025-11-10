@@ -72,9 +72,9 @@
 /mob/living/carbon/check_projectile_wounding(obj/projectile/P, def_zone, blocked)
 	var/obj/item/bodypart/BP = get_bodypart(check_zone(def_zone))
 	if(BP)
-		testing("projwound")
+
 		var/newdam = P.damage * (100-blocked)/100
-		BP.bodypart_attacked_by(P.woundclass, newdam, zone_precise = def_zone, crit_message = TRUE)
+		BP.bodypart_attacked_by(P.woundclass, newdam, zone_precise = def_zone, crit_message = TRUE, weapon = P)
 		return TRUE
 
 /mob/living/carbon/check_projectile_embed(obj/projectile/P, def_zone, blocked)
@@ -100,13 +100,17 @@
 		used_limb = parse_zone(I.sublimb_grabbed)
 
 	if(used_limb)
-		target.visible_message(span_danger("[src] grabs [target]'s [used_limb]."), \
-						span_userdanger("[src] grabs my [used_limb]!"), span_hear("I hear shuffling."), null, src)
-		to_chat(src, span_danger("I grab [target]'s [used_limb]."))
+		target.visible_message(span_danger("[src] grabs [target]'s [span_userdanger(used_limb)]."), \
+						span_danger("[src] grabs my [span_userdanger(used_limb)]!"), span_hear("I hear shuffling."), null, src)
+		to_chat(src, span_danger("I grab [target]'s [span_userdanger(used_limb)]."))
 	else
 		target.visible_message(span_danger("[src] grabs [target]."), \
 						span_userdanger("[src] grabs me!"), span_hear("I hear shuffling."), null, src)
 		to_chat(src, span_danger("I grab [target]."))
+
+	if(used_limb && target.client && target.hud_used && target.hud_used.zone_select)
+		var/atom/movable/screen/zone_sel/zone_sel = target.hud_used.zone_select
+		zone_sel.flash_limb(I.sublimb_grabbed, "#d19e13") // grab = orange
 
 /mob/living/carbon/send_grabbed_message(mob/living/carbon/user)
 	var/used_limb = "chest"
@@ -198,7 +202,7 @@
 	var/statforce = get_complex_damage(I, user)
 	if(statforce)
 		next_attack_msg.Cut()
-		affecting.bodypart_attacked_by(user.used_intent.blade_class, statforce, crit_message = TRUE)
+		affecting.bodypart_attacked_by(user.used_intent.blade_class, statforce, crit_message = TRUE, weapon = I)
 		apply_damage(statforce, I.damtype, affecting)
 		if(I.damtype == BRUTE && affecting.status == BODYPART_ORGANIC)
 			if(prob(statforce))
@@ -222,12 +226,14 @@
 						update_inv_head()
 
 	if(user == src || pulledby == user)
-		send_item_attack_message(I, user, precise_attack_check(useder, affecting))
+		send_item_attack_message(I, user, precise_attack_check(useder, affecting), affecting)
 	else
-		send_item_attack_message(I, user, affecting.name)
+		send_item_attack_message(I, user, affecting.name, affecting)
 
 	if(statforce)
-		var/probability = I.get_dismemberment_chance(affecting, user)
+		I.remove_bintegrity(1)
+		var/probability = I.get_dismemberment_chance(affecting, user, useder)
+    
 		if(prob(probability) && affecting.dismember(I.damtype, user.used_intent?.blade_class, user, user.zone_selected))
 			I.add_mob_blood(src)
 			playsound(get_turf(src), I.get_dismember_sound(), 80, TRUE)
@@ -363,13 +369,6 @@
 	M.visible_message("<span class='notice'>[M] shakes [src].</span>", \
 				"<span class='notice'>I shake [src] to get [p_their()] attention.</span>")
 	shake_camera(src, 2, 1)
-	SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "hug", /datum/mood_event/hug)
-	if(HAS_TRAIT(M, TRAIT_FRIENDLY))
-		var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
-		if (mood.sanity >= SANITY_GREAT)
-			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/besthug, M)
-		else if (mood.sanity >= SANITY_DISTURBED)
-			SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "friendly_hug", /datum/mood_event/betterhug, M)
 	for(var/datum/brain_trauma/trauma in M.get_traumas())
 		trauma.on_hug(M, src)
 	AdjustStun(-60)
@@ -478,5 +477,11 @@
 /mob/living/carbon/can_hear()
 	. = FALSE
 	var/obj/item/organ/ears/ears = getorganslot(ORGAN_SLOT_EARS)
+	if(isdullahan(src))
+		var/mob/living/carbon/human/user = src
+		var/datum/species/dullahan/dullahan = user.dna.species
+		var/obj/item/bodypart/head/dullahan/head = dullahan.my_head
+		if(dullahan.headless && head.ears)
+			ears = head.ears
 	if((istype(ears) && !ears.deaf) || (src.stat == DEAD)) // 2nd check so you can hear messages when beheaded
 		. = TRUE
