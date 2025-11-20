@@ -37,7 +37,6 @@
 	/mob/living/carbon/human/species/skeleton/npc/easy = 5,\
 	/mob/living/carbon/human/species/skeleton/npc/pirate = 5,\
 	/mob/living/carbon/human/species/human/northern/militia/deserter = 4,\
-	/mob/living/carbon/human/species/orc/npc/footsoldier = 6,\
 )
 
 // Medium difficulty quest kill mobs, this is where I can put some slightly spicier mobs
