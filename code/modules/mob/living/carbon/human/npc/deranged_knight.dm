@@ -166,7 +166,7 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 	if(never_goon)
 		return
 
-	for(var/i in 1 to rand(2, 5))
+	for(var/i in 1 to rand(3, 5))
 		var/turf/open/spawn_turf = pick_n_take(possible_turfs)
 		if(!spawn_turf)
 			break
