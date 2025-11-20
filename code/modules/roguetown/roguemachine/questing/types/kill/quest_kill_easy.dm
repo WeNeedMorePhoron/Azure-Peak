@@ -12,11 +12,3 @@
 
 /datum/quest/kill/easy/get_objective_text()
 	return "Slay [progress_required] [initial(target_mob_type.name)]."
-
-/datum/quest/kill/easy/generate(obj/effect/landmark/quest_spawner/landmark)
-	..()
-	if(!landmark)
-		return FALSE
-	spawn_kill_mobs(landmark)	
-
-	return TRUE

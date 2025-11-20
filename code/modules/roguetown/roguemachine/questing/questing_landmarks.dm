@@ -4,14 +4,26 @@
 	icon_state = "quest_marker"
 	var/quest_difficulty = list(QUEST_DIFFICULTY_EASY, QUEST_DIFFICULTY_MEDIUM, QUEST_DIFFICULTY_HARD)
 	var/quest_type = list(QUEST_RETRIEVAL, QUEST_COURIER, QUEST_CLEAR_OUT, QUEST_RAID, QUEST_KILL_EASY, QUEST_BEACON, QUEST_OUTLAW)
+	var/datum/proximity_monitor/quest_monitor
+	var/list/attached_quests = list() // Should be one but we'll see
 
 /obj/effect/landmark/quest_spawner/Initialize()
 	. = ..()
 	GLOB.quest_landmarks_list += src
+	quest_monitor = new(src, 14) // 14 tile so it don't spawn in their face
 
 /obj/effect/landmark/quest_spawner/Destroy()
 	GLOB.quest_landmarks_list -= src
+	QDEL_NULL(quest_monitor)
 	return ..()
+
+/obj/effect/landmark/quest_spawner/HasProximity(atom/movable/AM)
+	if(!attached_quests.len)
+		return FALSE
+	if(ismob(AM))
+		var/mob/receiver = AM
+		for(var/datum/quest/Q in attached_quests)
+			Q.onProximity(receiver)
 
 /obj/effect/landmark/quest_spawner/proc/add_quest_faction_to_nearby_mobs(turf/center)
 	for(var/mob/living/M in view(7, center))
@@ -30,11 +42,19 @@
 	var/obj/effect/landmark/quest_spawner/selected_landmark = pick(possible_landmarks)
 	var/list/possible_turfs = list()
 
-	for(var/turf/open/T in view(7, selected_landmark))
+	for(var/turf/open/T in view(5, selected_landmark))
 		if(T.density || istransparentturf(T))
 			continue
 
-		for(var/mob/M in view(9, T))
+		// Skip turfs that already have mobs on them
+		var/has_mob_on_turf = FALSE
+		for(var/mob/M in T)
+			has_mob_on_turf = TRUE
+			break
+		if(has_mob_on_turf)
+			continue
+
+		for(var/mob/M in view(7, T))
 			if(!M.ckey)
 				possible_turfs += T
 				break

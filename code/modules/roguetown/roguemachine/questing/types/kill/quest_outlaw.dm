@@ -13,11 +13,3 @@
 
 /datum/quest/kill/outlaw/get_objective_text()
 	return "Slay [initial(target_mob_type.name)]."
-
-/datum/quest/kill/outlaw/generate(obj/effect/landmark/quest_spawner/landmark)
-	..()
-	if(!landmark)
-		return FALSE
-	spawn_kill_mobs(landmark)
-
-	return TRUE

@@ -3,6 +3,7 @@
 	var/list/mob_types_to_spawn = list()
 	var/count_min = 1
 	var/count_max = 3
+	var/mobs_spawned = FALSE
 
 /datum/quest/kill/proc/spawn_kill_mobs(obj/effect/landmark/quest_spawner/landmark)
 	target_mob_type = pick(mob_types_to_spawn)
@@ -20,7 +21,15 @@
 		new_mob.AddComponent(/datum/component/quest_object/kill, src)
 		add_tracked_atom(new_mob)
 		landmark.add_quest_faction_to_nearby_mobs(spawn_turf)
-		sleep(1)
+
+/datum/quest/kill/onProximity(mob/living/triggerer)
+	var/mob/receiver = quest_receiver_reference?.resolve()
+	if(triggerer != receiver)
+		return FALSE
+	if(mobs_spawned)
+		return FALSE
+	spawn_kill_mobs(quest_landmark)
+	mobs_spawned = TRUE
 
 /datum/quest/kill/get_additional_reward()
 	..()

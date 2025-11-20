@@ -34,6 +34,8 @@
 	var/datum/weakref/quest_scroll_ref
 	/// List of weakrefs to actual quest items/mobs for reducing overhead of compass.
 	var/list/datum/weakref/tracked_atoms = list()
+	/// Reference to the landmark this quest is attached to
+	var/obj/effect/landmark/quest_spawner/quest_landmark
 
 /datum/quest/Destroy()
 	// Clean up mobs with quest components
@@ -75,6 +77,8 @@
 /datum/quest/proc/generate(obj/effect/landmark/quest_spawner/landmark)
 	if(!title)
 		title = get_title()
+	quest_landmark = landmark
+	landmark.attached_quests += src
 	return TRUE
 
 /// Get the quest title - override in subtypes for dynamic titles
@@ -124,6 +128,10 @@
 	var/base = get_base_reward()
 	var/additional = get_additional_reward(target_turf)
 	return base + additional
+
+/datum/quest/proc/onProximity(mob/living/triggerer)
+	// Override in subtypes as needed
+	return FALSE
 
 /// Calculate deposit based on difficulty
 /datum/quest/proc/calculate_deposit()
