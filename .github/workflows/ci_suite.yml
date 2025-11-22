@@ -51,18 +51,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
-      - name: Restore BYOND cache
-        uses: actions/cache@v4
-        with:
-          path: ~/BYOND
-          key: ${{ runner.os }}-BYOND-${{ env.BYOND_MAJOR }}-${{ env.BYOND_MINOR }}
-      
-      - name: Install BYOND
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y make gcc unzip
-          bash tools/ci/install_byond.sh
+
+      - name: Restore BYOND from Cache
+        uses: ./.github/actions/restore_or_install_byond
 
       - name: Install BYOND dependencies
         run: |
@@ -70,9 +61,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install libcurl4-openssl-dev:i386
 
+      - name: Setup Bun
+        uses: ./.github/actions/setup_bun
+
       - name: Compile BYOND project
         run: |
-          ls -h $HOME/
           source $HOME/BYOND/byond/bin/byondsetup
           tools/build/build.sh
 

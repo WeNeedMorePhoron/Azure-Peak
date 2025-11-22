@@ -53,9 +53,6 @@ jobs:
       - name: Install rust-g
         run: |
           bash tools/ci/install_rust_g.sh
-      - name: Install dreamluau
-        run: |
-          bash tools/ci/install_dreamluau.sh
       - name: Run Tests
         id: run_tests
         run: |

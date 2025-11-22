@@ -15,14 +15,24 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Bun
         uses: ./.github/actions/setup_bun
+
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
+        
+      - name: Install BYOND dependencies
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install libcurl4-openssl-dev:i386
+
       - name: Compile All Maps
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
           tools/build/build.sh --ci dm -DCIBUILDING -DCITESTING -DALL_MAPS
+    
       - name: Check client Compatibility
         uses: tgstation/byond-client-compatibility-check@v3
         with:
@@ -36,10 +46,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Bun
         uses: ./.github/actions/setup_bun
+
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
+
+      - name: Install BYOND dependencies
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install libcurl4-openssl-dev:i386
+
       - name: Compile All Maps
         run: |
           source $HOME/BYOND/byond/bin/byondsetup
