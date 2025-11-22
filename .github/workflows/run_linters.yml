@@ -65,11 +65,10 @@ jobs:
           tools/bootstrap/python -m mapmerge2.dmm_test
           ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
 
-      - name: Annotate Lints
-        uses: yogstation13/DreamAnnotate@v2
-        if: always()
-        with:
-          outputFile: output-annotations.txt
+      - name: Run DreamChecker
+        if: steps.linter-setup.conclusion == 'success' && !cancelled()
+        shell: bash
+        run: ~/dreamchecker 2>&1 | bash tools/ci/annotate_dm.sh
 
       - name: Run Map Checks
         if: steps.linter-setup.conclusion == 'success' && !cancelled()
