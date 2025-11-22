@@ -46,6 +46,14 @@ jobs:
     with:
       build_versions: ${{ needs.collect_data.outputs.required_build_versions }}
 
+  run_all_tests:
+    name: Integration Tests
+    needs: [collect_data, setup_build_artifacts]
+    uses: ./.github/workflows/perform_regular_version_tests.yml
+    with:
+      maps: ${{ needs.collect_data.outputs.maps }}
+      max_required_byond_client: ${{ needs.collect_data.outputs.max_required_byond_client }}
+
   build:
     runs-on: ubuntu-latest
     steps:
