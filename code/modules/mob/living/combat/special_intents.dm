@@ -252,8 +252,8 @@ This allows the devs to draw whatever shape they want at the cost of it feeling 
 	..()
 /*
 Example of a fun pattern that overlaps in three waves.
-#define WAVE_2_DELAY 0.75 SECONDS
-#define WAVE_3_DELAY 2 SECONDS
+// #define WAVE_2_DELAY 0.75 SECONDS
+// #define WAVE_3_DELAY 2 SECONDS
 tile_coordinates = list(list(1,1), list(-1,1), list(-1,-1), list(1,-1),list(0,0),
 					list(-1,0,WAVE_2_DELAY), list(-2,0,WAVE_2_DELAY), list(0,0,WAVE_2_DELAY), list(1,0,WAVE_2_DELAY), list(2,0,WAVE_2_DELAY),
 					list(0,0,WAVE_3_DELAY),list(0,-1,WAVE_3_DELAY),list(0,-2,WAVE_3_DELAY),list(0,1,WAVE_3_DELAY),list(0,2,WAVE_3_DELAY))
@@ -261,6 +261,3 @@ tile_coordinates = list(list(1,1), list(-1,1), list(-1,-1), list(1,-1),list(0,0)
 
 //Example of a sweeping line from left to right from the clicked turf. The second tile and the line will only appear after 1.1 seconds (the first delay).
 //tile_coordinates = list(list(0,0), list(1,0, 1.1 SECONDS), list(2,0, 1.2 SECONDS), list(3,0,1.3 SECONDS), list(4,0,1.4 SECONDS), list(5,0,1.5 SECONDS))
-
-#undef WAVE_2_DELAY
-#undef WAVE_3_DELAY
