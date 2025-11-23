@@ -1,4 +1,4 @@
-#define SDQL_qdel_datum(d) qdel(d)
+#define SDQL_QDEL_DATUM(d) qdel(d)
 
 #define SDQL2_STATE_ERROR 0
 #define SDQL2_STATE_IDLE 1
@@ -1221,6 +1221,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/SDQL2_VV_all, new(null
 /obj/effect/statclick/SDQL2_VV_all/Click()
 	usr.client.debug_variables(GLOB.sdql2_queries)
 
+#undef SDQL_QDEL_DATUM
 #undef SDQL2_STATE_ERROR
 #undef SDQL2_STATE_IDLE
 #undef SDQL2_STATE_PRESEARCH
