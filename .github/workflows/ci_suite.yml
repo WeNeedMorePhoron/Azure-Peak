@@ -54,35 +54,13 @@ jobs:
       maps: ${{ needs.collect_data.outputs.maps }}
       max_required_byond_client: ${{ needs.collect_data.outputs.max_required_byond_client }}
 
-  build:
+  completion_gate: # Serves as a non-moving target for branch rulesets
+    if: always() && !cancelled()
+    name: Completion Gate
+    needs: [compile_all_maps, run_all_tests, run_linters]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Restore BYOND from Cache
-        uses: ./.github/actions/restore_or_install_byond
-
-      - name: Install BYOND dependencies
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt-get update
-          sudo apt-get install libcurl4-openssl-dev:i386
-
-      - name: Setup Bun
-        uses: ./.github/actions/setup_bun
-
-      - name: Compile BYOND project
-        run: |
-          source $HOME/BYOND/byond/bin/byondsetup
-          tools/build/build.sh
-
-      - name: Check for errors
-        id: check-errors
-        run: |
-          if grep -q "error" *.log; then
-            echo "::error ::Compilation failed with errors."
-            exit 1
-          else
-            echo "Compilation succeeded without critical errors."
-          fi
+      - name: Decide whether the needed jobs succeeded or failed
+        uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}
