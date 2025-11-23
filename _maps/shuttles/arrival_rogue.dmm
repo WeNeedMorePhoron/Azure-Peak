@@ -112,11 +112,8 @@
 /area/shuttle/arrival)
 "k" = (
 /obj/docking_port/mobile/arrivals{
-	dheight = 3;
 	dir = 1;
-	dwidth = 0;
-	height = 8;
-	width = 3
+	
 	},
 /turf/open/floor/rogue/ruinedwood{
 	icon_state = "horzw"

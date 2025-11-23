@@ -321,9 +321,7 @@
 "D" = (
 /obj/docking_port/mobile/supply{
 	dir = 1;
-	dwidth = 9;
-	height = 4;
-	width = 17
+	
 	},
 /turf/open/floor/rogue/ruinedwood{
 	icon_state = "vertw";
