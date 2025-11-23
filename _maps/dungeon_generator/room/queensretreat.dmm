@@ -1176,7 +1176,7 @@
 /turf/open/floor/rogue/grass,
 /area/rogue/under/tomb/wilds)
 "XL" = (
-skeleton/npc/hardspread/obj/item/roguebin/water,
+/obj/item/roguebin/water,
 /turf/open/floor/rogue/tile,
 /area/rogue/under/tomb/indoors/royal)
 "Yg" = (
