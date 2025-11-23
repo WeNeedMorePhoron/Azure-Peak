@@ -825,6 +825,7 @@
 #include "code\datums\sexcon2\actions\sex\other\footjob.dm"
 #include "code\datums\sexcon2\actions\sex\other\thighjob.dm"
 #include "code\datums\sexcon2\actions\sex\other\vagina.dm"
+#include "code\datums\sexcon2\actions\sex\tail\tailjob.dm"
 #include "code\datums\sexcon2\actions\sex\tail\tailpegging_anal.dm"
 #include "code\datums\sexcon2\actions\sex\tail\tailpegging_oral.dm"
 #include "code\datums\sexcon2\actions\sex\tail\tailpegging_vaginal.dm"
