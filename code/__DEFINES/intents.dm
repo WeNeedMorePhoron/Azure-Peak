@@ -6,7 +6,7 @@
 
 //mmb intents
 #define INTENT_KICK		/datum/intent/kick
-#define INTENT_STEAL	/datum/intent/steal
+#define INTENT_SPECIAL	/datum/intent/special
 #define INTENT_BITE		/datum/intent/bite
 #define INTENT_JUMP		/datum/intent/jump
 #define INTENT_GIVE		/datum/intent/give

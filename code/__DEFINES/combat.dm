@@ -125,12 +125,11 @@
 #define ATTACK_EFFECT_MECHTOXIN	"mech_toxin"
 #define ATTACK_EFFECT_BOOP		"boop" //Honk
 
-
 //hurrrddurrrr
 #define QINTENT_BITE		 1
 #define QINTENT_JUMP		 2
 #define QINTENT_KICK		 3
-#define QINTENT_STEAL		 4
+#define QINTENT_SPECIAL		 4
 #define QINTENT_GIVE		 5
 #define QINTENT_SPELL		 6
 
