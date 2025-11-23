@@ -11,3 +11,9 @@
 #define BALLOON_Y_OFFSET_TIER1 5
 #define BALLOON_Y_OFFSET_TIER2 15
 #define BALLOON_Y_OFFSET_TIER3 25
+
+#define WXH_TO_HEIGHT(measurement, return_var) \
+	do { \
+		var/_measurement = measurement; \
+		return_var = text2num(copytext(_measurement, findtextEx(_measurement, "x") + 1)); \
+	} while(FALSE);

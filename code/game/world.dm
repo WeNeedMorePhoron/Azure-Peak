@@ -509,3 +509,5 @@ GLOBAL_VAR(restart_counter)
 		call_ext(dll, "auxtools_shutdown")()
 	
 	. = ..()
+
+#undef RESTART_COUNTER_PATH

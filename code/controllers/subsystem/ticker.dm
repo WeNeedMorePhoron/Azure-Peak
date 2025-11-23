@@ -839,3 +839,5 @@ SUBSYSTEM_DEF(ticker)
 	sunstolen = FALSE
 	settod()
 	SSParticleWeather.run_weather(/datum/particle_weather/rain_gentle, TRUE)
+
+#undef ROUND_START_MUSIC_LIST

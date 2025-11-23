@@ -935,3 +935,9 @@
 	name = "Special Maneuvre Cooldown"
 	desc = "I used it. I must wait."
 	icon_state = "strikecd"
+
+#undef PARALYZE_L_ARM
+#undef PARALYZE_R_ARM
+#undef PARALYZE_L_LEG
+#undef PARALYZE_R_LEG
+#undef PARALYZE_SUM
