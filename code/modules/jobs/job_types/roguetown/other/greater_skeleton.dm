@@ -34,14 +34,14 @@
 	H.mind.add_antag_datum(new_antag)
 
 /datum/job/roguetown/greater_skeleton/after_spawn(mob/living/L, mob/M, latejoin = FALSE, visuals_only, client/player_client)
-	L.grant_language(/datum/language/undead)
+	var/mob/living/carbon/human/H = L
+	H.grant_language(/datum/language/undead)
 
-	var/datum/language_holder/language_holder = L.get_language_holder()
+	var/datum/language_holder/language_holder = H.get_language_holder()
 	language_holder.selected_default_language = /datum/language/undead
 
 	..()
 
-	var/mob/living/carbon/human/H = L
 	H.advsetup = TRUE
 	H.invisibility = INVISIBILITY_MAXIMUM
 	H.become_blind("advsetup")
