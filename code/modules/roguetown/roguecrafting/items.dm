@@ -21,7 +21,7 @@
 		)
 	craftdiff = 3
 
-/datum/crafting_recipe/roguetown/survival/repairkitmetal
+/datum/crafting_recipe/roguetown/survival/repairkitmetalingot
 	name = "empty metal kit (iron bar)"
 	result = /obj/item/armorkit_empty
 	reqs = list(
@@ -29,7 +29,7 @@
 		)
 	craftdiff = 3
 
-/datum/crafting_recipe/roguetown/survival/repairkitmetal
+/datum/crafting_recipe/roguetown/survival/repairkitmetalscrap
 	name = "empty metal kit (scrap)"
 	result = /obj/item/armorkit_empty
 	reqs = list(
@@ -120,19 +120,6 @@
 		/obj/item/natural/fibers = 1,
 		)
 	craftdiff = 0
-
-
-/datum/crafting_recipe/roguetown/survival/mortar
-	name = "alchemical mortar"
-	result = /obj/item/reagent_containers/glass/mortar
-	reqs = list(/obj/item/natural/stone = 1)
-	craftdiff = 1
-
-/datum/crafting_recipe/roguetown/survival/pestle
-	name = "stone pestle"
-	result = /obj/item/pestle
-	reqs = list(/obj/item/natural/stone = 1)
-	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/bag
 	name = "bag"
