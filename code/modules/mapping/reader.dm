@@ -932,8 +932,7 @@ GLOBAL_LIST_EMPTY(map_model_default)
 		//	LISTASSERTLEN(area_instance.turfs_by_zlevel, crds.z, list())
 		//	old_area.turfs_to_uncontain_by_zlevel[crds.z] += crds
 		//	area_instance.turfs_by_zlevel[crds.z] += crds
-		if(area_instance) // TODO: Remove this the moment we port over tgstation #80941 and #70966
-			area_instance.contents.Add(crds)
+		area_instance.contents.Add(crds)
 
 		if(GLOB.use_preloader)
 			world.preloader_load(area_instance)
