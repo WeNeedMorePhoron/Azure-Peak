@@ -184,7 +184,7 @@ export class Changelog extends Component {
 
     const header = (
       <Section>
-        <h1>Azure Peak</h1>
+        <h1>Azure Bleak</h1>
         <p>
           <b>Thanks to: </b>
           TGStation, Baystation 12, /vg/station, NTstation, CDK Station devs,
