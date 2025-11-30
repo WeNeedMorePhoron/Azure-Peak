@@ -41,3 +41,51 @@
 	icon_state = "circlet"
 	item_state = "circlet"
 	sellprice = 50
+
+/obj/item/clothing/head/roguetown/circlet/jade
+	name = "joapstone circlet"
+	desc = "An ornate circlet carved out of joapstone."
+	icon_state = "circlet_jade"
+	sellprice = 65
+
+/obj/item/clothing/head/roguetown/circlet/amber
+	name = "petriamber circlet"
+	desc = "An ornate circlet carved out of petriamber."
+	icon_state = "circlet_amber"
+	sellprice = 65
+
+/obj/item/clothing/head/roguetown/circlet/shell
+	name = "shell circlet"
+	desc = "An ornate circlet carved out of shell."
+	icon_state = "circlet_shell"
+	sellprice = 25
+
+/obj/item/clothing/head/roguetown/circlet/rose
+	name = "rosellusk circlet"
+	desc = "An ornate circlet carved out of rosellusk."
+	icon_state = "circlet_rose"
+	sellprice = 30
+
+/obj/item/clothing/head/roguetown/circlet/turq
+	name = "ceruleabaster circlet"
+	desc = "An ornate circlet carved out of ceruleabaster."
+	icon_state = "circlet_turq"
+	sellprice = 90
+
+/obj/item/clothing/head/roguetown/circlet/onyxa
+	name = "onyxa circlet"
+	desc = "An ornate circlet carved out of onyxa."
+	icon_state = "circlet_onyxa"
+	sellprice = 45
+
+/obj/item/clothing/head/roguetown/circlet/coral
+	name = "aoetal circlet"
+	desc = "An ornate circlet carved out of aoetal."
+	icon_state = "circlet_coral"
+	sellprice = 75
+
+/obj/item/clothing/head/roguetown/circlet/opal
+	name = "opaloise circlet"
+	desc = "An ornate circlet carved out of opaloise."
+	icon_state = "circlet_opal"
+	sellprice = 95
