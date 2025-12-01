@@ -1085,7 +1085,8 @@
 		/obj/item/clothing/head/roguetown/crown/serpcrown,
 		/obj/item/clothing/head/roguetown/vampire,
 		/obj/item/scomstone,
-		/obj/item/reagent_containers/lux
+		/obj/item/rogueweapon/greatsword/psygsword,
+		/obj/rogueitem/carvedgem,  //Some of these aren't particularly worth much, but it'd be REALLY unintuitive for "valuables" to not actually be worth robbing
 	)
 
 /obj/structure/fluff/statue/evil/attackby(obj/item/W, mob/user, params)

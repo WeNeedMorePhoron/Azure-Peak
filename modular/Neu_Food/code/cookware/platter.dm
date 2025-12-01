@@ -141,7 +141,7 @@ What it does:
 	sellprice = 25
 	smeltresult = /obj/item/ingot/gold
 
-/obj/item/plate/jade
+/obj/item/cooking/platter/jade
 	name = "joapstone platter"
 	desc = "A fancy platter carved out of joapstone."
 	icon_state = "platter_jade"
@@ -149,7 +149,7 @@ What it does:
 	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 60
 
-/obj/item/plate/onyxa
+/obj/item/cooking/platter/onyxa
 	name = "onyxa platter"
 	desc = "A fancy platter carved out of onyxa."
 	icon_state = "platter_onyxa"
@@ -157,7 +157,7 @@ What it does:
 	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 40
 
-/obj/item/plate/shell
+/obj/item/cooking/platter/shell
 	name = "shell platter"
 	desc = "A fancy platter carved out of shell."
 	icon_state = "platter_shell"
@@ -165,7 +165,7 @@ What it does:
 	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 20
 
-/obj/item/plate/rose
+/obj/item/cooking/platter/rose
 	name = "rosellusk platter"
 	desc = "A fancy platter carved out of rosellusk."
 	icon_state = "platter_rose"
@@ -173,7 +173,7 @@ What it does:
 	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 25
 
-/obj/item/plate/amber
+/obj/item/cooking/platter/amber
 	name = "petriamber platter"
 	desc = "A fancy platter carved out of petriamber."
 	icon_state = "platter_amber"
@@ -181,7 +181,7 @@ What it does:
 	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 60
 
-/obj/item/plate/opal
+/obj/item/cooking/platter/opal
 	name = "opaloise platter"
 	desc = "A fancy platter carved out of opaloise."
 	icon_state = "platter_opal"
@@ -189,7 +189,7 @@ What it does:
 	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 90
 
-/obj/item/plate/coral
+/obj/item/cooking/platter/coral
 	name = "aoetal platter"
 	desc = "A fancy platter carved out of aoetal."
 	icon_state = "platter_coral"
@@ -197,7 +197,7 @@ What it does:
 	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 70
 
-/obj/item/plate/turq
+/obj/item/cooking/platter/turq
 	name = "ceruleabaster platter"
 	desc = "A fancy platter carved out of ceruleabaster."
 	icon_state = "platter_turq"

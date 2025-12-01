@@ -23,7 +23,7 @@
 	icon_state = "oyster_open"
 	grid_height = 96
 	grid_width = 64
-	sellprice = 320
+	sellprice = 20
 
 /obj/rogueitem/carvedgem/shell/rawshell
 	name = "clamshell"

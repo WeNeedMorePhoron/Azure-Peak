@@ -40,41 +40,48 @@
 	sellprice = 70
 
 /obj/item/clothing/ring/jade
+/obj/item/clothing/ring/carved
+	name = "carved ring"
+	desc = "you shouldn't be seeing this"
+	icon_state = "ring_a"
+	sellprice = 5
+
+/obj/item/clothing/ring/carved/jade
 	name = "joapstone ring"
 	icon_state = "ring_jade"
 	sellprice = 60
 
-/obj/item/clothing/ring/coral
+/obj/item/clothing/ring/carved/coral
 	name = "aoetal ring"
 	icon_state = "ring_coral"
 	sellprice = 70
 
-/obj/item/clothing/ring/onyxa
+/obj/item/clothing/ring/carved/onyxa
 	name = "onyxa ring"
 	icon_state = "ring_onyxa"
 	sellprice = 40
 
-/obj/item/clothing/ring/shell
+/obj/item/clothing/ring/carved/shell
 	name = "shell ring"
 	icon_state = "ring_shell"
 	sellprice = 20
 
-/obj/item/clothing/ring/amber
+/obj/item/clothing/ring/carved/amber
 	name = "petriamber ring"
 	icon_state = "ring_amber"
 	sellprice = 20
 
-/obj/item/clothing/ring/turq
+/obj/item/clothing/ring/carved/turq
 	name = "ceruleabaster ring"
 	icon_state = "ring_turq"
 	sellprice = 85
 
-/obj/item/clothing/ring/rose
+/obj/item/clothing/ring/carved/rose
 	name = "rosellusk ring"
 	icon_state = "ring_rose"
 	sellprice = 25
 
-/obj/item/clothing/ring/opal
+/obj/item/clothing/ring/carved/opal
 	name = "opaloise ring"
 	icon_state = "ring_opal"
 	sellprice = 90

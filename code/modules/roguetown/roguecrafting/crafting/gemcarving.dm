@@ -194,7 +194,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/shell/rawshell
-	name = "2x clam shells "
+	name = "clam shell (x2)"
 	result = list (
 		/obj/rogueitem/carvedgem/shell/rawshell,
 		/obj/rogueitem/carvedgem/shell/rawshell
@@ -240,7 +240,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/platter
 	name = "shell platter"
-	result = /obj/item/plate/shell
+	result = /obj/item/cooking/platter/shell
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -471,7 +471,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/platter
 	name = "rosellusk platter"
-	result = /obj/item/plate/rose
+	result = /obj/item/cooking/platter/rose
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -653,7 +653,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/platter
 	name = "onyxa platter"
-	result = /obj/item/plate/onyxa
+	result = /obj/item/cooking/platter/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -835,7 +835,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/platter
 	name = "ceruleabaster platter"
-	result = /obj/item/plate/turq
+	result = /obj/item/cooking/platter/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1003,7 +1003,7 @@
 
 /datum/crafting_recipe/roguetown/survival/coral/platter
 	name = "aoetal platter"
-	result = /obj/item/plate/coral
+	result = /obj/item/cooking/platter/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1185,7 +1185,7 @@
 
 /datum/crafting_recipe/roguetown/survival/amber/platter
 	name = "petriamber platter"
-	result = /obj/item/plate/amber
+	result = /obj/item/cooking/platter/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1339,7 +1339,7 @@
 
 /datum/crafting_recipe/roguetown/survival/opal/platter
 	name = "opaloise platter"
-	result = /obj/item/plate/opal
+	result = /obj/item/cooking/platter/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
