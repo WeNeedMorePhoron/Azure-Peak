@@ -1204,10 +1204,11 @@
 /datum/status_effect/buff/clash/on_remove()
 	. = ..()
 	owner.apply_status_effect(/datum/status_effect/debuff/clashcd)
-	var/newdur = world.time - dur
+	// Optional balance lever -- stamina drain if we let Riposte expire without anything happening.
+	/*var/newdur = world.time - dur
 	var/mob/living/carbon/human/H = owner
 	if(newdur > (initial(duration) - 0.2 SECONDS))	//Not checking exact duration to account for lag and any other tick / timing inconsistencies.
-		H.bad_guard(span_warning("I held my focus for too long. It's left me drained."))
+		H.bad_guard(span_warning("I held my focus for too long. It's left me drained."))*/
 	UnregisterSignal(owner, COMSIG_ATOM_BULLET_ACT)
 	UnregisterSignal(owner, COMSIG_MOB_ATTACKED_BY_HAND)
 	UnregisterSignal(owner, COMSIG_MOB_ITEM_ATTACK)
@@ -1544,6 +1545,27 @@
 	effectedstats = list(STATKEY_SPD = 3, STATKEY_WIL = 1, STATKEY_CON = 1)
 	status_type = STATUS_EFFECT_REPLACE
 
+/atom/movable/screen/alert/status_effect/buff/vampire_float
+	name = "Float"
+	desc = "My body is floating off the ground."
+	icon_state = "vampire_float"
+
+/datum/status_effect/buff/vampire_float
+	id = "vampire_float"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/vampire_float
+	duration = 2 MINUTES
+
+/datum/status_effect/buff/vampire_float/on_apply()
+	. = ..()
+	to_chat(owner, span_warning("I am hovering off the ground."))
+	owner.movement_type = FLYING
+
+
+
+/datum/status_effect/buff/vampire_float/on_remove()
+	. = ..()
+	to_chat(owner, span_warning("I fall back to the ground."))
+	owner.movement_type = GROUND
 /datum/status_effect/buff/ravox_vow
 	id = "ravox_vow"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/ravox_vow
@@ -1655,3 +1677,7 @@
 		mob.apply_status_effect(/datum/status_effect/debuff/joybringer_druqks)
 
 #undef JOYBRINGER_FILTER
+
+#undef MIRACLE_BLOODHEAL_FILTER
+#undef PSYDON_HEALING_FILTER
+#undef PSYDON_REVIVED_FILTER
