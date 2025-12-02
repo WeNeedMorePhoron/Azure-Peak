@@ -23,14 +23,14 @@
 
 /datum/crafting_recipe/roguetown/survival/jadebowl
 	name = "joapstone bowl"
-	result = /obj/rogueitem/carvedgem/jade/bowl
+	result = /obj/item/reagent_containers/glass/bowl/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/jadecup
 	name = "joapstone cup"
-	result = /obj/rogueitem/carvedgem/jade/cup
+	result = /obj/item/reagent_containers/glass/cup/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -51,7 +51,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jadeamulet
 	name = "joapstone amulet"
-	result = /obj/rogueitem/carvedgem/jade/amulet
+	result = /obj/item/clothing/neck/carved/jadeamulet
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -86,7 +86,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/teapot
 	name = "joapstone teapot"
-	result = /obj/item/reagent_containers/glass/bucket/pot/teapotjade
+	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotjade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -121,28 +121,28 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/bracelet
 	name = "joapstone bracelets"
-	result = /obj/item/clothing/wrists/gem/jadebracelet
+	result = /obj/item/clothing/wrists/roguetown/gem/jadebracelet
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/jade/circlet
 	name = "joapstone circlet"
-	result = /obj/item/clothing/head/crown/circlet/jade
+	result = /obj/item/clothing/head/roguetown/circlet/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/jade/fancycup
 	name = "fancy joapstone cup"
-	result = /obj/item/reagent_containers/glass/cup/jadefancy
+	result = /obj/item/reagent_containers/glass/cup/carved/jadefancy
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/jade/mask
 	name = "joapstone mask"
-	result = /obj/item/clothing/face/jademask
+	result = /obj/item/clothing/face/carved/jademask
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 4
@@ -226,14 +226,14 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/bowl
 	name = "shell bowl"
-	result = /obj/item/reagent_containers/glass/bowl/shell
+	result = /obj/item/reagent_containers/glass/bowl/carved/shell
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/shell/cup
 	name = "shell cup"
-	result = /obj/item/reagent_containers/glass/cup/shell
+	result = /obj/item/reagent_containers/glass/cup/carved/shell
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -254,14 +254,14 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/teapot
 	name = "shell teapot"
-	result = /obj/item/reagent_containers/glass/bucket/pot/teapotshell
+	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotshell
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/shell/amulet
 	name = "shell amulet"
-	result = /obj/item/clothing/neck/shellamulet
+	result = /obj/item/clothing/neck/carved/shellamulet
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -303,21 +303,21 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/circlet
 	name = "shell circlet"
-	result = /obj/item/clothing/head/crown/circlet/shell
+	result = /obj/item/clothing/head/roguetown/circlet/shell
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/shell/bracelet
 	name = "shell bracelets"
-	result = /obj/item/clothing/wrists/gem/shellbracelet
+	result = /obj/item/clothing/wrists/roguetown/gem/shellbracelet
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/shell/fancycup
 	name = "fancy shell cup"
-	result = /obj/item/reagent_containers/glass/cup/shellfancy
+	result = /obj/item/reagent_containers/glass/cup/carved/shellfancy
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 3
@@ -345,7 +345,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/mask
 	name = "shell mask"
-	result = /obj/item/clothing/face/shellmask
+	result = /obj/item/clothing/face/carved/shellmask
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 4
@@ -401,14 +401,14 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/cup
 	name = "rosellusk cup"
-	result = /obj/item/reagent_containers/glass/cup/rose
+	result = /obj/item/reagent_containers/glass/cup/carved/rose
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/rose/bowl
 	name = "rosellusk bowl"
-	result = /obj/item/reagent_containers/glass/bowl/rose
+	result = /obj/item/reagent_containers/glass/bowl/carved/rose
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -450,7 +450,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/teapot
 	name = "rosellusk teapot"
-	result = /obj/item/reagent_containers/glass/bucket/pot/teapotrose
+	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotrose
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -464,7 +464,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/amulet
 	name = "rosellusk amulet"
-	result = /obj/item/clothing/neck/roseamulet
+	result = /obj/item/clothing/neck/carved/roseamulet
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -506,21 +506,21 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/bracelet
 	name = "rosellusk bracelets"
-	result = /obj/item/clothing/wrists/gem/rosebracelet
+	result = /obj/item/clothing/wrists/roguetown/gem/rosebracelet
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/rose/circlet
 	name = "rosellusk circlet"
-	result = /obj/item/clothing/head/crown/circlet/rose
+	result = /obj/item/clothing/head/roguetown/circlet/rose
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/rose/fancycup
 	name = "fancy rosellusk cup"
-	result = /obj/item/reagent_containers/glass/cup/rosefancy
+	result = /obj/item/reagent_containers/glass/cup/carved/rosefancy
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 3
@@ -548,7 +548,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/mask
 	name = "rosellusk mask"
-	result = /obj/item/clothing/face/rosemask
+	result = /obj/item/clothing/face/carved/rosemask
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
 	craftdiff = 4
@@ -590,14 +590,14 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/cup
 	name = "onyxa cup"
-	result = /obj/item/reagent_containers/glass/cup/opal
+	result = /obj/item/reagent_containers/glass/cup/carved/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/onyxa/bowl
 	name = "onyxa bowl"
-	result = /obj/item/reagent_containers/glass/bowl/onyxa
+	result = /obj/item/reagent_containers/glass/bowl/carved/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -632,7 +632,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/teapot
 	name = "onyxa teapot"
-	result = /obj/item/reagent_containers/glass/bucket/pot/teapotonyxa
+	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotonyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -646,7 +646,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/amulet
 	name = "onyxa amulet"
-	result = /obj/item/clothing/neck/onyxaamulet
+	result = /obj/item/clothing/neck/carved/onyxaamulet
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -688,28 +688,28 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/fancycup
 	name = "fancy onyxa cup"
-	result = /obj/item/reagent_containers/glass/cup/onyxafancy
+	result = /obj/item/reagent_containers/glass/cup/carved/onyxafancy
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/onyxa/bracelet
 	name = "onyxa bracelets"
-	result = /obj/item/clothing/wrists/gem/onyxabracelet
+	result = /obj/item/clothing/wrists/roguetown/gem/onyxabracelet
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/onyxa/circlet
 	name = "onyxa circlet"
-	result = /obj/item/clothing/head/crown/circlet/onyxa
+	result = /obj/item/clothing/head/roguetown/circlet/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/onyxa/mask
 	name = "onyxa mask"
-	result = /obj/item/clothing/face/onyxamask
+	result = /obj/item/clothing/face/carved/onyxamask
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 4
@@ -779,14 +779,14 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/bowl
 	name = "ceruleabaster bowl"
-	result = /obj/item/reagent_containers/glass/bowl/turq
+	result = /obj/item/reagent_containers/glass/bowl/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/turq/cup
 	name = "ceruleabaster cup"
-	result = /obj/item/reagent_containers/glass/cup/turq
+	result = /obj/item/reagent_containers/glass/cup/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -814,7 +814,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/amulet
 	name = "ceruleabaster amulet"
-	result = /obj/item/clothing/neck/turqamulet
+	result = /obj/item/clothing/neck/carved/turqamulet
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -842,21 +842,21 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/bracelet
 	name = "ceruleabaster bracelets"
-	result = /obj/item/clothing/wrists/gem/turqbracelet
+	result = /obj/item/clothing/wrists/roguetown/gem/turqbracelet
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/turq/circlet
 	name = "ceruleabaster circlet"
-	result = /obj/item/clothing/head/crown/circlet/turq
+	result = /obj/item/clothing/head/roguetown/circlet/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/turq/fancycup
 	name = "fancy ceruleabaster cup"
-	result = /obj/item/reagent_containers/glass/cup/turqfancy
+	result = /obj/item/reagent_containers/glass/cup/carved/turqfancy
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
@@ -912,7 +912,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/mask
 	name = "ceruleabaster mask"
-	result = /obj/item/clothing/face/turqmask
+	result = /obj/item/clothing/face/carved/turqmask
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 4
@@ -954,14 +954,14 @@
 
 /datum/crafting_recipe/roguetown/survival/coral/cup
 	name = "aoetal cup"
-	result = /obj/item/reagent_containers/glass/cup/coral
+	result = /obj/item/reagent_containers/glass/cup/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/coral/bowl
 	name = "aoetal bowl"
-	result = /obj/item/reagent_containers/glass/bowl/coral
+	result = /obj/item/reagent_containers/glass/bowl/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -996,7 +996,7 @@
 
 /datum/crafting_recipe/roguetown/survival/coral/teapot
 	name = "aoetal teapot"
-	result = /obj/item/reagent_containers/glass/bucket/pot/teapotcoral
+	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotcoral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1010,7 +1010,7 @@
 
 /datum/crafting_recipe/roguetown/survival/coral/amulet
 	name = "aoetal amulet"
-	result = /obj/item/clothing/neck/coralamulet
+	result = /obj/item/clothing/neck/carved/coralamulet
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1052,28 +1052,28 @@
 
 /datum/crafting_recipe/roguetown/survival/coral/fancycup
 	name = "fancy aoetal cup"
-	result = /obj/item/reagent_containers/glass/cup/coralfancy
+	result = /obj/item/reagent_containers/glass/cup/carved/coralfancy
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/coral/circlet
 	name = "aoetal circlet"
-	result = /obj/item/clothing/head/crown/circlet/coral
+	result = /obj/item/clothing/head/roguetown/circlet/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/coral/bracelet
 	name = "aoetal bracelets"
-	result = /obj/item/clothing/wrists/gem/coralbracelet
+	result = /obj/item/clothing/wrists/roguetown/gem/coralbracelet
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/coral/mask
 	name = "aoetal mask"
-	result = /obj/item/clothing/face/coralmask
+	result = /obj/item/clothing/face/carved/coralmask
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 4
@@ -1136,14 +1136,14 @@
 
 /datum/crafting_recipe/roguetown/survival/amber/bowl
 	name = "petriamber bowl"
-	result = /obj/item/reagent_containers/glass/bowl/amber
+	result = /obj/item/reagent_containers/glass/bowl/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/amber/cup
 	name = "petriamber cup"
-	result = /obj/item/reagent_containers/glass/cup/amber
+	result = /obj/item/reagent_containers/glass/cup/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -1178,7 +1178,7 @@
 
 /datum/crafting_recipe/roguetown/survival/amber/teapot
 	name = "petriamber teapot"
-	result = /obj/item/reagent_containers/glass/bucket/pot/teapotamber
+	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotamber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1199,28 +1199,28 @@
 
 /datum/crafting_recipe/roguetown/survival/amber/amulet
 	name = "petriamber amulet"
-	result = /obj/item/clothing/neck/amberamulet
+	result = /obj/item/clothing/neck/carved/amberamulet
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/amber/bracelet
 	name = "petriamber bracelets"
-	result = /obj/item/clothing/wrists/gem/amberbracelet
+	result = /obj/item/clothing/wrists/roguetown/gem/amberbracelet
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/amber/circlet
 	name = "petriamber circlet"
-	result = /obj/item/clothing/head/crown/circlet/amber
+	result = /obj/item/clothing/head/roguetown/circlet/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/amber/fancycup
 	name = "fancy petriamber cup"
-	result = /obj/item/reagent_containers/glass/cup/amberfancy
+	result = /obj/item/reagent_containers/glass/cup/carved/amberfancy
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
@@ -1255,7 +1255,7 @@
 
 /datum/crafting_recipe/roguetown/survival/amber/mask
 	name = "petriamber mask"
-	result = /obj/item/clothing/face/ambermask
+	result = /obj/item/clothing/face/carved/ambermask
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 4
@@ -1318,21 +1318,21 @@
 
 /datum/crafting_recipe/roguetown/survival/opal/bowl
 	name = "opaloise bowl"
-	result = /obj/item/reagent_containers/glass/bowl/opal
+	result = /obj/item/reagent_containers/glass/bowl/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/opal/cup
 	name = "opaloise cup"
-	result = /obj/item/reagent_containers/glass/cup/opal
+	result = /obj/item/reagent_containers/glass/cup/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/opal/teapot
 	name = "opaloise teapot"
-	result = /obj/item/reagent_containers/glass/bucket/pot/teapotopal
+	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotopal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1353,7 +1353,7 @@
 
 /datum/crafting_recipe/roguetown/survival/opal/amulet
 	name = "opaloise amulet"
-	result = /obj/item/clothing/neck/opalamulet
+	result = /obj/item/clothing/neck/carved/opalamulet
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1388,21 +1388,21 @@
 
 /datum/crafting_recipe/roguetown/survival/opal/bracelet
 	name = "opaloise bracelets"
-	result = /obj/item/clothing/wrists/gem/opalbracelet
+	result = /obj/item/clothing/wrists/roguetown/gem/opalbracelet
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/opal/circlet
 	name = "opaloise circlet"
-	result = /obj/item/clothing/head/crown/circlet/opal
+	result = /obj/item/clothing/head/roguetown/circlet/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/opal/fancycup
 	name = "fancy opaloise cup"
-	result = /obj/item/reagent_containers/glass/cup/opalfancy
+	result = /obj/item/reagent_containers/glass/cup/carved/opalfancy
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 3
@@ -1437,7 +1437,7 @@
 
 /datum/crafting_recipe/roguetown/survival/opal/mask
 	name = "opaloise mask"
-	result = /obj/item/clothing/face/opalmask
+	result = /obj/item/clothing/face/carved/opalmask
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 4

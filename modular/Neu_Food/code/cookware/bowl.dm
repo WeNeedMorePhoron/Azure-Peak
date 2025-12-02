@@ -37,69 +37,59 @@
 	icon_state = "bowl_silver"
 	sellprice = 60
 
-/obj/item/reagent_containers/glass/bowl/jade
+/obj/item/reagent_containers/glass/bowl/carved
+	name = "carved bowl"
+	desc = "You shouldn't be seeing this."
+	icon_state = "abowl"
+	sellprice = 0
+
+/obj/item/reagent_containers/glass/bowl/carved/jade
 	name = "joapstone bowl"
 	desc = "A bowl carved out of joapstone."
 	icon_state = "bowl_jade"
-	fill_icon_state = "bowl"
-	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 55
 
-/obj/item/reagent_containers/glass/bowl/onyxa
+/obj/item/reagent_containers/glass/bowl/carved/onyxa
 	name = "onyxa bowl"
 	desc = "A bowl carved out of onyxa."
 	icon_state = "bowl_onyxa"
-	fill_icon_state = "bowl"
-	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 35
 
-/obj/item/reagent_containers/glass/bowl/rose
+/obj/item/reagent_containers/glass/bowl/carved/rose
 	name = "rosellusk bowl"
 	desc = "A bowl carved out of rosellusk."
 	icon_state = "bowl_rose"
-	fill_icon_state = "bowl"
-	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 20
 
-/obj/item/reagent_containers/glass/bowl/amber
+/obj/item/reagent_containers/glass/bowl/carved/amber
 	name = "petriamber bowl"
 	desc = "A bowl carved out of petriamber."
 	icon_state = "bowl_amber"
-	fill_icon_state = "bowl"
-	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 55
 
-/obj/item/reagent_containers/glass/bowl/turq
+/obj/item/reagent_containers/glass/bowl/carved/turq
 	name = "ceruleabaster bowl"
 	desc = "A bowl carved out of ceruleabaster."
 	icon_state = "bowl_turq"
-	fill_icon_state = "bowl"
-	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 80
 
-/obj/item/reagent_containers/glass/bowl/shell
+/obj/item/reagent_containers/glass/bowl/carved/shell
 	name = "shell bowl"
 	desc = "A bowl carved out of shell."
 	icon_state = "bowl_shell"
-	fill_icon_state = "bowl"
-	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 15
 
 
-/obj/item/reagent_containers/glass/bowl/coral
+/obj/item/reagent_containers/glass/bowl/carved/coral
 	name = "aoetal bowl"
 	desc = "A bowl carved out of aoetal."
 	icon_state = "bowl_coral"
-	fill_icon_state = "bowl"
-	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 65
 
-/obj/item/reagent_containers/glass/bowl/opal
+/obj/item/reagent_containers/glass/bowl/carved/opal
 	name = "opaloise bowl"
 	desc = "A bowl carved out of opaloise."
 	icon_state = "bowl_opal"
-	fill_icon_state = "bowl"
-	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	sellprice = 85
 
 /obj/item/reagent_containers/glass/bowl/update_icon()

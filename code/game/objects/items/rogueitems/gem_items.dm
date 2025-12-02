@@ -1,6 +1,6 @@
 /obj/rogueitem/carvedgem
-	name = "the humble bug beaver"
-	desc = "Oh for the love of twigs, looks like something messed up! tell a dam coder about this! TOODLES!"
+	name = "bug beaver"
+	desc = "You shouldn't be seeing this."
 	icon = 'icons/roguetown/gems/gem_amber.dmi'
 	icon_state = "beaver_amber"
 	grid_height = 32
@@ -23,7 +23,7 @@
 	icon_state = "oyster_open"
 	grid_height = 96
 	grid_width = 64
-	sellprice = 20
+	sellprice = 10
 
 /obj/rogueitem/carvedgem/shell/rawshell
 	name = "clamshell"
@@ -31,7 +31,7 @@
 	icon_state = "raw_shell"
 	grid_height = 32
 	grid_width = 32
-	sellprice = 10
+	sellprice = 5
 
 /obj/rogueitem/carvedgem/shell/fork
 	name = "shell fork"

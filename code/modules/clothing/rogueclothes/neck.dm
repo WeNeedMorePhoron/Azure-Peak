@@ -825,82 +825,66 @@
 		active_item = FALSE
 	return
 
-/obj/item/clothing/neck/jadeamulet
+/obj/item/clothing/neck/carved
+	name = "carved amulet"
+	desc = "You shouldn't be seeing this."
+	icon_state = "psycross_w"
+	item_state = "psycross_w"
+	slot_flags = ITEM_SLOT_NECK
+	sellprice = 0
+
+/obj/item/clothing/neck/carved/jadeamulet
 	name = "joapstone amulet"
+	desc = "An amulet carved from joapstone."
 	icon_state = "amulet_jade"
 	slot_flags = ITEM_SLOT_NECK
-	equip_sound = 'sound/foley/equip/cloak_equip.ogg'
-	pickup_sound = 'sound/foley/equip/cloak_take_off.ogg'
-	break_sound = 'sound/foley/cloth_rip.ogg'
-	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	sellprice = 60
 
-/obj/item/clothing/neck/turqamulet
+/obj/item/clothing/neck/carved/turqamulet
 	name = "ceruleabaster amulet"
+	desc = "An amulet carved from ceruleabaster."
 	icon_state = "amulet_turq"
 	slot_flags = ITEM_SLOT_NECK
-	equip_sound = 'sound/foley/equip/cloak_equip.ogg'
-	pickup_sound = 'sound/foley/equip/cloak_take_off.ogg'
-	break_sound = 'sound/foley/cloth_rip.ogg'
-	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	sellprice = 85
 
-/obj/item/clothing/neck/onyxaamulet
+/obj/item/clothing/neck/carved/onyxaamulet
 	name = "onyxa amulet"
+	desc = "An amulet carved from onyxa."
 	icon_state = "amulet_onyxa"
 	slot_flags = ITEM_SLOT_NECK
-	equip_sound = 'sound/foley/equip/cloak_equip.ogg'
-	pickup_sound = 'sound/foley/equip/cloak_take_off.ogg'
-	break_sound = 'sound/foley/cloth_rip.ogg'
-	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	sellprice = 40
 
-/obj/item/clothing/neck/coralamulet
+/obj/item/clothing/neck/carved/coralamulet
 	name = "aoetal amulet"
+	desc = "An amulet carved from aoetal."
 	icon_state = "amulet_coral"
 	slot_flags = ITEM_SLOT_NECK
-	equip_sound = 'sound/foley/equip/cloak_equip.ogg'
-	pickup_sound = 'sound/foley/equip/cloak_take_off.ogg'
-	break_sound = 'sound/foley/cloth_rip.ogg'
-	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	sellprice = 70
 
-/obj/item/clothing/neck/amberamulet
+/obj/item/clothing/neck/carved/amberamulet
 	name = "petriamber amulet"
+	desc = "An amulet carved from petriamber."
 	icon_state = "amulet_amber"
 	slot_flags = ITEM_SLOT_NECK
-	equip_sound = 'sound/foley/equip/cloak_equip.ogg'
-	pickup_sound = 'sound/foley/equip/cloak_take_off.ogg'
-	break_sound = 'sound/foley/cloth_rip.ogg'
-	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	sellprice = 60
 
-/obj/item/clothing/neck/opalamulet
+/obj/item/clothing/neck/carved/opalamulet
 	name = "opaloise amulet"
+	desc = "An amulet carved from opaloise."
 	icon_state = "amulet_opal"
 	slot_flags = ITEM_SLOT_NECK
-	equip_sound = 'sound/foley/equip/cloak_equip.ogg'
-	pickup_sound = 'sound/foley/equip/cloak_take_off.ogg'
-	break_sound = 'sound/foley/cloth_rip.ogg'
-	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	sellprice = 90
 
-/obj/item/clothing/neck/roseamulet
+/obj/item/clothing/neck/carved/roseamulet
 	name = "rosellusk amulet"
+	desc = "An amulet carved from rosellusk."
 	icon_state = "amulet_rose"
 	slot_flags = ITEM_SLOT_NECK
-	equip_sound = 'sound/foley/equip/cloak_equip.ogg'
-	pickup_sound = 'sound/foley/equip/cloak_take_off.ogg'
-	break_sound = 'sound/foley/cloth_rip.ogg'
-	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	sellprice = 25
 
-/obj/item/clothing/neck/shellamulet
+/obj/item/clothing/neck/carved/shellamulet
 	name = "shell amulet"
+	desc = "An amulet carved from shells."
 	icon_state = "amulet_shell"
 	slot_flags = ITEM_SLOT_NECK
-	equip_sound = 'sound/foley/equip/cloak_equip.ogg'
-	pickup_sound = 'sound/foley/equip/cloak_take_off.ogg'
-	break_sound = 'sound/foley/cloth_rip.ogg'
-	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	sellprice = 25
