@@ -273,7 +273,6 @@
 	icon = 'icons/roguetown/clothing/wrists.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/gembracelet.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_gembracelet.dmi'
-	abstract_type = /obj/item/clothing/wrists/gem
 
 /obj/item/clothing/wrists/roguetown/gem/jadebracelet
 	name = "joapstone bracelets"

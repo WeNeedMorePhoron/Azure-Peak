@@ -267,7 +267,7 @@
 
 /obj/item/reagent_containers/glass/cup/carved/jade
 	name = "carved cup"
-	desc = "You shouldn't be seeing this.
+	desc = "You shouldn't be seeing this."
 	dropshrink = 1
 	icon_state = "agoblet"
 	sellprice = 0
