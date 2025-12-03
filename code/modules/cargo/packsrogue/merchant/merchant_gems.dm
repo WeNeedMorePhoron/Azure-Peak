@@ -79,4 +79,4 @@
 /datum/supply_pack/rogue/gems/rose
 	name = "Rosellusk"
 	cost = 24
-	contains = list(/obj/rogueitem/carvedgem/rose/rawrose)
+	contains = list(/obj/item/carvedgem/rose/rawrose)
