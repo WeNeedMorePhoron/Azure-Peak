@@ -2,6 +2,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jadefork
 	name = "joapstone fork"
+	category = "Gem Carving"
 	result = /obj/rogueitem/carvedgem/jade/fork
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -9,6 +10,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jadespoon
 	name = "joapstone spoon"
+	category = "Gem Carving"
 	result = /obj/rogueitem/carvedgem/jade/spoon
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -16,6 +18,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jadecameo
 	name = "joapstone cameo"
+	category = "Gem Carving"
 	result = /obj/rogueitem/carvedgem/jade/cameo
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -23,6 +26,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jadebowl
 	name = "joapstone bowl"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -30,6 +34,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jadecup
 	name = "joapstone cup"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -37,6 +42,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jadeplatter
 	name = "joapstone platter"
+	category = "Gem Carving"
 	result = /obj/rogueitem/carvedgem/jade/platter
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -44,6 +50,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jadering
 	name = "joapstone ring"
+	category = "Gem Carving"
 	result = /obj/rogueitem/carvedgem/jade/ring
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -51,6 +58,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jadeamulet
 	name = "joapstone amulet"
+	category = "Gem Carving"
 	result = /obj/item/clothing/neck/carved/jadeamulet
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -58,6 +66,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jadevase
 	name = "joapstone vase"
+	category = "Gem Carving"
 	result = /obj/rogueitem/carvedgem/jade/vase
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -65,6 +74,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jadefigurine
 	name = "joapstone figurine"
+	category = "Gem Carving"
 	result = /obj/rogueitem/carvedgem/jade/
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -72,6 +82,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/fish
 	name = "joapstone fish figurine"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/fish
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -79,6 +90,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/tablet
 	name = "joapstone tablet"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/tablet
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -86,6 +98,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/teapot
 	name = "joapstone teapot"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotjade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -93,6 +106,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/bust
 	name = "joapstone bust"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/bust
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -100,6 +114,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/fancyvase
 	name = "fancy joapstone vase"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/fancyvase
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -107,6 +122,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/comb
 	name = "joapstone comb"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/comb
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -114,6 +130,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/duck
 	name = "joapstone duck"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/duck
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -121,6 +138,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/bracelet
 	name = "joapstone bracelets"
+	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/jadebracelet
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -128,6 +146,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/circlet
 	name = "joapstone circlet"
+	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -135,6 +154,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/fancycup
 	name = "fancy joapstone cup"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/jadefancy
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -142,6 +162,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/mask
 	name = "joapstone mask"
+	category = "Gem Carving"
 	result = /obj/item/clothing/face/carved/jademask
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -149,6 +170,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/urn
 	name = "joapstone urn"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/urn
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -156,6 +178,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/statue
 	name = "joapstone statue"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/statue
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -163,6 +186,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/obelisk
 	name = "joapstone obelisk"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/obelisk
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -170,6 +194,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/wyrm
 	name = "joapstone wyrm"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/wyrm
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -178,6 +203,7 @@
 
 /datum/crafting_recipe/roguetown/survival/jade/kukri
 	name = "joapstone kukri"
+	category = "Gem Carving"
 	result = /obj/item/weapon/knife/stone/kukri
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -185,6 +211,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/openclam
 	name = "opened clam"
+	category = "Gem Carving"
 	result = list (
 		/obj/rogueitem/carvedgem/shell/openoyster,
 		/obj/rogueitem/carvedgem/rose/rawrose
@@ -195,6 +222,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/rawshell
 	name = "clam shell (x2)"
+	category = "Gem Carving"
 	result = list (
 		/obj/rogueitem/carvedgem/shell/rawshell,
 		/obj/rogueitem/carvedgem/shell/rawshell
@@ -205,6 +233,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/fork
 	name = "shell fork"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/fork
 	reqs = list(/obj/rogueitem/roguegem/oyster = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -212,6 +241,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/spoon
 	name = "shell spoon"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/spoon
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -219,6 +249,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/cameo
 	name = "shell cameo"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/cameo
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -226,6 +257,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/bowl
 	name = "shell bowl"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/shell
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -233,6 +265,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/cup
 	name = "shell cup"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/shell
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -240,6 +273,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/platter
 	name = "shell platter"
+	category = "Gem Carving"
 	result = /obj/item/cooking/platter/shell
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -254,6 +288,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/teapot
 	name = "shell teapot"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotshell
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -261,6 +296,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/amulet
 	name = "shell amulet"
+	category = "Gem Carving"
 	result = /obj/item/clothing/neck/carved/shellamulet
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -268,6 +304,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/figurine
 	name = "shell figurine"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/figurine
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -275,6 +312,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/tablet
 	name = "shell tablet"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/tablet
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -282,6 +320,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/fish
 	name = "shell fish figurine"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/fish
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -289,6 +328,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/vase
 	name = "shell vase"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/vase
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -296,6 +336,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/bust
 	name = "shell bust"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/bust
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -303,6 +344,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/circlet
 	name = "shell circlet"
+	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/shell
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -310,6 +352,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/bracelet
 	name = "shell bracelets"
+	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/shellbracelet
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -317,6 +360,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/fancycup
 	name = "fancy shell cup"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/shellfancy
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -324,6 +368,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/fancyvase
 	name = "fancy shell vase"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/fancyvase
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -331,6 +376,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/comb
 	name = "shell comb"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/comb
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -338,6 +384,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/duck
 	name = "shell duck"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/duck
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -345,6 +392,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/mask
 	name = "shell mask"
+	category = "Gem Carving"
 	result = /obj/item/clothing/face/carved/shellmask
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -352,6 +400,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/urn
 	name = "shell urn"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/urn
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -359,6 +408,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/statue
 	name = "shell statue"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/statue
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -366,6 +416,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/obelisk
 	name = "shell obelisk"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/obelisk
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -373,6 +424,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/turtle
 	name = "turtle carving"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/turtle
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -380,6 +432,7 @@
 
 /datum/crafting_recipe/roguetown/survival/shell/rungu
 	name = "shell rungu"
+	category = "Gem Carving"
 	result = /obj/item/weapon/mace/cudgel/shellrungu
 	reqs = list(/obj/rogueitem/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -387,6 +440,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/spoon
 	name = "rosellusk spoon"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/spoon
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -394,6 +448,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/fork
 	name = "rosellusk fork"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/fork
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -401,6 +456,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/cup
 	name = "rosellusk cup"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/rose
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -408,6 +464,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/bowl
 	name = "rosellusk bowl"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/rose
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -415,6 +472,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/cameo
 	name = "rosellusk cameo"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/cameo
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -422,6 +480,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/figurine
 	name = "rosellusk figurine"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/figurine
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -429,6 +488,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/fish
 	name = "rosellusk fish figurine"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/fish
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -436,6 +496,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/vase
 	name = "rosellusk vase"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/vase
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -443,6 +504,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/tablet
 	name = "rosellusk tablet"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/tablet
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -450,6 +512,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/teapot
 	name = "rosellusk teapot"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotrose
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -457,6 +520,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/ring
 	name = "rosellusk ring"
+	category = "Gem Carving"
 	result = /obj/item/clothing/ring/rose
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -464,6 +528,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/amulet
 	name = "rosellusk amulet"
+	category = "Gem Carving"
 	result = /obj/item/clothing/neck/carved/roseamulet
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -471,6 +536,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/platter
 	name = "rosellusk platter"
+	category = "Gem Carving"
 	result = /obj/item/cooking/platter/rose
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -478,6 +544,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/bust
 	name = "rosellusk bust"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/bust
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -485,6 +552,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/fancyvase
 	name = "fancy rosellusk vase"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/fancyvase
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -492,6 +560,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/comb
 	name = "rosellusk comb"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/comb
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -499,6 +568,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/duck
 	name = "rosellusk duck"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/duck
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -506,6 +576,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/bracelet
 	name = "rosellusk bracelets"
+	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/rosebracelet
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -513,6 +584,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/circlet
 	name = "rosellusk circlet"
+	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/rose
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -520,6 +592,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/fancycup
 	name = "fancy rosellusk cup"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/rosefancy
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -527,6 +600,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/urn
 	name = "rosellusk urn"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/urn
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -534,6 +608,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/statue
 	name = "rosellusk statue"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/statue
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -541,6 +616,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/obelisk
 	name = "rosellusk obelisk"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/obelisk
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -548,6 +624,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/mask
 	name = "rosellusk mask"
+	category = "Gem Carving"
 	result = /obj/item/clothing/face/carved/rosemask
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -555,6 +632,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/flower
 	name = "rosellusk flower carving"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/flower
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -562,6 +640,7 @@
 
 /datum/crafting_recipe/roguetown/survival/rose/carp
 	name = "rosellusk carp statue"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/carp
 	reqs = list(/obj/rogueitem/carvedgem/rose/rawrosel = 1)
 	tools = list(/obj/rogueitem/rogueweapon/huntingknife)
@@ -569,6 +648,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/fork
 	name = "onyxa fork"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/fork
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -576,6 +656,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/spoon
 	name = "onyxa spoon"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/spoon
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -583,6 +664,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/cameo
 	name = "onyxa cameo"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/cameo
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -590,6 +672,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/cup
 	name = "onyxa cup"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -597,6 +680,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/bowl
 	name = "onyxa bowl"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -604,6 +688,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/figurine
 	name = "onyxa figurine"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/figurine
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -611,6 +696,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/fish
 	name = "onyxa fish figurine"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/fish
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -618,6 +704,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/vase
 	name = "onyxa vase"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/vase
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -625,6 +712,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/tablet
 	name = "onyxa tablet"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/tablet
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -632,6 +720,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/teapot
 	name = "onyxa teapot"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotonyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -639,6 +728,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/ring
 	name = "onyxa ring"
+	category = "Gem Carving"
 	result = /obj/item/clothing/ring/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -646,6 +736,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/amulet
 	name = "onyxa amulet"
+	category = "Gem Carving"
 	result = /obj/item/clothing/neck/carved/onyxaamulet
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -653,6 +744,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/platter
 	name = "onyxa platter"
+	category = "Gem Carving"
 	result = /obj/item/cooking/platter/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -660,6 +752,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/bust
 	name = "onyxa bust"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/bust
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -667,6 +760,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/fancyvase
 	name = "fancy onyxa vase"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/fancyvase
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -674,6 +768,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/comb
 	name = "onyxa comb"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/comb
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -681,6 +776,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/duck
 	name = "onyxa duck"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/duck
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -688,6 +784,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/fancycup
 	name = "fancy onyxa cup"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/onyxafancy
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -695,6 +792,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/bracelet
 	name = "onyxa bracelets"
+	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/onyxabracelet
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -702,6 +800,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/circlet
 	name = "onyxa circlet"
+	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -709,6 +808,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/mask
 	name = "onyxa mask"
+	category = "Gem Carving"
 	result = /obj/item/clothing/face/carved/onyxamask
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -716,6 +816,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/urn
 	name = "onyxa urn"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/urn
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -723,6 +824,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/statue
 	name = "onyxa statue"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/statue
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -730,6 +832,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/obelisk
 	name = "onyxa obelisk"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/obelisk
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -737,6 +840,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/urn
 	name = "onyxa urn"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/urn
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -744,6 +848,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/spider
 	name = "onyxa spider statue"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/spider
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -751,6 +856,7 @@
 
 /datum/crafting_recipe/roguetown/survival/onyxa/snake
 	name = "onyxa snake statue"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/snake
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -758,6 +864,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/fork
 	name = "ceruleabaster fork"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/fork
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -765,6 +872,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/spoon
 	name = "ceruleabaster spoon"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/spoon
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -772,6 +880,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/cameo
 	name = "ceruleabaster cameo"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/cameo
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -779,6 +888,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/bowl
 	name = "ceruleabaster bowl"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -786,6 +896,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/cup
 	name = "ceruleabaster cup"
+	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -793,6 +904,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/figurine
 	name = "ceruleabaster figurine"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/figurine
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -800,6 +912,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/fish
 	name = "ceruleabaster fish figurine"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/fish
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -807,6 +920,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/vase
 	name = "ceruleabaster vase"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/vase
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -814,6 +928,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/amulet
 	name = "ceruleabaster amulet"
+	category = "Gem Carving"
 	result = /obj/item/clothing/neck/carved/turqamulet
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -821,6 +936,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/tablet
 	name = "ceruleabaster tablet"
+	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/tablet
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
@@ -828,6 +944,7 @@
 
 /datum/crafting_recipe/roguetown/survival/turq/ring
 	name = "ceruleabaster ring"
+	category = "Gem Carving"
 	result = /obj/item/clothing/ring/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
