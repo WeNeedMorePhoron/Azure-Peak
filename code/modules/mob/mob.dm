@@ -747,39 +747,22 @@ GLOBAL_VAR_INIT(mobids, 1)
 	..()
 	// && check_rights(R_ADMIN,0)
 	var/time_left = SSgamemode.round_ends_at - world.time
-	var/days = "TWILIGHT"
-	switch(GLOB.dayspassed)
-		if(1)
-			days = "MOON'S DAE"
-		if(2)
-			days = "TIW'S DAE"
-		if(3)
-			days = "WEDDING'S DAE"
-		if(4)
-			days = "THULE'S DAE"
-		if(5)
-			days = "FREYJA'S DAE"
-		if(6)
-			days = "SATURN'S DAE"
-		if(7)
-			days = "SUN'S DAE"
-
 	if(client)
 		if(statpanel("RoundInfo"))
 			stat(null, "MAP: [SSmapping.config?.map_name || "Loading..."]")
 			var/datum/map_config/cached = SSmapping.next_map_config
 			if(cached)
 				stat(null, "Next Map: [cached.map_name]")
-			stat(null, "ROUND ID: [GLOB.rogue_round_id ? GLOB.rogue_round_id : "NULL"]")
-			stat(null, "ROUND TIME: [time2text(STATION_TIME_PASSED(), "hh:mm:ss", 0)] [world.time - SSticker.round_start_time]")
+			stat(null, "Round Id: [GLOB.rogue_round_id ? GLOB.rogue_round_id : "NULL"]")
+			stat(null, "Round Time: [time2text(STATION_TIME_PASSED(), "hh:mm:ss", 0)] [world.time - SSticker.round_start_time]")
 			if(SSgamemode.roundvoteend)
-				stat("ROUND END: [DisplayTimeText(time_left)]")
+				stat("Round End: [DisplayTimeText(time_left)]")
 			if(client?.holder)
-				stat(null, "ROUND TrueTime: [worldtime2text()] [world.time]")
-			stat(null, "TIMEOFDAY: [days] ᛉ [uppertext(GLOB.tod)] ᛉ [station_time_timestamp("hh:mm")]")
-			stat(null, "IC Time: [station_time_timestamp()] [station_time()]")
-			stat(null, "PING: [round(client.lastping, 1)]ms (Average: [round(client.avgping, 1)]ms)")
-			stat(null, "TIME DILATION: [round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)")
+				stat(null, "Round TrueTime: [worldtime2text()] [world.time]")
+			stat(null, "IC Date: [get_current_ic_date_as_string()]")
+			stat(null, "Time: [get_current_ic_time_as_string()]")
+			stat(null, "Ping: [round(client.lastping, 1)]ms (Average: [round(client.avgping, 1)]ms)")
+			stat(null, "Time Dilation: [round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)")
 			if(check_rights(R_ADMIN,0))
 				stat(null, SSmigrants.get_status_line())
 
