@@ -1,6 +1,0 @@
-author: "PatapoIIIa"
-delete-after: True
-changes:
-  - balance: "Fixed an exploit that allowed infinite experience gain by repeatedly reinserting and retrieving a single ingot from a lit furnace."
-  - bugfix: "Ingot items now correctly reset their 'smelted' status when placed back into a furnace, requiring a full smelting cycle for new experience gain."
-  - code_imp: "Updated `add_item` logic for smelters."

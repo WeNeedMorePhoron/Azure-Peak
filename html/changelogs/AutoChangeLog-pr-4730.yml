@@ -1,5 +1,0 @@
-author: "PatapoIIIa"
-delete-after: True
-changes:
-  - bugfix: "Fixed the \"type masquerade\" issue for crafted long pipes, which previously caused them to have flickering sprites and break after cleaning."
-  - bugfix: "Fixed a bug where crafted pipes would start with residual \"ashes\"."
