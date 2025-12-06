@@ -1090,13 +1090,13 @@
 		/obj/item/carvedgem,  //Some of these aren't particularly worth much, but it'd be REALLY unintuitive for "valuables" to not actually be offerings
 		/obj/item/rogueweapon/huntingknife/stoneknife/kukri,
 		/obj/item/weapon/knife/stone/opal,
-		/obj/item/clothing/face/carved,
+		/obj/item/clothing/mask/rogue/facemask/carved,
 		/obj/item/clothing/neck/carved,
 		/obj/item/kitchen/fork/carved,
 		/obj/item/kitchen/spoon/carved,
 		/obj/item/clothing/wrists/roguetown/gem,
 		/obj/item/reagent_containers/glass/bowl/carved,
-		/obj/item/reagent_containers/glass/bucket/pot/carved
+		/obj/item/reagent_containers/glass/bucket/pot/carved,
 		/obj/item/clothing/mask/rogue/facemask/carved
 	)
 

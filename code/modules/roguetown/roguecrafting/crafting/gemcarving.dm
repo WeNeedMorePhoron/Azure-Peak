@@ -57,7 +57,7 @@
 /datum/crafting_recipe/roguetown/survival/jadeamulet
 	name = "joapstone amulet"
 	category = "Gem Carving"
-	result = /obj/item/clothing/neck/carved/jadeamulet
+	result = /obj/item/clothing/neck/roguetown/carved/carved/jadeamulet
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -295,7 +295,7 @@
 /datum/crafting_recipe/roguetown/survival/shell/amulet
 	name = "shell amulet"
 	category = "Gem Carving"
-	result = /obj/item/clothing/neck/carved/shellamulet
+	result = /obj/item/clothing/neck/roguetown/carved/carved/shellamulet
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -527,7 +527,7 @@
 /datum/crafting_recipe/roguetown/survival/rose/amulet
 	name = "rosellusk amulet"
 	category = "Gem Carving"
-	result = /obj/item/clothing/neck/carved/roseamulet
+	result = /obj/item/clothing/neck/roguetown/carved/carved/roseamulet
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -735,7 +735,7 @@
 /datum/crafting_recipe/roguetown/survival/onyxa/amulet
 	name = "onyxa amulet"
 	category = "Gem Carving"
-	result = /obj/item/clothing/neck/carved/onyxaamulet
+	result = /obj/item/clothing/neck/roguetown/carved/carved/onyxaamulet
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -927,7 +927,7 @@
 /datum/crafting_recipe/roguetown/survival/turq/amulet
 	name = "ceruleabaster amulet"
 	category = "Gem Carving"
-	result = /obj/item/clothing/neck/carved/turqamulet
+	result = /obj/item/clothing/neck/roguetown/carved/carved/turqamulet
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1151,7 +1151,7 @@
 /datum/crafting_recipe/roguetown/survival/coral/amulet
 	name = "aoetal amulet"
 	category = "Gem Carving"
-	result = /obj/item/clothing/neck/carved/coralamulet
+	result = /obj/item/clothing/neck/roguetown/carved/carved/coralamulet
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1367,7 +1367,7 @@
 /datum/crafting_recipe/roguetown/survival/amber/amulet
 	name = "petriamber amulet"
 	category = "Gem Carving"
-	result = /obj/item/clothing/neck/carved/amberamulet
+	result = /obj/item/clothing/neck/roguetown/carved/carved/amberamulet
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1543,7 +1543,7 @@
 /datum/crafting_recipe/roguetown/survival/opal/amulet
 	name = "opaloise amulet"
 	category = "Gem Carving"
-	result = /obj/item/clothing/neck/carved/opalamulet
+	result = /obj/item/clothing/neck/roguetown/carved/carved/opalamulet
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
