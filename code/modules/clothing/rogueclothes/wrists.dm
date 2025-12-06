@@ -293,8 +293,8 @@
 	sellprice = 45
 
 /obj/item/clothing/wrists/roguetown/gem/coralbracelet
-	name = "aoetal bracelets"
-	desc = "A set of bracelets carved out of aoetal."
+	name = "heartstone bracelets"
+	desc = "A set of bracelets carved out of heartstone."
 	icon_state = "br_coral"
 	sellprice = 75
 

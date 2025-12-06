@@ -625,10 +625,10 @@
 	grid_width = 64
 	sellprice = 100
 
-// aoetal //
+// heartstone //
 
 /obj/item/carvedgem/coral
-	name = "aoetal base"
+	name = "heartstone base"
 	desc = "if you are seeing this, it's a bug, report it to coders"
 	icon = 'icons/roguetown/gems/gem_coral.dmi'
 	icon_state = "cutgem_coral"
@@ -636,96 +636,96 @@
 	grid_width = 32
 
 /obj/item/carvedgem/coral/cameo
-	name = "aoetal cameo"
-	desc = "A cameo carved out of aoetal depicting...someone? Use your imagination on who it could be.."
+	name = "heartstone cameo"
+	desc = "A cameo carved out of heartstone depicting...someone? Use your imagination on who it could be.."
 	icon_state = "cameo_coral"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 65
 
 /obj/item/carvedgem/coral/figurine
-	name = "aoetal figurine"
-	desc = "A small figurine carved out of aoetal."
+	name = "heartstone figurine"
+	desc = "A small figurine carved out of heartstone."
 	icon_state = "figurine_coral"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 70
 
 /obj/item/carvedgem/coral/fish
-	name = "aoetal fish figurine"
-	desc = "A small fish figurine carved out of aoetal."
+	name = "heartstone fish figurine"
+	desc = "A small fish figurine carved out of heartstone."
 	icon_state = "fish_coral"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 70
 
 /obj/item/carvedgem/coral/vase
-	name = "aoetal vase"
-	desc = "A vase carved out of aoetal."
+	name = "heartstone vase"
+	desc = "A vase carved out of heartstone."
 	icon_state = "vase_coral"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 70
 
 /obj/item/carvedgem/coral/tablet
-	name = "aoetal tablet"
-	desc = "A tablet carved out of aoetal."
+	name = "heartstone tablet"
+	desc = "A tablet carved out of heartstone."
 	icon_state = "tablet_coral"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 70
 
 /obj/item/carvedgem/coral/bust
-	name = "aoetal bust"
-	desc = "A bust carved out of aoetal."
+	name = "heartstone bust"
+	desc = "A bust carved out of heartstone."
 	icon_state = "bust_coral"
 	grid_height = 64
 	grid_width = 64
 	sellprice = 75
 
 /obj/item/carvedgem/coral/fancyvase
-	name = "fancy aoetal vase"
-	desc = "A fancy vase carved out of aoetal."
+	name = "fancy heartstone vase"
+	desc = "A fancy vase carved out of heartstone."
 	icon_state = "fancyvase_coral"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 75
 
 /obj/item/carvedgem/coral/comb
-	name = "aoetal comb"
-	desc = "A luxurious comb carved out of aoetal."
+	name = "heartstone comb"
+	desc = "A luxurious comb carved out of heartstone."
 	icon_state = "comb_coral"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 75
 
 /obj/item/carvedgem/coral/duck
-	name = "aoetal duck"
-	desc = "An adorable little duck carved out of aoetal."
+	name = "heartstone duck"
+	desc = "An adorable little duck carved out of heartstone."
 	icon_state = "duck_coral"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 75
 
 /obj/item/carvedgem/coral/urn
-	name = "aoetal urn"
-	desc = "A large decorative urn carved out of aoetal."
+	name = "heartstone urn"
+	desc = "A large decorative urn carved out of heartstone."
 	icon_state = "urn_coral"
 	grid_height = 64
 	grid_width = 64
 	sellprice = 80
 
 /obj/item/carvedgem/coral/statue
-	name = "aoetal statue"
-	desc = "A statue carved out of aoetal."
+	name = "heartstone statue"
+	desc = "A statue carved out of heartstone."
 	icon_state = "statue_coral"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 80
 
 /obj/item/carvedgem/coral/obelisk
-	name = "aoetal obelisk"
-	desc = "An obelisk carved out of aoetal."
+	name = "heartstone obelisk"
+	desc = "An obelisk carved out of heartstone."
 	icon_state = "obelisk_coral"
 	grid_height = 64
 	grid_width = 32
@@ -733,15 +733,15 @@
 
 /obj/item/carvedgem/coral/jaw
 	name = "shark jaw statue"
-	desc = "A statue of a shark's jaw carved out of aoetal. Its probably best if you don't touch the teeth."
+	desc = "A statue of a shark's jaw carved out of heartstone. Its probably best if you don't touch the teeth."
 	icon_state = "jaw_coral"
 	grid_height = 64
 	grid_width = 64
 	sellprice = 85
 
 /obj/item/carvedgem/coral/shark
-	name = "aoetal shark statue"
-	desc = "A statue of a shark carved out of aoetal. Some sailors believe them to be agents of Abyssor."
+	name = "heartstone shark statue"
+	desc = "A statue of a shark carved out of heartstone. Some sailors believe them to be agents of Abyssor."
 	icon_state = "shark_coral"
 	grid_height = 64
 	grid_width = 64

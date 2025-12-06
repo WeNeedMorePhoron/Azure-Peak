@@ -62,7 +62,7 @@
 	sellprice = 80
 
 /obj/item/kitchen/fork/carved/coral
-	name = "aoetal fork"
+	name = "heartstone fork"
 	icon_state = "fork_coral"
 	sellprice = 65
 

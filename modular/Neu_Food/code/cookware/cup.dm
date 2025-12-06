@@ -294,8 +294,8 @@
 	sellprice = 55
 
 /obj/item/reagent_containers/glass/cup/carved/coral
-	name = "aoetal cup"
-	desc = "A simple cup carved out of aoetal."
+	name = "heartstone cup"
+	desc = "A simple cup carved out of heartstone."
 	dropshrink = 1
 	icon_state = "cup_coral"
 	sellprice = 65
@@ -350,8 +350,8 @@
 	sellprice = 95
 
 /obj/item/reagent_containers/glass/cup/carved/coralfancy
-	name = "fancy aoetal cup"
-	desc = "A fancy cup carved out of aoetal."
+	name = "fancy heartstone cup"
+	desc = "A fancy cup carved out of heartstone."
 	dropshrink = 1
 	icon_state = "fancycup_coral"
 	sellprice = 75

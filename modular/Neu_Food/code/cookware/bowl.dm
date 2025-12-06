@@ -81,8 +81,8 @@
 
 
 /obj/item/reagent_containers/glass/bowl/carved/coral
-	name = "aoetal bowl"
-	desc = "A bowl carved out of aoetal."
+	name = "heartstone bowl"
+	desc = "A bowl carved out of heartstone."
 	icon_state = "bowl_coral"
 	sellprice = 65
 

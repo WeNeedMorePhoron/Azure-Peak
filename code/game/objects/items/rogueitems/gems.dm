@@ -130,8 +130,8 @@
 	sellprice = 5
 
 /obj/item/roguegem/coral
-	name = "aoetal"
-	desc = "Jagged like a hounds tooth. Aoetal is speculated to be the crystalized blood of fallen sailors. It is sacred to Abyssorians and is used in numerous Abyssorian rituals."
+	name = "heartstone"
+	desc = "Jagged like a hounds tooth. Heartstone is speculated to be the crystalized blood of fallen sailors. It is sacred to Abyssorians and is used in numerous Abyssorian rituals."
 	icon = 'icons/roguetown/gems/gem_coral.dmi'
 	icon_state = "raw_coral"
 	sellprice = 60

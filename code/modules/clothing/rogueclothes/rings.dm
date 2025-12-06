@@ -45,7 +45,7 @@
 	sellprice = 60
 
 /obj/item/clothing/ring/coral
-	name = "aoetal ring"
+	name = "heartstone ring"
 	icon_state = "ring_coral"
 	sellprice = 70
 

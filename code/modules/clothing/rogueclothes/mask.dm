@@ -668,9 +668,9 @@
 	sellprice = 30
 
 /obj/item/clothing/mask/rogue/facemask/carved/coralmask
-	name = "aoetal mask"
+	name = "heartstone mask"
 	icon_state = "mask_coral"
-	desc = "An aoetal mask that both conceals and protects the face."
+	desc = "An heartstone mask that both conceals and protects the face."
 	sellprice = 80
 
 /obj/item/clothing/mask/rogue/facemask/carved/ambermask

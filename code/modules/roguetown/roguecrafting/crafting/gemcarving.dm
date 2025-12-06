@@ -1061,7 +1061,7 @@
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/survival/coral/fork
-	name = "aoetal fork"
+	name = "heartstone fork"
 	category = "Gem Carving"
 	result = /obj/item/kitchen/fork/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1069,7 +1069,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/coral/spoon
-	name = "aoetal spoon"
+	name = "heartstone spoon"
 	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1077,7 +1077,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/coral/cameo
-	name = "aoetal cameo"
+	name = "heartstone cameo"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/cameo
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1085,7 +1085,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/coral/cup
-	name = "aoetal cup"
+	name = "heartstone cup"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1093,7 +1093,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/coral/bowl
-	name = "aoetal bowl"
+	name = "heartstone bowl"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1101,7 +1101,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/coral/figurine
-	name = "aoetal figurine"
+	name = "heartstone figurine"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/figurine
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1109,7 +1109,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/coral/fish
-	name = "aoetal fish figurine"
+	name = "heartstone fish figurine"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/fish
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1117,7 +1117,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/coral/vase
-	name = "aoetal vase"
+	name = "heartstone vase"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/vase
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1125,7 +1125,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/coral/tablet
-	name = "aoetal tablet"
+	name = "heartstone tablet"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/tablet
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1133,7 +1133,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/coral/teapot
-	name = "aoetal teapot"
+	name = "heartstone teapot"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotcoral
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1141,7 +1141,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/coral/platter
-	name = "aoetal platter"
+	name = "heartstone platter"
 	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1149,7 +1149,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/coral/amulet
-	name = "aoetal amulet"
+	name = "heartstone amulet"
 	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/coralamulet
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1157,7 +1157,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/coral/ring
-	name = "aoetal ring"
+	name = "heartstone ring"
 	category = "Gem Carving"
 	result = /obj/item/clothing/ring/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1165,7 +1165,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/coral/bust
-	name = "aoetal bust"
+	name = "heartstone bust"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/bust
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1173,7 +1173,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/coral/fancyvase
-	name = "fancy aoetal vase"
+	name = "fancy heartstone vase"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/fancyvase
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1181,7 +1181,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/coral/comb
-	name = "aoetal comb"
+	name = "heartstone comb"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/comb
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1189,7 +1189,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/coral/duck
-	name = "aoetal duck"
+	name = "heartstone duck"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/duck
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1197,7 +1197,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/coral/fancycup
-	name = "fancy aoetal cup"
+	name = "fancy heartstone cup"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/coralfancy
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1205,7 +1205,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/coral/circlet
-	name = "aoetal circlet"
+	name = "heartstone circlet"
 	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1213,7 +1213,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/coral/bracelet
-	name = "aoetal bracelets"
+	name = "heartstone bracelets"
 	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/coralbracelet
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1221,7 +1221,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/coral/mask
-	name = "aoetal mask"
+	name = "heartstone mask"
 	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/coralmask
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1229,7 +1229,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/coral/statue
-	name = "aoetal statue"
+	name = "heartstone statue"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/statue
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1237,7 +1237,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/coral/urn
-	name = "aoetal urn"
+	name = "heartstone urn"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/urn
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1245,7 +1245,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/coral/obelisk
-	name = "aoetal obelisk"
+	name = "heartstone obelisk"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/obelisk
 	reqs = list(/obj/item/roguegem/coral = 1)
@@ -1261,7 +1261,7 @@
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/survival/coral/shark
-	name = "aoetal shark statue"
+	name = "heartstone shark statue"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/shark
 	reqs = list(/obj/item/roguegem/coral = 1)

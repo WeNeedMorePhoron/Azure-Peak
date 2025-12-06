@@ -57,7 +57,7 @@
 	contains = list(/obj/item/roguegem/onyxa)
 
 /datum/supply_pack/rogue/gems/coral
-	name = "Aoetal"
+	name = "Heartstone"
 	cost = 96
 	contains = list(/obj/item/roguegem/coral)
 
