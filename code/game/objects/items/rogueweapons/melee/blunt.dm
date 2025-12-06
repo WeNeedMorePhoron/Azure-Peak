@@ -244,7 +244,7 @@
 	intent_intdamage_factor = 0.5	// Purposefully bad at damaging armor.
 	icon_state = "inbash"	// Wallop is too long for a button; placeholder.
 
-/obj/item/weapon/mace/cudgel/shellrungu
+/obj/item/rogueweapon/mace/cudgel/shellrungu
 	name = "shell rungu"
 	desc = "A ceremonial rungu carved out of clam shell. Not intended for combat. Its used in various Sea and Coastal Elven rituals and ceremonies."
 	icon = 'icons/roguetown/gems/gem_shell.dmi'

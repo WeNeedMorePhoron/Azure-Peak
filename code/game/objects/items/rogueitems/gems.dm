@@ -110,14 +110,14 @@
 
 /obj/item/roguegem/onyxa
 	name = "onyxa"
-	desc = "A piece of fossilized spider honey that glimmers in the dark. It was once prized by the Drow, but it's significance to their culture has long been replaced by the more common saffira."
+	desc = "A sinister, glimmering stone. Valuable to the drow, it is sometimes used in necromantic rituals. Mirrors made of this are said to never show your own face."
 	icon = 'icons/roguetown/gems/gem_onyxa.dmi'
 	icon_state = "raw_onyxa"
 	sellprice = 30
 
 /obj/item/roguegem/jade
 	name = "joapstone"
-	desc = "A dull green gem. Joapstone is valued in multiple humen cultures and is believed to bring good fortune."
+	desc = "A dull green gem. Joapstone is valuable among humens, and thought to bring good fortune.  Amulets carved from joapstone are sometimes worn by merchants and traders."
 	icon = 'icons/roguetown/gems/gem_jade.dmi'
 	icon_state = "raw_jade"
 	sellprice = 50
@@ -138,21 +138,21 @@
 
 /obj/item/roguegem/turq
 	name = "ceruleabaster"
-	desc = "A beautiful teal gem that is easily carved. It is prized by the Elves of Lakkari and is heavily associated with Necra. Ceruleabaster carvings often decorate Lakkarian tombs."
+	desc = "A beautiful teal gem that is easily carved. Beloved by mages, its remarkable clarity sees it used by the astrologer-mages of Naledi for divinatory purposes."
 	icon = 'icons/roguetown/gems/gem_turq.dmi'
 	icon_state = "raw_turq"
 	sellprice = 75
 
 /obj/item/roguegem/amber
 	name = "petriamber"
-	desc = "A chunk of fossilized mushroom that shines radiantly in sunlight. It's prized amongst Astratans."
+	desc = "A chunk of fossilized sunlight. Believed to have been shed during the shattering of the First Sun, its remnants are prized among Astratans. Raaneshi sometimes use fragments as currency, instead of mammon."
 	icon = 'icons/roguetown/gems/gem_amber.dmi'
 	icon_state = "raw_amber"
 	sellprice = 50
 
 /obj/item/roguegem/opal
 	name = "opaloise"
-	desc = "A dazzling gem that is remarkably valuable. Opaloise is widely speculated to be the crystallized essence left behind by rainbows, and is greatly prized by aboriginal Crimson Elves."
+	desc = "A dazzling gem that is remarkably valuable. Opaloise is widely speculated to be the crystallized essence left behind by rainbows."
 	icon = 'icons/roguetown/gems/gem_opal.dmi'
 	icon_state = "raw_opal"
 	sellprice = 80

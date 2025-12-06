@@ -678,7 +678,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	sellprice = 75
 
-/obj/item/weapon/knife/stone/opal
+/obj/item/rogueweapon/huntingknife/stoneknife/opalknife
 	name = "opaloise knife"
 	desc = "A beautiful knife carved out of opaloise. Its not intended for combat. It's presence is vital in some Crimson Elven ceremonies."
 	icon = 'icons/roguetown/gems/gem_opal.dmi'
