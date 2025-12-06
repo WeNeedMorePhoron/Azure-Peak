@@ -686,7 +686,7 @@
 	sellprice = 50
 
 /obj/item/clothing/mask/rogue/facemask/carved/opalmask
-	name = "opaloise mask"
+	name = "opal mask"
 	icon_state = "mask_opal"
-	desc = "An opaloise mask that both conceals and protects the face."
+	desc = "An opal mask that both conceals and protects the face."
 	sellprice = 100

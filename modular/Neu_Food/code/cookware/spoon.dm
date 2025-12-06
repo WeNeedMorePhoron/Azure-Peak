@@ -71,7 +71,7 @@
 	sellprice = 55
 
 /obj/item/kitchen/spoon/carved/opal
-	name = "opaloise spoon"
+	name = "opal spoon"
 	icon_state = "spoon_opal"
 	sellprice = 85
 

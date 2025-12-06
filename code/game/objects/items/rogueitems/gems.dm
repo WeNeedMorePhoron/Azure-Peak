@@ -117,7 +117,7 @@
 
 /obj/item/roguegem/jade
 	name = "jade"
-	desc = "A dull green gem. jade is valuable among humens, and thought to bring good fortune.  Amulets carved from jade are sometimes worn by merchants and traders."
+	desc = "A dull green gem. jade is valuable amongst the Lingyuese, who believes that jade were created by Psydon himself. "
 	icon = 'icons/roguetown/gems/gem_jade.dmi'
 	icon_state = "raw_jade"
 	sellprice = 50
@@ -151,8 +151,8 @@
 	sellprice = 50
 
 /obj/item/roguegem/opal
-	name = "opaloise"
-	desc = "A dazzling gem that is remarkably valuable. Opaloise is widely speculated to be the crystallized essence left behind by rainbows."
+	name = "opal"
+	desc = "A dazzling gem that is remarkably valuable. Opal is widely speculated to be the crystallized essence left behind by rainbows."
 	icon = 'icons/roguetown/gems/gem_opal.dmi'
 	icon_state = "raw_opal"
 	sellprice = 80

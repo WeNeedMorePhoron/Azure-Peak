@@ -315,8 +315,8 @@
 	sellprice = 15
 
 /obj/item/reagent_containers/glass/cup/carved/opal
-	name = "opaloise cup"
-	desc = "A simple cup carved out of opaloise."
+	name = "opal cup"
+	desc = "A simple cup carved out of opal."
 	dropshrink = 1
 	icon_state = "cup_opal"
 	sellprice = 85
@@ -343,8 +343,8 @@
 	sellprice = 90
 
 /obj/item/reagent_containers/glass/cup/carved/opalfancy
-	name = "fancy opaloise cup"
-	desc = "A fancy cup carved out of opaloise."
+	name = "fancy opal cup"
+	desc = "A fancy cup carved out of opal."
 	dropshrink = 1
 	icon_state = "fancycup_opal"
 	sellprice = 95

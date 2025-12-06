@@ -871,10 +871,10 @@
 	grid_width = 32
 	sellprice = 75
 
-// opaloise
+// opal
 
 /obj/item/carvedgem/opal
-	name = "opaloise base"
+	name = "opal base"
 	desc = "if you are seeing this, it's a bug, report it to coders"
 	icon = 'icons/roguetown/gems/gem_opal.dmi'
 	icon_state = "cutgem_opal"
@@ -882,104 +882,104 @@
 	grid_width = 32
 
 /obj/item/carvedgem/opal/cameo
-	name = "opaloise cameo"
-	desc = "A cameo carved out of opaloise depicting...someone? Use your imagination on who it could be."
+	name = "opal cameo"
+	desc = "A cameo carved out of opal depicting...someone? Use your imagination on who it could be."
 	icon_state = "cameo_opal"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 85
 
 /obj/item/carvedgem/opal/figurine
-	name = "opaloise figurine"
-	desc = "A small figurine carved out of opaloise."
+	name = "opal figurine"
+	desc = "A small figurine carved out of opal."
 	icon_state = "figurine_opal"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 90
 
 /obj/item/carvedgem/opal/fish
-	name = "opaloise fish figurine"
-	desc = "A small fish figurine carved out of opaloise."
+	name = "opal fish figurine"
+	desc = "A small fish figurine carved out of opal."
 	icon_state = "fish_opal"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 90
 
 /obj/item/carvedgem/opal/vase
-	name = "opaloise vase"
-	desc = "A vase carved out of opaloise."
+	name = "opal vase"
+	desc = "A vase carved out of opal."
 	icon_state = "vase_opal"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 90
 
 /obj/item/carvedgem/opal/tablet
-	name = "opaloise tablet"
-	desc = "A tablet carved out of opaloise."
+	name = "opal tablet"
+	desc = "A tablet carved out of opal."
 	icon_state = "tablet_opal"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 90
 
 /obj/item/carvedgem/opal/fancyvase
-	name = "fancy opaloise vase"
-	desc = "A fancy vase carved out of opaloise."
+	name = "fancy opal vase"
+	desc = "A fancy vase carved out of opal."
 	icon_state = "fancyvase_opal"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 95
 
 /obj/item/carvedgem/opal/bust
-	name = "opaloise bust"
-	desc = "A bust carved out of opaloise."
+	name = "opal bust"
+	desc = "A bust carved out of opal."
 	icon_state = "bust_opal"
 	grid_height = 64
 	grid_width = 64
 	sellprice = 95
 
 /obj/item/carvedgem/opal/comb
-	name = "opaloise comb"
-	desc = "A luxurious comb carved out of opaloise."
+	name = "opal comb"
+	desc = "A luxurious comb carved out of opal."
 	icon_state = "comb_opal"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 95
 
 /obj/item/carvedgem/opal/duck
-	name = "opaloise duck"
-	desc = "An adorable little duck carved out of opaloise."
+	name = "opal duck"
+	desc = "An adorable little duck carved out of opal."
 	icon_state = "duck_opal"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 95
 
 /obj/item/carvedgem/opal/obelisk
-	name = "opaloise obelisk"
-	desc = "An obelisk carved out of opaloise."
+	name = "opal obelisk"
+	desc = "An obelisk carved out of opal."
 	icon_state = "obelisk_opal"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 100
 
 /obj/item/carvedgem/opal/statue
-	name = "opaloise statue"
-	desc = "A statue carved out of opaloise."
+	name = "opal statue"
+	desc = "A statue carved out of opal."
 	icon_state = "statue_opal"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 100
 
 /obj/item/carvedgem/opal/urn
-	name = "opaloise urn"
-	desc = "A large decorative urn carved out of opaloise."
+	name = "opal urn"
+	desc = "A large decorative urn carved out of opal."
 	icon_state = "urn_opal"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 100
 
 /obj/item/carvedgem/opal/crab
-	name = "opaloise crab sculpture"
-	desc = "A large sculpture of a crab carved out of opaloise. Don't stick your fingers in its pincers, that's a terrible idea."
+	name = "opal crab sculpture"
+	desc = "A large sculpture of a crab carved out of opal. Don't stick your fingers in its pincers, that's a terrible idea."
 	icon_state = "crab_opal"
 	grid_height = 64
 	grid_width = 64

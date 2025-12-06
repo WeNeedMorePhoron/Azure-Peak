@@ -869,8 +869,8 @@
 	sellprice = 60
 
 /obj/item/clothing/neck/roguetown/carved/opalamulet
-	name = "opaloise amulet"
-	desc = "An amulet carved from opaloise."
+	name = "opal amulet"
+	desc = "An amulet carved from opal."
 	icon_state = "amulet_opal"
 	slot_flags = ITEM_SLOT_NECK
 	sellprice = 90

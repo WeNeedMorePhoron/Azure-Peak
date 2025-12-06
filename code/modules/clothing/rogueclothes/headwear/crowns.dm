@@ -85,7 +85,7 @@
 	sellprice = 75
 
 /obj/item/clothing/head/roguetown/circlet/opal
-	name = "opaloise circlet"
-	desc = "An ornate circlet carved out of opaloise."
+	name = "opal circlet"
+	desc = "An ornate circlet carved out of opal."
 	icon_state = "circlet_opal"
 	sellprice = 95

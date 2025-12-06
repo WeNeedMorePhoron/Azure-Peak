@@ -72,7 +72,7 @@
 	contains = list(/obj/item/roguegem/amber)
 
 /datum/supply_pack/rogue/gems/opal
-	name = "Opaloise"
+	name = "Opal"
 	cost = 128
 	contains = list(/obj/item/roguegem/opal)
 

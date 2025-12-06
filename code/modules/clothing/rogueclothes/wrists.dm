@@ -317,7 +317,7 @@
 	sellprice = 30
 
 /obj/item/clothing/wrists/roguetown/gem/opalbracelet
-	name = "opaloise bracelets"
-	desc = "A set of bracelets carved out of opaloise."
+	name = "opal bracelets"
+	desc = "A set of bracelets carved out of opal."
 	icon_state = "br_opal"
 	sellprice = 95

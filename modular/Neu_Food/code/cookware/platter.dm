@@ -180,8 +180,8 @@ What it does:
 	sellprice = 60
 
 /obj/item/cooking/platter/carved/opal
-	name = "opaloise platter"
-	desc = "A fancy platter carved out of opaloise."
+	name = "opal platter"
+	desc = "A fancy platter carved out of opal."
 	icon_state = "platter_opal"
 	sellprice = 90
 

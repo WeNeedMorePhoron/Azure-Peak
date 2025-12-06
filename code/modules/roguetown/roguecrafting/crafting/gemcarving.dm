@@ -1477,7 +1477,7 @@
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/survival/opal/spoon
-	name = "opaloise spoon"
+	name = "opal spoon"
 	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1485,7 +1485,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/opal/fork
-	name = "opaloise fork"
+	name = "opal fork"
 	category = "Gem Carving"
 	result = /obj/item/kitchen/fork/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1493,7 +1493,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/opal/cameo
-	name = "opaloise cameo"
+	name = "opal cameo"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/cameo
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1501,7 +1501,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/opal/bowl
-	name = "opaloise bowl"
+	name = "opal bowl"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1509,7 +1509,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/opal/cup
-	name = "opaloise cup"
+	name = "opal cup"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1517,7 +1517,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/opal/teapot
-	name = "opaloise teapot"
+	name = "opal teapot"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotopal
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1525,7 +1525,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/opal/platter
-	name = "opaloise platter"
+	name = "opal platter"
 	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1533,7 +1533,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/opal/ring
-	name = "opaloise ring"
+	name = "opal ring"
 	category = "Gem Carving"
 	result = /obj/item/clothing/ring/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1541,7 +1541,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/opal/amulet
-	name = "opaloise amulet"
+	name = "opal amulet"
 	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/opalamulet
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1549,7 +1549,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/opal/figurine
-	name = "opaloise figurine"
+	name = "opal figurine"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/figurine
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1557,7 +1557,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/opal/fish
-	name = "opaloise fish figurine"
+	name = "opal fish figurine"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/fish
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1565,7 +1565,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/opal/vase
-	name = "opaloise vase"
+	name = "opal vase"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/vase
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1573,7 +1573,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/opal/tablet
-	name = "opaloise tablet"
+	name = "opal tablet"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/tablet
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1581,7 +1581,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/opal/bracelet
-	name = "opaloise bracelets"
+	name = "opal bracelets"
 	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/opalbracelet
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1589,7 +1589,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/opal/circlet
-	name = "opaloise circlet"
+	name = "opal circlet"
 	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1597,7 +1597,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/opal/fancycup
-	name = "fancy opaloise cup"
+	name = "fancy opal cup"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/opalfancy
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1605,7 +1605,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/opal/bust
-	name = "opaloise bust"
+	name = "opal bust"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/bust
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1613,7 +1613,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/opal/fancyvase
-	name = "fancy opaloise vase"
+	name = "fancy opal vase"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/fancyvase
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1621,7 +1621,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/opal/comb
-	name = "opaloise comb"
+	name = "opal comb"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/comb
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1629,7 +1629,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/opal/duck
-	name = "opaloise duck"
+	name = "opal duck"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/duck
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1637,7 +1637,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/opal/mask
-	name = "opaloise mask"
+	name = "opal mask"
 	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/opalmask
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1645,7 +1645,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/opal/obelisk
-	name = "opaloise obelisk"
+	name = "opal obelisk"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/obelisk
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1653,7 +1653,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/opal/urn
-	name = "opaloise urn"
+	name = "opal urn"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/urn
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1661,7 +1661,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/opal/statue
-	name = "opaloise statue"
+	name = "opal statue"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/statue
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1669,7 +1669,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/opal/crab
-	name = "opaloise crab sculpture"
+	name = "opal crab sculpture"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/crab
 	reqs = list(/obj/item/roguegem/opal = 1)
@@ -1677,7 +1677,7 @@
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/survival/opal/knife
-	name = "opaloise knife"
+	name = "opal knife"
 	category = "Gem Carving"
 	result = /obj/item/rogueweapon/huntingknife/stoneknife/opalknife
 	reqs = list(/obj/item/roguegem/opal = 1)
