@@ -1,6 +1,6 @@
 /datum/crafting_recipe/roguetown/gemcarving
-    abstract_type = /datum/crafting_recipe/roguetown/gemcarving
-    skillcraft = /datum/skill/craft/masonry
+	abstract_type = /datum/crafting_recipe/roguetown/gemcarving
+	skillcraft = /datum/skill/craft/masonry
 	category = "Gem Carving"
 
 /datum/crafting_recipe/roguetown/gemcarving/jadefork
