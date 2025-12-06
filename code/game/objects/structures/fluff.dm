@@ -1092,6 +1092,8 @@
 		/obj/item/weapon/knife/stone/opal,
 		/obj/item/clothing/face/carved,
 		/obj/item/clothing/neck/carved,
+		/obj/item/kitchen/fork/carved,
+		/obj/item/kitchen/spoon/carved,
 		/obj/item/clothing/wrists/roguetown/gem,
 		/obj/item/reagent_containers/glass/bowl/carved,
 		/obj/item/reagent_containers/glass/bucket/pot/carved

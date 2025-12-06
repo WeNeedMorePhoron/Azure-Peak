@@ -265,7 +265,7 @@
 	force = 5
 	throwforce = 10
 
-/obj/item/reagent_containers/glass/cup/carved/jade
+/obj/item/reagent_containers/glass/cup/carved
 	name = "carved cup"
 	desc = "You shouldn't be seeing this."
 	dropshrink = 1

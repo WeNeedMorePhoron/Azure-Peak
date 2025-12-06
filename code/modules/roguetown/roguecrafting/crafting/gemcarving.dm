@@ -1,7 +1,7 @@
 /datum/crafting_recipe/roguetown/survival/jadefork
 	name = "joapstone fork"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/jade/fork
+	result = /obj/item/kitchen/fork/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -9,7 +9,7 @@
 /datum/crafting_recipe/roguetown/survival/jadespoon
 	name = "joapstone spoon"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/jade/spoon
+	result = /obj/item/kitchen/spoon/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -41,7 +41,7 @@
 /datum/crafting_recipe/roguetown/survival/jadeplatter
 	name = "joapstone platter"
 	category = "Gem Carving"
-	result = /obj/item/cooking/platter/jade
+	result = /obj/item/cooking/platter/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -232,7 +232,7 @@
 /datum/crafting_recipe/roguetown/survival/shell/fork
 	name = "shell fork"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/shell/fork
+	result = /obj/item/kitchen/fork/carved/shell
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -240,7 +240,7 @@
 /datum/crafting_recipe/roguetown/survival/shell/spoon
 	name = "shell spoon"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/shell/spoon
+	result = /obj/item/kitchen/spoon/carved/shell
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -272,7 +272,7 @@
 /datum/crafting_recipe/roguetown/survival/shell/platter
 	name = "shell platter"
 	category = "Gem Carving"
-	result = /obj/item/cooking/platter/shell
+	result = /obj/item/cooking/platter/carved/shell
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -439,7 +439,7 @@
 /datum/crafting_recipe/roguetown/survival/rose/spoon
 	name = "rosellusk spoon"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/rose/spoon
+	result = /obj/item/kitchen/spoon/carved/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -447,7 +447,7 @@
 /datum/crafting_recipe/roguetown/survival/rose/fork
 	name = "rosellusk fork"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/rose/fork
+	result = /obj/item/kitchen/fork/carved/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -535,7 +535,7 @@
 /datum/crafting_recipe/roguetown/survival/rose/platter
 	name = "rosellusk platter"
 	category = "Gem Carving"
-	result = /obj/item/cooking/platter/rose
+	result = /obj/item/cooking/platter/carved/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -647,7 +647,7 @@
 /datum/crafting_recipe/roguetown/survival/onyxa/fork
 	name = "onyxa fork"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/onyxa/fork
+	result = /obj/item/kitchen/fork/carved/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -655,7 +655,7 @@
 /datum/crafting_recipe/roguetown/survival/onyxa/spoon
 	name = "onyxa spoon"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/onyxa/spoon
+	result = /obj/item/kitchen/spoon/carved/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -743,7 +743,7 @@
 /datum/crafting_recipe/roguetown/survival/onyxa/platter
 	name = "onyxa platter"
 	category = "Gem Carving"
-	result = /obj/item/cooking/platter/onyxa
+	result = /obj/item/cooking/platter/carved/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -863,7 +863,7 @@
 /datum/crafting_recipe/roguetown/survival/turq/fork
 	name = "ceruleabaster fork"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/turq/fork
+	result = /obj/item/kitchen/fork/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -871,7 +871,7 @@
 /datum/crafting_recipe/roguetown/survival/turq/spoon
 	name = "ceruleabaster spoon"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/turq/spoon
+	result = /obj/item/kitchen/spoon/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -951,7 +951,7 @@
 /datum/crafting_recipe/roguetown/survival/turq/platter
 	name = "ceruleabaster platter"
 	category = "Gem Carving"
-	result = /obj/item/cooking/platter/turq
+	result = /obj/item/cooking/platter/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1063,7 +1063,7 @@
 /datum/crafting_recipe/roguetown/survival/coral/fork
 	name = "aoetal fork"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/coral/fork
+	result = /obj/item/kitchen/fork/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -1071,7 +1071,7 @@
 /datum/crafting_recipe/roguetown/survival/coral/spoon
 	name = "aoetal spoon"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/coral/spoon
+	result = /obj/item/kitchen/spoon/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -1143,7 +1143,7 @@
 /datum/crafting_recipe/roguetown/survival/coral/platter
 	name = "aoetal platter"
 	category = "Gem Carving"
-	result = /obj/item/cooking/platter/coral
+	result = /obj/item/cooking/platter/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1271,7 +1271,7 @@
 /datum/crafting_recipe/roguetown/survival/amber/spoon
 	name = "petriamber spoon"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/amber/spoon
+	result = /obj/item/kitchen/spoon/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -1279,7 +1279,7 @@
 /datum/crafting_recipe/roguetown/survival/amber/fork
 	name = "petriamber fork"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/amber/fork
+	result = /obj/item/kitchen/fork/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -1351,7 +1351,7 @@
 /datum/crafting_recipe/roguetown/survival/amber/platter
 	name = "petriamber platter"
 	category = "Gem Carving"
-	result = /obj/item/cooking/platter/amber
+	result = /obj/item/cooking/platter/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2
@@ -1479,7 +1479,7 @@
 /datum/crafting_recipe/roguetown/survival/opal/spoon
 	name = "opaloise spoon"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/opal/spoon
+	result = /obj/item/kitchen/spoon/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -1487,7 +1487,7 @@
 /datum/crafting_recipe/roguetown/survival/opal/fork
 	name = "opaloise fork"
 	category = "Gem Carving"
-	result = /obj/item/carvedgem/opal/fork
+	result = /obj/item/kitchen/fork/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 1
@@ -1527,7 +1527,7 @@
 /datum/crafting_recipe/roguetown/survival/opal/platter
 	name = "opaloise platter"
 	category = "Gem Carving"
-	result = /obj/item/cooking/platter/opal
+	result = /obj/item/cooking/platter/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = 2

@@ -32,22 +32,6 @@
 	grid_width = 32
 	sellprice = 5
 
-/obj/item/carvedgem/shell/fork
-	name = "shell fork"
-	desc = "A fork carved out of shell, far too delicate to eat with."
-	icon_state = "fork_shell"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 15
-
-/obj/item/carvedgem/shell/spoon
-	name = "shell spoon"
-	desc = "A spoon carved out of shell, far too delicate to eat with."
-	icon_state = "spoon_shell"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 15
-
 /obj/item/carvedgem/shell/cameo
 	name = "shell cameo"
 	desc = "A cameo carved out of shell depicting...someone? Use your imagination on who it could be."
@@ -168,22 +152,6 @@
 	grid_height = 32
 	grid_width = 32
 	sellprice = 15
-
-/obj/item/carvedgem/rose/fork
-	name = "rosellusk fork"
-	desc = "A fork carved out of rosellusk, far too delicate to eat with."
-	icon_state = "fork_rose"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 20
-
-/obj/item/carvedgem/rose/spoon
-	name = "rosellusk spoon"
-	desc = "A spoon carved out of rosellusk, far too delicate to eat with."
-	icon_state = "spoon_rose"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 20
 
 /obj/item/carvedgem/rose/cameo
 	name = "rosellusk cameo"
@@ -308,22 +276,6 @@
 	grid_height = 32
 	grid_width = 32
 
-/obj/item/carvedgem/jade/fork
-	name = "joapstone fork"
-	desc = "A fork carved out of joapstone, far too delicate to eat with."
-	icon_state = "fork_jade"
-	grid_height = 64
-	grid_width = 32
-	sellprice = 55
-
-/obj/item/carvedgem/jade/spoon
-	name = "joapstone spoon"
-	desc = "A spoon carved out of joapstone, far too delicate to eat with."
-	icon_state = "spoon_jade"
-	grid_height = 64
-	grid_width = 32
-	sellprice = 55
-
 /obj/item/carvedgem/jade/cameo
 	name = "joapstone cameo"
 	desc = "A cameo carved out of joapstone depicting...someone? Use your imagination on who it could be."
@@ -437,22 +389,6 @@
 	icon_state = "cutgem_onyxa"
 	grid_height = 32
 	grid_width = 32
-
-/obj/item/carvedgem/onyxa/fork
-	name = "onyxa fork"
-	desc = "A fork carved out of onyxa, far too delicate to eat with."
-	icon_state = "fork_onyxa"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 35
-
-/obj/item/carvedgem/onyxa/spoon
-	name = "onyxa spoon"
-	desc = "A spoon carved out of onyxa, far too delicate to eat with."
-	icon_state = "spoon_onyxa"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 35
 
 /obj/item/carvedgem/onyxa/cameo
 	name = "onyxa cameo"
@@ -575,22 +511,6 @@
 	icon_state = "cutgem_turq"
 	grid_height = 32
 	grid_width = 32
-
-/obj/item/carvedgem/turq/fork
-	name = "ceruleabaster fork"
-	desc = "A fork carved out of ceruleabaster, far too delicate to eat with."
-	icon_state = "fork_turq"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 80
-
-/obj/item/carvedgem/turq/spoon
-	name = "ceruleabaster spoon"
-	desc = "A spoon carved out of ceruleabaster, far too delicate to eat with."
-	icon_state = "spoon_turq"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 80
 
 /obj/item/carvedgem/turq/cameo
 	name = "ceruleabaster cameo"
@@ -715,22 +635,6 @@
 	grid_height = 32
 	grid_width = 32
 
-/obj/item/carvedgem/coral/fork
-	name = "aoetal fork"
-	desc = "A fork carved out of aoetal, far too delicate to eat with."
-	icon_state = "fork_coral"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 65
-
-/obj/item/carvedgem/coral/spoon
-	name = "aoetal spoon"
-	desc = "A spoon carved out of aoetal, far too delicate to eat with."
-	icon_state = "spoon_coral"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 65
-
 /obj/item/carvedgem/coral/cameo
 	name = "aoetal cameo"
 	desc = "A cameo carved out of aoetal depicting...someone? Use your imagination on who it could be.."
@@ -853,21 +757,7 @@
 	grid_height = 32
 	grid_width = 32
 
-/obj/item/carvedgem/amber/fork
-	name = "petriamber fork"
-	desc = "A fork carved out of petriamber, far too delicate to eat with."
-	icon_state = "fork_amber"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 55
 
-/obj/item/carvedgem/amber/spoon
-	name = "petriamber spoon"
-	desc = "A spoon carved out of petriamber, far too delicate to eat with."
-	icon_state= "spoon_amber"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 55
 
 /obj/item/carvedgem/amber/cameo
 	name = "petriamber cameo"
@@ -990,22 +880,6 @@
 	icon_state = "cutgem_opal"
 	grid_height = 32
 	grid_width = 32
-
-/obj/item/carvedgem/opal/fork
-	name = "opaloise fork"
-	desc = "A fork carved out of opaloise, far too delicate to eat with."
-	icon_state = "fork_opal"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 85
-
-/obj/item/carvedgem/opal/spoon
-	name = "opaloise spoon"
-	desc = "A spoon carved out of opaloise, far too delicate to eat with."
-	icon_state = "spoon_opal"
-	grid_height = 32
-	grid_width = 32
-	sellprice = 85
 
 /obj/item/carvedgem/opal/cameo
 	name = "opaloise cameo"
