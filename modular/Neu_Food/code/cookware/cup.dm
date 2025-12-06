@@ -322,8 +322,8 @@
 	sellprice = 85
 
 /obj/item/reagent_containers/glass/cup/carved/rose
-	name = "rosellusk cup"
-	desc = "A simple cup carved out of rosellusk."
+	name = "rosestone cup"
+	desc = "A simple cup carved out of rosestone."
 	dropshrink = 1
 	icon_state = "cup_rose"
 	sellprice = 20
@@ -371,8 +371,8 @@
 	sellprice = 25
 
 /obj/item/reagent_containers/glass/cup/carved/rosefancy
-	name = "fancy rosellusk cup"
-	desc = "A fancy cup carved out of rosellusk."
+	name = "fancy rosestone cup"
+	desc = "A fancy cup carved out of rosestone."
 	dropshrink = 1
 	icon_state = "fancycup_rose"
 	sellprice = 30

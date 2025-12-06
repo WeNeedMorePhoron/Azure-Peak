@@ -146,7 +146,7 @@
 	grid_width = 32
 
 /obj/item/carvedgem/rose/rawrose
-	name = "rosellusk"
+	name = "rosestone"
 	desc = "Pink and lustrous, these pearls produced by fossilized clamshells are valued by Eorans: and are usually gifted to expecting mothers and newlyweds."
 	icon_state = "raw_rose"
 	grid_height = 32
@@ -154,104 +154,104 @@
 	sellprice = 15
 
 /obj/item/carvedgem/rose/cameo
-	name = "rosellusk cameo"
-	desc = "A cameo carved out of rosellusk depicting...someone? Use your imagination on who it could be."
+	name = "rosestone cameo"
+	desc = "A cameo carved out of rosestone depicting...someone? Use your imagination on who it could be."
 	icon_state = "cameo_rose"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 20
 
 /obj/item/carvedgem/rose/figurine
-	name = "rosellusk figurine"
-	desc = "A small figurine carved out of rosellusk."
+	name = "rosestone figurine"
+	desc = "A small figurine carved out of rosestone."
 	icon_state = "figurine_rose"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 25
 
 /obj/item/carvedgem/rose/fish
-	name = "rosellusk fish figurine"
-	desc = "A small fish figurine carved out of rosellusk."
+	name = "rosestone fish figurine"
+	desc = "A small fish figurine carved out of rosestone."
 	icon_state = "fish_rose"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 25
 
 /obj/item/carvedgem/rose/vase
-	name = "rosellusk vase"
-	desc = "A vase carved out of rosellusk."
+	name = "rosestone vase"
+	desc = "A vase carved out of rosestone."
 	icon_state = "vase_rose"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 25
 
 /obj/item/carvedgem/rose/tablet
-	name = "rosellusk tablet"
-	desc = "A tablet carved out of rosellusk."
+	name = "rosestone tablet"
+	desc = "A tablet carved out of rosestone."
 	icon_state = "tablet_rose"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 25
 
 /obj/item/carvedgem/rose/bust
-	name = "rosellusk bust"
-	desc = "A bust carved out of rosellusk."
+	name = "rosestone bust"
+	desc = "A bust carved out of rosestone."
 	icon_state = "bust_rose"
 	grid_height = 64
 	grid_width = 64
 	sellprice = 30
 
 /obj/item/carvedgem/rose/fancyvase
-	name = "fancy rosellusk vase"
-	desc = "A fancy vase carved out of rosellusk."
+	name = "fancy rosestone vase"
+	desc = "A fancy vase carved out of rosestone."
 	icon_state = "fancyvase_rose"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 30
 
 /obj/item/carvedgem/rose/comb
-	name = "rosellusk comb"
-	desc = "A luxurious comb carved out of rosellusk."
+	name = "rosestone comb"
+	desc = "A luxurious comb carved out of rosestone."
 	icon_state = "comb_rose"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 30
 
 /obj/item/carvedgem/rose/duck
-	name = "rosellusk duck"
-	desc = "An adorable little duck carved out of rosellusk."
+	name = "rosestone duck"
+	desc = "An adorable little duck carved out of rosestone."
 	icon_state = "duck_rose"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 30
 
 /obj/item/carvedgem/rose/urn
-	name = "rosellusk urn"
-	desc = "A large decorative urn carve out of rosellusk."
+	name = "rosestone urn"
+	desc = "A large decorative urn carve out of rosestone."
 	icon_state = "urn_rose"
 	grid_height = 64
 	grid_width = 64
 	sellprice = 35
 
 /obj/item/carvedgem/rose/statue
-	name = "rosellusk statue"
-	desc = "A statue carved out of rosellusk."
+	name = "rosestone statue"
+	desc = "A statue carved out of rosestone."
 	icon_state = "statue_rose"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 35
 
 /obj/item/carvedgem/rose/obelisk
-	name = "rosellusk obelisk"
-	desc = "An obelisk carved out of rosellusk."
+	name = "rosestone obelisk"
+	desc = "An obelisk carved out of rosestone."
 	icon_state = "obelisk_rose"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 35
 
 /obj/item/carvedgem/rose/flower
-	name = "rosellusk flower carving"
-	desc = " A carving of a beautiful flower made out of rosellusk. Eora would be proud of such artistry."
+	name = "rosestone flower carving"
+	desc = " A carving of a beautiful flower made out of rosestone. Eora would be proud of such artistry."
 	icon_state = "flower_rose"
 	dropshrink = 0.8
 	grid_height = 64
@@ -259,8 +259,8 @@
 	sellprice = 40
 
 /obj/item/carvedgem/rose/carp
-	name = "rosellusk carp statue"
-	desc = "A medium-sized carving of a carp made out of rosellusk. The fish have been selectively bred by Eorans to bring out beautiful patterns in their scales, but have become invasive in some regions due to carelessness."
+	name = "rosestone carp statue"
+	desc = "A medium-sized carving of a carp made out of rosestone. The fish have been selectively bred by Eorans to bring out beautiful patterns in their scales, but have become invasive in some regions due to carelessness."
 	icon_state = "carp_rose"
 	grid_height = 64
 	grid_width = 64

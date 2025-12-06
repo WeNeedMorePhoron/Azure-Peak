@@ -61,8 +61,8 @@
 	sellprice = 25
 
 /obj/item/clothing/head/roguetown/circlet/rose
-	name = "rosellusk circlet"
-	desc = "An ornate circlet carved out of rosellusk."
+	name = "rosestone circlet"
+	desc = "An ornate circlet carved out of rosestone."
 	icon_state = "circlet_rose"
 	sellprice = 30
 

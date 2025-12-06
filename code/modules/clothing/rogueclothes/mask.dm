@@ -656,9 +656,9 @@
 	sellprice = 95
 
 /obj/item/clothing/mask/rogue/facemask/carved/rosemask
-	name = "rosellusk mask"
+	name = "rosestone mask"
 	icon_state = "mask_rose"
-	desc = "A rosellusk mask that both conceals and protects the face."
+	desc = "A rosestone mask that both conceals and protects the face."
 	sellprice = 35
 
 /obj/item/clothing/mask/rogue/facemask/carved/shellmask

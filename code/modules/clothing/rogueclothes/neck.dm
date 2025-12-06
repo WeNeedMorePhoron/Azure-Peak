@@ -876,8 +876,8 @@
 	sellprice = 90
 
 /obj/item/clothing/neck/roguetown/carved/roseamulet
-	name = "rosellusk amulet"
-	desc = "An amulet carved from rosellusk."
+	name = "rosestone amulet"
+	desc = "An amulet carved from rosestone."
 	icon_state = "amulet_rose"
 	slot_flags = ITEM_SLOT_NECK
 	sellprice = 25

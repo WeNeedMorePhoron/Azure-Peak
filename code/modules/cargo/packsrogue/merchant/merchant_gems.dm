@@ -77,6 +77,6 @@
 	contains = list(/obj/item/roguegem/opal)
 
 /datum/supply_pack/rogue/gems/rose
-	name = "Rosellusk"
+	name = "Rosestone"
 	cost = 24
 	contains = list(/obj/item/carvedgem/rose/rawrose)

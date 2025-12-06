@@ -311,8 +311,8 @@
 	sellprice = 25
 
 /obj/item/clothing/wrists/roguetown/gem/rosebracelet
-	name = "rosellusk bracelets"
-	desc = "A set of bracelets carved out of rosellusk."
+	name = "rosestone bracelets"
+	desc = "A set of bracelets carved out of rosestone."
 	icon_state = "br_rose"
 	sellprice = 30
 

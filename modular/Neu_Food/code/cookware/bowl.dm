@@ -56,8 +56,8 @@
 	sellprice = 35
 
 /obj/item/reagent_containers/glass/bowl/carved/rose
-	name = "rosellusk bowl"
-	desc = "A bowl carved out of rosellusk."
+	name = "rosestone bowl"
+	desc = "A bowl carved out of rosestone."
 	icon_state = "bowl_rose"
 	sellprice = 20
 

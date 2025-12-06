@@ -437,7 +437,7 @@
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/survival/rose/spoon
-	name = "rosellusk spoon"
+	name = "rosestone spoon"
 	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -445,7 +445,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/rose/fork
-	name = "rosellusk fork"
+	name = "rosestone fork"
 	category = "Gem Carving"
 	result = /obj/item/kitchen/fork/carved/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -453,7 +453,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/rose/cup
-	name = "rosellusk cup"
+	name = "rosestone cup"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -461,7 +461,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/rose/bowl
-	name = "rosellusk bowl"
+	name = "rosestone bowl"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -469,7 +469,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/rose/cameo
-	name = "rosellusk cameo"
+	name = "rosestone cameo"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/cameo
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -477,7 +477,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/rose/figurine
-	name = "rosellusk figurine"
+	name = "rosestone figurine"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/figurine
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -485,7 +485,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/rose/fish
-	name = "rosellusk fish figurine"
+	name = "rosestone fish figurine"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/fish
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -493,7 +493,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/rose/vase
-	name = "rosellusk vase"
+	name = "rosestone vase"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/vase
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -501,7 +501,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/rose/tablet
-	name = "rosellusk tablet"
+	name = "rosestone tablet"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/tablet
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -509,7 +509,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/rose/teapot
-	name = "rosellusk teapot"
+	name = "rosestone teapot"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotrose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -517,7 +517,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/rose/ring
-	name = "rosellusk ring"
+	name = "rosestone ring"
 	category = "Gem Carving"
 	result = /obj/item/clothing/ring/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -525,7 +525,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/rose/amulet
-	name = "rosellusk amulet"
+	name = "rosestone amulet"
 	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/roseamulet
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -533,7 +533,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/rose/platter
-	name = "rosellusk platter"
+	name = "rosestone platter"
 	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -541,7 +541,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/rose/bust
-	name = "rosellusk bust"
+	name = "rosestone bust"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/bust
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -549,7 +549,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/rose/fancyvase
-	name = "fancy rosellusk vase"
+	name = "fancy rosestone vase"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/fancyvase
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -557,7 +557,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/rose/comb
-	name = "rosellusk comb"
+	name = "rosestone comb"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/comb
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -565,7 +565,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/rose/duck
-	name = "rosellusk duck"
+	name = "rosestone duck"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/duck
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -573,7 +573,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/rose/bracelet
-	name = "rosellusk bracelets"
+	name = "rosestone bracelets"
 	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/rosebracelet
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -581,7 +581,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/rose/circlet
-	name = "rosellusk circlet"
+	name = "rosestone circlet"
 	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -589,7 +589,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/rose/fancycup
-	name = "fancy rosellusk cup"
+	name = "fancy rosestone cup"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/rosefancy
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -597,7 +597,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/rose/urn
-	name = "rosellusk urn"
+	name = "rosestone urn"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/urn
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -605,7 +605,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/rose/statue
-	name = "rosellusk statue"
+	name = "rosestone statue"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/statue
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -613,7 +613,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/rose/obelisk
-	name = "rosellusk obelisk"
+	name = "rosestone obelisk"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/obelisk
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -621,7 +621,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/rose/mask
-	name = "rosellusk mask"
+	name = "rosestone mask"
 	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/rosemask
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -629,7 +629,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/rose/flower
-	name = "rosellusk flower carving"
+	name = "rosestone flower carving"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/flower
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
@@ -637,7 +637,7 @@
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/survival/rose/carp
-	name = "rosellusk carp statue"
+	name = "rosestone carp statue"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/carp
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)

@@ -42,7 +42,7 @@
 	sellprice = 15
 	
 /obj/item/kitchen/fork/carved/rose
-	name = "rosellusk fork"
+	name = "rosestone fork"
 	icon_state = "fork_rose"
 	sellprice = 20
 

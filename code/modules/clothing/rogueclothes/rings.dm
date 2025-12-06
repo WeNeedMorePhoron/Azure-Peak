@@ -70,7 +70,7 @@
 	sellprice = 85
 
 /obj/item/clothing/ring/rose
-	name = "rosellusk ring"
+	name = "rosestone ring"
 	icon_state = "ring_rose"
 	sellprice = 25
 

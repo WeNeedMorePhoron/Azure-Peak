@@ -168,8 +168,8 @@ What it does:
 	sellprice = 20
 
 /obj/item/cooking/platter/carved/rose
-	name = "rosellusk platter"
-	desc = "A fancy platter carved out of rosellusk."
+	name = "rosestone platter"
+	desc = "A fancy platter carved out of rosestone."
 	icon_state = "platter_rose"
 	sellprice = 25
 
