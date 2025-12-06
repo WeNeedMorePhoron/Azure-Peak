@@ -1,5 +1,5 @@
 /datum/crafting_recipe/roguetown/survival/jadefork
-	name = "joapstone fork"
+	name = "jade fork"
 	category = "Gem Carving"
 	result = /obj/item/kitchen/fork/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -7,7 +7,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/jadespoon
-	name = "joapstone spoon"
+	name = "jade spoon"
 	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -15,7 +15,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/jadecameo
-	name = "joapstone cameo"
+	name = "jade cameo"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/cameo
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -23,7 +23,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/jadebowl
-	name = "joapstone bowl"
+	name = "jade bowl"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -31,7 +31,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/jadecup
-	name = "joapstone cup"
+	name = "jade cup"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -39,7 +39,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/jadeplatter
-	name = "joapstone platter"
+	name = "jade platter"
 	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -47,7 +47,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/jadering
-	name = "joapstone ring"
+	name = "jade ring"
 	category = "Gem Carving"
 	result = /obj/item/clothing/ring/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -55,7 +55,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/jadeamulet
-	name = "joapstone amulet"
+	name = "jade amulet"
 	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/jadeamulet
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -63,7 +63,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/jadevase
-	name = "joapstone vase"
+	name = "jade vase"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/vase
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -71,7 +71,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/jadefigurine
-	name = "joapstone figurine"
+	name = "jade figurine"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/figurine
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -79,7 +79,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/jade/fish
-	name = "joapstone fish figurine"
+	name = "jade fish figurine"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/fish
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -87,7 +87,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/jade/tablet
-	name = "joapstone tablet"
+	name = "jade tablet"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/tablet
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -95,7 +95,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/jade/teapot
-	name = "joapstone teapot"
+	name = "jade teapot"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotjade
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -103,7 +103,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/jade/bust
-	name = "joapstone bust"
+	name = "jade bust"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/bust
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -111,7 +111,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/jade/fancyvase
-	name = "fancy joapstone vase"
+	name = "fancy jade vase"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/fancyvase
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -119,7 +119,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/jade/comb
-	name = "joapstone comb"
+	name = "jade comb"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/comb
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -127,7 +127,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/jade/duck
-	name = "joapstone duck"
+	name = "jade duck"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/duck
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -135,7 +135,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/jade/bracelet
-	name = "joapstone bracelets"
+	name = "jade bracelets"
 	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/jadebracelet
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -143,7 +143,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/jade/circlet
-	name = "joapstone circlet"
+	name = "jade circlet"
 	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -151,7 +151,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/jade/fancycup
-	name = "fancy joapstone cup"
+	name = "fancy jade cup"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/jadefancy
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -159,7 +159,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/jade/mask
-	name = "joapstone mask"
+	name = "jade mask"
 	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/jademask
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -167,7 +167,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/jade/urn
-	name = "joapstone urn"
+	name = "jade urn"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/urn
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -175,7 +175,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/jade/statue
-	name = "joapstone statue"
+	name = "jade statue"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/statue
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -183,7 +183,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/jade/obelisk
-	name = "joapstone obelisk"
+	name = "jade obelisk"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/obelisk
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -191,7 +191,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/jade/wyrm
-	name = "joapstone wyrm"
+	name = "jade wyrm"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/wyrm
 	reqs = list(/obj/item/roguegem/jade = 1)
@@ -200,7 +200,7 @@
 
 
 /datum/crafting_recipe/roguetown/survival/jade/kukri
-	name = "joapstone kukri"
+	name = "jade kukri"
 	category = "Gem Carving"
 	result = /obj/item/rogueweapon/huntingknife/stoneknife/kukri
 	reqs = list(/obj/item/roguegem/jade = 1)

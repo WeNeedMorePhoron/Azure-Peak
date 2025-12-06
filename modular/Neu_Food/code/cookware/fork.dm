@@ -47,7 +47,7 @@
 	sellprice = 20
 
 /obj/item/kitchen/fork/carved/jade
-	name = "joapstone fork"
+	name = "jade fork"
 	icon_state = "fork_jade"
 	sellprice = 55
 

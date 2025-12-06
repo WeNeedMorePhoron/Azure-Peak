@@ -266,10 +266,10 @@
 	grid_width = 64
 	sellprice = 40
 
-//.....................Joapstone......................//
+//.....................jade......................//
 
 /obj/item/carvedgem/jade
-	name = "joapstone base"
+	name = "jade base"
 	desc =  "if you are seeing this, it's a bug, report it to coders"
 	icon = 'icons/roguetown/gems/gem_jade.dmi'
 	icon_state = "cutgem_jade"
@@ -277,104 +277,104 @@
 	grid_width = 32
 
 /obj/item/carvedgem/jade/cameo
-	name = "joapstone cameo"
-	desc = "A cameo carved out of joapstone depicting...someone? Use your imagination on who it could be."
+	name = "jade cameo"
+	desc = "A cameo carved out of jade depicting...someone? Use your imagination on who it could be."
 	icon_state = "cameo_jade"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 55
 
 /obj/item/carvedgem/jade/figurine
-	name = "joapstone figurine"
-	desc = "A small figurine carved out of joapstone."
+	name = "jade figurine"
+	desc = "A small figurine carved out of jade."
 	icon_state = "figurine_jade"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 60
 
 /obj/item/carvedgem/jade/fish
-	name = "joapstone fish figurine"
-	desc = "A small fish figurine carved out of joapstone."
+	name = "jade fish figurine"
+	desc = "A small fish figurine carved out of jade."
 	icon_state = "fish_jade"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 60
 
 /obj/item/carvedgem/jade/tablet
-	name = "joapstone tablet"
-	desc = "A tablet carved out of joapstone."
+	name = "jade tablet"
+	desc = "A tablet carved out of jade."
 	icon_state = "tablet_jade"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 60
 
 /obj/item/carvedgem/jade/vase
-	name = "joapstone vase"
-	desc = "A vase carved out of joapstone."
+	name = "jade vase"
+	desc = "A vase carved out of jade."
 	icon_state = "vase_jade"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 60
 
 /obj/item/carvedgem/jade/bust
-	name = "joapstone bust"
-	desc = "A bust carved out of joapstone."
+	name = "jade bust"
+	desc = "A bust carved out of jade."
 	icon_state = "bust_jade"
 	grid_height = 64
 	grid_width = 64
 	sellprice = 65
 
 /obj/item/carvedgem/jade/fancyvase
-	name = "fancy joapstone vase"
-	desc = "A fancy vase carved out of joapstone."
+	name = "fancy jade vase"
+	desc = "A fancy vase carved out of jade."
 	icon_state = "fancyvase_jade"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 65
 
 /obj/item/carvedgem/jade/comb
-	name = "joapstone comb"
-	desc = "A luxurious comb carved out of joapstone."
+	name = "jade comb"
+	desc = "A luxurious comb carved out of jade."
 	icon_state = "comb_jade"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 65
 
 /obj/item/carvedgem/jade/duck
-	name = "joapstone duck"
-	desc = "An adorable little duck carved out of joapstone."
+	name = "jade duck"
+	desc = "An adorable little duck carved out of jade."
 	icon_state = "duck_jade"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 65
 
 /obj/item/carvedgem/jade/urn
-	name = "joapstone urn"
-	desc = "A large decorative urn carved out of joapstone."
+	name = "jade urn"
+	desc = "A large decorative urn carved out of jade."
 	icon_state = "urn_jade"
 	grid_height = 64
 	grid_width = 64
 	sellprice = 70
 
 /obj/item/carvedgem/jade/statue
-	name = "joapstone statue"
-	desc = "A statue carved out of joapstone."
+	name = "jade statue"
+	desc = "A statue carved out of jade."
 	icon_state = "statue_jade"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 70
 
 /obj/item/carvedgem/jade/obelisk
-	name = "joapstone obelisk"
-	desc = "An obelisk carved out of joapstone."
+	name = "jade obelisk"
+	desc = "An obelisk carved out of jade."
 	icon_state = "obelisk_jade"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 70
 
 /obj/item/carvedgem/jade/wyrm
-	name = "joapstone wyrm"
-	desc = "A large sculpture of a wyrm made out of joapstone. Few wyrms remain in Faience, but their legacies continue to live on in the art of humens."
+	name = "jade wyrm"
+	desc = "A large sculpture of a wyrm made out of jade. Few wyrms remain in Faience, but their legacies continue to live on in the art of humens."
 	icon_state = "dragon_jade"
 	grid_height = 64
 	grid_width = 32

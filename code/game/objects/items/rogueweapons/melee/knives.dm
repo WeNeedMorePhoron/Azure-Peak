@@ -668,8 +668,8 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/rogueweapon/huntingknife/stoneknife/kukri
-	name = "joapstone kukri"
-	desc = "A kukri made out of joapstone. Its more of a ceremonial piece than it is an implement of war, its somewhat fragile. Be gentle with it."
+	name = "jade kukri"
+	desc = "A kukri made out of jade. Its more of a ceremonial piece than it is an implement of war, its somewhat fragile. Be gentle with it."
 	icon = 'icons/roguetown/gems/gem_jade.dmi'
 	icon_state = "kukri_jade"
 	max_integrity = 75

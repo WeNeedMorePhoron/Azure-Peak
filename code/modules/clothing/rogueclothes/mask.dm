@@ -627,7 +627,7 @@
 	blocksound = PLATEHIT
 	break_sound = 'sound/foley/breaksound.ogg'
 	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
-	armor = ARMOR_MASK_METAL
+	armor = ARMOR_PLATE
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT)
 	flags_inv = HIDEFACE
 	body_parts_covered = FACE
@@ -638,15 +638,15 @@
 	sellprice = 70
 
 /obj/item/clothing/mask/rogue/facemask/carved/jademask
-	name = "joapstone mask "
+	name = "jade mask "
 	icon_state = "mask_jade"
-	desc = "A joapstone mask that both conceals and protects the face."
+	desc = "A jade mask that both conceals and protects the face."
 	sellprice = 70
 
 /obj/item/clothing/mask/rogue/facemask/carved/jademask
-	name = "joapstone mask"
+	name = "jade mask"
 	icon_state = "mask_jade"
-	desc = "A joapstone mask that both conceals and protects the face."
+	desc = "A jade mask that both conceals and protects the face."
 	sellprice = 70
 
 /obj/item/clothing/mask/rogue/facemask/carved/turqmask

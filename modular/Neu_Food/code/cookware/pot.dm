@@ -86,8 +86,8 @@
 	sellprice = 0
 
 /obj/item/reagent_containers/glass/bucket/pot/carved/teapotjade
-	name = "joapstone teapot"
-	desc = "A dainty teapot carved out of joapstone."
+	name = "jade teapot"
+	desc = "A dainty teapot carved out of jade."
 	icon_state = "teapot_jade"
 	fill_icon_thresholds = null
 	dropshrink = 1.0

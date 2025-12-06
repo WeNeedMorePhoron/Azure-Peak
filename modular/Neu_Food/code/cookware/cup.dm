@@ -273,8 +273,8 @@
 	sellprice = 0
 
 /obj/item/reagent_containers/glass/cup/carved/jade
-	name = "joapstone cup"
-	desc = "A simple cup carved out of joapstone."
+	name = "jade cup"
+	desc = "A simple cup carved out of jade."
 	dropshrink = 1
 	icon_state = "cup_jade"
 	sellprice = 55
@@ -329,8 +329,8 @@
 	sellprice = 20
 
 /obj/item/reagent_containers/glass/cup/carved/jadefancy
-	name = "fancy joapstone cup"
-	desc = "A fancy cup carved out of joapstone."
+	name = "fancy jade cup"
+	desc = "A fancy cup carved out of jade."
 	dropshrink = 1
 	icon_state = "fancycup_jade"
 	sellprice = 65

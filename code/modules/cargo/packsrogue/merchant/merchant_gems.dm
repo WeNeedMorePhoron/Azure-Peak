@@ -47,7 +47,7 @@
 //Gemcarving gems. Currently following the 1.6x sell price of the gem format.  This currently makes most gems generally a loss, or at least only minorly profitable, to buy, carve, resell
 
 /datum/supply_pack/rogue/gems/jade
-	name = "Joapstone"
+	name = "jade"
 	cost = 80
 	contains = list(/obj/item/roguegem/jade)
 

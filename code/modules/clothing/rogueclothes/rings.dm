@@ -34,8 +34,13 @@
 	icon_state = "ring_g"
 	sellprice = 45
 
+/obj/item/clothing/ring/blacksteel
+	name = "blacksteel ring"
+	icon_state = "ring_bs"
+	sellprice = 70
+
 /obj/item/clothing/ring/jade
-	name = "joapstone ring"
+	name = "jade ring"
 	icon_state = "ring_jade"
 	sellprice = 60
 

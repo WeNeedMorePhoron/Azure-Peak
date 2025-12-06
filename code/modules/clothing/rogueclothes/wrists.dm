@@ -275,8 +275,8 @@
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_gembracelet.dmi'
 
 /obj/item/clothing/wrists/roguetown/gem/jadebracelet
-	name = "joapstone bracelets"
-	desc = "A set of bracelets carved out of joapstone."
+	name = "jade bracelets"
+	desc = "A set of bracelets carved out of jade."
 	icon_state = "br_jade"
 	sellprice = 65
 

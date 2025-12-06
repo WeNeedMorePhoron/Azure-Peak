@@ -116,8 +116,8 @@
 	sellprice = 30
 
 /obj/item/roguegem/jade
-	name = "joapstone"
-	desc = "A dull green gem. Joapstone is valuable among humens, and thought to bring good fortune.  Amulets carved from joapstone are sometimes worn by merchants and traders."
+	name = "jade"
+	desc = "A dull green gem. jade is valuable among humens, and thought to bring good fortune.  Amulets carved from jade are sometimes worn by merchants and traders."
 	icon = 'icons/roguetown/gems/gem_jade.dmi'
 	icon_state = "raw_jade"
 	sellprice = 50
