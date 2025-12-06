@@ -841,8 +841,8 @@
 	sellprice = 60
 
 /obj/item/clothing/neck/roguetown/carved/turqamulet
-	name = "ceruleabaster amulet"
-	desc = "An amulet carved from ceruleabaster."
+	name = "cerulite amulet"
+	desc = "An amulet carved from cerulite."
 	icon_state = "amulet_turq"
 	slot_flags = ITEM_SLOT_NECK
 	sellprice = 85
@@ -862,8 +862,8 @@
 	sellprice = 70
 
 /obj/item/clothing/neck/roguetown/carved/amberamulet
-	name = "petriamber amulet"
-	desc = "An amulet carved from petriamber."
+	name = "amber amulet"
+	desc = "An amulet carved from amber."
 	icon_state = "amulet_amber"
 	slot_flags = ITEM_SLOT_NECK
 	sellprice = 60

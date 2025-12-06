@@ -49,8 +49,8 @@
 	sellprice = 65
 
 /obj/item/clothing/head/roguetown/circlet/amber
-	name = "petriamber circlet"
-	desc = "An ornate circlet carved out of petriamber."
+	name = "amber circlet"
+	desc = "An ornate circlet carved out of amber."
 	icon_state = "circlet_amber"
 	sellprice = 65
 
@@ -67,8 +67,8 @@
 	sellprice = 30
 
 /obj/item/clothing/head/roguetown/circlet/turq
-	name = "ceruleabaster circlet"
-	desc = "An ornate circlet carved out of ceruleabaster."
+	name = "cerulite circlet"
+	desc = "An ornate circlet carved out of cerulite."
 	icon_state = "circlet_turq"
 	sellprice = 90
 

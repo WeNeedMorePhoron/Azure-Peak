@@ -266,7 +266,7 @@
 	grid_width = 64
 	sellprice = 40
 
-//.....................jade......................//
+//.....................Jade......................//
 
 /obj/item/carvedgem/jade
 	name = "jade base"
@@ -502,10 +502,10 @@
 	grid_width = 32
 	sellprice = 55
 
-//.....................Ceruleabaster......................//
+//.....................Cerulite......................//
 
 /obj/item/carvedgem/turq
-	name = "ceruleabaster base"
+	name = "cerulite base"
 	desc = "if you are seeing this, it's a bug, report it to coders"
 	icon = 'icons/roguetown/gems/gem_turq.dmi'
 	icon_state = "cutgem_turq"
@@ -513,103 +513,103 @@
 	grid_width = 32
 
 /obj/item/carvedgem/turq/cameo
-	name = "ceruleabaster cameo"
-	desc = "A cameo carved out of ceruleabaster depicting...someone? Use your imagination on who it could be."
+	name = "cerulite cameo"
+	desc = "A cameo carved out of cerulite depicting...someone? Use your imagination on who it could be."
 	icon_state = "cameo_turq"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 80
 
 /obj/item/carvedgem/turq/figurine
-	name = "ceruleabaster figurine"
-	desc = "A small figurine carved out of ceruleabaster."
+	name = "cerulite figurine"
+	desc = "A small figurine carved out of cerulite."
 	icon_state = "figurine_turq"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 85
 
 /obj/item/carvedgem/turq/fish
-	name = "ceruleabaster fish figurine"
-	desc = "A small fish figurine carved out of ceruleabaster."
+	name = "cerulite fish figurine"
+	desc = "A small fish figurine carved out of cerulite."
 	icon_state = "fish_turq"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 85
 
 /obj/item/carvedgem/turq/vase
-	name = "ceruleabaster vase"
-	desc = "A vase carved out of ceruleabaster."
+	name = "cerulite vase"
+	desc = "A vase carved out of cerulite."
 	icon_state = "vase_turq"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 85
 
 /obj/item/carvedgem/turq/tablet
-	name = "ceruleabaster tablet"
-	desc = "A tablet carved out of ceruleabaster."
+	name = "cerulite tablet"
+	desc = "A tablet carved out of cerulite."
 	icon_state = "tablet_turq"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 85
 
 /obj/item/carvedgem/turq/bust
-	name = "ceruleabaster bust"
-	desc = "A bust carved out of ceruleabaster."
+	name = "cerulite bust"
+	desc = "A bust carved out of cerulite."
 	icon_state = "bust_turq"
 	grid_height = 64
 	grid_width = 64
 	sellprice = 90
 
 /obj/item/carvedgem/turq/fancyvase
-	name = "fancy ceruleabaster vase"
-	desc = "A fancy vase carved out of ceruleabaster."
+	name = "fancy cerulite vase"
+	desc = "A fancy vase carved out of cerulite."
 	icon_state = "fancyvase_turq"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 90
 
 /obj/item/carvedgem/turq/comb
-	name = "ceruleabaster comb"
-	desc = "A luxurious comb carved out of ceruleabaster."
+	name = "cerulite comb"
+	desc = "A luxurious comb carved out of cerulite."
 	icon_state = "comb_turq"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 90
 
 /obj/item/carvedgem/turq/duck
-	name = "ceruleabaster duck"
-	desc = "An adorable little duck carved out of ceruleabaster."
+	name = "cerulite duck"
+	desc = "An adorable little duck carved out of cerulite."
 	icon_state = "duck_turq"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 90
 
 /obj/item/carvedgem/turq/urn
-	name = "ceruleabaster urn"
-	desc = "A large decorative urn carved out of ceruleabaster."
+	name = "cerulite urn"
+	desc = "A large decorative urn carved out of cerulite."
 	icon_state = "urn_turq"
 	grid_height = 64
 	grid_width = 64
 	sellprice = 95
 
 /obj/item/carvedgem/turq/statue
-	name = "ceruleabaster statue"
-	desc = "A statue carved out of ceruleabaster."
+	name = "cerulite statue"
+	desc = "A statue carved out of cerulite."
 	icon_state = "statue_turq"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 95
 
 /obj/item/carvedgem/turq/obelisk
-	name = "ceruleabaster obelisk"
-	desc = "An obelisk carved out of ceruleabaster."
+	name = "cerulite obelisk"
+	desc = "An obelisk carved out of cerulite."
 	icon_state = "obelisk_turq"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 95
 
 /obj/item/carvedgem/turq/ka
-	name = "ceruleabaster ka statue"
+	name = "cerulite ka statue"
 	desc = "A large carving of a ka spirit from Lakkarian myth. Believed to help guide the recently parted to Necra's domain."
 	icon_state = "ka_turq"
 	grid_height = 64
@@ -617,8 +617,8 @@
 	sellprice = 100
 
 /obj/item/carvedgem/turq/scarab
-	name = "ceruleabaster scarab"
-	desc = "A large carving of a scarab made out of ceruleabaster. An insect sacred to Lakkarians. Scarabs are commonly seen at Lakkarian temples and mastabas."
+	name = "cerulite scarab"
+	desc = "A large carving of a scarab made out of cerulite. An insect sacred to Lakkarians. Scarabs are commonly seen at Lakkarian temples and mastabas."
 	icon_state = "scarab_turq"
 	dropshrink = 0.8
 	grid_height = 64
@@ -747,10 +747,10 @@
 	grid_width = 64
 	sellprice = 85
 
-// petriamber //
+// amber //
 
 /obj/item/carvedgem/amber
-	name = "petriamber base"
+	name = "amber base"
 	desc = "if you are seeing this, it's a bug, report it to coders"
 	icon = 'icons/roguetown/gems/gem_amber.dmi'
 	icon_state = "cutgem_amber"
@@ -760,112 +760,112 @@
 
 
 /obj/item/carvedgem/amber/cameo
-	name = "petriamber cameo"
-	desc = "A cameo carved out of petriamber depicting... someone? Use your imagination on who it could be..."
+	name = "amber cameo"
+	desc = "A cameo carved out of amber depicting... someone? Use your imagination on who it could be..."
 	icon_state = "cameo_amber"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 55
 
 /obj/item/carvedgem/amber/figurine
-	name = "petriamber figurine"
-	desc = "A small figurine carved out of petriamber."
+	name = "amber figurine"
+	desc = "A small figurine carved out of amber."
 	icon_state = "figurine_amber"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 60
 
 /obj/item/carvedgem/amber/fish
-	name = "petriamber fish figurine"
-	desc = "A small fish figurine carved out of petriamber."
+	name = "amber fish figurine"
+	desc = "A small fish figurine carved out of amber."
 	icon_state = "fish_amber"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 60
 
 /obj/item/carvedgem/amber/tablet
-	name = "petriamber tablet"
-	desc = "A tablet carved out of petriamber."
+	name = "amber tablet"
+	desc = "A tablet carved out of amber."
 	icon_state = "tablet_amber"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 60
 
 /obj/item/carvedgem/amber/vase
-	name = "petriamber vase"
-	desc = "A vase carved out of petriamber."
+	name = "amber vase"
+	desc = "A vase carved out of amber."
 	icon_state = "vase_amber"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 60
 
 /obj/item/carvedgem/amber/bust
-	name = "petriamber bust"
-	desc = "A bust carved out of petriamber."
+	name = "amber bust"
+	desc = "A bust carved out of amber."
 	icon_state = "bust_amber"
 	grid_height = 64
 	grid_width = 64
 	sellprice = 65
 
 /obj/item/carvedgem/amber/fancyvase
-	name = "fancy petriamber vase"
-	desc = "A fancy vase carved out of petriamber."
+	name = "fancy amber vase"
+	desc = "A fancy vase carved out of amber."
 	icon_state= "fancyvase_amber"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 65
 
 /obj/item/carvedgem/amber/comb
-	name = "petriamber comb"
-	desc = "A luxurious comb carved out of petriamber."
+	name = "amber comb"
+	desc = "A luxurious comb carved out of amber."
 	icon_state = "comb_amber"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 65
 
 /obj/item/carvedgem/amber/duck
-	name = "petriamber duck"
-	desc = "An adorable little duck carved out of petriamber."
+	name = "amber duck"
+	desc = "An adorable little duck carved out of amber."
 	icon_state = "duck_amber"
 	grid_height = 32
 	grid_width = 32
 	sellprice = 65
 
 /obj/item/carvedgem/amber/urn
-	name = "petriamber urn"
-	desc = "A large decorative urn carved out of petriamber."
+	name = "amber urn"
+	desc = "A large decorative urn carved out of amber."
 	icon_state = "urn_amber"
 	grid_height = 64
 	grid_width = 64
 	sellprice = 70
 
 /obj/item/carvedgem/amber/statue
-	name = "petriamber statue"
-	desc = "A statue carved out of petriamber."
+	name = "amber statue"
+	desc = "A statue carved out of amber."
 	icon_state = "statue_amber"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 70
 
 /obj/item/carvedgem/amber/obelisk
-	name = "petriamber obelisk"
-	desc = "An obelisk carved out of petriamber."
+	name = "amber obelisk"
+	desc = "An obelisk carved out of amber."
 	icon_state = "obelisk_amber"
 	grid_height = 64
 	grid_width = 32
 	sellprice = 70
 
 /obj/item/carvedgem/amber/beaver
-	name = "petriamber beaver statue"
-	desc = "A medium-sized carving of a beaver made out of petriamber. Beavers known to build dams and congregate around shipwrecks. Some sailors consider them to be a bad omen."
+	name = "amber beaver statue"
+	desc = "A medium-sized carving of a beaver made out of amber. Beavers known to build dams and congregate around shipwrecks. Some sailors consider them to be a bad omen."
 	icon_state = "beaver_amber"
 	grid_height = 64
 	grid_width = 64
 	sellprice = 75
 
 /obj/item/carvedgem/amber/sun
-	name = "petriamber sun carving"
-	desc = "A shining sun carved out of petriamber. This would look nice on a church altar."
+	name = "amber sun carving"
+	desc = "A shining sun carved out of amber. This would look nice on a church altar."
 	icon_state = "sun_amber"
 	grid_height = 32
 	grid_width = 32

@@ -56,7 +56,7 @@
 	sellprice = 35
 
 /obj/item/kitchen/spoon/carved/turq
-	name = "ceruleabaster spoon"
+	name = "cerulite spoon"
 	icon_state = "spoon_turq"
 	sellprice = 80
 
@@ -66,7 +66,7 @@
 	sellprice = 65
 
 /obj/item/kitchen/spoon/carved/amber
-	name = "petriamber spoon"
+	name = "amber spoon"
 	icon_state= "spoon_amber"
 	sellprice = 55
 

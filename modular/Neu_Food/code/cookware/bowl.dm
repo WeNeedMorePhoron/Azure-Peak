@@ -62,14 +62,14 @@
 	sellprice = 20
 
 /obj/item/reagent_containers/glass/bowl/carved/amber
-	name = "petriamber bowl"
-	desc = "A bowl carved out of petriamber."
+	name = "amber bowl"
+	desc = "A bowl carved out of amber."
 	icon_state = "bowl_amber"
 	sellprice = 55
 
 /obj/item/reagent_containers/glass/bowl/carved/turq
-	name = "ceruleabaster bowl"
-	desc = "A bowl carved out of ceruleabaster."
+	name = "cerulite bowl"
+	desc = "A bowl carved out of cerulite."
 	icon_state = "bowl_turq"
 	sellprice = 80
 

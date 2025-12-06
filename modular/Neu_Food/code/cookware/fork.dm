@@ -57,7 +57,7 @@
 	sellprice = 35
 
 /obj/item/kitchen/fork/carved/turq
-	name = "ceruleabaster fork"
+	name = "cerulite fork"
 	icon_state = "fork_turq"
 	sellprice = 80
 
@@ -67,7 +67,7 @@
 	sellprice = 65
 
 /obj/item/kitchen/fork/carved/amber
-	name = "petriamber fork"
+	name = "amber fork"
 	icon_state = "fork_amber"
 	sellprice = 55
 

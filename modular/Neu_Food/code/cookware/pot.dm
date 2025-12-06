@@ -94,8 +94,8 @@
 	sellprice = 60
 
 /obj/item/reagent_containers/glass/bucket/pot/carved/teapotamber
-	name = "petriamber teapot"
-	desc = "A dainty teapot carved out of petriamber."
+	name = "amber teapot"
+	desc = "A dainty teapot carved out of amber."
 	icon_state = "teapot_amber"
 	fill_icon_thresholds = null
 	dropshrink = 1.0
@@ -142,8 +142,8 @@
 	sellprice = 70
 
 /obj/item/reagent_containers/glass/bucket/pot/carved/teapotturq
-	name = "ceruleabaster teapot"
-	desc = "A dainty teapot carved out of ceruleabaster."
+	name = "cerulite teapot"
+	desc = "A dainty teapot carved out of cerulite."
 	icon_state = "teapot_turq"
 	fill_icon_thresholds = null
 	dropshrink = 1.0

@@ -650,9 +650,9 @@
 	sellprice = 70
 
 /obj/item/clothing/mask/rogue/facemask/carved/turqmask
-	name = "ceruleabaster mask"
+	name = "cerulite mask"
 	icon_state = "mask_turq"
-	desc = "A ceruleabaster mask that both conceals and protects the face."
+	desc = "A cerulite mask that both conceals and protects the face."
 	sellprice = 95
 
 /obj/item/clothing/mask/rogue/facemask/carved/rosemask
@@ -674,9 +674,9 @@
 	sellprice = 80
 
 /obj/item/clothing/mask/rogue/facemask/carved/ambermask
-	name = "petriamber mask"
+	name = "amber mask"
 	icon_state = "mask_amber"
-	desc = "A petriamber mask that both conceals and protects the face."
+	desc = "A amber mask that both conceals and protects the face."
 	sellprice = 70
 
 /obj/item/clothing/mask/rogue/facemask/carved/onyxamask

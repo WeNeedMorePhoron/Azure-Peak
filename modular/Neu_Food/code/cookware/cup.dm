@@ -280,15 +280,15 @@
 	sellprice = 55
 
 /obj/item/reagent_containers/glass/cup/carved/turq
-	name = "ceruleabaster cup"
-	desc = "A simple cup carved out of ceruleabaster."
+	name = "cerulite cup"
+	desc = "A simple cup carved out of cerulite."
 	dropshrink = 1
 	icon_state = "cup_turq"
 	sellprice = 80
 
 /obj/item/reagent_containers/glass/cup/carved/amber
-	name = "petriamber cup"
-	desc = "A simple cup carved out of petriamber."
+	name = "amber cup"
+	desc = "A simple cup carved out of amber."
 	dropshrink = 1
 	icon_state = "cup_amber"
 	sellprice = 55
@@ -336,8 +336,8 @@
 	sellprice = 65
 
 /obj/item/reagent_containers/glass/cup/carved/turqfancy
-	name = "fancy ceruleabaster cup"
-	desc = "A fancy cup carved out of ceruleabaster."
+	name = "fancy cerulite cup"
+	desc = "A fancy cup carved out of cerulite."
 	dropshrink = 1
 	icon_state = "fancycup_turq"
 	sellprice = 90
@@ -357,8 +357,8 @@
 	sellprice = 75
 
 /obj/item/reagent_containers/glass/cup/carved/amberfancy
-	name = "fancy petriamber cup"
-	desc = "A fancy cup carved out of petriamber."
+	name = "fancy amber cup"
+	desc = "A fancy cup carved out of amber."
 	dropshrink = 1
 	icon_state = "fancycup_amber"
 	sellprice = 65

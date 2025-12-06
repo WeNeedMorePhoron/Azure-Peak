@@ -861,7 +861,7 @@
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/survival/turq/fork
-	name = "ceruleabaster fork"
+	name = "cerulite fork"
 	category = "Gem Carving"
 	result = /obj/item/kitchen/fork/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -869,7 +869,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/turq/spoon
-	name = "ceruleabaster spoon"
+	name = "cerulite spoon"
 	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -877,7 +877,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/turq/cameo
-	name = "ceruleabaster cameo"
+	name = "cerulite cameo"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/cameo
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -885,7 +885,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/turq/bowl
-	name = "ceruleabaster bowl"
+	name = "cerulite bowl"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -893,7 +893,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/turq/cup
-	name = "ceruleabaster cup"
+	name = "cerulite cup"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -901,7 +901,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/turq/figurine
-	name = "ceruleabaster figurine"
+	name = "cerulite figurine"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/figurine
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -909,7 +909,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/turq/fish
-	name = "ceruleabaster fish figurine"
+	name = "cerulite fish figurine"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/fish
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -917,7 +917,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/turq/vase
-	name = "ceruleabaster vase"
+	name = "cerulite vase"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/vase
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -925,7 +925,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/turq/amulet
-	name = "ceruleabaster amulet"
+	name = "cerulite amulet"
 	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/turqamulet
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -933,7 +933,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/turq/tablet
-	name = "ceruleabaster tablet"
+	name = "cerulite tablet"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/tablet
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -941,7 +941,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/turq/ring
-	name = "ceruleabaster ring"
+	name = "cerulite ring"
 	category = "Gem Carving"
 	result = /obj/item/clothing/ring/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -949,7 +949,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/turq/platter
-	name = "ceruleabaster platter"
+	name = "cerulite platter"
 	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -957,7 +957,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/turq/bracelet
-	name = "ceruleabaster bracelets"
+	name = "cerulite bracelets"
 	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/turqbracelet
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -965,7 +965,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/turq/circlet
-	name = "ceruleabaster circlet"
+	name = "cerulite circlet"
 	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -973,7 +973,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/turq/fancycup
-	name = "fancy ceruleabaster cup"
+	name = "fancy cerulite cup"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/turqfancy
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -981,7 +981,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/turq/fancyvase
-	name = "fancy ceruleabaster vase"
+	name = "fancy cerulite vase"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/fancyvase
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -989,7 +989,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/turq/bust
-	name = "ceruleabaster bust"
+	name = "cerulite bust"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/bust
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -997,7 +997,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/turq/comb
-	name = "ceruleabaster comb"
+	name = "cerulite comb"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/comb
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -1005,7 +1005,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/turq/duck
-	name = "ceruleabaster duck"
+	name = "cerulite duck"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/duck
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -1013,7 +1013,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/turq/urn
-	name = "ceruleabaster urn"
+	name = "cerulite urn"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/urn
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -1021,7 +1021,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/turq/statue
-	name = "ceruleabaster statue"
+	name = "cerulite statue"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/statue
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -1029,7 +1029,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/turq/obelisk
-	name = "ceruleabaster obelisk"
+	name = "cerulite obelisk"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/obelisk
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -1037,7 +1037,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/turq/mask
-	name = "ceruleabaster mask"
+	name = "cerulite mask"
 	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/turqmask
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -1045,7 +1045,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/turq/ka
-	name = "ceruleabaster ka statue"
+	name = "cerulite ka statue"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/ka
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -1053,7 +1053,7 @@
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/survival/turq/scarab
-	name = "ceruleabaster scarab"
+	name = "cerulite scarab"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/scarab
 	reqs = list(/obj/item/roguegem/turq = 1)
@@ -1269,7 +1269,7 @@
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/survival/amber/spoon
-	name = "petriamber spoon"
+	name = "amber spoon"
 	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1277,7 +1277,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/amber/fork
-	name = "petriamber fork"
+	name = "amber fork"
 	category = "Gem Carving"
 	result = /obj/item/kitchen/fork/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1285,7 +1285,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/amber/cameo
-	name = "petriamber cameo"
+	name = "amber cameo"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/cameo
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1293,7 +1293,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/amber/bowl
-	name = "petriamber bowl"
+	name = "amber bowl"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1301,7 +1301,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/amber/cup
-	name = "petriamber cup"
+	name = "amber cup"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1309,7 +1309,7 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/amber/figurine
-	name = "petriamber figurine"
+	name = "amber figurine"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/figurine
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1317,7 +1317,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/amber/fish
-	name = "petriamber fish figurine"
+	name = "amber fish figurine"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/fish
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1325,7 +1325,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/amber/tablet
-	name = "petriamber tablet"
+	name = "amber tablet"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/tablet
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1333,7 +1333,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/amber/vase
-	name = "petriamber vase"
+	name = "amber vase"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/vase
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1341,7 +1341,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/amber/teapot
-	name = "petriamber teapot"
+	name = "amber teapot"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotamber
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1349,7 +1349,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/amber/platter
-	name = "petriamber platter"
+	name = "amber platter"
 	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1357,7 +1357,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/amber/ring
-	name = "petriamber ring"
+	name = "amber ring"
 	category = "Gem Carving"
 	result = /obj/item/clothing/ring/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1365,7 +1365,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/amber/amulet
-	name = "petriamber amulet"
+	name = "amber amulet"
 	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/amberamulet
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1373,7 +1373,7 @@
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/amber/bracelet
-	name = "petriamber bracelets"
+	name = "amber bracelets"
 	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/amberbracelet
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1381,7 +1381,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/amber/circlet
-	name = "petriamber circlet"
+	name = "amber circlet"
 	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1389,7 +1389,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/amber/fancycup
-	name = "fancy petriamber cup"
+	name = "fancy amber cup"
 	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/amberfancy
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1397,7 +1397,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/amber/fancyvase
-	name = "fancy petriamber vase"
+	name = "fancy amber vase"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/fancyvase
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1405,7 +1405,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/amber/bust
-	name = "petriamber bust"
+	name = "amber bust"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/bust
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1413,7 +1413,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/amber/comb
-	name = "petriamber comb"
+	name = "amber comb"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/comb
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1421,7 +1421,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/amber/duck
-	name = "petriamber duck"
+	name = "amber duck"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/duck
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1429,7 +1429,7 @@
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/survival/amber/mask
-	name = "petriamber mask"
+	name = "amber mask"
 	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/ambermask
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1437,7 +1437,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/amber/obelisk
-	name = "petriamber obelisk"
+	name = "amber obelisk"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/obelisk
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1445,7 +1445,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/amber/urn
-	name = "petriamber urn"
+	name = "amber urn"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/urn
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1453,7 +1453,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/amber/statue
-	name = "petriamber statue"
+	name = "amber statue"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/statue
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1461,7 +1461,7 @@
 	craftdiff = 4
 
 /datum/crafting_recipe/roguetown/survival/amber/beaver
-	name = "petriamber beaver statue"
+	name = "amber beaver statue"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/beaver
 	reqs = list(/obj/item/roguegem/amber = 1)
@@ -1469,7 +1469,7 @@
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/survival/amber/sun
-	name = "petriamber sun carving"
+	name = "amber sun carving"
 	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/sun
 	reqs = list(/obj/item/roguegem/amber = 1)

@@ -281,8 +281,8 @@
 	sellprice = 65
 
 /obj/item/clothing/wrists/roguetown/gem/turqbracelet
-	name = "ceruleabaster bracelets"
-	desc = "A set of bracelets carved out of ceruleabaster."
+	name = "cerulite bracelets"
+	desc = "A set of bracelets carved out of cerulite."
 	icon_state = "br_turq"
 	sellprice = 90
 
@@ -299,8 +299,8 @@
 	sellprice = 75
 
 /obj/item/clothing/wrists/roguetown/gem/amberbracelet
-	name = "petriamber bracelets"
-	desc = "A set of bracelets carved out of petriamber."
+	name = "amber bracelets"
+	desc = "A set of bracelets carved out of amber."
 	icon_state = "br_amber"
 	sellprice = 65
 

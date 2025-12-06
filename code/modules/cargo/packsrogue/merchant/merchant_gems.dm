@@ -62,12 +62,12 @@
 	contains = list(/obj/item/roguegem/coral)
 
 /datum/supply_pack/rogue/gems/turq
-	name = "Ceruleabaster"
+	name = "Cerulite"
 	cost = 120
 	contains = list(/obj/item/roguegem/turq)
 
 /datum/supply_pack/rogue/gems/amber
-	name = "Petriamber"
+	name = "Amber"
 	cost = 80
 	contains = list(/obj/item/roguegem/amber)
 

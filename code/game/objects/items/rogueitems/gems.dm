@@ -137,14 +137,14 @@
 	sellprice = 60
 
 /obj/item/roguegem/turq
-	name = "ceruleabaster"
+	name = "cerulite"
 	desc = "A beautiful teal gem that is easily carved. Beloved by mages, its remarkable clarity sees it used by the astrologer-mages of Naledi for divinatory purposes."
 	icon = 'icons/roguetown/gems/gem_turq.dmi'
 	icon_state = "raw_turq"
 	sellprice = 75
 
 /obj/item/roguegem/amber
-	name = "petriamber"
+	name = "amber"
 	desc = "A chunk of fossilized sunlight. Believed to have been shed during the shattering of the First Sun, its remnants are prized among Astratans. Raaneshi sometimes use fragments as currency, instead of mammon."
 	icon = 'icons/roguetown/gems/gem_amber.dmi'
 	icon_state = "raw_amber"

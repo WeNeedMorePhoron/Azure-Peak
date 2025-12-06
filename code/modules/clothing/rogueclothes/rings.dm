@@ -60,12 +60,12 @@
 	sellprice = 20
 
 /obj/item/clothing/ring/amber
-	name = "petriamber ring"
+	name = "amber ring"
 	icon_state = "ring_amber"
 	sellprice = 20
 
 /obj/item/clothing/ring/turq
-	name = "ceruleabaster ring"
+	name = "cerulite ring"
 	icon_state = "ring_turq"
 	sellprice = 85
 

@@ -174,8 +174,8 @@ What it does:
 	sellprice = 25
 
 /obj/item/cooking/platter/carved/amber
-	name = "petriamber platter"
-	desc = "A fancy platter carved out of petriamber."
+	name = "amber platter"
+	desc = "A fancy platter carved out of amber."
 	icon_state = "platter_amber"
 	sellprice = 60
 
@@ -192,7 +192,7 @@ What it does:
 	sellprice = 70
 
 /obj/item/cooking/platter/carved/turq
-	name = "ceruleabaster platter"
-	desc = "A fancy platter carved out of ceruleabaster."
+	name = "cerulite platter"
+	desc = "A fancy platter carved out of cerulite."
 	icon_state = "platter_turq"
 	sellprice = 85
