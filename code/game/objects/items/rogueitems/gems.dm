@@ -117,7 +117,7 @@
 
 /obj/item/roguegem/jade
 	name = "jade"
-	desc = "A dull green gem. jade is valuable amongst the Lingyuese, who believes that jade were created by Psydon himself. "
+	desc = "A dull green gem prized in Lingyue and Kazengun alike. Lingyuese tradition holds that jade is the essence of Psydon, protecting both soul and flesh from decay and corruption."
 	icon = 'icons/roguetown/gems/gem_jade.dmi'
 	icon_state = "raw_jade"
 	sellprice = 50
@@ -131,14 +131,14 @@
 
 /obj/item/roguegem/coral
 	name = "heartstone"
-	desc = "Jagged like a hounds tooth. Heartstone is speculated to be the crystalized blood of fallen sailors. It is sacred to Abyssorians and is used in numerous Abyssorian rituals."
+	desc = "Jagged like a hound's tooth. Heartstone is speculated to be the crystalized blood of fallen sailors. It is sacred to Abyssorites and is used in numerous Abyssorites rituals."
 	icon = 'icons/roguetown/gems/gem_coral.dmi'
 	icon_state = "raw_coral"
 	sellprice = 60
 
 /obj/item/roguegem/turq
 	name = "cerulite"
-	desc = "A beautiful teal gem that is easily carved. Beloved by mages, its remarkable clarity sees it used by the astrologer-mages of Naledi for divinatory purposes."
+	desc = "A beautiful teal gem that carves easily. Beloved by mages, its remarkable clarity makes it a favored tool of Naledi’s astrologer-mages in divination."
 	icon = 'icons/roguetown/gems/gem_turq.dmi'
 	icon_state = "raw_turq"
 	sellprice = 75
@@ -152,7 +152,7 @@
 
 /obj/item/roguegem/opal
 	name = "opal"
-	desc = "A dazzling gem that is remarkably valuable. Opal is widely speculated to be the crystallized essence left behind by rainbows."
+	desc = "A dazzling gem of great value. Opal is widely speculated to be the crystallized essence left behind by rainbows."
 	icon = 'icons/roguetown/gems/gem_opal.dmi'
 	icon_state = "raw_opal"
 	sellprice = 80
