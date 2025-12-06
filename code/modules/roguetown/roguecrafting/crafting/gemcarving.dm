@@ -1,1685 +1,1480 @@
-/datum/crafting_recipe/roguetown/survival/jadefork
-	name = "jade fork"
+/datum/crafting_recipe/roguetown/gemcarving
+    abstract_type = /datum/crafting_recipe/roguetown/gemcarving
+    skillcraft = /datum/skill/craft/masonry
 	category = "Gem Carving"
+
+/datum/crafting_recipe/roguetown/gemcarving/jadefork
+	name = "jade fork"
 	result = /obj/item/kitchen/fork/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/jadespoon
+/datum/crafting_recipe/roguetown/gemcarving/jadespoon
 	name = "jade spoon"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/jadecameo
+/datum/crafting_recipe/roguetown/gemcarving/jadecameo
 	name = "jade cameo"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/cameo
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/jadebowl
+/datum/crafting_recipe/roguetown/gemcarving/jadebowl
 	name = "jade bowl"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/jadecup
+/datum/crafting_recipe/roguetown/gemcarving/jadecup
 	name = "jade cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/jadeplatter
+/datum/crafting_recipe/roguetown/gemcarving/jadeplatter
 	name = "jade platter"
-	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/jadering
+/datum/crafting_recipe/roguetown/gemcarving/jadering
 	name = "jade ring"
-	category = "Gem Carving"
 	result = /obj/item/clothing/ring/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/jadeamulet
+/datum/crafting_recipe/roguetown/gemcarving/jadeamulet
 	name = "jade amulet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/jadeamulet
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/jadevase
+/datum/crafting_recipe/roguetown/gemcarving/jadevase
 	name = "jade vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/vase
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/jadefigurine
+/datum/crafting_recipe/roguetown/gemcarving/jadefigurine
 	name = "jade figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/figurine
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/jade/fish
+/datum/crafting_recipe/roguetown/gemcarving/jade/fish
 	name = "jade fish figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/fish
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/jade/tablet
+/datum/crafting_recipe/roguetown/gemcarving/jade/tablet
 	name = "jade tablet"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/tablet
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/jade/teapot
+/datum/crafting_recipe/roguetown/gemcarving/jade/teapot
 	name = "jade teapot"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotjade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/jade/bust
+/datum/crafting_recipe/roguetown/gemcarving/jade/bust
 	name = "jade bust"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/bust
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/jade/fancyvase
+/datum/crafting_recipe/roguetown/gemcarving/jade/fancyvase
 	name = "fancy jade vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/fancyvase
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/jade/comb
+/datum/crafting_recipe/roguetown/gemcarving/jade/comb
 	name = "jade comb"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/comb
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/jade/duck
+/datum/crafting_recipe/roguetown/gemcarving/jade/duck
 	name = "jade duck"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/duck
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/jade/bracelet
+/datum/crafting_recipe/roguetown/gemcarving/jade/bracelet
 	name = "jade bracelets"
-	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/jadebracelet
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/jade/circlet
+/datum/crafting_recipe/roguetown/gemcarving/jade/circlet
 	name = "jade circlet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/jade/fancycup
+/datum/crafting_recipe/roguetown/gemcarving/jade/fancycup
 	name = "fancy jade cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/jadefancy
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/jade/mask
+/datum/crafting_recipe/roguetown/gemcarving/jade/mask
 	name = "jade mask"
-	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/jademask
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/jade/urn
+/datum/crafting_recipe/roguetown/gemcarving/jade/urn
 	name = "jade urn"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/urn
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/jade/statue
+/datum/crafting_recipe/roguetown/gemcarving/jade/statue
 	name = "jade statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/statue
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/jade/obelisk
+/datum/crafting_recipe/roguetown/gemcarving/jade/obelisk
 	name = "jade obelisk"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/obelisk
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/jade/wyrm
+/datum/crafting_recipe/roguetown/gemcarving/jade/wyrm
 	name = "jade wyrm"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/jade/wyrm
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-
-/datum/crafting_recipe/roguetown/survival/jade/kukri
+/datum/crafting_recipe/roguetown/gemcarving/jade/kukri
 	name = "jade kukri"
-	category = "Gem Carving"
 	result = /obj/item/rogueweapon/huntingknife/stoneknife/kukri
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/shell/openclam
+/datum/crafting_recipe/roguetown/gemcarving/shell/openclam
 	name = "opened clam"
-	category = "Gem Carving"
 	result = list (
 		/obj/item/carvedgem/shell/openoyster,
 		/obj/item/carvedgem/rose/rawrose
 	)
 	reqs = list(/obj/item/roguegem/oyster = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/shell/rawshell
+/datum/crafting_recipe/roguetown/gemcarving/shell/rawshell
 	name = "clam shell (x2)"
-	category = "Gem Carving"
 	result = list (
 		/obj/item/carvedgem/shell/rawshell,
 		/obj/item/carvedgem/shell/rawshell
 	)
 	reqs = list(/obj/item/carvedgem/shell/openoyster = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/shell/fork
+/datum/crafting_recipe/roguetown/gemcarving/shell/fork
 	name = "shell fork"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/fork/carved/shell
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/shell/spoon
+/datum/crafting_recipe/roguetown/gemcarving/shell/spoon
 	name = "shell spoon"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/shell
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/shell/cameo
+/datum/crafting_recipe/roguetown/gemcarving/shell/cameo
 	name = "shell cameo"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/cameo
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/shell/bowl
+/datum/crafting_recipe/roguetown/gemcarving/shell/bowl
 	name = "shell bowl"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/shell
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/shell/cup
+/datum/crafting_recipe/roguetown/gemcarving/shell/cup
 	name = "shell cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/shell
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/shell/platter
+/datum/crafting_recipe/roguetown/gemcarving/shell/platter
 	name = "shell platter"
-	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/shell
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/shell/ring
+/datum/crafting_recipe/roguetown/gemcarving/shell/ring
 	name = "shell ring"
 	result = /obj/item/clothing/ring/shell
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/shell/teapot
+/datum/crafting_recipe/roguetown/gemcarving/shell/teapot
 	name = "shell teapot"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotshell
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/shell/amulet
+/datum/crafting_recipe/roguetown/gemcarving/shell/amulet
 	name = "shell amulet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/shellamulet
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/shell/figurine
+/datum/crafting_recipe/roguetown/gemcarving/shell/figurine
 	name = "shell figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/figurine
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/shell/tablet
+/datum/crafting_recipe/roguetown/gemcarving/shell/tablet
 	name = "shell tablet"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/tablet
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/shell/fish
+/datum/crafting_recipe/roguetown/gemcarving/shell/fish
 	name = "shell fish figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/fish
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/shell/vase
+/datum/crafting_recipe/roguetown/gemcarving/shell/vase
 	name = "shell vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/vase
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/shell/bust
+/datum/crafting_recipe/roguetown/gemcarving/shell/bust
 	name = "shell bust"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/bust
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/shell/circlet
+/datum/crafting_recipe/roguetown/gemcarving/shell/circlet
 	name = "shell circlet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/shell
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/shell/bracelet
+/datum/crafting_recipe/roguetown/gemcarving/shell/bracelet
 	name = "shell bracelets"
-	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/shellbracelet
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/shell/fancycup
+/datum/crafting_recipe/roguetown/gemcarving/shell/fancycup
 	name = "fancy shell cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/shellfancy
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/shell/fancyvase
+/datum/crafting_recipe/roguetown/gemcarving/shell/fancyvase
 	name = "fancy shell vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/fancyvase
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/shell/comb
+/datum/crafting_recipe/roguetown/gemcarving/shell/comb
 	name = "shell comb"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/comb
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/shell/duck
+/datum/crafting_recipe/roguetown/gemcarving/shell/duck
 	name = "shell duck"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/duck
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/shell/mask
+/datum/crafting_recipe/roguetown/gemcarving/shell/mask
 	name = "shell mask"
-	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/shellmask
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/shell/urn
+/datum/crafting_recipe/roguetown/gemcarving/shell/urn
 	name = "shell urn"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/urn
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/shell/statue
+/datum/crafting_recipe/roguetown/gemcarving/shell/statue
 	name = "shell statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/statue
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/shell/obelisk
+/datum/crafting_recipe/roguetown/gemcarving/shell/obelisk
 	name = "shell obelisk"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/obelisk
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/shell/turtle
+/datum/crafting_recipe/roguetown/gemcarving/shell/turtle
 	name = "turtle carving"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/shell/turtle
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/shell/rungu
+/datum/crafting_recipe/roguetown/gemcarving/shell/rungu
 	name = "shell rungu"
-	category = "Gem Carving"
 	result = /obj/item/rogueweapon/mace/cudgel/shellrungu
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/rose/spoon
+/datum/crafting_recipe/roguetown/gemcarving/rose/spoon
 	name = "rosestone spoon"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/rose/fork
+/datum/crafting_recipe/roguetown/gemcarving/rose/fork
 	name = "rosestone fork"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/fork/carved/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/rose/cup
+/datum/crafting_recipe/roguetown/gemcarving/rose/cup
 	name = "rosestone cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/rose/bowl
+/datum/crafting_recipe/roguetown/gemcarving/rose/bowl
 	name = "rosestone bowl"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/rose/cameo
+/datum/crafting_recipe/roguetown/gemcarving/rose/cameo
 	name = "rosestone cameo"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/cameo
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/rose/figurine
+/datum/crafting_recipe/roguetown/gemcarving/rose/figurine
 	name = "rosestone figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/figurine
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/rose/fish
+/datum/crafting_recipe/roguetown/gemcarving/rose/fish
 	name = "rosestone fish figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/fish
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/rose/vase
+/datum/crafting_recipe/roguetown/gemcarving/rose/vase
 	name = "rosestone vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/vase
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/rose/tablet
+/datum/crafting_recipe/roguetown/gemcarving/rose/tablet
 	name = "rosestone tablet"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/tablet
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/rose/teapot
+/datum/crafting_recipe/roguetown/gemcarving/rose/teapot
 	name = "rosestone teapot"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotrose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/rose/ring
+/datum/crafting_recipe/roguetown/gemcarving/rose/ring
 	name = "rosestone ring"
-	category = "Gem Carving"
 	result = /obj/item/clothing/ring/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/rose/amulet
+/datum/crafting_recipe/roguetown/gemcarving/rose/amulet
 	name = "rosestone amulet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/roseamulet
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/rose/platter
+/datum/crafting_recipe/roguetown/gemcarving/rose/platter
 	name = "rosestone platter"
-	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/rose/bust
+/datum/crafting_recipe/roguetown/gemcarving/rose/bust
 	name = "rosestone bust"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/bust
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/rose/fancyvase
+/datum/crafting_recipe/roguetown/gemcarving/rose/fancyvase
 	name = "fancy rosestone vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/fancyvase
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/rose/comb
+/datum/crafting_recipe/roguetown/gemcarving/rose/comb
 	name = "rosestone comb"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/comb
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/rose/duck
+/datum/crafting_recipe/roguetown/gemcarving/rose/duck
 	name = "rosestone duck"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/duck
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/rose/bracelet
+/datum/crafting_recipe/roguetown/gemcarving/rose/bracelet
 	name = "rosestone bracelets"
-	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/rosebracelet
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/rose/circlet
+/datum/crafting_recipe/roguetown/gemcarving/rose/circlet
 	name = "rosestone circlet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/rose/fancycup
+/datum/crafting_recipe/roguetown/gemcarving/rose/fancycup
 	name = "fancy rosestone cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/rosefancy
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/rose/urn
+/datum/crafting_recipe/roguetown/gemcarving/rose/urn
 	name = "rosestone urn"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/urn
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/rose/statue
+/datum/crafting_recipe/roguetown/gemcarving/rose/statue
 	name = "rosestone statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/statue
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/rose/obelisk
+/datum/crafting_recipe/roguetown/gemcarving/rose/obelisk
 	name = "rosestone obelisk"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/obelisk
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/rose/mask
+/datum/crafting_recipe/roguetown/gemcarving/rose/mask
 	name = "rosestone mask"
-	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/rosemask
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/rose/flower
+/datum/crafting_recipe/roguetown/gemcarving/rose/flower
 	name = "rosestone flower carving"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/flower
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/rose/carp
+/datum/crafting_recipe/roguetown/gemcarving/rose/carp
 	name = "rosestone carp statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/rose/carp
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/onyxa/fork
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/fork
 	name = "onyxa fork"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/fork/carved/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/onyxa/spoon
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/spoon
 	name = "onyxa spoon"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/onyxa/cameo
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/cameo
 	name = "onyxa cameo"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/cameo
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/onyxa/cup
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/cup
 	name = "onyxa cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/onyxa/bowl
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/bowl
 	name = "onyxa bowl"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/onyxa/figurine
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/figurine
 	name = "onyxa figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/figurine
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/onyxa/fish
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/fish
 	name = "onyxa fish figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/fish
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/onyxa/vase
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/vase
 	name = "onyxa vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/vase
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/onyxa/tablet
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/tablet
 	name = "onyxa tablet"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/tablet
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/onyxa/teapot
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/teapot
 	name = "onyxa teapot"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotonyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/onyxa/ring
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/ring
 	name = "onyxa ring"
-	category = "Gem Carving"
 	result = /obj/item/clothing/ring/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/onyxa/amulet
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/amulet
 	name = "onyxa amulet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/onyxaamulet
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/onyxa/platter
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/platter
 	name = "onyxa platter"
-	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/onyxa/bust
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/bust
 	name = "onyxa bust"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/bust
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/onyxa/fancyvase
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/fancyvase
 	name = "fancy onyxa vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/fancyvase
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/onyxa/comb
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/comb
 	name = "onyxa comb"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/comb
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/onyxa/duck
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/duck
 	name = "onyxa duck"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/duck
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/onyxa/fancycup
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/fancycup
 	name = "fancy onyxa cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/onyxafancy
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/onyxa/bracelet
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/bracelet
 	name = "onyxa bracelets"
-	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/onyxabracelet
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/onyxa/circlet
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/circlet
 	name = "onyxa circlet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/onyxa/mask
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/mask
 	name = "onyxa mask"
-	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/onyxamask
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/onyxa/urn
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/urn
 	name = "onyxa urn"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/urn
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/onyxa/statue
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/statue
 	name = "onyxa statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/statue
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/onyxa/obelisk
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/obelisk
 	name = "onyxa obelisk"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/obelisk
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/onyxa/urn
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/urn
 	name = "onyxa urn"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/urn
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/onyxa/spider
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/spider
 	name = "onyxa spider statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/spider
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/onyxa/snake
+/datum/crafting_recipe/roguetown/gemcarving/onyxa/snake
 	name = "onyxa snake statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/onyxa/snake
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/turq/fork
+/datum/crafting_recipe/roguetown/gemcarving/turq/fork
 	name = "cerulite fork"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/fork/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/turq/spoon
+/datum/crafting_recipe/roguetown/gemcarving/turq/spoon
 	name = "cerulite spoon"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/turq/cameo
+/datum/crafting_recipe/roguetown/gemcarving/turq/cameo
 	name = "cerulite cameo"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/cameo
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/turq/bowl
+/datum/crafting_recipe/roguetown/gemcarving/turq/bowl
 	name = "cerulite bowl"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/turq/cup
+/datum/crafting_recipe/roguetown/gemcarving/turq/cup
 	name = "cerulite cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/turq/figurine
+/datum/crafting_recipe/roguetown/gemcarving/turq/figurine
 	name = "cerulite figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/figurine
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/turq/fish
+/datum/crafting_recipe/roguetown/gemcarving/turq/fish
 	name = "cerulite fish figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/fish
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/turq/vase
+/datum/crafting_recipe/roguetown/gemcarving/turq/vase
 	name = "cerulite vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/vase
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/turq/amulet
+/datum/crafting_recipe/roguetown/gemcarving/turq/amulet
 	name = "cerulite amulet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/turqamulet
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/turq/tablet
+/datum/crafting_recipe/roguetown/gemcarving/turq/tablet
 	name = "cerulite tablet"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/tablet
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/turq/ring
+/datum/crafting_recipe/roguetown/gemcarving/turq/ring
 	name = "cerulite ring"
-	category = "Gem Carving"
 	result = /obj/item/clothing/ring/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/turq/platter
+/datum/crafting_recipe/roguetown/gemcarving/turq/platter
 	name = "cerulite platter"
-	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/turq/bracelet
+/datum/crafting_recipe/roguetown/gemcarving/turq/bracelet
 	name = "cerulite bracelets"
-	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/turqbracelet
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/turq/circlet
+/datum/crafting_recipe/roguetown/gemcarving/turq/circlet
 	name = "cerulite circlet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/turq/fancycup
+/datum/crafting_recipe/roguetown/gemcarving/turq/fancycup
 	name = "fancy cerulite cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/turqfancy
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/turq/fancyvase
+/datum/crafting_recipe/roguetown/gemcarving/turq/fancyvase
 	name = "fancy cerulite vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/fancyvase
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/turq/bust
+/datum/crafting_recipe/roguetown/gemcarving/turq/bust
 	name = "cerulite bust"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/bust
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/turq/comb
+/datum/crafting_recipe/roguetown/gemcarving/turq/comb
 	name = "cerulite comb"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/comb
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/turq/duck
+/datum/crafting_recipe/roguetown/gemcarving/turq/duck
 	name = "cerulite duck"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/duck
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/turq/urn
+/datum/crafting_recipe/roguetown/gemcarving/turq/urn
 	name = "cerulite urn"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/urn
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/turq/statue
+/datum/crafting_recipe/roguetown/gemcarving/turq/statue
 	name = "cerulite statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/statue
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/turq/obelisk
+/datum/crafting_recipe/roguetown/gemcarving/turq/obelisk
 	name = "cerulite obelisk"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/obelisk
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/turq/mask
+/datum/crafting_recipe/roguetown/gemcarving/turq/mask
 	name = "cerulite mask"
-	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/turqmask
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/turq/ka
+/datum/crafting_recipe/roguetown/gemcarving/turq/ka
 	name = "cerulite ka statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/ka
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/turq/scarab
+/datum/crafting_recipe/roguetown/gemcarving/turq/scarab
 	name = "cerulite scarab"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/turq/scarab
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/coral/fork
+/datum/crafting_recipe/roguetown/gemcarving/coral/fork
 	name = "heartstone fork"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/fork/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/coral/spoon
+/datum/crafting_recipe/roguetown/gemcarving/coral/spoon
 	name = "heartstone spoon"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/coral/cameo
+/datum/crafting_recipe/roguetown/gemcarving/coral/cameo
 	name = "heartstone cameo"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/cameo
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/coral/cup
+/datum/crafting_recipe/roguetown/gemcarving/coral/cup
 	name = "heartstone cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/coral/bowl
+/datum/crafting_recipe/roguetown/gemcarving/coral/bowl
 	name = "heartstone bowl"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/coral/figurine
+/datum/crafting_recipe/roguetown/gemcarving/coral/figurine
 	name = "heartstone figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/figurine
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/coral/fish
+/datum/crafting_recipe/roguetown/gemcarving/coral/fish
 	name = "heartstone fish figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/fish
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/coral/vase
+/datum/crafting_recipe/roguetown/gemcarving/coral/vase
 	name = "heartstone vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/vase
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/coral/tablet
+/datum/crafting_recipe/roguetown/gemcarving/coral/tablet
 	name = "heartstone tablet"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/tablet
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/coral/teapot
+/datum/crafting_recipe/roguetown/gemcarving/coral/teapot
 	name = "heartstone teapot"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotcoral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/coral/platter
+/datum/crafting_recipe/roguetown/gemcarving/coral/platter
 	name = "heartstone platter"
-	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/coral/amulet
+/datum/crafting_recipe/roguetown/gemcarving/coral/amulet
 	name = "heartstone amulet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/coralamulet
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/coral/ring
+/datum/crafting_recipe/roguetown/gemcarving/coral/ring
 	name = "heartstone ring"
-	category = "Gem Carving"
 	result = /obj/item/clothing/ring/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/coral/bust
+/datum/crafting_recipe/roguetown/gemcarving/coral/bust
 	name = "heartstone bust"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/bust
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/coral/fancyvase
+/datum/crafting_recipe/roguetown/gemcarving/coral/fancyvase
 	name = "fancy heartstone vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/fancyvase
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/coral/comb
+/datum/crafting_recipe/roguetown/gemcarving/coral/comb
 	name = "heartstone comb"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/comb
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/coral/duck
+/datum/crafting_recipe/roguetown/gemcarving/coral/duck
 	name = "heartstone duck"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/duck
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/coral/fancycup
+/datum/crafting_recipe/roguetown/gemcarving/coral/fancycup
 	name = "fancy heartstone cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/coralfancy
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/coral/circlet
+/datum/crafting_recipe/roguetown/gemcarving/coral/circlet
 	name = "heartstone circlet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/coral/bracelet
+/datum/crafting_recipe/roguetown/gemcarving/coral/bracelet
 	name = "heartstone bracelets"
-	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/coralbracelet
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/coral/mask
+/datum/crafting_recipe/roguetown/gemcarving/coral/mask
 	name = "heartstone mask"
-	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/coralmask
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/coral/statue
+/datum/crafting_recipe/roguetown/gemcarving/coral/statue
 	name = "heartstone statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/statue
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/coral/urn
+/datum/crafting_recipe/roguetown/gemcarving/coral/urn
 	name = "heartstone urn"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/urn
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/coral/obelisk
+/datum/crafting_recipe/roguetown/gemcarving/coral/obelisk
 	name = "heartstone obelisk"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/obelisk
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/coral/jaw
+/datum/crafting_recipe/roguetown/gemcarving/coral/jaw
 	name = "shark jaw statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/jaw
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/coral/shark
+/datum/crafting_recipe/roguetown/gemcarving/coral/shark
 	name = "heartstone shark statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/coral/shark
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/amber/spoon
+/datum/crafting_recipe/roguetown/gemcarving/amber/spoon
 	name = "amber spoon"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/amber/fork
+/datum/crafting_recipe/roguetown/gemcarving/amber/fork
 	name = "amber fork"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/fork/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/amber/cameo
+/datum/crafting_recipe/roguetown/gemcarving/amber/cameo
 	name = "amber cameo"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/cameo
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/amber/bowl
+/datum/crafting_recipe/roguetown/gemcarving/amber/bowl
 	name = "amber bowl"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/amber/cup
+/datum/crafting_recipe/roguetown/gemcarving/amber/cup
 	name = "amber cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/amber/figurine
+/datum/crafting_recipe/roguetown/gemcarving/amber/figurine
 	name = "amber figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/figurine
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/amber/fish
+/datum/crafting_recipe/roguetown/gemcarving/amber/fish
 	name = "amber fish figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/fish
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/amber/tablet
+/datum/crafting_recipe/roguetown/gemcarving/amber/tablet
 	name = "amber tablet"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/tablet
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/amber/vase
+/datum/crafting_recipe/roguetown/gemcarving/amber/vase
 	name = "amber vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/vase
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/amber/teapot
+/datum/crafting_recipe/roguetown/gemcarving/amber/teapot
 	name = "amber teapot"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotamber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/amber/platter
+/datum/crafting_recipe/roguetown/gemcarving/amber/platter
 	name = "amber platter"
-	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/amber/ring
+/datum/crafting_recipe/roguetown/gemcarving/amber/ring
 	name = "amber ring"
-	category = "Gem Carving"
 	result = /obj/item/clothing/ring/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/amber/amulet
+/datum/crafting_recipe/roguetown/gemcarving/amber/amulet
 	name = "amber amulet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/amberamulet
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/amber/bracelet
+/datum/crafting_recipe/roguetown/gemcarving/amber/bracelet
 	name = "amber bracelets"
-	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/amberbracelet
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/amber/circlet
+/datum/crafting_recipe/roguetown/gemcarving/amber/circlet
 	name = "amber circlet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/amber/fancycup
+/datum/crafting_recipe/roguetown/gemcarving/amber/fancycup
 	name = "fancy amber cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/amberfancy
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/amber/fancyvase
+/datum/crafting_recipe/roguetown/gemcarving/amber/fancyvase
 	name = "fancy amber vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/fancyvase
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/amber/bust
+/datum/crafting_recipe/roguetown/gemcarving/amber/bust
 	name = "amber bust"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/bust
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/amber/comb
+/datum/crafting_recipe/roguetown/gemcarving/amber/comb
 	name = "amber comb"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/comb
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/amber/duck
+/datum/crafting_recipe/roguetown/gemcarving/amber/duck
 	name = "amber duck"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/duck
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/amber/mask
+/datum/crafting_recipe/roguetown/gemcarving/amber/mask
 	name = "amber mask"
-	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/ambermask
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/amber/obelisk
+/datum/crafting_recipe/roguetown/gemcarving/amber/obelisk
 	name = "amber obelisk"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/obelisk
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/amber/urn
+/datum/crafting_recipe/roguetown/gemcarving/amber/urn
 	name = "amber urn"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/urn
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/amber/statue
+/datum/crafting_recipe/roguetown/gemcarving/amber/statue
 	name = "amber statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/statue
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/amber/beaver
+/datum/crafting_recipe/roguetown/gemcarving/amber/beaver
 	name = "amber beaver statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/beaver
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/amber/sun
+/datum/crafting_recipe/roguetown/gemcarving/amber/sun
 	name = "amber sun carving"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/amber/sun
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/opal/spoon
+/datum/crafting_recipe/roguetown/gemcarving/opal/spoon
 	name = "opal spoon"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/spoon/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/opal/fork
+/datum/crafting_recipe/roguetown/gemcarving/opal/fork
 	name = "opal fork"
-	category = "Gem Carving"
 	result = /obj/item/kitchen/fork/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/opal/cameo
+/datum/crafting_recipe/roguetown/gemcarving/opal/cameo
 	name = "opal cameo"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/cameo
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/opal/bowl
+/datum/crafting_recipe/roguetown/gemcarving/opal/bowl
 	name = "opal bowl"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bowl/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/opal/cup
+/datum/crafting_recipe/roguetown/gemcarving/opal/cup
 	name = "opal cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 1
+	craftdiff = SKILL_LEVEL_NOVICE
 
-/datum/crafting_recipe/roguetown/survival/opal/teapot
+/datum/crafting_recipe/roguetown/gemcarving/opal/teapot
 	name = "opal teapot"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/bucket/pot/carved/teapotopal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/opal/platter
+/datum/crafting_recipe/roguetown/gemcarving/opal/platter
 	name = "opal platter"
-	category = "Gem Carving"
 	result = /obj/item/cooking/platter/carved/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/opal/ring
+/datum/crafting_recipe/roguetown/gemcarving/opal/ring
 	name = "opal ring"
-	category = "Gem Carving"
 	result = /obj/item/clothing/ring/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/opal/amulet
+/datum/crafting_recipe/roguetown/gemcarving/opal/amulet
 	name = "opal amulet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/neck/roguetown/carved/opalamulet
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/opal/figurine
+/datum/crafting_recipe/roguetown/gemcarving/opal/figurine
 	name = "opal figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/figurine
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/opal/fish
+/datum/crafting_recipe/roguetown/gemcarving/opal/fish
 	name = "opal fish figurine"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/fish
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/opal/vase
+/datum/crafting_recipe/roguetown/gemcarving/opal/vase
 	name = "opal vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/vase
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/opal/tablet
+/datum/crafting_recipe/roguetown/gemcarving/opal/tablet
 	name = "opal tablet"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/tablet
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 2
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
-/datum/crafting_recipe/roguetown/survival/opal/bracelet
+/datum/crafting_recipe/roguetown/gemcarving/opal/bracelet
 	name = "opal bracelets"
-	category = "Gem Carving"
 	result = /obj/item/clothing/wrists/roguetown/gem/opalbracelet
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/opal/circlet
+/datum/crafting_recipe/roguetown/gemcarving/opal/circlet
 	name = "opal circlet"
-	category = "Gem Carving"
 	result = /obj/item/clothing/head/roguetown/circlet/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/opal/fancycup
+/datum/crafting_recipe/roguetown/gemcarving/opal/fancycup
 	name = "fancy opal cup"
-	category = "Gem Carving"
 	result = /obj/item/reagent_containers/glass/cup/carved/opalfancy
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/opal/bust
+/datum/crafting_recipe/roguetown/gemcarving/opal/bust
 	name = "opal bust"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/bust
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/opal/fancyvase
+/datum/crafting_recipe/roguetown/gemcarving/opal/fancyvase
 	name = "fancy opal vase"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/fancyvase
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/opal/comb
+/datum/crafting_recipe/roguetown/gemcarving/opal/comb
 	name = "opal comb"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/comb
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/opal/duck
+/datum/crafting_recipe/roguetown/gemcarving/opal/duck
 	name = "opal duck"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/duck
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 3
+	craftdiff = SKILL_LEVEL_JOURNEYMAN
 
-/datum/crafting_recipe/roguetown/survival/opal/mask
+/datum/crafting_recipe/roguetown/gemcarving/opal/mask
 	name = "opal mask"
-	category = "Gem Carving"
 	result = /obj/item/clothing/mask/rogue/facemask/carved/opalmask
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/opal/obelisk
+/datum/crafting_recipe/roguetown/gemcarving/opal/obelisk
 	name = "opal obelisk"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/obelisk
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/opal/urn
+/datum/crafting_recipe/roguetown/gemcarving/opal/urn
 	name = "opal urn"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/urn
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/opal/statue
+/datum/crafting_recipe/roguetown/gemcarving/opal/statue
 	name = "opal statue"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/statue
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 4
+	craftdiff = SKILL_LEVEL_EXPERT
 
-/datum/crafting_recipe/roguetown/survival/opal/crab
+/datum/crafting_recipe/roguetown/gemcarving/opal/crab
 	name = "opal crab sculpture"
-	category = "Gem Carving"
 	result = /obj/item/carvedgem/opal/crab
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
 
-/datum/crafting_recipe/roguetown/survival/opal/knife
+/datum/crafting_recipe/roguetown/gemcarving/opal/knife
 	name = "opal knife"
-	category = "Gem Carving"
 	result = /obj/item/rogueweapon/huntingknife/stoneknife/opalknife
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
-	craftdiff = 5
+	craftdiff = SKILL_LEVEL_MASTER
