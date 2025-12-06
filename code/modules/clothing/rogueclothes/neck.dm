@@ -832,6 +832,8 @@
 	item_state = "psycross_w"
 	slot_flags = ITEM_SLOT_NECK
 	sellprice = 0
+	salvage_result = null
+	smeltresult = null
 
 /obj/item/clothing/neck/roguetown/carved/jadeamulet
 	name = "jade amulet"

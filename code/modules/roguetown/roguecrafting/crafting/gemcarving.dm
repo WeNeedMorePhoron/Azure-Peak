@@ -131,7 +131,7 @@
 
 /datum/crafting_recipe/roguetown/gemcarving/jade/circlet
 	name = "jade circlet"
-	result = /obj/item/clothing/head/roguetown/circlet/jade
+	result = /obj/item/clothing/head/roguetown/circlet/carvedgem/jade
 	reqs = list(/obj/item/roguegem/jade = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = SKILL_LEVEL_JOURNEYMAN
@@ -305,7 +305,7 @@
 
 /datum/crafting_recipe/roguetown/gemcarving/shell/circlet
 	name = "shell circlet"
-	result = /obj/item/clothing/head/roguetown/circlet/shell
+	result = /obj/item/clothing/head/roguetown/circlet/carvedgem/shell
 	reqs = list(/obj/item/carvedgem/shell/rawshell = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = SKILL_LEVEL_JOURNEYMAN
@@ -515,7 +515,7 @@
 
 /datum/crafting_recipe/roguetown/gemcarving/rose/circlet
 	name = "rosestone circlet"
-	result = /obj/item/clothing/head/roguetown/circlet/rose
+	result = /obj/item/clothing/head/roguetown/circlet/carvedgem/rose
 	reqs = list(/obj/item/carvedgem/rose/rawrose = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = SKILL_LEVEL_JOURNEYMAN
@@ -704,7 +704,7 @@
 
 /datum/crafting_recipe/roguetown/gemcarving/onyxa/circlet
 	name = "onyxa circlet"
-	result = /obj/item/clothing/head/roguetown/circlet/onyxa
+	result = /obj/item/clothing/head/roguetown/circlet/carvedgem/onyxa
 	reqs = list(/obj/item/roguegem/onyxa = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = SKILL_LEVEL_JOURNEYMAN
@@ -851,7 +851,7 @@
 
 /datum/crafting_recipe/roguetown/gemcarving/turq/circlet
 	name = "cerulite circlet"
-	result = /obj/item/clothing/head/roguetown/circlet/turq
+	result = /obj/item/clothing/head/roguetown/circlet/carvedgem/turq
 	reqs = list(/obj/item/roguegem/turq = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = SKILL_LEVEL_JOURNEYMAN
@@ -1061,7 +1061,7 @@
 
 /datum/crafting_recipe/roguetown/gemcarving/coral/circlet
 	name = "heartstone circlet"
-	result = /obj/item/clothing/head/roguetown/circlet/coral
+	result = /obj/item/clothing/head/roguetown/circlet/carvedgem/coral
 	reqs = list(/obj/item/roguegem/coral = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = SKILL_LEVEL_JOURNEYMAN
@@ -1215,7 +1215,7 @@
 
 /datum/crafting_recipe/roguetown/gemcarving/amber/circlet
 	name = "amber circlet"
-	result = /obj/item/clothing/head/roguetown/circlet/amber
+	result = /obj/item/clothing/head/roguetown/circlet/carvedgem/amber
 	reqs = list(/obj/item/roguegem/amber = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = SKILL_LEVEL_JOURNEYMAN
@@ -1397,7 +1397,7 @@
 
 /datum/crafting_recipe/roguetown/gemcarving/opal/circlet
 	name = "opal circlet"
-	result = /obj/item/clothing/head/roguetown/circlet/opal
+	result = /obj/item/clothing/head/roguetown/circlet/carvedgem/opal
 	reqs = list(/obj/item/roguegem/opal = 1)
 	tools = list(/obj/item/rogueweapon/huntingknife)
 	craftdiff = SKILL_LEVEL_JOURNEYMAN
