@@ -546,10 +546,13 @@
 
 /mob/living/carbon/human/proc/npc_try_backstep()
 	// JUKE: backstep after attacking if you're fast and have movement left
-	var/const/base_juke_chance = 5
+	// Also made base chance 15% instead of 5% as per original
+	var/const/base_juke_chance = 15
 	// for every point of STASPD above 10 you get an extra 5% juke chance
 	var/const/min_spd_for_juke = 10
 	var/const/juke_per_overspd = 5
+	// Additional 15% chance if smart_combatant for juking
+	var/smart_combatant_juke_chance = 15 
 	if(mind?.has_antag_datum(/datum/antagonist/zombie)) // deadites cannot juke
 		return FALSE
 	if(!target)
@@ -557,7 +560,7 @@
 	if(steps_moved_this_turn >= maxStepsTick) // no movement left over
 		return FALSE
 	var/juke_spd_bonus = STASPD > min_spd_for_juke ? (STASPD - min_spd_for_juke) * juke_per_overspd : 0
-	if(!prob(base_juke_chance + juke_spd_bonus))
+	if(!prob(base_juke_chance + juke_spd_bonus + (smart_combatant ? smart_combatant_juke_chance : 0)))
 		NPC_THINK("Failed juke roll ([base_juke_chance + juke_spd_bonus]%)!")
 		return FALSE
 	NPC_THINK("Succeeded juke roll ([base_juke_chance + juke_spd_bonus]%)!")
