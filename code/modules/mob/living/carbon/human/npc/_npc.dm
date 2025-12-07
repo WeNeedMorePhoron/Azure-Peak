@@ -567,7 +567,7 @@
 	var/list/newPath = list()
 	var/turf/lastTurf
 	// Use up to half your remaining distance, with a minimum of one tile.
-	var/juke_distance = rand(1, ceil((maxStepsTick - steps_moved_this_turn)/2))
+	var/juke_distance = 1 // Make it single step juke only.
 	for(var/i in 1 to juke_distance)
 		// pick random turfs to juke to until we're out of movement
 		var/list/turf/juke_candidates = get_dodge_destinations(target, lastTurf)
