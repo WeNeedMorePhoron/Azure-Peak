@@ -30,6 +30,7 @@
 	name = "silver fork"
 	icon_state = "fork_silver"
 	sellprice = 20
+	is_silver = TRUE
 
 /obj/item/kitchen/fork/carved
 	name = "carved fork"
