@@ -106,7 +106,7 @@ var/list/used_colors
 		dat += "<A href='?src=\ref[src];paint_altdetail=1'>Apply new color</A> | "
 		dat += "<A href='?src=\ref[src];clear_altdetail=1'>Remove paintjob</A><BR><BR>"
 
-	dat += "<A href='?src=\ref[src];eject=1'>Eject item.</A><BR><BR>"
+
 	menu.set_content("<html>[dat.Join("")]</html>")
 	menu.open()
 
@@ -147,7 +147,9 @@ var/list/used_colors
 			return
 		inserted.add_atom_colour(activecolor, FIXED_COLOUR_PRIORITY)
 		playsound(src, "bubbles", 50, 1)
-		updateUsrDialog()
+		inserted.forceMove(drop_location())
+		inserted = null
+		interact(usr)
 
 	if(href_list["paint_detail"])
 		if(!inserted)
@@ -156,7 +158,9 @@ var/list/used_colors
 		inserted_item.detail_color = activecolor_detail
 		inserted_item.update_icon()
 		playsound(src, "bubbles", 50, 1)
-		updateUsrDialog()
+		inserted.forceMove(drop_location())
+		inserted = null
+		interact(usr)
 
 	if(href_list["paint_altdetail"])
 		if(!inserted)
@@ -167,14 +171,18 @@ var/list/used_colors
 		if(inserted_item in GLOB.lordcolor)
 			GLOB.lordcolor -= inserted_item
 		playsound(src, "bubbles", 50, 1)
-		updateUsrDialog()
+		inserted.forceMove(drop_location())
+		inserted = null
+		interact(usr)
 
 	if(href_list["clear"])
 		if(!inserted)
 			return
 		inserted.remove_atom_colour(FIXED_COLOUR_PRIORITY)
 		playsound(src, "bubbles", 50, 1)
-		updateUsrDialog()
+		inserted.forceMove(drop_location())
+		inserted = null
+		interact(usr)
 
 	if(href_list["clear_detail"])
 		if(!inserted)
@@ -183,7 +191,9 @@ var/list/used_colors
 		inserted_item.detail_color = "#FFFFFF" //We don't initial() this in case it goes null
 		inserted_item.update_icon()
 		playsound(src, "bubbles", 50, 1)
-		updateUsrDialog()
+		inserted.forceMove(drop_location())
+		inserted = null
+		interact(usr)
 
 	if(href_list["clear_altdetail"])
 		if(!inserted)
@@ -192,14 +202,9 @@ var/list/used_colors
 		inserted_item.altdetail_color = "#FFFFFF"
 		inserted_item.update_icon()
 		playsound(src, "bubbles", 50, 1)
-		updateUsrDialog()
-
-	if(href_list["eject"])
-		if(!inserted)
-			return
 		inserted.forceMove(drop_location())
 		inserted = null
-		updateUsrDialog()
+		interact(usr)
 
 
 // PAINTBRUSH
