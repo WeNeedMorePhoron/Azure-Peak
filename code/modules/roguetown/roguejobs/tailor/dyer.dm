@@ -17,6 +17,10 @@ var/list/used_colors
 	var/activecolor = "#FFFFFF"
 	var/activecolor_detail = "#FFFFFF"
 	var/activecolor_altdetail = "#FFFFFF"
+	var/ducal_scheme = FALSE // Whether primary color is using Ducal Scheme
+	var/ducal_scheme_detail = FALSE // Whether detail color is using Ducal Scheme
+	var/ducal_scheme_altdetail = FALSE // Whether altdetail color is using Ducal Scheme
+	var/last_pick_ducal = FALSE // Set by pick_dye() when a keep color is selected
 	var/list/allowed_types = list(
 			/obj/item/clothing,
 			/obj/item/storage,
@@ -59,6 +63,7 @@ var/list/used_colors
 	interact(user)
 
 /obj/machinery/gear_painter/proc/pick_dye(mob/user, current_color, prompt_title)
+	last_pick_ducal = FALSE
 	if(alert(user, "Input Choice", prompt_title, "Color Wheel", "Color Preset") == "Color Wheel")
 		var/c = sanitize_hexcolor(color_pick_sanitized(user, "Choose your dye:", "Dyes", current_color), 6, TRUE)
 		return (c == "#000000") ? "#FFFFFF" : c
@@ -72,6 +77,8 @@ var/list/used_colors
 	var/picked = input(user, "Choose your dye:", "Dyes", null) as null|anything in colors_to_pick
 	if(!picked)
 		return null
+	if(picked == "Primary Keep Color" || picked == "Secondary Keep Color")
+		last_pick_ducal = TRUE
 	return colors_to_pick[picked]
 
 /obj/machinery/gear_painter/interact(mob/user)
@@ -128,24 +135,39 @@ var/list/used_colors
 		var/c = pick_dye(usr, activecolor, "Primary Dye")
 		if(!c) return
 		activecolor = c
+		ducal_scheme = last_pick_ducal
 		updateUsrDialog()
 
 	if(href_list["select_detail"])
 		var/c = pick_dye(usr, activecolor_detail, "Secondary Dye")
 		if(!c) return
 		activecolor_detail = c
+		ducal_scheme_detail = last_pick_ducal
 		updateUsrDialog()
 
 	if(href_list["select_altdetail"])
 		var/c = pick_dye(usr, activecolor_altdetail, "Tertiary Dye")
 		if(!c) return
 		activecolor_altdetail = c
+		ducal_scheme_altdetail = last_pick_ducal
 		updateUsrDialog()
 
 	if(href_list["paint"])
 		if(!inserted)
 			return
-		inserted.add_atom_colour(activecolor, FIXED_COLOUR_PRIORITY)
+		var/obj/item/inserted_item = inserted
+		if(ducal_scheme)
+			// Mark item for ducal colors and add to GLOB.lordcolor
+			inserted_item.ducal_primary = TRUE
+			inserted.add_atom_colour(activecolor, FIXED_COLOUR_PRIORITY)
+			if(!(inserted in GLOB.lordcolor))
+				GLOB.lordcolor += inserted
+		else
+			// Regular color, remove ducal flag and from lordcolor if not used elsewhere
+			inserted_item.ducal_primary = FALSE
+			inserted.add_atom_colour(activecolor, FIXED_COLOUR_PRIORITY)
+			if(!inserted_item.ducal_detail && !inserted_item.ducal_altdetail && (inserted in GLOB.lordcolor))
+				GLOB.lordcolor -= inserted
 		playsound(src, "bubbles", 50, 1)
 		inserted.forceMove(drop_location())
 		inserted = null
@@ -157,6 +179,14 @@ var/list/used_colors
 		var/obj/item/inserted_item = inserted
 		inserted_item.detail_color = activecolor_detail
 		inserted_item.update_icon()
+		if(ducal_scheme_detail)
+			inserted_item.ducal_detail = TRUE
+			if(!(inserted_item in GLOB.lordcolor))
+				GLOB.lordcolor += inserted_item
+		else
+			inserted_item.ducal_detail = FALSE
+			if(!inserted_item.ducal_primary && !inserted_item.ducal_altdetail && (inserted_item in GLOB.lordcolor))
+				GLOB.lordcolor -= inserted_item
 		playsound(src, "bubbles", 50, 1)
 		inserted.forceMove(drop_location())
 		inserted = null
@@ -168,8 +198,16 @@ var/list/used_colors
 		var/obj/item/inserted_item = inserted
 		inserted_item.altdetail_color = activecolor_altdetail
 		inserted_item.update_icon()
-		if(inserted_item in GLOB.lordcolor)
-			GLOB.lordcolor -= inserted_item
+		if(ducal_scheme_altdetail)
+			// Mark item for ducal colors and add to GLOB.lordcolor
+			inserted_item.ducal_altdetail = TRUE
+			if(!(inserted_item in GLOB.lordcolor))
+				GLOB.lordcolor += inserted_item
+		else
+			// Regular color, remove ducal flag and from lordcolor if not used elsewhere
+			inserted_item.ducal_altdetail = FALSE
+			if(!inserted_item.ducal_primary && !inserted_item.ducal_detail && (inserted_item in GLOB.lordcolor))
+				GLOB.lordcolor -= inserted_item
 		playsound(src, "bubbles", 50, 1)
 		inserted.forceMove(drop_location())
 		inserted = null

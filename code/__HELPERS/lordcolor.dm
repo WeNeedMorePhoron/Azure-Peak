@@ -45,3 +45,15 @@ GLOBAL_VAR(lordsecondary)
 		O.lordcolor(GLOB.lordprimary,GLOB.lordsecondary)
 	for(var/turf/T in GLOB.lordcolor)
 		T.lordcolor(GLOB.lordprimary,GLOB.lordsecondary)
+
+// Ducal Scheme lordcolor implementation for dyed items
+/obj/item/lordcolor(primary, secondary)
+	// Check if this item uses any Ducal Scheme colors
+	if(ducal_primary)
+		add_atom_colour(primary, FIXED_COLOUR_PRIORITY)
+	if(ducal_detail)
+		detail_color = secondary
+		update_icon()
+	if(ducal_altdetail)
+		altdetail_color = secondary
+		update_icon()
