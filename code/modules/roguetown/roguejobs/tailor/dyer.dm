@@ -147,7 +147,7 @@ var/list/used_colors
 				worn_preview.Blend(altdetail_overlay, ICON_OVERLAY)
 
 			// add sleeved parts if they exist (for cloaks)
-			if(clothing_item.sleeved && "[worn_state]" in icon_states(clothing_item.sleeved))
+			if(clothing_item.sleeved && ("[worn_state]" in icon_states(clothing_item.sleeved)))
 				// check if r_ and l_ prefixed states exist before trying to use them
 				if("r_[worn_state]" in icon_states(clothing_item.sleeved))
 					var/icon/r_sleeve = new /icon()
