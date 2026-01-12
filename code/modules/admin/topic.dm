@@ -1107,6 +1107,52 @@
 		log_admin("[usr] decreased [M]'s [statkey].")
 		show_player_panel_next(M, "stats")
 
+	else if(href_list["set_patron"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/mob/living/M = locate(href_list["set_patron"])
+		if(!isliving(M))
+			to_chat(usr, span_warning("Target must be a living mob."))
+			return
+		var/patron_type = text2path(href_list["patron"])
+		if(!patron_type)
+			return
+		
+		// For divine spellcasters (those with devotion), we need to handle spells specially
+		var/is_divine_caster = FALSE
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(H.devotion)
+				is_divine_caster = TRUE
+		
+		// Remove old patron bonuses/spells
+		if(M.patron)
+			M.patron.on_loss(M)
+			
+			// For divine casters, remove devotion spells from old patron
+			if(is_divine_caster && ishuman(M))
+				var/mob/living/carbon/human/H = M
+				if(H.devotion && M.patron.miracles)
+					for(var/spell_type in M.patron.miracles)
+						if(H.mind?.has_spell(spell_type))
+							H.mind.RemoveSpell(spell_type)
+		
+		// Set new patron
+		M.set_patron(patron_type)
+		
+		// For divine casters, grant new patron's devotion spells
+		if(is_divine_caster && ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(H.devotion)
+				// Reinitialize devotion with new patron
+				H.devotion.patron = M.patron
+				// Update the level to trigger spell granting
+				H.devotion.try_add_spells(silent = FALSE)
+		
+		message_admins(span_danger("Admin [key_name_admin(usr)] changed [key_name_admin(M)]'s patron to [initial(M.patron.name)]"))
+		log_admin("[usr] changed [M]'s patron to [initial(M.patron.name)].")
+		show_player_panel_next(M, "patron")
+
 	else if(href_list["sendmob"])
 		if(!check_rights(R_ADMIN))
 			return

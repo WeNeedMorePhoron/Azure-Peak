@@ -30,7 +30,7 @@
 	body += "html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }"
 	body += "#container { display: flex; flex-direction: row; align-items: flex-start; width: 100%; overflow-x: hidden; flex-wrap: nowrap; }"
 	body += "#left { flex: 2; padding-right: 10px; min-width: 0; }"
-	body += "#skills-section, #languages-section, #stats-section { display: none; background: white; border: 1px solid black; padding: 10px; width: 100%; box-sizing: border-box; max-width: 100%; overflow-x: hidden; word-wrap: break-word; }"
+	body += "#skills-section, #languages-section, #stats-section, #patron-section { display: none; background: white; border: 1px solid black; padding: 10px; width: 100%; box-sizing: border-box; max-width: 100%; overflow-x: hidden; word-wrap: break-word; }"
 	body += "#right { flex: 1; border-left: 2px solid black; padding-left: 10px; max-height: 500px; overflow-y: auto; width: 250px; min-width: 250px; box-sizing: border-box; position: relative; }"
 	body += "#right-header { display: flex; justify-content: space-around; padding: 5px; background: white; border-bottom: 2px solid black; position: sticky; top: 0; z-index: 10; }"
 	body += "#right-header button { flex: 1; margin: 2px; padding: 5px; cursor: pointer; font-weight: bold; border: none; background-color: #ddd; border-radius: 5px; }"
@@ -44,6 +44,7 @@
 	body += "    document.getElementById('skills-section').style.display = (section === 'skills') ? 'block' : 'none';"
 	body += "    document.getElementById('languages-section').style.display = (section === 'languages') ? 'block' : 'none';"
 	body += "	 document.getElementById('stats-section').style.display = (section === 'stats') ? 'block' : 'none';"
+	body += "    document.getElementById('patron-section').style.display = (section === 'patron') ? 'block' : 'none';"
 	body += "}"
 
 	body += "function refreshAndKeepSection(section) {"
@@ -173,6 +174,7 @@
 	body += "<button onclick=\"toggleSection('skills')\">Skills</button>"
 	body += "<button onclick=\"toggleSection('languages')\">Languages</button>"
 	body += "<button onclick=\"toggleSection('stats')\">Stats</button>"
+	body += "<button onclick=\"toggleSection('patron')\">Patron</button>"
 	body += "</div>"
 
 
@@ -231,7 +233,25 @@
 		body += "<a class='skill-btn' href='?_src_=holder;[HrefToken()];add_stat=[REF(M)];stat=fortune'>+</a> "
 		body += "<a class='skill-btn' href='?_src_=holder;[HrefToken()];lower_stat=[REF(M)];stat=fortune'>-</a></li>"
 		body += "</ul>"
-
+		body += "</div>"
+		
+		// Patron Section
+		body += "<div id='patron-section'>"
+		body += "<h3>Patron</h3>"
+		body += "<p>Current: [initial(living.patron.name)]</p>"
+		body += "<ul>"
+		for(var/patron_type in GLOB.patronlist)
+			// Skip Undivided and Science patrons
+			if(patron_type == /datum/patron/divine/undivided || patron_type == /datum/patron/godless)
+				continue
+			var/datum/patron/P = GLOB.patronlist[patron_type]
+			// Skip if patron is null or has no name
+			if(!P || !initial(P.name))
+				continue
+			body += "<li>[initial(P.name)] "
+			body += "<a class='skill-btn' href='?_src_=holder;[HrefToken()];set_patron=[REF(M)];patron=[patron_type]'>Set</a></li>"
+		body += "</ul></div>"
+		
 
 		body += "</div>"
 		body += "</div>"

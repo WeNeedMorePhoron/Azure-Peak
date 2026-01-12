@@ -391,25 +391,19 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 				if(ispath(job_type_path, /datum/migrant_role))
 					var/datum/migrant_role/migrant_datum = new job_type_path()
 					if(migrant_datum.advclass_cat_rolls && length(migrant_datum.advclass_cat_rolls))
-						// Get advclasses matching the category tags
+						// Get advclasses from the role class handler
 						var/list/advclass_choices = list()
-						for(var/advclass_type in subtypesof(/datum/advclass))
-							var/datum/advclass/AC = advclass_type
-							var/list/ac_tags = initial(AC.category_tags)
-							if(!ac_tags)
-								continue
-							for(var/cat_tag in migrant_datum.advclass_cat_rolls)
-								if(cat_tag in ac_tags)
-									advclass_choices[initial(AC.name)] = advclass_type
-									break
+						for(var/category in migrant_datum.advclass_cat_rolls)
+							for(var/datum/advclass/advclass_instance in SSrole_class_handler.sorted_class_categories[category])
+								advclass_choices[advclass_instance.name] = advclass_instance.type
 						
 						if(length(advclass_choices) == 0)
 							to_chat(usr, span_warning("No advclasses found for this migrant role."))
 						else if(length(advclass_choices) == 1)
-							var/only_choice = advclass_choices[advclass_choices[1]]
+							var/only_choice_name = advclass_choices[1]
+							var/only_choice = advclass_choices[only_choice_name]
 							GLOB.loadout_selected_advclasses[REF(H)] = only_choice
-							var/datum/advclass/AC = only_choice
-							to_chat(usr, span_notice("Auto-selected advclass: [initial(AC.name)]"))
+							to_chat(usr, span_notice("Auto-selected advclass: [only_choice_name]"))
 						else
 							// Multiple advclasses - open selection automatically
 							var/selected = input("Select advclass:", "Advclass Selection") as null|anything in sortList(advclass_choices)
@@ -453,25 +447,19 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 				if(ispath(job_type_path, /datum/migrant_role))
 					var/datum/migrant_role/migrant_datum = new job_type_path()
 					if(migrant_datum.advclass_cat_rolls && length(migrant_datum.advclass_cat_rolls))
-						// Get advclasses matching the category tags
+						// Get advclasses from the role class handler
 						var/list/advclass_choices = list()
-						for(var/advclass_type in subtypesof(/datum/advclass))
-							var/datum/advclass/AC = advclass_type
-							var/list/ac_tags = initial(AC.category_tags)
-							if(!ac_tags)
-								continue
-							for(var/cat_tag in migrant_datum.advclass_cat_rolls)
-								if(cat_tag in ac_tags)
-									advclass_choices[initial(AC.name)] = advclass_type
-									break
+						for(var/category in migrant_datum.advclass_cat_rolls)
+							for(var/datum/advclass/advclass_instance in SSrole_class_handler.sorted_class_categories[category])
+								advclass_choices[advclass_instance.name] = advclass_instance.type
 						
 						if(length(advclass_choices) == 0)
 							to_chat(usr, span_warning("No advclasses found for this migrant role."))
 						else if(length(advclass_choices) == 1)
-							var/only_choice = advclass_choices[advclass_choices[1]]
+							var/only_choice_name = advclass_choices[1]
+							var/only_choice = advclass_choices[only_choice_name]
 							GLOB.loadout_selected_advclasses[REF(H)] = only_choice
-							var/datum/advclass/AC = only_choice
-							to_chat(usr, span_notice("Auto-selected advclass: [initial(AC.name)]"))
+							to_chat(usr, span_notice("Auto-selected advclass: [only_choice_name]"))
 						else
 							// Multiple advclasses - open selection automatically
 							var/selected = input("Select advclass:", "Advclass Selection") as null|anything in sortList(advclass_choices)
@@ -508,26 +496,53 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 				show_loadout_panel(H)
 				return TRUE
 			
-			// Find the job datum to get its subclasses
-			var/datum/job/selected_job
-			for(var/datum/job/J in SSjob.occupations)
-				if(J.type == job_type_path)
-					selected_job = J
-					break
-			
-			if(!selected_job || !selected_job.job_subclasses || !length(selected_job.job_subclasses))
-				to_chat(usr, span_warning("This job has no advclasses available."))
-				show_loadout_panel(H)
-				return TRUE
-			
-			var/list/advclass_choices = list()
-			for(var/advclass_path in selected_job.job_subclasses)
-				var/datum/advclass/AC = advclass_path
-				advclass_choices[initial(AC.name)] = advclass_path
-			
-			var/selected = input("Select advclass:", "Advclass Selection") as null|anything in sortList(advclass_choices)
-			if(selected)
-				GLOB.loadout_selected_advclasses[REF(H)] = advclass_choices[selected]
+			// Check if it's a migrant role
+			if(ispath(job_type_path, /datum/migrant_role))
+				var/datum/migrant_role/migrant_datum = new job_type_path()
+				if(!migrant_datum.advclass_cat_rolls || !length(migrant_datum.advclass_cat_rolls))
+					to_chat(usr, span_warning("This migrant role has no advclasses available."))
+					qdel(migrant_datum)
+					show_loadout_panel(H)
+					return TRUE
+				
+				// Get advclasses from the role class handler
+				var/list/advclass_choices = list()
+				for(var/category in migrant_datum.advclass_cat_rolls)
+					for(var/datum/advclass/advclass_instance in SSrole_class_handler.sorted_class_categories[category])
+						advclass_choices[advclass_instance.name] = advclass_instance.type
+				
+				qdel(migrant_datum)
+				
+				if(!length(advclass_choices))
+					to_chat(usr, span_warning("No advclasses found for this migrant role."))
+					show_loadout_panel(H)
+					return TRUE
+				
+				var/selected = input("Select advclass:", "Advclass Selection") as null|anything in sortList(advclass_choices)
+				if(selected)
+					GLOB.loadout_selected_advclasses[REF(H)] = advclass_choices[selected]
+					to_chat(usr, span_notice("Advclass selected: [selected]"))
+			else
+				// Regular job
+				var/datum/job/selected_job
+				for(var/datum/job/J in SSjob.occupations)
+					if(J.type == job_type_path)
+						selected_job = J
+						break
+				
+				if(!selected_job || !selected_job.job_subclasses || !length(selected_job.job_subclasses))
+					to_chat(usr, span_warning("This job has no advclasses available."))
+					show_loadout_panel(H)
+					return TRUE
+				
+				var/list/advclass_choices = list()
+				for(var/advclass_path in selected_job.job_subclasses)
+					var/datum/advclass/AC = advclass_path
+					advclass_choices[initial(AC.name)] = advclass_path
+				
+				var/selected = input("Select advclass:", "Advclass Selection") as null|anything in sortList(advclass_choices)
+				if(selected)
+					GLOB.loadout_selected_advclasses[REF(H)] = advclass_choices[selected]
 				to_chat(usr, span_notice("Advclass selected: [selected]"))
 			show_loadout_panel(H)
 		
@@ -727,18 +742,29 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	
 	var/datum/outfit/outfit_path = null
 	var/datum/outfit/actual_outfit = null
+	var/advclass_path = GLOB.loadout_selected_advclasses[REF(H)]
 	
 	if(is_migrant)
-		// Get outfit from migrant role
-		var/datum/migrant_role/MR = job_type_path
-		outfit_path = initial(MR.outfit)
-		actual_outfit = outfit_path
+		// Get outfit from migrant role - check if it uses advclass_cat_rolls or direct outfit
+		var/datum/migrant_role/MR = new job_type_path()
+		outfit_path = MR.outfit
+		
+		// If migrant role has direct outfit, use it
+		if(outfit_path)
+			actual_outfit = outfit_path
+		// If migrant role uses advclass system, get outfit from selected advclass
+		else if(advclass_path)
+			var/datum/advclass/advclass_datum = new advclass_path()
+			if(advclass_datum.outfit)
+				actual_outfit = advclass_datum.outfit
+		else if(MR.advclass_cat_rolls)
+			to_chat(usr, span_warning("No advclass selected for this migrant role. Use the Advclass button to select one."))
+		qdel(MR)
 	else
 		// Get outfit from job type
 		var/datum/job/JobType = job_type_path
 		outfit_path = initial(JobType.outfit)
 		
-		var/advclass_path = GLOB.loadout_selected_advclasses[REF(H)]
 		var/datum/advclass/advclass_datum = null
 		actual_outfit = outfit_path
 		
@@ -776,7 +802,6 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	// For migrant roles, equipment and stats are applied via the outfit's pre_equip
 	// For regular jobs, we need to handle advclass and job separately
 	if(!is_migrant)
-		var/advclass_path = GLOB.loadout_selected_advclasses[REF(H)]
 		var/datum/advclass/advclass_datum = null
 		
 		// Apply advclass stats/skills/traits if available, otherwise use job
@@ -823,8 +848,9 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		if(H.dna.species.name in list("Metal Construct"))
 			H.adjust_skillrank(/datum/skill/craft/engineering, 2, TRUE)
 	
-	// Call after_spawn if job exists (latejoin=TRUE to skip spawn protection)
+	// Call after_spawn if job exists (latejoin=TRUE to skip spawn protection and ready-up bonuses)
 	if(job_datum && hascall(job_datum, "after_spawn"))
+		H.islatejoin = TRUE  // Mark as latejoin to prevent ready-up bonuses
 		job_datum.after_spawn(H, H, TRUE)
 	
 	// Call after_spawn for migrant roles if it exists
@@ -834,7 +860,8 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			migrant_datum.after_spawn(H)
 		qdel(migrant_datum)
 	
-	// Clean up any advclass selection hugbox state that may have been applied
+	// Clean up any advclass selection hugbox state that may have been applied by after_spawn
+	// This must happen AFTER after_spawn since that proc may apply hugbox for advclass selection
 	H.advsetup = 0
 	H.invisibility = 0
 	H.cure_blind("advsetup")
@@ -843,6 +870,11 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	REMOVE_TRAIT(H, TRAIT_PACIFISM, HUGBOX_TRAIT)
 	// Unregister the movement signal if it exists
 	UnregisterSignal(H, COMSIG_MOVABLE_MOVED)
+	// Clear any hugbox-related messages
+	H.clear_fullscreen("blind")
+	// Force end any hugbox timers by calling the end proc (safe to call even if not in hugbox)
+	if(hascall(H, "adv_hugboxing_end"))
+		H.adv_hugboxing_end()
 	
 	// Apply examine title
 	if(is_migrant)
@@ -857,7 +889,6 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		if(job_datum.f_title && (H.pronouns == SHE_HER || H.pronouns == THEY_THEM_F))
 			title = job_datum.f_title
 		H.job = title
-		var/advclass_path = GLOB.loadout_selected_advclasses[REF(H)]
 		if(advclass_path)
 			var/datum/advclass/adv_for_title = new advclass_path()
 			H.advjob = adv_for_title.name
@@ -882,18 +913,29 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	
 	var/datum/outfit/outfit_path = null
 	var/datum/outfit/actual_outfit = null
+	var/advclass_path = GLOB.loadout_selected_advclasses[REF(H)]
 	
 	if(is_migrant)
-		// Get outfit from migrant role
-		var/datum/migrant_role/MR = job_type_path
-		outfit_path = initial(MR.outfit)
-		actual_outfit = outfit_path
+		// Get outfit from migrant role - check if it uses advclass_cat_rolls or direct outfit
+		var/datum/migrant_role/MR = new job_type_path()
+		outfit_path = MR.outfit
+		
+		// If migrant role has direct outfit, use it
+		if(outfit_path)
+			actual_outfit = outfit_path
+		// If migrant role uses advclass system, get outfit from selected advclass
+		else if(advclass_path)
+			var/datum/advclass/advclass_datum = new advclass_path()
+			if(advclass_datum.outfit)
+				actual_outfit = advclass_datum.outfit
+		else if(MR.advclass_cat_rolls)
+			to_chat(usr, span_warning("No advclass selected for this migrant role. Use the Advclass button to select one."))
+		qdel(MR)
 	else
 		// Get outfit from job type
 		var/datum/job/JobType = job_type_path
 		outfit_path = initial(JobType.outfit)
 		
-		var/advclass_path = GLOB.loadout_selected_advclasses[REF(H)]
 		actual_outfit = outfit_path
 		
 		// If advclass is selected, use its outfit instead
@@ -938,7 +980,6 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 				H.mind.AddSpell(new S)
 	
 		// Apply spell points from advclass if available
-		var/advclass_path = GLOB.loadout_selected_advclasses[REF(H)]
 		if(advclass_path)
 			var/datum/advclass/advclass_datum = new advclass_path()
 			if(advclass_datum.subclass_spellpoints > 0)
