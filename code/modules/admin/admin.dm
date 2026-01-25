@@ -615,7 +615,10 @@
 			var/repaired_count = 0
 			for(var/obj/item/I in target.held_items)
 				if(I && I.obj_integrity < I.max_integrity)
-					I.obj_integrity = I.max_integrity
+					if(I.obj_broken)
+						I.obj_fix(null, TRUE)
+					else
+						I.obj_integrity = I.max_integrity
 					I.update_icon()
 					repaired_count++
 				// Also restore sharpness
@@ -626,7 +629,10 @@
 				var/mob/living/carbon/human/H = target
 				for(var/obj/item/I in H.GetAllContents())
 					if(I.obj_integrity < I.max_integrity)
-						I.obj_integrity = I.max_integrity
+						if(I.obj_broken)
+							I.obj_fix(null, TRUE)
+						else
+							I.obj_integrity = I.max_integrity
 						I.update_icon()
 						repaired_count++
 					// Also restore sharpness
@@ -687,7 +693,10 @@
 		if("repair_item")
 			var/obj/item/I = locate(href_list["item"])
 			if(I && I.max_integrity)
-				I.obj_integrity = I.max_integrity
+				if(I.obj_broken)
+					I.obj_fix(null, TRUE)
+				else
+					I.obj_integrity = I.max_integrity
 				// Also restore sharpness
 				if(I.max_blade_int > 0)
 					I.blade_int = I.max_blade_int
