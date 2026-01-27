@@ -15,10 +15,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/rogue/tile/masonic/spiral,
 /area/rogue/under/tomb/indoors/magic)
-"aK" = (
-/obj/machinery/light/rogue,
-/turf/closed/wall/mineral/rogue/stonebrick,
-/area/rogue/under/tomb/indoors/magic)
 "aN" = (
 /obj/machinery/light/rogue/candle/blue,
 /obj/structure/fluff/walldeco/painting/skull,
@@ -106,7 +102,7 @@
 /turf/open/floor/rogue/tile/masonic/spiral,
 /area/rogue/under/tomb/indoors/magic)
 "eY" = (
-/obj/item/natural/rock/random_ore,
+/obj/item/natural/rock/dungeon,
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/under/tomb/cave/wet)
 "fm" = (
@@ -130,6 +126,10 @@
 "fL" = (
 /mob/living/simple_animal/hostile/rogue/haunt,
 /turf/open/floor/carpet/royalblack,
+/area/rogue/under/tomb/indoors/magic)
+"fN" = (
+/obj/machinery/light/rogue/campfire/fireplace,
+/turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/under/tomb/indoors/magic)
 "ga" = (
 /obj/item/reagent_containers/glass/bucket,
@@ -236,7 +236,7 @@
 /turf/open/floor/rogue/tile/checker,
 /area/rogue/under/tomb/indoors/magic)
 "ku" = (
-/obj/item/natural/rock/random_ore,
+/obj/item/natural/rock/dungeon,
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/tomb/cave/wet)
 "kS" = (
@@ -364,6 +364,7 @@
 /area/rogue/under/tomb/indoors/magic)
 "qb" = (
 /obj/structure/bonepile,
+/obj/machinery/light/rogue/campfire/fireplace,
 /turf/open/floor/carpet/royalblack,
 /area/rogue/under/tomb/indoors/magic)
 "qc" = (
@@ -420,8 +421,8 @@
 /turf/closed/wall/mineral/rogue/stonebrick,
 /area/rogue/under/tomb/indoors/magic)
 "rz" = (
-/obj/item/natural/rock/random_ore,
-/obj/item/natural/rock/random_ore,
+/obj/item/natural/rock/dungeon,
+/obj/item/natural/rock/dungeon,
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/under/tomb/cave/wet)
 "rD" = (
@@ -776,8 +777,8 @@
 /turf/open/floor/rogue/ruinedwood/chevron,
 /area/rogue/under/tomb/indoors/magic)
 "Di" = (
-/obj/item/natural/rock/random_ore,
-/obj/item/natural/rock/random_ore,
+/obj/item/natural/rock/dungeon,
+/obj/item/natural/rock/dungeon,
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/tomb/cave/wet)
 "Dj" = (
@@ -846,11 +847,6 @@
 "Gh" = (
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/tomb/cave/wet)
-"Gx" = (
-/obj/item/natural/rock/random_ore,
-/obj/item/natural/rock/random_ore,
-/turf/open/floor/rogue/naturalstone,
-/area/rogue/under/tomb/cave/wet)
 "GA" = (
 /obj/machinery/light/rogue/firebowl/standing/blue,
 /turf/open/floor/rogue/cobble,
@@ -875,6 +871,10 @@
 	dir = 8
 	},
 /turf/open/floor/rogue/tile,
+/area/rogue/under/tomb/indoors/magic)
+"Id" = (
+/obj/machinery/light/rogue/campfire/fireplace,
+/turf/open/floor/rogue/carpet,
 /area/rogue/under/tomb/indoors/magic)
 "Ie" = (
 /obj/machinery/light/rogue/firebowl/standing/blue,
@@ -1014,11 +1014,6 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/spider/mutated,
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/under/tomb/indoors/magic)
-"On" = (
-/obj/item/natural/rock/random_ore,
-/obj/structure/forcefield_weak,
-/turf/open/floor/rogue/naturalstone,
-/area/rogue/under/tomb/cave/wet)
 "Or" = (
 /obj/structure/bookcase/random_recipes,
 /obj/structure/spider/stickyweb{
@@ -1292,6 +1287,11 @@
 /obj/structure/curtain/black,
 /turf/open/floor/rogue/ruinedwood/chevron,
 /area/rogue/under/tomb/indoors/magic)
+"VY" = (
+/obj/item/rope/chain,
+/obj/machinery/light/rogue/campfire/fireplace,
+/turf/open/floor/rogue/tile/masonic/spiral,
+/area/rogue/under/tomb/indoors/magic)
 "Wi" = (
 /obj/structure/forcefield_weak,
 /obj/machinery/light/rogue/candle/blue,
@@ -1344,11 +1344,11 @@
 /area/rogue/under/tomb/indoors/magic)
 "YL" = (
 /obj/item/roguegem/green,
-/obj/item/natural/rock/random_ore,
+/obj/item/natural/rock/dungeon,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/under/tomb/cave/wet)
 "YS" = (
-/obj/item/natural/rock/random_ore,
+/obj/item/natural/rock/dungeon,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/under/tomb/cave/wet)
 "YY" = (
@@ -1575,8 +1575,8 @@ FM
 At
 At
 At
-YS
-eY
+FM
+Pd
 gl
 gl
 "}
@@ -1603,7 +1603,7 @@ TF
 TF
 uh
 uh
-On
+JA
 JA
 At
 FM
@@ -1664,7 +1664,7 @@ TF
 TF
 TF
 TF
-aK
+TF
 qb
 Zk
 TF
@@ -1807,7 +1807,7 @@ gl
 (14,1,1) = {"
 Gh
 Gh
-YS
+FM
 At
 At
 Gh
@@ -1929,7 +1929,7 @@ At
 GA
 At
 Gh
-ku
+Gh
 FM
 "}
 (18,1,1) = {"
@@ -1960,7 +1960,7 @@ uh
 At
 At
 FM
-rz
+eY
 Pd
 gl
 "}
@@ -2034,7 +2034,7 @@ gl
 gl
 FM
 YS
-gx
+FM
 uh
 Na
 Ct
@@ -2087,7 +2087,7 @@ uE
 TF
 uh
 At
-eY
+Pd
 FM
 gl
 gl
@@ -2127,7 +2127,7 @@ gl
 (24,1,1) = {"
 gl
 YS
-YS
+FM
 Pd
 At
 gl
@@ -2152,7 +2152,7 @@ gl
 mG
 At
 YS
-eY
+Pd
 nF
 gl
 "}
@@ -2207,7 +2207,7 @@ uh
 uh
 uh
 uh
-Gx
+YS
 jJ
 gl
 mG
@@ -2239,7 +2239,7 @@ Gh
 FM
 At
 Pd
-eY
+Pd
 gl
 gl
 mG
@@ -2257,13 +2257,13 @@ gl
 gl
 gl
 gl
-YS
-YS
+FM
+FM
 At
 At
 Pd
-eY
-eY
+Pd
+Pd
 gl
 gl
 Gh
@@ -2277,7 +2277,7 @@ gl
 gl
 gl
 Pd
-Gx
+YS
 FM
 nF
 gl
@@ -2294,7 +2294,7 @@ mG
 At
 jB
 FM
-YS
+FM
 FM
 wP
 gl
@@ -2308,7 +2308,7 @@ gl
 gl
 gl
 gl
-YS
+FM
 Ie
 gl
 gl
@@ -2393,10 +2393,10 @@ gl
 gl
 gl
 gl
-YS
 FM
 FM
-YS
+FM
+FM
 FM
 FM
 FM
@@ -2415,7 +2415,7 @@ gl
 "}
 (3,1,2) = {"
 gl
-YS
+FM
 FM
 jQ
 jQ
@@ -2451,13 +2451,13 @@ FM
 YS
 jQ
 FM
-YS
+FM
 jQ
 jQ
 jQ
 FM
 gl
-gx
+FM
 FM
 FM
 FM
@@ -2504,7 +2504,7 @@ jQ
 jQ
 jQ
 gl
-YS
+FM
 YS
 gl
 gl
@@ -2631,7 +2631,7 @@ Tt
 Ci
 Cq
 jQ
-gx
+FM
 FM
 gl
 gl
@@ -2640,12 +2640,12 @@ gl
 (10,1,2) = {"
 gl
 FM
-gx
+FM
 FM
 jQ
 Cq
-aK
-wY
+TF
+Id
 qd
 TF
 TM
@@ -2671,7 +2671,7 @@ gl
 "}
 (11,1,2) = {"
 gl
-YS
+FM
 FM
 FM
 jQ
@@ -2729,13 +2729,13 @@ Cq
 jQ
 FM
 FM
-YS
+FM
 gl
 gl
 "}
 (13,1,2) = {"
 gl
-YS
+FM
 FM
 gl
 jQ
@@ -2761,8 +2761,8 @@ Cq
 jQ
 FM
 FM
-YS
-Gx
+FM
+FM
 gl
 "}
 (14,1,2) = {"
@@ -2813,8 +2813,8 @@ TF
 TF
 yz
 yz
-aK
-vK
+TF
+fN
 lx
 Pw
 lx
@@ -2890,7 +2890,7 @@ jQ
 jQ
 gl
 FM
-YS
+FM
 FM
 "}
 (18,1,2) = {"
@@ -2922,7 +2922,7 @@ jQ
 jQ
 FM
 FM
-YS
+FM
 gl
 "}
 (19,1,2) = {"
@@ -2964,8 +2964,8 @@ gl
 gl
 FM
 Cq
-aK
-vs
+TF
+VY
 oU
 bg
 Fr
@@ -3082,7 +3082,7 @@ jQ
 jQ
 jQ
 FM
-YS
+FM
 gl
 "}
 (24,1,2) = {"
@@ -3114,14 +3114,14 @@ gl
 gl
 gl
 FM
-YS
+FM
 gl
 "}
 (25,1,2) = {"
 gl
 gl
 YS
-YS
+FM
 FM
 FM
 FM
@@ -3155,7 +3155,7 @@ gl
 FM
 FM
 FM
-YS
+FM
 YS
 gl
 jQ
@@ -3186,8 +3186,8 @@ gl
 gl
 gl
 FM
-gx
-YS
+FM
+FM
 gl
 gl
 gl
@@ -3208,7 +3208,7 @@ FM
 jQ
 jQ
 FM
-YS
+FM
 gl
 gl
 gl
@@ -3220,7 +3220,7 @@ gl
 gl
 FM
 FM
-gx
+FM
 gx
 FM
 FM
@@ -3269,7 +3269,7 @@ gl
 gl
 gl
 gl
-gx
+FM
 FM
 gl
 gl

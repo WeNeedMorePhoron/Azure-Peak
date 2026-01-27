@@ -34,10 +34,6 @@
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/rogue/church,
 /area/rogue/under/tomb/indoors)
-"aE" = (
-/obj/machinery/light/rogue,
-/turf/closed/wall/mineral/rogue/decostone/cand,
-/area/rogue/under/tomb/indoors/royal)
 "aF" = (
 /obj/structure/roguewindow/stained/silver,
 /turf/open/floor/rogue/hexstone,
@@ -1021,6 +1017,10 @@
 	},
 /turf/open/floor/rogue/dirt,
 /area/rogue/under/tomb/indoors)
+"nT" = (
+/obj/machinery/light/rogue/campfire/fireplace,
+/turf/open/floor/rogue/tile/masonic/spiral,
+/area/rogue/under/tomb/indoors/royal)
 "nY" = (
 /obj/structure/rack/rogue/shelf/biggest,
 /obj/effect/spawner/lootdrop/potion_ingredient,
@@ -1936,6 +1936,13 @@
 	},
 /turf/open/lava/acid,
 /area/rogue/under/tomb/cave/lava)
+"BC" = (
+/obj/item/clothing/neck/roguetown/psicross/silver{
+	pixel_x = -2;
+	pixel_y = -36
+	},
+/turf/open/floor/rogue/carpet,
+/area/rogue/under/tomb/indoors/royal)
 "BD" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb{
@@ -2207,10 +2214,6 @@
 /obj/structure/flora/roguegrass/pyroclasticflowers,
 /turf/open/floor/rogue/grass,
 /area/rogue/under/tomb/wilds)
-"FF" = (
-/obj/machinery/light/rogue,
-/turf/closed/wall/mineral/rogue/decostone,
-/area/rogue/under/tomb/indoors/royal)
 "FI" = (
 /obj/structure/fluff/nest,
 /turf/open/floor/rogue/tile,
@@ -2522,6 +2525,13 @@
 /obj/structure/trap/wall_projectile,
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/tomb/indoors)
+"Jl" = (
+/obj/machinery/light/rogue/campfire/fireplace{
+	pixel_y = 0;
+	pixel_x = -32
+	},
+/turf/open/floor/rogue/church,
+/area/rogue/under/tomb/indoors/royal)
 "Jq" = (
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/under/tomb/cave/lava)
@@ -3243,7 +3253,6 @@
 /obj/item/clothing/ring/quartz,
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron,
 /obj/item/rogueweapon/sword/rapier,
-/obj/item/clothing/neck/roguetown/psicross/silver,
 /mob/living/carbon/human/species/skeleton/npc/hard/noequip,
 /turf/open/floor/rogue/carpet,
 /area/rogue/under/tomb/indoors/royal)
@@ -4464,7 +4473,7 @@ CD
 Hi
 EF
 FW
-aE
+Hi
 EF
 Gv
 hr
@@ -4511,7 +4520,7 @@ CD
 Gx
 GX
 am
-am
+Jl
 ix
 am
 hr
@@ -4606,7 +4615,7 @@ Hi
 am
 Ar
 bZ
-Ar
+BC
 Zd
 hr
 Zq
@@ -4728,8 +4737,8 @@ hr
 hr
 WU
 GY
-FF
-fe
+EF
+nT
 fe
 fe
 fe

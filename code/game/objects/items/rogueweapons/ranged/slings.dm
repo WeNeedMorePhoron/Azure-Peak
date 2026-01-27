@@ -5,10 +5,10 @@
 	chargedrain = 2
 	charging_slowdown = 3
 
-/datum/intent/swing/sling/can_charge(atom/clicked_object) //checks for arms and spare empty hand removed since it can fire with one hand
-	if(mastermob)
-		if(istype(clicked_object, /obj/item/quiver) && istype(mastermob.get_active_held_item(), /obj/item/gun/ballistic))
-			return FALSE
+/datum/intent/swing/sling/can_charge(atom/clicked_object)
+	if(istype(clicked_object, /obj/item/quiver) && istype(mastermob?.get_active_held_item(), /obj/item/gun/ballistic))
+		return FALSE
+
 	return TRUE
 
 /datum/intent/swing/sling/prewarning()
@@ -35,10 +35,10 @@
 	chargedrain = 2
 	charging_slowdown = 3
 
-/datum/intent/arc/sling/can_charge(atom/clicked_object) //checks for arms and spare empty hand removed since it can fire with one hand
-	if(mastermob)
-		if(istype(clicked_object, /obj/item/quiver) && istype(mastermob.get_active_held_item(), /obj/item/gun/ballistic))
-			return FALSE
+/datum/intent/arc/sling/can_charge(atom/clicked_object)
+	if(istype(clicked_object, /obj/item/quiver) && istype(mastermob?.get_active_held_item(), /obj/item/gun/ballistic))
+		return FALSE
+
 	return TRUE
 
 /datum/intent/arc/sling/prewarning()
@@ -91,6 +91,10 @@
 	grid_height = 64
 	var/atom/movable/temp_stone = null //stones are not ammo so they aren't acceptable by ballistics. this var will keep the stone temporarily stored
 	var/bonus_stone_force = 0 //above comment is relevant. a magical stone's bonus force is kept on the sling itself and changed accordingly
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/sling/get_mechanics_examine(mob/user)
+	. += span_info("Slings increase in damage and accuracy the higher your <b>PERCEPTION</b> and <b>STRENGTH</b>.")
+	. += span_info("Slings can be loaded directly from a pouch while your offhand is occupied by another item.")
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/sling/getonmobprop(tag)
 	. = ..()

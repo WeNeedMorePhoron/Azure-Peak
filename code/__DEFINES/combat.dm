@@ -88,6 +88,12 @@
 #define ATTACK_ANIMATION_SWIPE "swipe"
 #define ATTACK_ANIMATION_THRUST "thrust"
 
+// Intent Effective Range presets
+#define EFF_RANGE_NONE 0
+#define EFF_RANGE_EXACT 1
+#define EFF_RANGE_ABOVE 2
+#define EFF_RANGE_BELOW 3
+
 //Grab levels
 #define GRAB_PASSIVE				0
 #define GRAB_AGGRESSIVE				1
@@ -286,6 +292,10 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 //We will round to this value in damage calculations.
 #define DAMAGE_PRECISION 0.1
 
+#define STRONG_STANCE_DMG_BONUS 0.1
+#define STRONG_SHP_BONUS 2
+#define STRONG_INTG_BONUS 2
+
 //bullet_act() return values
 #define BULLET_ACT_HIT				"HIT"		//It's a successful hit, whatever that means in the context of the thing it's hitting.
 #define BULLET_ACT_BLOCK			"BLOCK"		//It's a blocked hit, whatever that means in the context of the thing it's hitting.
@@ -319,6 +329,28 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BAD_GUARD_FATIGUE_DRAIN 20 //Percentage of your green bar lost on letting a guard expire.
 #define GUARD_PEEL_REDUCTION 2	//How many Peel stacks to lose if a Guard is hit.
 #define BAIT_PEEL_REDUCTION 1	//How many Peel stacks to lose if we perfectly bait.
+#define BASE_RCLICK_CD 30 SECONDS
+
+/* TEMPO DEFINES */
+#define TEMPO_CULL_DELAY 	12 SECONDS	//Interval for checking our tempo lists. Only relevant to player mobs with TRAIT_TEMPO
+#define TEMPO_DELAY_ONE 30 SECONDS	//How long the attacker will stay "in memory" before getting deleted, the more attackers the shorter the duration.
+#define TEMPO_DELAY_TWO	15 SECONDS
+#define TEMPO_DELAY_MAX	8 SECONDS
+#define TEMPO_CAP 7
+#define TEMPO_MAX 4
+#define TEMPO_TWO 3
+#define TEMPO_ONE 2
+
+#define TEMPO_TAG_STAMLOSS_PARRY "parry"
+#define TEMPO_TAG_STAMLOSS_DODGE "dodge"
+#define TEMPO_TAG_ARMOR_INTEGFACTOR "integ"
+#define TEMPO_TAG_NOLOS_PARRY "nolosparry"
+#define TEMPO_TAG_DEF_SHARPNESSFACTOR "sharpness"
+#define TEMPO_TAG_DEF_INTEGFACTOR "parryinteg"
+#define TEMPO_TAG_PARRYCD_BONUS	"parrycd"
+#define TEMPO_TAG_RCLICK_CD_BONUS "rclickcd"
+#define TEMPO_TAG_DEF_BONUS	"defbonus"
+
 
 /*
 Medical defines
@@ -347,6 +379,8 @@ Medical defines
 #define PREVENT_CRITS_NONE	0
 #define PREVENT_CRITS_MOST	1
 #define PREVENT_CRITS_ALL	2
+
+#define BLOOD_RESISTANCE_EFFECTIVE_BLEEDRATE 0.5
 
 /*
 	Dullfactor Defines. These should be removed at some point.

@@ -28,6 +28,7 @@
 	var/emote_environment = -1
 	var/prevent_crits = PREVENT_CRITS_MOST
 	var/clothing_flags = NONE
+	var/stack_fovs = FALSE
 
 	salvage_result = /obj/item/natural/cloth
 	salvage_amount = 1
@@ -67,6 +68,7 @@
 	var/altdetail_color
 	var/boobed_detail = TRUE
 	var/sleeved_detail = TRUE
+	var/malumblessed_c = FALSE
 	var/list/original_armor //For restoring broken armor
 
 /obj/item/clothing/New()
@@ -97,7 +99,7 @@
 /obj/item/proc/get_altdetail_color() //this is for extra layers on clothes
 	return altdetail_color
 
-/obj/item/clothing/MiddleClick(mob/user, params)
+/obj/item/clothing/ShiftRightClick(mob/user, params)
 	..()
 	var/mob/living/L = user
 	var/altheld //Is the user pressing alt?
@@ -122,7 +124,6 @@
 				if(l_sleeve_zone == BODY_ZONE_L_LEG)
 					body_parts_covered &= ~LEG_LEFT
 				l_sleeve_status = SLEEVE_ROLLED
-			return
 		else if(user.zone_selected == r_sleeve_zone)
 			if(r_sleeve_status == SLEEVE_ROLLED)
 				if(r_sleeve_zone == BODY_ZONE_R_ARM)
@@ -136,7 +137,6 @@
 				if(r_sleeve_zone == BODY_ZONE_R_LEG)
 					body_parts_covered &= ~LEG_RIGHT
 				r_sleeve_status = SLEEVE_ROLLED
-			return
 	else
 		if(user.zone_selected == r_sleeve_zone)
 			if(r_sleeve_status == SLEEVE_NOMOD)
@@ -158,9 +158,8 @@
 				var/obj/item/Sr = new salvage_result(get_turf(src))
 				Sr.color = color
 				user.put_in_hands(Sr)
-				return
 			else
-				user.visible_message(span_warning("[user] tries to tear [src]."))
+				user.visible_message(span_warning("[user] tries and fails to tear [src]."), span_warning("You try and fail to tear [src]."))
 				return
 		if(user.zone_selected == l_sleeve_zone)
 			if(l_sleeve_status == SLEEVE_NOMOD)
@@ -182,9 +181,8 @@
 				var/obj/item/Sr = new salvage_result(get_turf(src))
 				Sr.color = color
 				user.put_in_hands(Sr)
-				return
 			else
-				user.visible_message(span_warning("[user] tries to tear [src]."))
+				user.visible_message(span_warning("[user] tries and fails to tear [src]."), span_warning("You try and fail to tear [src]."))
 				return
 	if(loc == L)
 		L.regenerate_clothes()
@@ -547,7 +545,7 @@ BLIND     // can't see anything
 /obj/item/clothing/generate_tooltip(examine_text, showcrits)
 	if(!armor)	// No armor
 		return examine_text
-	
+
 	// Fake armor
 	if(armor.getRating("slash") == 0 && armor.getRating("stab") == 0 && armor.getRating("blunt") == 0 && armor.getRating("piercing") == 0)
 		return examine_text

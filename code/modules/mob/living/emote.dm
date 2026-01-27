@@ -526,7 +526,7 @@
 						to_chat(target, span_love("It tickles..."))
 			else if(J.zone_selected == BODY_ZONE_PRECISE_GROIN)
 				message_param = "licks %t between the legs."
-				to_chat(target, span_love("It somewhat stimulating..."))
+				to_chat(target, span_love("That feels nice..."))
 			else if(J.zone_selected == BODY_ZONE_HEAD)
 				message_param = "licks %t cheek"
 			else
@@ -818,7 +818,8 @@
 					L.sate_addiction()
 				continue
 			if(L.has_flaw(/datum/charflaw/addiction/sadist))
-				L.sate_addiction()
+				if(get_dist(L, user) <= 2 && L != user)
+					L.sate_addiction()
 
 /datum/emote/living/scream/strain
 	key = "strain"
@@ -842,7 +843,7 @@
 				if(L.has_flaw(/datum/charflaw/addiction/masochist))
 					L.sate_addiction()
 				continue // i hope this shit works.
-			if(L.has_flaw(/datum/charflaw/addiction/sadist))
+			if(get_dist(L, user) <= 2 && L != user)
 				L.sate_addiction()
 
 /datum/emote/living/scream/firescream
@@ -860,7 +861,7 @@
 				if(L.has_flaw(/datum/charflaw/addiction/masochist))
 					L.sate_addiction()
 				continue // i hope this shit works.
-			if(L.has_flaw(/datum/charflaw/addiction/sadist))
+			if(get_dist(L, user) <= 2 && L != user)
 				L.sate_addiction()
 
 /datum/emote/living/aggro
@@ -1034,6 +1035,11 @@
 
 	emote("sigh", intentional = TRUE)
 
+/datum/emote/living/sigh/run_emote(mob/user, params, type_override, intentional, targetted)
+	. = ..()
+	if(. && user.mind)
+		record_featured_stat(FEATURED_STATS_EMOS, user)
+
 /datum/emote/living/whistle
 	key = "whistle"
 	key_third_person = "whistles"
@@ -1109,6 +1115,14 @@
 	emote_type = EMOTE_AUDIBLE
 	show_runechat = FALSE
 
+/datum/emote/living/hmph
+	key = "hmph"
+	key_third_person = "hmphs"
+	message = "hmphs."
+	message_muffled = "makes a muffled sneeze."
+	emote_type = EMOTE_AUDIBLE
+	show_runechat = TRUE
+
 /datum/emote/living/shh
 	key = "shh"
 	key_third_person = "shhs"
@@ -1160,6 +1174,11 @@
 	key = "sulk"
 	key_third_person = "sulks"
 	message = "sulks down sadly."
+
+/datum/emote/living/sulk/run_emote(mob/user, params, type_override, intentional, targetted)
+	. = ..()
+	if(. && user.mind)
+		record_featured_stat(FEATURED_STATS_EMOS, user)
 
 /datum/emote/living/sway
 	key = "sway"
@@ -1404,6 +1423,25 @@
 		to_chat(usr, span_warning("Your tongue doesn't do that"))
 		return
 
+/datum/emote/living/mrrp
+	key = "mrrp"
+	key_third_person = "mrrps!"
+	message = "mrrps!"
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
+	message_muffled = "makes a muffled sound!"
+	vary = TRUE
+	show_runechat = FALSE
+	is_animal = TRUE
+
+/mob/living/carbon/human/verb/emote_mrrp()
+	if(istype(usr.getorganslot(ORGAN_SLOT_TONGUE), /obj/item/organ/tongue/wild_tongue))
+		set name = "Mrrp"
+		set category = "Noises"
+		emote("mrrp", intentional = TRUE, animal = TRUE)
+	else
+		to_chat(usr, span_warning("Your tongue doesn't do that"))
+		return
+
 /datum/emote/living/caw
 	key = "caw"
 	key_third_person = "caws!"
@@ -1589,6 +1627,25 @@
 		set name = "Whine"
 		set category = "Noises"
 		emote("whine", intentional = TRUE, animal = TRUE)
+	else
+		to_chat(usr, span_warning("Your tongue doesn't do that"))
+		return
+
+/datum/emote/living/fwhine
+	key = "fwhine"
+	key_third_person = "whines like a Venard."
+	message = "whines like a Venard."
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
+	message_muffled = "makes a muffled sound!"
+	vary = TRUE
+	show_runechat = FALSE
+	is_animal = TRUE
+
+/mob/living/carbon/human/verb/emote_fwhine()
+	if(istype(usr.getorganslot(ORGAN_SLOT_TONGUE), /obj/item/organ/tongue/wild_tongue))
+		set name = "Whine (Venard)"
+		set category = "Noises"
+		emote("fwhine", intentional = TRUE, animal = TRUE)
 	else
 		to_chat(usr, span_warning("Your tongue doesn't do that"))
 		return
@@ -1791,6 +1848,25 @@
 		to_chat(usr, span_warning("Your tongue doesn't do that"))
 		return
 
+/datum/emote/living/prbt
+	key = "prbt"
+	key_third_person = "prbts!"
+	message = "prbts!"
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
+	message_muffled = "makes a muffled sound!"
+	vary = TRUE
+	show_runechat = FALSE
+	is_animal = TRUE
+
+/mob/living/carbon/human/verb/emote_prbt()
+	if(istype(usr.getorganslot(ORGAN_SLOT_TONGUE), /obj/item/organ/tongue/wild_tongue))
+		set name = "Prbt"
+		set category = "Noises"
+		emote("prbt", intentional = TRUE, animal = TRUE)
+	else
+		to_chat(usr, span_warning("Your tongue doesn't do that"))
+		return
+
 /datum/emote/living/bleat
 	key = "bleat"
 	key_third_person = "bleats!"
@@ -1901,6 +1977,13 @@
 	var/list/success_message_list
 	var/list/failure_message_list
 
+	/**
+	 * An assoc list of character traits which will affect the outcome of rolls by the defined values if the rolling player has them. If empty, this process will be ignored.
+	 * This basically determines the difficulty class in rolls (see: `/mob/living/proc/stat_roll()`)
+	 * -1 value means decreased difficulty class, 5% higher chance to succeed, otherwise vice versa.
+	 */
+	var/list/modifiers_list = list()
+
 /datum/emote/living/stat_roll/run_emote(mob/user, params, type_override, intentional = FALSE)
 	. = ..()
 	if(.)
@@ -1911,33 +1994,49 @@
 		var/success = FALSE
 		var/chance = 0
 
+		var/modifier_sum
+		if(length(modifiers_list))
+			for(var/key in modifiers_list)
+				if(HAS_TRAIT(living, key))
+					modifier_sum += modifiers_list[key]
+
 		switch(key)
 			if("strength")
-				success = living.stat_roll(STAT_STRENGTH, chance_per_point) 
+				success = living.stat_roll(STAT_STRENGTH, chance_per_point, modifier_sum) 
 				chance = living.get_stat(STAT_STRENGTH)
 			if("perception")
-				success = living.stat_roll(STAT_PERCEPTION, chance_per_point)
+				success = living.stat_roll(STAT_PERCEPTION, chance_per_point, modifier_sum)
 				chance = living.get_stat(STAT_PERCEPTION)
 			if("intelligence")
-				success = living.stat_roll(STAT_INTELLIGENCE, chance_per_point)
+				success = living.stat_roll(STAT_INTELLIGENCE, chance_per_point, modifier_sum)
 				chance = living.get_stat(STAT_INTELLIGENCE)
 			if("constitution")
-				success = living.stat_roll(STAT_CONSTITUTION, chance_per_point)
+				success = living.stat_roll(STAT_CONSTITUTION, chance_per_point, modifier_sum)
 				chance = living.get_stat(STAT_CONSTITUTION)
 			if("willpower")
-				success = living.stat_roll(STAT_WILLPOWER, chance_per_point)
+				success = living.stat_roll(STAT_WILLPOWER, chance_per_point, modifier_sum)
 				chance = living.get_stat(STAT_WILLPOWER)
 			if("speed")
-				success = living.stat_roll(STAT_SPEED, chance_per_point)
+				success = living.stat_roll(STAT_SPEED, chance_per_point, modifier_sum)
 				chance = living.get_stat(STAT_SPEED)
 			if("fortune")
-				success = living.stat_roll(STAT_FORTUNE, chance_per_point)
+				success = living.stat_roll(STAT_FORTUNE, chance_per_point, modifier_sum)
 				chance = living.get_stat(STAT_FORTUNE)
+			if("charisma")
+				// We compare willpower and fortune and use the highest. Not the best way to handle charisma actions, may be a subject to change in future
+				var/will = living.get_stat(STAT_WILLPOWER)
+				var/fort = living.get_stat(STAT_FORTUNE)
+				var/chosen_stat = (will > fort) ? STAT_WILLPOWER : STAT_FORTUNE
 
+				success = living.stat_roll(chosen_stat, chance_per_point, modifier_sum)
+				chance = living.get_stat(chosen_stat)
+
+		// modifier_sum is a difficulty class modifier, negative values make a roll more likely to succeed
+		chance -= modifier_sum
 		chance *= chance_per_point
 
 		var/msg = success ? span_green("SUCCEEDS and [pick(success_message_list)]") : span_danger("FAILS and [pick(failure_message_list)] [chance]%")
-		
+
 		msg = replace_pronoun(user, msg)
 
 		if(!msg)
@@ -1985,6 +2084,10 @@
 /datum/emote/living/stat_roll/strength
 	key = "strength"
 	key_third_person = "str"
+	modifiers_list = list(
+		TRAIT_BIGGUY = -1,
+	)
+
 	attempt_message_list = list(
 		"tests their strength...",
 		"puts their back into it...",
@@ -2012,6 +2115,10 @@
 /datum/emote/living/stat_roll/perception
 	key = "perception"
 	key_third_person = "per"
+	modifiers_list = list(
+		TRAIT_KEENEARS = -1,
+	)
+
 	attempt_message_list = list(
 		"takes a good, long look...",
 		"focuses in...",
@@ -2040,6 +2147,10 @@
 /datum/emote/living/stat_roll/intelligence
 	key = "intelligence"
 	key_third_person = "int"
+	modifiers_list = list(
+		TRAIT_INTELLECTUAL = -1,
+	)
+
 	attempt_message_list = list(
 		"thinks hard...",
 		"furrows their brows...",
@@ -2067,6 +2178,10 @@
 /datum/emote/living/stat_roll/constitution
 	key = "constitution"
 	key_third_person = "con"
+	modifiers_list = list(
+		TRAIT_NOPAIN = -1,
+	)
+
 	attempt_message_list = list(
 		"tests their toughness...",
 		"braces for impact...",
@@ -2094,6 +2209,10 @@
 /datum/emote/living/stat_roll/willpower
 	key = "willpower"
 	key_third_person = "wil"
+	modifiers_list = list(
+		TRAIT_TOLERANT = -1,
+	)
+
 	attempt_message_list = list(
 		"tests their willpower...",
 		"gathers their courage...",
@@ -2121,6 +2240,12 @@
 /datum/emote/living/stat_roll/speed
 	key = "speed"
 	key_third_person = "spd"
+	modifiers_list = list(
+		TRAIT_LEAPER = -1,
+		TRAIT_LIGHT_STEP = -1,
+		TRAIT_NORUN = 2,
+	)
+
 	attempt_message_list = list(
 		"prepares their moves...",
 		"starts to get limber...",
@@ -2171,3 +2296,37 @@
 	set category = "Emotes"
 
 	emote("fortune", intentional = TRUE)
+
+/datum/emote/living/stat_roll/charisma
+	key = "charisma"
+	key_third_person = "chr"
+	modifiers_list = list(
+		TRAIT_BEAUTIFUL = -1,
+		TRAIT_EMPATH = -1,
+		TRAIT_UNSEEMLY = 1,
+		TRAIT_DISFIGURED = 2,
+	)
+
+	attempt_message_list = list(
+		"tries to maintain their composure...",
+		"attempts to appear impressive...",
+		"contemplating their next move...",
+	)
+
+	success_message_list = list(
+		"is brimming with self-confidence!",
+		"has a true poker face!",
+		"is the first crack in the sheer face of god, from them it will spread!",
+	)
+
+	failure_message_list = list(
+		"is brimming with self-doubt...",
+		"can't quite sell it...",
+		"is holding it together with string and prayer...",
+	)
+
+/mob/living/carbon/human/verb/emote_charisma_roll()
+	set name = "Roll Charisma"
+	set category = "Emotes"
+
+	emote("charisma", intentional = TRUE)
