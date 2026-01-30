@@ -4,7 +4,7 @@
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/adventurer/fisher
-	
+
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	traits_applied = list(TRAIT_CAUTIOUS_FISHER, TRAIT_HOMESTEAD_EXPERT)
 	subclass_stats = list(
@@ -12,7 +12,9 @@
 		STATKEY_LCK = 2,
 		STATKEY_SPD = 1
 	)
+	age_mod = /datum/class_age_mod/fisher
 	subclass_skills = list(
+		/datum/skill/labor/fishing = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/swords = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/axes = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/maces = SKILL_LEVEL_NOVICE,
@@ -38,10 +40,6 @@
 
 /datum/outfit/job/roguetown/adventurer/fisher/pre_equip(mob/living/carbon/human/H)
 	..()
-	if(H.age == AGE_OLD)
-		H.adjust_skillrank_up_to(/datum/skill/labor/fishing, SKILL_LEVEL_MASTER, TRUE)
-	else
-		H.adjust_skillrank_up_to(/datum/skill/labor/fishing, SKILL_LEVEL_EXPERT, TRUE)
 	if(H.pronouns == HE_HIM || H.pronouns == THEY_THEM || H.pronouns == IT_ITS)
 		pants = /obj/item/clothing/under/roguetown/tights/random
 		shirt = /obj/item/clothing/suit/roguetown/shirt/shortshirt/random
@@ -79,3 +77,5 @@
 							/obj/item/flashlight/flare/torch = 1,
 							/obj/item/rogueweapon/scabbard/sheath = 1
 							)
+	if(H.mind)
+		SStreasury.give_money_account(ECONOMIC_WORKING_CLASS, H, "Savings.")

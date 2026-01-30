@@ -18,7 +18,7 @@
 /// HEALING MIRACLE TECHS
 /datum/chimeric_tech_node/awaken_healing
 	name = "Awaken divine regeneration"
-	description = "Increases the healing of most healing miracles significantly."
+	description = "Clears the veil weakening healing miracles in this region, improving healing miracles greatly."
 	string_id = "HEAL_TIER1"
 	required_tier = 1
 	cost = 15
@@ -82,7 +82,7 @@
 
 /datum/chimeric_tech_node/black_rose
 	name = "Black Rose Synthesis"
-	description = "Allows crafting of black roses from corrupted flesh and beast blood. It is believe heartbeasts were in part created by Pestra herself to control the black rot that lingers withing these roses."
+	description = "Allows crafting of black roses from corrupted flesh and beast blood. It is believed heartbeasts were in part created by Pestra herself to control the black rot that lingers withing these roses."
 	string_id = "BLACK_ROSE"
 	required_tier = 4
 	cost = 100

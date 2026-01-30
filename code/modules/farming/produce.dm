@@ -19,6 +19,10 @@
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
+/obj/item/reagent_containers/food/snacks/grown/examine(mob/user)
+	. = ..()
+	. += span_smallnotice("Smash this with a blunt object to extract seeds from it.")
+
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/weapon, mob/user, params)
 	if(weapon && isturf(loc))
 		var/turf/location = get_turf(src)
@@ -270,6 +274,11 @@
 	var/color_index = "good"
 	rotprocess = SHELFLIFE_SHORT
 
+/obj/item/reagent_containers/food/snacks/grown/berries/rogue/examine(mob/user)
+	. = ..()
+	if(!user.get_client_color(/datum/client_colour/monochrome))
+		. += span_notice("These berries have a <b>[BERRYCOLORS[filling_color]]</b> hue.")
+
 /obj/item/reagent_containers/food/snacks/grown/berries/rogue/Initialize()
 	if(GLOB.berrycolors[color_index])
 		filling_color = GLOB.berrycolors[color_index]
@@ -312,7 +321,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/nut
 	name = "rocknut"
-	desc = "a nut with mild stimulant properties. In powderized form, it can be used to make a zig."
+	desc = "A nut with mild stimulant properties. In powderized form, it can be used to make a zig."
 	seed = /obj/item/seeds/nut
 	icon_state = "rocknut"
 	tastes = list("nutty" = 1)
@@ -434,9 +443,9 @@
 					success = TRUE
 					IND.fullreset(user)
 				else
-					return	
+					return
 				if(success)
-					changefood(/obj/item/reagent_containers/food/snacks/grown/rogue/fyritius/bloodied, user)		
+					changefood(/obj/item/reagent_containers/food/snacks/grown/rogue/fyritius/bloodied, user)
 
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/fyritius/bloodied
@@ -627,6 +636,7 @@
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/preserved/carrot_baked
 	tastes = list("carrot" = 1)
 	dropshrink = 0.75
+	seed = /obj/item/seeds/carrot
 
 /*	..................   Cucumber   ................... */
 /obj/item/reagent_containers/food/snacks/grown/cucumber
@@ -646,3 +656,4 @@
 	slices_num = 1
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/eggplantcarved
 	slice_sound = TRUE
+	seed = /obj/item/seeds/eggplant

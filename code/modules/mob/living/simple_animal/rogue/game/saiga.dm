@@ -2,7 +2,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/rogue/saiga
 	name = "saiga doe"
-	desc = ""
+	desc = "Chiefly reputed friends of man, the saiga is the most ubiqutous beast of burden in the known world. They are driven to haul caravans and ploughs, ridden by mounted warriors on the field, and are much beloved by all."
 	icon = 'icons/roguetown/mob/monster/saiga.dmi'
 	icon_state = "saiga"
 	icon_living = "saiga"
@@ -26,21 +26,21 @@
 						/obj/item/reagent_containers/food/snacks/fat = 1,
 						/obj/item/natural/hide = 2,
 						/obj/item/natural/bundle/bone/full = 1,
-						/obj/item/alch/sinew = 3, 
-						/obj/item/alch/bone = 1, 
+						/obj/item/alch/sinew = 3,
+						/obj/item/alch/bone = 1,
 						/obj/item/alch/viscera = 2
 						)
 	perfect_butcher_results = list(/obj/item/reagent_containers/food/snacks/rogue/meat/steak = 3,
 						/obj/item/reagent_containers/food/snacks/fat = 2,
 						/obj/item/natural/hide = 4,
 						/obj/item/natural/bundle/bone/full = 1,
-						/obj/item/alch/sinew = 3, 
-						/obj/item/alch/bone = 1, 
+						/obj/item/alch/sinew = 3,
+						/obj/item/alch/bone = 1,
 						/obj/item/alch/viscera = 2,
 						/obj/item/natural/head/saiga = 1)
 	base_intents = list(/datum/intent/simple/headbutt/saiga)
-	health = 156
-	maxHealth = 156
+	health = 400
+	maxHealth = 400
 	food_type = list(
 				/obj/item/reagent_containers/food/snacks/grown/wheat,
 				/obj/item/reagent_containers/food/snacks/grown/oat,
@@ -53,8 +53,8 @@
 	faction = list("saiga")
 	attack_verb_continuous = "headbutts"
 	attack_verb_simple = "headbutt"
-	melee_damage_lower = 10
-	melee_damage_upper = 25
+	melee_damage_lower = 60
+	melee_damage_upper = 90
 	retreat_distance = 10
 	minimum_distance = 10
 	rapid_melee = 1
@@ -75,7 +75,6 @@
 
 /mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigakid
 	name = "saiga calf"
-	desc = ""
 	icon_state = "saigakid"
 	icon_living = "saigakid"
 	icon_dead = "saigakid_dead"
@@ -104,7 +103,6 @@
 
 /mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigabuck
 	name = "saiga buck"
-	desc = ""
 	icon_state = "buck"
 	icon_living = "buck"
 	icon_dead = "buck_dead"
@@ -117,10 +115,6 @@
 	faction = list("saiga")
 	attack_verb_continuous = "headbutts"
 	attack_verb_simple = "headbutt"
-	health = 400
-	maxHealth = 400
-	melee_damage_lower = 60
-	melee_damage_upper = 90
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	retreat_distance = 0
 	minimum_distance = 0
@@ -199,7 +193,7 @@
 	..()
 	deaggroprob = 30
 	if(can_buckle)
-		var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+		var/datum/component/riding/D = LoadComponent(/datum/component/riding/no_ocean)
 		D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 8), TEXT_SOUTH = list(0, 8), TEXT_EAST = list(-2, 8), TEXT_WEST = list(2, 8)))
 		D.set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
 		D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
@@ -218,14 +212,16 @@
 	SIGNAL_HANDLER
 	for(var/mob/living/carbon/human/rider in buckled_mobs)
 		if(rider.m_intent == MOVE_INTENT_RUN)
-			violent_dismount(rider)
+			var/rider_skill = rider.get_skill_level(/datum/skill/misc/riding)
+			if(rider_skill < SKILL_LEVEL_MASTER)
+				violent_dismount(rider)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/saiga/post_buckle_mob(mob/living/M)
 	. = ..()
 	RegisterSignal(M, COMSIG_MOB_APPLY_DAMGE, PROC_REF(check_sprint_dismount))
 	if(!has_buckled_mobs())
 		RegisterSignal(src, COMSIG_MOB_APPLY_DAMGE, PROC_REF(check_sprint_dismount))
-	
+
 /mob/living/simple_animal/hostile/retaliate/rogue/saiga/post_unbuckle_mob(mob/living/M)
 	. = ..()
 	UnregisterSignal(M, COMSIG_MOB_APPLY_DAMGE, PROC_REF(check_sprint_dismount))
@@ -240,6 +236,7 @@
 
 /obj/effect/decal/remains/saiga
 	name = "remains"
+	desc = "The remains of a once-proud saiga. Perhaps it was killed for food, or slain in battle with a valiant knight atop?"
 	gender = PLURAL
 	icon_state = "skele"
 	icon = 'icons/roguetown/mob/monster/saiga.dmi'
@@ -276,7 +273,6 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigaboy
 	icon = 'icons/roguetown/mob/monster/saiga.dmi'
 	name = "saiga"
-	desc = ""
 	gender = MALE
 	icon_state = "saigaboy"
 	icon_living = "saigaboy"

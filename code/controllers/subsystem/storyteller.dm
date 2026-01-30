@@ -604,7 +604,8 @@ SUBSYSTEM_DEF(gamemode)
 		else
 			if(!SSvote.mode)
 				SSvote.initiate_vote("endround", pick("Zlod", "Sun King", "Gaia", "Moon Queen", "Aeon", "Gemini", "Aries"))
-
+	else if(roundvoteend && world.time >= round_ends_at)
+		return TRUE
 	if(SSmapping.retainer.head_rebel_decree)
 		if(reb_end_time == 0)
 			to_chat(world, span_boldannounce("The peasant rebels took control of the throne, hail the new community!"))
@@ -730,6 +731,7 @@ SUBSYSTEM_DEF(gamemode)
 		var/datum/storyteller/storyboy = storytellers[storyteller_type]
 		if(findtext(html_contaminated, storyboy.name))
 			selected_storyteller = storyboy.type
+			get_gnoll_scaling() // Calling this here as to make sure scaling holds true as per the roundstart vote, not a latejoin hunted character joining.
 			break
 
 	var/datum/storyteller/storytypecasted = selected_storyteller
@@ -1261,14 +1263,12 @@ SUBSYSTEM_DEF(gamemode)
 					record_round_statistic(STATS_ELDERLY_POPULATION)
 			if(human_mob.is_noble())
 				record_round_statistic(STATS_ALIVE_NOBLES)
-			if(human_mob.mind.assigned_role in GLOB.garrison_positions)
+			if((human_mob.mind.assigned_role in GLOB.garrison_positions) || (human_mob.mind.assigned_role in GLOB.retinue_positions))
 				record_round_statistic(STATS_ALIVE_GARRISON)
 			if(human_mob.mind.assigned_role in GLOB.church_positions)
 				record_round_statistic(STATS_ALIVE_CLERGY)
-			if((human_mob.mind.assigned_role in GLOB.yeoman_positions) || (human_mob.mind.assigned_role in GLOB.peasant_positions) || (human_mob.mind.assigned_role in GLOB.mercenary_positions))
+			if((human_mob.mind.assigned_role in GLOB.burgher_positions) || (human_mob.mind.assigned_role in GLOB.peasant_positions))
 				record_round_statistic(STATS_ALIVE_TRADESMEN)
-			if(human_mob.has_flaw(/datum/charflaw/clingy))
-				record_round_statistic(STATS_CLINGY_PEOPLE)
 			if(human_mob.has_flaw(/datum/charflaw/addiction/alcoholic))
 				record_round_statistic(STATS_ALCOHOLICS)
 			if(human_mob.has_flaw(/datum/charflaw/addiction/junkie))
@@ -1448,3 +1448,5 @@ SUBSYSTEM_DEF(gamemode)
 #undef DESC_POPUP_WIDTH
 #undef DESC_POPUP_HEIGHT
 #undef TOWN_COMBATANT_ADDITIONAL_WEIGHT
+
+#undef INIT_ORDER_GAMEMODE

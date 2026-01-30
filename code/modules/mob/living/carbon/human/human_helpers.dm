@@ -12,7 +12,7 @@
 		if(istype(wear_neck, /obj/item/clothing/neck/roguetown/talkstone))
 			return TRUE
 	if(!has_language(language))
-		if(has_flaw(/datum/charflaw/paranoid))
+		if(has_flaw(/datum/charflaw/addiction/paranoid))
 			add_stress(/datum/stressevent/paratalk)
 
 
@@ -94,7 +94,7 @@
 /mob/living/carbon/human/can_use_guns(obj/item/G)
 	. = ..()
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
-		if(HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
+		if(HAS_TRAIT(src, TRAIT_CHUNKYFINGERS) || HAS_TRAIT(src, TRAIT_GNARLYDIGITS))
 			to_chat(src, span_warning("My meaty finger is much too large for the trigger guard!"))
 			return FALSE
 	if(HAS_TRAIT(src, TRAIT_NOGUNS))
@@ -160,7 +160,7 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom/movable, visible_message), span_warning("[src] fades back into view."), span_notice("You become visible again.")), timeinvis)
 
 /mob/living/carbon/human/proc/create_walk_to(duration, mob/living/walk_to)
-	ADD_TRAIT(src, TRAIT_MOVEMENT_BLOCKED, VAMPIRE_TRAIT)
+	ADD_TRAIT(src, TRAIT_MOVEMENT_BLOCKED, TRAIT_VAMPIRE)
 	walk_to_target = walk_to
 	walk_to_duration = duration
 	walk_to_steps_taken = 0
@@ -205,7 +205,7 @@
 	addtimer(CALLBACK(src, PROC_REF(walk_to_caster)), total_multiplicative_slowdown())
 
 /mob/living/carbon/human/proc/remove_walk_to_trait()
-	REMOVE_TRAIT(src, TRAIT_MOVEMENT_BLOCKED, VAMPIRE_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_MOVEMENT_BLOCKED, TRAIT_VAMPIRE)
 	walk(src, 0) // Stop any walking
 	walk_to_target = null
 	walk_to_duration = 0

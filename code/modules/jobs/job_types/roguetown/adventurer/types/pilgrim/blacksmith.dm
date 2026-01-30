@@ -5,7 +5,7 @@
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/adventurer/blacksmith
-	
+
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	traits_applied = list(TRAIT_TRAINED_SMITH, TRAIT_SMITHING_EXPERT)
 	subclass_stats = list(
@@ -52,7 +52,8 @@
 		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/recipe_book/blacksmithing = 1,
 		/obj/item/recipe_book/survival = 1,
-		/obj/item/rogueweapon/scabbard/sheath = 1
+		/obj/item/rogueweapon/scabbard/sheath = 1,
+		/obj/item/blueprint/mace_mushroom = 1
 		)
 	if(H.mind)
 		var/molds = list(
@@ -79,3 +80,5 @@
 	else
 		armor = /obj/item/clothing/suit/roguetown/shirt/dress/gen/random
 		shoes = /obj/item/clothing/shoes/roguetown/shortboots
+	if(H.mind)
+		SStreasury.give_money_account(ECONOMIC_UPPER_MIDDLE_CLASS, H, "Savings.")

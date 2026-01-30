@@ -41,6 +41,13 @@
 					/obj/item/rogueweapon/sword/cutlass,
 				)
 
+/datum/supply_pack/rogue/steel_weapons/sword
+	name = "Arming Sword"
+	cost = 40 // 1 Steel Ingot
+	contains = list(
+					/obj/item/rogueweapon/sword,
+				)
+
 /datum/supply_pack/rogue/steel_weapons/shortsword
 	name = "Shortsword"
 	cost = 40 // 1 Steel Ingot
@@ -61,8 +68,6 @@
 	contains = list(
 					/obj/item/rogueweapon/sword/short/messer,
 				)
-
-// No one order generic sword I CBA
 
 /datum/supply_pack/rogue/steel_weapons/sabre
 	name = "Sabre"
@@ -148,6 +153,13 @@
 					/obj/item/rogueweapon/greataxe/steel,
 				)
 
+/datum/supply_pack/rogue/steel_weapons/greataxeknight
+	name = "Steel Poleaxe"
+	cost = 85 // 2 Steel Ingot, 1 Small Log
+	contains = list(
+					/obj/item/rogueweapon/greataxe/steel/knight,
+				)
+
 /datum/supply_pack/rogue/steel_weapons/greataxedoublehead
 	name = "Greataxe, Double-Headed"
 	cost = 110 // 3 Steel Ingot, 1 Small Log
@@ -224,9 +236,9 @@
 					/obj/item/rogueweapon/sword/falx,
 				)
 
-/datum/supply_pack/rogue/steel_weapons/glaive
-	name = "Glaive"
-	cost = 105 // 3 Steel Ingot, 1 Small Log
+/datum/supply_pack/rogue/steel_weapons/flail
+	name = "Flail"
+	cost = 40 // 1 Steel Ingot
 	contains = list(
-					/obj/item/rogueweapon/halberd/glaive,
+					/obj/item/rogueweapon/flail/sflail,
 				)

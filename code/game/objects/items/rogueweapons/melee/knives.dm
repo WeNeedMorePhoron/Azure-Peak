@@ -1,4 +1,4 @@
-//intent datums ฅ^•ﻌ•^ฅ 
+//intent datums ฅ^•ﻌ•^ฅ
 
 /datum/intent/dagger
 	clickcd = 8
@@ -16,6 +16,20 @@
 	clickcd = 10
 	item_d_type = "slash"
 
+// Training dagger-exclusive(?) slash. Could potentially be reused for other blunt-edged handweapons.
+/datum/intent/dagger/cut/blunt
+	blade_class = BCLASS_BLUNT
+	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
+	penfactor = BLUNT_DEFAULT_PENFACTOR
+	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
+
+/// For unusually heavy daggers with a strong cutting edge.
+/datum/intent/dagger/cut/heavy
+	name = "heavy cut"
+	damfactor = 1.2
+	penfactor = 20
+	clickcd = 11
+
 /datum/intent/dagger/thrust
 	name = "thrust"
 	icon_state = "instab"
@@ -28,6 +42,11 @@
 	clickcd = 8
 	item_d_type = "stab"
 
+// A slightly weaker thrust for daggers with a curved blade, or which otherwise aren't very good at stabbing.
+/datum/intent/dagger/thrust/weak
+	name = "lopsided thrust"
+	damfactor = 0.8
+
 /datum/intent/dagger/thrust/pick
 	name = "icepick stab"
 	icon_state = "inpick"
@@ -38,6 +57,13 @@
 	swingdelay = 12
 	damfactor = 1.1
 	blade_class = BCLASS_PICK
+
+// Training dagger-exclusive(?) thrust. Could potentially be reused for other blunt-edged handweapons.
+/datum/intent/dagger/thrust/blunt
+	blade_class = BCLASS_BLUNT
+	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
+	penfactor = BLUNT_DEFAULT_PENFACTOR
+	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
 
 /datum/intent/dagger/sucker_punch
 	name = "unevadable punch"
@@ -76,7 +102,12 @@
 
 /obj/item/rogueweapon/huntingknife
 	force = 12
-	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/thrust, /datum/intent/dagger/chop)
+	possible_item_intents = list(
+		/datum/intent/dagger/thrust,
+		/datum/intent/dagger/cut,
+		/datum/intent/dagger/thrust/pick,
+		/datum/intent/dagger/sucker_punch,
+		)
 	slot_flags = ITEM_SLOT_HIP|ITEM_SLOT_MOUTH
 	name = "hunting knife"
 	desc = "A hunter's prized possession. Keep it sharp, and it might last you through the wild."
@@ -174,15 +205,15 @@
 	smeltresult = null // TODO: We don't have partial melt so coping time
 
 /obj/item/rogueweapon/huntingknife/bronze
-	name = "bronze dagger"
+	name = "bronze knife"
 	desc = "A wide blade of bronze, fitted to a wooden handle. Ancient laborers and priests coveted this tool above all else: both as a means to handle the dae's labors, and to indulge in the rituos of sacrifice."
-	icon_state = "chefsknife"
+	icon_state = "bronzeknife"
+	sheathe_icon = "genknife"
 	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/chop/bronze, /datum/intent/dagger/sucker_punch, /datum/intent/dagger/thrust/bronze)
-	color = "#f9d690"
 	force = 18
 	throwforce = 18
-	max_blade_int = 225
-	max_integrity = 175 
+	max_blade_int = 200
+	max_integrity = 175
 	smeltresult = /obj/item/ingot/bronze
 
 /datum/intent/dagger/thrust/bronze
@@ -209,6 +240,54 @@
 	clickcd = 10
 	item_d_type = "slash"
 
+/obj/item/rogueweapon/huntingknife/wood
+	name = "wooden dagger"
+	desc = "This wooden dagger is great for training."
+	icon_state = "wood_dagger"
+	possible_item_intents = list(/datum/intent/dagger/cut/wood, /datum/intent/dagger/chop/wood, /datum/intent/dagger/sucker_punch, /datum/intent/dagger/thrust/wood)
+	force = 5
+	throwforce = 5
+	max_blade_int = 100
+	max_integrity = 150
+	smeltresult = null
+
+/datum/intent/dagger/cut/wood
+	name = "cut"
+	icon_state = "incut"
+	attack_verb = list("cuts", "slashes")
+	animname = "cut"
+	blade_class = BCLASS_BLUNT
+	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
+	penfactor = 0
+	chargetime = 0
+	swingdelay = 0
+	clickcd = 10
+	item_d_type = "slash"
+
+/datum/intent/dagger/thrust/wood
+	name = "piercing thrust"
+	icon_state = "inpick"
+	attack_verb = list("stabs", "impales")
+	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
+	penfactor = 55
+	clickcd = 12
+	swingdelay = 6 //Halfway point between a 'stab' and 'pick'.
+	damfactor = 1.05
+	blade_class = BCLASS_BLUNT
+
+/datum/intent/dagger/chop/wood
+	name = "wedged chop"
+	icon_state = "inchop"
+	attack_verb = list("chops")
+	animname = "chop"
+	blade_class = BCLASS_BLUNT
+	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
+	penfactor = 15
+	damfactor = 1.3
+	swingdelay = 5
+	clickcd = 10
+	item_d_type = "slash"
+
 /obj/item/rogueweapon/huntingknife/cleaver
 	force = 15
 	name = "cleaver"
@@ -223,35 +302,6 @@
 	thrown_bclass = BCLASS_CHOP
 	w_class = WEIGHT_CLASS_NORMAL
 	smeltresult = /obj/item/ingot/steel
-
-/obj/item/rogueweapon/huntingknife/cleaver/getonmobprop(tag)
-	. = ..()
-	if(tag)
-		switch(tag)
-			if("gen")
-				return list("shrink" = 0.5,
-"sx" = -10,
-"sy" = 0,
-"nx" = 13,
-"ny" = 2,
-"wx" = -8,
-"wy" = 2,
-"ex" = 5,
-"ey" = 2,
-"northabove" = 0,
-"southabove" = 1,
-"eastabove" = 1,
-"westabove" = 0,
-"nturn" = 21,
-"sturn" = -18,
-"wturn" = -18,
-"eturn" = 21,
-"nflip" = 0,
-"sflip" = 8,
-"wflip" = 8,
-"eflip" = 0)
-			if("onbelt")
-				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
 
 /obj/item/rogueweapon/huntingknife/chefknife
 	force = 15
@@ -268,11 +318,11 @@
 	w_class = WEIGHT_CLASS_SMALL
 	smeltresult = /obj/item/ingot/steel
 
-/obj/item/rogueweapon/huntingknife/combat
-	force = 20
+/obj/item/rogueweapon/huntingknife/combat //>Combat knife //>Literally never seen it used in combat
+	force = 22 //Hunting knife's bigger, meaner older brother. No pick intent, so it deserves a slight damage bump.
 	name = "seax"
-	desc = "An intimidatingly large sidearm that's been used amongst the Grenzels and Northerners for centuries, both as a combat knife and as a tool for dae-to-dae laboring."
-	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/chop/cleaver, /datum/intent/dagger/sucker_punch, /datum/intent/dagger/thrust/combat)
+	desc = "An intimidatingly large dagger, fit for both hand-to-hand combat and dae-to-dae laboring. The ancenstry of this centuries-old design runs red with Gronnic and Grenzelhoftian blood, alike."
+	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/cut/combat, /datum/intent/dagger/sucker_punch, /datum/intent/dagger/thrust/combat)
 	icon_state = "combatknife"
 	sheathe_icon = "combatknife"
 	icon = 'icons/roguetown/weapons/daggers32.dmi'
@@ -291,9 +341,31 @@
 	if(tag)
 		switch(tag)
 			if("gen")
-				return list("shrink" = 0.4,"sx" = -10,"sy" = 0,"nx" = 11,"ny" = 0,"wx" = -4,"wy" = 0,"ex" = 2,"ey" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
+				return list("shrink" = 0.7,"sx" = -10,"sy" = 0,"nx" = 11,"ny" = 0,"wx" = -4,"wy" = 0,"ex" = 2,"ey" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 14,"sturn" = -14,"wturn" = 16,"eturn" = 17,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
 			if("onbelt")
 				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
+
+/obj/item/rogueweapon/huntingknife/combat/iron
+	name = "bauernwehr"
+	desc = "The hunting knife's older brother: massive, girthsome, and legally implaceable between 'daggers' and 'shortswords'. With it, there is no tasking too laborious to overcome - and no wildebeaste too thick to hack apart."
+	icon_state = "icombatknife"
+	sheathe_icon = "idagger"
+	wdefense = 3
+	max_integrity = 250 //Less defense, but full damage and intents. A little more integrity as wel.
+	smeltresult = /obj/item/ingot/iron
+
+/obj/item/rogueweapon/huntingknife/combat/bronze
+	name = "sydearmme"
+	desc = "Wedged bronze and whittled rockwood, handfitted into the dagger's most ancient-of-ancestors. It bares marks of flintknaping along its middlewidth; a customary tradition that's purported to atune its edge to the forces of nature."
+	icon_state = "bronzedagger"
+	sheathe_icon = "bronzedagger"
+	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/chop/bronze, /datum/intent/dagger/sucker_punch, /datum/intent/dagger/thrust/bronze)
+	force = 20 //Sidegrade of the combat knife. Less damage and lower multipliers, but more blade integrity and a reduced pick variable.
+	wdefense = 3
+	throwforce = 20
+	max_blade_int = 250
+	max_integrity = 130 //Less integrity as well.
+	smeltresult = /obj/item/ingot/bronze
 
 /datum/intent/dagger/thrust/combat
 	name = "wedged thrust"
@@ -308,6 +380,23 @@
 	clickcd = 8
 	item_d_type = "stab"
 
+/datum/intent/dagger/cut/combat
+	name = "wicked slice"
+	icon_state = "inrend"
+	attack_verb = list("slices", "dices")
+	animname = "cut"
+	blade_class = BCLASS_CHOP
+	reach = 1
+	swingdelay = 10
+	penfactor = BLUNT_DEFAULT_PENFACTOR
+	damfactor = 2
+	clickcd = CLICK_CD_CHARGED
+	no_early_release = TRUE
+	hitsound = list('sound/combat/hits/bladed/genslash (1).ogg', 'sound/combat/hits/bladed/genslash (2).ogg', 'sound/combat/hits/bladed/genslash (3).ogg')
+	item_d_type = "slash"
+	misscost = 5 
+	intent_intdamage_factor = 0.05
+
 /obj/item/rogueweapon/huntingknife/idagger
 	possible_item_intents = list(/datum/intent/dagger/thrust,/datum/intent/dagger/cut, /datum/intent/dagger/thrust/pick, /datum/intent/dagger/sucker_punch)
 	force = 15
@@ -317,6 +406,17 @@
 	icon_state = "idagger"
 	sheathe_icon = "idagger"
 	smeltresult = /obj/item/ingot/iron
+	special = /datum/special_intent/dagger_dash
+
+/obj/item/rogueweapon/huntingknife/idagger/warden_machete
+	possible_item_intents = list(/datum/intent/dagger/thrust/weak, /datum/intent/dagger/cut/heavy, /datum/intent/dagger/chop/cleaver, /datum/intent/dagger/sucker_punch) // Stronger cut and chop, but no pick.
+	force = 22 // Slightly more damage than a steel dagger.
+	max_integrity = 130 // Slightly less integrity than a steel dagger.
+	name = "Wardens' seax"
+	desc = "A well-worn seax utilised by the Fraternity of Wardens both as a tool and weapon. Nearly as effective for hacking \
+	down men as it is foiliage, but not quite as durable as more modern steel tools. More suitable for cutting than for thrusting."
+	icon_state = "warden_machete"
+	sheathe_icon = "warden_machete"
 
 /obj/item/rogueweapon/huntingknife/idagger/virtue
 	possible_item_intents = list(/datum/intent/dagger/thrust,/datum/intent/dagger/cut, /datum/intent/dagger/thrust/pick, /datum/intent/dagger/sucker_punch)
@@ -358,6 +458,26 @@
 	max_integrity = 150
 	smeltresult = /obj/item/ingot/steel
 
+/obj/item/rogueweapon/huntingknife/idagger/steel/trainer
+	name = "dagger trainer"
+	desc = "A blunted steel dagger with a flexible blade for practicing close-in combat with vicious welts \
+	instead of lethal wounds. Still hurts, though."
+	icon_state = "dagger_trainer"
+	sheathe_icon = "dagger_trainer"
+	force = 7
+	possible_item_intents = list(
+		/datum/intent/dagger/thrust/blunt,
+		/datum/intent/dagger/cut/blunt,
+		/datum/intent/dagger/sucker_punch,
+		)
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/decorated
+	name = "decorated dagger"
+	desc = "A valuable ornate dagger made for the purpose of ceremonial fashion, with a fine leather grip and a carefully engraved golden crossguard."
+	icon_state = "decdagger"
+	sheathe_icon = "decdagger"
+	sellprice = 100
+
 /obj/item/rogueweapon/huntingknife/idagger/steel/corroded
 	name = "corroded dagger"
 	desc = "A wicked deliverer of poison, serrated and notched. Curved steel cradles the knuckles, ensuring that the wielder doesn't inflict the fatal dose on themselves. </br>I can coat this dagger in most poisons, ensuring that my next strike leaves a festering surprise."
@@ -370,10 +490,11 @@
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/corroded/dirk
 	name = "fanged dagger"
-	desc = "A dagger modeled after the fang of an anthrax spider. Can be poisoned."
+	desc = "A wave-bladed dagger, forged in reverance to the visage of an anthraxi spider's fang. Offer a keen-eyed glance to its obsidian edge, and you might just notice the hundreds of capillary-like channels lining its surface; a cruel finishing touch, soon to be understood by the sundrunk. </br>I can coat this dagger in most poisons, ensuring that my next strike leaves a festering surprise."
 	icon_state = "spiderdagger"
 	sheathe_icon = "spiderdagger"
-	smeltresult = null
+	smeltresult = /obj/item/ingot/drow
+	smelt_bar_num = 1
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/holysee
 	name = "eclipsum dagger"
@@ -402,7 +523,7 @@
 	)
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/pestrasickle
-	name ="plaguebringer sickle"
+	name = "plaguebringer sickle"
 	desc = "A wicked edge brings feculent delights."
 	icon_state = "pestrasickle"
 	force = 22 // 10% - This is a 8 clickCD weapon
@@ -419,6 +540,15 @@
 	sheathe_icon = "stiletto"
 	force = 25
 	max_integrity = 200
+	smeltresult = /obj/item/ingot/steel
+
+/obj/item/rogueweapon/huntingknife/idagger/steel/rondel
+	name = "rondel dagger"
+	desc = "This is the traditional sidearm of a knight: a lightweight dagger of solid steel, well-balanced for delivering rapid thrusts that can shuck grapplers like oysters."
+	icon_state = "rondeldagger"
+	sheathe_icon = "dagger_trainer"
+	possible_item_intents = list(/datum/intent/dagger/thrust/quick, /datum/intent/dagger/thrust/pick, /datum/intent/dagger/sucker_punch, /datum/intent/dagger/cut)
+	wdefense = 4 //Slightly more defense than a regular dagger. Intended to function as a tool for countering grapplers or finishing off armored opponents with broken pieces.
 	smeltresult = /obj/item/ingot/steel
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/parrying
@@ -473,12 +603,29 @@
 		added_def = 2,\
 	)
 
+/obj/item/rogueweapon/huntingknife/idagger/stake
+	name = "sharpened stake"
+	desc = "A branch that has been broken off of an azurielve tree, sharpened to a fine point. It can lay some unholy creechers to rest, but only by piercing their hearts."
+	icon_state = "stake"
+	possible_item_intents = list(/datum/intent/dagger/thrust, /datum/intent/dagger/thrust/pick, /datum/intent/dagger/sucker_punch, /datum/intent/dagger/thrust/quick)
+	force = 12
+	throwforce = 12
+	wdefense = 0
+	max_integrity = 25
+	sellprice = 5
+	slot_flags = ITEM_SLOT_HIP
+	smeltresult = /obj/item/rogueore/coal
+	last_used = 0
+	equip_delay_self = 0 //No delay when stowing away, without a scabbard.
+	unequip_delay_self = 0 //No delay when drawing.
+	inv_storage_delay = 0 //No delay when retrieving from a storage slot.
+
 /obj/item/rogueweapon/huntingknife/idagger/silver/stake
 	name = "silver-tipped stake"
 	desc = "A branch that has been broken off of a boswellia tree, sharpened to a fine point and tipped with blessed silver. It can lay most unholy creechers to rest, but only by piercing their hearts."
-	icon_state = "stake" //Should hopefully autogenerate an inhand. Need to politely ask a coder to import a custom sprite for this stake, later.
-	icon = 'icons/roguetown/items/natural.dmi'
-	force = 20 
+	icon_state = "stake_silver"
+	possible_item_intents = list(/datum/intent/dagger/thrust, /datum/intent/dagger/thrust/pick, /datum/intent/dagger/sucker_punch, /datum/intent/dagger/thrust/quick)
+	force = 20
 	throwforce = 20
 	wdefense = 0
 	max_integrity = 50
@@ -487,7 +634,7 @@
 	smeltresult = /obj/item/rogueore/coal
 	last_used = 0
 	is_silver = TRUE
-	equip_delay_self = 0 //No delay when stowing away, without a scabbard. 
+	equip_delay_self = 0 //No delay when stowing away, without a scabbard.
 	unequip_delay_self = 0 //No delay when drawing.
 	inv_storage_delay = 0 //No delay when retrieving from a storage slot.
 
@@ -622,19 +769,31 @@
 
 /obj/item/rogueweapon/huntingknife/idagger/silver/elvish
 	name = "elvish dagger"
-	desc = "This beautiful dagger is of intricate, elvish design. Sharper, too."
-	force = 22
+	desc = "A wave-bladed dagger of Elven design, who's silvered beauty is only rivaled by its deceptive lethality."
+	force = 22 //One of the rare silver-edged weapons that has a positive damage boost, due to it requiring both silver and gold to create.
 	icon_state = "elfdagger"
+	sheathe_icon = "elfdagger"
 	item_state = "elfdag"
 	last_used = 0
-	is_silver = FALSE
+	smeltresult = /obj/item/ingot/gold
+	smelt_bar_num = 1
+
+/obj/item/rogueweapon/huntingknife/idagger/silver/elvish/poopknife
+	name = "thine majesty's nitesoil-cleaver"
+	desc = "A heraldric accompaniment to the chamberpot, and the most closely-guarded secret in all of Azuria. It is said that this once belonged to the Duke's eldest ancestor, who - in a fit of constipatory labor - had unwittingly realized another use for their wave-bladed trophy. Clinging to its silvered edge is a thin layer of otherworldly ash, refusing to yield to neither soap-nor-rag."
+	force = 15 //On the FIRST ROUND this was added, someone managed to kill the Vampire Lord with the Poop Knife. Reducing the force 
+	max_integrity = 50 //Should render to ~100, at most. More fragile than alloyed knives. You know why.
+	max_blade_int = 333 //Exceedingly sharp. Ditto.
+	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/cut/combat, /datum/intent/dagger/sucker_punch, /datum/intent/dagger/thrust/combat) //Seax's intents, for self-explanatory reasons.
 
 /obj/item/rogueweapon/huntingknife/idagger/silver/elvish/drow
 	name = "dark elvish dagger"
-	desc = "A vicious wave-bladed dagger from the Underdark."
-	force = 18
+	desc = "A once-elegant mithril dagger, who's sunless presence has long since been overshadowed by its vicious bite."
+	force = 18 
 	last_used = 0
-	is_silver = TRUE
+	is_silver = FALSE //Intended, as it's technically not silver - or at the very least, so divorced from traditional silver that it no longer retains its properties.
+	smeltresult = /obj/item/ingot/drow
+	smelt_bar_num = 1
 
 /obj/item/rogueweapon/huntingknife/idagger/navaja
 	possible_item_intents = list(/datum/intent/dagger/thrust,/datum/intent/dagger/cut,  /datum/intent/dagger/thrust/pick)
@@ -643,7 +802,7 @@
 	force = 5
 	icon_state = "navaja_c"
 	item_state = "elfdag"
-	var/extended = 0
+	var/extended = FALSE
 	wdefense = 2
 	sellprice = 30 //shiny :o
 
@@ -652,7 +811,9 @@
 	playsound(src.loc, 'sound/blank.ogg', 50, TRUE)
 	if(extended)
 		force = 20
+		force_dynamic = 20
 		wdefense = 6
+		wdefense_dynamic = 6
 		w_class = WEIGHT_CLASS_NORMAL
 		throwforce = 23
 		icon_state = "navaja_o"
@@ -664,12 +825,14 @@
 		inv_storage_delay = initial(inv_storage_delay)
 	else
 		force = 5
+		force_dynamic = 5
 		w_class = WEIGHT_CLASS_SMALL
 		throwforce = 5
 		icon_state = "navaja_c"
 		attack_verb = list("stubbed", "poked")
 		sharpness = IS_BLUNT
 		wdefense = 2
+		wdefense_dynamic = 2
 		equip_delay_self = 0 SECONDS
 		unequip_delay_self = 0 SECONDS
 		inv_storage_delay = 0 SECONDS
@@ -781,19 +944,24 @@
 		added_def = 3,\
 	)
 
-/obj/item/rogueweapon/huntingknife/throwingknife/bauernwehr
-	name = "bauernwehr"
-	desc = "The pilgrim's fondest friend — a short but sharp blade fitted to a wooden handle. Known to Grenzelhoft as the 'bauernwehr', these knives ensure that no labors are without an answer. This knife can be stowed in a boot."
-	icon_state = "throw_knifei"
+/obj/item/rogueweapon/huntingknife/throwingknife/triumph
+	name = "knife"
+	desc = "A stout blade affixed to a stouter handle, fit for any labor that the dae thrusts upon it. Keeping one tucked inside the boot is a favored trick amongst overcautious adventurers; a surprise for disarming presences."
+	icon_state = "vdagger"
+	sheathe_icon = "genknife"
 	wdefense = 1
 	max_blade_int = 250
 	max_integrity = 250
 	force = 10
 	throwforce = 10
-	throw_speed = 2
-	armor_penetration = 20
-	embedding = list("embedded_pain_multiplier" = 5, "embed_chance" = 75, "embedded_fall_chance" = 10)
-	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/chop/cleaver, /datum/intent/snip, /datum/intent/dagger/sucker_punch)
+	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 50, "embedded_fall_chance" = 15)
+	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/chop/cleaver, /datum/intent/snip, /datum/intent/dagger/thrust/quick)
+
+/datum/intent/dagger/thrust/quick
+	name = "quick thrust"
+	attack_verb = list("thrusts", "shanks")
+	penfactor = 20 //Counts as up to 30-35AP, when factoring in strength-modified damage. 
+	clickcd = 4 //Halved penetration, doubled attack speed. This is either going to be extremely funny, or extremely evil.
 
 /obj/item/rogueweapon/huntingknife/scissors
 	possible_item_intents = list(/datum/intent/snip, /datum/intent/dagger/thrust, /datum/intent/dagger/cut)
@@ -834,7 +1002,7 @@
 			var/chosen = input(user, "What would you like to style?", "Hair Styling") as null|anything in options
 			if(!chosen)
 				return
-			
+
 			switch(chosen)
 				if("hairstyle")
 					var/datum/customizer_choice/bodypart_feature/hair/head/humanoid/hair_choice = CUSTOMIZER_CHOICE(/datum/customizer_choice/bodypart_feature/hair/head/humanoid)
@@ -842,25 +1010,25 @@
 					for(var/hair_type in hair_choice.sprite_accessories)
 						var/datum/sprite_accessory/hair/head/hair = new hair_type()
 						valid_hairstyles[hair.name] = hair_type
-					
+
 					var/new_style = input(user, "Choose their hairstyle", "Hair Styling") as null|anything in valid_hairstyles
 					if(new_style)
 						user.visible_message(span_notice("[user] begins styling [H]'s hair..."), span_notice("You begin styling [H == user ? "your" : "[H]'s"] hair..."))
 						if(!do_after(user, 30 SECONDS, target = H))
 							to_chat(user, span_warning("The styling was interrupted!"))
 							return
-						
+
 						var/obj/item/bodypart/head/head = H.get_bodypart(BODY_ZONE_HEAD)
 						if(head && head.bodypart_features)
 							var/datum/bodypart_feature/hair/head/current_hair = null
 							for(var/datum/bodypart_feature/hair/head/hair_feature in head.bodypart_features)
 								current_hair = hair_feature
 								break
-							
+
 							if(current_hair)
 								var/datum/customizer_entry/hair/hair_entry = new()
 								hair_entry.hair_color = current_hair.hair_color
-								
+
 								// Preserve gradients and their colors
 								if(istype(current_hair, /datum/bodypart_feature/hair/head))
 									hair_entry.natural_gradient = current_hair.natural_gradient
@@ -869,17 +1037,17 @@
 										hair_entry.dye_gradient = current_hair.hair_dye_gradient
 									if(hasvar(current_hair, "hair_dye_color"))
 										hair_entry.dye_color = current_hair.hair_dye_color
-								
+
 								var/datum/bodypart_feature/hair/head/new_hair = new()
 								new_hair.set_accessory_type(valid_hairstyles[new_style], hair_entry.hair_color, H)
 								hair_choice.customize_feature(new_hair, H, null, hair_entry)
-								
+
 								head.remove_bodypart_feature(current_hair)
 								head.add_bodypart_feature(new_hair)
 								H.update_hair()
 								playsound(src, 'sound/items/flint.ogg', 50, TRUE)
 								user.visible_message(span_notice("[user] finishes styling [H]'s hair."), span_notice("You finish styling [H == user ? "your" : "[H]'s"] hair."))
-				
+
 				if("facial hairstyle")
 					if(H.gender != MALE)
 						to_chat(user, span_warning("They don't have facial hair to style!"))
@@ -889,30 +1057,30 @@
 					for(var/facial_type in facial_choice.sprite_accessories)
 						var/datum/sprite_accessory/hair/facial/facial = new facial_type()
 						valid_facial_hairstyles[facial.name] = facial_type
-					
+
 					var/new_style = input(user, "Choose their facial hairstyle", "Hair Styling") as null|anything in valid_facial_hairstyles
 					if(new_style)
 						user.visible_message(span_notice("[user] begins styling [H]'s facial hair..."), span_notice("You begin styling [H == user ? "your" : "[H]'s"] facial hair..."))
 						if(!do_after(user, 60 SECONDS, target = H))
 							to_chat(user, span_warning("The styling was interrupted!"))
 							return
-						
+
 						var/obj/item/bodypart/head/head = H.get_bodypart(BODY_ZONE_HEAD)
 						if(head && head.bodypart_features)
 							var/datum/bodypart_feature/hair/facial/current_facial = null
 							for(var/datum/bodypart_feature/hair/facial/facial_feature in head.bodypart_features)
 								current_facial = facial_feature
 								break
-							
+
 							if(current_facial)
 								var/datum/customizer_entry/hair/facial/facial_entry = new()
 								facial_entry.hair_color = current_facial.hair_color
 								facial_entry.accessory_type = current_facial.accessory_type
-								
+
 								var/datum/bodypart_feature/hair/facial/new_facial = new()
 								new_facial.set_accessory_type(valid_facial_hairstyles[new_style], facial_entry.hair_color, H)
 								facial_choice.customize_feature(new_facial, H, null, facial_entry)
-								
+
 								head.remove_bodypart_feature(current_facial)
 								head.add_bodypart_feature(new_facial)
 								H.update_hair()
@@ -927,7 +1095,7 @@
 			var/chosen = input(user, "What would you like to style?", "Hair Styling") as null|anything in options
 			if(!chosen)
 				return
-			
+
 			switch(chosen)
 				if("hairstyle")
 					var/datum/customizer_choice/bodypart_feature/hair/head/humanoid/hair_choice = CUSTOMIZER_CHOICE(/datum/customizer_choice/bodypart_feature/hair/head/humanoid)
@@ -935,25 +1103,25 @@
 					for(var/hair_type in hair_choice.sprite_accessories)
 						var/datum/sprite_accessory/hair/head/hair = new hair_type()
 						valid_hairstyles[hair.name] = hair_type
-					
+
 					var/new_style = input(user, "Choose their hairstyle", "Hair Styling") as null|anything in valid_hairstyles
 					if(new_style)
 						user.visible_message(span_notice("[user] begins styling [H]'s hair..."), span_notice("You begin styling [H == user ? "your" : "[H]'s"] hair..."))
 						if(!do_after(user, 60 SECONDS, target = H))
 							to_chat(user, span_warning("The styling was interrupted!"))
 							return
-						
+
 						var/obj/item/bodypart/head/head = H.get_bodypart(BODY_ZONE_HEAD)
 						if(head && head.bodypart_features)
 							var/datum/bodypart_feature/hair/head/current_hair = null
 							for(var/datum/bodypart_feature/hair/head/hair_feature in head.bodypart_features)
 								current_hair = hair_feature
 								break
-							
+
 							if(current_hair)
 								var/datum/customizer_entry/hair/hair_entry = new()
 								hair_entry.hair_color = current_hair.hair_color
-								
+
 								// Preserve gradients and their colors
 								if(istype(current_hair, /datum/bodypart_feature/hair/head))
 									hair_entry.natural_gradient = current_hair.natural_gradient
@@ -962,17 +1130,17 @@
 										hair_entry.dye_gradient = current_hair.hair_dye_gradient
 									if(hasvar(current_hair, "hair_dye_color"))
 										hair_entry.dye_color = current_hair.hair_dye_color
-								
+
 								var/datum/bodypart_feature/hair/head/new_hair = new()
 								new_hair.set_accessory_type(valid_hairstyles[new_style], hair_entry.hair_color, H)
 								hair_choice.customize_feature(new_hair, H, null, hair_entry)
-								
+
 								head.remove_bodypart_feature(current_hair)
 								head.add_bodypart_feature(new_hair)
 								H.update_hair()
 								playsound(src, 'sound/items/flint.ogg', 50, TRUE)
 								user.visible_message(span_notice("[user] finishes styling [H]'s hair."), span_notice("You finish styling [H == user ? "your" : "[H]'s"] hair."))
-				
+
 				if("facial hairstyle")
 					if(H.gender != MALE)
 						to_chat(user, span_warning("They don't have facial hair to style!"))
@@ -982,30 +1150,30 @@
 					for(var/facial_type in facial_choice.sprite_accessories)
 						var/datum/sprite_accessory/hair/facial/facial = new facial_type()
 						valid_facial_hairstyles[facial.name] = facial_type
-					
+
 					var/new_style = input(user, "Choose their facial hairstyle", "Hair Styling") as null|anything in valid_facial_hairstyles
 					if(new_style)
 						user.visible_message(span_notice("[user] begins styling [H]'s facial hair..."), span_notice("You begin styling [H == user ? "your" : "[H]'s"] facial hair..."))
 						if(!do_after(user, 60 SECONDS, target = H))
 							to_chat(user, span_warning("The styling was interrupted!"))
 							return
-						
+
 						var/obj/item/bodypart/head/head = H.get_bodypart(BODY_ZONE_HEAD)
 						if(head && head.bodypart_features)
 							var/datum/bodypart_feature/hair/facial/current_facial = null
 							for(var/datum/bodypart_feature/hair/facial/facial_feature in head.bodypart_features)
 								current_facial = facial_feature
 								break
-							
+
 							if(current_facial)
 								var/datum/customizer_entry/hair/facial/facial_entry = new()
 								facial_entry.hair_color = current_facial.hair_color
 								facial_entry.accessory_type = current_facial.accessory_type
-								
+
 								var/datum/bodypart_feature/hair/facial/new_facial = new()
 								new_facial.set_accessory_type(valid_facial_hairstyles[new_style], facial_entry.hair_color, H)
 								facial_choice.customize_feature(new_facial, H, null, facial_entry)
-								
+
 								head.remove_bodypart_feature(current_facial)
 								head.add_bodypart_feature(new_facial)
 								H.update_hair()
@@ -1022,7 +1190,7 @@
 			salvage_time = (70 - ((user.get_skill_level(/datum/skill/craft/sewing)) * 10))
 			if(!do_after(user, salvage_time, target = user))
 				return
-			
+
 			if(item.fiber_salvage) //We're getting fiber as base if fiber is present on the item
 				new /obj/item/natural/fibers(get_turf(item))
 			if(istype(item, /obj/item/storage))

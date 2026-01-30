@@ -45,6 +45,11 @@
 
 	footstep_type = FOOTSTEP_MOB_CLAW
 
+	//new ai, old ai off
+	AIStatus = AI_OFF
+	can_have_ai = FALSE
+	ai_controller = /datum/ai_controller/generic
+
 /mob/living/simple_animal/pet/cat/Initialize()
 	. = ..()
 	verbs += /mob/living/proc/lay_down
@@ -89,13 +94,19 @@
 
 /mob/living/simple_animal/pet/cat/rogue/black
 	name = "black cat"
-	desc = "Possessed of lamplike eyes and a meow that sounds like the rattle of bones. Black cats are sacred to Necra, said to bring wandering spirits to the Carriageman."
+	desc = "Possessed of lamplike eyes and a meow that sounds like the rattle of bones. Black cats are sacred to Necra, said to bring wandering spirits to the Ferryman."
 	gender = FEMALE
 	icon = 'icons/roguetown/topadd/takyon/Cat.dmi'
 	icon_state = "cat"
 	icon_living = "cat"
 	icon_dead = "cat_dead"
 
+/mob/living/simple_animal/pet/cat/rogue/black/academy
+    name = "Kalathrax the All Knowing"
+    desc = "Whispers around the Academy say that this cat was once an Associate that decided they had achieved enough knowledge to challenge the Court Wizard for their role and failed. (Or maybe it's just a cat)"
+    STAINT = 20
+    health = 5000
+    maxHealth = 5000
 
 /mob/living/simple_animal/pet/cat/original
 	name = "Batsy"

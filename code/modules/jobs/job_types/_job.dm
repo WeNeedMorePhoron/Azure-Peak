@@ -166,6 +166,11 @@
 	///Whether this class can be clicked on for details.
 	var/class_setup_examine = TRUE
 
+	/// Whether this job is intended to give quests
+	var/is_quest_giver = FALSE
+
+	/// How many quests this job can take at once
+	var/max_active_quests = 3
 
 
 /datum/job/proc/special_job_check(mob/dead/new_player/player)
@@ -209,7 +214,7 @@
 	if(spells && H.mind)
 		for(var/S in spells)
 			H.mind.AddSpell(new S)
-			
+
 	if(length(job_stats))
 		for(var/stat in job_stats)
 			H.change_stat(stat, job_stats[stat])
@@ -226,15 +231,26 @@
 			H.mind.i_know_person(MF)
 
 	// Ready up bonus
+	if(H.mind)
+		if (HAS_TRAIT(H, TRAIT_EXPLOSIVE_SUPPLY))
+			H.mind.has_bomb = TRUE
+
 	if(!H.islatejoin)
 		H.adjust_triumphs(1)
-		H.apply_status_effect(/datum/status_effect/buff/foodbuff)
+		H.apply_status_effect(/datum/status_effect/buff/mealbuff)
 		H.hydration = 1000 // Set higher hydration
 
 		if(H.mind)
 			H.mind?.special_items["Pouch of Coins"] = /obj/item/storage/belt/rogue/pouch/coins/readyuppouch
+			if (HAS_TRAIT(H, TRAIT_MEDIUMARMOR) || HAS_TRAIT(H, TRAIT_HEAVYARMOR))
+				H.mind?.special_items["Metal Scrap (Repair kit)"] = /obj/item/repair_kit/metal/bad
+			else
+				H.mind?.special_items["Fabric Patch (Repair kit)"] = /obj/item/repair_kit/bad
 
 		to_chat(M, span_notice("Rising early, you made sure to pack a pouch of coins in your stash and eat a hearty breakfast before starting your day. A true TRIUMPH!"))
+
+	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
+		H.hydration = 1000
 
 	if(H.islatejoin && announce_latejoin)
 		var/used_title = display_title || title
@@ -243,13 +259,14 @@
 		scom_announce("[H.real_name] the [used_title] arrives to Azure Peak.")
 
 	if(give_bank_account)
-		if(give_bank_account > 1)
+		if(give_bank_account > TRUE)
 			SStreasury.create_bank_account(H, give_bank_account)
-			if(noble_income)
-				SStreasury.noble_incomes[H] = noble_income
-
 		else
 			SStreasury.create_bank_account(H)
+
+		if(noble_income)
+			SStreasury.noble_incomes[H] = noble_income
+			SStreasury.give_money_account(noble_income, H, "Noble Estate")
 
 	if(show_in_credits)
 		SScrediticons.processing += H
@@ -258,14 +275,17 @@
 		H.cmode_music = cmode_music
 
 	if (!hidden_job)
+		var/mob_name = H.real_name
+		var/mob_rank
 		if (obsfuscated_job)
-			GLOB.actors_list[H.mobid] = "[H.real_name] as Adventurer<BR>"
+			mob_rank = "Adventurer"
 		else
-			GLOB.actors_list[H.mobid] = "[H.real_name] as [H.mind.assigned_role]<BR>"
+			mob_rank = H.mind.assigned_role
+		GLOB.actors_list[H.mobid] = list("name" = mob_name, "rank" = mob_rank)
 
 	if(islist(advclass_cat_rolls))
 		hugboxify_for_class_selection(H)
-	
+
 	log_admin("[H.key]/([H.real_name]) has joined as [H.mind.assigned_role].")
 
 /client/verb/set_mugshot()
@@ -454,10 +474,10 @@
 
 // LETHALSTONE EDIT: Helper functions for pronoun-based clothing selection
 /proc/should_wear_masc_clothes(mob/living/carbon/human/H)
-	return (H.pronouns == HE_HIM || H.pronouns == THEY_THEM || H.pronouns == IT_ITS || H.pronouns == SHE_HER_M)
+	return (H.pronouns == HE_HIM || H.pronouns == THEY_THEM || H.pronouns == SHE_HER_M || (H.pronouns == IT_ITS && H.gender == MALE))
 
 /proc/should_wear_femme_clothes(mob/living/carbon/human/H)
-	return (H.pronouns == SHE_HER || H.pronouns == THEY_THEM_F || H.pronouns == HE_HIM_F)
+	return (H.pronouns == SHE_HER || H.pronouns == THEY_THEM_F || H.pronouns == HE_HIM_F || (H.pronouns == IT_ITS && H.gender == FEMALE))
 // LETHALSTONE EDIT END
 
 /datum/job/proc/get_informed_title(mob/mob)
@@ -525,6 +545,12 @@
 					for(var/stashed_item in adv_ref.subclass_stashed_items)
 						dat += "<br> - <i>[stashed_item]</i>"
 					dat += "</font>"
+				if(length(adv_ref.subclass_virtues))
+					dat += "<br><font color ='#7a4d0a'>Subclass Virtues:</font><font color ='#d4b164'>"
+					for(var/virtue_type in adv_ref.subclass_virtues)
+						var/datum/virtue/virtue = virtue_type
+						dat += "<br> - <i>[initial(virtue.name)]</i>"
+					dat += "</font>"
 				dat += "</td>"	//Trait Table end
 				if(length(adv_ref.subclass_skills))
 					dat += "<td width = 50%; style='text-align:right'>"
@@ -549,7 +575,11 @@
 				dat += "</td></tr></table>"//Skill table end
 				if(adv_ref.extra_context)
 					dat += "<font color ='#a06c1e'>[adv_ref.extra_context]"
-					dat += "</font>"
+					dat += "<br></font>"
+
+				if(istype(adv_ref.age_mod))
+					dat += adv_ref.age_mod.get_preview_string()
+
 				dat += "</details>"
 		dat += "<hr>"
 		if(length(job_stats))

@@ -294,50 +294,6 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 		popup.set_content(dat.Join())
 		popup.open()
 
-//When you cop out of the round (NB: this HAS A SLEEP FOR PLAYER INPUT IN IT)
-/mob/dead/new_player/proc/make_me_an_observer()
-	if(QDELETED(src) || !src.client)
-		ready = PLAYER_NOT_READY
-		return FALSE
-
-	var/this_is_like_playing_right = alert(src,"Are you sure you wish to observe? Playing is a lot more fun.","VOYEUR","Yes","No")
-
-	if(QDELETED(src) || !src.client || this_is_like_playing_right != "Yes")
-		ready = PLAYER_NOT_READY
-		src << browse(null, "window=playersetup") //closes the player setup window
-		new_player_panel()
-		return FALSE
-
-	var/mob/dead/observer/observer	// Transfer safety to observer spawning proc.
-	if(check_rights(R_WATCH, FALSE))
-		observer = new /mob/dead/observer/admin(src)
-	else
-		observer = new /mob/dead/observer/rogue/nodraw(src)
-	spawning = TRUE
-
-	observer.started_as_observer = TRUE
-	close_spawn_windows()
-	var/obj/effect/landmark/observer_start/O = locate(/obj/effect/landmark/observer_start) in GLOB.landmarks_list
-	to_chat(src, span_notice("Now teleporting."))
-	if (O)
-		observer.forceMove(O.loc)
-	else
-		to_chat(src, span_notice("Teleporting failed. Ahelp an admin please"))
-		stack_trace("There's no freaking observer landmark available on this map or you're making observers before the map is initialised")
-	observer.key = key
-	observer.client = client
-	observer.set_ghost_appearance()
-	if(observer.client)
-		observer.client.update_ooc_verb_visibility()
-	if(observer.client && observer.client.prefs)
-		observer.real_name = observer.client.prefs.real_name
-		observer.name = observer.real_name
-	observer.update_icon()
-	observer.stop_sound_channel(CHANNEL_LOBBYMUSIC)
-	QDEL_NULL(mind)
-	qdel(src)
-	return TRUE
-
 /proc/get_job_unavailable_error_message(retval, jobtitle)
 	switch(retval)
 		if(JOB_AVAILABLE)
@@ -384,12 +340,12 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	if(QDELETED(src))
 		return JOB_UNAVAILABLE_GENERIC
 	if(has_world_trait(/datum/world_trait/skeleton_siege))
-		if(rank != "Skeleton")
+		if(rank != "Greater Skeleton")
 			return JOB_UNAVAILABLE_GENERIC
 		else
 			return JOB_AVAILABLE
 	else
-		if(rank == "Skeleton")
+		if(rank == "Greater Skeleton")
 			return JOB_UNAVAILABLE_GENERIC
 
 	if(has_world_trait(/datum/world_trait/goblin_siege))
@@ -592,13 +548,15 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	var/list/omegalist = list()
 	omegalist += list(GLOB.noble_positions)
 	omegalist += list(GLOB.courtier_positions)
+	omegalist += list(GLOB.retinue_positions)
 	omegalist += list(GLOB.garrison_positions)
 	omegalist += list(GLOB.church_positions)
-	omegalist += list(GLOB.inquisition_positions)
-	omegalist += list(GLOB.yeoman_positions)
+	omegalist += list(GLOB.burgher_positions)
 	omegalist += list(GLOB.peasant_positions)
+	omegalist += list(GLOB.sidefolk_positions)
 	omegalist += list(GLOB.wanderer_positions)
-	omegalist += list(GLOB.youngfolk_positions)
+	omegalist += list(GLOB.inquisition_positions)
+	omegalist += list(GLOB.antagonist_positions)
 
 	for(var/list/category in omegalist)
 		if(!SSjob.name_occupations[category[1]])
@@ -622,31 +580,33 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 			var/cat_name = ""
 			switch (SSjob.name_occupations[category[1]].department_flag)
 				if (NOBLEMEN)
-					cat_name = "Nobles"
+					cat_name = "Ducal Family"
 				if (COURTIERS)
 					cat_name = "Courtiers"
+				if (RETINUE)
+					cat_name = "Retinue"
 				if (GARRISON)
 					cat_name = "Garrison"
 				if (CHURCHMEN)
 					cat_name = "Churchmen"
-				if (YEOMEN)
-					cat_name = "Yeomen"
+				if (BURGHERS)
+					cat_name = "Burghers"
 				if (PEASANTS)
 					cat_name = "Peasants"
-				if (YOUNGFOLK)
+				if (SIDEFOLK)
 					cat_name = "Sidefolk"
 				if (WANDERERS)
 					cat_name = "Wanderers"
 				if (INQUISITION)
 					cat_name = "Inquisition"
-			//	if (GOBLIN)
-			//		cat_name = "Goblins"
+				if (ANTAGONIST)
+					cat_name = "Antagonists"
 
 			dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
 			dat += "<legend align='center' style='font-weight: bold; color: [cat_color]'>[cat_name]</legend>"
 
 			if(has_world_trait(/datum/world_trait/skeleton_siege))
-				dat += "<a class='job command' href='byond://?src=[REF(src)];SelectedJob=Skeleton'>BECOME AN EVIL SKELETON</a>"
+				dat += "<a class='job command' href='byond://?src=[REF(src)];SelectedJob=Greater Skeleton'>BECOME AN EVIL SKELETON</a>"
 				dat += "</fieldset><br>"
 				column_counter++
 				if(column_counter > 0 && (column_counter % 3 == 0))
@@ -666,7 +626,7 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 				var/do_elaborate = job_datum.has_limited_subclasses()
 				if(job_datum)
 					var/command_bold = FALSE
-					if(job in GLOB.noble_positions)
+					if(job in GLOB.leadership_positions)
 						command_bold = TRUE
 					var/used_name = job_datum.display_title || job_datum.title
 					if(client.prefs.pronouns == SHE_HER && job_datum.f_title)
@@ -719,20 +679,22 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	. = H
 	new_character = .
 
-	H.after_creation()
-
 	if(transfer_after)
 		transfer_character()
+
+	H.after_creation(src)
+
 	GLOB.chosen_names += H.real_name
 
 
-/mob/proc/after_creation()
+/mob/proc/after_creation(var/mob/dead/new_player/new_player)
 	return
 
-/mob/living/carbon/human/after_creation()
+/mob/living/carbon/human/after_creation(var/mob/dead/new_player/new_player)
 	if(dna?.species)
 		dna.species.after_creation(src)
-	roll_stats()
+
+	roll_stats(new_player)
 
 /mob/dead/new_player/proc/transfer_character()
 	. = new_character
@@ -797,3 +759,5 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 
 		return FALSE //This is the only case someone should actually be completely blocked from antag rolling as well
 	return TRUE
+
+#undef LINKIFY_READY

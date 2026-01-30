@@ -92,6 +92,8 @@
 				if(M.mind.language_holder)
 					var/finn
 					for(var/X in M.mind.language_holder.languages)
+						if(!X || !ispath(X, /datum/language))
+							continue
 						var/datum/language/LA = new X()
 						finn = TRUE
 						to_chat(M, "<span class='info'>[LA.name] - ,[LA.key]</span>")
@@ -110,6 +112,9 @@
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
 		H.print_levels(H)
+
+/atom/movable/screen/skills/should_click_on_mouse_up(var/atom/original_object)
+	return FALSE
 
 /atom/movable/screen/craft
 	name = "crafting menu"
@@ -551,7 +556,7 @@
 	var/_y = text2num(params2list(params)["icon-y"])
 
 	if(_y<=9)
-		usr.mmb_intent_change(QINTENT_STEAL)
+		usr.mmb_intent_change(QINTENT_SPECIAL)
 
 	else if(_y>=9 && _y<=16)
 		usr.mmb_intent_change(QINTENT_KICK)
@@ -633,6 +638,9 @@
 		else
 			L.toggle_cmode()
 			update_icon()
+
+/atom/movable/screen/cmode/should_click_on_mouse_up(var/atom/original_object)
+	return FALSE
 
 /atom/movable/screen/mov_intent
 	name = "run/walk toggle"
@@ -909,7 +917,7 @@
 			var/obj/item/flipper = usr.get_active_held_item()
 			if(!flipper)
 				return
-			if((!usr.Adjacent(flipper) && !usr.DirectAccess(flipper)) || !isliving(usr) || usr.incapacitated())
+			if((!usr.Adjacent(flipper) && !usr.IsDirectlyAccessible(flipper)) || !isliving(usr) || usr.incapacitated())
 				return
 			var/old_width = flipper.grid_width
 			var/old_height = flipper.grid_height
@@ -1570,36 +1578,70 @@
 /atom/movable/screen/stress
 	name = "sanity"
 	icon = 'icons/mob/roguehud.dmi'
-	icon_state = "stressback"
+	icon_state = "mood_idle"
+
+/atom/movable/screen/stress/Initialize(mapload, ...)
+	. = ..()
+	var/image/mood_base = image(icon, null, "stressback")
+	mood_base.layer = layer - 0.01
+	add_overlay(mood_base)
 
 /atom/movable/screen/stress/update_icon()
-	cut_overlays()
-	var/state2use = "stress1"
-	if(ishuman(usr))
-		var/mob/living/carbon/human/H = usr
-		if(!HAS_TRAIT(H, TRAIT_NOMOOD))
-			var/stress_amt = H.get_stress_amount()
-			if(stress_amt > 0)
-				state2use = "stress2"
-			if(stress_amt >= 5)
-				state2use = "stress3"
-			if(stress_amt >= 15)
-				state2use = "stress4"
-			if(stress_amt >= 25)
-				state2use = "stress5"
-		if(H.has_status_effect(/datum/status_effect/buff/drunk))
-			state2use = "mood_drunk"
-		if(H.has_status_effect(/datum/status_effect/buff/druqks))
-			state2use = "mood_drunk"
-		if(H.InFullCritical())
-			state2use = "stress4"
-		if(H.mind)
-			if(H.mind.has_antag_datum(/datum/antagonist/zombie))
-				state2use = "stress4"
-		if(H.stat == DEAD)
-			state2use = "mood_dead"
-	add_overlay(state2use)
+	var/state2use = "mood_idle"
 
+	var/mob/our_mob = hud?.mymob
+	if(ishuman(our_mob))
+		var/mob/living/carbon/human/H = our_mob
+		//General stress moodlets
+		var/stress_amt = H.get_stress_amount()
+		switch(stress_amt)
+			if(1 to 4)
+				state2use = "stress"
+			if(5 to 14)
+				state2use = "stress2"
+			if(5 to 24)
+				state2use = "stress3"
+			if(25 to 999)
+				state2use = "stress4"
+			if(-4 to -1)
+				state2use = "peace"
+			if(-9 to -5)
+				state2use = "peace2"
+			if(-20 to -10)
+				state2use = "peace3"
+			if(-999 to -21)
+				state2use = "mood_nirvana"
+
+		//Regular overrides for stress
+		if(H.has_status_effect(/datum/status_effect/buff/drunk))
+			state2use = "mood_drunkorhigh"
+		if(H.has_status_effect(/datum/status_effect/buff/druqks))
+			state2use = "mood_drunkorhigh"
+		if(H.has_status_effect(/datum/status_effect/buff/starsugar))
+			state2use = "mood_starsugar"
+		if(H.has_status_effect(/datum/status_effect/buff/bloodrage))
+			state2use = "mood_ult"
+
+		//We go down a janky list of exceptions for total overrides
+		if(HAS_TRAIT(H, TRAIT_NOMOOD))
+			state2use = "mood_hopeless"
+		else if(H.stat == DEAD)
+			state2use = "mood_dead"
+		else if(H.mind?.has_antag_datum(/datum/antagonist/zombie))
+			state2use = "mood_zombidle"
+		else if(H.mind?.has_antag_datum(/datum/antagonist/lich))
+			state2use = "mood_boneidle"
+		else if(H.stat && H.IsSleeping())
+			state2use = "mood_sleep"
+		else if(H.nausea >= 100)
+			state2use = "mood_sick"
+	icon_state = state2use
+
+/atom/movable/screen/stress/proc/flick_pain(var/critical = FALSE)
+	if(critical)
+		flick("mood_ouch", src)
+	else
+		flick("mood_hurt", src)
 
 /atom/movable/screen/stress/Click(location,control,params)
 	var/list/modifiers = params2list(params)
@@ -1879,12 +1921,16 @@
 	icon_state = ""
 	name = ""
 	screen_loc = "1,1"
-	layer = HUD_LAYER+0.01
 	plane = HUD_PLANE
 	alpha = 0
 	var/atom/movable/screen/readtext/textright
 	var/atom/movable/screen/readtext/textleft
 	var/reading
+
+/atom/movable/screen/read/Destroy()
+	. = ..()
+	textleft = null
+	textright = null
 
 /atom/movable/screen/read/Click(location, control, params)
 	. = ..()
@@ -1921,6 +1967,10 @@
 	if(input == READ_BOTH)
 		animate(textleft, alpha = 255, time = 5, easing = EASE_IN)
 		animate(textright, alpha = 255, time = 5, easing = EASE_IN)
+
+#undef READ_RIGHT
+#undef READ_LEFT
+#undef READ_BOTH
 
 /atom/movable/screen/readtext
 	name = ""

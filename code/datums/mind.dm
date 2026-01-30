@@ -34,8 +34,10 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 
 /datum/mind
 	var/key
-	var/name				//replaces mob/var/original_name
-	var/ghostname			//replaces name for observers name if set
+	/// Replaces mob/var/original_name.
+	var/name
+	/// Replaces name for observers name if set.
+	var/ghostname
 	var/mob/living/current
 	var/active = 0
 
@@ -45,19 +47,18 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	var/special_role
 	var/list/restricted_roles = list()
 
-	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
+	/// Wizard mode & "Give Spell" badmin button.
+	var/list/spell_list = list()
 
 	var/spell_points
 	var/used_spell_points
 	var/movemovemovetext = "Move!!"
 	var/takeaimtext = "Take aim!!"
 	var/holdtext = "Hold!!"
-	var/onfeettext = "On your feet!!"
-	var/focustargettext = "Focus target!!"
 	var/retreattext = "Fall back!!"
+	var/chargetext = "Charge!!"
 	var/bolstertext = "Hold the line!!"
-	var/brotherhoodtext = "Stand proud, for the Brotherhood!!"
-	var/chargetext = "Chaaaaaarge!!"
+	var/onfeettext = "On your feet!!"
 
 	var/mob/living/carbon/champion = null
 	var/mob/living/carbon/ward = null
@@ -66,35 +67,44 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	var/linglink
 	var/datum/martial_art/martial_art
 	var/static/default_martial_art = new/datum/martial_art
-	var/miming = 0 // Mime's vow of silence
+	/// Mime's vow of silence.
+	var/miming = 0
 	var/list/antag_datums
-	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
-	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
+	/// This mind's ANTAG_HUD should have this icon_state.
+	var/antag_hud_icon_state = null
+	/// This mind's antag HUD.
+	var/datum/atom_hud/antag/antag_hud = null
 	var/damnation_type = 0
-	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
-	var/hasSoul = TRUE // If false, renders the character unable to sell their soul.
-	var/isholy = FALSE //is this person a chaplain or admin role allowed to use bibles
+	/// Who owns the soul.  Under normal circumstances, this will point to src.
+	var/datum/mind/soulOwner
+	/// If false, renders the character unable to sell their soul.
+	var/hasSoul = TRUE
+	/// Is this person a chaplain or admin role allowed to use bibles.
+	var/isholy = FALSE
 
-	var/mob/living/enslaved_to //If this mind's master is another mob (i.e. adamantine golems)
+	/// If this mind's master is another mob (i.e. adamantine golems).
+	var/mob/living/enslaved_to
 	var/datum/language_holder/language_holder
 	var/unconvertable = FALSE
 	var/late_joiner = FALSE
 
 	var/last_death = 0
 
-	var/force_escaped = FALSE  // Set by Into The Sunset command of the shuttle manipulator
+	/// Set by Into The Sunset command of the shuttle manipulator.
+	var/force_escaped = FALSE
 
-	var/list/learned_recipes //List of learned recipe TYPES.
+	/// List of learned recipe TYPES.
+	var/list/learned_recipes
 
 	var/list/special_items = list()
 
 	var/list/areas_entered = list()
 
-	var/list/known_people = list() //contains person, their job, and their voice color
+	/// Contains person, their job, and their voice color.
+	var/list/known_people = list()
 
-	var/list/notes = list() //RTD add notes button
-
-	var/active_quest = 0 //if you dont take any quest its 0. Max 2 quests for one player
+	/// RTD add notes button.
+	var/list/notes = list()
 
 	var/lastrecipe
 
@@ -102,16 +112,26 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 
 	var/mugshot_set = FALSE
 
-	var/heretic_nickname 	// Nickname used for heretic commune
+	/// Nickname used for heretic commune.
+	var/heretic_nickname
 
-	var/picking = FALSE		// Variable that lets the event picker see if someones getting chosen or not
-	
-	var/job_bitflag = NONE	// the bitflag our job applied
+	/// Variable that lets the event picker see if someones getting chosen or not.
+	var/picking = FALSE
 
-	var/list/personal_objectives = list() // List of personal objectives not tied to the antag roles
+	/// The bitflag our job applied.
+	var/job_bitflag = NONE
+
+	/// List of personal objectives not tied to the antag roles.
+	var/list/personal_objectives = list()
+
+	var/has_changed_spell = FALSE
+	var/has_rituos = FALSE
+	var/obj/effect/proc_holder/spell/rituos_spell
+
+	var/has_bomb = FALSE
 
 /datum/mind/New(key)
-	src.key = key
+	key = key
 	soulOwner = src
 	martial_art = default_martial_art
 	set_assigned_role(SSjob.GetJobType(/datum/job/unassigned))
@@ -141,7 +161,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 /datum/mind/proc/i_know_person(person) //they are added to ours
 	if(!person)
 		return
-	if(person == src || person == src.current)
+	if(person == src || person == current)
 		return
 	if(istype(person, /datum/mind))
 		var/datum/mind/M = person
@@ -155,6 +175,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		if(!used_title)
 			used_title = "unknown"
 		known_people[H.real_name]["FJOB"] = used_title
+		known_people[H.real_name]["FSPECIES"] = H.dna.species.name
 		var/referred_gender
 		switch(H.pronouns)
 			if(HE_HIM)
@@ -176,7 +197,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 /datum/mind/proc/person_knows_me(person) //we are added to their lists
 	if(!person)
 		return
-	if(person == src || person == src.current)
+	if(person == src || person == current)
 		return
 	if(ishuman(person))
 		var/mob/living/carbon/human/guy = person
@@ -208,7 +229,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 					var/heretic_text = C.get_heretic_symbol(H)
 					if (heretic_text)
 						M.known_people[H.real_name]["FHERESY"] = heretic_text
-				
+
 
 /datum/mind/proc/do_i_know(datum/mind/person, name)
 	if(!person && !name)
@@ -254,11 +275,12 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		var/fjob = known_people[P]["FJOB"]
 		var/fgender = known_people[P]["FGENDER"]
 		var/fage = known_people[P]["FAGE"]
+		var/fspecies = known_people[P]["FSPECIES"]
 		var/fheresy = known_people[P]["FHERESY"]
 		if(fcolor && fjob)
 			if (fheresy)
 				contents +="<B><font color=#f1d669>[fheresy]</font></B> "
-			contents += "<B><font color=#[fcolor];text-shadow:0 0 10px #8d5958, 0 0 20px #8d5958, 0 0 30px #8d5958, 0 0 40px #8d5958, 0 0 50px #e60073, 0 0 60px #8d5958, 0 0 70px #8d5958;>[P]</font></B><BR>[fjob], [capitalize(fgender)], [fage]"
+			contents += "<B><font color=#[fcolor];text-shadow:0 0 10px #8d5958, 0 0 20px #8d5958, 0 0 30px #8d5958, 0 0 40px #8d5958, 0 0 50px #e60073, 0 0 60px #8d5958, 0 0 70px #8d5958;>[P]</font></B><BR>[fjob], [capitalize(fgender)], [fspecies], [fage]"
 			contents += "<BR>"
 
 	var/datum/browser/popup = new(user, "PEOPLEIKNOW", "", 260, 400)
@@ -380,7 +402,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	else
 		A.on_gain()
 	log_game("[key_name(src)] has gained antag datum [A.name]([A.type])")
-	var/client/picked_client = src.current?.client
+	var/client/picked_client = current?.client
 	picked_client?.mob?.mind.picking = FALSE
 	return A
 
@@ -899,8 +921,8 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	mind.assigned_role = ROLE_PAI
 	mind.special_role = ""
 
-/datum/mind/proc/add_sleep_experience(skill, amt, silent = FALSE)
-	sleep_adv.add_sleep_experience(skill, amt, silent)
+/datum/mind/proc/add_sleep_experience(skill, amt, silent = FALSE, show_xp = TRUE)
+	sleep_adv.add_sleep_experience(skill, amt, silent, show_xp)
 
 /datum/mind/proc/add_personal_objective(datum/objective/O)
 	if(!istype(O))

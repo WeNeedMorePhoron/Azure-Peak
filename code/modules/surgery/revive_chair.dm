@@ -313,6 +313,9 @@
 		update_icon()
 
 		// Apply debuffs
+		occupant.mind.remove_antag_datum(/datum/antagonist/zombie)
 		occupant.apply_status_effect(/atom/movable/screen/alert/status_effect/debuff/revived)
 
 	return TRUE
+
+#undef WEATHER_RAIN

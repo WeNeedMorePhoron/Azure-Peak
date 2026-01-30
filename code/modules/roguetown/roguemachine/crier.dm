@@ -4,7 +4,7 @@
 
 /obj/structure/roguemachine/crier
 	name = "rous master"
-	desc = "The crier's most trusted friend."
+	desc = "A magitech device intended for the town crier. Can broadcast communications throughout the town and manage the streetpipe network."
 	icon = 'icons/roguetown/misc/structure.dmi'
 	icon_state = "crier_machine"
 	density = TRUE
@@ -20,7 +20,7 @@
 /obj/structure/roguemachine/crier/attackby(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/roguekey))
 		var/obj/item/roguekey/K = P
-		if(K.lockid == keycontrol || istype(K, /obj/item/roguekey/lord))
+		if(K.lockid == keycontrol || istype(K, /obj/item/roguekey/lord) || istype(K, /obj/item/roguekey/skeleton))
 			locked = !locked
 			playsound(loc, 'sound/misc/beep.ogg', 100, FALSE, -1)
 			return

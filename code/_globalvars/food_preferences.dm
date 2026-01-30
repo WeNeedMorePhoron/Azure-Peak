@@ -21,6 +21,7 @@ GLOBAL_LIST_EMPTY(cached_drink_flat_icons)
 		/datum/reagent/consumable/oil/tallow,
 		/datum/reagent/consumable/milk,
 		/datum/reagent/consumable/milk/salted,
+		/datum/reagent/consumable/pumpkinspice,
 	)
 
 	var/list/drink_types = subtypesof(/datum/reagent/consumable)\
@@ -78,8 +79,8 @@ GLOBAL_LIST_EMPTY(cached_drink_flat_icons)
 		/obj/item/reagent_containers/food/snacks/rogue/foodbase/psycrossbun_raw,
 		/obj/item/reagent_containers/food/snacks/rogue/foodbase/cheesebun_raw,
 		/obj/item/reagent_containers/food/snacks/rogue/rbreaduncooked,
-		/obj/item/reagent_containers/food/snacks/rogue/stuffeggraw,
-		/obj/item/reagent_containers/food/snacks/rogue/stuffeggraw,
+		/obj/item/reagent_containers/food/snacks/rogue/stuffedegg,
+		/obj/item/reagent_containers/food/snacks/rogue/stuffedegg/cooked,
 		/obj/item/reagent_containers/food/snacks/rogue/foodbase/handpieraw,
 		/obj/item/reagent_containers/food/snacks/rogue/foodbase/crabcakeraw,
 		/obj/item/reagent_containers/food/snacks/rogue/eggplantstuffedraw,

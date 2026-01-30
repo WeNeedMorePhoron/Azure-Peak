@@ -68,7 +68,7 @@
 /datum/antagonist/aspirant/can_be_owned(datum/mind/new_owner)
 	. = ..()
 	if(.)
-		if(!((new_owner.assigned_role in GLOB.noble_positions) || (new_owner.assigned_role in GLOB.garrison_positions) || (new_owner.assigned_role in GLOB.courtier_positions)))
+		if(!((new_owner.assigned_role in GLOB.rogueoverthrow_positions)))
 			return FALSE
 
 /datum/antagonist/aspirant/on_gain()
@@ -240,3 +240,6 @@
 			to_chat(owner, span_greentext("Your ruler retained the throne! SUCCESS!"))
 		else
 			to_chat(owner, span_redtext("Your ruler was deposed! FAIL!"))
+
+#undef CHOICE_POISON_BLADE
+#undef CHOICE_SKILLS

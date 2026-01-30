@@ -158,7 +158,8 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 	update_body()
 
 	var/list/possible_turfs = list()
-	for(var/turf/open/T in oview(2, src))
+	var/turf/my_turf = get_turf(src) // Uses the turf since we are created a bit late
+	for(var/turf/open/T in oview(2, my_turf))
 		possible_turfs += T
 
 	def_intent_change(INTENT_PARRY)
@@ -286,7 +287,7 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 /datum/outfit/job/roguetown/quest_miniboss/blacksteel/pre_equip(mob/living/carbon/human/H)
 	. = ..()
 
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/modern/blacksteel_full_plate
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/full/blacksteel/modern
 	pants = /obj/item/clothing/under/roguetown/platelegs/blacksteel/modern
 	shoes = /obj/item/clothing/shoes/roguetown/boots/blacksteel/modern/plateboots
 	gloves = /obj/item/clothing/gloves/roguetown/blacksteel/modern/plategloves
@@ -312,7 +313,7 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 	beltl = /obj/item/flashlight/flare/torch/lantern
 	beltr = /obj/item/rogueweapon/sword/long
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
-	cloak = /obj/item/clothing/cloak/stabard/black
+	cloak = /obj/item/clothing/cloak/tabard/stabard/black
 
 /*
  * Goon preset

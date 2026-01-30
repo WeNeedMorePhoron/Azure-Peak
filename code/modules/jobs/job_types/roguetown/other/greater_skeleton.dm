@@ -1,7 +1,7 @@
 /datum/job/roguetown/greater_skeleton
 	title = "Greater Skeleton"
 	flag = SKELETON
-	department_flag = SLOP
+	department_flag = ANTAGONIST
 	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
@@ -33,14 +33,22 @@
 	var/datum/antagonist/new_antag = new /datum/antagonist/skeleton()
 	H.mind.add_antag_datum(new_antag)
 
+	H.grant_language(/datum/language/undead)
+
+	var/datum/language_holder/language_holder = H.get_language_holder()
+	language_holder.selected_default_language = /datum/language/undead
+
 /datum/job/roguetown/greater_skeleton/after_spawn(mob/living/L, mob/M, latejoin = FALSE)
 	..()
 
 	var/mob/living/carbon/human/H = L
+	H.mob_biotypes |= MOB_UNDEAD
+
 	H.advsetup = TRUE
 	H.invisibility = INVISIBILITY_MAXIMUM
 	H.become_blind("advsetup")
-
+	for (var/obj/item/bodypart/B in H.bodyparts)
+		B.skeletonize(FALSE)
 
 /*
 NECRO SKELETONS
@@ -78,6 +86,7 @@ NECRO SKELETONS
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 	)
+	traits_applied = list(TRAIT_CRITICAL_WEAKNESS,  TRAIT_SILVER_WEAK) // You are disposable and SAD.
 
 /datum/outfit/job/roguetown/greater_skeleton/necro/shambler/pre_equip(mob/living/carbon/human/H)
 	..()

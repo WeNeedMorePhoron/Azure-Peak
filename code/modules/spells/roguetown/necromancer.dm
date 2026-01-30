@@ -256,12 +256,13 @@
 			to_chat(user, span_warning("It would be unwise to make an enemy of your own skeletons."))
 			return FALSE
 		if(target.mind && target.mind.current)
-			if (faction_tag in target.mind.current.faction)
-				target.mind.current.faction -= faction_tag
+			if (faction_tag in target.mind?.current.faction)
+				target.mind?.current.faction -= faction_tag
 				user.say("Hostis declaratus es.")
 			else
-				target.mind.current.faction += faction_tag
+				target.mind?.current.faction += faction_tag
 				user.say("Amicus declaratus es.")
+				target.notify_faction_change()
 		else if(istype(target, /mob/living/simple_animal))
 			if (faction_tag in target.faction)
 				target.faction -= faction_tag
@@ -269,5 +270,9 @@
 			else
 				target.faction |= faction_tag
 				user.say("Amicus declaratus es.")
+				target.notify_faction_change()
 		return TRUE
 	return FALSE
+
+/obj/effect/proc_holder/spell/invoked/gravemark/no_sprite
+	overlay_state = ""

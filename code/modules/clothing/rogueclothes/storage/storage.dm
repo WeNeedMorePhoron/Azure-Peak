@@ -100,6 +100,7 @@
 	sewrepair = FALSE
 	anvilrepair = /datum/skill/craft/armorsmithing
 
+
 /obj/item/storage/belt/rogue/leather/rope
 	name = "rope belt"
 	desc = "A length of strong rope repurposed into a belt. Better than nothing."
@@ -144,6 +145,14 @@
 	sewrepair = TRUE
 	component_type = /datum/component/storage/concrete/roguetown/satchel
 
+
+/obj/item/storage/backpack/rogue/satchel/cloth
+	name = "cloth knapsack"
+	desc = "A rudimentary cloth sack strapped to the back for storing small amounts of items."
+	icon_state = "clothbackpack"
+	item_state = "clothbackpack"
+	component_type = /datum/component/storage/concrete/roguetown/satchel/cloth
+
 /obj/item/storage/backpack/rogue/satchel/heartfelt
 	populate_contents = list(
 		/obj/item/natural/feather,
@@ -187,8 +196,8 @@
 /obj/item/storage/backpack/rogue/satchel/beltpack
 	name = "beltpack" //Satchel that fits on the cloak or belt slot. Should be exceptionally rare for on-spawn loadouts, unless a flag's added to make it incompatable with regular satchels.
 	desc = "A lighter satchel that rests against the rump, freeing the shoulders from any weight. It's traditionally worn in place of a belt or cloak."
-	icon_state = "gamesatchel" //Later down the line, take the unused belt-satchel onmob and rename it to 'gamesatchel'.
-	item_state = "satchel"
+	icon_state = "buttpack" //Later down the line, take the unused belt-satchel onmob and rename it to 'gamesatchel'.
+	item_state = "buttpack"
 	icon = 'icons/roguetown/clothing/storage.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/belts.dmi'
 	slot_flags = ITEM_SLOT_CLOAK|ITEM_SLOT_BELT //Implement a check that prevents one from being worn on both slots at once. Another coder's duty, I think.
@@ -196,6 +205,14 @@
 	equip_delay_self = 10
 	max_integrity = 300
 	component_type = /datum/component/storage/concrete/roguetown/satchel
+
+/obj/item/storage/belt/rogue/leather/sash/maid
+	name = "cloth sash"
+	desc = "A pliable sash made of wool meant to wrap tightly around the waist."
+	item_state = "maidsash"
+	icon_state = "maidsash"
+	icon = 'icons/roguetown/clothing/special/maids.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/maids.dmi'
 
 /obj/item/storage/backpack/rogue/backpack
 	name = "backpack"
@@ -217,7 +234,7 @@
 	name = "Cooling backpack"
 	desc = "A leather backpack with complex pipework coursing through it. It hums and vibrates constantly."
 	icon_state = "artibackpack"
-	item_state = "artibackpack" 
+	item_state = "artibackpack"
 	icon = 'icons/roguetown/clothing/storage.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK_L
@@ -466,12 +483,12 @@
 
 /obj/item/storage/hip/orestore/bronze
 	name = "mechanized ore bag"
-	desc = "a ticking Ore bag for sorting and compressing ore, ingots, and gems"
+	desc = "A becogged bag for sorting and compressing ore, ingots, and gemeralds. It idly ticks to the rhythm of unseen mechanisms, yearning for earthly treats."
 	icon = 'icons/roguetown/items/misc.dmi'
 	//mob_overlay_icon = 'icons/roguetown/clothing/onmob/belts.dmi'
 	icon_state = "rucksack"
 	item_state = "rucksack"
-	slot_flags = ITEM_SLOT_HIP
+	slot_flags = ITEM_SLOT_HIP|ITEM_SLOT_BACK 
 	w_class = WEIGHT_CLASS_NORMAL
 	max_integrity = 400
 	equip_sound = 'sound/blank.ogg'
@@ -479,3 +496,29 @@
 	anvilrepair = /datum/skill/craft/blacksmithing
 	smeltresult = /obj/item/ingot/bronze
 	component_type = /datum/component/storage/concrete/grid/orestore/bronze
+
+/obj/item/storage/belt/rogue/leather/zig_bandolier
+	name = "zig bandolier"
+	desc = "For when your addiction gets a hold on you."
+	icon_state = "twstrap0"
+	item_state = "twstrap"
+	icon = 'icons/obj/items/twstrap.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_ARMOR
+	resistance_flags = FIRE_PROOF
+	equip_delay_self = 5 SECONDS
+	unequip_delay_self = 5 SECONDS
+	max_integrity = 0
+	sellprice = 15
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
+	pixel_y = -16
+	pixel_x = -16
+	bigboy = TRUE
+	equip_sound = 'sound/blank.ogg'
+	bloody_icon_state = "bodyblood"
+	alternate_worn_layer = UNDER_CLOAK_LAYER
+	strip_delay = 20
+	component_type = /datum/component/storage/concrete/roguetown/zig_bandolier

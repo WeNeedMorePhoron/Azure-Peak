@@ -3,6 +3,8 @@
 	GLOB.farm_animals++
 	if(tame)
 		tamed()
+	AddElement(/datum/element/ai_retaliate)
+	ai_controller.set_blackboard_key(BB_BASIC_FOODS, food_type)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/goat/Destroy()
 	GLOB.farm_animals = max(GLOB.farm_animals - 1, 0)
@@ -19,7 +21,7 @@
 	..()
 	deaggroprob = 50
 	if(can_buckle)
-		var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+		var/datum/component/riding/D = LoadComponent(/datum/component/riding/no_ocean)
 		D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(-2, 6), TEXT_WEST = list(2, 6)))
 		D.set_vehicle_dir_layer(SOUTH, MOB_LAYER+0.1)
 		D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
@@ -55,7 +57,8 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/goat
 	icon = 'icons/roguetown/mob/monster/gote.dmi'
 	name = "goat"
-	desc = ""
+	desc = "Renowned for their mountaineering skills and their resilience, goats are said to have been one of the first animals \
+	domesticated by the children of Psydon and remain the key livestock to pastoralist communities across the known world."
 	icon_state = "goat"
 	icon_living = "goat"
 	icon_dead = "goat_dead"
@@ -110,6 +113,20 @@
 	can_saddle = TRUE
 	remains_type = /obj/effect/decal/remains/cow
 
+	//new ai, old ai off
+	AIStatus = AI_OFF
+	can_have_ai = FALSE
+	ai_controller = /datum/ai_controller/generic/goat //slightly more agressive retaliation
+
+/mob/living/simple_animal/hostile/retaliate/rogue/goat/tame
+	tame = TRUE
+
+/mob/living/simple_animal/hostile/retaliate/rogue/goat/tame/saddled/Initialize()
+	. = ..()
+	ssaddle = new /obj/item/natural/saddle(src)
+	// excuse me please fucking compile again thank you
+	update_icon()
+
 /mob/living/simple_animal/hostile/retaliate/rogue/goat/get_sound(input)
 	switch(input)
 		if("aggro")
@@ -125,7 +142,6 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/goat/goatlet
 	icon = 'icons/roguetown/mob/monster/gote.dmi'
 	name = "goatlet"
-	desc = ""
 	icon_state = "goatlet"
 	icon_living = "goatlet"
 	icon_dead = "goatlet_dead"
@@ -193,6 +209,8 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/goatmale
 	icon = 'icons/roguetown/mob/monster/gote.dmi'
 	name = "goat"
+	desc = "Renowned for their mountaineering skills and their resilience, goats are said to have been one of the first animals \
+	domesticated by the children of Psydon and remain the key livestock to pastoralist communities across the known world."
 	icon_state = "goatmale"
 	icon_living = "goatmale"
 	icon_dead = "goatmale_dead"
@@ -248,8 +266,18 @@
 	bonus_tame_chance = 15
 	remains_type = /obj/effect/decal/remains/cow
 
+	//new ai, old ai off
+	AIStatus = AI_OFF
+	can_have_ai = FALSE
+	ai_controller = /datum/ai_controller/generic
+
 /mob/living/simple_animal/hostile/retaliate/rogue/goatmale/tame
 	tame = TRUE
+
+/mob/living/simple_animal/hostile/retaliate/rogue/goatmale/tame/saddled/Initialize()
+	. = ..()
+	ssaddle = new /obj/item/natural/saddle(src)
+	update_icon()
 
 /mob/living/simple_animal/hostile/retaliate/rogue/goatmale/update_icon()
 	cut_overlays()
@@ -268,7 +296,7 @@
 	..()
 	deaggroprob = 20
 	if(can_buckle)
-		var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+		var/datum/component/riding/D = LoadComponent(/datum/component/riding/no_ocean)
 		D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 6), TEXT_SOUTH = list(0, 6), TEXT_EAST = list(-2, 6), TEXT_WEST = list(2, 6)))
 		D.set_vehicle_dir_layer(SOUTH, MOB_LAYER+0.1)
 		D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
@@ -280,6 +308,8 @@
 	GLOB.farm_animals++
 	if(tame)
 		tamed()
+	AddElement(/datum/element/ai_retaliate)
+	ai_controller.set_blackboard_key(BB_BASIC_FOODS, food_type)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/goatmale/Destroy()
 	..()
@@ -363,7 +393,6 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/goat/goatletboy
 	icon = 'icons/roguetown/mob/monster/gote.dmi'
 	name = "goatlet"
-	desc = ""
 	gender = MALE
 	icon_state = "goatletboy"
 	icon_living = "goatletboy"

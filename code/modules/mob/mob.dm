@@ -186,6 +186,8 @@ GLOBAL_VAR_INIT(mobids, 1)
 		return
 	if(!islist(ignored_mobs))
 		ignored_mobs = list(ignored_mobs)
+	if(!isnum(vision_distance))
+		vision_distance = DEFAULT_MESSAGE_RANGE
 	var/list/hearers = get_hearers_in_view(vision_distance, src) //caches the hearers and then removes ignored mobs.
 	hearers -= ignored_mobs
 	if(self_message)
@@ -503,6 +505,13 @@ GLOBAL_VAR_INIT(mobids, 1)
 
 	var/list/result = A.examine(src)
 	if(result)
+		var/list/mechanics_result = A.get_mechanics_examine(src)
+		if(length(mechanics_result))
+			var/mechanics_result_str = "<details><summary>Mechanics</summary>"
+			for(var/line in mechanics_result)
+				mechanics_result_str += " - " + line + "\n"
+			mechanics_result_str += "</details>"
+			result += mechanics_result_str
 		to_chat(src, usr.client.prefs.no_examine_blocks ? result.Join("\n") : examine_block(result.Join("\n")))
 	SEND_SIGNAL(src, COMSIG_MOB_EXAMINATE, A)
 
@@ -749,7 +758,7 @@ GLOBAL_VAR_INIT(mobids, 1)
 		if(3)
 			days = "WEDDING'S DAE"
 		if(4)
-			days = "THULE'S DAE"
+			days = "TOLL'S DAE"
 		if(5)
 			days = "FREYJA'S DAE"
 		if(6)
@@ -822,8 +831,6 @@ GLOBAL_VAR_INIT(mobids, 1)
 				if(A.invisibility > see_invisible)
 					continue
 				if(overrides.len && (A in overrides))
-					continue
-				if(A.IsObscured())
 					continue
 				statpanel(listed_turf.name, null, A)
 
@@ -987,6 +994,12 @@ GLOBAL_VAR_INIT(mobids, 1)
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	mob_spell_list += S
 	S.action.Grant(src)
+
+/mob/proc/HasSpell(var/spell_type)
+	for(var/obj/effect/proc_holder/spell/spell as anything in mob_spell_list)
+		if(spell.type == spell_type)
+			return spell
+	return null
 
 ///Remove a spell from the mobs spell list
 /mob/proc/RemoveSpell(obj/effect/proc_holder/spell/spell)
@@ -1273,7 +1286,7 @@ GLOBAL_VAR_INIT(mobids, 1)
 /mob/verb/open_language_menu()
 	set name = "Open Language Menu"
 	set category = "IC"
-	set hidden = 1
+	set hidden = 0
 
 	var/datum/language_holder/H = get_language_holder()
 	H.open_language_menu(usr)
@@ -1371,3 +1384,5 @@ GLOBAL_VAR_INIT(mobids, 1)
 
 	clear_important_client_contents()
 	canon_client = null
+
+#undef MOB_FACE_DIRECTION_DELAY

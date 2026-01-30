@@ -103,7 +103,12 @@
 #warn compiling in TESTING mode. testing() debug messages will be visible.
 #endif
 
-#ifdef TRAVISBUILDING
+
+#ifdef GC_FAILURE_HARD_LOOKUP
+#define FIND_REF_NO_CHECK_TICK
+#endif
+
+#if defined(CIBUILDING) && !defined(OPENDREAM)
 #define UNIT_TESTS
 #endif
 

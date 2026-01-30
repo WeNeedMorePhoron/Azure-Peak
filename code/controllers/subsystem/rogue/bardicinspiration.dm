@@ -1,9 +1,4 @@
 // Bardic Inspo time - Datum/definition setup
-
-#define BARD_T1 1
-#define BARD_T2 2
-#define BARD_T3 3
-
 GLOBAL_LIST_INIT(learnable_songst1, (list(/obj/effect/proc_holder/spell/invoked/song/dirge_fortune,
 		/obj/effect/proc_holder/spell/invoked/song/furtive_fortissimo,
 		/obj/effect/proc_holder/spell/invoked/song/intellectual_interval,
@@ -35,6 +30,7 @@ GLOBAL_LIST_INIT(learnable_songst3, (list(/obj/effect/proc_holder/spell/invoked/
 	var/tier1acquired = FALSE
 	var/tier2acquired = FALSE
 	var/tier3acquired = FALSE
+	var/learning_song = FALSE
 
 /datum/inspiration/Destroy(force)
 	. = ..()
@@ -131,15 +127,22 @@ GLOBAL_LIST_INIT(learnable_songst3, (list(/obj/effect/proc_holder/spell/invoked/
 	. = ..()
 	src.holder = holder
 	holder?.inspiration = src
-	ADD_TRAIT(holder, INSPIRING_MUSICIAN, "inspiration")
+	ADD_TRAIT(holder, TRAIT_INSPIRING_MUSICIAN, "inspiration")
 
 /mob/living/carbon/human/proc/picksongs()
 	set name = "Fill Songbook"
 	set category = "Inspiration"
 
-
+	if(!inspiration)
+		return
+	if(inspiration.learning_song)
+		to_chat(src, span_warning("I'm already choosing a song!"))
+		return
 	if(!mind)
 		return
+
+	inspiration.learning_song = TRUE
+
 	var/list/songs = GLOB.learnable_songst1
 	var/list/choices = list()
 	var/choosablesongtiers = list()
@@ -165,6 +168,7 @@ GLOBAL_LIST_INIT(learnable_songst3, (list(/obj/effect/proc_holder/spell/invoked/
 	var/chosensongtier = tgui_input_list(src, "Choose a tier of song to add to your songbook", "SERENADE", choosablesongtiers)
 
 	if(!chosensongtier)
+		inspiration.learning_song = FALSE
 		return
 
 	switch(chosensongtier)
@@ -183,13 +187,16 @@ GLOBAL_LIST_INIT(learnable_songst3, (list(/obj/effect/proc_holder/spell/invoked/
 	var/obj/effect/proc_holder/spell/invoked/song/item = choices[choice]
 
 	if(!item)
+		inspiration.learning_song = FALSE
 		return     // user canceled;
 	if(alert(src, "[item.desc]", "[item.name]", "Learn", "Cancel") == "Cancel") //gives a preview of the spell's description to let people know what a spell does
+		inspiration.learning_song = FALSE
 		return
 
 	for(var/obj/effect/proc_holder/spell/knownsong in mind.spell_list)
 		if(knownsong.type == item.type)
 			to_chat(span_warning("You already know this one!"))
+			inspiration.learning_song = FALSE
 			return
 	var/obj/effect/proc_holder/spell/invoked/song/new_song = new item
 	mind.AddSpell(new_song)
@@ -201,5 +208,8 @@ GLOBAL_LIST_INIT(learnable_songst3, (list(/obj/effect/proc_holder/spell/invoked/
 			inspiration.tier2acquired = TRUE
 		if(3)
 			inspiration.tier3acquired = TRUE
+
+	inspiration.learning_song = FALSE
+
 	if(inspiration.songsbought >= inspiration.level)
 		verbs -= /mob/living/carbon/human/proc/picksongs
