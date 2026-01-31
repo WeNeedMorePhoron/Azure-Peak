@@ -192,6 +192,18 @@ SUBSYSTEM_DEF(garbage)
 		fail_counts[level]++
 		switch (level)
 			if (GC_QUEUE_CHECK)
+				// Log detailed info for images that fail to GC
+				#ifdef REFERENCE_TRACKING
+				if(isimage(D))
+					var/image/img = D
+					var/loc_info = "null"
+					if(img.loc)
+						loc_info = "\ref[img.loc] ([img.loc.type])"
+						if(isatom(img.loc))
+							var/atom/A = img.loc
+							loc_info += " name='[A.name]'"
+					log_qdel("IMAGE GC FAIL: ref=\ref[D] icon='[img.icon]' state='[img.icon_state]' loc=[loc_info] layer=[img.layer] plane=[img.plane] override=[img.override]")
+				#endif
 				#ifdef REFERENCE_TRACKING
 				// Decides how many refs to look for (potentially)
 				// Based off the remaining and the ones we can account for
@@ -266,6 +278,14 @@ SUBSYSTEM_DEF(garbage)
 	++totaldels
 	var/type = D.type
 	var/refID = text_ref(D)
+
+	// Log detailed info for hard-deleted images to help debug what's holding refs
+	#ifdef REFERENCE_TRACKING
+	if(isimage(D))
+		var/image/img = D
+		var/details = "IMAGE HARDDEL: ref=[refID] icon='[img.icon]' state='[img.icon_state]' loc=[img.loc ? "\ref[img.loc] ([img.loc.type])" : "null"] layer=[img.layer] plane=[img.plane]"
+		log_qdel(details)
+	#endif
 
 	del(D)
 
