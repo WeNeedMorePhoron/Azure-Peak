@@ -721,6 +721,8 @@
 
 /atom/movable/screen/advsetup/Destroy()
 	hud.static_inventory -= src
+	if(hud.mymob.client)
+		hud.mymob.client.screen -= src 
 	return ..()
 
 /atom/movable/screen/advsetup/proc/check_mob()
