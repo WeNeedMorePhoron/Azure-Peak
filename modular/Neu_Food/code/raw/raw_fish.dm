@@ -290,6 +290,7 @@
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/salmon/black_headed
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/salmon/black_headed
+	sellprice = 17
 
 /obj/item/reagent_containers/food/snacks/fish/flounder
 	name = "flounder"
@@ -299,6 +300,7 @@
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/flounder
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/flounder
+	sellprice = 5
 
 /obj/item/reagent_containers/food/snacks/fish/swamp_shrimp
 	name = "swamp shrimp"
@@ -308,6 +310,7 @@
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_shrimp
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_shrimp
+	sellprice = 5
 
 /obj/item/reagent_containers/food/snacks/fish/swamp_mother
 	name = "swamp mother"
@@ -317,6 +320,7 @@
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_mother
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_mother
+	sellprice = 15
 
 /obj/item/reagent_containers/food/snacks/fish/black_bass
 	name = "black bass"
@@ -326,6 +330,7 @@
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/black_bass
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/black_bass
+	sellprice = 7
 
 /obj/item/reagent_containers/food/snacks/fish/zizo_abberation
 	name = "zizo abberation"
@@ -335,6 +340,7 @@
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/zizo_abberation
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/zizo_abberation
+	sellprice = 20
 
 /obj/item/reagent_containers/food/snacks/fish/sturgeon
 	name = "sturgeon"
@@ -344,6 +350,7 @@
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
+	sellprice = 5
 
 /obj/item/reagent_containers/food/snacks/fish/mackerel
 	name = "mackerel"
@@ -353,6 +360,7 @@
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/mackerel
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/mackerel
+	sellprice = 5
 
 /obj/item/reagent_containers/food/snacks/fish/beaksnapper
 	name = "beaksnapper"
@@ -362,3 +370,4 @@
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/beaksnapper
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/beaksnapper
+	sellprice = 15
