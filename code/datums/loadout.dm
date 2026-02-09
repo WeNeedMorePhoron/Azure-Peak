@@ -12,8 +12,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	if(isnull(donoritem))
 		if(ckeywhitelist)
 			donoritem = TRUE
+	var/obj/targetitem = path
+	desc = targetitem.desc
 	if (triumph_cost)
-		desc += "<b>Costs [triumph_cost] TRIUMPHS.</b>"
+		desc += "<br><b>Costs [triumph_cost] TRIUMPHS.</b>"
 
 /datum/loadout_item/proc/donator_ckey_check(key)
 	if(ckeywhitelist && ckeywhitelist.Find(key))
@@ -678,6 +680,7 @@ GLOBAL_LIST_EMPTY(loadout_items)
 //Donator Section
 //All these items are stored in the donator_fluff.dm in the azure modular folder for simplicity.
 //All should be subtypes of existing weapons/clothes/armor/gear, whatever, to avoid balance issues I guess. Idk, I'm not your boss.
+// Please make sure to NOT create a subtype of donator_x/item unless there's a parent type, else it will show up as parent loadout datum due to the implicitly defined parent
 
 /datum/loadout_item/donator_plex
 	name = "Donator Kit - Rapier di Aliseo"
@@ -804,6 +807,11 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/clothing/neck/roguetown/psicross/astrata/dasfox
 	ckeywhitelist = list("dasfox")
 
+/datum/loadout_item/donator_dasfox/lance
+	name = "Donator Item - Decorated Lance"
+	path = /obj/item/enchantingkit/dasfox_lance
+	ckeywhitelist = list("dasfox", "cre77") // on request by dasfox
+
 /datum/loadout_item/donator_ryan
 	name = "Donator Item - Western Estates Caparison"
 	path = /obj/item/caparison/ryan
@@ -812,6 +820,11 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/donator_ryan/psy_helm
 	name = "Donator Kit - Unorthodoxist Psydonite Helm"
 	path = /obj/item/enchantingkit/ryan_psyhelm
+
+/datum/loadout_item/donator_koruu
+	name = "Donator Kit - Well-Worn Bamboo Hat"
+	path = /obj/item/clothing/head/roguetown/mentorhat/koruu
+	ckeywhitelist = list("koruu")
 
 //////////////////
 //  TRIUMPHS !  //
