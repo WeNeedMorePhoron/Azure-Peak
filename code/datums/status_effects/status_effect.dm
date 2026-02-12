@@ -87,8 +87,6 @@
 		var/atom/movable/screen/alert/status_effect/A = owner.throw_alert(id, alert_type)
 		A?.attached_effect = src //so the alert can reference us, if it needs to
 		linked_alert = A //so we can reference the alert, if we need to
-		if(linked_alert && initial(duration) > 0 && needs_processing)
-			linked_alert.update_maptext(initial(duration))
 
 	if(needs_processing)
 		START_PROCESSING(SSfastprocess, src)
@@ -122,6 +120,9 @@
 		tick_interval = world.time + initial(tick_interval)
 	if(duration != -1 && duration < world.time)
 		qdel(src)
+		return
+	if(linked_alert && duration != -1)
+		linked_alert.update_countdown(max(duration - world.time, 0))
 
 /datum/status_effect/proc/on_apply() //Called whenever the buff is applied; returning FALSE will cause it to autoremove itself.
 	for(var/S in effectedstats)
@@ -163,8 +164,6 @@
 	if(original_duration == -1)
 		return
 	duration = world.time + original_duration
-	if(linked_alert && original_duration > 0 && needs_processing)
-		linked_alert.update_maptext(original_duration)
 
 //clickdelay/nextmove modifiers!
 /datum/status_effect/proc/nextmove_modifier()

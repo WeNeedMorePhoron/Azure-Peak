@@ -101,11 +101,24 @@
 	nomouseover = FALSE
 	var/atom/movable/screen/maptext_holder/maptext_holder
 
-/atom/movable/screen/alert/proc/update_maptext(cd_time_deciseconds, color_cd = "#800000", color_neutral = "#ffffff")
+/atom/movable/screen/alert/proc/update_countdown(remaining_deciseconds)
+	if(remaining_deciseconds <= 0 || remaining_deciseconds >= 3 MINUTES)
+		if(istype(maptext_holder))
+			maptext_holder.maptext = null
+		return
 	if(!istype(maptext_holder))
 		maptext_holder = new(src)
+		maptext_holder.x = 4
+		maptext_holder.y = 0
+		maptext_holder.color = "#800000"
 		vis_contents.Add(maptext_holder)
-	maptext_holder.update_maptext(cd_time_deciseconds, color_cd, color_neutral)
+	var/seconds_left = round(remaining_deciseconds / (1 SECONDS), 0.1)
+	if(seconds_left >= 60)
+		var/mins = round(seconds_left / 60)
+		var/secs = round(seconds_left) % 60
+		maptext_holder.maptext = MAPTEXT("[mins]:[secs < 10 ? "0[secs]" : "[secs]"]")
+	else
+		maptext_holder.maptext = MAPTEXT("[seconds_left]s")
 
 //Gas alerts
 /atom/movable/screen/alert/not_enough_oxy
