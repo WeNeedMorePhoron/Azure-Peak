@@ -12,7 +12,9 @@
 		STATKEY_LCK = 2,
 		STATKEY_SPD = 1
 	)
+	age_mod = /datum/class_age_mod/fisher
 	subclass_skills = list(
+		/datum/skill/labor/fishing = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/swords = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/axes = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/maces = SKILL_LEVEL_NOVICE,
@@ -38,11 +40,7 @@
 
 /datum/outfit/job/roguetown/adventurer/fisher/pre_equip(mob/living/carbon/human/H)
 	..()
-	if(H.age == AGE_OLD)
-		H.adjust_skillrank_up_to(/datum/skill/labor/fishing, SKILL_LEVEL_MASTER, TRUE)
-	else
-		H.adjust_skillrank_up_to(/datum/skill/labor/fishing, SKILL_LEVEL_EXPERT, TRUE)
-	if(H.pronouns == HE_HIM || H.pronouns == THEY_THEM || H.pronouns == IT_ITS)
+	if(H.pronouns == HE_HIM || H.pronouns == THEY_THEM || H.pronouns == IT_ITS_M)
 		pants = /obj/item/clothing/under/roguetown/tights/random
 		shirt = /obj/item/clothing/suit/roguetown/shirt/shortshirt/random
 		shoes = /obj/item/clothing/shoes/roguetown/boots/leather

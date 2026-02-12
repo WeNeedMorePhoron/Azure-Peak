@@ -135,7 +135,7 @@
 	pixel_y = 32
 	healing_range = 2
 
-/obj/machinery/light/rogue/campfire/fireplace/fireplace/attack_hand(mob/user)
+/obj/machinery/light/rogue/campfire/fireplace/attack_hand(mob/user)
 	if(isliving(user) && on)
 		user.visible_message(span_warning("[user] snuffs [src]."))
 		burn_out()
@@ -203,7 +203,8 @@
 	bulb_colour = "#7b60f3"
 	icon_state = "wallcandleb1"
 	base_state = "wallcandleb"
-	desc = "Tiny bluish flames flicker gently like the stars themselves."
+	desc = "Tiny bluish flames flicker gently like the stars themselves. Mana-infused wax \
+	is rather expensive, but makes quite an impression!"
 
 /obj/machinery/light/rogue/candle/blue/r
 	pixel_y = 0
@@ -420,6 +421,11 @@
 	var/obj/item/food = null
 	var/mob/living/carbon/human/lastuser
 	var/datum/looping_sound/boilloop/boilloop
+
+/obj/machinery/light/rogue/hearth/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Hearths must be fuelled occasionally to continue burning. They can be dowsed with a container of liquid \
+	on <b>SPLASH</b> intent to save fuel.")
 
 /obj/machinery/light/rogue/hearth/Initialize()
 	boilloop = new(src, FALSE)
@@ -740,7 +746,8 @@
 
 /obj/item/mobilestove
 	name = "packed stove"
-	desc = "A portable bronze stovetop. The underside is covered in an esoteric pattern of small tubes. Whatever heats the hob is hidden inside the body of the device"
+	desc = "A portable bronze stovetop. The underside is covered in an esoteric pattern of small tubes. Whatever heats \
+	the hob is hidden inside the body of the device."
 	icon = 'icons/roguetown/misc/lighting.dmi'
 	icon_state = "hobostovep"
 	w_class = WEIGHT_CLASS_NORMAL

@@ -85,7 +85,8 @@
 	organ_type = /obj/item/organ/ears
 	sprite_accessories = list(
 		/datum/sprite_accessory/ears/elf,
-		/datum/sprite_accessory/ears/elfw)
+		/datum/sprite_accessory/ears/elfw,
+		/datum/sprite_accessory/ears/elf_short)
 
 /datum/customizer/organ/ears/elf
 	customizer_choices = list(/datum/customizer_choice/organ/ears/elf)
@@ -276,6 +277,7 @@
 	sprite_accessories = list(
 		/datum/sprite_accessory/ears/elf,
 		/datum/sprite_accessory/ears/elfw,
+		/datum/sprite_accessory/ears/elf_short
 		)
 
 // ---- Dullahan
@@ -324,6 +326,11 @@
 		/datum/sprite_accessory/ears/squirrel,
 		/datum/sprite_accessory/ears/wolf,
 		/datum/sprite_accessory/ears/perky,
+		/datum/sprite_accessory/ears/antenna_simple1,
+		/datum/sprite_accessory/ears/antenna_simple2,
+		/datum/sprite_accessory/ears/antenna_simple3,
+		/datum/sprite_accessory/ears/antenna_fuzzball1,
+		/datum/sprite_accessory/ears/antenna_fuzzball2,
 		/datum/sprite_accessory/ears/miqote,
 		/datum/sprite_accessory/ears/lunasune,
 		/datum/sprite_accessory/ears/sabresune,

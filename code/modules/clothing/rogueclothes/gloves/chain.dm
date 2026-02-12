@@ -1,6 +1,6 @@
 /obj/item/clothing/gloves/roguetown/chain
 	name = "chain gauntlets"
-	desc = "Gauntlets made of interlinked steel rings. They offer decent protection against common weaponries, except for arrows."
+	desc = "Armored mittens, woven together from a series of interlinked steel rings. Articulation is difficult, but unnecessary; one would imagine these aren't the gloves of a tinkerer, after all."
 	icon_state = "cgloves"
 	armor = ARMOR_MAILLE
 	resistance_flags = FIRE_PROOF
@@ -15,6 +15,10 @@
 	smeltresult = /obj/item/ingot/steel
 	unarmed_bonus = 1.15
 
+/obj/item/clothing/gloves/roguetown/chain/ComponentInitialize()
+	AddComponent(/datum/component/armour_filtering/negative, TRAIT_FENCERDEXTERITY)
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_HONORBOUND)
+
 /obj/item/clothing/gloves/roguetown/chain/aalloy
 	name = "decrepit chain gauntlets"
 	desc = "Frayed bronze rings, interlinked together to form sagging mittens. Fingers, talons, claws; they're all the same, when smothered beneath maille and left to rot away."
@@ -22,6 +26,7 @@
 	max_integrity = ARMOR_INT_SIDE_DECREPIT
 	color = "#bb9696"
 	chunkcolor = "#532e25"
+	material_category = ARMOR_MAT_CHAINMAIL
 	smeltresult = /obj/item/ingot/aaslag
 	anvilrepair = null
 	prevent_crits = PREVENT_CRITS_NONE
@@ -64,7 +69,7 @@
 
 /obj/item/clothing/gloves/roguetown/chain/iron
 	icon_state = "icgloves"
-	desc = "Gauntlets made of interlinked iron rings. They offer decent protection against common weaponries, except for arrows."
+	desc = "Armored mittens, woven together from a series of interlinked iron rings. Crude gestures are impossible with such gloves; then again, who needs an offending finger when one can articulate their hatred through a swing to the skull?"
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/iron
 	max_integrity = ARMOR_INT_SIDE_IRON

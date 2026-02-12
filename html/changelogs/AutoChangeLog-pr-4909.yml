@@ -1,4 +1,0 @@
-author: "Geevies"
-delete-after: True
-changes:
-  - bugfix: "Nets now drop to the floor after their timer runs out."

@@ -16,6 +16,9 @@
 /obj/item/clothing/under/roguetown/tights/red
 	color = CLOTHING_RED
 
+/obj/item/clothing/under/roguetown/tights/green
+	color = CLOTHING_GREEN
+
 /obj/item/clothing/under/roguetown/tights/purple
 	color = CLOTHING_PURPLE
 
@@ -58,7 +61,7 @@
 
 /obj/item/clothing/under/roguetown/webs
 	name = "webbing"
-	desc = "a fine webbing made from spidersilk, popular fashion within the underdark"
+	desc = "A fine webbing made from spidersilk, popular fashion within the Underdark."
 	gender = PLURAL
 	icon_state = "webs"
 	item_state = "webs"

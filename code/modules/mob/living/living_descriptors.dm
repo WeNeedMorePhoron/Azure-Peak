@@ -90,7 +90,7 @@
 	var/list/lines = list()
 	var/list/desc_copy = descriptors.Copy()
 
-	var/first_line = build_coalesce_description(desc_copy, described, list(MOB_DESCRIPTOR_SLOT_HEIGHT, MOB_DESCRIPTOR_SLOT_BODY, MOB_DESCRIPTOR_SLOT_STATURE, MOB_DESCRIPTOR_SLOT_FACE_SHAPE, MOB_DESCRIPTOR_SLOT_FACE_EXPRESSION), "You see %DESC1%, %DESC2% %DESC3% with %DESC4%, %DESC5%")
+	var/first_line = build_coalesce_description(desc_copy, described, list(MOB_DESCRIPTOR_SLOT_HEIGHT, MOB_DESCRIPTOR_SLOT_BODY, MOB_DESCRIPTOR_SLOT_STATURE, MOB_DESCRIPTOR_SLOT_FACE_SHAPE, MOB_DESCRIPTOR_SLOT_FACE_EXPRESSION), "You see %DESC1%, %DESC2% %DESC3% with %DESC4%, %DESC5%.")
 	if(first_line)
 		lines += first_line
 
@@ -222,6 +222,11 @@
 				they_replace = "it"
 				man_replace = "creacher"
 				him_replace = "it"
+			if (IT_ITS_M)
+				they_replace = "it"
+				man_replace = "creacher"
+				him_replace = "it"
+
 	// LETHALSTONE EDIT END
 	string = replacetext(string, "%THEY%", they_replace)
 	if(they_replace == "they")

@@ -1,4 +1,0 @@
-author: "Geevies"
-delete-after: True
-changes:
-  - qol: "Honorary titles are now checked before joining, avoiding duplicates."

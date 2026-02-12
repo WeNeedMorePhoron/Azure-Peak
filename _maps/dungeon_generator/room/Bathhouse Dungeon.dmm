@@ -778,6 +778,14 @@
 /obj/item/clothing/cloak/raincloak/furcloak,
 /turf/open/floor/rogue/hexstone,
 /area/rogue/under/tomb/indoors)
+"re" = (
+/obj/structure/chair/stool/rogue,
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/light/rogue/campfire/fireplace{
+	pixel_y = -32
+	},
+/turf/open/floor/rogue/herringbone,
+/area/rogue/under/tomb/indoors)
 "ri" = (
 /turf/closed/wall/mineral/rogue/stone,
 /area/rogue/under/tomb/indoors/royal)
@@ -1277,7 +1285,9 @@
 /turf/open/floor/rogue/blocks/newstone/alt,
 /area/rogue/under/tomb/sewer)
 "AK" = (
-/obj/item/chair/wood/wings,
+/obj/item/chair/rogue{
+	dir = 4
+	},
 /turf/open/floor/rogue/tile/masonic/inverted,
 /area/rogue/under/tomb/indoors/royal)
 "AN" = (
@@ -1322,8 +1332,8 @@
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/under/tomb/indoors)
 "BD" = (
-/obj/item/chair/wood/wings{
-	dir = 1
+/obj/item/chair/rogue{
+	dir = 8
 	},
 /turf/open/floor/rogue/tile/masonic/inverted,
 /area/rogue/under/tomb/indoors/royal)
@@ -1483,10 +1493,6 @@
 /obj/machinery/light/rogue/hearth,
 /turf/closed/wall/mineral/rogue/decostone,
 /area/rogue/under/tomb)
-"Ey" = (
-/obj/machinery/light/rogue,
-/turf/closed/wall/mineral/rogue/decostone,
-/area/rogue/under/tomb)
 "EB" = (
 /obj/structure/chair/stool/rogue,
 /obj/effect/decal/cleanable/blood,
@@ -1560,8 +1566,8 @@
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/under/tomb)
 "Gn" = (
-/obj/item/chair/wood/wings,
 /obj/effect/decal/cleanable/blood,
+/obj/item/chair/rogue,
 /turf/open/floor/rogue/tile/masonic/inverted,
 /area/rogue/under/tomb/indoors/royal)
 "Gq" = (
@@ -1805,7 +1811,7 @@
 /area/rogue/under/tomb/indoors/royal)
 "Lm" = (
 /obj/item/chair/rogue/fancy{
-	dir = 8
+	dir = 1
 	},
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/rogue/tile/masonic/inverted,
@@ -2687,8 +2693,8 @@ HU
 OL
 od
 iH
-EB
-Ey
+re
+Zl
 vW
 "}
 (11,1,1) = {"
@@ -4107,7 +4113,7 @@ Cl
 Cl
 Zl
 kO
-AK
+BD
 pA
 vk
 Dp

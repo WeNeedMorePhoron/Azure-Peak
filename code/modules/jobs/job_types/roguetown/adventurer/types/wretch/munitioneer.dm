@@ -36,7 +36,9 @@
 		/datum/skill/craft/smelting = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/engineering = SKILL_LEVEL_APPRENTICE
 	)
-
+	subclass_stashed_items = list(
+        "Sewing Kit" =  /obj/item/repair_kit,
+    )
 /datum/outfit/job/roguetown/wretch/munitioneer/pre_equip(mob/living/carbon/human/H)
 	to_chat(H, span_warning("You are a passable warrior- though weak- but your true strength lies in your ability to bend the resources of Azuria to your will."))
 	has_loadout = TRUE
@@ -72,14 +74,14 @@
 	switch(weapon_choice)
 		if("Path of the Hammer - Steel Warhammer")
 			H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_EXPERT, TRUE)
-			H.put_in_hands(new /obj/item/rogueweapon/mace/warhammer/steel, TRUE)
+			H.put_in_hands(new /obj/item/rogueweapon/mace/warhammer/steel)
 		if("Path of the Crossbow - Crossbow and Bolts")
 			H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, SKILL_LEVEL_EXPERT, TRUE)
-			H.put_in_hands(new /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow, TRUE)
+			H.put_in_hands(new /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow)
 			H.equip_to_slot_or_del(new /obj/item/quiver/bolts, SLOT_BELT_L, TRUE)
 		if("Path of the Pick - Pulaski Axe")
 			H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_EXPERT, TRUE)
-			H.put_in_hands(new /obj/item/rogueweapon/stoneaxe/woodcut/pick, TRUE)
+			H.put_in_hands(new /obj/item/rogueweapon/stoneaxe/woodcut/pick)
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_MINOR, devotion_limit = CLERIC_REQ_4)	//Minor regen, can level up to T4.
 	wretch_select_bounty(H)

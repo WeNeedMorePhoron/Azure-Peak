@@ -14,15 +14,16 @@
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/arcane
 	gesture_required = TRUE // Offensive spell
+	human_req = TRUE // Combat spell
 	spell_tier = 3 // AOE
 	invocations = list("Arescentem!")
 	invocation_type = "shout"
 	glow_color = "#b884f8" // evil ass purple
 	glow_intensity = GLOW_INTENSITY_HIGH
-	var/delay = 4
+	var/delay = 3
 	var/strike_delay = 1 // delay between each individual strike. 3 delays seems to make someone stupid able to walk into every single strikes.
 	var/strikerange = 14 // how many tiles the strike can reach
-	var/damage = 40
+	var/damage = 60
 
 /obj/effect/proc_holder/spell/invoked/wither/cast(list/targets, mob/user = usr)
 	var/turf/T = get_turf(targets[1])

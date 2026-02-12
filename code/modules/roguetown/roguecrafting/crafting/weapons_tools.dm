@@ -382,6 +382,39 @@
 	skillcraft = /datum/skill/craft/carpentry
 	craftdiff = 3
 
+/datum/crafting_recipe/roguetown/survival/quarterstaff_silver
+	name = "silver-reinforced quarterstaff"
+	category = "Tools"
+	result = list(/obj/item/rogueweapon/woodstaff/quarterstaff/silver)
+	reqs = list(
+		/obj/item/rogueweapon/woodstaff/quarterstaff = 1,
+		/obj/item/ingot/silver = 1,
+		)
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/survival/quarterstaff_psydonic
+	name = "psydonic silver-reinforced quarterstaff"
+	category = "Tools"
+	result = list(/obj/item/rogueweapon/woodstaff/quarterstaff/psy)
+	reqs = list(
+		/obj/item/rogueweapon/woodstaff/quarterstaff = 1,
+		/obj/item/ingot/silverblessed = 1,
+		)
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 5
+
+/datum/crafting_recipe/roguetown/survival/quarterstaff_psydonic/bullion
+	name = "psydonic silver-reinforced quarterstaff"
+	category = "Tools"
+	result = list(/obj/item/rogueweapon/woodstaff/quarterstaff/psy)
+	reqs = list(
+		/obj/item/rogueweapon/woodstaff/quarterstaff = 1,
+		/obj/item/ingot/silverblessed/bullion = 1,
+		)
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 5
+
 /datum/crafting_recipe/roguetown/survival/woodsword
 	name = "wooden sword (x2)"
 	category = "Tools"
@@ -395,6 +428,17 @@
 		)
 	skillcraft = /datum/skill/craft/carpentry
 	craftdiff = 0
+
+/datum/crafting_recipe/roguetown/survival/sharpenedstake
+	name = "stake, sharpened"
+	category = "Tools" 
+	result = list(/obj/item/rogueweapon/huntingknife/idagger/stake)
+	reqs = list(
+		/obj/item/grown/log/tree/stake = 1,
+		/obj/item/natural/whetstone = 1,
+		)
+	skillcraft = /datum/skill/craft/crafting
+	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/survival/wood_dagger
 	name = "wooden dagger (x3)"

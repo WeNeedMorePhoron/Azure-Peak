@@ -38,8 +38,8 @@
 
 /obj/projectile/magic/aoe/fireball/spitfire
 	name = "Spitfire"
-	exp_heavy = 0
-	exp_light = 0
+	exp_heavy = -1
+	exp_light = -1
 	exp_flash = 0
 	exp_fire = 0
 	damage = 20
@@ -77,3 +77,6 @@
 		M.ignite_mob()
 		if(istype(M, /mob/living/carbon))
 			apply_arcane_mark(M)
+	else if(isatom(target))
+		var/atom/A = target
+		A.fire_act()

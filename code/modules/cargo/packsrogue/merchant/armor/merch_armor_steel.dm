@@ -44,7 +44,7 @@
 /datum/supply_pack/rogue/armor_steel/coatplates
 	name = "Coat of Plates"
 	cost = 95 // 2 Steel
-	contains = list(/obj/item/clothing/suit/roguetown/armor/brigandine/coatplates)
+	contains = list(/obj/item/clothing/suit/roguetown/armor/plate/scale/knight)
 
 /datum/supply_pack/rogue/armor_steel/cuirass_steel
 	name = "Cuirass"
@@ -94,7 +94,7 @@
 /datum/supply_pack/rogue/armor_steel/chausses_brigandine
 	name = "Chausses, Brigandine"
 	cost = 60 //1 Steel, 2 Leather
-	contains = list(/obj/item/clothing/under/roguetown/splintlegs)
+	contains = list(/obj/item/clothing/under/roguetown/brigandinelegs)
 
 /datum/supply_pack/rogue/armor_steel/chainleg_steel
 	name = "Chausses, Chain"
@@ -114,7 +114,7 @@
 /datum/supply_pack/rogue/armor_steel/rearbraces
 	name = "Bracers, Brigandine"
 	cost = 55 // 1 Steel, 1 Leather
-	contains = list(/obj/item/clothing/wrists/roguetown/splintarms)
+	contains = list(/obj/item/clothing/wrists/roguetown/bracers/brigandine)
 
 /datum/supply_pack/rogue/armor_steel/bracers_plate
 	name = "Bracers, Plate"
@@ -196,6 +196,21 @@
 	cost = 90 // 2 Steel
 	contains = list(/obj/item/clothing/head/roguetown/helmet/heavy/sheriff)
 
+/datum/supply_pack/rogue/armor_steel/kettle_slitted
+	name = "Helmet, Slitted Kettle"
+	cost = 90 // 2 Steel
+	contains = list(/obj/item/clothing/head/roguetown/helmet/heavy/knight/skettle)
+
+/datum/supply_pack/rogue/armor_steel/elvenbarbute
+	name = "Helmet, Elven, Barbute"
+	cost = 90 // 2 Steel
+	contains = list(/obj/item/clothing/head/roguetown/helmet/elvenbarbute)
+
+/datum/supply_pack/rogue/armor_steel/elvenbarbutewinged
+	name = "Helmet, Elven, Barbute, Winged"
+	cost = 90 // 2 Steel
+	contains = list(/obj/item/clothing/head/roguetown/helmet/elvenbarbute/winged)
+
 /datum/supply_pack/rogue/armor_steel/bevor
 	name = "Bevor"
 	cost = 50 // 1 Steel
@@ -225,8 +240,3 @@
 	name = "Belt, Tasseted"
 	cost = 50 // 1 Steel
 	contains = list(/obj/item/storage/belt/rogue/leather/steel/tasset)
-
-/datum/supply_pack/rogue/armor_steel/steel/metalkit
-	name = "Armor Plates"
-	cost = 60 // 1 Steel 0.5 iron 1 leather
-	contains = list(/obj/item/repair_kit/metal)

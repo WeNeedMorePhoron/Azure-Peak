@@ -55,11 +55,10 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	var/movemovemovetext = "Move!!"
 	var/takeaimtext = "Take aim!!"
 	var/holdtext = "Hold!!"
-	var/onfeettext = "On your feet!!"
 	var/retreattext = "Fall back!!"
+	var/chargetext = "Charge!!"
 	var/bolstertext = "Hold the line!!"
-	var/brotherhoodtext = "Stand proud, for the Brotherhood!!"
-	var/chargetext = "Chaaaaaarge!!"
+	var/onfeettext = "On your feet!!"
 
 	var/mob/living/carbon/champion = null
 	var/mob/living/carbon/ward = null
@@ -102,7 +101,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	var/list/areas_entered = list()
 
 	/// Contains person, their job, and their voice color.
-	var/list/known_people = list() 
+	var/list/known_people = list()
 
 	/// RTD add notes button.
 	var/list/notes = list()
@@ -120,7 +119,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	var/picking = FALSE
 
 	/// The bitflag our job applied.
-	var/job_bitflag = NONE	
+	var/job_bitflag = NONE
 
 	/// List of personal objectives not tied to the antag roles.
 	var/list/personal_objectives = list()
@@ -752,6 +751,9 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S, mob/living/user)
 	if(!S)
 		return
+	for(var/obj/effect/proc_holder/spell/present_spell in spell_list)
+		if(present_spell.name == S.name && present_spell.type == S.type)
+			return
 	spell_list += S
 	S.action.Grant(current)
 	if(user)
@@ -922,8 +924,8 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	mind.assigned_role = ROLE_PAI
 	mind.special_role = ""
 
-/datum/mind/proc/add_sleep_experience(skill, amt, silent = FALSE)
-	sleep_adv.add_sleep_experience(skill, amt, silent)
+/datum/mind/proc/add_sleep_experience(skill, amt, silent = FALSE, show_xp = TRUE)
+	sleep_adv.add_sleep_experience(skill, amt, silent, show_xp)
 
 /datum/mind/proc/add_personal_objective(datum/objective/O)
 	if(!istype(O))

@@ -294,6 +294,10 @@
 		var/cyclops_left = HAS_TRAIT(src, TRAIT_CYCLOPS_LEFT) 
 		var/cyclops_right = HAS_TRAIT(src, TRAIT_CYCLOPS_RIGHT)
 
+		if(H.has_status_effect(STATUS_EFFECT_BLINDED))
+			fovangle |= FOV_LEFT
+			fovangle |= FOV_RIGHT
+
 		if(head)
 			cyclops_left = cyclops_left || head.has_wound(/datum/wound/facial/eyes/left)
 			cyclops_right = cyclops_right || head.has_wound(/datum/wound/facial/eyes/right)
@@ -304,6 +308,8 @@
 		if(H.wear_mask)
 			if(H.wear_mask.block2add)
 				fovangle |= H.wear_mask.block2add
+		if(H.head?.block2add == FOV_BEHIND && H.wear_mask?.block2add == FOV_BEHIND && H.wear_mask?.stack_fovs && H.head?.stack_fovs)
+			fovangle |= FOV_LEFT|FOV_RIGHT
 		if(cyclops_left)
 			fovangle |= FOV_LEFT
 		if(cyclops_right)
