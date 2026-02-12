@@ -87,6 +87,8 @@
 		var/atom/movable/screen/alert/status_effect/A = owner.throw_alert(id, alert_type)
 		A?.attached_effect = src //so the alert can reference us, if it needs to
 		linked_alert = A //so we can reference the alert, if we need to
+		if(linked_alert && initial(duration) > 0 && needs_processing)
+			linked_alert.update_maptext(initial(duration))
 
 	if(needs_processing)
 		START_PROCESSING(SSfastprocess, src)
@@ -161,6 +163,8 @@
 	if(original_duration == -1)
 		return
 	duration = world.time + original_duration
+	if(linked_alert && original_duration > 0 && needs_processing)
+		linked_alert.update_maptext(original_duration)
 
 //clickdelay/nextmove modifiers!
 /datum/status_effect/proc/nextmove_modifier()

@@ -99,6 +99,13 @@
 	var/mob/mob_viewer //the mob viewing this alert
 	var/alert_group = ALERT_STATUS //decides where on the screen the alert shows up, if it's a debuff, status effect, or buff
 	nomouseover = FALSE
+	var/atom/movable/screen/maptext_holder/maptext_holder
+
+/atom/movable/screen/alert/proc/update_maptext(cd_time_deciseconds, color_cd = "#800000", color_neutral = "#ffffff")
+	if(!istype(maptext_holder))
+		maptext_holder = new(src)
+		vis_contents.Add(maptext_holder)
+	maptext_holder.update_maptext(cd_time_deciseconds, color_cd, color_neutral)
 
 //Gas alerts
 /atom/movable/screen/alert/not_enough_oxy
@@ -478,6 +485,7 @@
 	return 1
 
 /atom/movable/screen/alert/Destroy()
+	QDEL_NULL(maptext_holder)
 	severity = 0
 	master = null
 	mob_viewer = null
