@@ -436,9 +436,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	if(charge_counter <= recharge_time) // Edge case when charge counter is set
 		charge_counter += 2	//processes 5 times per second instead of 10.
 		if(charge_counter >= recharge_time)
-			action.UpdateButtonIcon()
 			charge_counter = recharge_time
+			if(action?.button)
+				action.button.update_maptext(0)
+			action.UpdateButtonIcon()
 			STOP_PROCESSING(SSfastprocess, src)
+			return
+		if(action?.button)
+			action.button.update_maptext(recharge_time - charge_counter)
 
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
 	if(!ignore_los)
@@ -563,7 +568,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		if("holdervar")
 			adjust_var(user, holder_var_type, -holder_var_amount)
 	START_PROCESSING(SSfastprocess, src)
-	if(action)
+	if(action?.button)
+		action.button.update_maptext(0)
 		action.UpdateButtonIcon()
 	if(user.mmb_intent && user.mmb_intent.mob_light)
 		QDEL_NULL(user.mmb_intent.mob_light)
