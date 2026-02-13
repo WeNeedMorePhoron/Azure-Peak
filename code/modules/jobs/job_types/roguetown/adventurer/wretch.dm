@@ -137,3 +137,22 @@
 
 	wretch_job.total_positions = slots
 	wretch_job.spawn_positions = slots
+
+/proc/update_adventurer_slots()
+	var/datum/job/adventurer_job = SSjob.GetJob("Adventurer")
+	if(!adventurer_job)
+		return
+
+	var/player_count = length(GLOB.joined_player_list)
+	var/slots = 20
+	
+	//Add 2 slots for every 10 players over 90.
+	if(player_count > 90)
+		var/extra = floor((player_count - 90) / 10) * 2
+		slots += extra
+
+	//20 slots minimum, 40 maximum (what)
+	slots = min(slots, 40)
+
+	adventurer_job.total_positions = slots
+	adventurer_job.spawn_positions = slots
