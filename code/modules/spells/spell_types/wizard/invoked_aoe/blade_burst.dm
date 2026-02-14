@@ -73,6 +73,8 @@
 				visible_message(span_warning("The blades dispel when they near [L]!"))
 				playsound(get_turf(L), 'sound/magic/magic_nulled.ogg', 100)
 				continue
+			if(spell_guard_check(L))
+				continue
 			play_cleave = TRUE
 			L.adjustBruteLoss(damage)
 			var/mark_stacks = consume_arcane_mark_stacks(L)

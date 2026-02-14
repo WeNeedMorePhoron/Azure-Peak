@@ -1340,7 +1340,14 @@
 			H.bad_guard(span_suicide("I tried to strike while focused on defense whole! It drains me!"), cheesy = TRUE)
 
 //Mostly here so the child (limbguard) can have special behaviour.
-/datum/status_effect/buff/clash/proc/guard_struck_by_projectile()
+/datum/status_effect/buff/clash/proc/guard_struck_by_projectile(datum/source, obj/projectile/P)
+	// Reactive spell defense - guard will deflect magical projectiles to add a measure of counterplay. It doesn't care whether it is a low value or a high value projectiles.
+	if(P.guard_deflectable)
+		if(P.on_guard_deflect(owner))
+			// Deflectable: consume guard cleanly (no bad_guard penalty)
+			owner.remove_status_effect(/datum/status_effect/buff/clash)
+			return COMPONENT_ATOM_BLOCK_BULLET
+		// on_guard_deflect returned FALSE: fall through to disruption
 	guard_disrupted()
 
 /datum/status_effect/buff/clash/proc/guard_on_kick()

@@ -203,7 +203,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/miracle = FALSE
 	var/devotion_cost = 0
 	var/ignore_cockblock = FALSE //whether or not to ignore TRAIT_SPELLCOCKBLOCK
-
 	action_icon_state = "spell0"
 	action_icon = 'icons/mob/actions/roguespells.dmi'
 	action_background_icon_state = ""
@@ -772,6 +771,22 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	user.visible_message(span_warning("A wreath of gentle light passes over [user]!"), span_notice("I wreath myself in healing light!"))
 	user.adjustBruteLoss(-10)
 	user.adjustFireLoss(-10)
+
+/// Helper for non-projectile spells. Call before applying effects to a target.
+/// Returns TRUE if the target's Guard deflected the spell (guard consumed, skip this target).
+/// Returns FALSE if the spell should proceed normally (no guard active).
+/// Usage in cast(): if(spell_guard_check(L)) continue
+/obj/effect/proc_holder/spell/proc/spell_guard_check(mob/living/target)
+	if(!isliving(target))
+		return FALSE
+	var/datum/status_effect/buff/clash/guard = target.has_status_effect(/datum/status_effect/buff/clash)
+	if(!guard)
+		return FALSE
+	target.visible_message(span_warning("[target] deflects [name] with a reactive ward!"))
+	to_chat(target, span_notice("My guard deflects the incoming spell!"))
+	playsound(get_turf(target), 'sound/magic/magic_nulled.ogg', 100)
+	target.remove_status_effect(/datum/status_effect/buff/clash)
+	return TRUE
 
 #undef TARGET_CLOSEST
 #undef TARGET_RANDOM

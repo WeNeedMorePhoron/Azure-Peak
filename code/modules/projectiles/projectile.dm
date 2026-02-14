@@ -118,6 +118,8 @@
 	var/decayedRange			//stores original range
 	var/reflect_range_decrease = 5			//amount of original range that falls off when reflecting, so it doesn't go forever
 	var/reflectable = NONE // Can it be reflected or not?
+	/// Whether this projectile can be deflected by Guard (clash status). Opt-in per subtype.
+	var/guard_deflectable = FALSE
 		//Effects
 	var/stun = 0
 	var/knockdown = 0
@@ -305,6 +307,42 @@
 
 	if(unlucky_sob)
 		setAngle(Get_Angle(src, unlucky_sob.loc))
+
+/// Redirects this projectile back toward its origin point with slight scatter.
+/// Sets firer to the reflector so the projectile won't re-hit them.
+/// Returns TRUE if reflection succeeded, FALSE if conditions weren't met (no starting turf, reflector not on turf).
+/obj/projectile/proc/reflect_back(mob/living/reflector)
+	if(!starting || !isturf(reflector.loc))
+		return FALSE
+	var/new_x = starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
+	var/new_y = starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
+	var/turf/curloc = get_turf(reflector)
+	original = locate(new_x, new_y, z)
+	starting = curloc
+	firer = reflector
+	yo = new_y - curloc.y
+	xo = new_x - curloc.x
+	var/new_angle_s = Angle + rand(120, 240)
+	while(new_angle_s > 180)
+		new_angle_s -= 360
+	setAngle(new_angle_s)
+	return TRUE
+
+/// Called when a guarding mob deflects this projectile.
+/// Return TRUE for successful deflection (guard consumed cleanly, projectile reflected).
+/// Return FALSE if the projectile overpowers the guard (guard disrupted with bad_guard penalty).
+/// Override on subtypes for custom behavior.
+/obj/projectile/proc/on_guard_deflect(mob/living/defender)
+	defender.visible_message(span_danger("[defender] deflects [src] back at its caster!"))
+	to_chat(defender, span_notice("My guard deflects the incoming spell!"))
+	playsound(get_turf(defender), 'sound/magic/magic_nulled.ogg', 100)
+	if(!reflect_back(defender))
+		qdel(src) // Fallback: can't reflect, just destroy
+	else
+		// Keep projectile alive through process_hit's qdel check
+		temporary_unstoppable_movement = TRUE
+		ENABLE_BITFIELD(movement_type, UNSTOPPABLE)
+	return TRUE
 
 /obj/projectile/proc/store_hitscan_collision(datum/point/pcache)
 	beam_segments[beam_index] = pcache
