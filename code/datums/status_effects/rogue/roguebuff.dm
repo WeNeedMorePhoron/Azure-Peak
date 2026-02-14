@@ -1595,7 +1595,7 @@
 	else
 		qdel(src)
 
-//Projectile struck our protected limb. Unlike regular Riposte, this will deflect the projectile at no cost.
+//Projectile struck our protected limb. Unlike regular Riposte, this will block the projectile at no cost.
 /datum/status_effect/buff/clash/limbguard/guard_struck_by_projectile(mob/living/target, obj/P, hit_zone)
 	var/obj/IP = P
 	if(istype(P, /obj/projectile/bullet/reusable))
@@ -1603,7 +1603,7 @@
 		IP = RP.handle_drop()
 	if(check_zone(hit_zone) == protected_zone)
 		do_sparks(2, TRUE, get_turf(IP))
-		target.visible_message(span_warning("[target] deflects \the [IP]!"))
+		target.visible_message(span_warning("[target] blocks \the [IP]!"))
 		if(istype(IP, /obj/item))
 			var/obj/item/I = IP
 			I.get_deflected(target)
