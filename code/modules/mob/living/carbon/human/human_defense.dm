@@ -161,6 +161,10 @@
 				P.reflect_back(src)
 				return BULLET_ACT_FORCE_PIERCE // complete projectile permutation
 
+		// Guard deflection takes priority over shield blocking.
+		if(guard_deflect_projectile(P))
+			return BULLET_ACT_FORCE_PIERCE
+
 		if(check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armor_penetration))
 			P.on_hit(src, 100, def_zone)
 			return BULLET_ACT_HIT
