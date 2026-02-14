@@ -776,19 +776,21 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /// Returns TRUE if the target's Guard or parry buffer deflected the spell (skip this target).
 /// Returns FALSE if the spell should proceed normally.
 /// Usage in cast(): if(spell_guard_check(L)) continue
-/obj/effect/proc_holder/spell/proc/spell_guard_check(mob/living/target)
+/obj/effect/proc_holder/spell/proc/spell_guard_check(mob/living/target, no_message = FALSE)
 	if(!isliving(target))
 		return FALSE
 	// Check for active guard
 	var/datum/status_effect/buff/clash/guard = target.has_status_effect(/datum/status_effect/buff/clash)
 	if(guard)
 		if(isarcyne(target))
-			target.visible_message(span_warning("[target] deflects [name] with a reactive ward!"))
-			to_chat(target, span_notice("My ward deflects the incoming spell!"))
+			if(!no_message)
+				target.visible_message(span_warning("[target] deflects [name] with a reactive ward!"))
+				to_chat(target, span_notice("My ward deflects the incoming spell!"))
 			playsound(get_turf(target), pick('sound/combat/parry/shield/magicshield (1).ogg', 'sound/combat/parry/shield/magicshield (2).ogg', 'sound/combat/parry/shield/magicshield (3).ogg'), 100)
 		else
-			target.visible_message(span_warning("[target] deflects [name]!"))
-			to_chat(target, span_notice("My guard deflects the incoming spell!"))
+			if(!no_message)
+				target.visible_message(span_warning("[target] deflects [name]!"))
+				to_chat(target, span_notice("My guard deflects the incoming spell!"))
 			var/obj/item/held = target.get_active_held_item()
 			if(held?.parrysound)
 				playsound(get_turf(target), pick(held.parrysound), 100)
