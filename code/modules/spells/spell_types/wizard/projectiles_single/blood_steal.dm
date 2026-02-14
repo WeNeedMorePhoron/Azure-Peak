@@ -39,13 +39,6 @@
 	light_color = "#e74141"
 	light_outer_range = 7
 
-// Hitscan: can't visually reflect, so block+destroy instead
-/obj/projectile/magic/bloodsteal/on_guard_deflect(mob/living/defender)
-	defender.visible_message(span_danger("[defender] deflects [src] with a reactive ward!"))
-	to_chat(defender, span_notice("My guard deflects the incoming spell!"))
-	playsound(get_turf(defender), 'sound/magic/magic_nulled.ogg', 100)
-	qdel(src)
-	return TRUE
 
 /obj/projectile/magic/bloodsteal/on_hit(target)
 	. = ..()

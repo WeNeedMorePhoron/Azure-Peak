@@ -1281,7 +1281,7 @@
 
 /datum/status_effect/buff/clash
 	id = "clash"
-	duration = 6 SECONDS
+	duration = 60 SECONDS
 	var/dur
 	var/sfx_on_apply = 'sound/combat/clash_initiate.ogg'
 	var/swingdelay_mod = 5
@@ -1344,7 +1344,8 @@
 	// Reactive spell defense - guard will deflect magical projectiles to add a measure of counterplay. It doesn't care whether it is a low value or a high value projectiles.
 	if(P.guard_deflectable)
 		if(P.on_guard_deflect(owner))
-			// Deflectable: consume guard cleanly (no bad_guard penalty)
+			// Deflectable: consume guard cleanly, apply brief buffer for multi-projectile spells
+			owner.apply_status_effect(/datum/status_effect/buff/spell_parry_buffer)
 			owner.remove_status_effect(/datum/status_effect/buff/clash)
 			return COMPONENT_ATOM_BLOCK_BULLET
 		// on_guard_deflect returned FALSE: fall through to disruption
@@ -1414,6 +1415,30 @@
 	desc = span_notice("I am on guard, and ready to clash. If I am hit, I will successfully defend. Attacking will make me lose my focus.")
 	icon_state = "clash"
 
+/// Brief buffer after a successful spell deflection. This allows the player to deflect a single spell that has multiple projectiles - or if multiple projectiles are fired by different people in quick succession, for funny anime moment.
+/// While active, subsequent deflectable projectiles/spells are also deflected without requiring guard.
+/datum/status_effect/buff/spell_parry_buffer
+	id = "spell_parry_buffer"
+	duration = 1 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/buff/spell_parry_buffer
+
+/datum/status_effect/buff/spell_parry_buffer/on_apply()
+	. = ..()
+	RegisterSignal(owner, COMSIG_ATOM_BULLET_ACT, PROC_REF(buffer_struck_by_projectile), TRUE)
+
+/datum/status_effect/buff/spell_parry_buffer/on_remove()
+	UnregisterSignal(owner, COMSIG_ATOM_BULLET_ACT)
+	. = ..()
+
+/datum/status_effect/buff/spell_parry_buffer/proc/buffer_struck_by_projectile(datum/source, obj/projectile/P)
+	if(P.guard_deflectable)
+		if(P.on_guard_deflect(owner, silent = TRUE))
+			return COMPONENT_ATOM_BLOCK_BULLET
+
+/atom/movable/screen/alert/status_effect/buff/spell_parry_buffer
+	name = "Spell Parry"
+	desc = span_notice("A brief window of spell deflection lingers from my guard.")
+	icon_state = "clash"
 
 /atom/movable/screen/alert/status_effect/buff/clash/limbguard
 	name = "Limb Guard"

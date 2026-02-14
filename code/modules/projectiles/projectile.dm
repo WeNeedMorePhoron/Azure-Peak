@@ -332,12 +332,25 @@
 /// Return TRUE for successful deflection (guard consumed cleanly, projectile reflected).
 /// Return FALSE if the projectile overpowers the guard (guard disrupted with bad_guard penalty).
 /// Override on subtypes for custom behavior.
-/obj/projectile/proc/on_guard_deflect(mob/living/defender)
-	defender.visible_message(span_danger("[defender] deflects [src] back at its caster!"))
-	to_chat(defender, span_notice("My guard deflects the incoming spell!"))
-	playsound(get_turf(defender), 'sound/magic/magic_nulled.ogg', 100)
-	if(!reflect_back(defender))
-		qdel(src) // Fallback: can't reflect, just destroy
+/// silent: if TRUE, skip chat messages (used by parry buffer for multi-projectile spells).
+/obj/projectile/proc/on_guard_deflect(mob/living/defender, silent = FALSE)
+	if(!silent)
+		var/verb_text = hitscan ? "dispels" : "deflects"
+		if(isarcyne(defender))
+			defender.visible_message(span_danger("[defender] [verb_text] [src] with a reactive ward!"))
+			to_chat(defender, span_notice("My ward [verb_text] the incoming spell!"))
+			playsound(get_turf(defender), pick('sound/combat/parry/shield/magicshield (1).ogg', 'sound/combat/parry/shield/magicshield (2).ogg', 'sound/combat/parry/shield/magicshield (3).ogg'), 100)
+		else
+			var/martial_msg = hitscan ? "[defender] [verb_text] [src]!" : "[defender] [verb_text] [src] back at its caster!"
+			defender.visible_message(span_danger("[martial_msg]"))
+			to_chat(defender, span_notice("My guard [verb_text] the incoming spell!"))
+			var/obj/item/held = defender.get_active_held_item()
+			if(held?.parrysound)
+				playsound(get_turf(defender), pick(held.parrysound), 100)
+			else
+				playsound(get_turf(defender), pick(defender.parry_sound), 100)
+	if(hitscan || !reflect_back(defender))
+		qdel(src) // Hitscan can't visually reflect; also fallback if reflect_back fails
 	else
 		// Keep projectile alive through process_hit's qdel check
 		temporary_unstoppable_movement = TRUE

@@ -773,20 +773,34 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	user.adjustFireLoss(-10)
 
 /// Helper for non-projectile spells. Call before applying effects to a target.
-/// Returns TRUE if the target's Guard deflected the spell (guard consumed, skip this target).
-/// Returns FALSE if the spell should proceed normally (no guard active).
+/// Returns TRUE if the target's Guard or parry buffer deflected the spell (skip this target).
+/// Returns FALSE if the spell should proceed normally.
 /// Usage in cast(): if(spell_guard_check(L)) continue
 /obj/effect/proc_holder/spell/proc/spell_guard_check(mob/living/target)
 	if(!isliving(target))
 		return FALSE
+	// Check for active guard
 	var/datum/status_effect/buff/clash/guard = target.has_status_effect(/datum/status_effect/buff/clash)
-	if(!guard)
-		return FALSE
-	target.visible_message(span_warning("[target] deflects [name] with a reactive ward!"))
-	to_chat(target, span_notice("My guard deflects the incoming spell!"))
-	playsound(get_turf(target), 'sound/magic/magic_nulled.ogg', 100)
-	target.remove_status_effect(/datum/status_effect/buff/clash)
-	return TRUE
+	if(guard)
+		if(isarcyne(target))
+			target.visible_message(span_warning("[target] deflects [name] with a reactive ward!"))
+			to_chat(target, span_notice("My ward deflects the incoming spell!"))
+			playsound(get_turf(target), pick('sound/combat/parry/shield/magicshield (1).ogg', 'sound/combat/parry/shield/magicshield (2).ogg', 'sound/combat/parry/shield/magicshield (3).ogg'), 100)
+		else
+			target.visible_message(span_warning("[target] deflects [name]!"))
+			to_chat(target, span_notice("My guard deflects the incoming spell!"))
+			var/obj/item/held = target.get_active_held_item()
+			if(held?.parrysound)
+				playsound(get_turf(target), pick(held.parrysound), 100)
+			else
+				playsound(get_turf(target), pick(target.parry_sound), 100)
+		target.apply_status_effect(/datum/status_effect/buff/spell_parry_buffer)
+		target.remove_status_effect(/datum/status_effect/buff/clash)
+		return TRUE
+	// Check for parry buffer (from a recent deflection) — silent, no chat spam for multi-hit spells
+	if(target.has_status_effect(/datum/status_effect/buff/spell_parry_buffer))
+		return TRUE
+	return FALSE
 
 #undef TARGET_CLOSEST
 #undef TARGET_RANDOM
