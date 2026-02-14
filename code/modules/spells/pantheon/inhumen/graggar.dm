@@ -97,6 +97,10 @@
 		revert_cast()
 		return FALSE
 
+	if(spell_guard_check(human, TRUE))
+		human.visible_message(span_warning("[human] resists the bloodlust!"))
+		return TRUE
+
 	var/datum/physiology/phy = human.physiology
 
 	phy.bleed_mod *= 1.5
