@@ -1156,9 +1156,9 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		if(advclass_path)
 			var/datum/advclass/advclass_datum = new advclass_path()
 			H.advjob = advclass_datum.name
-			to_chat(H, span_notice("Examine title set to: [advclass_datum.examine_name || advclass_datum.name]"))
-			message_admins("[key_name_admin(usr)] set examine title for [ADMIN_LOOKUPFLW(H)] to [advclass_datum.examine_name || advclass_datum.name].")
-			log_admin("[key_name(usr)] set examine title for [key_name(H)] to [advclass_datum.examine_name || advclass_datum.name].")
+			to_chat(H, span_notice("Examine title set to: [advclass_datum.name]"))
+			message_admins("[key_name_admin(usr)] set examine title for [ADMIN_LOOKUPFLW(H)] to [advclass_datum.name].")
+			log_admin("[key_name(usr)] set examine title for [key_name(H)] to [advclass_datum.name].")
 		else
 			// For jobs with advjob_examine = TRUE, set H.advjob to the appropriate title
 			if(job_datum.advjob_examine)

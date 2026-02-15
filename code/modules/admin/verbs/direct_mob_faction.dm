@@ -92,10 +92,6 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 						var/mob/living/carbon/human/H = M
 						if(!isnull(H.mode) && H.aggressive == 0)
 							mob_stance = "Passive"
-					else if(istype(M, /mob/living/carbon/human/species/skeleton/npc/summoned))
-						var/mob/living/carbon/human/species/skeleton/npc/summoned/skel = M
-						if(skel.aggressive == 0)
-							mob_stance = "Passive"
 				dat += "[M.name] - [mob_stance]<br>"
 		else
 			dat += "<b>No [faction] mobs found within radius [radius]</b><br>"
@@ -103,13 +99,6 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 		dat += "<b>Please select a faction</b><br>"
 	
 	dat += "</body></html>"
-	
-	// Clean up any existing click intercept before opening window
-	if(usr.client?.click_intercept && istype(usr.client.click_intercept, /datum/mass_direct_click_intercept))
-		var/datum/mass_direct_click_intercept/old_intercept = usr.client.click_intercept
-		old_intercept.cleanup()
-	
-	usr << browse(dat, "window=mass_direct;size=400x300;can_close=1;can_minimize=0")
 	
 	// Clean up any existing click intercept before opening window
 	if(usr.client?.click_intercept && istype(usr.client.click_intercept, /datum/mass_direct_click_intercept))
@@ -156,28 +145,6 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 			
 			// If already directing, auto-start the new mode
 			if(was_directing)
-				if(!faction)
-					to_chat(usr, span_warning("No faction selected!"))
-					mass_direct_mobs(radius, faction, command_mode)
-					return TRUE
-				
-				var/instruction = ""
-				switch(command_mode)
-					if("move")
-						instruction = "Click on locations to direct mobs to move there. Right click to stop."
-					if("attack")
-						instruction = "Click on any target (mobs, objects, etc.) to command mobs to attack it. Right click to stop."
-					if("follow")
-						instruction = "Click on a mob or yourself to command mobs to follow. Right click to stop."
-					if("passive")
-						instruction = "Click anywhere to toggle all [faction] mobs in radius between passive and active. Right click to stop."
-				
-				to_chat(usr, span_notice(instruction))
-				var/datum/mass_direct_click_intercept/click_handler = new(usr.client, src, radius, faction, command_mode)
-				usr.client.click_intercept = click_handler
-				return TRUE
-			// If already directing, auto-start the new mode
-			if(usr.client?.click_intercept && istype(usr.client.click_intercept, /datum/mass_direct_click_intercept))
 				if(!faction)
 					to_chat(usr, span_warning("No faction selected!"))
 					mass_direct_mobs(radius, faction, command_mode)
@@ -250,7 +217,7 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 	faction = F
 	command_mode = CM
 	origin_loc = C.mob
-	owner.mouse_pointer_icon = 'icons/effects/mousemice/charge/default/100.dmi'
+	owner.mouse_pointer_icon = 'icons/effects/mousemice/human_attack.dmi'
 	
 	// Monitor for window close
 	GLOB.mass_direct_intercepts |= src
@@ -266,7 +233,7 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 
 /datum/mass_direct_click_intercept/proc/restore_cursor()
 	if(owner && owner.click_intercept == src)
-		owner.mouse_pointer_icon = 'icons/effects/mousemice/charge/default/100.dmi'
+		owner.mouse_pointer_icon = 'icons/effects/mousemice/human_attack.dmi'
 
 /datum/mass_direct_click_intercept/proc/InterceptClickOn(user, params, atom/target)
 	if(istype(target, /atom/movable/screen))
@@ -308,13 +275,8 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 		if(M.stat == DEAD)
 			continue // Skip dead mobs
 		
-		// Handle carbon skeletons (summoned type only)
-		if(istype(M, /mob/living/carbon/human/species/skeleton/npc/summoned))
-			var/mob/living/carbon/human/species/skeleton/npc/summoned/skel = M
-			skel.set_command("move", T)
-			count++
 		// Handle simple mobs with AI controller
-		else if(M.ai_controller && !istype(M, /mob/living/simple_animal/hostile))
+		if(M.ai_controller && !istype(M, /mob/living/simple_animal/hostile))
 			var/datum/ai_controller/ai = M.ai_controller
 			// Stop any active attack routines
 			if(M in active_attack_routines)
@@ -399,13 +361,8 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 		if(M == target)
 			continue
 		
-		// Handle carbon skeletons
-		if(istype(M, /mob/living/carbon/human/species/skeleton/npc/summoned))
-			var/mob/living/carbon/human/species/skeleton/npc/summoned/skel = M
-			skel.set_command("attack", target)
-			count++
 		// Handle simple mobs with AI controller
-		else if(M.ai_controller)
+		if(M.ai_controller)
 			var/datum/ai_controller/ai = M.ai_controller
 			ai.CancelActions()
 			ai.clear_blackboard_key(BB_FOLLOW_TARGET)
@@ -482,14 +439,8 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 				continue
 			if(M.stat == DEAD)
 				continue // Skip dead mobs
-			// Handle carbon skeletons with commanded behavior
-			if(istype(M, /mob/living/carbon/human/species/skeleton/npc/summoned))
-				var/mob/living/carbon/human/species/skeleton/npc/summoned/skel = M
-				skel.set_command("idle", null)
-				walk(skel, 0)
-				stopped++
 			// Handle simple mobs with AI controller
-			else if(M.ai_controller)
+			if(M.ai_controller)
 				var/datum/ai_controller/ai = M.ai_controller
 				ai.CancelActions()
 				ai.clear_blackboard_key(BB_FOLLOW_TARGET)
@@ -544,13 +495,8 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 		if(M == follow_target)
 			continue
 		
-		// Handle carbon skeletons
-		if(istype(M, /mob/living/carbon/human/species/skeleton/npc/summoned))
-			var/mob/living/carbon/human/species/skeleton/npc/summoned/skel = M
-			skel.set_command("follow", follow_target)
-			count++
 		// Handle simple mobs with AI controller
-		else if(M.ai_controller)
+		if(M.ai_controller)
 			var/datum/ai_controller/ai = M.ai_controller
 			ai.CancelActions()
 			ai.clear_blackboard_key(BB_FOLLOW_TARGET)
@@ -666,21 +612,8 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 		if(M.stat == DEAD)
 			continue // Skip dead mobs
 		
-		// Handle carbon skeletons
-		if(istype(M, /mob/living/carbon/human/species/skeleton/npc/summoned))
-			var/mob/living/carbon/human/species/skeleton/npc/summoned/skel = M
-			if(make_active)
-				// Make skeleton active/aggressive
-				skel.aggressive = 1
-				made_active++
-			else
-				// Make skeleton passive
-				skel.aggressive = 0
-				skel.set_command("idle", null)
-				made_passive++
-			count++
 		// Handle simple mobs with AI controller
-		else if(M.ai_controller)
+		if(M.ai_controller)
 			var/datum/ai_controller/ai = M.ai_controller
 			ai.CancelActions()
 			ai.clear_blackboard_key(BB_FOLLOW_TARGET)
