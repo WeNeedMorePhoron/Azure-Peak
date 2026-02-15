@@ -141,7 +141,8 @@
 		"I AM THE INSIDE OF THIS WORLD!!",
 		"I TASTE THE GORE! I SMELL THE CRYING! I! WANT! MORE!!",
 		"THE BLOOD IS IN MY EYES!! IT'S WAVES CRASH AGAINST MY FOREHEAD!!",
-		"LOOK AT ME WHEN I SCREAM INTO YOUR SOUL!!"
+		"LOOK AT ME WHEN I SCREAM INTO YOUR SOUL!!",
+		"GRAGGARDAMMERUUUUNG!!" // they took our night awayyy gotterdammeruuungggg
 	)
 	invocation_type = "shout"
 	sound = 'sound/magic/bloodrage.ogg'
