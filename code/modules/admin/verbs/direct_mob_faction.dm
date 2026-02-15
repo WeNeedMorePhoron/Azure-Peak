@@ -512,8 +512,10 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 			walk(S, 0)
 			// Start following using simple walk_towards, but stop when close
 			var/delay = 2
-			if(istype(S, /mob/living/simple_animal/hostile) && S:move_to_delay)
-				delay = S:move_to_delay
+			if(istype(S, /mob/living/simple_animal/hostile))
+				var/mob/living/simple_animal/hostile/HS = S
+				if(HS.move_to_delay)
+					delay = HS.move_to_delay
 			if(get_dist(S, follow_target) > 2)
 				walk_towards(S, follow_target, 0, delay)
 			else
@@ -855,106 +857,6 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 	// Cleanup tracking when routine ends
 	active_attack_routines -= attacker
 
-// Monitor movement for mobs with AI - stop when destination reached and re-enable AI
-/datum/mass_direct_click_intercept/proc/monitor_movement_ai(mob/living/simple_animal/S, turf/target_turf)
-	set waitfor = FALSE
-	
-	if(!S || QDELETED(S) || !target_turf)
-		return
-	
-	// Give the mob time to start moving
-	sleep(30) // Wait 3 seconds before starting to monitor
-	
-	var/initial_dist = get_dist(S, target_turf)
-	// If already very close, don't bother monitoring
-	if(initial_dist <= 1)
-		return
-	
-	var/max_checks = 1200 // Maximum time to monitor (2 minutes)
-	var/checks = 0
-	var/last_dist = initial_dist
-	var/no_progress_count = 0
-	
-	while(checks < max_checks && S && !QDELETED(S))
-		sleep(5) // Check every half second
-		checks++
-		
-		var/current_dist = get_dist(S, target_turf)
-		
-		// If we're at the destination, stop
-		if(current_dist <= 1)
-			walk(S, 0)
-			if(S.ai_controller)
-				S.ai_controller.set_ai_status(AI_STATUS_ON)
-			return
-		
-		// Check if the mob has made progress
-		if(current_dist >= last_dist)
-			no_progress_count++
-			// Only stop if the mob hasn't made progress for a significant time (15 seconds)
-			if(no_progress_count >= 30)
-				walk(S, 0)
-				if(S.ai_controller)
-					S.ai_controller.set_ai_status(AI_STATUS_ON)
-				return
-		else
-			no_progress_count = 0 // Reset counter if making progress
-		
-		last_dist = current_dist
-	
-	// Timeout reached - stop movement and restore AI
-	if(S && !QDELETED(S))
-		walk(S, 0)
-		if(S.ai_controller)
-			S.ai_controller.set_ai_status(AI_STATUS_ON)
-
-// Monitor movement for mobs without AI - just stop when destination reached
-/datum/mass_direct_click_intercept/proc/monitor_movement_basic(mob/living/simple_animal/S, turf/target_turf)
-	set waitfor = FALSE
-	
-	if(!S || QDELETED(S) || !target_turf)
-		return
-	
-	// Give the mob time to start moving
-	sleep(30) // Wait 3 seconds before starting to monitor
-	
-	var/initial_dist = get_dist(S, target_turf)
-	// If already very close, don't bother monitoring
-	if(initial_dist <= 1)
-		return
-	
-	var/max_checks = 1200 // Maximum time to monitor (2 minutes)
-	var/checks = 0
-	var/last_dist = initial_dist
-	var/no_progress_count = 0
-	
-	while(checks < max_checks && S && !QDELETED(S))
-		sleep(5) // Check every half second
-		checks++
-		
-		var/current_dist = get_dist(S, target_turf)
-		
-		// If we're at the destination, stop
-		if(current_dist <= 1)
-			walk(S, 0)
-			return
-		
-		// Check if the mob has made progress
-		if(current_dist >= last_dist)
-			no_progress_count++
-			// Only stop if the mob hasn't made progress for a significant time (15 seconds)
-			if(no_progress_count >= 30)
-				walk(S, 0)
-				return
-		else
-			no_progress_count = 0 // Reset counter if making progress
-		
-		last_dist = current_dist
-	
-	// Timeout reached - stop movement
-	if(S && !QDELETED(S))
-		walk(S, 0)
-
 // Custom movement handler that ensures mobs reach their destination
 /datum/mass_direct_click_intercept/proc/handle_simple_movement(mob/living/simple_animal/S, turf/target_turf, had_ai = FALSE)
 	set waitfor = FALSE
@@ -970,8 +872,10 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 	
 	// Get movement delay
 	var/delay = 2
-	if(istype(S, /mob/living/simple_animal/hostile) && S:move_to_delay)
-		delay = S:move_to_delay
+	if(istype(S, /mob/living/simple_animal/hostile))
+		var/mob/living/simple_animal/hostile/HS = S
+		if(HS.move_to_delay)
+			delay = HS.move_to_delay
 	
 	var/max_time = 600 // 60 seconds maximum
 	var/time_elapsed = 0

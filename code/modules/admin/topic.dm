@@ -322,10 +322,6 @@
 			show_heal_panel(M)
 		return
 
-	if(href_list["heal_action"])
-		if(handle_heal_panel_topic(href_list))
-			return
-
 	if(href_list["inventory_action"])
 		if(handle_inventory_panel_topic(href_list))
 			return
