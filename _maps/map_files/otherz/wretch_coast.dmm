@@ -182,7 +182,10 @@
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/vampire_manor)
 "aR" = (
-/obj/structure/fluff/traveltile/eventarea,
+/obj/structure/fluff/traveltile/eventarea{
+	aportalgoesto = "MultizEventOut";
+	aportalid = "MultizEventIn"
+	},
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/eventarea/multiz)
 "aS" = (
