@@ -857,7 +857,7 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/donator_koruu/glaive
 	name = "Donator Kit - Glaive"
 	path = /obj/item/enchantingkit/koruu_glaive
-	ckeywhitelist = list("koruu")
+
 
 /datum/loadout_item/donator_dakken
 	name = "Donator Kit - Armoured Avantyne Barbute"
