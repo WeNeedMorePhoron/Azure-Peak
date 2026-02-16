@@ -854,10 +854,25 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	path = /obj/item/clothing/head/roguetown/mentorhat/koruu
 	ckeywhitelist = list("koruu", "painfeeler", "poots13")
 
+/datum/loadout_item/donator_koruu/glaive
+	name = "Donator Kit - Glaive"
+	path = /obj/item/enchantingkit/koruu_glaive
+	ckeywhitelist = list("koruu")
+
 /datum/loadout_item/donator_dakken
 	name = "Donator Kit - Armoured Avantyne Barbute"
 	path = /obj/item/enchantingkit/dakken_zizhelm
 	ckeywhitelist = list("dakken12")
+
+/datum/loadout_item/donator_stinketh
+	name = "Donator Kit - Silver Shashka"
+	path = /obj/item/enchantingkit/stinketh_shashka
+	ckeywhitelist = list("stinkethstonketh")
+
+/datum/loadout_item/donator_stinketh/pike
+	name = "Donator Kit - Pike"
+	path = /obj/item/enchantingkit/stinketh_pike
+
 
 //////////////////
 //  TRIUMPHS !  //
