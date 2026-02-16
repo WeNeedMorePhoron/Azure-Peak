@@ -253,10 +253,6 @@ var/list/used_colors
 				GLOB.lordcolor -= inserted
 		inserted_item.update_icon()
 		playsound(src, "bubbles", 50, 1)
-		// If there's only a single dye slot, eject the item automatically
-		if(!inserted_item.detail_color && !inserted_item.altdetail_color)
-			inserted.forceMove(drop_location())
-			inserted = null
 		interact(usr)
 
 	if(href_list["paint_detail"])
