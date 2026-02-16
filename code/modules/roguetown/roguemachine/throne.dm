@@ -70,6 +70,10 @@ GLOBAL_VAR(king_throne)
 		notified_rebel_able = TRUE
 		to_chat(user, span_notice("That's it - time to announce our victory!"))
 
+/obj/structure/roguethrone/examine(mob/user)
+	. = ..()
+	. += span_notice("The throne of the [SSticker.realm_type] of [SSticker.realm_name].")
+
 /obj/structure/roguethrone/lordcolor(primary,secondary)
 	if(!primary || !secondary)
 		return
