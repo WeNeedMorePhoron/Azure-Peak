@@ -244,7 +244,7 @@
 		// Patron Section
 		body += "<div id='patron-section'>"
 		body += "<h3>Patron</h3>"
-		body += "<p>Current: [initial(living.patron.name)]</p>"
+		body += "<p>Current: [living.patron ? initial(living.patron.name) : "None"]</p>"
 		body += "<ul>"
 		for(var/patron_type in GLOB.patronlist)
 			// Skip Undivided and Science patrons
