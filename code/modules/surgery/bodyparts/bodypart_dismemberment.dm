@@ -165,7 +165,7 @@
 	owner = C
 	return TRUE
 
-/obj/item/bodypart/chest/dismember(dam_type = BRUTE, bclass = BCLASS_CUT, mob/living/user, zone_precise = src.body_zone, damage = 0, vorpal = FALSE)
+/obj/item/bodypart/chest/dismember(dam_type = BRUTE, bclass = BCLASS_CUT, mob/living/user, zone_precise = src.body_zone, damage = 0, vorpal = FALSE, skip_checks = FALSE)
 	if(!owner)
 		return FALSE
 	var/mob/living/carbon/C = owner
