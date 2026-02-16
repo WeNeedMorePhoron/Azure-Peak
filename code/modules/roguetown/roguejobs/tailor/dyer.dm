@@ -213,19 +213,19 @@ var/list/used_colors
 		var/c = pick_dye(usr, activecolor, "Primary Dye")
 		if(!c) return
 		activecolor = c
-		updateUsrDialog()
+		interact(usr)
 
 	if(href_list["select_detail"])
 		var/c = pick_dye(usr, activecolor_detail, "Secondary Dye")
 		if(!c) return
 		activecolor_detail = c
-		updateUsrDialog()
+		interact(usr)
 
 	if(href_list["select_altdetail"])
 		var/c = pick_dye(usr, activecolor_altdetail, "Tertiary Dye")
 		if(!c) return
 		activecolor_altdetail = c
-		updateUsrDialog()
+		interact(usr)
 
 	if(href_list["paint_primary"])
 		if(!inserted)
