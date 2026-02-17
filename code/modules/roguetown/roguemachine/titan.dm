@@ -470,6 +470,10 @@ GLOBAL_VAR_INIT(last_crown_announcement_time, -1000)
 		say("You already hold the throne.")
 		playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
 		return
+	if(SSgamemode.roundvoteend)
+		say("The realm's fate is already sealed. It is too late for a change of power.")
+		playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
+		return
 	// TESTING: Disabled chain coup cooldown
 	// if(SSticker.usurpation_day == GLOB.dayspassed)
 	// 	say("The realm has already seen a change of power this dae. Let the dust settle.")
