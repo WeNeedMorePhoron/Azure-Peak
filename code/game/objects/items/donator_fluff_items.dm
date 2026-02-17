@@ -201,7 +201,7 @@
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 
 /obj/item/clothing/head/roguetown/duelhat/stolen_inquisitor
-	name = "rethrifted inquisitor's hat"
+	name = "rethrifted otavan slouch hat" // if I call it 'stolen inquisitor hat' it seems even more snowflakey than it already is
 	desc = "A fine leather slouch, beplumed with a roc's onyx feather and fitted with a golden dragon-sigil. It serves as a reminder that the Transactor triumphs in one avenue above all else - foolish acts of grand theft.<br> \
 	\"You ever feel like nothin' good was ever gonna happen to you?\" <br> \
 	\"Yeah, and nothin' did. So what?\""
