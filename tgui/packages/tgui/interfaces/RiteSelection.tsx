@@ -50,6 +50,14 @@ export const RiteSelection = (props) => {
                 <Stack.Item grow basis={0}>
                   <Section title={selected.name} fill scrollable>
                     <Box
+                      italic
+                      color="label"
+                      mb={1}
+                      opacity={selected.eligible ? 1 : 0.6}
+                    >
+                      {selected.desc}
+                    </Box>
+                    <Box
                       opacity={selected.eligible ? 1 : 0.6}
                       dangerouslySetInnerHTML={{
                         __html: selected.explanation,

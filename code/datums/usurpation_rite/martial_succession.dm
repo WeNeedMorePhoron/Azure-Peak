@@ -9,10 +9,10 @@
  */
 /datum/usurpation_rite/martial_succession
 	name = "Rite of Martial Succession"
-	desc = "Invoke the authority of Ravox, God of War and Justice, to claim the throne through a council of arms."
-	explanation = {"<p>In the name of Ravox, God of War and Justice, a warrior of the retinue may claim the throne through the assent of those proven in battle.</p>\
+	desc = "A crown means nothing if it cannot be defended. When the realm's ruler falters in their duty to protect the realm, true warriors must step up and take the mantle."
+	explanation = {"<p>A member of the retinue or garrison may claim the throne, rallying those proven in battle to their cause.</p>\
 <p><b>Who may invoke:</b> Members of the retinue (Marshal, Knight, Squire) or non-warden garrison (Sergeant, Man at Arms).</p>\
-<p><b>How it works:</b> After invoking the rite, you must sit upon the throne. Warriors with Expert-level weapon skill or higher must gather near the throne and speak the words 'I assent' to support your claim. Any weapon skill counts.</p>\
+<p><b>How it works:</b> Warriors with Expert-level weapon skill or higher must gather near the throne and speak the words 'I assent' to support your claim. Any weapon skill counts.</p>\
 <p><b>Completion condition:</b> <b>7</b> warriors must speak their assent. Once the threshold is reached, the realm is alerted and a contestation period begins — survive it and stay conscious while remaining near the throne, and it is yours.</p>\
 <p><b>Restrictions:</b> Outlaws and the undead may not invoke or assent to this rite.</p>\
 <p><b>Realm type if successful:</b> Protectorate, ruled by a Lord Protector / Lady Protector.</p>"}
@@ -34,7 +34,7 @@
 	return TRUE
 
 /datum/usurpation_rite/martial_succession/on_gathering_started()
-	to_chat(invoker, span_notice("You are seated. Warriors with Expert weapon skill must now speak 'I assent' near the throne. You require [MARTIAL_REQUIRED_ASSENTS] voices within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
+	to_chat(invoker, span_notice("The rite has begun. Warriors with Expert weapon skill must now speak 'I assent' near the throne. You require [MARTIAL_REQUIRED_ASSENTS] voices within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(on_gathering_timeout)), RITE_GATHERING_DURATION, TIMER_STOPPABLE)
 
 /// Override: warriors assent, not nobles. Check Expert+ combat skill instead of TRAIT_NOBLE.
@@ -79,9 +79,9 @@
 
 /datum/usurpation_rite/martial_succession/on_contesting_started()
 	priority_announce( \
-		"[invoker.real_name] has invoked the Rite of Martial Succession! " + \
-		"In the name of Ravox, God of War and Justice, a claim is made upon the throne of [SSticker.realm_name]. " + \
-		"A Council of Warriors has affirmed this claim. " + \
+		"[invoker.real_name] has invoked the Rite of Martial Succession!\n\n" + \
+		"In the name of Ravox, God of War and Justice, a claim is made upon the throne of [SSticker.realm_name].\n\n" + \
+		"A Council of Warriors has affirmed this claim.\n\n" + \
 		"Ravox's judgment shall fall in [RITE_CONTEST_DURATION / (1 MINUTES)] minutes -- unless the claim is struck down.", \
 		"Rite of Martial Succession", \
 		'sound/misc/royal_decree2.ogg')
@@ -93,7 +93,7 @@
 	var/old_ruler_name = old_ruler?.real_name || "no one"
 	..()
 	priority_announce( \
-		"Those who fail to defend their throne do not deserve to sit upon it.\n" + \
+		"Those who fail to defend their throne do not deserve to sit upon it.\n\n" + \
 		"A Council of Arms, in the name of Ravox, " + \
 		"declares [invoker.real_name] the rightful [SSticker.rulertype] of [SSticker.realm_name], establishing a JUST rule of law.\n\n" + \
 		"[old_ruler_name], unable to contest this succession, has been judged unfit to lead, " + \

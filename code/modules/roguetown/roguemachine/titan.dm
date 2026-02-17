@@ -460,14 +460,21 @@ GLOBAL_VAR_INIT(last_crown_announcement_time, -1000)
 		say("You already hold the throne.")
 		playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
 		return
-	if(SSticker.usurpation_day == GLOB.dayspassed)
-		say("The realm has already seen a change of power this dae. Let the dust settle.")
-		playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
-		return
+	// TESTING: Disabled chain coup cooldown
+	// if(SSticker.usurpation_day == GLOB.dayspassed)
+	// 	say("The realm has already seen a change of power this dae. Let the dust settle.")
+	// 	playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
+	// 	return
 
 	var/static/list/available_rites = list(
 		/datum/usurpation_rite/solar_succession,
 		/datum/usurpation_rite/lunar_ascension,
+		/datum/usurpation_rite/martial_succession,
+		/datum/usurpation_rite/golden_accord,
+		/datum/usurpation_rite/solar_bishopric,
+		/datum/usurpation_rite/progressive_dominion,
+		/datum/usurpation_rite/popular_acclaim,
+		/datum/usurpation_rite/psydonian_tribunal,
 	)
 
 	var/list/all_rites = list()

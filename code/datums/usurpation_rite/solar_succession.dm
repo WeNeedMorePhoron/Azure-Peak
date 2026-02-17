@@ -16,10 +16,10 @@ Outlaws and undead are shunned by Astrata outside of her order. They may not inv
 */
 /datum/usurpation_rite/solar_succession
 	name = "Rite of Solar Succession"
-	desc = "Invoke the authority of Astrata, Goddess of Order, to claim the throne through a council of peers."
-	explanation = {"<p>In the name of Astrata, Goddess of Order, a noble may claim the throne through the assent of their peers.</p>\
+	desc = "When the throne falters, it is the right, no, the duty of the noble to step in and restore order."
+	explanation = {"<p>A noble may claim the throne through the assent of their peers. An ancient tradition upheld by the order ordained by Astrata.</p>\
 <p><b>Who may invoke:</b> Any noble.</p>\
-<p><b>How it works:</b> After invoking the rite, you must sit upon the throne. Nobles of the realm must then gather near the throne and speak the words 'I assent' to support your claim.</p>\
+<p><b>How it works:</b> Nobles of the realm must then gather near the throne and speak the words 'I assent' to support your claim.</p>\
 <p><b>Completion condition:</b> Members of the ducal family (Consort, Prince) and those with Heartfelt ties need only <b>3</b> noble voices — a palace coup. All other nobles require a quorum of <b>5</b> voices. Resident nobles of Azure Peak count as a full voice; foreign (wanderer) nobles count as only half. Once the threshold is reached, the realm is alerted and a contestation period begins — survive it and stay conscious while remaining near the throne, and it is yours.</p>\
 <p><b>Realm type if successful:</b> Grand Duchy, ruled by a Grand Duke / Grand Duchess.</p>"}
 
@@ -36,7 +36,7 @@ Outlaws and undead are shunned by Astrata outside of her order. They may not inv
 
 /datum/usurpation_rite/solar_succession/on_gathering_started()
 	var/required = get_required_assents()
-	to_chat(invoker, span_notice("You are seated. The nobles of the realm must now speak 'I assent' near the throne. You require [required] voices within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Foreign nobles count as half a voice. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
+	to_chat(invoker, span_notice("The rite has begun. The nobles of the realm must now speak 'I assent' near the throne. You require [required] voices within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Foreign nobles count as half a voice. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(on_gathering_timeout)), RITE_GATHERING_DURATION, TIMER_STOPPABLE)
 
 /datum/usurpation_rite/solar_succession/on_assent_accepted(mob/living/carbon/human/noble)
@@ -53,10 +53,10 @@ Outlaws and undead are shunned by Astrata outside of her order. They may not inv
 
 /datum/usurpation_rite/solar_succession/on_contesting_started()
 	priority_announce( \
-		"[invoker.real_name] has invoked the Rite of Solar Succession!" + \
-		"In the name of Astrata, Goddess of Order, a claim is made upon the throne of [SSticker.realm_name]. " + \
-		"A Council of Lords has affirmed this claim. " + \
-		"The Sun's judgement shall fall in [RITE_CONTEST_DURATION / (1 MINUTES)] minutes -- unless the claim is struck down.", \
+		"[invoker.real_name] has invoked the Rite of Solar Succession!\n\n" + \
+		"In the name of Astrata, Goddess of Order, a claim is made upon the throne of [SSticker.realm_name].\n\n" + \
+		"A Council of Lords has affirmed this claim.\n\n" + \
+		"The Sun's judgement shall fall in [RITE_CONTEST_DURATION / (1 MINUTES)] minutes -- unless the claim is struck down.\n\n", \
 		"Rite of Solar Succession", \
 		'sound/misc/royal_decree2.ogg')
 	to_chat(invoker, span_notice("The council has spoken. The realm has been alerted. Stay near the throne for [RITE_CONTEST_DURATION / (1 MINUTES)] minutes and the succession is yours. You may move freely, but do not stray too far."))
@@ -67,7 +67,7 @@ Outlaws and undead are shunned by Astrata outside of her order. They may not inv
 	var/old_ruler_name = old_ruler?.real_name || "no one"
 	..()
 	priority_announce( \
-		"The sun must set so that dawn may come again.\n" + \
+		"The sun must set so that dawn may come again.\n\n" + \
 		"The Council of Lords, under Astrata's watchful gaze, " + \
 		"declares [invoker.real_name] the rightful [SSticker.rulertype] of [SSticker.realm_name], in an ORDERLY transfer of power.\n\n" + \
 		"[old_ruler_name], unable to contest this succession, has surely lost the favor of the Sun Goddess, " + \

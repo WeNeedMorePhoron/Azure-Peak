@@ -126,8 +126,8 @@
 	if(!invoker || invoker.stat != CONSCIOUS)
 		fail("The claimant has fallen before the contest could begin.")
 		return
-	if(!throne || !(invoker in throne.buckled_mobs))
-		fail("The claimant is no longer seated on the throne.")
+	if(!throne)
+		fail("The throne has been destroyed.")
 		return
 	stage = RITE_STAGE_CONTESTING
 	deltimer(phase_timer_id)
@@ -215,9 +215,7 @@
 	fail("The claimant has fallen.")
 
 /datum/usurpation_rite/proc/on_invoker_unseated()
-	if(stage != RITE_STAGE_GATHERING)
-		return
-	fail("The claimant has been removed from the throne.")
+	return
 
 /// Pauses the main contest timer while the counter-claim is active.
 /datum/usurpation_rite/proc/start_counter_claim(mob/living/carbon/human/claimant)

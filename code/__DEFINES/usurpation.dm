@@ -4,7 +4,7 @@
 #define RITE_STAGE_COMPLETE       3
 
 #define RITE_GATHERING_DURATION     30 SECONDS  // TESTING: 3 MINUTES
-#define RITE_CONTEST_DURATION       1 MINUTES   // TESTING: 5 MINUTES
+#define RITE_CONTEST_DURATION       30 SECONDS  // TESTING: 5 MINUTES
 #define RITE_ASSENT_RANGE           7
 #define RITE_CONTEST_PROXIMITY      14
 #define RITE_ANNOUNCEMENT_INTERVAL  30 SECONDS
@@ -17,7 +17,27 @@
 #define SOLAR_VOTE_FOREIGNER            0.5
 
 /// Lunar Ascension
-#define LUNAR_REQUIRED_MAGES            1    // TESTING: 5Shoul
+#define LUNAR_REQUIRED_MAGES            1    // TESTING: 5
 
 /// Martial Succession
 #define MARTIAL_REQUIRED_ASSENTS        1    // TESTING: 7
+
+/// Golden Accord
+#define GOLDEN_REQUIRED_ASSENTS         1    // TESTING: 7
+#define GOLDEN_REQUIRED_WEALTH          200
+
+/// Solar Bishopric
+#define BISHOPRIC_REQUIRED_ASSENTS      1    // TESTING: 5
+#define BISHOPRIC_VOTE_RESIDENT         1
+#define BISHOPRIC_VOTE_FOREIGNER        0.5
+
+/// Progressive Dominion (Zizite)
+#define DOMINION_REQUIRED_ASSENTS       1    // TESTING: 5
+
+/// Popular Acclaim
+#define ACCLAIM_REQUIRED_ASSENTS        1    // TESTING: 10
+#define ACCLAIM_VOTE_OUTLAW             2
+#define ACCLAIM_VOTE_CITIZEN            1
+
+/// Psydonian Tribunal
+#define TRIBUNAL_REQUIRED_ASSENTS       1    // TESTING: 4

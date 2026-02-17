@@ -10,10 +10,10 @@
  */
 /datum/usurpation_rite/lunar_ascension
 	name = "Rite of Lunar Ascension"
-	desc = "Invoke the authority of Noc, the Night-Scholar, to claim the throne through the assent of a council of mages."
-	explanation = {"<p>In the name of Noc, the Night-Scholar, a mage of sufficient power may claim the throne through the authority of arcane knowledge.</p>\
+	desc = "The rule of the ignorant must end! Only those who are truly enlightened in the way of the arcyne arts shall rule!"
+	explanation = {"<p>A mage of sufficient power may claim the throne through appeal to arcane powers, overthrowing the old ways of divine kingship.</p>\
 <p><b>Who may invoke:</b> Any mage with Apprentice-level Arcyne Training (The trait) or higher.</p>\
-<p><b>How it works:</b> After invoking the rite, you must sit upon the throne. Once seated, mages trained in the Arcyne arts must gather near the throne and speak the words 'I assent' to support your claim. Any level of Arcyne Training is sufficient to assent.</p>\
+<p><b>How it works:</b> Mages trained in the Arcyne arts must gather near the throne and speak the words 'I assent' to support your claim. Any level of Arcyne Training is sufficient to assent.</p>\
 <p><b>Completion condition:</b> <b>5</b> mages must speak their assent. Once the threshold is reached, the realm is alerted and a contestation period begins — survive it and stay conscious while remaining near the throne, and it is yours.</p>\
 <p><b>Realm type if successful:</b> Magocracy, ruled by an Archmagos.</p>"}
 	new_ruler_title = "Archmagos"
@@ -30,7 +30,7 @@
 	return TRUE
 
 /datum/usurpation_rite/lunar_ascension/on_gathering_started()
-	to_chat(invoker, span_notice("You are seated. Those trained in the arcyne arts must now speak 'I assent' near the throne. You require [LUNAR_REQUIRED_MAGES] mage voice(s) within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
+	to_chat(invoker, span_notice("The rite has begun. Those trained in the arcyne arts must now speak 'I assent' near the throne. You require [LUNAR_REQUIRED_MAGES] mage voice(s) within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(on_gathering_timeout)), RITE_GATHERING_DURATION, TIMER_STOPPABLE)
 
 /// Override: mages assent, not nobles. Check arcyne training instead of TRAIT_NOBLE.
@@ -69,10 +69,10 @@
 
 /datum/usurpation_rite/lunar_ascension/on_contesting_started()
 	priority_announce( \
-		"[invoker.real_name] has invoked the Rite of Lunar Ascension! " + \
-		"In the name of Noc, God of Magic, a claim of arcane authority is made upon the throne of [SSticker.realm_name]. " + \
-		"A Council of Magos has affirmed this claim. " + \
-		"The Moon's judgment shall fall in [RITE_CONTEST_DURATION / (1 MINUTES)] minutes -- unless the claim is extinguished.", \
+		"[invoker.real_name] has invoked the Rite of Lunar Ascension!\n\n" + \
+		"In the name of Noc, God of Magic, a claim is made upon the throne of [SSticker.realm_name], to bring enlightened rule to the realm.\n\n" + \
+		"A Council of Magos has affirmed this claim.\n\n" + \
+		"The Moon's judgment shall fall in [RITE_CONTEST_DURATION / (1 MINUTES)] minutes -- unless the claim is extinguished.",
 		"Rite of Lunar Ascension", \
 		'sound/misc/royal_decree2.ogg')
 	to_chat(invoker, span_notice("The mages have spoken. The realm has been alerted. Stay near the throne for [RITE_CONTEST_DURATION / (1 MINUTES)] minutes and the succession is yours. You may move freely, but do not stray too far."))
@@ -83,7 +83,7 @@
 	var/old_ruler_name = old_ruler?.real_name || "no one"
 	..()
 	priority_announce( \
-		"Noc granted us the arcyne arts so humen may seize their own destiny." + \
+		"Noc granted us the arcyne arts so humen may seize their own destiny.\n\n" + \
 		"A Council of Magos, under Noc's watchful gaze, declares [invoker.real_name] the rightful [SSticker.rulertype] of [SSticker.realm_name], establishing a rule of true enlightenment.\n\n" + \
 		"[old_ruler_name], unable to contest this succession, has been found wanting in wisdom, " + \
 		"and their claim to rulership fades like starlight at dawn.\n\n" + \
