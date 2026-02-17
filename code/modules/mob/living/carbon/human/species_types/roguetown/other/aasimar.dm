@@ -16,7 +16,7 @@
 	Because of their upbringing, they make for natural conduits for godly powers. \
 	Azure Peak's populace holds them with a mixture of uneasy mixture of fear and respect. \
 	Due to their celestial nature, it is widely believed that an Aasimar's death is a bad omen...<br>\
-	(+1 Stat of their choice, or Lack of Hunger & Thirst)"
+	(+1 FOR, +1 Stat of their choice, or Lack of Hunger & Thirst)"
 
 	max_age = "???"
 
