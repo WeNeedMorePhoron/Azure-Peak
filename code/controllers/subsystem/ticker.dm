@@ -80,6 +80,8 @@ SUBSYSTEM_DEF(ticker)
 	var/regentmob = null
 	/// Prevent regent shuffling
 	var/regentday = -1
+	/// Prevent chained coups — tracks the in-game day of the last completed usurpation
+	var/usurpation_day = -1
 	var/failedstarts = 0
 	var/list/manualmodes = list()
 
