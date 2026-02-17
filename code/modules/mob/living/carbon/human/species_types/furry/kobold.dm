@@ -36,6 +36,15 @@
 		OFFSET_SHIRT_F = list(0,0), OFFSET_ARMOR_F = list(0,0), OFFSET_UNDIES = list(0,-4), OFFSET_UNDIES_F = list(0,-4), \
 		)
 	race_bonus = list(STAT_FORTUNE = 1)
+
+	custom_selection = list(
+		"+1 FOR" = STATKEY_LCK,
+		"+1 INT" = STATKEY_INT,
+		"+1 CON" = STATKEY_CON,
+		"+1 WIL" = STATKEY_WIL,
+		"+1 PER" = STATKEY_PER,
+	)
+
 	enflamed_icon = "widefire"
 	attack_verb = "slash"
 	attack_sound = 'sound/blank.ogg'
