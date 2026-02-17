@@ -228,7 +228,7 @@
 	gloves = /obj/item/clothing/gloves/roguetown/angle
 	backr = /obj/item/storage/backpack/rogue/satchel/black
 	wrists = /obj/item/clothing/neck/roguetown/psicross/naledi
-	belt = /obj/item/storage/belt/rogue/leather
+	belt = /obj/item/storage/belt/rogue/leather/battleskirt/black
 	beltl = /obj/item/flashlight/flare/torch
 	beltr = /obj/item/storage/belt/rogue/pouch/coins/poor
 	shoes = /obj/item/clothing/shoes/roguetown/sandals
