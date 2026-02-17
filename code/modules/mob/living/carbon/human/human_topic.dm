@@ -105,6 +105,14 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		popup.open()
 		return
 
+	if(href_list["origin_lore"])
+		if(!client.prefs.virtue_origin.origin_desc)
+			return
+		var/datum/browser/popup = new(usr, "origin_info", "<center>Origin Lore</center>", 460, 550)
+		popup.set_content(client.prefs.virtue_origin.origin_desc)
+		popup.open()
+		return
+
 	if(href_list["undiesthing"]) //canUseTopic check for this is handled by mob/Topic()
 		if(!get_location_accessible(src, BODY_ZONE_PRECISE_GROIN, skipundies = TRUE))
 			to_chat(usr, span_warning("I can't reach that! Something is covering it."))
