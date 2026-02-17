@@ -215,7 +215,6 @@
 		"Slitted Kettle" = /obj/item/clothing/head/roguetown/helmet/heavy/knight/skettle,
 		"None"
 	)
-
 	to_chat(H, span_warning("You are a holy knight, clad in maille and armed with steel. Where others of the clergy may have spent their free time studying scriptures, you devoted yourself towards fighting Psydonia's evils - a longsword in one hand, and a clenched psycross in the other."))
 	belt = /obj/item/storage/belt/rogue/leather
 	backl = /obj/item/storage/backpack/rogue/satchel
@@ -235,7 +234,7 @@
 			cloak = /obj/item/clothing/cloak/tabard/psydontabard
 			if(H.mind)
 				helmets += list("Psydonic Armet" = /obj/item/clothing/head/roguetown/helmet/heavy/psydonhelm, "Psydonic Bucket Helm" = /obj/item/clothing/head/roguetown/helmet/heavy/psybucket)
-				var/armors = list("Psydonic Cuirass")
+				armors += list("Psydonic Cuirass")
 				var/armor_choice = input(H, "Choose your MAILLE.", "STAND AGAINST THE DARKNESS.") as anything in armors
 				switch(armor_choice)
 					if("Hauberk Cuirass")
@@ -248,7 +247,7 @@
 						armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted/ornate
 		if(/datum/patron/divine/astrata)
 			cloak = /obj/item/clothing/cloak/tabard/devotee/astrata
-			armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
+			var/armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
 			helmets += list("Old Astratan Helm" = /obj/item/clothing/head/roguetown/helmet/heavy/astratahelm)
 		if(/datum/patron/divine/noc)
 			cloak = /obj/item/clothing/cloak/tabard/devotee/noc
@@ -282,7 +281,8 @@
 		else
 			cloak = /obj/item/clothing/cloak/cape/crusader
 			armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
-	H.dna.species.soundpack_m = new /datum/voicepack/male/knight()
+
+H.dna.species.soundpack_m = new /datum/voicepack/male/knight()
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_WEAK, devotion_limit = CLERIC_REQ_1)	//Capped to T1 miracles.
 	if(H.mind)
@@ -304,7 +304,7 @@
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
 			if("Broadsword")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				belt_r = /obj/item/rogueweapon/scabbard/sword
+				beltr = /obj/item/rogueweapon/scabbard/sword
 				r_hand = /obj/item/rogueweapon/sword/long/broadsword
 				l_hand = /obj/item/rogueweapon/shield/iron
 			if("Mace")
