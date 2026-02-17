@@ -1,5 +1,0 @@
-author: "WeNeedMorePhoron"
-delete-after: True
-changes:
-  - rscadd: "TGUI-Based Loadout Menu with a 10 points based system and the ability to preset colors (Up to all three), custom name, and description"
-  - rscadd: "Jester's Hat to loadout"

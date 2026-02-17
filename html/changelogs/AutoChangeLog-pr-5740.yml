@@ -1,5 +1,0 @@
-author: "WeNeedMorePhoron"
-delete-after: True
-changes:
-  - rscdel: "Removed the Aerosolize Spell"
-  - rscadd: "Old Magick Witch gains Fortitude in exchange for losing Aerosolize"
