@@ -20,7 +20,7 @@
 #define LUNAR_REQUIRED_MAGES            5
 
 /// Martial Succession
-#define MARTIAL_REQUIRED_ASSENTS        7
+#define MARTIAL_REQUIRED_ASSENTS        6
 
 /// Golden Accord
 #define GOLDEN_REQUIRED_ASSENTS         7
