@@ -20,11 +20,11 @@ The dead has no voice in this. The world is not progressive enough for that.
 <p><b>How it works:</b> The people of the realm must gather near the throne and speak the words 'I assent' to support your claim. Anyone may assent.</p>\
 <p><b>Completion condition:</b> <b>10</b> weighted voices must speak their assent. Bandits and outlaws count as <b>two</b> voices each — they risked everything to assert their right. All others count as one. Once the threshold is reached, the realm is alerted and a contestation period begins — survive it and stay conscious while remaining near the throne, and it is yours.</p>\
 <p><b>Restrictions:</b> The undead may not invoke or assent.</p>\
-<p><b>Realm type if successful:</b> Commune, ruled by a Tribune.</p>"}
+<p><b>Realm type if successful:</b> Republic, ruled by a Tribune.</p>"}
 	new_ruler_title = "Tribune"
 	new_ruler_title_f = "Tribune"
-	new_realm_type = "Commune"
-	new_realm_type_short = "Commune"
+	new_realm_type = "Republic"
+	new_realm_type_short = "Republic"
 	roundend_epilogue = "The people have spoken, and the old order has crumbled. " + \
 		"The realm is ruled by the people, for the people! " + \
 		"The voice of the people is the voice of the gods! " + \
