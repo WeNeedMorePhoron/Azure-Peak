@@ -910,6 +910,7 @@
 #include "code\datums\stress\positive_events.dm"
 #include "code\datums\usurpation_rite\_usurpation_rite.dm"
 #include "code\datums\usurpation_rite\lunar_ascension.dm"
+#include "code\datums\usurpation_rite\martial_succession.dm"
 #include "code\datums\usurpation_rite\solar_succession.dm"
 #include "code\datums\weather\weather.dm"
 #include "code\datums\weather\weather_types\floor_is_lava.dm"

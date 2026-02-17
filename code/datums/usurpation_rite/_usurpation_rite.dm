@@ -80,6 +80,12 @@
 	if(!HAS_TRAIT(noble, TRAIT_NOBLE))
 		to_chat(noble, span_warning("Only those of noble blood may speak assent."))
 		return FALSE
+	if(HAS_TRAIT(noble, TRAIT_OUTLAW))
+		to_chat(noble, span_warning("Astrata shuns those who stand outside the order."))
+		return FALSE
+	if(HAS_TRAIT(noble, TRAIT_ROTMAN) || (noble.mob_biotypes & MOB_UNDEAD))
+		to_chat(noble, span_warning("The sun has no place for the living dead."))
+		return FALSE
 	if(assenters[noble])
 		to_chat(noble, span_warning("You have already spoken your assent."))
 		return FALSE

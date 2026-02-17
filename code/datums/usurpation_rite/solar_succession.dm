@@ -11,6 +11,8 @@ making it a harder but still viable path.
 Non-resident nobles (foreign envoys, Heartfelt) count as half a vote each.
 This serves as a backup mechanism if hyperwar thin the local nobility —
 non-resident nobles can be brought in to fill the gap, but at reduced weight.
+
+Outlaws and undead are shunned by Astrata outside of her order. They may not invoke or assent to this rite.
 */
 /datum/usurpation_rite/solar_succession
 	name = "Rite of Solar Succession"
@@ -25,6 +27,10 @@ non-resident nobles can be brought in to fill the gap, but at reduced weight.
 	if(!..())
 		return FALSE
 	if(!HAS_TRAIT(user, TRAIT_NOBLE))
+		return FALSE
+	if(HAS_TRAIT(user, TRAIT_OUTLAW))
+		return FALSE
+	if(HAS_TRAIT(user, TRAIT_ROTMAN) || (user.mob_biotypes & MOB_UNDEAD))
 		return FALSE
 	return TRUE
 
@@ -66,7 +72,7 @@ non-resident nobles can be brought in to fill the gap, but at reduced weight.
 		"declares [invoker.real_name] the rightful [SSticker.rulertype] of [SSticker.realm_name], in an ORDERLY transfer of power.\n\n" + \
 		"[old_ruler_name], unable to contest this succession, has surely lost the favor of the Sun Goddess, " + \
 		"and their divine right to rulership!\n\n" + \
-		"Long live [invoker.real_name]!", \
+		"Long live [invoker.real_name], [SSticker.rulertype] of [SSticker.realm_name]!", \
 		"A New [SSticker.rulertype] Ascends", \
 		'sound/misc/royal_decree.ogg')
 	to_chat(invoker, span_notice("The warmth of Astrata's gaze settles upon you. The throne is yours."))

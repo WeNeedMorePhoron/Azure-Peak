@@ -17,4 +17,7 @@
 #define SOLAR_VOTE_FOREIGNER            0.5
 
 /// Lunar Ascension
-#define LUNAR_REQUIRED_MAGES            1    // TESTING: 5
+#define LUNAR_REQUIRED_MAGES            1    // TESTING: 5Shoul
+
+/// Martial Succession
+#define MARTIAL_REQUIRED_ASSENTS        1    // TESTING: 7

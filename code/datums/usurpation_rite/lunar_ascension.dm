@@ -4,6 +4,8 @@
  Noc-themed usurpation rite. 
 
  Design intent: Makes the university a threat and give mage a unique path to usurp the throne without nobility. It requires six mages total (The invoker + 5 more to assent). So technically a full house university plus one can initiate a coup but good luck holding it. Its  existence and implicit threat may lend some weight to displeasing the university, and perhaps encourage in town conflict over magical law as couping to declare a magocracy is now a theoretical possibility in response to excessive restrictions on magic - especially with outsider / adventurer mage help.
+
+ Accessible to outlaws and undead, technically.
  
  */
 /datum/usurpation_rite/lunar_ascension
@@ -85,7 +87,7 @@
 		"A Council of Magos, under Noc's watchful gaze, declares [invoker.real_name] the rightful [SSticker.rulertype] of [SSticker.realm_name], establishing a rule of true enlightenment.\n\n" + \
 		"[old_ruler_name], unable to contest this succession, has been found wanting in wisdom, " + \
 		"and their claim to rulership fades like starlight at dawn.\n\n" + \
-		"Long live [invoker.real_name]!", \
+		"Long live [invoker.real_name], [SSticker.rulertype] of [SSticker.realm_name]!", \
 		"A New [SSticker.rulertype] Ascends", \
 		'sound/misc/royal_decree.ogg')
 	to_chat(invoker, span_notice("The pale light of Noc settles upon you. The throne is yours."))
