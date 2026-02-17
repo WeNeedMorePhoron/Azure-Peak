@@ -106,9 +106,9 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		return
 
 	if(href_list["origin_lore"])
-		if(!client || !client.prefs.virtue_origin.origin_desc)
+		if(!client || !client.prefs.virtue_origin.origin_desc || !client.prefs.virtue_origin.origin_name)
 			return
-		var/datum/browser/popup = new(usr, "origin_info", "<center>Origin Lore</center>", 460, 550)
+		var/datum/browser/popup = new(usr, "origin_info", "<center>[client.prefs.virtue_origin.origin_name]</center>", 460, 550)
 		popup.set_content(client.prefs.virtue_origin.origin_desc)
 		popup.open()
 		return
