@@ -165,7 +165,7 @@
 			neck = /obj/item/clothing/neck/roguetown/luckcharm
 			H.cmode_music = 'sound/music/combat_jester.ogg'
 
-///
+//
 
 /datum/advclass/cleric/paladin
 	name = "Paladin"
@@ -206,8 +206,7 @@
 		"Guard Helmet"		= /obj/item/clothing/head/roguetown/helmet/heavy/guard,
 		"Barred Helmet"		= /obj/item/clothing/head/roguetown/helmet/heavy/sheriff,
 		"Bucket Helmet"		= /obj/item/clothing/head/roguetown/helmet/heavy/bucket,
-		"Knight's Armet"	= /obj/item/clothing/head/roguetown/helmet/heavy/knight,
-		"Knight's Helmet"	= /obj/item/clothing/head/roguetown/helmet/heavy/knight/old,
+		"Knight Helmet"		= /obj/item/clothing/head/roguetown/helmet/heavy/knight,
 		"Visored Sallet"	= /obj/item/clothing/head/roguetown/helmet/sallet/visored,
 		"Armet"				= /obj/item/clothing/head/roguetown/helmet/heavy/knight/armet,
 		"Hounskull Bascinet" = /obj/item/clothing/head/roguetown/helmet/bascinet/pigface/hounskull,
@@ -215,9 +214,11 @@
 		"Slitted Kettle" = /obj/item/clothing/head/roguetown/helmet/heavy/knight/skettle,
 		"None"
 	)
+
 	to_chat(H, span_warning("You are a holy knight, clad in maille and armed with steel. Where others of the clergy may have spent their free time studying scriptures, you devoted yourself towards fighting Psydonia's evils - a longsword in one hand, and a clenched psycross in the other."))
 	belt = /obj/item/storage/belt/rogue/leather
 	backl = /obj/item/storage/backpack/rogue/satchel
+	backr = /obj/item/rogueweapon/shield/iron
 	shirt = /obj/item/clothing/suit/roguetown/shirt/tunic
 	neck = /obj/item/clothing/neck/roguetown/chaincoif
 	pants = /obj/item/clothing/under/roguetown/chainlegs
@@ -233,61 +234,57 @@
 		if(/datum/patron/old_god)
 			cloak = /obj/item/clothing/cloak/tabard/psydontabard
 			if(H.mind)
-				helmets += list("Psydonic Armet" = /obj/item/clothing/head/roguetown/helmet/heavy/psydonhelm, "Psydonic Bucket Helm" = /obj/item/clothing/head/roguetown/helmet/heavy/psybucket)
-				armors += list("Psydonic Cuirass")
+				helmets += list("Psydonic Armet" = /obj/item/clothing/head/roguetown/helmet/heavy/psydonhelm,
+							"Psydonic Bucket Helm" = /obj/item/clothing/head/roguetown/helmet/heavy/psybucket)
+				var/armors = list("Psydonic Cuirass", "Hauberk")
 				var/armor_choice = input(H, "Choose your MAILLE.", "STAND AGAINST THE DARKNESS.") as anything in armors
 				switch(armor_choice)
-					if("Hauberk Cuirass")
-						armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
-					if("Cuirass")
-						armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass
-					if("Studded Leather Cuirass")
-						armor = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli
 					if("Psydonic Cuirass")
 						armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted/ornate
+					if("Hauberk")
+						armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 		if(/datum/patron/divine/astrata)
 			cloak = /obj/item/clothing/cloak/tabard/devotee/astrata
-			var/armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
+			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 			helmets += list("Old Astratan Helm" = /obj/item/clothing/head/roguetown/helmet/heavy/astratahelm)
 		if(/datum/patron/divine/noc)
 			cloak = /obj/item/clothing/cloak/tabard/devotee/noc
-			armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
+			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 		if(/datum/patron/divine/abyssor)
 			cloak = /obj/item/clothing/cloak/tabard/abyssortabard
-			armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
+			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 		if(/datum/patron/divine/dendor)
 			cloak = /obj/item/clothing/cloak/tabard/devotee/dendor
-			armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
+			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 		if(/datum/patron/divine/necra)
 			cloak = /obj/item/clothing/cloak/tabard/devotee/necra
-			armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
+			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 			helmets += list("Old Necran Helm" = /obj/item/clothing/head/roguetown/helmet/heavy/necrahelm)
-		if (/datum/patron/divine/malum)
+		if(/datum/patron/divine/malum)
 			cloak = /obj/item/clothing/cloak/tabard/devotee/malum
-			armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
-		if (/datum/patron/divine/eora)
+			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
+		if(/datum/patron/divine/eora)
 			cloak = /obj/item/clothing/cloak/templar/eora
-			armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
+			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 			helmets += list("Old Eoran Sallet" = /obj/item/clothing/head/roguetown/helmet/sallet/eoran)
-		if (/datum/patron/divine/ravox)
+		if(/datum/patron/divine/ravox)
 			cloak = /obj/item/clothing/cloak/cleric/ravox
-			armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
-		if (/datum/patron/divine/xylix)
+			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
+		if(/datum/patron/divine/xylix)
 			cloak = /obj/item/clothing/cloak/templar/xylix
-			armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
-		if (/datum/patron/divine/pestra)
+			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
+		if(/datum/patron/divine/pestra)
 			cloak = /obj/item/clothing/cloak/templar/pestra
-			armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
+			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 		else
 			cloak = /obj/item/clothing/cloak/cape/crusader
-			armors += list("Hauberk" = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk, "Cuirass" = /obj/item/clothing/suit/roguetown/armor/plate/cuirass, "Studded Leather Cuirass" = /obj/item/clothing/suit/roguetown/armor/leather/studded/cuirbouilli)
-
+			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 H.dna.species.soundpack_m = new /datum/voicepack/male/knight()
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_WEAK, devotion_limit = CLERIC_REQ_1)	//Capped to T1 miracles.
 	if(H.mind)
 		// HELM CHOICE.
-		var/helmchoice = input(H, "Choose your Helm.", "TAKE UP HELMS") as anything in helmets
+		var/helmchoice = input(H, "Choose your HELM.", "DON THE VEIL.") as anything in helmets
 		if(helmchoice != "None")
 			head = helmets[helmchoice]
 		// WEAPON CHOICE.
@@ -346,8 +343,7 @@ H.dna.species.soundpack_m = new /datum/voicepack/male/knight()
 				beltl = /obj/item/reagent_containers/glass/bottle/rogue/healthpot //No needles or cloth, but a basic potion of lifeblood - similar to the Sorcerer's manna potion. Take the 'Physician's Apprentice' virtue for that, uncapped skills, and more.
 			if("Crusader - Silver Longsword")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				l_hand = /obj/item/rogueweapon/sword/long/silver //Turns the Paladin into a pre-Exorcist version of the Monster Hunter. Differences are +1 CON / -1 INT, access to minor miracles, and more limb coverage.
-				beltl = /obj/item/rogueweapon/scabbard/sword //Functionally, inflicts silverbane at the cost of -5 damage. Likely won't be a balancing issue, unless we start seeing +5-10 Clerics overnight.
+				beltl = /obj/item/rogueweapon/sword/long/silver //Turns the Paladin into a pre-Exorcist version of the Monster Hunter. Differences are +1 CON / -1 INT, access to minor miracles, and more limb coverage.
 
 	H.set_blindness(0)
 	switch(H.patron?.type)
@@ -394,13 +390,14 @@ H.dna.species.soundpack_m = new /datum/voicepack/male/knight()
 			wrists = /obj/item/clothing/neck/roguetown/luckcharm
 			H.cmode_music = 'sound/music/combat_jester.ogg'
 
+	//Cleric-exclusive item!
 /obj/item/clothing/head/roguetown/headband/monk/cleric
 	name = "cleric's headband"
 	desc = "A winding length of cloth, interwoven with thick cotton strips. Errant impacts are thwarted, yet not a degree of vision is impaired; valuable traits, for the Cleric who's aim must remain true - and more importantly, unfettered. </br>'..Let there be light.'"
 	max_integrity = ARMOR_INT_HELMET_CLOTH + 35
 	armor = ARMOR_INT_HELMET_LEATHER
 
-///
+//
 
 /datum/advclass/cleric/cantor
 	name = "Cantor"
@@ -547,7 +544,7 @@ H.dna.species.soundpack_m = new /datum/voicepack/male/knight()
 			neck = /obj/item/clothing/neck/roguetown/luckcharm
 			H.cmode_music = 'sound/music/combat_jester.ogg'
 
-///
+//
 
 /datum/advclass/cleric/missionary
 	name = "Missionary"
