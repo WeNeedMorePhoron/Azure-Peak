@@ -102,7 +102,7 @@
 
 /datum/usurpation_rite/progressive_dominion/on_complete()
 	var/mob/living/old_ruler = SSticker.rulermob
-	var/old_ruler_name = old_ruler?.real_name || "no one"
+	var/old_ruler_name = old_ruler?.real_name || "Their predecessor"
 	if(HAS_TRAIT(invoker, TRAIT_ROTMAN) || (invoker.mob_biotypes & MOB_UNDEAD))
 		roundend_epilogue = \
 			"One can conquer a realm on a tide of bones. " + \

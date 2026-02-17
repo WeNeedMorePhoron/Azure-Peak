@@ -89,7 +89,7 @@
 
 /datum/usurpation_rite/lunar_ascension/on_complete()
 	var/mob/living/old_ruler = SSticker.rulermob
-	var/old_ruler_name = old_ruler?.real_name || "no one"
+	var/old_ruler_name = old_ruler?.real_name || "Their predecessor"
 	..()
 	priority_announce( \
 		"Noc granted us the arcyne arts so humen may seize their own destiny.\n\n" + \

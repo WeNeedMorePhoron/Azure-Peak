@@ -98,7 +98,7 @@
 
 /datum/usurpation_rite/psydonian_tribunal/on_complete()
 	var/mob/living/old_ruler = SSticker.rulermob
-	var/old_ruler_name = old_ruler?.real_name || "no one"
+	var/old_ruler_name = old_ruler?.real_name || "Their predecessor"
 	..()
 	priority_announce( \
 		"There are many gods, but only one who was truly, wholly good.\n\n" + \

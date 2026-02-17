@@ -104,7 +104,7 @@
 
 /datum/usurpation_rite/golden_accord/on_complete()
 	var/mob/living/old_ruler = SSticker.rulermob
-	var/old_ruler_name = old_ruler?.real_name || "no one"
+	var/old_ruler_name = old_ruler?.real_name || "Their predecessor"
 	..()
 	priority_announce( \
 		"Power belongs to those who bring prosperity to the realm.\n\n" + \

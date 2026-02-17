@@ -65,7 +65,7 @@ Outlaws and undead are shunned by Astrata outside of her order. They may not inv
 
 /datum/usurpation_rite/solar_succession/on_complete()
 	var/mob/living/old_ruler = SSticker.rulermob
-	var/old_ruler_name = old_ruler?.real_name || "no one"
+	var/old_ruler_name = old_ruler?.real_name || "Their predecessor"
 	..()
 	priority_announce( \
 		"The sun must set so that dawn may come again.\n\n" + \

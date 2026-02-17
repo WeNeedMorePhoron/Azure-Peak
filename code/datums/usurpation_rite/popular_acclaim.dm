@@ -104,7 +104,7 @@ The dead has no voice in this. The world is not progressive enough for that.
 
 /datum/usurpation_rite/popular_acclaim/on_complete()
 	var/mob/living/old_ruler = SSticker.rulermob
-	var/old_ruler_name = old_ruler?.real_name || "no one"
+	var/old_ruler_name = old_ruler?.real_name || "Their predecessor"
 	..()
 	priority_announce( \
 		"A ruler must rule for the benefits of their subjects. And no one is more fit than one elected by their subjects.\n\n" + \

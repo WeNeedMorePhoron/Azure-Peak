@@ -100,7 +100,7 @@
 
 /datum/usurpation_rite/martial_succession/on_complete()
 	var/mob/living/old_ruler = SSticker.rulermob
-	var/old_ruler_name = old_ruler?.real_name || "no one"
+	var/old_ruler_name = old_ruler?.real_name || "Their predecessor"
 	..()
 	priority_announce( \
 		"Those who fail to defend their throne do not deserve to sit upon it.\n\n" + \

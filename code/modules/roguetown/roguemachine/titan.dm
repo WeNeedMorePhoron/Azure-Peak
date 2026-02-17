@@ -462,7 +462,7 @@ GLOBAL_VAR_INIT(last_crown_announcement_time, -1000)
 		say("A rite of succession is already underway.")
 		playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
 		return
-	if(!SSticker.rulermob && !SSticker.regentmob)
+	if(!SSticker.had_ruler)
 		say("There is no ruler to usurp.")
 		playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
 		return

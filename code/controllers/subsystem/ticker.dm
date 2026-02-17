@@ -84,6 +84,8 @@ SUBSYSTEM_DEF(ticker)
 	var/usurpation_day = -1
 	/// Optional epilogue text displayed at round end after a usurpation. Set by rites in on_complete().
 	var/roundend_epilogue
+	/// TRUE once a ruler has been assigned at least once (distinguishes "never had a ruler" from "ruler got qdeleted")
+	var/had_ruler = FALSE
 	var/failedstarts = 0
 	var/list/manualmodes = list()
 
@@ -777,6 +779,7 @@ SUBSYSTEM_DEF(ticker)
 /// Wrapper for setting rulermob and rulertype
 /datum/controller/subsystem/ticker/proc/set_ruler_mob(mob/newruler)
 	rulermob = newruler
+	had_ruler = TRUE
 	var/datum/job/lord_job = SSjob.GetJob("Grand Duke")
 	if(should_wear_femme_clothes(rulermob))
 		SSticker.rulertype = lord_job?.f_title || lord_job.title
