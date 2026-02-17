@@ -20,6 +20,12 @@
 	new_ruler_title_f = "Archmagos"
 	new_realm_type = "Magocracy"
 	new_realm_type_short = "Magocracy"
+	roundend_epilogue = "For the first time in centuries, " + \
+		"an Archmagos rules openly without the assent of Astrata or the pretensions of wealth. " + \
+		"They say their rule is enlightened, but foreign rulers only see the vestige of the Celestial Empire. " + \
+		"Hubris, heresy. " + \
+		"Will the rule of mages bring about a new golden age, " + \
+		"or will it be a brief, shining moment before the realm burns in arcane fire?"
 
 /// Any mage with T2+ arcyne training can invoke — no noble blood required.
 /datum/usurpation_rite/lunar_ascension/can_invoke(mob/living/carbon/human/user)

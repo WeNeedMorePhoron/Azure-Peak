@@ -20,6 +20,13 @@
 	new_ruler_title_f = "Lady Protector"
 	new_realm_type = "Protectorate"
 	new_realm_type_short = "Protectorate"
+	roundend_epilogue = "The realm has been seized by the strong, " + \
+		"who claims to be just, to rule in Ravox's name. " + \
+		"It is said that the first King and Queen of the world were great warriors, " + \
+		"who won the throne through conquest and bled to keep it. " + \
+		"But will this new Protector be able to defend the realm against its enemies, " + \
+		"both foreign and domestic? " + \
+		"Only time will tell if their rule will be marked by glory, tyranny or obscurity."
 
 /// Retinue and senior garrison can invoke. No outlaws or undead.
 /datum/usurpation_rite/martial_succession/can_invoke(mob/living/carbon/human/user)

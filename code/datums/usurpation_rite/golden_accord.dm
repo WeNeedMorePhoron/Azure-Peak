@@ -21,6 +21,13 @@
 	new_ruler_title_f = "Chancellor"
 	new_realm_type = "Republic"
 	new_realm_type_short = "Republic"
+	roundend_epilogue = "The quill has proven mightier than the sword. " + \
+		"The old order has been overthrown, replaced by a democratic, prosperous republic -- " + \
+		"where only worthy burghers with coin earned by their own merit can claim the throne, " + \
+		"elected by a Council of their peers. " + \
+		"Foreign rulers whisper of heresy, of Matthiosite plots, " + \
+		"but the people know the truth -- " + \
+		"that power belongs to those who bring prosperity to the realm!"
 
 /// Steward, Merchant, Guildmaster, or Bathmaster with 200+ mammon. No outlaws or undead.
 /datum/usurpation_rite/golden_accord/can_invoke(mob/living/carbon/human/user)

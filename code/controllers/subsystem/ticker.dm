@@ -82,6 +82,8 @@ SUBSYSTEM_DEF(ticker)
 	var/regentday = -1
 	/// Prevent chained coups — tracks the in-game day of the last completed usurpation
 	var/usurpation_day = -1
+	/// Optional epilogue text displayed at round end after a usurpation. Set by rites in on_complete().
+	var/roundend_epilogue
 	var/failedstarts = 0
 	var/list/manualmodes = list()
 

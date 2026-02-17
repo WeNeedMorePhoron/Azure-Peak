@@ -25,6 +25,13 @@ The dead has no voice in this. The world is not progressive enough for that.
 	new_ruler_title_f = "Tribune"
 	new_realm_type = "Commune"
 	new_realm_type_short = "Commune"
+	roundend_epilogue = "The people have spoken, and the old order has crumbled. " + \
+		"The realm is ruled by the people, for the people! " + \
+		"The voice of the people is the voice of the gods! " + \
+		"Foreign rulers may claim this to be a Matthiosite plot, " + \
+		"but the people know the truth -- " + \
+		"that power belongs to those who have the courage to seize it, " + \
+		"and the people to support it!"
 
 /// Bandits, outlaws (including outlawed nobles), peasants, or sidefolk can invoke. No undead.
 /datum/usurpation_rite/popular_acclaim/can_invoke(mob/living/carbon/human/user)

@@ -24,6 +24,10 @@
 	new_ruler_title_f = "Grand Inquisitor"
 	new_realm_type = "Ordinate"
 	new_realm_type_short = "Ordinate"
+	roundend_epilogue = "A bonfire rises to the north. " + \
+		"Otava might've won a battle. " + \
+		"But the war for influence over the realm is not over. " + \
+		"Grenzelhoft will not sit idle."
 
 /// Only Inquisition members (Inquisitor, Absolver, Orthodoxist) who follow Psydon can invoke. No undead.
 /datum/usurpation_rite/psydonian_tribunal/can_invoke(mob/living/carbon/human/user)

@@ -103,6 +103,20 @@
 /datum/usurpation_rite/progressive_dominion/on_complete()
 	var/mob/living/old_ruler = SSticker.rulermob
 	var/old_ruler_name = old_ruler?.real_name || "no one"
+	if(HAS_TRAIT(invoker, TRAIT_ROTMAN) || (invoker.mob_biotypes & MOB_UNDEAD))
+		roundend_epilogue = \
+			"One can conquer a realm on a tide of bones. " + \
+			"But the dead bear no children and hold no true will. " + \
+			"How long will the living -- even those who follow the Mistress of Progress -- tolerate their rule?"
+	else
+		roundend_epilogue = \
+			"And as suddenly as the Celestial Empire has fallen, " + \
+			"it has seemingly returned in [SSticker.realm_name]. " + \
+			"O Zizo! Dame of Progress! The future will be bright under your rule! " + \
+			"Grant us armaments! Grant us power! " + \
+			"Let us stand fast against the darkness of stagnation! " + \
+			"Let us stand fast against the rot of the old order! " + \
+			"Long live [invoker.real_name], [new_ruler_title] of [SSticker.realm_name]!"
 	..()
 	priority_announce( \
 		"To cling to the past is to rot in place. Progress waits for no one.\n\n" + \

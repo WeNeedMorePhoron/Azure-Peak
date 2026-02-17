@@ -20,6 +20,10 @@
 	new_ruler_title_f = "Archbishop"
 	new_realm_type = "Archbishopric"
 	new_realm_type_short = "Archbishopric"
+	roundend_epilogue = "A bonfire rises to the west. " + \
+		"Grenzelhoft might've won a battle. " + \
+		"But the war for influence over the realm is not over. " + \
+		"Otava will not sit idle."
 
 /// Any member of the Church of the Ten with a divine patron. No outlaws or undead.
 /datum/usurpation_rite/solar_bishopric/can_invoke(mob/living/carbon/human/user)

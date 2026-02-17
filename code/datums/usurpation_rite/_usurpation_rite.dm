@@ -27,6 +27,8 @@
 	var/contester_timer_id
 	var/contest_time_remaining = 0
 	var/contest_started_at = 0
+	/// Optional epilogue text shown at round end if this rite completed successfully.
+	var/roundend_epilogue
 
 /datum/usurpation_rite/New()
 	. = ..()
@@ -161,6 +163,8 @@
 	cleanup()
 
 /datum/usurpation_rite/proc/on_complete()
+	if(roundend_epilogue)
+		SSticker.roundend_epilogue = roundend_epilogue
 	transfer_power()
 
 /// Follows the same pattern as coronate_lord() in priest.dm.
