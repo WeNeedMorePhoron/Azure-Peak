@@ -91,8 +91,20 @@
 	name = "Kazengunese"
 	origin_name = "Kazengun"
 	added_languages = list(/datum/language/kazengunese)
-	desc = "I originate from the temperate forests of Kazengun, a region poorly known to the West. Its people worship a syncretic variation of the Divine Pantheon, often percieved as heretical.<br>"
-	origin_desc = "PLEASE PING THE LORE TEAM TO ADD LORE FOR THIS"
+	desc = "I originate from the Kazengun Shogunate- a vast, foreign land from across the sea, culturally divided between the Islands and Lingyue, yet held under one banner. The people worship a separate Pantheon to the ways of the Holy See, often seen as heretical by outsiders.<br>"
+	origin_desc = "The Islands of Kazengun are a warm, subtropical region surrounded by sparkling, clear seas with lots of rain, mild winters, \
+	and occasional typhoons. The mainland of Kazengun, known as Lingyue, has a similar climate along the coastlines, with matching amounts of rainfall, \
+	but as one travels further inland, the abundant rain and tropical warmth gives way to cooler, and colder, steppe grasslands, with \
+	sprawling ‘grass seas’ and rolling hills like waves. \
+	\
+	<br>The islands of Kazengun are the seat of power of the Shogunate, a land of \
+	Astratan Order and divine fervour and reverence often compared to that seen in Otava. This Pantheon is larger than that of the Holy See, \
+	but its tenants are all but heretical in the domain of the See.  All of Kazengun reveres Order, as ordained by Astrata, the mother goddess, \
+	and by extension, the social stratification and aristocracy entwined within it, but the Pantheon also openly embraces ‘heretical’ beliefs and Ascendant gods as a simple facet of divinity.\
+	\
+	<br>A land divided, the Kazengun Shogunate also encompasses the lands of Lingyue- the former Empire across the mainland of Kazengun, \
+	occupied after conquest several centuries ago, yet never fully pacified. The current Shogun, Oishi Juro, has recently taken the throne after \
+	the passing of the previous Shogun, with Lingyue being closer than ever to entering full open rebellion against their Kazengun overlords."
 
 /datum/virtue/origin/hammerhold
 	name = "Hammerholdian"
