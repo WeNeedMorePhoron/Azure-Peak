@@ -37,6 +37,9 @@
 	to_chat(invoker, span_notice("The rite has begun. Warriors with Expert weapon skill must now speak 'I assent' near the throne. You require [MARTIAL_REQUIRED_ASSENTS] voices within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(on_gathering_timeout)), RITE_GATHERING_DURATION, TIMER_STOPPABLE)
 
+/datum/usurpation_rite/martial_succession/on_gathering_timeout()
+	fail("The warriors of the realm did not grant sufficient assent.")
+
 /// Override: warriors assent, not nobles. Check Expert+ combat skill instead of TRAIT_NOBLE.
 /datum/usurpation_rite/martial_succession/try_assent(mob/living/carbon/human/warrior)
 	if(stage != RITE_STAGE_GATHERING)

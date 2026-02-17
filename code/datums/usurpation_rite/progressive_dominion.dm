@@ -52,6 +52,9 @@
 	to_chat(invoker, span_notice("The rite has begun. Mages, followers of Zizo, and the undead must now speak 'I assent' near the throne. You require [DOMINION_REQUIRED_ASSENTS] voices within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(on_gathering_timeout)), RITE_GATHERING_DURATION, TIMER_STOPPABLE)
 
+/datum/usurpation_rite/progressive_dominion/on_gathering_timeout()
+	fail("The voices of progress did not grant sufficient assent.")
+
 /// Override: mages, Zizite followers, and undead assent. Any arcyne training, Zizo patron, OR undead status qualifies.
 /datum/usurpation_rite/progressive_dominion/try_assent(mob/living/carbon/human/supporter)
 	if(stage != RITE_STAGE_GATHERING)

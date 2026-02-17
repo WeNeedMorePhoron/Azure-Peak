@@ -33,6 +33,9 @@
 	to_chat(invoker, span_notice("The rite has begun. Those trained in the arcyne arts must now speak 'I assent' near the throne. You require [LUNAR_REQUIRED_MAGES] mage voice(s) within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(on_gathering_timeout)), RITE_GATHERING_DURATION, TIMER_STOPPABLE)
 
+/datum/usurpation_rite/lunar_ascension/on_gathering_timeout()
+	fail("The mages of the realm did not grant sufficient assent.")
+
 /// Override: mages assent, not nobles. Check arcyne training instead of TRAIT_NOBLE.
 /datum/usurpation_rite/lunar_ascension/try_assent(mob/living/carbon/human/mage)
 	if(stage != RITE_STAGE_GATHERING)

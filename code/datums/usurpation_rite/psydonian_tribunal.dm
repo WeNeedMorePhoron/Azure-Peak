@@ -41,6 +41,9 @@
 	to_chat(invoker, span_notice("The rite has begun. Followers of Psydon must now speak 'I assent' near the throne. You require [TRIBUNAL_REQUIRED_ASSENTS] voices within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(on_gathering_timeout)), RITE_GATHERING_DURATION, TIMER_STOPPABLE)
 
+/datum/usurpation_rite/psydonian_tribunal/on_gathering_timeout()
+	fail("The followers of Psydon did not grant sufficient assent.")
+
 /// Override: Psydon followers or Heresiarchs can assent. No undead.
 /datum/usurpation_rite/psydonian_tribunal/try_assent(mob/living/carbon/human/follower)
 	if(stage != RITE_STAGE_GATHERING)

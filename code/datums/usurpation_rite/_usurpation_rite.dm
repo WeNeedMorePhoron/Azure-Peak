@@ -99,11 +99,16 @@
 /datum/usurpation_rite/proc/on_assent_accepted(mob/living/carbon/human/noble)
 	return
 
-/// Uses tgui_alert as anti-vampire force-say protection.
+/// Uses tgui_alert as anti-vampire force-say protection. Accepts both the ruler and regent.
 /datum/usurpation_rite/proc/try_abdication(mob/living/carbon/human/ruler)
 	if(stage >= RITE_STAGE_CONTESTING)
 		return FALSE
-	if(SSticker.rulermob != ruler)
+	if(ruler == invoker)
+		to_chat(ruler, span_warning("You cannot abdicate in favor of your own claim."))
+		return FALSE
+	var/is_ruler = (SSticker.rulermob == ruler)
+	var/is_regent = (SSticker.regentmob == ruler)
+	if(!is_ruler && !is_regent)
 		return FALSE
 	if(!throne || get_dist(ruler, throne) > RITE_ASSENT_RANGE)
 		return FALSE
@@ -112,7 +117,7 @@
 		return FALSE
 	if(QDELETED(ruler) || ruler.stat != CONSCIOUS)
 		return FALSE
-	if(SSticker.rulermob != ruler)
+	if(SSticker.rulermob != ruler && SSticker.regentmob != ruler)
 		return FALSE
 	if(stage >= RITE_STAGE_CONTESTING)
 		return FALSE
@@ -176,6 +181,7 @@
 	if(lord_job)
 		lord_job.display_title = new_ruler_title
 		lord_job.f_title = new_ruler_title_f
+		lord_job.total_positions = -1000 // Lock out the slot so no new one spawns
 
 	SSticker.realm_type = new_realm_type
 	SSticker.realm_type_short = new_realm_type_short

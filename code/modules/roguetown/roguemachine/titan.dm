@@ -278,7 +278,8 @@ GLOBAL_VAR_INIT(last_crown_announcement_time, -1000)
 					playsound(src, 'sound/misc/machinetalk.ogg', 100, FALSE, -1)
 					SSticker.regentmob = null
 					return
-				if(SSticker.rulermob != null)
+				var/mob/living/current_lord = SSticker.rulermob
+				if(current_lord && !QDELETED(current_lord) && current_lord.stat != DEAD)
 					say("The true lord is already present in the realm.")
 					playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
 					return

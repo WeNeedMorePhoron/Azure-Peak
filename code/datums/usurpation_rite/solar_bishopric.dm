@@ -40,6 +40,9 @@
 	to_chat(invoker, span_notice("The rite has begun. The faithful must now speak 'I assent' near the throne. You require [required] voices within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Foreign clergy count as half a voice. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(on_gathering_timeout)), RITE_GATHERING_DURATION, TIMER_STOPPABLE)
 
+/datum/usurpation_rite/solar_bishopric/on_gathering_timeout()
+	fail("The faithful of the realm did not grant sufficient assent.")
+
 /// Override: church faithful assent, not nobles. Must follow a divine patron. Church position OR T1+ Divine devotion.
 /datum/usurpation_rite/solar_bishopric/try_assent(mob/living/carbon/human/faithful)
 	if(stage != RITE_STAGE_GATHERING)

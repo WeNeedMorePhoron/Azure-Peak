@@ -38,6 +38,9 @@
 	to_chat(invoker, span_notice("The rite has begun. Citizens with bank accounts must now speak 'I assent' near the throne. You require [GOLDEN_REQUIRED_ASSENTS] voices within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(on_gathering_timeout)), RITE_GATHERING_DURATION, TIMER_STOPPABLE)
 
+/datum/usurpation_rite/golden_accord/on_gathering_timeout()
+	fail("The burghers of the realm did not grant sufficient assent.")
+
 /// Override: citizens with bank accounts assent, not nobles.
 /datum/usurpation_rite/golden_accord/try_assent(mob/living/carbon/human/burgher)
 	if(stage != RITE_STAGE_GATHERING)

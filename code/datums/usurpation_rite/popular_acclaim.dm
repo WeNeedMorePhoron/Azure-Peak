@@ -46,6 +46,9 @@ The dead has no voice in this. The world is not progressive enough for that.
 	to_chat(invoker, span_notice("The rite has begun. The people must now speak 'I assent' near the throne. You require [ACCLAIM_REQUIRED_ASSENTS] weighted voices within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Bandits and outlaws count as two voices each. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(on_gathering_timeout)), RITE_GATHERING_DURATION, TIMER_STOPPABLE)
 
+/datum/usurpation_rite/popular_acclaim/on_gathering_timeout()
+	fail("The people of the realm did not grant sufficient assent.")
+
 /// Override: anyone living can assent. Wide pool, weighted by outlaw status.
 /datum/usurpation_rite/popular_acclaim/try_assent(mob/living/carbon/human/person)
 	if(stage != RITE_STAGE_GATHERING)
