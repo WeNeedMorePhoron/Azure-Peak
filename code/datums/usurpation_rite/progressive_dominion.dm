@@ -27,11 +27,11 @@
 <p><b>How it works:</b> Mages trained in the Arcyne arts, followers of Zizo, or those touched by undeath, must gather near the throne and speak the words 'I assent' to support your claim.</p>\
 <p><b>Completion condition:</b> <b>5</b> voices must speak their assent. Once the threshold is reached, the realm is alerted and a contestation period begins — survive it and stay conscious while remaining near the throne, and it is yours.</p>\
 <p><b>Restrictions:</b> None. All who seek progress are welcome — the living, the undead, the outlaw.</p>\
-<p><b>Realm type if successful:</b> Magocracy, ruled by an Archmagos.</p>"}
-	new_ruler_title = "Archmagos"
-	new_ruler_title_f = "Archmagos"
-	new_realm_type = "Magocracy"
-	new_realm_type_short = "Magocracy"
+<p><b>Realm type if successful:</b> Dominion, ruled by an Exarch.</p>"}
+	new_ruler_title = "Exarch"
+	new_ruler_title_f = "Exarch"
+	new_realm_type = "Dominion"
+	new_realm_type_short = "Dominion"
 
 /// Any mage with T2+ arcyne training, any Zizite follower, or any undead, can invoke.
 /datum/usurpation_rite/progressive_dominion/can_invoke(mob/living/carbon/human/user)
