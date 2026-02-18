@@ -15,16 +15,16 @@
 <p><b>How it works:</b> Warriors with Expert-level weapon skill or higher must gather near the throne and speak the words 'I assent' to support your claim. Any weapon skill counts.</p>\
 <p><b>Completion condition:</b> <b>6</b> warriors must speak their assent. Once the threshold is reached, the realm is alerted and a contestation period begins — survive it and stay conscious while remaining near the throne, and it is yours.</p>\
 <p><b>Restrictions:</b> Outlaws and the undead may not invoke or assent to this rite.</p>\
-<p><b>Realm type if successful:</b> Protectorate, ruled by a Lord Protector / Lady Protector.</p>"}
-	new_ruler_title = "Lord Protector"
-	new_ruler_title_f = "Lady Protector"
-	new_realm_type = "Protectorate"
-	new_realm_type_short = "Protectorate"
+<p><b>Realm type if successful:</b> Sovereign Order, ruled by a Grand Master.</p>"}
+	new_ruler_title = "Grand Master"
+	new_ruler_title_f = "Grand Master"
+	new_realm_type = "Sovereign Order"
+	new_realm_type_short = "Sovereign Order"
 	roundend_epilogue = "The realm has been seized by the strong, " + \
 		"who claims to be just, to rule in Ravox's name. " + \
 		"It is said that the first King and Queen of the world were great warriors, " + \
 		"who won the throne through conquest and bled to keep it. " + \
-		"But will this new Protector be able to defend the realm against its enemies, " + \
+		"But will this new Grand Master be able to defend the realm against its enemies, " + \
 		"both foreign and domestic? " + \
 		"Only time will tell if their rule will be marked by glory, tyranny or obscurity."
 
