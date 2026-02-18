@@ -196,6 +196,19 @@
 	SSticker.regentmob = null
 	SSticker.usurpation_day = GLOB.dayspassed
 	removeomen(OMEN_NOLORD)
+
+	// Yank the crown from whoever has it and drop it at the new ruler's feet
+	var/obj/item/clothing/head/roguetown/crown/serpcrown/crown = SSroguemachine.crown
+	if(crown)
+		var/mob/holder = get_containing_mob(crown)
+		if(holder && holder != invoker)
+			if(ishuman(holder))
+				var/mob/living/carbon/human/HH = holder
+				HH.dropItemToGround(crown, TRUE)
+				to_chat(HH, span_warning("The crown is wrenched from you by an unseen force!"))
+			to_chat(invoker, span_notice("The crown materializes at your feet."))
+		crown.forceMove(get_turf(invoker))
+
 	var/realm = SSticker.realm_name || "Azure Peak"
 	// Imitate the text whenever a new Duke joins the game
 	to_chat(world, "<b><span class='notice'><span class='big'>[invoker.real_name] is [SSticker.rulertype] of [realm].</span></span></b>")
