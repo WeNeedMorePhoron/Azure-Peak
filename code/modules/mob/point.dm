@@ -53,6 +53,38 @@
 	else
 		visible_message(span_info("[src] points at [pointed_atom]."), span_info("I point at [pointed_atom]."))
 
+	var/dist = get_dist(src, pointed_atom)
+	var/dir_text = dir2text(get_dir(src, pointed_atom))
+	if(dir_text && client && world.time > mob_timers["contact_callout"] + 10 SECONDS)
+		mob_timers["contact_callout"] = world.time
+		var/contact_name = pointed_atom.name
+		if(ishuman(pointed_atom))
+			var/mob/living/carbon/human/H = pointed_atom
+			var/masked = (H.wear_mask && (H.wear_mask.flags_inv & HIDEFACE)) || (H.head && (H.head.flags_inv & HIDEFACE))
+			if(masked)
+				var/list/d_list = H.get_mob_descriptors()
+				var/list/name_parts = list()
+				for(var/desc_type in d_list)
+					var/datum/mob_descriptor/descriptor = MOB_DESCRIPTOR(desc_type)
+					if(descriptor.slot in list(MOB_DESCRIPTOR_SLOT_TRAIT, MOB_DESCRIPTOR_SLOT_STATURE))
+						name_parts += descriptor.name
+				contact_name = length(name_parts) ? jointext(name_parts, " ") : "masked figure"
+			else if(H.job)
+				contact_name = H.job
+		var/action
+		if(ismob(pointed_atom))
+			if(istype(held_item, /obj/item/gun/ballistic))
+				action = "Shoot them!"
+			else if(istype(held_item, /obj/item/rogueweapon))
+				action = "Cut them down!"
+			else
+				action = "Get them!"
+		else if(isturf(pointed_atom))
+			action = "Over there!"
+		else
+			action = "Break it!"
+		say_verb("[capitalize(contact_name)], [dist] [dist == 1 ? "yard" : "yards"], [dir_text]! [action]")
+
 	return TRUE
 
 /atom/movable/proc/create_point_bubble(atom/pointed_atom)
