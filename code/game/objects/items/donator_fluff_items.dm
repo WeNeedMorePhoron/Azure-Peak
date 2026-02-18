@@ -200,9 +200,9 @@
 	icon_state = "weeperslathe"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 
-/obj/item/clothing/head/roguetown/duelhat/stolen_inquisitor
-	name = "rethrifted otavan slouch hat" // if I call it 'stolen inquisitor hat' it seems even more snowflakey than it already is
-	desc = "A fine leather slouch, beplumed with a roc's onyx feather and fitted with a golden dragon-sigil. It serves as a reminder that the Transactor triumphs in one avenue above all else - foolish acts of grand theft.<br> \
+/obj/item/clothing/head/roguetown/duelhat/pretzel
+	name = "rethrifted gravedigger's hat" 
+	desc = "A gravetender's dark leather slouch, refitted with a golden dragon-sigil. Who needs a steel skullcap when you have dumb luck? <br> \
 	\"You ever feel like nothin' good was ever gonna happen to you?\" <br> \
 	\"Yeah, and nothin' did. So what?\""
 	color = null

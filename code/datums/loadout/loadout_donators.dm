@@ -107,8 +107,8 @@
 	sort_category = "Donator"
 
 /datum/loadout_item/donator_waff2
-	name = "Donator Item - Otavan Slouch Hat"
-	path = /obj/item/clothing/head/roguetown/duelhat/stolen_inquisitor
+	name = "Donator Item - Graverobber's Hat"
+	path = /obj/item/clothing/head/roguetown/duelhat/pretzel
 	ckeywhitelist = list("waffai")
 	sort_category = "Donator"
 
