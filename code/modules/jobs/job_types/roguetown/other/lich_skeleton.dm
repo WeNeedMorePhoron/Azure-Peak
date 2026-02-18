@@ -289,6 +289,8 @@ LICH SKELETONS
 /////////////////////////////
 // SPECIAL / LIMITED SLOTS //
 /////////////////////////////
+// Use this section to drop slot-limited subclasses.
+// Below is an example. You can adjust how many instances of a subclass can exist on any given round by changing the number that's attached to the 'maximum_possible_slots' variable.
 
 // Limited slot. Exclusive access to the Siegebow and slightly better melee skills, but worse speed.
 /datum/advclass/greater_skeleton/lich/rareballistiares
