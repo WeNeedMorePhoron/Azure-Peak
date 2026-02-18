@@ -16,6 +16,7 @@
 					/obj/effect/proc_holder/spell/invoked/churnwealthy					= CLERIC_T3,
 					/obj/effect/proc_holder/spell/invoked/resurrect/matthios			= CLERIC_T3, // Counterpart to anastasis
 	)
+	traits_tier = list(TRAIT_GRAVEROBBER = CLERIC_T0) //Requires a minimal holy skill or the 'Devotee' virtue to unlock. Allows you to rob graves without the FOR malus.
 	confess_lines = list(
 		"MATTHIOS STEALS FROM THE WORTHLESS!",
 		"MATTHIOS IS JUSTICE!",
