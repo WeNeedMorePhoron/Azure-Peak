@@ -1,4 +1,4 @@
 author: "FreeStylaLT"
 delete-after: True
 changes:
-  - refactor: "Reworked Exposed"
+  - rscadd: "Added Sun Elf subrace"
