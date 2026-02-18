@@ -134,7 +134,7 @@
 			playsound(user, 'sound/combat/hits/burn (2).ogg', 100, TRUE)
 			if(istype(held_item, /obj/item/rogueweapon))
 				to_chat(user, "<font color='yellow'>[held_item] melts at it's very fabric turning it into a heap of scrap. My transaction is accepted.</font>")
-				held_item.max_integrity = -50
+				held_item.obj_break(TRUE)
 				held_item.sellprice = 1
 			else
 				to_chat(user, "<font color='yellow'>[held_item] is engulfed in unholy flame and dissipates into ash. My transaction is accepted.</font>")
@@ -145,7 +145,7 @@
 			playsound(user, 'sound/combat/hits/burn (2).ogg', 100, TRUE)
 			if(istype(held_item, /obj/item/rogueweapon))
 				to_chat(user, "<font color='yellow'>[held_item] melts at it's very fabric turning it into a heap of scrap. My transaction is accepted.</font>")
-				held_item.max_integrity = -50
+				held_item.obj_break(TRUE)
 				held_item.sellprice = 1
 			else
 				to_chat(user, "<font color='yellow'>[held_item] is engulfed in unholy flame and dissipates into ash. My transaction is accepted.</font>")
