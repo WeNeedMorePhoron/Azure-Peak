@@ -72,7 +72,9 @@
 			else if(H.job)
 				contact_name = H.job
 		var/action
-		if(ismob(pointed_atom))
+		if(istype(pointed_atom, /obj/item/rogueore/gold) || istype(pointed_atom, /obj/item/rogueore/silver) || istype(pointed_atom, /obj/item/roguegem))
+			action = "We're rich!"
+		else if(ismob(pointed_atom))
 			if(istype(held_item, /obj/item/gun/ballistic))
 				action = "Shoot them!"
 			else if(istype(held_item, /obj/item/rogueweapon))
