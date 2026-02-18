@@ -98,7 +98,7 @@ The dead has no voice in this. The world is not progressive enough for that.
 		"The people of [SSticker.realm_name] have spoken — [invoker.real_name] shall step forth as the Tribune of [SSticker.realm_name]. A rule by the people, for the people!\n\n" + \
 		"The will of the people shall be settled in [RITE_CONTEST_DURATION / (1 MINUTES)] minutes -- unless the claim is struck down.\n\n", \
 		"Rite of Popular Acclaim", \
-		'sound/misc/royal_decree2.ogg')
+		sound_contesting)
 	to_chat(invoker, span_notice("The people have spoken. The realm has been alerted. Stay near the throne for [RITE_CONTEST_DURATION / (1 MINUTES)] minutes and the succession is yours. You may move freely, but do not stray too far."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(complete)), RITE_CONTEST_DURATION, TIMER_STOPPABLE)
 
@@ -113,7 +113,7 @@ The dead has no voice in this. The world is not progressive enough for that.
 		"and their authority is hereby revoked.\n\n" + \
 		"Long live [invoker.real_name], [SSticker.rulertype] of [SSticker.realm_name]!", \
 		"A New [SSticker.rulertype] Ascends", \
-		'sound/misc/royal_decree.ogg')
+		sound_victory)
 	to_chat(invoker, span_notice("The people stand behind you. The throne is yours."))
 
 /datum/usurpation_rite/popular_acclaim/on_fail(reason)
@@ -121,7 +121,7 @@ The dead has no voice in this. The world is not progressive enough for that.
 		priority_announce( \
 			"The Rite of Popular Acclaim has failed. [reason] The old order holds — for now.", \
 			"Rite Failed", \
-			'sound/misc/bell.ogg')
+			sound_failure)
 	if(invoker)
 		to_chat(invoker, span_warning("The Rite of Popular Acclaim has failed. [reason]"))
 

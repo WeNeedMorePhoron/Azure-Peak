@@ -92,7 +92,7 @@
 		"The faithful have affirmed this claim.\n\n" + \
 		"The Tribunal's verdict shall fall in [RITE_CONTEST_DURATION / (1 MINUTES)] minutes -- unless the claim is struck down.", \
 		"Rite of Psydonian Tribunal", \
-		'sound/misc/royal_decree2.ogg')
+		sound_contesting)
 	to_chat(invoker, span_notice("The faithful have spoken. The realm has been alerted. Stay near the throne for [RITE_CONTEST_DURATION / (1 MINUTES)] minutes and the succession is yours. You may move freely, but do not stray too far."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(complete)), RITE_CONTEST_DURATION, TIMER_STOPPABLE)
 
@@ -107,7 +107,7 @@
 		"and their authority is hereby annulled.\n\n" + \
 		"Long live [invoker.real_name], [SSticker.rulertype] of [SSticker.realm_name]!", \
 		"A New [SSticker.rulertype] Ascends", \
-		'sound/misc/royal_decree.ogg')
+		sound_victory)
 	to_chat(invoker, span_notice("The judgment of Psydon is rendered. The throne is yours."))
 
 /datum/usurpation_rite/psydonian_tribunal/on_fail(reason)
@@ -115,7 +115,7 @@
 		priority_announce( \
 			"The Psydonian Tribunal has failed. [reason] A dead god has no place amongst the living.", \
 			"Rite Failed", \
-			'sound/misc/bell.ogg')
+			sound_failure)
 	if(invoker)
 		to_chat(invoker, span_warning("The Psydonian Tribunal has failed. [reason]"))
 

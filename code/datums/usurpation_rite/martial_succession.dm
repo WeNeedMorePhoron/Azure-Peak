@@ -94,7 +94,7 @@
 		"A Council of Warriors has affirmed this claim.\n\n" + \
 		"Ravox's judgment shall fall in [RITE_CONTEST_DURATION / (1 MINUTES)] minutes -- unless the claim is struck down.", \
 		"Rite of Martial Succession", \
-		'sound/misc/royal_decree2.ogg')
+		sound_contesting)
 	to_chat(invoker, span_notice("The warriors have spoken. The realm has been alerted. Stay near the throne for [RITE_CONTEST_DURATION / (1 MINUTES)] minutes and the succession is yours. You may move freely, but do not stray too far."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(complete)), RITE_CONTEST_DURATION, TIMER_STOPPABLE)
 
@@ -110,7 +110,7 @@
 		"and their authority is hereby revoked.\n\n" + \
 		"Long live [invoker.real_name], [SSticker.rulertype] of [SSticker.realm_name]!", \
 		"A New [SSticker.rulertype] Ascends", \
-		'sound/misc/royal_decree.ogg')
+		sound_victory)
 	to_chat(invoker, span_notice("Ravox's iron gaze settles upon you. The throne is yours."))
 
 /datum/usurpation_rite/martial_succession/on_fail(reason)
@@ -118,7 +118,7 @@
 		priority_announce( \
 			"The Rite of Martial Succession has failed. [reason] The sword has been sheathed.", \
 			"Rite Failed", \
-			'sound/misc/bell.ogg')
+			sound_failure)
 	if(invoker)
 		to_chat(invoker, span_warning("The Rite of Martial Succession has failed. [reason]"))
 

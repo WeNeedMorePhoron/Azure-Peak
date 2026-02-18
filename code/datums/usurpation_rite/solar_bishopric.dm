@@ -99,7 +99,7 @@
 		"The faithful have affirmed this claim.\n\n" + \
 		"The Sun's judgment shall fall in [RITE_CONTEST_DURATION / (1 MINUTES)] minutes -- unless the claim is struck down.", \
 		"Rite of Solar Bishopric", \
-		'sound/misc/royal_decree2.ogg')
+		sound_contesting)
 	to_chat(invoker, span_notice("The faithful have spoken. The realm has been alerted. Stay near the throne for [RITE_CONTEST_DURATION / (1 MINUTES)] minutes and the succession is yours. You may move freely, but do not stray too far."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(complete)), RITE_CONTEST_DURATION, TIMER_STOPPABLE)
 
@@ -114,7 +114,7 @@
 		"and their divine mandate is hereby revoked.\n\n" + \
 		"Long live [invoker.real_name], [SSticker.rulertype] of [SSticker.realm_name]!", \
 		"A New [SSticker.rulertype] Ascends", \
-		'sound/misc/royal_decree.ogg')
+		sound_victory)
 	to_chat(invoker, span_notice("The radiance of Astrata crowns you. The throne is yours."))
 
 /datum/usurpation_rite/solar_bishopric/on_fail(reason)
@@ -122,7 +122,7 @@
 		priority_announce( \
 			"The Rite of Solar Bishopric has failed. [reason] The sun sets on this claim.", \
 			"Rite Failed", \
-			'sound/misc/bell.ogg')
+			sound_failure)
 	if(invoker)
 		to_chat(invoker, span_warning("The Rite of Solar Bishopric has failed. [reason]"))
 

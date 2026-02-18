@@ -29,6 +29,9 @@
 	var/contest_started_at = 0
 	/// Optional epilogue text shown at round end if this rite completed successfully.
 	var/roundend_epilogue
+	var/sound_contesting = 'sound/misc/usurpation/rite_contesting.ogg'
+	var/sound_victory = 'sound/misc/usurpation/rite_victory.ogg'
+	var/sound_failure = 'sound/misc/usurpation/rite_failure.ogg'
 
 /datum/usurpation_rite/New()
 	. = ..()
