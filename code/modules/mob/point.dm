@@ -55,7 +55,7 @@
 
 	var/dist = get_dist(src, pointed_atom)
 	var/dir_text = dir2text(get_dir(src, pointed_atom))
-	if(dir_text && client && world.time > mob_timers["contact_callout"] + 10 SECONDS)
+	if(dir_text && client && mind && cmode && world.time > mob_timers["contact_callout"] + 10 SECONDS)
 		mob_timers["contact_callout"] = world.time
 		var/contact_name = pointed_atom.name
 		if(ishuman(pointed_atom))
