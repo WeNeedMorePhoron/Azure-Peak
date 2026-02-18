@@ -1,5 +1,5 @@
 /**
- # Rite of Martial Succession
+ # Rite of Martial Supercession
 
  Ravox-themed usurpation rite.
 
@@ -7,8 +7,8 @@
 
  Outlaws and the undead are explicitly excluded from this path - there's alternative paths for true antagonists.
  */
-/datum/usurpation_rite/martial_succession
-	name = "Rite of Martial Succession"
+/datum/usurpation_rite/martial_supercession
+	name = "Rite of Martial Supercession"
 	desc = "A crown means nothing if it cannot be defended. When the realm's ruler falters in their duty to protect the realm, true warriors must step up and take the mantle."
 	explanation = {"<p>A member of the retinue or garrison may claim the throne, rallying those proven in battle to their cause.</p>\
 <p><b>Who may invoke:</b> Members of the retinue (Marshal, Knight, Squire) or non-warden garrison (Sergeant, Man at Arms).</p>\
@@ -29,7 +29,7 @@
 		"Only time will tell if their rule will be marked by glory, tyranny or obscurity."
 
 /// Retinue and senior garrison can invoke. No outlaws or undead.
-/datum/usurpation_rite/martial_succession/can_invoke(mob/living/carbon/human/user)
+/datum/usurpation_rite/martial_supercession/can_invoke(mob/living/carbon/human/user)
 	if(!..())
 		return FALSE
 	if(!(user.job in GLOB.retinue_positions) && !(user.job in list("Sergeant", "Man at Arms")))
@@ -40,15 +40,15 @@
 		return FALSE
 	return TRUE
 
-/datum/usurpation_rite/martial_succession/on_gathering_started()
+/datum/usurpation_rite/martial_supercession/on_gathering_started()
 	to_chat(invoker, span_notice("The rite has begun. Warriors with Expert weapon skill must now speak 'I assent' near the throne. You require [MARTIAL_REQUIRED_ASSENTS] voices within [RITE_GATHERING_DURATION / (1 MINUTES)] minutes. Alternatively, the current ruler may say 'I abdicate' near the throne to yield."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(on_gathering_timeout)), RITE_GATHERING_DURATION, TIMER_STOPPABLE)
 
-/datum/usurpation_rite/martial_succession/on_gathering_timeout()
+/datum/usurpation_rite/martial_supercession/on_gathering_timeout()
 	fail("The warriors of the realm did not grant sufficient assent.")
 
 /// Override: warriors assent, not nobles. Check Expert+ combat skill instead of TRAIT_NOBLE.
-/datum/usurpation_rite/martial_succession/try_assent(mob/living/carbon/human/warrior)
+/datum/usurpation_rite/martial_supercession/try_assent(mob/living/carbon/human/warrior)
 	if(stage != RITE_STAGE_GATHERING)
 		return FALSE
 	if(!istype(warrior))
@@ -77,28 +77,28 @@
 	check_assent_threshold()
 	return TRUE
 
-/datum/usurpation_rite/martial_succession/on_assent_accepted(mob/living/carbon/human/warrior)
+/datum/usurpation_rite/martial_supercession/on_assent_accepted(mob/living/carbon/human/warrior)
 	warrior.visible_message( \
-		span_notice("[warrior.real_name] speaks their assent to the Rite of Martial Succession."), \
+		span_notice("[warrior.real_name] speaks their assent to the Rite of Martial Supercession."), \
 		span_notice("You speak your assent. Ravox acknowledges your voice."))
 	to_chat(invoker, span_notice("[warrior.real_name] has assented. ([length(assenters)]/[MARTIAL_REQUIRED_ASSENTS])"))
 
-/datum/usurpation_rite/martial_succession/check_assent_threshold()
+/datum/usurpation_rite/martial_supercession/check_assent_threshold()
 	if(length(assenters) >= MARTIAL_REQUIRED_ASSENTS)
 		start_contesting()
 
-/datum/usurpation_rite/martial_succession/on_contesting_started()
+/datum/usurpation_rite/martial_supercession/on_contesting_started()
 	priority_announce( \
-		"[invoker.real_name] has invoked the Rite of Martial Succession!\n\n" + \
+		"[invoker.real_name] has invoked the Rite of Martial Supercession!\n\n" + \
 		"In the name of Ravox, God of War and Justice, a claim is made upon the throne of [SSticker.realm_name].\n\n" + \
 		"A Council of Warriors has affirmed this claim.\n\n" + \
 		"Ravox's judgment shall fall in [RITE_CONTEST_DURATION / (1 MINUTES)] minutes -- unless the claim is struck down.", \
-		"Rite of Martial Succession", \
+		"Rite of Martial Supercession", \
 		sound_contesting)
 	to_chat(invoker, span_notice("The warriors have spoken. The realm has been alerted. Stay near the throne for [RITE_CONTEST_DURATION / (1 MINUTES)] minutes and the succession is yours. You may move freely, but do not stray too far."))
 	phase_timer_id = addtimer(CALLBACK(src, PROC_REF(complete)), RITE_CONTEST_DURATION, TIMER_STOPPABLE)
 
-/datum/usurpation_rite/martial_succession/on_complete()
+/datum/usurpation_rite/martial_supercession/on_complete()
 	var/mob/living/old_ruler = SSticker.rulermob
 	var/old_ruler_name = old_ruler?.real_name || "Their predecessor"
 	..()
@@ -113,25 +113,25 @@
 		sound_victory)
 	to_chat(invoker, span_notice("Ravox's iron gaze settles upon you. The throne is yours."))
 
-/datum/usurpation_rite/martial_succession/on_fail(reason)
+/datum/usurpation_rite/martial_supercession/on_fail(reason)
 	if(stage >= RITE_STAGE_CONTESTING)
 		priority_announce( \
-			"The Rite of Martial Succession has failed. [reason] The sword has been sheathed.", \
+			"The Rite of Martial Supercession has failed. [reason] The sword has been sheathed.", \
 			"Rite Failed", \
 			sound_failure)
 	if(invoker)
-		to_chat(invoker, span_warning("The Rite of Martial Succession has failed. [reason]"))
+		to_chat(invoker, span_warning("The Rite of Martial Supercession has failed. [reason]"))
 
 
-/datum/usurpation_rite/martial_succession/get_status_text()
+/datum/usurpation_rite/martial_supercession/get_status_text()
 	switch(stage)
 		if(RITE_STAGE_GATHERING)
-			return "The Rite of Martial Succession is underway. [length(assenters)]/[MARTIAL_REQUIRED_ASSENTS] warriors have spoken their assent."
+			return "The Rite of Martial Supercession is underway. [length(assenters)]/[MARTIAL_REQUIRED_ASSENTS] warriors have spoken their assent."
 		if(RITE_STAGE_CONTESTING)
 			return "The Council of Arms has affirmed [invoker?.real_name]'s claim. Ravox's judgment approaches."
 	return null
 
-/datum/usurpation_rite/martial_succession/get_periodic_announcement()
+/datum/usurpation_rite/martial_supercession/get_periodic_announcement()
 	switch(stage)
 		if(RITE_STAGE_GATHERING)
 			return "[invoker?.real_name] claims the throne by right of arms. Warriors, speak your assent -- or stop them. ([length(assenters)]/[MARTIAL_REQUIRED_ASSENTS] voices)"
@@ -147,7 +147,7 @@
 	return null
 
 /// Returns TRUE if the mob has Expert (4+) in any combat skill.
-/datum/usurpation_rite/martial_succession/proc/has_expert_combat_skill(mob/living/carbon/human/user)
+/datum/usurpation_rite/martial_supercession/proc/has_expert_combat_skill(mob/living/carbon/human/user)
 	for(var/skill_type in SSskills.all_skills)
 		var/datum/skill/skill_ref = SSskills.all_skills[skill_type]
 		if(!istype(skill_ref, /datum/skill/combat))

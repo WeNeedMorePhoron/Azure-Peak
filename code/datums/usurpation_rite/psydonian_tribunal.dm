@@ -9,6 +9,8 @@
 
  Only the Inquisition (Inquisitor, Absolver, Orthodoxist) can invoke. Any Psydonites who is not an undead (sorry Psydonite skeleton) can assent - so Psydon Heretics can participate with Inquisition members.
 
+The epilogue implies an impending war with Grenzelhoft - for breaking the status quo and the balance of power. But we don't want admins or events to actually diminish the impact within the round, so it is implied to be a threat from the outside after the week is over (and the round reset). Unlike the Sacred Supercession version, this one is framed as far less legitimate and troublesome as the Inquisition is not the established or majority religion of the land.
+
 */
 
 /datum/usurpation_rite/psydonian_tribunal
@@ -17,17 +19,32 @@
 	explanation = {"<p>The Inquisition may claim the throne through appeal to other Psydonites - provided they can hold the realm against any opposition.</p>\
 <p><b>Who may invoke:</b> Members of the Inquisition (Inquisitor, Absolver, Orthodoxist).</p>\
 <p><b>How it works:</b> Followers of Psydon must gather near the throne and speak the words 'I assent' to support your claim.</p>\
-<p><b>Completion condition:</b> Only <b>4</b> followers of Psydon must speak their assent. Once the threshold is reached, the realm is alerted and a contestation period begins — survive it and stay conscious while remaining near the throne, and it is yours.</p>\
+<p><b>Completion condition:</b> Only <b>4</b> followers of Psydon may speak their assent. Once the threshold is reached, the realm is alerted and a contestation period begins — survive it and stay conscious while remaining near the throne, and it is yours.</p>\
 <p><b>Restrictions:</b> Only followers of Psydon may invoke or assent. The undead are excluded, but not outlaws.</p>\
 <p><b>Realm type if successful:</b> Ordinate, ruled by a Grand Inquisitor.</p>"}
 	new_ruler_title = "Grand Inquisitor"
 	new_ruler_title_f = "Grand Inquisitor"
 	new_realm_type = "Ordinate"
 	new_realm_type_short = "Ordinate"
-	roundend_epilogue = "A bonfire rises to the north. " + \
-		"Otava might've won a battle. " + \
-		"But the war for influence over the realm is not over. " + \
-		"Grenzelhoft will not sit idle."
+	roundend_epilogue = \
+		"The Inquisition has seized power in the name of Psydon. " + \
+		"An oddity that no one saw coming. " + \
+		"The Inquisition - fanatics, criminals, assassins, the best and the dregs of His faithful - " + \
+		"now rule in His name, over a realm of Tennites who have long since abandoned Psydon " + \
+		"for His children that will listen to their prayers. " + \
+		"How long can this rule last?" + \
+		"\n\n" + \
+		"To the north, the smoke of a signal fire rises. " + \
+		"Through this takeover, the Inquisition has broken the balance of power that kept the realm sovereign. " + \
+		"How can a wretched sect of Psydonian fanatics rule a realm of Tennites, " + \
+		"once the proud heart of the very Celestial Empire, the very place of Comet Syon, " + \
+		"where it is said that the very gods were created, from the shard of His divinity? " + \
+		"Grenzelhoft will not stand idle while Otavan fanatics rule the heart of the realm, " + \
+		"and neither will the many Tennite nobles of the land, eager to reclaim the throne for themselves. " + \
+		"War is coming." + \
+		"\n\n" + \
+		"But just as Psydon stirs and endures for His return, " + \
+		"so does the Inquisition endure to re-establish His rule upon Psydonia."
 
 /// Only Inquisition members (Inquisitor, Absolver, Orthodoxist) who follow Psydon can invoke. No undead.
 /datum/usurpation_rite/psydonian_tribunal/can_invoke(mob/living/carbon/human/user)

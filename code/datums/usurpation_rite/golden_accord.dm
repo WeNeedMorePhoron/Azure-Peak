@@ -3,7 +3,9 @@
 
  Republic-coded usurpation rite. Subtly Matthios coded.
 
- Design intent: Makes the merchant class a political threat. Makes steward an insider threat, and gives the Merchant in particular a path to the throne. Guildmaster and Bathmatron can also invoke it. No god is invoked - originally I intended for Matthios to be invoked but that would immediately make them valid in the eyes of everyone. So instead, any reference or accusation of heresy is tangential and this is framed as a purely secular assertion of commercial power. The invoker needs 200 mammons in their bank account at the time of invocation / assent. 
+ Design intent: Makes the merchant class a political threat. Makes steward an insider threat, and gives the Merchant in particular a path to the throne. Guildmaster and Bathmatron can also invoke it. No god is invoked - originally I intended for Matthios to be invoked but that would immediately make them valid in the eyes of everyone. So instead, any reference or accusation of heresy is tangential and this is framed as a purely secular assertion of commercial power. 
+ 
+ The assenter needs 200 mammons in their bank account at the time of invocation / assent. (Not the invoker, that was too inconvenient from my own testing). Steward should have the easiest time by just assigning paper money to would be plotter - and merchant can hand out money. This means a Steward could in theory, stop such a plot easily through fining.
 
  Not accessible to outlaws and undead.
  */
@@ -13,12 +15,12 @@
 	desc = "The old ways of noble blood and divine right are outdated. End rule by blood and establish a republic, where those who earn their wealth through wits and grit can claim the throne!"
 	explanation = {"<p>No god is invoked here (Or is there...?) — only the weight of coin and the will of the people who move it.</p>\
 <p><b>Who may invoke:</b> The Steward, Merchant, Guildmaster, or Bathmaster — the coinmaster, and the natural leader(s) of the burghers.</p>\
-<p><b>How it works:</b> Anyone with a bank account in the realm with 200 mammons or more must gather near the throne and speak the words 'I assent' to support your claim.</p>\
+<p><b>How it works:</b> Anyone with a total of at least 200 mammons in their bank account or person must gather near the throne and speak the words 'I assent' to support your claim.</p>\
 <p><b>Completion condition:</b> <b>7</b> citizens must speak their assent. Once the threshold is reached, the realm is alerted and a contestation period begins — survive it and stay conscious while remaining near the throne, and it is yours.</p>\
 <p><b>Restrictions:</b> Outlaws and the undead may not invoke or assent to this rite.</p>\
-<p><b>Realm type if successful:</b> Republic, ruled by a Chancellor.</p>"}
-	new_ruler_title = "Chancellor"
-	new_ruler_title_f = "Chancellor"
+<p><b>Realm type if successful:</b> Republic, ruled by a Grand Consul.</p>"}
+	new_ruler_title = "Grand Consul"
+	new_ruler_title_f = "Grand Consul"
 	new_realm_type = "Republic"
 	new_realm_type_short = "Republic"
 	roundend_epilogue = "The quill has proven mightier than the sword. " + \
@@ -59,11 +61,8 @@
 	if(burgher == invoker)
 		to_chat(burgher, span_warning("You cannot assent to your own claim."))
 		return FALSE
-	if(!(burgher in SStreasury.bank_accounts))
-		to_chat(burgher, span_warning("Only those with a bank account may speak assent to this accord."))
-		return FALSE
 	if(get_total_wealth(burgher) < GOLDEN_REQUIRED_WEALTH)
-		to_chat(burgher, span_warning("Come back when you have twenty zenarii in the bank, pauper."))
+		to_chat(burgher, span_warning("You need at least [GOLDEN_REQUIRED_WEALTH] mammons to your name to speak assent, pauper."))
 		return FALSE
 	if(HAS_TRAIT(burgher, TRAIT_OUTLAW))
 		to_chat(burgher, span_warning("Outlaws have no standing in matters of commerce."))

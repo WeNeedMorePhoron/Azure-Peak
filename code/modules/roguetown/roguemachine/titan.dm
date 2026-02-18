@@ -483,9 +483,9 @@ GLOBAL_VAR_INIT(last_crown_announcement_time, -1000)
 	var/static/list/available_rites = list(
 		/datum/usurpation_rite/solar_succession,
 		/datum/usurpation_rite/lunar_ascension,
-		/datum/usurpation_rite/martial_succession,
+		/datum/usurpation_rite/martial_supercession,
 		/datum/usurpation_rite/golden_accord,
-		/datum/usurpation_rite/solar_bishopric,
+		/datum/usurpation_rite/sacred_supercession,
 		/datum/usurpation_rite/progressive_dominion,
 		/datum/usurpation_rite/popular_acclaim,
 		/datum/usurpation_rite/psydonian_tribunal,
