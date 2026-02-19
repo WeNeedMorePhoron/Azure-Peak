@@ -619,6 +619,8 @@
 
 	else //not currently sneaking, check if we can sneak
 		if (m_intent == MOVE_INTENT_SNEAK) // we were not sneaking and are now trying to.
+			if(world.time < mob_timers[MT_FOUNDSNEAK] + 30 SECONDS) // recently discovered or broke stealth, can't re-sneak yet
+				return
 			light_amount = T.get_lumcount()  // as above, this is moderately expensive, so only check it if we need to.
 			if(light_amount < light_threshold)
 				animate(src, alpha = 0, time = used_time)
