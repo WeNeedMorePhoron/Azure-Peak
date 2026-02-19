@@ -179,10 +179,10 @@
 
 /obj/projectile/bullet/reusable/heavy_bolt
 	name = "heavy bolt"
-	damage = BOLT_DAMAGE
+	damage = BOLT_DAMAGE + 20 // +33% the damage.
 	damage_type = BRUTE
 	armor_penetration = BOLT_PENETRATION + 25 // +50% the penetrative power.
-	object_damage_multiplier = 18 //Determines the multiplier that's applied to the bolt's damage value, when striking a structure. By default, it can destroy any wooden defense - a door, barricade, wall - in one shot.
+	object_damage_multiplier = 14 //Determines the multiplier that's applied to the bolt's damage value, when striking a structure. By default, it can destroy any wooden defense - a door, barricade, wall - in one shot.
 	wall_impact_break_probability = 100 //Determines the chance that a bolt will destroy itself, when striking a structure. By default, it will always destroy itself after successfully impacting a wall.
 	damages_turf_walls = TRUE //Determines whether the bolt can damage turfs or not. By default, yes.
 	icon = 'icons/roguetown/weapons/ammo.dmi'
@@ -248,7 +248,7 @@
 
 /obj/projectile/bullet/reusable/heavy_bolt/aalloy
 	name = "decrepit heavy bolt"
-	damage = 60 
+	damage = BOLT_DAMAGE - 10
 	object_damage_multiplier = 20 //Ensures the bolt can still, at a minimum, destroy most wooden barricades and doors in one shot.
 	icon_state = "ancientbolt_proj"
 	poisontype = /datum/reagent/stampoison
@@ -534,7 +534,7 @@
 
 /obj/projectile/bullet/reusable/heavy_bolt/silver
 	name = "heavy silver bolt"
-	damage = 100
+	damage = BOLT_DAMAGE + 30
 	armor_penetration = 777 //Same damage, but with absolute penetration. 
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/heavy_bolt/silver
 	icon_state = "silvheavybolt_proj"
