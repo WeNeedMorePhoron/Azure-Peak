@@ -1111,6 +1111,7 @@
 	nodismemsleeves = TRUE
 	boobed = FALSE
 	sellprice = 10
+	salvage_result = /obj/item/natural/hide
 
 /obj/item/clothing/cloak/lordcloak/ladycloak
 	name = "ladylike shortcloak"
@@ -1140,6 +1141,7 @@
 	nodismemsleeves = TRUE
 	sleevetype = "shirt"
 	slot_flags = ITEM_SLOT_CLOAK
+	salvage_result = /obj/item/natural/hide/cured
 
 /obj/item/clothing/cloak/battlenun
 	name = "nun vestments"
@@ -1454,6 +1456,7 @@
 	nodismemsleeves = TRUE
 	inhand_mod = TRUE
 	resistance_flags = FIRE_PROOF
+	salvage_result = /obj/item/natural/hide/cured
 
 /obj/item/clothing/cloak/forrestercloak/snow
 	name = "snow cloak"
@@ -1518,6 +1521,7 @@
 	inhand_mod = FALSE
 	slot_flags = ITEM_SLOT_BACK_R|ITEM_SLOT_CLOAK
 	allowed_race = NON_DWARVEN_RACE_TYPES
+	salvage_result = /obj/item/natural/hide/cured
 
 /obj/item/clothing/cloak/psyaltrist
 	name = "psyalter's stole"
