@@ -41,6 +41,7 @@
 		)
 	H.set_blindness(0)
 	if(H.mind)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/shukuchi)
 		var/weapons = list("Naginata","Quarterstaff","Hwando")
 		var/weapon_choice = input(H, "Choose your weapon", "TAKE UP ARMS") as anything in weapons
 		switch(weapon_choice)
