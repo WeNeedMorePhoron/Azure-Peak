@@ -193,12 +193,23 @@
 			pic.color = get_detail_color()
 		add_overlay(pic)
 
-//pretzel's special sword
+//pretzel's special things
 /obj/item/rogueweapon/greatsword/weeperslathe
 	name = "Weeper's Lathe"
 	desc = "A recreation of a gilbronze greatsword, wrought in steel. Inscribed on the blade is a declaration: \"I HAVE ONLY A SHORT TYME TO LYVE, BUT I AM NOT AFRAID TO DIE.\""
 	icon_state = "weeperslathe"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
+
+/obj/item/clothing/head/roguetown/duelhat/pretzel
+	name = "rethrifted gravedigger's hat" 
+	desc = "A gravetender's dark leather slouch, refitted with a golden dragon-sigil. Who needs a steel skullcap when you have dumb luck? <br> \
+	\"You ever feel like nothin' good was ever gonna happen to you?\" <br> \
+	\"Yeah, and nothin' did. So what?\""
+	color = null
+	icon_state = "pretzel_stolenhat"
+	item_state = "pretzel_stolenhat"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 
 //inverserun's claymore
 /obj/item/rogueweapon/greatsword/zwei/inverserun
