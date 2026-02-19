@@ -182,7 +182,7 @@
 	damage = BOLT_DAMAGE
 	damage_type = BRUTE
 	armor_penetration = BOLT_PENETRATION + 25 // +50% the penetrative power.
-	object_damage_multiplier = 10 //Determines the multiplier that's applied to the bolt's damage value, when striking a structure. By default, it can destroy any wooden defense - a door, barricade, wall - in one shot.
+	object_damage_multiplier = 18 //Determines the multiplier that's applied to the bolt's damage value, when striking a structure. By default, it can destroy any wooden defense - a door, barricade, wall - in one shot.
 	wall_impact_break_probability = 100 //Determines the chance that a bolt will destroy itself, when striking a structure. By default, it will always destroy itself after successfully impacting a wall.
 	damages_turf_walls = TRUE //Determines whether the bolt can damage turfs or not. By default, yes.
 	icon = 'icons/roguetown/weapons/ammo.dmi'
@@ -194,7 +194,7 @@
 	woundclass = BCLASS_PIERCE
 	flag = "piercing"
 	speed = 1.2
-	npc_simple_damage_mult = 3 //..or 360 damage against mindless opponents. Run them through!
+	npc_simple_damage_mult = 5 //..or 350 damage against mindless opponents. Run them through!
 
 /obj/item/ammo_casing/caseless/rogue/heavy_bolt/getonmobprop(tag)
 	. = ..()
@@ -233,7 +233,6 @@
 	name = "blunt heavy bolt"
 	armor_penetration = 0
 	embedchance = 0 //'If you're reading this, duck!'
-	object_damage_multiplier = 15 //Ensures the bolt can still, at a minimum, destroy most wooden barricades and doors in one shot.
 	woundclass = BCLASS_BLUNT
 	flag = "blunt"
 	icon_state = "heavybolt_proj"
@@ -543,7 +542,7 @@
 	speed = 0.8 //Same speed as a crossbow bolt. 
 	poisontype = /datum/reagent/water/blessed
 	poisonamount = 10
-	npc_simple_damage_mult = 10 //..or 1200 damage against a mindless mob. If you're using this against one, you're either a fool or have no other choice left. Godspeed.
+	npc_simple_damage_mult = 10 //..or 1000 damage against a mindless mob. If you're using this against one, you're either a fool or have no other choice left. Godspeed.
 
 // PYRO AMMO
 /obj/item/ammo_casing/caseless/rogue/bolt/pyro
