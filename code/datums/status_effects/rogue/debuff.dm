@@ -951,10 +951,9 @@
 		return FALSE
 	var/mob/living/carbon/human/H = owner
 	var/datum/physiology/phy = H.physiology 
-	var/bleed_mod = phy.bleed_mod
 	var/con_mod = H.STACON - 10 // this gets NASTY as you bleed out.
 	if(con_mod > 0)
-		clamp(con_mod, 1, CONSTITUTION_BLEEDRATE_CAP - 10)
+		con_mod = clamp(con_mod, 1, CONSTITUTION_BLEEDRATE_CAP - 10)
 		phy.bleed_mod = 1.15 + (con_mod * 0.1) // at 15 con you'll bleed from a wound by .825
 	else
 		phy.bleed_mod = 1.15 // if you already have low con, we're not going to turbofuck you. ok?
