@@ -162,6 +162,12 @@
 	// Admin log the dash
 	log_combat(H, target, "used Shukuchi on", addition="(DIST: [distance], MOBS_HIT: [length(mobs_in_path)])")
 
+	// Consume all arcyne momentum stacks (Issen releases tension)
+	var/datum/status_effect/buff/arcyne_momentum/momentum = H.has_status_effect(/datum/status_effect/buff/arcyne_momentum)
+	if(momentum && momentum.stacks > 0)
+		var/consumed = momentum.consume_all_stacks()
+		to_chat(H, span_notice("[consumed] momentum released!"))
+
 	// --- Strike every mob that was in the path (delayed 0.5s for drama) ---
 
 	// Capture body zone NOW — it may change by the time the delayed strike fires

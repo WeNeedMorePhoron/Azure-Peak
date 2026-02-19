@@ -144,6 +144,85 @@
 		if(/datum/patron/inhumen/zizo)
 			H.cmode_music = 'sound/music/combat_heretic.ogg'
 
+/datum/advclass/mage/spellblade2
+	name = "Spellblade 2"
+	tutorial = "A melee warrior who channels arcyne momentum through combat. Build power with your blade, then unleash it."
+	outfit = /datum/outfit/job/roguetown/adventurer/spellblade2
+	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_ARCYNE_T2)
+	subclass_stats = list(
+		STATKEY_STR = 2,
+		STATKEY_INT = 1,
+		STATKEY_CON = 1,
+		STATKEY_WIL = 1,
+	)
+	subclass_spellpoints = 12
+	subclass_skills = list(
+		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/shields = SKILL_LEVEL_NOVICE,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/magic/arcane = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
+	)
+
+/datum/outfit/job/roguetown/adventurer/spellblade2/pre_equip(mob/living/carbon/human/H)
+	..()
+	to_chat(H, span_warning("A melee warrior who channels arcyne momentum through combat. Build power with your blade, then unleash it."))
+	head = /obj/item/clothing/head/roguetown/bucklehat
+	shoes = /obj/item/clothing/shoes/roguetown/boots
+	pants = /obj/item/clothing/under/roguetown/trou/leather
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
+	gloves = /obj/item/clothing/gloves/roguetown/angle
+	belt = /obj/item/storage/belt/rogue/leather
+	neck = /obj/item/clothing/neck/roguetown/chaincoif
+	backl = /obj/item/storage/backpack/rogue/satchel
+	beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	backpack_contents = list(/obj/item/flashlight/flare/torch = 1, /obj/item/recipe_book/survival = 1)
+	if(H.mind)
+		// Arcyne Bind — binds held weapon as momentum conduit
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/arcyne_bind)
+		// Issen — always available, consumes all momentum as "release"
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/shukuchi)
+		// Momentum-gated test spells (grey out until enough stacks)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/repulse/momentum/t1)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/repulse/momentum/t2)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/repulse/momentum/t3)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/repulse/momentum/t4)
+	// Status effect applied on first bind (self-healing via conduit component), but seed it now for the alert
+	H.apply_status_effect(/datum/status_effect/buff/arcyne_momentum)
+	H.cmode_music = 'sound/music/cmode/adventurer/combat_outlander3.ogg'
+	if(H.mind)
+		var/weapons = list("Longsword", "Falchion & Wooden Shield", "Messer & Wooden Shield", "Hwando")
+		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+		switch(weapon_choice)
+			if("Longsword")
+				beltr = /obj/item/rogueweapon/scabbard/sword
+				r_hand = /obj/item/rogueweapon/sword/long
+				armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
+			if("Falchion & Wooden Shield")
+				beltr = /obj/item/rogueweapon/scabbard/sword
+				backr = /obj/item/rogueweapon/shield/wood
+				r_hand = /obj/item/rogueweapon/sword/short/falchion
+				armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
+				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_APPRENTICE, TRUE)
+			if("Messer & Wooden Shield")
+				beltr = /obj/item/rogueweapon/scabbard/sword
+				backr = /obj/item/rogueweapon/shield/wood
+				r_hand = /obj/item/rogueweapon/sword/short/messer/iron
+				armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
+				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_APPRENTICE, TRUE)
+			if("Hwando")
+				r_hand = /obj/item/rogueweapon/sword/sabre/mulyeog
+				beltr = /obj/item/rogueweapon/scabbard/sword
+				armor = /obj/item/clothing/suit/roguetown/armor/basiceast
+	switch(H.patron?.type)
+		if(/datum/patron/inhumen/zizo)
+			H.cmode_music = 'sound/music/combat_heretic.ogg'
+
 /datum/advclass/mage/spellsinger
 	name = "Spellsinger"
 	tutorial = "You belong to a school of bards renowned for their study of both the arcane and the arts."
