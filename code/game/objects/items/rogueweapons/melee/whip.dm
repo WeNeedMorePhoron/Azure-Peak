@@ -49,11 +49,11 @@
 	icon_state = "inlash"
 	item_d_type = "slash"
 
-//Exclusive variant to whips with alloyed tips and high Strength requirements. Nearly one-to-one with conventional lashes, with the added capability to dismember.
+//Exclusive variant to whips with alloyed tips and high Strength requirements. On par with a traditional lash, but can dismember from afar.
 /datum/intent/whip/lash/master
 	name = "lash with dismembering force"
-	desc = "Lash the whip against a target from afar, leveraging your strength - and the whip's tip - to rip them apart. </br>Uniquely deals lashing wounds, which inflicts tremendous blood loss and pain onto the target. </br>Critical hits can uniquely dismember limbs and cause disembowelements. </br>Lesser critical hits leave permenant scars, unremovable under most circumstances."
-	blade_class = BCLASS_LASHINGPLUS //Performs very similarly to regular lashes, but with the added bonus of being able to dismember limbs.
+	desc = "Lash the whip against a target from afar, leveraging your strength to lash their limbs apart. </br>Critical hits can uniquely dismember limbs and cause disembowelements."
+	blade_class = BCLASS_CUT
 	attack_verb = list("deftly lashes", "sharply cracks")
 
 //Crack = cut damage, can dismember, so lower range.
@@ -137,7 +137,7 @@
 	icon_state = "bronzewhip"
 	force = 21
 	minstr = 11
-	possible_item_intents = list(/datum/intent/whip/lash/holy, /datum/intent/whip/crack, /datum/intent/whip/punish)
+	possible_item_intents = list(/datum/intent/whip/lash/master, /datum/intent/whip/crack, /datum/intent/whip/punish)
 	smeltresult = /obj/item/ingot/bronze
 
 /obj/item/rogueweapon/whip/antique/psywhip
@@ -146,7 +146,7 @@
 	icon_state = "psywhip"
 	is_silver = TRUE
 	force = 25
-	possible_item_intents = list(/datum/intent/whip/lash/holy, /datum/intent/whip/crack, /datum/intent/whip/punish)
+	possible_item_intents = list(/datum/intent/whip/lash/master, /datum/intent/whip/crack, /datum/intent/whip/punish)
 	minstr = 11
 	wdefense = 0
 	anvilrepair = /datum/skill/craft/weaponsmithing
