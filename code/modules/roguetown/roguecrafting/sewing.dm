@@ -1161,6 +1161,16 @@
 	craftdiff = 4
 	sellprice = 10
 
+/datum/crafting_recipe/roguetown/sewing/desert_skirt
+	name = "desert skirt"
+	category = "Misc"
+	result = list(/obj/item/clothing/under/roguetown/skirt/desert)
+	reqs = list(/obj/item/natural/cloth = 1,
+				/obj/item/natural/fibers = 2)
+	tools = list(/obj/item/needle)
+	craftdiff = 4
+	sellprice = 5
+
 /datum/crafting_recipe/roguetown/sewing/sailorspants
 	name = "sailor's pants"
 	category = "Pants"
