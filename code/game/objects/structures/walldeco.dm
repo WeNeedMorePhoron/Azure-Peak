@@ -396,6 +396,8 @@
 		say("INTRUS! ARRESTEZ-VOUS! GARDES! GARDES! MAROUFLE A MORTIR!!")
 		next_yap = world.time + 6 SECONDS
 
+#undef STEAK_ALARM_DISABLE_TIME
+
 /obj/structure/fluff/walldeco/vinez // overlay vines for more flexibile mapping
 	icon_state = "vinez"
 
