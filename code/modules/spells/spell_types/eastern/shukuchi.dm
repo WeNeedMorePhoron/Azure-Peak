@@ -18,7 +18,7 @@
 		Damage type is determined by your weapon's current intent."
 	clothes_req = FALSE
 	range = 7
-	overlay_state = "rune6"
+	overlay_state = "shadowstep"
 	releasedrain = 25
 	chargedrain = 1
 	chargetime = 1
@@ -159,11 +159,16 @@
 	do_teleport(H, dest, channel = TELEPORT_CHANNEL_MAGIC)
 	playsound(dest, 'sound/magic/blink.ogg', 25, TRUE)
 
-	// --- Strike every mob that was in the path ---
+	// Admin log the dash
+	log_combat(H, target, "used Shukuchi on", addition="(DIST: [distance], MOBS_HIT: [length(mobs_in_path)])")
 
-	for(var/mob/living/victim in mobs_in_path)
-		if(victim.stat != DEAD)
-			execute_strike(H, victim, held_weapon)
+	// --- Strike every mob that was in the path (delayed 0.5s for drama) ---
+
+	// Capture body zone NOW — it may change by the time the delayed strike fires
+	var/locked_zone = H.zone_selected || BODY_ZONE_CHEST
+
+	if(length(mobs_in_path))
+		addtimer(CALLBACK(src, PROC_REF(execute_path_strikes), H, mobs_in_path, held_weapon, locked_zone), 5) // 5 deciseconds = 0.5s
 
 	return TRUE
 
@@ -176,6 +181,15 @@
 		return far_side
 	// Fallback to the mob's own turf
 	return get_turf(target_mob)
+
+/// Delayed strike callback — fires 0.5s after the dash so shadows appear first.
+/obj/effect/proc_holder/spell/invoked/shukuchi/proc/execute_path_strikes(mob/living/carbon/human/user, list/victims, obj/item/weapon, def_zone)
+	if(!user || QDELETED(user))
+		return
+	for(var/mob/living/victim in victims)
+		if(QDELETED(victim) || victim.stat == DEAD)
+			continue
+		execute_strike(user, victim, weapon, rand(strike_damage_min, strike_damage_max), def_zone)
 
 /// Spawns paired afterimages offset to the left and right edges of the path, like shadow flanks.
 /// Uses /obj/effect/after_image with zero pixel offsets (no wobble). Pattern from Fae Wrath.
@@ -246,57 +260,80 @@
 				img.pixel_y = back_py
 	QDEL_LIST_IN(images, 2 SECONDS)
 
-/// Delivers a weapon-aware strike with armor interaction and crit rolls.
-/// Applies damage via apply_damage, then calls bodypart_attacked_by for wound/crit chance.
-/// Mirrors the species.dm attack flow (lines 1819-1839) without going through the click pipeline.
-/obj/effect/proc_holder/spell/invoked/shukuchi/proc/execute_strike(mob/living/carbon/human/user, mob/living/target, obj/item/weapon)
-	// Determine damage type from current weapon intent (adapted from Air Blade)
+/// Delivers a weapon-aware strike with armor interaction, crit/wound rolls, attack animation, and admin logging.
+/// Mirrors the species.dm attack flow (armor check -> apply_damage -> bodypart_attacked_by)
+/// without going through the click pipeline.
+/obj/effect/proc_holder/spell/invoked/shukuchi/proc/execute_strike(mob/living/carbon/human/user, mob/living/target, obj/item/weapon, damage, def_zone, blade_class_override)
+	// Determine damage type from weapon intent unless overridden
 	var/blade_class = BCLASS_CUT
 	var/attack_flag = "slash"
-	var/datum/intent/current_intent = user.a_intent
-	if(current_intent)
-		switch(current_intent.blade_class)
-			if(BCLASS_BLUNT, BCLASS_SMASH)
-				blade_class = BCLASS_BLUNT
-				attack_flag = "blunt"
-			if(BCLASS_STAB, BCLASS_PICK)
-				blade_class = BCLASS_STAB
-				attack_flag = "stab"
+	if(blade_class_override)
+		blade_class = blade_class_override
+	else
+		var/datum/intent/current_intent = user.a_intent
+		if(current_intent)
+			blade_class = current_intent.blade_class
 
-	// Body zone: user's aim or chest
-	var/def_zone = user.zone_selected || BODY_ZONE_CHEST
+	// Map blade class to armor flag and normalized class for armor/sounds
+	switch(blade_class)
+		if(BCLASS_BLUNT, BCLASS_SMASH)
+			blade_class = BCLASS_BLUNT
+			attack_flag = "blunt"
+		if(BCLASS_STAB, BCLASS_PICK)
+			blade_class = BCLASS_STAB
+			attack_flag = "stab"
+		else
+			blade_class = BCLASS_CUT
+			attack_flag = "slash"
 
-	// Damage and armor
-	var/damage = rand(strike_damage_min, strike_damage_max)
+	// Body zone: explicit, or user's aim, or chest
+	if(!def_zone)
+		def_zone = user.zone_selected || BODY_ZONE_CHEST
+
+	// Attack animation (visual weapon swing on the target)
+	var/visual_effect = ATTACK_EFFECT_SLASH
+	var/anim_type = ATTACK_ANIMATION_SWIPE
+	switch(blade_class)
+		if(BCLASS_BLUNT)
+			visual_effect = ATTACK_EFFECT_SMASH
+			anim_type = ATTACK_ANIMATION_BONK
+		if(BCLASS_STAB)
+			anim_type = ATTACK_ANIMATION_THRUST
+	user.do_attack_animation(target, visual_effect, weapon, item_animation_override = anim_type)
+
+	// Armor check and damage application
 	var/armor_block = target.run_armor_check(def_zone, attack_flag, blade_dulling = blade_class, damage = damage)
 	target.apply_damage(damage, BRUTE, def_zone, armor_block)
 
-	// Crit/wound roll on the bodypart (mirrors species.dm line 1839)
+	// Crit/wound roll on bodypart (mirrors species.dm line 1839)
 	var/effective_damage = damage * ((100 - armor_block) / 100)
-	if(effective_damage > 0 && iscarbon(target))
-		var/mob/living/carbon/C = target
-		var/obj/item/bodypart/affecting = C.get_bodypart(check_zone(def_zone))
-		if(affecting)
-			affecting.bodypart_attacked_by(blade_class, effective_damage, user, def_zone, crit_message = TRUE, weapon = weapon)
-	else if(effective_damage > 0 && !iscarbon(target))
-		// Simple mobs without bodyparts
-		target.simple_woundcritroll(blade_class, effective_damage, user, def_zone, crit_message = TRUE)
+	if(effective_damage > 0)
+		if(iscarbon(target))
+			var/mob/living/carbon/C = target
+			var/obj/item/bodypart/affecting = C.get_bodypart(check_zone(def_zone))
+			if(affecting)
+				affecting.bodypart_attacked_by(blade_class, effective_damage, user, def_zone, crit_message = TRUE, weapon = weapon)
+		else
+			target.simple_woundcritroll(blade_class, effective_damage, user, def_zone, crit_message = TRUE)
 
-	// Feedback
+	// Hit sound and message
 	var/attack_verb = "strikes"
-	var/hit_sound = 'sound/combat/hits/bladed/smallslash (1).ogg'
+	var/hit_sound
 	switch(blade_class)
 		if(BCLASS_CUT)
 			attack_verb = "slashes"
-			hit_sound = 'sound/combat/hits/bladed/smallslash (1).ogg'
+			hit_sound = pick('sound/combat/hits/bladed/largeslash (1).ogg', 'sound/combat/hits/bladed/largeslash (2).ogg', 'sound/combat/hits/bladed/largeslash (3).ogg')
 		if(BCLASS_BLUNT)
 			attack_verb = "smashes"
-			hit_sound = 'sound/combat/hits/blunt/shovel_hit2.ogg'
+			hit_sound = pick('sound/combat/hits/blunt/genblunt (1).ogg', 'sound/combat/hits/blunt/genblunt (2).ogg', 'sound/combat/hits/blunt/genblunt (3).ogg')
 		if(BCLASS_STAB)
 			attack_verb = "stabs"
-			hit_sound = 'sound/combat/hits/bladed/genstab (3).ogg'
+			hit_sound = pick('sound/combat/hits/bladed/genthrust (1).ogg', 'sound/combat/hits/bladed/genthrust (2).ogg')
 
 	playsound(get_turf(target), hit_sound, 100, TRUE)
 	user.visible_message(
-		span_danger("[user] [attack_verb] [target] with [weapon]!"),
-		span_notice("I [attack_verb] [target] with my [weapon]!"))
+		span_danger("[user] [attack_verb] [target] with [weapon.name]!"),
+		span_notice("I [attack_verb] [target] with my [weapon.name]!"))
+
+	// Admin logging
+	log_combat(user, target, "spell-struck", weapon, "(SPELL: Shukuchi) (BCLASS: [attack_flag]) (DMG: [damage]) (ZONE: [def_zone])")
