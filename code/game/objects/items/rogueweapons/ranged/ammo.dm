@@ -527,7 +527,6 @@
 /obj/item/ammo_casing/caseless/rogue/heavy_bolt/silver
 	name = "heavy silver bolt"
 	desc = "A silvered lance, poised to impale the unimaginable. You feel the hands of another guiding your own, as you prepare to load; may it be guidence from a higher power, or your wit upon the verge of breaking? </br>'God, please..'"
-	armor_penetration = 120
 	projectile_type = /obj/projectile/bullet/reusable/heavy_bolt/silver
 	icon_state = "silvheavybolt"
 	max_integrity = 30
@@ -536,7 +535,7 @@
 
 /obj/projectile/bullet/reusable/heavy_bolt/silver
 	name = "heavy silver bolt"
-	damage = 120
+	damage = 100
 	armor_penetration = 777 //Same damage, but with absolute penetration. 
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/heavy_bolt/silver
 	icon_state = "silvheavybolt_proj"
