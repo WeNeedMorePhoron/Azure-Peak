@@ -168,9 +168,17 @@
 		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
 	)
 
+/datum/outfit/job/roguetown/adventurer/spellblade2
+	var/subclass_selected
+
+/datum/outfit/job/roguetown/adventurer/spellblade2/Topic(href, href_list)
+	. = ..()
+	if(href_list["subclass"])
+		subclass_selected = href_list["subclass"]
+
 /datum/outfit/job/roguetown/adventurer/spellblade2/pre_equip(mob/living/carbon/human/H)
 	..()
-	to_chat(H, span_warning("A melee warrior who channels arcyne momentum through combat. Build power with your blade, then unleash it."))
+	to_chat(H, span_warning("A melee warrior who channels arcyne momentum through combat. Build power with your weapon, then unleash it."))
 	head = /obj/item/clothing/head/roguetown/bucklehat
 	shoes = /obj/item/clothing/shoes/roguetown/boots
 	pants = /obj/item/clothing/under/roguetown/trou/leather
@@ -182,46 +190,274 @@
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	backpack_contents = list(/obj/item/flashlight/flare/torch = 1, /obj/item/recipe_book/survival = 1)
-	if(H.mind)
-		// Arcyne Bind — binds held weapon as momentum conduit
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/arcyne_bind)
-		// Issen — always available, consumes all momentum as "release"
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/shukuchi)
-		// Momentum-gated test spells (grey out until enough stacks)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/repulse/momentum/t1)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/repulse/momentum/t2)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/repulse/momentum/t3)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/repulse/momentum/t4)
-	// Status effect applied on first bind (self-healing via conduit component), but seed it now for the alert
+
+	// --- Subclass selection via HTML UI ---
+	subclass_selected = null
+	var/selection_html = get_subclass_selection_html(H)
+	H << browse(selection_html, "window=spellblade_oath;size=700x800")
+
+	// Wait for player to click a subclass button
+	var/timeout = 0
+	while(!subclass_selected && timeout < 600)
+		sleep(1)
+		timeout++
+	H << browse(null, "window=spellblade_oath")
+
+	if(!subclass_selected)
+		subclass_selected = "blade"
+
+	// Seed momentum status effect
 	H.apply_status_effect(/datum/status_effect/buff/arcyne_momentum)
-	H.cmode_music = 'sound/music/cmode/adventurer/combat_outlander3.ogg'
+
+	// --- Apply spells ---
 	if(H.mind)
-		var/weapons = list("Longsword", "Falchion & Wooden Shield", "Messer & Wooden Shield", "Hwando")
-		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
-		switch(weapon_choice)
-			if("Longsword")
-				beltr = /obj/item/rogueweapon/scabbard/sword
-				r_hand = /obj/item/rogueweapon/sword/long
-				armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
-			if("Falchion & Wooden Shield")
-				beltr = /obj/item/rogueweapon/scabbard/sword
-				backr = /obj/item/rogueweapon/shield/wood
-				r_hand = /obj/item/rogueweapon/sword/short/falchion
-				armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
-				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_APPRENTICE, TRUE)
-			if("Messer & Wooden Shield")
-				beltr = /obj/item/rogueweapon/scabbard/sword
-				backr = /obj/item/rogueweapon/shield/wood
-				r_hand = /obj/item/rogueweapon/sword/short/messer/iron
-				armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
-				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_APPRENTICE, TRUE)
-			if("Hwando")
-				r_hand = /obj/item/rogueweapon/sword/sabre/mulyeog
-				beltr = /obj/item/rogueweapon/scabbard/sword
-				armor = /obj/item/clothing/suit/roguetown/armor/basiceast
+		// Shared spells
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/arcyne_bind)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mending)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/enchant_weapon)
+		H.mind.adjust_spellpoints(2)
+
+		switch(subclass_selected)
+			if("blade")
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/shukuchi)
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/crescent_slash)
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/impale)
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/arcyne_riposte)
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/wind_wall)
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/excalibur)
+			if("phalangite")
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/azurean_phalanx)
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/azurean_javelin)
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/triumphant_arrival)
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/recall_weapon)
+				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, TRUE)
+
+	// --- Equipment (no weapon choice) ---
+	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
+	backr = /obj/item/rogueweapon/shield/wood
+	H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_APPRENTICE, TRUE)
+
+	switch(subclass_selected)
+		if("blade")
+			beltr = /obj/item/rogueweapon/scabbard/sword
+			r_hand = /obj/item/rogueweapon/sword/sabre/mulyeog
+		if("phalangite")
+			r_hand = /obj/item/rogueweapon/spear
+
+	H.cmode_music = 'sound/music/cmode/adventurer/combat_outlander3.ogg'
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
 			H.cmode_music = 'sound/music/combat_heretic.ogg'
+
+/// Builds the HTML subclass selection page with oath, ability preview, and clickable buttons
+/datum/outfit/job/roguetown/adventurer/spellblade2/proc/get_subclass_selection_html(mob/living/carbon/human/H)
+	var/grace_line
+	var/blade_oath
+	var/phalanx_oath
+
+	if(HAS_TRAIT(H, TRAIT_BLACKOAK))
+		blade_oath = {"<p><em>I am a blade unto myself.</em></p>
+<p><em>The sword is my law, and blood my ink.</em></p>
+<p><em>With a hundred cuts I shall carve my own path.</em></p>
+<p><em>No grace required — only steel.</em></p>"}
+		phalanx_oath = {"<p><em>I am a wall unto myself.</em></p>
+<p><em>The spear is my law, and the line my decree.</em></p>
+<p><em>With a hundred thrusts I shall break what stands before me.</em></p>
+<p><em>No grace required — only will.</em></p>"}
+	else
+		if(istype(H.patron, /datum/patron/inhumen/zizo))
+			grace_line = "By <b>Her</b> grace"
+		else
+			grace_line = "By her grace"
+
+		blade_oath = {"<p><em>I am a blade of Azuria.</em></p>
+<p><em>The sword is my voice, and war my verse.</em></p>
+<p><em>With a hundred cuts I shall cleanse our land of its foes.</em></p>
+<p><em>[grace_line], I am unsheathed.</em></p>"}
+		phalanx_oath = {"<p><em>I am a shield of Azuria.</em></p>
+<p><em>The spear is my reach, and duty my anchor.</em></p>
+<p><em>With a hundred thrusts I shall hold our foe at bay.</em></p>
+<p><em>[grace_line], I stand unbroken.</em></p>"}
+
+	var/html = {"<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+	background-color: #1a1410;
+	color: #d4c4a0;
+	font-family: Georgia, 'Times New Roman', serif;
+	margin: 0;
+	padding: 20px;
+}
+.oath-container {
+	max-width: 660px;
+	margin: 0 auto;
+	text-align: center;
+}
+h2 {
+	color: #c9a96e;
+	font-size: 20px;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	border-bottom: 1px solid #8b7355;
+	padding-bottom: 10px;
+	margin-bottom: 25px;
+}
+.columns {
+	display: flex;
+	gap: 20px;
+	margin-bottom: 20px;
+}
+.column {
+	flex: 1;
+	background: linear-gradient(135deg, #2a2015 0%, #1a1410 50%, #2a2015 100%);
+	border: 2px solid #8b7355;
+	border-radius: 4px;
+	padding: 20px;
+	box-shadow: 0 0 15px rgba(139, 115, 85, 0.2);
+}
+.column h3 {
+	color: #a08050;
+	font-size: 15px;
+	letter-spacing: 2px;
+	margin: 0 0 15px 0;
+}
+.oath-text p {
+	font-size: 12px;
+	line-height: 1.7;
+	margin: 3px 0;
+}
+.oath-text em {
+	color: #e0d0b0;
+}
+.abilities {
+	text-align: left;
+	border-top: 1px solid #5a4a30;
+	padding-top: 12px;
+	margin-top: 15px;
+}
+.abilities h4 {
+	color: #a08050;
+	font-size: 11px;
+	letter-spacing: 1px;
+	margin: 0 0 8px 0;
+	text-transform: uppercase;
+	text-align: center;
+}
+.abilities ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.abilities li {
+	font-size: 11px;
+	line-height: 1.5;
+	margin: 5px 0;
+	color: #b0a080;
+}
+.abilities li b {
+	color: #d4c4a0;
+}
+.weapon-info {
+	text-align: center;
+	font-size: 12px;
+	color: #c9a96e;
+	margin-top: 12px;
+	padding-top: 8px;
+	border-top: 1px solid #5a4a30;
+	font-style: italic;
+}
+a.choose-btn {
+	display: block;
+	margin-top: 15px;
+	padding: 10px 15px;
+	background: #3a2a15;
+	border: 1px solid #8b7355;
+	border-radius: 3px;
+	color: #c9a96e;
+	text-decoration: none;
+	font-family: Georgia, serif;
+	font-size: 13px;
+	letter-spacing: 1px;
+	text-align: center;
+}
+a.choose-btn:hover {
+	background: #4a3a20;
+	border-color: #c9a96e;
+	color: #e0d0b0;
+}
+.shared-info {
+	background: #2a2015;
+	border: 1px solid #5a4a30;
+	border-radius: 3px;
+	padding: 10px 15px;
+	text-align: center;
+}
+.shared-info h4 {
+	color: #a08050;
+	font-size: 11px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	margin: 0 0 5px 0;
+}
+.shared-info p {
+	font-size: 11px;
+	color: #b0a080;
+	margin: 0;
+}
+</style>
+</head>
+<body>
+<div class="oath-container">
+<h2>The Oath</h2>
+<div class="columns">
+<div class="column">
+<h3>— Blade —</h3>
+<div class="oath-text">
+[blade_oath]
+</div>
+<div class="abilities">
+<h4>Abilities</h4>
+<ul>
+<li><b>Issen</b> — Dash through enemies, consuming all momentum for bonus damage.</li>
+<li><b>Crescent Slash</b> — Arcyne arc attack. At 3+ momentum, pulls targets toward you.</li>
+<li><b>Impale</b> — Strike at the feet. Slows targets with weak foot armor.</li>
+<li><b>Arcyne Riposte</b> — Instantly reset your guard cooldown.</li>
+<li><b>Wind Wall</b> — Conjure a barrier of arcyne wind.</li>
+<li><b>Excalibur</b> — Devastating beam that pierces structures and up to 3 targets. Scales with momentum.</li>
+</ul>
+</div>
+<p class="weapon-info">Sabre & Shield</p>
+<a class="choose-btn" href='?src=\ref[src];subclass=blade'>Swear the Blade Oath</a>
+</div>
+<div class="column">
+<h3>— Phalangite —</h3>
+<div class="oath-text">
+[phalanx_oath]
+</div>
+<div class="abilities">
+<h4>Abilities</h4>
+<ul>
+<li><b>Azurean Phalanx</b> — 3-tile line thrust that pushes enemies back.</li>
+<li><b>Azurean Javelin</b> — Hurl an armor-piercing phantom spear that slows.</li>
+<li><b>Triumphant Arrival</b> — Leap to a target from above, knock back others.</li>
+<li><b>Recall Weapon</b> — Teleport your bound weapon back to your hand.</li>
+</ul>
+</div>
+<p class="weapon-info">Spear & Shield</p>
+<a class="choose-btn" href='?src=\ref[src];subclass=phalangite'>Swear the Phalangite Oath</a>
+</div>
+</div>
+<div class="shared-info">
+<h4>Shared Abilities</h4>
+<p>Arcyne Bind · Mending · Enchant Weapon · 2 Whimsy Spell Points</p>
+</div>
+</div>
+</body>
+</html>
+"}
+	return html
 
 /datum/advclass/mage/spellsinger
 	name = "Spellsinger"

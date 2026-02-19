@@ -81,8 +81,8 @@
 	chargetime = 0
 	recharge_time = 5 SECONDS
 	warnie = "yourstate"
-	invocations = list("Bind...")
-	invocation_type = "whisper"
+	invocations = list("Vinculum Arcanum...")
+	invocation_type = "shout"
 	gesture_required = TRUE
 	xp_gain = FALSE
 

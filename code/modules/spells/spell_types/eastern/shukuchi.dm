@@ -29,12 +29,13 @@
 	gesture_required = TRUE
 	charging_slowdown = 2
 	chargedloop = /datum/looping_sound/invokegen
-	invocations = list("ISSEN!")
+	invocations = list("Caedo!")
 	invocation_type = "shout"
 	xp_gain = FALSE
 	var/max_range = 7
 	var/strike_damage_min = 40
 	var/strike_damage_max = 60
+	var/momentum_damage_bonus = 5 // bonus damage per momentum stack consumed
 
 /obj/effect/proc_holder/spell/invoked/shukuchi/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H = user
@@ -163,18 +164,22 @@
 	log_combat(H, target, "used Shukuchi on", addition="(DIST: [distance], MOBS_HIT: [length(mobs_in_path)])")
 
 	// Consume all arcyne momentum stacks (Issen releases tension)
+	var/consumed_stacks = 0
 	var/datum/status_effect/buff/arcyne_momentum/momentum = H.has_status_effect(/datum/status_effect/buff/arcyne_momentum)
 	if(momentum && momentum.stacks > 0)
-		var/consumed = momentum.consume_all_stacks()
-		to_chat(H, span_notice("[consumed] momentum released!"))
+		consumed_stacks = momentum.consume_all_stacks()
+		to_chat(H, span_notice("[consumed_stacks] momentum released!"))
 
 	// --- Strike every mob that was in the path (delayed 0.5s for drama) ---
 
 	// Capture body zone NOW — it may change by the time the delayed strike fires
 	var/locked_zone = H.zone_selected || BODY_ZONE_CHEST
 
+	// Momentum bonus: +5 damage per stack consumed
+	var/bonus_damage = consumed_stacks * momentum_damage_bonus
+
 	if(length(mobs_in_path))
-		addtimer(CALLBACK(src, PROC_REF(execute_path_strikes), H, mobs_in_path, held_weapon, locked_zone), 5) // 5 deciseconds = 0.5s
+		addtimer(CALLBACK(src, PROC_REF(execute_path_strikes), H, mobs_in_path, held_weapon, locked_zone, bonus_damage), 5) // 5 deciseconds = 0.5s
 
 	return TRUE
 
@@ -189,13 +194,14 @@
 	return get_turf(target_mob)
 
 /// Delayed strike callback — fires 0.5s after the dash so shadows appear first.
-/obj/effect/proc_holder/spell/invoked/shukuchi/proc/execute_path_strikes(mob/living/carbon/human/user, list/victims, obj/item/weapon, def_zone)
+/obj/effect/proc_holder/spell/invoked/shukuchi/proc/execute_path_strikes(mob/living/carbon/human/user, list/victims, obj/item/weapon, def_zone, bonus_damage = 0)
 	if(!user || QDELETED(user))
 		return
 	for(var/mob/living/victim in victims)
 		if(QDELETED(victim) || victim.stat == DEAD)
 			continue
-		execute_strike(user, victim, weapon, rand(strike_damage_min, strike_damage_max), def_zone)
+		var/total_damage = rand(strike_damage_min, strike_damage_max) + bonus_damage
+		execute_strike(user, victim, weapon, total_damage, def_zone)
 
 /// Spawns paired afterimages offset to the left and right edges of the path, like shadow flanks.
 /// Uses /obj/effect/after_image with zero pixel offsets (no wobble). Pattern from Fae Wrath.
