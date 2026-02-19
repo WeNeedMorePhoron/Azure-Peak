@@ -143,6 +143,33 @@
 	result = /obj/item/clothing/suit/roguetown/armor/leather/vest/sailor
 	reqs = list(/obj/item/natural/hide/cured = 2)
 
+/datum/crafting_recipe/roguetown/leather/matroncloak
+	name = "matron cloak"
+	result = /obj/item/clothing/cloak/matron
+	reqs = list(/obj/item/natural/silk = 1,
+				/obj/item/natural/hide/cured = 2)
+	craftdiff = 6
+
+/datum/crafting_recipe/roguetown/leather/tribalpelt
+	name = "tribal pelt"
+	result = /obj/item/clothing/cloak/tribal
+	reqs = list(/obj/item/natural/hide = 2)
+	craftdiff = 0
+
+/datum/crafting_recipe/roguetown/leather/wardencloak
+	name = "warden cloak"
+	result = /obj/item/clothing/cloak/wardencloak
+	reqs = list(/obj/item/natural/hide/cured = 2,
+				/obj/item/natural/cloth = 1)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/leather/leathercloak
+	name = "leather cloak"
+	result = /obj/item/clothing/cloak/eastcloak2
+	reqs = list(/obj/item/natural/hide/cured = 2,
+				/obj/item/natural/fibers = 1)
+	craftdiff = 2
+
 /datum/crafting_recipe/roguetown/leather/darkcloak
 	name = "dark cloak"
 	result = list(/obj/item/clothing/cloak/darkcloak)

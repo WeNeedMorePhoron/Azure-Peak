@@ -184,3 +184,17 @@
 				/obj/item/natural/fibers = 2)
 	tools = list(/obj/item/needle)
 	craftdiff = 6	//Can be a bit strong, reduce to 5 if too high.
+
+/datum/crafting_recipe/roguetown/leather/unique/forrestercloak
+	name = "forrester cloak"
+	result = /obj/item/clothing/cloak/forrestercloak
+	reqs = list(/obj/item/natural/hide/cured = 3,
+				/obj/item/natural/fur = 1)
+	craftdiff = 6
+
+/datum/crafting_recipe/roguetown/leather/unique/snowcloak
+	name = "snow cloak"
+	result = /obj/item/clothing/cloak/forrestercloak/snow
+	reqs = list(/obj/item/natural/hide/cured = 3,
+				/obj/item/natural/fur = 2)
+	craftdiff = 6

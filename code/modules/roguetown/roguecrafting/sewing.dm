@@ -969,6 +969,40 @@
 				/obj/item/natural/fibers = 1)
 	craftdiff = 3
 
+/datum/crafting_recipe/roguetown/sewing/rapscallionshawl
+	name = "rapscallion's shawl"
+	category = "Cloaks"
+	result = list(/obj/item/clothing/cloak/thief_cloak)
+	reqs = list(/obj/item/natural/cloth = 2,
+				/obj/item/natural/fibers = 1)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/sewing/undividedcloak
+	name = "undivided cloak"
+	category = "Cloaks"
+	result = list(/obj/item/clothing/cloak/undivided)
+	reqs = list(/obj/item/natural/cloth = 3,
+				/obj/item/natural/fibers = 1)
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/sewing/redcloak
+	name = "red cloak"
+	category = "Cloaks"
+	result = list(/obj/item/clothing/cloak/heartfelt)
+	reqs = list(/obj/item/natural/cloth = 3,
+				/obj/item/natural/silk = 1,
+				/obj/item/natural/fibers = 1)
+	craftdiff = 5
+	sellprice = 50
+
+/datum/crafting_recipe/roguetown/sewing/cloudcuttercloak
+	name = "cloud-cutter's cloak"
+	category = "Cloaks"
+	result = list(/obj/item/clothing/cloak/eastcloak1)
+	reqs = list(/obj/item/natural/cloth = 3,
+				/obj/item/natural/silk = 1)
+	craftdiff = 4
+
 /datum/crafting_recipe/roguetown/sewing/undervestments
 	name = "undervestments"
 	category = "Misc"

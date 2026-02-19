@@ -54,6 +54,8 @@
 		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/leather/unique/winterjacket)
 		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/leatherunique/gladsandals)
 		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/leather/unique/monkrobes)//Generic
+		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/leather/unique/forrestercloak)
+		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/leather/unique/snowcloak)//Azurian
 //Seamster should get the local stuff, makes sense really.
 		var/regions = list("The Familiar", "The Unfamiliar")
 		var/regional_specilization = input(H, "Choose your specilization.", "TAKE UP NEEDLE") as anything in regions

@@ -184,7 +184,9 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 		/datum/crafting_recipe/roguetown/leather/unique/buckleshoes,
 		/datum/crafting_recipe/roguetown/leather/unique/winterjacket,
 		/datum/crafting_recipe/roguetown/leather/unique/openrobes,
-		/datum/crafting_recipe/roguetown/leather/unique/monkrobes
+		/datum/crafting_recipe/roguetown/leather/unique/monkrobes,
+		/datum/crafting_recipe/roguetown/leather/unique/forrestercloak,
+		/datum/crafting_recipe/roguetown/leather/unique/snowcloak
 	)
 
 /obj/item/book/granter/crafting_recipe/tailor/western

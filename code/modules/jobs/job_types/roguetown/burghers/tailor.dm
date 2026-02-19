@@ -97,4 +97,6 @@
 		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/leather/unique/winterjacket)
 		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/leatherunique/gladsandals)
 		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/leather/unique/monkrobes)//Generic
+		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/leather/unique/forrestercloak)
+		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/leather/unique/snowcloak)//Azurian
 //All in all if you add mercenary / unique stuff to sewing make the tailor start with it.
