@@ -230,6 +230,7 @@
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/azurean_javelin)
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/triumphant_arrival)
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/recall_weapon)
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/advance)
 				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, TRUE)
 
 	// --- Equipment (no weapon choice) ---
@@ -443,6 +444,7 @@ a.choose-btn:hover {
 <li><b>Azurean Javelin</b> — Hurl an armor-piercing phantom spear that slows.</li>
 <li><b>Triumphant Arrival</b> — Leap to a target from above, knock back others.</li>
 <li><b>Recall Weapon</b> — Teleport your bound weapon back to your hand.</li>
+<li><b>Advance</b> — Charge forward 3 paces and thrust. Mirror of Phalanx — close distance instead of creating it.</li>
 </ul>
 </div>
 <p class="weapon-info">Spear & Shield</p>

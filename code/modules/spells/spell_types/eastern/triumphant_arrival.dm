@@ -1,14 +1,17 @@
 /*
- * Triumphant Arrival - Phalanx subclass leap attack
+ * Triumphant Arrival - Phalangite subclass leap attack
  *
- * Fade away, then leap to a target. Strike them in the HEAD zone with a
- * downward spear plunge. Knock back everyone on the tile EXCEPT the target
- * (isolation pick). 30-second cooldown.
+ * Leap to a target with a visible jump-up animation, then plunge down onto
+ * them striking the HEAD zone. Knocks back everyone on the tile EXCEPT the
+ * primary target (isolation pick). Supports cross-Z-level travel on connected
+ * planes (2 second channel) vs same-Z (1 second channel).
  *
  * References:
  *   Blink (code/modules/spells/spell_types/wizard/misc/blink.dm) - teleport validation
  *   Shukuchi (code/modules/spells/spell_types/eastern/shukuchi.dm) - afterimage + execute_strike
  *   Repulse (code/modules/spells/spell_types/wizard/invoked_aoe/repulse.dm) - selective knockback
+ *   is_in_zweb (code/modules/mapping/space_management/multiz_helpers.dm) - Z-level connectivity
+ *   jump.dm (code/game/objects/items/rogueweapons/mmb/jump.dm) - pixel_z animation pattern
  */
 
 /obj/effect/proc_holder/spell/invoked/triumphant_arrival
@@ -64,10 +67,12 @@
 		revert_cast()
 		return
 
-	// --- Validation (adapted from Blink) ---
+	// --- Validation ---
 
-	if(dest.z != start.z)
-		to_chat(H, span_warning("I can only leap on the same plane!"))
+	var/cross_z = (dest.z != start.z)
+
+	if(cross_z && !is_in_zweb(start.z, dest.z))
+		to_chat(H, span_warning("I can only leap to connected planes!"))
 		revert_cast()
 		return
 
@@ -82,17 +87,20 @@
 		return
 
 	var/distance = get_dist(start, dest)
-	if(distance > range)
-		to_chat(H, span_warning("Too far! Maximum range is [range] tiles."))
-		revert_cast()
-		return
-
-	if(distance < 2)
-		to_chat(H, span_warning("I need more distance to leap!"))
-		revert_cast()
-		return
+	if(!cross_z) // Same Z-level: enforce range and minimum distance
+		if(distance > range)
+			to_chat(H, span_warning("Too far! Maximum range is [range] tiles."))
+			revert_cast()
+			return
+		if(distance < 2)
+			to_chat(H, span_warning("I need more distance to leap!"))
+			revert_cast()
+			return
 
 	// --- Telegraph: warning at target + interruptible channel ---
+
+	// Channel duration: 2 seconds for cross-Z leap, 1 second for same-Z
+	var/channel_time = cross_z ? 2 SECONDS : 1 SECONDS
 
 	// Show ! warning at the target location
 	var/obj/effect/warning_marker = new(dest)
@@ -105,9 +113,15 @@
 		span_notice("I focus my strength..."))
 	playsound(start, 'sound/magic/charged.ogg', 30, TRUE)
 
+	// Jump-up animation — rise during channel
+	var/prev_pixel_z = H.pixel_z
+	var/rise_height = cross_z ? 48 : 32
+	animate(H, pixel_z = prev_pixel_z + rise_height, time = channel_time, easing = SINE_EASING)
+
 	// Interruptible channel — can be broken by movement/damage
-	if(!do_after(H, 1 SECONDS, target = H))
+	if(!do_after(H, channel_time, target = H))
 		to_chat(H, span_warning("My concentration breaks!"))
+		animate(H, pixel_z = prev_pixel_z, time = 3) // quick fall back down
 		qdel(warning_marker)
 		revert_cast()
 		return
@@ -116,28 +130,32 @@
 
 	// --- Execute the leap ---
 
-	// Fade out — afterimage at start position
+	// Afterimage at start — frozen at peak height
 	playsound(start, 'sound/magic/blink.ogg', 40, TRUE)
 	H.visible_message(
-		span_warning("[H] fades from view!"),
-		span_notice("I focus my strength and leap!"))
+		span_warning("[H] leaps skyward and vanishes!"),
+		span_notice("I soar!"))
 
-	// Brief afterimage at start
 	var/obj/effect/after_image/fade = new(start, 0, 0, 0, 0, 0.5 SECONDS, 2 SECONDS, 0)
 	fade.appearance = H.appearance
 	fade.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	fade.alpha = 120
+	fade.pixel_z = rise_height
 	QDEL_IN(fade, 2 SECONDS)
 
 	// Unbuckle if needed
 	if(H.buckled)
 		H.buckled.unbuckle_mob(H, TRUE)
 
-	// Teleport to destination
+	// Teleport to destination — arrive high up
+	H.pixel_z = prev_pixel_z + rise_height
 	do_teleport(H, dest, channel = TELEPORT_CHANNEL_MAGIC)
 	playsound(dest, 'sound/magic/blink.ogg', 50, TRUE)
 
-	log_combat(H, target, "used Triumphant Arrival on", addition="(DIST: [distance])")
+	// Drop-down animation — plunge from height to ground
+	animate(H, pixel_z = prev_pixel_z, time = 3, easing = BOUNCE_EASING) // fast slam down
+
+	log_combat(H, target, "used Triumphant Arrival on", addition="(DIST: [distance], CROSS_Z: [cross_z])")
 
 	// --- Landing strike on the primary target ---
 

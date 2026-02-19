@@ -2633,6 +2633,7 @@
 #include "code\modules\spells\spell_types\bardic\suffocating_seliloquy.dm"
 #include "code\modules\spells\spell_types\divine\projectiles_single\divine_blast.dm"
 #include "code\modules\spells\spell_types\divine\projectiles_single\unholy_blast.dm"
+#include "code\modules\spells\spell_types\eastern\advance.dm"
 #include "code\modules\spells\spell_types\eastern\arcyne_momentum.dm"
 #include "code\modules\spells\spell_types\eastern\arcyne_riposte.dm"
 #include "code\modules\spells\spell_types\eastern\azurean_javelin.dm"
