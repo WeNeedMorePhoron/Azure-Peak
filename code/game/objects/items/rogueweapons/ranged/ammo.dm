@@ -179,7 +179,7 @@
 
 /obj/projectile/bullet/reusable/heavy_bolt
 	name = "heavy bolt"
-	damage = 120 //+50% the damage of a regular crossbow bolt.
+	damage = BOLT_DAMAGE
 	damage_type = BRUTE
 	armor_penetration = BOLT_PENETRATION + 25 // +50% the penetrative power.
 	object_damage_multiplier = 10 //Determines the multiplier that's applied to the bolt's damage value, when striking a structure. By default, it can destroy any wooden defense - a door, barricade, wall - in one shot.
@@ -231,7 +231,6 @@
 
 /obj/projectile/bullet/reusable/heavy_bolt/blunt
 	name = "blunt heavy bolt"
-	damage = 80 //Same damage as a crossbow.
 	armor_penetration = 0
 	embedchance = 0 //'If you're reading this, duck!'
 	object_damage_multiplier = 15 //Ensures the bolt can still, at a minimum, destroy most wooden barricades and doors in one shot.
@@ -267,7 +266,6 @@
 
 /obj/projectile/bullet/reusable/heavy_bolt/paalloy
 	name = "ancient heavy bolt"
-	damage = 80 //Same as a crossbow bolt.
 	icon_state = "ancientbolt_proj"
 	object_damage_multiplier = 16
 	poisontype = /datum/reagent/stampoison
@@ -284,7 +282,6 @@
 
 /obj/projectile/bullet/reusable/heavy_bolt/bronze
 	name = "bronze heavy bolt"
-	damage = 100
 	icon_state = "bronzebolt_proj"
 	speed = 0.8
 
