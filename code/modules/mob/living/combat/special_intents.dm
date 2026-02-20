@@ -111,7 +111,10 @@ This allows the devs to draw whatever shape they want at the cost of it feeling 
 	str +="<i>[desc]</i>"
 	if(range)
 		str += "\n<i>Max Range: ["\Roman [range]"]"
-	str +="\n<i><font size = 1>This ability can be used by right clicking while in STRONG stance or by using the Special MMB.</font></i></details>"
+	if(requires_wielding)
+		str += "\n<i>Requires Wielding</i>"
+	str +="\n<i><font size = 1>This ability can be used by right clicking while in STRONG stance or by using the Special MMB.</font></i>
+	str += "</details>"
 	return str
 
 ///Called by external sources -- likely an rclick or mmb. By default the 'target' will be stored as a turf.
