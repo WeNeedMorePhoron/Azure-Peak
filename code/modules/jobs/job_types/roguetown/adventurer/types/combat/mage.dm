@@ -209,14 +209,9 @@
 	// Seed momentum status effect
 	H.apply_status_effect(/datum/status_effect/buff/arcyne_momentum)
 
-	// --- Apply spells ---
+	// --- Apply spells (combat abilities first for HUD ordering) ---
 	if(H.mind)
-		// Shared spells
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/arcyne_bind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mending)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/enchant_weapon)
-		H.mind.adjust_spellpoints(2)
-
+		// Subclass combat abilities — these appear first in the spell HUD
 		switch(subclass_selected)
 			if("blade")
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/shukuchi)
@@ -229,9 +224,15 @@
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/azurean_phalanx)
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/azurean_javelin)
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/triumphant_arrival)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/recall_weapon)
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/advance)
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/recall_weapon)
 				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, TRUE)
+
+		// Shared utility spells — appear after combat abilities
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/arcyne_bind)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mending)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/enchant_weapon)
+		H.mind.adjust_spellpoints(2)
 
 	// --- Equipment (no weapon choice) ---
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
