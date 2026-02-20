@@ -113,7 +113,7 @@ This allows the devs to draw whatever shape they want at the cost of it feeling 
 		str += "\n<i>Max Range: ["\Roman [range]"]"
 	if(requires_wielding)
 		str += "\n<i>Requires Wielding</i>"
-	str +="\n<i><font size = 1>This ability can be used by right clicking while in STRONG stance or by using the Special MMB.</font></i>
+	str += "\n<i><font size = 1>This ability can be used by right clicking while in STRONG stance or by using the Special MMB.</font></i>"
 	str += "</details>"
 	return str
 
