@@ -120,8 +120,8 @@ Outlaws and undead are shunned by Astrata outside of her order. They may not inv
 /// Returns the number of assent voices required based on the invoker's position.
 /// Insiders need fewer (insider / diplomatic coup).
 /datum/usurpation_rite/solar_succession/proc/get_required_assents()
-	if(invoker.job == "Consort" || invoker.job == "Prince" || invoker.job == "Hand" ||
-		invoker.job == "Steward" || invoker.job == "Councillor" || HAS_TRAIT(invoker, TRAIT_HEARTFELT))
+	if(invoker.job == "Consort" || invoker.job == "Prince" || invoker.job == "Hand" || \
+	invoker.job == "Steward" || invoker.job == "Councillor" || HAS_TRAIT(invoker, TRAIT_HEARTFELT))
 		return SOLAR_REQUIRED_ASSENTS_INSIDER
 	return SOLAR_REQUIRED_ASSENTS_OUTSIDER
 
