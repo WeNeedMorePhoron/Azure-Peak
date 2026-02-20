@@ -375,7 +375,7 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	if(job.plevel_req > client.patreonlevel())
 		return JOB_UNAVAILABLE_GENERIC
 	#ifdef USES_PQ
-	if(!job.required || latejoin)
+	if(latejoin)
 		if(!isnull(job.min_pq) && (get_playerquality(ckey) < job.min_pq))
 			return JOB_UNAVAILABLE_PQ
 		if(!isnull(job.max_pq) && (get_playerquality(ckey) > job.max_pq))
