@@ -1,11 +1,17 @@
 /**
-# Rite of Solar Succession (Noble Variant)
+# Rite of Solar Succession
 
 The "legitimate" path to the throne — a noble council of peers under Astrata's authority.
 
-Design intent: Enables insider threats within the ducal family. The Heir (Prince)
-and Consort can stage a palace coup with just 3 noble voices — e.g. convincing
-3 of the 4 knights is enough. Outsiders (any other noble) need a larger quorum of 5,
+Design intent: Enables insider threats within the ducal family or close advisors. The Prince
+Heartfelt, Consort, Hand, Steward and Councillors can all invoke this rite's easier version. Steward have an 
+overlap with Golden Accord but this is fine as they dip both end. I want to increase the threat
+posed by the Steward, Hand and Councillor (Which is an off role for these two roles), especially
+because of the prevalence of the greedy Steward / Hand character archetype. This should
+encourage more plotting and backstabbing RP within the court.
+
+Insideres can stage a palace coup with just 3 noble voices — e.g. convincing
+3 of the 4 knights or hand or prince etc. is enough. Outsiders (any other noble) need a larger quorum of 5,
 making it a harder but still viable path.
 
 Non-resident nobles (foreign envoys, Heartfelt) count as half a vote each.
@@ -112,9 +118,10 @@ Outlaws and undead are shunned by Astrata outside of her order. They may not inv
 	return null
 
 /// Returns the number of assent voices required based on the invoker's position.
-/// Consort, Prince, and Heartfelt invokers need fewer (insider / diplomatic coup).
+/// Insiders need fewer (insider / diplomatic coup).
 /datum/usurpation_rite/solar_succession/proc/get_required_assents()
-	if(invoker.job == "Consort" || invoker.job == "Prince" || HAS_TRAIT(invoker, TRAIT_HEARTFELT))
+	if(invoker.job == "Consort" || invoker.job == "Prince" || invoker.job == "Hand" ||
+		invoker.job == "Steward" || invoker.job == "Councillor" || HAS_TRAIT(invoker, TRAIT_HEARTFELT))
 		return SOLAR_REQUIRED_ASSENTS_INSIDER
 	return SOLAR_REQUIRED_ASSENTS_OUTSIDER
 
