@@ -29,7 +29,7 @@
 	movement_interrupt = FALSE
 	charging_slowdown = 2
 	chargedloop = /datum/looping_sound/invokegen
-	invocations = list("Adventus Triumphans!")
+	invocations = list("DESCENDO!")
 	invocation_type = "shout"
 	gesture_required = TRUE
 	xp_gain = FALSE
@@ -108,52 +108,64 @@
 	warning_marker.icon_state = "spellwarning"
 	warning_marker.pixel_y = 16
 
+	// ADVENTUS shout at channel start — announces the leap is coming
+	H.say("ADVENTUS!")
 	H.visible_message(
 		span_warning("[H] crouches and focuses, preparing to leap!"),
 		span_notice("I focus my strength..."))
 	playsound(start, 'sound/magic/charged.ogg', 30, TRUE)
 
-	// Jump-up animation — rise during channel
-	var/prev_pixel_z = H.pixel_z
-	var/rise_height = cross_z ? 48 : 32
-	animate(H, pixel_z = prev_pixel_z + rise_height, time = channel_time, easing = SINE_EASING)
-
-	// Interruptible channel — can be broken by movement/damage
+	// Interruptible channel on the ground — enemies can still hit/stun to interrupt
 	if(!do_after(H, channel_time, target = H))
 		to_chat(H, span_warning("My concentration breaks!"))
-		animate(H, pixel_z = prev_pixel_z, time = 3) // quick fall back down
 		qdel(warning_marker)
 		revert_cast()
 		return
 
 	qdel(warning_marker)
 
-	// --- Execute the leap ---
+	// --- Channel succeeded — now committed, go airborne ---
 
-	// Afterimage at start — frozen at peak height
-	playsound(start, 'sound/magic/blink.ogg', 40, TRUE)
-	H.visible_message(
-		span_warning("[H] leaps skyward and vanishes!"),
-		span_notice("I soar!"))
-
-	var/obj/effect/after_image/fade = new(start, 0, 0, 0, 0, 0.5 SECONDS, 2 SECONDS, 0)
-	fade.appearance = H.appearance
-	fade.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	fade.alpha = 120
-	fade.pixel_z = rise_height
-	QDEL_IN(fade, 2 SECONDS)
+	var/prev_pixel_z = H.pixel_z
+	var/rise_height = cross_z ? 144 : 96
 
 	// Unbuckle if needed
 	if(H.buckled)
 		H.buckled.unbuckle_mob(H, TRUE)
 
-	// Teleport to destination — arrive high up
+	// Leave an afterimage that rises at the start position
+	var/obj/effect/after_image/fade = new(start, 0, 0, 0, 0, 0.5 SECONDS, 2 SECONDS, 0)
+	fade.appearance = H.appearance
+	fade.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	fade.alpha = 120
+	animate(fade, pixel_z = rise_height, alpha = 0, time = 4, easing = SINE_EASING)
+	QDEL_IN(fade, 2 SECONDS)
+
+	// Hide the actual mob — they're in the air now
+	H.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	H.alpha = 0
+	playsound(start, 'sound/magic/blink.ogg', 40, TRUE)
+	H.visible_message(
+		span_warning("[H] launches skyward and vanishes!"),
+		span_notice("I soar!"))
+
+	// Leyline rift at origin — the gap they ascend through
+	new /obj/effect/temp_visual/lycan(start)
+	playsound(start, 'sound/misc/portalactivate.ogg', 80, TRUE)
+
+	// Leyline rift at destination — offset to where the drop animation begins
+	var/obj/effect/temp_visual/lycan/dest_rift = new(dest)
+	dest_rift.pixel_z = rise_height
+	playsound(dest, 'sound/misc/portalactivate.ogg', 80, TRUE)
+
+	// Teleport to destination — arrive high up, still invisible
 	H.pixel_z = prev_pixel_z + rise_height
 	do_teleport(H, dest, channel = TELEPORT_CHANNEL_MAGIC)
-	playsound(dest, 'sound/magic/blink.ogg', 50, TRUE)
 
-	// Drop-down animation — plunge from height to ground
-	animate(H, pixel_z = prev_pixel_z, time = 3, easing = BOUNCE_EASING) // fast slam down
+	// Restore visibility and slam down through the rift
+	H.mouse_opacity = initial(H.mouse_opacity)
+	H.alpha = 255
+	animate(H, pixel_z = prev_pixel_z, time = 5, easing = BOUNCE_EASING) // fast slam down from height
 
 	log_combat(H, target, "used Triumphant Arrival on", addition="(DIST: [distance], CROSS_Z: [cross_z])")
 
@@ -198,11 +210,17 @@
 
 	log_combat(user, primary_target, "arrival-struck", weapon, "(DMG: [damage]) (ZONE: head)")
 
-	// --- Knockback everyone else on and adjacent to the landing tile ---
-	for(var/mob/living/bystander in landing_turf)
-		if(bystander == user || bystander == primary_target || bystander.stat == DEAD)
-			continue
-		var/atom/push_target = get_edge_target_turf(user, get_dir(user, get_step_away(bystander, user)))
-		bystander.safe_throw_at(push_target, knockback_range, 1, user, force = MOVE_FORCE_EXTREMELY_STRONG)
-		bystander.set_resting(TRUE, TRUE)
-		to_chat(bystander, span_danger("The force of [user]'s landing sends you flying!"))
+	// Landing impact sound
+	playsound(landing_turf, pick('sound/combat/ground_smash1.ogg', 'sound/combat/ground_smash2.ogg', 'sound/combat/ground_smash3.ogg'), 100, TRUE)
+
+	// --- 1-tile repulse on landing — push everyone surrounding away, no throw ---
+	for(var/turf/T in get_hear(1, user))
+		new /obj/effect/temp_visual/kinetic_blast(T)
+		for(var/mob/living/bystander in T)
+			if(bystander == user || bystander.stat == DEAD)
+				continue
+			var/push_dir = get_dir(user, bystander)
+			if(!push_dir)
+				push_dir = pick(GLOB.cardinals)
+			step(bystander, push_dir)
+			to_chat(bystander, span_danger("The shockwave of [user]'s landing pushes you back!"))
