@@ -13,6 +13,7 @@ import { Window } from '../layouts';
 
 type Data = {
   balance: number;
+  bank_balance: number;
   paper_cost: number;
   quill_cost: number;
   letter_cost: number;
@@ -21,15 +22,17 @@ type Data = {
 
 export const Hermes = (props: any, context: any) => {
   const { act, data } = useBackend<Data>();
-  const { balance, paper_cost, quill_cost, letter_cost, has_tube } = data;
+  const { balance, bank_balance, paper_cost, quill_cost, letter_cost, has_tube } =
+    data;
+  const totalFunds = balance + bank_balance;
 
   const [recipient, setRecipient] = useState('');
   const [sender, setSender] = useState('');
   const [letterContent, setLetterContent] = useState('');
 
-  const canSendLetter = balance >= letter_cost && recipient.length > 0;
-  const canBuyPaper = balance >= paper_cost;
-  const canBuyQuill = balance >= quill_cost;
+  const canSendLetter = totalFunds >= letter_cost && recipient.length > 0;
+  const canBuyPaper = totalFunds >= paper_cost;
+  const canBuyQuill = totalFunds >= quill_cost;
   const canSendTube = letterContent.length > 0;
 
   return (
@@ -39,8 +42,13 @@ export const Hermes = (props: any, context: any) => {
           <Stack.Item>
             <Stack align="center">
               <Stack.Item>
-                <Box bold inline mr={1} color={balance <= 0 ? 'bad' : 'good'}>
+                <Box bold inline mr={1} color={totalFunds <= 0 ? 'bad' : 'good'}>
                   {balance} Mammon
+                  {bank_balance > 0 && (
+                    <Box inline ml={1} color="teal">
+                      (+{bank_balance} Bank)
+                    </Box>
+                  )}
                 </Box>
               </Stack.Item>
               <Stack.Item grow>

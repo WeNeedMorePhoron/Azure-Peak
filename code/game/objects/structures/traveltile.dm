@@ -249,3 +249,14 @@
 /obj/structure/fluff/traveltile/eventarea/multiz
 	aportalgoesto = "MultizEventOut"
 	aportalid = "MultizEventIn"
+
+/obj/structure/fluff/traveltile/bathhouse_passage
+	name = "suspicious passage"
+	desc = "A crevice in the wall. It looks like it leads somewhere."
+	required_trait = "bathhouse_passage_seen"
+	required_jobs = list("Bathmaster", "Bathhouse Attendant")
+	travel_time = 30 SECONDS // If there's an active chase you basically cannot use it to escape quickly
+	travel_message = "I begin to squeeze through the passage..."
+	travel_deny_message = "You're not supple enough to use this passage."
+	watchable = FALSE
+	travel_access_hint = "A tight passage that leads between the bathhouse and the northern coast, with many twists and turns - only a bathhouse staff member can fit through it. It takes a while to travel through, and is a popular route for smuggling goods in and out of town."

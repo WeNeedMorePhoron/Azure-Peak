@@ -1243,7 +1243,6 @@
 #include "code\game\objects\structures\toilet.dm"
 #include "code\game\objects\structures\traps.dm"
 #include "code\game\objects\structures\traveltile.dm"
-#include "code\game\objects\structures\bathhouse_passage.dm"
 #include "code\game\objects\structures\walldeco.dm"
 #include "code\game\objects\structures\well.dm"
 #include "code\game\objects\structures\beds_chairs\bed.dm"
