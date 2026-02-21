@@ -580,7 +580,6 @@
 	body_parts_covered = FULL_HEAD|NECK
 	block2add = FOV_BEHIND //Unlike the Froggemund, this variant has an improved FOV radius - from ~60-90 to 180 degrees.
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL + ARMOR_INT_HELMET_HEAVY_ADJUSTABLE_PENALTY
-	prevent_crits = PREVENT_CRITS_ALL
 	armor_class = ARMOR_CLASS_LIGHT //Exclusive to the Absolver, ensures they can use it without having to deal with the potential headache of giving them maille training. Spare versions require very expensive reagents and skills.
 	worn_x_dimension = 64
 	worn_y_dimension = 64
