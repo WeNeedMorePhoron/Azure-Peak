@@ -572,8 +572,8 @@
 	..()
 
 /obj/item/clothing/head/roguetown/helmet/heavy/absolver
-	name = "psydonic conical helm"
-	desc = "Based on the visage worn by Saint Pestra's order, this cryptic helmet provides its wearer with the satisfaction of reminding heretics that fear is not an emotion easily lost. Even the dead may learn to taste terror again."
+	name = "absolver's greathelm"
+	desc = "Based on the visage worn by Saint Pestra's order, this cryptic helmet provides its wearer with the satisfaction of reminding heathens that fear is not an emotion easily lost. Even the dead may learn to taste terror again."
 	icon_state = "absolutionisthelm"
 	item_state = "absolutionisthelm"
 	emote_environment = 3
@@ -589,6 +589,22 @@
 	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDESNOUT
 	smeltresult = /obj/item/ingot/silverblessed
 	smelt_bar_num = 2
+
+/obj/item/clothing/head/roguetown/helmet/heavy/absolver/unblessed
+	name = "psydonic conical greathelm" //Vanilla version of the Greathelm, like before.
+	desc = "'In my dreams, I heard your footsteps coming closer.' \
+	</br>'In my dreams I tried to talk to you and introduce myself.' \
+	</br>'Guardian of the Comet and the Comet's banner.' \
+	</br>'With great pain, I carry the emblem of the All-Father.' \
+	</br>'I am the hands of bloodied skin, I am the eyes from which our Saints gaze.' \
+	</br>'But nothing I know of you, except your cold and forgotten visage.' \
+	</br>'Apart from your calloused and wounded hands.' \
+	</br>'Apart from the mourning of your ultimate sacrifice.' \
+	</br>'No, I know nothing of you, for only the Comet knows.' \
+	</br>'Now may your sword full of guilt and mine of silver, collide.' \
+	</br>'Let them hurt and march in procession.' </br>'I curse you forever in name, I bless you forever in death..'"
+	armor_class = ARMOR_CLASS_MEDIUM
+	block2add = FOV_RIGHT|FOV_LEFT
 
 /obj/item/clothing/head/roguetown/helmet/heavy/psybucket
 	name = "psydonic bucket helmet"
