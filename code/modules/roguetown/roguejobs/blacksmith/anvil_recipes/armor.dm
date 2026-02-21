@@ -1156,10 +1156,11 @@
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/psybucket
 
 /datum/anvil_recipe/armor/blessedsilver/helmetabso
-	name = "Psydonian Conical Helm (+2 Blessed Silver)"
+	name = "Psydonian Conical Helm (+2 Blessed Silver, +1 Silver Psycross)"
 	req_bar = /obj/item/ingot/silverblessed
-	additional_items = list(/obj/item/ingot/silverblessed, /obj/item/ingot/silverblessed)
+	additional_items = list(/obj/item/ingot/silverblessed, /obj/item/ingot/silverblessed, /obj/item/clothing/neck/roguetown/psicross/silver)
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/absolver
+	craftdiff = 6
 
 /datum/anvil_recipe/armor/blessedsilver/psyhalfplate
 	name = "Psydonic Half-Plate (+Psydonic Cuirass, +1 Blessed Silver, +2 Cured Leather)"
