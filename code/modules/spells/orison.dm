@@ -283,7 +283,6 @@
 	scent_description = "medicine"
 	metabolization_rate = REAGENTS_METABOLISM
 
-
 /datum/reagent/water/medicine/on_mob_life(mob/living/carbon/M)
 	if(volume >= 50)
 		M.reagents.remove_reagent(/datum/reagent/water/medicine, 2) // no more than 1 large bottle at a time
