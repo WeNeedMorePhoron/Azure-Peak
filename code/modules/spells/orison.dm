@@ -296,7 +296,7 @@
 				holder.remove_reagent(R.type, 0.2)
 		var/list/wCount = M.get_wounds()
 		if(wCount.len > 0)
-			M.heal_wounds(3)
+			M.heal_wounds(2)
 
 /obj/item/melee/touch_attack/orison/proc/create_water(atom/thing, mob/living/carbon/human/user)
 	// normally we wouldn't use fatigue here to keep in line w/ other holy magic, but we have to since water is a persistent resource
