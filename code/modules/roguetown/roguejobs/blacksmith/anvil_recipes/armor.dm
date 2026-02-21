@@ -1156,9 +1156,9 @@
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/psybucket
 
 /datum/anvil_recipe/armor/blessedsilver/helmetabso
-	name = "Psydonian Conical Helm (+2 Blessed Silver, +1 Silver Psycross)"
+	name = "Psydonian Conical Helm (+3 Blessed Silver, +1 Silver Psycross)"
 	req_bar = /obj/item/ingot/silverblessed
-	additional_items = list(/obj/item/ingot/silverblessed, /obj/item/ingot/silverblessed, /obj/item/clothing/neck/roguetown/psicross/silver)
+	additional_items = list(/obj/item/ingot/silverblessed, /obj/item/ingot/silverblessed, /obj/item/ingot/silverblessed, /obj/item/clothing/neck/roguetown/psicross/silver)
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/absolver
 	craftdiff = 6
 
@@ -1209,9 +1209,9 @@
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/psybucket
 
 /datum/anvil_recipe/armor/blessedsilver/helmetabso/inq
-	name = "Psydonian Conical Helm (+2 Blessed Silver)"
+	name = "Psydonian Conical Helm (+3 Blessed Silver, +1 Silver Psycross)"
 	req_bar = /obj/item/ingot/silverblessed/bullion
-	additional_items = list(/obj/item/ingot/silverblessed/bullion, /obj/item/ingot/silverblessed/bullion)
+	additional_items = list(/obj/item/ingot/silverblessed/bullion, /obj/item/ingot/silverblessed/bullion, /obj/item/ingot/silverblessed/bullion, /obj/item/clothing/neck/roguetown/psicross/silver)
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/absolver
 
 /datum/anvil_recipe/armor/blessedsilver/psyhalfplate/inq
