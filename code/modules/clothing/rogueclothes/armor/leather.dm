@@ -143,7 +143,7 @@
 	desc = "A heavy steerhide jerkin that reaches past the hips and better protects the vitals."
 	icon_state = "roguearmor_coat"
 	item_state = "roguearmor_coat"
-	body_parts_covered = COVERAGE_ALL_BUT_ARMS
+	body_parts_covered = COVERAGE_ALL_BUT_ARMFEET
 	armor = ARMOR_LEATHER_GOOD
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
 	sellprice = 25
