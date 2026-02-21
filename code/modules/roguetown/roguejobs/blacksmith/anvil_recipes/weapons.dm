@@ -1307,12 +1307,53 @@
 	created_item = /obj/item/rogueweapon/sword/long/exe
 	i_type = "Weapons"
 
-/datum/anvil_recipe/valuables/iron/berserksword
-	name = "Berserker's Sword (+1 Executioner Sword, +1 Iron)"
+/datum/anvil_recipe/valuables/iron/rawheapofiron
+	name = "Heap of Raw Iron (+4 Iron Ore)"
 	req_bar = /obj/item/ingot/iron
-	additional_items = list(/obj/item/rogueweapon/sword/long/exe, /obj/item/ingot/iron)
-	created_item = /obj/item/rogueweapon/sword/long/exe/berserk
+	additional_items = list(/obj/item/rogueore/iron, /obj/item/rogueore/iron, /obj/item/rogueore/iron, /obj/item/rogueore/iron)
+	created_item = /obj/item/ingot/component/heapofrawiron
+	appro_skill = /datum/skill/craft/weaponsmithing
 	i_type = "Weapons"
+	craftdiff = SKILL_LEVEL_MASTER
+	bypass_dupe_test = TRUE
+
+/datum/anvil_recipe/valuables/iron/berserkswordgrip
+	name = "Grip of the Berserker's Sword (+1 Executioner Sword, +2 Small Logs, +2 Cured Leather)"
+	req_bar = /obj/item/ingot/iron
+	additional_items = list(/obj/item/rogueweapon/sword/long/exe, /obj/item/grown/log/tree/small, /obj/item/grown/log/tree/small, /obj/item/natural/hide/cured, /obj/item/natural/hide/cured)
+	created_item = /obj/item/ingot/component/berserkswordgrip
+	appro_skill = /datum/skill/craft/weaponsmithing
+	i_type = "Weapons"
+	craftdiff = SKILL_LEVEL_MASTER
+	bypass_dupe_test = TRUE
+
+/datum/anvil_recipe/valuables/iron/berserkswordblade
+	name = "Blade of the Berserker's Sword (+4 Iron Ingots, +1 Heap of Raw Iron)"
+	req_bar = /obj/item/ingot/iron
+	additional_items = list(/obj/item/ingot/iron, /obj/item/ingot/iron, /obj/item/ingot/iron, /obj/item/ingot/iron, /obj/item/ingot/component/heapofrawiron)
+	created_item = /obj/item/ingot/component/berserkswordblade
+	appro_skill = /datum/skill/craft/weaponsmithing
+	i_type = "Weapons"
+	craftdiff = SKILL_LEVEL_MASTER
+	bypass_dupe_test = TRUE
+
+/datum/anvil_recipe/valuables/iron/berserksword
+	name = "Berserker's Sword (+1 B. Sword's Blade)"
+	req_bar = /obj/item/ingot/component/berserkswordgrip
+	additional_items = list(/obj/item/ingot/component/berserkswordblade)
+	created_item = /obj/item/rogueweapon/sword/long/exe/berserk
+	appro_skill = /datum/skill/craft/weaponsmithing
+	i_type = "Weapons"
+	craftdiff = SKILL_LEVEL_MASTER
+
+/datum/anvil_recipe/valuables/iron/berserkswordalt
+	name = "Berserker's Sword (+1 B. Sword's Grip)"
+	req_bar = /obj/item/ingot/component/berserkswordblade
+	additional_items = list(/obj/item/ingot/component/berserkswordgrip)
+	created_item = /obj/item/rogueweapon/sword/long/exe/berserk
+	appro_skill = /datum/skill/craft/weaponsmithing
+	i_type = "Weapons"
+	craftdiff = SKILL_LEVEL_MASTER
 
 /datum/anvil_recipe/weapons/lithmyc/mace
 	name = "Lithmyc Mace (+ Blueprint)"
