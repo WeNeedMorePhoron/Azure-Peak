@@ -107,7 +107,7 @@
 	. = ..()
 	if(.)
 		return
-	if(!coin_loaded && !(ishuman(user) && (user in SStreasury.bank_accounts) && SStreasury.bank_accounts[user] > 0))
+	if(!coin_loaded)
 		to_chat(user, span_warning("Insert coins to use the terminal."))
 		return
 	if(inqcoins)
@@ -131,32 +131,7 @@
 /obj/structure/roguemachine/mail/ui_data(mob/user)
 	var/list/data = list()
 	data["balance"] = coin_loaded
-	var/bank_bal = 0
-	if(ishuman(user) && (user in SStreasury.bank_accounts))
-		bank_bal = SStreasury.bank_accounts[user]
-	data["bank_balance"] = bank_bal
 	return data
-
-/// Charges a fixed amount from the machine if there's enough coins. Otherwise grab from the account. Treasury income is only given for mail not quill / feather, to prevent steward giving paper money and then immediately converting it into actuial materials.
-/obj/structure/roguemachine/mail/proc/try_charge(mob/user, amount, treasury_income = FALSE)
-	if(coin_loaded >= amount)
-		coin_loaded -= amount
-		if(treasury_income)
-			SStreasury.give_money_treasury(amount, "Mail Income")
-			record_round_statistic(STATS_TAXES_COLLECTED, amount)
-		if(coin_loaded <= 0)
-			update_icon()
-		return TRUE
-	if(ishuman(user) && (user in SStreasury.bank_accounts))
-		if(SStreasury.bank_accounts[user] >= amount)
-			SStreasury.bank_accounts[user] -= amount
-			if(treasury_income)
-				SStreasury.give_money_treasury(amount, "Mail Income")
-				record_round_statistic(STATS_TAXES_COLLECTED, amount)
-			playsound(src, 'sound/misc/beep.ogg', 100, FALSE, -1)
-			to_chat(user, span_notice("[amount]m charged to your bank account."))
-			return TRUE
-	return FALSE
 
 /obj/structure/roguemachine/mail/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -164,67 +139,82 @@
 	var/mob/user = usr
 	switch(action)
 		if("buy_paper")
-			if(try_charge(user, 1))
+			if(coin_loaded >= 1)
+				coin_loaded -= 1
 				var/obj/item/paper/papier = new(get_turf(src))
 				user.put_in_hands(papier)
 				playsound(src, 'sound/misc/hiss.ogg', 100, FALSE, -1)
+				if(coin_loaded <= 0)
+					update_icon()
 			return TRUE
 		if("buy_quill")
-			if(try_charge(user, 5))
+			if(coin_loaded >= 5)
+				coin_loaded -= 5
 				var/obj/item/natural/feather/quill = new(get_turf(src))
 				user.put_in_hands(quill)
 				playsound(src, 'sound/misc/hiss.ogg', 100, FALSE, -1)
+				if(coin_loaded <= 0)
+					update_icon()
 			return TRUE
 		if("send_letter")
-			if(!try_charge(user, 1, treasury_income = TRUE))
-				return TRUE
-			var/send2place = params["recipient"]
-			var/sentfrom = params["sender"]
-			var/content = params["content"]
-			if(!send2place)
-				return TRUE
-			if(length(content) > 2000)
-				to_chat(user, span_warning("Letter too long."))
-				return TRUE
-			var/obj/item/paper/P = new
-			P.info += content
-			P.mailer = sentfrom
-			P.mailedto = send2place
-			P.update_icon()
-			if(findtext(send2place, "#"))
-				var/box2find = text2num(copytext(send2place, findtext(send2place, "#")+1))
-				var/found = FALSE
-				for(var/obj/structure/roguemachine/mail/X in SSroguemachine.hermailers)
-					if(X.ournum == box2find)
-						found = TRUE
+			if(coin_loaded >= 1)
+				var/send2place = params["recipient"]
+				var/sentfrom = params["sender"]
+				var/content = params["content"]
+				if(!send2place)
+					return TRUE
+				if(length(content) > 2000)
+					to_chat(user, span_warning("Letter too long."))
+					return TRUE
+				var/obj/item/paper/P = new
+				P.info += content
+				P.mailer = sentfrom
+				P.mailedto = send2place
+				P.update_icon()
+				if(findtext(send2place, "#"))
+					var/box2find = text2num(copytext(send2place, findtext(send2place, "#")+1))
+					var/found = FALSE
+					for(var/obj/structure/roguemachine/mail/X in SSroguemachine.hermailers)
+						if(X.ournum == box2find)
+							found = TRUE
+							P.forceMove(X.loc)
+							X.say("New mail!")
+							playsound(X, 'sound/misc/hiss.ogg', 100, FALSE, -1)
+							break
+					if(found)
+						visible_message(span_warning("[user] sends something."))
+						playsound(loc, 'sound/misc/disposalflush.ogg', 100, FALSE, -1)
+						SStreasury.give_money_treasury(1, "Mail Income")
+						record_round_statistic(STATS_TAXES_COLLECTED, 1)
+						coin_loaded -= 1
+						if(coin_loaded <= 0)
+							update_icon()
+					else
+						to_chat(user, span_warning("Failed to send. Bad number?"))
+						qdel(P)
+				else
+					if(SSroguemachine.hermailermaster)
+						var/obj/item/roguemachine/mastermail/X = SSroguemachine.hermailermaster
 						P.forceMove(X.loc)
-						X.say("New mail!")
-						playsound(X, 'sound/misc/hiss.ogg', 100, FALSE, -1)
-						break
-				if(found)
-					visible_message(span_warning("[user] sends something."))
-					playsound(loc, 'sound/misc/disposalflush.ogg', 100, FALSE, -1)
-				else
-					to_chat(user, span_warning("Failed to send. Bad number?"))
-					qdel(P)
-			else
-				if(SSroguemachine.hermailermaster)
-					var/obj/item/roguemachine/mastermail/X = SSroguemachine.hermailermaster
-					P.forceMove(X.loc)
-					var/datum/component/storage/STR = X.GetComponent(/datum/component/storage)
-					STR.handle_item_insertion(P, prevent_warning=TRUE)
-					X.new_mail = TRUE
-					X.update_icon()
-					send_ooc_note("New letter from <b>[sentfrom].</b>", name = send2place)
-					for(var/mob/living/carbon/human/H in GLOB.human_list)
-						if(H.real_name == send2place)
-							H.apply_status_effect(/datum/status_effect/ugotmail)
-							H.playsound_local(H, 'sound/misc/mail.ogg', 100, FALSE, -1)
-					visible_message(span_warning("[user] sends something."))
-					playsound(loc, 'sound/misc/disposalflush.ogg', 100, FALSE, -1)
-				else
-					to_chat(user, span_warning("The master of mails has perished?"))
-					qdel(P)
+						var/datum/component/storage/STR = X.GetComponent(/datum/component/storage)
+						STR.handle_item_insertion(P, prevent_warning=TRUE)
+						X.new_mail = TRUE
+						X.update_icon()
+						send_ooc_note("New letter from <b>[sentfrom].</b>", name = send2place)
+						for(var/mob/living/carbon/human/H in GLOB.human_list)
+							if(H.real_name == send2place)
+								H.apply_status_effect(/datum/status_effect/ugotmail)
+								H.playsound_local(H, 'sound/misc/mail.ogg', 100, FALSE, -1)
+						visible_message(span_warning("[user] sends something."))
+						playsound(loc, 'sound/misc/disposalflush.ogg', 100, FALSE, -1)
+						SStreasury.give_money_treasury(1, "Mail Income")
+						record_round_statistic(STATS_TAXES_COLLECTED, 1)
+						coin_loaded -= 1
+						if(coin_loaded <= 0)
+							update_icon()
+					else
+						to_chat(user, span_warning("The master of mails has perished?"))
+						qdel(P)
 			return TRUE
 		if("refund")
 			if(coin_loaded > 0)
