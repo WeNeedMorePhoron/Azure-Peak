@@ -37,19 +37,19 @@
 	created_item = /obj/item/roguestatue/blacksteel
 
 /datum/anvil_recipe/valuables/zcross_iron
-	name = "Inverted Psycross (1 iron)"
+	name = "Inverted Psycross"
 	req_bar = /obj/item/ingot/iron
 	created_item = /obj/item/clothing/neck/roguetown/psicross/inhumen/iron
 	craftdiff = 1
 
 /datum/anvil_recipe/valuables/matthios
-	name = "Amulet of Matthios (1 gold)"
+	name = "Amulet of Matthios"
 	req_bar = /obj/item/ingot/gold
 	created_item = /obj/item/clothing/neck/roguetown/psicross/inhumen/matthios
 	craftdiff = 1
 
 /datum/anvil_recipe/valuables/graggar
-	name = "Amulet of Graggar (1 iron)"
+	name = "Amulet of Graggar"
 	req_bar = /obj/item/ingot/iron
 	created_item = /obj/item/clothing/neck/roguetown/psicross/inhumen/graggar
 	craftdiff = 1
@@ -65,19 +65,37 @@
 	name = "Amulet of Psydonia, Bronze"
 	req_bar = /obj/item/ingot/bronze
 	created_item = /obj/item/clothing/neck/roguetown/psicross/bronze
-	craftdiff = SKILL_LEVEL_JOURNEYMAN
+	craftdiff = 2
 
 /datum/anvil_recipe/valuables/zcrossbronze
 	name = "Amulet of Inhumenity, Bronze"
 	req_bar = /obj/item/ingot/bronze
 	created_item = /obj/item/clothing/neck/roguetown/psicross/inhumen/bronze
-	craftdiff = SKILL_LEVEL_JOURNEYMAN
+	craftdiff = 2
+
+/datum/anvil_recipe/valuables/astcrossbronze
+	name = "Amulet of Order, Bronze"
+	req_bar = /obj/item/ingot/bronze
+	created_item = /obj/item/clothing/neck/roguetown/psicross/astrata/bronze
+	craftdiff = 2
 
 /datum/anvil_recipe/valuables/ravoxbronze
-	name = "Amulet of Ravox, Bronze"
+	name = "Amulet of Justice, Bronze"
 	req_bar = /obj/item/ingot/bronze
 	created_item = /obj/item/clothing/neck/roguetown/psicross/ravox/bronze
-	craftdiff = SKILL_LEVEL_JOURNEYMAN
+	craftdiff = 2
+
+/datum/anvil_recipe/valuables/graggarbronze
+	name = "Amulet of Violence, Bronze"
+	req_bar = /obj/item/ingot/bronze
+	created_item = /obj/item/clothing/neck/roguetown/psicross/inhumen/graggar/bronze
+	craftdiff = 2
+
+/datum/anvil_recipe/valuables/malumcrossbronze
+	name = "Amulet of Creation, Bronze"
+	req_bar = /obj/item/ingot/bronze
+	created_item = /obj/item/clothing/neck/roguetown/psicross/malum/bronze
+	craftdiff = 2
 
 /datum/anvil_recipe/valuables/statuebronze
 	name = "Statue, Bronze"
