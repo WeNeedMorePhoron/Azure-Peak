@@ -16,9 +16,9 @@
 
 /obj/item/clothing/shoes/roguetown/boots
 	name = "dark boots"
+	desc = "A pair of dark, well-cobbled boots. You have a feeling they're in your size."
 	//dropshrink = 0.75
 	color = "#d5c2aa"
-	desc = ""
 	gender = PLURAL
 	icon_state = "blackboots"
 	item_state = "blackboots"
@@ -295,11 +295,13 @@
 	grid_height = 96
 	grid_width = 96
 	sellprice = 200
+	unenchantable = TRUE
 
 /obj/item/clothing/shoes/roguetown/boots/armor/gold/king
 	name = "royal golden greaves"
 	max_integrity = ARMOR_INT_SIDE_GOLDPLUS // Doubled integrity.
 	sellprice = 300
+	unenchantable = TRUE
 
 /obj/item/clothing/shoes/roguetown/boots/armor/bronze
 	name = "bronze greaves"
@@ -346,6 +348,7 @@
 	desc = "Ensnaring paradoxes, rended beneath logic and solidified into tangible footguards. Called forth from the edge of what should be known, in Her name."
 	icon_state = "zizoboots"
 	chunkcolor = "#363030"
+	material_category = ARMOR_MAT_PLATE
 	armor = ARMOR_ASCENDANT
 
 /obj/item/clothing/shoes/roguetown/boots/armor/zizo/Initialize()
@@ -485,39 +488,20 @@
 
 // ----------------- BLACKSTEEL -----------------------
 
-/obj/item/clothing/shoes/roguetown/boots/blacksteel/modern/plateboots
+/obj/item/clothing/shoes/roguetown/boots/armor/blacksteel/modern
 	name = "blacksteel plate boots"
 	desc = "Magnificent sabatons of blacksteel, pointed-yet-restrained. By the click of your heels, a thousand levymen shall march without question - and 'pon a leaping start, they shall see the bravery that earned such alloyed gifts to begin with."
-	body_parts_covered = FEET
-	icon = 'icons/roguetown/clothing/special/blkknight.dmi'
-	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
-	sleeved = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
 	icon_state = "bplateboots"
 	item_state = "bplateboots"
-	color = null
-	blocksound = PLATEHIT
-	max_integrity = ARMOR_INT_SIDE_BLACKSTEEL
-	armor = ARMOR_PLATE_BSTEEL
-	anvilrepair = /datum/skill/craft/armorsmithing
-	smeltresult = /obj/item/ingot/blacksteel
-	resistance_flags = FIRE_PROOF
-	chunkcolor = "#303036"
 
-/obj/item/clothing/shoes/roguetown/boots/blacksteel/plateboots
+/obj/item/clothing/shoes/roguetown/boots/armor/blacksteel
 	name = "ancient blacksteel plate boots"
 	desc = "Antiquated sabatons, forged from segmented plates of blacksteel. Am I the cancer that is killing this world? Is it my hate, my spite, my lust - that, which poisons the ones around me, and siphons away the hope of Man and God alike? When the last hearth is quenched and Psydonia is nothing more than a shriveled husk, will I still blame the corpses for what I had done? </br>‎  </br>Let go of your hate. Your lyfe is yours, and yours alone to arbitrate."
-	body_parts_covered = FEET
-	icon = 'icons/roguetown/clothing/special/blkknight.dmi'
-	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/blkknight.dmi'
 	icon_state = "bkboots"
 	item_state = "bkboots"
-	color = null
-	blocksound = PLATEHIT
 	max_integrity = ARMOR_INT_SIDE_BLACKSTEEL
 	armor = ARMOR_PLATE_BSTEEL
-	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/blacksteel
-	resistance_flags = FIRE_PROOF
 	chunkcolor = "#303036"
 
 // ----------------- BLACKSTEEL END -----------------------
