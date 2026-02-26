@@ -8,8 +8,6 @@
 	var/skill_quality = 0 // Accumulated per hit based on calculations, will decide final result.
 	var/appro_skill = /datum/skill/craft/blacksmithing
 	var/atom/req_bar
-	var/atom/req_blade
-	var/using_blade = FALSE
 	var/atom/movable/created_item
 	var/createditem_num = 1 // How many units to make.
 	var/craftdiff = 0
