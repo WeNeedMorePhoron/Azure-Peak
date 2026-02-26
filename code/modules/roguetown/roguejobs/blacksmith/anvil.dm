@@ -41,6 +41,9 @@
 					return
 				return
 			else
+				if(T.hingot)
+					to_chat(user, span_warning("You're already holding something with your tongs!"))
+					return
 				hingot.forceMove(T)
 				T.hingot = hingot
 				hingot = null
@@ -202,6 +205,9 @@
 			hingot.currecipe.material_quality += hingot.quality
 			previous_material_quality = hingot.quality
 			ui.close()
+			var/obj/item/rogueweapon/hammer/hammer = user.get_active_held_item()
+			if(istype(hammer))
+				attackby(hammer, user)
 			return TRUE
 
 /obj/machinery/anvil/attack_hand(mob/user, params)
