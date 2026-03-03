@@ -557,6 +557,7 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	omegalist += list(GLOB.retinue_positions)
 	omegalist += list(GLOB.garrison_positions)
 	omegalist += list(GLOB.church_positions)
+	omegalist += list(GLOB.university_positions)
 	omegalist += list(GLOB.burgher_positions)
 	omegalist += list(GLOB.peasant_positions)
 	omegalist += list(GLOB.sidefolk_positions)
@@ -607,6 +608,8 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 					cat_name = "Inquisition"
 				if (ANTAGONIST)
 					cat_name = "Antagonists"
+				if (UNIVERSITY)
+					cat_name = "University"
 
 			dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
 			dat += "<legend align='center' style='font-weight: bold; color: [cat_color]'>[cat_name]</legend>"

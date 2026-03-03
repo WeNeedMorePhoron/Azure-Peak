@@ -117,7 +117,9 @@
 #define VAMPIRE_SPAWN 	(1<<8)
 #define GNOLL			(1<<9)
 
-#define SLOP				(1<<11)
+#define UNIVERSITY			(1<<11)
+
+#define SLOP				(1<<12)
 
 #define TESTER		(1<<0)
 
@@ -132,6 +134,7 @@
 #define JCOLOR_WANDERER  "#23763a"
 #define JCOLOR_INQUISITION "#6c6c6c"
 #define JCOLOR_ANTAGONIST  "#b8252c"
+#define JCOLOR_UNIVERSITY "#5b7fbf"
 // PUT THESE ON THE FIRST ROLE IN THE LIST BELOW (IE NOBLE ON LORD) TO GET DESIRED COLOUR OF THE DEPARTMENT SELECT
 // job display orders //
 
@@ -146,8 +149,7 @@
 #define JDO_COUNCILLOR 2.2
 #define JDO_CLERK 2.3
 #define JDO_JESTER 2.4
-#define JDO_MAGICIAN 2.5
-#define JDO_ARCHIVIST 2.6
+#define JDO_ARCHIVIST 2.5
 #define JDO_SENESCHAL 2.8
 #define JDO_SUITOR 2.9
 
@@ -171,6 +173,10 @@
 #define JDO_ACOLYTE 5.5
 #define JDO_SEXTON 5.6
 
+// University
+#define JDO_ARCHMAGOS 5.7
+#define JDO_ASSOCIATE 5.8
+
 // Town Burghers
 #define JDO_MERCHANT 6
 #define JDO_GUILDMASTER 6.1
@@ -181,7 +187,6 @@
 #define JDO_INNKEEPER 6.6
 #define JDO_BATHMASTER 6.7
 #define JDO_CRIER 6.8
-#define JDO_APPRENTICE 6.9
 
 // Town Serfs - Peasants
 #define JDO_BATHWORKER 7

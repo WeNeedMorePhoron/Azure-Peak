@@ -3,7 +3,7 @@
 		"Grand Duke",\
 		"Consort",\
 		"Hand",\
-		"Court Magician",\
+		"Archmagos",\
 		"Marshal",\
 		"Knight",\
 		"Bishop",\

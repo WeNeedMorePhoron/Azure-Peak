@@ -1,7 +1,7 @@
 /datum/job/roguetown/wapprentice
-	title = "Magicians Associate"
+	title = "Magos Associate"
 	flag = APPRENTICE
-	department_flag = BURGHERS
+	department_flag = UNIVERSITY
 	faction = "Station"
 	total_positions = 4
 	spawn_positions = 4
@@ -10,18 +10,18 @@
 	spells = list()
 	advclass_cat_rolls = list(CTAG_WAPPRENTICE = 20)
 
-	tutorial = "Yils of study have led you to the University of Azuria. The Divine heals and protects. The arcyne arts, though useful, are far more suited to death and destruction. The Crown knows this, and provides a stipend to fund your studies and just as much your complacency, to not turn your magicks against the Crown. A comfortable tenure, a stipend, and a place to undergo your study. What more could a Mage ask for?"
+	tutorial = "Yils of study have led you to the University of Azuria. The Divine heals and protects. The arcyne arts, though useful, are far more suited to death and destruction. The University provides a stipend to fund your studies, a comfortable tenure, and a place to undergo your research. Independent of crown and church alike, the University answers only to the pursuit of knowledge. What more could a Mage ask for?"
 
 	outfit = /datum/outfit/job/roguetown/wapprentice
 
-	display_order = JDO_APPRENTICE
+	display_order = JDO_ASSOCIATE
 	give_bank_account = TRUE
 
 	min_pq = 0
 	max_pq = null
 	round_contrib_points = 2
 	cmode_music = 'sound/music/cmode/nobility/combat_courtmage.ogg'
-	advjob_examine = TRUE // So that Court Magicians can know if they're teachin' a Apprentice or if someone's a bit more advanced of a player. Just makes the title show up as the advjob's name.
+	advjob_examine = TRUE // So that the Archmagos can know if they're teachin' an Apprentice or if someone's a bit more advanced of a player. Just makes the title show up as the advjob's name.
 
 	job_traits = list(TRAIT_ALCHEMY_EXPERT)
 	job_subclasses = list(
@@ -36,8 +36,8 @@
 	// inheritance issues with adept's stoplag-based chant selection.
 
 /datum/advclass/wapprentice/associate
-	name = "Magician's Associate"
-	tutorial = "No one could truly master the entirety of the arcyne arts. But commanding the fundamentals is quite achievable. Deemed competent by your peers and mentor, you have become an Associate, paid a stipend to wield your power in the name of the Crown, or at least not against them. The Crown might want a bolt of lightning in their enemies back - after all, what else is the arcyne good for but war and destruction? But as many mages knows, wisdom and whimsy is the true calling of the Magi who has mastered the arts. The choice is yours."
+	name = "Magos Associate"
+	tutorial = "No one could truly master the entirety of the arcyne arts. But commanding the fundamentals is quite achievable. Deemed competent by your peers and the Archmagos, you have become an Associate of the University of Azuria. Your stipend comes from the University's own coffers, not from any lord's purse. Whether it is Wisdom, Whimsy, or Camaraderie you wish to pursue, the choice is yours. You are beholden to naught but the Archmagos, the University, and your fellow mages."
 	outfit = /datum/outfit/job/roguetown/wapprentice/associate
 
 	category_tags = list(CTAG_WAPPRENTICE)
@@ -149,8 +149,8 @@
 		SStreasury.give_money_account(ECONOMIC_LOWER_MIDDLE_CLASS, H, "Savings.")
 
 /datum/advclass/wapprentice/apprentice
-	name = "Magician's Apprentice"
-	tutorial = "The road to arcyne mastery is long and treacherous. Books, scrolls, gems, studies, singed hair, and summoning gone wrong. Expenses and death alike, it is not a path for the pauper or the coward. You, however, were given a place as an apprentice in the University of Azuria. Under the watchful gaze of the Court Magician, and their fellow associates, you may yet live to become a master of the arcyne arts."
+	name = "Magos Apprentice"
+	tutorial = "The road to arcyne mastery is long and treacherous. Books, scrolls, gems, studies, singed hair, and summoning gone wrong. Expenses and death alike, it is not a path for the pauper or the coward. You, however, were given a place as an apprentice in the University of Azuria. Under the watchful gaze of the Archmagos and your fellow associates, you may yet live to become a master of the arcyne arts."
 	outfit = /datum/outfit/job/roguetown/wapprentice/apprentice
 
 	category_tags = list(CTAG_WAPPRENTICE)
@@ -202,8 +202,7 @@
 		originating in Azurea. You are employed under the University \
 		as a fellow Magos. The arcyne arts are dangerous, \
 		and you are to protect your peers from their own recklessness. \
-		You are not a member of the retinue - though the Crown may pay you a salary. \
-		It is not your job to wield your power in the Crown's name. \
+		You answer to the Archmagos and the University, not to any crown or lord. \
 		Further your mastery, your camaraderie, and the safety of your fellow mages."
 	outfit = /datum/outfit/job/roguetown/wapprentice/spellblade
 	category_tags = list(CTAG_WAPPRENTICE)

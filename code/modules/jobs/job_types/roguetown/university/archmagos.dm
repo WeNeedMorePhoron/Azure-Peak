@@ -1,7 +1,7 @@
 /datum/job/roguetown/magician
-	title = "Court Magician"
+	title = "Archmagos"
 	flag = WIZARD
-	department_flag = COURTIERS
+	department_flag = UNIVERSITY
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -9,10 +9,11 @@
 	allowed_races = RACES_NO_CONSTRUCT		//Nobility, no construct
 	allowed_sexes = list(MALE, FEMALE)
 	spells = list(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
-	display_order = JDO_MAGICIAN
+	display_order = JDO_ARCHMAGOS
+	selection_color = JCOLOR_UNIVERSITY
 	tutorial = "Your creed is one dedicated to the conquering of the arcane arts and the constant thrill of knowledge. \
-		You owe your life to the Lord, for it was his coin that allowed you to continue your studies in these dark times. \
-		In return, you have proven time and time again as justicar and trusted advisor to their reign."
+		Yils of devotion to the University of Azuria have earned you its highest seat. \
+		You answer to no crown or lord — only to the pursuit of knowledge and the safety of your fellow mages."
 	outfit = /datum/outfit/job/roguetown/magician
 	whitelist_req = TRUE
 	give_bank_account = TRUE
@@ -31,10 +32,10 @@
 	)
 
 /datum/advclass/courtmage
-	name = "Court Magician"
+	name = "Archmagos"
 	tutorial = "Your creed is one dedicated to the conquering of the arcane arts and the constant thrill of knowledge. \
-		You owe your life to the Lord, for it was his coin that allowed you to continue your studies in these dark times. \
-		In return, you have proven time and time again as justicar and trusted advisor to their reign."
+		Yils of devotion to the University of Azuria have earned you its highest seat. \
+		You answer to no crown or lord — only to the pursuit of knowledge and the safety of your fellow mages."
 	outfit = /datum/outfit/job/roguetown/magician/basic
 
 	subclass_spellpoints = 36
@@ -67,7 +68,6 @@
 	)
 
 /datum/outfit/job/roguetown/magician
-	job_bitflag = BITFLAG_ROYALTY
 	has_loadout = TRUE
 
 /datum/outfit/job/roguetown/magician/choose_loadout(mob/living/carbon/human/H)

@@ -31,7 +31,7 @@
 		"Captain",
 		"Archivist",
 		"Knight",
-		"Court Magician",
+		"Archmagos",
 		"Inquisitor",
 		"Orthodoxist",
 		"Absolver",

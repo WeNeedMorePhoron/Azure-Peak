@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 GLOBAL_LIST_INIT(leadership_positions, list( // Used for boldening text primarily
 	"Grand Duke",
 	"Hand",
-	"Court Magician",
+	"Archmagos",
 	"Marshal",
 	"Sergeant",
 	"Bishop",
@@ -100,7 +100,6 @@ GLOBAL_LIST_INIT(courtier_positions, list( //Anyone that is officially part of t
 	"Councillor",
 	"Clerk",
 	"Jester",
-	"Court Magician",
 	"Archivist",
 	"Seneschal",
 	"Suitor",
@@ -139,7 +138,11 @@ GLOBAL_LIST_INIT(burgher_positions, list( //Artisans, store owners what have you
 	"Innkeeper",
 	"Bathmaster",
 	"Town Crier",
-	"Magicians Associate",
+))
+
+GLOBAL_LIST_INIT(university_positions, list( //University of Azuria
+	"Archmagos",
+	"Magos Associate",
 ))
 
 GLOBAL_LIST_INIT(bathhouse_positions, list(
@@ -245,6 +248,7 @@ GLOBAL_LIST_INIT(job_assignment_order, get_job_assignment_order())
 	sorting_order += GLOB.retinue_positions
 	sorting_order += GLOB.garrison_positions
 	sorting_order += GLOB.church_positions
+	sorting_order += GLOB.university_positions
 	sorting_order += GLOB.burgher_positions
 	sorting_order += GLOB.peasant_positions
 	sorting_order += GLOB.sidefolk_positions

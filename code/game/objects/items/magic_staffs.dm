@@ -147,7 +147,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(ishuman(user))
 		var/mob/living/carbon/human/HU = user
-		if(HU.job != "Court Magician")
+		if(HU.job != "Archmagos")
 			to_chat(user, span_danger("The staff doesn't obey me."))
 			return
 		if(ishuman(target))
@@ -160,7 +160,7 @@
 			if(H.anti_magic_check())
 				to_chat(user, span_danger("Their magic protection has interrupted my cast!"))
 				return
-			if(H.job != "Magicians Associate")
+			if(H.job != "Magos Associate")
 				to_chat(user, span_danger("The target must one of my associates!"))
 				return
 			if(istype(user.used_intent, /datum/intent/magos_electrocute))
