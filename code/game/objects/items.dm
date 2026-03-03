@@ -535,6 +535,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			output = examine_block(output)
 		to_chat(usr, output)
 
+	if(href_list["explainshieldcoverage"])
+		var/output = span_info("Chance to passively block incoming projectiles. Only works from the front.\nShields take quarter damage from blocked projectiles and fixed durability damage from melee parries.")
+		if(!usr.client.prefs.no_examine_blocks)
+			output = examine_block(output)
+		to_chat(usr, output)
+
 	if(href_list["explaindemolitionmod"])
 		var/output = span_info("Multiplies the damage done to objects when hitting them.")
 		if(!usr.client.prefs.no_examine_blocks)
@@ -610,6 +616,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			var/obj/item/rogueweapon/W = src
 			if(W.special)
 				inspec += "[W.special.get_examine()]"
+
+		if(istype(src, /obj/item/rogueweapon/shield))
+			var/obj/item/rogueweapon/shield/S = src
+			inspec += "\n<b>PASSIVE PROJECTILE BLOCK:</b> [S.coverage]% <span class='info'><a href='?src=[REF(src)];explainshieldcoverage=1'>{?}</a></span>"
 
 		if(intdamage_factor != 1 && force >= 5)
 			inspec += "\n<b>INTEGRITY DAMAGE:</b> [intdamage_factor * 100]% <span class='info'><a href='?src=[REF(src)];explainintdamage=1'>{?}</a></span>"
