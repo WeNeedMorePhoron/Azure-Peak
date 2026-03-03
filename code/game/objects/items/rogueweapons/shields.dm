@@ -118,7 +118,7 @@
 	icon_state = "woodsh"
 	dropshrink = 0.8
 	anvilrepair = /datum/skill/craft/carpentry
-	coverage = 30
+	coverage = 60
 	heraldry_x_offset = 1
 	heraldry_y_offset = -1 // 1px right and down to make it look centered
 
@@ -344,7 +344,7 @@
 	resistance_flags = FLAMMABLE
 	var/swapped = FALSE
 	wdefense = 10
-	coverage = 40
+	coverage = 70
 	parrysound = list('sound/combat/parry/shield/towershield (1).ogg','sound/combat/parry/shield/towershield (2).ogg','sound/combat/parry/shield/towershield (3).ogg')
 	max_integrity = 300
 	anvilrepair = /datum/skill/craft/weaponsmithing
@@ -403,7 +403,7 @@
 	resistance_flags = null
 	flags_1 = CONDUCT_1
 	wdefense = 12
-	coverage = 60
+	coverage = 70
 	heraldry_x_offset = 1
 	attacked_sound = list('sound/combat/parry/shield/metalshield (1).ogg','sound/combat/parry/shield/metalshield (2).ogg','sound/combat/parry/shield/metalshield (3).ogg')
 	parrysound = list('sound/combat/parry/shield/metalshield (1).ogg','sound/combat/parry/shield/metalshield (2).ogg','sound/combat/parry/shield/metalshield (3).ogg')
@@ -598,7 +598,7 @@
 	force = 15
 	throwforce = 10
 	dropshrink = 0.8
-	coverage = 30
+	coverage = 50
 	attacked_sound = list('sound/combat/parry/shield/towershield (1).ogg','sound/combat/parry/shield/towershield (2).ogg','sound/combat/parry/shield/towershield (3).ogg')
 	parrysound = list('sound/combat/parry/shield/towershield (1).ogg','sound/combat/parry/shield/towershield (2).ogg','sound/combat/parry/shield/towershield (3).ogg')
 	max_integrity = 220
@@ -620,7 +620,7 @@
 	force = 20
 	throwforce = 25 // "I can do this all day."
 	dropshrink = 0.8
-	coverage = 30
+	coverage = 50
 	resistance_flags = null
 	flags_1 = CONDUCT_1
 	attacked_sound = list('sound/combat/parry/shield/metalshield (1).ogg','sound/combat/parry/shield/metalshield (2).ogg','sound/combat/parry/shield/metalshield (3).ogg')
