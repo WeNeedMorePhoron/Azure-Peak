@@ -91,6 +91,8 @@
 	var/datum/status_effect/intent_effect	//Status effect this intent will apply on a successful hit (damage not needed)
 	var/list/target_parts					//Targeted bodyparts which will apply the effect. Leave blank for anywhere on the body.
 
+	/// Cleave pattern for hitting secondary targets on normal attacks. Null = no cleave.
+	var/datum/cleave_pattern/cleave
 
 	var/list/static/bonk_animation_types = list(
 		BCLASS_BLUNT,
@@ -121,6 +123,7 @@
 		mastermob.curplaying = null
 	mastermob = null
 	masteritem = null
+	QDEL_NULL(cleave)
 	return ..()
 
 /datum/intent/proc/examine(mob/user)
@@ -160,7 +163,7 @@
 		inspec += "\n<b>Drain On Release:</b> [releasedrain]"
 	if(misscost)
 		inspec += "\n<b>Drain On Miss:</b> [misscost]"
-	inspec += "\n<b>Recovery Time:</b> "
+	inspec += "\n<b>Attack Speed:</b> "
 	if(clickcd <= CLICK_CD_FAST)
 		inspec += "<font color='#4af'>Very Quick</font>"
 	else if(clickcd <= CLICK_CD_QUICK)
@@ -192,6 +195,19 @@
 			inspec += " <span class='info'><a href='?src=[REF(masteritem)];explainintdamage=1'>{?}</a></span>"
 	if(sharpness_penalty)
 		inspec += "\nThis intent will cost some sharpness for every attack made."
+	if(swingdelay > 0)
+		inspec += "\n<b>Attack Delay:</b> "
+		if(swingdelay <= 2)
+			inspec += "<font color='#fa4'>Moderate</font>"
+		else if(swingdelay <= 4)
+			inspec += "<font color='#f44'>Significant</font>"
+		else
+			inspec += "<font color='#f22'>Heavy</font>"
+	if(cleave)
+		inspec += "\n<b>Cleave:</b> [cleave.desc]"
+		inspec += "\n  Max additional targets: [cleave.max_targets ? cleave.max_targets : "Unlimited"]"
+		inspec += "\n  Damage: -[cleave.damage_falloff * 100]% per extra target (min [cleave.min_damage_mult * 100]%)"
+		inspec += "\n<tt>[cleave.get_pattern_display()]</tt>"
 	inspec += "<br>----------------------"
 
 	to_chat(user, "[inspec.Join()]")
@@ -265,6 +281,8 @@
 				update_chargeloop()
 	if(Masteritem)
 		masteritem = Masteritem
+	if(ispath(cleave))
+		cleave = new cleave()
 
 /datum/intent/proc/update_chargeloop() //what the fuck is going on here lol
 	if(mastermob)

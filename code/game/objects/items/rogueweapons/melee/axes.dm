@@ -507,11 +507,27 @@
 /datum/intent/axe/chop/battle/greataxe
 	reach = 2
 
+/datum/intent/axe/sweep
+	name = "sweeping cut"
+	icon_state = "insweep"
+	blade_class = BCLASS_CUT
+	attack_verb = list("sweeps through", "cuts across")
+	animname = "cut"
+	hitsound = list('sound/combat/hits/bladed/smallslash (1).ogg', 'sound/combat/hits/bladed/smallslash (2).ogg', 'sound/combat/hits/bladed/smallslash (3).ogg')
+	penfactor = 0
+	damfactor = 1.2
+	swingdelay = 4
+	clickcd = CLICK_CD_HEAVY
+	chargetime = 0
+	item_d_type = "slash"
+	cleave = /datum/cleave_pattern/frontal_arc
+	desc = "A violent sweep that cuts through everything and everyone to the sides and front."
+
 /obj/item/rogueweapon/greataxe
 	force = 15
 	force_wielded = 30
 	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, SPEAR_BASH)
+	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/axe/sweep)
 	name = "greataxe"
 	desc = "A large axe, requiring both hands to properly swing. It carves, chops, and cleaves from afar."
 	icon_state = "igreataxe"
@@ -547,7 +563,7 @@
 	force = 15
 	force_wielded = 30
 	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, SPEAR_BASH)
+	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/axe/sweep)
 	name = "steel greataxe"
 	desc = "A large axe with a sharpened steel edge, requiring both hands to properly swing. It carves, chops, and cleaves from afar."
 	icon_state = "sgreataxe"
@@ -559,7 +575,7 @@
 	force = 15
 	force_wielded = 30
 	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, SPEAR_BASH)
+	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/axe/sweep)
 	name = "bronze greataxe"
 	desc = "A massive staff with a bronze axhead mantled onto the wood. It splits and carves from afar with lethal force; be it lumber or limbs."
 	icon_state = "bronzegreataxe"
@@ -645,7 +661,7 @@
 	force = 15
 	force_wielded = 35
 	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/axe/cut/battle/greataxe, /datum/intent/axe/chop/battle/greataxe, SPEAR_BASH)
+	gripped_intents = list(/datum/intent/axe/cut/battle/greataxe, /datum/intent/axe/chop/battle/greataxe, /datum/intent/axe/sweep)
 	name = "double-headed steel greataxe"
 	desc = "A large axe with a twinned axhead of steel, requiring both hands to properly swing. It carves, chops, and cleaves from afar. </br>'Crush your enemies, see them driven before you, and hear the lamentations of the women..'"
 	icon_state = "doublegreataxe"

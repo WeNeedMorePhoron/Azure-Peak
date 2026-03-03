@@ -155,7 +155,7 @@
 
 	var/datum/intent/cached_intent = user.used_intent
 	if(swingdelay)
-		if(!user.used_intent.noaa && isnull(user.mind))
+		if(!user.used_intent.noaa && isnull(user.mind) && !user.used_intent.cleave)
 			if(get_dist(get_turf(user), get_turf(M)) <= user.used_intent.reach)
 				user.do_attack_animation(M, user.used_intent.animname, user.used_intent.masteritem, used_intent = user.used_intent, simplified = TRUE)
 		sleep(swingdelay)
@@ -171,7 +171,7 @@
 		return
 	if((M.mobility_flags & MOBILITY_STAND))
 		if(M.checkmiss(user))
-			if(!swingdelay)
+			if(!swingdelay && !user.used_intent?.cleave)
 				if(get_dist(get_turf(user), get_turf(M)) <= user.used_intent.reach)
 					user.do_attack_animation(M, user.used_intent.animname, used_item = src, used_intent = user.used_intent, simplified = TRUE)
 			return
@@ -263,6 +263,34 @@
 				CAR.adjust_arousal_special(src, 2)
 				
 	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.used_intent.name)]) (DAMTYPE: [uppertext(damtype)])")
+
+	// Cleave logic
+	var/datum/cleave_pattern/cleave = user.used_intent?.cleave
+	if(cleave && !QDELETED(M))
+		var/list/cleave_turfs = cleave.get_cleave_turfs(user, get_turf(M))
+		var/secondary_count = cleave.count_cleave_targets(user, M, cleave_turfs)
+		var/total_targets = 1 + secondary_count
+		cleave_damage_mult = cleave.get_damage_mult(total_targets)
+		cleave_sharpness_mult = 0.5
+		var/cleave_targets_hit = 0
+		for(var/turf/T in cleave_turfs)
+			if(cleave.max_targets && cleave_targets_hit >= cleave.max_targets)
+				break
+			for(var/mob/living/L in T)
+				if(L == M || L == user)
+					continue
+				if(cleave.max_targets && cleave_targets_hit >= cleave.max_targets)
+					break
+				if(L.stat == DEAD)
+					continue
+				if(L.checkdefense(user.used_intent, user))
+					continue
+				if(L.attacked_by(src, user))
+					cleave_targets_hit++
+					log_combat(user, L, "cleaved", src.name, "(INTENT: [uppertext(user.used_intent.name)])")
+		cleave_damage_mult = 1
+		cleave_sharpness_mult = 1
+
 	add_fingerprint(user)
 
 
@@ -442,6 +470,9 @@
 		newforce = (newforce * 0.2)
 
 	newforce = CLAMP(newforce, user.used_intent.min_intent_damage, user.used_intent.max_intent_damage)
+
+	// Apply cleave damage reduction for secondary targets
+	newforce *= I.cleave_damage_mult
 
 	return newforce
 

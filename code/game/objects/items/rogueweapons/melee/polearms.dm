@@ -114,9 +114,29 @@
     damfactor = 1.2
     chargetime = 0
 
+/datum/intent/spear/cut/bardiche/cleave
+	name = "cleaving cut"
+	icon_state = "incleave"
+	attack_verb = list("cleaves", "carves through")
+	clickcd = CLICK_CD_CHARGED
+	swingdelay = 4
+	damfactor = 1.0
+	cleave = /datum/cleave_pattern/forward_cleave
+	desc = "A reaching cleave that cuts through a second target behind the first."
+
 /datum/intent/spear/cut/glaive
 	damfactor = 1.2
 	chargetime = 0
+
+/datum/intent/spear/cut/glaive/sweep
+	name = "sweeping cut"
+	icon_state = "insweep"
+	attack_verb = list("sweeps through", "cuts across")
+	clickcd = CLICK_CD_HEAVY
+	swingdelay = 6
+	damfactor = 0.9
+	cleave = /datum/cleave_pattern/horizontal_sweep
+	desc = "A wide sweep, slicing through anything to the front."
 
 /datum/intent/spear/cut/short
 	reach = 1
@@ -133,8 +153,39 @@
 	damfactor = 1.2
 	chargetime = 0
 
+/datum/intent/spear/cut/naginata/sweep
+	name = "sweeping cut"
+	icon_state = "insweep"
+	attack_verb = list("sweeps through", "cuts across")
+	clickcd = CLICK_CD_HEAVY
+	swingdelay = 6
+	damfactor = 0.9
+	cleave = /datum/cleave_pattern/horizontal_sweep
+	desc = "A wide sweep of the curved blade, cutting through anything to the sides and ahead."
+
 /datum/intent/sword/cut/zwei
 	reach = 2
+
+/datum/intent/sword/cut/zwei/cleave
+	name = "cleaving cut"
+	icon_state = "incleave"
+	desc = "A cut that cleaves into a second target behind the first."
+	attack_verb = list("cleaves", "carves through")
+	clickcd = CLICK_CD_CHARGED
+	swingdelay = 2
+	damfactor = 1.0
+	cleave = /datum/cleave_pattern/forward_cleave
+
+/datum/intent/sword/cut/zwei/sweep
+	name = "sweeping cut"
+	icon_state = "insweep"
+	desc = "A broad, brutal horizontal sweep that cuts across everything in front of you."
+	attack_verb = list("sweeps through", "cuts across")
+	reach = 1
+	clickcd = CLICK_CD_HEAVY
+	swingdelay = 4
+	damfactor = 0.9
+	cleave = /datum/cleave_pattern/horizontal_sweep
 
 /datum/intent/sword/thrust/zwei
 	reach = 2
@@ -893,7 +944,7 @@
 
 /obj/item/rogueweapon/halberd/bardiche
 	possible_item_intents = list(/datum/intent/spear/thrust/eaglebeak, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/spear/cut/bardiche, /datum/intent/axe/chop/battle, SPEAR_BASH)
+	gripped_intents = list(/datum/intent/spear/cut/bardiche, /datum/intent/spear/cut/bardiche/cleave, /datum/intent/spear/cut/glaive/sweep, SPEAR_BASH)
 	name = "bardiche"
 	desc = "A beautiful variant of the halberd. Its reinforced shaft provides it with greater durability against attacks."
 	icon_state = "bardiche"
@@ -927,7 +978,7 @@
 	name = "summer scythe"
 	desc = "Summer's verdancy runs through the head of this scythe. All the more to sow."
 	icon_state = "dendorscythe"
-	gripped_intents = list(/datum/intent/spear/thrust/eaglebeak, /datum/intent/spear/cut/bardiche, /datum/intent/axe/chop/scythe, SPEAR_BASH)
+	gripped_intents = list(/datum/intent/spear/cut/bardiche, /datum/intent/spear/cut/bardiche/cleave, /datum/intent/spear/cut/glaive/sweep, /datum/intent/axe/chop/scythe)
 	force_wielded = 33 // +3
 	max_integrity = 300 // +50
 
@@ -971,7 +1022,7 @@
 
 /obj/item/rogueweapon/halberd/glaive
 	possible_item_intents = list(/datum/intent/spear/thrust/eaglebeak, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/spear/thrust/glaive, /datum/intent/spear/cut/glaive, /datum/intent/axe/chop/scythe, SPEAR_BASH)
+	gripped_intents = list(/datum/intent/spear/cut/glaive, /datum/intent/spear/cut/glaive/sweep, /datum/intent/spear/thrust/glaive, SPEAR_BASH)
 	name = "glaive"
 	desc = "A curved blade on a pole, specialised in defence, but expensive to manufacture."
 	icon_state = "glaive"
@@ -1068,7 +1119,7 @@
 	damfactor = 0.9
 
 /datum/intent/spear/thrust/glaive
-	penfactor = 50
+	penfactor = 20
 	damfactor = 1.1
 
 /datum/intent/mace/smash/eaglebeak
@@ -1092,8 +1143,8 @@
 	force = 12
 	force_wielded = 30
 	possible_item_intents = list(/datum/intent/sword/chop, /datum/intent/sword/strike) //bash is for nonlethal takedowns, only targets limbs
-	// Design Intent: I have a big fucking sword and I want to rend people in half.
-	gripped_intents = list(/datum/intent/sword/cut/zwei, /datum/intent/sword/thrust/zwei, /datum/intent/sword/strike/bad, /datum/intent/rend)
+	// Design Intent: I have a big fucking sword and I want to cut everything in sight.
+	gripped_intents = list(/datum/intent/sword/cut/zwei, /datum/intent/sword/cut/zwei/cleave, /datum/intent/sword/cut/zwei/sweep, /datum/intent/sword/strike/bad)
 	alt_intents = list(/datum/intent/sword/strike, /datum/intent/sword/bash, /datum/intent/effect/daze)
 	mordhau = TRUE
 	name = "greatsword"
@@ -1682,7 +1733,7 @@
 	force = 16
 	force_wielded = 30
 	possible_item_intents = list(/datum/intent/spear/cut/naginata, SPEAR_BASH) // no stab for you little chuddy, it's a slashing weapon
-	gripped_intents = list(/datum/intent/spear/cut/naginata,SPEAR_BASH, /datum/intent/rend/reach, PARTIZAN_PEEL)
+	gripped_intents = list(/datum/intent/spear/cut/naginata, /datum/intent/spear/cut/naginata/sweep, /datum/intent/rend/reach, SPEAR_BASH)
 	icon_state = "naginata"
 	icon = 'icons/roguetown/weapons/polearms64.dmi'
 	minstr = 7
