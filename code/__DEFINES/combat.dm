@@ -61,10 +61,11 @@
 #define CLICK_CD_EXHAUSTED 60
 #define CLICK_CD_TRACKING 30
 #define CLICK_CD_SLEUTH 10
-#define CLICK_CD_HEAVY 16
-#define CLICK_CD_CHARGED 14
-#define CLICK_CD_MELEE 12
-#define CLICK_CD_FAST 8
+#define CLICK_CD_HEAVY 16		// Recovery tier: Very Sluggish
+#define CLICK_CD_CHARGED 14	// Recovery tier: Sluggish
+#define CLICK_CD_MELEE 12		// Recovery tier: Normal (baseline)
+#define CLICK_CD_QUICK 10		// Recovery tier: Quick
+#define CLICK_CD_FAST 8		// Recovery tier: Very Quick
 #define CLICK_CD_INTENTCAP 6
 #define CLICK_CD_RANGE 4
 #define CLICK_CD_RAPID 2

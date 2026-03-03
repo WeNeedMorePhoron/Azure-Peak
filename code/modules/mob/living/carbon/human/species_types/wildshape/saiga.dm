@@ -113,7 +113,7 @@
 	miss_sound = "bluntswoosh"
 	item_d_type = "blunt"
 	swingdelay = 8
-	clickcd = 10
+	clickcd = CLICK_CD_QUICK
 	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR // I'm evil
 
 /obj/item/rogueweapon/saiga_hoof //Like a mace

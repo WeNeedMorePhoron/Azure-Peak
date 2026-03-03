@@ -891,7 +891,7 @@
 /datum/intent/claw/lunge/gronn
 	damfactor = 1.1
 	swingdelay = 5
-	clickcd = 10
+	clickcd = CLICK_CD_QUICK
 	penfactor = 45
 
 /datum/intent/claw/cut

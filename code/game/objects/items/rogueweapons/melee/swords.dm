@@ -14,7 +14,7 @@
 
 /datum/intent/sword/cut/arming
 	damfactor = 1.2
-	clickcd = 10 // Versatile, this create 26 EDPS instead of 20. But still easily beaten by the Sabre
+	clickcd = CLICK_CD_QUICK // Versatile, this create 26 EDPS instead of 20. But still easily beaten by the Sabre
 
 /datum/intent/sword/cut/militia
 	penfactor = 30
@@ -29,7 +29,7 @@
 /datum/intent/sword/cut/broadsword
 	name = "cut with half-sworded technique"
 	damfactor = 0.8 //Allows for utility-based carving with the broadswords. Technically combat viable, though you should probably take a Longsword if you're strictly using a Broadsword for cuts.
-	clickcd = 10 //On par with an Arming Sword.
+	clickcd = CLICK_CD_QUICK //On par with an Arming Sword.
 
 /datum/intent/sword/chop/militia
 	penfactor = 50
@@ -56,7 +56,7 @@
 	penfactor = 30
 
 /datum/intent/sword/thrust/arming
-	clickcd = 10 // Less than rapier
+	clickcd = CLICK_CD_QUICK // Less than rapier
 	penfactor = 35 // 22 + 35 = 57. Beats light leather slightly more than rapier per strike, but less strike
 
 /datum/intent/sword/thrust/long
@@ -119,7 +119,7 @@
 	damfactor = 0.8
 	max_intent_damage = 24
 	swingdelay = 8
-	clickcd = 10
+	clickcd = CLICK_CD_QUICK
 	recovery = 15
 	item_d_type = "blunt"
 	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
@@ -222,7 +222,7 @@
 
 /datum/intent/sword/cut/krieg
 	damfactor = 1.2
-	clickcd = 10
+	clickcd = CLICK_CD_QUICK
 
 /datum/intent/sword/chop/broadsword
 	name = "heavy swing" //Standard penetration, but with a higher damage modifier.
@@ -1620,7 +1620,7 @@
 				)
 
 /datum/intent/sword/cut/rapier
-	clickcd = 10
+	clickcd = CLICK_CD_QUICK
 	damfactor = 0.75
 
 /datum/intent/sword/thrust/rapier

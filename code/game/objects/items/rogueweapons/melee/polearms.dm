@@ -370,7 +370,7 @@
 	name = "thrust"
 	desc = "A quick, nimble two-handed thrust. Keeps reach but lacks the power to pierce armor."
 	reach = 2
-	clickcd = 10 // Long range, quick poke, NO AP
+	clickcd = CLICK_CD_QUICK // Long range, quick poke, NO AP
 	penfactor = 5
 	damfactor = 1
 	effective_range = null
@@ -380,7 +380,7 @@
 	name = "one-handed thrust"
 	desc = "A rapid jab from one hand. Fast with long range, but unable to penetrate armor."
 	reach = 2
-	clickcd = 10 // capture that nimble feel
+	clickcd = CLICK_CD_QUICK // capture that nimble feel
 	penfactor = 15
 	damfactor = 1
 	effective_range = null
