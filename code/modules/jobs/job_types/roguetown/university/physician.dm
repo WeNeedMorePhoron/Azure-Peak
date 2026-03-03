@@ -1,7 +1,7 @@
 /datum/job/roguetown/physician
 	title = "Head Physician"
 	flag = PHYSICIAN
-	department_flag = BURGHERS
+	department_flag = UNIVERSITY
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -9,9 +9,12 @@
 	allowed_races = ACCEPTED_RACES
 	allowed_sexes = list(MALE, FEMALE)
 	display_order = JDO_PHYSICIAN
-	tutorial = "You are a master physician and the current head of the clinic. \
-		Oversee your clinic and the apothecaries under you. \
-		As a member of the upper class, expect to treat nobility. You have access to accommodate this."
+	selection_color = JCOLOR_UNIVERSITY
+	tutorial = "You are a master physician and the head of the clinic. \
+		You are part of the prestigious University of Azuria, dedicated to the pursuit of knowledge for centuries. \
+		Which of course, includes the study of medicine and the human body. \
+		You are considered equal in status to the Archmagos, one half of the University. \
+		Oversee your clinic and the apothecaries under you."
 	outfit = /datum/outfit/job/roguetown/physician
 	whitelist_req = TRUE
 	advclass_cat_rolls = list(CTAG_COURTPHYS = 2)
@@ -31,9 +34,11 @@
 
 /datum/advclass/physician
 	name = "Head Physician"
-	tutorial = "You are a master physician and the current head of the clinic. \
-		Oversee your clinic and the apothecaries under you. \
-		As a member of the upper class, expect to treat nobility. You have access to accommodate this."
+	tutorial = "You are a master physician and the head of the clinic. \
+		You are part of the prestigious University of Azuria, dedicated to the pursuit of knowledge for centuries. \
+		Which of course, includes the study of medicine and the human body. \
+		You are considered equal in status to the Archmagos, one half of the University. \
+		Oversee your clinic and the apothecaries under you."
 	outfit = /datum/outfit/job/roguetown/physician/basic
 	category_tags = list(CTAG_COURTPHYS)
 	subclass_stats = list(
@@ -58,9 +63,6 @@
 	)
 
 /datum/outfit/job/roguetown/physician
-	job_bitflag = BITFLAG_ROYALTY
-
-/datum/outfit/job/roguetown/physician
 	name = "Physician"
 	jobtype = /datum/job/roguetown/physician
 
@@ -69,7 +71,7 @@
 	H.adjust_blindness(-3)
 	mask = /obj/item/clothing/mask/rogue/courtphysician
 	neck = /obj/item/storage/belt/rogue/pouch/coins/mid //coin to hire mercenaries or adventurers with
-	wrists = /obj/item/storage/keyring/physician
+	wrists = /obj/item/storage/keyring/physician/university
 	saiga_shoes = /obj/item/clothing/shoes/roguetown/horseshoes
 	belt = /obj/item/storage/belt/rogue/leather/black
 	beltl = /obj/item/storage/belt/rogue/surgery_bag/full/physician

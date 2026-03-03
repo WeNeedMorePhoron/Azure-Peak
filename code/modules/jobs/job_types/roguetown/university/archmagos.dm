@@ -6,13 +6,16 @@
 	total_positions = 1
 	spawn_positions = 1
 
-	allowed_races = RACES_NO_CONSTRUCT		//Nobility, no construct
+	allowed_races = RACES_NO_CONSTRUCT
 	allowed_sexes = list(MALE, FEMALE)
 	spells = list(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 	display_order = JDO_ARCHMAGOS
 	selection_color = JCOLOR_UNIVERSITY
 	tutorial = "Your creed is one dedicated to the conquering of the arcane arts and the constant thrill of knowledge. \
 		Yils of devotion to the University of Azuria have earned you its highest seat. \
+		This institution has lasted for centuries, dedicated to the pursuit of knowledge. \
+		Claiming a lineage to the time of great Tarichae! \
+		Under your leadership, surely, this great institution will prosper for centuries to come. \
 		You answer to no crown or lord — only to the pursuit of knowledge and the safety of your fellow mages."
 	outfit = /datum/outfit/job/roguetown/magician
 	whitelist_req = TRUE

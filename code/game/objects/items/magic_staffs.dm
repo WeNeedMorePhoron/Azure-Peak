@@ -160,8 +160,8 @@
 			if(H.anti_magic_check())
 				to_chat(user, span_danger("Their magic protection has interrupted my cast!"))
 				return
-			if(H.job != "Magos Associate")
-				to_chat(user, span_danger("The target must one of my associates!"))
+			if(H.job != "Magos")
+				to_chat(user, span_danger("The target must be one of my magos!"))
 				return
 			if(istype(user.used_intent, /datum/intent/magos_electrocute))
 				HU.visible_message(span_warning("[HU] electrocutes [H] with the [src]."))

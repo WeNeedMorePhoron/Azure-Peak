@@ -1,8 +1,12 @@
 /datum/job/roguetown/archivist
 	title = "Archivist"
-	tutorial = "The Archivist meticulously preserves and organizes ancient scrolls and tomes, safeguarding the collective knowledge of the realm for generations to come. Nobles and Peasants alike often seek your expertise on matters of history and fact, and your keenly-kept records on the events of this week will likely stand a testament to your Duke's benevolence and their realm's prosperity...or not. After all, you hold the true power: The power to dictate how the future generations will look back on these coming days."
+	tutorial = "Most of the University is dedicated to the pursuit and practice of knowledge. \
+	You serve an equally important role - the preservation and organization of it, lest it be lost to time. \
+	You speak many tongues, and your knowledge of the arcane and the mundane is vast. \
+	Beholden only to the Archmagos, you are free to make use of the University's resources to further your studies. \
+	Nobles and peasants alike will seek your expertise on matters of skills both practical and esoteric."
 	flag = ARCHIVIST
-	department_flag = COURTIERS
+	department_flag = UNIVERSITY
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -14,6 +18,7 @@
 
 	outfit = /datum/outfit/job/roguetown/archivist
 	display_order = JDO_ARCHIVIST
+	selection_color = JCOLOR_UNIVERSITY
 	give_bank_account = TRUE
 	min_pq = 1 // Please do not read smut while brewing bottle bombs. It upsets the maids when they have to scrape archivists off the ceiling.
 	max_pq = null
@@ -39,8 +44,11 @@
 
 /datum/advclass/archivist
 	name = "Archivist"
-	tutorial = "The Archivist meticulously preserves and organizes ancient scrolls and tomes, safeguarding the collective knowledge of the realm for generations to come. Nobles and Peasants alike often seek your expertise on matters of history and fact, and your keenly-kept records on the events of this week will likely stand a testament to your Duke's benevolence and their realm's prosperity...or not. After all, you hold the true power: \
-	The power to dictate how the future generations will look back on these coming days."
+	tutorial = "Most of the University is dedicated to the pursuit and practice of knowledge. \
+	You serve an equally important role - the preservation and organization of it, lest it be lost to time. \
+	You speak many tongues, and your knowledge of the arcane and the mundane is vast. \
+	Beholden only to the Archmagos, you are free to make use of the University's resources to further your studies. \
+	Nobles and peasants alike will seek your expertise on matters of skills both practical and esoteric."
 	outfit = /datum/outfit/job/roguetown/archivist/basic
 	subclass_languages = list(
 		/datum/language/oldazurian,//YOU LIVE HERE

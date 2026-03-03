@@ -149,7 +149,6 @@
 #define JDO_COUNCILLOR 2.2
 #define JDO_CLERK 2.3
 #define JDO_JESTER 2.4
-#define JDO_ARCHIVIST 2.5
 #define JDO_SENESCHAL 2.8
 #define JDO_SUITOR 2.9
 
@@ -175,18 +174,19 @@
 
 // University
 #define JDO_ARCHMAGOS 5.7
-#define JDO_ASSOCIATE 5.8
+#define JDO_MAGOS 5.8
+#define JDO_ARCHIVIST 5.85
+#define JDO_PHYSICIAN 5.9
+#define JDO_APOTHECARY 5.91
 
 // Town Burghers
 #define JDO_MERCHANT 6
 #define JDO_GUILDMASTER 6.1
 #define JDO_GUILDSMAN 6.2
 #define JDO_TAILOR 6.3
-#define JDO_PHYSICIAN 6.4
-#define JDO_APOTHECARY 6.5
-#define JDO_INNKEEPER 6.6
-#define JDO_BATHMASTER 6.7
-#define JDO_CRIER 6.8
+#define JDO_INNKEEPER 6.4
+#define JDO_BATHMASTER 6.5
+#define JDO_CRIER 6.6
 
 // Town Serfs - Peasants
 #define JDO_BATHWORKER 7

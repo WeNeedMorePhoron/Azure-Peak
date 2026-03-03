@@ -1,5 +1,5 @@
 /datum/job/roguetown/wapprentice
-	title = "Magos Associate"
+	title = "Magos"
 	flag = APPRENTICE
 	department_flag = UNIVERSITY
 	faction = "Station"
@@ -10,11 +10,15 @@
 	spells = list()
 	advclass_cat_rolls = list(CTAG_WAPPRENTICE = 20)
 
-	tutorial = "Yils of study have led you to the University of Azuria. The Divine heals and protects. The arcyne arts, though useful, are far more suited to death and destruction. The University provides a stipend to fund your studies, a comfortable tenure, and a place to undergo your research. Independent of crown and church alike, the University answers only to the pursuit of knowledge. What more could a Mage ask for?"
+	tutorial = "Yils of study have led you to the University of Azuria. The Divine heals and protects. \
+	The arcyne arts, though useful, are far more suited to death and destruction. \
+	The University provides a stipend to fund your studies, a comfortable tenure, and a place to undergo your research. \
+	Independent of crown and church alike, the University answers only to the pursuit of knowledge. \
+	What more could a Magos ask for?"
 
 	outfit = /datum/outfit/job/roguetown/wapprentice
 
-	display_order = JDO_ASSOCIATE
+	display_order = JDO_MAGOS
 	give_bank_account = TRUE
 
 	min_pq = 0
@@ -36,8 +40,8 @@
 	// inheritance issues with adept's stoplag-based chant selection.
 
 /datum/advclass/wapprentice/associate
-	name = "Magos Associate"
-	tutorial = "No one could truly master the entirety of the arcyne arts. But commanding the fundamentals is quite achievable. Deemed competent by your peers and the Archmagos, you have become an Associate of the University of Azuria. Your stipend comes from the University's own coffers, not from any lord's purse. Whether it is Wisdom, Whimsy, or Camaraderie you wish to pursue, the choice is yours. You are beholden to naught but the Archmagos, the University, and your fellow mages."
+	name = "Magos"
+	tutorial = "No one could truly master the entirety of the arcyne arts. But commanding the fundamentals is quite achievable. Deemed competent by your peers and the Archmagos, you have become a Magos of the University of Azuria. Your stipend comes from the University's own coffers, not from any lord's purse. Whether it is Wisdom, Whimsy, or Camaraderie you wish to pursue, the choice is yours. You are beholden to naught but the Archmagos, the University, and your fellow mages."
 	outfit = /datum/outfit/job/roguetown/wapprentice/associate
 
 	category_tags = list(CTAG_WAPPRENTICE)
@@ -47,6 +51,7 @@
 		STATKEY_PER = 2,
 		STATKEY_SPD = 1
 	)
+	maximum_possible_slots = 99 // Hack for subclass preview
 	age_mod = /datum/class_age_mod/apprentice_associate
 	subclass_spellpoints = 21
 	subclass_skills = list(
@@ -92,10 +97,10 @@
 		SStreasury.give_money_account(ECONOMIC_LOWER_MIDDLE_CLASS, H, "Savings.")
 
 /datum/advclass/wapprentice/alchemist
-	name = "Alchemist Associate"
+	name = "Alchemist"
 	tutorial = "Some never considered alchemy a true arcyne art, but simply a foundation. Like a quill is to poetry. During your studies, however, you have taken to the passion of alchemy, the transmutation of elements and the creation of something concrete. Lyfeblood, elixirs, coal dust, moondust, ozium, and bottle bombs! All under Psydonia is yours to create! Just don't set the University on fire. Or do, but don't get caught."
 	outfit = /datum/outfit/job/roguetown/wapprentice/alchemist
-
+	maximum_possible_slots = 99 // Hack for subclass preview
 	category_tags = list(CTAG_WAPPRENTICE)
 	traits_applied = list(TRAIT_SEEDKNOW, TRAIT_ARCYNE_T3, TRAIT_MAGEARMOR)
 	subclass_stats = list(
@@ -150,9 +155,9 @@
 
 /datum/advclass/wapprentice/apprentice
 	name = "Magos Apprentice"
-	tutorial = "The road to arcyne mastery is long and treacherous. Books, scrolls, gems, studies, singed hair, and summoning gone wrong. Expenses and death alike, it is not a path for the pauper or the coward. You, however, were given a place as an apprentice in the University of Azuria. Under the watchful gaze of the Archmagos and your fellow associates, you may yet live to become a master of the arcyne arts."
+	tutorial = "The road to arcyne mastery is long and treacherous. Books, scrolls, gems, studies, singed hair, and summoning gone wrong. Expenses and death alike, it is not a path for the pauper or the coward. You, however, were given a place as an apprentice in the University of Azuria. Under the watchful gaze of the Archmagos and your fellow initiates, you may yet live to become a master of the arcyne arts."
 	outfit = /datum/outfit/job/roguetown/wapprentice/apprentice
-
+	maximum_possible_slots = 99 // Hack for subclass preview
 	category_tags = list(CTAG_WAPPRENTICE)
 	traits_applied = list(TRAIT_ARCYNE_T3, TRAIT_MAGEARMOR)
 	subclass_stats = list(
@@ -196,9 +201,9 @@
 		SStreasury.give_money_account(ECONOMIC_LOWER_MIDDLE_CLASS, H, "Savings.")
 
 /datum/advclass/wapprentice/spellblade
-	name = "Azurcaephan Associate"
+	name = "Azurcaephon"
 	maximum_possible_slots = 2
-	tutorial = "You are an Azurcaephan Associate — a Spellblade, carrier of the five hundred yils tradition \
+	tutorial = "You are an Azurcaephon of the University — a Spellblade, carrier of the five hundred yils tradition \
 		originating in Azurea. You are employed under the University \
 		as a fellow Magos. The arcyne arts are dangerous, \
 		and you are to protect your peers from their own recklessness. \

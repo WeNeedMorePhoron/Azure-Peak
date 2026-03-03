@@ -1,20 +1,22 @@
 /datum/job/roguetown/apothecary
 	title = "Apothecary"
 	flag = APOTHECARY
-	department_flag = BURGHERS
+	department_flag = UNIVERSITY
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
 
 	allowed_races = ACCEPTED_RACES
-
-	tutorial = "You are an accomplished physician, trained and practiced in the art of medicine. You answer to the Head Physician, who enables your practice. Woe betide the one who suffers your scalpel."
+	tutorial = "You are an accomplished physician, trained and practiced in the art of medicine and alchemy. \
+	You answer to the Head Physician - one half of the prestigious University of Azuria, dedicated to the pursuit of knowledge for centuries. \
+	You answer only to the Head Physician and the University at large, who enables your practice."
 
 	outfit = /datum/outfit/job/roguetown/apothecary
 
 	cmode_music = 'sound/music/combat_physician.ogg'
 
 	display_order = JDO_APOTHECARY
+	selection_color = JCOLOR_UNIVERSITY
 	give_bank_account = TRUE
 
 	min_pq = 0
@@ -30,7 +32,9 @@
 
 /datum/advclass/apothecary
 	name = "Apothecary"
-	tutorial = "You are an accomplished physician, trained and practiced in the art of medicine. You answer to the Head Physician, who enables your practice. Woe betide the one who suffers your scalpel."
+	tutorial = "You are an accomplished physician, trained and practiced in the art of medicine and alchemy. \
+		You answer to the Head Physician - one half of the prestigious University of Azuria, dedicated to the pursuit of knowledge for centuries. \
+		You answer only to the Head Physician and the University at large, who enables your practice."
 	outfit = /datum/outfit/job/roguetown/apothecary/basic
 	category_tags = list(CTAG_APOTH)
 	subclass_stats = list(
@@ -70,7 +74,7 @@
 		/obj/item/recipe_book/alchemy = 1,
 		/obj/item/clothing/mask/rogue/physician = 1,
 		/obj/item/storage/keyring = 1,
-		/obj/item/roguekey/keeper = 1
+		/obj/item/roguekey/university = 1
 	)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)

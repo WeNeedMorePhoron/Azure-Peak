@@ -100,7 +100,6 @@ GLOBAL_LIST_INIT(courtier_positions, list( //Anyone that is officially part of t
 	"Councillor",
 	"Clerk",
 	"Jester",
-	"Archivist",
 	"Seneschal",
 	"Suitor",
 ))
@@ -133,8 +132,6 @@ GLOBAL_LIST_INIT(burgher_positions, list( //Artisans, store owners what have you
 	"Guildmaster",
 	"Guildsman",
 	"Tailor",
-	"Head Physician",
-	"Apothecary",
 	"Innkeeper",
 	"Bathmaster",
 	"Town Crier",
@@ -142,7 +139,10 @@ GLOBAL_LIST_INIT(burgher_positions, list( //Artisans, store owners what have you
 
 GLOBAL_LIST_INIT(university_positions, list( //University of Azuria
 	"Archmagos",
-	"Magos Associate",
+	"Magos",
+	"Archivist",
+	"Head Physician",
+	"Apothecary",
 ))
 
 GLOBAL_LIST_INIT(bathhouse_positions, list(
