@@ -1,6 +1,6 @@
-// Help apothecary kickstart, one of each seed. Don't want to make it too easy.
+// Help physician kickstart, one of each seed. Don't want to make it too easy.
 /obj/structure/closet/crate/chest/old_crate/apothseed
-	name = "apothecary's herb seed crate"
+	name = "physician's herb seed crate"
 	desc = "A wooden crate used to store basic herbs."
 
 /obj/structure/closet/crate/chest/old_crate/apothseed/Initialize()
@@ -26,7 +26,7 @@
 // Basic potion ingredients for initial supply of red & blue potions.
 // Everything else should be acquired by them.
 /obj/structure/closet/crate/chest/old_crate/apoth_initial_pot
-	name = "apothecary's potion ingredient crate"
+	name = "physician's potion ingredient crate"
 	desc = "Labeled: WEEKLY HERB SUPPLY."
 
 /obj/structure/closet/crate/chest/old_crate/apoth_initial_pot/Initialize()

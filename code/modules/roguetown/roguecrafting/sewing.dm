@@ -1286,7 +1286,7 @@
 	sellprice = 25
 
 /datum/crafting_recipe/roguetown/sewing/apothshirt
-	name = "apothecary shirt"
+	name = "physician shirt"
 	category = "Shirts"
 	result = list(/obj/item/clothing/suit/roguetown/shirt/apothshirt)
 	reqs = list(/obj/item/natural/cloth = 2,
@@ -1358,9 +1358,9 @@
 	sellprice = 18
 
 /datum/crafting_recipe/roguetown/sewing/apothpants
-	name = "apothecary trousers"
+	name = "physician trousers"
 	category = "Pants"
-	result = list(/obj/item/clothing/under/roguetown/trou/apothecary)
+	result = list(/obj/item/clothing/under/roguetown/trou/physician)
 	reqs = list(/obj/item/natural/cloth = 2,
 	            /obj/item/natural/fibers = 2)
 	tools = list(/obj/item/needle)

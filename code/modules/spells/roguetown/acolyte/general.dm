@@ -314,7 +314,7 @@
 	update_icon()
 	return
 
-// Bishop only miracle - This used to be T3 only but is too powerful and ate into apothecary's niche.
+// Bishop only miracle - This used to be T3 only but is too powerful and ate into physician's niche.
 // Instantly heals all wounds & damage on a selected limb.
 // Long CD (so a Medical class would still outpace this if there's more than one patient to heal)
 /obj/effect/proc_holder/spell/invoked/wound_heal

@@ -66,8 +66,8 @@
 #define GUILDMASTER (1<<1)
 #define GUILDSMAN  	(1<<2)
 #define TAILOR		(1<<3)
-#define PHYSICIAN 	(1<<4)
-#define APOTHECARY	(1<<5)
+#define HEAD_PHYSICIAN 	(1<<4)
+#define PHYSICIAN	(1<<5)
 #define INNKEEPER	(1<<6)
 #define BATHMASTER	(1<<7)
 #define CRIER		(1<<8)
@@ -176,8 +176,8 @@
 #define JDO_ARCHMAGOS 5.7
 #define JDO_MAGOS 5.8
 #define JDO_ARCHIVIST 5.85
-#define JDO_PHYSICIAN 5.9
-#define JDO_APOTHECARY 5.91
+#define JDO_HEAD_PHYSICIAN 5.9
+#define JDO_PHYSICIAN 5.91
 
 // Town Burghers
 #define JDO_MERCHANT 6

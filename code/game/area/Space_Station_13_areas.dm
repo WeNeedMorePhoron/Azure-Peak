@@ -679,9 +679,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Chemistry"
 	icon_state = "chem"
 
-/area/medical/apothecary
-	name = "Apothecary"
-	icon_state = "apothecary"
+/area/medical/physician
+	name = "Physician"
+	icon_state = "physician"
 
 /area/medical/surgery
 	name = "Surgery"

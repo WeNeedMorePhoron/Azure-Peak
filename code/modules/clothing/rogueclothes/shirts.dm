@@ -154,7 +154,7 @@
 	sellprice = 10
 
 /obj/item/clothing/suit/roguetown/shirt/apothshirt
-	name = "apothecary shirt"
+	name = "physician shirt"
 	desc = "When trudging through late-autumn forests, one needs to keep warm."
 	icon_state = "apothshirt"
 	item_state = "apothshirt"

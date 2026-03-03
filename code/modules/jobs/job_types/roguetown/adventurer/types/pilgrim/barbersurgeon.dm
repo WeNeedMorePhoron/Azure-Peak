@@ -1,6 +1,6 @@
 /datum/advclass/barbersurgeon
 	name = "Barber Surgeon"
-	tutorial = "Wielding crude tools and accumulated knowledge, you are something of a 'freelance physician' even if the local apothecary declined your application, and over the yils have probably cut into more people than the average knight."
+	tutorial = "Wielding crude tools and accumulated knowledge, you are something of a 'freelance physician' even if the local physician declined your application, and over the yils have probably cut into more people than the average knight."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/adventurer/doctor

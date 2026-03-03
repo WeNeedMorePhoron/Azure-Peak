@@ -45,8 +45,8 @@
 	icon_state = "beltpants"
 	item_state = "beltpants"
 
-/obj/item/clothing/under/roguetown/trou/apothecary
-	name = "apothecary trousers"
+/obj/item/clothing/under/roguetown/trou/physician
+	name = "physician trousers"
 	desc = "Heavily padded trousers. They're stained by countless herbs."
 	icon_state = "apothpants"
 	item_state = "apothpants"

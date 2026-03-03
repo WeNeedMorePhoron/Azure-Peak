@@ -38,7 +38,7 @@
 		"Warden",
 		"Squire",
 		"Veteran",
-		"Apothecary"
+		"Physician"
 	)
 
 	base_antags = 1

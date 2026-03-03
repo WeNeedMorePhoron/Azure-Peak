@@ -86,7 +86,7 @@
 	This should make glass neither trivial nor too challenging to make, especially given its a high-skill recipe.
 	Smelting it into a pane is a fairly straightforward process with a mold.
 	The goal should be to make it hard enough that only a dedicated potter can do it
-	But not to the point of apothecary health potions where no one bothers with it.
+	But not to the point of physician health potions where no one bothers with it.
 	*/// -SunriseOYH 
 
 /datum/crafting_recipe/roguetown/ceramics/glassraw

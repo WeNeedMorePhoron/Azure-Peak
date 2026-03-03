@@ -41,7 +41,7 @@
 /datum/alch_cauldron_recipe/big_health_potion
 	name = "Elixir of Health (Strong)"
 	smells_like = "berry pie"
-	skill_required = SKILL_LEVEL_JOURNEYMAN // If it has "Strong", lock it roundstart for Apothecary or above
+	skill_required = SKILL_LEVEL_JOURNEYMAN // If it has "Strong", lock it roundstart for Physician or above
 	output_reagents = list(/datum/reagent/medicine/stronghealth = 90)
 
 /datum/alch_cauldron_recipe/mana_potion

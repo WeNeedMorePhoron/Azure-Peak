@@ -72,7 +72,7 @@
 	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/lucpot)
 
 // This is really fucking stupid but it's actually for the SILVERFACE.
-// Bottlebombs are made by the apothecary, NOT the blacksmith, who can otherwise lock
+// Bottlebombs are made by the physician, NOT the blacksmith, who can otherwise lock
 // you out of buying these.
 /datum/supply_pack/rogue/potions/bottlebombs
 	name = "Bottle Bomb"

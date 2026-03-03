@@ -142,7 +142,7 @@ GLOBAL_LIST_INIT(university_positions, list( //University of Azuria
 	"Magos",
 	"Archivist",
 	"Head Physician",
-	"Apothecary",
+	"Physician",
 ))
 
 GLOBAL_LIST_INIT(bathhouse_positions, list(

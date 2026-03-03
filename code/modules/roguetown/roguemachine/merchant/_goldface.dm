@@ -128,16 +128,16 @@
 	. = ..()
 	. += span_info("This can be locked by a tailor's key")
 
-/obj/structure/roguemachine/goldface/public/apothecary
-	name = "Apothecary's SILVERFACE"
+/obj/structure/roguemachine/goldface/public/physician
+	name = "Physician's SILVERFACE"
 	lockid = "physician"
-	profit_id = list("Head Physician","Apothecary")
+	profit_id = list("Head Physician","Physician")
 	categories = list(
 		"Potions",
 	)
 	categories_gamer = list()
 
-/obj/structure/roguemachine/goldface/public/apothecary/examine()
+/obj/structure/roguemachine/goldface/public/physician/examine()
 	. = ..()
 	. += span_info("This can be locked by a physician's key")
 
