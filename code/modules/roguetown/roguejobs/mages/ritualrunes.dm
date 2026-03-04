@@ -421,6 +421,58 @@ GLOBAL_LIST(teleport_runes)
 	. = ..()
 	rituals += GLOB.t4enchantmentrunerituallist
 
+// Binding Array — consumes realm materials to bind a single creature to your service.
+// Uses the same visual as imbuement for now.
+/obj/effect/decal/cleanable/roguerune/arcyne/binding
+	name = "Binding Array"
+	desc = "arcane symbols twist inward upon themselves, forming a cage of power..."
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "imbuement"
+	tier = 2
+	runesize = 1
+	pixel_x = -32
+	pixel_y = -32
+	invocation = "Vinculum Formare!"
+	layer = SIGIL_LAYER
+	can_be_scribed = TRUE
+
+/obj/effect/decal/cleanable/roguerune/arcyne/binding/New()
+	. = ..()
+	rituals += GLOB.t2bindingrituallist
+
+/obj/effect/decal/cleanable/roguerune/arcyne/binding/invoke(list/invokers, datum/runeritual/runeritual)
+	if(!..())
+		return
+	if(ritual_result)
+		pickritual.cleanup_atoms(selected_atoms)
+	invoke_cleanup()
+
+	for(var/atom/invoker in invokers)
+		if(!isliving(invoker))
+			continue
+		var/mob/living/living_invoker = invoker
+		if(invocation)
+			living_invoker.say(invocation, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
+		if(invoke_damage)
+			living_invoker.apply_damage(invoke_damage, BRUTE)
+			to_chat(living_invoker, span_italics("[src] saps your strength!"))
+	do_invoke_glow()
+
+/obj/effect/decal/cleanable/roguerune/arcyne/binding/greater
+	name = "Greater Binding Array"
+	desc = "arcane symbols twist inward upon themselves, forming a powerful cage of energy..."
+	icon = 'icons/effects/160x160.dmi'
+	icon_state = "imbuement"
+	tier = 4
+	runesize = 2
+	pixel_x = -64
+	pixel_y = -64
+	invocation = "Magnum Vinculum Formare!"
+
+/obj/effect/decal/cleanable/roguerune/arcyne/binding/greater/New()
+	. = ..()
+	rituals += GLOB.t4bindingrituallist
+
 /obj/effect/decal/cleanable/roguerune/arcyne/wall
 	name = "wall accession matrix"
 	desc = "arcane symbols litter the ground- is that a wall of some sort?"
