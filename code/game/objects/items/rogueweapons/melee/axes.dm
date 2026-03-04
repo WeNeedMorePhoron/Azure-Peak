@@ -7,8 +7,9 @@
 	attack_verb = list("cuts", "slashes")
 	hitsound = list('sound/combat/hits/bladed/smallslash (1).ogg', 'sound/combat/hits/bladed/smallslash (2).ogg', 'sound/combat/hits/bladed/smallslash (3).ogg')
 	animname = "cut"
-	penfactor = 15
-	damfactor = 1.1
+	penfactor = 0
+	damfactor = 1.3
+	clickCD = CLICK_CD_HEAVY
 	chargetime = 0
 	item_d_type = "slash"
 
@@ -19,10 +20,10 @@
 	attack_verb = list("chops", "hacks")
 	animname = "chop"
 	hitsound = list('sound/combat/hits/bladed/genchop (1).ogg', 'sound/combat/hits/bladed/genchop (2).ogg', 'sound/combat/hits/bladed/genchop (3).ogg')
-	penfactor = 30
-	damfactor = 1.2
-	swingdelay = 8
-	clickcd = 14
+	penfactor = 25
+	damfactor = 1.3
+	swingdelay = 6
+	clickcd = CLICK_CD_HEAVY
 	item_d_type = "slash"
 
 /datum/intent/axe/chop/scythe
@@ -515,7 +516,7 @@
 	animname = "cut"
 	hitsound = list('sound/combat/hits/bladed/smallslash (1).ogg', 'sound/combat/hits/bladed/smallslash (2).ogg', 'sound/combat/hits/bladed/smallslash (3).ogg')
 	penfactor = 0
-	damfactor = 1.2
+	damfactor = 1.3
 	swingdelay = 4
 	clickcd = CLICK_CD_HEAVY
 	chargetime = 0
