@@ -117,7 +117,7 @@
 	clickcd = CLICK_CD_MASSIVE
 	damfactor = 1.0
 	cleave = /datum/cleave_pattern/forward_cleave
-	desc = "A reaching cleave that cuts through a second target behind the first."
+	desc = "A cleave that cuts through a second target behind the first."
 
 /datum/intent/spear/cut/glaive
 	damfactor = 1.2
@@ -130,7 +130,7 @@
 	clickcd = CLICK_CD_GLACIAL
 	damfactor = 0.9
 	cleave = /datum/cleave_pattern/horizontal_sweep
-	desc = "A wide sweep, slicing through anything to the front."
+	desc = "A sweep that cuts through targets to the front."
 
 /datum/intent/spear/cut/short
 	reach = 1
@@ -154,7 +154,7 @@
 	clickcd = CLICK_CD_GLACIAL
 	damfactor = 0.9
 	cleave = /datum/cleave_pattern/horizontal_sweep
-	desc = "A wide sweep, cutting through anything ahead."
+	desc = "A sweep that cuts through targets to the front."
 
 /datum/intent/rend
 	name = "rend"

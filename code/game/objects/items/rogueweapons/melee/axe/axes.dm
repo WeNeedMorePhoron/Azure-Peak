@@ -435,7 +435,7 @@
 	chargetime = 0
 	item_d_type = "slash"
 	cleave = /datum/cleave_pattern/frontal_arc
-	desc = "A violent sweep that cuts through everything and everyone to the sides and front."
+	desc = "A heavy sweep that cuts through targets to the sides and front."
 
 /obj/item/rogueweapon/greataxe
 	force = 15

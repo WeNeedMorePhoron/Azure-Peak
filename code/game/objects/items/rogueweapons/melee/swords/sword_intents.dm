@@ -314,7 +314,7 @@
 /datum/intent/sword/cut/zwei/cleave
 	name = "cleaving cut"
 	icon_state = "incleave"
-	desc = "A cut that cleaves into a second target behind the first."
+	desc = "A cleave that cuts through a second target behind the first."
 	attack_verb = list("cleaves", "carves through")
 	clickcd = CLICK_CD_HEAVY
 	damfactor = 1.0
@@ -323,7 +323,7 @@
 /datum/intent/sword/cut/zwei/sweep
 	name = "sweeping cut"
 	icon_state = "insweep"
-	desc = "A broad, brutal horizontal sweep that cuts across everything in front of you."
+	desc = "A heavy sweep that cuts through targets to the front."
 	attack_verb = list("sweeps through", "cuts across")
 	reach = 1
 	clickcd = CLICK_CD_MASSIVE

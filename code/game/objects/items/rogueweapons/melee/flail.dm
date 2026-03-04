@@ -154,7 +154,7 @@
 	item_d_type = "blunt"
 	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
 	cleave = /datum/cleave_pattern/horizontal_sweep
-	desc = "A broad, brutal charged horizontal sweep that smashes through everything in front of you."
+	desc = "A charged sweep that smashes through targets to the front."
 
 /obj/item/rogueweapon/flail/getonmobprop(tag)
 	. = ..()

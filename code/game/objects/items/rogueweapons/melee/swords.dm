@@ -554,7 +554,7 @@
 	clickcd = CLICK_CD_MASSIVE // Distinguished from GSword by being sluggish
 	damfactor = 1.2
 	cleave = /datum/cleave_pattern/forward_cleave
-	desc = "A heavy downward cleave that cuts through a second target behind the first."
+	desc = "A heavy cleave that cuts through a second target behind the first."
 
 /datum/intent/sword/cut/exe/sweep
 	name = "sweeping cut"
@@ -563,7 +563,7 @@
 	clickcd = CLICK_CD_GLACIAL
 	damfactor = 1.2 // Hits harder but clunkier
 	cleave = /datum/cleave_pattern/horizontal_sweep
-	desc = "A broad, heavy sweep, cutting across everything in front of you."
+	desc = "A heavy sweep that cuts through targets to the front."
 
 /obj/item/rogueweapon/sword/long/exe/astrata
 	name = "\"Solar Judge\""
