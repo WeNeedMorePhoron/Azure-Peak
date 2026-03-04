@@ -430,7 +430,7 @@
 	animname = "cut"
 	hitsound = list('sound/combat/hits/bladed/smallslash (1).ogg', 'sound/combat/hits/bladed/smallslash (2).ogg', 'sound/combat/hits/bladed/smallslash (3).ogg')
 	penfactor = 0
-	damfactor = 1.3
+	damfactor = 1.1
 	clickcd = CLICK_CD_MASSIVE
 	chargetime = 0
 	item_d_type = "slash"

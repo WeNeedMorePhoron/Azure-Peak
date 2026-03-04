@@ -93,14 +93,15 @@
 				return count
 	return count
 
-/datum/cleave_pattern/proc/get_pattern_display()
-	var/list/all_points = list(list(0, 0))
-	for(var/list/offset in tile_offsets)
+/// Renders a grid display for a set of offsets. target_pos and user_pos are (x,y) lists for T and U markers.
+/datum/cleave_pattern/proc/render_grid(list/offsets, list/target_pos, list/user_pos)
+	var/list/all_points = list(list(target_pos[1], target_pos[2]))
+	for(var/list/offset in offsets)
 		all_points += list(list(offset[1], offset[2]))
-	var/min_x = 0
-	var/max_x = 0
-	var/min_y = -1
-	var/max_y = 0
+	var/min_x = min(target_pos[1], user_pos[1])
+	var/max_x = max(target_pos[1], user_pos[1])
+	var/min_y = min(target_pos[2], user_pos[2])
+	var/max_y = max(target_pos[2], user_pos[2])
 	for(var/list/p in all_points)
 		min_x = min(min_x, p[1])
 		max_x = max(max_x, p[1])
@@ -111,11 +112,11 @@
 		var/row = ""
 		for(var/x = min_x, x <= max_x, x++)
 			var/found = FALSE
-			if(x == 0 && y == 0)
-				row += "<font color='#fa4'>O</font>"
+			if(x == target_pos[1] && y == target_pos[2])
+				row += "<font color='#fa4'>T</font>"
 				found = TRUE
-			else if(x == 0 && y == -1)
-				row += "<font color='#8f8'>@</font>"
+			else if(x == user_pos[1] && y == user_pos[2])
+				row += "<font color='#4af'>U</font>"
 				found = TRUE
 			if(!found)
 				for(var/list/p in all_points)
@@ -124,9 +125,27 @@
 						found = TRUE
 						break
 			if(!found)
-				row += "."
+				row += "<font color='#888'>O</font>"
 		rows += row
 	return rows.Join("\n")
+
+/datum/cleave_pattern/proc/get_pattern_display()
+	var/result
+	if(user_relative)
+		// User-relative: user at (0,0), target at (0,1) facing north
+		result = render_grid(tile_offsets, list(0, 1), list(0, 0))
+	else
+		// Target-relative: target at (0,0), user at (0,-1) facing north
+		result = render_grid(tile_offsets, list(0, 0), list(0, -1))
+	if(diagonal_offsets)
+		result += "\n<font color='#aaa'>Diagonal:</font>\n"
+		if(user_relative)
+			// Offsets relative to user at (0,0), target at (1,1)
+			result += render_grid(diagonal_offsets, list(1, 1), list(0, 0))
+		else
+			// Offsets relative to target at (0,0), user at (-1,-1)
+			result += render_grid(diagonal_offsets, list(0, 0), list(-1, -1))
+	return result
 
 /datum/cleave_pattern/proc/show_cleave_visuals(mob/living/user, turf/origin)
 	var/resolved_dir = get_facing_dir(user, origin)
@@ -170,8 +189,9 @@
 
 /datum/cleave_pattern/frontal_arc
 	tile_offsets = list(list(-1, 0), list(1, 0), list(-1, 1), list(0, 1), list(1, 1))
-	// NE baseline: sides + forward arc fanning around the diagonal
-	diagonal_offsets = list(list(-1, 0), list(-1, 1), list(0, 1), list(1, 1), list(1, 0))
+	// NE baseline: arc wrapping from upper-left around to lower-right
+	diagonal_offsets = list(list(-1, 1), list(0, 1), list(1, 0), list(1, -1))
 	diagonal_desc = "Fans out in an L shape when diagonally swept."
+	user_relative = TRUE
 	max_targets = 4 // Anti Dorpel pattern.
 	desc = "Sweeps in a massive arc, hitting up to four targets to the sides and ahead."
