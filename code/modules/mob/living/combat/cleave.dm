@@ -1,15 +1,8 @@
 /datum/cleave_pattern
 	var/list/tile_offsets = list()
 	var/max_targets = 1
-	var/damage_falloff = 0.15
-	var/min_damage_mult = 0.7
 	var/respect_dir = TRUE
 	var/desc = "Cleaves into nearby targets."
-
-/datum/cleave_pattern/proc/get_damage_mult(total_targets)
-	if(total_targets <= 1)
-		return 1
-	return max(1 - ((total_targets - 1) * damage_falloff), min_damage_mult)
 
 /datum/cleave_pattern/proc/get_cardinal_dir(mob/living/user, turf/origin)
 	var/use_dir = user.dir

@@ -209,7 +209,6 @@
 	if(cleave)
 		inspec += "\n<b>Cleave:</b> [cleave.desc]"
 		inspec += "\n  Max additional targets: [cleave.max_targets ? cleave.max_targets : "Unlimited"]"
-		inspec += "\n  Damage: -[cleave.damage_falloff * 100]% per extra target (min [cleave.min_damage_mult * 100]%)"
 		inspec += "\n<tt>[cleave.get_pattern_display()]</tt>"
 	inspec += "<br>----------------------"
 

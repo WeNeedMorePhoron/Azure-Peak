@@ -296,11 +296,6 @@
 	if(primary && QDELETED(primary))
 		return
 	var/list/cleave_turfs = cleave.get_cleave_turfs(user, origin)
-	var/secondary_count = cleave.count_cleave_targets(user, primary, cleave_turfs)
-	if(!secondary_count)
-		return
-	var/total_targets = (primary ? 1 : 0) + secondary_count
-	cleave_damage_mult = cleave.get_damage_mult(total_targets)
 	cleave_sharpness_mult = 0.5
 	// Collect targets, living first then dead
 	var/list/living_targets = list()
@@ -325,7 +320,6 @@
 			if(tempsound)
 				playsound(L.loc, tempsound, 100, FALSE, -1)
 			log_combat(user, L, "cleaved", src.name, "(INTENT: [uppertext(user.used_intent.name)])")
-	cleave_damage_mult = 1
 	cleave_sharpness_mult = 1
 
 /atom/movable/proc/attacked_by()
@@ -486,9 +480,6 @@
 		newforce = (newforce * 0.2)
 
 	newforce = CLAMP(newforce, user.used_intent.min_intent_damage, user.used_intent.max_intent_damage)
-
-	// Apply cleave damage reduction for secondary targets
-	newforce *= I.cleave_damage_mult
 
 	return newforce
 

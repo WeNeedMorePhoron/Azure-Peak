@@ -154,7 +154,7 @@
 	clickcd = CLICK_CD_GLACIAL
 	damfactor = 0.9
 	cleave = /datum/cleave_pattern/horizontal_sweep
-	desc = "A wide sweep of the curved blade, cutting through anything to the sides and ahead."
+	desc = "A wide sweep, cutting through anything ahead."
 
 /datum/intent/rend
 	name = "rend"
