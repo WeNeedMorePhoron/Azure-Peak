@@ -1,6 +1,7 @@
 #define PRESTI_CLEAN "presti_clean"
 #define PRESTI_SPARK "presti_spark"
 #define PRESTI_MOTE "presti_mote"
+#define PRESTI_SENSE "presti_sense"
 
 /obj/effect/proc_holder/spell/targeted/touch/prestidigitation
 	name = "Prestidigitation"
@@ -23,9 +24,10 @@
 	desc = "You recall the following incantations you've learned:\n \
 	<b>Touch</b>: Use your arcyne powers to scrub an object or something clean, like using soap. Also known as the Apprentice's Woe.\n \
 	<b>Shove</b>: Will forth a spark on an item of your choosing (or in front of you, if used on the ground) to ignite flammable items and things like torches, lanterns or campfires. \n \
-	<b>Use</b>: Conjure forth an orbiting mote of magelight to light your way."
+	<b>Use</b>: Conjure forth an orbiting mote of magelight to light your way.\n \
+	<b>Grab</b>: Attune to the veil and sense nearby leylines."
 	catchphrase = null
-	possible_item_intents = list(INTENT_HELP, INTENT_DISARM, /datum/intent/use)
+	possible_item_intents = list(INTENT_HELP, INTENT_DISARM, /datum/intent/use, INTENT_GRAB)
 	icon = 'icons/mob/roguehudgrabs.dmi'
 	icon_state = "pulling"
 	icon_state = "grabbing_greyscale"
@@ -50,6 +52,60 @@
 /obj/item/melee/touch_attack/prestidigitation/attack_self()
 	qdel(src)
 
+/obj/item/melee/touch_attack/prestidigitation/proc/sense_leylines(mob/living/carbon/human/user)
+	if(!length(GLOB.leyline_sites))
+		to_chat(user, span_warning("You reach out through the veil but sense nothing. No leylines exist in this world."))
+		return FALSE
+
+	user.visible_message(span_notice("[user] closes [user.p_their()] eyes and reaches out through the veil..."), span_notice("I close my eyes and attune to the flow of the veil..."))
+	if(!do_after(user, 2 SECONDS, target = user))
+		to_chat(user, span_warning("Your concentration breaks."))
+		return FALSE
+
+	var/list/sensed = list()
+	for(var/obj/structure/leyline/L in GLOB.leyline_sites)
+		var/dist = get_dist(user, L)
+		sensed += list(list("leyline" = L, "dist" = dist))
+
+	// Sort by distance (simple insertion sort, small list)
+	for(var/i in 2 to length(sensed))
+		var/j = i
+		while(j > 1 && sensed[j]["dist"] < sensed[j - 1]["dist"])
+			sensed.Swap(j, j - 1)
+			j--
+
+	to_chat(user, span_notice("You attune to the veil and sense the flow of leyline energy..."))
+	var/count = 0
+	for(var/entry in sensed)
+		if(count >= 5)
+			break
+		var/obj/structure/leyline/L = entry["leyline"]
+		var/dist = entry["dist"]
+		var/direction = dir2text(get_dir(user, L))
+		if(!direction)
+			direction = "beneath you"
+		else
+			direction = "to the [direction]"
+
+		var/status = ""
+		L.check_daily_reset()
+		if(!L.has_uses_remaining())
+			status = " — its flow of mana is weak and uncertain"
+
+		if(dist <= 3)
+			to_chat(user, span_notice("A [L.alignment] leyline pulses right beside you[status]."))
+		else if(dist <= 30)
+			to_chat(user, span_notice("You sense [L.alignment] energy [direction], not far from here[status]."))
+		else if(dist <= 100)
+			to_chat(user, span_notice("You sense a faint [L.alignment] presence [direction], some distance away[status]."))
+		else
+			to_chat(user, span_notice("A distant [L.alignment] whisper echoes [direction], far from here[status]."))
+		count++
+
+	if(!count)
+		to_chat(user, span_warning("You sense nothing. Strange."))
+	return TRUE
+
 /obj/item/melee/touch_attack/prestidigitation/afterattack(atom/target, mob/living/carbon/user, proximity)
 	switch (user.used_intent.type)
 		if (INTENT_HELP) // Clean something like a bar of soap
@@ -65,6 +121,9 @@
 		if (/datum/intent/use) // Summon an orbiting arcane mote for light
 			if(handle_mote(user))
 				handle_cost(user, PRESTI_MOTE)
+		if (INTENT_GRAB) // Sense nearby leylines
+			if(sense_leylines(user))
+				handle_cost(user, PRESTI_SENSE)
 
 /obj/item/melee/touch_attack/prestidigitation/proc/handle_cost(mob/living/carbon/human/user, action)
 	// handles fatigue/stamina deduction, this stuff isn't free - also returns the cost we took to use for xp calculations
@@ -78,6 +137,8 @@
 			extra_fatigue = 5 // just a bit of extra fatigue on this one
 		if (PRESTI_MOTE)
 			extra_fatigue = 15 // same deal here
+		if (PRESTI_SENSE)
+			extra_fatigue = 10
 
 	user.stamina_add(fatigue_used + extra_fatigue)
 
@@ -190,3 +251,4 @@
 #undef PRESTI_CLEAN
 #undef PRESTI_SPARK
 #undef PRESTI_MOTE
+#undef PRESTI_SENSE
