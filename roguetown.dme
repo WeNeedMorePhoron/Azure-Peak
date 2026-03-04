@@ -2505,6 +2505,7 @@
 #include "code\modules\roguetown\roguejobs\mages\arcana_crafting.dm"
 #include "code\modules\roguetown\roguejobs\mages\enchanting_scrolls.dm"
 #include "code\modules\roguetown\roguejobs\mages\magestructures.dm"
+#include "code\modules\roguetown\roguejobs\mages\leylines.dm"
 #include "code\modules\roguetown\roguejobs\mages\ritualrunes.dm"
 #include "code\modules\roguetown\roguejobs\mages\rituals\_ritual.dm"
 #include "code\modules\roguetown\roguejobs\mages\rituals\buffs.dm"
