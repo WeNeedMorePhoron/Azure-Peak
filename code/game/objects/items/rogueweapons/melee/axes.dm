@@ -9,7 +9,7 @@
 	animname = "cut"
 	penfactor = 0
 	damfactor = 1.3
-	clickCD = CLICK_CD_HEAVY
+	clickcd = CLICK_CD_HEAVY
 	chargetime = 0
 	item_d_type = "slash"
 
