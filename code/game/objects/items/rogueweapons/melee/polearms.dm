@@ -128,7 +128,6 @@
 	icon_state = "insweep"
 	attack_verb = list("sweeps through", "cuts across")
 	clickcd = CLICK_CD_GLACIAL
-	damfactor = 0.9
 	cleave = /datum/cleave_pattern/horizontal_sweep
 	desc = "A sweep that cuts through targets to the front."
 
@@ -152,7 +151,6 @@
 	icon_state = "insweep"
 	attack_verb = list("sweeps through", "cuts across")
 	clickcd = CLICK_CD_GLACIAL
-	damfactor = 0.9
 	cleave = /datum/cleave_pattern/horizontal_sweep
 	desc = "A sweep that cuts through targets to the front."
 

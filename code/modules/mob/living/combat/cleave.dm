@@ -3,6 +3,8 @@
 	/// Optional explicit offsets for diagonal directions (NE baseline). Rotated to other diagonals via 90° steps.
 	/// If null, diagonal uses the standard rotation math on tile_offsets.
 	var/list/diagonal_offsets
+	/// Description shown in examine for diagonal behavior. Only shown if diagonal_offsets is set.
+	var/diagonal_desc
 	var/max_targets = 1
 	var/respect_dir = TRUE
 	/// If TRUE, offsets are relative to the user's turf instead of the target's turf.
@@ -162,6 +164,7 @@
 	tile_offsets = list(list(-1, 0), list(0, 0), list(1, 0))
 	// NE baseline: target tile + two adjacent tiles on user's side
 	diagonal_offsets = list(list(-1, 0), list(0, 0), list(0, -1))
+	diagonal_desc = "Fans out in an L shape when diagonally swept."
 	max_targets = 2
 	desc = "Sweeps horizontally, cleaving up to two additional targets."
 
@@ -169,5 +172,6 @@
 	tile_offsets = list(list(-1, 0), list(1, 0), list(-1, 1), list(0, 1), list(1, 1))
 	// NE baseline: sides + forward arc fanning around the diagonal
 	diagonal_offsets = list(list(-1, 0), list(-1, 1), list(0, 1), list(1, 1), list(1, 0))
+	diagonal_desc = "Fans out in an L shape when diagonally swept."
 	max_targets = 4 // Anti Dorpel pattern.
 	desc = "Sweeps in a massive arc, hitting up to four targets to the sides and ahead."

@@ -327,7 +327,6 @@
 	attack_verb = list("sweeps through", "cuts across")
 	reach = 1
 	clickcd = CLICK_CD_MASSIVE
-	damfactor = 0.9
 	cleave = /datum/cleave_pattern/horizontal_sweep
 
 /datum/intent/sword/thrust/zwei
