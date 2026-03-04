@@ -110,10 +110,6 @@
 	reach = 3
 	damfactor = 1
 
-/datum/intent/spear/cut/bardiche
-    damfactor = 1.2
-    chargetime = 0
-
 /datum/intent/spear/cut/bardiche/cleave
 	name = "cleaving cut"
 	icon_state = "incleave"
@@ -890,7 +886,7 @@
 
 /obj/item/rogueweapon/halberd/bardiche
 	possible_item_intents = list(/datum/intent/spear/thrust/eaglebeak, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/spear/cut/bardiche, /datum/intent/spear/cut/bardiche/cleave, /datum/intent/spear/cut/glaive/sweep, SPEAR_BASH)
+	gripped_intents = list(/datum/intent/spear/cut, /datum/intent/spear/cut/bardiche/cleave, /datum/intent/spear/cut/glaive/sweep, SPEAR_BASH)
 	name = "bardiche"
 	desc = "A beautiful variant of the halberd. Its reinforced shaft provides it with greater durability against attacks."
 	icon_state = "bardiche"
