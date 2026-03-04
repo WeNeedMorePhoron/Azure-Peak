@@ -714,6 +714,15 @@ GLOBAL_LIST(teleport_runes)
 	. = ..()
 	rituals += GLOB.t1summoningrunerituallist
 
+/obj/effect/decal/cleanable/roguerune/arcyne/summoning/invoke(list/invokers, datum/runeritual/runeritual)
+	if(!..())
+		return
+	// Chanting is handled in the ritual's on_finished_recipe, not here.
+	if(ritual_result)
+		pickritual.cleanup_atoms(selected_atoms)
+	invoke_cleanup()
+	do_invoke_glow()
+
 /obj/effect/decal/cleanable/roguerune/arcyne/summoning/ex_act(severity, target)
 	return
 
