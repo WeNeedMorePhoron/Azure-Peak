@@ -264,32 +264,7 @@
 				
 	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.used_intent.name)]) (DAMTYPE: [uppertext(damtype)])")
 
-	// Cleave logic
-	var/datum/cleave_pattern/cleave = user.used_intent?.cleave
-	if(cleave && !QDELETED(M))
-		var/list/cleave_turfs = cleave.get_cleave_turfs(user, get_turf(M))
-		var/secondary_count = cleave.count_cleave_targets(user, M, cleave_turfs)
-		var/total_targets = 1 + secondary_count
-		cleave_damage_mult = cleave.get_damage_mult(total_targets)
-		cleave_sharpness_mult = 0.5
-		var/cleave_targets_hit = 0
-		for(var/turf/T in cleave_turfs)
-			if(cleave.max_targets && cleave_targets_hit >= cleave.max_targets)
-				break
-			for(var/mob/living/L in T)
-				if(L == M || L == user)
-					continue
-				if(cleave.max_targets && cleave_targets_hit >= cleave.max_targets)
-					break
-				if(L.stat == DEAD)
-					continue
-				if(L.checkdefense(user.used_intent, user))
-					continue
-				if(L.attacked_by(src, user))
-					cleave_targets_hit++
-					log_combat(user, L, "cleaved", src.name, "(INTENT: [uppertext(user.used_intent.name)])")
-		cleave_damage_mult = 1
-		cleave_sharpness_mult = 1
+	execute_cleave(user, get_turf(M), M)
 
 	add_fingerprint(user)
 
@@ -307,10 +282,51 @@
 /obj/item/proc/attack_turf(turf/T, mob/living/user, multiplier)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_TURF, T, user) & COMPONENT_NO_ATTACK_OBJ)
 		return
+	execute_cleave(user, T)
 	if(T.max_integrity)
 		if(T.attacked_by(src, user, multiplier))
 			user.do_attack_animation(T, simplified = TRUE)
 			return TRUE
+
+/// Executes cleave secondary attacks around an origin turf. Primary is excluded from targets (if any).
+/obj/item/proc/execute_cleave(mob/living/user, turf/origin, mob/living/primary)
+	var/datum/cleave_pattern/cleave = user.used_intent?.cleave
+	if(!cleave)
+		return
+	if(primary && QDELETED(primary))
+		return
+	var/list/cleave_turfs = cleave.get_cleave_turfs(user, origin)
+	var/secondary_count = cleave.count_cleave_targets(user, primary, cleave_turfs)
+	if(!secondary_count)
+		return
+	var/total_targets = (primary ? 1 : 0) + secondary_count
+	cleave_damage_mult = cleave.get_damage_mult(total_targets)
+	cleave_sharpness_mult = 0.5
+	// Collect targets, living first then dead
+	var/list/living_targets = list()
+	var/list/dead_targets = list()
+	for(var/turf/T in cleave_turfs)
+		for(var/mob/living/L in T)
+			if(L == primary || L == user)
+				continue
+			if(L.stat == DEAD)
+				dead_targets += L
+			else
+				living_targets += L
+	var/cleave_targets_hit = 0
+	for(var/mob/living/L in living_targets + dead_targets)
+		if(cleave.max_targets && cleave_targets_hit >= cleave.max_targets)
+			break
+		if(L.checkdefense(user.used_intent, user))
+			continue
+		if(L.attacked_by(src, user))
+			cleave_targets_hit++
+			var/tempsound = user.used_intent?.hitsound
+			if(tempsound)
+				playsound(L.loc, tempsound, 100, FALSE, -1)
+			log_combat(user, L, "cleaved", src.name, "(INTENT: [uppertext(user.used_intent.name)])")
+	cleave_damage_mult = 1
+	cleave_sharpness_mult = 1
 
 /atom/movable/proc/attacked_by()
 	return FALSE

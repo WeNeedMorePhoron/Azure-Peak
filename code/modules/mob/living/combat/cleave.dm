@@ -57,8 +57,6 @@
 		for(var/mob/living/L in T)
 			if(L == primary || L == user)
 				continue
-			if(L.stat == DEAD)
-				continue
 			count++
 			if(max_targets && count >= max_targets)
 				return count
