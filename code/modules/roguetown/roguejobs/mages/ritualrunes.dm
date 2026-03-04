@@ -697,17 +697,18 @@ GLOBAL_LIST(teleport_runes)
 	else
 		fail_invoke()
 
-/obj/effect/decal/cleanable/roguerune/arcyne/summoning	//32x32 rune t1(one tile)
-	name = "confinement matrix"
-	desc = "A relatively basic confinement matrix used to hold small things when summoned."
+// Summoning circles — draw near a leyline to trigger encounters.
+// Tier determines what creatures can be summoned from the leyline.
+// Chalk: T1-T2. Dagger: T3-T4.
+/obj/effect/decal/cleanable/roguerune/arcyne/summoning
+	name = "lesser matrix of summoning"
+	desc = "A lesser circle of arcyne power, channeling the energy of the leyline to breach the veil between the material plane and the other and bring forth creechurs."
 	icon_state = "summon"
 	invocation = "Evoca et Constringe!"
 	max_integrity = 0
 	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	tier = 1
 	can_be_scribed = TRUE
-	var/summoning = FALSE
-	var/mob/living/simple_animal/summoned_mob
 
 /obj/effect/decal/cleanable/roguerune/arcyne/summoning/New()
 	. = ..()
@@ -716,90 +717,14 @@ GLOBAL_LIST(teleport_runes)
 /obj/effect/decal/cleanable/roguerune/arcyne/summoning/ex_act(severity, target)
 	return
 
-/obj/effect/decal/cleanable/roguerune/arcyne/summoning/Destroy()
-	if(summoning)
-		REMOVE_TRAIT(summoned_mob, TRAIT_PACIFISM, TRAIT_GENERIC)	//can't kill while planar bound.
-		summoned_mob.status_flags -= GODMODE//remove godmode
-		summoned_mob.candodge = TRUE
-		summoned_mob.binded = FALSE
-		summoned_mob.move_resist = MOVE_RESIST_DEFAULT
-		summoned_mob.SetParalyzed(0)
-		summoned_mob = null
-		summoning = FALSE
-	.=..()
-
-/obj/effect/decal/cleanable/roguerune/arcyne/summoning/attack_hand(mob/living/user)
-	if(summoning && isarcyne(user))
-		var/mob/living/simple_animal/S = summoned_mob
-		if(!S || !istype(S) || QDELETED(S))
-			to_chat(user, span_warning("The containment has already faded."))
-			summoned_mob = null
-			summoning = FALSE
-			return
-
-		to_chat(user, span_warning("You release the summon from it's containment!"))
-		playsound(user, 'sound/magic/teleport_diss.ogg', 75, TRUE)
-		do_invoke_glow()
-		clear_obstacles(user)
-		sleep(20)
-		if(!S || QDELETED(S))
-			summoned_mob = null
-			summoning = FALSE
-			return
-
-		animate(S, color = null, time = 5)
-		REMOVE_TRAIT(S, TRAIT_PACIFISM, TRAIT_GENERIC) // can't kill while planar bound.
-		S.status_flags -= GODMODE
-		S.candodge = TRUE
-		S.binded = FALSE
-		S.move_resist = MOVE_RESIST_DEFAULT
-		S.SetParalyzed(0)
-
-		summoned_mob = null
-		summoning = FALSE
-		return
-
-	. = ..()
-
-/obj/effect/decal/cleanable/roguerune/arcyne/summoning/invoke(list/invokers, datum/runeritual/runeritual)
-	if(!..())	//VERY important. Calls parent and checks if it fails. parent/invoke has all the checks for ingredients
-		return
-	// All the components have been invisibled, time to actually do the ritual. Call on_finished_recipe
-	// (Note: on_finished_recipe may sleep in the case of some rituals like summons, which expect ghost candidates.)
-	// - If the ritual was success (Returned TRUE), proceede to clean up the atoms involved in the ritual. The result has already been spawned by this point.
-	// - If the ritual failed for some reason (Returned FALSE), likely due to no ghosts taking a role or an error, we shouldn't clean up anything, and reset.
-	if(ismob(ritual_result))
-		summoned_mob = ritual_result
-		src.summoning = TRUE
-	if(ritual_result)
-		pickritual.cleanup_atoms(selected_atoms)
-	invoke_cleanup()
-
-	for(var/atom/invoker in invokers)
-		if(!isliving(invoker))
-			continue
-		var/mob/living/living_invoker = invoker
-		if(invocation)
-			living_invoker.say(invocation, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
-		if(invoke_damage)
-			living_invoker.apply_damage(invoke_damage, BRUTE)
-			to_chat(living_invoker,  span_italics("[src] saps your strength!"))
-	do_invoke_glow()
-
-/obj/effect/decal/cleanable/roguerune/arcyne/summoning/proc/clear_obstacles(mob/living/user)
-	for(var/turf/closed/wall/anticheese in range(loc, runesize))
-		anticheese.visible_message(span_warning("[anticheese] crumbles under the force of the releasing wards."))
-		anticheese.ChangeTurf(/turf/open/floor/rogue/blocks)
-		continue
-
-/obj/effect/decal/cleanable/roguerune/arcyne/summoning/mid// 96x96 rune t2(3x3 tile)
-	name = "sealate confinement matrix"
-	desc = "An adept confinement matrix improved with the addition of a sealate matrix; used to hold things when summoned."
+/obj/effect/decal/cleanable/roguerune/arcyne/summoning/mid
+	name = "ordinary matrix of summoning"
+	desc = "An ordinary circle of arcyne power, capable of reaching into the second dimension of the veil and bringing forth more powerful creechurs."
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "sealate"
 	runesize = 1
 	tier = 2
-	pixel_x = -32 //So the big ol' 96x96 sprite shows up right
+	pixel_x = -32
 	pixel_y = -32
 	pixel_z = 0
 	can_be_scribed = TRUE
@@ -808,15 +733,14 @@ GLOBAL_LIST(teleport_runes)
 	. = ..()
 	rituals += GLOB.t2summoningrunerituallist
 
-/obj/effect/decal/cleanable/roguerune/arcyne/summoning/adv	//160x160 rune t2(5x5 tile)
-	name = "warded sealate confinement matrix"
-	desc = "A thoroughly warded confinement matrix improved with the addition of a sealate matrix; \
-	used to hold larger, dangerous things when summoned."
+/obj/effect/decal/cleanable/roguerune/arcyne/summoning/adv
+	name = "greater sealed matrix of summoning"
+	desc = "A greater summoning circle, and the strongest a singular mage can sustain with the lyfeforce from their body, capable of summoning truly terrifying beasts."
 	icon = 'icons/effects/160x160.dmi'
 	icon_state = "warded"
 	runesize = 2
 	tier = 3
-	pixel_x = -64 //So the big ol' 160x160 sprite shows up right
+	pixel_x = -64
 	pixel_y = -64
 	pixel_z = 0
 	can_be_scribed = TRUE
@@ -825,16 +749,15 @@ GLOBAL_LIST(teleport_runes)
 	. = ..()
 	rituals += GLOB.t3summoningrunerituallist
 
-/obj/effect/decal/cleanable/roguerune/arcyne/summoning/max	//224x224 rune t3(7x7 tile)
-	name = "noc's eye warded sealate confinement matrix"
-	desc = "A thoroughly warded confinement matrix improved with a Noc's eye sealing measure \
-	and the addition of a sealate matrix; used to hold the largest, most dangerous things summonable."
+/obj/effect/decal/cleanable/roguerune/arcyne/summoning/max
+	name = "grand warded matrix of summoning"
+	desc = "A grand summoning circle, this one requires three invokers to even activate, but can summon the strongest and most powerful of creechurs modern mages can manage to reach."
 	icon = 'icons/effects/224x224.dmi'
 	icon_state = "huge_runeblued"
 	runesize = 3
 	req_invokers = 3
 	tier = 4
-	pixel_x = -96 //So the big ol' 96x96 sprite shows up right
+	pixel_x = -96
 	pixel_y = -96
 	pixel_z = 0
 	can_be_scribed = TRUE

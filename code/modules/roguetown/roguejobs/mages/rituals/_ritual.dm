@@ -26,7 +26,7 @@ GLOBAL_LIST_INIT(t4enchantmentrunerituallist,generate_t4enchantment_rituallist()
 		runerituals[initial(runeritual.name)] = runeritual
 	return runerituals
 
-/proc/generate_t1summoning_rituallist()	//list of all rituals for player use
+/proc/generate_t1summoning_rituallist()
 	RETURN_TYPE(/list)
 	var/list/runerituals = list()
 	for(var/datum/runeritual/runeritual as anything in subtypesof(/datum/runeritual/summoning))
@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(t4enchantmentrunerituallist,generate_t4enchantment_rituallist()
 		runerituals[initial(runeritual.name)] = runeritual
 	return runerituals
 
-/proc/generate_t2summoning_rituallist()	//list of all rituals for player use
+/proc/generate_t2summoning_rituallist()
 	RETURN_TYPE(/list)
 	var/list/runerituals = list()
 	for(var/datum/runeritual/runeritual as anything in subtypesof(/datum/runeritual/summoning))
@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(t4enchantmentrunerituallist,generate_t4enchantment_rituallist()
 		runerituals[initial(runeritual.name)] = runeritual
 	return runerituals
 
-/proc/generate_t3summoning_rituallist()	//list of all rituals for player use
+/proc/generate_t3summoning_rituallist()
 	RETURN_TYPE(/list)
 	var/list/runerituals = list()
 	for(var/datum/runeritual/runeritual as anything in subtypesof(/datum/runeritual/summoning))
@@ -59,14 +59,14 @@ GLOBAL_LIST_INIT(t4enchantmentrunerituallist,generate_t4enchantment_rituallist()
 		runerituals[initial(runeritual.name)] = runeritual
 	return runerituals
 
-/proc/generate_t4summoning_rituallist()	//list of all rituals for player use
+/proc/generate_t4summoning_rituallist()
 	RETURN_TYPE(/list)
 	var/list/runerituals = list()
 	for(var/datum/runeritual/runeritual as anything in subtypesof(/datum/runeritual/summoning))
 		runerituals[initial(runeritual.name)] = runeritual
 	return runerituals
 
-/proc/generate_t2wall_rituallist()	//list of all rituals for player use
+/proc/generate_t2wall_rituallist()
 	RETURN_TYPE(/list)
 	var/list/runerituals = list()
 	for(var/datum/runeritual/runeritual as anything in typesof(/datum/runeritual/other/wall))
