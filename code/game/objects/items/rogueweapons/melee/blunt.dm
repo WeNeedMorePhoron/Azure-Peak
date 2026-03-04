@@ -980,7 +980,7 @@
 	item_d_type = "blunt"
 	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
 	cleave = /datum/cleave_pattern/frontal_arc
-	desc = "A devastating sweep, crushing everything to the sides and front."
+	desc = "A heavy sweep that smashes through targets to the sides and front."
 
 //Intents for the mauls.
 /datum/intent/effect/hobble

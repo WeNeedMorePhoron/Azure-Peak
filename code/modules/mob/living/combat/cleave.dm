@@ -1,45 +1,81 @@
 /datum/cleave_pattern
 	var/list/tile_offsets = list()
+	/// Optional explicit offsets for diagonal directions (NE baseline). Rotated to other diagonals via 90° steps.
+	/// If null, diagonal uses the standard rotation math on tile_offsets.
+	var/list/diagonal_offsets
 	var/max_targets = 1
 	var/respect_dir = TRUE
+	/// If TRUE, offsets are relative to the user's turf instead of the target's turf.
+	var/user_relative = FALSE
 	var/desc = "Cleaves into nearby targets."
 
-/datum/cleave_pattern/proc/get_cardinal_dir(mob/living/user, turf/origin)
+/datum/cleave_pattern/proc/get_facing_dir(mob/living/user, turf/origin)
 	var/use_dir = user.dir
+	// If already cardinal, use it directly
 	if(!(use_dir & (use_dir - 1)))
+		// Check if we should be diagonal based on origin position
+		if(origin)
+			var/turf/user_turf = get_turf(user)
+			var/rel_x = origin.x - user_turf.x
+			var/rel_y = origin.y - user_turf.y
+			if(rel_x && rel_y)
+				// Origin is diagonal from user — use diagonal dir
+				var/dir_x = rel_x > 0 ? EAST : WEST
+				var/dir_y = rel_y > 0 ? NORTH : SOUTH
+				return dir_x | dir_y
 		return use_dir
-	if(origin)
-		var/adx = abs(origin.x - user.x)
-		var/ady = abs(origin.y - user.y)
-		if(adx > ady)
-			return use_dir & (EAST|WEST)
-		return use_dir & (NORTH|SOUTH)
-	if(use_dir & NORTH)
-		return NORTH
-	return SOUTH
+	// Already diagonal
+	return use_dir
+
+/// Rotates an offset (dx, dy) from north-facing baseline to the given direction.
+/datum/cleave_pattern/proc/rotate_offset(dx, dy, dir)
+	switch(dir)
+		if(SOUTH)
+			return list(-dx, -dy)
+		if(WEST)
+			return list(-dy, dx)
+		if(EAST)
+			return list(dy, -dx)
+		if(NORTHEAST)
+			return list(dx + dy, -dx + dy)
+		if(NORTHWEST)
+			return list(dx - dy, dx + dy)
+		if(SOUTHEAST)
+			return list(-dx + dy, -dx - dy)
+		if(SOUTHWEST)
+			return list(-dx - dy, dx - dy)
+	// NORTH or default — identity
+	return list(dx, dy)
 
 /datum/cleave_pattern/proc/get_cleave_turfs(mob/living/user, turf/origin)
 	var/list/turfs = list()
 	if(!origin || !user)
 		return turfs
-	var/use_dir = get_cardinal_dir(user, origin)
-	for(var/list/offset in tile_offsets)
+	var/use_dir = get_facing_dir(user, origin)
+	var/turf/base_turf = user_relative ? get_turf(user) : origin
+	var/is_diagonal = use_dir & (use_dir - 1) // TRUE if diagonal
+	// Use explicit diagonal offsets if available and facing diagonally
+	var/list/offsets = (is_diagonal && diagonal_offsets) ? diagonal_offsets : tile_offsets
+	// For diagonal_offsets, they're defined as NE baseline — rotate to the actual diagonal via 90° steps
+	var/rotate_dir = use_dir
+	if(is_diagonal && diagonal_offsets)
+		switch(use_dir)
+			if(NORTHEAST)
+				rotate_dir = NORTH // identity — NE baseline needs no rotation
+			if(NORTHWEST)
+				rotate_dir = WEST
+			if(SOUTHEAST)
+				rotate_dir = EAST
+			if(SOUTHWEST)
+				rotate_dir = SOUTH
+	for(var/list/offset in offsets)
 		var/dx = offset[1]
 		var/dy = offset[2]
 		if(respect_dir)
-			switch(use_dir)
-				if(SOUTH)
-					dx = -dx
-					dy = -dy
-				if(WEST)
-					var/holder = dx
-					dx = -dy
-					dy = holder
-				if(EAST)
-					var/holder = dx
-					dx = dy
-					dy = -holder
-		var/turf/T = locate(origin.x + dx, origin.y + dy, origin.z)
+			var/list/rotated = rotate_offset(dx, dy, rotate_dir)
+			dx = rotated[1]
+			dy = rotated[2]
+		var/turf/T = locate(base_turf.x + dx, base_turf.y + dy, base_turf.z)
 		if(T && isturf(T) && !T.density)
 			turfs += T
 	return turfs
@@ -91,7 +127,7 @@
 	return rows.Join("\n")
 
 /datum/cleave_pattern/proc/show_cleave_visuals(mob/living/user, turf/origin)
-	var/resolved_dir = get_cardinal_dir(user, origin)
+	var/resolved_dir = get_facing_dir(user, origin)
 	var/list/turfs = get_cleave_turfs(user, origin)
 	if(!(origin in turfs))
 		turfs += origin
@@ -124,10 +160,14 @@
 
 /datum/cleave_pattern/horizontal_sweep
 	tile_offsets = list(list(-1, 0), list(0, 0), list(1, 0))
+	// NE baseline: target tile + two adjacent tiles on user's side
+	diagonal_offsets = list(list(-1, 0), list(0, 0), list(0, -1))
 	max_targets = 2
 	desc = "Sweeps horizontally, cleaving up to two additional targets."
 
 /datum/cleave_pattern/frontal_arc
 	tile_offsets = list(list(-1, 0), list(1, 0), list(-1, 1), list(0, 1), list(1, 1))
+	// NE baseline: sides + forward arc fanning around the diagonal
+	diagonal_offsets = list(list(-1, 0), list(-1, 1), list(0, 1), list(1, 1), list(1, 0))
 	max_targets = 4 // Anti Dorpel pattern.
 	desc = "Sweeps in a massive arc, hitting up to four targets to the sides and ahead."
