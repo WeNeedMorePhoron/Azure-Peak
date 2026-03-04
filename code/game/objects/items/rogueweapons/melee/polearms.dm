@@ -15,6 +15,14 @@
 	effective_range = 2
 	effective_range_type = EFF_RANGE_EXACT
 
+/datum/intent/spear/thrust/bad
+	name = "weak thrust"
+	penfactor = 20
+	damfactor = 1
+	desc = "A weak thrust from a polearm not designed for stabbing. Doesn't care about effective range,\ but also incapable of piercing all but the weakest cloth armor."
+	effective_range = null
+	effective_range_type = EFF_RANGE_NONE
+
 /datum/intent/spear/thrust/training
 	name = "blunted thrust"
 	penfactor = 0
@@ -880,7 +888,7 @@
 	smeltresult = /obj/item/ingot/steel
 
 /obj/item/rogueweapon/halberd/bardiche
-	possible_item_intents = list(/datum/intent/spear/thrust/eaglebeak, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
+	possible_item_intents = list(/datum/intent/spear/thrust/bad, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
 	gripped_intents = list(/datum/intent/spear/cut, /datum/intent/spear/cut/bardiche/cleave, /datum/intent/spear/cut/glaive/sweep, SPEAR_BASH)
 	name = "bardiche"
 	desc = "A beautiful variant of the halberd. Its reinforced shaft provides it with greater durability against attacks."
@@ -958,8 +966,8 @@
 	)
 
 /obj/item/rogueweapon/halberd/glaive
-	possible_item_intents = list(/datum/intent/spear/thrust/eaglebeak, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
-	gripped_intents = list(/datum/intent/spear/cut/glaive, /datum/intent/spear/cut/glaive/sweep, /datum/intent/spear/thrust/glaive, SPEAR_BASH)
+	possible_item_intents = list(/datum/intent/spear/thrust/bad, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
+	gripped_intents = list(/datum/intent/spear/cut/glaive, /datum/intent/spear/cut/glaive/sweep, /datum/intent/spear/thrust/bad, SPEAR_BASH)
 	name = "glaive"
 	desc = "A curved blade on a pole, specialised in defence, but expensive to manufacture."
 	icon_state = "glaive"
@@ -1005,7 +1013,7 @@
 	force = 15
 	force_wielded = 30
 	possible_item_intents = list(/datum/intent/spear/bash/polehammer, /datum/intent/mace/smash/eaglebeak)
-	gripped_intents = list(/datum/intent/spear/bash/polehammer, /datum/intent/mace/smash/eaglebeak, /datum/intent/spear/thrust/eaglebeak)
+	gripped_intents = list(/datum/intent/spear/bash/polehammer, /datum/intent/mace/smash/eaglebeak, /datum/intent/spear/thrust/bad)
 	name = "eagle's beak"
 	desc = "A reinforced pole affixed with an ornate steel eagle's head, of which its beak is intended to pierce with great harm."
 	icon_state = "eaglebeak"
@@ -1049,15 +1057,6 @@
 	smeltresult = /obj/item/ingot/iron
 	sellprice = 40
 	max_integrity = 200
-
-// A worse thrust for weapons specialized in other damage type like cut or blunt
-/datum/intent/spear/thrust/eaglebeak
-	penfactor = 20
-	damfactor = 0.9
-
-/datum/intent/spear/thrust/glaive
-	penfactor = 20
-	damfactor = 1.1
 
 /datum/intent/mace/smash/eaglebeak
 	reach = 2
