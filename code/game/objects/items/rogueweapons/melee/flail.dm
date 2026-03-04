@@ -144,13 +144,12 @@
 	icon_state = "insweep"
 	blade_class = BCLASS_BLUNT
 	chargetime = 1.2 SECONDS
+	chargedrain = 1
 	chargedloop = /datum/looping_sound/flailswing
 	attack_verb = list("sweeps", "thrashes through")
 	animname = "strike"
 	hitsound = list('sound/combat/hits/blunt/flailhit.ogg')
 	penfactor = BLUNT_DEFAULT_PENFACTOR
-	chargetime = 0
-	swingdelay = 4
 	damfactor = 1.5
 	item_d_type = "blunt"
 	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
@@ -328,7 +327,7 @@
 	sellprice = 250
 	smeltresult = /obj/item/ingot/steel
 	possible_item_intents = list(/datum/intent/flail/strike/matthiosflail)
-	gripped_intents = list(/datum/intent/flail/strike/matthiosflail, /datum/intent/flail/smash/matthiosflail)
+	gripped_intents = list(/datum/intent/flail/strike/matthiosflail, /datum/intent/flail/smash/matthiosflail, /datum/intent/flail/sweep)
 	associated_skill = /datum/skill/combat/whipsflails
 	slot_flags = ITEM_SLOT_BACK
 	anvilrepair = /datum/skill/craft/weaponsmithing
