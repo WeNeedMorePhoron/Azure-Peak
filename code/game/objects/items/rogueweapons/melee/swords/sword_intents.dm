@@ -309,7 +309,7 @@
 
 // GREATSWORDS
 /datum/intent/sword/cut/zwei
-	damfactor = 1.2 // Higher damfactor to represent the power of two handed sword but lose range in comparison to polearms.
+	reach = 2
 
 /datum/intent/sword/cut/zwei/cleave
 	name = "cleaving cut"
