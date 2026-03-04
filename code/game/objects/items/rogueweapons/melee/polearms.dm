@@ -164,7 +164,7 @@
 	desc = "A wide sweep of the curved blade, cutting through anything to the sides and ahead."
 
 /datum/intent/sword/cut/zwei
-	reach = 2
+	damfactor = 1.1 // Higher damfactor to represent the power of two handed sword but lose range in comparison to polearms.
 
 /datum/intent/sword/cut/zwei/cleave
 	name = "cleaving cut"
