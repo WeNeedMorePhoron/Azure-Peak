@@ -175,8 +175,10 @@
 		inspec += "<font color='#fa4'>Sluggish</font>"
 	else if(clickcd <= CLICK_CD_HEAVY)
 		inspec += "<font color='#f44'>Very Sluggish</font>"
-	else
+	else if(clickcd <= CLICK_CD_MASSIVE)
 		inspec += "<font color='#f22'>Extremely Sluggish</font>"
+	else
+		inspec += "<font color='#d11'>Glacial</font>"
 	if(blade_class == BCLASS_PEEL)
 		inspec += "\nThis intent will peel the coverage off of your target's armor in non-key areas after [peel_divisor] consecutive hits.\nSome armor may have higher thresholds."
 	if(!allow_offhand)

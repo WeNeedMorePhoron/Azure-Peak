@@ -431,8 +431,7 @@
 	hitsound = list('sound/combat/hits/bladed/smallslash (1).ogg', 'sound/combat/hits/bladed/smallslash (2).ogg', 'sound/combat/hits/bladed/smallslash (3).ogg')
 	penfactor = 0
 	damfactor = 1.3
-	swingdelay = 4
-	clickcd = CLICK_CD_HEAVY
+	clickcd = CLICK_CD_MASSIVE
 	chargetime = 0
 	item_d_type = "slash"
 	cleave = /datum/cleave_pattern/frontal_arc

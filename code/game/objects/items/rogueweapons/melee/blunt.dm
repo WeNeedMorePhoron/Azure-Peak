@@ -975,9 +975,8 @@
 	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
 	penfactor = BLUNT_DEFAULT_PENFACTOR
 	chargetime = 0
-	swingdelay = 8
 	damfactor = 1.2
-	clickcd = CLICK_CD_HEAVY
+	clickcd = CLICK_CD_GLACIAL
 	item_d_type = "blunt"
 	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
 	cleave = /datum/cleave_pattern/frontal_arc

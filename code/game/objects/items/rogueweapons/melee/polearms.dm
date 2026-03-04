@@ -114,8 +114,7 @@
 	name = "cleaving cut"
 	icon_state = "incleave"
 	attack_verb = list("cleaves", "carves through")
-	clickcd = CLICK_CD_CHARGED
-	swingdelay = 4
+	clickcd = CLICK_CD_MASSIVE
 	damfactor = 1.0
 	cleave = /datum/cleave_pattern/forward_cleave
 	desc = "A reaching cleave that cuts through a second target behind the first."
@@ -128,8 +127,7 @@
 	name = "sweeping cut"
 	icon_state = "insweep"
 	attack_verb = list("sweeps through", "cuts across")
-	clickcd = CLICK_CD_HEAVY
-	swingdelay = 6
+	clickcd = CLICK_CD_GLACIAL
 	damfactor = 0.9
 	cleave = /datum/cleave_pattern/horizontal_sweep
 	desc = "A wide sweep, slicing through anything to the front."
@@ -153,8 +151,7 @@
 	name = "sweeping cut"
 	icon_state = "insweep"
 	attack_verb = list("sweeps through", "cuts across")
-	clickcd = CLICK_CD_HEAVY
-	swingdelay = 6
+	clickcd = CLICK_CD_GLACIAL
 	damfactor = 0.9
 	cleave = /datum/cleave_pattern/horizontal_sweep
 	desc = "A wide sweep of the curved blade, cutting through anything to the sides and ahead."

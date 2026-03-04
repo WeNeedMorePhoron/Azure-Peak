@@ -551,8 +551,7 @@
 	name = "cleaving cut"
 	icon_state = "incleave"
 	attack_verb = list("cleaves", "carves through")
-	clickcd = CLICK_CD_CHARGED // Distinguished from GSword by being sluggish
-	swingdelay = 4
+	clickcd = CLICK_CD_MASSIVE // Distinguished from GSword by being sluggish
 	damfactor = 1.2
 	cleave = /datum/cleave_pattern/forward_cleave
 	desc = "A heavy downward cleave that cuts through a second target behind the first."
@@ -561,8 +560,7 @@
 	name = "sweeping cut"
 	icon_state = "insweep"
 	attack_verb = list("sweeps through", "cuts across")
-	clickcd = CLICK_CD_HEAVY
-	swingdelay = 6
+	clickcd = CLICK_CD_GLACIAL
 	damfactor = 1.2 // Hits harder but clunkier
 	cleave = /datum/cleave_pattern/horizontal_sweep
 	desc = "A broad, heavy sweep, cutting across everything in front of you."
