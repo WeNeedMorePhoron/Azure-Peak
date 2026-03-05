@@ -8,6 +8,7 @@
  *
  * Flow: find leyline -> draw circle -> click circle -> pick ritual -> chant -> fight.
  * No material cost — the circle tier, veil attunement, and the fight itself IS the cost.
+ * Exception: the Void Dragon ritual requires 5 runed artifacts (the only summoning with a material gate).
  * Since charges are limited, you are expected to go out to the good leylines, not camp tamed ones.
  *
  * Attunement: mages gain dayspassed + 1 charges per week (max 5), each ritual costs 1.
@@ -232,6 +233,7 @@
 	blacklisted = FALSE
 	tier = 5
 	alignment = "void"
+	required_atoms = list(/obj/item/magic/artifact = 5)
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/voiddragon)
 	base_primary_count = 1
 	gone_wrong_extra = 0
