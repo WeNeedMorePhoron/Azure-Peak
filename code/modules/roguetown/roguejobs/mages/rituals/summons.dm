@@ -34,6 +34,7 @@
 
 /datum/runeritual/summoning/leyline_encounter
 	name = "leyline encounter parent"
+	category = "Summoning"
 	blacklisted = TRUE
 	required_atoms = list()
 	var/alignment = "neutral"

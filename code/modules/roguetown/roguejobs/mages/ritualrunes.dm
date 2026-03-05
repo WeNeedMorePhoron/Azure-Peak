@@ -176,16 +176,20 @@ GLOBAL_LIST(teleport_runes)
 		fail_invoke()
 		return
 
-	var/ritualnameinput = tgui_input_list(user, "Rituals", "", rituals)
+	// Build descriptions for tooltip display in the selection list
+	var/list/ritual_descriptions = list()
+	for(var/ritual_name in rituals)
+		var/datum/runeritual/ritual_path = rituals[ritual_name]
+		var/rdesc = initial(ritual_path.desc)
+		if(rdesc)
+			ritual_descriptions[ritual_name] = rdesc
+
+	var/ritualnameinput = tgui_input_list(user, "Rituals", "", rituals, descriptions = ritual_descriptions)
 	var/datum/runeritual/pickritual1 = rituals[ritualnameinput]
 
 	if(!pickritual1)
 		rune_in_use = FALSE
 		return
-
-	var/ritual_desc = initial(pickritual1.desc)
-	if(ritual_desc)
-		to_chat(user, span_notice(ritual_desc))
 
 	if(initial(pickritual1.tier) > tier)
 		to_chat(user, span_hierophant_warning("Your ritual rune is not strong enough to perform this ritual."))
@@ -338,41 +342,6 @@ GLOBAL_LIST(teleport_runes)
 		return
 	. = ..()
 
-
-
-/obj/effect/decal/cleanable/roguerune/arcyne/knowledge
-	name = "Knowledge rune"
-	desc = "arcane symbols pulse upon the ground..."
-	icon_state = "6"
-	invocation = "Scientia Patefiat!"
-	color = "#3A0B61"
-	spellbonus = 15
-	scribe_damage = 10
-	can_be_scribed = TRUE
-	rituals = list(/datum/runeritual/knowledge::name = /datum/runeritual/knowledge)
-	var/buffed = FALSE
-
-/obj/effect/decal/cleanable/roguerune/arcyne/knowledge/invoke(list/invokers, datum/runeritual/runeritual)
-	if(!..())	//VERY important. Calls parent and checks if it fails. parent/invoke has all the checks for ingredients
-		return
-//	if(!buffed)
-	var/mob/living/user = usr
-	user.apply_status_effect(/datum/status_effect/buff/magic/knowledge)
-	buffed = TRUE
-	if(ritual_result)
-		pickritual.cleanup_atoms(selected_atoms)
-	invoke_cleanup()
-
-	for(var/atom/invoker in invokers)
-		if(!isliving(invoker))
-			continue
-		var/mob/living/living_invoker = invoker
-		if(invocation)
-			living_invoker.say(invocation, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
-		if(invoke_damage)
-			living_invoker.apply_damage(invoke_damage, BRUTE)
-			to_chat(living_invoker,  span_italics("[src] saps your strength!"))
-	do_invoke_glow()
 
 
 /obj/effect/decal/cleanable/roguerune/arcyne/enchantment
