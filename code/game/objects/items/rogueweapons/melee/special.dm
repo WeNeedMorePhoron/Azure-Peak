@@ -937,6 +937,7 @@
 	item_d_type = "slash"
 	misscost = 10
 	intent_intdamage_factor = 0.05
+	demolition_mod = 0.05
 
 /datum/intent/claw/rend/steel
 	damfactor = 3

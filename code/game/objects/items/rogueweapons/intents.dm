@@ -49,6 +49,8 @@
 	var/penfactor = 0
 	/// Whether the intent itself has integrity damage modifier. Used for rend.
 	var/intent_intdamage_factor = 1
+	/// Intent's demolition mod. Applied to structures / objects and shields.
+	var/demolition_mod = 1
 	/// Minimum damage from the intent.
 	var/min_intent_damage = 0
 	/// Maximum damage from the intent.
@@ -195,7 +197,11 @@
 	if(intent_intdamage_factor != 1)
 		inspec += "\n<b>Integrity Damage:</b> [intent_intdamage_factor * 100]%"
 		if(masteritem)
-			inspec += " <span class='info'><a href='?src=[REF(masteritem)];explainintdamage=1'>{?}</a></span>"
+			inspec += " <span class='info'><a href='?src=[REF(masteritem)];explaindemolitionmod=1'>{?}</a></span>"
+	if(demolition_mod != 1)
+		inspec += "\n<b>Demolition Modifier:</b> [demolition_mod * 100]%"
+		if(masteritem)
+			inspec += " <span class='info'><a href='?src=[REF(masteritem)];explaindemolitionmod=1'>{?}</a></span>"
 	if(sharpness_penalty)
 		inspec += "\nThis intent will cost some sharpness for every attack made."
 	if(swingdelay > 0)
@@ -253,6 +259,8 @@
 		var/list/benis = hitsound
 		if(benis)
 			masteritem.hitsound = benis
+		if(demolition_mod)
+			masteritem.demolition_mod = demolition_mod
 	return
 
 /datum/intent/proc/height2limb(height as num)
