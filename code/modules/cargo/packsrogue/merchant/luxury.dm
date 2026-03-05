@@ -128,15 +128,6 @@
 			/obj/item/reagent_containers/food/snacks/grown/manabloom,
 			)
 
-/datum/supply_pack/rogue/luxury/manacrystal
-	name = "Mana Crystals"
-	cost = 55
-	contains = list(
-			/obj/item/magic/manacrystal,
-			/obj/item/magic/manacrystal,
-			/obj/item/magic/manacrystal,
-			)
-
 /datum/supply_pack/rogue/luxury/merctoken
 	name = "Writ of Commendation"
 	cost = 80
