@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 
 /obj/structure/leyline
 	name = "inactive leyline"
-	desc = "A curious arrangement of stones."
+	desc = "PLACEHOLDER leyline desc." // was: "A curious arrangement of stones."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "inactiveleyline"
 	anchored = TRUE
@@ -86,7 +86,7 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 
 /obj/structure/leyline/attack_hand(mob/living/user)
 	if(!isarcyne(user))
-		to_chat(user, span_notice("You sense faint energy from the stones, but cannot comprehend its nature."))
+		to_chat(user, span_notice("You sense faint energy from the stones, but cannot comprehend its nature")) // was: "You sense faint energy from the stones, but cannot comprehend its nature."
 		return
 	check_daily_reset()
 	var/charges = get_leyline_charges(user)
@@ -94,12 +94,12 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	to_chat(user, span_notice("This [name] pulses with [alignment] energy."))
 	to_chat(user, span_notice("Leyline uses remaining today: [remaining]. Your veil attunement: [charges]."))
 	if(max_tier)
-		to_chat(user, span_notice("Maximum ritual tier: [max_tier]."))
+		to_chat(user, span_notice("Maximum ritual circle: [max_tier]."))
 	to_chat(user, span_notice("Draw a summoning circle nearby to begin a leyline encounter."))
 
 /obj/structure/leyline/tamed
 	name = "tamed leyline"
-	desc = "A carefully stabilized ley line convergence. Its energy is weak but reliable."
+	desc = "A carefully warded and stabilized leyline. Its energy is weak but reliable."
 	leyline_type = "tamed"
 	alignment = "neutral"
 	max_uses_per_day = 4
@@ -111,29 +111,29 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	max_tier = 4
 
 /obj/structure/leyline/normal/coast
-	name = "coastal leyline"
-	desc = "Stones arranged in a spiral pattern. The air crackles with elemental energy."
+	name = "earthen leyline"
+	desc = "Stones arranged in a geometric pattern. Energy seems to be sucked into the ground."
 	alignment = "elemental"
 	mega_region = "coast"
 	color = "#D4A04A" // amber/earth — elemental
 
 /obj/structure/leyline/normal/grove
 	name = "sylvan leyline"
-	desc = "Moss-covered stones hum with fae energy. Flowers bloom unnaturally around them."
+	desc = "Moss-covered stones, humming with energy and lyfe. Flowers bloom around them."
 	alignment = "fae"
 	mega_region = "grove"
 	color = "#81C784" // green — fae
 
 /obj/structure/leyline/normal/decap
 	name = "scorched leyline"
-	desc = "Blackened stones radiate infernal heat. The ground around them is cracked and ashen."
+	desc = "Reddened stones radiating unnatural heat. The ground around them is cracked and ashen."
 	alignment = "infernal"
 	mega_region = "decap"
 	color = "#EF5350" // red — infernal
 
 /obj/structure/leyline/powerful
 	name = "unstable leyline"
-	desc = "A violent convergence of ley line energy. The stones tremble and the air distorts around them."
+	desc = "A violent convergence of leyline energy. The stones tremble, and the very nature of space seems to distort around them."
 	leyline_type = "powerful"
 	alignment = "void"
 	mega_region = "bog"

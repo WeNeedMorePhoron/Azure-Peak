@@ -32,7 +32,7 @@
 	var/mob/living/bound = bind_ritual_mob(user, loc, mob_to_bind)
 	if(!bound)
 		return FALSE
-	to_chat(user, span_notice("The binding array flares with power as [bound] is pulled through the veil, shackled to your will."))
+	to_chat(user, span_notice("The array flares with power as [bound] is pulled through the veil!"))
 	playsound(loc, 'sound/magic/cosmic_expansion.ogg', 100, TRUE, 7)
 	return TRUE
 
@@ -55,7 +55,7 @@
 
 /datum/runeritual/binding/infernal_t1
 	name = "Bind Imp"
-	desc = "Bind an infernal imp to your service."
+	desc = "Bind a imp to your service."
 	blacklisted = FALSE
 	tier = 1
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp
@@ -63,7 +63,7 @@
 
 /datum/runeritual/binding/infernal_t2
 	name = "Bind Hellhound"
-	desc = "Bind an infernal hellhound to your service."
+	desc = "Bind a hellhound to your service."
 	blacklisted = FALSE
 	tier = 2
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/infernal/hellhound
@@ -71,7 +71,7 @@
 
 /datum/runeritual/binding/infernal_t3
 	name = "Bind Watcher"
-	desc = "Bind an infernal watcher to your service."
+	desc = "Bind a watcher to your service."
 	blacklisted = FALSE
 	tier = 3
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/infernal/watcher
@@ -89,7 +89,7 @@
 
 /datum/runeritual/binding/fae_t1
 	name = "Bind Sprite"
-	desc = "Bind a fae sprite to your service."
+	desc = "Bind a sprite to your service."
 	blacklisted = FALSE
 	tier = 1
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite
@@ -97,7 +97,7 @@
 
 /datum/runeritual/binding/fae_t2
 	name = "Bind Glimmerwing"
-	desc = "Bind a fae glimmerwing to your service."
+	desc =	 "Bind a glimmerwing to your service."
 	blacklisted = FALSE
 	tier = 2
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/fae/glimmerwing
@@ -105,7 +105,7 @@
 
 /datum/runeritual/binding/fae_t3
 	name = "Bind Dryad"
-	desc = "Bind a fae dryad to your service."
+	desc = "Bind a dryad to your service."
 	blacklisted = FALSE
 	tier = 3
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/fae/dryad
@@ -113,7 +113,7 @@
 
 /datum/runeritual/binding/fae_t4
 	name = "Bind Sylph"
-	desc = "Bind a fae sylph to your service."
+	desc = "Bind a sylph to your service." // was: "Bind a fae sylph to your service."
 	blacklisted = FALSE
 	tier = 4
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/fae/sylph
@@ -123,7 +123,7 @@
 
 /datum/runeritual/binding/elemental_t1
 	name = "Bind Crawler"
-	desc = "Bind an elemental crawler to your service."
+	desc = "Bind a crawler to your service." // was: "Bind an elemental crawler to your service."
 	blacklisted = FALSE
 	tier = 1
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler
@@ -131,7 +131,7 @@
 
 /datum/runeritual/binding/elemental_t2
 	name = "Bind Warden"
-	desc = "Bind an elemental warden to your service."
+	desc = "Bind a warden to your service." // was: "Bind an elemental warden to your service."
 	blacklisted = FALSE
 	tier = 2
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/elemental/warden
@@ -139,7 +139,7 @@
 
 /datum/runeritual/binding/elemental_t3
 	name = "Bind Behemoth"
-	desc = "Bind an elemental behemoth to your service."
+	desc = "Bind a behemoth to your service." // was: "Bind an elemental behemoth to your service."
 	blacklisted = FALSE
 	tier = 3
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/elemental/behemoth
@@ -147,7 +147,7 @@
 
 /datum/runeritual/binding/elemental_t4
 	name = "Bind Colossus"
-	desc = "Bind an elemental colossus to your service."
+	desc = "Bind a colossus to your service." // was: "Bind an elemental colossus to your service."
 	blacklisted = FALSE
 	tier = 4
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/elemental/colossus
