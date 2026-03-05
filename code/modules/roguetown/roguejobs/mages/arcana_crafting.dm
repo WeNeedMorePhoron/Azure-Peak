@@ -13,26 +13,6 @@
 				/datum/reagent/medicine/manapot = 15)
 	craftdiff = 2
 
-/datum/crafting_recipe/roguetown/arcana/artifact
-	name = "runed artifact"
-	result = /obj/item/magic/artifact
-	reqs = list(/obj/item/natural/rock = 1,
-				/datum/reagent/medicine/manapot = 15)
-	craftdiff = 2
-
-/datum/crafting_recipe/roguetown/arcana/rawmana
-	name = "mana crystal"
-	result = /obj/item/magic/manacrystal
-	reqs = list(/datum/reagent/medicine/manapot = 25)
-	craftdiff = 2
-
-/datum/crafting_recipe/roguetown/arcana/obsidian
-	name = "Obsidian Shard"
-	result = /obj/item/magic/obsidian
-	reqs = list(/obj/item/natural/stone = 2, 
-				/obj/item/alch/coaldust = 1)
-	craftdiff = 2
-
 /datum/crafting_recipe/roguetown/arcana/chalk
 	name = "chalk"
 	result = /obj/item/chalk

@@ -107,6 +107,7 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 
 /obj/structure/leyline/normal
 	leyline_type = "normal"
+	max_tier = 4
 
 /obj/structure/leyline/normal/coast
 	name = "coastal leyline"
@@ -132,3 +133,4 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	leyline_type = "powerful"
 	alignment = "void"
 	mega_region = "bog"
+	max_tier = 5

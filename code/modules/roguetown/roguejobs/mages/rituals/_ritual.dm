@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(t4bindingrituallist, generate_t4binding_rituallist())
 	RETURN_TYPE(/list)
 	var/list/runerituals = list()
 	for(var/datum/runeritual/runeritual as anything in subtypesof(/datum/runeritual))
-		if(istype(runeritual, /datum/runeritual/summoning || /datum/runeritual/other/wall || /datum/runeritual/binding))
+		if(istype(runeritual, /datum/runeritual/summoning) || istype(runeritual, /datum/runeritual/other/wall) || istype(runeritual, /datum/runeritual/binding))
 			continue
 		if(runeritual.blacklisted)
 			continue

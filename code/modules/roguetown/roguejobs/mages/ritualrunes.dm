@@ -666,7 +666,7 @@ GLOBAL_LIST(teleport_runes)
 	listkey = set_keyword ? "[set_keyword] [locname]":"[locname]"
 	LAZYADD(GLOB.teleport_runes, src)
 
-/obj/effect/rune/teleport/Destroy()
+/obj/effect/decal/cleanable/roguerune/arcyne/teleport/Destroy()
 	LAZYREMOVE(GLOB.teleport_runes, src)
 	return ..()
 

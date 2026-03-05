@@ -37,7 +37,6 @@
 	var/motespeed = 20 // mote summoning speed
 	var/sparkspeed = 30 // spark summoning speed
 	var/spark_cd = 0
-	var/gatherspeed = 35
 	experimental_inhand = FALSE
 
 /obj/item/melee/touch_attack/prestidigitation/Initialize()
@@ -109,10 +108,6 @@
 /obj/item/melee/touch_attack/prestidigitation/afterattack(atom/target, mob/living/carbon/user, proximity)
 	switch (user.used_intent.type)
 		if (INTENT_HELP) // Clean something like a bar of soap
-			if(istype(target, /obj/structure/well/fountain/mana) || istype(target, /turf/open/lava))
-				gather_thing(target, user)
-				handle_cost(user, PRESTI_CLEAN)
-				return
 			if(clean_thing(target, user))
 				handle_cost(user, PRESTI_CLEAN)
 		if (INTENT_DISARM) // Snap your fingers and produce a spark
@@ -222,20 +217,6 @@
 			return TRUE
 		return FALSE
 
-/obj/item/melee/touch_attack/prestidigitation/proc/gather_thing(atom/target, mob/living/carbon/human/user)
-
-	var/skill_level = user.get_skill_level(attached_spell.associated_skill)
-	gatherspeed = initial(gatherspeed) - (skill_level * 3) // 3 cleanspeed per skill level, from 35 down to a maximum of 17 (pretty quick)
-	if (istype(target, /obj/structure/well/fountain/mana))
-		if (do_after(user, src.gatherspeed, target = target))
-			to_chat(user, span_notice("I mold the liquid mana in \the [target.name] with my arcane power, crystalizing it!"))
-			new /obj/item/magic/manacrystal(user.loc)
-	if (istype(target, /turf/open/lava))
-		if (do_after(user, src.gatherspeed, target = target))
-			to_chat(user, span_notice("I mold a handful of oozing lava  with my arcane power, rapidly hardening it!"))
-			new /obj/item/magic/obsidian(user.loc)
-
-// Intents for prestidigitation
 // Intents for prestidigitation
 
 /obj/effect/wisp/prestidigitation
