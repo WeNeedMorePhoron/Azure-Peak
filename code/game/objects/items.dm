@@ -626,9 +626,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(intdamage_factor != 1 && force >= 5)
 			inspec += "\n<b>INTEGRITY DAMAGE:</b> [intdamage_factor * 100]% <span class='info'><a href='?src=[REF(src)];explainintdamage=1'>{?}</a></span>"
 
-		if(demolition_mod != 1 && force >= 5)
-			inspec += "\n<b>ANTI-OBJECT MOD:</b> [demolition_mod * 100]% <span class='info'><a href='?src=[REF(src)];explaindemolitionmod=1'>{?}</a></span>"
-
 		if(istype(src, /obj/item/ammo_casing/caseless/rogue))
 			var/obj/item/ammo_casing/caseless/rogue/rog_ammo = src
 			if(rog_ammo.BB.min_range)
