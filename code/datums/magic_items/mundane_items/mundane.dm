@@ -16,10 +16,10 @@
 	var/active_item = FALSE
 	var/max_skill = FALSE
 
-/datum/magic_item/mundane/mining/on_hit_structure(var/obj/item/i, var/turf/target, var/mob/living/user)
+/datum/magic_item/mundane/mining/on_hit_structure(var/obj/item/i, var/obj/target, var/mob/living/user)
 	if(istype(target, /obj/item/natural/rock))
 		var/obj/item/natural/rock/rocktarget = target
-		rocktarget.obj_integrity -= 500 //smashs through boulders with ease
+		rocktarget.obj_integrity -= 500
 	. = ..()
 
 /datum/magic_item/mundane/mining/on_equip(var/obj/item/i, var/mob/living/user, slot)
@@ -29,7 +29,7 @@
 	if(slot == ITEM_SLOT_HANDS)
 		user.change_stat(STATKEY_WIL, 1)
 		if(user.get_skill_level(/datum/skill/labor/mining)== 6)
-			max_skill = TRUE //they are max level, so we skip giving them skills
+			max_skill = TRUE
 		else
 			user.adjust_skillrank(/datum/skill/labor/mining, 1, TRUE)
 		to_chat(user, span_notice("I feel ready to mine!"))
@@ -42,7 +42,7 @@
 	if(active_item)
 		active_item = FALSE
 		if (!max_skill)
-			user.adjust_skillrank(/datum/skill/labor/mining, -1, TRUE) //stripping them a level since they weren't max
+			user.adjust_skillrank(/datum/skill/labor/mining, -1, TRUE)
 		user.change_stat(STATKEY_WIL, -1)
 		to_chat(user, span_notice("I feel mundane once more"))
 
@@ -60,14 +60,14 @@
 	if(active_item)
 		return
 	else
-		user.STALUC += 1
+		user.change_stat(STATKEY_LCK, 1, "xylix_enchant")
 		to_chat(user, span_notice("I feel rather lucky"))
 		active_item = TRUE
 
 /datum/magic_item/mundane/xylix/on_drop(var/obj/item/i, var/mob/living/user)
 	if(active_item)
 		active_item = FALSE
-		user.STALUC -= 1
+		user.change_stat(STATKEY_LCK, 0, "xylix_enchant")
 		to_chat(user, span_notice("I feel mundane once more"))
 
 /datum/magic_item/mundane/unyieldinglight

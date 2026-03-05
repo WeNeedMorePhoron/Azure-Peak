@@ -165,7 +165,7 @@
 	result_atoms = list(/obj/item/enchantmentscroll/voidtouched)
 
 /datum/runeritual/enchanting/frostveil
-	name = "Frostveil"
+	name = "Lesser Freezing"
 	desc = "Chills foes."
 	blacklisted = FALSE
 	tier = 3
@@ -207,8 +207,8 @@
 	result_atoms = list(/obj/item/enchantmentscroll/infernalflame)
 
 /datum/runeritual/enchanting/freeze
-	name = "Freezing"
-	desc = "Freezes Foes into cubes of ice."
+	name = "Greater Freezing"
+	desc = "Heavily chills foes."
 	blacklisted = FALSE
 	tier = 4
 	required_atoms = list(/obj/item/rogueore/cinnabar = 1, /obj/item/paper/scroll = 1, /obj/item/magic/leyline = 1, /obj/item/magic/elemental/relic = 1)
