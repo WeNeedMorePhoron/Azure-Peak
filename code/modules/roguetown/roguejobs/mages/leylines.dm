@@ -4,13 +4,13 @@
  * Leylines are the sites where mages perform encounter rituals. Scattered across the world
  * in different regions, each aligned to a realm. Mages must travel to find them.
  *
- * Charge system (veil attunement): each mage gains dayspassed + 1 charges per week (max 5).
+ * Charge system (veil attunement): each mage gains dayspassed + 1 charges per week.
  * Each ritual costs 1 charge. This naturally gates early-week spam while
  * rewarding patience — by day 4-5 you can chain several rituals in one trip.
  * Since charges are limited, mages are expected to go out to realm-aligned leylines
  * rather than waste charges on tamed ones that always give fewer mobs.
  *
- * Day gating: T1-T2 always available, T3 from day 3, T4 from day 4.
+ * Day gating: T1-T2 always available, T3 from day 3, T4 from day 4, T5 (Void Dragon) from day 5.
  * This keeps the first few days focused on lower-tier encounters.
  *
  * Leyline types:
@@ -18,8 +18,9 @@
  *     Neutral = not aligned with anything, so rituals always get -1 mob (training wheels).
  *   Normal (coast/grove/decap) — 2 uses/day, up to T4. Realm-aligned.
  *     Matching ritual alignment = full mob count. Wrong alignment = -1 mob.
- *   Powerful (bog) — 2 uses/day, up to T4. Void-aligned. Always +1 primary mob.
+ *   Powerful (bog) — 2 uses/day, up to T5. Void-aligned. Always +1 primary mob.
  *     Wrong alignment in Bog nets to normal — the +1 and -1 cancel out.
+ *     Only leyline type that supports the T5 Void Dragon ritual (uses a T4 circle).
  */
 
 GLOBAL_LIST_EMPTY(leyline_sites)
@@ -27,7 +28,7 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 
 /proc/get_leyline_charges(mob/living/user)
 	var/used = GLOB.leyline_activations[user.real_name] || 0
-	return clamp(GLOB.dayspassed + 1 - used, 0, 5)
+	return max(GLOB.dayspassed + 1 - used, 0)
 
 /proc/spend_leyline_charge(mob/living/user)
 	if(!GLOB.leyline_activations[user.real_name])
@@ -35,6 +36,8 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	GLOB.leyline_activations[user.real_name]++
 
 /proc/get_max_leyline_tier()
+	if(GLOB.dayspassed >= 5)
+		return 5
 	if(GLOB.dayspassed >= 4)
 		return 4
 	if(GLOB.dayspassed >= 3)
@@ -135,5 +138,5 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	leyline_type = "powerful"
 	alignment = "void"
 	mega_region = "bog"
-	max_tier = 4
+	max_tier = 5
 	color = "#AB47BC" // purple — void

@@ -11,8 +11,8 @@
  * Exception: the Void Dragon ritual requires 5 runed artifacts (the only summoning with a material gate).
  * Since charges are limited, you are expected to go out to the good leylines, not camp tamed ones.
  *
- * Attunement: mages gain dayspassed + 1 charges per week (max 5), each ritual costs 1.
- * Day gate: T1-T2 always available, T3 from day 3, T4 from day 4.
+ * Attunement: mages gain dayspassed + 1 charges per week, each ritual costs 1.
+ * Day gate: T1-T2 always available, T3 from day 3, T4 from day 4, T5 (Void Dragon) from day 5.
  * See leylines.dm for charge and gating implementation.
  *
  * Alignment:
@@ -226,13 +226,16 @@
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/voidstoneobelisk)
 	chants = list("Vacuum spectat.", "See me! Know me! Acknowledge me!", "Nihil respondet.", "Answer me! I know you hear!", "Gaze! Evoca et Cognosce!")
 
-// ----- Void Dragon (T4, requires Powerful leyline + 5 runed artifacts) -----
+// ----- Void Dragon (T5, requires Powerful leyline + day 5 + 5 runed artifacts) -----
+// Uses a T4 circle (grand warded matrix) — the T4 ritual list has no tier filter,
+// so this T5 ritual appears on T4 runes. Day-gated to day 5 via get_max_leyline_tier().
+// Only powerful leylines (Bog) have max_tier = 5, so it can only be performed there.
 
 /datum/runeritual/summoning/leyline_encounter/void_dragon
 	name = "Supreme Ritual of Void Dragon Calling"
 	desc = "Tear open the deepest layer of the veil, reaching beyond all planes. There is only one thing that dwells there. Requires a confluence of power from all three realms."
 	blacklisted = FALSE
-	tier = 4
+	tier = 5
 	alignment = "void"
 	required_atoms = list(/obj/item/magic/artifact = 5, /obj/item/magic/melded/t4 = 3, /obj/item/magic/voidstone = 3, /obj/item/magic/leyline = 3)
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/voiddragon)
