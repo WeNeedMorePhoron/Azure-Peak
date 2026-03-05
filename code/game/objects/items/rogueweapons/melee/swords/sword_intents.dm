@@ -318,6 +318,7 @@
 	attack_verb = list("cleaves", "carves through")
 	clickcd = CLICK_CD_HEAVY
 	damfactor = 1.0
+	reach = 1 // No!!
 	cleave = /datum/cleave_pattern/forward_cleave
 
 /datum/intent/sword/cut/zwei/sweep
