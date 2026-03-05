@@ -98,20 +98,26 @@ Melds gate binding (force realm diversity — need materials from all 3 realms, 
 
 ### TODO
 
-- [ ] **Remove old lab summoning rituals** — delete old `/datum/runeritual/summoning/` datums that used the basement flow (the ones that summoned individual creatures via summon_ritual_mob). These are distinct from the new `/datum/runeritual/summoning/leyline_encounter/` datums.
-- [ ] **Remove summon_ritual_mob() proc** — the old proc that spawned a single creature with GODMODE/PACIFISM for the seal-and-release flow
-- [ ] **Remove seal-and-release flow** — the `attack_hand` code on summoning runes that removed GODMODE/PACIFISM from summoned creatures
-- [ ] **Remove runed artifact synthesis recipe** — find and delete wherever artifacts are craftable
-- [ ] **Sunset obsidian from recipes** — remove obsidian requirements from any remaining ritual/enchantment recipes (leave item definition)
-- [ ] **Sunset mana crystal from recipes** — remove mana crystal requirements from any remaining recipes (leave item definition)
+- [x] **Remove old lab summoning rituals** — old `/datum/runeritual/summoning/` datums removed (verified: no imp/hellhound/sprite ritual datums remain)
+- [x] **Remove summon_ritual_mob() proc** — removed (verified: no references remain in code)
+- [x] **Remove runed artifact synthesis recipe** — removed from arcana_crafting.dm
+- [x] **Sunset obsidian synthesis** — removed crafting recipe and prestidigitation lava→obsidian shortcut. Item definition and remaining uses (void lamptern, merchant stock) preserved.
+- [x] **Sunset mana crystal synthesis** — removed crafting recipe and prestidigitation mana fountain→crystal shortcut. Item definition and remaining uses (wall rituals, knowledge rune, crafting chains, merchant stock) preserved.
+- [x] **Fix istype bug in _ritual.dm** — `istype()` with `||` inside doesn't work in DM. Split into separate `istype()` calls so binding rituals are properly excluded from allowed list.
+- [x] **Fix teleport rune Destroy type path** — was `/obj/effect/rune/teleport/Destroy()` (wrong type, never executed). Fixed to `/obj/effect/decal/cleanable/roguerune/arcyne/teleport/Destroy()`.
+- [x] **Set explicit max_tier on leyline subtypes** — normal=4, powerful=5 (was 0, relied on falsy short-circuit).
+- ~~**Remove seal-and-release flow**~~ — NOT removed. Still needed for binding system (bound creatures spawn godmoded/paralyzed and need releasing via summoning circle attack_hand).
+- [x] **Rewrite mage guide text** — `mage_basic.dm` Chapter I (Leylines and Encounters) and Chapter II (Materials and Enchanting) fully rewritten for new loop.
 - [ ] **Hand-place tamed leylines** — place 2x `/obj/structure/leyline/tamed` in DMM (hamlet + mage tower basement)
 - [ ] **Chant text** — replace placeholder "LatinChant1" etc. with actual chant lines (owner will do this)
 
+- [x] **Nuke all synthesis recipes** — removed all upward conversion chains (fae/elemental/infernal T1→T4) and both arcyne fission recipes from arcana_crafting.dm. Materials come from leyline encounters only.
+
 ### DEFERRED (Phase 2)
 
-- [ ] Arcyne Fluctuation world events (1-2 per week, large mob spawn at random leyline)
-- [ ] Further enchantment rebalancing (stat effects → status effects, T4 nerfs)
-- [ ] Synthesis recipe rework (2:1 catch-up ratio for cross-tier trading)
+- [ ] Enchantment rebalancing (stat effects → status effects, T4 nerfs)
+- [ ] ~~Arcyne Fluctuation world events~~ — stretch goal, deprioritized
+- [ ] ~~Synthesis recipe rework~~ — nuked entirely instead
 
 ---
 

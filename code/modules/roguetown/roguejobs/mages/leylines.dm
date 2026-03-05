@@ -104,6 +104,7 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	alignment = "neutral"
 	max_uses_per_day = 4
 	max_tier = 1
+	color = "#C0C0FF" // soft blue-white — tame, safe
 
 /obj/structure/leyline/normal
 	leyline_type = "normal"
@@ -114,18 +115,21 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	desc = "Stones arranged in a spiral pattern. The air crackles with elemental energy."
 	alignment = "elemental"
 	mega_region = "coast"
+	color = "#D4A04A" // amber/earth — elemental
 
 /obj/structure/leyline/normal/grove
 	name = "sylvan leyline"
 	desc = "Moss-covered stones hum with fae energy. Flowers bloom unnaturally around them."
 	alignment = "fae"
 	mega_region = "grove"
+	color = "#81C784" // green — fae
 
 /obj/structure/leyline/normal/decap
 	name = "scorched leyline"
 	desc = "Blackened stones radiate infernal heat. The ground around them is cracked and ashen."
 	alignment = "infernal"
 	mega_region = "decap"
+	color = "#EF5350" // red — infernal
 
 /obj/structure/leyline/powerful
 	name = "unstable leyline"
@@ -134,3 +138,4 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	alignment = "void"
 	mega_region = "bog"
 	max_tier = 5
+	color = "#AB47BC" // purple — void
