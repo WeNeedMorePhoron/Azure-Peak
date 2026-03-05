@@ -70,7 +70,7 @@
 	</ul>
 	<p>
 		<b>Enchanting</b> uses realm materials (plus cinnabar and a scroll) on an Imbuement Array to create
-		enchantment scrolls. Third and fourth circle enchantments also require a leyline shard.
+		enchantment scrolls. Third and fourth circle enchantments also require a leyline shard.	
 	</p>
 	<p>
 		<b>Arcanic Melds</b> are crafted by combining one material from each of the three realms at the same tier.
@@ -84,9 +84,9 @@
 	</p>
 	<h3>Other Materials</h3>
 	<ul>
-		<li><b>Runed Artifacts</b> - Found in the wilds, especially the swamp. Required for binding rituals.</li>
+		<li><b>Runed Artifacts</b> - Found in the wilds, especially the bog. Required for binding rituals.</li>
 		<li><b>Leyline Shards</b> - Dropped by leyline lycans (summon them with the Leyline Luring ritual). Required for third circle and above enchantments.</li>
-		<li><b>Cinnabar</b> - Required for all enchantments. Available from merchants or found in the world.</li>
+		<li><b>Cinnabar</b> - Required for all enchantments. Available from merchants or found in mines.</li>
 	</ul>
 	</div>
 	"}
