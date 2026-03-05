@@ -17,6 +17,7 @@
 	move_to_delay = 6
 	base_intents = list(/datum/intent/simple/bite)
 	butcher_results = list()
+	death_loot = list(/obj/item/magic/fae/iridescentscale = 2)
 	faction = list("fae")
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	health = 270
@@ -54,9 +55,6 @@
 
 /mob/living/simple_animal/hostile/retaliate/rogue/fae/glimmerwing/death(gibbed)
 	..()
-	var/turf/deathspot = get_turf(src)
-	new /obj/item/magic/fae/iridescentscale(deathspot)
-	new /obj/item/magic/fae/iridescentscale(deathspot)
 	update_icon()
 	spill_embedded_objects()
 	qdel(src)

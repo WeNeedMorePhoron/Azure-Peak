@@ -19,6 +19,7 @@
 	move_to_delay = 12
 	base_intents = list(/datum/intent/simple/elemental_unarmed)
 	butcher_results = list()
+	death_loot = list(/obj/item/magic/elemental/shard = 2)
 	faction = list("elemental")
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	health = 340
@@ -57,9 +58,6 @@
 
 /mob/living/simple_animal/hostile/retaliate/rogue/elemental/warden/death(gibbed)
 	..()
-	var/turf/deathspot = get_turf(src)
-	new /obj/item/magic/elemental/shard(deathspot)
-	new /obj/item/magic/elemental/shard(deathspot)
 	update_icon()
 	spill_embedded_objects()
 	qdel(src)

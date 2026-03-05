@@ -84,7 +84,7 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 
 /obj/structure/leyline/attack_hand(mob/living/user)
 	if(!isarcyne(user))
-		to_chat(user, span_notice("You sense faint energy from the stones, but cannot comprehend its nature")) // was: "You sense faint energy from the stones, but cannot comprehend its nature."
+		to_chat(user, span_notice("You sense faint energy from the stones, but cannot comprehend its nature."))
 		return
 	check_daily_reset()
 	var/charges = get_leyline_charges(user)

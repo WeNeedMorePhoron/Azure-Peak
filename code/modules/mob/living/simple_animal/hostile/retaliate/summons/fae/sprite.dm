@@ -18,6 +18,7 @@
 	move_to_delay = 3
 	base_intents = list(/datum/intent/unarmed/claw)
 	butcher_results = list()
+	death_loot = list(/obj/item/magic/fae/fairydust = 4)
 	faction = list("fae")
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	health = 50
@@ -59,11 +60,6 @@
 
 /mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite/death(gibbed)
 	..()
-	var/turf/deathspot = get_turf(src)
-	new /obj/item/magic/fae/fairydust(deathspot)
-	new /obj/item/magic/fae/fairydust(deathspot)
-	new /obj/item/magic/fae/fairydust(deathspot)
-	new /obj/item/magic/fae/fairydust(deathspot)
 	update_icon()
 	sleep(1)
 	qdel(src)

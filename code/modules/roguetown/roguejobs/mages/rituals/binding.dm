@@ -37,7 +37,7 @@
 	return TRUE
 
 /datum/runeritual/binding/proc/bind_ritual_mob(mob/living/user, turf/loc, mob/living/mob_to_bind)
-	var/mob/living/simple_animal/binded
+	var/mob/living/simple_animal/hostile/retaliate/rogue/binded
 	if(isliving(mob_to_bind))
 		binded = mob_to_bind
 	else
@@ -48,6 +48,7 @@
 		animate(binded, color = "#ff0000",time = 5)
 		binded.move_resist = MOVE_FORCE_EXTREMELY_STRONG
 		binded.binded = TRUE
+		binded.death_loot = list() // No free loot from bound creatures
 		binded.SetParalyzed(900)
 		return binded
 
@@ -113,7 +114,7 @@
 
 /datum/runeritual/binding/fae_t4
 	name = "Bind Sylph"
-	desc = "Bind a sylph to your service." // was: "Bind a fae sylph to your service."
+	desc = "Bind a sylph to your service."
 	blacklisted = FALSE
 	tier = 4
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/fae/sylph
@@ -123,7 +124,7 @@
 
 /datum/runeritual/binding/elemental_t1
 	name = "Bind Crawler"
-	desc = "Bind a crawler to your service." // was: "Bind an elemental crawler to your service."
+	desc = "Bind a crawler to your service."
 	blacklisted = FALSE
 	tier = 1
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler
@@ -131,7 +132,7 @@
 
 /datum/runeritual/binding/elemental_t2
 	name = "Bind Warden"
-	desc = "Bind a warden to your service." // was: "Bind an elemental warden to your service."
+	desc = "Bind a warden to your service."
 	blacklisted = FALSE
 	tier = 2
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/elemental/warden
@@ -139,7 +140,7 @@
 
 /datum/runeritual/binding/elemental_t3
 	name = "Bind Behemoth"
-	desc = "Bind a behemoth to your service." // was: "Bind an elemental behemoth to your service."
+	desc = "Bind a behemoth to your service."
 	blacklisted = FALSE
 	tier = 3
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/elemental/behemoth
@@ -147,8 +148,18 @@
 
 /datum/runeritual/binding/elemental_t4
 	name = "Bind Colossus"
-	desc = "Bind a colossus to your service." // was: "Bind an elemental colossus to your service."
+	desc = "Bind a colossus to your service."
 	blacklisted = FALSE
 	tier = 4
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/elemental/colossus
 	required_atoms = list(/obj/item/magic/elemental/relic = 1, /obj/item/magic/melded/t4 = 1, /obj/item/magic/artifact = 4)
+
+// ----- Void Dragon Binding -----
+
+/datum/runeritual/binding/void_dragon
+	name = "Bind Void Dragon"
+	desc = "Sacrifice the spoils of a slain void dragon to bind another to your service. Only those who have already felled one may attempt this."
+	blacklisted = FALSE
+	tier = 5
+	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/voiddragon
+	required_atoms = list(/obj/item/clothing/ring/dragon_ring = 3, /obj/item/book/granter/spell_points/voiddragon = 3)

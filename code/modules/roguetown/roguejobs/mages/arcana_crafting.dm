@@ -39,7 +39,7 @@
 	name = "void lamptern"
 	result = /obj/item/flashlight/flare/torch/lantern/voidlamptern
 	reqs = list(/obj/item/flashlight/flare/torch/lantern = 1,
-				/obj/item/magic/obsidian = 1,
+				/obj/item/magic/voidstone = 1,
 				/obj/item/magic/melded/t1 = 1)
 	craftdiff = 2
 
@@ -86,36 +86,36 @@
 /datum/crafting_recipe/roguetown/arcana/binding
 	name = "binding shackles"
 	result = /obj/item/rope/chain/bindingshackles
-	reqs = list(/obj/item/rope/chain = 2,
+	reqs = list(/obj/item/rope/chain = 1,
 				/obj/item/magic/melded/t1 = 1)
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/arcana/bindingt2
 	name = "binding shackles (T2)"
 	result = /obj/item/rope/chain/bindingshackles/t2
-	reqs = list(/obj/item/rope/chain/bindingshackles = 1,
+	reqs = list(/obj/item/rope/chain = 1,
 				/obj/item/magic/melded/t2 = 1)
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/arcana/bindingt3
 	name = "binding shackles (T3)"
 	result = /obj/item/rope/chain/bindingshackles/t3
-	reqs = list(/obj/item/rope/chain/bindingshackles/t2 = 1,
+	reqs = list(/obj/item/rope/chain = 1,
 				/obj/item/magic/melded/t3 = 1)
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/arcana/bindingt4
 	name = "binding shackles (T4)"
 	result = /obj/item/rope/chain/bindingshackles/t4
-	reqs = list(/obj/item/rope/chain/bindingshackles/t3 = 1,
+	reqs = list(/obj/item/rope/chain = 1,
 				/obj/item/magic/melded/t4 = 1)
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/arcana/bindingt5
 	name = "binding shackles (T5)"
 	result = /obj/item/rope/chain/bindingshackles/t5
-	reqs = list(/obj/item/rope/chain/bindingshackles/t4 = 1,
-				/obj/item/magic/voidstone = 1)
+	reqs = list(/obj/item/rope/chain = 1,
+				/obj/item/magic/melded/t5 = 1)
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/arcana/forge
