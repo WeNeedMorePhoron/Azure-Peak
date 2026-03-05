@@ -76,12 +76,6 @@
 	..()
 	var/turf/deathspot = get_turf(src)
 	new /obj/item/magic/infernal/core(deathspot)
-	new /obj/item/magic/infernal/core(deathspot)
-	new /obj/item/magic/infernal/fang(deathspot)
-	new /obj/item/magic/infernal/fang(deathspot)
-	new /obj/item/magic/infernal/ash(deathspot)
-	new /obj/item/magic/infernal/ash(deathspot)
-	new /obj/item/magic/melded/t1(deathspot)
 
 	update_icon()
 	spill_embedded_objects()

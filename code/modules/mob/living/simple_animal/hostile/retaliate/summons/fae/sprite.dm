@@ -64,8 +64,6 @@
 	new /obj/item/magic/fae/fairydust(deathspot)
 	new /obj/item/magic/fae/fairydust(deathspot)
 	new /obj/item/magic/fae/fairydust(deathspot)
-	new /obj/item/magic/fae/fairydust(deathspot)
-	new /obj/item/magic/fae/fairydust(deathspot)
 	update_icon()
 	sleep(1)
 	qdel(src)
