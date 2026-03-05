@@ -57,7 +57,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp)
-	chants = list("LatinChant1", "EnglishChant1")
+	chants = list("Aperio portam ignis.", "Break free! Come to me!")
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t2
 	name = "Ordinary Ritual of Infernal Incursion"
@@ -68,7 +68,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/hellhound)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp)
-	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2")
+	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Sanguis ardet, vincula franguntur.", "Burn hotter! Strain against the veil!")
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t3
 	name = "Greater Ritual of Infernal Invasion"
@@ -81,7 +81,7 @@
 	base_primary_count = 2
 	base_secondary_count = 2
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp)
-	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2", "LatinChant3", "EnglishChant3")
+	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Sanguis ardet, vincula franguntur.", "Burn hotter! Strain against the veil!", "Voluntas mea lex est.", "Submit! You are bound to me!")
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t4
 	name = "Grand Ritual of Infernal Inversion"
@@ -94,8 +94,8 @@
 	base_primary_count = 1
 	base_secondary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/hellhound)
-	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2", "LatinChant3", "EnglishChant3")
-	secondary_chants = list("SecondaryLatin1", "Evoca et Incende!")
+	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Sanguis ardet, vincula franguntur.", "Burn hotter! Strain against the veil!", "Voluntas mea lex est.", "Submit! You are bound to me!", "Infernus obedit.", "Kneel before my flame!")
+	secondary_chants = list("Ignis!", "Ignis!", "Furor!", "Furor!", "Burn! Submit to my will!", "Evoca et Incende!")
 
 // ----- Fae -----
 
@@ -108,7 +108,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite)
-	chants = list("LatinChant1", "EnglishChant1")
+	chants = list("Flores aperiuntur.", "Come! Playful fae!")
 
 /datum/runeritual/summoning/leyline_encounter/fae_t2
 	name = "Ordinary Ritual of Fae Fluttering"
@@ -119,7 +119,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/glimmerwing)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite)
-	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2")
+	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Silva cantat, folia tremunt.", "Faster! Spin and flutter!")
 
 /datum/runeritual/summoning/leyline_encounter/fae_t3
 	name = "Greater Ritual of Fae Frenzy"
@@ -132,7 +132,7 @@
 	base_primary_count = 2
 	base_secondary_count = 2
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite)
-	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2", "LatinChant3", "EnglishChant3")
+	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Silva cantat, folia tremunt.", "Faster! Spin and flutter!", "Natura ipsa furit.", "No more games! Show your fury!")
 
 /datum/runeritual/summoning/leyline_encounter/fae_t4
 	name = "Grand Ritual of Fae Fury"
@@ -145,8 +145,8 @@
 	base_primary_count = 1
 	base_secondary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/glimmerwing)
-	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2", "LatinChant3", "EnglishChant3")
-	secondary_chants = list("SecondaryLatin1", "Evoca et Cresce!")
+	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Silva cantat, folia tremunt.", "Faster! Spin and flutter!", "Natura ipsa furit.", "No more games! Show your fury!", "Furor silvae descendit.", "Unleash the wrath of the wild!")
+	secondary_chants = list("Florete!", "Florete!", "Furiae!", "Furiae!", "No more games! Show your wrath!", "Evoca et Cresce!")
 
 // ----- Earthen -----
 
@@ -159,7 +159,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler)
-	chants = list("LatinChant1", "EnglishChant1")
+	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!")
 
 /datum/runeritual/summoning/leyline_encounter/earthen_t2
 	name = "Ordinary Ritual of Earthen Eruption"
@@ -170,7 +170,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/warden)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler)
-	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2")
+	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Fundamenta tremunt.", "Crack open! Shatter the stone!")
 
 /datum/runeritual/summoning/leyline_encounter/earthen_t3
 	name = "Greater Ritual of Earthen Earthquake"
@@ -183,7 +183,7 @@
 	base_primary_count = 2
 	base_secondary_count = 2
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler)
-	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2", "LatinChant3", "EnglishChant3")
+	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Fundamenta tremunt.", "Crack open! Shatter the stone!", "Mons ipse obedit.", "Erupt! Swallow the ground whole!")
 
 /datum/runeritual/summoning/leyline_encounter/earthen_t4
 	name = "Grand Ritual of Earthen Engulfment"
@@ -196,8 +196,8 @@
 	base_primary_count = 1
 	base_secondary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/warden)
-	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2", "LatinChant3", "EnglishChant3")
-	secondary_chants = list("SecondaryLatin1", "Evoca et Surge!")
+	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Fundamenta tremunt.", "Crack open! Shatter the stone!", "Mons ipse obedit.", "Erupt! Swallow the ground whole!", "Ruina totalis.", "Crush everything beneath you!")
+	secondary_chants = list("Ruina!", "Ruina!", "Surgite!", "Surgite!", "Shatter! Break the world open!", "Evoca et Surge!")
 
 // ----- Leyline (Fixed T2) -----
 
@@ -210,7 +210,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/leylinelycan)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/leylinelycan)
-	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2")
+	chants = list("Nexus patet.", "Come forth! Show yourselves!", "Vis cruda fluit.", "Hunt! The veil is thin!")
 
 // ----- Void (Fixed T2) — spawns mob form directly, no dormant obelisk phase -----
 
@@ -223,7 +223,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/voidstoneobelisk)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/voidstoneobelisk)
-	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2")
+	chants = list("Vacuum spectat.", "See me! Turn your gaze!", "Nihil respondet.", "Answer me! I know you hear!")
 
 // ----- Void Dragon (Fixed T5, requires Powerful leyline) -----
 
@@ -237,8 +237,8 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/voiddragon)
 	base_primary_count = 1
 	gone_wrong_extra = 0
-	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2", "LatinChant3", "EnglishChant3", "LatinChant4", "EnglishChant4")
-	secondary_chants = list("SecondaryLatin1", "Evoca et Devora!")
+	chants = list("Vacuum spectat.", "See me! Turn your gaze!", "Nihil respondet.", "Answer me! I know you hear!", "Ultra omnia voco.", "Beyond every plane! Past every boundary!", "Draco vacui surgit.", "RISE! Devour the world!")
+	secondary_chants = list("Vacuitas!", "Vacuitas!", "Finis!", "Finis!", "Nihil!", "Nihil!", "Beyond all things! Rise and devour!", "Evoca et Devora!")
 
 /datum/runeritual/summoning/leyline_encounter/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/obj/structure/leyline/leyline
@@ -326,7 +326,7 @@
 		new mob_type(spawn_turfs[spawned])
 
 	if(gone_wrong)
-		user.visible_message(span_boldwarning("PLACEHOLDER gone wrong message.")) // was: "The ritual has gone wrong! More creatures pour through!"
+		user.visible_message(span_boldwarning("The ritual spirals out of control! More creatures pour through the breach!"))
 		for(var/i in 1 to extra_count)
 			if(spawned >= length(spawn_turfs))
 				break
@@ -335,7 +335,7 @@
 			new mob_type(spawn_turfs[spawned])
 
 	playsound(loc, 'sound/magic/cosmic_expansion.ogg', 100, TRUE, 14)
-	user.visible_message(span_boldwarning("PLACEHOLDER creatures emerge message.")) // was: "The veil tears open and creatures emerge!"
+	user.visible_message(span_boldwarning("The veil tears open and creatures surge forth from beyond!"))
 	return TRUE
 
 /datum/runeritual/summoning/leyline_encounter/proc/get_encounter_turfs(turf/center, count)
