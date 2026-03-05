@@ -65,6 +65,8 @@ GLOBAL_LIST_INIT(t4bindingrituallist, generate_t4binding_rituallist())
 	RETURN_TYPE(/list)
 	var/list/runerituals = list()
 	for(var/datum/runeritual/runeritual as anything in subtypesof(/datum/runeritual/summoning))
+		if(runeritual.blacklisted)
+			continue
 		runerituals[initial(runeritual.name)] = runeritual
 	return runerituals
 
@@ -159,6 +161,7 @@ GLOBAL_LIST_INIT(t4bindingrituallist, generate_t4binding_rituallist())
 		  <div>
 		    <h1>[name]</h1>
 		    <div>
+			  [desc ? "<p><em>[desc]</em></p>" : ""]
 			  <h2>Complexity Tier: [tier] </h2>
 			  <br>
 			  <h2>Requirements</h2>
@@ -173,9 +176,12 @@ GLOBAL_LIST_INIT(t4bindingrituallist, generate_t4binding_rituallist())
 				html += "- [FLOOR(count, 1)] [UNIT_FORM_STRING(FLOOR(count, 1))] of [initial(R.name)]<br>"
 			else
 				html += "- [count] counts of [initial(path.name)]<br>"
-
-	html += "<h1>Steps</h1>"
-	html += "To start any ritual draw the required rune with [tool], then supply with the above items."
+		html += "<h1>Steps</h1>"
+		html += "To start any ritual draw the required rune with [tool], then supply with the above items."
+	else
+		html += "<strong>No items required.</strong><br>"
+		html += "<h1>Steps</h1>"
+		html += "Draw the required rune with [tool] near a leyline, then invoke it."
 	html += {"
 		</div>
 		</div>

@@ -183,10 +183,11 @@ GLOBAL_LIST(teleport_runes)
 		rune_in_use = FALSE
 		return
 
-	if(pickritual1.desc)
-		to_chat(user, span_notice(pickritual1.desc))
+	var/ritual_desc = initial(pickritual1.desc)
+	if(ritual_desc)
+		to_chat(user, span_notice(ritual_desc))
 
-	if(pickritual1.tier > tier)
+	if(initial(pickritual1.tier) > tier)
 		to_chat(user, span_hierophant_warning("Your ritual rune is not strong enough to perform this ritual."))
 		rune_in_use = FALSE
 		return
@@ -422,15 +423,15 @@ GLOBAL_LIST(teleport_runes)
 
 /obj/effect/decal/cleanable/roguerune/arcyne/enchantment/greater/New()
 	. = ..()
+	rituals.Cut()
 	rituals += GLOB.t4enchantmentrunerituallist
 
 // Binding Array — consumes realm materials to bind a single creature to your service.
-// Uses the same visual as imbuement for now.
 /obj/effect/decal/cleanable/roguerune/arcyne/binding
 	name = "Binding Array"
 	desc = "arcane symbols twist inward upon themselves, forming a cage of power..."
 	icon = 'icons/effects/96x96.dmi'
-	icon_state = "imbuement"
+	icon_state = "empowerment"
 	tier = 2
 	runesize = 1
 	pixel_x = -32
@@ -465,7 +466,7 @@ GLOBAL_LIST(teleport_runes)
 	name = "Greater Binding Array"
 	desc = "arcane symbols twist inward upon themselves, forming a powerful cage of energy..."
 	icon = 'icons/effects/160x160.dmi'
-	icon_state = "imbuement"
+	icon_state = "portal"
 	tier = 4
 	runesize = 2
 	pixel_x = -64
@@ -474,6 +475,7 @@ GLOBAL_LIST(teleport_runes)
 
 /obj/effect/decal/cleanable/roguerune/arcyne/binding/greater/New()
 	. = ..()
+	rituals.Cut()
 	rituals += GLOB.t4bindingrituallist
 
 /obj/effect/decal/cleanable/roguerune/arcyne/wall
@@ -795,6 +797,7 @@ GLOBAL_LIST(teleport_runes)
 
 /obj/effect/decal/cleanable/roguerune/arcyne/summoning/mid/New()
 	. = ..()
+	rituals.Cut()
 	rituals += GLOB.t2summoningrunerituallist
 
 /obj/effect/decal/cleanable/roguerune/arcyne/summoning/adv
@@ -811,6 +814,7 @@ GLOBAL_LIST(teleport_runes)
 
 /obj/effect/decal/cleanable/roguerune/arcyne/summoning/adv/New()
 	. = ..()
+	rituals.Cut()
 	rituals += GLOB.t3summoningrunerituallist
 
 /obj/effect/decal/cleanable/roguerune/arcyne/summoning/max
@@ -828,6 +832,7 @@ GLOBAL_LIST(teleport_runes)
 
 /obj/effect/decal/cleanable/roguerune/arcyne/summoning/max/New()
 	. = ..()
+	rituals.Cut()
 	rituals += GLOB.t4summoningrunerituallist
 
 /obj/effect/decal/cleanable/roguerune/divine	//To be used for divine rituals.

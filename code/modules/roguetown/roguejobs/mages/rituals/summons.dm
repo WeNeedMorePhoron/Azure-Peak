@@ -12,7 +12,7 @@
  * Since charges are limited, you are expected to go out to the good leylines, not camp tamed ones.
  *
  * Attunement: mages gain dayspassed + 1 charges per week (max 5), each ritual costs 1.
- * Day gate: T1-T2 always available, T3 from day 3, T4 from day 4, T5 from day 5.
+ * Day gate: T1-T2 always available, T3 from day 3, T4 from day 4.
  * See leylines.dm for charge and gating implementation.
  *
  * Alignment:
@@ -27,7 +27,7 @@
  * Gone wrong: flat 33% chance, +2 extra mobs. More risk, more reward. Bring friends.
  *
  * Chants: Latin/English alternating pairs, 2 seconds per line, tier scales the count.
- *   T4/T5 add secondary chants — other nearby invokers respond (call and response).
+ *   T4 (and void dragon) add secondary chants — other nearby invokers respond (call and response).
  *   Final line is always realm-specific "Evoca et [verb]!"
  *   Chanting is loud (range 14) and visible, drawing attention from other players.
  */
@@ -57,7 +57,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp)
-	chants = list("Aperio portam ignis.", "Break free! Come to me!")
+	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Evoca et Incende!")
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t2
 	name = "Ordinary Ritual of Infernal Incursion"
@@ -68,7 +68,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/hellhound)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp)
-	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Sanguis ardet, vincula franguntur.", "Burn hotter! Strain against the veil!")
+	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Sanguis ardet, vincula franguntur.", "Burn hotter! Strain against the veil!", "Evoca et Incende!")
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t3
 	name = "Greater Ritual of Infernal Invasion"
@@ -81,7 +81,7 @@
 	base_primary_count = 2
 	base_secondary_count = 2
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp)
-	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Sanguis ardet, vincula franguntur.", "Burn hotter! Strain against the veil!", "Voluntas mea lex est.", "Submit! You are bound to me!")
+	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Sanguis ardet, vincula franguntur.", "Burn hotter! Strain against the veil!", "Voluntas mea lex est.", "Submit! You are bound to me!", "Burn! Evoca et Incende!")
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t4
 	name = "Grand Ritual of Infernal Inversion"
@@ -94,8 +94,8 @@
 	base_primary_count = 1
 	base_secondary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/hellhound)
-	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Sanguis ardet, vincula franguntur.", "Burn hotter! Strain against the veil!", "Voluntas mea lex est.", "Submit! You are bound to me!", "Infernus obedit.", "Kneel before my flame!")
-	secondary_chants = list("Ignis!", "Ignis!", "Furor!", "Furor!", "Burn! Submit to my will!", "Evoca et Incende!")
+	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Sanguis ardet, vincula franguntur.", "Burn hotter! Strain against the veil!", "Voluntas mea lex est.", "Submit! You are bound to me!", "Infernus obedit.", "Burn! Evoca et Incende!")
+	secondary_chants = list("Ignis!", "Ardor!", "Flamma!", "Furor!", "Cruor!", "Cineres!", "Burn! Submit to my will!", "Burn! Evoca et Incende!")
 
 // ----- Fae -----
 
@@ -108,7 +108,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite)
-	chants = list("Flores aperiuntur.", "Come! Playful fae!")
+	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Bloom! Evoca et Cresce!")
 
 /datum/runeritual/summoning/leyline_encounter/fae_t2
 	name = "Ordinary Ritual of Fae Fluttering"
@@ -119,7 +119,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/glimmerwing)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite)
-	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Silva cantat, folia tremunt.", "Faster! Spin and flutter!")
+	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Silva cantat, folia tremunt.", "Faster! Spin and flutter!", "Bloom! Evoca et Cresce!")
 
 /datum/runeritual/summoning/leyline_encounter/fae_t3
 	name = "Greater Ritual of Fae Frenzy"
@@ -132,7 +132,7 @@
 	base_primary_count = 2
 	base_secondary_count = 2
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite)
-	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Silva cantat, folia tremunt.", "Faster! Spin and flutter!", "Natura ipsa furit.", "No more games! Show your fury!")
+	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Silva cantat, folia tremunt.", "Faster! Spin and flutter!", "Natura ipsa furit.", "No more games! Show your fury!", "Bloom! Evoca et Cresce!")
 
 /datum/runeritual/summoning/leyline_encounter/fae_t4
 	name = "Grand Ritual of Fae Fury"
@@ -145,8 +145,8 @@
 	base_primary_count = 1
 	base_secondary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/glimmerwing)
-	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Silva cantat, folia tremunt.", "Faster! Spin and flutter!", "Natura ipsa furit.", "No more games! Show your fury!", "Furor silvae descendit.", "Unleash the wrath of the wild!")
-	secondary_chants = list("Florete!", "Florete!", "Furiae!", "Furiae!", "No more games! Show your wrath!", "Evoca et Cresce!")
+	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Silva cantat, folia tremunt.", "Faster! Spin and flutter!", "Natura ipsa furit.", "No more games! Show your fury!", "Furor silvae descendit.", "Bloom! Evoca et Cresce!")
+	secondary_chants = list("Florete!", "Radix!", "Silva!", "Spinae!", "Furiae!", "Venae!", "No more games! Show your wrath!", "Bloom! Evoca et Cresce!")
 
 // ----- Earthen -----
 
@@ -159,7 +159,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler)
-	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!")
+	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Shatter! Evoca et Surge!")
 
 /datum/runeritual/summoning/leyline_encounter/earthen_t2
 	name = "Ordinary Ritual of Earthen Eruption"
@@ -170,7 +170,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/warden)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler)
-	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Fundamenta tremunt.", "Crack open! Shatter the stone!")
+	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Fundamenta tremunt.", "Crack open! Shatter the earth!", "Shatter! Evoca et Surge!")
 
 /datum/runeritual/summoning/leyline_encounter/earthen_t3
 	name = "Greater Ritual of Earthen Earthquake"
@@ -183,7 +183,7 @@
 	base_primary_count = 2
 	base_secondary_count = 2
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler)
-	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Fundamenta tremunt.", "Crack open! Shatter the stone!", "Mons ipse obedit.", "Erupt! Swallow the ground whole!")
+	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Fundamenta tremunt.", "Crack open! Shatter the earth!", "Mons ipse obedit.", "Erupt! Swallow the ground whole!", "Shatter! Evoca et Surge!")
 
 /datum/runeritual/summoning/leyline_encounter/earthen_t4
 	name = "Grand Ritual of Earthen Engulfment"
@@ -196,8 +196,8 @@
 	base_primary_count = 1
 	base_secondary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/warden)
-	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Fundamenta tremunt.", "Crack open! Shatter the stone!", "Mons ipse obedit.", "Erupt! Swallow the ground whole!", "Ruina totalis.", "Crush everything beneath you!")
-	secondary_chants = list("Ruina!", "Ruina!", "Surgite!", "Surgite!", "Shatter! Break the world open!", "Evoca et Surge!")
+	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Fundamenta tremunt.", "Crack open! Shatter the earth!", "Mons ipse obedit.", "Erupt! Swallow the ground whole!", "Ruina totalis.", "Shatter! Evoca et Surge!")
+	secondary_chants = list("Terra!", "Saxum!", "Surgite!", "Fundus!", "Ruina!", "Mons!", "Shatter! Break the world open!", "Shatter! Evoca et Surge!")
 
 // ----- Leyline (Fixed T2) -----
 
@@ -210,7 +210,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/leylinelycan)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/leylinelycan)
-	chants = list("Nexus patet.", "Come forth! Show yourselves!", "Vis cruda fluit.", "Hunt! The veil is thin!")
+	chants = list("Nexus patet.", "Come forth! Show yourselves!", "Vis cruda fluit.", "Hunt! The veil is thin!", "Hunt! Evoca et Venare!")
 
 // ----- Void (Fixed T2) — spawns mob form directly, no dormant obelisk phase -----
 
@@ -223,22 +223,28 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/voidstoneobelisk)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/voidstoneobelisk)
-	chants = list("Vacuum spectat.", "See me! Turn your gaze!", "Nihil respondet.", "Answer me! I know you hear!")
+	chants = list("Vacuum spectat.", "See me! Know me! Acknowledge me!", "Nihil respondet.", "Answer me! I know you hear!", "Gaze! Evoca et Cognosce!")
 
-// ----- Void Dragon (Fixed T5, requires Powerful leyline) -----
+// ----- Void Dragon (T4, requires Powerful leyline + 5 runed artifacts) -----
 
 /datum/runeritual/summoning/leyline_encounter/void_dragon
 	name = "Supreme Ritual of Void Dragon Calling"
-	desc = "Tear open the deepest layer of the veil, reaching beyond all planes. There is only one thing that dwells there."
+	desc = "Tear open the deepest layer of the veil, reaching beyond all planes. There is only one thing that dwells there. Requires a confluence of power from all three realms."
 	blacklisted = FALSE
-	tier = 5
+	tier = 4
 	alignment = "void"
-	required_atoms = list(/obj/item/magic/artifact = 5)
+	required_atoms = list(/obj/item/magic/artifact = 5, /obj/item/magic/melded/t4 = 3, /obj/item/magic/voidstone = 3, /obj/item/magic/leyline = 3)
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/voiddragon)
 	base_primary_count = 1
 	gone_wrong_extra = 0
-	chants = list("Vacuum spectat.", "See me! Turn your gaze!", "Nihil respondet.", "Answer me! I know you hear!", "Ultra omnia voco.", "Beyond every plane! Past every boundary!", "Draco vacui surgit.", "RISE! Devour the world!")
-	secondary_chants = list("Vacuitas!", "Vacuitas!", "Finis!", "Finis!", "Nihil!", "Nihil!", "Beyond all things! Rise and devour!", "Evoca et Devora!")
+	chants = list("Vacuum spectat.", "See me! Turn your gaze!", "Nihil respondet.", "Answer me! I know you hear!", "Ultra omnia voco.", "Beyond every plane! Past every boundary!", "Draco vacui surgit.", "Consume! Evoca et Devora!")
+	secondary_chants = list("Vacuitas!", "Abyssus!", "Finis!", "Tenebrae!", "Nihil!", "Vorago!", "Beyond all things! Rise and devour!", "Consume! Evoca et Devora!")
+
+/datum/runeritual/summoning/leyline_encounter/void_dragon/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	if(GLOB.dayspassed < 5)
+		to_chat(user, span_warning("The veil is not yet thin enough for such a ritual. The void dragon can only be called later in the week."))
+		return FALSE
+	return ..()
 
 /datum/runeritual/summoning/leyline_encounter/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/obj/structure/leyline/leyline
@@ -248,18 +254,19 @@
 	if(!leyline)
 		to_chat(user, span_warning("There is no leyline nearby. Draw your circle closer to a leyline."))
 		return FALSE
-	if(!leyline.has_uses_remaining())
-		to_chat(user, span_warning("This leyline has been exhausted for todae."))
-		return FALSE
-	if(get_leyline_charges(user) <= 0)
-		to_chat(user, span_boldwarning("You've reached into the veil too many times this week. Rest, or you will be annihilated."))
-		return FALSE
-	if(tier > get_max_leyline_tier())
-		to_chat(user, span_warning("Tis too early in the week. The power of the leylines grows and waxes. Wait until later for such powerful summoning.")) // was: "
-		return FALSE
-	if(leyline.max_tier && tier > leyline.max_tier)
-		to_chat(user, span_warning("This leyline is too weak for a ritual of this circle"))
-		return FALSE
+	// TESTING: Commented out for smoke testing — uncomment before merge
+	//if(!leyline.has_uses_remaining())
+	//	to_chat(user, span_warning("This leyline has been exhausted for todae."))
+	//	return FALSE
+	//if(get_leyline_charges(user) <= 0)
+	//	to_chat(user, span_boldwarning("You've reached into the veil too many times this week. Rest, or you will be annihilated."))
+	//	return FALSE
+	//if(tier > get_max_leyline_tier())
+	//	to_chat(user, span_warning("Tis too early in the week. The power of the leylines grows and waxes. Wait until later for such powerful summoning.")) // was: "
+	//	return FALSE
+	//if(leyline.max_tier && tier > leyline.max_tier)
+	//	to_chat(user, span_warning("This leyline is too weak for a ritual of this circle"))
+	//	return FALSE
 
 	var/primary_count = base_primary_count
 	var/secondary_count = base_secondary_count
@@ -283,26 +290,36 @@
 	user.visible_message(span_danger("You begin to chant, channeling energy into the leyline!"))
 	playsound(loc, 'sound/magic/teleport_diss.ogg', 100, TRUE, 14)
 
-	for(var/line in chants)
-		user.say(line, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
-		if(!do_after(user, 2 SECONDS, target = leyline))
-			to_chat(user, span_warning("The ritual is interrupted!"))
-			return FALSE
-
-	// T4/T5 call and response — other invokers chant back
+	// Gather secondary invokers for call-and-response (T4+)
+	// Search near the rune (loc), not the leyline — invokers stand at the circle, not the leyline
+	var/list/other_invokers = list()
 	if(length(secondary_chants))
-		var/list/other_invokers = list()
-		for(var/mob/living/M in range(3, leyline))
+		for(var/mob/living/M in range(3, loc))
 			if(M == user)
 				continue
 			if(isarcyne(M) && M.stat == CONSCIOUS && M.can_speak())
 				other_invokers += M
-		for(var/line in secondary_chants)
+
+	// Secondary chants are offset to start partway through — the chorus joins in for the final lines
+	var/secondary_offset = max(length(chants) - length(secondary_chants), 0)
+
+	for(var/i in 1 to length(chants))
+		var/line = chants[i]
+		user.say(line, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
+		// Secondary invokers respond after the primary — call and response
+		// Final line (Evoca) is spoken simultaneously; all other lines are delayed 1 second
+		var/secondary_index = i - secondary_offset
+		if(secondary_index >= 1 && secondary_index <= length(secondary_chants) && length(other_invokers))
+			var/response_line = secondary_chants[secondary_index]
+			var/is_final_line = (secondary_index == length(secondary_chants))
 			for(var/mob/living/invoker in other_invokers)
-				invoker.say(line, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
-			if(!do_after(user, 2 SECONDS, target = leyline))
-				to_chat(user, span_warning("The ritual is interrupted!"))
-				return FALSE
+				if(is_final_line)
+					invoker.say(response_line, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
+				else
+					addtimer(CALLBACK(invoker, TYPE_PROC_REF(/atom/movable, say), response_line, null, list(), TRUE, /datum/language/common, TRUE, "cult invocation"), 1 SECONDS)
+		if(!do_after(user, 2 SECONDS, target = leyline))
+			to_chat(user, span_warning("The ritual is interrupted!"))
+			return FALSE
 
 	spend_leyline_charge(user)
 	leyline.use_charge()
@@ -348,3 +365,21 @@
 		valid_turfs += T
 	shuffle_inplace(valid_turfs)
 	return valid_turfs.Copy(1, min(count + 1, length(valid_turfs) + 1))
+
+// ----- Debug: arcyne invoker for testing secondary chants -----
+
+/mob/living/carbon/human/species/npc/arcyne_invoker
+	name = "Arcyne Invoker"
+	real_name = "Arcyne Invoker"
+	mode = NPC_AI_OFF
+	wander = FALSE
+
+/mob/living/carbon/human/species/npc/arcyne_invoker/Initialize()
+	. = ..()
+	set_species(/datum/species/human/northern)
+	gender = pick(MALE, FEMALE)
+	addtimer(CALLBACK(src, PROC_REF(setup_invoker)), 1 SECONDS)
+
+/mob/living/carbon/human/species/npc/arcyne_invoker/proc/setup_invoker()
+	mind_initialize()
+	adjust_skillrank(/datum/skill/magic/arcane, 6, TRUE)

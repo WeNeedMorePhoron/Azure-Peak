@@ -10,7 +10,7 @@
  * Since charges are limited, mages are expected to go out to realm-aligned leylines
  * rather than waste charges on tamed ones that always give fewer mobs.
  *
- * Day gating: T1-T2 always available, T3 from day 3, T4 from day 4, T5 from day 5.
+ * Day gating: T1-T2 always available, T3 from day 3, T4 from day 4.
  * This keeps the first few days focused on lower-tier encounters.
  *
  * Leyline types:
@@ -18,7 +18,7 @@
  *     Neutral = not aligned with anything, so rituals always get -1 mob (training wheels).
  *   Normal (coast/grove/decap) — 2 uses/day, up to T4. Realm-aligned.
  *     Matching ritual alignment = full mob count. Wrong alignment = -1 mob.
- *   Powerful (bog) — 2 uses/day, up to T5. Void-aligned. Always +1 primary mob.
+ *   Powerful (bog) — 2 uses/day, up to T4. Void-aligned. Always +1 primary mob.
  *     Wrong alignment in Bog nets to normal — the +1 and -1 cancel out.
  */
 
@@ -35,8 +35,6 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	GLOB.leyline_activations[user.real_name]++
 
 /proc/get_max_leyline_tier()
-	if(GLOB.dayspassed >= 5)
-		return 5
 	if(GLOB.dayspassed >= 4)
 		return 4
 	if(GLOB.dayspassed >= 3)
@@ -137,5 +135,5 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	leyline_type = "powerful"
 	alignment = "void"
 	mega_region = "bog"
-	max_tier = 5
+	max_tier = 4
 	color = "#AB47BC" // purple — void
