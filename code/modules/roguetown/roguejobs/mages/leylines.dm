@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 
 /obj/structure/leyline
 	name = "inactive leyline"
-	desc = "PLACEHOLDER leyline desc." // was: "A curious arrangement of stones."
+	desc = "You shouldn't see the base level leyline."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "inactiveleyline"
 	anchored = TRUE
