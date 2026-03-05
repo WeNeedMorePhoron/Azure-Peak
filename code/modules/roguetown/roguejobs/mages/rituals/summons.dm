@@ -49,8 +49,8 @@
 // ----- Infernal -----
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t1
-	name = "Lesser Ritual of Infernal Invocation"
-	desc = "Breach the veil and summon lesser infernal creechurs."
+	name = "Lesser Ritual of Infernal Intrusion"
+	desc = "Breach the veil and summon imps." 
 	blacklisted = FALSE
 	tier = 1
 	alignment = "infernal"
@@ -60,8 +60,8 @@
 	chants = list("LatinChant1", "EnglishChant1")
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t2
-	name = "Ordinary Ritual of Infernal Ignition"
-	desc = "Reach deeper into the infernal veil and summon hellhounds."
+	name = "Ordinary Ritual of Infernal Incursion"
+	desc = "Reach deeper into the infernal realm and summon hellhounds!"
 	blacklisted = FALSE
 	tier = 2
 	alignment = "infernal"
@@ -71,8 +71,8 @@
 	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2")
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t3
-	name = "Greater Ritual of Infernal Immolation"
-	desc = "Tear open the infernal veil and summon watchers."
+	name = "Greater Ritual of Infernal Invasion"
+	desc = "Tear open the veil of the infernal realm, and summon infernal watchers!"
 	blacklisted = FALSE
 	tier = 3
 	alignment = "infernal"
@@ -84,8 +84,8 @@
 	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2", "LatinChant3", "EnglishChant3")
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t4
-	name = "Grand Ritual of Infernal Inferno"
-	desc = "Rend the infernal veil asunder and summon fiends."
+	name = "Grand Ritual of Infernal Inversion"
+	desc = "Inverse the veil that holds the plane apart, summoning an archfiend!"
 	blacklisted = FALSE
 	tier = 4
 	alignment = "infernal"
@@ -100,8 +100,8 @@
 // ----- Fae -----
 
 /datum/runeritual/summoning/leyline_encounter/fae_t1
-	name = "Lesser Ritual of Fae Flourishing"
-	desc = "Breach the veil and summon fae sprites."
+	name = "Lesser Ritual of Fae Frolic" // was: "Lesser Ritual of Fae Flourishing"
+	desc = "Lure fae sprites through the veil."
 	blacklisted = FALSE
 	tier = 1
 	alignment = "fae"
@@ -111,8 +111,8 @@
 	chants = list("LatinChant1", "EnglishChant1")
 
 /datum/runeritual/summoning/leyline_encounter/fae_t2
-	name = "Ordinary Ritual of Fae Frolic"
-	desc = "Reach deeper into the fae veil and summon glimmerwings."
+	name = "Ordinary Ritual of Fae Fluttering"
+	desc = "Flutter the arcyne leyline to lure playful glimmerwings through the veil."
 	blacklisted = FALSE
 	tier = 2
 	alignment = "fae"
@@ -123,7 +123,7 @@
 
 /datum/runeritual/summoning/leyline_encounter/fae_t3
 	name = "Greater Ritual of Fae Frenzy"
-	desc = "Tear open the fae veil and summon dryads."
+	desc = "Disrupts the veil to lure dryads through the veil to defeat you." 
 	blacklisted = FALSE
 	tier = 3
 	alignment = "fae"
@@ -136,7 +136,7 @@
 
 /datum/runeritual/summoning/leyline_encounter/fae_t4
 	name = "Grand Ritual of Fae Fury"
-	desc = "Rend the fae veil asunder and summon a sylph with their followers."
+	desc = "Rend the balanace of the fae realm asunder with uncontrolled arcyne energy, attracting the wrath of a sylph and their followers!"
 	blacklisted = FALSE
 	tier = 4
 	alignment = "fae"
@@ -152,7 +152,7 @@
 
 /datum/runeritual/summoning/leyline_encounter/earthen_t1
 	name = "Lesser Ritual of Earthen Emergence"
-	desc = "Breach the veil and summon elemental crawlers."
+	desc = "Imbue energy into the earthen realm, summoning elemental crawlers."
 	blacklisted = FALSE
 	tier = 1
 	alignment = "elemental"
@@ -163,7 +163,7 @@
 
 /datum/runeritual/summoning/leyline_encounter/earthen_t2
 	name = "Ordinary Ritual of Earthen Eruption"
-	desc = "Reach deeper into the earthen veil and summon wardens."
+	desc = "Pour forth arcyne energy into the earthen realm, summoning wardens."
 	blacklisted = FALSE
 	tier = 2
 	alignment = "elemental"
@@ -174,7 +174,7 @@
 
 /datum/runeritual/summoning/leyline_encounter/earthen_t3
 	name = "Greater Ritual of Earthen Earthquake"
-	desc = "Tear open the earthen veil and summon behemoths."
+	desc = "Shatters the veil with a surge of arcyne energy, summoning behemoths from the earthen realm!"
 	blacklisted = FALSE
 	tier = 3
 	alignment = "elemental"
@@ -186,8 +186,8 @@
 	chants = list("LatinChant1", "EnglishChant1", "LatinChant2", "EnglishChant2", "LatinChant3", "EnglishChant3")
 
 /datum/runeritual/summoning/leyline_encounter/earthen_t4
-	name = "Grand Ritual of Earthen Extinction"
-	desc = "Rend the earthen veil asunder and summon colossi."
+	name = "Grand Ritual of Earthen Engulfment"
+	desc = "Rend the veil asunder and summon a colossi and its followers!"
 	blacklisted = FALSE
 	tier = 4
 	alignment = "elemental"
@@ -202,8 +202,8 @@
 // ----- Leyline (Fixed T2) -----
 
 /datum/runeritual/summoning/leyline_encounter/leyline_t2
-	name = "Ritual of Leyline Luring"
-	desc = "Channel raw leyline energy to lure the lycans that dwell within."
+	name = "Ordinary Ritual of Lycan Luring"
+	desc = "Channel raw leyline energy to lure the lycans that dwell within"
 	blacklisted = FALSE
 	tier = 2
 	alignment = "leyline"
@@ -215,8 +215,8 @@
 // ----- Void (Fixed T2) — spawns mob form directly, no dormant obelisk phase -----
 
 /datum/runeritual/summoning/leyline_encounter/void_t2
-	name = "Ritual of Void Vexation"
-	desc = "Peer into the void and provoke what lurks beyond."
+	name = "Ordinary Ritual of Void Vexation"
+	desc = "Peer into the void and provoke what lurks beyond. KNOWLEDGE KNOWLEDGE KNOWLEDGE."
 	blacklisted = FALSE
 	tier = 2
 	alignment = "void"
@@ -228,8 +228,8 @@
 // ----- Void Dragon (Fixed T5, requires Powerful leyline) -----
 
 /datum/runeritual/summoning/leyline_encounter/void_dragon
-	name = "Ritual of Void Dragon Calling"
-	desc = "Tear open the deepest layer of the void. There is only one thing that dwells there."
+	name = "Supreme Ritual of Void Dragon Calling"
+	desc = "Tear open the deepest layer of the veil, reaching beyond all planes. There is only one thing that dwells there."
 	blacklisted = FALSE
 	tier = 5
 	alignment = "void"
@@ -242,23 +242,23 @@
 
 /datum/runeritual/summoning/leyline_encounter/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	var/obj/structure/leyline/leyline
-	for(var/obj/structure/leyline/L in range(3, loc))
+	for(var/obj/structure/leyline/L in range(5, loc))
 		leyline = L
 		break
 	if(!leyline)
 		to_chat(user, span_warning("There is no leyline nearby. Draw your circle closer to a leyline."))
 		return FALSE
 	if(!leyline.has_uses_remaining())
-		to_chat(user, span_warning("This leyline has been exhausted for today."))
+		to_chat(user, span_warning("This leyline has been exhausted for todae."))
 		return FALSE
 	if(get_leyline_charges(user) <= 0)
-		to_chat(user, span_boldwarning("You've reached into the veil too many times this week. Rest, or you will be annihilated."))
+		to_chat(user, span_boldwarning("You've reached into the veil too many times this week. Rest, or you will be annihilated")
 		return FALSE
 	if(tier > get_max_leyline_tier())
-		to_chat(user, span_warning("'Tis too early in the week. The power of the leylines grows and waxes. Wait until later for such powerful summoning."))
+		to_chat(user, span_warning("Tis too early in the week. The power of the leylines grows and waxes. Wait until later for such powerful summoning.")) // was: "
 		return FALSE
 	if(leyline.max_tier && tier > leyline.max_tier)
-		to_chat(user, span_warning("This leyline is too weak for a ritual of this tier."))
+		to_chat(user, span_warning("This leyline is too weak for a ritual of this circle"))
 		return FALSE
 
 	var/primary_count = base_primary_count
@@ -280,7 +280,7 @@
 	var/extra_count = gone_wrong ? gone_wrong_extra : 0
 
 	// Chant — loud and visible, this is what draws attention from other players
-	user.visible_message(span_danger("[user] begins to chant, channeling the leyline's energy!"))
+	user.visible_message(span_danger("You begin to chant, channeling energy into the leyline!"))
 	playsound(loc, 'sound/magic/teleport_diss.ogg', 100, TRUE, 14)
 
 	for(var/line in chants)
@@ -310,28 +310,32 @@
 	var/list/spawn_turfs = get_encounter_turfs(loc, primary_count + secondary_count + extra_count)
 	var/spawned = 0
 
+	var/mob_type
 	for(var/i in 1 to primary_count)
 		if(spawned >= length(spawn_turfs))
 			break
 		spawned++
-		new (pick(primary_mobs))(spawn_turfs[spawned])
+		mob_type = pick(primary_mobs)
+		new mob_type(spawn_turfs[spawned])
 
 	for(var/i in 1 to secondary_count)
 		if(spawned >= length(spawn_turfs))
 			break
 		spawned++
-		new (pick(secondary_mobs))(spawn_turfs[spawned])
+		mob_type = pick(secondary_mobs)
+		new mob_type(spawn_turfs[spawned])
 
 	if(gone_wrong)
-		user.visible_message(span_boldwarning("The ritual has gone wrong! More creatures pour through!"))
+		user.visible_message(span_boldwarning("PLACEHOLDER gone wrong message.")) // was: "The ritual has gone wrong! More creatures pour through!"
 		for(var/i in 1 to extra_count)
 			if(spawned >= length(spawn_turfs))
 				break
 			spawned++
-			new (pick(gone_wrong_mobs))(spawn_turfs[spawned])
+			mob_type = pick(gone_wrong_mobs)
+			new mob_type(spawn_turfs[spawned])
 
 	playsound(loc, 'sound/magic/cosmic_expansion.ogg', 100, TRUE, 14)
-	user.visible_message(span_boldwarning("The veil tears open and creatures emerge!"))
+	user.visible_message(span_boldwarning("PLACEHOLDER creatures emerge message.")) // was: "The veil tears open and creatures emerge!"
 	return TRUE
 
 /datum/runeritual/summoning/leyline_encounter/proc/get_encounter_turfs(turf/center, count)
