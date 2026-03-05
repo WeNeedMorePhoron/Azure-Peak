@@ -91,14 +91,27 @@
 		if(!L.has_uses_remaining())
 			status = " — its flow of mana is weak and uncertain"
 
+		var/flavor = L.alignment
+		switch(L.alignment)
+			if("infernal")
+				flavor = "scorched"
+			if("fae")
+				flavor = "sylvan"
+			if("elemental")
+				flavor = "earthen"
+			if("void")
+				flavor = "unstable"
+			if("neutral")
+				flavor = "tamed"
+
 		if(dist <= 3)
-			to_chat(user, span_notice("A [L.alignment] leyline pulses right beside you[status]."))
+			to_chat(user, span_notice("A [flavor] leyline pulses right beside you[status]."))
 		else if(dist <= 30)
-			to_chat(user, span_notice("You sense [L.alignment] energy [direction], not far from here[status]."))
+			to_chat(user, span_notice("You sense a [flavor] leyline [direction], not far from here[status]."))
 		else if(dist <= 100)
-			to_chat(user, span_notice("You sense a faint [L.alignment] presence [direction], some distance away[status]."))
+			to_chat(user, span_notice("You sense a faint [flavor] presence [direction], some distance away[status]."))
 		else
-			to_chat(user, span_notice("A distant [L.alignment] whisper echoes [direction], far from here[status]."))
+			to_chat(user, span_notice("A distant [flavor] whisper echoes [direction], far from here[status]."))
 		count++
 
 	if(!count)

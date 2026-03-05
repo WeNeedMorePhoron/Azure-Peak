@@ -89,7 +89,7 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	check_daily_reset()
 	var/charges = get_leyline_charges(user)
 	var/remaining = max_uses_per_day - uses_today
-	to_chat(user, span_notice("This [name] pulses with [alignment] energy."))
+	to_chat(user, span_notice("This [name] pulses with arcyne energy."))
 	to_chat(user, span_notice("Leyline uses remaining today: [remaining]. Your veil attunement: [charges]."))
 	if(max_tier)
 		to_chat(user, span_notice("Maximum ritual circle: [max_tier]."))
