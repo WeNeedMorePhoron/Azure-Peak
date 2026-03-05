@@ -9,6 +9,7 @@
 	animname = "cut"
 	penfactor = 0
 	damfactor = 1.3
+	demolition_mod = 2
 	clickcd = CLICK_CD_HEAVY
 	chargetime = 0
 	item_d_type = "slash"
@@ -22,6 +23,7 @@
 	hitsound = list('sound/combat/hits/bladed/genchop (1).ogg', 'sound/combat/hits/bladed/genchop (2).ogg', 'sound/combat/hits/bladed/genchop (3).ogg')
 	penfactor = 25
 	damfactor = 1.3
+	demolition_mod = 4
 	swingdelay = 6
 	clickcd = CLICK_CD_HEAVY
 	item_d_type = "slash"

@@ -122,6 +122,7 @@
 	miss_text = "slashes the air!"
 	miss_sound = "bluntswoosh"
 	item_d_type = "slash"
+	demolition_mod = 2.5 //I'M A MOLE AND I'M DIGGING A HOLE
 
 /datum/intent/simple/mole/dig
 	name = "DIG"
@@ -150,7 +151,6 @@
 	max_blade_int = 300
 	max_integrity = 300
 	force = 25
-	demolition_mod = 2.5 //I'M A MOLE AND I'M DIGGING A HOLE
 	block_chance = 0
 	wdefense = 4 //Very long, decent defense (for wildshape).
 	associated_skill = /datum/skill/combat/unarmed

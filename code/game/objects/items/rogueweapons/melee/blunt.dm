@@ -91,10 +91,12 @@
 /datum/intent/mace/strike/grand
 	name = "heavy strike"
 	damfactor = 1.1
+	demolition_mod = 1.25
 
 /datum/intent/mace/smash/grand
 	name = "heavy smash"
 	damfactor = 1.1
+	demolition_mod = 1.25
 	chargedrain = 1.5
 	desc = "A powerful blow that delivers Strength-scaling knockback and slowdown to the target. The amount of inflicted knockback scales off your Strength, ranging from X (1 tile) to XV (5 tiles). </br>Cannot inflict any knockback or slowdown if your Strength is below X. </br>Cannot be used consecutively more than every 5 seconds on the same target. </br>Prone targets halve the knockback distance. </br>Not fully charging the attack limits knockback to 1 tile."
 	maxrange = 5
@@ -103,7 +105,8 @@
 	name = "crush"
 	attack_verb = list("crushes")
 	icon_state = "incrush"
-	damfactor = 1.75 //Deals 83 DMG when swung from the strongest Maul (at a base of 34 DMG) with XIV STR. For comparison, a Steel Flail (which can be one-handed and swung faster) deals 63 DMG under the same parameters.
+	damfactor = 1.75
+	demolition_mod = 1.25 //Deals 83 DMG when swung from the strongest Maul (at a base of 34 DMG) with XIV STR. For comparison, a Steel Flail (which can be one-handed and swung faster) deals 63 DMG under the same parameters.
 	chargedrain = 1.8 //Note that the Maul series is hardlocked to characters that have abnormally high STR, and is otherwise physically unwieldable.
 	chargetime = 10
 	desc = "A titanic blow that delivers Strength-scaling knockback and slowdown to the target. The amount of inflicted knockback scales off your Strength, ranging from X (1 tile) to XV (5 tiles). </br>Actively drains stamina while being charged up. </br>Cannot inflict any knockback or slowdown if your Strength is below X. </br>Cannot be used consecutively more than every 5 seconds on the same target. </br>Prone targets halve the knockback distance. </br>Not fully charging the attack limits knockback to 1 tile."
@@ -898,7 +901,6 @@
 	smelt_bar_num = 2
 	minstr = 14
 	wdefense = 3
-	demolition_mod = 1.25 //Oh, yes...
 	pixel_y = -16
 	pixel_x = -16
 	inhand_x_dimension = 64
@@ -976,6 +978,7 @@
 	penfactor = BLUNT_DEFAULT_PENFACTOR
 	chargetime = 0
 	damfactor = 1.2
+	demolition_mod = 1.25
 	clickcd = CLICK_CD_GLACIAL
 	item_d_type = "blunt"
 	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR

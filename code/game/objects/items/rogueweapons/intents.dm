@@ -259,8 +259,6 @@
 		var/list/benis = hitsound
 		if(benis)
 			masteritem.hitsound = benis
-		if(demolition_mod)
-			masteritem.demolition_mod = demolition_mod
 	return
 
 /datum/intent/proc/height2limb(height as num)

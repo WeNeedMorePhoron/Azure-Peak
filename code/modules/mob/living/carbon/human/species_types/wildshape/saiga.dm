@@ -115,6 +115,7 @@
 	swingdelay = 8
 	clickcd = CLICK_CD_QUICK
 	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR // I'm evil
+	demolition_mod = 1.5
 
 /obj/item/rogueweapon/saiga_hoof //Like a mace
 	name = "saiga hoof"
@@ -135,7 +136,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	can_parry = TRUE //I just think this is cool as fuck, sue me
 	sharpness = IS_BLUNT
-	demolition_mod = 1.5
 	swingsound = list('sound/vo/mobs/saiga/attack (1).ogg','sound/vo/mobs/saiga/attack (2).ogg')
 	possible_item_intents = list(/datum/intent/simple/saiga)
 	parrysound = list('sound/combat/parry/parrygen.ogg')

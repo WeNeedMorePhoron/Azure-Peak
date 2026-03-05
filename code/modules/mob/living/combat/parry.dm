@@ -254,8 +254,8 @@
 					intdam += STRONG_INTG_BONUS
 
 				// Heavy weapons chew through shields — use higher of demolition_mod or intent intdamage_factor
-				if(istype(used_weapon, /obj/item/rogueweapon/shield) && AB)
-					var/shield_mult = max(AB.demolition_mod, intenty.intent_intdamage_factor)
+				if(istype(used_weapon, /obj/item/rogueweapon/shield) && intenty)
+					var/shield_mult = max(intenty.demolition_mod, intenty.intent_intdamage_factor)
 					intdam *= shield_mult
 
 				var/tempobonus = H.get_tempo_bonus(TEMPO_TAG_DEF_INTEGFACTOR)
