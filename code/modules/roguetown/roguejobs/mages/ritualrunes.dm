@@ -183,6 +183,9 @@ GLOBAL_LIST(teleport_runes)
 		rune_in_use = FALSE
 		return
 
+	if(pickritual1.desc)
+		to_chat(user, span_notice(pickritual1.desc))
+
 	if(pickritual1.tier > tier)
 		to_chat(user, span_hierophant_warning("Your ritual rune is not strong enough to perform this ritual."))
 		rune_in_use = FALSE
