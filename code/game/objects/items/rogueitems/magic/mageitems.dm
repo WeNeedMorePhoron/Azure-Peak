@@ -38,29 +38,10 @@
 		w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/magebag/associate
-	populate_contents = list(
-		/obj/item/magic/manacrystal,
-		/obj/item/magic/manacrystal,
-		/obj/item/magic/manacrystal,
-		/obj/item/magic/obsidian,
-		/obj/item/magic/obsidian,
-		/obj/item/magic/obsidian,
-		/obj/item/reagent_containers/food/snacks/grown/manabloom,
-		/obj/item/reagent_containers/food/snacks/grown/manabloom,
-		/obj/item/reagent_containers/food/snacks/grown/manabloom
-	)
+	populate_contents = list()
+
 /obj/item/storage/magebag/starter
-	populate_contents = list(
-		/obj/item/magic/manacrystal,
-		/obj/item/magic/manacrystal,
-		/obj/item/magic/manacrystal,
-		/obj/item/magic/obsidian,
-		/obj/item/magic/obsidian,
-		/obj/item/magic/obsidian,
-		/obj/item/reagent_containers/food/snacks/grown/manabloom,
-		/obj/item/reagent_containers/food/snacks/grown/manabloom,
-		/obj/item/reagent_containers/food/snacks/grown/manabloom
-	)
+	populate_contents = list()
 /obj/item/chalk
 	name = "stick of chalk"
 	desc = "A stark-white stick of chalk, possibly made from quicksilver. "

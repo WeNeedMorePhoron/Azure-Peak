@@ -174,5 +174,4 @@
 		/datum/runeritual/enchanting,
 		/datum/runeritual/binding,
 		/datum/runeritual/other,
-		/datum/runeritual/knowledge,
 		)
