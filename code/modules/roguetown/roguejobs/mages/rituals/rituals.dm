@@ -24,10 +24,5 @@
 	tier = 3
 	required_atoms = list(/obj/item/magic/infernal/core = 1, /obj/item/magic/fae/heartwoodcore = 1, /obj/item/magic/elemental/fragment = 1)
 
-/datum/runeritual/teleport
-	name = "planar convergence"
-	tier = 3
-	required_atoms = list(/obj/item/magic/artifact = 1, /obj/item/magic/leyline = 1, /obj/item/magic/melded/t2 = 1) //adjust this later
-
-/datum/runeritual/teleport/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	return TRUE
+// Teleportation no longer uses a ritual — the matrix invoke handles everything directly.
+// Cost is 400 energy per passenger (100 per chant phase x 4 phases), no material cost.

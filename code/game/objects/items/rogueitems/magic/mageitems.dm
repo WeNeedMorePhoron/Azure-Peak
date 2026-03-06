@@ -173,6 +173,14 @@
 	if(structures_in_way)
 		to_chat(user, span_cult("There is a structure, rune or wall in the way."))
 		return
+	if(initial(rune_to_scribe.requires_leyline))
+		var/found_leyline = FALSE
+		for(var/obj/structure/leyline/L in range(5, user))
+			found_leyline = TRUE
+			break
+		if(!found_leyline)
+			to_chat(user, span_warning("This matrix must be drawn within reach of a leyline."))
+			return
 	if(initial(rune_to_scribe.req_keyword))
 		chosen_keyword = stripped_input(user, "Keyword for the new rune", "T4 Runes", max_length = MAX_NAME_LEN)
 		if(!chosen_keyword)
@@ -441,7 +449,6 @@
 			binding = TRUE
 			target.visible_message(span_warning("[target.real_name]'s body is entangled by glowing chains..."), runechat_message = TRUE)
 			var/reason = stripped_input(user, "What are your instructions for this summon?", "Summoner's Instructions")
-				target.awaken_summon(user, C.ckey, reason)
 			var/list/candidates = pollCandidatesForMob("Do you want to play as a Mage's summon? You will materialize as a [target.name] and [reason]", null, null, null, 100, target, POLL_IGNORE_MAGE_SUMMON)
 
 			// theres at least one candidate

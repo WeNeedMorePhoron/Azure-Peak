@@ -49,13 +49,16 @@
 	if(world.time < last_scry + 30 SECONDS)
 		to_chat(user, span_warning("I look into the ball but only see inky smoke. Maybe I should wait."))
 		return
-	var/input = input(user, "Who are you looking for?", "Scrying Orb")
+	if(!length(user.mind.known_people))
+		to_chat(user, span_warning("I don't know anyone to scry upon."))
+		return
+	var/list/people_names = list()
+	for(var/person_name in user.mind.known_people)
+		people_names += person_name
+	var/input = tgui_input_list(user, "Who are you looking for?", "Scrying Orb", people_names)
 	if(!input)
 		return
 	if(!user.key)
-		return
-	if(!user.mind || !user.mind.do_i_know(name=input))
-		to_chat(user, span_warning("I don't know anyone by that name."))
 		return
 	var/arcane_skill = user.get_skill_level(/datum/skill/magic/arcane)
 	if(on_cooldown())
