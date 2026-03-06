@@ -207,11 +207,12 @@
 	return
 
 /obj/item/scrying/proc/failure_break(mob/living/user)
-	visible_message("\The [src] shatters!")
+	visible_message(span_warning("\The [src] flickers with a sickly light!"))
 	user.flash_fullscreen("redflash1")
-	new /obj/item/magic/obsidian(get_turf(src))
-	playsound(src, "shatter", 70, TRUE)
-	qdel(src)
+	playsound(src, 'sound/magic/whiteflame.ogg', 70, TRUE)
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		C.add_stress(/datum/stressevent/orb_madness)
 
 /obj/item/scrying/proc/on_failure(mob/living/user, mob/living/carbon/human/target, severity)
 	var/chance = rand(0, 99) // (chance < n) has n% probability, but we only need to calculate once here

@@ -470,3 +470,8 @@
 	timer = 5 MINUTES
 	stressadd = 4
 	desc = span_boldred("I feel watched... did something *hear* me?")
+
+/datum/stressevent/orb_madness
+	stressadd = 4
+	timer = 15 MINUTES
+	desc = span_boldred("I gazed into the orb AND IT LOOKED BACK IT LOOKED BACK IT LOOKED BACK")
