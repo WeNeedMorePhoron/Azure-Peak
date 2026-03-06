@@ -327,12 +327,13 @@
 							I.add_fingerprint(user)
 					user.visible_message(span_notice("[user] [R.verbage] \a [R.name]!"), \
 										span_notice("I [R.verbage_simple] \a [R.name]!"))
-					if(user.mind && R.skillcraft)
+					if(user.mind && R.skillcraft && R.xp_modifier > 0)
 						if(isliving(user))
 							var/mob/living/L = user
 							var/amt2raise = L.STAINT * 2// its different over here
 							if(R.craftdiff > 0) //difficult recipe
 								amt2raise += (R.craftdiff * 10) // also gets more
+							amt2raise = round(amt2raise * R.xp_modifier)
 							if(amt2raise > 0)
 								user.mind.add_sleep_experience(R.skillcraft, amt2raise, FALSE)
 					return TRUE

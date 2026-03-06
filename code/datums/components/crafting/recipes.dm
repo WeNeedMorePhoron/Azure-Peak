@@ -26,6 +26,7 @@
 	var/wallcraft = FALSE
 	var/diagonal = FALSE //allows diagonal structures to have their direction chosen.
 	var/craftdiff = 1
+	var/xp_modifier = 1 // Multiplier for crafting XP. Set to 0 to disable XP (e.g. arcana recipes).
 	var/sellprice = 0
 	/// Whether this recipe will be hidden from recipe books
 	var/hides_from_books = FALSE 
