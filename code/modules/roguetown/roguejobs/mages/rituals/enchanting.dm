@@ -48,29 +48,21 @@
 	required_atoms = list(/obj/item/rogueore/cinnabar = 1, /obj/item/paper/scroll = 1, /obj/item/magic/fae/fairydust = 4)
 	result_atoms = list(/obj/item/enchantmentscroll/xylix)
 
-/datum/runeritual/enchanting/holding
-	name = "Compact Storing"
-	desc = "Makes things hold more!"
-	blacklisted = FALSE
-	tier = 1
-	required_atoms = list(/obj/item/rogueore/cinnabar = 1, /obj/item/paper/scroll = 1, /obj/item/magic/fae/fairydust = 4)
-	result_atoms = list(/obj/item/enchantmentscroll/holding)
-
-/datum/runeritual/enchanting/light
-	name = "Unyielding Light"
+/datum/runeritual/enchanting/revealinglight
+	name = "Revealing Light"
 	desc = "Provides light!"
 	blacklisted = FALSE
 	tier = 1
 	required_atoms = list(/obj/item/rogueore/cinnabar = 1, /obj/item/paper/scroll = 1, /obj/item/magic/infernal/ash = 4)
-	result_atoms = list(/obj/item/enchantmentscroll/light)
+	result_atoms = list(/obj/item/enchantmentscroll/revealinglight)
 
-/datum/runeritual/enchanting/revealing
-	name = "Revealing Light"
+/datum/runeritual/enchanting/magnifiedlight
+	name = "Magnified Light"
 	desc = "Doubles brightness!"
 	blacklisted = FALSE
 	tier = 1
 	required_atoms = list(/obj/item/rogueore/cinnabar = 1, /obj/item/paper/scroll = 1, /obj/item/magic/infernal/ash = 4)
-	result_atoms = list(/obj/item/enchantmentscroll/revealing)
+	result_atoms = list(/obj/item/enchantmentscroll/magnifiedlight)
 
 // ----- T2 Enchantments (2x T2 realm mat + cinnabar + scroll) -----
 
