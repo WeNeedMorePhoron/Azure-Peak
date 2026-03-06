@@ -1,5 +1,7 @@
 /datum/ambush_config
 	var/list/mob_types = list()
+	var/threat_point = 0 // Threat Point cost for the budget system
+	var/faction_tag = "" // Faction identifier for same/wrong-faction ambush logic
 
 /datum/ambush_config/mirespiders_ambush
 	mob_types = list(

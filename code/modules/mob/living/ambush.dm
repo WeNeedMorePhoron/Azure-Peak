@@ -1,5 +1,59 @@
 GLOBAL_VAR_INIT(ambush_chance_pct, 20) // Please don't raise this over 100 admins :')
 GLOBAL_VAR_INIT(ambush_mobconsider_cooldown, 2 MINUTES) // Cooldown for each individual mob being considered for an ambush
+
+/// Melee combat skills that count for is_combat_capable(). Ranged skills (bows, crossbows, slings) deliberately excluded.
+GLOBAL_LIST_INIT(melee_combat_skills, list( \
+	/datum/skill/combat/swords, \
+	/datum/skill/combat/axes, \
+	/datum/skill/combat/maces, \
+	/datum/skill/combat/polearms, \
+	/datum/skill/combat/knives, \
+	/datum/skill/combat/whipsflails, \
+	/datum/skill/combat/staves, \
+	/datum/skill/combat/shields, \
+	/datum/skill/combat/unarmed, \
+	/datum/skill/combat/wrestling \
+))
+
+/// Returns TRUE if the mob is considered combat-capable for ambush budget weighting.
+/// Combat-capable players count as 0.5 weight (weaker ambush), non-combat as 1.0 (stronger ambush to protect them).
+/proc/is_combat_capable(mob/living/L)
+	if(!ishuman(L))
+		return FALSE
+	var/mob/living/carbon/human/H = L
+	if(HAS_TRAIT(H, TRAIT_DODGEEXPERT))
+		return TRUE
+	if(HAS_TRAIT(H, TRAIT_HEAVYARMOR) || HAS_TRAIT(H, TRAIT_MEDIUMARMOR))
+		return TRUE
+	if(isarcyne(H))
+		return TRUE
+	if(H.devotion)
+		return TRUE
+	for(var/skill in GLOB.melee_combat_skills)
+		if(H.get_skill_level(skill) >= SKILL_LEVEL_EXPERT)
+			return TRUE
+	return FALSE
+
+/// Helper: get threat_point from an ambush_mobs entry (either a mob path or an ambush_config instance)
+/proc/get_threat_point(entry)
+	if(ispath(entry, /mob/living))
+		var/mob/living/M = entry
+		return initial(M.threat_point)
+	if(istype(entry, /datum/ambush_config))
+		var/datum/ambush_config/AC = entry
+		return AC.threat_point
+	return 0
+
+/// Helper: get faction_tag from an ambush_mobs entry
+/proc/get_faction_tag(entry)
+	if(ispath(entry, /mob/living))
+		var/mob/living/M = entry
+		return initial(M.ambush_faction)
+	if(istype(entry, /datum/ambush_config))
+		var/datum/ambush_config/AC = entry
+		return AC.faction_tag
+	return ""
+
 // Instead of setting it on area and hoping no one forgets it on area we're just doing this
 
 /mob/living/proc/ambushable()
