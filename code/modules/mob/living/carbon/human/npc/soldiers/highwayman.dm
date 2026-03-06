@@ -14,6 +14,8 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 
 
 /mob/living/carbon/human/species/human/northern/highwayman/ambush
+	threat_point = THREAT_MODERATE
+	ambush_faction = "bandits"
 	aggressive=1
 
 	wander = TRUE

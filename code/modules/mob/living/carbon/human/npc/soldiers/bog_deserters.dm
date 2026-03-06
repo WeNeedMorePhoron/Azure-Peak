@@ -107,6 +107,8 @@
 
 
 /mob/living/carbon/human/species/human/northern/bog_deserters/ambush
+	threat_point = THREAT_HIGH
+	ambush_faction = "bandits"
 	aggressive=1
 	wander = TRUE
 
@@ -241,6 +243,7 @@
 	)
 
 /mob/living/carbon/human/species/human/northern/bog_deserters/better_gear/ambush
+	threat_point = THREAT_TOUGH
 	aggressive=1
 	wander = TRUE
 

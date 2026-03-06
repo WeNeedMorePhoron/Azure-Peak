@@ -27,6 +27,8 @@
 	wander = FALSE
 
 /mob/living/carbon/human/species/goblin/npc/ambush
+	threat_point = THREAT_LOW
+	ambush_faction = "goblins"
 	wander = TRUE
 	attack_speed = 2
 
@@ -57,6 +59,7 @@
 	race = /datum/species/goblin/cave
 
 /mob/living/carbon/human/species/goblin/npc/ambush/cave
+	threat_point = THREAT_LOW
 	race = /datum/species/goblin/cave
 
 /datum/species/goblin/cave
@@ -67,8 +70,11 @@
 	name = "sea goblin"
 	race = /datum/species/goblin/sea
 /mob/living/carbon/human/species/goblin/npc/sea
+	threat_point = THREAT_LOW
+	ambush_faction = "goblins"
 	race = /datum/species/goblin/sea
 /mob/living/carbon/human/species/goblin/npc/ambush/sea
+	threat_point = THREAT_LOW
 	race = /datum/species/goblin/sea
 /datum/species/goblin/sea
 	raceicon = "goblin_sea"
@@ -80,6 +86,7 @@
 /mob/living/carbon/human/species/goblin/npc/moon
 	race = /datum/species/goblin/moon
 /mob/living/carbon/human/species/goblin/npc/ambush/moon
+	threat_point = THREAT_LOW
 	race = /datum/species/goblin/moon
 /datum/species/goblin/moon
 	id = "goblin_moon"
