@@ -180,7 +180,7 @@
 
 	//let's adjust the light power based on our skill, too
 	var/skill_level = user.get_skill_level(attached_spell.associated_skill)
-	var/mote_power = clamp(4 + (skill_level - 3), 4, 7) // every step above journeyman should get us 1 more tile of brightness
+	var/mote_power = clamp(5 + (skill_level - 3), 5, 7) // every step above journeyman should get us 1 more tile of brightness
 	mote.set_light_range(mote_power)
 	if(mote.light_system == STATIC_LIGHT)
 		mote.update_light()
