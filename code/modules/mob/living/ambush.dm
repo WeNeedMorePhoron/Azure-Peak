@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 	return ambushable
 
 /// budget_multiplier: Multiplies the final budget (used by signal horn for bigger fights)
-/mob/living/proc/consider_ambush(always = FALSE, ignore_cooldown = FALSE, min_dist = 1, max_dist = 7, silent = FALSE, budget_multiplier = 1)
+/mob/living/proc/consider_ambush(always = FALSE, ignore_cooldown = FALSE, min_dist = 1, max_dist = 9, silent = FALSE, budget_multiplier = 1)
 	var/area/AR = get_area(src)
 	if(!AR)
 		return FALSE
@@ -187,24 +187,28 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 	for(var/mob/living/V in nearby_victims)
 		V.mob_timers["ambushlast"] = world.time
 
+	// Build target pool: triggerer + all nearby victims. Each spawned mob picks a random target.
+	var/list/aggro_targets = list(src) + nearby_victims
+
 	var/mustype = 1 // 1 = monster scare, 2 = human scare
 	for(var/mob_type in mobs_to_spawn)
 		var/spawnloc = pick(possible_targets)
 		if(!spawnloc)
 			continue
+		var/mob/living/aggro_target = pick(aggro_targets)
 		var/mob/spawnedmob = new mob_type(spawnloc)
 		if(istype(spawnedmob, /mob/living/simple_animal/hostile))
 			var/mob/living/simple_animal/hostile/M = spawnedmob
 			M.attack_same = FALSE
 			M.del_on_deaggro = 44 SECONDS
 			M.faction += "ambush"
-			M.GiveTarget(src)
+			M.GiveTarget(aggro_target)
 		if(istype(spawnedmob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = spawnedmob
 			H.del_on_deaggro = 44 SECONDS
 			H.last_aggro_loss = world.time
 			H.faction += "ambush"
-			H.retaliate(src)
+			H.retaliate(aggro_target)
 			mustype = 2
 	if(!silent)
 		if(mustype == 1)
