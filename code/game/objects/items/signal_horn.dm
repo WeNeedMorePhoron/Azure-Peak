@@ -35,7 +35,7 @@
 	if(!user.get_possible_ambush_spawn(min_dist = WARDEN_AMBUSH_MIN, max_dist = WARDEN_AMBUSH_MAX))
 		to_chat(user, span_warning("This place is too lightly vegetated for enemies to hide."))
 		return
-	if(TR && TR.last_induced_ambush_time && (world.time < TR.last_induced_ambush_time + 5 MINUTES))
+	if(TR && TR.last_induced_ambush_time && (world.time < TR.last_induced_ambush_time + 3 MINUTES))
 		to_chat(user, span_warning("Foes have been cleared out here recently, perhaps you should wait a moment before sounding the horn again."))
 		return
 	if(!TR.latent_ambush)
