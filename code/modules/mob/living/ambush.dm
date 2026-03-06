@@ -97,9 +97,9 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 	mob_timers["ambush_check"] = world.time
 
 	// Count nearby players and calculate player factor
-	// Combat-capable players = 0.5 weight (they can handle more), non-combat = 1.0 weight (protect them with bigger ambush)
+	// Combat-capable players = 1.0 weight (full-strength ambush), non-combat = 0.5 weight (mercy — they can't fight back)
 	// Capped at 5 players considered. Only mobs with a mind (real players) count.
-	var/player_factor = is_combat_capable(src) ? 0.5 : 1
+	var/player_factor = is_combat_capable(src) ? 1 : 0.5
 	var/player_count = 1
 	var/list/nearby_victims = list()
 	for(var/mob/living/V in view(5, src))
@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 			continue
 		player_count++
 		nearby_victims += V
-		player_factor += is_combat_capable(V) ? 0.5 : 1
+		player_factor += is_combat_capable(V) ? 1 : 0.5
 		if(player_count >= 5)
 			break
 

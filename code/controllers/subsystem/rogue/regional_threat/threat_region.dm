@@ -7,7 +7,7 @@
 	var/lowpop_tick = 3 // How much TP to tick up every 15 min (<= 30 pop)
 	var/highpop_tick = 5 // How much TP to tick up every 15 min (> 30 pop)
 	var/base_divisor = 5 // Divides latent_ambush to produce per-ambush budget. Higher = smaller fights.
-	var/last_natural_ambush_time = 0
+	var/last_natural_ambush_time = -2 MINUTES // Pre-expired so first-2-min-of-round doesn't block ambushes
 	var/last_induced_ambush_time = 0 // Time between now and the previous ambush triggered by horn
 
 /datum/threat_region/New(_region_name, _latent_ambush, _min_ambush, _max_ambush, _fixed_ambush, _lowpop_tick, _highpop_tick, _base_divisor = 5)
