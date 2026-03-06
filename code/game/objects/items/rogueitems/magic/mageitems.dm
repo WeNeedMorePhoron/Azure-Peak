@@ -381,7 +381,7 @@
 
 /obj/item/rope/chain/bindingshackles
 	name = "planar binding shackles"
-	desc = "arcane shackles imbued to bind other-planar creatures intelligence to this plane. They will be binded to your will for the duration of the week and perform any reasonable task you ask of them."
+	desc = "Arcane shackles imbued to bind an other-planar creature's will to this plane. Once bound, they are compelled to obey their summoner."
 	var/mob/living/fam
 	var/tier = 1
 	var/being_used = FALSE
@@ -440,12 +440,14 @@
 			to_chat(user, span_notice("You attempt to bind the targetted summon to this plane."))
 			binding = TRUE
 			target.visible_message(span_warning("[target.real_name]'s body is entangled by glowing chains..."), runechat_message = TRUE)
-			var/list/candidates = pollCandidatesForMob("Do you want to play as a Mage's summon?", null, null, null, 100, target, POLL_IGNORE_MAGE_SUMMON)
+			var/reason = stripped_input(user, "What are your instructions for this summon?", "Summoner's Instructions")
+				target.awaken_summon(user, C.ckey, reason)
+			var/list/candidates = pollCandidatesForMob("Do you want to play as a Mage's summon? You will materialize as a [target.name] and [reason]", null, null, null, 100, target, POLL_IGNORE_MAGE_SUMMON)
 
 			// theres at least one candidate
 			if(LAZYLEN(candidates))
 				var/mob/C = pick(candidates)
-				target.awaken_summon(user, C.ckey)
+				target.awaken_summon(user, C.ckey, reason)
 				target.visible_message(span_warning("[target.real_name]'s eyes light up with an intelligence as it awakens fully on this plane."), runechat_message = TRUE)
 				custom_name(user,target)
 				target.name = chosen_name
@@ -460,14 +462,16 @@
 		return FALSE
 	return FALSE
 
-/mob/living/simple_animal/hostile/retaliate/rogue/proc/awaken_summon(mob/living/carbon/human/master, ckey)
+/mob/living/simple_animal/hostile/retaliate/rogue/proc/awaken_summon(mob/living/carbon/human/master, ckey, reason)
 	if(!master)
 		return FALSE
 	if(ckey) //player
 		src.ckey = ckey
 
-	to_chat(src, span_userdanger("My summoner is [master.real_name]. I shall obey them in all things reasonable and serve them until I am dismissed or perish! (ERP is not included and allowed under server rules and they must respect your boundaries as a player)"))
+	to_chat(src, span_userdanger("You have been bound to this plane by [master.real_name]. The shackles compel your obedience \u2014 you will serve them until dismissed or slain. (ERP is not included and allowed under server rules and they must respect your boundaries as a player)"))
 	to_chat(src, span_notice("[summon_primer]"))
+	if(reason)
+		to_chat(src, span_notice("Your summoner's instructions: \"[reason]\""))
 
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE//easiest way to give mage summons proper darksight, although I'm wracking my brain for other angles since admin-spawned guys might happen
