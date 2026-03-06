@@ -172,6 +172,126 @@
 				/obj/item/magic/voidstone = 1)
 	craftdiff = 2
 
+// ========== Fission (downgrade, same realm) ==========
+// Lesser: 1 T2 → 2 T1. Greater: 1 T3 → 2 T2. Grand: 1 T4 → 1 T3.
+
+// Infernal fission
+/datum/crafting_recipe/roguetown/arcana/fission_infernal_lesser
+	name = "lesser arcyne fission of hellhound fang"
+	result = list(/obj/item/magic/infernal/ash, /obj/item/magic/infernal/ash)
+	reqs = list(/obj/item/magic/infernal/fang = 1)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/arcana/fission_infernal_greater
+	name = "greater arcyne fission of infernal core"
+	result = list(/obj/item/magic/infernal/fang, /obj/item/magic/infernal/fang)
+	reqs = list(/obj/item/magic/infernal/core = 1)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/arcana/fission_infernal_grand
+	name = "grand arcyne fission of abyssal flame"
+	result = /obj/item/magic/infernal/core
+	reqs = list(/obj/item/magic/infernal/flame = 1)
+	craftdiff = 2
+
+// Fae fission
+/datum/crafting_recipe/roguetown/arcana/fission_fae_lesser
+	name = "lesser arcyne fission of iridescent scale"
+	result = list(/obj/item/magic/fae/fairydust, /obj/item/magic/fae/fairydust)
+	reqs = list(/obj/item/magic/fae/iridescentscale = 1)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/arcana/fission_fae_greater
+	name = "greater arcyne fission of heartwood core"
+	result = list(/obj/item/magic/fae/iridescentscale, /obj/item/magic/fae/iridescentscale)
+	reqs = list(/obj/item/magic/fae/heartwoodcore = 1)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/arcana/fission_fae_grand
+	name = "grand arcyne fission of sylvan essence"
+	result = /obj/item/magic/fae/heartwoodcore
+	reqs = list(/obj/item/magic/fae/sylvanessence = 1)
+	craftdiff = 2
+
+// Elemental fission
+/datum/crafting_recipe/roguetown/arcana/fission_elemental_lesser
+	name = "lesser arcyne fission of elemental shard"
+	result = list(/obj/item/magic/elemental/mote, /obj/item/magic/elemental/mote)
+	reqs = list(/obj/item/magic/elemental/shard = 1)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/arcana/fission_elemental_greater
+	name = "greater arcyne fission of elemental fragment"
+	result = list(/obj/item/magic/elemental/shard, /obj/item/magic/elemental/shard)
+	reqs = list(/obj/item/magic/elemental/fragment = 1)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/arcana/fission_elemental_grand
+	name = "grand arcyne fission of elemental relic"
+	result = /obj/item/magic/elemental/fragment
+	reqs = list(/obj/item/magic/elemental/relic = 1)
+	craftdiff = 2
+
+// ========== Fusion (upgrade, same realm, inefficient) ==========
+// Lesser: 4 T1 → 1 T2. Greater: 2 T2 → 1 T3. Grand: 2 T3 → 1 T4.
+
+// Infernal fusion
+/datum/crafting_recipe/roguetown/arcana/fusion_infernal_lesser
+	name = "lesser arcyne fusion of infernal ashes"
+	result = /obj/item/magic/infernal/fang
+	reqs = list(/obj/item/magic/infernal/ash = 4)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/arcana/fusion_infernal_greater
+	name = "greater arcyne fusion of infernal fangs"
+	result = /obj/item/magic/infernal/core
+	reqs = list(/obj/item/magic/infernal/fang = 2)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/arcana/fusion_infernal_grand
+	name = "grand arcyne fusion of infernal cores"
+	result = /obj/item/magic/infernal/flame
+	reqs = list(/obj/item/magic/infernal/core = 2)
+	craftdiff = 2
+
+// Fae fusion
+/datum/crafting_recipe/roguetown/arcana/fusion_fae_lesser
+	name = "lesser arcyne fusion of iridescent scales"
+	result = /obj/item/magic/fae/iridescentscale
+	reqs = list(/obj/item/magic/fae/fairydust = 4)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/arcana/fusion_fae_greater
+	name = "greater arcyne fusion of heartwood cores"
+	result = /obj/item/magic/fae/heartwoodcore
+	reqs = list(/obj/item/magic/fae/iridescentscale = 2)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/arcana/fusion_fae_grand
+	name = "grand arcyne fusion of sylvan essence"
+	result = /obj/item/magic/fae/sylvanessence
+	reqs = list(/obj/item/magic/fae/heartwoodcore = 2)
+	craftdiff = 2
+
+// Elemental fusion
+/datum/crafting_recipe/roguetown/arcana/fusion_elemental_lesser
+	name = "lesser arcyne fusion of elemental motes"
+	result = /obj/item/magic/elemental/shard
+	reqs = list(/obj/item/magic/elemental/mote = 4)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/arcana/fusion_elemental_greater
+	name = "greater arcyne fusion of elemental shards"
+	result = /obj/item/magic/elemental/fragment
+	reqs = list(/obj/item/magic/elemental/shard = 2)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/arcana/fusion_elemental_grand
+	name = "grand arcyne fusion of elemental relic"
+	result = /obj/item/magic/elemental/relic
+	reqs = list(/obj/item/magic/elemental/fragment = 2)
+	craftdiff = 2
+
 // Menucrafting alternative to the slapcrafting method, because we're not moving toward slapcrafting here except for food
 /datum/crafting_recipe/roguetown/arcana/pre_arcyne_spellbook
 	name = "tome in waiting"
