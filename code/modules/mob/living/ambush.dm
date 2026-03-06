@@ -61,7 +61,8 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 		return FALSE
 	return ambushable
 
-/mob/living/proc/consider_ambush(always = FALSE, ignore_cooldown = FALSE, min_dist = 1, max_dist = 7, silent = FALSE)
+/// budget_multiplier: Multiplies the final budget (used by signal horn for bigger fights)
+/mob/living/proc/consider_ambush(always = FALSE, ignore_cooldown = FALSE, min_dist = 1, max_dist = 7, silent = FALSE, budget_multiplier = 1)
 	var/area/AR = get_area(src)
 	if(!AR)
 		return FALSE
@@ -73,25 +74,15 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 	if(AR.threat_region)
 		TR = SSregionthreat.get_region(AR.threat_region)
 
-	var/danger_level = DANGER_LEVEL_MODERATE // Fallback if there's no region
+	// Gate checks — can an ambush even happen right now?
+	// Region is considered "safe" when latent_ambush is at or below the safe floor (base_divisor * 5).
+	// Signal horn (always=TRUE) can still dip below this floor.
 	if(TR)
-		danger_level = TR.get_danger_level()
-	if(danger_level == DANGER_LEVEL_SAFE)
-		if(TR.latent_ambush == 0)
-			return FALSE
-		if(TR.latent_ambush <= DANGER_SAFE_LIMIT && !always) // Signal horn can dip below 10
+		if(TR.latent_ambush <= (TR.base_divisor * AMBUSH_SAFE_FLOOR_MULTIPLIER) && !always)
 			return FALSE
 	if(TR && !(always && ignore_cooldown) && ((world.time - TR.last_natural_ambush_time) < 2 MINUTES))
 		return FALSE
-	var/true_ambush_chance = GLOB.ambush_chance_pct
-	if(TR)
-		if(danger_level == DANGER_LEVEL_LOW)
-			true_ambush_chance *= 0.5
-		else if(danger_level == DANGER_LEVEL_DANGEROUS)
-			true_ambush_chance *= 1.5
-		else if(danger_level == DANGER_LEVEL_BLEAK)
-			true_ambush_chance *= 2
-	if(!always && prob(100 - true_ambush_chance))
+	if(!always && prob(100 - GLOB.ambush_chance_pct))
 		return FALSE
 	if(!always)
 		if(HAS_TRAIT(src, TRAIT_AZURENATIVE))
@@ -104,111 +95,135 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 		if(world.time < mob_timers["ambush_check"] + GLOB.ambush_mobconsider_cooldown)
 			return FALSE
 	mob_timers["ambush_check"] = world.time
-	var/victims = 1
-	var/list/victimsa = list()
+
+	// Count nearby players and calculate player factor
+	// Combat-capable players = 0.5 weight (they can handle more), non-combat = 1.0 weight (protect them with bigger ambush)
+	// Capped at 5 players considered. Only mobs with a mind (real players) count.
+	var/player_factor = is_combat_capable(src) ? 0.5 : 1
+	var/player_count = 1
+	var/list/nearby_victims = list()
 	for(var/mob/living/V in view(5, src))
-		if(V != src)
-			if(V.ambushable())
-				victims++
-				victimsa += V
-			if(victims > 3)
-				return
+		if(V == src)
+			continue
+		if(!V.mind) // Only count real players, not NPCs
+			continue
+		if(!V.ambushable())
+			continue
+		player_count++
+		nearby_victims += V
+		player_factor += is_combat_capable(V) ? 0.5 : 1
+		if(player_count >= 5)
+			break
+
 	var/list/possible_targets = get_possible_ambush_spawn(min_dist, max_dist)
-	if(possible_targets.len)
-		mob_timers["ambushlast"] = world.time
-		for(var/mob/living/V in victimsa)
-			V.mob_timers["ambushlast"] = world.time
-		if(TR)
-			var/scaled_reduction = TR.latent_ambush > DANGER_MODERATE_LIMIT ? 2 : 1 // Dangerous & Dire counts for 2
-			TR.reduce_latent_ambush(scaled_reduction) // Remove one ambush from the ambient pool
-			TR.last_natural_ambush_time = world.time
-		var/list/mobs_to_spawn = list()
-		var/mobs_to_spawn_single = FALSE
-		var/max_spawns = 3
-		var/mustype = 1
-		var/spawnedtype = pickweight(AR.ambush_mobs)
+	if(!possible_targets.len)
+		return FALSE
 
-		// This is the part where we scale ambush difficulty based on threat. Due to how we have a mix of
-		// Ambush Config and Single Mob Ambush, I use a weird scaling system:
-		// Single Mob
-		// Low - 1 Mob only 
-		// Moderate - 1 to 2 (This is REALLY moderate)
-		// Dangerous - 2 to 3 
-		// Dire - 3 to 4 
-		// Ambush Difficulty Scaling:
-		// Low = -1 Mob
-		// Dangerous = +1 Mob
-		// Dire = + 2 Mobs
-		// Previous ambush system is 2 mobs, unless there's 3 victims, in which 3 mobs
-		// And Ambush Config number is fixed
+	// ——— Budget Calculation ———
+	// budget = player_factor * (latent_ambush / base_divisor) * budget_multiplier
+	// Minimum budget of 10 so something always spawns
+	var/base_divisor = 5
+	var/latent_pool = 50 // Fallback if no region
+	if(TR)
+		base_divisor = TR.base_divisor
+		latent_pool = TR.latent_ambush
+	var/budget = player_factor * (latent_pool / base_divisor) * budget_multiplier
+	budget = max(budget, 10) // Floor: always afford at least one trash mob
 
-		if(ispath(spawnedtype, /mob/living))
-			switch(danger_level)
-				if(DANGER_LEVEL_SAFE) // Induced Ambush
-					max_spawns = 1
-				if(DANGER_LEVEL_LOW)
-					max_spawns = 1
-				if(DANGER_LEVEL_MODERATE)
-					max_spawns = rand(1, 2) // This is lower than before, to make moderate easier to deal with
-				if(DANGER_LEVEL_DANGEROUS)
-					max_spawns = rand(2, 3)
-				if(DANGER_LEVEL_BLEAK)
-					max_spawns = rand(3, 4)
-			mobs_to_spawn_single = TRUE
-		else if(istype(spawnedtype, /datum/ambush_config))
-			var/datum/ambush_config/A = spawnedtype
-			for(var/type_path in A.mob_types)
-				var/amt = A.mob_types[type_path]
-				for(var/i in 1 to amt)
-					mobs_to_spawn += type_path
-			if(mobs_to_spawn.len > 1)
-				switch(danger_level)
-					if(DANGER_LEVEL_SAFE)
-						var/ri = rand(1, mobs_to_spawn.len)
-						mobs_to_spawn.Cut(ri, ri + 1) // Randomly remove one mob
-					if(DANGER_LEVEL_LOW)
-						var/ri = rand(1, mobs_to_spawn.len)
-						mobs_to_spawn.Cut(ri, ri + 1) // Randomly remove one mob
-					if(DANGER_LEVEL_DANGEROUS)
-						mobs_to_spawn += pick(mobs_to_spawn) // Randomly add 1
-					if(DANGER_LEVEL_BLEAK)
-						mobs_to_spawn += pick(mobs_to_spawn) // Randomly add 2
-						mobs_to_spawn += pick(mobs_to_spawn)
-			max_spawns = mobs_to_spawn.len
+	// ——— Purchase Loop ———
+	// Pick entries from ambush_mobs, spending budget until depleted.
+	// First pick sets the "anchor faction". Subsequent picks: 67% same faction, 33% any entry.
+	// The last purchase is allowed to exceed the budget (budget can go negative).
+	var/list/mobs_to_spawn = list() // flat list of mob type paths to spawn
+	var/total_tp_spent = 0
+	var/anchor_faction = ""
 
-		for(var/i in 1 to max_spawns)
-			var/spawnloc = pick(possible_targets)
-			if(spawnloc)
-				var/mob_type
-				if(mobs_to_spawn_single)
-					mob_type = spawnedtype
-				else
-					if(!mobs_to_spawn.len)
-						continue
-					mob_type = mobs_to_spawn[1]
-				var/mob/spawnedmob = new mob_type(spawnloc)
-				if(mobs_to_spawn.len && !mobs_to_spawn_single)
-					mobs_to_spawn.Cut(1, 2)
-				if(istype(spawnedmob, /mob/living/simple_animal/hostile))
-					var/mob/living/simple_animal/hostile/M = spawnedmob
-					M.attack_same = FALSE
-					M.del_on_deaggro = 44 SECONDS
-					M.faction += "ambush"
-					M.GiveTarget(src)
-				if(istype(spawnedmob, /mob/living/carbon/human))
-					var/mob/living/carbon/human/H = spawnedmob
-					H.del_on_deaggro = 44 SECONDS
-					H.last_aggro_loss = world.time
-					H.faction += "ambush"
-					H.retaliate(src)
-					mustype = 2
-		if(!silent)
-			if(mustype == 1)
-				playsound_local(src, pick('sound/misc/jumpscare (1).ogg','sound/misc/jumpscare (2).ogg','sound/misc/jumpscare (3).ogg','sound/misc/jumpscare (4).ogg'), 100)
-			else
-				playsound_local(src, pick('sound/misc/jumphumans (1).ogg','sound/misc/jumphumans (2).ogg','sound/misc/jumphumans (3).ogg'), 100)
-			shake_camera(src, 2, 2)
-		return TURF_WET_PERMAFROST
+	// Build same-faction and all-faction candidate sublists for efficiency
+	// We do this once, outside the loop
+	var/list/all_candidates = list() // entry = weight
+	var/list/faction_candidates = list() // populated after first pick sets anchor
+
+	for(var/entry in AR.ambush_mobs)
+		all_candidates[entry] = AR.ambush_mobs[entry]
+
+	// First purchase — sets the anchor faction
+	var/first_pick = pickweight(all_candidates)
+	var/first_tp = max(get_threat_point(first_pick), 1) // Floor 1 TP to prevent infinite loops
+	anchor_faction = get_faction_tag(first_pick)
+	add_ambush_purchase(first_pick, mobs_to_spawn)
+	budget -= first_tp
+	total_tp_spent += first_tp
+
+	// Build same-faction sublist now that we know anchor
+	if(anchor_faction != "")
+		for(var/entry in all_candidates)
+			if(get_faction_tag(entry) == anchor_faction)
+				faction_candidates[entry] = all_candidates[entry]
+
+	// Continue purchasing while we have budget
+	// Safety cap: never spawn more than 15 mobs even if TP values are misconfigured
+	while(budget >= 0 && mobs_to_spawn.len < 15)
+		var/picked
+		// 67% same-faction pick if we have faction candidates, 33% any entry ("wrong faction" surprise)
+		if(faction_candidates.len && prob(67))
+			picked = pickweight(faction_candidates)
+		if(!picked) // Fallback to all candidates if faction pick failed or wasn't attempted
+			picked = pickweight(all_candidates)
+		if(!picked) // Nothing left to pick from at all — bail out
+			break
+
+		var/pick_tp = max(get_threat_point(picked), 1) // Floor 1 TP to prevent infinite loops from unconfigured mobs
+		add_ambush_purchase(picked, mobs_to_spawn)
+		budget -= pick_tp
+		total_tp_spent += pick_tp
+
+	// ——— Reduce latent_ambush by total TP spent ———
+	if(TR)
+		TR.reduce_latent_ambush(total_tp_spent)
+		TR.last_natural_ambush_time = world.time
+
+	// ——— Spawn the purchased mobs ———
+	mob_timers["ambushlast"] = world.time
+	for(var/mob/living/V in nearby_victims)
+		V.mob_timers["ambushlast"] = world.time
+
+	var/mustype = 1 // 1 = monster scare, 2 = human scare
+	for(var/mob_type in mobs_to_spawn)
+		var/spawnloc = pick(possible_targets)
+		if(!spawnloc)
+			continue
+		var/mob/spawnedmob = new mob_type(spawnloc)
+		if(istype(spawnedmob, /mob/living/simple_animal/hostile))
+			var/mob/living/simple_animal/hostile/M = spawnedmob
+			M.attack_same = FALSE
+			M.del_on_deaggro = 44 SECONDS
+			M.faction += "ambush"
+			M.GiveTarget(src)
+		if(istype(spawnedmob, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = spawnedmob
+			H.del_on_deaggro = 44 SECONDS
+			H.last_aggro_loss = world.time
+			H.faction += "ambush"
+			H.retaliate(src)
+			mustype = 2
+	if(!silent)
+		if(mustype == 1)
+			playsound_local(src, pick('sound/misc/jumpscare (1).ogg','sound/misc/jumpscare (2).ogg','sound/misc/jumpscare (3).ogg','sound/misc/jumpscare (4).ogg'), 100)
+		else
+			playsound_local(src, pick('sound/misc/jumphumans (1).ogg','sound/misc/jumphumans (2).ogg','sound/misc/jumphumans (3).ogg'), 100)
+		shake_camera(src, 2, 2)
+	return TRUE
+
+/// Expands an ambush purchase (mob path or ambush_config) into the flat mobs_to_spawn list.
+/proc/add_ambush_purchase(entry, list/mobs_to_spawn)
+	if(ispath(entry, /mob/living))
+		mobs_to_spawn += entry
+	else if(istype(entry, /datum/ambush_config))
+		var/datum/ambush_config/AC = entry
+		for(var/type_path in AC.mob_types)
+			var/amt = AC.mob_types[type_path]
+			for(var/i in 1 to amt)
+				mobs_to_spawn += type_path
 
 // Return whether a mob is blocked from being ambushed
 /mob/living/proc/get_will_block_ambush()

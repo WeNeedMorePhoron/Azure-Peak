@@ -8,3 +8,8 @@
 #define DANGER_DANGEROUS_LIMIT 40
 #define DANGER_BLEAK_FLOOR 41
 #define DANGER_BLEAK_LIMIT 60
+
+/// Multiplier for base_divisor to determine the "safe" floor for a region.
+/// Below (base_divisor * this), natural ambushes stop firing. Signal horn can still go below.
+/// With base_divisor 5: floor = 25 TP. Wardens can clear a region down to this threshold.
+#define AMBUSH_SAFE_FLOOR_MULTIPLIER 5
