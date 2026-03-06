@@ -381,7 +381,7 @@
 
 /obj/item/rope/chain/bindingshackles
 	name = "planar binding shackles"
-	desc = "arcane shackles imbued to bind other-planar creatures intelligence to this plane. They will not be under your thrall and a deal will need to be made."
+	desc = "arcane shackles imbued to bind other-planar creatures intelligence to this plane. They will be binded to your will for the duration of the week and perform any reasonable task you ask of them."
 	var/mob/living/fam
 	var/tier = 1
 	var/being_used = FALSE
@@ -466,7 +466,7 @@
 	if(ckey) //player
 		src.ckey = ckey
 
-	to_chat(src, span_userdanger("My summoner is [master.real_name]. They will need to convince me to obey them."))
+	to_chat(src, span_userdanger("My summoner is [master.real_name]. I shall obey them in all things reasonable and serve them until I am dismissed or perish! (ERP is not included and allowed under server rules and they must respect your boundaries as a player)"))
 	to_chat(src, span_notice("[summon_primer]"))
 
 	see_in_dark = 8
