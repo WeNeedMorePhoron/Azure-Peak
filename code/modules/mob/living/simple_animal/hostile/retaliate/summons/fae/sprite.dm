@@ -30,7 +30,7 @@
 	aggro_vision_range = 11
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	simple_detect_bonus = 20
-	retreat_distance = 3
+	retreat_distance = 0
 	minimum_distance = 0
 	food_type = list()
 	movement_type = FLYING
@@ -44,7 +44,7 @@
 	defprob = 40
 	candodge = TRUE
 	// del_on_deaggro = 44 SECONDS
-	retreat_health = 0.3
+	retreat_health = 0
 	food = 0
 	attack_sound = 'sound/combat/hits/bladed/smallslash (1).ogg'
 	attack_verb_continuous = "jabs"

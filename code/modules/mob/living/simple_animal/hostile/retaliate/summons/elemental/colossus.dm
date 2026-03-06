@@ -43,7 +43,7 @@
 	canparry = TRUE
 	// defdrain = 10
 	// del_on_deaggro = 44 SECONDS
-	retreat_health = 0.3
+	retreat_health = 0
 	food = 0
 	attack_sound = 'sound/combat/hits/onstone/wallhit.ogg'
 	pixel_x = -32

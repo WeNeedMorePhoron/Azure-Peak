@@ -42,7 +42,7 @@
 	defprob = 40
 	candodge = TRUE
 	// del_on_deaggro = 44 SECONDS
-	retreat_health = 0.3
+	retreat_health = 0
 	food = 0
 	attack_sound = 'sound/combat/hits/bladed/smallslash (1).ogg'
 	attack_verb_continuous = "claws"
