@@ -14,12 +14,3 @@
 	threat_point = THREAT_HIGH + 2 * THREAT_TOUGH
 	faction_tag = "deepones"
 
-/datum/ambush_config/singular_minotaur
-	mob_types = list(
-		/mob/living/simple_animal/hostile/retaliate/rogue/minotaur = 1
-	)
-
-/datum/ambush_config/duo_minotaur
-	mob_types = list(
-		/mob/living/simple_animal/hostile/retaliate/rogue/minotaur = 2
-	)
