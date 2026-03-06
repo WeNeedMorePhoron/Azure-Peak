@@ -16,7 +16,7 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 ))
 
 /// Returns TRUE if the mob is considered combat-capable for ambush budget weighting.
-/// Combat-capable players count as 0.5 weight (weaker ambush), non-combat as 1.0 (stronger ambush to protect them).
+/// Combat-capable players count as 1.0 weight (full-strength ambush), non-combat as 0.5 (mercy).
 /proc/is_combat_capable(mob/living/L)
 	if(!ishuman(L))
 		return FALSE
@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 		return FALSE
 	return ambushable
 
-/// budget_floor: If set, the budget is floored to at least (budget_floor * base_divisor) TP. Used by signal horn to guarantee a minimum fight size.
+/// budget_floor: If set, the budget is floored to at least (budget_floor * AMBUSH_BUDGET_FLOOR_UNIT) TP. Used by signal horn to guarantee a minimum fight size.
 /mob/living/proc/consider_ambush(always = FALSE, ignore_cooldown = FALSE, min_dist = 1, max_dist = 9, silent = FALSE, budget_floor = 0)
 	var/area/AR = get_area(src)
 	if(!AR)
@@ -75,10 +75,10 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 		TR = SSregionthreat.get_region(AR.threat_region)
 
 	// Gate checks — can an ambush even happen right now?
-	// Region is considered "safe" when latent_ambush is at or below the safe floor (base_divisor * 5).
+	// Region is considered "safe" when latent_ambush is at or below AMBUSH_SAFE_FLOOR.
 	// Signal horn (always=TRUE) can still dip below this floor.
 	if(TR)
-		if(TR.latent_ambush <= (TR.base_divisor * AMBUSH_SAFE_FLOOR_MULTIPLIER) && !always)
+		if(TR.latent_ambush <= AMBUSH_SAFE_FLOOR && !always)
 			return FALSE
 	if(TR && !(always && ignore_cooldown) && ((world.time - TR.last_natural_ambush_time) < 2 MINUTES))
 		return FALSE
@@ -120,17 +120,16 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 		return FALSE
 
 	// ——— Budget Calculation ———
-	// budget = player_factor * (latent_ambush / base_divisor)
-	// budget_floor guarantees a minimum of (budget_floor * base_divisor) TP budget regardless of latent_ambush.
+	// budget = player_factor * latent_ambush * AMBUSH_BUDGET_PCT
+	// At 3%, a solo combat player in Terrorbog (1500) gets 45 TP ≈ 2-3 bogmen.
+	// budget_floor guarantees a minimum of (budget_floor * AMBUSH_BUDGET_FLOOR_UNIT) TP.
 	// Minimum budget of 10 so something always spawns.
-	var/base_divisor = 5
 	var/latent_pool = 50 // Fallback if no region
 	if(TR)
-		base_divisor = TR.base_divisor
 		latent_pool = TR.latent_ambush
-	var/budget = player_factor * (latent_pool / base_divisor)
+	var/budget = player_factor * latent_pool * AMBUSH_BUDGET_PCT
 	if(budget_floor)
-		budget = max(budget, budget_floor * base_divisor)
+		budget = max(budget, budget_floor * AMBUSH_BUDGET_FLOOR_UNIT)
 	budget = max(budget, 10) // Floor: always afford at least one trash mob
 
 	// ——— Purchase Loop ———
@@ -181,8 +180,16 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 		total_tp_spent += pick_tp
 
 	// ——— Reduce latent_ambush by total TP spent ———
+	// Diminishing drain: each additional player only drains 50% as much as the previous.
+	// Solo drains full TP. 5-man party drains ~39% efficiency — big parties tame regions slowly.
 	if(TR)
-		TR.reduce_latent_ambush(total_tp_spent)
+		var/drain_factor = 0
+		var/drain_weight = 1
+		for(var/i in 1 to player_count)
+			drain_factor += drain_weight
+			drain_weight *= 0.5
+		var/actual_drain = total_tp_spent * (drain_factor / player_factor)
+		TR.reduce_latent_ambush(actual_drain)
 		TR.last_natural_ambush_time = world.time
 
 	// ——— Spawn the purchased mobs ———

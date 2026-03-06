@@ -105,7 +105,7 @@
 		to_chat(player, span_warning("I hear the horn of the Wardens somewhere [dirtext]"))
 
 	// Single budget call — the budget system already scales with player count and latent threat.
-	// budget_floor = 2 guarantees at least (2 * base_divisor) TP budget, so solo wardens in tamed regions still get a fight.
+	// budget_floor = 2 guarantees at least 20 TP budget, so solo wardens in tamed regions still get a fight.
 	return user.consider_ambush(always = TRUE, ignore_cooldown = TRUE, min_dist = WARDEN_AMBUSH_MIN, max_dist = WARDEN_AMBUSH_MAX, budget_floor = 2)
 
 #undef WARDEN_AMBUSH_MIN

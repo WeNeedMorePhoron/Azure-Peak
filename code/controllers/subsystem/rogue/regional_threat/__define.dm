@@ -1,7 +1,13 @@
-/// Multiplier for base_divisor to determine the "safe" floor for a region.
-/// Below (base_divisor * this), natural ambushes stop firing. Signal horn can still go below.
-/// With base_divisor 5: floor = 25 TP. Wardens can clear a region down to this threshold.
-#define AMBUSH_SAFE_FLOOR_MULTIPLIER 5
+/// Below this TP value, natural ambushes stop firing. Signal horn can still go below.
+#define AMBUSH_SAFE_FLOOR 25
+
+/// Fraction of the latent_ambush pool spent as budget per ambush.
+/// 0.03 = 3% → ~33 solo ambushes to drain a region from full.
+#define AMBUSH_BUDGET_PCT 0.03
+
+/// Minimum budget (in TP) for the signal horn's budget_floor parameter.
+/// budget_floor of N guarantees at least (N * AMBUSH_BUDGET_FLOOR_UNIT) TP budget.
+#define AMBUSH_BUDGET_FLOOR_UNIT 10
 
 /// Display thresholds — percentage of max_ambush for each danger level label.
 #define DANGER_PCT_SAFE 15    // 0% to this = Safe (green)
