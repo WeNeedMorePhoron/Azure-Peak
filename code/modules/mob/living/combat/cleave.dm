@@ -195,3 +195,8 @@
 	user_relative = TRUE
 	max_targets = 4 // Anti Dorpel pattern.
 	desc = "Sweeps in a massive arc, hitting up to four targets to the sides and ahead."
+
+/datum/cleave_pattern/lance
+	tile_offsets = list(list(0, 1), list(0, 2))
+	max_targets = 1
+	desc = "Lances forward, skewering a target three tiles ahead and anyone behind them."
