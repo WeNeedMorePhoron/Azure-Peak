@@ -413,6 +413,7 @@
 	// Secondary chants are offset to start partway through — the chorus joins in for the final lines
 	var/secondary_offset = max(length(chants) - length(secondary_chants), 0)
 
+	var/list/active_beams = list()
 	for(var/i in 1 to length(chants))
 		var/line = chants[i]
 		user.say(line, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
@@ -422,8 +423,19 @@
 			var/response_line = secondary_chants[secondary_index]
 			for(var/mob/living/invoker in other_invokers)
 				invoker.say(response_line, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
+		// Beam from user (and secondary invokers) to leyline
+		var/turf/leyline_turf = get_turf(leyline)
+		active_beams += user.Beam(leyline_turf, icon_state = "b_beam", time = 2 SECONDS, maxdistance = 10)
+		for(var/mob/living/invoker in other_invokers)
+			active_beams += invoker.Beam(leyline_turf, icon_state = "b_beam", time = 2 SECONDS, maxdistance = 10)
+		// Drain energy from all chanters
+		user.energy_add(-10)
+		for(var/mob/living/invoker in other_invokers)
+			invoker.energy_add(-10)
 		if(!do_after(user, 2 SECONDS, target = leyline))
 			to_chat(user, span_warning("The ritual is interrupted!"))
+			for(var/datum/beam/B in active_beams)
+				B.End()
 			return FALSE
 
 	spend_leyline_charge(user)

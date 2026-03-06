@@ -34,7 +34,7 @@
 		return FALSE
 	to_chat(user, span_notice("The array flares with power as [bound] is pulled through the veil!"))
 	playsound(loc, 'sound/magic/cosmic_expansion.ogg', 100, TRUE, 7)
-	return TRUE
+	return bound
 
 /datum/runeritual/binding/proc/bind_ritual_mob(mob/living/user, turf/loc, mob/living/mob_to_bind)
 	var/mob/living/simple_animal/hostile/retaliate/rogue/binded

@@ -442,8 +442,27 @@
 		return
 
 	var/mob/living/simple_animal/hostile/retaliate/rogue/target = captive
-	target.visible_message(span_warning("[src] is trying to bind [target.real_name]"))
-	if(do_after(user, 50, target = src) && binding == FALSE)
+	target.visible_message(span_warning("[user] is trying to bind [target.real_name]!"))
+
+	// 4-phase binding chant with beams and energy drain
+	var/list/binding_chants = list(
+		"Vinculum formare!",
+		"I bind you to this plane!",
+		"Catena animae stringitur!",
+		"Submit! The shackles hold!")
+	var/list/active_beams = list()
+	for(var/phase in 1 to 4)
+		user.say(binding_chants[phase], language = /datum/language/common, ignore_spam = TRUE, forced = "binding invocation")
+		active_beams += user.Beam(target, icon_state = "b_beam", time = 2 SECONDS, maxdistance = 10)
+		user.energy_add(-10)
+		if(!do_after(user, 2 SECONDS, target = target))
+			to_chat(user, span_warning("The binding is interrupted!"))
+			for(var/datum/beam/B in active_beams)
+				B.End()
+			return FALSE
+
+	if(binding)
+		return FALSE
 		if(!target.ckey) //player is not inside body or has refused, poll for candidates
 			to_chat(user, span_notice("You attempt to bind the targetted summon to this plane."))
 			binding = TRUE

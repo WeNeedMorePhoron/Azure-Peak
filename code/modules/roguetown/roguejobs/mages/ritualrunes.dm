@@ -410,14 +410,62 @@ GLOBAL_LIST(teleport_runes)
 	invocation = "Vinculum Formare!"
 	layer = SIGIL_LAYER
 	can_be_scribed = TRUE
+	var/mob/living/simple_animal/summoned_mob
 
 /obj/effect/decal/cleanable/roguerune/arcyne/binding/New()
 	. = ..()
 	rituals += GLOB.t2bindingrituallist
 
+/obj/effect/decal/cleanable/roguerune/arcyne/binding/Destroy()
+	if(summoned_mob && !QDELETED(summoned_mob))
+		REMOVE_TRAIT(summoned_mob, TRAIT_PACIFISM, TRAIT_GENERIC)
+		summoned_mob.status_flags -= GODMODE
+		summoned_mob.candodge = TRUE
+		summoned_mob.binded = FALSE
+		summoned_mob.move_resist = MOVE_RESIST_DEFAULT
+		summoned_mob.SetParalyzed(0)
+		summoned_mob = null
+	return ..()
+
+/obj/effect/decal/cleanable/roguerune/arcyne/binding/attack_hand(mob/living/user)
+	if(summoned_mob && isarcyne(user))
+		var/mob/living/simple_animal/S = summoned_mob
+		if(!S || QDELETED(S))
+			to_chat(user, span_warning("The containment has already faded."))
+			summoned_mob = null
+			return
+
+		to_chat(user, span_warning("You release the summon from its containment!"))
+		playsound(user, 'sound/magic/teleport_diss.ogg', 75, TRUE)
+		do_invoke_glow()
+		clear_obstacles(user)
+		sleep(20)
+		if(!S || QDELETED(S))
+			summoned_mob = null
+			return
+
+		animate(S, color = null, time = 5)
+		REMOVE_TRAIT(S, TRAIT_PACIFISM, TRAIT_GENERIC)
+		S.status_flags -= GODMODE
+		S.candodge = TRUE
+		S.binded = FALSE
+		S.move_resist = MOVE_RESIST_DEFAULT
+		S.SetParalyzed(0)
+
+		summoned_mob = null
+		return
+	. = ..()
+
+/obj/effect/decal/cleanable/roguerune/arcyne/binding/proc/clear_obstacles(mob/living/user)
+	for(var/turf/closed/wall/anticheese in range(loc, runesize))
+		anticheese.visible_message(span_warning("[anticheese] crumbles under the force of the releasing wards."))
+		anticheese.ChangeTurf(/turf/open/floor/rogue/blocks)
+
 /obj/effect/decal/cleanable/roguerune/arcyne/binding/invoke(list/invokers, datum/runeritual/runeritual)
 	if(!..())
 		return
+	if(ismob(ritual_result))
+		summoned_mob = ritual_result
 	if(ritual_result)
 		pickritual.cleanup_atoms(selected_atoms)
 	invoke_cleanup()
