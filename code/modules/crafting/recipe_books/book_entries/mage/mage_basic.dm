@@ -26,7 +26,7 @@
 	<h3>Performing a Ritual</h3>
 	<ol>
 		<li>Travel to a leyline.</li>
-		<li>Draw a summoning circle nearby (chalk for the first and second circles, arcyne silver dagger for the third and fourth circles).</li>
+		<li>Draw a summoning circle nearby (chalk for the first, second and third circles, arcyne silver dagger for the fourth and fifth circles).</li>
 		<li>Click the circle and select a leyline encounter ritual.</li>
 		<li>Chant the invocation. This is loud and visible - others will notice. Make sure you are not interrupted. </li>
 		<li>Fight the creatures that emerge. Collect their materials.</li>
