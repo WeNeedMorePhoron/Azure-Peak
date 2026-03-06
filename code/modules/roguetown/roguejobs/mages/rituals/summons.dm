@@ -11,7 +11,7 @@
  * Exception: the Void Dragon ritual requires 5 runed artifacts (the only summoning with a material gate).
  * Since charges are limited, you are expected to go out to the good leylines, not camp tamed ones.
  *
- * Attunement: mages gain dayspassed + 1 charges per week, each ritual costs 1.
+ * Attunement: mages have dayspassed + 1 charges minus charges spent, each ritual costs 1.
  * Day gate: T1-T2 always available, T3 from day 3, T4 from day 4, T5 (Void Dragon) from day 5.
  * See leylines.dm for charge and gating implementation.
  *

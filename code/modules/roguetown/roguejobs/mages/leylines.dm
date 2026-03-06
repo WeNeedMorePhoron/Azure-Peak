@@ -4,7 +4,7 @@
  * Leylines are the sites where mages perform encounter rituals. Scattered across the world
  * in different regions, each aligned to a realm. Mages must travel to find them.
  *
- * Charge system (veil attunement): each mage gains dayspassed + 1 charges per week.
+ * Charge system (veil attunement): each mage has dayspassed + 1 charges, minus charges spent.
  * Each ritual costs 1 charge. This naturally gates early-week spam while
  * rewarding patience — by day 4-5 you can chain several rituals in one trip.
  * Since charges are limited, mages are expected to go out to realm-aligned leylines
@@ -67,6 +67,7 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	. = ..()
 	last_process = world.time
 	GLOB.leyline_sites += src
+	set_light(l_outer_range = 5, l_power = 2, l_color = color, l_on = TRUE)
 
 /obj/structure/leyline/Destroy()
 	GLOB.leyline_sites -= src
@@ -93,7 +94,7 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	var/charges = get_leyline_charges(user)
 	var/remaining = max_uses_per_day - uses_today
 	to_chat(user, span_notice("This [name] pulses with arcyne energy."))
-	to_chat(user, span_notice("Leyline uses remaining today: [remaining]. Your veil attunement: [charges]."))
+	to_chat(user, span_notice("This leyline can be used [remaining] more time[remaining != 1 ? "s" : ""] todae. You have enough mana for [charges] more ritual[charges != 1 ? "s" : ""]."))
 	if(max_tier)
 		to_chat(user, span_notice("Maximum ritual circle: [max_tier]."))
 	to_chat(user, span_notice("Draw a summoning circle nearby to begin a leyline encounter."))

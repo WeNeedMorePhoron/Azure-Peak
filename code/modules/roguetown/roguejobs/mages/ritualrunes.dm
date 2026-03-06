@@ -725,7 +725,7 @@ GLOBAL_LIST(teleport_runes)
 
 // Summoning circles — draw near a leyline to trigger encounters.
 // Tier determines what creatures can be summoned from the leyline.
-// Chalk: T1-T2. Dagger: T3-T4.
+// Chalk: T1-T3. Dagger: All tiers.
 /obj/effect/decal/cleanable/roguerune/arcyne/summoning
 	name = "lesser matrix of summoning"
 	desc = "A lesser circle of arcyne power, channeling the energy of the leyline to breach the veil between the material plane and the other and bring forth creechurs."

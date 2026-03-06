@@ -80,7 +80,7 @@
 	if(HAS_TRAIT(user, TRAIT_ARCYNE_T1))
 		runenameinput = input(user, "Runes", "Tier 1 Runes") as null|anything in GLOB.t1rune_types
 	else
-		runenameinput = input(user, "Runes", "Tier 1 & 2 Runes") as null|anything in GLOB.t2rune_types
+		runenameinput = input(user, "Runes", "Tier 1-3 Runes") as null|anything in GLOB.t3rune_types
 
 	pickrune = GLOB.rune_types[runenameinput]
 	rune_to_scribe = pickrune
@@ -159,7 +159,7 @@
 		is_bled = TRUE
 		return
 	var/obj/effect/decal/cleanable/roguerune/pickrune
-	var/runenameinput = input(user, "Runes", "T4 Runes") as null|anything in GLOB.t4rune_types
+	var/runenameinput = input(user, "Runes", "All Runes") as null|anything in GLOB.t4rune_types
 
 	pickrune = GLOB.rune_types[runenameinput]
 	rune_to_scribe = pickrune

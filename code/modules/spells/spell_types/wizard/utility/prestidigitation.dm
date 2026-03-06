@@ -62,9 +62,10 @@
 		return FALSE
 
 	var/list/sensed = list()
+	var/user_z = user.z
 	for(var/obj/structure/leyline/L in GLOB.leyline_sites)
 		var/dist = get_dist(user, L)
-		sensed += list(list("leyline" = L, "dist" = dist))
+		sensed += list(list("leyline" = L, "dist" = dist, "same_z" = (L.z == user_z)))
 
 	// Sort by distance (simple insertion sort, small list)
 	for(var/i in 2 to length(sensed))
@@ -73,49 +74,65 @@
 			sensed.Swap(j, j - 1)
 			j--
 
-	to_chat(user, span_notice("You attune to the veil and sense the flow of leyline energy..."))
+	to_chat(user, span_info("You attune to the veil and sense the flow of leyline energy..."))
 	var/count = 0
 	for(var/entry in sensed)
 		if(count >= 5)
 			break
 		var/obj/structure/leyline/L = entry["leyline"]
 		var/dist = entry["dist"]
+		var/same_z = entry["same_z"]
 		var/direction = dir2text(get_dir(user, L))
 		if(!direction)
 			direction = "beneath you"
 		else
 			direction = "to the [direction]"
+		if(!same_z)
+			if(L.z > user_z)
+				direction += ", above you"
+			else
+				direction += ", below you"
 
 		var/status = ""
 		L.check_daily_reset()
 		if(!L.has_uses_remaining())
-			status = " — its flow of mana is weak and uncertain"
+			status = " <span style='color:#888'>(exhausted)</span>"
 
 		var/flavor = L.alignment
+		var/flavor_color = "#FFFFFF"
 		switch(L.alignment)
 			if("infernal")
-				flavor = "scorched"
+				flavor = "Scorched"
+				flavor_color = "#EF5350"
 			if("fae")
-				flavor = "sylvan"
+				flavor = "Sylvan"
+				flavor_color = "#81C784"
 			if("elemental")
-				flavor = "earthen"
+				flavor = "Earthen"
+				flavor_color = "#D4A04A"
 			if("void")
-				flavor = "unstable"
+				flavor = "Unstable"
+				flavor_color = "#AB47BC"
 			if("neutral")
-				flavor = "tamed"
+				flavor = "Tamed"
+				flavor_color = "#C0C0FF"
 
+		var/colored_type = "<b><span style='color:[flavor_color]'>[flavor]</span></b>"
 		if(dist <= 3)
-			to_chat(user, span_notice("A [flavor] leyline pulses right beside you[status]."))
+			to_chat(user, span_info("[colored_type] leyline — right beside you[status]."))
 		else if(dist <= 30)
-			to_chat(user, span_notice("You sense a [flavor] leyline [direction], not far from here[status]."))
+			to_chat(user, span_info("[colored_type] leyline — [direction], not far[status]."))
 		else if(dist <= 100)
-			to_chat(user, span_notice("You sense a faint [flavor] presence [direction], some distance away[status]."))
+			to_chat(user, span_info("[colored_type] presence — [direction], some distance away[status]."))
 		else
-			to_chat(user, span_notice("A distant [flavor] whisper echoes [direction], far from here[status]."))
+			to_chat(user, span_info("[colored_type] whisper — [direction], far away[status]."))
 		count++
 
 	if(!count)
 		to_chat(user, span_warning("You sense nothing. Strange."))
+	else
+		var/charges = get_leyline_charges(user)
+		to_chat(user, span_info("You have enough mana for <b>[charges]</b> more ritual[charges != 1 ? "s" : ""]."))
 	return TRUE
 
 /obj/item/melee/touch_attack/prestidigitation/afterattack(atom/target, mob/living/carbon/user, proximity)
