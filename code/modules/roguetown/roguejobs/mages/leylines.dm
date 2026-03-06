@@ -150,3 +150,5 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	mega_region = "bog"
 	max_tier = 5
 	color = "#AB47BC" // purple — void
+
+#undef LEYLINE_TELEPORT_COOLDOWN

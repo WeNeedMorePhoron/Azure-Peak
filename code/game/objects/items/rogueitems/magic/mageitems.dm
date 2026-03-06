@@ -463,29 +463,30 @@
 
 	if(binding)
 		return FALSE
-		if(!target.ckey) //player is not inside body or has refused, poll for candidates
-			to_chat(user, span_notice("You attempt to bind the targetted summon to this plane."))
-			binding = TRUE
-			target.visible_message(span_warning("[target.real_name]'s body is entangled by glowing chains..."), runechat_message = TRUE)
-			var/reason = stripped_input(user, "What are your instructions for this summon?", "Summoner's Instructions")
-			var/list/candidates = pollCandidatesForMob("Do you want to play as a Mage's summon? You will materialize as a [target.name] and [reason]", null, null, null, 100, target, POLL_IGNORE_MAGE_SUMMON)
 
-			// theres at least one candidate
-			if(LAZYLEN(candidates))
-				var/mob/C = pick(candidates)
-				target.awaken_summon(user, C.ckey, reason)
-				target.visible_message(span_warning("[target.real_name]'s eyes light up with an intelligence as it awakens fully on this plane."), runechat_message = TRUE)
-				custom_name(user,target)
-				target.name = chosen_name
-				binding = FALSE
-			//no candidates, raise as npc
-			else
-				to_chat(user, span_notice("The [captive] stares at you with mindless hate. The binding attempt failed to draw out it's intelligence!"))
-				binding = FALSE
-		else
-			target.visible_message(span_notice("This summon is already bound to this plane."))
-			return FALSE
+	if(target.ckey)
+		target.visible_message(span_notice("This summon is already bound to this plane."))
 		return FALSE
+
+	// player is not inside body or has refused, poll for candidates
+	to_chat(user, span_notice("You attempt to bind the targetted summon to this plane."))
+	binding = TRUE
+	target.visible_message(span_warning("[target.real_name]'s body is entangled by glowing chains..."), runechat_message = TRUE)
+	var/reason = stripped_input(user, "What are your instructions for this summon?", "Summoner's Instructions")
+	var/list/candidates = pollCandidatesForMob("Do you want to play as a Mage's summon? You will materialize as a [target.name] and [reason]", null, null, null, 100, target, POLL_IGNORE_MAGE_SUMMON)
+
+	// theres at least one candidate
+	if(LAZYLEN(candidates))
+		var/mob/C = pick(candidates)
+		target.awaken_summon(user, C.ckey, reason)
+		target.visible_message(span_warning("[target.real_name]'s eyes light up with an intelligence as it awakens fully on this plane."), runechat_message = TRUE)
+		custom_name(user,target)
+		target.name = chosen_name
+		binding = FALSE
+	//no candidates, raise as npc
+	else
+		to_chat(user, span_notice("The [captive] stares at you with mindless hate. The binding attempt failed to draw out it's intelligence!"))
+		binding = FALSE
 	return FALSE
 
 /mob/living/simple_animal/hostile/retaliate/rogue/proc/awaken_summon(mob/living/carbon/human/master, ckey, reason)
