@@ -27,10 +27,107 @@
  * Gone wrong: flat 33% chance, +2 extra mobs. More risk, more reward. Bring friends.
  *
  * Chants: Latin/English alternating pairs, 2 seconds per line, tier scales the count.
- *   T4 (and void dragon) add secondary chants — other nearby invokers respond (call and response).
- *   Final line is always realm-specific "Evoca et [verb]!"
+ *   Primary count = tier * 2 + 2. Secondary = primary (T4/T5) or primary - 2 (T3, shaves one pair from middle).
+ *   T3+ add secondary chants — other nearby invokers respond (call and response).
+ *   T3 rituals require at least 1 secondary invoker (checked at ritual level, not rune level).
+ *   This means a T3 circle can still be solo-invoked for T1/T2 rituals, but T3 rituals need a partner.
+ *   T4 requires 3 invokers at the rune level (grand warded matrix). T5 (void dragon) same.
+ *   Final two lines (CLIMAX + CTA) are spoken in sync by all invokers.
  *   Chanting is loud (range 14) and visible, drawing attention from other players.
  */
+
+// ===== Shared chant lines — defined once, reused across tiers to prevent desync =====
+// LAT = Latin primary, ENG = English primary, CLIMAX = sync English climax, CTA = final Evoca
+
+// Infernal — fire, blood, domination
+#define INFERNAL_LAT_1 "Aperio portam ignis."
+#define INFERNAL_ENG_1 "Break free! Come to me!"
+#define INFERNAL_LAT_2 "Sanguis ardet, vincula franguntur."
+#define INFERNAL_ENG_2 "Burn hotter! Strain against the veil!"
+#define INFERNAL_LAT_3 "Voluntas mea lex est."
+#define INFERNAL_ENG_3 "Submit! You are bound to me!"
+#define INFERNAL_LAT_4 "Infernus obedit."
+#define INFERNAL_ENG_4 "Hell itself bows! Obey!"
+#define INFERNAL_CLIMAX "Incinerate! The inferno answers!"
+#define INFERNAL_CTA "Burn! Evoca et Incende!"
+#define INFERNAL_RES_1 "Ignis!"       // Fire — matches LAT_1 (open the gate of fire)
+#define INFERNAL_RES_2 "Venite!"      // Come — matches ENG_1 (break free, come to me)
+#define INFERNAL_RES_3 "Cruor!"       // Blood — matches LAT_2 (blood burns, chains break)
+#define INFERNAL_RES_4 "Ardete!"      // Burn — matches ENG_2 (burn hotter)
+#define INFERNAL_RES_5 "Audite!"      // Listen — matches LAT_3 (my will is law)
+#define INFERNAL_RES_6 "Servite!"     // Submit — matches ENG_3 (submit, you are bound)
+#define INFERNAL_RES_7 "Exurite!"     // Burn them — matches LAT_4 (hell obeys)
+#define INFERNAL_RES_8 "Obedit!"      // Obey — matches ENG_4 (hell itself bows)
+
+// Fae — nature, growth, wild fury
+#define FAE_LAT_1 "Flores aperiuntur."
+#define FAE_ENG_1 "Come! Playful fae!"
+#define FAE_LAT_2 "Silva cantat, folia tremunt."
+#define FAE_ENG_2 "Faster! Spin and flutter!"
+#define FAE_LAT_3 "Natura ipsa furit."
+#define FAE_ENG_3 "No more games! Show your fury!"
+#define FAE_LAT_4 "Furor silvae descendit."
+#define FAE_ENG_4 "Grow wild! Consume everything!"
+#define FAE_CLIMAX "Fly! The wild answers!"
+#define FAE_CTA "Bloom! Evoca et Cresce!"
+#define FAE_RES_1 "Florete!"         // Bloom — matches LAT_1 (flowers open)
+#define FAE_RES_2 "Volate!"          // Fly — matches ENG_1 (come, playful fae)
+#define FAE_RES_3 "Cantate!"         // Sing — matches LAT_2 (forest sings)
+#define FAE_RES_4 "Ludite!"          // Play — matches ENG_2 (spin and flutter)
+#define FAE_RES_5 "Furiae!"          // Furies — matches LAT_3 (nature rages)
+#define FAE_RES_6 "Prodite!"         // Come forth — matches ENG_3 (show your fury)
+#define FAE_RES_7 "Crescite!"        // Grow — matches LAT_4 (fury descends)
+#define FAE_RES_8 "Vorare!"          // Devour — matches ENG_4 (consume everything)
+
+// Earthen — stone, tremors, upheaval
+#define EARTHEN_LAT_1 "Terra audit vocem meam."
+#define EARTHEN_ENG_1 "Stir! Rise from the deep!"
+#define EARTHEN_LAT_2 "Fundamenta tremunt."
+#define EARTHEN_ENG_2 "Crack open! Shatter the earth!"
+#define EARTHEN_LAT_3 "Mons ipse obedit."
+#define EARTHEN_ENG_3 "Erupt! Swallow the ground whole!"
+#define EARTHEN_LAT_4 "Ruina totalis."
+#define EARTHEN_ENG_4 "Ruin everything! Leave nothing standing!"
+#define EARTHEN_CLIMAX "Quake! The earth answers!"
+#define EARTHEN_CTA "Shatter! Evoca et Surge!"
+#define EARTHEN_RES_1 "Terra!"        // Earth — matches LAT_1 (earth hears me)
+#define EARTHEN_RES_2 "Surgite!"      // Rise — matches ENG_1 (rise from the deep)
+#define EARTHEN_RES_3 "Tremite!"      // Tremble — matches LAT_2 (foundations tremble)
+#define EARTHEN_RES_4 "Frangite!"     // Shatter — matches ENG_2 (shatter the earth)
+#define EARTHEN_RES_5 "Mons!"         // Mountain — matches LAT_3 (the mountain obeys)
+#define EARTHEN_RES_6 "Devorate!"     // Devour — matches ENG_3 (swallow the ground)
+#define EARTHEN_RES_7 "Ruina!"        // Ruin — matches LAT_4 (total ruin)
+#define EARTHEN_RES_8 "Contere!"      // Crush — matches ENG_4 (leave nothing standing)
+
+// Leyline
+#define LEYLINE_LAT_1 "Nexus patet."
+#define LEYLINE_ENG_1 "Come forth! Show yourselves!"
+#define LEYLINE_LAT_2 "Vis cruda fluit."
+#define LEYLINE_ENG_2 "Hunt! The veil is thin!"
+#define LEYLINE_CLIMAX "Hunt! The leyline answers!"
+#define LEYLINE_CTA "Hunt! Evoca et Venare!"
+
+// Void (T2 and T5 have different ENG_1 and CTA)
+#define VOID_LAT_1 "Vacuum spectat."
+#define VOID_ENG_1_T2 "See me! Know me! Acknowledge me!"
+#define VOID_ENG_1_T5 "See me! Turn your gaze!"
+#define VOID_LAT_2 "Nihil respondet."
+#define VOID_ENG_2 "Answer me! I know you hear!"
+#define VOID_LAT_3 "Ultra omnia voco."
+#define VOID_ENG_3 "Beyond every plane! Past every boundary!"
+#define VOID_LAT_4 "Draco vacui surgit."
+#define VOID_ENG_4 "Rise from nothing! The dragon wakes!"
+#define VOID_CLIMAX "Watch! The void answers!"
+#define VOID_CTA_T2 "Gaze! Evoca et Cognosce!"
+#define VOID_CTA_T5 "Consume! Evoca et Devora!"
+#define VOID_RES_1 "Vacuitas!"        // Emptiness — matches LAT_1 (the void watches)
+#define VOID_RES_2 "Specta!"          // See/Watch — matches ENG_1 (see me, turn your gaze)
+#define VOID_RES_3 "Finis!"           // End — matches LAT_2 (nothing answers)
+#define VOID_RES_4 "Tenebrae!"        // Darkness — matches ENG_2 (I know you hear)
+#define VOID_RES_5 "Nihil!"           // Nothing — matches LAT_3 (I call beyond all)
+#define VOID_RES_6 "Vorago!"          // Chasm — matches ENG_3 (past every boundary)
+#define VOID_RES_7 "Devorate!"        // Devour — matches LAT_4 (void dragon rises)
+#define VOID_RES_8 "Expergisce!"     // Awaken — matches ENG_4 (the dragon wakes)
 
 /datum/runeritual/summoning/leyline_encounter
 	name = "leyline encounter parent"
@@ -45,20 +142,20 @@
 	var/list/gone_wrong_mobs = list()
 	var/gone_wrong_extra = 2
 	var/list/chants = list("Evoca!")
-	var/list/secondary_chants = list() // T4/T5 only — other invokers respond in Latin (call and response)
+	var/list/secondary_chants = list() // T3+ — other invokers respond (call and response)
 
 // ----- Infernal -----
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t1
 	name = "Lesser Ritual of Infernal Intrusion"
-	desc = "Breach the veil and summon imps." 
+	desc = "Breach the veil and summon imps."
 	blacklisted = FALSE
 	tier = 1
 	alignment = "infernal"
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp)
-	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Evoca et Incende!")
+	chants = list(INFERNAL_LAT_1, INFERNAL_ENG_1, INFERNAL_CLIMAX, INFERNAL_CTA)
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t2
 	name = "Ordinary Ritual of Infernal Incursion"
@@ -69,11 +166,11 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/hellhound)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp)
-	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Sanguis ardet, vincula franguntur.", "Burn hotter! Strain against the veil!", "Evoca et Incende!")
+	chants = list(INFERNAL_LAT_1, INFERNAL_ENG_1, INFERNAL_LAT_2, INFERNAL_ENG_2, INFERNAL_CLIMAX, INFERNAL_CTA)
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t3
 	name = "Greater Ritual of Infernal Invasion"
-	desc = "Tear open the veil of the infernal realm, and summon infernal watchers!"
+	desc = "Tear open the veil of the infernal realm, and summon infernal watchers! Requires a secondary invoker."
 	blacklisted = FALSE
 	tier = 3
 	alignment = "infernal"
@@ -82,7 +179,8 @@
 	base_primary_count = 2
 	base_secondary_count = 2
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp)
-	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Sanguis ardet, vincula franguntur.", "Burn hotter! Strain against the veil!", "Voluntas mea lex est.", "Submit! You are bound to me!", "Burn! Evoca et Incende!")
+	chants = list(INFERNAL_LAT_1, INFERNAL_ENG_1, INFERNAL_LAT_2, INFERNAL_ENG_2, INFERNAL_LAT_3, INFERNAL_ENG_3, INFERNAL_CLIMAX, INFERNAL_CTA)
+	secondary_chants = list(INFERNAL_RES_1, INFERNAL_RES_2, INFERNAL_RES_3, INFERNAL_RES_4, INFERNAL_RES_5, INFERNAL_RES_6, INFERNAL_CLIMAX, INFERNAL_CTA)
 
 /datum/runeritual/summoning/leyline_encounter/infernal_t4
 	name = "Grand Ritual of Infernal Inversion"
@@ -95,8 +193,8 @@
 	base_primary_count = 1
 	base_secondary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/infernal/hellhound)
-	chants = list("Aperio portam ignis.", "Break free! Come to me!", "Sanguis ardet, vincula franguntur.", "Burn hotter! Strain against the veil!", "Voluntas mea lex est.", "Submit! You are bound to me!", "Infernus obedit.", "Burn! Evoca et Incende!")
-	secondary_chants = list("Ignis!", "Ardor!", "Flamma!", "Furor!", "Cruor!", "Cineres!", "Burn! Submit to my will!", "Burn! Evoca et Incende!")
+	chants = list(INFERNAL_LAT_1, INFERNAL_ENG_1, INFERNAL_LAT_2, INFERNAL_ENG_2, INFERNAL_LAT_3, INFERNAL_ENG_3, INFERNAL_LAT_4, INFERNAL_ENG_4, INFERNAL_CLIMAX, INFERNAL_CTA)
+	secondary_chants = list(INFERNAL_RES_1, INFERNAL_RES_2, INFERNAL_RES_3, INFERNAL_RES_4, INFERNAL_RES_5, INFERNAL_RES_6, INFERNAL_RES_7, INFERNAL_RES_8, INFERNAL_CLIMAX, INFERNAL_CTA)
 
 // ----- Fae -----
 
@@ -109,7 +207,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite)
-	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Bloom! Evoca et Cresce!")
+	chants = list(FAE_LAT_1, FAE_ENG_1, FAE_CLIMAX, FAE_CTA)
 
 /datum/runeritual/summoning/leyline_encounter/fae_t2
 	name = "Ordinary Ritual of Fae Fluttering"
@@ -120,11 +218,11 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/glimmerwing)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite)
-	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Silva cantat, folia tremunt.", "Faster! Spin and flutter!", "Bloom! Evoca et Cresce!")
+	chants = list(FAE_LAT_1, FAE_ENG_1, FAE_LAT_2, FAE_ENG_2, FAE_CLIMAX, FAE_CTA)
 
 /datum/runeritual/summoning/leyline_encounter/fae_t3
 	name = "Greater Ritual of Fae Frenzy"
-	desc = "Disrupts the veil to lure dryads through the veil to defeat you." 
+	desc = "Disrupts the veil to lure dryads through the veil to defeat you! Requires a secondary invoker."
 	blacklisted = FALSE
 	tier = 3
 	alignment = "fae"
@@ -133,7 +231,8 @@
 	base_primary_count = 2
 	base_secondary_count = 2
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/sprite)
-	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Silva cantat, folia tremunt.", "Faster! Spin and flutter!", "Natura ipsa furit.", "No more games! Show your fury!", "Bloom! Evoca et Cresce!")
+	chants = list(FAE_LAT_1, FAE_ENG_1, FAE_LAT_2, FAE_ENG_2, FAE_LAT_3, FAE_ENG_3, FAE_CLIMAX, FAE_CTA)
+	secondary_chants = list(FAE_RES_1, FAE_RES_2, FAE_RES_3, FAE_RES_4, FAE_RES_5, FAE_RES_6, FAE_CLIMAX, FAE_CTA)
 
 /datum/runeritual/summoning/leyline_encounter/fae_t4
 	name = "Grand Ritual of Fae Fury"
@@ -146,8 +245,8 @@
 	base_primary_count = 1
 	base_secondary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/fae/glimmerwing)
-	chants = list("Flores aperiuntur.", "Come! Playful fae!", "Silva cantat, folia tremunt.", "Faster! Spin and flutter!", "Natura ipsa furit.", "No more games! Show your fury!", "Furor silvae descendit.", "Bloom! Evoca et Cresce!")
-	secondary_chants = list("Florete!", "Radix!", "Silva!", "Spinae!", "Furiae!", "Venae!", "No more games! Show your wrath!", "Bloom! Evoca et Cresce!")
+	chants = list(FAE_LAT_1, FAE_ENG_1, FAE_LAT_2, FAE_ENG_2, FAE_LAT_3, FAE_ENG_3, FAE_LAT_4, FAE_ENG_4, FAE_CLIMAX, FAE_CTA)
+	secondary_chants = list(FAE_RES_1, FAE_RES_2, FAE_RES_3, FAE_RES_4, FAE_RES_5, FAE_RES_6, FAE_RES_7, FAE_RES_8, FAE_CLIMAX, FAE_CTA)
 
 // ----- Earthen -----
 
@@ -160,7 +259,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler)
-	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Shatter! Evoca et Surge!")
+	chants = list(EARTHEN_LAT_1, EARTHEN_ENG_1, EARTHEN_CLIMAX, EARTHEN_CTA)
 
 /datum/runeritual/summoning/leyline_encounter/earthen_t2
 	name = "Ordinary Ritual of Earthen Eruption"
@@ -171,11 +270,11 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/warden)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler)
-	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Fundamenta tremunt.", "Crack open! Shatter the earth!", "Shatter! Evoca et Surge!")
+	chants = list(EARTHEN_LAT_1, EARTHEN_ENG_1, EARTHEN_LAT_2, EARTHEN_ENG_2, EARTHEN_CLIMAX, EARTHEN_CTA)
 
 /datum/runeritual/summoning/leyline_encounter/earthen_t3
 	name = "Greater Ritual of Earthen Earthquake"
-	desc = "Shatters the veil with a surge of arcyne energy, summoning behemoths from the earthen realm!"
+	desc = "Shatters the veil with a surge of arcyne energy, summoning behemoths from the earthen realm! Requires a secondary invoker."
 	blacklisted = FALSE
 	tier = 3
 	alignment = "elemental"
@@ -184,7 +283,8 @@
 	base_primary_count = 2
 	base_secondary_count = 2
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/crawler)
-	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Fundamenta tremunt.", "Crack open! Shatter the earth!", "Mons ipse obedit.", "Erupt! Swallow the ground whole!", "Shatter! Evoca et Surge!")
+	chants = list(EARTHEN_LAT_1, EARTHEN_ENG_1, EARTHEN_LAT_2, EARTHEN_ENG_2, EARTHEN_LAT_3, EARTHEN_ENG_3, EARTHEN_CLIMAX, EARTHEN_CTA)
+	secondary_chants = list(EARTHEN_RES_1, EARTHEN_RES_2, EARTHEN_RES_3, EARTHEN_RES_4, EARTHEN_RES_5, EARTHEN_RES_6, EARTHEN_CLIMAX, EARTHEN_CTA)
 
 /datum/runeritual/summoning/leyline_encounter/earthen_t4
 	name = "Grand Ritual of Earthen Engulfment"
@@ -197,8 +297,8 @@
 	base_primary_count = 1
 	base_secondary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/elemental/warden)
-	chants = list("Terra audit vocem meam.", "Stir! Rise from the deep!", "Fundamenta tremunt.", "Crack open! Shatter the earth!", "Mons ipse obedit.", "Erupt! Swallow the ground whole!", "Ruina totalis.", "Shatter! Evoca et Surge!")
-	secondary_chants = list("Terra!", "Saxum!", "Surgite!", "Fundus!", "Ruina!", "Mons!", "Shatter! Break the world open!", "Shatter! Evoca et Surge!")
+	chants = list(EARTHEN_LAT_1, EARTHEN_ENG_1, EARTHEN_LAT_2, EARTHEN_ENG_2, EARTHEN_LAT_3, EARTHEN_ENG_3, EARTHEN_LAT_4, EARTHEN_ENG_4, EARTHEN_CLIMAX, EARTHEN_CTA)
+	secondary_chants = list(EARTHEN_RES_1, EARTHEN_RES_2, EARTHEN_RES_3, EARTHEN_RES_4, EARTHEN_RES_5, EARTHEN_RES_6, EARTHEN_RES_7, EARTHEN_RES_8, EARTHEN_CLIMAX, EARTHEN_CTA)
 
 // ----- Leyline (Fixed T2) -----
 
@@ -211,7 +311,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/leylinelycan)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/leylinelycan)
-	chants = list("Nexus patet.", "Come forth! Show yourselves!", "Vis cruda fluit.", "Hunt! The veil is thin!", "Hunt! Evoca et Venare!")
+	chants = list(LEYLINE_LAT_1, LEYLINE_ENG_1, LEYLINE_LAT_2, LEYLINE_ENG_2, LEYLINE_CLIMAX, LEYLINE_CTA)
 
 // ----- Void (Fixed T2) — spawns mob form directly, no dormant obelisk phase -----
 
@@ -224,7 +324,7 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/voidstoneobelisk)
 	base_primary_count = 3
 	gone_wrong_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/voidstoneobelisk)
-	chants = list("Vacuum spectat.", "See me! Know me! Acknowledge me!", "Nihil respondet.", "Answer me! I know you hear!", "Gaze! Evoca et Cognosce!")
+	chants = list(VOID_LAT_1, VOID_ENG_1_T2, VOID_LAT_2, VOID_ENG_2, VOID_CLIMAX, VOID_CTA_T2)
 
 // ----- Void Dragon (T5, requires Powerful leyline + day 5 + 5 runed artifacts) -----
 // Uses a T4 circle (grand warded matrix) — the T4 ritual list has no tier filter,
@@ -241,8 +341,8 @@
 	primary_mobs = list(/mob/living/simple_animal/hostile/retaliate/rogue/voiddragon)
 	base_primary_count = 1
 	gone_wrong_extra = 0
-	chants = list("Vacuum spectat.", "See me! Turn your gaze!", "Nihil respondet.", "Answer me! I know you hear!", "Ultra omnia voco.", "Beyond every plane! Past every boundary!", "Draco vacui surgit.", "Consume! Evoca et Devora!")
-	secondary_chants = list("Vacuitas!", "Abyssus!", "Finis!", "Tenebrae!", "Nihil!", "Vorago!", "Beyond all things! Rise and devour!", "Consume! Evoca et Devora!")
+	chants = list(VOID_LAT_1, VOID_ENG_1_T5, VOID_LAT_2, VOID_ENG_2, VOID_LAT_3, VOID_ENG_3, VOID_LAT_4, VOID_ENG_4, VOID_CLIMAX, VOID_CTA_T5)
+	secondary_chants = list(VOID_RES_1, VOID_RES_2, VOID_RES_3, VOID_RES_4, VOID_RES_5, VOID_RES_6, VOID_RES_7, VOID_RES_8, VOID_CLIMAX, VOID_CTA_T5)
 
 /datum/runeritual/summoning/leyline_encounter/void_dragon/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	if(GLOB.dayspassed < 5)
@@ -264,9 +364,9 @@
 	if(get_leyline_charges(user) <= 0)
 		to_chat(user, span_boldwarning("You've reached into the veil too many times this week. Rest, or you will be annihilated."))
 		return FALSE
-	if(tier > get_max_leyline_tier())
-		to_chat(user, span_warning("Tis too early in the week. The power of the leylines grows and waxes. Wait until later for such powerful summoning."))
-		return FALSE
+	// if(tier > get_max_leyline_tier())
+	// 	to_chat(user, span_warning("Tis too early in the week. The power of the leylines grows and waxes. Wait until later for such powerful summoning."))
+	// 	return FALSE
 	if(leyline.max_tier && tier > leyline.max_tier)
 		to_chat(user, span_warning("This leyline is too weak for a ritual of this circle."))
 		return FALSE
@@ -289,11 +389,7 @@
 	var/gone_wrong = gone_wrong_extra > 0 && prob(33)
 	var/extra_count = gone_wrong ? gone_wrong_extra : 0
 
-	// Chant — loud and visible, this is what draws attention from other players
-	user.visible_message(span_danger("You begin to chant, channeling energy into the leyline!"))
-	playsound(loc, 'sound/magic/teleport_diss.ogg', 100, TRUE, 14)
-
-	// Gather secondary invokers for call-and-response (T4+)
+	// Gather secondary invokers for call-and-response (T3+)
 	// Search near the rune (loc), not the leyline — invokers stand at the circle, not the leyline
 	var/list/other_invokers = list()
 	if(length(secondary_chants))
@@ -303,23 +399,29 @@
 			if(isarcyne(M) && M.stat == CONSCIOUS && M.can_speak())
 				other_invokers += M
 
+	// T3+ rituals with secondary chants require at least one secondary invoker.
+	// The rune itself doesn't enforce this — a T3 circle can still be solo-invoked for T1/T2 rituals.
+	// But the ritual refuses to proceed without a partner for the call-and-response.
+	if(length(secondary_chants) && !length(other_invokers))
+		to_chat(user, span_warning("This ritual requires at least one other magos nearby. You cannot do this alone."))
+		return FALSE
+
+	// Chant — loud and visible, this is what draws attention from other players
+	user.visible_message(span_danger("You begin to chant, channeling energy into the leyline!"))
+	playsound(loc, 'sound/magic/teleport_diss.ogg', 100, TRUE, 14)
+
 	// Secondary chants are offset to start partway through — the chorus joins in for the final lines
 	var/secondary_offset = max(length(chants) - length(secondary_chants), 0)
 
 	for(var/i in 1 to length(chants))
 		var/line = chants[i]
 		user.say(line, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
-		// Secondary invokers respond after the primary — call and response
-		// Final line (Evoca) is spoken simultaneously; all other lines are delayed 1 second
+		// Secondary invokers respond in sync with the primary — call and response
 		var/secondary_index = i - secondary_offset
 		if(secondary_index >= 1 && secondary_index <= length(secondary_chants) && length(other_invokers))
 			var/response_line = secondary_chants[secondary_index]
-			var/is_final_line = (secondary_index == length(secondary_chants))
 			for(var/mob/living/invoker in other_invokers)
-				if(is_final_line)
-					invoker.say(response_line, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
-				else
-					addtimer(CALLBACK(invoker, TYPE_PROC_REF(/atom/movable, say), response_line, null, list(), TRUE, /datum/language/common, TRUE, "cult invocation"), 1 SECONDS)
+				invoker.say(response_line, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
 		if(!do_after(user, 2 SECONDS, target = leyline))
 			to_chat(user, span_warning("The ritual is interrupted!"))
 			return FALSE
@@ -386,3 +488,85 @@
 /mob/living/carbon/human/species/npc/arcyne_invoker/proc/setup_invoker()
 	mind_initialize()
 	adjust_skillrank(/datum/skill/magic/arcane, 6, TRUE)
+
+// ===== Cleanup =====
+#undef INFERNAL_LAT_1
+#undef INFERNAL_ENG_1
+#undef INFERNAL_LAT_2
+#undef INFERNAL_ENG_2
+#undef INFERNAL_LAT_3
+#undef INFERNAL_ENG_3
+#undef INFERNAL_LAT_4
+#undef INFERNAL_ENG_4
+#undef INFERNAL_CLIMAX
+#undef INFERNAL_CTA
+#undef INFERNAL_RES_1
+#undef INFERNAL_RES_2
+#undef INFERNAL_RES_3
+#undef INFERNAL_RES_4
+#undef INFERNAL_RES_5
+#undef INFERNAL_RES_6
+#undef INFERNAL_RES_7
+#undef INFERNAL_RES_8
+#undef FAE_LAT_1
+#undef FAE_ENG_1
+#undef FAE_LAT_2
+#undef FAE_ENG_2
+#undef FAE_LAT_3
+#undef FAE_ENG_3
+#undef FAE_LAT_4
+#undef FAE_ENG_4
+#undef FAE_CLIMAX
+#undef FAE_CTA
+#undef FAE_RES_1
+#undef FAE_RES_2
+#undef FAE_RES_3
+#undef FAE_RES_4
+#undef FAE_RES_5
+#undef FAE_RES_6
+#undef FAE_RES_7
+#undef FAE_RES_8
+#undef EARTHEN_LAT_1
+#undef EARTHEN_ENG_1
+#undef EARTHEN_LAT_2
+#undef EARTHEN_ENG_2
+#undef EARTHEN_LAT_3
+#undef EARTHEN_ENG_3
+#undef EARTHEN_LAT_4
+#undef EARTHEN_ENG_4
+#undef EARTHEN_CLIMAX
+#undef EARTHEN_CTA
+#undef EARTHEN_RES_1
+#undef EARTHEN_RES_2
+#undef EARTHEN_RES_3
+#undef EARTHEN_RES_4
+#undef EARTHEN_RES_5
+#undef EARTHEN_RES_6
+#undef EARTHEN_RES_7
+#undef EARTHEN_RES_8
+#undef LEYLINE_LAT_1
+#undef LEYLINE_ENG_1
+#undef LEYLINE_LAT_2
+#undef LEYLINE_ENG_2
+#undef LEYLINE_CLIMAX
+#undef LEYLINE_CTA
+#undef VOID_LAT_1
+#undef VOID_ENG_1_T2
+#undef VOID_ENG_1_T5
+#undef VOID_LAT_2
+#undef VOID_ENG_2
+#undef VOID_LAT_3
+#undef VOID_ENG_3
+#undef VOID_LAT_4
+#undef VOID_ENG_4
+#undef VOID_CLIMAX
+#undef VOID_CTA_T2
+#undef VOID_CTA_T5
+#undef VOID_RES_1
+#undef VOID_RES_2
+#undef VOID_RES_3
+#undef VOID_RES_4
+#undef VOID_RES_5
+#undef VOID_RES_6
+#undef VOID_RES_7
+#undef VOID_RES_8
