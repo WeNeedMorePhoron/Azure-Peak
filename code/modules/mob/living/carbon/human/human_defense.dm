@@ -24,41 +24,39 @@
 	var/protection = 0
 	var/intdamage = damage
 	var/consume_debuff = TRUE
-	if(d_type != "blunt")
+	if(d_type != "blunt" && d_type != "fire" && d_type != "acid")
+		// Penetration types: slash, stab, piercing
 		used = get_best_worn_armor(def_zone, d_type)
 		if(used)
 			protection = used.armor.getRating(d_type)
 			if(!blade_dulling)
 				blade_dulling = BCLASS_BLUNT
-			if(blade_dulling == BCLASS_PEEL)	//Peel shouldn't be dealing any damage through armor, or to armor itself.
+			if(blade_dulling == BCLASS_PEEL)
 				used.peel_coverage(def_zone, peeldivisor, src)
 				damage = 0
 				if(def_zone == BODY_ZONE_CHEST)
 					purge_peel(99)
 			if(used.blocksound)
 				playsound(loc, get_armor_sound(used.blocksound, blade_dulling), 100)
-        
-			// Penetrative damage deals significantly less to the armor. Tentative.
-			if((damage + armor_penetration) > protection)
+
+			// Tier-based penetration: weapon pen tier > armor DBLOCK tier = penetrative hit
+			if(armor_penetration > protection)
 				consume_debuff = FALSE
-				intdamage = (damage + armor_penetration) - protection
-        
+				intdamage = damage * PEN_PASSTHROUGH_MULT
+
 			if(intdamfactor != 1)
 				intdamage *= intdamfactor
-        
+
 			if(istype(used_weapon) && used_weapon.is_silver && ((used.smeltresult in list(/obj/item/ingot/aaslag, /obj/item/ingot/aalloy, /obj/item/ingot/purifiedaalloy)) || used.GetComponent(/datum/component/cursed_item)))
-				// Blessed silver delivers more int damage against "cursed" alloys, see component for multiplier values
 				var/datum/component/silverbless/bless = used_weapon.GetComponent(/datum/component/silverbless)
 				if(bless.is_blessed)
-					// Apply multiplier if the blessing is active.
 					intdamage = round(intdamage * bless.cursed_item_intdamage)
-				
+
 			var/tempo_bonus = get_tempo_bonus(TEMPO_TAG_ARMOR_INTEGFACTOR)
 			if(tempo_bonus)
 				intdamage *= tempo_bonus
 
-
-			if(consume_debuff)	//If this is FALSE, then this is a penetrative hit -- we consume these in bodypart_attacked_by.
+			if(consume_debuff)
 				if(has_status_effect(/datum/status_effect/debuff/exposed))
 					intdamage *= EXPOSED_INTEG_MOD
 					playsound(src, 'sound/combat/exposed_pop.ogg', 100, TRUE)
@@ -74,21 +72,23 @@
 
 			used.take_damage(intdamage, damage_flag = d_type, sound_effect = FALSE, armor_penetration = 100)
 	else
+		// DR types: blunt, fire, acid
 		var/list/layers = get_best_worn_armor_layered(def_zone, d_type)
 		if(length(layers))
 			for(var/C in layers)
 				if(layers[C] > protection)
 					protection = layers[C]
-			if(mind)
-				if(protection > 0)
-					intdamage -= intdamage * ((protection / 1.66) / 100)	//Reduces it up to 60% (100 dmg -> 40 dmg at Blunt S armor (100))
+			// DR tier formula: damage * 1 / (1 + 0.2 * tier)
+			if(protection > 0)
+				var/dr_mult = 1 / (1 + 0.2 * protection)
+				intdamage *= dr_mult
 			if(intdamfactor != 1)
 				intdamage *= intdamfactor
-        
+
 			var/tempo_bonus = get_tempo_bonus(TEMPO_TAG_ARMOR_INTEGFACTOR)
 			if(tempo_bonus)
 				intdamage *= tempo_bonus
-        
+
 			var/full_dmg
 			if(has_status_effect(/datum/status_effect/debuff/exposed))
 				full_dmg = TRUE
@@ -114,11 +114,10 @@
 					played_sound = TRUE
 				layers_deep++
 			layers.Cut()
-		
 
 	if(physiology)
 		protection += physiology.armor.getRating(d_type)
-	
+
 	return protection
 
 /mob/living/carbon/human/proc/checkcritarmor(def_zone, bclass)

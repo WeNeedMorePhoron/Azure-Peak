@@ -63,10 +63,39 @@
 - Fortify multiplies buffer accumulation
 - Defensive spells: Barkskin (+DR, +fire vuln), Ironskin (+DR, +weight), Stoneskin
 
+## Intent-Level Refactor:
+- Weapon defines only: base force, sharpness, length, balance
+- All combat modifiers move to intent level:
+  - `force_factor` (existing `damfactor`)
+  - `drfactor` (renamed from `penfactor` — legacy name breaks compile intentionally)
+  - `recovery_time` (new — ticks of parry/dodge penalty after attacking)
+  - `demolition_mod` (moved up from weapon)
+  - `bclass` (blade class)
+  - `swingdelay` (existing)
+- `drfactor` = reduces effective DR faced: `damage = damage * 100 / (100 + max(DR - drfactor, 0))`
+  - Pick: high drfactor (~80), negates nearly all DR
+  - Spear stab vs mail: moderate drfactor, negates most of mail's stab DR
+- Recovery time: applies 20% parry/dodge penalty for N ticks after attack, with visible indicator
+  - Light attacks: short/no recovery
+  - Heavy attacks: long recovery
+  - Creates counterattack windows, punishes whiffed power attacks
+
+## Migration Safety:
+- Rename `penfactor` → `drfactor` — every unconverted weapon/intent fails to compile
+- Rename armor field on clothing — every unconverted armor piece fails to compile
+- Fix one by one during content pass; clean compile = complete migration
+
 ## Sound Design:
 - Always play impact sounds regardless of DR absorption
-- Cloth/leather tear for light hits, metal clang for heavy
-- Distinct "penetrated" sound when damage gets through
+- Sound driven by `penetration_ratio = effective_damage / original_damage`
+  - Low penetration (< 30%): quiet armor clank/thud
+  - Medium penetration (30-60%): louder impact, some flesh
+  - High penetration (60%+): full volume meaty hit
+- HP threshold layered on top:
+  - Above 50% HP: standard impact sounds
+  - Below 50% HP (bleed territory): wetter, bloodier impacts
+  - Below 25% HP (crit territory): visceral crit-tier sounds
+- Audio language: clanky = not working, meaty = working, wet = they're hurting
 
 ## Bleed Rate Scaling:
 - Bleed rate scales inversely with remaining blood: `amt *= max(blood_volume / BLOOD_VOLUME_NORMAL, 0.25)`
@@ -74,6 +103,23 @@
 - Bad wounds still kill if untreated, just slower as blood drains
 - Gives physicians a wider window as patient condition worsens
 - Modify in `bleed()` proc in `code/modules/mob/living/blood.dm`
+
+## Stat Scaling:
+- CON (bleed rate + HP):
+  - 1–9: 7.5% penalty per point below 10 (full penalty, no softcap downward)
+  - 10–15: 7.5% bonus per point above 10
+  - Above 15: 5% per point (diminishing returns)
+  - Example: 1 CON = -67.5%, 15 CON = +37.5%, 20 CON = +62.5%
+- PER (ranged scaling): same structure
+- Tone down TRAIT_CRITICAL_RESISTANCE (currently 0.5x bleed)
+- Consider removing TRAIT_BLOOD_RESISTANCE entirely or reducing to 25%
+- Reduce effect of CON potions and CON buffs
+
+## Bait Rework:
+- No longer nukes armor integrity (doesn't exist)
+- Instead applies a longer-lasting debuff that caps opponent's parry/dodge chance (~50-60% of normal)
+- Gives attacker a wider window to press attacks
+- Complements recovery time system — two sources of "opponent is vulnerable" windows
 
 ## Blunt Weapons:
 - No code changes needed

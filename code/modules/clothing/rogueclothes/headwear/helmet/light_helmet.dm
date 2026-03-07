@@ -209,7 +209,7 @@
 	detail_tag = "_detail"
 	altdetail_tag = "_detailalt"
 	dynamic_hair_suffix = ""
-	armor = ARMOR_CLOTHING_GOOD //One-to-one replication of the original Plume Hat's protections.
+	armor = ARMOR_PADDED_BAD
 	resistance_flags = FLAMMABLE
 	color = "#262927"
 	detail_color = "#FFFFFF"

@@ -1,5 +1,44 @@
 /*------------------------\
+<<<<<<< Updated upstream
 | ARMOR INTEGRITY DEFINES | // Use these when possible on armor to keep value consistent.
+=======
+| ARMOR PENETRATION DEFINES | 	
+\------------------------*/
+// Penetration tier system
+// Weapon penfactor (on intents) vs armor tier (on clothing).
+// If penfactor > pentier: 50% of damage penetrates armor.
+// If penfactor <= pentier: fully blocked (0 through).
+// Blunt uses DR tiers but the same number system and never penetrate. - Damage multiplied by 1 / (1 + 0.2 * DR tier).
+#define PEN_NONE			0	// No penetration. Training weapons, base cuts/chops.
+#define PEN_LIGHT			1	// Penetrates cloth. Quick dagger, combat knife, sword thrust.
+#define PEN_MEDIUM			2	// Penetrates leather/padded. Dagger thrust, militia spear oneh.
+#define PEN_HEAVY			3	// Penetrates medium armor (studded/mail). Spear oneh, bronze pick.
+#define PEN_SUPER			4	// Penetrates heavy plate. Spear thrust, estoc.
+#define PEN_ULTRA			5	// Penetrates blacksteel. Halfsword, icepick.
+
+// Damage Blocking tier
+#define DBLOCK_CLOTH		1	// Cloth, unarmored
+#define DBLOCK_LIGHT		2	// Leather, padded
+#define DBLOCK_MEDIUM		3	// Studded, mail, cuirass
+#define DBLOCK_HEAVY		4	// Heavy plate
+#define DBLOCK_BSTEEL		5	// Blacksteel — nothing penetrates this
+
+// Blunt damage reduction tiers
+// Note that blunt by default have 1.6x Integrity Multiplier.
+// Damage multiplier = 1 / (1 + 0.2 * tier)
+#define DR_NONE				0	// Nothing. 100% damage. EDPS: 160%
+#define DR_LIGHT			1	// Plate / Metal. 20% EHP increase. EDPS: 133%
+#define DR_MEDIUM			2	// Mail. 40% EHP increase. EDPS: 114%
+#define DR_HEAVY			3	// Bad Light ARmor. 60% EHP increase. EDPS: 100%
+#define DR_SUPER			4	// Medium Light Armor. 80% EHP increase. EDPS: 89%
+#define DR_ULTRA			5	// Best quality light armor. 100% EHP increase. EDPS: 80%
+
+// Penetration damage passthrough fraction when weapon pen > armor pen
+#define PEN_PASSTHROUGH_MULT	0.5
+
+/*------------------------\
+| ARMOR INTEGRITY DEFINES | // Use these when possible on armor to keep value consistent.	
+>>>>>>> Stashed changes
 \------------------------*/
 // Side = Non-chest armor integrity
 // For now. Steel vs Iron will be a difference of 75% integrity without rating differences.
@@ -93,10 +132,9 @@
 // Also good protection vs arrows.
 // Minimal blunt rating should be 50, because normal blunt multiplier is 1.4, thus making sure it trade poorly
 // Capped to 90 blunt rating. This means light armor will take approx. 75% damage from blunt-weapon blunt attacks.
-// So blunt weapon can still be used against light armor but just not as effective.
-#define ARMOR_CLOTHING list("blunt" = 0, "slash" = 10, "stab" = 20, "piercing" = 0, "fire" = 0, "acid" = 0)
-#define ARMOR_CLOTHING_GOOD list("blunt" = 10, "slash" = 20, "stab" = 20, "piercing" = 0, "fire" = 0, "acid" = 0)
-#define ARMOR_PADDED_BAD list("blunt" = 50, "slash" = 30, "stab" = 20, "piercing" = 40, "fire" = 0, "acid" = 0)
+// So blunt weapon can still be used against light armor but just not as effective.  
+#define ARMOR_CLOTHING list("blunt" = DR_NONE, "slash" = DBLOCK_NONE, "stab" = DBLOCK_NONE, "piercing" = DBLOCK_NONE, "fire" = DR_NONE, "acid" = DR_NONE)
+#define ARMOR_PADDED_BAD list("blunt" = DR_HEAVY, "slash" = 30, "stab" = 20, "piercing" = 40, "fire" = 0, "acid" = 0)
 #define ARMOR_PADDED list("blunt" = 70, "slash" = 40, "stab" = 30, "piercing" = 50, "fire" = 0, "acid" = 0)
 #define ARMOR_PADDED_GOOD list("blunt" = 90, "slash" = 50, "stab" = 50, "piercing" = 80, "fire" = 0, "acid" = 0)
 

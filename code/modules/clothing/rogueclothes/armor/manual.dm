@@ -115,7 +115,7 @@
 /obj/item/clothing/suit/roguetown/armor/manual/sewable/confessor
 	name = "arbalist's skin"
 	desc = "Taut lyke the bow I draw."
-	armor = ARMOR_CLOTHING_GOOD
+	armor = ARMOR_PADDED_BAD
 	max_integrity = ARMOR_INT_CHEST_CIVILIAN
 	prevent_crits = list(BCLASS_CUT, BCLASS_BLUNT)
 	repair_items = list(

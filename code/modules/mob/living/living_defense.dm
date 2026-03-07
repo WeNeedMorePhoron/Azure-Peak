@@ -1,28 +1,35 @@
 
 /mob/living/proc/run_armor_check(def_zone = null, attack_flag = "blunt", absorb_text = null, soften_text = null, armor_penetration, penetrated_text, damage, blade_dulling, peeldivisor, intdamfactor, used_weapon = null)
-	var/armor = getarmor(def_zone, attack_flag, damage, armor_penetration, blade_dulling, peeldivisor, intdamfactor, used_weapon)
+	var/armor_tier = getarmor(def_zone, attack_flag, damage, armor_penetration, blade_dulling, peeldivisor, intdamfactor, used_weapon)
 
-	//the if "armor" check is because this is used for everything on /living, including humans
-	if(armor > 0 && armor_penetration)
-		armor = max(0, armor - armor_penetration)
-		if(penetrated_text)
-			to_chat(src, span_danger("[penetrated_text]"))
-//		else
-//			to_chat(src, span_danger("My armor was penetrated!"))
-	else if(armor >= 100)
-		if(absorb_text)
-			to_chat(src, span_notice("[absorb_text]"))
-//		else
-//			to_chat(src, span_notice("My armor absorbs the blow!"))
-	else if(armor > 0)
-		if(soften_text)
-			to_chat(src, span_warning("[soften_text]"))
-//		else
-//			to_chat(src, span_warning("My armor softens the blow!"))
-	if(mob_timers[MT_INVISIBILITY] > world.time)			
+	// Tier-based armor system.
+	// armor_tier and armor_penetration are both tier values (0-5).
+	// DR types (blunt, fire, acid): damage * 1 / (1 + 0.2 * tier). Never penetrated.
+	// Penetration types (slash, stab, piercing): pen > armor = 50% through, pen <= armor = fully blocked.
+	var/blocked = 0
+	if(attack_flag == "blunt" || attack_flag == "fire" || attack_flag == "acid")
+		// DR: return the portion of damage to subtract
+		if(armor_tier > 0 && damage > 0)
+			var/dr_mult = 1 / (1 + 0.2 * armor_tier)
+			blocked = damage * (1 - dr_mult)
+	else
+		// Penetration: tier comparison
+		if(armor_tier > 0)
+			if(armor_penetration > armor_tier)
+				// Penetrated — 50% gets through
+				blocked = damage * (1 - PEN_PASSTHROUGH_MULT)
+				if(penetrated_text)
+					to_chat(src, span_danger("[penetrated_text]"))
+			else
+				// Fully blocked
+				blocked = damage * 10
+				if(absorb_text)
+					to_chat(src, span_notice("[absorb_text]"))
+
+	if(mob_timers[MT_INVISIBILITY] > world.time)
 		mob_timers[MT_INVISIBILITY] = world.time
 		update_sneak_invis(reset = TRUE)
-	return armor
+	return blocked
 
 
 /mob/living/proc/getarmor(def_zone, type, damage, armor_penetration, blade_dulling, peeldivisor, intdamfactor, used_weapon)
