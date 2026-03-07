@@ -367,9 +367,9 @@
 	if(get_leyline_charges(user) <= 0)
 		to_chat(user, span_boldwarning("You've reached into the veil too many times this week. Rest, or you will be annihilated."))
 		return FALSE
-	// if(tier > get_max_leyline_tier())
-	// 	to_chat(user, span_warning("Tis too early in the week. The power of the leylines grows and waxes. Wait until later for such powerful summoning."))
-	// 	return FALSE
+	if(tier > get_max_leyline_tier())
+		to_chat(user, span_warning("Tis too early in the week. The power of the leylines grows and waxes. Wait until later for such powerful summoning."))
+		return FALSE
 	if(leyline.max_tier && tier > leyline.max_tier)
 		to_chat(user, span_warning("This leyline is too weak for a ritual of this circle."))
 		return FALSE
