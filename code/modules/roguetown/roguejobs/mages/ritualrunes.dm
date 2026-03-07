@@ -733,12 +733,12 @@ GLOBAL_LIST(teleport_runes)
 		if(teleport_rune == src)
 			continue
 		var/obj/structure/leyline/dest_ley = teleport_rune.find_nearby_leyline()
-		if(!dest_ley || dest_ley.on_teleport_cooldown())
+		if(!dest_ley)
 			continue
 		potential_runes[avoid_assoc_duplicate_keys(teleport_rune.listkey, teleportnames)] = teleport_rune
 
 	if(!length(potential_runes))
-		to_chat(user, span_warning("There are no valid leyline destinations. All destination matrices must be near a leyline that has not been exhausted."))
+		to_chat(user, span_warning("There are no valid leyline destinations. All destination matrices must be near a leyline."))
 		log_game("Teleport rune activated by [user] at [COORD(src)] failed - no valid destinations.")
 		fail_invoke()
 		return
@@ -757,7 +757,7 @@ GLOBAL_LIST(teleport_runes)
 
 	// Re-validate after input (world state may have changed)
 	var/obj/structure/leyline/dest_leyline = dest_rune.find_nearby_leyline()
-	if(!dest_leyline || dest_leyline.on_teleport_cooldown())
+	if(!dest_leyline)
 		to_chat(user, span_warning("The destination leyline is no longer available."))
 		fail_invoke()
 		return
@@ -844,9 +844,8 @@ GLOBAL_LIST(teleport_runes)
 	for(var/datum/beam/B in active_beams)
 		B.End()
 
-	// --- Set cooldowns on both leylines ---
+	// --- Set cooldown on source leyline only (destination stays open to avoid griefing) ---
 	source_leyline.set_teleport_cooldown()
-	dest_leyline.set_teleport_cooldown()
 
 	// --- Energy drain message ---
 	for(var/mob/living/P in passengers)
