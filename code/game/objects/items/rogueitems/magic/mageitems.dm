@@ -133,19 +133,6 @@
 	. = ..()
 	filter(type="drop_shadow", x=0, y=0, size=2, offset=1, color=rgb(128, 0, 128, 1))
 
-/obj/item/rogueweapon/huntingknife/idagger/silver/attackby(obj/item/M, mob/user, params)
-	if(istype(M,/obj/item/rogueore/cinnabar))
-		var/crafttime = (6 SECONDS - ((user.get_skill_level(/datum/skill/magic/arcane))* 0.5 SECONDS))
-		if(do_after(user, crafttime, target = src))
-			playsound(loc, 'sound/magic/scrapeblade.ogg', 100, TRUE)
-			to_chat(user, span_notice("I press arcyne magic into the blade and it throbs in a deep purple..."))
-			var/obj/arcyne_knife = new /obj/item/rogueweapon/huntingknife/idagger/silver/arcyne
-			qdel(M)
-			qdel(src)
-			user.put_in_active_hand(arcyne_knife)
-	else
-		return ..()
-
 /obj/item/rogueweapon/huntingknife/idagger/silver/arcyne/attack_self(mob/living/carbon/human/user)
 	if(!isarcyne(user) || HAS_TRAIT(user, TRAIT_ARCYNE_T1))
 		return

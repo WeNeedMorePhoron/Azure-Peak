@@ -300,10 +300,15 @@
 	result = list(/obj/item/rogueweapon/woodstaff, /obj/item/roguegem/diamond)
 	reqs = list(/obj/item/rogueweapon/woodstaff/diamond = 1)
 
-// Menucrafting alternative to the slapcrafting method, because we're not moving toward slapcrafting here except for food
+/datum/crafting_recipe/roguetown/arcana/arcyne_dagger
+	name = "arcyne silver dagger"
+	result = /obj/item/rogueweapon/huntingknife/idagger/silver/arcyne
+	reqs = list(/obj/item/rogueweapon/huntingknife/idagger/silver = 1,
+				/obj/item/rogueore/cinnabar = 1)
+
 /datum/crafting_recipe/roguetown/arcana/pre_arcyne_spellbook
 	name = "tome in waiting"
 	result = /obj/item/spellbook_unfinished/pre_arcyne
 	reqs = list(/obj/item/natural/hide = 1,
-	/obj/item/paper/scroll = 6)
-	// No difficulty increase anyone with +1 Int and Novice can craft it
+				/obj/item/paper/scroll = 6)
+
