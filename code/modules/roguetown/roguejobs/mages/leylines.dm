@@ -51,6 +51,8 @@ GLOBAL_LIST_EMPTY(leyline_activations)
 	icon_state = "inactiveleyline"
 	anchored = TRUE
 	density = FALSE
+	resistance_flags = INDESTRUCTIBLE
+	max_integrity = -1
 	var/active = FALSE
 	var/mob/living/guardian = null
 	var/time_between_uses = 12000
