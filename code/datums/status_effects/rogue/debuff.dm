@@ -451,6 +451,7 @@
 /datum/status_effect/debuff/cold/greater
 	id = "Frozen"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/cold/greater
+	effectedstats = list(STATKEY_SPD = -3)
 	duration = 20 SECONDS
 	cold_color = "#64A0FF"
 
