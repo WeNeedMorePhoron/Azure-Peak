@@ -23,6 +23,7 @@
 	aggro_vision_range = 9
 
 	butcher_results = list()
+	death_loot = list(/obj/item/magic/leyline = 1)
 
 	health = 240
 	maxHealth = 240
@@ -91,9 +92,8 @@
 
 /mob/living/simple_animal/hostile/retaliate/rogue/leylinelycan/death(gibbed)
 	..()
-	source.guardian = null
-	var/turf/deathspot = get_turf(src)
-	new /obj/item/magic/leyline(deathspot)
+	if(source)
+		source.guardian = null
 	spill_embedded_objects()
 	update_icon()
 	qdel(src)

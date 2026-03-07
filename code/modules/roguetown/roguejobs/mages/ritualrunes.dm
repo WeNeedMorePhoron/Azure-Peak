@@ -347,7 +347,7 @@ GLOBAL_LIST(teleport_runes)
 
 
 /obj/effect/decal/cleanable/roguerune/arcyne/enchantment
-	name = "Imbuement Array"
+	name = "imbuement array"
 	desc = "arcane symbols pulse upon the ground..."
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "imbuement"
@@ -382,7 +382,7 @@ GLOBAL_LIST(teleport_runes)
 	do_invoke_glow()
 
 /obj/effect/decal/cleanable/roguerune/arcyne/enchantment/greater	//used for better quality of learning, grants temporary 2 minute INT bonus.
-	name = "Greater Imbuement Array"
+	name = "greater imbuement array"
 	desc = "arcane symbols pulse upon the ground..."
 	icon = 'icons/effects/160x160.dmi'
 	icon_state = "imbuement"
@@ -399,7 +399,7 @@ GLOBAL_LIST(teleport_runes)
 
 // Binding Array — consumes realm materials to bind a single creature to your service.
 /obj/effect/decal/cleanable/roguerune/arcyne/binding
-	name = "Binding Array"
+	name = "binding array"
 	desc = "arcane symbols twist inward upon themselves, forming a cage of power..."
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "empowerment"
@@ -482,7 +482,7 @@ GLOBAL_LIST(teleport_runes)
 	do_invoke_glow()
 
 /obj/effect/decal/cleanable/roguerune/arcyne/binding/greater
-	name = "Greater Binding Array"
+	name = "greater binding array"
 	desc = "arcane symbols twist inward upon themselves, forming a powerful cage of energy..."
 	icon = 'icons/effects/160x160.dmi'
 	icon_state = "portal"
@@ -667,7 +667,7 @@ GLOBAL_LIST(teleport_runes)
 	do_invoke_glow()
 
 /obj/effect/decal/cleanable/roguerune/arcyne/teleport
-	name = "Leyline Teleportation Matrix"
+	name = "leyline teleportation matrix"
 	desc = "A matrix that allows teleportation between leylines, ducking into the leyline and then rematerializing in another spot. Despite magos trying their best, no one has been able to conceive a way to teleport more than a mile at once in all of Psydonia. Repeated usages or chaining teleport out of a two mile radius appears to exhaust or degrade the body rapidly." 
 	icon = 'icons/effects/160x160.dmi'
 	icon_state = "portal"
@@ -822,11 +822,10 @@ GLOBAL_LIST(teleport_runes)
 			if(isarcyne(P))
 				P.say(chant_lines[phase], language = /datum/language/common, ignore_spam = TRUE, forced = "leyline invocation")
 
-		// Create beams from each passenger to the rune center
+		// Beams: visually rune → passenger (origin.Beam draws FROM origin)
 		var/turf/rune_turf = get_turf(src)
 		for(var/mob/living/P in passengers)
-			var/datum/beam/B = P.Beam(rune_turf, icon_state = "b_beam", time = 5 SECONDS, maxdistance = 10)
-			active_beams += B
+			active_beams += rune_turf.Beam(P, icon_state = "b_beam", time = 5 SECONDS, maxdistance = 10)
 
 		// Drain energy from all passengers
 		for(var/mob/living/P in passengers)

@@ -453,7 +453,7 @@
 	var/list/active_beams = list()
 	for(var/phase in 1 to 4)
 		user.say(binding_chants[phase], language = /datum/language/common, ignore_spam = TRUE, forced = "binding invocation")
-		active_beams += user.Beam(target, icon_state = "b_beam", time = 2 SECONDS, maxdistance = 10)
+		active_beams += target.Beam(user, icon_state = "b_beam", time = 2 SECONDS, maxdistance = 10)
 		user.energy_add(-10)
 		if(!do_after(user, 2 SECONDS, target = target))
 			to_chat(user, span_warning("The binding is interrupted!"))

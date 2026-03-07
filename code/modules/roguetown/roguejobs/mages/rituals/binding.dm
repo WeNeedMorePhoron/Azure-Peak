@@ -29,6 +29,9 @@
 /datum/runeritual/binding/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	if(!mob_to_bind)
 		return FALSE
+	if(!locate(/obj/effect/decal/cleanable/roguerune/arcyne/binding) in loc)
+		to_chat(user, span_warning("The binding array has been destroyed! The ritual fizzles."))
+		return FALSE
 	var/mob/living/bound = bind_ritual_mob(user, loc, mob_to_bind)
 	if(!bound)
 		return FALSE

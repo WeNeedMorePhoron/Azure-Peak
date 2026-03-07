@@ -9,6 +9,9 @@
 	required_atoms = list(/obj/item/magic/elemental/mote = 1)
 
 /datum/runeritual/other/wall/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	if(!locate(/obj/effect/decal/cleanable/roguerune/arcyne/wall) in loc)
+		to_chat(user, span_warning("The wall matrix has been destroyed! The ritual fizzles."))
+		return FALSE
 	return 1
 
 /datum/runeritual/other/wall/t2
@@ -17,6 +20,9 @@
 	required_atoms = list(/obj/item/magic/elemental/shard = 1)
 
 /datum/runeritual/other/wall/t2/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	if(!locate(/obj/effect/decal/cleanable/roguerune/arcyne/wall) in loc)
+		to_chat(user, span_warning("The wall matrix has been destroyed! The ritual fizzles."))
+		return FALSE
 	return 2
 
 /datum/runeritual/other/wall/t3

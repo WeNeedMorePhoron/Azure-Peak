@@ -351,6 +351,9 @@
 	return ..()
 
 /datum/runeritual/summoning/leyline_encounter/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
+	if(!locate(/obj/effect/decal/cleanable/roguerune/arcyne/summoning) in loc)
+		to_chat(user, span_warning("The summoning matrix has been destroyed! The ritual fizzles."))
+		return FALSE
 	var/obj/structure/leyline/leyline
 	for(var/obj/structure/leyline/L in range(5, loc))
 		leyline = L
@@ -423,11 +426,12 @@
 			var/response_line = secondary_chants[secondary_index]
 			for(var/mob/living/invoker in other_invokers)
 				invoker.say(response_line, language = /datum/language/common, ignore_spam = TRUE, forced = "cult invocation")
-		// Beam from user (and secondary invokers) to leyline
+		// Beams: visually leyline → circle and circle → caster (origin.Beam draws FROM origin)
 		var/turf/leyline_turf = get_turf(leyline)
-		active_beams += user.Beam(leyline_turf, icon_state = "b_beam", time = 2 SECONDS, maxdistance = 10)
+		active_beams += leyline_turf.Beam(loc, icon_state = "b_beam", time = 2 SECONDS, maxdistance = 10)
+		active_beams += loc.Beam(user, icon_state = "b_beam", time = 2 SECONDS, maxdistance = 10)
 		for(var/mob/living/invoker in other_invokers)
-			active_beams += invoker.Beam(leyline_turf, icon_state = "b_beam", time = 2 SECONDS, maxdistance = 10)
+			active_beams += loc.Beam(invoker, icon_state = "b_beam", time = 2 SECONDS, maxdistance = 10)
 		// Drain energy from all chanters
 		user.energy_add(-10)
 		for(var/mob/living/invoker in other_invokers)
@@ -437,6 +441,11 @@
 			for(var/datum/beam/B in active_beams)
 				B.End()
 			return FALSE
+
+	// Re-check that the summoning matrix still exists after the chant
+	if(!locate(/obj/effect/decal/cleanable/roguerune/arcyne/summoning) in loc)
+		to_chat(user, span_warning("The summoning matrix was destroyed during the ritual!"))
+		return FALSE
 
 	spend_leyline_charge(user)
 	leyline.use_charge()
