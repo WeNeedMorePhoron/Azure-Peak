@@ -11,6 +11,10 @@
  * Void-themed enchantments (Voidtouched, Chaos Storm) use voidstone
  * instead of a realm mat.
  *
+ * Rune requirements:
+ *   Imbuement Array — T1 through T3 enchantments.
+ *   Greater Imbuement Array — all enchantments (T1 through T4).
+ *
  * No melds required — enchanting is a solo activity. (In theory)
  * Melds gate binding instead.
  */

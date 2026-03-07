@@ -351,7 +351,7 @@ GLOBAL_LIST(teleport_runes)
 	desc = "arcane symbols pulse upon the ground..."
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "imbuement"
-	tier = 2
+	tier = 3
 	runesize = 1
 	pixel_x = -32 //So the big ol' 96x96 sprite shows up right
 	pixel_y = -32
@@ -361,7 +361,7 @@ GLOBAL_LIST(teleport_runes)
 
 /obj/effect/decal/cleanable/roguerune/arcyne/enchantment/New()
 	. = ..()
-	rituals += GLOB.t2enchantmentrunerituallist
+	rituals += GLOB.t3enchantmentrunerituallist
 
 /obj/effect/decal/cleanable/roguerune/arcyne/enchantment/invoke(list/invokers, datum/runeritual/runeritual)
 	if(!..())	//VERY important. Calls parent and checks if it fails. parent/invoke has all the checks for ingredients
