@@ -15,29 +15,34 @@
 
 /obj/effect/spawner/lootdrop/Initialize(mapload)
 	..()
-	if(loot && loot.len)
-		var/turf/T = loc
-		var/loot_spawned = 0
-		while((lootcount-loot_spawned) && loot.len)
-			var/lootspawn = pickweight(loot)
-			while(islist(lootspawn))
-				lootspawn = pickweight(lootspawn)
-			if(!lootdoubles)
-				loot.Remove(lootspawn)
-
-			if(lootspawn)
-				var/atom/movable/spawned_loot = new lootspawn(T)
-				if (!fan_out_items)
-					if (pixel_x != 0)
-						spawned_loot.pixel_x = pixel_x
-					if (pixel_y != 0)
-						spawned_loot.pixel_y = pixel_y
-				else
-					if (loot_spawned)
-						spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
-			loot_spawned++
-		do_spawn()
+	spawn_loot()
 	return INITIALIZE_HINT_QDEL
+
+/// Spawns items from the loot table at this spawner's location. Override-friendly for subclasses.
+/obj/effect/spawner/lootdrop/proc/spawn_loot()
+	if(!loot || !loot.len)
+		return
+	var/turf/T = loc
+	var/loot_spawned = 0
+	while((lootcount-loot_spawned) && loot.len)
+		var/lootspawn = pickweight(loot)
+		while(islist(lootspawn))
+			lootspawn = pickweight(lootspawn)
+		if(!lootdoubles)
+			loot.Remove(lootspawn)
+
+		if(lootspawn)
+			var/atom/movable/spawned_loot = new lootspawn(T)
+			if (!fan_out_items)
+				if (pixel_x != 0)
+					spawned_loot.pixel_x = pixel_x
+				if (pixel_y != 0)
+					spawned_loot.pixel_y = pixel_y
+			else
+				if (loot_spawned)
+					spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
+		loot_spawned++
+	do_spawn()
 
 /obj/effect/spawner/lootdrop/proc/do_spawn()
 	if(prob(probby))
