@@ -14,7 +14,7 @@
 
 /obj/effect/proc_holder/spell/invoked/storm_of_psydon
 	name = "Storm of Psydon"
-	desc = "Overcharge a leg of yours to leap toward a target rapidly from a distance, moving toward them rapidly. Then, channel the mana into your fists to strike them at humenly impossible speed, punching them 9 times in rapid succession before finishing with a powerful kick that sends them away. If cast too close to yourself - the lack of build up means you just strike 3 times and kick. Must select a target to focus your fury on. If you miss somehow, half the cooldown is applied as punishment. A target can guard against your fury and interrupt it, exposing yourself. \n\n\
+	desc = "Channel mana into your legs to leap toward a target from a distance, closing the gap rapidly. Then, channel the mana into your fists to strike them at humenly impossible speed, punching them 9 times in rapid succession before finishing with a powerful kick that sends them away. If cast too close to yourself - the lack of build up means you just strike 3 times and kick. Must select a target to focus your fury on. If you miss somehow, half the cooldown is applied as punishment. A target can guard against your fury and interrupt it, exposing yourself. \n\n\
 	'Temper the storm within, and unleash it only upon those who stray from His ways.'"
 	clothes_req = FALSE
 	range = 7
@@ -32,10 +32,11 @@
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 3
-	invocations = list("'Asifa!") // https://en.wiktionary.org/wiki/%D8%B9%D8%A7%D8%B5%D9%81%D8%A9 -- "Storm / Tempest" in Arabic
+	invocations = list() // Handled manually — 'Asifa! at cast start, "HA!" at kick
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_HIGH
+	var/start_invocation = "'Asifa!"
 	var/dash_range = 7
 	var/step_delay = 1
 	var/punch_damage = 20
@@ -50,6 +51,7 @@
 	if(!istype(H))
 		revert_cast()
 		return
+
 
 	// Determine preferred target from click target
 	var/mob/living/preferred_target
@@ -70,6 +72,9 @@
 		revert_cast()
 		return
 
+	// Shout invocation at the start
+	H.say(start_invocation, forced = "spell")
+	
 	var/turf/start = get_turf(H)
 	var/facing = get_dir(start, get_turf(preferred_target)) || H.dir
 	H.dir = facing
@@ -89,7 +94,9 @@
 
 	// Dash phase — step toward preferred target each tick, recalculating direction
 	var/old_pass = H.pass_flags
+	var/old_throwing = H.throwing
 	H.pass_flags |= PASSMOB
+	H.throwing = TRUE // Lets us leap over railings/fences
 
 	var/mob/living/hit_target
 	for(var/i in 1 to dash_range)
@@ -125,6 +132,7 @@
 			sleep(step_delay)
 
 	H.pass_flags = old_pass
+	H.throwing = old_throwing
 
 	// Check adjacency after dash
 	if(!hit_target && get_dist(H, preferred_target) <= 1)
@@ -215,6 +223,7 @@
 	for(var/set_i in 1 to punch_sets)
 		if(combo_broken)
 			break
+		user.emote("attack", forced = TRUE) // Grunt once per set
 		for(var/punch_i in 1 to punches_per_set)
 			if(!combo_valid(user, target))
 				combo_broken = TRUE
@@ -237,6 +246,7 @@
 	// Kick finisher — skip if parried or broken
 	if(!combo_broken && combo_valid(user, target))
 		if(!spell_guard_check(target, FALSE, deflected ? null : user))
+			user.say("HA!", forced = "spell")
 			arcyne_strike(user, target, null, kick_damage, BODY_ZONE_CHEST, BCLASS_BLUNT, spell_name = "Storm of Psydon")
 			playsound(get_turf(target), pick('sound/combat/hits/blunt/genblunt (1).ogg','sound/combat/hits/blunt/genblunt (2).ogg','sound/combat/hits/blunt/genblunt (3).ogg'), 100, TRUE)
 			var/atom/throw_target = get_edge_target_turf(user, get_dir(user, target))
@@ -254,6 +264,7 @@
 	target.Immobilize(immobilize_lame)
 
 	var/deflected = FALSE
+	user.emote("attack", forced = TRUE)
 	// Two quick punches
 	for(var/i in 1 to 2)
 		if(!combo_valid(user, target))
@@ -267,6 +278,7 @@
 	// Kick finisher
 	if(!deflected && combo_valid(user, target))
 		if(!spell_guard_check(target, FALSE, deflected ? null : user))
+			user.say("HA!", forced = "spell")
 			arcyne_strike(user, target, null, kick_damage, BODY_ZONE_CHEST, BCLASS_BLUNT, spell_name = "Storm of Psydon")
 			playsound(get_turf(target), pick('sound/combat/hits/blunt/genblunt (1).ogg','sound/combat/hits/blunt/genblunt (2).ogg','sound/combat/hits/blunt/genblunt (3).ogg'), 100, TRUE)
 			var/atom/throw_target = get_edge_target_turf(user, get_dir(user, target))
