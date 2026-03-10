@@ -1,11 +1,13 @@
 /*
- * Storm of Psydon (Ultimate)
+ * Storm of Psydon
  *
- * 75s cooldown, 2s charge up, no slowdown
- * The caster dashes toward the target with homing
+ * 50s cooldown, 2s charge up, no slowdown
+ * The caster leaps toward the target with homing
  * On reaching target: begin combo via oraora()
  * Full combo: 3 sets of 3 punches (20 blunt each via arcyne_strike) + 1 kick (50 blunt)
- * Target gets a defense window (parry/dodge) once per set, 4 chances total
+ * Guard interrupts the entire combo, while each sets can be dodged / parried individually.
+ * It is parried / dodged as a set because parrying each individually means this would be the stamina
+ * Nuke of all time. EXTREMELY cool in PVE and cool if you manage to hit them from behind. 
  * Attacker clings to target between sets, steps toward them if they dodge away
  * If target moves out of range and attacker can't follow, combo ends
  * Two shadow clones conjured slightly offset for the aesthetic
@@ -26,7 +28,8 @@
 	releasedrain = 50
 	chargedrain = 0
 	chargetime = 2 SECONDS
-	recharge_time = 5 SECONDS // TEST 75 SECONDS NORMALLY
+	recharge_time = 50 SECONDS // Since it can be parried / dodged and maybe only 1/4 to 1/2 of the damage will actually land, this might be fine to have on a 50s CD. If it ends up being too strong we can increase the cooldown later. Was thinking of 45s but decided on 50s, because I realized smart 
+	// spellfist will probably try to land this from behind to bypasses parry.
 	warnie = "spellwarning"
 	no_early_release = TRUE
 	charging_slowdown = 0 // In line with Spellblade abilities - no slowdown
