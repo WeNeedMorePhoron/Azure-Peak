@@ -9,11 +9,13 @@
  * Two shadow clones conjured slightly offset for the aesthetic (You know what this refers to)
  * Whiff with no preferred target = revert cast (no punishment)
  * Whiff with preferred target but miss = half cooldown
+ * We really don't want them to feel sucky whenever they whiff
  */
 
 /obj/effect/proc_holder/spell/invoked/storm_of_psydon
 	name = "Storm of Psydon"
-	desc = "TODO"
+	desc = "Overcharge a leg of yours to leap toward a target rapidly from a distance, moving toward them rapidly. Then, channel the mana into your fists to strike them at humenly impossible speed, punching them 9 times in rapid succession before finishing with a powerful kick that sends them away. If cast too close to yourself - the lack of build up means you just strike 3 times and kick. Must select a target to focus your fury on. If you miss somehow, half the cooldown is applied as punishment. A target can guard against your fury and interrupt it, exposing yourself. \n\n\
+	'Temper the storm within, and unleash it only upon those who stray from His ways.'"
 	clothes_req = FALSE
 	range = 7
 	action_icon = 'icons/mob/actions/spellfist.dmi'
