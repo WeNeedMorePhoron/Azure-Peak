@@ -1912,6 +1912,7 @@
 #include "code\modules\jobs\job_types\roguetown\Inquisition\orthoclasses\disciple.dm"
 #include "code\modules\jobs\job_types\roguetown\Inquisition\orthoclasses\psyalmist.dm"
 #include "code\modules\jobs\job_types\roguetown\Inquisition\orthoclasses\psydoniantemplar.dm"
+#include "code\modules\jobs\job_types\roguetown\Inquisition\orthoclasses\sojourner.dm"
 #include "code\modules\jobs\job_types\roguetown\sidefolk\mercenary\anthrax.dm"
 #include "code\modules\jobs\job_types\roguetown\sidefolk\mercenary\atgervi.dm"
 #include "code\modules\jobs\job_types\roguetown\sidefolk\mercenary\blackoak.dm"

@@ -82,7 +82,10 @@
 
 /datum/advclass/mercenary/warscholar/pontifex
 	name = "Naledi Pontifex"
-	tutorial = "You are a Naledi Pontifex, a warrior trained to use both your fists and magicks to enhance them - a school of magick known as Automagic to the Azurians - enhancement of one's self. Your fists and your will are the one thing that cannot be deprived from you, handy tools when your homeland is rife with treacherous djinns and humens alike. What you lack in the power of your fists against other fighters, you shall outsmart with your wits. What you lack in the arcyne against another magician, you shall overcome with your fists. And when wits and fists are found wanting, you know the Naledian art of blade conjuration - to make a Katar with which you shall cut demons and humens alike to ribbons."
+	tutorial = "A Naledi Pontifex, trained in the discipline of Automagic - enhancement of one's own body through Arcyne Magick. \
+		Your fists and your will are the one thing that cannot be deprived from you, handy tools when your homeland is rife with treacherous djinns and humens alike. \
+		Where your fists fall short, your wits prevail. Where your magyck falters, your fists answer. \
+		And when both are found wanting, the Naledian art of blade conjuration will lend you a Katar to cut demons and humens alike to ribbons."
 	outfit = /datum/outfit/job/roguetown/mercenary/warscholar_pontifex
 	subclass_languages = list(/datum/language/celestial, /datum/language/thievescant)
 	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_CIVILIZEDBARBARIAN, TRAIT_ARCYNE_T1, TRAIT_NALEDI)
