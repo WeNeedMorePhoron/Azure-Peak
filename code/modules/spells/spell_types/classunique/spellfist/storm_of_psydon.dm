@@ -18,7 +18,7 @@
 	'Temper the storm within, and unleash it only upon those who stray from His ways.'"
 	clothes_req = FALSE
 	range = 7
-	action_icon = 'icons/mob/actions/spellfist.dmi'
+	action_icon = 'icons/mob/actions/classuniquespells/spellfist.dmi'
 	overlay_state = "storm_of_psydon"
 	sound = list('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
 	active = FALSE

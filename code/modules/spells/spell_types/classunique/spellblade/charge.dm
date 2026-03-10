@@ -16,7 +16,7 @@ Does NOT build momentum on hit — use normal melee for that. */
 		Strikes your aimed bodypart. Can be deflected by Defend stance."
 	clothes_req = FALSE
 	range = 15
-	action_icon = 'icons/mob/actions/spellblade.dmi'
+	action_icon = 'icons/mob/actions/classuniquespells/spellblade.dmi'
 	overlay_state = "advance" // Icon by Prominence. Shared with Advance since the spells are very similar.
 	releasedrain = 15
 	chargedrain = 0

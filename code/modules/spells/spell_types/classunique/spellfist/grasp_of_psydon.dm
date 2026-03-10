@@ -14,7 +14,7 @@
 	clothes_req = FALSE
 	range = 7
 	projectile_type = /obj/projectile/magic/grasp_of_psydon
-	action_icon = 'icons/mob/actions/spellfist.dmi'
+	action_icon = 'icons/mob/actions/classuniquespells/spellfist.dmi'
 	overlay_state = "grasp_of_psydon"
 	sound = list('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
 	active = FALSE

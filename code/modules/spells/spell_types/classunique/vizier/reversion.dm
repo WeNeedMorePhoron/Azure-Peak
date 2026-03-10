@@ -1,17 +1,18 @@
 /obj/effect/proc_holder/spell/invoked/reversion
 	name = "Reversion"
-	desc = "Marks the chosen target's body and position. Within 30 seconds, cast again to revert them to their marked condition and location."
+	desc = "Marks the chosen target's body and position. Within 10 seconds, cast again to revert them to their marked condition and location."
 	releasedrain = 60
 	chargedrain = 0
-	chargetime = 0
+	chargetime = 2 SECONDS
 	recharge_time = 60 SECONDS
 	warnie = "sydwarning"
 	movement_interrupt = FALSE
 	sound = 'sound/magic/timeforward.ogg'
 	associated_skill = /datum/skill/magic/arcane
-	overlay_state = "sands_of_time"
+	action_icon = 'icons/mob/actions/classuniquespells/vizier.dmi'
+	overlay_state = "reversion"
 	invocation_type = "none"
-	var/mob/living/carbon/stasis_target
+	var/mob/living/carbon/reversion_target
 	var/brute = 0
 	var/burn = 0
 	var/oxy = 0
@@ -21,7 +22,8 @@
 	var/divinefirestacks = 0
 	var/sunderfirestacks = 0
 	var/blood = 0
-	var/stasis_active = FALSE
+	var/reversion_active = FALSE
+	var/mark_time = 0
 	miracle = FALSE
 	ignore_los = FALSE
 	cost = 3
@@ -35,18 +37,21 @@
 
 	var/mob/living/carbon/target = targets[1]
 
-	if(stasis_active)
-		if(stasis_target == target)
-			revert_stasis()
+	if(reversion_active)
+		if(world.time < mark_time + 10) // 1 second grace period to prevent same-action double-fire
+			revert_cast()
+			return FALSE
+		if(reversion_target == target)
+			revert_reversion()
 			return TRUE
 		else
 			to_chat(user, span_warning("I already have someone marked for reversion!"))
 			revert_cast()
 			return FALSE
 
-	stasis_target = target
-	stasis_active = TRUE
-	target.apply_status_effect(/datum/status_effect/buff/stasis)
+	reversion_target = target
+	reversion_active = TRUE
+	target.apply_status_effect(/datum/status_effect/buff/reversion)
 	brute = target.getBruteLoss()
 	burn = target.getFireLoss()
 	oxy = target.getOxyLoss()
@@ -62,17 +67,17 @@
 	to_chat(target, span_warning("I feel a part of me was left behind..."))
 	to_chat(user, span_notice("I mark [target] for reversion. Cast again on them to trigger the revert."))
 	play_indicator(target,'icons/mob/overhead_effects.dmi', "timestop", 300, OBJ_LAYER)
-	addtimer(CALLBACK(src, PROC_REF(expire_stasis)), wait = 30 SECONDS)
+	mark_time = world.time
+	addtimer(CALLBACK(src, PROC_REF(expire_reversion)), wait = 10 SECONDS)
+	revert_cast()
 
-	return TRUE
-
-/obj/effect/proc_holder/spell/invoked/reversion/proc/revert_stasis()
-	if(!stasis_active || !stasis_target)
+/obj/effect/proc_holder/spell/invoked/reversion/proc/revert_reversion()
+	if(!reversion_active || !reversion_target)
 		return
-	var/mob/living/carbon/target = stasis_target
-	stasis_active = FALSE
-	stasis_target = null
-	target.remove_status_effect(/datum/status_effect/buff/stasis)
+	var/mob/living/carbon/target = reversion_target
+	reversion_active = FALSE
+	reversion_target = null
+	target.remove_status_effect(/datum/status_effect/buff/reversion)
 	do_teleport(target, origin, no_effects=TRUE)
 	var/brutenew = target.getBruteLoss()
 	var/burnnew = target.getFireLoss()
@@ -87,12 +92,15 @@
 	target.blood_volume = blood
 	playsound(target.loc, 'sound/magic/timereverse.ogg', 100, FALSE)
 	to_chat(target, span_warning("Time reverses - my body snaps back!"))
-	charge_counter = 0
 
-/obj/effect/proc_holder/spell/invoked/reversion/proc/expire_stasis()
-	if(!stasis_active)
+/obj/effect/proc_holder/spell/invoked/reversion/proc/expire_reversion()
+	if(!reversion_active)
 		return
-	revert_stasis()
+	revert_reversion()
+	charge_counter = 0
+	start_recharge()
+	if(action)
+		action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/invoked/reversion/proc/play_indicator(mob/living/carbon/target, icon_path, overlay_name, clear_time, overlay_layer)
 	if(!ishuman(target))

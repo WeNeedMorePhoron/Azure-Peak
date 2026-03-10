@@ -12,7 +12,7 @@ At 3+ momentum: consumes 3 stacks and doubles damage. */
 		Strikes your aimed bodypart. Can be deflected by Defend stance."
 	clothes_req = FALSE
 	range = 3
-	action_icon = 'icons/mob/actions/spellblade.dmi'
+	action_icon = 'icons/mob/actions/classuniquespells/spellblade.dmi'
 	overlay_state = "azurean_phalanx" // Icon by Prominence
 	releasedrain = 20
 	chargedrain = 0

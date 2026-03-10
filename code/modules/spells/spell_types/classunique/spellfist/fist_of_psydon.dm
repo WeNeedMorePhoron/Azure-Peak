@@ -16,7 +16,7 @@
 	clothes_req = FALSE
 	range = 7 // No beyond visual range punch
 	projectile_type = /obj/projectile/magic/fist_of_psydon
-	action_icon = 'icons/mob/actions/spellfist.dmi'
+	action_icon = 'icons/mob/actions/classuniquespells/spellfist.dmi'
 	overlay_state = "fist_of_psydon"
 	sound = list('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
 	active = FALSE

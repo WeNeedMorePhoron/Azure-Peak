@@ -9,11 +9,12 @@
 	warnie = "sydwarning"
 	movement_interrupt = FALSE
 	sound = list('sound/magic/regression1.ogg','sound/magic/regression2.ogg','sound/magic/regression3.ogg','sound/magic/regression4.ogg')
+	action_icon = 'icons/mob/actions/classuniquespells/vizier.dmi'
+	overlay_state = "restoration"
 	invocation_type = "none"
 	associated_skill = /datum/skill/magic/arcane
 	antimagic_allowed = TRUE
 	recharge_time = 10 SECONDS
-	miracle = FALSE
 	ignore_los = FALSE
 	cost = 2
 	glow_color = GLOW_COLOR_ARCANE

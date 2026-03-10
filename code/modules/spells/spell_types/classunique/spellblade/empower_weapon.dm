@@ -11,7 +11,7 @@ since spellblades have no STR. */
 	desc = "Channel all accumulated momentum into your weapon, empowering your next melee strike to bypass parry and dodge. \
 		Requires 5+ momentum. Burns ALL momentum."
 	clothes_req = FALSE
-	action_icon = 'icons/mob/actions/spellblade.dmi'
+	action_icon = 'icons/mob/actions/classuniquespells/spellblade.dmi'
 	overlay_state = "empower_weapon"
 	releasedrain = 0
 	chargedrain = 0
