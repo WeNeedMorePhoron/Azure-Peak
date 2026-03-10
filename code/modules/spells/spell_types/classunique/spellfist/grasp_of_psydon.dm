@@ -9,11 +9,13 @@
 
 /obj/effect/proc_holder/spell/invoked/projectile/grasp_of_psydon
 	name = "Grasp of Psydon"
-	desc = "Send forth a flying hand made of arcyne energy, dealing a modest amount of damage and pulling the target towards you up to 7 paces. Can be used to pull enemies into melee range or to snag items from a distance."
+	desc = "Send forth a flying hand made of arcyne energy, dealing a modest amount of damage and pulling the target towards you up to 7 paces. Can be used to pull enemies into melee range or to snag items from a distance.\n\n\
+	'Push forth your hand with your conduit open, and imagine, with His will, seizing upon the very object or person you desire within your grasp, then, pull your hand backward. Close, and clench your fist, pushing forward slightly, opening your conduit again, and you shall seize your enemy from afar, and pull them toward you.'"
 	clothes_req = FALSE
 	range = 7
 	projectile_type = /obj/projectile/magic/grasp_of_psydon
-	overlay_state = ""
+	action_icon = 'icons/mob/actions/spellfist.dmi'
+	overlay_state = "grasp_of_psydon"
 	sound = list('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
 	active = FALSE
 	releasedrain = 20 // 20 as standard so there's some stam management
@@ -21,7 +23,6 @@
 	chargetime = 5
 	recharge_time = 10 SECONDS
 	warnie = "spellwarning"
-	overlay_state = "fetch"
 	no_early_release = TRUE
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/arcane
@@ -30,6 +31,11 @@
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_LOW
+	charging_slowdown = 0 // In line with Spellblade abilities - no slowdown
+
+/obj/effect/proc_holder/spell/invoked/projectile/grasp_of_psydon/cast(list/targets, mob/user = usr)
+	user.emote("attack", forced = TRUE)
+	return ..()
 
 /obj/projectile/magic/grasp_of_psydon
 	name = "Grasp of Psydon"
@@ -37,6 +43,7 @@
 	damage_type = BRUTE
 	armor_penetration = BLUNT_DEFAULT_PENFACTOR
 	guard_deflectable = TRUE
+	npc_simple_damage_mult = 1.5 // Makes it more effective against NPCs.
 	woundclass = BCLASS_BLUNT
 	nodamage = FALSE
 	icon = 'icons/effects/effects.dmi'
@@ -46,10 +53,6 @@
 	speed = 1.5
 	cannot_cross_z = TRUE
 	var/fetch_distance = 7
-
-/obj/projectile/magic/grasp_of_psydon/on_hit(target)
-	. = ..()
-	// TODO: Fetch (pull) target toward firer up to 7 tiles
 
 /obj/projectile/magic/grasp_of_psydon/on_hit(target)
 	. = ..()

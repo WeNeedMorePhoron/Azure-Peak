@@ -11,11 +11,13 @@
 	name = "Fist of Psydon"
 	desc = "Channel mana and then punches at the air, forming a flying fist out of magickal energy. The fist flies out and strikes the target, knocking them back slightly by 3 paces if they're close and 2 paces if they're far. \n\
 	Damage increased by 50% versus simple-minded creechurs.\n\
-	Toggle arc mode (Ctrl+G) while the spell is active to fire it over intervening mobs. Arced attacks deal 25% less damage."
+	Toggle arc mode (Ctrl+G) while the spell is active to fire it over intervening mobs. Arced attacks deal 25% less damage.\n\n\
+	'Step forward, rotating your fist into the punch. And, as you strike, envision yourself repeatijng the same strike in your mynd, and open the arcyne conduit of your arms, but closes that of your legs, and that all of your body's weight is behind the strike. Then, at the very last moment, close the conduit of your arms as well, and thus arrest the strike before it come out, and you shall strike through the air at an opponent as if you were punching them from several paces away."
 	clothes_req = FALSE
 	range = 7 // No beyond visual range punch
 	projectile_type = /obj/projectile/magic/fist_of_psydon
-	overlay_state = ""
+	action_icon = 'icons/mob/actions/spellfist.dmi'
+	overlay_state = "fist_of_psydon"
 	sound = list('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
 	active = FALSE
 	releasedrain = 20 // Kinda like 4x melee attacks
@@ -23,7 +25,6 @@
 	chargetime = 5 // 5 deciseconds so it has a telegraph.
 	recharge_time = 10 SECONDS
 	warnie = "spellwarning"
-	overlay_state = "fetch"
 	no_early_release = TRUE
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/arcane
@@ -32,6 +33,11 @@
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_LOW
+	charging_slowdown = 0 // In line with Spellblade abilities - no slowdown
+
+/obj/effect/proc_holder/spell/invoked/projectile/fist_of_psydon/cast(list/targets, mob/user = usr)
+	user.emote("attack", forced = TRUE)
+	return ..()
 
 /obj/projectile/magic/fist_of_psydon
 	name = "Fist of Psydon"
