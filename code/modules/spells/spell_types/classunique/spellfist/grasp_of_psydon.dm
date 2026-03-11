@@ -31,7 +31,7 @@
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_LOW
-	charging_slowdown = 0 // In line with Spellblade abilities - no slowdown
+	charging_slowdown = 3 // Slows you down while charging, matching normal attacks
 
 /obj/effect/proc_holder/spell/invoked/projectile/grasp_of_psydon/cast(list/targets, mob/user = usr)
 	user.emote("attack", forced = TRUE)
