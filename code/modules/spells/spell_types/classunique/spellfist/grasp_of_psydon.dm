@@ -41,6 +41,7 @@
 	name = "Grasp of Psydon"
 	damage = 20
 	damage_type = BRUTE
+	flag = "blunt"
 	armor_penetration = BLUNT_DEFAULT_PENFACTOR
 	guard_deflectable = TRUE
 	npc_simple_damage_mult = 1.5 // Makes it more effective against NPCs.

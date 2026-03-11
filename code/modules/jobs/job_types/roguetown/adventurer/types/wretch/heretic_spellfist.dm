@@ -64,7 +64,7 @@
 			H.put_in_hands(new /obj/item/clothing/gloves/roguetown/knuckles(H))
 
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/fist_of_psydon)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/fist_of_psydon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/grasp_of_psydon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/storm_of_psydon)

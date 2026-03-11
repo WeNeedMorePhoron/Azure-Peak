@@ -1,28 +1,25 @@
 /*
  * Fist of Psydon
  *
- * 80 damage, Blunt, No AP
- * 10s cooldown, 0.5s charge up, no slowdown
- * Push target 3 tiles if close, 2 tile if far
- * Arcable for little bit of backline support
+ * Self-buff that empowers the next melee strike (unarmed or weapon).
+ * 10s cooldown, 0.5s charge up.
+ * 50% bonus damage versus simple-minded creechurs.
+ * Does not bypass parry/dodge — the normal attack still goes through defense checks.
  */
 
-/obj/effect/proc_holder/spell/invoked/projectile/fist_of_psydon
+#define FIST_OF_PSYDON_FILTER "fist_of_psydon_glow"
+
+/obj/effect/proc_holder/spell/self/fist_of_psydon
 	name = "Fist of Psydon"
-	desc = "Channel mana and then punches at the air, forming a flying fist out of magickal energy. The fist flies out and strikes the target, knocking them back slightly by 3 paces if they're close and 2 paces if they're far. \n\
-	Damage increased by 50% versus simple-minded creechurs.\n\
-	Toggle arc mode (Ctrl+G) while the spell is active to fire it over intervening mobs. Arced attacks deal 25% less damage.\n\n\
-	'Step forward, rotating your fist into the punch. And, as you strike, envision yourself repeatijng the same strike in your mynd, and open the arcyne conduit of your arms, but closes that of your legs, and that all of your body's weight is behind the strike. Then, at the very last moment, close the conduit of your arms as well, and thus arrest the strike before it come out, and you shall strike through the air at an opponent as if you were punching them from several paces away."
+	desc = "Channel mana into your fists, empowering your next melee strike with a devastating arcyne-enhanced punch that deals heavy bonus blunt damage on top of the normal hit. Only work with unarmed attack. (+50 damage) \n\
+	Damage increased by 50% versus simple-minded creechurs.\n\n\
+	'Step forward, rotating your fist into the punch. And, as you strike, envision yourself repeating the same strike in your mynd, and open the arcyne conduit of your arms, but close that of your legs, so that all of your body's weight is behind the strike. Then, at the very last moment, close the conduit of your arms as well, and thus arrest the strike before it come out, and you shall strike as if the fist of Psydon Himself were behind the blow.'"
 	clothes_req = FALSE
-	range = 7 // No beyond visual range punch
-	projectile_type = /obj/projectile/magic/fist_of_psydon
 	action_icon = 'icons/mob/actions/classuniquespells/spellfist.dmi'
 	overlay_state = "fist_of_psydon"
 	sound = list('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
-	active = FALSE
-	releasedrain = 20 // Kinda like 4x melee attacks
+	releasedrain = 25
 	chargedrain = 0
-	chargetime = 5 // 5 deciseconds so it has a telegraph.
 	recharge_time = 10 SECONDS
 	warnie = "spellwarning"
 	no_early_release = TRUE
@@ -33,49 +30,70 @@
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_LOW
-	charging_slowdown = 3 // Slows you down while charging, matching normal attacks
+	charging_slowdown = 3
 
-/obj/effect/proc_holder/spell/invoked/projectile/fist_of_psydon/cast(list/targets, mob/user = usr)
-	user.emote("attack", forced = TRUE)
-	return ..()
+/obj/effect/proc_holder/spell/self/fist_of_psydon/cast(mob/living/carbon/human/user)
+	if(!istype(user))
+		revert_cast()
+		return
 
-/obj/projectile/magic/fist_of_psydon
+	if(user.has_status_effect(/datum/status_effect/buff/fist_of_psydon))
+		to_chat(user, span_warning("My fists are already empowered!"))
+		revert_cast()
+		return
+
+	user.apply_status_effect(/datum/status_effect/buff/fist_of_psydon)
+	user.emote("attackgrunt", forced = TRUE)
+	user.visible_message(
+		span_danger("[user]'s fists crackle with arcyne energy!"),
+		span_danger("I channel Psydon's fury into my fists. The next strike shall carry His will."))
+	return TRUE
+
+/atom/movable/screen/alert/status_effect/buff/fist_of_psydon
 	name = "Fist of Psydon"
-	damage = 80
-	damage_type = BRUTE
-	armor_penetration = BLUNT_DEFAULT_PENFACTOR
-	guard_deflectable = TRUE
-	npc_simple_damage_mult = 1.5 // Makes it more effective against NPCs.
-	woundclass = BCLASS_BLUNT
-	nodamage = FALSE
-	icon_state = "fist_of_psydon"
-	hitsound = list('sound/combat/hits/blunt/genblunt (1).ogg','sound/combat/hits/blunt/genblunt (2).ogg','sound/combat/hits/blunt/genblunt (3).ogg')
-	range = 7
-	speed = 1.5 // Slightly slower since it can pushes you off ledge
-	cannot_cross_z = TRUE
+	desc = "My next melee strike is empowered with arcyne force."
+	icon_state = "buff"
 
-/obj/projectile/magic/fist_of_psydon/arc
-	name = "Arced Fist of Psydon"
-	damage = 60 // 25% damage penalty for arc shots since you can hit from behind cover
-	arcshot = TRUE
+/datum/status_effect/buff/fist_of_psydon
+	id = "fist_of_psydon"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/fist_of_psydon
+	duration = 10 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	var/bonus_damage = 60
+	var/npc_simple_damage_mult = 1.5
 
-/obj/projectile/magic/fist_of_psydon/on_hit(target)
+/datum/status_effect/buff/fist_of_psydon/on_apply()
 	. = ..()
-	var/travelled_dist = max(decayedRange - range, 0)
-	var/throw_dist = travelled_dist >= 2 ? 2 : 3 // If the target is within the punch's range, knock them back 3 tiles, otherwise just 2 tiles since it's more of a tap than a full on punch. Also makes it less abusable for sniping from long range.
-	var/atom/throw_target = get_edge_target_turf(firer, get_dir(firer, target))
+	RegisterSignal(owner, COMSIG_MOB_ATTACK_HAND, PROC_REF(on_unarmed_attack))
+	owner.add_filter(FIST_OF_PSYDON_FILTER, 2, list("type" = "outline", "color" = COLOR_PURPLE, "alpha" = 200, "size" = 2))
+
+/datum/status_effect/buff/fist_of_psydon/on_remove()
+	UnregisterSignal(owner, COMSIG_MOB_ATTACK_HAND)
+	owner.remove_filter(FIST_OF_PSYDON_FILTER)
+	. = ..()
+
+/datum/status_effect/buff/fist_of_psydon/proc/on_unarmed_attack(datum/source, mob/living/carbon/human/attacker, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	SIGNAL_HANDLER
+	if(!istype(target) || target == owner || target.stat == DEAD)
+		return
+	// Only fire on harm-type unarmed intents (punches, kicks, etc.), not help/grab/disarm
+	if(!istype(attacker.used_intent, /datum/intent/unarmed))
+		return
+	if(attacker.used_intent.type == INTENT_HELP || attacker.used_intent.type == INTENT_GRAB || attacker.used_intent.type == INTENT_DISARM)
+		return
+	INVOKE_ASYNC(src, PROC_REF(deliver_empowered_strike), attacker, target)
+
+/datum/status_effect/buff/fist_of_psydon/proc/deliver_empowered_strike(mob/living/carbon/human/user, mob/living/target)
+
+	arcyne_strike(user, target, null, bonus_damage, user.zone_selected || BODY_ZONE_CHEST, BCLASS_BLUNT, \
+		spell_name = "Fist of Psydon", skip_animation = TRUE, allow_shield_check = TRUE, \
+		npc_simple_damage_mult = npc_simple_damage_mult)
+	playsound(get_turf(target), pick('sound/combat/hits/punch/punch_hard (1).ogg','sound/combat/hits/punch/punch_hard (2).ogg','sound/combat/hits/punch/punch_hard (3).ogg'), 100, TRUE)
+	playsound(get_turf(target), 'sound/magic/antimagic.ogg', 60, TRUE)
+	// 1-tile knockback for the "heavy punch" feel without enabling kiting
 	if(isliving(target))
-		var/mob/living/L = target
-		if(L.anti_magic_check() || !firer)
-			L.visible_message(span_warning("[src] vanishes on contact with [target]!"))
-			return BULLET_ACT_BLOCK
-		L.throw_at(throw_target, throw_dist, 4)
-	else
-		if(isitem(target))
-			var/obj/item/I = target
-			var/mob/living/carbon/human/carbon_firer
-			if (ishuman(firer))
-				carbon_firer = firer
-				if (carbon_firer?.can_catch_item())
-					throw_target = get_edge_target_turf(firer, get_dir(firer, target))
-			I.throw_at(throw_target, throw_dist * 2, 4) // Items can be thrown rather far away
+		var/atom/throw_target = get_edge_target_turf(user, get_dir(user, target))
+		target.throw_at(throw_target, 1, 4)
+	owner.remove_status_effect(/datum/status_effect/buff/fist_of_psydon)
+
+#undef FIST_OF_PSYDON_FILTER
