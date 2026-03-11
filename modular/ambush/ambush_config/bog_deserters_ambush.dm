@@ -3,7 +3,7 @@
 		/mob/living/carbon/human/species/human/northern/bog_deserters/ambush = 2,
 		/mob/living/carbon/human/species/human/northern/bog_deserters/better_gear/ambush = 1
 	)
-	threat_point = 2 * THREAT_HIGH + THREAT_TOUGH
+	threat_point = 3 * THREAT_DANGEROUS
 	faction_tag = "bandits"
 
 /datum/ambush_config/bog_guard_deserters/hard
@@ -11,5 +11,5 @@
 		/mob/living/carbon/human/species/human/northern/bog_deserters/better_gear/ambush = 2,
 		/mob/living/carbon/human/species/human/northern/bog_deserters/ambush = 1,
 	)
-	threat_point = THREAT_HIGH + 2 * THREAT_TOUGH
+	threat_point = 3 * THREAT_DANGEROUS
 	faction_tag = "bandits"
