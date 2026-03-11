@@ -61,7 +61,7 @@
 		if("Katar")
 			H.put_in_hands(new /obj/item/rogueweapon/katar(H))
 		if("Knuckledusters")
-			H.put_in_hands(new /obj/item/rogueweapon/knuckles(H))
+			H.put_in_hands(new /obj/item/clothing/gloves/roguetown/knuckles(H))
 
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/fist_of_psydon)
