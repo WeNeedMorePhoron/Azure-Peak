@@ -881,9 +881,9 @@
 	desc = "Divine intervention bolsters me and aids my recovery."
 	icon_state = "buff"
 
-/atom/movable/screen/alert/status_effect/buff/diminish
+/atom/movable/screen/alert/status_effect/debuff/diminish
 	name = "Diminished"
-	desc = "Origin magick has diminished my instincts - my movements feel sluggish and predictable."
+	desc = "Origin magick has diminished my instincts - my movements feel sluggish and predictable, and my body feels weakened."
 	icon_state = "buff"
 
 /atom/movable/screen/alert/status_effect/buff/stasis
@@ -908,13 +908,14 @@
 	effectedstats = list(STATKEY_WIL = 1, STATKEY_CON = 1)
 
 #define DIMINISH_FILTER "diminish_glow"
-/datum/status_effect/buff/diminish
+/datum/status_effect/debuff/diminish
 	var/outline_colour = "#8b2fc9"
 	id = "diminish"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/diminish
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/diminish
 	duration = 1 MINUTES
+	effectedstats = list(STATKEY_STR = -2, STATKEY_CON = -2)
 
-/datum/status_effect/buff/diminish/on_apply()
+/datum/status_effect/debuff/diminish/on_apply()
 	. = ..()
 	if(!.)
 		return
@@ -923,7 +924,7 @@
 		owner.add_filter(DIMINISH_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 50, "size" = 1))
 	ADD_TRAIT(owner, TRAIT_REVERSE_GUIDANCE, MAGIC_TRAIT)
 
-/datum/status_effect/buff/diminish/on_remove()
+/datum/status_effect/debuff/diminish/on_remove()
 	. = ..()
 	owner.remove_filter(DIMINISH_FILTER)
 	REMOVE_TRAIT(owner, TRAIT_REVERSE_GUIDANCE, MAGIC_TRAIT)
@@ -932,7 +933,7 @@
 /datum/status_effect/buff/reversion
 	id = "stasis"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/stasis
-	duration = 30 SECONDS
+	duration = 15 SECONDS
 
 #define CRANKBOX_FILTER "crankboxbuff_glow"
 /atom/movable/screen/alert/status_effect/buff/churnerprotection

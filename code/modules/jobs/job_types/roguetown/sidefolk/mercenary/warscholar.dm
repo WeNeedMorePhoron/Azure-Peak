@@ -251,7 +251,7 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/arcynebolt)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink/shadowstep)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diminish)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/restoration)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/vizier_restoration)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/reversion)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/guidance)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mending)
