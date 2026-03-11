@@ -550,7 +550,7 @@
 	misscost = 4
 	releasedrain = 1
 	swingdelay = 0
-	clickcd = CLICK_CD_QUICK
+	clickcd = CLICK_CD_QUICK // Makes it still quick but not totally insane
 	rmb_ranged = TRUE
 	candodge = TRUE
 	canparry = TRUE
@@ -558,6 +558,7 @@
 	miss_text = "swing a fist at the air"
 	miss_sound = "punchwoosh"
 	item_d_type = "blunt"
+	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR // Consistent with blunt in general
 
 /datum/intent/unarmed/punch/rmb_ranged(atom/target, mob/user)
 	if(user.stat >= UNCONSCIOUS)
