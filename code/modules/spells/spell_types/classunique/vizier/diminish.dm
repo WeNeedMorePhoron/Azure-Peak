@@ -13,7 +13,7 @@
 	sound = list('sound/magic/diminish1.ogg','sound/magic/diminish2.ogg','sound/magic/diminish3.ogg','sound/magic/diminish4.ogg')
 	action_icon = 'icons/mob/actions/classuniquespells/vizier.dmi'
 	overlay_state = "diminish"
-	invocations = list("Da'ufa!") // https://en.wiktionary.org/wiki/%D8%B6%D8%B9%D9%81
+	invocations = list("Id'iuf!")
 	invocation_type = "shout"
 	associated_skill = /datum/skill/magic/arcane
 	antimagic_allowed = TRUE
