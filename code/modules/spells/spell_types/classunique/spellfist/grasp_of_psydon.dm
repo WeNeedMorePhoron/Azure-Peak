@@ -46,9 +46,8 @@
 	npc_simple_damage_mult = 1.5 // Makes it more effective against NPCs.
 	woundclass = BCLASS_BLUNT
 	nodamage = FALSE
-	icon = 'icons/effects/effects.dmi'
 	hitsound = 'sound/combat/grabbreak.ogg'
-	icon_state = "youricon" // TODO
+	icon_state = "grasp_of_psydon" // TODO
 	range = 7
 	speed = 1.5
 	cannot_cross_z = TRUE

@@ -48,8 +48,7 @@
 	npc_simple_damage_mult = 1.5 // Makes it more effective against NPCs.
 	woundclass = BCLASS_BLUNT
 	nodamage = FALSE
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "curseblob"
+	icon_state = "fist_of_psydon"
 	hitsound = list('sound/combat/hits/blunt/genblunt (1).ogg','sound/combat/hits/blunt/genblunt (2).ogg','sound/combat/hits/blunt/genblunt (3).ogg')
 	range = 7
 	speed = 1.5 // Slightly slower since it can pushes you off ledge
