@@ -42,7 +42,7 @@
 		return
 
 	user.apply_status_effect(/datum/status_effect/buff/fist_of_psydon)
-	user.emote("attackgrunt", forced = TRUE)
+	playsound(get_turf(user), 'sound/magic/antimagic.ogg', 60, TRUE)
 	user.visible_message(
 		span_danger("[user]'s fists crackle with arcyne energy!"),
 		span_danger("I channel Psydon's fury into my fists. The next strike shall carry His will."))
@@ -87,8 +87,8 @@
 	arcyne_strike(user, target, null, bonus_damage, user.zone_selected || BODY_ZONE_CHEST, BCLASS_BLUNT, \
 		spell_name = "Fist of Psydon", skip_animation = TRUE, allow_shield_check = TRUE, \
 		npc_simple_damage_mult = npc_simple_damage_mult)
+	user.emote("attack", forced = TRUE)
 	playsound(get_turf(target), pick('sound/combat/hits/punch/punch_hard (1).ogg','sound/combat/hits/punch/punch_hard (2).ogg','sound/combat/hits/punch/punch_hard (3).ogg'), 100, TRUE)
-	playsound(get_turf(target), 'sound/magic/antimagic.ogg', 60, TRUE)
 	// 1-tile knockback for the "heavy punch" feel without enabling kiting
 	if(isliving(target))
 		var/atom/throw_target = get_edge_target_turf(user, get_dir(user, target))
