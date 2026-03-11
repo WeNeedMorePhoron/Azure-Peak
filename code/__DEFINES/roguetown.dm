@@ -102,9 +102,9 @@ Balloon Alert / Floating Text defines
 
 #define RACES_ALL_KINDS list(RACES_DESPISED, RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED, RACES_CONSTRUCT)	//Truely no restrictions
 
-#define ACCEPTED_RACES list(RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED, RACES_CONSTRUCT)	//Allows all races except dallahun
+#define ACCEPTED_RACES list(RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED, RACES_CONSTRUCT)	//Allows all races except dullahan
 
-#define RACES_NO_CONSTRUCT list(RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED)
+#define RACES_NO_CONSTRUCT list(RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED, RACES_DESPISED) //now actually just no construct, includes dullahan
 
 #define RACES_SHUNNED_UP list(RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED)
 
@@ -387,6 +387,10 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CLASS_CAT_WARRIOR "Warrior"
 #define CLASS_CAT_TRADER "Trader"
 #define CLASS_CAT_NOMAD "Nomad"
+
+//Wretch categories
+#define CLASS_CAT_ACCURSED "Accursed"
+#define CLASS_CAT_BATTLEMAGE "Battlemage"
 
 //Mercenary categories
 #define CLASS_CAT_ETRUSCA "Etrusca"
