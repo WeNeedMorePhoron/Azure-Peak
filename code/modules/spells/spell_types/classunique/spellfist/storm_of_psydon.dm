@@ -17,7 +17,7 @@
 
 /obj/effect/proc_holder/spell/invoked/storm_of_psydon
 	name = "Storm of Psydon"
-	desc = "Channel mana into your legs to leap toward a target from a distance, closing the gap rapidly. Then, channel the mana into your fists to strike them at humenly impossible speed, punching them 9 times in rapid succession before finishing with a powerful kick that sends them away. If cast too close, the lack of build up means you just strike 3 times and kick. Must select a target. If you miss, half cooldown is applied. The target can attempt to parry or dodge between each flurry of punches. A successful dodge will break the combo as you lose your grip on them. A target can also guard against your fury and interrupt it, exposing yourself. \n\n\
+	desc = "Channel mana into your legs to leap toward a target from a distance, closing the gap rapidly. Then, channel the mana into your fists to strike them at humenly impossible speed, punching them 3x3 times in rapid succession before finishing with a powerful kick that sends them away. If cast too close, the lack of build up means you just strike 3 times and kick. Must select a target. If you miss, half cooldown is applied. The target can attempt to parry or dodge between each flurry of punches. A successful dodge will break the combo as you lose your grip on them. A target can also guard against your fury and interrupt it, exposing yourself. \n\n\
 	'Temper the storm within, and unleash it only upon those who stray from His ways.'"
 	clothes_req = FALSE
 	range = 7
@@ -276,7 +276,6 @@
 		// Defense window: target can parry or dodge. Skips this set but combo continues.
 		if(combo_defense_check(target, user))
 			continue
-		user.emote("attack", forced = TRUE) // Grunt once per set
 		// Move shadows to follow user and recalculate lunge direction
 		var/turf/new_turf = get_turf(user)
 		shadow_left.forceMove(new_turf)
@@ -302,6 +301,7 @@
 				combo_broken = TRUE
 				break
 
+			user.emote("attack", forced = TRUE)
 			arcyne_strike(user, target, null, punch_damage, def_zone, BCLASS_BLUNT, spell_name = "Storm of Psydon")
 			playsound(get_turf(target), pick('sound/combat/hits/punch/punch_hard (1).ogg','sound/combat/hits/punch/punch_hard (2).ogg','sound/combat/hits/punch/punch_hard (3).ogg'), 80, TRUE)
 			// Shadows lunge toward target and snap back
@@ -309,7 +309,7 @@
 			animate(pixel_x = -10, pixel_y = 4, time = 0.5, easing = EASE_IN)
 			animate(shadow_right, pixel_x = 10 + lunge_px, pixel_y = 4 + lunge_py, time = 0.5, easing = EASE_OUT)
 			animate(pixel_x = 10, pixel_y = 4, time = 0.5, easing = EASE_IN)
-		sleep(3) // 0.3s pause between sets for defense window
+			sleep(1) // 0.1s between punches for distinct ORAORA barrage sound
 
 	// Kick finisher, defense window before kick too
 	sleep(3) // 0.3s pause before kick winds up
@@ -332,7 +332,6 @@
 
 	var/deflected = FALSE
 	var/combo_broken = FALSE
-	user.emote("attack", forced = TRUE)
 
 	// Defense window before punches: skips punches on success but kick still attempted
 	if(!combo_defense_check(target, user))
@@ -345,8 +344,10 @@
 				deflected = TRUE
 				combo_broken = TRUE
 				break
+			user.emote("attack", forced = TRUE)
 			arcyne_strike(user, target, null, punch_damage, def_zone, BCLASS_BLUNT, spell_name = "Storm of Psydon")
 			playsound(get_turf(target), pick('sound/combat/hits/punch/punch_hard (1).ogg','sound/combat/hits/punch/punch_hard (2).ogg','sound/combat/hits/punch/punch_hard (3).ogg'), 80, TRUE)
+			sleep(1)
 
 	// Kick finisher
 	sleep(1) // brief pause before kick

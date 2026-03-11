@@ -296,3 +296,93 @@
 				backr = /obj/item/rogue/instrument/psyaltery
 			if("Flute")
 				backr = /obj/item/rogue/instrument/flute
+
+/datum/advclass/mage/spellblade
+	name = "Azurcaephan"
+	tutorial = "You are an Azurcaephan — in common parlance, a Spellblade of the Azurean tradition. A hybrid melee warrior who channels arcyne momentum through combat. Build power with your weapon, then unleash it. Choose between three traditions: Blade (mobile swordsman with dashes and AoE), Phalangite (spear and shield — hold the line with thrusts and pushback), or Macebearer (blunt weapons — ground slams, charges, and shockwaves)."
+	outfit = /datum/outfit/job/roguetown/adventurer/spellblade
+	traits_applied = list(TRAIT_ARCYNE_T2)
+	subclass_stats = list(
+		STATKEY_INT = 1,
+		STATKEY_PER = 1,
+		STATKEY_CON = 1,
+		STATKEY_WIL = 1,
+	)
+	subclass_spell_point_pools = list("utility" = 4)
+	// Just give them Jman for all three schools they can go into
+	// They are functionally crippled without abilities if they
+	// Dip outside of their subclass
+	// Non zero chance someone's gonna be bitching in Discord about this
+	subclass_skills = list(
+		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/shields = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/magic/arcane = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
+	)
+
+/datum/advclass/mage/spellfist
+	name = "Spellfist"
+	tutorial = "You are a Spellfist, an unarmed warrior who combines martial prowess with arcyne magyck. Your art descends from the Pontifexes of Naledi, warrior-monks who first learned to channel arcyne power through their fists, though the technique has since spread across the world — especially to Lingyuese Psydonites in the east. You eschew most weapons in favor of using magyck to accelerate and strengthen your own body, striking enemies with blows from afar and storms of fists up close."
+	outfit = /datum/outfit/job/roguetown/adventurer/spellfist
+	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_CIVILIZEDBARBARIAN, TRAIT_ARCYNE_T1) // No DExpert for now we'll see+
+	subclass_stats = list(
+		STATKEY_SPD = 1,
+		STATKEY_WIL = 2,
+		STATKEY_PER = 2,
+		STATKEY_CON = 1
+	)
+	subclass_spell_point_pools = list("utility" = 4)
+	subclass_spellpoints = 0
+	subclass_skills = list(
+		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
+		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/magic/arcane = SKILL_LEVEL_APPRENTICE,
+	)
+
+/datum/outfit/job/roguetown/adventurer/spellfist/pre_equip(mob/living/carbon/human/H)
+	..()
+	head = /obj/item/clothing/head/roguetown/headband/monk
+	shoes = /obj/item/clothing/shoes/roguetown/sandals
+	pants = /obj/item/clothing/under/roguetown/tights/black
+	shirt = /obj/item/clothing/suit/roguetown/shirt/tunic/black
+	armor = /obj/item/clothing/suit/roguetown/armor/gambeson
+	gloves = /obj/item/clothing/gloves/roguetown/angle
+	neck = /obj/item/clothing/neck/roguetown/leather
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/cloth/monk
+	belt = /obj/item/storage/belt/rogue/leather/rope
+	backl = /obj/item/storage/backpack/rogue/satchel
+	beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
+	beltr = /obj/item/rogueweapon/huntingknife
+	backpack_contents = list(
+		/obj/item/flashlight/flare/torch = 1,
+		/obj/item/rogueweapon/scabbard/sheath = 1
+	)
+
+	var/origin = input(H, "Did you study under the Naledi Yogis?", "ORIGIN") as anything in list("Yes", "No")
+	if(origin == "Yes")
+		head = /obj/item/clothing/head/roguetown/roguehood/shalal/hijab/black
+		armor = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/hierophant/civilian
+
+	var/weapon_choice = input(H, "Choose your sidearm.", "SIDEARM") as anything in list("Katar", "Knuckledusters")
+	switch(weapon_choice)
+		if("Katar")
+			H.put_in_hands(new /obj/item/rogueweapon/katar/bronze(H))
+		if("Knuckledusters")
+			H.put_in_hands(new /obj/item/rogueweapon/knuckles/bronzeknuckles(H))
+
+	if(H.mind)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/fist_of_psydon)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/grasp_of_psydon)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/storm_of_psydon)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+
+	H.cmode_music = 'sound/music/cmode/adventurer/combat_outlander3.ogg'
