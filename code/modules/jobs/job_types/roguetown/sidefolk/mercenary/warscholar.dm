@@ -72,11 +72,13 @@
 	beltr = /obj/item/storage/belt/rogue/pouch/coins/poor
 	shoes = /obj/item/clothing/shoes/roguetown/sandals
 	backr = /obj/item/storage/backpack/rogue/satchel/black
+	var/naledi_book = pick(/obj/item/book/rogue/naledi1, /obj/item/book/rogue/naledi2, /obj/item/book/rogue/naledi3, /obj/item/book/rogue/naledi4)
 	backpack_contents = list(
 		/obj/item/roguekey/mercenary = 1,
 		/obj/item/rogueweapon/huntingknife/idagger = 1,
 		/obj/item/spellbook_unfinished/pre_arcyne = 1,
-		/obj/item/rogueweapon/scabbard/sheath = 1
+		/obj/item/rogueweapon/scabbard/sheath = 1,
+		(naledi_book) = 1
 		)
 	H.merctype = 14
 
@@ -140,8 +142,15 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/grasp_of_psydon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink/shadowstep) 
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/storm_of_psydon)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/summonrogueweapon/bladeofpsydon) 
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)   
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/summonrogueweapon/bladeofpsydon)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+
+	var/weapon_choice = input(H, "Choose your sidearm.", "SIDEARM") as anything in list("Katar", "Knuckledusters")
+	switch(weapon_choice)
+		if("Katar")
+			H.put_in_hands(new /obj/item/rogueweapon/katar(H))
+		if("Knuckledusters")
+			H.put_in_hands(new /obj/item/rogueweapon/knuckles(H))
 
 	head = /obj/item/clothing/head/roguetown/roguehood/pontifex
 	gloves = /obj/item/clothing/gloves/roguetown/angle/pontifex
@@ -156,11 +165,13 @@
 	beltr = /obj/item/storage/belt/rogue/pouch/coins/poor
 	shoes = /obj/item/clothing/shoes/roguetown/sandals
 	backr = /obj/item/storage/backpack/rogue/satchel/black
+	var/naledi_book = pick(/obj/item/book/rogue/naledi1, /obj/item/book/rogue/naledi2, /obj/item/book/rogue/naledi3, /obj/item/book/rogue/naledi4)
 	backpack_contents = list(
 		/obj/item/roguekey/mercenary = 1,
 		/obj/item/lockpick = 1,
 		/obj/item/rogueweapon/huntingknife = 1,
-		/obj/item/rogueweapon/scabbard/sheath = 1
+		/obj/item/rogueweapon/scabbard/sheath = 1,
+		(naledi_book) = 1
 		)
 	H.merctype = 14
 

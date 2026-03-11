@@ -53,6 +53,13 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/summonrogueweapon/bladeofpsydon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 
+	var/weapon_choice = input(H, "Choose your sidearm.", "SIDEARM") as anything in list("Katar", "Knuckledusters")
+	switch(weapon_choice)
+		if("Katar")
+			H.put_in_hands(new /obj/item/rogueweapon/katar(H))
+		if("Knuckledusters")
+			H.put_in_hands(new /obj/item/rogueweapon/knuckles(H))
+
 	head = /obj/item/clothing/head/roguetown/headband/naledi
 	mask = /obj/item/clothing/mask/rogue/lordmask/naledi/sojourner
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/cloth/naledi
@@ -66,10 +73,12 @@
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/mid
 	backl = /obj/item/storage/backpack/rogue/satchel/black
 	cloak = /obj/item/clothing/cloak/tabard/psydontabard/alt
+	var/naledi_book = pick(/obj/item/book/rogue/naledi1, /obj/item/book/rogue/naledi2, /obj/item/book/rogue/naledi3, /obj/item/book/rogue/naledi4)
 	backpack_contents = list(
 		/obj/item/roguekey/inquisitionmanor = 1,
 		/obj/item/paper/inqslip/arrival/ortho = 1,
-		/obj/item/roguegem/amethyst/naledi = 1
+		/obj/item/roguegem/amethyst/naledi = 1,
+		(naledi_book) = 1
 		)
 
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
