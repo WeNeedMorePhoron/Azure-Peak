@@ -30,7 +30,6 @@
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_LOW
-	charging_slowdown = 3
 
 /obj/effect/proc_holder/spell/self/fist_of_psydon/cast(mob/living/carbon/human/user)
 	if(!istype(user))

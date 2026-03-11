@@ -561,6 +561,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			L.mob_timers[MT_FOUNDSNEAK] = world.time
 			L.update_sneak_invis(reset = TRUE)
 	if(cast(targets, user = user))
+		// Self spells bypass the ranged_ability click pipeline, which is where
+		// releasedrain stamina cost is normally applied (via mob_helpers.dm).
+		// Apply it here so ALL spell types properly drain stamina on cast.
+		if(!ranged_ability_user && releasedrain > 0 && isliving(user))
+			var/mob/living/L = user
+			var/fatigue = calculate_fatigue_drain(L)
+			if(fatigue > 0)
+				L.stamina_add(fatigue)
 		invocation(user)
 		start_recharge()
 		if(sound)
