@@ -33,6 +33,10 @@
 	salvage_result = /obj/item/natural/cloth
 	unarmed_bonus = 3 //Light armor with good durability and a flat unarmed damage bonus. Loadout-selectable.
 
+/obj/item/clothing/gloves/roguetown/bandages/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_notice("Allows unarmed parrying, similar to bracers. Takes integrity damage when parrying.")
+
 /obj/item/clothing/gloves/roguetown/bandages/weighted
 	name = "weighted bandages"
 	desc = "Thickly-woven bandages that've been wrapped around the hands, fitted with padded knuckleweights. It soaks up the sweat from your palm, strengthens your fists, and protects your knuckles from dislodged teeth."
