@@ -51,7 +51,8 @@
 		return
 
 	// Same Z-level only — no cross-z casting
-	if(T.z != get_turf(H).z)
+	var/turf/target_turf = get_turf(H)
+	if(T.z != target_turf.z)
 		to_chat(H, span_warning("The tendrils can't reach across planes!"))
 		revert_cast()
 		return
