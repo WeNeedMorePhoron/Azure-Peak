@@ -272,28 +272,35 @@
 			else
 				flash_fullscreen("blackflash2")
 
-			var/dam2take = round((get_complex_damage(AB,user,used_weapon.blade_dulling)/2),1)
-			if(dam2take)
-				var/intdam = used_weapon.max_blade_int ? INTEG_PARRY_DECAY : INTEG_PARRY_DECAY_NOSHARP
-				var/sharp_loss = SHARPNESS_ONHIT_DECAY
-				if(used_weapon == offhand)
-					intdam = INTEG_PARRY_DECAY_NOSHARP
+			if(AB)
+				var/dam2take = round((get_complex_damage(AB,user,used_weapon.blade_dulling)/2),1)
+				if(dam2take)
+					var/intdam = used_weapon.max_blade_int ? INTEG_PARRY_DECAY : INTEG_PARRY_DECAY_NOSHARP
+					var/sharp_loss = SHARPNESS_ONHIT_DECAY
+					if(used_weapon == offhand)
+						intdam = INTEG_PARRY_DECAY_NOSHARP
 
-				if(istype(user.rmb_intent, /datum/rmb_intent/strong))
-					sharp_loss += STRONG_SHP_BONUS
-					intdam += STRONG_INTG_BONUS
+					if(istype(user.rmb_intent, /datum/rmb_intent/strong))
+						sharp_loss += STRONG_SHP_BONUS
+						intdam += STRONG_INTG_BONUS
 
-				// Heavy weapons chew through shields — use higher of demolition_mod or intent intdamage_factor
+					// Heavy weapons chew through shields — use higher of demolition_mod or intent intdamage_factor
+					if(istype(used_weapon, /obj/item/rogueweapon/shield) && intenty)
+						var/shield_mult = max(intenty.demolition_mod, intenty.intent_intdamage_factor)
+						intdam *= shield_mult
+
+					var/tempobonus = H.get_tempo_bonus(TEMPO_TAG_DEF_INTEGFACTOR)
+					if(tempobonus)	//It is either null or 0.1 to 1, multiplication by null results in 0, so we check.
+						intdam *= tempobonus
+
+					used_weapon.take_damage(intdam, BRUTE, used_weapon.d_type)
+					used_weapon.remove_bintegrity(sharp_loss, user)
+			else
+				// Unarmed attacker
+				var/intdam = INTEG_PARRY_DECAY_UNARMED
 				if(istype(used_weapon, /obj/item/rogueweapon/shield) && intenty)
-					var/shield_mult = max(intenty.demolition_mod, intenty.intent_intdamage_factor)
-					intdam *= shield_mult
-
-				var/tempobonus = H.get_tempo_bonus(TEMPO_TAG_DEF_INTEGFACTOR)
-				if(tempobonus)	//It is either null or 0.1 to 1, multiplication by null results in 0, so we check.
-					intdam *= tempobonus
-
+					intdam *= intenty.intent_intdamage_factor
 				used_weapon.take_damage(intdam, BRUTE, used_weapon.d_type)
-				used_weapon.remove_bintegrity(sharp_loss, user)
 			return TRUE
 		else
 			return FALSE
