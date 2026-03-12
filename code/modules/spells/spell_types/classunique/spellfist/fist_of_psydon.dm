@@ -11,7 +11,7 @@
 
 /obj/effect/proc_holder/spell/invoked/fist_of_psydon
 	name = "Fist of Psydon"
-	desc = "Wind up and punch forward, sending a shockwave of arcyne force in a 4-tile line. \
+	desc = "Wind up and punch forward, sending a shockwave of arcyne force in a 3-paces line. \
 		Brief telegraph before the strike lands. Deals blunt damage and knocks targets back 1 tile. \
 		Damage increased by 50% against simple-minded creechurs. \
 		Can be deflected by Defend stance.\n\n\
@@ -39,7 +39,7 @@
 	gesture_required = TRUE
 	xp_gain = FALSE
 	var/base_damage = 60
-	var/line_length = 4
+	var/line_length = 3
 	var/npc_simple_damage_mult = 1.5
 	var/push_dist = 1
 	var/telegraph_delay = 4
