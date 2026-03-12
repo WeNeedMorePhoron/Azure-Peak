@@ -11,7 +11,6 @@
 	subclass_languages = list(/datum/language/otavan, /datum/language/celestial)
 	category_tags = list(CTAG_ORTHODOXIST)
 	traits_applied = list(
-		TRAIT_DODGEEXPERT,
 		TRAIT_CIVILIZEDBARBARIAN,
 		TRAIT_ARCYNE_T2,
 		TRAIT_NALEDI
