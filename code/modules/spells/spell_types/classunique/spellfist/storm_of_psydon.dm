@@ -3,15 +3,14 @@
  *
  * The caster leaps toward a target with homing (flying over obstacles/lava),
  * delivering a single devastating unparryable kick that sends the target flying.
- * 30s cooldown, 1.5s charge up.
+ * 40s cooldown, 1.5s charge up. Full cooldown on miss.
  */
 
 /obj/effect/proc_holder/spell/invoked/storm_of_psydon
 	name = "Storm of Psydon"
 	desc = "Channel mana into your legs and leap toward a distant target, flying through the air with the fury of Psydon. \
 		On reaching the target, deliver a single devastating kick that cannot be parried or dodged, sending them flying. \
-		Can cross gaps, lava, and obstacles during the leap. Can be deflected by Defend stance. \
-		If you miss, half cooldown is applied.\n\n\
+		Can cross gaps, lava, and obstacles during the leap. Can be deflected by Defend stance.\n\n\
 		'Temper the storm within, and unleash it only upon those who stray from His ways.'"
 	clothes_req = FALSE
 	range = 7
@@ -22,7 +21,7 @@
 	releasedrain = 40
 	chargedrain = 0
 	chargetime = 15 // 1.5s
-	recharge_time = 30 SECONDS
+	recharge_time = 40 SECONDS
 	warnie = "spellwarning"
 	no_early_release = TRUE
 	charging_slowdown = 0
@@ -38,8 +37,8 @@
 	var/start_invocation = "'Asifa!"
 	var/dash_range = 7
 	var/step_delay = 1
-	var/kick_damage = 80
-	var/npc_simple_damage_mult = 1.5
+	var/kick_damage = 50
+	var/npc_simple_damage_mult = 2
 	var/knockback_dist = 3
 
 /obj/effect/proc_holder/spell/invoked/storm_of_psydon/cast(list/targets, mob/user = usr)
@@ -78,8 +77,6 @@
 	if(get_dist(H, preferred_target) <= 1)
 		if(preferred_target.anti_magic_check())
 			preferred_target.visible_message(span_warning("The fury dissipates on contact with [preferred_target]!"))
-			charge_counter = recharge_time / 2
-			update_icon()
 			return
 		deliver_kick(H, preferred_target)
 		return TRUE
@@ -128,18 +125,14 @@
 	if(!hit_target && get_dist(H, preferred_target) <= 1)
 		hit_target = preferred_target
 
-	// Missed — half cooldown
+	// Missed — full cooldown
 	if(!hit_target)
 		to_chat(H, span_warning("My fury finds no purchase!"))
-		charge_counter = recharge_time / 2
-		update_icon()
 		return
 
 	// Anti-magic check
 	if(hit_target.anti_magic_check())
 		hit_target.visible_message(span_warning("The fury dissipates on contact with [hit_target]!"))
-		charge_counter = recharge_time / 2
-		update_icon()
 		return
 
 	deliver_kick(H, hit_target)
@@ -154,7 +147,8 @@
 	user.visible_message(span_danger("<b>[user] delivers a devastating flying kick to [target]!</b>"))
 	user.emote("attack", forced = TRUE)
 
-	arcyne_strike(user, target, null, kick_damage, BODY_ZONE_CHEST, BCLASS_BLUNT, spell_name = "Storm of Psydon", npc_simple_damage_mult = npc_simple_damage_mult)
+	var/def_zone = user.zone_selected || BODY_ZONE_CHEST
+	arcyne_strike(user, target, null, kick_damage, def_zone, BCLASS_BLUNT, spell_name = "Storm of Psydon", npc_simple_damage_mult = npc_simple_damage_mult)
 	playsound(get_turf(target), pick('sound/combat/hits/blunt/genblunt (1).ogg','sound/combat/hits/blunt/genblunt (2).ogg','sound/combat/hits/blunt/genblunt (3).ogg'), 100, TRUE)
 	playsound(get_turf(target), 'sound/magic/antimagic.ogg', 60, TRUE)
 

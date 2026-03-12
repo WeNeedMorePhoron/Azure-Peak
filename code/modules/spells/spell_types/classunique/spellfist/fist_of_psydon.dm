@@ -108,7 +108,8 @@
 			if(spell_guard_check(victim, FALSE, deflected ? null : H))
 				deflected = TRUE
 				continue
-			arcyne_strike(H, victim, null, base_damage, BODY_ZONE_CHEST, BCLASS_BLUNT, spell_name = "Fist of Psydon", npc_simple_damage_mult = npc_simple_damage_mult)
+			var/def_zone = H.zone_selected || BODY_ZONE_CHEST
+			arcyne_strike(H, victim, null, base_damage, def_zone, BCLASS_BLUNT, spell_name = "Fist of Psydon", npc_simple_damage_mult = npc_simple_damage_mult)
 			hit_count++
 			already_hit += victim
 			// Knockback away from caster

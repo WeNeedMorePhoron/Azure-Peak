@@ -1,20 +1,18 @@
 /*
  * Grasp of Psydon
  *
- * Targeted AoE yank — click a tile up to 7 tiles away, telegraph appears,
- * then after a short delay all living targets in a 1-tile radius are
- * pulled toward the caster and briefly immobilized.
- * Imitates the old Ensnare but yanks toward you with a shorter immobilize
- * you have to follow up on quickly.
- * 10s cooldown, 0.5s charge up.
+ * Targeted AoE yank — click a tile up to 4 tiles away on the same Z-level,
+ * telegraph appears, then after a short delay all living targets in a 1-tile
+ * radius are pulled toward the caster and off-balanced.
+ * 20s cooldown, 0.5s charge up.
  */
 
 /obj/effect/proc_holder/spell/invoked/grasp_of_psydon
 	name = "Grasp of Psydon"
-	desc = "Slam your open palm forward, sending forth tendrils of arcyne force to a target area up to 7 paces away. After a brief telegraph, all targets in the area are yanked toward you and briefly immobilized. Follow up quickly before they recover.\n\n\
+	desc = "Slam your open palm forward, sending forth tendrils of arcyne force to a target area up to 4 paces away on the same level. After a brief telegraph, all targets in the area are yanked toward you and off-balanced. Follow up quickly before they recover.\n\n\
 		'Push forth your hand with your conduit open, and imagine, with His will, seizing upon the very object or person you desire within your grasp, then, pull your hand backward. Close, and clench your fist, pushing forward slightly, opening your conduit again, and you shall seize your enemy from afar, and pull them toward you.'"
 	clothes_req = FALSE
-	range = 7
+	range = 4
 	action_icon = 'icons/mob/actions/classuniquespells/spellfist.dmi'
 	overlay_state = "grasp_of_psydon"
 	sound = list('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
@@ -38,7 +36,6 @@
 	xp_gain = FALSE
 	var/area_of_effect = 1
 	var/pull_distance = 7
-	var/immobilize_duration = 2 SECONDS
 	var/telegraph_delay = 0.8 SECONDS
 	var/base_damage = 15
 
@@ -50,6 +47,12 @@
 
 	var/turf/T = get_turf(targets[1])
 	if(!T)
+		revert_cast()
+		return
+
+	// Same Z-level only — no cross-z casting
+	if(T.z != get_turf(H).z)
+		to_chat(H, span_warning("The tendrils can't reach across planes!"))
 		revert_cast()
 		return
 
@@ -83,12 +86,12 @@
 		if(spell_guard_check(victim, TRUE))
 			victim.visible_message(span_warning("[victim] breaks free of the tendrils!"))
 			continue
-		arcyne_strike(H, victim, null, base_damage, BODY_ZONE_CHEST, BCLASS_BLUNT, spell_name = "Grasp of Psydon")
+		var/def_zone = H.zone_selected || BODY_ZONE_CHEST
+		arcyne_strike(H, victim, null, base_damage, def_zone, BCLASS_BLUNT, spell_name = "Grasp of Psydon")
 		// Yank toward caster
 		victim.throw_at(caster_turf, pull_distance, 4)
 
-		victim.Immobilize(immobilize_duration)
-		victim.OffBalance(immobilize_duration)
+		victim.OffBalance(2 SECONDS)
 		victim.visible_message(span_warning("[victim] is yanked toward [H] by tendrils of arcyne force!"))
 		new /obj/effect/temp_visual/grasp_telegraph/long(get_turf(victim))
 		hit_count++
