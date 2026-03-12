@@ -997,6 +997,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			// Remove first so chain-deflections replay the overhead visual and reset the timer
 			attacker.remove_status_effect(/datum/status_effect/debuff/exposed)
 			attacker.apply_status_effect(/datum/status_effect/debuff/exposed, 5 SECONDS)
+			// Match melee riposte: lock out attacks and slow the attacker down
+			attacker.apply_status_effect(/datum/status_effect/debuff/clickcd, 3 SECONDS)
+			attacker.Slowdown(3)
 			// Dump all momentum — you swung into a guard, you lose your edge
 			var/datum/status_effect/buff/arcyne_momentum/momentum = attacker.has_status_effect(/datum/status_effect/buff/arcyne_momentum)
 			if(momentum && momentum.stacks > 0)
