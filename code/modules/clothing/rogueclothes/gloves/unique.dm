@@ -40,12 +40,12 @@
 /obj/item/clothing/gloves/roguetown/bandages/weighted
 	name = "weighted bandages"
 	desc = "Thickly-woven bandages that've been wrapped around the hands, fitted with padded knuckleweights. It soaks up the sweat from your palm, strengthens your fists, and protects your knuckles from dislodged teeth."
-	unarmed_bonus = 5 //Craftable. Given to non-specialized Monks and other certain subclasses.
+	unarmed_bonus = 4 //Craftable. Given to non-specialized Monks and other certain subclasses.
 
 /obj/item/clothing/gloves/roguetown/bandages/pugilist
 	name = "pugilistic bandages"
 	desc = "Thickly-woven bandages that've been wrapped around the hands, fitted with alloyed knuckleweights. It soaks up the sweat from your palm, strengthens your fists, and protects your knuckles from dislodged teeth."
-	unarmed_bonus = 7 //Non-craftable. Restricted to Monks who've specialized in unarmed combat, and nothing else.
+	unarmed_bonus = 6 //Non-craftable. Restricted to Monks who've specialized in unarmed combat, and nothing else.
 
 // Knuckledusters — high damage, low durability gloves. +12 bonus but only 100 integrity vs bandages' 200.
 /obj/item/clothing/gloves/roguetown/knuckles
@@ -59,7 +59,7 @@
 	max_integrity = 100 //Small metal pieces — fragile under sustained parrying.
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/steel
-	unarmed_bonus = 12
+	unarmed_bonus = 8
 
 /obj/item/clothing/gloves/roguetown/knuckles/get_mechanics_examine(mob/user)
 	. = ..()
