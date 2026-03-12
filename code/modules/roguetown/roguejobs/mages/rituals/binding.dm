@@ -157,13 +157,3 @@
 	tier = 4
 	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/elemental/colossus
 	required_atoms = list(/obj/item/magic/elemental/relic = 1, /obj/item/magic/melded/t4 = 1, /obj/item/magic/artifact = 4)
-
-// ----- Void Dragon Binding -----
-
-/datum/runeritual/binding/void_dragon
-	name = "Bind Void Dragon"
-	desc = "Sacrifice the spoils of a slain void dragon to bind another to your service. Only those who have already felled one may attempt this."
-	blacklisted = FALSE
-	tier = 5
-	mob_to_bind = /mob/living/simple_animal/hostile/retaliate/rogue/voiddragon
-	required_atoms = list(/obj/item/clothing/ring/dragon_ring = 3, /obj/item/book/granter/spell_points/voiddragon = 3)
