@@ -1,29 +1,32 @@
 /*
  * Grasp of Psydon
  *
- * 20 damage, Blunt, No AP
- * 10s cooldown, 0.5s charge up, no slowdown
- * Fetch (pull) target up to 7 tiles toward the caster
- * Varieties on Fetch (and less OP frankly)
+ * Targeted AoE yank — click a tile up to 7 tiles away, telegraph appears,
+ * then after a short delay all living targets in a 1-tile radius are
+ * pulled toward the caster and briefly immobilized.
+ * Imitates the old Ensnare but yanks toward you with a shorter immobilize
+ * you have to follow up on quickly.
+ * 10s cooldown, 0.5s charge up.
  */
 
-/obj/effect/proc_holder/spell/invoked/projectile/grasp_of_psydon
+/obj/effect/proc_holder/spell/invoked/grasp_of_psydon
 	name = "Grasp of Psydon"
-	desc = "Send forth a flying hand made of arcyne energy, dealing a modest amount of damage and pulling the target towards you up to 7 paces. Can be used to pull enemies into melee range or to snag items from a distance.\n\n\
-	'Push forth your hand with your conduit open, and imagine, with His will, seizing upon the very object or person you desire within your grasp, then, pull your hand backward. Close, and clench your fist, pushing forward slightly, opening your conduit again, and you shall seize your enemy from afar, and pull them toward you.'"
+	desc = "Slam your open palm forward, sending forth tendrils of arcyne force to a target area up to 7 paces away. After a brief telegraph, all targets in the area are yanked toward you and briefly immobilized. Follow up quickly before they recover.\n\n\
+		'Push forth your hand with your conduit open, and imagine, with His will, seizing upon the very object or person you desire within your grasp, then, pull your hand backward. Close, and clench your fist, pushing forward slightly, opening your conduit again, and you shall seize your enemy from afar, and pull them toward you.'"
 	clothes_req = FALSE
 	range = 7
-	projectile_type = /obj/projectile/magic/grasp_of_psydon
 	action_icon = 'icons/mob/actions/classuniquespells/spellfist.dmi'
 	overlay_state = "grasp_of_psydon"
 	sound = list('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
 	active = FALSE
-	releasedrain = 20 // 20 as standard so there's some stam management
+	releasedrain = 20
 	chargedrain = 0
 	chargetime = 5
-	recharge_time = 10 SECONDS
+	recharge_time = 20 SECONDS
 	warnie = "spellwarning"
 	no_early_release = TRUE
+	movement_interrupt = FALSE
+	charging_slowdown = 3
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
@@ -31,44 +34,74 @@
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_LOW
-	charging_slowdown = 3 // Slows you down while charging, matching normal attacks
+	gesture_required = TRUE
+	xp_gain = FALSE
+	var/area_of_effect = 1
+	var/pull_distance = 7
+	var/immobilize_duration = 2 SECONDS
+	var/telegraph_delay = 0.8 SECONDS
+	var/base_damage = 15
 
-/obj/effect/proc_holder/spell/invoked/projectile/grasp_of_psydon/cast(list/targets, mob/user = usr)
-	user.emote("attack", forced = TRUE)
-	return ..()
+/obj/effect/proc_holder/spell/invoked/grasp_of_psydon/cast(list/targets, mob/user = usr)
+	var/mob/living/carbon/human/H = user
+	if(!istype(H))
+		revert_cast()
+		return
 
-/obj/projectile/magic/grasp_of_psydon
-	name = "Grasp of Psydon"
-	damage = 20
-	damage_type = BRUTE
-	flag = "blunt"
-	armor_penetration = BLUNT_DEFAULT_PENFACTOR
-	guard_deflectable = TRUE
-	npc_simple_damage_mult = 1.5 // Makes it more effective against NPCs.
-	woundclass = BCLASS_BLUNT
-	nodamage = FALSE
-	hitsound = 'sound/combat/grabbreak.ogg'
-	icon_state = "grasp_of_psydon" // TODO
-	range = 7
-	speed = 1.5
-	cannot_cross_z = TRUE
-	var/fetch_distance = 7
+	var/turf/T = get_turf(targets[1])
+	if(!T)
+		revert_cast()
+		return
 
-/obj/projectile/magic/grasp_of_psydon/on_hit(target)
-	. = ..()
-	var/atom/throw_target = get_step(firer, get_dir(firer, target))
-	if(isliving(target))
-		var/mob/living/L = target
-		if(L.anti_magic_check() || !firer)
-			L.visible_message(span_warning("[src] vanishes on contact with [target]!"))
-			return BULLET_ACT_BLOCK
-		L.throw_at(throw_target, fetch_distance, 4)
-	else
-		if(isitem(target))
-			var/obj/item/I = target
-			var/mob/living/carbon/human/carbon_firer
-			if (ishuman(firer))
-				carbon_firer = firer
-				if (carbon_firer?.can_catch_item())
-					throw_target = get_turf(firer)
-			I.throw_at(throw_target, fetch_distance, 3)
+	H.emote("attack", forced = TRUE)
+
+	for(var/turf/affected_turf in get_hear(area_of_effect, T))
+		if(affected_turf.density)
+			continue
+		new /obj/effect/temp_visual/grasp_telegraph(affected_turf)
+
+	playsound(T, 'sound/magic/webspin.ogg', 50, TRUE)
+
+	addtimer(CALLBACK(src, PROC_REF(resolve_grasp), H, T), telegraph_delay)
+	return TRUE
+
+/obj/effect/proc_holder/spell/invoked/grasp_of_psydon/proc/resolve_grasp(mob/living/carbon/human/H, turf/center)
+	if(QDELETED(H) || H.stat == DEAD)
+		return
+
+	var/turf/caster_turf = get_turf(H)
+	playsound(center, 'sound/combat/grabbreak.ogg', 80, TRUE)
+
+	var/hit_count = 0
+	for(var/mob/living/victim in range(area_of_effect, center))
+		if(victim == H || victim.stat == DEAD)
+			continue
+		if(victim.anti_magic_check())
+			victim.visible_message(span_warning("The tendrils of force can't seem to latch onto [victim]!"))
+			playsound(get_turf(victim), 'sound/magic/magic_nulled.ogg', 100)
+			continue
+		if(spell_guard_check(victim, TRUE))
+			victim.visible_message(span_warning("[victim] breaks free of the tendrils!"))
+			continue
+		arcyne_strike(H, victim, null, base_damage, BODY_ZONE_CHEST, BCLASS_BLUNT, spell_name = "Grasp of Psydon")
+		// Yank toward caster
+		victim.throw_at(caster_turf, pull_distance, 4)
+
+		victim.Immobilize(immobilize_duration)
+		victim.OffBalance(immobilize_duration)
+		victim.visible_message(span_warning("[victim] is yanked toward [H] by tendrils of arcyne force!"))
+		new /obj/effect/temp_visual/grasp_telegraph/long(get_turf(victim))
+		hit_count++
+
+	if(hit_count)
+		H.visible_message(span_danger("[H] clenches [H.p_their()] fist, pulling [hit_count > 1 ? "enemies" : "an enemy"] toward [H.p_them()]!"))
+
+	log_combat(H, null, "used Grasp of Psydon")
+
+/obj/effect/temp_visual/grasp_telegraph
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "curseblob"
+	duration = 1 SECONDS
+
+/obj/effect/temp_visual/grasp_telegraph/long
+	duration = 2 SECONDS
