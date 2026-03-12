@@ -1,5 +1,9 @@
 #define STAM_DRAIN_PER_STR_DIFF_HEAVY_BAL -2
 
+// Unarmed base weapon defense equivalents — fed into the same (skill * 20) + (wdef * 10) formula as weapons
+#define UNARMED_BASE_WDEF_BARE 2		// Bare fists — still bad, but not hopeless
+#define UNARMED_BASE_WDEF_EQUIPPED 7	// Bracers / knuckles / bandages — matches a rapier
+
 /mob/living/proc/attempt_parry(datum/intent/intenty, mob/living/user)
 	var/prob2defend = user.defprob
 	var/mob/living/H = src
@@ -79,17 +83,18 @@
 		defender_skill = H.get_skill_level(/datum/skill/combat/unarmed)
 		var/obj/B = H.get_item_by_slot(SLOT_WRISTS)
 		var/obj/K = H.get_item_by_slot(SLOT_GLOVES)
+		// Use the same formula as weapon parry: (skill * 20) + (wdef * 10)
 		if(istype(B, /obj/item/clothing/wrists/roguetown/bracers))
-			prob2defend += (defender_skill * 35)
+			prob2defend += (defender_skill * 20) + (UNARMED_BASE_WDEF_EQUIPPED * 10)
 			unarmed_bracers = B
 		else if(istype(K, /obj/item/clothing/gloves/roguetown/knuckles))
-			prob2defend += (defender_skill * 35)
+			prob2defend += (defender_skill * 20) + (UNARMED_BASE_WDEF_EQUIPPED * 10)
 			unarmed_knuckles = K
 		else if(istype(K, /obj/item/clothing/gloves/roguetown/bandages))
-			prob2defend += (defender_skill * 35)
+			prob2defend += (defender_skill * 20) + (UNARMED_BASE_WDEF_EQUIPPED * 10)
 			unarmed_bandages = K
 		else
-			prob2defend += (defender_skill * 10)		// no bracers or knuckles gonna be butts.
+			prob2defend += (defender_skill * 20) + (UNARMED_BASE_WDEF_BARE * 10)
 		weapon_parry = FALSE
 	else
 		if(used_weapon)
