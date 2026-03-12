@@ -9,7 +9,7 @@ No momentum gain — use normal swings for that.*/
 		Does not build momentum. At 3+ momentum: consumes 3 to double damage. \
 		Strikes your aimed bodypart. Can be deflected by Defend stance."
 	clothes_req = FALSE
-	range = 3
+	range = 7
 	action_icon = 'icons/mob/actions/classuniquespells/spellblade.dmi' // Icon by Prominence / Nobleed
 	overlay_state = "shatter"
 	releasedrain = 20
