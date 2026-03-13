@@ -25,11 +25,12 @@
 #define ARCANE_MARK_FILTER_WEAPON "arcane_mark_enchant"
 #define ARCANE_MARK_COOLDOWN 7 SECONDS
 
-// Spell CD / Chargetime Scaling 
+// Spell CD / Chargetime Scaling
 #define SPELL_SCALING_THRESHOLD 10 // The threshold at which the spell scaling starts to kick in
 #define SPELL_POSITIVE_SCALING_THRESHOLD 15 // The threshold at which spell scaling stop
 #define COOLDOWN_REDUCTION_PER_INT 0.05 // The amount of cooldown reduction per point of intelligence above / below threshold
 #define CHARGE_REDUCTION_PER_SKILL 0.05 // The amount of charge reduction per skill level.
+#define FATIGUE_REDUCTION_PER_INT 0.05 // Stamina cost reduction per INT above threshold. 5 points above = 25% max reduction
 
 // Armor Penalty - We applies to cooldown because we want static stamina cost
 #define MEDIUM_ARMOR_CD_PENALTY 0.15 // Cooldown multiplier for wearing medium armor
