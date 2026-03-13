@@ -154,6 +154,6 @@
 
 	// Knockback
 	var/atom/throw_target = get_edge_target_turf(user, get_dir(user, target))
-	target.throw_at(throw_target, knockback_dist, 4)
+	target.safe_throw_at(throw_target, knockback_dist, 4)
 
 	log_combat(user, target, "used Storm of Psydon")
