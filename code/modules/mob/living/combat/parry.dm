@@ -79,7 +79,16 @@
 	var/obj/item/clothing/gloves/roguetown/knuckles/unarmed_knuckles
 	var/obj/item/clothing/gloves/roguetown/bandages/unarmed_bandages
 
-	if(highest_defense <= (H.get_skill_level(/datum/skill/combat/unarmed) * 20))
+	if(highest_defense > 0)
+		// Always prefer weapon parry when holding a parry-capable weapon
+		if(used_weapon)
+			defender_skill = H.get_skill_level(used_weapon.associated_skill)
+		else
+			defender_skill = H.get_skill_level(/datum/skill/combat/unarmed)
+		prob2defend += highest_defense
+		weapon_parry = TRUE
+	else
+		// No parry-capable weapon — fall back to unarmed
 		defender_skill = H.get_skill_level(/datum/skill/combat/unarmed)
 		var/obj/B = H.get_item_by_slot(SLOT_WRISTS)
 		var/obj/K = H.get_item_by_slot(SLOT_GLOVES)
@@ -96,13 +105,6 @@
 		else
 			prob2defend += (defender_skill * 20) + (UNARMED_BASE_WDEF_BARE * 10)
 		weapon_parry = FALSE
-	else
-		if(used_weapon)
-			defender_skill = H.get_skill_level(used_weapon.associated_skill)
-		else
-			defender_skill = H.get_skill_level(/datum/skill/combat/unarmed)
-		prob2defend += highest_defense
-		weapon_parry = TRUE
 
 	if(intenty.masteritem)
 		attacker_skill = U.get_skill_level(intenty.masteritem.associated_skill)
