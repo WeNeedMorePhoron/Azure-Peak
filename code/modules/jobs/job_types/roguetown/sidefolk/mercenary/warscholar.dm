@@ -204,7 +204,7 @@
 		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
 	)
 	subclass_spellpoints = 0
-	subclass_spell_point_pools = list("utility" = 4)
+	subclass_spell_point_pools = list("utility" = 4, "augmentation" = 4)
 
 /datum/outfit/job/roguetown/mercenary/warscholar_vizier
 	var/detailcolor
