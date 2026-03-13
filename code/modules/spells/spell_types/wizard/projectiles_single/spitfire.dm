@@ -11,7 +11,7 @@
 	overlay_state = "fireball_multi"
 	sound = list('sound/magic/whiteflame.ogg')
 	active = FALSE
-	releasedrain = 35
+	releasedrain = SPELLCOST_MINOR_PROJECTILE
 	chargedrain = 1
 	chargetime = 1
 	recharge_time = 6 SECONDS

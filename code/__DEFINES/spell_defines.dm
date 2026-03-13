@@ -39,8 +39,10 @@
 
 // Standardized spell stamina costs
 #define SPELLCOST_CANTRIP            5
-#define SPELLCOST_MINOR_PROJECTILE   15
-#define SPELLCOST_MAJOR_PROJECTILE   30
+#define SPELLCOST_MINOR_PROJECTILE   12 // Should feels good to spam and not stamcrit you
+#define SPELLCOST_MAJOR_PROJECTILE   25 // 25 seems decent
+#define SPELLCOST_SUPER_PROJECTILE   45 // Only used for GFB for now as an intermediary
+#define SPELLCOST_ULTIMATE           70
 #define SPELLCOST_MINOR_AOE          15
 #define SPELLCOST_MAJOR_AOE          30
 #define SPELLCOST_SINGLE_CC          30
@@ -50,13 +52,12 @@
 #define SPELLCOST_TELEPORT           30
 #define SPELLCOST_MINOR_SUMMON       30
 #define SPELLCOST_MAJOR_SUMMON       50
-#define SPELLCOST_ULTIMATE           70
 #define SPELLCOST_MIRACLE            30
 #define SPELLCOST_MIRACLE_MAJOR      60
 #define SPELLCOST_MINOR_SKILL        30
 #define SPELLCOST_MAJOR_SKILL        50
 
 // Spellblade specific cost
-#define SPELLCOST_SB_POKE 20 // Typical poke attack of a lineal nature
-#define SPELLCOST_SB_MOBILITY 20 // Dashes / Teleports / Anchor
+#define SPELLCOST_SB_POKE 15 // Roughly 3 attacks worth
+#define SPELLCOST_SB_MOBILITY 15 // Dashes / Teleports / Anchor
 #define SPELLCOST_SB_ULT 50 // Their ult
