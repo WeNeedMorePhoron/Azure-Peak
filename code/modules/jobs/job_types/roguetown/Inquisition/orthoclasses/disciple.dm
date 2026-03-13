@@ -71,7 +71,7 @@
 
 	shoes = /obj/item/clothing/shoes/roguetown/boots/psydonboots
 	armor = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/disciple
-	
+
 	backpack_contents = list(/obj/item/roguekey/inquisitionmanor = 1,
 	/obj/item/paper/inqslip/arrival/ortho = 1)
 	belt = /obj/item/storage/belt/rogue/leather/rope/dark
@@ -80,5 +80,3 @@
 
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_WEAK, devotion_limit = CLERIC_REQ_1)	//Capped to T2 miracles.
-
-	change_origin(H, /datum/virtue/origin/otava, "Holy order")
