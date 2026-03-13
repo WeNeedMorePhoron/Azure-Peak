@@ -1,6 +1,9 @@
 /// Below this TP value, natural ambushes stop firing. Signal horn can still go below.
 #define AMBUSH_SAFE_FLOOR 25
 
+/// Minimum time between natural ambushes in the same region. Signal horn bypasses this.
+#define AMBUSH_REGION_COOLDOWN (5 MINUTES)
+
 /// Fraction of the latent_ambush pool spent as budget per ambush.
 /// 0.03 = 3% → ~33 solo ambushes to drain a region from full.
 #define AMBUSH_BUDGET_PCT 0.03

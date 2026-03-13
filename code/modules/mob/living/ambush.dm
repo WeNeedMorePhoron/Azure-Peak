@@ -80,7 +80,7 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 	if(TR)
 		if(TR.latent_ambush <= AMBUSH_SAFE_FLOOR && !always)
 			return FALSE
-	if(TR && !(always && ignore_cooldown) && ((world.time - TR.last_natural_ambush_time) < 2 MINUTES))
+	if(TR && !(always && ignore_cooldown) && ((world.time - TR.last_natural_ambush_time) < AMBUSH_REGION_COOLDOWN))
 		return FALSE
 	if(!always && prob(100 - GLOB.ambush_chance_pct))
 		return FALSE
