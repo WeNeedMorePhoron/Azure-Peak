@@ -15,7 +15,7 @@ more raw damage. */
 	releasedrain = SPELLCOST_SUPER_PROJECTILE
 	chargedrain = 1
 	chargetime = 15
-	recharge_time = 30 SECONDS // Cuz you can stack it with normal fireball atm
+	recharge_time = 22 SECONDS // Cuz you can stack it with normal fireball atm
 	warnie = "spellwarning"
 	spell_tier = 4
 	invocations = list("Maior Sphaera Ignis!")
