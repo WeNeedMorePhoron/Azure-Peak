@@ -30,9 +30,11 @@
 	if(istype(W, /obj/item/rogueweapon) && W.special)
 		active_special = W.special
 		skillreq = W.associated_skill
-	else if(user.unarmed_special)
-		active_special = user.unarmed_special
-		skillreq = /datum/skill/combat/unarmed
+	else if(!W && ishuman(user))
+		var/mob/living/carbon/human/HU = user
+		if(HU.unarmed_special)
+			active_special = HU.unarmed_special
+			skillreq = /datum/skill/combat/unarmed
 
 	if(active_special)
 		if(active_special.custom_skill)
