@@ -11,6 +11,25 @@
 #define HEAVY_ARMOR_STAM_PENALTY 0.3 // Multiplier on base stamina cost for wearing heavy armor
 #define UNTRAINED_ARMOR_STAM_PENALTY 80 // Flat stamina penalty for wearing armor you're not trained in
 
+// Standardized spell stamina costs
+#define SPELLCOST_CANTRIP            5
+#define SPELLCOST_MINOR_PROJECTILE   15
+#define SPELLCOST_MAJOR_PROJECTILE   30
+#define SPELLCOST_MINOR_AOE          15
+#define SPELLCOST_MAJOR_AOE          30
+#define SPELLCOST_SINGLE_CC          30
+#define SPELLCOST_UTILITY_BUFF       20
+#define SPELLCOST_STAT_BUFF          40
+#define SPELLCOST_CONJURE            40
+#define SPELLCOST_TELEPORT           30
+#define SPELLCOST_MINOR_SUMMON       30
+#define SPELLCOST_MAJOR_SUMMON       50
+#define SPELLCOST_ULTIMATE           70
+#define SPELLCOST_MIRACLE            30
+#define SPELLCOST_MIRACLE_MAJOR      60
+#define SPELLCOST_MINOR_SKILL        30
+#define SPELLCOST_MAJOR_SKILL        50
+
 /obj/effect/proc_holder
 	var/panel = "Debug"//What panel the proc holder needs to go on.
 	var/active = FALSE //Used by toggle based abilities.
