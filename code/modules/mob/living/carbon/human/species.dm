@@ -1607,7 +1607,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(stander)
 				target_table = locate(/obj/structure/table) in target_shove_turf.contents
 				shove_blocked = TRUE
-		else
+		else if(stander)
 			if(HAS_TRAIT(user, TRAIT_STRONGKICK))
 				target.Knockdown(SHOVE_KNOCKDOWN_HUMAN)
 				target.drop_all_held_items()
@@ -1616,28 +1616,28 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					target.throw_at(throwtarget, 2, 2)
 				target.visible_message(span_danger("[user.name] kicks [target.name], knocking them back!"),
 				span_danger(
-					"I'm knocked [user.pulledby ? "down" : "back"] from a kick by [user.name]!"), 
-					span_hear("I hear aggressive shuffling followed by a loud thud!"), 
-					COMBAT_MESSAGE_RANGE, 
+					"I'm knocked [user.pulledby ? "down" : "back"] from a kick by [user.name]!"),
+					span_hear("I hear aggressive shuffling followed by a loud thud!"),
+					COMBAT_MESSAGE_RANGE,
 					user
 				)
 				to_chat(user, span_danger("I kick [target.name], knocking them back!"))
 				log_combat(user, target, "kicked", "knocking them back")
 
-			else if((stander && target.stamina >= target.max_stamina) || target.IsOffBalanced()) //if you are kicked while fatigued, you are knocked down no matter what
+			else if((target.stamina >= target.max_stamina) || target.IsOffBalanced()) //if you are kicked while fatigued, you are knocked down no matter what
 				target.Knockdown(target.IsOffBalanced() ? SHOVE_KNOCKDOWN_SOLID : 100)
 				target.drop_all_held_items()
 				target.visible_message(span_danger("[user.name] kicks [target.name], knocking them down!"),
 				span_danger(
 					"I'm knocked down from a kick by [user.name]!"),
-					span_hear("I hear aggressive shuffling followed by a loud thud!"), 
-					COMBAT_MESSAGE_RANGE, 
+					span_hear("I hear aggressive shuffling followed by a loud thud!"),
+					COMBAT_MESSAGE_RANGE,
 					user
 				)
 				to_chat(user, span_danger("I kick [target.name], knocking them down!"))
 				log_combat(user, target, "kicked", "knocking them down")
 
-		if(shove_blocked && !target.is_shove_knockdown_blocked() && !target.buckled)
+		if(shove_blocked && stander && !target.is_shove_knockdown_blocked() && !target.buckled)
 			var/directional_blocked = FALSE
 			if(shove_dir in GLOB.cardinals) //Directional checks to make sure that we're not shoving through a windoor or something like that
 				var/target_turf = get_turf(target)
