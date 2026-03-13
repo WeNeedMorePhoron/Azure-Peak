@@ -3,7 +3,7 @@
 	desc = "Project your shadow to swap places with it, teleporting several feet away."
 	cost = 3
 	xp_gain = TRUE
-	releasedrain = SPELLCOST_TELEPORT
+	releasedrain = 30
 	warnie = "spellwarning"
 	movement_interrupt = TRUE
 	associated_skill = /datum/skill/magic/arcane
