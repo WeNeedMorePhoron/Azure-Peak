@@ -206,6 +206,7 @@
 		inspec += "\nThis intent will cost some sharpness for every attack made."
 	if(unarmed)
 		inspec += "\n<b>Swift:</b> Harder to parry or dodge when faster than your opponent."
+		inspec += "\n<b>Short Reach:</b> More accurate at striking specific body parts."
 	if(swingdelay > 0)
 		inspec += "\n<b>Attack Delay:</b> "
 		if(swingdelay <= 2)
