@@ -384,7 +384,7 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/fist_of_psydon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/grasp_of_psydon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/storm_of_psydon)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/fury_of_psydon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 
 	H.cmode_music = 'sound/music/cmode/adventurer/combat_outlander3.ogg'

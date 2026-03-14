@@ -1,27 +1,22 @@
-/*
- * Storm of Psydon (Dragon Kick)
- *
- * The caster leaps toward a target with homing (flying over obstacles/lava),
- * delivering a single devastating unparryable kick that sends the target flying.
- * 40s cooldown, 1.5s charge up. Full cooldown on miss.
- */
-
-/obj/effect/proc_holder/spell/invoked/storm_of_psydon
-	name = "Storm of Psydon"
+// Powerful leap attack - min distance gives it some counterplay (of getting close)
+// Since otherwise it can be used as a disengagement tool
+/obj/effect/proc_holder/spell/invoked/fury_of_psydon
+	name = "Fury of Psydon"
 	desc = "Channel mana into your legs and leap toward a distant target, flying through the air with the fury of Psydon. \
 		On reaching the target, deliver a single devastating kick that cannot be parried or dodged, sending them flying. \
 		Can cross gaps, lava, and obstacles during the leap. Can be deflected by Defend stance.\n\n\
+		Can only be cast on someone at least 3 paces away.\n\n\
 		'Temper the storm within, and unleash it only upon those who stray from His ways.'"
 	clothes_req = FALSE
 	range = 7
 	action_icon = 'icons/mob/actions/classuniquespells/spellfist.dmi'
-	overlay_state = "storm_of_psydon"
+	overlay_state = "fury_of_psydon"
 	sound = list('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
 	active = FALSE
-	releasedrain = 50
+	releasedrain = 70 // To make you REALLY commit to the kick instead of weaving it in easily
 	chargedrain = 0
-	chargetime = 15 // 1.5s
-	recharge_time = 40 SECONDS
+	chargetime = 2 SECONDS
+	recharge_time = 45 SECONDS
 	warnie = "spellwarning"
 	no_early_release = TRUE
 	charging_slowdown = 0
@@ -40,8 +35,9 @@
 	var/kick_damage = 50
 	var/npc_simple_damage_mult = 2
 	var/knockback_dist = 3
+	var/minimum_dist = 3
 
-/obj/effect/proc_holder/spell/invoked/storm_of_psydon/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/invoked/fury_of_psydon/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/H = user
 	if(!istype(H))
 		revert_cast()
@@ -63,6 +59,11 @@
 	// No preferred target, revert cast, no punishment
 	if(!preferred_target)
 		to_chat(H, span_warning("I need a target to focus my fury on!"))
+		revert_cast()
+		return
+
+	if(get_dist(H, preferred_target) <= minimum_dist)
+		to_chat(H, span_warning("My target is too close for the storm to gather strength!"))
 		revert_cast()
 		return
 
@@ -138,7 +139,7 @@
 	deliver_kick(H, hit_target)
 	return TRUE
 
-/obj/effect/proc_holder/spell/invoked/storm_of_psydon/proc/deliver_kick(mob/living/carbon/human/user, mob/living/target)
+/obj/effect/proc_holder/spell/invoked/fury_of_psydon/proc/deliver_kick(mob/living/carbon/human/user, mob/living/target)
 	// Guard check — defend stance can still deflect
 	if(spell_guard_check(target, FALSE, user))
 		log_combat(user, target, "used Storm of Psydon (deflected)")
