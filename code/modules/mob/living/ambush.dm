@@ -164,7 +164,7 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 
 	// Continue purchasing while we have budget
 	// Safety cap: never spawn more than 15 mobs even if TP values are misconfigured
-	while(budget >= 0 && mobs_to_spawn.len < 15)
+	while(budget > 0 && mobs_to_spawn.len < 15)
 		var/picked
 		// 67% same-faction pick if we have faction candidates, 33% any entry ("wrong faction" surprise)
 		if(faction_candidates.len && prob(67))
@@ -175,6 +175,17 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 			break
 
 		var/pick_tp = max(get_threat_point(picked), 1) // Floor 1 TP to prevent infinite loops from unconfigured mobs
+
+		// If this pick would overshoot the budget, try a cross-faction pick for something cheaper
+		if(pick_tp > budget)
+			picked = pickweight(all_candidates)
+			if(!picked)
+				break
+			pick_tp = max(get_threat_point(picked), 1)
+			// If even the cross-faction pick overshoots, stop — don't blow the budget
+			if(pick_tp > budget)
+				break
+
 		add_ambush_purchase(picked, mobs_to_spawn)
 		budget -= pick_tp
 		total_tp_spent += pick_tp
