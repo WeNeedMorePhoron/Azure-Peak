@@ -59,6 +59,8 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 /mob/living/proc/ambushable()
 	if(stat)
 		return FALSE
+	if(!mind)
+		return FALSE
 	return ambushable
 
 /// budget_floor: If set, the budget is floored to at least (budget_floor * AMBUSH_BUDGET_FLOOR_UNIT) TP. Used by signal horn to guarantee a minimum fight size.
