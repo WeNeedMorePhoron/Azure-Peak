@@ -35,7 +35,7 @@
 
 /obj/item/clothing/gloves/roguetown/bandages/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_notice("Allows unarmed parrying, similar to bracers. Takes integrity damage when parrying.")
+	. += span_notice("Allows unarmed parrying, similar to bracers. Takes integrity damage when parrying. Expert Pugilists parry far more effectively with these.")
 
 /obj/item/clothing/gloves/roguetown/bandages/weighted
 	name = "weighted bandages"
@@ -63,7 +63,7 @@
 
 /obj/item/clothing/gloves/roguetown/knuckles/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_notice("Allows unarmed parrying, similar to bracers. Takes integrity damage when parrying.")
+	. += span_notice("Allows unarmed parrying, similar to bracers. Takes integrity damage when parrying. Expert Pugilists parry far more effectively with these.")
 
 /obj/item/clothing/gloves/roguetown/knuckles/bronze
 	name = "bronze knuckles"

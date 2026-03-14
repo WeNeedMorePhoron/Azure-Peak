@@ -79,31 +79,46 @@
 	var/obj/item/clothing/gloves/roguetown/knuckles/unarmed_knuckles
 	var/obj/item/clothing/gloves/roguetown/bandages/unarmed_bandages
 
-	if(highest_defense > 0)
-		// Always prefer weapon parry when holding a parry-capable weapon
+	// Calculate unarmed parry value from bracers/knuckles/bandages
+	var/unarmed_skill = H.get_skill_level(/datum/skill/combat/unarmed)
+	var/unarmed_defense = 0
+	var/obj/B = H.get_item_by_slot(SLOT_WRISTS)
+	var/obj/K = H.get_item_by_slot(SLOT_GLOVES)
+	var/is_pugilist = HAS_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN) // Only expert pugilists get the generous unarmed wdef
+	if(istype(B, /obj/item/clothing/wrists/roguetown/bracers))
+		unarmed_defense = (unarmed_skill * 20) + ((is_pugilist ? UNARMED_BASE_WDEF_EQUIPPED : UNARMED_BASE_WDEF_BARE) * 10)
+		unarmed_bracers = B
+	else if(istype(K, /obj/item/clothing/gloves/roguetown/knuckles))
+		unarmed_defense = (unarmed_skill * 20) + ((is_pugilist ? UNARMED_BASE_WDEF_EQUIPPED : UNARMED_BASE_WDEF_BARE) * 10)
+		unarmed_knuckles = K
+	else if(istype(K, /obj/item/clothing/gloves/roguetown/bandages))
+		unarmed_defense = (unarmed_skill * 20) + ((is_pugilist ? UNARMED_BASE_WDEF_EQUIPPED : UNARMED_BASE_WDEF_BARE) * 10)
+		unarmed_bandages = K
+	else
+		unarmed_defense = (unarmed_skill * 20) + (UNARMED_BASE_WDEF_BARE * 10)
+
+	// If held weapon uses unarmed skill (katar, etc), allow unarmed parry fallback
+	var/allow_unarmed_fallback = FALSE
+	if(used_weapon?.associated_skill == /datum/skill/combat/unarmed)
+		allow_unarmed_fallback = TRUE
+
+	if(highest_defense > 0 && (!allow_unarmed_fallback || highest_defense >= unarmed_defense))
+		// Weapon parry wins
 		if(used_weapon)
 			defender_skill = H.get_skill_level(used_weapon.associated_skill)
 		else
-			defender_skill = H.get_skill_level(/datum/skill/combat/unarmed)
+			defender_skill = unarmed_skill
 		prob2defend += highest_defense
 		weapon_parry = TRUE
+	else if(allow_unarmed_fallback && unarmed_defense > highest_defense)
+		// Unarmed parry is better than the unarmed-skill weapon's own wdefense
+		defender_skill = unarmed_skill
+		prob2defend += unarmed_defense
+		weapon_parry = FALSE
 	else
-		// No parry-capable weapon — fall back to unarmed
-		defender_skill = H.get_skill_level(/datum/skill/combat/unarmed)
-		var/obj/B = H.get_item_by_slot(SLOT_WRISTS)
-		var/obj/K = H.get_item_by_slot(SLOT_GLOVES)
-		// Use the same formula as weapon parry: (skill * 20) + (wdef * 10)
-		if(istype(B, /obj/item/clothing/wrists/roguetown/bracers))
-			prob2defend += (defender_skill * 20) + (UNARMED_BASE_WDEF_EQUIPPED * 10)
-			unarmed_bracers = B
-		else if(istype(K, /obj/item/clothing/gloves/roguetown/knuckles))
-			prob2defend += (defender_skill * 20) + (UNARMED_BASE_WDEF_EQUIPPED * 10)
-			unarmed_knuckles = K
-		else if(istype(K, /obj/item/clothing/gloves/roguetown/bandages))
-			prob2defend += (defender_skill * 20) + (UNARMED_BASE_WDEF_EQUIPPED * 10)
-			unarmed_bandages = K
-		else
-			prob2defend += (defender_skill * 20) + (UNARMED_BASE_WDEF_BARE * 10)
+		// No parry-capable weapon - pure unarmed
+		defender_skill = unarmed_skill
+		prob2defend += unarmed_defense
 		weapon_parry = FALSE
 
 	if(intenty.masteritem)
