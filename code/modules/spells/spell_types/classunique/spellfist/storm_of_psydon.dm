@@ -18,7 +18,7 @@
 	overlay_state = "storm_of_psydon"
 	sound = list('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
 	active = FALSE
-	releasedrain = 40
+	releasedrain = 50
 	chargedrain = 0
 	chargetime = 15 // 1.5s
 	recharge_time = 40 SECONDS
