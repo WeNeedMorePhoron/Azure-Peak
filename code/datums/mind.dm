@@ -862,6 +862,14 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		to_chat(current, span_nicegreen("Tip: You can Ctrl-Click your hotkey bar to unlock it, then drag to rearrange your spells. Re-arranging them change which hotkeys they are bound to in order from left to right (Alt 1 to Alt 9 default). You can shift click your spells to learn more about them."))
 
 /datum/mind/proc/check_learnspell()
+	// T3+ casters without aspects still need learnspell to open the aspect picker
+	if(current)
+		var/user_tier = get_user_spell_tier(current)
+		if(user_tier >= 3 && !LAZYLEN(major_aspects))
+			if(!has_spell(/obj/effect/proc_holder/spell/self/learnspell))
+				AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))
+			return
+
 	// Pool-based system always takes priority over flat spellpoints to prevent unexpected spell point sources from bypassing pool restrictions
 	if(LAZYLEN(spell_point_pools))
 		var/has_remaining = FALSE

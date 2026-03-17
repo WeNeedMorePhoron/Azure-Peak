@@ -2,6 +2,9 @@
 	var/mob/living/owner
 	var/initial_setup = TRUE
 	var/list/pointbuy_selections = list()
+	/// Staged selections - not applied until confirm. List of type paths.
+	var/list/staged_majors = list()
+	var/list/staged_minors = list()
 
 /datum/aspect_picker/New(mob/living/new_owner, setup = TRUE)
 	owner = new_owner
@@ -10,6 +13,9 @@
 /datum/aspect_picker/Destroy()
 	owner = null
 	. = ..()
+
+/datum/aspect_picker/ui_state(mob/user)
+	return GLOB.always_state
 
 /datum/aspect_picker/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -33,13 +39,14 @@
 	data["max_minors"] = MAX_MINOR_ASPECTS
 	data["initial_setup"] = initial_setup
 
+	// Show staged selections, not actual attunements
 	data["attuned_majors"] = list()
-	for(var/datum/magic_aspect/A in owner.mind.major_aspects)
-		data["attuned_majors"] += "[A.type]"
+	for(var/path in staged_majors)
+		data["attuned_majors"] += "[path]"
 
 	data["attuned_minors"] = list()
-	for(var/datum/magic_aspect/A in owner.mind.minor_aspects)
-		data["attuned_minors"] += "[A.type]"
+	for(var/path in staged_minors)
+		data["attuned_minors"] += "[path]"
 
 	data["pointbuy_selections"] = pointbuy_selections
 	return data
@@ -89,21 +96,63 @@
 		entry["cost"] = initial(S.cost)
 	return entry
 
+/// Check if a staged path conflicts with other staged paths via countersynergy
+/datum/aspect_picker/proc/has_countersynergy(check_path)
+	var/datum/magic_aspect/check = new check_path
+	var/list/all_staged = staged_majors + staged_minors
+	for(var/staged_path in all_staged)
+		if(staged_path == check_path)
+			continue
+		var/datum/magic_aspect/staged = new staged_path
+		if(staged.type in check.countersynergy)
+			qdel(check)
+			qdel(staged)
+			return TRUE
+		if(check.type in staged.countersynergy)
+			qdel(check)
+			qdel(staged)
+			return TRUE
+		qdel(staged)
+	qdel(check)
+	return FALSE
+
 /datum/aspect_picker/ui_act(action, list/params)
 	if(..())
 		return
 	if(!owner?.mind)
 		return
 
+	var/user_tier = get_user_spell_tier(owner)
+	var/max_majors = (user_tier >= 4) ? MAX_MAJOR_ASPECTS_T4 : MAX_MAJOR_ASPECTS_T3
+
 	switch(action)
 		if("attune")
 			var/path = text2path(params["path"])
 			if(!path)
 				return
-			var/datum/magic_aspect/aspect = new path
-			if(!owner.mind.attune_aspect(aspect))
-				qdel(aspect)
+			// Check countersynergy against staged selections
+			if(has_countersynergy(path))
+				to_chat(owner, span_warning("This aspect conflicts with my current selections."))
 				return
+			// Determine if major or minor
+			var/datum/magic_aspect/temp = new path
+			var/aspect_type = temp.aspect_type
+			qdel(temp)
+			switch(aspect_type)
+				if(ASPECT_MAJOR)
+					if(length(staged_majors) >= max_majors)
+						to_chat(owner, span_warning("I cannot select another major aspect."))
+						return
+					if(path in staged_majors)
+						return
+					staged_majors += path
+				if(ASPECT_MINOR)
+					if(length(staged_minors) >= MAX_MINOR_ASPECTS)
+						to_chat(owner, span_warning("I cannot select another minor aspect."))
+						return
+					if(path in staged_minors)
+						return
+					staged_minors += path
 			. = TRUE
 
 		if("remove")
@@ -112,21 +161,10 @@
 			var/path = text2path(params["path"])
 			if(!path)
 				return
-			var/datum/magic_aspect/target
-			for(var/datum/magic_aspect/A in owner.mind.major_aspects)
-				if(A.type == path)
-					target = A
-					break
-			if(!target)
-				for(var/datum/magic_aspect/A in owner.mind.minor_aspects)
-					if(A.type == path)
-						target = A
-						break
-			if(target)
-				owner.mind.remove_aspect(target)
-				qdel(target)
-				pointbuy_selections -= params["path"]
-				. = TRUE
+			staged_majors -= path
+			staged_minors -= path
+			pointbuy_selections -= params["path"]
+			. = TRUE
 
 		if("pointbuy_toggle")
 			var/aspect_path = params["aspect_path"]
@@ -143,6 +181,52 @@
 			. = TRUE
 
 		if("confirm")
+			if(!length(staged_majors))
+				to_chat(owner, span_warning("You must select at least one major aspect."))
+				return
+			// Apply all staged selections to the mind
+			for(var/path in staged_majors)
+				var/datum/magic_aspect/aspect = new path
+				if(!owner.mind.attune_aspect(aspect))
+					qdel(aspect)
+			for(var/path in staged_minors)
+				var/datum/magic_aspect/aspect = new path
+				if(!owner.mind.attune_aspect(aspect))
+					qdel(aspect)
+			// Apply pointbuy selections for attuned aspects
+			for(var/aspect_path_str in pointbuy_selections)
+				var/aspect_path = text2path(aspect_path_str)
+				if(!aspect_path)
+					continue
+				var/datum/magic_aspect/attuned
+				for(var/datum/magic_aspect/A in owner.mind.major_aspects)
+					if(A.type == aspect_path)
+						attuned = A
+						break
+				if(!attuned)
+					for(var/datum/magic_aspect/A in owner.mind.minor_aspects)
+						if(A.type == aspect_path)
+							attuned = A
+							break
+				if(!attuned)
+					continue
+				var/list/selections = pointbuy_selections[aspect_path_str]
+				for(var/spell_path_str in selections)
+					var/spell_path = text2path(spell_path_str)
+					if(!spell_path)
+						continue
+					if(owner.mind.has_spell(spell_path))
+						continue
+					var/datum/new_spell = new spell_path
+					attuned.mark_aspect_spell(new_spell)
+					owner.mind.AddSpell(new_spell)
+			// Check if learnspell should remain
+			owner.mind.check_learnspell()
 			SStgui.close_uis(src)
 			qdel(src)
 			return TRUE
+
+/datum/aspect_picker/ui_close(mob/user)
+	// If the user closes the window without confirming, clean up without applying
+	// Staged selections are lost
+	qdel(src)

@@ -158,11 +158,21 @@ export const AspectPicker = () => {
                     <Stack.Item grow basis={0}>
                       <Section title={selected.name} fill scrollable>
                         {selected.fluff_desc && (
-                          <Box italic color="label" mb={1}>
-                            {selected.fluff_desc}
-                          </Box>
+                          <Box
+                            italic
+                            color="label"
+                            mb={1}
+                            dangerouslySetInnerHTML={{
+                              __html: selected.fluff_desc,
+                            }}
+                          />
                         )}
-                        <Box mb={1}>{selected.desc}</Box>
+                        <Box
+                          mb={1}
+                          dangerouslySetInnerHTML={{
+                            __html: selected.desc,
+                          }}
+                        />
                         {selected.attuned_name && (
                           <Box color="label" mb={1}>
                             Implement attunement: &quot;
@@ -181,9 +191,14 @@ export const AspectPicker = () => {
                                   {spell.name}
                                 </Box>
                                 {spell.desc && (
-                                  <Box color="label" ml={1} inline>
-                                    {spell.desc}
-                                  </Box>
+                                  <Box
+                                    color="label"
+                                    ml={1}
+                                    inline
+                                    dangerouslySetInnerHTML={{
+                                      __html: spell.desc,
+                                    }}
+                                  />
                                 )}
                               </Box>
                             ))}
@@ -220,8 +235,16 @@ export const AspectPicker = () => {
                                   }
                                   mb={0.5}
                                 >
-                                  {spell.name} ({spell.cost}pts)
-                                  {spell.desc && ` - ${spell.desc}`}
+                                  <span>
+                                    {spell.name} ({spell.cost}pts)
+                                    {spell.desc && (
+                                      <span
+                                        dangerouslySetInnerHTML={{
+                                          __html: ` - ${spell.desc}`,
+                                        }}
+                                      />
+                                    )}
+                                  </span>
                                 </Button>
                               );
                             })}
