@@ -22,7 +22,6 @@
 	var/aspect_type = ASPECT_MAJOR
 	/// Appended to implements when attuned: "Fire" -> "Staff of Fire"
 	var/attuned_name = ""
-	var/required_tier = 3
 	// Always granted spells
 	var/list/fixed_spells = list()
 	/// Pointbuy are optionals - for point buy aspect

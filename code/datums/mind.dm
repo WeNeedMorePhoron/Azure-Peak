@@ -54,6 +54,9 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	var/used_spell_points
 	var/list/spell_point_pools
 	var/list/spell_points_used_by_pool
+	var/list/major_aspects
+	var/list/minor_aspects
+	
 	var/movemovemovetext = "Move!!"
 	var/takeaimtext = "Take aim!!"
 	var/holdtext = "Hold!!"
@@ -379,6 +382,64 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	if(!has_spell(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation))
 		AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 	check_learnspell()
+
+/datum/mind/proc/attune_aspect(datum/magic_aspect/aspect)
+	if(!aspect)
+		return FALSE
+	if(!aspect.can_attune(src))
+		if(current)
+			to_chat(current, span_warning("This aspect conflicts with my current attunements."))
+		return FALSE
+	var/user_tier = current ? get_user_spell_tier(current) : 0
+	switch(aspect.aspect_type)
+		if(ASPECT_MAJOR)
+			var/max_majors = (user_tier >= 4) ? MAX_MAJOR_ASPECTS_T4 : MAX_MAJOR_ASPECTS_T3
+			if(LAZYLEN(major_aspects) >= max_majors)
+				if(current)
+					to_chat(current, span_warning("I cannot attune to another major aspect."))
+				return FALSE
+			LAZYADD(major_aspects, aspect)
+		if(ASPECT_MINOR)
+			if(LAZYLEN(minor_aspects) >= MAX_MINOR_ASPECTS)
+				if(current)
+					to_chat(current, span_warning("I cannot attune to another minor aspect."))
+				return FALSE
+			LAZYADD(minor_aspects, aspect)
+	aspect.grant_spells(src)
+	aspect.apply_prestige(src, user_tier)
+	return TRUE
+
+/datum/mind/proc/remove_aspect(datum/magic_aspect/aspect)
+	if(!aspect)
+		return FALSE
+	aspect.revoke_spells(src)
+	switch(aspect.aspect_type)
+		if(ASPECT_MAJOR)
+			LAZYREMOVE(major_aspects, aspect)
+		if(ASPECT_MINOR)
+			LAZYREMOVE(minor_aspects, aspect)
+	return TRUE
+
+/datum/mind/proc/remove_all_aspects()
+	for(var/datum/magic_aspect/aspect in major_aspects)
+		remove_aspect(aspect)
+	for(var/datum/magic_aspect/aspect in minor_aspects)
+		remove_aspect(aspect)
+
+/datum/mind/proc/has_aspect(aspect_type_path)
+	for(var/datum/magic_aspect/aspect in major_aspects)
+		if(aspect.type == aspect_type_path)
+			return TRUE
+	for(var/datum/magic_aspect/aspect in minor_aspects)
+		if(aspect.type == aspect_type_path)
+			return TRUE
+	return FALSE
+
+/datum/mind/proc/get_aspect_color()
+	if(LAZYLEN(major_aspects))
+		var/datum/magic_aspect/first = major_aspects[1]
+		return first.school_color
+	return GLOW_COLOR_ARCANE
 
 /datum/mind/proc/set_death_time()
 	last_death = world.time
