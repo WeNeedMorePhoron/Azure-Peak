@@ -8,13 +8,6 @@
  * Major aspects: Latin, English, Latin (triple). Minor aspects: Latin, English (pair).
  */
 
-#define MAX_MAJOR_ASPECTS_T3 1
-#define MAX_MAJOR_ASPECTS_T4 2
-#define MAX_MINOR_ASPECTS 2
-
-#define ASPECT_MAJOR "major"
-#define ASPECT_MINOR "minor"
-
 /datum/magic_aspect
 	var/name = "Aspect"
 	var/desc = "An arcyne discipline."

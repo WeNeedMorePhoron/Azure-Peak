@@ -11,7 +11,11 @@
 	. = ..()
 	if(!user.mind)
 		return
-	// Pool-based system always takes priority to prevent unexpected spell point sources from bypassing pool restrictions
+	var/user_tier = get_user_spell_tier(user)
+	if(user_tier >= 3 && !LAZYLEN(user.mind.major_aspects))
+		var/datum/aspect_picker/picker = new(user, TRUE)
+		picker.ui_interact(user)
+		return
 	if(LAZYLEN(user.mind.spell_point_pools))
 		return class_based_spells(user)
 	return legacy_pointbuy_spells(user)

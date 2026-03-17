@@ -61,3 +61,10 @@
 #define SPELLCOST_SB_POKE 15 // Roughly 3 attacks worth
 #define SPELLCOST_SB_MOBILITY 15 // Dashes / Teleports / Anchor
 #define SPELLCOST_SB_ULT 50 // Their ult
+
+// Magic Aspect system
+#define MAX_MAJOR_ASPECTS_T3 1
+#define MAX_MAJOR_ASPECTS_T4 2
+#define MAX_MINOR_ASPECTS 2
+#define ASPECT_MAJOR "major"
+#define ASPECT_MINOR "minor"
