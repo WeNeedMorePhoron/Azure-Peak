@@ -49,6 +49,26 @@
 		data["attuned_minors"] += "[path]"
 
 	data["pointbuy_selections"] = pointbuy_selections
+
+	// Collect all selected pointbuy spell paths so the UI can grey out duplicates
+	var/list/all_selected_spells = list()
+	for(var/aspect_path_str in pointbuy_selections)
+		var/list/selections = pointbuy_selections[aspect_path_str]
+		for(var/spell_path_str in selections)
+			all_selected_spells |= spell_path_str
+	data["all_selected_spells"] = all_selected_spells
+
+	// Collect spent budget per aspect
+	var/list/spent_budgets = list()
+	for(var/aspect_path_str in pointbuy_selections)
+		var/resolved = text2path(aspect_path_str)
+		if(!resolved)
+			continue
+		var/datum/magic_aspect/temp = new resolved
+		spent_budgets[aspect_path_str] = get_pointbuy_spent(aspect_path_str, temp)
+		qdel(temp)
+	data["spent_budgets"] = spent_budgets
+
 	return data
 
 /datum/aspect_picker/proc/build_aspect_list(list/aspect_paths)
@@ -177,6 +197,21 @@
 			if(spell_path in selections)
 				selections -= spell_path
 			else
+				// Check if this spell is already selected in another aspect
+				if(is_spell_selected_elsewhere(spell_path, aspect_path))
+					to_chat(owner, span_warning("I have already selected this spell from another aspect."))
+					return
+				// Check budget before adding
+				var/resolved_aspect_path = text2path(aspect_path)
+				if(resolved_aspect_path)
+					var/datum/magic_aspect/temp = new resolved_aspect_path
+					var/budget = temp.pointbuy_budget
+					var/spent = get_pointbuy_spent(aspect_path, temp)
+					var/spell_cost = get_spell_cost_from_path(text2path(spell_path))
+					qdel(temp)
+					if(spent + spell_cost > budget)
+						to_chat(owner, span_warning("Not enough points remaining in this aspect's budget."))
+						return
 				selections += spell_path
 			. = TRUE
 
@@ -225,6 +260,36 @@
 			SStgui.close_uis(src)
 			qdel(src)
 			return TRUE
+
+/// Check if a spell is already selected in a different aspect's pointbuy
+/datum/aspect_picker/proc/is_spell_selected_elsewhere(spell_path, exclude_aspect_path)
+	for(var/other_aspect_path in pointbuy_selections)
+		if(other_aspect_path == exclude_aspect_path)
+			continue
+		var/list/other_selections = pointbuy_selections[other_aspect_path]
+		if(spell_path in other_selections)
+			return TRUE
+	return FALSE
+
+/// Get total points spent in an aspect's pointbuy selections
+/datum/aspect_picker/proc/get_pointbuy_spent(aspect_path_str, datum/magic_aspect/aspect)
+	var/list/selections = pointbuy_selections[aspect_path_str]
+	if(!length(selections))
+		return 0
+	var/total = 0
+	for(var/spell_path_str in selections)
+		total += get_spell_cost_from_path(text2path(spell_path_str))
+	return total
+
+/// Get spell cost from a type path (handles both spell systems)
+/datum/aspect_picker/proc/get_spell_cost_from_path(spell_path)
+	if(!spell_path)
+		return 0
+	if(ispath(spell_path, /datum/action/cooldown/spell))
+		var/datum/action/cooldown/spell/S = spell_path
+		return initial(S.point_cost)
+	var/obj/effect/proc_holder/spell/S = spell_path
+	return initial(S.cost)
 
 /datum/aspect_picker/ui_close(mob/user)
 	// If the user closes the window without confirming, clean up without applying

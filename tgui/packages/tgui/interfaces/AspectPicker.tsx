@@ -35,6 +35,8 @@ type Data = {
   attuned_majors: string[];
   attuned_minors: string[];
   pointbuy_selections: Record<string, string[]>;
+  all_selected_spells: string[];
+  spent_budgets: Record<string, number>;
 };
 
 export const AspectPicker = () => {
@@ -48,6 +50,7 @@ export const AspectPicker = () => {
     attuned_majors = [],
     attuned_minors = [],
     pointbuy_selections = {},
+    all_selected_spells = [],
   } = data;
 
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
@@ -216,17 +219,30 @@ export const AspectPicker = () => {
                               const isSelected = selections.includes(
                                 spell.path,
                               );
+                              const selectedElsewhere =
+                                !isSelected &&
+                                all_selected_spells.includes(spell.path);
                               const used = getPointbuyUsed(selected);
                               const wouldExceed =
                                 !isSelected &&
                                 used + spell.cost > selected.pointbuy_budget;
+                              const isDisabled =
+                                !isSelected &&
+                                (wouldExceed || selectedElsewhere);
                               return (
                                 <Button
                                   key={spell.path}
                                   fluid
                                   selected={isSelected}
-                                  disabled={wouldExceed && !isSelected}
-                                  color={isSelected ? 'good' : undefined}
+                                  disabled={isDisabled}
+                                  color={
+                                    isSelected
+                                      ? 'good'
+                                      : selectedElsewhere
+                                        ? 'grey'
+                                        : undefined
+                                  }
+                                  opacity={selectedElsewhere ? 0.5 : 1}
                                   onClick={() =>
                                     act('pointbuy_toggle', {
                                       aspect_path: selected.path,
@@ -237,7 +253,8 @@ export const AspectPicker = () => {
                                 >
                                   <span>
                                     {spell.name} ({spell.cost}pts)
-                                    {spell.desc && (
+                                    {selectedElsewhere && ' (already selected)'}
+                                    {spell.desc && !selectedElsewhere && (
                                       <span
                                         dangerouslySetInnerHTML={{
                                           __html: ` - ${spell.desc}`,
