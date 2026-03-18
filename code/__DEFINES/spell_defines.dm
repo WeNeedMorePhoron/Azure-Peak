@@ -61,13 +61,6 @@
 #define SPELLCOST_SB_MOBILITY 15 // Dashes / Teleports / Anchor
 #define SPELLCOST_SB_ULT 50 // Their ult
 
-// Global cooldown (GCD) — minimum time between any two spell casts
-#define SPELL_GCD_NONE 0
-#define SPELL_GCD_LIGHT 0.5 SECONDS
-#define SPELL_GCD_MEDIUM 1.5 SECONDS
-#define SPELL_GCD_HEAVY 3 SECONDS
-#define SPELL_SHARED_COOLDOWN_GROUP "spells"
-
 // Charging slowdown tiers — how much the caster is slowed while charging
 #define CHARGING_SLOWDOWN_NONE 0       // Spellblade abilities, no movement penalty
 #define CHARGING_SLOWDOWN_SMALL 1      // Small projectiles, minor spells

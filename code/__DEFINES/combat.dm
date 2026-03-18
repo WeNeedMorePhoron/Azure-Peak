@@ -49,9 +49,12 @@
 
 #define HEALTH_THRESHOLD_NEARDEATH -90 //Not used mechanically, but to determine if someone is so close to death they hear the other side
 
-// Actually a divisor. Where 1 / this * 100% value of burn damage on lethal zones (Chest & Head) causes you to enter hardcrit. 
-#define FIRE_HARDCRIT_DIVISOR 106 // 106 = 94.5% burn damage = hardcrit
-#define FIRE_HARDCRIT_DIVISOR_MINDLESS 200 // 200 = 50% burn damage = hardcrit for mindless mobs  
+// Total burn damage across ALL limbs. At WARN threshold, warn the player. At CRIT threshold, hardcrit.
+#define BURN_TOTAL_WARN_THRESHOLD 200    // Sum of all limb burn damage to show warning (roughly 100% of one limb pair)
+#define BURN_TOTAL_CRIT_THRESHOLD 500    // Sum of all limb burn damage to hardcrit (roughly 250% of base health)
+#define BURN_TOTAL_CRIT_DIVISOR_MINDLESS 2 // Mindless mobs hardcrit at half the threshold
+// Burn damage contributes this fraction to pain (vs brute at 1.0)
+#define BURN_PAIN_MODIFIER 0.5
 #define STRENGTH_SOFTCAP 14	//STR value past which we get diminishing returns in our damage calculations.
 #define STRENGTH_MULT 0.1	//STR multiplier per STR point up to the softcap. Works as a %-age. 0.1 = 10% per point.
 #define STRENGTH_CAPPEDMULT 0.034	//STR multiplier per STR point past the softcap

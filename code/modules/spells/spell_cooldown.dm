@@ -52,8 +52,6 @@
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_PHASED
 	panel = "Spells"
 	click_to_activate = TRUE
-	shared_cooldown = SPELL_SHARED_COOLDOWN_GROUP
-	shared_cooldown_duration = SPELL_GCD_NONE
 
 	/// Primary resource type: SPELL_COST_NONE, SPELL_COST_STAMINA, SPELL_COST_ENERGY, SPELL_COST_DEVOTION
 	var/primary_resource_type = SPELL_COST_STAMINA
