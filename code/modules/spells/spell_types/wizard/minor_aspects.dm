@@ -124,6 +124,22 @@
 		/obj/effect/proc_holder/spell/invoked/invisibility,
 	)
 
+/datum/magic_aspect/hearthcraft
+	name = "Hearthcraft"
+	desc = "TODO"
+	fluff_desc = "TODO"
+	aspect_type = ASPECT_MINOR
+	binding_chants = list(
+		"TODO",
+	)
+	unbinding_chants = list(
+		"TODO",
+	)
+	fixed_spells = list(
+		/datum/action/cooldown/spell/great_shelter,
+		/obj/effect/proc_holder/spell/invoked/create_campfire,
+	)
+
 /datum/magic_aspect/hex
 	name = "Hex"
 	desc = "TODO"

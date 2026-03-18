@@ -2847,6 +2847,7 @@
 #include "code\modules\spells\spell_types\wizard\utility\mirror_transform.dm"
 #include "code\modules\spells\spell_types\wizard\utility\prestidigitation.dm"
 #include "code\modules\spells\spell_types\wizard\utility\summon_weapon.dm"
+#include "code\modules\spells\spell_types\wizard\utility\great_shelter.dm"
 #include "code\modules\spells\spell_types\wizard\utility\woundclosure.dm"
 #include "code\modules\statpacks\_statpacks.dm"
 #include "code\modules\statpacks\agile.dm"

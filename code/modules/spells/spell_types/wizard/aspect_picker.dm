@@ -50,12 +50,20 @@
 
 	data["pointbuy_selections"] = pointbuy_selections
 
-	// Collect all selected pointbuy spell paths so the UI can grey out duplicates
+	// Collect all selected/granted spell paths so the UI can grey out duplicates
+	// This includes both pointbuy selections AND fixed spells from all staged aspects
 	var/list/all_selected_spells = list()
 	for(var/aspect_path_str in pointbuy_selections)
 		var/list/selections = pointbuy_selections[aspect_path_str]
 		for(var/spell_path_str in selections)
 			all_selected_spells |= spell_path_str
+	// Include fixed spells from all staged aspects
+	var/list/all_staged = staged_majors + staged_minors
+	for(var/staged_path in all_staged)
+		var/datum/magic_aspect/staged = new staged_path
+		for(var/spell_path in staged.fixed_spells)
+			all_selected_spells |= "[spell_path]"
+		qdel(staged)
 	data["all_selected_spells"] = all_selected_spells
 
 	// Collect spent budget per aspect
@@ -261,14 +269,27 @@
 			qdel(src)
 			return TRUE
 
-/// Check if a spell is already selected in a different aspect's pointbuy
+/// Check if a spell is already selected in a different aspect's pointbuy or granted as a fixed spell
 /datum/aspect_picker/proc/is_spell_selected_elsewhere(spell_path, exclude_aspect_path)
+	// Check pointbuy selections in other aspects
 	for(var/other_aspect_path in pointbuy_selections)
 		if(other_aspect_path == exclude_aspect_path)
 			continue
 		var/list/other_selections = pointbuy_selections[other_aspect_path]
 		if(spell_path in other_selections)
 			return TRUE
+	// Check fixed spells in all staged aspects
+	var/resolved_spell = text2path(spell_path)
+	if(resolved_spell)
+		var/list/all_staged = staged_majors + staged_minors
+		for(var/staged_path in all_staged)
+			if("[staged_path]" == exclude_aspect_path)
+				continue
+			var/datum/magic_aspect/staged = new staged_path
+			if(resolved_spell in staged.fixed_spells)
+				qdel(staged)
+				return TRUE
+			qdel(staged)
 	return FALSE
 
 /// Get total points spent in an aspect's pointbuy selections

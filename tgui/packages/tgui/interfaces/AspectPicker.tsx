@@ -136,20 +136,29 @@ export const AspectPicker = () => {
                   {aspects.map((aspect) => {
                     const active = attuned.includes(aspect.path);
                     const blocked = !active && isBlocked(aspect);
+                    const viewing = selectedPath === aspect.path;
                     return (
                       <Button
                         key={aspect.path}
                         fluid
-                        selected={selectedPath === aspect.path}
+                        selected={viewing}
                         color={
-                          active ? 'good' : blocked ? 'grey' : undefined
+                          active
+                            ? 'green'
+                            : blocked
+                              ? 'grey'
+                              : viewing
+                                ? 'blue'
+                                : undefined
                         }
-                        opacity={blocked ? 0.5 : 1}
+                        bold={active || viewing}
+                        opacity={blocked ? 0.4 : 1}
                         onClick={() => setSelectedPath(aspect.path)}
                         mb={0.5}
                       >
+                        {active ? '\u2713 ' : ''}
                         {aspect.name}
-                        {active ? ' \u2713' : ''}
+                        {active ? ' (Attuned)' : ''}
                       </Button>
                     );
                   })}
@@ -327,16 +336,25 @@ export const AspectPicker = () => {
             </Stack>
           </Stack.Item>
           <Stack.Item>
-            <Button
-              fluid
-              textAlign="center"
-              color="good"
-              fontSize={1.1}
-              disabled={attuned_majors.length === 0}
-              onClick={() => act('confirm')}
-            >
-              Confirm Aspects
-            </Button>
+            {(() => {
+              const allFilled =
+                attuned_majors.length >= max_majors &&
+                attuned_minors.length >= max_minors;
+              return (
+                <Button
+                  fluid
+                  textAlign="center"
+                  color={allFilled ? 'good' : 'red'}
+                  fontSize={1.1}
+                  opacity={allFilled ? 1 : 0.6}
+                  onClick={allFilled ? () => act('confirm') : undefined}
+                >
+                  {allFilled
+                    ? 'Confirm Aspects'
+                    : `Select all aspects (${attuned_majors.length}/${max_majors} major, ${attuned_minors.length}/${max_minors} minor)`}
+                </Button>
+              );
+            })()}
           </Stack.Item>
         </Stack>
       </Window.Content>
