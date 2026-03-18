@@ -1,36 +1,32 @@
-
-/obj/effect/proc_holder/spell/invoked/projectile/spitfire
+/datum/action/cooldown/spell/projectile/spitfire
 	name = "Spitfire"
-	desc = "Shoot out a low-powered ball of fire that ignites a target with a small amount of fire on impact. \n\
-	Damage is increased by 100% versus simple-minded creechurs.\n\
+	desc = "Shoot out a low-powered ball of fire that ignites a target with a small amount of fire on impact. \
+	Damage is increased by 100% versus simple-minded creechurs. \
 	Toggle arc mode (Ctrl+G) while the spell is active to fire it over intervening mobs. Arced attacks deal 25% less damage."
-	clothes_req = FALSE
-	range = 8
+	button_icon_state = "fireball_multi"
+	sound = 'sound/magic/whiteflame.ogg'
+	spell_color = GLOW_COLOR_FIRE
+	glow_intensity = GLOW_INTENSITY_LOW
+
 	projectile_type = /obj/projectile/magic/aoe/fireball/spitfire
 	projectile_type_arc = /obj/projectile/magic/aoe/fireball/spitfire/arc
-	overlay_state = "fireball_multi"
-	sound = list('sound/magic/whiteflame.ogg')
-	active = FALSE
-	releasedrain = SPELLCOST_MINOR_PROJECTILE
-	chargedrain = 1
-	chargetime = 1
-	recharge_time = 4 SECONDS
-	warnie = "spellwarning"
-	no_early_release = TRUE
-	movement_interrupt = FALSE
-	spell_tier = 2
-	invocations = list("Evomere Flammas!")
-	invocation_type = "shout"
-	glow_color = GLOW_COLOR_FIRE
-	glow_intensity = GLOW_INTENSITY_LOW
-	charging_slowdown = 3
-	chargedloop = /datum/looping_sound/invokefire
-	associated_skill = /datum/skill/magic/arcane
-	cost = 3
+	cast_range = 8
 
-/obj/effect/proc_holder/spell/invoked/projectile/spitfire/cast(list/targets, mob/user = user)
-	projectile_type = arc_mode ? projectile_type_arc : initial(projectile_type)
-	. = ..()
+	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_cost = SPELLCOST_MINOR_PROJECTILE
+
+	invocations = list("Evomere Flammas!")
+	invocation_type = INVOCATION_SHOUT
+
+	charge_required = TRUE
+	charge_time = 1 SECONDS
+	charge_drain = 1
+	charge_slowdown = CHARGING_SLOWDOWN_SMALL
+	charge_sound = 'sound/magic/charging_fire.ogg'
+	cooldown_time = 4 SECONDS
+	shared_cooldown_duration = SPELL_GCD_LIGHT
+
+	associated_skill = /datum/skill/magic/arcane
 
 /obj/projectile/magic/aoe/fireball/spitfire
 	name = "Spitfire"
@@ -39,8 +35,8 @@
 	exp_flash = 0
 	exp_fire = 0
 	damage = 20
-	npc_simple_damage_mult = 2 // Makes it more effective against NPCs.
-	accuracy = 40 // Base accuracy is lower for burn projectiles because they bypass armor
+	npc_simple_damage_mult = 2
+	accuracy = 40
 	damage_type = BURN
 	nodamage = FALSE
 	flag = "magic"
@@ -49,7 +45,7 @@
 
 /obj/projectile/magic/aoe/fireball/spitfire/arc
 	name = "Arced Spitfire"
-	damage = 15 // 25% damage penalty
+	damage = 15
 	arcshot = TRUE
 
 /obj/projectile/magic/aoe/fireball/spitfire/on_hit(target)

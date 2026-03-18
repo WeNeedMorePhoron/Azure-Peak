@@ -310,7 +310,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/spitfire
 	name = "Scroll of Spitfire"
-	spell = /obj/effect/proc_holder/spell/invoked/projectile/spitfire
+	spell = /datum/action/cooldown/spell/projectile/spitfire
 	spellname = "Spitfire"
 	icon_state ="scrollred"
 	remarks = list("Ignis et oleum..", "Flammam continere ad momentum..", "Flammam iactare..", "Sit flamma constructum..")

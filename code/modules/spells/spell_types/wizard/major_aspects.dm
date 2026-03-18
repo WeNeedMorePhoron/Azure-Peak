@@ -15,10 +15,10 @@
 		"TODO",
 	)
 	fixed_spells = list(
-		/obj/effect/proc_holder/spell/invoked/projectile/spitfire,
+		/datum/action/cooldown/spell/projectile/spitfire,
 		/datum/action/cooldown/spell/projectile/fireball,
-		// TODO: Hellish Rebuke - Close range, charged projectile, repel 2 tiles, burn damage
-		// TODO: 4th spell - possibly 5x5 AOE on ultra-high CD and stamina cost
+		/datum/action/cooldown/spell/fire_blast,
+		/datum/action/cooldown/spell/fire_curtain,
 	)
 	prestige_upgrades = list(
 		// TODO: Fireball -> Greater Fireball at T4

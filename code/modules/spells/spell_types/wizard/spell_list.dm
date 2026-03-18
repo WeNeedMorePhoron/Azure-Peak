@@ -4,7 +4,7 @@
 GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile/fireball,
 		/obj/effect/proc_holder/spell/invoked/projectile/lightningbolt,
 		/obj/effect/proc_holder/spell/invoked/projectile/fetch,
-		/obj/effect/proc_holder/spell/invoked/projectile/spitfire,
+		/datum/action/cooldown/spell/projectile/spitfire,
 		/obj/effect/proc_holder/spell/invoked/forcewall,
 		/obj/effect/proc_holder/spell/invoked/ensnare,
 		/obj/effect/proc_holder/spell/self/message,
