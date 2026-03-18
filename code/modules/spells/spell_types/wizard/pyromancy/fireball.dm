@@ -57,6 +57,7 @@
 	arcshot = TRUE
 
 /obj/projectile/magic/aoe/fireball/rogue/on_hit(target)
+	..()
 	var/mob/living/M = ismob(target) ? target : null
 
 	if(M?.anti_magic_check())
@@ -116,4 +117,4 @@
 			for(var/turf/closed/wall/damagedwalls in view(struct_radius, epicenter))
 				damagedwalls.take_damage(structural_damage, BRUTE, "blunt", 1)
 
-	return BULLET_ACT_HIT
+	return TRUE

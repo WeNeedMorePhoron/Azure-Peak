@@ -214,7 +214,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	return releasedrain
 
 /obj/effect/proc_holder/spell/proc/calculate_fatigue_drain(mob/living/user)
-	if(!user || !releasedrain)
+	if(!user || !releasedrain || miracle)
 		return releasedrain
 	var/newdrain = releasedrain
 	if(user.STAINT > SPELL_SCALING_THRESHOLD)
@@ -263,7 +263,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	return breakdown
 
 /obj/effect/proc_holder/spell/proc/calculate_cooldown(mob/living/user)
-	if(!user || is_cdr_exempt)
+	if(!user || is_cdr_exempt || miracle)
 		return initial(recharge_time)
 	var/base = initial(recharge_time)
 	var/newcd = base
@@ -571,6 +571,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			L.mob_timers[MT_FOUNDSNEAK] = world.time
 			L.update_sneak_invis(reset = TRUE)
 	if(cast(targets, user = user))
+		// Self spells bypass the ranged_ability click pipeline, which is where
+		// releasedrain stamina cost is normally applied (via mob_helpers.dm).
+		// Apply it here so ALL spell types properly drain stamina on cast.
+		if(!ranged_ability_user && releasedrain > 0 && isliving(user))
+			var/mob/living/L = user
+			var/fatigue = calculate_fatigue_drain(L)
+			if(fatigue > 0)
+				L.stamina_add(fatigue)
 		invocation(user)
 		start_recharge()
 		if(sound)
@@ -922,6 +930,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			// Remove first so chain-deflections replay the overhead visual and reset the timer
 			attacker.remove_status_effect(/datum/status_effect/debuff/exposed)
 			attacker.apply_status_effect(/datum/status_effect/debuff/exposed, 5 SECONDS)
+			// Match melee riposte: lock out attacks and slow the attacker down
+			attacker.apply_status_effect(/datum/status_effect/debuff/clickcd, 3 SECONDS)
+			attacker.Slowdown(3)
 			// Dump all momentum — you swung into a guard, you lose your edge
 			var/datum/status_effect/buff/arcyne_momentum/momentum = attacker.has_status_effect(/datum/status_effect/buff/arcyne_momentum)
 			if(momentum && momentum.stacks > 0)

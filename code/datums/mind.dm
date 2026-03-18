@@ -440,6 +440,11 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		var/datum/magic_aspect/first = major_aspects[1]
 		return first.school_color
 	return GLOW_COLOR_ARCANE
+/datum/mind/proc/adjust_spell_point_pool(pool_name, points)
+	if(!LAZYLEN(spell_point_pools) || !(pool_name in spell_point_pools))
+		return
+	spell_point_pools[pool_name] += points
+	check_learnspell()
 
 /datum/mind/proc/set_death_time()
 	last_death = world.time
