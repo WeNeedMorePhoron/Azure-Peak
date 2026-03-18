@@ -27,7 +27,6 @@
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/charging_fire.ogg'
 	cooldown_time = 30 SECONDS
-	shared_cooldown_duration = SPELL_GCD_HEAVY
 
 	associated_skill = /datum/skill/magic/arcane
 
