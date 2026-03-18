@@ -49,10 +49,13 @@
 
 #define HEALTH_THRESHOLD_NEARDEATH -90 //Not used mechanically, but to determine if someone is so close to death they hear the other side
 
-// Total burn damage across ALL limbs. At WARN threshold, warn the player. At CRIT threshold, hardcrit.
-#define BURN_TOTAL_WARN_THRESHOLD 200    // Sum of all limb burn damage to show warning (roughly 100% of one limb pair)
-#define BURN_TOTAL_CRIT_THRESHOLD 500    // Sum of all limb burn damage to hardcrit (roughly 250% of base health)
-#define BURN_TOTAL_CRIT_DIVISOR_MINDLESS 2 // Mindless mobs hardcrit at half the threshold
+// Burn hardcrit: total burn across ALL limbs vs multiples of chest limb's max_damage.
+// Chest max_damage scales with STACON/10 (baseline 200 at STACON 10), so threshold scales with CON.
+// Old system: 95% burn on one head/chest (~190 damage) = hardcrit. Far too abusable.
+// New system: spread damage matters, not just headshot fishing.
+#define BURN_CRIT_WARN_MULT 1.5          // 1.5x chest max_damage = warning (300 at baseline CON)
+#define BURN_CRIT_MULT 2.5               // 2.5x chest max_damage = hardcrit (500 at baseline CON)
+#define BURN_CRIT_MULT_MINDLESS 1.25     // Mindless mobs hardcrit faster (250 at baseline CON)
 // Burn damage contributes this fraction to pain (vs brute at 1.0)
 #define BURN_PAIN_MODIFIER 0.5
 #define STRENGTH_SOFTCAP 14	//STR value past which we get diminishing returns in our damage calculations.
