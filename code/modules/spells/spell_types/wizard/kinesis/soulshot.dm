@@ -3,7 +3,10 @@
 
 /datum/action/cooldown/spell/projectile/soulshot
 	name = "Soulshot"
-	desc = "Fire a devastating beam of kinetic force that tears through a target."
+	desc = "Fire a devastating beam of kinetic force that pierces through up to 4 targets. Stopped by solid objects. \
+	Damage is halved after the first target. \
+	Deals 50% increased damage to simple-minded creechurs. \
+	Basic offensive magic, refined for over a millenium since the first Magi expelled mana from their body with pure malice and determination to destroy another."
 	button_icon_state = "yourewizardharry"
 	sound = 'sound/magic/cosmic_expansion.ogg'
 	spell_color = GLOW_COLOR_DISPLACEMENT
@@ -22,9 +25,9 @@
 	charge_required = TRUE
 	charge_time = CHARGETIME_MAJOR
 	charge_drain = 1
-	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
+	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
-	cooldown_time = 10 SECONDS
+	cooldown_time = 8 SECONDS // They only get one poke and it is AP so it should feel weighty.
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
@@ -39,6 +42,7 @@
 	guard_deflectable = TRUE
 	damage = 80
 	damage_type = BRUTE
+	woundclass = BCLASS_STAB
 	npc_simple_damage_mult = 1.5
 	accuracy = 40
 	nodamage = FALSE
@@ -47,6 +51,10 @@
 	hitsound = 'sound/magic/obeliskbeam.ogg'
 	light_color = "#9400D3"
 	light_outer_range = 7
+	/// How many mob targets have been hit so far.
+	var/hits = 0
+	/// Maximum mob targets before the beam stops.
+	var/max_hits = 4
 
 /obj/projectile/magic/soulshot/on_hit(target)
 	. = ..()
@@ -57,4 +65,15 @@
 			playsound(get_turf(target), 'sound/magic/magic_nulled.ogg', 100)
 			qdel(src)
 			return BULLET_ACT_BLOCK
-	qdel(src)
+	// Only pierce through mobs, not solid objects
+	if(!ismob(target))
+		qdel(src)
+		return . || BULLET_ACT_HIT
+	hits++
+	// Halve damage after the first target
+	if(hits == 1)
+		damage = round(damage * 0.5)
+	if(hits >= max_hits)
+		qdel(src)
+		return . || BULLET_ACT_HIT
+	return BULLET_ACT_FORCE_PIERCE

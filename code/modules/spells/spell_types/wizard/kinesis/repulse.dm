@@ -8,7 +8,7 @@
 	spell_color = GLOW_COLOR_DISPLACEMENT
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 
-	click_to_activate = FALSE
+	click_to_activate = TRUE
 	self_cast_possible = TRUE
 	point_cost = 3
 
