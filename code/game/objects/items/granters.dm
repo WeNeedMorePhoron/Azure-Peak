@@ -342,7 +342,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/frostbolt
 	name = "Scroll of Frostbolt"
-	spell = /obj/effect/proc_holder/spell/invoked/projectile/frostbolt
+	spell = /datum/action/cooldown/spell/projectile/frost_bolt
 	spellname = "Frostbolt"
 	icon_state ="scrolldarkred"
 	remarks = list("Gelum serpentibus..", "Crystallum in silentio..", "Nullum ardor glaciem..")

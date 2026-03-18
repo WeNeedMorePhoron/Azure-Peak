@@ -39,10 +39,10 @@
 		"TODO",
 	)
 	fixed_spells = list(
-		/obj/effect/proc_holder/spell/invoked/projectile/frostbolt,
-		/obj/effect/proc_holder/spell/invoked/snap_freeze,
-		// TODO: Ice Wall - Forcewall variant. Blocks LOS.
-		// TODO: Frost Ball Bombardment?
+		/datum/action/cooldown/spell/projectile/frost_bolt,
+		/datum/action/cooldown/spell/frost_stream,
+		/datum/action/cooldown/spell/snap_freeze,
+		/datum/action/cooldown/spell/hailstorm,
 	)
 
 /datum/magic_aspect/fulgurmancy
