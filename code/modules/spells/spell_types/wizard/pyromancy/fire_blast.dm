@@ -1,7 +1,3 @@
-// Fire Blast — Pyromancy lineal repel.
-// Hold to charge, release toward target to fire a 4-tile line.
-// Repels targets 2 tiles, creates hotspots along the line.
-
 /datum/action/cooldown/spell/fire_blast
 	name = "Fire Blast"
 	desc = "Channel a blast of flame in a line toward your target, repelling those struck back 2 paces and leaving the ground ablaze."

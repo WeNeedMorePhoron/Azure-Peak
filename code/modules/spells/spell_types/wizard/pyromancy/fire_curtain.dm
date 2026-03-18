@@ -1,6 +1,3 @@
-// Fire Curtain — Pyromancy area denial, Forcewall-style placement.
-// Click a target location to place a 1x5 hotspot wall there, perpendicular to caster's facing.
-// 10s duration, 30s CD. Does NOT block movement. Caster is NOT immune.
 /datum/action/cooldown/spell/fire_curtain
 	name = "Fire Curtain"
 	desc = "Conjure a 1x5 curtain of flame at a target location, perpendicular to your facing. \
