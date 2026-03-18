@@ -33,7 +33,7 @@
 	exp_light = -1
 	exp_flash = 0
 	exp_fire = 0
-	damage = 20
+	damage = 25
 	npc_simple_damage_mult = 2
 	accuracy = 40
 	damage_type = BURN
@@ -44,7 +44,7 @@
 
 /obj/projectile/magic/aoe/fireball/spitfire/arc
 	name = "Arced Spitfire"
-	damage = 15
+	damage = 19
 	arcshot = TRUE
 
 /obj/projectile/magic/aoe/fireball/spitfire/on_hit(target)
