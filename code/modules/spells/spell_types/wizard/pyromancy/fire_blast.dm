@@ -32,7 +32,7 @@
 	var/line_length = 4
 	var/blast_damage = 30
 	var/push_dist = 2
-	var/fire_stacks_applied = 2
+	var/fire_stacks_applied = 1
 	var/hotspot_life = 4
 
 /datum/action/cooldown/spell/fire_blast/cast(atom/cast_on)
