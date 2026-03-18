@@ -764,7 +764,7 @@
 /datum/action/cooldown/spell/proc/end_charging()
 	if(owner.client)
 		UnregisterSignal(owner.client, list(COMSIG_CLIENT_MOUSEDOWN, COMSIG_CLIENT_MOUSEUP))
-	UnregisterSignal(owner, list(COMSIG_MOB_LOGOUT, COMSIG_MOB_DEATH, COMSIG_MOVABLE_MOVED))
+	UnregisterSignal(owner, list(COMSIG_MOB_LOGOUT, COMSIG_MOB_DEATH, COMSIG_MOVABLE_MOVED, COMSIG_MOB_KICKED_SUCCESSFUL))
 	currently_charging = FALSE
 	charge_started_at = null
 	charge_target_time = null
@@ -1085,7 +1085,9 @@
 
 	// Register here because the mouse up can get triggered before the mouse down otherwise
 	RegisterSignal(source, COMSIG_CLIENT_MOUSEUP, PROC_REF(try_casting))
-	RegisterSignal(owner, list(COMSIG_MOB_DEATH, COMSIG_MOB_LOGOUT), PROC_REF(signal_cancel))
+	// Getting kicked interrupt your charging. It requires some skills on the part of the martial but is far more frequently
+	// Available than guard stances.
+	RegisterSignal(owner, list(COMSIG_MOB_DEATH, COMSIG_MOB_LOGOUT, COMSIG_MOB_KICKED_SUCCESSFUL), PROC_REF(signal_cancel))
 	if(spell_requirements & SPELL_REQUIRES_NO_MOVE)
 		RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(signal_cancel), TRUE)
 
@@ -1134,6 +1136,53 @@
 	// Call this directly to do all the relevant checks and aim assist
 	InterceptClickOn(owner, modifiers, _target)
 	source.click_intercept_time = 0
+
+/datum/action/cooldown/spell/proc/spell_guard_check(mob/living/target, no_message = FALSE, mob/living/attacker)
+	if(!isliving(target))
+		return FALSE
+	var/datum/status_effect/buff/clash/guard = target.has_status_effect(/datum/status_effect/buff/clash)
+	if(guard)
+		if(isarcyne(target))
+			if(!no_message)
+				target.visible_message(span_warning("[target] deflects [name] with a reactive ward!"))
+				to_chat(target, span_notice("My ward deflects the incoming spell!"))
+			playsound(get_turf(target), pick('sound/combat/parry/shield/magicshield (1).ogg', 'sound/combat/parry/shield/magicshield (2).ogg', 'sound/combat/parry/shield/magicshield (3).ogg'), 100)
+		else
+			if(!no_message)
+				target.visible_message(span_warning("[target] deflects [name]!"))
+				to_chat(target, span_notice("My guard deflects the incoming spell!"))
+			var/obj/item/held = target.get_active_held_item()
+			if(held?.parrysound)
+				playsound(get_turf(target), pick(held.parrysound), 100)
+			else
+				playsound(get_turf(target), pick(target.parry_sound), 100)
+		target.apply_status_effect(/datum/status_effect/buff/parry_buffer)
+		target.apply_status_effect(/datum/status_effect/buff/adrenaline_rush)
+		target.remove_status_effect(/datum/status_effect/buff/clash)
+		if(attacker && ishuman(attacker))
+			var/obj/item/attacker_weapon = arcyne_get_weapon(attacker)
+			if(attacker_weapon?.parrysound)
+				playsound(get_turf(attacker), pick(attacker_weapon.parrysound), 100)
+			else
+				playsound(get_turf(attacker), pick(attacker.parry_sound), 100)
+			if(attacker_weapon)
+				if(attacker_weapon.max_blade_int)
+					attacker_weapon.remove_bintegrity((attacker_weapon.blade_int * RIPOSTE_SHARPNESS_FACTOR), attacker)
+				else
+					var/integdam = max((attacker_weapon.max_integrity / RIPOSTE_INTEG_DIVISOR), (INTEG_PARRY_DECAY_NOSHARP * 5))
+					attacker_weapon.take_damage(integdam, BRUTE, attacker_weapon.d_type)
+			attacker.remove_status_effect(/datum/status_effect/debuff/exposed)
+			attacker.apply_status_effect(/datum/status_effect/debuff/exposed, 5 SECONDS)
+			var/datum/status_effect/buff/arcyne_momentum/momentum = attacker.has_status_effect(/datum/status_effect/buff/arcyne_momentum)
+			if(momentum && momentum.stacks > 0)
+				momentum.consume_all_stacks()
+				to_chat(attacker, span_danger("My arcyne strike was deflected — I'm exposed and my momentum is gone!"))
+			else
+				to_chat(attacker, span_danger("My arcyne strike was deflected — I'm exposed!"))
+		return TRUE
+	if(target.has_status_effect(/datum/status_effect/buff/parry_buffer))
+		return TRUE
+	return FALSE
 
 /datum/action/cooldown/spell/proc/signal_cancel()
 	SIGNAL_HANDLER
