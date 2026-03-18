@@ -16,8 +16,8 @@
 		/obj/effect/proc_holder/spell/invoked/enchant_weapon,
 	)
 
-/datum/magic_aspect/exowarding
-	name = "Exowarding"
+/datum/magic_aspect/exowardry
+	name = "Exowardry"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
@@ -32,8 +32,8 @@
 		/obj/effect/proc_holder/spell/invoked/forcewall/greater,
 	)
 
-/datum/magic_aspect/autowarding
-	name = "Autowarding"
+/datum/magic_aspect/autowardry
+	name = "Autowardry"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
@@ -65,8 +65,8 @@
 		// TODO: Second displacement spell TBD
 	)
 
-/datum/magic_aspect/physicalwarding
-	name = "Physicalwarding"
+/datum/magic_aspect/dermawardry
+	name = "Dermawardry"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
