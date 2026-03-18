@@ -1,38 +1,50 @@
-/obj/effect/proc_holder/spell/invoked/repulse
+// Repulse - Kinesis self-cast AOE knockback
+
+/datum/action/cooldown/spell/repulse
 	name = "Repulse"
 	desc = "Conjure forth a wave of energy, repelling anyone around you."
-	cost = 3
-	xp_gain = TRUE
-	releasedrain = SPELLCOST_MAJOR_AOE
-	chargedrain = 1
-	chargetime = 5
-	recharge_time = 25 SECONDS
-	ignore_los = TRUE
-	warnie = "spellwarning"
-	no_early_release = TRUE
-	movement_interrupt = FALSE
-	charging_slowdown = 2
-	chargedloop = /datum/looping_sound/invokegen
-	associated_skill = /datum/skill/magic/arcane
-	overlay_state = "repulse"
-	spell_tier = 2
-	invocations = list("Obmolior!")
-	invocation_type = "shout"
-	glow_color = GLOW_COLOR_DISPLACEMENT
+	button_icon_state = "repulse"
+	sound = 'sound/magic/repulse.ogg'
+	spell_color = GLOW_COLOR_DISPLACEMENT
 	glow_intensity = GLOW_INTENSITY_MEDIUM
-	gesture_required = TRUE // Offensive spell. Don't blast guards while chained.
-	human_req = TRUE // Combat spell
+
+	click_to_activate = FALSE
+	self_cast_possible = TRUE
+	point_cost = 3
+
+	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_cost = SPELLCOST_MAJOR_AOE
+
+	invocations = list("Obmolior!")
+	invocation_type = INVOCATION_SHOUT
+
+	charge_required = TRUE
+	charge_time = CHARGETIME_POKE
+	charge_drain = 1
+	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
+	charge_sound = 'sound/magic/charging.ogg'
+	cooldown_time = 20 SECONDS
+
+	associated_skill = /datum/skill/magic/arcane
+	spell_tier = 2
+
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+
 	var/maxthrow = 3
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	var/repulse_force = MOVE_FORCE_EXTREMELY_STRONG
 	var/showsparkles = TRUE
 	var/push_range = 1
 
-/obj/effect/proc_holder/spell/invoked/repulse/cast(list/targets, mob/user, stun_amt = 5)
+/datum/action/cooldown/spell/repulse/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/user = owner
+	if(!istype(user))
+		return FALSE
+
 	var/list/thrownatoms = list()
 	var/atom/throwtarget
 	var/distfromcaster
-	playsound(user, 'sound/magic/repulse.ogg', 80, TRUE)
 	for(var/turf/T in get_hear(push_range, user))
 		new /obj/effect/temp_visual/kinetic_blast(T)
 		for(var/atom/movable/AM in T)
@@ -61,13 +73,13 @@
 				var/mob/living/M = AM
 				M.set_resting(TRUE, TRUE)
 				M.adjustBruteLoss(20)
-				to_chat(M, "<span class='danger'>You're slammed into the floor by [user]!</span>")
+				to_chat(M, span_danger("You're slammed into the floor by [user]!"))
 		else
 			if(showsparkles)
-				new sparkle_path(get_turf(AM), get_dir(user, AM)) //created sparkles will disappear on their own
+				new sparkle_path(get_turf(AM), get_dir(user, AM))
 			if(isliving(AM))
 				var/mob/living/M = AM
 				M.set_resting(TRUE, TRUE)
-				to_chat(M, "<span class='danger'>You're thrown back by [user]!</span>")
-			AM.safe_throw_at(throwtarget, ((CLAMP((maxthrow - (CLAMP(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1,user, force = repulse_force)//So stuff gets tossed around at the same time.
+				to_chat(M, span_danger("You're thrown back by [user]!"))
+			AM.safe_throw_at(throwtarget, ((CLAMP((maxthrow - (CLAMP(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1, user, force = repulse_force)
 	return TRUE

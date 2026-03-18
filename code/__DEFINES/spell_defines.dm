@@ -61,6 +61,11 @@
 #define SPELLCOST_SB_MOBILITY 15 // Dashes / Teleports / Anchor
 #define SPELLCOST_SB_ULT 50 // Their ult
 
+// Standardized charge times — keeps poke/major/heavy spells consistent for balance passes
+#define CHARGETIME_POKE          0.5 SECONDS  // Staple poke spells
+#define CHARGETIME_MAJOR         1.5 SECONDS  // Major projectiles
+#define CHARGETIME_HEAVY         2 SECONDS    // Heavy AOE / ultimates
+
 // Charging slowdown tiers — how much the caster is slowed while charging
 #define CHARGING_SLOWDOWN_NONE 0       // Spellblade abilities, no movement penalty
 #define CHARGING_SLOWDOWN_SMALL 1      // Small projectiles, minor spells

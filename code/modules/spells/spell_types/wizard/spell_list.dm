@@ -2,13 +2,14 @@
 // Maybe one day we'll have different schools of spells etc. and a system tied to them but this is fine for now.
 
 GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile/fireball,
-		/obj/effect/proc_holder/spell/invoked/projectile/lightningbolt,
-		/obj/effect/proc_holder/spell/invoked/projectile/fetch,
+		/datum/action/cooldown/spell/projectile/lightning_bolt,
+		/datum/action/cooldown/spell/projectile/fetch,
 		/datum/action/cooldown/spell/projectile/spitfire,
 		/obj/effect/proc_holder/spell/invoked/forcewall,
 		/obj/effect/proc_holder/spell/invoked/ensnare,
 		/obj/effect/proc_holder/spell/self/message,
-		/obj/effect/proc_holder/spell/invoked/repulse,
+		/datum/action/cooldown/spell/repulse,
+		/datum/action/cooldown/spell/projectile/soulshot,
 		/obj/effect/proc_holder/spell/invoked/blade_burst,
 		/obj/effect/proc_holder/spell/targeted/touch/nondetection,
 //  	/obj/effect/proc_holder/spell/invoked/knock,
@@ -27,7 +28,7 @@ GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile
 		/datum/action/cooldown/spell/projectile/arcynebolt,
 		/obj/effect/proc_holder/spell/invoked/projectile/arcynestrike,
 		/obj/effect/proc_holder/spell/invoked/gravity,
-		/obj/effect/proc_holder/spell/invoked/projectile/repel,
+		/datum/action/cooldown/spell/projectile/repel,
 
 		/obj/effect/proc_holder/spell/targeted/touch/lesserknock,
 		/obj/effect/proc_holder/spell/invoked/counterspell,

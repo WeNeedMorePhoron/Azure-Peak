@@ -235,7 +235,7 @@ Somewhat fitting, considering the broadness of their domains. I also just think 
 		/obj/effect/proc_holder/spell/invoked/leap,
 		/obj/effect/proc_holder/spell/targeted/touch/lesserknock,
 		/obj/effect/proc_holder/spell/invoked/mending,
-		/obj/effect/proc_holder/spell/invoked/projectile/fetch,
+		/datum/action/cooldown/spell/projectile/fetch,
 		/obj/effect/proc_holder/spell/invoked/blink,
 	)
 	var/list/offensive_bundle = list(	//This is not meant to make them combat-capable. A weak offensive, and mostly defensive option.

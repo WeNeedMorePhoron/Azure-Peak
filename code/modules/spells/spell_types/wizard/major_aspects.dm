@@ -59,10 +59,10 @@
 		"TODO",
 	)
 	fixed_spells = list(
-		/obj/effect/proc_holder/spell/invoked/projectile/lightningbolt,
-		/obj/effect/proc_holder/spell/invoked/thunderstrike,
-		// TODO: Zap! - Hitscan, lowest burn efficiency, but instant
-		// TODO: Heaven's Strike - Single tile, head-targeted, PVE powerhouse
+		/datum/action/cooldown/spell/projectile/zap,
+		/datum/action/cooldown/spell/projectile/lightning_bolt,
+		/datum/action/cooldown/spell/heavens_strike,
+		/datum/action/cooldown/spell/thunderstrike,
 	)
 
 /datum/magic_aspect/geomancy
@@ -99,11 +99,10 @@
 		"TODO",
 	)
 	fixed_spells = list(
-		// TODO: Soulshot - Hitscan, 8s CD, 60-80 brute, no AP, no displacement. Raw eldritch blast.
-		/obj/effect/proc_holder/spell/invoked/projectile/fetch,
-		/obj/effect/proc_holder/spell/invoked/projectile/repel,
-		/obj/effect/proc_holder/spell/invoked/repulse,
-		// Fetch/Repel/Repulse on unified cooldown (~20s for Repulse)
+		/datum/action/cooldown/spell/projectile/soulshot,
+		/datum/action/cooldown/spell/projectile/fetch,
+		/datum/action/cooldown/spell/projectile/repel,
+		/datum/action/cooldown/spell/repulse,
 	)
 
 /datum/magic_aspect/augmentation

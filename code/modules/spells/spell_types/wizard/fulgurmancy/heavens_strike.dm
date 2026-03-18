@@ -1,0 +1,86 @@
+// Heaven's Strike - Single-tile targeted lightning strike
+// Head-targeted, high damage. Not hard to dodge for a real human, PVE powerhouse.
+// Essentially the middle tier of Thunderstrike but on a single tile.
+
+#define HEAVENS_STRIKE_TELEGRAPH 8 // Ticks of warning before the strike lands
+
+/datum/action/cooldown/spell/heavens_strike
+	name = "Heaven's Strike"
+	desc = "Call down a single devastating bolt of lightning on a target location. \
+	The strike is telegraphed and can be dodged, but deals massive damage to anything still standing in the impact zone. \
+	Damage is increased by 100% versus simple-minded creechurs."
+	button_icon_state = "dvine_strike"
+	sound = 'sound/magic/lightning.ogg'
+	spell_color = GLOW_COLOR_LIGHTNING
+	glow_intensity = GLOW_INTENSITY_HIGH
+
+	click_to_activate = TRUE
+	cast_range = 7
+	self_cast_possible = FALSE
+
+	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_cost = SPELLCOST_MAJOR_AOE
+
+	invocations = list("Caelum Feri!")
+	invocation_type = INVOCATION_SHOUT
+
+	charge_required = TRUE
+	charge_time = CHARGETIME_MAJOR
+	charge_drain = 1
+	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
+	charge_sound = 'sound/magic/charging.ogg'
+	cooldown_time = 12 SECONDS
+
+	associated_skill = /datum/skill/magic/arcane
+
+	var/damage = 80
+	var/npc_simple_damage_mult = 2
+
+/datum/action/cooldown/spell/heavens_strike/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H))
+		return FALSE
+
+	var/turf/T = get_turf(cast_on)
+	if(!T)
+		return FALSE
+
+	var/turf/source_turf = get_turf(H)
+	if(T.z > H.z)
+		source_turf = get_step_multiz(source_turf, UP)
+	if(T.z < H.z)
+		source_turf = get_step_multiz(source_turf, DOWN)
+	if(!(T in get_hear(cast_range, source_turf)))
+		to_chat(H, span_warning("I can't cast where I can't see!"))
+		return FALSE
+
+	new /obj/effect/temp_visual/trap/thunderstrike(T, HEAVENS_STRIKE_TELEGRAPH)
+	addtimer(CALLBACK(src, PROC_REF(strike_damage), T), HEAVENS_STRIKE_TELEGRAPH)
+	return TRUE
+
+/datum/action/cooldown/spell/heavens_strike/proc/strike_damage(turf/T)
+	new /obj/effect/temp_visual/thunderstrike_actual(T)
+	playsound(T, 'sound/magic/lightning.ogg', 80)
+	var/mob/living/carbon/human/caster = owner
+	var/target_zone = istype(caster) ? caster.zone_selected : BODY_ZONE_CHEST
+	for(var/mob/living/L in T.contents)
+		if(L.anti_magic_check())
+			L.visible_message(span_warning("The lightning fades away around [L]!"))
+			playsound(T, 'sound/magic/magic_nulled.ogg', 100)
+			continue
+		if(spell_guard_check(L, TRUE))
+			L.visible_message(span_warning("[L] weathers the lightning strike!"))
+			continue
+		var/actual_damage = damage
+		if(!L.mind || !ishuman(L))
+			actual_damage *= npc_simple_damage_mult
+		// Zone-targeted burn damage via arcyne_strike for limb aiming
+		if(istype(caster) && ishuman(L))
+			arcyne_strike(caster, L, null, actual_damage, target_zone, \
+				BCLASS_BURN, spell_name = "Heaven's Strike", \
+				damage_type = BURN, npc_simple_damage_mult = 1, \
+				skip_animation = TRUE)
+		else
+			L.electrocute_act(actual_damage, src, 1, SHOCK_NOSTUN)
+		L.electrocute_act(0, src, 1, SHOCK_NOSTUN|SHOCK_VISUAL_ONLY)

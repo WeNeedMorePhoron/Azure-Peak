@@ -1,27 +1,32 @@
-/obj/effect/proc_holder/spell/invoked/projectile/fetch
+// Fetch - Kinesis projectile that pulls the target toward the caster
+
+/datum/action/cooldown/spell/projectile/fetch
 	name = "Fetch"
 	desc = "Shoot out a magical bolt that draws in the target struck towards the caster."
-	clothes_req = FALSE
-	range = 15
+	button_icon_state = "fetch"
+	sound = 'sound/magic/magnet.ogg'
+	spell_color = GLOW_COLOR_DISPLACEMENT
+	glow_intensity = GLOW_INTENSITY_LOW
+
 	projectile_type = /obj/projectile/magic/fetch
-	sound = list('sound/magic/magnet.ogg')
-	active = FALSE
-	releasedrain = SPELLCOST_MINOR_PROJECTILE
-	chargedrain = 0
-	chargetime = 0.5 SECONDS // Some telegraph for one of the most powerful ability
-	recharge_time = 8 SECONDS
-	warnie = "spellwarning"
-	overlay_state = "fetch"
-	no_early_release = TRUE
-	charging_slowdown = 1
-	spell_tier = 2
+	cast_range = 15
+	point_cost = 2
+
+	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_cost = SPELLCOST_MINOR_PROJECTILE
+
 	invocations = list("Recolligere")
-	invocation_type = "whisper"
-	hide_charge_effect = TRUE // essential for rogue mage
-	chargedloop = /datum/looping_sound/invokegen
+	invocation_type = INVOCATION_WHISPER
+
+	charge_required = TRUE
+	charge_time = CHARGETIME_POKE
+	charge_drain = 0
+	charge_slowdown = CHARGING_SLOWDOWN_SMALL
+	charge_sound = 'sound/magic/charging.ogg'
+	cooldown_time = 8 SECONDS
+
 	associated_skill = /datum/skill/magic/arcane
-	cost = 2 // Combat spell, but of slighlty less obvious use
-	xp_gain = TRUE
+	spell_tier = 2
 
 /obj/projectile/magic/fetch
 	name = "bolt of fetching"

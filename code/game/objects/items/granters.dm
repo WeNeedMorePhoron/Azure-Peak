@@ -257,7 +257,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/lightning
 	name = "Scroll of Lightning"
-	spell = /obj/effect/proc_holder/spell/invoked/projectile/lightningbolt
+	spell = /datum/action/cooldown/spell/projectile/lightning_bolt
 	spellname = "lightning"
 	icon_state ="scrollyellow"
 	remarks = list("Essentia fulgurum digitorum..", "Fulgur de nubibus desuper..", "Fulgur eiecit digitos..", "Praecipe intus aedificatur..")
@@ -265,7 +265,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/fetch
 	name = "Scroll of Fetch"
-	spell = /obj/effect/proc_holder/spell/invoked/projectile/fetch
+	spell = /datum/action/cooldown/spell/projectile/fetch
 	spellname = "fetch"
 	icon_state ="scrollpurple"
 	remarks = list("Returnus Revico..", "Manus de reverti..", "Menus de returnus..")
@@ -326,7 +326,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/repel
 	name = "Scroll of Repel"
-	spell = /obj/effect/proc_holder/spell/invoked/projectile/repel
+	spell = /datum/action/cooldown/spell/projectile/repel
 	spellname = "Repel"
 	icon_state ="scrolldarkred"
 	remarks = list("Ventos adversos..", "Terra sibilat..", "Lapides vetusti..")
@@ -406,7 +406,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/repulse
 	name = "Scroll of Repulse"
-	spell = /obj/effect/proc_holder/spell/invoked/repulse
+	spell = /datum/action/cooldown/spell/repulse
 	spellname = "Repulse"
 	icon_state ="scrolldarkred"
 	dreamcost = 6

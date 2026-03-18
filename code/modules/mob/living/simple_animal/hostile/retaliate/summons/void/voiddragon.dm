@@ -622,26 +622,25 @@ It will also call down lightning strikes from the sky, and fling people with it'
 	qdel(dummy)
 	return 1
 
-/obj/effect/proc_holder/spell/invoked/repulse/voiddragon
+/datum/action/cooldown/spell/repulse/voiddragon
 	name = "Tail Sweep"
 	desc = "Throw back attackers with a sweep of your tail."
 	sound = 'sound/misc/tail_swing.ogg'
-	recharge_time = 15 SECONDS
-	clothes_req = FALSE
-	cooldown_min = 150
-	invocation_type = "none"
+	cooldown_time = 15 SECONDS
+	charge_required = FALSE
+	invocation_type = INVOCATION_NONE
 	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
-	action_icon_state = "tailsweep"
-	action_background_icon_state = "bg_alien"
-	antimagic_allowed = FALSE
-	range = 2
+	button_icon_state = "tailsweep"
+	background_icon_state = "bg_alien"
+	spell_requirements = NONE
+	push_range = 2
 
-/obj/effect/proc_holder/spell/invoked/repulse/voiddragon/cast(list/targets, mob/user = usr)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
+/datum/action/cooldown/spell/repulse/voiddragon/cast(atom/cast_on)
+	if(iscarbon(owner))
+		var/mob/living/carbon/C = owner
 		playsound(C.loc, 'sound/combat/hits/punch/punch_hard (3).ogg', 80, TRUE, TRUE)
 		C.spin(6, 1)
-	..(targets, user, 3)
+	return ..(cast_on)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/voiddragon/death()
 	..()

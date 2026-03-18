@@ -186,7 +186,7 @@
 	..()
 	to_chat(H, span_warning("The Desert Riders are a slightly-infamous band of mercenaries, as old and prestigious as Grenzelhoft's own. They have fought on both sides of nearly every conflict since the fall of the Celestial Empire."))
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/repulse)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/repulse)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/enchant_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/airblade)
 	head = /obj/item/clothing/head/roguetown/roguehood/shalal/hijab/raneshen
