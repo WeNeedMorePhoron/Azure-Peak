@@ -93,7 +93,7 @@
 	unbinding_chants = list(
 		"TODO",
 	)
-	pointbuy_budget = 6
+	pointbuy_budget = 4
 	pointbuy_spells = list(
 		/obj/effect/proc_holder/spell/invoked/haste,
 		/obj/effect/proc_holder/spell/invoked/darkvision,
@@ -101,9 +101,12 @@
 		/obj/effect/proc_holder/spell/invoked/stoneskin,
 		/obj/effect/proc_holder/spell/invoked/hawks_eyes,
 		/obj/effect/proc_holder/spell/invoked/giants_strength,
-		/obj/effect/proc_holder/spell/invoked/fortitude,
 		/obj/effect/proc_holder/spell/invoked/guidance,
 		/obj/effect/proc_holder/spell/invoked/featherfall,
+		// 1-cost utility filler
+		/obj/effect/proc_holder/spell/self/light,
+		/obj/effect/proc_holder/spell/invoked/mending,
+		/obj/effect/proc_holder/spell/invoked/create_campfire,
 	)
 
 /datum/magic_aspect/illusion

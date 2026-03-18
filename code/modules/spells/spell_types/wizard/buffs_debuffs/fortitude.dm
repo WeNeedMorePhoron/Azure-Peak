@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/invoked/fortitude
 	name = "Fortitude"
 	desc = "Harden one's humors to the fatigues of the body. (-50% Stamina Usage)"
-	cost = 3 // Halving stamina cost is INSANE so it cost the same as before adjustment to 3x spellpoint basis.
+	cost = 4 // Halving stamina cost is very strong. Gated behind full Augmentation.
 	xp_gain = TRUE
 	releasedrain = SPELLCOST_STAT_BUFF
 	chargedrain = 1

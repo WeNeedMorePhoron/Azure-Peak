@@ -121,7 +121,7 @@
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/arcynebolt,
 	)
-	pointbuy_budget = 12
+	pointbuy_budget = 14
 	pointbuy_spells = list(
 		/obj/effect/proc_holder/spell/invoked/haste,
 		/obj/effect/proc_holder/spell/invoked/darkvision,
@@ -133,4 +133,9 @@
 		/obj/effect/proc_holder/spell/invoked/guidance,
 		/obj/effect/proc_holder/spell/invoked/featherfall,
 		/obj/effect/proc_holder/spell/invoked/enlarge,
+		// 1-cost utility filler
+		/obj/effect/proc_holder/spell/self/light,
+		/obj/effect/proc_holder/spell/invoked/mending,
+		/obj/effect/proc_holder/spell/invoked/create_campfire,
+		/obj/effect/proc_holder/spell/self/message,
 	)
