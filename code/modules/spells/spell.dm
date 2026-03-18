@@ -206,8 +206,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	base_action = /datum/action/spell_action/spell
 
 /obj/effect/proc_holder/spell/get_chargetime()
-	if(ranged_ability_user && chargetime)
-		return calculate_chargetime(ranged_ability_user)
 	return chargetime
 
 /obj/effect/proc_holder/spell/get_fatigue_drain()
@@ -227,40 +225,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		newdrain += releasedrain * diff * FATIGUE_REDUCTION_PER_INT
 	return max(newdrain, 0.1)
 
-/obj/effect/proc_holder/spell/proc/calculate_chargetime(mob/living/user)
-	if(!user || !chargetime)
-		return chargetime
-	var/newtime = chargetime
-	//skill block
-	newtime = newtime - (chargetime * (user.get_skill_level(associated_skill) * CHARGE_REDUCTION_PER_SKILL))
-	//spellbook cast time reduction
-	var/obj/item/book/spellbook/sbook = user.is_holding_item_of_type(/obj/item/book/spellbook)
-	if(sbook && sbook?.open)
-		newtime = newtime - (chargetime * (sbook.get_castred()))
-	//staff cast time reduction
-	var/obj/item/rogueweapon/staff = user.is_holding_item_of_type(/obj/item/rogueweapon/)
-	if(staff && staff.cast_time_reduction)
-		newtime = newtime - (chargetime * (staff.cast_time_reduction))
-	if(newtime > 0)
-		return newtime
-	return 0.1
-
-
-/obj/effect/proc_holder/spell/proc/get_chargetime_breakdown(mob/living/user)
-	var/list/breakdown = list()
-	var/skill_level = user.get_skill_level(associated_skill)
-	if(skill_level > 0)
-		var/skill_mod = chargetime * skill_level * CHARGE_REDUCTION_PER_SKILL
-		breakdown += span_smallgreen("  Skill: -[DisplayTimeText(skill_mod)]")
-	var/obj/item/book/spellbook/sbook = user.is_holding_item_of_type(/obj/item/book/spellbook)
-	if(sbook && sbook?.open)
-		var/book_mod = chargetime * sbook.get_castred()
-		breakdown += span_smallgreen("  Spellbook: -[DisplayTimeText(book_mod)]")
-	var/obj/item/rogueweapon/staff = user.is_holding_item_of_type(/obj/item/rogueweapon/)
-	if(staff && staff.cast_time_reduction)
-		var/staff_mod = chargetime * staff.cast_time_reduction
-		breakdown += span_smallgreen("  Staff: -[DisplayTimeText(staff_mod)]")
-	return breakdown
 
 /obj/effect/proc_holder/spell/proc/get_cooldown_breakdown(mob/living/user)
 	var/list/breakdown = list()
@@ -331,15 +295,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			stats += span_info("Range: [range] tiles")
 	else if(range == 0) // as do spells that only affect the user
 		stats += span_info("Range: Self")
-	var/base_ct = chargetime
-	if(base_ct > 0)
-		var/dynamic_ct = user ? calculate_chargetime(user) : base_ct
-		if(dynamic_ct != base_ct)
-			stats += span_info("Charge time: [DisplayTimeText(base_ct)] (current: [DisplayTimeText(dynamic_ct)])")
-			if(user)
-				stats += get_chargetime_breakdown(user)
-		else
-			stats += span_info("Charge time: [DisplayTimeText(base_ct)]")
+	if(chargetime > 0)
+		stats += span_info("Charge time: [DisplayTimeText(chargetime)]")
 	else
 		stats += span_info("Charge time: None")
 	var/base_cd = initial(recharge_time)

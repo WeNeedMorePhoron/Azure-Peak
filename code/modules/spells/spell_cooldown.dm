@@ -375,19 +375,6 @@
 
 	return Activate(target)
 
-/// Adjust the base charge time based on the user's skill level.
-/// Matches proc_holder's calculate_chargetime — skill only, no INT.
-/datum/action/cooldown/spell/proc/get_adjusted_charge_time()
-	if(charge_time <= 0)
-		return
-
-	var/mob/living/living_owner = owner
-	var/new_time = charge_time
-
-	new_time -= charge_time * living_owner.get_skill_level(associated_skill, TRUE) * CHARGE_REDUCTION_PER_SKILL
-
-	return max(new_time, 1 DECISECONDS)
-
 /// Adjust the cooldown time based on INT and armor.
 /// Matches proc_holder's calculate_cooldown from PR #6316.
 /datum/action/cooldown/spell/proc/get_adjusted_cooldown()
@@ -605,7 +592,7 @@
 		var/require_no_move = (spell_requirements & SPELL_REQUIRES_NO_MOVE)
 		on_start_charge()
 		var/success = TRUE
-		if(!do_after(owner, get_adjusted_charge_time(), needhand = FALSE, extra_checks = CALLBACK(src, PROC_REF(do_after_checks), owner, cast_on), no_interrupt = !require_no_move))
+		if(!do_after(owner, charge_time, needhand = FALSE, extra_checks = CALLBACK(src, PROC_REF(do_after_checks), owner, cast_on), no_interrupt = !require_no_move))
 			success = FALSE
 			sig_return |= SPELL_CANCEL_CAST
 
@@ -962,15 +949,8 @@
 		stats += span_info("Range: Self")
 
 	// Charge time
-	var/base_ct = charge_time
-	if(base_ct > 0)
-		var/dynamic_ct = user ? get_adjusted_charge_time() : base_ct
-		if(dynamic_ct != base_ct)
-			stats += span_info("Charge time: [DisplayTimeText(base_ct)] (current: [DisplayTimeText(dynamic_ct)])")
-			if(user)
-				stats += get_chargetime_breakdown(user)
-		else
-			stats += span_info("Charge time: [DisplayTimeText(base_ct)]")
+	if(charge_time > 0)
+		stats += span_info("Charge time: [DisplayTimeText(charge_time)]")
 	else
 		stats += span_info("Charge time: Instant")
 
@@ -1025,15 +1005,6 @@
 		if(SPELL_COST_DEVOTION)
 			return "Devotion cost"
 	return "Cost"
-
-/// Breakdown of charge time modifiers for examine.
-/datum/action/cooldown/spell/proc/get_chargetime_breakdown(mob/living/user)
-	var/list/breakdown = list()
-	var/skill_level = user.get_skill_level(associated_skill, TRUE)
-	if(skill_level > 0)
-		var/skill_mod = charge_time * skill_level * CHARGE_REDUCTION_PER_SKILL
-		breakdown += span_smallgreen("  Skill: -[DisplayTimeText(skill_mod)]")
-	return breakdown
 
 /// Breakdown of cooldown modifiers for examine. Matches proc_holder's get_cooldown_breakdown.
 /datum/action/cooldown/spell/proc/get_cooldown_breakdown(mob/living/user)
@@ -1127,7 +1098,7 @@
 
 	on_start_charge()
 	charge_started_at = world.time
-	charge_target_time = get_adjusted_charge_time()
+	charge_target_time = charge_time
 
 	return COMPONENT_CLIENT_MOUSEDOWN_INTERCEPT
 
