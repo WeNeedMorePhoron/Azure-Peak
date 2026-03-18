@@ -257,7 +257,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/lightning
 	name = "Scroll of Lightning"
-	spell = /obj/effect/proc_holder/spell/invoked/projectile/lightningbolt
+	spell = /datum/action/cooldown/spell/projectile/lightning_bolt
 	spellname = "lightning"
 	icon_state ="scrollyellow"
 	remarks = list("Essentia fulgurum digitorum..", "Fulgur de nubibus desuper..", "Fulgur eiecit digitos..", "Praecipe intus aedificatur..")

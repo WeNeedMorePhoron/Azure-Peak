@@ -57,7 +57,7 @@
 
 	H.dna.species.soundpack_m = new /datum/voicepack/male/evil/blkknight()
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/lightningbolt)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/lightning_bolt)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/fetch)
 
 	H.ambushable = FALSE

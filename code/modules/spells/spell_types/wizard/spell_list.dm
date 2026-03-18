@@ -2,7 +2,7 @@
 // Maybe one day we'll have different schools of spells etc. and a system tied to them but this is fine for now.
 
 GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile/fireball,
-		/obj/effect/proc_holder/spell/invoked/projectile/lightningbolt,
+		/datum/action/cooldown/spell/projectile/lightning_bolt,
 		/obj/effect/proc_holder/spell/invoked/projectile/fetch,
 		/datum/action/cooldown/spell/projectile/spitfire,
 		/obj/effect/proc_holder/spell/invoked/forcewall,

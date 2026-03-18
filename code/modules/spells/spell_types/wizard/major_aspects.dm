@@ -59,10 +59,10 @@
 		"TODO",
 	)
 	fixed_spells = list(
-		/obj/effect/proc_holder/spell/invoked/projectile/lightningbolt,
-		/obj/effect/proc_holder/spell/invoked/thunderstrike,
-		// TODO: Zap! - Hitscan, lowest burn efficiency, but instant
-		// TODO: Heaven's Strike - Single tile, head-targeted, PVE powerhouse
+		/datum/action/cooldown/spell/projectile/zap,
+		/datum/action/cooldown/spell/projectile/lightning_bolt,
+		/datum/action/cooldown/spell/heavens_strike,
+		/datum/action/cooldown/spell/thunderstrike,
 	)
 
 /datum/magic_aspect/geomancy

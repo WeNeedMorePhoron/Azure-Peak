@@ -381,10 +381,10 @@
 			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/spitfire)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink)
 		if("Lightning bolt and Repulse")
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/lightningbolt)
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/lightning_bolt)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/repulse)
 		if("Lightning bolt and Blink")
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/lightningbolt)
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/lightning_bolt)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink)
 
 
