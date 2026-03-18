@@ -1,0 +1,78 @@
+/datum/action/cooldown/spell/projectile/boulder_strike
+	name = "Boulder Strike"
+	desc = "Hurl a massive boulder at a target. On impact, it shatters into a cloud of stone fragments. \
+	Toggle arc mode (Ctrl+G) while the spell is active to lob it over obstacles. Arced boulders deal reduced damage and produce fewer fragments."
+	button_icon_state = "dvine_strike"
+	sound = 'sound/combat/hits/onstone/stonedeath.ogg'
+	spell_color = GLOW_COLOR_METAL
+	glow_intensity = GLOW_INTENSITY_HIGH
+
+	projectile_type = /obj/projectile/magic/boulder
+	projectile_type_arc = /obj/projectile/magic/boulder/arc
+	cast_range = 7
+
+	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_cost = SPELLCOST_MAJOR_PROJECTILE
+
+	invocations = list("Moles Terrae!")
+	invocation_type = INVOCATION_SHOUT
+
+	charge_required = TRUE
+	charge_time = 1.5 SECONDS
+	charge_drain = 1
+	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
+	charge_sound = 'sound/magic/charging_fire.ogg'
+	cooldown_time = 20 SECONDS
+
+	associated_skill = /datum/skill/magic/arcane
+
+/obj/projectile/magic/boulder
+	name = "boulder"
+	icon = 'icons/obj/magic_projectiles.dmi'
+	icon_state = "rock"
+	damage = 90
+	nodamage = FALSE
+	damage_type = BRUTE
+	woundclass = BCLASS_BLUNT
+	flag = "magic"
+	range = 7
+	speed = 6
+	accuracy = 30
+	guard_deflectable = TRUE
+	hitsound = 'sound/combat/hits/onstone/stonedeath.ogg'
+	var/frag_count = 8
+	var/frag_damage = 15
+
+/obj/projectile/magic/boulder/arc
+	name = "arced boulder"
+	damage = 70
+	frag_count = 6
+	arcshot = TRUE
+
+/obj/projectile/magic/boulder/on_hit(target)
+	. = ..()
+	var/turf/impact = get_turf(src)
+	if(!impact)
+		return
+
+	// Fragmentation cloud
+	for(var/i in 1 to frag_count)
+		var/obj/projectile/magic/gravel_blast/frag = new(impact)
+		frag.damage = frag_damage
+		frag.range = 3
+		frag.name = "gravel fragment"
+		var/angle = rand(0, 359)
+		frag.fire(angle)
+
+	playsound(impact, 'sound/combat/hits/onstone/stonedeath.ogg', 100, TRUE, 5)
+
+/obj/projectile/magic/boulder/Bump(atom/A)
+	if(ismob(A))
+		var/mob/living/M = A
+		if(M.anti_magic_check())
+			visible_message(span_warning("[src] shatters harmlessly against [M]!"))
+			playsound(get_turf(M), 'sound/magic/magic_nulled.ogg', 100)
+			qdel(src)
+			return
+	return ..()
+

@@ -32,7 +32,7 @@
 	guard_deflectable = TRUE
 	range = 3
 	accuracy = 50
-	icon = 'icons/mob/actions/roguespells.dmi'
+	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "stygian"
 	damage = 25
 	woundclass = BCLASS_STAB

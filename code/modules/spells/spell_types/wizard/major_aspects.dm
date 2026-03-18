@@ -79,10 +79,10 @@
 		"TODO",
 	)
 	fixed_spells = list(
-		// TODO: Rock Sling - 7 tiles, 20*5 projectiles, first hit sets mob timer so subsequent hits deal half. Anti-group staple.
-		/obj/effect/proc_holder/spell/invoked/ensnare,
-		// TODO: Boulder Strike - Always arced, 2.5 speed, 120 center / 40 scatter, 20-30s CD
-		// TODO: Earthen Wall - Durable forcewall, blocks caster too
+		/datum/action/cooldown/spell/projectile/gravel_blast,
+		/datum/action/cooldown/spell/projectile/boulder_strike,
+		/datum/action/cooldown/spell/ensnare,
+		/datum/action/cooldown/spell/earthen_wall,
 	)
 
 /datum/magic_aspect/kinesis
