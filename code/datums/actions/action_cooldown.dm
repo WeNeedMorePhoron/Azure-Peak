@@ -15,6 +15,8 @@
 	var/text_cooldown = TRUE
 	/// Shares cooldowns with other cooldown abilities of the same value, not active if null
 	var/shared_cooldown
+	/// The GCD duration applied to other abilities in the same shared_cooldown group. If null, uses the caster's own cooldown.
+	var/shared_cooldown_duration
 
 	// These are only used for click_to_activate actions
 	/// Setting for intercepting clicks before activating the ability
@@ -117,10 +119,15 @@
 	// "Shared cooldowns" covers actions which are not the same type,
 	// but have the same cooldown group and are on the same mob
 	if(shared_cooldown)
-		for(var/datum/action/cooldown/shared_ability in owner.actions - src)
-			if(shared_cooldown != shared_ability.shared_cooldown)
-				continue
-			shared_ability.StartCooldownSelf(override_cooldown_time)
+		var/gcd_time = isnum(shared_cooldown_duration) ? shared_cooldown_duration : override_cooldown_time
+		if(gcd_time > 0)
+			for(var/datum/action/cooldown/shared_ability in owner.actions - src)
+				if(shared_cooldown != shared_ability.shared_cooldown)
+					continue
+				// Don't overwrite a longer existing cooldown with a shorter GCD
+				if(shared_ability.next_use_time > world.time + gcd_time)
+					continue
+				shared_ability.StartCooldownSelf(gcd_time)
 
 	StartCooldownSelf(override_cooldown_time)
 
