@@ -41,7 +41,7 @@
 
 	var/bombardments = 10
 	var/bolts_per_wave = 5
-	var/bolt_damage = 50
+	var/bolt_damage = 30
 	var/storm_radius = 3 // 7x7 area (range 3 from center)
 	var/wave_delay = 1.5 SECONDS
 
