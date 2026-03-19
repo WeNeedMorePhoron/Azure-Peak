@@ -4,7 +4,8 @@
 
 /datum/action/cooldown/spell/frost_stream
 	name = "Frost Stream"
-	desc = "Channel a stream of biting frost in a line toward your target, chilling those struck to the bone."
+	desc = "Channel a stream of biting frost in a line toward your target, chilling those struck to the bone. \
+	Can be blocked by a shield, stopping the stream from propagating further."
 	button_icon_state = "frost_bolt"
 	sound = 'sound/spellbooks/icicle.ogg'
 	spell_color = GLOW_COLOR_ICE
@@ -65,7 +66,10 @@
 	playsound(start, 'sound/spellbooks/crystal.ogg', 100, TRUE, 4)
 
 	var/list/already_hit = list()
+	var/blocked = FALSE
 	for(var/turf/T in line_turfs)
+		if(blocked)
+			break
 		for(var/mob/living/victim in T)
 			if(victim == H || victim.stat == DEAD || (victim in already_hit))
 				continue
@@ -73,15 +77,19 @@
 				victim.visible_message(span_warning("The frost fizzles on contact with [victim]!"))
 				continue
 			if(spell_guard_check(victim, FALSE, H))
-				continue
+				blocked = TRUE
+				break
 			// Countersynergy: shatter frost if target has fire
 			if(victim.on_fire)
 				victim.extinguish_mob()
 				victim.visible_message(span_warning("The frost extinguishes [victim]!"))
-			arcyne_strike(H, victim, null, blast_damage, H.zone_selected || BODY_ZONE_CHEST, \
+			var/damage_dealt = arcyne_strike(H, victim, null, blast_damage, H.zone_selected || BODY_ZONE_CHEST, \
 				BCLASS_BURN, spell_name = "Frost Stream", \
 				allow_shield_check = TRUE, damage_type = BURN, \
 				skip_animation = TRUE)
+			if(!damage_dealt)
+				blocked = TRUE
+				break
 			apply_frost_stack(victim, 2)
 			already_hit += victim
 

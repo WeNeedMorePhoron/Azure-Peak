@@ -1,6 +1,7 @@
 /datum/action/cooldown/spell/fire_blast
 	name = "Fire Blast"
-	desc = "Channel a blast of flame in a line toward your target, repelling those struck back 2 paces and leaving the ground ablaze."
+	desc = "Channel a blast of flame in a line toward your target, repelling those struck back 2 paces and leaving the ground ablaze. \
+	Can be blocked by a shield, stopping the blast from propagating further."
 	button_icon_state = "hellish_rebuke"
 	sound = 'sound/misc/explode/incendiary (1).ogg'
 	spell_color = GLOW_COLOR_FIRE
@@ -60,7 +61,10 @@
 	playsound(start, pick('sound/misc/explode/incendiary (1).ogg', 'sound/misc/explode/incendiary (2).ogg'), 100, TRUE, 4)
 
 	var/list/already_hit = list()
+	var/blocked = FALSE
 	for(var/turf/T in line_turfs)
+		if(blocked)
+			break
 		for(var/mob/living/victim in T)
 			if(victim == H || victim.stat == DEAD || (victim in already_hit))
 				continue
@@ -68,11 +72,15 @@
 				victim.visible_message(span_warning("The flames fizzle on contact with [victim]!"))
 				continue
 			if(spell_guard_check(victim, FALSE, H))
-				continue
-			arcyne_strike(H, victim, null, blast_damage, BODY_ZONE_CHEST, \
+				blocked = TRUE
+				break
+			var/damage_dealt = arcyne_strike(H, victim, null, blast_damage, BODY_ZONE_CHEST, \
 				BCLASS_BURN, spell_name = "Fire Blast", \
 				allow_shield_check = TRUE, damage_type = BURN, \
 				skip_animation = TRUE)
+			if(!damage_dealt)
+				blocked = TRUE
+				break
 			victim.adjust_fire_stacks(fire_stacks_applied)
 			victim.ignite_mob()
 			already_hit += victim
