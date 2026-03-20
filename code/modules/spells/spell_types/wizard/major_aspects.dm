@@ -103,6 +103,7 @@
 		/datum/action/cooldown/spell/projectile/fetch,
 		/datum/action/cooldown/spell/projectile/repel,
 		/datum/action/cooldown/spell/repulse,
+		/datum/action/cooldown/spell/gravity,
 	)
 
 /datum/magic_aspect/augmentation
@@ -119,7 +120,7 @@
 		"TODO",
 	)
 	fixed_spells = list(
-		/datum/action/cooldown/spell/projectile/arcynebolt,
+		/datum/action/cooldown/spell/projectile/soulshot,
 	)
 	pointbuy_budget = 14
 	pointbuy_spells = list(
@@ -138,4 +139,29 @@
 		/obj/effect/proc_holder/spell/invoked/mending,
 		/obj/effect/proc_holder/spell/invoked/create_campfire,
 		/obj/effect/proc_holder/spell/self/message,
+	)
+
+/datum/magic_aspect/ferramancy
+	name = "Ferramancy"
+	desc = "TODO"
+	fluff_desc = "TODO"
+	aspect_type = ASPECT_MAJOR
+	attuned_name = "Metal"
+	school_color = GLOW_COLOR_METAL
+	binding_chants = list(
+		"TODO",
+	)
+	unbinding_chants = list(
+		"TODO",
+	)
+	fixed_spells = list(
+		/datum/action/cooldown/spell/projectile/iron_tempest,
+		/obj/effect/proc_holder/spell/invoked/blade_burst,
+		/datum/action/cooldown/spell/iron_skin,
+		/obj/effect/proc_holder/spell/invoked/enchant_weapon,
+	)
+	pointbuy_budget = 3
+	pointbuy_spells = list(
+		/datum/action/cooldown/spell/projectile/stygian_efflorescence,
+		/datum/action/cooldown/spell/projectile/arcyne_lance,
 	)

@@ -2,8 +2,6 @@
 // Crushes a target with gravitational force. STR > 15 resists knockdown (off-balanced instead).
 // Consumes Arcane Marks for bonus damage and knockdown duration.
 
-#define GRAVITY_TELEGRAPH 5 // Ticks of warning before the crush lands
-
 /datum/action/cooldown/spell/gravity
 	name = "Gravity"
 	desc = "Weighten space around someone, crushing them and knocking them to the floor. Stronger opponents will resist and be off-balanced. Consumes <b>Arcane Marks</b> to slightly increase knockdown time and damage."
@@ -35,6 +33,21 @@
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
+	/// Ticks of warning before the crush lands
+	var/telegraph_delay = 5
+	/// Damage dealt to targets whose STR is at or below the threshold
+	var/crush_damage = 60
+	/// Damage dealt to targets who resist via STR
+	var/resisted_damage = 15
+	/// Knockdown duration (in ticks) for targets who don't resist
+	var/knockdown_time = 5
+	/// Off-balance duration (in ticks) for targets who resist
+	var/offbalance_time = 10
+	/// STR threshold — at or below this, full knockdown. Above, off-balanced only
+	var/str_threshold = 15
+	/// Bonus damage/knockdown per consumed arcane mark stack
+	var/mark_bonus = 4
+
 /datum/action/cooldown/spell/gravity/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
@@ -56,7 +69,7 @@
 
 	new /obj/effect/temp_visual/gravity_trap(T)
 	playsound(T, 'sound/magic/gravity.ogg', 80, TRUE, soundping = FALSE)
-	addtimer(CALLBACK(src, PROC_REF(gravity_crush), T), GRAVITY_TELEGRAPH)
+	addtimer(CALLBACK(src, PROC_REF(gravity_crush), T), telegraph_delay)
 	return TRUE
 
 /datum/action/cooldown/spell/gravity/proc/gravity_crush(turf/T)
@@ -71,17 +84,15 @@
 			continue
 
 		var/mark_stacks = consume_arcane_mark_stacks(L)
-		var/extra_time = mark_stacks * 4
-		if(L.STASTR <= 15)
-			L.adjustBruteLoss(60 + extra_time)
-			L.Knockdown(5 + extra_time)
+		var/extra_time = mark_stacks * mark_bonus
+		if(L.STASTR <= str_threshold)
+			L.adjustBruteLoss(crush_damage + extra_time)
+			L.Knockdown(knockdown_time + extra_time)
 			if(mark_stacks == 3)
 				to_chat(L, span_userdanger("GRAVITAS COLLAPSE; TRYPTICH-MARKE DETONATION!"))
 			else
 				to_chat(L, span_userdanger("I'm magically weighed down, losing my footing!"))
 		else
-			L.OffBalance(10 + extra_time)
-			L.adjustBruteLoss(15)
+			L.OffBalance(offbalance_time + extra_time)
+			L.adjustBruteLoss(resisted_damage)
 			to_chat(L, span_userdanger("I'm magically weighed down, but my strength resist!"))
-
-#undef GRAVITY_TELEGRAPH

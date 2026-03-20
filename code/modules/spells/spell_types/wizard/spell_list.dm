@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile
 		/datum/action/cooldown/spell/hailstorm,
 		/datum/action/cooldown/spell/projectile/arcynebolt,
 		/obj/effect/proc_holder/spell/invoked/projectile/arcynestrike,
-		/obj/effect/proc_holder/spell/invoked/gravity,
+		/datum/action/cooldown/spell/gravity,
 		/datum/action/cooldown/spell/projectile/repel,
 
 		/obj/effect/proc_holder/spell/targeted/touch/lesserknock,
@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile
 		/obj/effect/proc_holder/spell/invoked/bonechill,
 		/obj/effect/proc_holder/spell/invoked/silence,
 		/obj/effect/proc_holder/spell/self/findfamiliar,
-		/obj/effect/proc_holder/spell/invoked/projectile/stygian
+		/datum/action/cooldown/spell/projectile/stygian_efflorescence
 		)
 ))
 
