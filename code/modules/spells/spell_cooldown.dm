@@ -71,6 +71,9 @@
 	var/learned_from_pool
 	/// If this spell is evil and can only be learned by heretics.
 	var/zizo_spell = FALSE
+	/// Damage value shown in spell examine. For non-projectile spells that want to display damage.
+	/// Projectile spells auto-display from the projectile type.
+	var/displayed_damage = 0
 
 	/// The sound played on cast.
 	var/sound = 'sound/magic/whiteflame.ogg'
@@ -992,6 +995,10 @@
 				stats += span_info("[cost_label]: [secondary_resource_cost]")
 		else
 			stats += span_info("[cost_label]: [secondary_resource_cost]")
+
+	// Damage display for non-projectile spells that opt in
+	if(displayed_damage > 0)
+		stats += span_info("Damage: [displayed_damage]")
 
 	return stats
 

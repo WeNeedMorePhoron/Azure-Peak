@@ -107,4 +107,11 @@
 	var/proj_range = initial(projectile_type.range)
 	if(proj_range)
 		stats.Insert(1, span_info("Projectile range: [proj_range] tiles"))
+	// Auto-display projectile damage
+	var/proj_damage = initial(projectile_type.damage)
+	if(proj_damage > 0)
+		if(projectiles_per_fire > 1)
+			stats += span_info("Damage: [proj_damage] x[projectiles_per_fire]")
+		else
+			stats += span_info("Damage: [proj_damage]")
 	return stats
