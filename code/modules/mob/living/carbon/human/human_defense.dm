@@ -45,7 +45,10 @@
         
 			if(intdamfactor != 1)
 				intdamage *= intdamfactor
-        
+
+			if(has_status_effect(/datum/status_effect/buff/iron_skin))
+				intdamage *= 0.75
+
 			if(istype(used_weapon) && used_weapon.is_silver && ((used.smeltresult in list(/obj/item/ingot/aaslag, /obj/item/ingot/aalloy, /obj/item/ingot/purifiedaalloy)) || used.GetComponent(/datum/component/cursed_item)))
 				// Blessed silver delivers more int damage against "cursed" alloys, see component for multiplier values
 				var/datum/component/silverbless/bless = used_weapon.GetComponent(/datum/component/silverbless)
@@ -84,11 +87,14 @@
 					intdamage -= intdamage * ((protection / 1.66) / 100)	//Reduces it up to 60% (100 dmg -> 40 dmg at Blunt S armor (100))
 			if(intdamfactor != 1)
 				intdamage *= intdamfactor
-        
+
+			if(has_status_effect(/datum/status_effect/buff/iron_skin))
+				intdamage *= 0.75
+
 			var/tempo_bonus = get_tempo_bonus(TEMPO_TAG_ARMOR_INTEGFACTOR)
 			if(tempo_bonus)
 				intdamage *= tempo_bonus
-        
+
 			var/full_dmg
 			if(has_status_effect(/datum/status_effect/debuff/exposed))
 				full_dmg = TRUE
