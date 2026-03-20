@@ -124,16 +124,16 @@
 	)
 	pointbuy_budget = 14
 	pointbuy_spells = list(
-		/obj/effect/proc_holder/spell/invoked/haste,
-		/obj/effect/proc_holder/spell/invoked/darkvision,
-		/obj/effect/proc_holder/spell/invoked/longstrider,
-		/obj/effect/proc_holder/spell/invoked/stoneskin,
-		/obj/effect/proc_holder/spell/invoked/hawks_eyes,
-		/obj/effect/proc_holder/spell/invoked/giants_strength,
-		/obj/effect/proc_holder/spell/invoked/fortitude,
-		/obj/effect/proc_holder/spell/invoked/guidance,
-		/obj/effect/proc_holder/spell/invoked/featherfall,
-		/obj/effect/proc_holder/spell/invoked/enlarge,
+		/datum/action/cooldown/spell/haste,
+		/datum/action/cooldown/spell/darkvision,
+		/datum/action/cooldown/spell/longstrider,
+		/datum/action/cooldown/spell/stoneskin,
+		/datum/action/cooldown/spell/hawks_eyes,
+		/datum/action/cooldown/spell/giants_strength,
+		/datum/action/cooldown/spell/fortitude,
+		/datum/action/cooldown/spell/guidance,
+		/datum/action/cooldown/spell/featherfall,
+		/datum/action/cooldown/spell/enlarge,
 		// 1-cost utility filler
 		/obj/effect/proc_holder/spell/self/light,
 		/obj/effect/proc_holder/spell/invoked/mending,

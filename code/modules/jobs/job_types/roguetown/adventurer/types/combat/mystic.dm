@@ -146,8 +146,8 @@
 		/obj/item/recipe_book/alchemy = 1,
 		/obj/item/roguegem/amethyst = 1, // for their starting staff or a gem-bound spellbook if they take the time to craft one, increase how fast they cast stoneskin/fortitude
 		)
-	H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/stoneskin)
-	H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/fortitude)
+	H.mind.AddSpell(new /datum/action/cooldown/spell/stoneskin)
+	H.mind.AddSpell(new /datum/action/cooldown/spell/fortitude)
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_DEVOTEE, devotion_limit = CLERIC_REQ_1)
 	if(H.mind)

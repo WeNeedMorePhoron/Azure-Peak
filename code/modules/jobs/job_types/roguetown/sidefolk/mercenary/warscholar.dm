@@ -281,7 +281,7 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diminish)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/vizier_restoration)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/reversion)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/guidance)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/guidance)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mending)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)

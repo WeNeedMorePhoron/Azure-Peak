@@ -1,0 +1,45 @@
+// Darkvision — Augmentation AOE self-cast buff (new action system)
+// Status effect kept in buffs_debuffs/darkvision.dm
+/datum/action/cooldown/spell/darkvision
+	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
+	name = "Darkvision"
+	desc = "Enhance the night vision of yourself and everyone around you for 5 minutes per level in the associated skill."
+	button_icon_state = "darkvision"
+	sound = 'sound/magic/haste.ogg'
+	spell_color = GLOW_COLOR_BUFF
+	glow_intensity = GLOW_INTENSITY_LOW
+
+	click_to_activate = FALSE
+	self_cast_possible = TRUE
+
+	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_cost = SPELLCOST_STAT_BUFF
+
+	invocations = list("Nox Oculus")
+	invocation_type = INVOCATION_WHISPER
+
+	charge_required = TRUE
+	charge_time = 1 SECONDS
+	charge_drain = 0
+	charge_slowdown = CHARGING_SLOWDOWN_SMALL
+	charge_sound = 'sound/magic/charging.ogg'
+	cooldown_time = 1.5 MINUTES
+
+	associated_skill = /datum/skill/magic/arcane
+	spell_tier = 1
+
+	point_cost = 2
+
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+
+/datum/action/cooldown/spell/darkvision/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H))
+		return FALSE
+
+	H.visible_message("[H] mutters an incantation and a dim pulse of light radiates out from them.")
+	for(var/mob/living/L in range(1, H))
+		L.apply_status_effect(/datum/status_effect/buff/darkvision, H.get_skill_level(associated_skill))
+
+	return TRUE

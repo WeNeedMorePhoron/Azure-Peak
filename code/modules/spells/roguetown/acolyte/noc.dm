@@ -245,13 +245,13 @@ Somewhat fitting, considering the broadness of their domains. I also just think 
 		/obj/effect/proc_holder/spell/invoked/rebuke, // By points, this adds up to 8 points total. However it is the strongest Acolyte combo offensively.
 	)
 	var/list/buff_bundle = list(	//Buffs! An Acolyte being a supportive caster is 100% what they already are, so this fits neatly. No debuffs -- every patron already has a plethora of those.
-		/obj/effect/proc_holder/spell/invoked/hawks_eyes::name 			= /obj/effect/proc_holder/spell/invoked/hawks_eyes,
-		/obj/effect/proc_holder/spell/invoked/giants_strength::name 	= /obj/effect/proc_holder/spell/invoked/giants_strength,
-		/obj/effect/proc_holder/spell/invoked/longstrider::name 		= /obj/effect/proc_holder/spell/invoked/longstrider,
-		/obj/effect/proc_holder/spell/invoked/guidance::name 			= /obj/effect/proc_holder/spell/invoked/guidance,
-		/obj/effect/proc_holder/spell/invoked/haste::name 				= /obj/effect/proc_holder/spell/invoked/haste,
-		/obj/effect/proc_holder/spell/invoked/stoneskin::name 			= /obj/effect/proc_holder/spell/invoked/stoneskin,
-		/obj/effect/proc_holder/spell/invoked/fortitude::name 			= /obj/effect/proc_holder/spell/invoked/fortitude, // Picking the most expensive options adds up to 12 points
+		/datum/action/cooldown/spell/hawks_eyes::name 			= /datum/action/cooldown/spell/hawks_eyes,
+		/datum/action/cooldown/spell/giants_strength::name 	= /datum/action/cooldown/spell/giants_strength,
+		/datum/action/cooldown/spell/longstrider::name 		= /datum/action/cooldown/spell/longstrider,
+		/datum/action/cooldown/spell/guidance::name 			= /datum/action/cooldown/spell/guidance,
+		/datum/action/cooldown/spell/haste::name 				= /datum/action/cooldown/spell/haste,
+		/datum/action/cooldown/spell/stoneskin::name 			= /datum/action/cooldown/spell/stoneskin,
+		/datum/action/cooldown/spell/fortitude::name 			= /datum/action/cooldown/spell/fortitude, // Picking the most expensive options adds up to 12 points
 	)
 /obj/effect/proc_holder/spell/self/noc_spell_bundle/cast(list/targets, mob/user)
 	. = ..()

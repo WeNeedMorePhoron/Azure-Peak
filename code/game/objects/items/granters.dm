@@ -334,7 +334,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/guidance
 	name = "Scroll of Guidance"
-	spell = /obj/effect/proc_holder/spell/invoked/guidance
+	spell = /datum/action/cooldown/spell/guidance
 	spellname = "Guidance"
 	icon_state ="scrolldarkred"
 	remarks = list("Lux in tenebris..", "Passus certus umbras non timet..", "Anima viam scit..")
@@ -350,7 +350,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/fortitude
 	name = "Scroll of Fortitude"
-	spell = /obj/effect/proc_holder/spell/invoked/fortitude
+	spell = /datum/action/cooldown/spell/fortitude
 	spellname = "Fortitude"
 	icon_state ="scrolldarkred"
 	remarks = list("Animus in adversis..", "Gravitas oneris..", "Vita renascitur..")
@@ -382,7 +382,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/featherfall
 	name = "Scroll of Featherfall"
-	spell = /obj/effect/proc_holder/spell/invoked/featherfall
+	spell = /datum/action/cooldown/spell/featherfall
 	spellname = "Featherfall"
 	icon_state ="scrolldarkred"
 	remarks = list("In silentio cadit..", "Alis levitas..", "Plumis taciti dolores..")
@@ -390,7 +390,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/enlarge
 	name = "Scroll of Enlarge"
-	spell = /obj/effect/proc_holder/spell/invoked/enlarge
+	spell = /datum/action/cooldown/spell/enlarge
 	spellname = "Enlarge"
 	icon_state ="scrolldarkred"
 	remarks = list("Immensum agitur..", "Montes tremunt..", "Quantitas expanditur..")
@@ -420,14 +420,14 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/haste
 	name = "Scroll of Haste"
-	spell = /obj/effect/proc_holder/spell/invoked/haste
+	spell = /datum/action/cooldown/spell/haste
 	spellname = "Haste"
 	icon_state ="scrolldarkred"
 	dreamcost = 6
 
 /obj/item/book/granter/spell/blackstone/longstrider
 	name = "Scroll of Longstrider"
-	spell = /obj/effect/proc_holder/spell/invoked/longstrider
+	spell = /datum/action/cooldown/spell/longstrider
 	spellname = "Longstrider"
 	icon_state ="scrolldarkred"
 	dreamcost = 3
@@ -462,14 +462,14 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/stoneskin
 	name = "Scroll of Stoneskin"
-	spell = /obj/effect/proc_holder/spell/invoked/stoneskin
+	spell = /datum/action/cooldown/spell/stoneskin
 	spellname = "Stoneskin"
 	icon_state ="scrolldarkred"
 	dreamcost = 3
 
 /obj/item/book/granter/spell/blackstone/hawks_eyes
 	name = "Scroll of Hawks Eyes"
-	spell = /obj/effect/proc_holder/spell/invoked/hawks_eyes
+	spell = /datum/action/cooldown/spell/hawks_eyes
 	spellname = "Hawks Eyes"
 	icon_state ="scrolldarkred"
 	dreamcost = 3

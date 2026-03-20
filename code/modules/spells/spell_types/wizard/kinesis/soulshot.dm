@@ -9,7 +9,7 @@
 	Deals 50% increased damage to simple-minded creechurs. \
 	Basic offensive magic, refined for over a millenium since the first Magi expelled mana from their body with pure malice and determination to destroy another."
 	button_icon_state = "soulshot"
-	sound = 'sound/magic/cosmic_expansion.ogg'
+	sound = 'sound/magic/vlightning.ogg'
 	spell_color = GLOW_COLOR_DISPLACEMENT
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 
@@ -52,6 +52,7 @@
 	hitsound = 'sound/magic/obeliskbeam.ogg'
 	light_color = "#9400D3"
 	light_outer_range = 7
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 	/// How many mob targets have been hit so far.
 	var/hits = 0
 	/// Maximum mob targets before the beam stops.

@@ -69,6 +69,12 @@
 #define CHARGING_SLOWDOWN_MEDIUM 2     // Big projectiles, significant spells
 #define CHARGING_SLOWDOWN_HEAVY 3      // Area denial, channeled spells
 
+// Spell impact visual intensity tiers
+#define SPELL_IMPACT_NONE   0  // No impact visual
+#define SPELL_IMPACT_LOW    1  // 2 wisps — minor pokes, utility
+#define SPELL_IMPACT_MEDIUM 2  // 4 wisps — staple projectiles, soulshot
+#define SPELL_IMPACT_HIGH   3  // 6 wisps — big hits, fireball, boulder
+
 // Magic Aspect system
 #define MAX_MAJOR_ASPECTS_T3 1
 #define MAX_MAJOR_ASPECTS_T4 2

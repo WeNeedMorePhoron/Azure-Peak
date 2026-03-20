@@ -106,8 +106,8 @@
 
 		switch (classchoice)
 			if("Old Magick")
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/guidance)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/fortitude)
+				H.mind.AddSpell(new /datum/action/cooldown/spell/guidance)
+				H.mind.AddSpell(new /datum/action/cooldown/spell/fortitude)
 				H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcynebolt)
 	if(H.gender == FEMALE)
 		armor = /obj/item/clothing/suit/roguetown/armor/corset
