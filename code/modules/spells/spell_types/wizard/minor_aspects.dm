@@ -15,8 +15,8 @@
 		/datum/action/cooldown/spell/arcyne_forge,
 	)
 
-/datum/magic_aspect/exowardry
-	name = "Exowardry"
+/datum/magic_aspect/bulwark
+	name = "Bulwark"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
@@ -27,8 +27,7 @@
 		"TODO",
 	)
 	fixed_spells = list(
-		/obj/effect/proc_holder/spell/invoked/forcewall,
-		/obj/effect/proc_holder/spell/invoked/forcewall/greater,
+		/datum/action/cooldown/spell/forcewall,
 	)
 
 /datum/magic_aspect/aegiscraft
@@ -64,8 +63,8 @@
 		/datum/action/cooldown/spell/repulse,
 	)
 
-/datum/magic_aspect/dermawardry
-	name = "Dermawardry"
+/datum/magic_aspect/autowardry
+	name = "Autowardry"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR

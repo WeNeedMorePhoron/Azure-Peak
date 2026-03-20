@@ -53,7 +53,7 @@
 
 	var/obj/item/rogueweapon/shield/arcyne_aegis/S = new(H.drop_location())
 	S.linked_spell = src
-	S.AddComponent(/datum/component/conjured_item, GLOW_COLOR_ARCANE)
+	S.AddComponent(/datum/component/conjured_item, null, TRUE)
 	H.put_in_hands(S)
 	conjured_shield = S
 	H.visible_message("[H] conjures a shimmering shield of arcyne energy!")
@@ -72,6 +72,8 @@
 	desc = "A rare hunk of arcyne energy projected in front of the caster. Slower and more deliberate movement by blades and melee weapons easily pierce through to the squishy Magi behind."
 	icon = 'icons/roguetown/weapons/prismatic_weapons64.dmi'
 	icon_state = "moonlight_shield"
+	pixel_x = -16
+	bigboy = TRUE
 	wdefense = 5
 	coverage = 80
 	max_integrity = 150

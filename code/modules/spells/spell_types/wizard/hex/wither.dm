@@ -79,18 +79,26 @@
 	radius = zone_radius
 	caster = zone_caster
 
-	// Build the zone turfs and visuals
+	// Build the zone turfs and show telegraph visuals
 	for(var/turf/affected in range(radius, src))
 		zone_turfs += affected
+		new /obj/effect/temp_visual/trap(affected) // Telegraph warning
+
+	// After 1.2s telegraph, activate the zone
+	addtimer(CALLBACK(src, PROC_REF(activate_zone), duration), 1.2 SECONDS)
+
+	// Self-destruct after telegraph + duration
+	QDEL_IN(src, duration + 1.2 SECONDS)
+
+/obj/effect/wither_zone/proc/activate_zone(duration)
+	// Spawn persistent ground visuals
+	for(var/turf/affected in zone_turfs)
 		if(affected != get_turf(src))
 			var/obj/effect/temp_visual/wither_ground/V = new(affected, duration)
 			zone_visuals += V
 
-	// Tick every 1 second to apply debuff
+	playsound(get_turf(src), 'sound/magic/shadowstep_destination.ogg', 80)
 	START_PROCESSING(SSfastprocess, src)
-
-	// Self-destruct after duration
-	QDEL_IN(src, duration)
 
 /obj/effect/wither_zone/process()
 	for(var/turf/T in zone_turfs)
