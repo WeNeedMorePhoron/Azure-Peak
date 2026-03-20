@@ -4,7 +4,7 @@
 /datum/action/cooldown/spell/projectile/gravel_blast
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Gravel Blast"
-	desc = "Spray a volley of stone shards at a target. Subsequent hits on the same target deal reduced damage."
+	desc = "Spray a volley of stone shards at a target. Shards ricochet off walls and become deadlier with each bounce. Subsequent hits on the same target deal reduced damage."
 	button_icon_state = "gravel_blast"
 	sound = 'sound/combat/hits/onstone/wallhit.ogg'
 	spell_color = GLOW_COLOR_METAL
@@ -53,6 +53,13 @@
 	guard_deflectable = TRUE
 	npc_simple_damage_mult = 1.5
 	hitsound = 'sound/combat/hits/onstone/wallhit.ogg'
+	ricochets_max = 2
+	ricochet_chance = 80
+	ricochet_auto_aim_angle = 40
+	ricochet_auto_aim_range = 5
+	ricochet_incidence_leeway = 40
+	ricochet_decay_chance = 1
+	ricochet_decay_damage = 1.5
 	var/reduced_damage = 12
 
 /obj/projectile/magic/gravel_blast/on_hit(target)
