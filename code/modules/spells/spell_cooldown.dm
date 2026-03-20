@@ -1241,7 +1241,14 @@
 /datum/action/cooldown/spell/proc/signal_cancel()
 	SIGNAL_HANDLER
 
-	cancel_casting()
+	// End charging but keep the spell selected so the player can re-attempt
+	charged = FALSE
+	end_charging()
+	if(owner)
+		owner.balloon_alert(owner, "Channeling was interrupted!")
+		// Re-register for the next mouse down so they can try again
+		if(owner.client && click_to_activate && charge_required)
+			RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
 
 // Spell visual effects — mob-owned for safety (if spell hard-deletes, mob Destroy still cleans up).
 // AP uses per-spell color instead of Vanderlin's attunement blending.
