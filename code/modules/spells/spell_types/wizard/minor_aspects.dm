@@ -15,8 +15,8 @@
 		/datum/action/cooldown/spell/arcyne_forge,
 	)
 
-/datum/magic_aspect/bulwark
-	name = "Bulwark"
+/datum/magic_aspect/exowardry
+	name = "Exowardry"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
