@@ -4,7 +4,8 @@
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Guidance"
 	desc = "Makes one's hand travel true, blessing them with arcyne luck in combat. (+20% chance to bypass parry / dodge, +20% chance to parry / dodge)\n\
-	Casting on another person doubles the duration."
+	Casting on another person doubles the duration.\n\
+	<b>Activation:</b> Hold middle-click to charge. Release when charged, then middle-click on target."
 	button_icon_state = "guidance"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF
@@ -25,6 +26,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
+	charge_then_click = TRUE
 	cooldown_time = 2 MINUTES
 
 	associated_skill = /datum/skill/magic/arcane

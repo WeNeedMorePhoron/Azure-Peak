@@ -157,6 +157,9 @@
 	var/charge_target_time = 0
 	/// Whether the spell is currently charged, for cases where you want to keep casting after the initial charge (projectiles).
 	var/charged = FALSE
+	/// If TRUE, spell charges on button press, then waits for a separate middle-click to cast.
+	/// If FALSE (default), spell uses hold-and-release: hold middle-click to charge, release to cast.
+	var/charge_then_click = FALSE
 
 	/// If the spell creates visual effects.
 	var/has_visual_effects = TRUE
@@ -1126,6 +1129,22 @@
 		return
 
 	var/success = world.time >= (charge_started_at + charge_target_time)
+
+	// Charge-then-click: releasing the mouse doesn't cast — wait for a second click
+	if(charge_then_click)
+		if(!success)
+			// Still charging — ignore the mouseup, keep charging
+			return
+		// Charge complete — transition to "click to cast" mode
+		on_end_charge(TRUE)
+		charge_started_at = 0
+		UnregisterSignal(source, COMSIG_CLIENT_MOUSEUP)
+		RegisterSignal(source, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(cast_after_charge))
+		auto_cancel_timer = addtimer(CALLBACK(src, PROC_REF(cancel_casting)), 30 SECONDS, TIMER_STOPPABLE)
+		if(owner)
+			owner.balloon_alert(owner, "Spell ready — middle-click target!")
+		return
+
 	if(!on_end_charge(success)) // Give them another try if they mess up the timing
 		RegisterSignal(source, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
 		return
@@ -1141,6 +1160,33 @@
 			return
 
 	// Call this directly to do all the relevant checks and aim assist
+	InterceptClickOn(owner, modifiers, _target)
+	source.click_intercept_time = 0
+
+/// Handle the second click for charge-then-click spells.
+/// Spell is already charged — this middle-click picks the target and casts.
+/datum/action/cooldown/spell/proc/cast_after_charge(client/source, atom/_target, turf/location, control, params)
+	SIGNAL_HANDLER
+
+	var/list/modifiers = params2list(params)
+	if(!LAZYACCESS(modifiers, MIDDLE_CLICK))
+		return
+
+	if(auto_cancel_timer)
+		deltimer(auto_cancel_timer)
+
+	if(!source || !charged || !can_cast_spell(TRUE))
+		cancel_casting()
+		return
+
+	UnregisterSignal(source, COMSIG_CLIENT_MOUSEDOWN)
+
+	if(isnull(location) || istype(_target, /atom/movable/screen))
+		_target = get_turf(source.eye)
+		if(!_target)
+			cancel_casting()
+			return
+
 	InterceptClickOn(owner, modifiers, _target)
 	source.click_intercept_time = 0
 

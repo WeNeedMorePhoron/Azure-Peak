@@ -9,7 +9,7 @@
 	spell_color = GLOW_COLOR_BUFF
 	glow_intensity = GLOW_INTENSITY_LOW
 
-	click_to_activate = FALSE
+	click_to_activate = TRUE
 	self_cast_possible = TRUE
 
 	primary_resource_type = SPELL_COST_STAMINA
@@ -21,7 +21,7 @@
 	charge_required = TRUE
 	charge_time = 1 SECONDS
 	charge_drain = 0
-	charge_slowdown = CHARGING_SLOWDOWN_SMALL
+	charge_slowdown = CHARGING_SLOWDOWN_NONE
 	charge_sound = 'sound/magic/charging.ogg'
 	cooldown_time = 1.5 MINUTES
 

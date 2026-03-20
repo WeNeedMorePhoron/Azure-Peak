@@ -3,7 +3,8 @@
 /datum/action/cooldown/spell/enlarge
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Enlarge Person"
-	desc = "For a time, enlarges your target to a giant hulking version of themselves capable of bashing into doors. Does not work on folk who are already large."
+	desc = "For a time, enlarges your target to a giant hulking version of themselves capable of bashing into doors. Does not work on folk who are already large.\n\
+	<b>Activation:</b> Hold middle-click to charge. Release when charged, then middle-click on target."
 	button_icon_state = "enlarge"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF
@@ -24,6 +25,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/charging.ogg'
+	charge_then_click = TRUE
 	cooldown_time = 2 MINUTES
 
 	associated_skill = /datum/skill/magic/arcane
