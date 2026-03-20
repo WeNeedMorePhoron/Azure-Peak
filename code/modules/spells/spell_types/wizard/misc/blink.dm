@@ -17,7 +17,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	overlay_state = "rune6"
 	xp_gain = TRUE
-	invocations = list("Nictare Teleporto!")
+	invocations = list("Saltus Arcanus!")
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_LOW

@@ -15,7 +15,7 @@
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MINOR_PROJECTILE
 
-	invocations = list("Recolligere")
+	invocations = list("Recollige!")
 	invocation_type = INVOCATION_WHISPER
 
 	charge_required = TRUE

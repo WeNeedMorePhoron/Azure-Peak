@@ -16,7 +16,7 @@
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MAJOR_PROJECTILE
 
-	invocations = list("Hastae Lunae!")
+	invocations = list("Hastae Ferri!")
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE

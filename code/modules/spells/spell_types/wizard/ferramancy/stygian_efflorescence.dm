@@ -24,7 +24,7 @@
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MAJOR_PROJECTILE
 
-	invocations = list("Golgotha shraptae!")
+	invocations = list("Golgothae Acies!")
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE

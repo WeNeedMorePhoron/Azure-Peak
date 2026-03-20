@@ -16,7 +16,7 @@
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MAJOR_AOE
 
-	invocations = list("Congelare Subitus!")
+	invocations = list("Congelatio Subita!")
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
