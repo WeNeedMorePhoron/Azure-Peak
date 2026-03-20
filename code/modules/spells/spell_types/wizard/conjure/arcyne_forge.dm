@@ -2,11 +2,11 @@
 // Conjured items have halved durability and a glow to indicate they are conjured.
 
 /datum/action/cooldown/spell/arcyne_forge
-	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
+	button_icon = 'icons/mob/actions/mage_conjure.dmi'
 	name = "Arcyne Forge"
 	desc = "Conjure a weapon or tool of your choice. Conjured items have halved durability.\n\
 	Only one conjured item can exist at a time - conjuring a new one destroys the old."
-	button_icon_state = "conjure_weapon"
+	button_icon_state = "arcyne_forge"
 	sound = 'sound/magic/whiteflame.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_LOW
@@ -49,7 +49,7 @@
 		"Whip" = /obj/item/rogueweapon/whip,
 		"Wooden Shield" = /obj/item/rogueweapon/shield/wood,
 		// Tools
-		"Pickaxe" = /obj/item/rogueweapon/pick/iron,
+		"Pickaxe" = /obj/item/rogueweapon/pick,
 		"Hoe" = /obj/item/rogueweapon/hoe,
 		"Thresher" = /obj/item/rogueweapon/thresher,
 		"Sickle" = /obj/item/rogueweapon/sickle,
@@ -66,7 +66,7 @@
 	if(!istype(H))
 		return FALSE
 
-	var/choice = input(H, "Choose what to conjure", "Artifice") as null|anything in conjure_options
+	var/choice = tgui_input_list(H, "Choose what to conjure", "Arcyne Forge", conjure_options)
 	if(!choice)
 		return FALSE
 

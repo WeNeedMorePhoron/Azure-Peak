@@ -1,7 +1,7 @@
 // Minor Aspect definitions. See magic_aspect.dm for the base datum.
 
-/datum/magic_aspect/arcyne_forge
-	name = "Arcyne Forge"
+/datum/magic_aspect/artifice
+	name = "Artifice"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
@@ -154,6 +154,5 @@
 		"TODO",
 	)
 	fixed_spells = list(
-		/obj/effect/proc_holder/spell/invoked/wither,
-		// TODO: Wither 2.0 rework
+		/datum/action/cooldown/spell/wither,
 	)
