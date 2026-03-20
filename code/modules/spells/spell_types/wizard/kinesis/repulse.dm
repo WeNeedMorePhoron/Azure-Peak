@@ -1,6 +1,7 @@
 // Repulse - Kinesis self-cast AOE knockback
 
 /datum/action/cooldown/spell/repulse
+	button_icon = 'icons/mob/actions/mage_kinesis.dmi'
 	name = "Repulse"
 	desc = "Conjure forth a wave of energy, repelling anyone around you."
 	button_icon_state = "repulse"

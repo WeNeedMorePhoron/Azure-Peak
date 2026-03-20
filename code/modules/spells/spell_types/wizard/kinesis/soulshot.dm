@@ -2,12 +2,13 @@
 // High-damage brute beam with eldritch visuals
 
 /datum/action/cooldown/spell/projectile/soulshot
+	button_icon = 'icons/mob/actions/mage_shared.dmi'
 	name = "Soulshot"
 	desc = "Fire a devastating beam of kinetic force that pierces through up to 4 targets. Stopped by solid objects. \
 	Damage is halved after the first target. \
 	Deals 50% increased damage to simple-minded creechurs. \
 	Basic offensive magic, refined for over a millenium since the first Magi expelled mana from their body with pure malice and determination to destroy another."
-	button_icon_state = "yourewizardharry"
+	button_icon_state = "soulshot"
 	sound = 'sound/magic/cosmic_expansion.ogg'
 	spell_color = GLOW_COLOR_DISPLACEMENT
 	glow_intensity = GLOW_INTENSITY_MEDIUM

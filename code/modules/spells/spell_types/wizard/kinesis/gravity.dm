@@ -3,9 +3,10 @@
 // Consumes Arcane Marks for bonus damage and knockdown duration.
 
 /datum/action/cooldown/spell/gravity
+	button_icon = 'icons/mob/actions/mage_kinesis.dmi'
 	name = "Gravity"
 	desc = "Weighten space around someone, crushing them and knocking them to the floor. Stronger opponents will resist and be off-balanced. Consumes <b>Arcane Marks</b> to slightly increase knockdown time and damage."
-	button_icon_state = "hierophant"
+	button_icon_state = "gravity"
 	sound = 'sound/magic/gravity.ogg'
 	spell_color = GLOW_COLOR_DISPLACEMENT
 	glow_intensity = GLOW_INTENSITY_MEDIUM

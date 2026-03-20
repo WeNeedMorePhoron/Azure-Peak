@@ -2,9 +2,10 @@
 // Alt: throws held item if in throw mode
 
 /datum/action/cooldown/spell/projectile/repel
+	button_icon = 'icons/mob/actions/mage_kinesis.dmi'
 	name = "Repel"
 	desc = "Shoot out a magical bolt that pushes out the target struck away from the caster. Instead of repelling a target, it will throw an object in your hand if cast while in throw mode."
-	button_icon_state = "fetch"
+	button_icon_state = "repel"
 	sound = 'sound/magic/unmagnet.ogg'
 	spell_color = GLOW_COLOR_DISPLACEMENT
 	glow_intensity = GLOW_INTENSITY_LOW

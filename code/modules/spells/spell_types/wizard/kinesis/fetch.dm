@@ -1,6 +1,7 @@
 // Fetch - Kinesis projectile that pulls the target toward the caster
 
 /datum/action/cooldown/spell/projectile/fetch
+	button_icon = 'icons/mob/actions/mage_kinesis.dmi'
 	name = "Fetch"
 	desc = "Shoot out a magical bolt that draws in the target struck towards the caster."
 	button_icon_state = "fetch"
