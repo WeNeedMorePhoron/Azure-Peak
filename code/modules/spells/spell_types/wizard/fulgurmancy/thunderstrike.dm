@@ -9,6 +9,7 @@
 #define TSTRIKE_STAGE3_DELAY 16
 
 /datum/action/cooldown/spell/thunderstrike
+	button_icon = 'icons/mob/actions/mage_fulgurmancy.dmi'
 	name = "Thunderstrike"
 	desc = "Call a high-damage strike of lightning onto an area, followed by lesser aftershocks that ripple outwards in concentric layers."
 	button_icon_state = "thunderstrike"

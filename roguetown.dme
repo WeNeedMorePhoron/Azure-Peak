@@ -2790,7 +2790,7 @@
 #include "code\modules\spells\spell_types\wizard\fulgurmancy\heavens_strike.dm"
 #include "code\modules\spells\spell_types\wizard\fulgurmancy\lightning_bolt.dm"
 #include "code\modules\spells\spell_types\wizard\fulgurmancy\thunderstrike.dm"
-#include "code\modules\spells\spell_types\wizard\fulgurmancy\zap.dm"
+#include "code\modules\spells\spell_types\wizard\fulgurmancy\shock.dm"
 #include "code\modules\spells\spell_types\wizard\ferramancy\blade_burst.dm"
 #include "code\modules\spells\spell_types\wizard\invoked_aoe\ensnare.dm"
 #include "code\modules\spells\spell_types\wizard\invoked_aoe\fire_cascade.dm"

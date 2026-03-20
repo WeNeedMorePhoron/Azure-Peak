@@ -5,11 +5,12 @@
 #define HEAVENS_STRIKE_TELEGRAPH 8 // Ticks of warning before the strike lands
 
 /datum/action/cooldown/spell/heavens_strike
+	button_icon = 'icons/mob/actions/mage_fulgurmancy.dmi'
 	name = "Heaven's Strike"
 	desc = "Call down a single devastating bolt of lightning on a target location. \
 	The strike is telegraphed and can be dodged, but deals massive damage to anything still standing in the impact zone. \
 	Damage is increased by 100% versus simple-minded creechurs."
-	button_icon_state = "dvine_strike"
+	button_icon_state = "heavens_strike"
 	sound = 'sound/magic/lightning.ogg'
 	spell_color = GLOW_COLOR_LIGHTNING
 	glow_intensity = GLOW_INTENSITY_HIGH

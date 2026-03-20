@@ -1,18 +1,19 @@
-// Zap - Fulgurmancy staple poke
+// Shock - Fulgurmancy staple poke
 // Hitscan, lowest burn efficiency of the 3 burn schools, but instant hit
 // No CC effects. Highest cooldown among staple pokes (5.5s vs 4s)
 // 0.5s charge time — standardized across all poke spells
 
-/datum/action/cooldown/spell/projectile/zap
-	name = "Zap"
+/datum/action/cooldown/spell/projectile/shock
+	button_icon = 'icons/mob/actions/mage_fulgurmancy.dmi'
+	name = "Shock"
 	desc = "Fire a quick jolt of lightning at a target. Deals less damage than most other minor offensive spells, but strikes instantly. \
 	Damage is increased by 100% versus simple-minded creechurs."
-	button_icon_state = "dvine_strike"
+	button_icon_state = "shock"
 	sound = 'sound/magic/lightning.ogg'
 	spell_color = GLOW_COLOR_LIGHTNING
 	glow_intensity = GLOW_INTENSITY_LOW
 
-	projectile_type = /obj/projectile/magic/zap
+	projectile_type = /obj/projectile/magic/shock
 	cast_range = 8
 
 	primary_resource_type = SPELL_COST_STAMINA
@@ -30,8 +31,8 @@
 
 	associated_skill = /datum/skill/magic/arcane
 
-/obj/projectile/magic/zap
-	name = "zap"
+/obj/projectile/magic/shock
+	name = "shock"
 	tracer_type = /obj/effect/projectile/tracer/wormhole
 	muzzle_type = null
 	impact_type = null
@@ -48,7 +49,7 @@
 	flag = "magic"
 	light_outer_range = 5
 
-/obj/projectile/magic/zap/on_hit(target)
+/obj/projectile/magic/shock/on_hit(target)
 	. = ..()
 	if(ismob(target))
 		var/mob/M = target
