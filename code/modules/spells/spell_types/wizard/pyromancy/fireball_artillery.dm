@@ -1,34 +1,23 @@
-/* Artillery Fireball - Worse DPS, much better structural damage. Smoke
-*/
-
-/obj/effect/proc_holder/spell/invoked/projectile/artillery_fireball
+/datum/action/cooldown/spell/projectile/fireball/artillery
 	name = "Artillery Fireball"
-	desc = "An artillery fireball that destroys structures with ease and creates a large impact of smoke and flame. \n\
+	desc = "An artillery fireball that destroys structures with ease and creates a large impact of smoke and flame. \
 	Damage is increased by 140% versus simple-minded creechurs.\n\
 	Toggle arc mode (Ctrl+G) while the spell is active to fire it over intervening mobs. Arced attacks deal 25% less damage."
-	clothes_req = FALSE
-	cost = 6
-	range = 8
+	button_icon_state = "fireball_artillery"
+
 	projectile_type = /obj/projectile/magic/aoe/fireball/rogue/artillery
 	projectile_type_arc = /obj/projectile/magic/aoe/fireball/rogue/artillery/arc
-	overlay_state = "fireball_artillery"
-	sound = list('sound/magic/fireball.ogg')
-	releasedrain = SPELLCOST_MAJOR_PROJECTILE
-	chargedrain = 1
-	chargetime = 25
-	recharge_time = 18 SECONDS // 10% penalty but otherwise the same as fireball, to keep it from being strictly better in every way
-	warnie = "spellwarning"
-	no_early_release = TRUE
-	movement_interrupt = FALSE
-	charging_slowdown = 3
-	spell_tier = 4 // Court mage can have this as a treat
+
+	primary_resource_cost = SPELLCOST_MAJOR_PROJECTILE
+
 	invocations = list("Ignis Sphaera Bombardae!")
-	invocation_type = "shout"
-	glow_color = GLOW_COLOR_FIRE
-	glow_intensity = GLOW_INTENSITY_HIGH
-	chargedloop = /datum/looping_sound/invokefire
-	associated_skill = /datum/skill/magic/arcane
-	xp_gain = TRUE
+
+	charge_time = CHARGETIME_HEAVY
+	charge_slowdown = CHARGING_SLOWDOWN_HEAVY
+	cooldown_time = 18 SECONDS
+
+	spell_tier = 4
+	point_cost = 9
 
 /obj/projectile/magic/aoe/fireball/rogue/artillery
 	name = "Artillery Fireball"
@@ -39,18 +28,18 @@
 	damage = 60
 	damage_type = BURN
 	npc_simple_damage_mult = 2.4
-	accuracy = 40 // Base accuracy is lower for burn projectiles because they bypass armor
+	accuracy = 40
 	nodamage = FALSE
 	flag = "magic"
 	hitsound = 'sound/blank.ogg'
 	aoe_range = 0
 	arcyne_aoe_radius = 1
-	structural_damage = 300 // On average a door is 1100 integrity, and a window is 200
+	structural_damage = 300
 	structural_damage_radius = 1
 
 /obj/projectile/magic/aoe/fireball/rogue/artillery/arc
 	name = "Arced Artillery Fireball"
-	damage = 40 // 25% damage penalty, matching fireball
+	damage = 40
 	arcshot = TRUE
 
 /obj/projectile/magic/aoe/fireball/rogue/artillery/on_hit(target)
@@ -58,7 +47,6 @@
 	. = ..()
 	if(. == BULLET_ACT_BLOCK)
 		return
-	// Artillery-specific: lava visuals and smoke on impact
 	var/turf/fallzone = get_turf(target)
 	if(!fallzone)
 		return

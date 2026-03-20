@@ -1,5 +1,6 @@
 // New spell system
 /datum/action/cooldown/spell/projectile/fireball
+	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Fireball"
 	desc = "Shoot out a ball of fire that explodes on impact, scorching nearby targets and knocking them back. \
 	Toggle arc mode (Ctrl+G) while the spell is active to fire it over intervening mobs. Arced attacks deal 25% less damage."

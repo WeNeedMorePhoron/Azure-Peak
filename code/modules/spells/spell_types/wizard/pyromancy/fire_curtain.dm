@@ -1,9 +1,10 @@
 /datum/action/cooldown/spell/fire_curtain
+	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Fire Curtain"
 	desc = "Conjure a 1x5 curtain of flame at a target location, perpendicular to your facing. \
 	The fire does not block movement but will burn anything that passes through or stands in it. \
 	You are not immune to your own curtain."
-	button_icon_state = "fireball_multi"
+	button_icon_state = "fire_curtain"
 	sound = 'sound/magic/fireball.ogg'
 	spell_color = GLOW_COLOR_FIRE
 	glow_intensity = GLOW_INTENSITY_HIGH
