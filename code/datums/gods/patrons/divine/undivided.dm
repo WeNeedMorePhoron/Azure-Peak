@@ -15,7 +15,7 @@
 					/obj/effect/proc_holder/spell/invoked/avert					= CLERIC_T2,
 					/obj/effect/proc_holder/spell/invoked/infestation			= CLERIC_T2,
 					/obj/effect/proc_holder/spell/invoked/mockery				= CLERIC_T3, // you'll have to be a real xylix templar to get this pretty decent combat debuff, sorry.
-					/obj/effect/proc_holder/spell/invoked/conjure_tool			= CLERIC_T3,
+					/datum/action/cooldown/spell/arcyne_forge/miracle				= CLERIC_T3,
 					/obj/effect/proc_holder/spell/invoked/resurrect/undivided	= CLERIC_T4
 	)
 	confess_lines = list(

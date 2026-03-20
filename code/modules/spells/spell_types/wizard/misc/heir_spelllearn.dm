@@ -9,7 +9,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	var/chosen_bundle
 	var/list/utility_bundle = list(	//Fly! Well, sort of.
-		/obj/effect/proc_holder/spell/invoked/leap,
+		/datum/action/cooldown/spell/leap,
 		/datum/action/cooldown/spell/featherfall,
 		/obj/effect/proc_holder/spell/invoked/mirror_transform
 	)

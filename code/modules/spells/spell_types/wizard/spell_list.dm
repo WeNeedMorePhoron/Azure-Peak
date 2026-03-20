@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile
 		/datum/action/cooldown/spell/repulse,
 		/datum/action/cooldown/spell/projectile/soulshot,
 		/datum/action/cooldown/spell/blade_burst,
-		/obj/effect/proc_holder/spell/targeted/touch/nondetection,
+		/datum/action/cooldown/spell/nondetection,
 //  	/obj/effect/proc_holder/spell/invoked/knock,
 		/datum/action/cooldown/spell/haste,
 		/datum/action/cooldown/spell/featherfall,
@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile
 		/obj/effect/proc_holder/spell/targeted/touch/lesserknock,
 		/obj/effect/proc_holder/spell/invoked/counterspell,
 		/datum/action/cooldown/spell/enlarge,
-		/obj/effect/proc_holder/spell/invoked/leap,
+		/datum/action/cooldown/spell/leap,
 		/obj/effect/proc_holder/spell/invoked/blink,
 		/obj/effect/proc_holder/spell/invoked/mirror_transform,
 		/obj/effect/proc_holder/spell/invoked/mindlink,
@@ -45,7 +45,7 @@ GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile
 		/obj/effect/proc_holder/spell/invoked/create_campfire,
 		/obj/effect/proc_holder/spell/invoked/mending,
 		/obj/effect/proc_holder/spell/self/light,
-		/obj/effect/proc_holder/spell/invoked/conjure_weapon,
+		/datum/action/cooldown/spell/arcyne_forge,
 		/obj/effect/proc_holder/spell/self/conjure_armor,
 		/obj/effect/proc_holder/spell/self/conjure_armor/dragonhide,
 		/obj/effect/proc_holder/spell/self/conjure_armor/crystalhide,
@@ -83,7 +83,7 @@ GLOBAL_LIST_INIT(utility_spells, (list(
 		/obj/effect/proc_holder/spell/invoked/projectile/lesser_fetch,
 		/obj/effect/proc_holder/spell/invoked/projectile/lesser_repel,
 		/obj/effect/proc_holder/spell/targeted/touch/lesserknock,
-		/obj/effect/proc_holder/spell/targeted/touch/nondetection,
+		/datum/action/cooldown/spell/nondetection,
 		/datum/action/cooldown/spell/darkvision, // Buff but it is fine to also put it in this list
 		/obj/effect/proc_holder/spell/self/magicians_brick,
 		/obj/effect/proc_holder/spell/invoked/mirror_transform 
@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(augmentation_spells, (list(
 		/obj/effect/proc_holder/spell/self/light,
 		/obj/effect/proc_holder/spell/invoked/projectile/lesser_fetch,
 		/obj/effect/proc_holder/spell/invoked/projectile/lesser_repel,
-		/obj/effect/proc_holder/spell/targeted/touch/nondetection,
+		/datum/action/cooldown/spell/nondetection,
 		)
 ))
 

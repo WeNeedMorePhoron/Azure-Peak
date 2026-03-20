@@ -232,7 +232,7 @@ Somewhat fitting, considering the broadness of their domains. I also just think 
 	var/chosen_bundle
 	var/list/utility_bundle = list(	//Utility means exactly that. Nothing offensive and nothing that can affect another person negatively. (Barring Fetch)
 		/obj/effect/proc_holder/spell/self/message,
-		/obj/effect/proc_holder/spell/invoked/leap,
+		/datum/action/cooldown/spell/leap,
 		/obj/effect/proc_holder/spell/targeted/touch/lesserknock,
 		/obj/effect/proc_holder/spell/invoked/mending,
 		/datum/action/cooldown/spell/projectile/fetch,
@@ -241,7 +241,7 @@ Somewhat fitting, considering the broadness of their domains. I also just think 
 	var/list/offensive_bundle = list(	//This is not meant to make them combat-capable. A weak offensive, and mostly defensive option.
 		/datum/action/cooldown/spell/projectile/arcynebolt, // PLACEHOLDER
 		/obj/effect/proc_holder/spell/self/conjure_armor/miracle,
-		/obj/effect/proc_holder/spell/invoked/conjure_weapon/miracle,
+		/datum/action/cooldown/spell/arcyne_forge/miracle,
 		/obj/effect/proc_holder/spell/invoked/rebuke, // By points, this adds up to 8 points total. However it is the strongest Acolyte combo offensively.
 	)
 	var/list/buff_bundle = list(	//Buffs! An Acolyte being a supportive caster is 100% what they already are, so this fits neatly. No debuffs -- every patron already has a plethora of those.

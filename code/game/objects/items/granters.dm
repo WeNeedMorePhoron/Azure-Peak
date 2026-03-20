@@ -398,7 +398,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/leap
 	name = "Scroll of Leap"
-	spell = /obj/effect/proc_holder/spell/invoked/leap
+	spell = /datum/action/cooldown/spell/leap
 	spellname = "Leap"
 	icon_state ="scrolldarkred"
 	remarks = list("Altitudinem revelat..", "Cuius pedes in aere volant..", "In levitate audacia..")

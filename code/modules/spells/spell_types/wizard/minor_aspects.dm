@@ -12,8 +12,7 @@
 		"TODO",
 	)
 	fixed_spells = list(
-		/obj/effect/proc_holder/spell/invoked/conjure_weapon,
-		/datum/action/cooldown/spell/enchant_weapon,
+		/datum/action/cooldown/spell/arcyne_forge,
 	)
 
 /datum/magic_aspect/exowardry
@@ -104,6 +103,8 @@
 		/datum/action/cooldown/spell/giants_strength,
 		/datum/action/cooldown/spell/guidance,
 		/datum/action/cooldown/spell/featherfall,
+		/datum/action/cooldown/spell/leap,
+		/datum/action/cooldown/spell/nondetection,
 		// 1-cost utility filler
 		/obj/effect/proc_holder/spell/self/light,
 		/obj/effect/proc_holder/spell/invoked/mending,
