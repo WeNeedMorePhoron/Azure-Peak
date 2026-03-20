@@ -5,6 +5,7 @@
 #define STYGIAN_DR_DURATION 1 SECONDS
 
 /datum/action/cooldown/spell/projectile/stygian_efflorescence
+	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Stygian Efflorescence"
 	desc = "Burst forth a volley of sharpened obsidian shards in a wide spread. Additional shards striking the same target deal reduced damage.\n\n\
 	Before the first men learned to refine metal, men fought with sharpened stones - particularly obsidian from the foot of volcanos. \

@@ -4,11 +4,12 @@
 // Uses arcyne_strike for zone-targeted damage.
 
 /datum/action/cooldown/spell/projectile/iron_tempest
+	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Iron Tempest"
 	desc = "Hurl a blade that detonates into a whirling storm of arcyne daggers on impact. \
 	The cloud persists for 10 seconds, slashing anyone who remains in the area.\n\n\
 	Each strike done every second deals 20 damage against the chest of your target."
-	button_icon_state = "blade_burst"
+	button_icon_state = "iron_tempest"
 	sound = 'sound/magic/scrapeblade.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_MEDIUM

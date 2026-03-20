@@ -413,7 +413,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/blade_burst
 	name = "Scroll of Blade Burst"
-	spell = /obj/effect/proc_holder/spell/invoked/blade_burst
+	spell = /datum/action/cooldown/spell/blade_burst
 	spellname = "Blade Burst"
 	icon_state ="scrolldarkred"
 	dreamcost = 6

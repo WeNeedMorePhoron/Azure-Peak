@@ -2,9 +2,10 @@
 // Fires a single spectral spear that pierces through up to 3 targets with no damage falloff.
 
 /datum/action/cooldown/spell/projectile/arcyne_lance
+	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Arcyne Lance"
 	desc = "Hurl a spectral arcyne lance that pierces through up to 3 targets without losing momentum."
-	button_icon_state = "yourewizardharry"
+	button_icon_state = "arcyne_lance"
 	sound = 'sound/magic/scrapeblade.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_MEDIUM

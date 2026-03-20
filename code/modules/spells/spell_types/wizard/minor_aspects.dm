@@ -13,7 +13,7 @@
 	)
 	fixed_spells = list(
 		/obj/effect/proc_holder/spell/invoked/conjure_weapon,
-		/obj/effect/proc_holder/spell/invoked/enchant_weapon,
+		/datum/action/cooldown/spell/enchant_weapon,
 	)
 
 /datum/magic_aspect/exowardry

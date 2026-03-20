@@ -166,7 +166,7 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/empower_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/bind_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mending)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/enchant_weapon)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/enchant_weapon)
 
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
 	backr = /obj/item/rogueweapon/shield/wood
@@ -267,7 +267,7 @@
 	I.grant_inspiration(H, bard_tier = BARD_T2)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mockery)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/enchant_weapon)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/enchant_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/conjure_weapon)
 	H.cmode_music = 'sound/music/cmode/adventurer/combat_outlander3.ogg'
 	switch(H.patron?.type)

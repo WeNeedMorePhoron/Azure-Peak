@@ -156,9 +156,9 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/iron_tempest,
-		/obj/effect/proc_holder/spell/invoked/blade_burst,
+		/datum/action/cooldown/spell/blade_burst,
 		/datum/action/cooldown/spell/iron_skin,
-		/obj/effect/proc_holder/spell/invoked/enchant_weapon,
+		/datum/action/cooldown/spell/enchant_weapon,
 	)
 	pointbuy_budget = 3
 	pointbuy_spells = list(

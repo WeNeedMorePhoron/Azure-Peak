@@ -1,7 +1,8 @@
 /datum/action/cooldown/spell/iron_skin
+	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Iron Skin"
 	desc = "Conjure bits of arcyne iron and steel to surround the target's armor, blunting incoming blows and protecting their equipment. Reduces incoming integrity damage to armor by 25%."
-	button_icon_state = "yourewizardharry"
+	button_icon_state = "iron_skin"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_LOW
