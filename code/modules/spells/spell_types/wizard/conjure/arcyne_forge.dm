@@ -58,6 +58,11 @@
 		"Hammer" = /obj/item/rogueweapon/hammer/iron,
 		"Shovel" = /obj/item/rogueweapon/shovel,
 		"Fishing Rod" = /obj/item/fishingrod,
+		"Frying Pan" = /obj/item/cooking/pan,
+		"Pot" = /obj/item/reagent_containers/glass/bucket/pot,
+		"Bowl" = /obj/item/reagent_containers/glass/bowl,
+		"Fork" = /obj/item/kitchen/fork/iron,
+		"Spoon" = /obj/item/kitchen/spoon/iron,
 	)
 
 /datum/action/cooldown/spell/arcyne_forge/cast(atom/cast_on)
