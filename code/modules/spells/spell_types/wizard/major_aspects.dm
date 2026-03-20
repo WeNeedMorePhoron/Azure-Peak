@@ -20,8 +20,13 @@
 		/datum/action/cooldown/spell/fire_blast,
 		/datum/action/cooldown/spell/fire_curtain,
 	)
-	prestige_upgrades = list(
-		// TODO: Fireball -> Greater Fireball at T4
+	variants = list(
+		"mastery" = list(
+			/datum/action/cooldown/spell/projectile/fireball = /datum/action/cooldown/spell/projectile/fireball/greater,
+		),
+		"grenzelhoftian" = list(
+			/datum/action/cooldown/spell/projectile/fireball = /datum/action/cooldown/spell/projectile/fireball/artillery,
+		),
 	)
 
 /datum/magic_aspect/cryomancy

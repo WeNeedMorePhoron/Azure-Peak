@@ -263,8 +263,8 @@
 		)
 	if(H.mind) // State mandated spells c:
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/fireball/artillery)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/spitfire)
+		// Pyromancy with Grenzelhoftian variant — Fireball becomes Artillery Fireball (Grenzelhoftian)
+		H.mind.attune_aspect(new /datum/magic_aspect/pyromancy, "grenzelhoftian")
 		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcynebolt)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/magicians_brick)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/fetch)

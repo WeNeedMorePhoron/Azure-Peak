@@ -20,8 +20,10 @@
 	/// Pointbuy are optionals - for point buy aspect
 	var/list/pointbuy_spells = list()
 	var/pointbuy_budget = 0
-	/// Assoc list: base_spell_path -> upgraded_spell_path for T4 casters.
-	var/list/prestige_upgrades = list()
+	/// Named variant spell swaps. Assoc list: variant_name = list(base_path = replacement_path, ...)
+	/// "mastery" is automatically applied for T4 casters.
+	/// Other variants (e.g. "grenzelhoftian") are passed in via attune_aspect().
+	var/list/variants = list()
 	var/school_color = GLOW_COLOR_ARCANE
 	var/list/countersynergy = list()
 	/// Major: Latin, English, Latin. Minor: Latin, English.
@@ -44,28 +46,50 @@
 		granted += new_spell
 	return granted
 
-/datum/magic_aspect/proc/apply_prestige(datum/mind/target, user_tier)
-	if(user_tier < 4 || !length(prestige_upgrades))
+/// Apply a named variant's spell swaps. T4 casters automatically get "mastery".
+/datum/magic_aspect/proc/apply_variant(datum/mind/target, variant_name)
+	if(!variant_name || !length(variants) || !(variant_name in variants))
 		return
-	for(var/base_path in prestige_upgrades)
-		var/upgrade_path = prestige_upgrades[base_path]
+	var/list/swaps = variants[variant_name]
+	if(!length(swaps))
+		return
+	for(var/base_path in swaps)
+		var/upgrade_path = swaps[base_path]
 		var/datum/existing = target.get_spell(base_path)
 		if(existing)
+			// Find position in spell_list to preserve order
+			var/spell_index = target.spell_list.Find(existing)
 			target.RemoveSpell(existing)
 			var/datum/upgraded = new upgrade_path
+			// Tag the spell desc with variant name for display — don't change the name
+			if(istype(upgraded, /datum/action/cooldown/spell))
+				var/datum/action/cooldown/spell/S = upgraded
+				S.desc = "[S.desc]\n<b>Variant:</b> [capitalize(variant_name)]"
 			mark_aspect_spell(upgraded)
-			target.AddSpell(upgraded)
+			// Insert at original position instead of appending
+			if(spell_index && spell_index <= length(target.spell_list) + 1)
+				target.spell_list.Insert(spell_index, upgraded)
+				if(istype(upgraded, /datum/action/cooldown/spell))
+					var/datum/action/cooldown/spell/S = upgraded
+					S.Grant(target.current)
+				else if(istype(upgraded, /obj/effect/proc_holder/spell))
+					var/obj/effect/proc_holder/spell/S = upgraded
+					S.action.Grant(target.current)
+			else
+				target.AddSpell(upgraded)
 
 /datum/magic_aspect/proc/revoke_spells(datum/mind/target)
 	for(var/spell_path in fixed_spells)
 		var/datum/existing = target.get_spell(spell_path)
 		if(existing)
 			target.RemoveSpell(existing)
-	for(var/base_path in prestige_upgrades)
-		var/upgrade_path = prestige_upgrades[base_path]
-		var/datum/existing = target.get_spell(upgrade_path)
-		if(existing)
-			target.RemoveSpell(existing)
+	for(var/variant_name in variants)
+		var/list/swaps = variants[variant_name]
+		for(var/base_path in swaps)
+			var/upgrade_path = swaps[base_path]
+			var/datum/existing = target.get_spell(upgrade_path)
+			if(existing)
+				target.RemoveSpell(existing)
 	for(var/spell_path in pointbuy_spells)
 		var/datum/existing = target.get_spell(spell_path)
 		if(existing)

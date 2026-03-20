@@ -115,6 +115,21 @@
 		for(var/counter_path in A.countersynergy)
 			entry["countersynergy"] += "[counter_path]"
 
+		// Include variant info so the UI can show spell swaps
+		entry["variants"] = list()
+		for(var/variant_name in A.variants)
+			var/list/variant_entry = list()
+			variant_entry["name"] = variant_name
+			variant_entry["swaps"] = list()
+			var/list/swaps = A.variants[variant_name]
+			for(var/base_path in swaps)
+				var/upgrade_path = swaps[base_path]
+				var/list/swap_entry = list()
+				swap_entry["from"] = "[base_path]"
+				swap_entry["to"] = build_spell_entry(upgrade_path)
+				variant_entry["swaps"] += list(swap_entry)
+			entry["variants"] += list(variant_entry)
+
 		result += list(entry)
 		qdel(A)
 	return result

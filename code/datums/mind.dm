@@ -383,7 +383,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 	check_learnspell()
 
-/datum/mind/proc/attune_aspect(datum/magic_aspect/aspect)
+/datum/mind/proc/attune_aspect(datum/magic_aspect/aspect, variant)
 	if(!aspect)
 		return FALSE
 	if(!aspect.can_attune(src))
@@ -406,7 +406,11 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 				return FALSE
 			LAZYADD(minor_aspects, aspect)
 	aspect.grant_spells(src)
-	aspect.apply_prestige(src, user_tier)
+	// Apply variant swaps — explicit variant takes priority, T4 gets "mastery" by default
+	if(variant)
+		aspect.apply_variant(src, variant)
+	else if(user_tier >= 4)
+		aspect.apply_variant(src, "mastery")
 	return TRUE
 
 /datum/mind/proc/remove_aspect(datum/magic_aspect/aspect)

@@ -11,6 +11,16 @@ type Spell = {
   cost: number;
 };
 
+type VariantSwap = {
+  from: string;
+  to: Spell;
+};
+
+type Variant = {
+  name: string;
+  swaps: VariantSwap[];
+};
+
 type Aspect = {
   path: string;
   name: string;
@@ -23,6 +33,7 @@ type Aspect = {
   fixed_spells: Spell[];
   pointbuy_spells: Spell[];
   countersynergy: string[];
+  variants: Variant[];
 };
 
 type Data = {
@@ -44,6 +55,7 @@ export const AspectPicker = () => {
   const {
     major_aspects = [],
     minor_aspects = [],
+    user_tier = 0,
     max_majors = 1,
     max_minors = 2,
     initial_setup = true,
@@ -214,6 +226,58 @@ export const AspectPicker = () => {
                                 )}
                               </Box>
                             ))}
+                          </Box>
+                        )}
+                        {selected.variants && selected.variants.length > 0 && (
+                          <Box mb={1}>
+                            <Box bold mb={0.5}>
+                              Variants
+                            </Box>
+                            {selected.variants.map((variant) => (
+                              <Box
+                                key={variant.name}
+                                ml={1}
+                                mb={0.5}
+                                style={{
+                                  borderLeft: '2px solid rgba(255,255,255,0.2)',
+                                  paddingLeft: '8px',
+                                }}
+                              >
+                                <Box bold color={variant.name === 'mastery' && user_tier >= 4 ? 'good' : 'label'} mb={0.3}>
+                                  {variant.name.charAt(0).toUpperCase() +
+                                    variant.name.slice(1)}
+                                  {variant.name === 'mastery' && user_tier >= 4 && (
+                                    <Box inline color="good" ml={1}>
+                                      (Active - granted by your tier)
+                                    </Box>
+                                  )}
+                                </Box>
+                                {variant.swaps.map((swap) => {
+                                  const fromSpell =
+                                    selected.fixed_spells.find(
+                                      (s) => s.path === swap.from,
+                                    );
+                                  return (
+                                    <Box key={swap.from} ml={1}>
+                                      {fromSpell?.name || '?'} →{' '}
+                                      <Box bold inline>
+                                        {swap.to.name}
+                                      </Box>
+                                      {swap.to.desc && (
+                                        <Box
+                                          color="label"
+                                          ml={1}
+                                          dangerouslySetInnerHTML={{
+                                            __html: swap.to.desc,
+                                          }}
+                                        />
+                                      )}
+                                    </Box>
+                                  );
+                                })}
+                              </Box>
+                            ))}
+                            <Divider />
                           </Box>
                         )}
                         {selected.pointbuy_spells.length > 0 && (
