@@ -25,7 +25,7 @@
 	var/delay = 5
 	var/damage = 0 // damage based off your str
 	var/area_of_effect = 0
-	var/extra_time = 0
+
 
 
 
@@ -54,17 +54,12 @@
 				L.visible_message(span_warning("[L] stands firm against the crushing force!"))
 				continue
 
-			var/mark_stacks = consume_arcane_mark_stacks(L)
-			extra_time = (mark_stacks*4)
 			if(L.STASTR <= 15)
-				L.adjustBruteLoss(60+(extra_time))
-				L.Knockdown(5+(extra_time))
-				if(mark_stacks == 3)
-					to_chat(L, "<span class='userdanger'>GRAVITAS COLLAPSE; TRYPTICH-MARKE DETONATION!</span>")
-				else
-					to_chat(L, "<span class='userdanger'>I'm magically weighed down, losing my footing!</span>")
+				L.adjustBruteLoss(60)
+				L.Knockdown(5)
+				to_chat(L, "<span class='userdanger'>I'm magically weighed down, losing my footing!</span>")
 			else
-				L.OffBalance(10+(extra_time))
+				L.OffBalance(10)
 				L.adjustBruteLoss(15)
 				to_chat(L, "<span class='userdanger'>I'm magically weighed down, but my strength resist!</span>")
 	return TRUE

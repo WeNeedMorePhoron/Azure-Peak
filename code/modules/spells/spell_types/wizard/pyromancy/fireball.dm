@@ -37,7 +37,7 @@
 	exp_fire = 0
 	damage = 60
 	damage_type = BURN
-	npc_simple_damage_mult = 3 // Intentionally higher than other fireballs due to arcyne mark disparity
+	npc_simple_damage_mult = 3
 	accuracy = 40 // Lower base — burn bypasses armor
 	nodamage = FALSE
 	flag = "magic"

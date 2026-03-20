@@ -3,7 +3,7 @@
 	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Blade Burst"
 	desc = "Summon a storm of arcyne blades erupting from the ground in an area. After a short delay, the blades burst upward and cut anything still standing in the zone. \
-	Always targets the feet. Consumes <b>Arcane Marks</b> for bonus damage. \
+	Always targets the feet.\n\
 	Damage is increased by 100% versus simple-minded creechurs."
 	button_icon_state = "blade_burst"
 	sound = 'sound/magic/blade_burst.ogg'
@@ -37,7 +37,6 @@
 	var/delay = TELEGRAPH_HIGH_IMPACT
 	var/damage = 80
 	var/npc_simple_damage_mult = 2
-	var/mark_bonus_damage = 20
 	var/area_of_effect = 1
 
 /datum/action/cooldown/spell/blade_burst/cast(atom/cast_on)
@@ -83,8 +82,7 @@
 				L.visible_message(span_warning("[L] steps out of the way of the blades!"))
 				continue
 			play_cleave = TRUE
-			var/mark_stacks = consume_arcane_mark_stacks(L)
-			var/total_damage = damage + (mark_bonus_damage * mark_stacks)
+			var/total_damage = damage
 			if(ishuman(caster) && ishuman(L))
 				arcyne_strike(caster, L, null, total_damage, BODY_ZONE_R_LEG, \
 					BCLASS_CUT, spell_name = "Blade Burst", \
@@ -95,8 +93,6 @@
 				if(!L.mind || !ishuman(L))
 					actual_damage *= npc_simple_damage_mult
 				L.adjustBruteLoss(actual_damage)
-			if(mark_stacks == 3)
-				to_chat(L, span_userdanger("THOUSAND-NEEDLE MADRIPOLE; TRYPTICH-MARKE DETONATION!"))
 			playsound(affected_turf, "genslash", 80, TRUE)
 			to_chat(L, span_userdanger("You're cut by arcyne force!"))
 

@@ -59,7 +59,6 @@
 	npc_simple_damage_mult = 1.75 // Makes it more effective against NPCs.
 	hitsound = 'sound/combat/hits/bladed/smallslash (1).ogg'
 	speed = 1 // to make sure it hit the target
-	var/apply_mark = TRUE
 
 /obj/projectile/energy/arcynestrike/blunt
 	name = "Arcyne Smite (Blunt)"
@@ -75,23 +74,14 @@
 
 /obj/projectile/energy/arcynestrike/on_hit(target)
 
-	var/mob/living/carbon/M = target
-	if(ismob(target))
-		var/datum/status_effect/debuff/arcanemark/mark = M.has_status_effect(/datum/status_effect/debuff/arcanemark)
-		if(mark && mark.stacks == mark.max_stacks)
-			armor_penetration = 50 //pierces most armors
-			apply_mark = FALSE
-			consume_arcane_mark_stacks(M)
-
 	. = ..()
 
 	if(ismob(target))
+		var/mob/living/carbon/M = target
 		if(M.anti_magic_check())
 			visible_message(span_warning("[src] fizzles on contact with [target]!"))
 			playsound(get_turf(target), 'sound/magic/magic_nulled.ogg', 100)
 			qdel(src)
 			return BULLET_ACT_BLOCK
-		if(istype(M, /mob/living/carbon) && (src.apply_mark == TRUE))
-			apply_arcane_mark(M)
 	else
 		return

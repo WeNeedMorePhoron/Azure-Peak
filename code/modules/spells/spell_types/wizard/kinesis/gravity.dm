@@ -46,8 +46,6 @@
 	var/offbalance_time = 10
 	/// STR threshold — at or below this, full knockdown. Above, off-balanced only
 	var/str_threshold = 15
-	/// Bonus damage/knockdown per consumed arcane mark stack
-	var/mark_bonus = 4
 
 /datum/action/cooldown/spell/gravity/cast(atom/cast_on)
 	. = ..()
@@ -84,16 +82,11 @@
 			L.visible_message(span_warning("[L] stands firm against the crushing force!"))
 			continue
 
-		var/mark_stacks = consume_arcane_mark_stacks(L)
-		var/extra_time = mark_stacks * mark_bonus
 		if(L.STASTR <= str_threshold)
-			L.adjustBruteLoss(crush_damage + extra_time)
-			L.Knockdown(knockdown_time + extra_time)
-			if(mark_stacks == 3)
-				to_chat(L, span_userdanger("GRAVITAS COLLAPSE; TRYPTICH-MARKE DETONATION!"))
-			else
-				to_chat(L, span_userdanger("I'm magically weighed down, losing my footing!"))
+			L.adjustBruteLoss(crush_damage)
+			L.Knockdown(knockdown_time)
+			to_chat(L, span_userdanger("I'm magically weighed down, losing my footing!"))
 		else
-			L.OffBalance(offbalance_time + extra_time)
+			L.OffBalance(offbalance_time)
 			L.adjustBruteLoss(resisted_damage)
 			to_chat(L, span_userdanger("I'm magically weighed down, but my strength resist!"))
