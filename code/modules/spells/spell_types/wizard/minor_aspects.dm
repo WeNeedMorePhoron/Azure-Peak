@@ -60,9 +60,10 @@
 	unbinding_chants = list(
 		"TODO",
 	)
-	fixed_spells = list(
+	pointbuy_budget = 3
+	pointbuy_spells = list(
 		/obj/effect/proc_holder/spell/invoked/blink,
-		// TODO: Second displacement spell TBD
+		/datum/action/cooldown/spell/repulse,
 	)
 
 /datum/magic_aspect/dermawardry

@@ -911,6 +911,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 				playsound(get_turf(target), pick(target.parry_sound), 100)
 		target.apply_status_effect(/datum/status_effect/buff/parry_buffer)
 		target.apply_status_effect(/datum/status_effect/buff/adrenaline_rush)
+		guard.deflected_spell = TRUE
 		target.remove_status_effect(/datum/status_effect/buff/clash)
 		// Pseudo-melee punishment: expose the attacker if provided
 		if(attacker && ishuman(attacker))

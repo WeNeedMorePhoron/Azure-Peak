@@ -1158,6 +1158,7 @@
 				playsound(get_turf(target), pick(target.parry_sound), 100)
 		target.apply_status_effect(/datum/status_effect/buff/parry_buffer)
 		target.apply_status_effect(/datum/status_effect/buff/adrenaline_rush)
+		guard.deflected_spell = TRUE
 		target.remove_status_effect(/datum/status_effect/buff/clash)
 		if(attacker && ishuman(attacker))
 			var/obj/item/attacker_weapon = arcyne_get_weapon(attacker)

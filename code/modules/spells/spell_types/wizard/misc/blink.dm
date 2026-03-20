@@ -12,7 +12,7 @@
 	movement_interrupt = FALSE
 	gesture_required = TRUE // Mobility spell
 	spell_tier = 2
-	charging_slowdown = 2
+	charging_slowdown = CHARGING_SLOWDOWN_SMALL
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/arcane
 	overlay_state = "rune6"
@@ -75,7 +75,17 @@
 
 	if(user.buckled) // don't stay remote-buckled to the guillotine/pillory
 		user.buckled.unbuckle_mob(user, TRUE)
+
+	// Afterimage at departure point
+	var/obj/effect/after_image/img = new(start, 0, 0, 0, 0, 0.5 SECONDS, 2 SECONDS, 0)
+	img.name = user.name
+	img.appearance = user.appearance
+	img.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	img.alpha = 120
+	animate(img, alpha = 0, time = 1.5 SECONDS, easing = LINEAR_EASING)
+	QDEL_IN(img, 1.5 SECONDS)
+
 	do_teleport(user, T, channel = TELEPORT_CHANNEL_MAGIC)
-	
+
 	user.visible_message(span_danger("<b>[user] vanishes in a mysterious purple flash!</b>"), span_notice("<b>I blink through space in an instant!</b>"))
 	return TRUE

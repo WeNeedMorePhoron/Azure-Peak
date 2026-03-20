@@ -340,18 +340,20 @@ export const AspectPicker = () => {
               const allFilled =
                 attuned_majors.length >= max_majors &&
                 attuned_minors.length >= max_minors;
+              const hasAny =
+                attuned_majors.length > 0 || attuned_minors.length > 0;
               return (
                 <Button
                   fluid
                   textAlign="center"
-                  color={allFilled ? 'good' : 'red'}
+                  color={allFilled ? 'good' : hasAny ? 'caution' : 'red'}
                   fontSize={1.1}
-                  opacity={allFilled ? 1 : 0.6}
-                  onClick={allFilled ? () => act('confirm') : undefined}
+                  opacity={allFilled || hasAny ? 1 : 0.6}
+                  onClick={hasAny ? () => act('confirm') : undefined}
                 >
                   {allFilled
                     ? 'Confirm Aspects'
-                    : `Select all aspects (${attuned_majors.length}/${max_majors} major, ${attuned_minors.length}/${max_minors} minor)`}
+                    : `Confirm (${attuned_majors.length}/${max_majors} major, ${attuned_minors.length}/${max_minors} minor)`}
                 </Button>
               );
             })()}

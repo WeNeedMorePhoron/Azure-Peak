@@ -39,14 +39,18 @@
 	data["max_minors"] = MAX_MINOR_ASPECTS
 	data["initial_setup"] = initial_setup
 
-	// Show staged selections, not actual attunements
+	// Show both already-attuned and staged selections
 	data["attuned_majors"] = list()
+	for(var/datum/magic_aspect/A in owner.mind.major_aspects)
+		data["attuned_majors"] += "[A.type]"
 	for(var/path in staged_majors)
-		data["attuned_majors"] += "[path]"
+		data["attuned_majors"] |= "[path]"
 
 	data["attuned_minors"] = list()
+	for(var/datum/magic_aspect/A in owner.mind.minor_aspects)
+		data["attuned_minors"] += "[A.type]"
 	for(var/path in staged_minors)
-		data["attuned_minors"] += "[path]"
+		data["attuned_minors"] |= "[path]"
 
 	data["pointbuy_selections"] = pointbuy_selections
 
@@ -57,8 +61,14 @@
 		var/list/selections = pointbuy_selections[aspect_path_str]
 		for(var/spell_path_str in selections)
 			all_selected_spells |= spell_path_str
-	// Include fixed spells from all staged aspects
+	// Include fixed spells from already-attuned and staged aspects
 	var/list/all_staged = staged_majors + staged_minors
+	for(var/datum/magic_aspect/A in owner.mind.major_aspects)
+		for(var/spell_path in A.fixed_spells)
+			all_selected_spells |= "[spell_path]"
+	for(var/datum/magic_aspect/A in owner.mind.minor_aspects)
+		for(var/spell_path in A.fixed_spells)
+			all_selected_spells |= "[spell_path]"
 	for(var/staged_path in all_staged)
 		var/datum/magic_aspect/staged = new staged_path
 		for(var/spell_path in staged.fixed_spells)
@@ -224,8 +234,8 @@
 			. = TRUE
 
 		if("confirm")
-			if(!length(staged_majors))
-				to_chat(owner, span_warning("You must select at least one major aspect."))
+			if(!length(staged_majors) && !length(staged_minors))
+				to_chat(owner, span_warning("You must select at least one aspect."))
 				return
 			// Apply all staged selections to the mind
 			for(var/path in staged_majors)
@@ -265,8 +275,23 @@
 					owner.mind.AddSpell(new_spell)
 			// Check if learnspell should remain
 			owner.mind.check_learnspell()
-			SStgui.close_uis(src)
-			qdel(src)
+
+			// Check if there are remaining aspect slots
+			var/max_maj = (user_tier >= 4) ? MAX_MAJOR_ASPECTS_T4 : MAX_MAJOR_ASPECTS_T3
+			var/current_majors = LAZYLEN(owner.mind.major_aspects)
+			var/current_minors = LAZYLEN(owner.mind.minor_aspects)
+			var/has_remaining = (current_majors < max_maj) || (current_minors < MAX_MINOR_ASPECTS)
+
+			if(has_remaining)
+				// Reset staged lists for next round of picks
+				staged_majors.Cut()
+				staged_minors.Cut()
+				pointbuy_selections = list()
+				SStgui.close_uis(src)
+				to_chat(owner, span_notice("Aspects applied. You have remaining slots — use your spellbook to continue selecting."))
+			else
+				SStgui.close_uis(src)
+				qdel(src)
 			return TRUE
 
 /// Check if a spell is already selected in a different aspect's pointbuy or granted as a fixed spell

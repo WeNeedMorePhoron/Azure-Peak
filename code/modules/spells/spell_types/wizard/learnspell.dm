@@ -12,10 +12,14 @@
 	if(!user.mind)
 		return
 	var/user_tier = get_user_spell_tier(user)
-	if(user_tier >= 3 && !LAZYLEN(user.mind.major_aspects))
-		var/datum/aspect_picker/picker = new(user, TRUE)
-		picker.ui_interact(user)
-		return
+	if(user_tier >= 3)
+		var/max_maj = (user_tier >= 4) ? MAX_MAJOR_ASPECTS_T4 : MAX_MAJOR_ASPECTS_T3
+		var/current_majors = LAZYLEN(user.mind.major_aspects)
+		var/current_minors = LAZYLEN(user.mind.minor_aspects)
+		if(current_majors < max_maj || current_minors < MAX_MINOR_ASPECTS)
+			var/datum/aspect_picker/picker = new(user, !current_majors)
+			picker.ui_interact(user)
+			return
 	if(LAZYLEN(user.mind.spell_point_pools))
 		return class_based_spells(user)
 	return legacy_pointbuy_spells(user)

@@ -21,9 +21,10 @@
 	charge_required = TRUE
 	charge_time = CHARGETIME_POKE
 	charge_drain = 1
-	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
+	// Very high slowdown to make it offensively less useful
+	charge_slowdown = CHARGING_SLOWDOWN_HEAVY 
 	charge_sound = 'sound/magic/charging.ogg'
-	cooldown_time = 20 SECONDS
+	cooldown_time = 20 SECONDS // CD reduced from 25 to 20 seconds as it is now an 
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
