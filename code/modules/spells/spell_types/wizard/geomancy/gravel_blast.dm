@@ -41,18 +41,18 @@
 	name = "gravel shot"
 	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "stone"
-	damage = 20
+	damage = 25
 	nodamage = FALSE
 	damage_type = BRUTE
 	woundclass = BCLASS_BLUNT
 	flag = "magic"
 	range = 10
-	speed = 3 // Stones slow AF boi
+	speed = 2.5 // Stones slow AF boi
 	accuracy = 50
 	guard_deflectable = TRUE
 	npc_simple_damage_mult = 1.5
 	hitsound = 'sound/combat/hits/onstone/wallhit.ogg'
-	var/reduced_damage = 10
+	var/reduced_damage = 12
 
 /obj/projectile/magic/gravel_blast/on_hit(target)
 	if(ismob(target))

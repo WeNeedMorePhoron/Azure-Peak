@@ -1,0 +1,71 @@
+// Arcyne Lance - Ferramancy piercing projectile
+// Fires a single spectral spear that pierces through up to 3 targets with no damage falloff.
+
+/datum/action/cooldown/spell/projectile/arcyne_lance
+	name = "Arcyne Lance"
+	desc = "Hurl a spectral arcyne lance that pierces through up to 3 targets without losing momentum."
+	button_icon_state = "yourewizardharry"
+	sound = 'sound/magic/scrapeblade.ogg'
+	spell_color = GLOW_COLOR_METAL
+	glow_intensity = GLOW_INTENSITY_MEDIUM
+
+	projectile_type = /obj/projectile/magic/arcyne_lance
+	cast_range = 9
+	point_cost = 3
+
+	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_cost = SPELLCOST_MAJOR_PROJECTILE
+
+	invocations = list("Hastae Lunae!")
+	invocation_type = INVOCATION_SHOUT
+
+	charge_required = TRUE
+	charge_time = CHARGETIME_MAJOR
+	charge_drain = 1
+	charge_slowdown = CHARGING_SLOWDOWN_SMALL
+	charge_sound = 'sound/magic/charging.ogg'
+	cooldown_time = 4.5 SECONDS
+
+	associated_skill = /datum/skill/magic/arcane
+	spell_tier = 2
+
+// --- Arcyne spear projectile ---
+
+/obj/projectile/magic/arcyne_lance
+	name = "arcyne lance"
+	icon = 'icons/obj/magic_projectiles.dmi'
+	icon_state = "air_blade_stab"
+	color = "#6495ED"
+	guard_deflectable = TRUE
+	damage = 50
+	damage_type = BRUTE
+	woundclass = BCLASS_STAB
+	npc_simple_damage_mult = 1.5
+	speed = 1.5
+	range = 9
+	movement_type = UNSTOPPABLE
+	hitsound = 'sound/combat/hits/bladed/genthrust (1).ogg'
+	/// How many mob targets have been pierced
+	var/hits = 0
+	/// Max mob targets before stopping
+	var/max_hits = 3
+
+/obj/projectile/magic/arcyne_lance/on_hit(target)
+	if(ismob(target))
+		var/mob/M = target
+		if(M.anti_magic_check())
+			visible_message(span_warning("[src] shatters on contact with [target]!"))
+			playsound(get_turf(target), 'sound/magic/magic_nulled.ogg', 100)
+			qdel(src)
+			return BULLET_ACT_BLOCK
+		playsound(get_turf(target), 'sound/combat/hits/bladed/genthrust (1).ogg', 80, TRUE)
+	. = ..()
+	// Pierce through mobs, stop on solids
+	if(!ismob(target))
+		qdel(src)
+		return . || BULLET_ACT_HIT
+	hits++
+	if(hits >= max_hits)
+		qdel(src)
+		return . || BULLET_ACT_HIT
+	return BULLET_ACT_FORCE_PIERCE
