@@ -2,9 +2,10 @@
 #define ROCKSHOT_DR_DURATION 1 SECONDS
 
 /datum/action/cooldown/spell/projectile/gravel_blast
+	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Gravel Blast"
 	desc = "Spray a volley of stone shards at a target. Subsequent hits on the same target deal reduced damage."
-	button_icon_state = "dvine_strike"
+	button_icon_state = "gravel_blast"
 	sound = 'sound/combat/hits/onstone/wallhit.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_LOW

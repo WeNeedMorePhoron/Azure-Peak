@@ -1,8 +1,9 @@
 /datum/action/cooldown/spell/projectile/boulder_strike
+	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Boulder Strike"
 	desc = "Hurl a massive boulder at a target. On impact, it shatters into a cloud of stone fragments. \
 	Toggle arc mode (Ctrl+G) while the spell is active to lob it over obstacles. Arced boulders deal reduced damage and produce fewer fragments."
-	button_icon_state = "dvine_strike"
+	button_icon_state = "boulder_strike"
 	sound = 'sound/combat/hits/onstone/stonedeath.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_HIGH

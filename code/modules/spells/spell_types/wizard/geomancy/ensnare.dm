@@ -1,7 +1,8 @@
 /datum/action/cooldown/spell/ensnare
+	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Ensnare"
 	desc = "Tendrils of arcyne force hold anyone in a small area in place for a short while."
-	button_icon_state = "dvine_strike"
+	button_icon_state = "ensnare"
 	sound = 'sound/magic/webspin.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_MEDIUM

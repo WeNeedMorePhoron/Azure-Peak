@@ -5,11 +5,12 @@
 // Caster must stand still (do_after) and maintain LOS between each wave.
 
 /datum/action/cooldown/spell/hailstorm
+	button_icon = 'icons/mob/actions/mage_cryomancy.dmi'
 	name = "Hail Storm"
 	desc = "Channel a devastating barrage of arcing frost bolts onto a distant area. \
 	Each wave lobs 5 bolts that arc over obstacles and explode on impact, burning and freezing all caught within. \
 	The caster must remain still and maintain line of sight — any interruption ends the barrage."
-	button_icon_state = "snap_freeze"
+	button_icon_state = "hailstorm"
 	sound = 'sound/spellbooks/crystal.ogg'
 	spell_color = GLOW_COLOR_ICE
 	glow_intensity = GLOW_INTENSITY_VERY_HIGH

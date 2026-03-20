@@ -2,6 +2,7 @@
 // Ported from old proc_holder system
 
 /datum/action/cooldown/spell/snap_freeze
+	button_icon = 'icons/mob/actions/mage_cryomancy.dmi'
 	name = "Snap Freeze"
 	desc = "Freeze the air in a small area in an instant, slowing and damaging those affected."
 	button_icon_state = "snap_freeze"

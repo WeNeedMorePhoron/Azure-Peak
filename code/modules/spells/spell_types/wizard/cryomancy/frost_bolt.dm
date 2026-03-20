@@ -2,6 +2,7 @@
 // Low damage, low CD, applies one frost stack
 
 /datum/action/cooldown/spell/projectile/frost_bolt
+	button_icon = 'icons/mob/actions/mage_cryomancy.dmi'
 	name = "Frost Bolt"
 	desc = "A ray of frozen energy that slows and lightly damages a target. \
 	Applies one stack of frost on hit. \
