@@ -17,13 +17,10 @@
 // Constants for enchanted_weapon
 #define FORCE_BLADE_ENCHANT 2
 #define DURABILITY_ENCHANT 3
-#define ARCANE_MARK_ENCHANT 4
 #define FORCE_BLADE_FORCE 5
 #define DURABILITY_INCREASE 100
 #define FORCE_FILTER "force_blade"
 #define DURABILITY_FILTER "durability_enchant"
-#define ARCANE_MARK_FILTER_WEAPON "arcane_mark_enchant"
-#define ARCANE_MARK_COOLDOWN 7 SECONDS
 
 // Spell CD / Chargetime Scaling
 #define SPELL_SCALING_THRESHOLD 10 // The threshold at which the spell scaling starts to kick in

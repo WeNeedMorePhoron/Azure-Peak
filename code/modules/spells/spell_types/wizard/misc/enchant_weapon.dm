@@ -1,15 +1,14 @@
-#define ENCHANT_DURATION 15 MINUTES
+#define ENCHANT_DURATION 10 MINUTES
 #define ENCHANT_DURATION_GOLD 200 MINUTES
 
 /obj/effect/proc_holder/spell/invoked/enchant_weapon
 	name = "Enchant Weapon"
 	desc = "Enchant a weapon of your choice in your hand or on the ground, replacing any existing enchantment. \n\
-	The enchantment will lasts for 15 minutes, and will automatically refresh in the hand of an Arcyne user.\n\
+	The enchantment will last for 10 minutes, and will automatically refresh while within 10 tiles of the caster.\n\
 	If the enchanter is holding a piece of gold ore in their hand, it will be consumed to enchant the weapon permanently (200 minutes).\n\
 	An enchantment cannot be applied to an already enchanted weapon.\n\
 	Force Blade: Increases the force of the weapon by 5.\n\
-	Durability: Increases the integrity and max integrity of the weapon by 100.\n\
-	Arcane Mark: Applies <b>Arcane Mark</b> to struck targets. 7 second cooldown."
+	Durability: Increases the integrity and max integrity of the weapon by 100."
 	overlay_state = "enchant_weapon"
 	sound = list('sound/magic/whiteflame.ogg')
 
@@ -41,8 +40,7 @@
 
 	var/list/enchant_types = list(
 		"Force Blade" = FORCE_BLADE_ENCHANT,
-		"Durability" = DURABILITY_ENCHANT,
-		"Arcane Mark" = ARCANE_MARK_ENCHANT
+		"Durability" = DURABILITY_ENCHANT
 	)
 
 	for(var/obj/item/I in user.held_items)
@@ -61,7 +59,7 @@
 			to_chat(user, "I consumes the [sacrifice] to enchant [I] permanently.")
 		if(I.GetComponent(/datum/component/enchanted_weapon))
 			qdel(I.GetComponent(/datum/component/enchanted_weapon))
-		I.AddComponent(/datum/component/enchanted_weapon, enchant_duration, TRUE, /datum/skill/magic/arcane, enchant_type)
+		I.AddComponent(/datum/component/enchanted_weapon, enchant_duration, TRUE, user, enchant_type)
 		user.visible_message("[user] enchants the [I], enveloping it in a magical glow.")
 		return TRUE
 	else
