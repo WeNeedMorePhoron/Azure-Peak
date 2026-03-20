@@ -1,0 +1,106 @@
+// Conjure Aegis - Aegiscraft Minor Aspect
+// Conjures an arcyne shield designed to counter projectiles.
+// 150 durability, 80 coverage, 5 WDef.
+
+/datum/action/cooldown/spell/conjure_aegis
+	button_icon = 'icons/mob/actions/mage_conjure.dmi'
+	name = "Conjure Aegis"
+	desc = "Conjure an Arcyne Aegis - a projected shield of arcyne energy designed to counter projectiles.\n\
+	Less effective against deliberate melee strikes, but excellent against ranged attacks.\n\
+	The shield vanishes when broken or when a new one is conjured."
+	button_icon_state = "conjure_aegis"
+	sound = 'sound/magic/whiteflame.ogg'
+	spell_color = GLOW_COLOR_ARCANE
+	glow_intensity = GLOW_INTENSITY_MEDIUM
+
+	click_to_activate = TRUE
+	self_cast_possible = TRUE
+
+	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_cost = SPELLCOST_CONJURE
+
+	invocations = list("Clipeum Arcanum!")
+	invocation_type = INVOCATION_SHOUT
+
+	charge_required = TRUE
+	charge_time = 3 SECONDS
+	charge_drain = 1
+	charge_slowdown = CHARGING_SLOWDOWN_HEAVY
+	charge_sound = 'sound/magic/charging.ogg'
+	cooldown_time = 90 SECONDS
+
+	associated_skill = /datum/skill/magic/arcane
+	spell_tier = 2
+
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+
+	var/obj/item/rogueweapon/shield/arcyne_aegis/conjured_shield
+
+/datum/action/cooldown/spell/conjure_aegis/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H))
+		return FALSE
+
+	if(H.get_num_arms() <= 0)
+		to_chat(H, span_warning("I don't have any usable hands!"))
+		return FALSE
+
+	// Destroy previous conjured shield
+	if(conjured_shield && !QDELETED(conjured_shield))
+		conjured_shield.visible_message(span_warning("[conjured_shield] flickers and fades away!"))
+		qdel(conjured_shield)
+
+	var/obj/item/rogueweapon/shield/arcyne_aegis/S = new(H.drop_location())
+	S.linked_spell = src
+	S.AddComponent(/datum/component/conjured_item, GLOW_COLOR_ARCANE)
+	H.put_in_hands(S)
+	conjured_shield = S
+	H.visible_message("[H] conjures a shimmering shield of arcyne energy!")
+	return TRUE
+
+/datum/action/cooldown/spell/conjure_aegis/Destroy()
+	if(conjured_shield && !QDELETED(conjured_shield))
+		conjured_shield.visible_message(span_warning("[conjured_shield] flickers and fades away!"))
+		qdel(conjured_shield)
+	conjured_shield = null
+	return ..()
+
+// The conjured shield item
+/obj/item/rogueweapon/shield/arcyne_aegis
+	name = "arcyne aegis"
+	desc = "A rare hunk of arcyne energy projected in front of the caster. Slower and more deliberate movement by blades and melee weapons easily pierce through to the squishy Magi behind."
+	icon = 'icons/roguetown/weapons/prismatic_weapons64.dmi'
+	icon_state = "moonlight_shield"
+	wdefense = 5
+	coverage = 80
+	max_integrity = 150
+	force = 5
+	unenchantable = TRUE
+	anvilrepair = null
+	parrysound = list('sound/combat/parry/shield/magicshield (1).ogg', 'sound/combat/parry/shield/magicshield (2).ogg', 'sound/combat/parry/shield/magicshield (3).ogg')
+	var/datum/action/cooldown/spell/conjure_aegis/linked_spell
+
+/obj/item/rogueweapon/shield/arcyne_aegis/obj_break()
+	. = ..()
+	if(!QDELETED(src))
+		dispel()
+
+/obj/item/rogueweapon/shield/arcyne_aegis/attack_hand(mob/living/user)
+	. = ..()
+	if(!QDELETED(src) && !(user.get_active_held_item() == src || user.get_inactive_held_item() == src))
+		dispel()
+
+/obj/item/rogueweapon/shield/arcyne_aegis/dropped(mob/living/user)
+	. = ..()
+	if(!QDELETED(src))
+		dispel()
+
+/obj/item/rogueweapon/shield/arcyne_aegis/proc/dispel()
+	if(QDELETED(src))
+		return
+	visible_message(span_warning("[src] shatters into motes of arcyne light!"))
+	playsound(get_turf(src), 'sound/magic/magic_nulled.ogg', 80)
+	if(linked_spell)
+		linked_spell.conjured_shield = null
+	qdel(src)

@@ -31,8 +31,8 @@
 		/obj/effect/proc_holder/spell/invoked/forcewall/greater,
 	)
 
-/datum/magic_aspect/autowardry
-	name = "Autowardry"
+/datum/magic_aspect/aegiscraft
+	name = "Aegiscraft"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
@@ -43,8 +43,7 @@
 		"TODO",
 	)
 	fixed_spells = list(
-		/obj/effect/proc_holder/spell/self/conjure_armor,
-		// TODO: Conjure Force Ward - 150 dura, 6 WDef, 80 coverage shield
+		/datum/action/cooldown/spell/conjure_aegis,
 	)
 
 /datum/magic_aspect/displacement
