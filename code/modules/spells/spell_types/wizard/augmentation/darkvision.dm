@@ -43,3 +43,9 @@
 		L.apply_status_effect(/datum/status_effect/buff/darkvision, H.get_skill_level(associated_skill))
 
 	return TRUE
+
+/datum/action/cooldown/spell/darkvision/miracle
+	button_icon_state = "wisescroll"
+	point_cost = 0
+	spell_tier = 0
+	associated_skill = /datum/skill/magic/holy
