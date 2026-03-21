@@ -5,7 +5,6 @@
 	desc = "Summon a storm of arcyne blades erupting from the ground in an area. After a short delay, the blades burst upward and cut anything still standing in the zone. \
 	Always targets the feet.\n\
 	Damage is increased by 100% versus simple-minded creechurs."
-	fluff_desc = "TODO"
 	button_icon_state = "blade_burst"
 	sound = 'sound/magic/blade_burst.ogg'
 	spell_color = GLOW_COLOR_METAL

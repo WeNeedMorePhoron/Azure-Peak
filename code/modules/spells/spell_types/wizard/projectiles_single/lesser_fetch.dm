@@ -1,7 +1,6 @@
 /datum/action/cooldown/spell/projectile/lesser_fetch
 	name = "Lesser Fetch"
 	desc = "Shoot out a magical bolt that draws in a freestanding item towards the caster. Doesn't work on living targets."
-	fluff_desc = "TODO"
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	button_icon_state = "fetch"
 	sound = 'sound/magic/magnet.ogg'

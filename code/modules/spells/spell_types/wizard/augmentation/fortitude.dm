@@ -4,7 +4,6 @@
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Fortitude"
 	desc = "Harden one's humors to the fatigues of the body. (-50% Stamina Usage)\nCasting on another person extends the duration."
-	fluff_desc = "TODO"
 	button_icon_state = "fortitude"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF

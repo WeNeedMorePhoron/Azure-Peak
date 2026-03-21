@@ -4,7 +4,6 @@
 	name = "Artifice"
 	latin_name = "Minor Aspectus Artificii"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_METAL
 	binding_chants = list(
@@ -21,7 +20,6 @@
 	name = "Exowardry"
 	latin_name = "Minor Aspectus Exotutelae"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_ARCANE
 	binding_chants = list(
@@ -38,7 +36,6 @@
 	name = "Aegiscraft"
 	latin_name = "Minor Aspectus Aegidis"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_ARCANE
 	binding_chants = list(
@@ -55,7 +52,6 @@
 	name = "Displacement"
 	latin_name = "Minor Aspectus Translationis"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_DISPLACEMENT
 	binding_chants = list(
@@ -73,7 +69,6 @@
 	name = "Autowardry"
 	latin_name = "Minor Aspectus Autotutelae"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_METAL
 	binding_chants = list(
@@ -91,7 +86,6 @@
 	name = "Lesser Augmentation"
 	latin_name = "Minor Aspectus Augmenti"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_BUFF
 	binding_chants = list(
@@ -122,7 +116,6 @@
 	name = "Illusion"
 	latin_name = "Minor Aspectus Illusio"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_ILLUSION
 	binding_chants = list(
@@ -139,7 +132,6 @@
 	name = "Hearthcraft"
 	latin_name = "Minor Aspectus Domus"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_HEARTH
 	binding_chants = list(
@@ -157,7 +149,6 @@
 	name = "Hex"
 	latin_name = "Minor Aspectus Maleficii"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_HEX
 	binding_chants = list(

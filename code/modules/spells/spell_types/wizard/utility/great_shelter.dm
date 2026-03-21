@@ -10,7 +10,6 @@
 	desc = "Conjure a cramped but functional shelter from arcyne force.\n\
 	Contains a bed, a hearth, and an oven. Bring your own cooking tools.\n\
 	The shelter lasts for 15 minutes. Door always faces south."
-	fluff_desc = "TODO"
 	button_icon_state = "great_shelter"
 	sound = 'sound/spellbooks/crystal.ogg'
 	spell_color = GLOW_COLOR_HEARTH

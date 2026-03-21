@@ -12,7 +12,6 @@
 	button_icon = 'icons/mob/actions/mage_fulgurmancy.dmi'
 	name = "Thunderstrike"
 	desc = "Call a high-damage strike of lightning onto an area, followed by lesser aftershocks that ripple outwards in concentric layers."
-	fluff_desc = "TODO"
 	button_icon_state = "thunderstrike"
 	sound = 'sound/magic/lightning.ogg'
 	spell_color = GLOW_COLOR_LIGHTNING

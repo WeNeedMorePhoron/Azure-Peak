@@ -2,7 +2,6 @@
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	name = "Create Campfire"
 	desc = "Creates a magical campfire to cook on. 3 tiles range. Lasts for 10 minutes."
-	fluff_desc = "TODO"
 	button_icon_state = "create_campfire"
 	sound = 'sound/magic/whiteflame.ogg'
 	spell_color = GLOW_COLOR_FIRE

@@ -3,8 +3,7 @@
 /datum/magic_aspect/pyromancy
 	name = "Pyromancy"
 	latin_name = "Maior Aspectus Ignis"
-	desc = "TODO"
-	fluff_desc = "TODO"
+	desc = "The school of Pyromancy. Pyromancers open up with the raw destructive power of spitfire - burning one single target, using Fireball to strike multiple foes, and uses Fire Blast to push opponents off them and leave a lingering flame on the ground. Fire Curtain might be hard to score, but it can block off an entire place and melt anyone trying to go through it. It countersynergizes with Cryomancy and is incompatible - casting fire spell heat one's body up and having fire spells hit someone frozen will cause them to warm up."
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_PYROMANCY
 	school_color = GLOW_COLOR_FIRE
@@ -33,8 +32,7 @@
 /datum/magic_aspect/cryomancy
 	name = "Cryomancy"
 	latin_name = "Maior Aspectus Glaciei"
-	desc = "TODO"
-	fluff_desc = "TODO"
+	desc = "The school of Cryomancy relies on slowing its opponent with every single strike - going up to -3 SPD from 3 consecutive strike. Frost Bolt is quick and efficient, though lacking in pure damage. Snap Freeze burns everyone in a wide area through their chest. Frost Stream - Cryomancer's counterpart to the Fire Blast, burns everyone in a long line and slow them down. Hailstorm is the ultimate expression of Cryomancy - making a mage stand still as they bombard an area far away with endless hailstones. Cryomancy countersynergizes with Pyromancy and is incompatible - casting cryo spell chills one's body from fire and having cryo spells will help extinguish flames."
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_CRYOMANCY
 	school_color = GLOW_COLOR_ICE
@@ -56,7 +54,6 @@
 	name = "Fulgurmancy"
 	latin_name = "Maior Aspectus Fulminis"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_FULGURMANCY
 	school_color = GLOW_COLOR_LIGHTNING
@@ -77,7 +74,6 @@
 	name = "Geomancy"
 	latin_name = "Maior Aspectus Terrae"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_GEOMANCY
 	school_color = GLOW_COLOR_EARTHEN
@@ -98,7 +94,6 @@
 	name = "Kinesis"
 	latin_name = "Maior Aspectus Vis"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_KINESIS
 	school_color = GLOW_COLOR_KINESIS
@@ -120,7 +115,6 @@
 	name = "Augmentation"
 	latin_name = "Maior Aspectus Augmenti"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_AUGMENTATION
 	school_color = GLOW_COLOR_BUFF
@@ -157,7 +151,6 @@
 	name = "Ferramancy"
 	latin_name = "Maior Aspectus Ferri"
 	desc = "TODO"
-	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_FERRAMANCY
 	school_color = GLOW_COLOR_METAL

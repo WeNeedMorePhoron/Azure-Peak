@@ -2,7 +2,6 @@
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	name = "Light"
 	desc = "Summons a condensed orb of light."
-	fluff_desc = "TODO"
 	button_icon_state = "light"
 	sound = 'sound/magic/whiteflame.ogg'
 	spell_color = GLOW_COLOR_ARCANE

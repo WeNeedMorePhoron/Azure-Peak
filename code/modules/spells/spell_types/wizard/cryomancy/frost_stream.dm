@@ -7,7 +7,6 @@
 	name = "Frost Stream"
 	desc = "Channel a stream of biting frost in a line toward your target, chilling those struck to the bone. \
 	Can be blocked by a shield, stopping the stream from propagating further."
-	fluff_desc = "TODO"
 	button_icon_state = "frost_stream"
 	sound = 'sound/spellbooks/icicle.ogg'
 	spell_color = GLOW_COLOR_ICE

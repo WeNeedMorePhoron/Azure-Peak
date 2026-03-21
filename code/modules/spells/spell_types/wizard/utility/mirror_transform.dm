@@ -1,7 +1,6 @@
 /datum/action/cooldown/spell/mirror_transform
 	name = "Mirror Transform"
 	desc = "Temporarily grants you the ability to use mirrors to change your appearance."
-	fluff_desc = "TODO"
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	button_icon_state = "mirror"
 	sound = 'sound/magic/whiteflame.ogg'

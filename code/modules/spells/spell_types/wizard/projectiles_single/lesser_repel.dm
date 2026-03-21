@@ -1,7 +1,6 @@
 /datum/action/cooldown/spell/projectile/lesser_repel
 	name = "Lesser Repel"
 	desc = "Shoot out a magical bolt that pushes away a freestanding item from the caster. Doesn't work on large or living targets. Instead of repelling a target, it will throw an object in your hand if cast while in throw mode."
-	fluff_desc = "TODO"
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	button_icon_state = "fetch"
 	sound = 'sound/magic/unmagnet.ogg'

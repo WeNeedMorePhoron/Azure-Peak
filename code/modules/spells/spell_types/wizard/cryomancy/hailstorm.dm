@@ -10,7 +10,6 @@
 	desc = "Channel a devastating barrage of arcing frost bolts onto a distant area. \
 	Each wave lobs 5 bolts that arc over obstacles and explode on impact, burning and freezing all caught within. \
 	The caster must remain still and maintain line of sight — any interruption ends the barrage."
-	fluff_desc = "TODO"
 	button_icon_state = "hailstorm"
 	sound = 'sound/spellbooks/crystal.ogg'
 	spell_color = GLOW_COLOR_ICE

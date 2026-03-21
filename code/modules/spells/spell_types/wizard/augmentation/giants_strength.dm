@@ -4,7 +4,6 @@
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Giant's Strength"
 	desc = "Strengthen the target. (+3 Strength)\nCasting on another person extends the duration."
-	fluff_desc = "TODO"
 	button_icon_state = "giants_strength"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF

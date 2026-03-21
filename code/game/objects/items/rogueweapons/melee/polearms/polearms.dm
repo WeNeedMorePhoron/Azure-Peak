@@ -248,8 +248,8 @@
 	pixel_x = -16
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	wdefense = 5
-	wdefense_wbonus = 8	//13 when wielded.
+	wdefense = 3
+	wdefense_wbonus = 8	//11 when wielded.
 	bigboy = TRUE
 	gripsprite = TRUE
 	associated_skill = /datum/skill/combat/staves

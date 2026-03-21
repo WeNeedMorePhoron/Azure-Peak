@@ -2,7 +2,6 @@
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	name = "Mindlink"
 	desc = "Establish a telepathic link with an ally for three minutes. Use ,y before a message to communicate telepathically."
-	fluff_desc = "TODO"
 	button_icon_state = "mindlink"
 	sound = 'sound/magic/whiteflame.ogg'
 	spell_color = GLOW_COLOR_ARCANE

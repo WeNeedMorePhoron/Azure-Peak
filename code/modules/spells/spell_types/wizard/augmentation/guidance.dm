@@ -4,7 +4,6 @@
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Guidance"
 	desc = "Makes one's hand travel true, blessing them with arcyne luck in combat. (+20% chance to bypass parry / dodge, +20% chance to parry / dodge)\nCasting on another person extends the duration."
-	fluff_desc = "TODO"
 	button_icon_state = "guidance"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF

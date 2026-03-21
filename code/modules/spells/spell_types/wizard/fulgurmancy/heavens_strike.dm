@@ -10,7 +10,6 @@
 	desc = "Call down a single devastating bolt of lightning on a target location. \
 	The strike is telegraphed and can be dodged, but deals massive damage to anything still standing in the impact zone. \
 	Damage is increased by 100% versus simple-minded creechurs."
-	fluff_desc = "TODO"
 	button_icon_state = "heavens_strike"
 	sound = 'sound/magic/lightning.ogg'
 	spell_color = GLOW_COLOR_LIGHTNING

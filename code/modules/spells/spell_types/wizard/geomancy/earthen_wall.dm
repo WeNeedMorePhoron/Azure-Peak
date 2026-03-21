@@ -4,7 +4,6 @@
 	name = "Earthen Wall"
 	desc = "Conjure a 3x1 wall of stone at a target location, perpendicular to your facing. \
 	The wall blocks movement and line of sight."
-	fluff_desc = "TODO"
 	button_icon_state = "earthen_wall"
 	sound = 'sound/combat/hits/onstone/wallhit.ogg'
 	spell_color = GLOW_COLOR_METAL

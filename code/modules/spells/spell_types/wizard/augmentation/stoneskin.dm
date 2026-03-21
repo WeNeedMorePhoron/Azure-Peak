@@ -4,7 +4,6 @@
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Stoneskin"
 	desc = "Harden the target's skin like stone. (+5 Constitution)\nCasting on another person extends the duration."
-	fluff_desc = "TODO"
 	button_icon_state = "stoneskin"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF

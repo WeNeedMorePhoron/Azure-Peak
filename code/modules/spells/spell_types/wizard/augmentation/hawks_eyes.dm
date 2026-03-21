@@ -4,7 +4,6 @@
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Hawk's Eyes"
 	desc = "Sharpens the target's vision. (+5 Perception)\nCasting on another person extends the duration."
-	fluff_desc = "TODO"
 	button_icon_state = "hawks_eyes"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF

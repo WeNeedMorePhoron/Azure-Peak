@@ -3,7 +3,6 @@
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Nondetection"
 	desc = "Shroud a target from divination magic for 1 hour."
-	fluff_desc = "TODO"
 	button_icon_state = "nondetection"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF

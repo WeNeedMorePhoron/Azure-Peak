@@ -2,7 +2,6 @@
 	name = "Conjure Fateweaver"
 	desc = "Conjure a fate weaver, a full-body protecting ring that breaks easily. Cannot be summoned if wearing anything heavier than light armor.\n\
 	The ring lasts until it is broken, a new one is summoned, or the spell is forgotten."
-	fluff_desc = "TODO"
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	button_icon_state = "conjure_armor"
 	sound = 'sound/magic/whiteflame.ogg'

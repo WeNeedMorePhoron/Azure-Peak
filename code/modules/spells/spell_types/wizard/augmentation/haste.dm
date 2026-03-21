@@ -4,7 +4,6 @@
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Haste"
 	desc = "Cause a target to be magically hastened. (+3 Speed, 0.85x Action Cooldown)\nCasting on another person extends the duration."
-	fluff_desc = "TODO"
 	button_icon_state = "haste"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF

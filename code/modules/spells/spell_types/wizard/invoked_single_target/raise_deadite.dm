@@ -1,7 +1,6 @@
 /datum/action/cooldown/spell/raise_deadite
 	name = "Raise Deadite"
 	desc = "Infuse the target with quick acting Rot, raising them as a deadite. They will not be friendly to you."
-	fluff_desc = "TODO"
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	button_icon_state = "raisedead"
 	sound = 'sound/magic/whiteflame.ogg'

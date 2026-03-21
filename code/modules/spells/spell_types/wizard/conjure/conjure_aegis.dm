@@ -8,7 +8,6 @@
 	desc = "Conjure an Arcyne Aegis - a projected shield of arcyne energy designed to counter projectiles.\n\
 	Less effective against deliberate melee strikes, but excellent against ranged attacks.\n\
 	The shield vanishes when broken or when a new one is conjured."
-	fluff_desc = "TODO"
 	button_icon_state = "conjure_aegis"
 	sound = 'sound/magic/whiteflame.ogg'
 	spell_color = GLOW_COLOR_ARCANE
