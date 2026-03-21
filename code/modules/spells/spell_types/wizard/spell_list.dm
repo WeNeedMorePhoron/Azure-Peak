@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile
 		/datum/action/cooldown/spell/projectile/repel,
 
 		/obj/effect/proc_holder/spell/targeted/touch/lesserknock,
-		/obj/effect/proc_holder/spell/invoked/counterspell,
+
 		/datum/action/cooldown/spell/enlarge,
 		/datum/action/cooldown/spell/leap,
 		/obj/effect/proc_holder/spell/invoked/blink,

@@ -432,12 +432,6 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 	icon_state ="scrolldarkred"
 	dreamcost = 6
 
-/obj/item/book/granter/spell/blackstone/counterspell
-	name = "Scroll of Counterspell"
-	spell = /obj/effect/proc_holder/spell/invoked/counterspell
-	spellname = "Counterspell"
-	icon_state ="scrolldarkred"
-	dreamcost = 6
 
 /obj/item/book/granter/spell/blackstone/blink
 	name = "Scroll of Blink"

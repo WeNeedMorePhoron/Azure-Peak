@@ -771,7 +771,7 @@ GLOBAL_LIST_INIT(noc_scrolls, (list(/obj/item/book/granter/spell/blackstone/fire
 		/obj/item/book/granter/spell/blackstone/blade_burst,
 		/obj/item/book/granter/spell/blackstone/haste,
 		/obj/item/book/granter/spell/blackstone/arcynebolt,
-		/obj/item/book/granter/spell/blackstone/counterspell,
+
 		/obj/item/book/granter/spell/blackstone/blink,
 		/obj/item/book/granter/spell/blackstone/mirror_transform,
 		/obj/item/book/granter/spell/blackstone/stoneskin,
