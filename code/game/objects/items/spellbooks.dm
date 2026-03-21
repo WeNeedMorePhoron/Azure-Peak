@@ -106,7 +106,14 @@ decreases charge time if held opened in hand, for pure mage build + aesthetics.
 
 /obj/item/book/spellbook/proc/change_spells(mob/user = usr)
 	var/datum/mind/user_mind = user.mind
-	if(!user_mind) return // How??
+	if(!user_mind)
+		return
+	// Aspect system — open the Grimoire in edit mode
+	if(LAZYLEN(user_mind.mage_aspect_config))
+		var/datum/aspect_picker/picker = new(user, FALSE, user_mind.mage_aspect_config)
+		picker.ui_interact(user)
+		return
+	// Legacy spellpoint system
 	if(user_mind.has_changed_spell)
 		to_chat(user, span_warning("I have already unbinded my spells today!"))
 		return
@@ -120,7 +127,7 @@ decreases charge time if held opened in hand, for pure mage build + aesthetics.
 	if(!resettable_spells.len)
 		to_chat(user, span_warning("I have no spells to unbind!"))
 		return
-	user_mind.has_changed_spell = TRUE //To pre-empt a halting duplication in the for loop here
+	user_mind.has_changed_spell = TRUE
 	var/unlearn_success = FALSE
 	for(var/i = 1, i <= 2, i++)
 		var/choice = tgui_input_list(user, "Choose up to two spells to unbind. Cancel both to not use up your daily unbinding.", "Unbind Spell", resettable_spells)
@@ -135,7 +142,7 @@ decreases charge time if held opened in hand, for pure mage build + aesthetics.
 		resettable_spells.Remove(choice)
 		user_mind.check_learnspell()
 	if(!unlearn_success)
-		user_mind.has_changed_spell = FALSE //If we didn't unlearn anything, reset
+		user_mind.has_changed_spell = FALSE
 
 /obj/item/book/spellbook/proc/get_castred()
 	if(born_of_rock)

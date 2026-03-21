@@ -125,6 +125,7 @@
 	// Set up spell systems before virtues so Arcyne Potential can detect and add to them
 	if(LAZYLEN(subclass_mage_aspects))
 		H.mind?.mage_aspect_config = subclass_mage_aspects.Copy()
+		H.mind?.check_learnspell()
 	else if(subclass_spellpoints > 0)
 		H.mind?.adjust_spellpoints(subclass_spellpoints)
 

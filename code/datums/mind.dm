@@ -56,7 +56,9 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	var/list/minor_aspects
 	/// Mage aspect system config from subclass. Keys: "mastery", "major", "minor", "utilities". Optional: "locked_aspects" (list of type paths).
 	var/list/mage_aspect_config
-	
+	/// Aspect reset budget used. Major costs 2, Minor/Utility costs 1. Max 2. Resets on sleep.
+	var/aspect_resets_used = 0
+
 	var/movemovemovetext = "Move!!"
 	var/takeaimtext = "Take aim!!"
 	var/holdtext = "Hold!!"
@@ -436,6 +438,37 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		var/datum/magic_aspect/first = major_aspects[1]
 		return first.school_color
 	return GLOW_COLOR_ARCANE
+
+#define ASPECT_RESET_BUDGET 2
+#define ASPECT_RESET_COST_MAJOR 2
+#define ASPECT_RESET_COST_MINOR 1
+
+/datum/mind/proc/get_aspect_reset_remaining()
+	return ASPECT_RESET_BUDGET - aspect_resets_used
+
+/datum/mind/proc/can_reset_aspect(datum/magic_aspect/aspect)
+	if(!aspect)
+		return FALSE
+	var/cost = (aspect.aspect_type == ASPECT_MAJOR) ? ASPECT_RESET_COST_MAJOR : ASPECT_RESET_COST_MINOR
+	return get_aspect_reset_remaining() >= cost
+
+/datum/mind/proc/spend_aspect_reset(datum/magic_aspect/aspect)
+	if(!aspect)
+		return FALSE
+	var/cost = (aspect.aspect_type == ASPECT_MAJOR) ? ASPECT_RESET_COST_MAJOR : ASPECT_RESET_COST_MINOR
+	if(get_aspect_reset_remaining() < cost)
+		return FALSE
+	aspect_resets_used += cost
+	return TRUE
+
+/datum/mind/proc/can_reset_utility()
+	return get_aspect_reset_remaining() >= ASPECT_RESET_COST_MINOR
+
+/datum/mind/proc/spend_utility_reset()
+	if(!can_reset_utility())
+		return FALSE
+	aspect_resets_used += ASPECT_RESET_COST_MINOR
+	return TRUE
 
 /datum/mind/proc/set_death_time()
 	last_death = world.time

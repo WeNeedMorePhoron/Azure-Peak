@@ -7,6 +7,10 @@
 	var/list/staged_minors = list()
 	/// Selected utility spell paths (string paths)
 	var/list/staged_utilities = list()
+	/// Staged unbinds — aspect type paths to remove on confirm (edit mode)
+	var/list/staged_unbind_aspects = list()
+	/// Staged utility unbinds — spell path strings to remove on confirm (edit mode)
+	var/list/staged_unbind_utilities = list()
 	/// Whether to grant mastery variants (T4)
 	var/mastery = FALSE
 	/// Overrides for max slots. 0 = tab locked.
@@ -87,6 +91,25 @@
 
 	data["pointbuy_selections"] = pointbuy_selections
 	data["selected_utilities"] = staged_utilities
+
+	// Utilities the user already knows (for edit mode display)
+	var/list/known_utilities = list()
+	for(var/path in GLOB.utility_spells)
+		if(owner.mind.has_spell(path))
+			known_utilities += "[path]"
+	data["known_utilities"] = known_utilities
+
+	// Reset budget for unbinding (account for staged unbinds)
+	var/staged_cost = get_staged_reset_cost()
+	data["reset_budget"] = owner.mind.get_aspect_reset_remaining() - staged_cost
+	data["resets_used"] = owner.mind.aspect_resets_used
+
+	// Staged unbinds
+	var/list/unbind_aspect_paths = list()
+	for(var/path in staged_unbind_aspects)
+		unbind_aspect_paths += "[path]"
+	data["staged_unbind_aspects"] = unbind_aspect_paths
+	data["staged_unbind_utilities"] = staged_unbind_utilities
 
 	// Collect all selected/granted spell paths so the UI can grey out duplicates
 	// This includes both pointbuy selections AND fixed spells from all staged aspects
@@ -250,16 +273,63 @@
 			. = TRUE
 
 		if("remove")
-			if(!initial_setup)
-				return
 			var/path = text2path(params["path"])
 			if(!path)
 				return
 			if(path in locked_aspects)
 				return
-			staged_majors -= path
-			staged_minors -= path
-			pointbuy_selections -= params["path"]
+			if(initial_setup)
+				staged_majors -= path
+				staged_minors -= path
+				pointbuy_selections -= params["path"]
+			else
+				// Edit mode — stage the unbind, check budget
+				var/is_live = owner.mind.has_aspect(path)
+				if(is_live)
+					if(path in staged_unbind_aspects)
+						return // Already staged for unbind
+					// Check if budget allows this unbind (preview cost)
+					var/datum/magic_aspect/temp = new path
+					var/cost = (temp.aspect_type == ASPECT_MAJOR) ? ASPECT_RESET_COST_MAJOR : ASPECT_RESET_COST_MINOR
+					qdel(temp)
+					if(get_staged_reset_cost() + cost > ASPECT_RESET_BUDGET)
+						to_chat(owner, span_warning("I cannot reshape any more attunements without rest."))
+						return
+					staged_unbind_aspects += path
+				else
+					// It was a newly staged pick, just remove it
+					staged_majors -= path
+					staged_minors -= path
+					pointbuy_selections -= params["path"]
+			. = TRUE
+
+		if("undo_unbind")
+			var/path = text2path(params["path"])
+			if(!path)
+				return
+			staged_unbind_aspects -= path
+			. = TRUE
+
+		if("unbind_utility")
+			var/spell_path_str = params["spell_path"]
+			if(!spell_path_str)
+				return
+			if(spell_path_str in staged_unbind_utilities)
+				return
+			var/spell_path = text2path(spell_path_str)
+			if(!spell_path || !owner.mind.has_spell(spell_path))
+				return
+			if(get_staged_reset_cost() + ASPECT_RESET_COST_MINOR > ASPECT_RESET_BUDGET)
+				to_chat(owner, span_warning("I cannot reshape any more attunements without rest."))
+				return
+			staged_unbind_utilities += spell_path_str
+			. = TRUE
+
+		if("undo_unbind_utility")
+			var/spell_path_str = params["spell_path"]
+			if(!spell_path_str)
+				return
+			staged_unbind_utilities -= spell_path_str
 			. = TRUE
 
 		if("pointbuy_toggle")
@@ -305,15 +375,50 @@
 			. = TRUE
 
 		if("confirm")
-			if(!length(staged_majors) && !length(staged_minors))
-				to_chat(owner, span_warning("You must select at least one aspect."))
+			var/has_new_aspects = length(staged_majors) || length(staged_minors)
+			var/has_new_utilities = length(staged_utilities)
+			var/has_unbinds = length(staged_unbind_aspects) || length(staged_unbind_utilities)
+			if(!has_new_aspects && !has_new_utilities && !has_unbinds)
+				to_chat(owner, span_warning("You must select something before sealing."))
 				return
-			// Apply all staged selections to the mind
+
+			// Apply staged unbinds first — spend reset budget
+			for(var/unbind_path in staged_unbind_aspects)
+				var/datum/magic_aspect/target
+				for(var/datum/magic_aspect/A in owner.mind.major_aspects)
+					if(A.type == unbind_path)
+						target = A
+						break
+				if(!target)
+					for(var/datum/magic_aspect/A in owner.mind.minor_aspects)
+						if(A.type == unbind_path)
+							target = A
+							break
+				if(target)
+					if(!owner.mind.spend_aspect_reset(target))
+						to_chat(owner, span_warning("Not enough reset budget remaining."))
+						continue
+					owner.mind.remove_aspect(target)
+					qdel(target)
+
+			for(var/unbind_spell_str in staged_unbind_utilities)
+				var/unbind_spell = text2path(unbind_spell_str)
+				if(unbind_spell && owner.mind.has_spell(unbind_spell))
+					if(!owner.mind.spend_utility_reset())
+						to_chat(owner, span_warning("Not enough reset budget remaining."))
+						continue
+					owner.mind.RemoveSpell(unbind_spell)
+
+			// Apply new aspect attunements
 			for(var/path in staged_majors)
+				if(owner.mind.has_aspect(path))
+					continue
 				var/datum/magic_aspect/aspect = new path
 				if(!owner.mind.attune_aspect(aspect))
 					qdel(aspect)
 			for(var/path in staged_minors)
+				if(owner.mind.has_aspect(path))
+					continue
 				var/datum/magic_aspect/aspect = new path
 				if(!owner.mind.attune_aspect(aspect))
 					qdel(aspect)
@@ -353,7 +458,9 @@
 					continue
 				var/datum/new_spell = new spell_path
 				owner.mind.AddSpell(new_spell)
-			// Check if learnspell should remain
+
+			if(has_unbinds)
+				to_chat(owner, span_notice("The inscriptions in my grimoire shift and reform..."))
 			owner.mind.check_learnspell()
 
 			// Check if there are remaining aspect slots
@@ -362,10 +469,11 @@
 			var/has_remaining = (current_majors < max_majors) || (current_minors < max_minors_resolved)
 
 			if(has_remaining)
-				// Reset staged lists for next round of picks
 				staged_majors.Cut()
 				staged_minors.Cut()
 				staged_utilities.Cut()
+				staged_unbind_aspects.Cut()
+				staged_unbind_utilities.Cut()
 				pointbuy_selections = list()
 				SStgui.close_uis(src)
 				to_chat(owner, span_notice("Aspects applied. You have remaining slots — use your spellbook to continue selecting."))
@@ -417,7 +525,15 @@
 	var/obj/effect/proc_holder/spell/S = spell_path
 	return initial(S.cost)
 
+/// Calculate the total reset budget cost of all staged unbinds
+/datum/aspect_picker/proc/get_staged_reset_cost()
+	var/total = 0
+	for(var/path in staged_unbind_aspects)
+		var/datum/magic_aspect/temp = new path
+		total += (temp.aspect_type == ASPECT_MAJOR) ? ASPECT_RESET_COST_MAJOR : ASPECT_RESET_COST_MINOR
+		qdel(temp)
+	total += length(staged_unbind_utilities) * ASPECT_RESET_COST_MINOR
+	return total
+
 /datum/aspect_picker/ui_close(mob/user)
-	// If the user closes the window without confirming, clean up without applying
-	// Staged selections are lost
 	qdel(src)
