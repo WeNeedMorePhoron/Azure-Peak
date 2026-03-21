@@ -2,6 +2,7 @@ export type Spell = {
   path: string;
   name: string;
   desc: string;
+  fluff_desc: string;
   cost: number;
 };
 
