@@ -87,7 +87,7 @@
 			var/total_damage = damage
 			if(ishuman(caster) && ishuman(L))
 				arcyne_strike(caster, L, null, total_damage, BODY_ZONE_R_LEG, \
-					BCLASS_CUT, spell_name = "Blade Burst", \
+					BCLASS_STAB, spell_name = "Blade Burst", \
 					damage_type = BRUTE, npc_simple_damage_mult = npc_simple_damage_mult, \
 					skip_animation = TRUE)
 			else
@@ -110,8 +110,8 @@
 	layer = MASSIVE_OBJ_LAYER
 
 /obj/effect/temp_visual/blade_burst
-	icon = 'icons/obj/magic_projectiles.dmi'
-	icon_state = "air_blade_stab"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "stab"
 	dir = NORTH
 	name = "arcyne blade"
 	desc = "Get out of the way!"

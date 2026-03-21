@@ -22,7 +22,7 @@
 
 	charge_required = TRUE
 	weapon_cast_penalized = TRUE
-	charge_time = CHARGETIME_MAJOR
+	charge_time = CHARGETIME_POKE
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
@@ -38,7 +38,6 @@
 	name = "arcyne lance"
 	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "air_blade_stab"
-	color = "#6495ED"
 	guard_deflectable = TRUE
 	damage = 50
 	damage_type = BRUTE
