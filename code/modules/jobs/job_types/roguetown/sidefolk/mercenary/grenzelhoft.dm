@@ -211,7 +211,7 @@
 	category_tags = list(CTAG_MERCENARY)
 	cmode_music = 'sound/music/combat_grenzelhoft.ogg'
 	subclass_languages = list(/datum/language/grenzelhoftian)
-	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_INTELLECTUAL, TRAIT_STEELHEARTED, TRAIT_ALCHEMY_EXPERT)
+	traits_applied = list(TRAIT_INTELLECTUAL, TRAIT_STEELHEARTED, TRAIT_ALCHEMY_EXPERT)
 	subclass_stats = list(
 		STATKEY_INT = 3,
 		STATKEY_WIL = 3,

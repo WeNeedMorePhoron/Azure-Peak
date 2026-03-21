@@ -8,7 +8,7 @@
 	cmode_music = 'sound/music/cmode/antag/combat_thewall.ogg'
 	maximum_possible_slots = 1 //Shadow wizard money gang
 	subclass_spellpoints = 36 //We love casting spells - also no T4 unlike actual court mage so probably fine
-	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_ARCYNE_T3, TRAIT_ALCHEMY_EXPERT)
+	traits_applied = list(TRAIT_ARCYNE_T3, TRAIT_ALCHEMY_EXPERT)
 	subclass_stats = list(
 		STATKEY_INT = 3,
 		STATKEY_WIL = 3,

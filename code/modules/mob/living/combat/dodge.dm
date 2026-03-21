@@ -66,16 +66,7 @@
 				user.aftermiss()
 				return TRUE
 			else
-				if(HAS_TRAIT(src, TRAIT_MAGEARMOR))
-					if(H.magearmor == 0)
-						H.magearmor = 1
-						H.apply_status_effect(/datum/status_effect/buff/magearmor)
-						to_chat(src, span_boldwarning("My mage armor absorbs the hit and dissipates!"))
-						return TRUE
-					else
-						return FALSE
-				else
-					return FALSE
+				return FALSE
 	else
 		return FALSE
 

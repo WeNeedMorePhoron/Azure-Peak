@@ -268,11 +268,9 @@ Somewhat fitting, considering the broadness of their domains. I also just think 
 			user.mind?.RemoveSpell(src.type)
 		if("Offense")
 			add_spells(user, offensive_bundle, grant_all = TRUE)
-			ADD_TRAIT(user, TRAIT_MAGEARMOR, TRAIT_MIRACLE)
 			user.mind?.RemoveSpell(src.type)
 		if("Buffs")
 			add_spells(user, buff_bundle, choice_count = 4)
-			ADD_TRAIT(user, TRAIT_MAGEARMOR, TRAIT_MIRACLE)
 			user.mind?.RemoveSpell(src.type)
 		else
 			revert_cast()

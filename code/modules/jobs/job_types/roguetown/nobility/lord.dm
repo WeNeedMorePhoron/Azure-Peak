@@ -220,7 +220,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	tutorial = "Despite spending your younger years focused on reading and the wonders of the arcyne, it came the time for you to take the throne. Now you rule not only by crown and steel, but by spell and wit, show those who doubted your time buried in books was well spent how wrong they were."
 	outfit = /datum/outfit/job/roguetown/lord/mage
 	category_tags = list(CTAG_LORD)
-	traits_applied = list(TRAIT_NOBLE, TRAIT_MAGEARMOR, TRAIT_ARCYNE_T3, TRAIT_DNR)
+	traits_applied = list(TRAIT_NOBLE, TRAIT_ARCYNE_T3, TRAIT_DNR)
 	subclass_stats = list(
 		STATKEY_LCK = 5,
 		STATKEY_INT = 4,

@@ -158,7 +158,7 @@
 	name = "Desert Rider Almah"
 	tutorial = "Almah are those of the Desert Riders who are skilled or lucky enough to have dabbled in magic and swords both. What brought a magos from the path of knowledge to one of blood and coin? That is for you, and you alone, to know.."
 	outfit = /datum/outfit/job/roguetown/mercenary/desert_rider_almah
-	traits_applied = list(TRAIT_ARCYNE_T2, TRAIT_MAGEARMOR)
+	traits_applied = list(TRAIT_ARCYNE_T2)
 	subclass_stats = list(
 		STATKEY_SPD = 3,
 		STATKEY_WIL = 2,

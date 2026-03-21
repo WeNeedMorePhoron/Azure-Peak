@@ -171,7 +171,7 @@
 	Bound once more to serve in the wake of ruin, you climb towards the Peaks."
 	outfit = /datum/outfit/job/roguetown/heartfelt/hand/advisor
 	category_tags = list(CTAG_HFT_HAND)
-	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_ARCYNE_T2, TRAIT_INTELLECTUAL, TRAIT_SEEPRICES_SHITTY, TRAIT_HEARTFELT)
+	traits_applied = list(TRAIT_ARCYNE_T2, TRAIT_INTELLECTUAL, TRAIT_SEEPRICES_SHITTY, TRAIT_HEARTFELT)
 	subclass_stats = list(
 		STATKEY_INT = 3,
 		STATKEY_PER = 3,

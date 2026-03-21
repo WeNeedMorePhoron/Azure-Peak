@@ -100,7 +100,7 @@
 	outfit = /datum/outfit/job/heartfelt/lord/archmage
 	pickprob = 100
 	class_select_category = CLASS_CAT_HFT_COURT
-	traits_applied = list(TRAIT_NOBLE, TRAIT_MAGEARMOR, TRAIT_ARCYNE_T3, TRAIT_INTELLECTUAL, TRAIT_HEARTFELT, TRAIT_ALCHEMY_EXPERT)
+	traits_applied = list(TRAIT_NOBLE, TRAIT_ARCYNE_T3, TRAIT_INTELLECTUAL, TRAIT_HEARTFELT, TRAIT_ALCHEMY_EXPERT)
 
 	subclass_stashed_items = list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
 	subclass_virtues = list(
