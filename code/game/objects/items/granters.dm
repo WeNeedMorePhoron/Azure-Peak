@@ -501,7 +501,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 	dreamcost = 12
 
 /obj/item/book/granter/spell_points/already_known(mob/user)
-	if(LAZYLEN(user.mind?.spell_point_pools))
+	if(LAZYLEN(user.mind?.mage_aspect_config))
 		to_chat(user, span_warning("My specialized training prevents me from absorbing this kind of knowledge."))
 		return TRUE
 	return ..()
@@ -539,7 +539,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 	dreamcost = 15
 
 /obj/item/book/granter/arcynetyr/already_known(mob/user)
-	if(LAZYLEN(user.mind?.spell_point_pools))
+	if(LAZYLEN(user.mind?.mage_aspect_config))
 		to_chat(user, span_warning("My specialized training prevents me from absorbing this kind of knowledge."))
 		return TRUE
 	return ..()

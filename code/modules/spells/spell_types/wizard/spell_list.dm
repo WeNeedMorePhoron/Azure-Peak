@@ -90,38 +90,3 @@ GLOBAL_LIST_INIT(utility_spells, (list(
 		)
 ))
 
-// Augmentation spells - self-buffs safe for certain types of shared pool
-// No invisibility (too strong). Includes minor utility picks for 1-point filler.
-GLOBAL_LIST_INIT(augmentation_spells, (list(
-		/datum/action/cooldown/spell/haste,
-		/datum/action/cooldown/spell/darkvision,
-		/datum/action/cooldown/spell/longstrider,
-		/datum/action/cooldown/spell/stoneskin,
-		/datum/action/cooldown/spell/hawks_eyes,
-		/datum/action/cooldown/spell/giants_strength,
-		/datum/action/cooldown/spell/fortitude,
-		/datum/action/cooldown/spell/guidance,
-		/datum/action/cooldown/spell/featherfall,
-		/obj/effect/proc_holder/spell/self/light,
-		/obj/effect/proc_holder/spell/invoked/projectile/lesser_fetch,
-		/obj/effect/proc_holder/spell/invoked/projectile/lesser_repel,
-		/datum/action/cooldown/spell/nondetection,
-		)
-))
-
-// Summoning spells - creature summoning magic
-GLOBAL_LIST_INIT(summoning_spells, (list(
-		/obj/effect/proc_holder/spell/invoked/conjure_primordial,
-		// /obj/effect/proc_holder/spell/invoked/raise_deadite, // Zizo-only, consider separate evil list
-		)
-))
-
-/proc/get_spell_pool_list(pool_name)
-	switch(pool_name)
-		if("utility")
-			return GLOB.utility_spells
-		if("augmentation")
-			return GLOB.augmentation_spells
-		if("summoning")
-			return GLOB.summoning_spells
-	return list()

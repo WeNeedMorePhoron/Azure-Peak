@@ -52,10 +52,10 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 
 	var/spell_points
 	var/used_spell_points
-	var/list/spell_point_pools
-	var/list/spell_points_used_by_pool
 	var/list/major_aspects
 	var/list/minor_aspects
+	/// Mage aspect system config from subclass. Keys: "mastery", "major", "minor", "utilities". Optional: "locked_aspects" (list of type paths).
+	var/list/mage_aspect_config
 	
 	var/movemovemovetext = "Move!!"
 	var/takeaimtext = "Take aim!!"
@@ -374,14 +374,6 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 	check_learnspell()
 
-/datum/mind/proc/set_spell_point_pools(list/pools)
-	spell_point_pools = pools.Copy()
-	spell_points_used_by_pool = list()
-	for(var/pool_name in pools)
-		spell_points_used_by_pool[pool_name] = 0
-	if(!has_spell(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation))
-		AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
-	check_learnspell()
 
 /datum/mind/proc/attune_aspect(datum/magic_aspect/aspect, variant)
 	if(!aspect)
@@ -444,11 +436,6 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		var/datum/magic_aspect/first = major_aspects[1]
 		return first.school_color
 	return GLOW_COLOR_ARCANE
-/datum/mind/proc/adjust_spell_point_pool(pool_name, points)
-	if(!LAZYLEN(spell_point_pools) || !(pool_name in spell_point_pools))
-		return
-	spell_point_pools[pool_name] += points
-	check_learnspell()
 
 /datum/mind/proc/set_death_time()
 	last_death = world.time
@@ -871,6 +858,21 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		to_chat(current, span_nicegreen("Tip: You can Ctrl-Click your hotkey bar to unlock it, then drag to rearrange your spells. Re-arranging them change which hotkeys they are bound to in order from left to right (Alt 1 to Alt 9 default). You can shift click your spells to learn more about them."))
 
 /datum/mind/proc/check_learnspell()
+	// Aspect config system — check if there are remaining aspect or utility slots
+	if(LAZYLEN(mage_aspect_config))
+		var/list/config = mage_aspect_config
+		var/max_maj = config["major"] || 0
+		var/max_min = config["minor"] || 0
+		var/max_util = config["utilities"] || 0
+		var/current_majors = LAZYLEN(major_aspects)
+		var/current_minors = LAZYLEN(minor_aspects)
+		if(current_majors < max_maj || current_minors < max_min || max_util > 0)
+			if(!has_spell(/obj/effect/proc_holder/spell/self/learnspell))
+				AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))
+			return
+		RemoveSpell(/obj/effect/proc_holder/spell/self/learnspell)
+		return
+
 	// T3+ casters without aspects still need learnspell to open the aspect picker
 	if(current)
 		var/user_tier = get_user_spell_tier(current)
@@ -879,20 +881,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 				AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))
 			return
 
-	// Pool-based system always takes priority over flat spellpoints to prevent unexpected spell point sources from bypassing pool restrictions
-	if(LAZYLEN(spell_point_pools))
-		var/has_remaining = FALSE
-		for(var/pool_name in spell_point_pools)
-			var/used = spell_points_used_by_pool?[pool_name] || 0
-			if(used < spell_point_pools[pool_name])
-				has_remaining = TRUE
-				break
-		if(has_remaining && !has_spell(/obj/effect/proc_holder/spell/self/learnspell))
-			AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))
-		else if(!has_remaining)
-			RemoveSpell(/obj/effect/proc_holder/spell/self/learnspell)
-		return
-
+	// Legacy flat spellpoints
 	if(!has_spell(/obj/effect/proc_holder/spell/self/learnspell))
 		if((spell_points - used_spell_points) > 0)
 			AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))

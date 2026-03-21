@@ -98,11 +98,9 @@
 /datum/magic_aspect/proc/mark_aspect_spell(datum/spell_instance)
 	if(istype(spell_instance, /obj/effect/proc_holder/spell))
 		var/obj/effect/proc_holder/spell/S = spell_instance
-		S.learned_from_pool = "aspect_[type]"
 		S.refundable = FALSE
 	else if(istype(spell_instance, /datum/action/cooldown/spell))
 		var/datum/action/cooldown/spell/S = spell_instance
-		S.learned_from_pool = "aspect_[type]"
 		S.refundable = FALSE
 
 /datum/magic_aspect/proc/can_attune(datum/mind/target)

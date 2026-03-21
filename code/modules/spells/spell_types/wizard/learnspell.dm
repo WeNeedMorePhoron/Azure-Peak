@@ -11,17 +11,19 @@
 	. = ..()
 	if(!user.mind)
 		return
-	var/user_tier = get_user_spell_tier(user)
-	if(user_tier >= 3)
-		var/max_maj = (user_tier >= 4) ? MAX_MAJOR_ASPECTS_T4 : MAX_MAJOR_ASPECTS_T3
+	// Aspect system takes priority if configured
+	if(LAZYLEN(user.mind.mage_aspect_config))
+		var/list/config = user.mind.mage_aspect_config
+		var/max_maj = config["major"] || 0
+		var/max_min = config["minor"] || 0
+		var/max_util = config["utilities"] || 0
 		var/current_majors = LAZYLEN(user.mind.major_aspects)
 		var/current_minors = LAZYLEN(user.mind.minor_aspects)
-		if(current_majors < max_maj || current_minors < MAX_MINOR_ASPECTS)
-			var/datum/aspect_picker/picker = new(user, !current_majors)
+		if(current_majors < max_maj || current_minors < max_min || max_util > 0)
+			var/datum/aspect_picker/picker = new(user, !current_majors, config)
 			picker.ui_interact(user)
 			return
-	if(LAZYLEN(user.mind.spell_point_pools))
-		return class_based_spells(user)
+		return
 	return legacy_pointbuy_spells(user)
 
 /// Get the spell cost from a typepath (works for both old proc_holder and new action spells)
@@ -72,19 +74,15 @@
 	return FALSE
 
 /// Instantiate and add a spell from a typepath (handles both types)
-/obj/effect/proc_holder/spell/self/learnspell/proc/learn_spell_from_path(mob/user, spell_path, pool_name = null)
+/obj/effect/proc_holder/spell/self/learnspell/proc/learn_spell_from_path(mob/user, spell_path)
 	var/datum/new_spell = new spell_path
 
 	if(istype(new_spell, /datum/action/cooldown/spell))
 		var/datum/action/cooldown/spell/action_spell = new_spell
 		action_spell.refundable = TRUE
-		if(pool_name)
-			action_spell.learned_from_pool = pool_name
 	else if(istype(new_spell, /obj/effect/proc_holder/spell))
 		var/obj/effect/proc_holder/spell/proc_spell = new_spell
 		proc_spell.refundable = TRUE
-		if(pool_name)
-			proc_spell.learned_from_pool = pool_name
 
 	user.mind.AddSpell(new_spell)
 	return TRUE
@@ -133,69 +131,3 @@
 	addtimer(CALLBACK(user.mind, TYPE_PROC_REF(/datum/mind, check_learnspell)), 2 SECONDS)
 	return TRUE
 
-/obj/effect/proc_holder/spell/self/learnspell/proc/class_based_spells(mob/user)
-	var/list/available_pools = list()
-	for(var/pool_name in user.mind.spell_point_pools)
-		var/max_pts = user.mind.spell_point_pools[pool_name]
-		var/used_pts = user.mind.spell_points_used_by_pool?[pool_name] || 0
-		if(used_pts < max_pts)
-			available_pools["[capitalize(pool_name)] ([max_pts - used_pts] pts)"] = pool_name
-
-	if(!length(available_pools))
-		to_chat(user, span_warning("No spell points remaining."))
-		return
-
-	var/chosen_pool_display
-	if(length(available_pools) == 1)
-		chosen_pool_display = available_pools[1]
-	else
-		chosen_pool_display = tgui_input_list(user, "Choose a spell school.", "Learn Spell", available_pools)
-	if(!chosen_pool_display)
-		return
-
-	var/pool_name = available_pools[chosen_pool_display]
-	var/max_pts = user.mind.spell_point_pools[pool_name]
-	var/used_pts = user.mind.spell_points_used_by_pool?[pool_name] || 0
-	var/remaining = max_pts - used_pts
-
-	var/list/pool_spells = get_spell_pool_list(pool_name)
-	var/user_spell_tier = get_user_spell_tier(user)
-	var/list/choices = list()
-	var/list/spell_descriptions = list()
-
-	for(var/spell_path in pool_spells)
-		var/tier = get_spell_tier(spell_path)
-		if(tier > user_spell_tier)
-			continue
-		var/cost = get_spell_cost(spell_path)
-		if(cost > remaining)
-			continue
-		if(user_knows_spell(user, spell_path))
-			continue
-		var/spell_name = get_spell_name(spell_path)
-		var/display_key = "[spell_name]: [cost]"
-		choices[display_key] = spell_path
-		var/spell_desc = get_spell_desc(spell_path)
-		if(spell_desc)
-			spell_descriptions[display_key] = spell_desc
-
-	if(!length(choices))
-		to_chat(user, span_warning("No spells available to learn."))
-		return
-
-	choices = sortList(choices)
-
-	var/choice = tgui_input_list(user, "[capitalize(pool_name)] spells. Points left: [remaining]", "Learn Spell", choices, descriptions = spell_descriptions)
-	var/chosen_path = choices[choice]
-
-	if(!chosen_path)
-		return
-	var/chosen_name = get_spell_name(chosen_path)
-	var/chosen_cost = get_spell_cost(chosen_path)
-	if(tgui_alert(user, "Learn [chosen_name] for [chosen_cost] point(s)?", "[chosen_name]", list("Cancel", "Learn")) == "Cancel")
-		return
-
-	user.mind.spell_points_used_by_pool[pool_name] += chosen_cost
-	learn_spell_from_path(user, chosen_path, pool_name)
-	addtimer(CALLBACK(user.mind, TYPE_PROC_REF(/datum/mind, check_learnspell)), 2 SECONDS)
-	return TRUE

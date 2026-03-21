@@ -116,8 +116,7 @@ decreases charge time if held opened in hand, for pure mage build + aesthetics.
 		var/obj/effect/proc_holder/spell/spell = spell_list[i]
 		if(spell.refundable == TRUE)
 			if(spell.cost > 0)
-				var/pool_tag = spell.learned_from_pool ? " ([capitalize(spell.learned_from_pool)])" : ""
-				resettable_spells["[spell.name]: [spell.cost][pool_tag]"] = spell_list[i]
+				resettable_spells["[spell.name]: [spell.cost]"] = spell_list[i]
 	if(!resettable_spells.len)
 		to_chat(user, span_warning("I have no spells to unbind!"))
 		return
@@ -131,10 +130,7 @@ decreases charge time if held opened in hand, for pure mage build + aesthetics.
 		if(!resettable_spells.len)
 			return
 		if(user_mind.RemoveSpell(item))
-			if(item.learned_from_pool && LAZYLEN(user_mind.spell_points_used_by_pool))
-				user_mind.spell_points_used_by_pool[item.learned_from_pool] = max(0, user_mind.spell_points_used_by_pool[item.learned_from_pool] - item.cost)
-			else
-				user_mind.used_spell_points -= item.cost
+			user_mind.used_spell_points -= item.cost
 			unlearn_success = TRUE
 		resettable_spells.Remove(choice)
 		user_mind.check_learnspell()

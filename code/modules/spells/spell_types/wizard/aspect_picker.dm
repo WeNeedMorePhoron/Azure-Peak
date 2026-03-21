@@ -5,10 +5,36 @@
 	/// Staged selections - not applied until confirm. List of type paths.
 	var/list/staged_majors = list()
 	var/list/staged_minors = list()
+	/// Selected utility spell paths (string paths)
+	var/list/staged_utilities = list()
+	/// Whether to grant mastery variants (T4)
+	var/mastery = FALSE
+	/// Overrides for max slots. 0 = tab locked.
+	var/override_max_majors
+	var/override_max_minors
+	var/max_utilities = 0
+	/// Aspect type paths that are pre-bound and cannot be removed
+	var/list/locked_aspects = list()
 
-/datum/aspect_picker/New(mob/living/new_owner, setup = TRUE)
+/datum/aspect_picker/New(mob/living/new_owner, setup = TRUE, list/aspect_config)
 	owner = new_owner
 	initial_setup = setup
+	if(length(aspect_config))
+		mastery = aspect_config["mastery"]
+		override_max_majors = aspect_config["major"]
+		override_max_minors = aspect_config["minor"]
+		max_utilities = aspect_config["utilities"] || 0
+		if(length(aspect_config["locked_aspects"]))
+			for(var/path in aspect_config["locked_aspects"])
+				locked_aspects += path
+				// Auto-stage locked aspects
+				var/datum/magic_aspect/temp = new path
+				switch(temp.aspect_type)
+					if(ASPECT_MAJOR)
+						staged_majors |= path
+					if(ASPECT_MINOR)
+						staged_minors |= path
+				qdel(temp)
 
 /datum/aspect_picker/Destroy()
 	owner = null
@@ -20,13 +46,14 @@
 /datum/aspect_picker/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AspectPicker", "Arcyne Aspects", 820, 560)
+		ui = new(user, src, "GrimoireAspectPicker", "Grimoire", 860, 580)
 		ui.open()
 
 /datum/aspect_picker/ui_static_data(mob/user)
 	var/list/data = list()
 	data["major_aspects"] = build_aspect_list(GLOB.magic_aspects_major)
 	data["minor_aspects"] = build_aspect_list(GLOB.magic_aspects_minor)
+	data["utility_spells"] = build_utility_list()
 	return data
 
 /datum/aspect_picker/ui_data(mob/user)
@@ -34,10 +61,16 @@
 	if(!owner?.mind)
 		return data
 	var/user_tier = get_user_spell_tier(owner)
-	data["user_tier"] = user_tier
-	data["max_majors"] = (user_tier >= 4) ? MAX_MAJOR_ASPECTS_T4 : MAX_MAJOR_ASPECTS_T3
-	data["max_minors"] = MAX_MINOR_ASPECTS
+	data["user_tier"] = mastery ? 4 : user_tier
+	data["max_majors"] = isnull(override_max_majors) ? ((user_tier >= 4) ? MAX_MAJOR_ASPECTS_T4 : MAX_MAJOR_ASPECTS_T3) : override_max_majors
+	data["max_minors"] = isnull(override_max_minors) ? MAX_MINOR_ASPECTS : override_max_minors
+	data["max_utilities"] = max_utilities
 	data["initial_setup"] = initial_setup
+	// Send locked aspect paths to the UI
+	var/list/locked_paths = list()
+	for(var/path in locked_aspects)
+		locked_paths += "[path]"
+	data["locked_aspects"] = locked_paths
 
 	// Show both already-attuned and staged selections
 	data["attuned_majors"] = list()
@@ -53,6 +86,7 @@
 		data["attuned_minors"] |= "[path]"
 
 	data["pointbuy_selections"] = pointbuy_selections
+	data["selected_utilities"] = staged_utilities
 
 	// Collect all selected/granted spell paths so the UI can grey out duplicates
 	// This includes both pointbuy selections AND fixed spells from all staged aspects
@@ -149,6 +183,12 @@
 		entry["cost"] = initial(S.cost)
 	return entry
 
+/datum/aspect_picker/proc/build_utility_list()
+	var/list/result = list()
+	for(var/path in GLOB.utility_spells)
+		result += list(build_spell_entry(path))
+	return result
+
 /// Check if a staged path conflicts with other staged paths via countersynergy
 /datum/aspect_picker/proc/has_countersynergy(check_path)
 	var/datum/magic_aspect/check = new check_path
@@ -176,7 +216,8 @@
 		return
 
 	var/user_tier = get_user_spell_tier(owner)
-	var/max_majors = (user_tier >= 4) ? MAX_MAJOR_ASPECTS_T4 : MAX_MAJOR_ASPECTS_T3
+	var/max_majors = isnull(override_max_majors) ? ((user_tier >= 4) ? MAX_MAJOR_ASPECTS_T4 : MAX_MAJOR_ASPECTS_T3) : override_max_majors
+	var/max_minors_resolved = isnull(override_max_minors) ? MAX_MINOR_ASPECTS : override_max_minors
 
 	switch(action)
 		if("attune")
@@ -200,7 +241,7 @@
 						return
 					staged_majors += path
 				if(ASPECT_MINOR)
-					if(length(staged_minors) >= MAX_MINOR_ASPECTS)
+					if(length(staged_minors) >= max_minors_resolved)
 						to_chat(owner, span_warning("I cannot select another minor aspect."))
 						return
 					if(path in staged_minors)
@@ -213,6 +254,8 @@
 				return
 			var/path = text2path(params["path"])
 			if(!path)
+				return
+			if(path in locked_aspects)
 				return
 			staged_majors -= path
 			staged_minors -= path
@@ -246,6 +289,19 @@
 						to_chat(owner, span_warning("Not enough points remaining in this aspect's budget."))
 						return
 				selections += spell_path
+			. = TRUE
+
+		if("utility_toggle")
+			var/spell_path = params["spell_path"]
+			if(!spell_path)
+				return
+			if(spell_path in staged_utilities)
+				staged_utilities -= spell_path
+			else
+				if(length(staged_utilities) >= max_utilities)
+					to_chat(owner, span_warning("No utility slots remaining."))
+					return
+				staged_utilities += spell_path
 			. = TRUE
 
 		if("confirm")
@@ -288,19 +344,28 @@
 					var/datum/new_spell = new spell_path
 					attuned.mark_aspect_spell(new_spell)
 					owner.mind.AddSpell(new_spell)
+			// Apply utility spell selections
+			for(var/spell_path_str in staged_utilities)
+				var/spell_path = text2path(spell_path_str)
+				if(!spell_path)
+					continue
+				if(owner.mind.has_spell(spell_path))
+					continue
+				var/datum/new_spell = new spell_path
+				owner.mind.AddSpell(new_spell)
 			// Check if learnspell should remain
 			owner.mind.check_learnspell()
 
 			// Check if there are remaining aspect slots
-			var/max_maj = (user_tier >= 4) ? MAX_MAJOR_ASPECTS_T4 : MAX_MAJOR_ASPECTS_T3
 			var/current_majors = LAZYLEN(owner.mind.major_aspects)
 			var/current_minors = LAZYLEN(owner.mind.minor_aspects)
-			var/has_remaining = (current_majors < max_maj) || (current_minors < MAX_MINOR_ASPECTS)
+			var/has_remaining = (current_majors < max_majors) || (current_minors < max_minors_resolved)
 
 			if(has_remaining)
 				// Reset staged lists for next round of picks
 				staged_majors.Cut()
 				staged_minors.Cut()
+				staged_utilities.Cut()
 				pointbuy_selections = list()
 				SStgui.close_uis(src)
 				to_chat(owner, span_notice("Aspects applied. You have remaining slots — use your spellbook to continue selecting."))

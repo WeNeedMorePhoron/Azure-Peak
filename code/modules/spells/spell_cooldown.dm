@@ -67,8 +67,6 @@
 	var/spell_tier = 1
 	/// If true, the spell can be refunded. Set by learnspell when learned.
 	var/refundable = FALSE
-	/// If set, the spell was learned from a pool-based system and should refund to this pool name.
-	var/learned_from_pool
 	/// If this spell is evil and can only be learned by heretics.
 	var/zizo_spell = FALSE
 	/// Damage value shown in spell examine. For non-projectile spells that want to display damage.

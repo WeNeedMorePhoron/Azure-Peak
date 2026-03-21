@@ -15,10 +15,10 @@
 	else
 		add_arcyne_potential_spellpoints(recipient, 3)
 
-/// Helper: adds spellpoints to utility pool if available, otherwise flat spellpoints
+/// Helper: adds utility slots to aspect config if available, otherwise flat spellpoints
 /datum/virtue/combat/magical_potential/proc/add_arcyne_potential_spellpoints(mob/living/carbon/human/recipient, amount)
-	if(recipient.mind?.spell_point_pools?["utility"])
-		recipient.mind.spell_point_pools["utility"] += amount
+	if(LAZYLEN(recipient.mind?.mage_aspect_config))
+		recipient.mind.mage_aspect_config["utilities"] += amount
 		recipient.mind.check_learnspell()
 	else
 		recipient.mind?.adjust_spellpoints(amount)
