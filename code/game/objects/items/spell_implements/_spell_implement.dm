@@ -51,3 +51,18 @@
 			implement.set_light(1, 1, 1, l_color = spell_color)
 	implement.remove_filter(IMPLEMENT_GLOW_FILTER)
 	implement.add_filter(IMPLEMENT_GLOW_FILTER, 2, list("type" = "outline", "color" = spell_color, "alpha" = glow_alpha, "size" = 1))
+
+/// Prompts the user to choose between a wand or staff implement of the given tier.
+/// Returns the chosen implement type path, or staff by default.
+/proc/choose_implement(mob/living/carbon/human/H, tier = "lesser")
+	var/choice = tgui_input_list(H, "Choose your implement.", "IMPLEMENT", list("Staff", "Wand"))
+	if(!choice)
+		choice = "Staff"
+	switch(tier)
+		if("lesser")
+			return choice == "Wand" ? /obj/item/rogueweapon/wand : /obj/item/rogueweapon/woodstaff/implement
+		if("greater")
+			return choice == "Wand" ? /obj/item/rogueweapon/wand/greater : /obj/item/rogueweapon/woodstaff/implement/greater
+		if("grand")
+			return choice == "Wand" ? /obj/item/rogueweapon/wand/grand : /obj/item/rogueweapon/woodstaff/implement/grand
+	return /obj/item/rogueweapon/woodstaff/implement

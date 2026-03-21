@@ -46,10 +46,8 @@
 	neck = /obj/item/clothing/neck/roguetown/gorget
 	beltl = /obj/item/rogueweapon/huntingknife
 	backl = /obj/item/storage/backpack/rogue/satchel
-	backr = /obj/item/rogueweapon/woodstaff/implement/greater
 	backpack_contents = list(
-		/obj/item/spellbook_unfinished/pre_arcyne = 1,
-		/obj/item/roguegem/amethyst = 1,
+		/obj/item/book/spellbook = 1,
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 		/obj/item/flashlight/flare/torch/lantern/prelit = 1,
 		/obj/item/necro_relics/necro_crystal = 1,
@@ -59,6 +57,7 @@
 		)
 	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
 	if(H.mind)
+		backr = choose_implement(H, "greater")
 		H.mind?.current.faction += "[H.name]_faction"
 		H.set_patron(/datum/patron/inhumen/zizo)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/eyebite)

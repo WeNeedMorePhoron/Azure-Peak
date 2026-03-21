@@ -40,23 +40,22 @@
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
 	beltl = /obj/item/rogueweapon/huntingknife
 	backl = /obj/item/storage/backpack/rogue/satchel
-	backr = /obj/item/rogueweapon/woodstaff
 	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
 	if(H.mind)
-		var/spec = list("Sorcerer", "Alchemist") // Much smaller selection with only three swords. You will probably want to upgrade.
+		backr = choose_implement(H, "lesser")
+		var/spec = list("Sorcerer", "Alchemist")
 		var/spec_choice = input(H, "Choose your specialization.", "WHO AM I?") as anything in spec
 		switch(spec_choice)
-			if("Sorcerer") //standart adventure mage
-				H.mind?.adjust_spellpoints(4) //18, standart
+			if("Sorcerer")
 				backpack_contents = list(
-					/obj/item/spellbook_unfinished/pre_arcyne = 1,
-					/obj/item/roguegem/amethyst = 1,
+					/obj/item/book/spellbook = 1,
 					/obj/item/chalk = 1
 					)
-			if("Alchemist") //less points, no book and chalk, but good alchemistry skill with roundstart and folding cauldron it backpack.
+			if("Alchemist")
 				H.adjust_skillrank_up_to(/datum/skill/craft/alchemy, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				backl = /obj/item/storage/backpack/rogue/backpack
 				backpack_contents = list(
+					/obj/item/book/spellbook = 1,
 					/obj/item/folding_alchcauldron_stored = 1,
 					/obj/item/reagent_containers/glass/bottle = 3,
 					/obj/item/reagent_containers/glass/bottle/alchemical = 3,

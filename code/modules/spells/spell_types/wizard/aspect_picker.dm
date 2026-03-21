@@ -209,11 +209,13 @@
 		var/datum/action/cooldown/spell/S = spell_path
 		entry["name"] = initial(S.name)
 		entry["desc"] = initial(S.desc)
+		entry["fluff_desc"] = initial(S.fluff_desc)
 		entry["cost"] = initial(S.point_cost)
 	else
 		var/obj/effect/proc_holder/spell/S = spell_path
 		entry["name"] = initial(S.name)
 		entry["desc"] = initial(S.desc)
+		entry["fluff_desc"] = ""
 		entry["cost"] = initial(S.cost)
 	return entry
 

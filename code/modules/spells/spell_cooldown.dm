@@ -170,6 +170,9 @@
 	/// If FALSE (default), spell uses hold-and-release: hold middle-click to charge, release to cast.
 	var/charge_then_click = FALSE
 
+	/// Lore/flavor text. Shown on hover in spell lists, always shown in detailed examine.
+	var/fluff_desc = ""
+
 	/// If the spell creates visual effects.
 	var/has_visual_effects = TRUE
 	/// The color used for spell visual effects (rune, particles, wave). Each spell sets its own.

@@ -82,13 +82,11 @@
 	beltl = /obj/item/storage/magebag/associate
 	beltr = /obj/item/storage/keyring/apprentice
 	backl = /obj/item/storage/backpack/rogue/satchel
-	backr = /obj/item/rogueweapon/woodstaff
 	shoes = /obj/item/clothing/shoes/roguetown/gladiator
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/mage
 	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	backpack_contents = list(
-		/obj/item/roguegem/amethyst = 1,
-		/obj/item/spellbook_unfinished/pre_arcyne = 1,
+		/obj/item/book/spellbook = 1,
 		/obj/item/recipe_book/alchemy = 1,
 		/obj/item/recipe_book/magic = 1,
 		/obj/item/chalk = 1,
@@ -97,7 +95,7 @@
 		if(/datum/patron/inhumen/zizo)
 			H.cmode_music = 'sound/music/combat_heretic.ogg'
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+		backr = choose_implement(H, "lesser")
 		SStreasury.give_money_account(ECONOMIC_LOWER_MIDDLE_CLASS, H, "Savings.")
 
 /datum/advclass/wapprentice/alchemist
@@ -143,22 +141,20 @@
 	beltl = /obj/item/storage/magebag/associate
 	beltr = /obj/item/storage/keyring/apprentice
 	backl = /obj/item/storage/backpack/rogue/satchel
-	backr = /obj/item/rogueweapon/woodstaff
 	shoes = /obj/item/clothing/shoes/roguetown/gladiator
 	backpack_contents = list(
-		/obj/item/roguegem/amethyst = 1,
+		/obj/item/book/spellbook = 1,
 		/obj/item/seeds/swampweed = 1,
 		/obj/item/seeds/pipeweed = 1,
 		/obj/item/recipe_book/alchemy = 1,
 		/obj/item/recipe_book/magic = 1,
 		/obj/item/chalk = 1,
-		/obj/item/spellbook_unfinished/pre_arcyne = 1
 		)
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
 			H.cmode_music = 'sound/music/combat_heretic.ogg'
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+		backr = choose_implement(H, "lesser")
 		SStreasury.give_money_account(ECONOMIC_LOWER_MIDDLE_CLASS, H, "Savings.")
 
 /datum/advclass/wapprentice/apprentice
@@ -196,20 +192,18 @@
 	beltl = /obj/item/storage/magebag/associate
 	beltr = /obj/item/storage/keyring/apprentice
 	backl = /obj/item/storage/backpack/rogue/satchel
-	backr = /obj/item/rogueweapon/woodstaff
 	shoes = /obj/item/clothing/shoes/roguetown/gladiator
 	backpack_contents = list(
-		/obj/item/roguegem/amethyst = 1,
+		/obj/item/book/spellbook = 1,
 		/obj/item/recipe_book/alchemy = 1,
 		/obj/item/recipe_book/magic = 1,
-		/obj/item/spellbook_unfinished/pre_arcyne = 1,
 		/obj/item/chalk = 1,
 		)
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
 			H.cmode_music = 'sound/music/combat_heretic.ogg'
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+		backr = choose_implement(H, "lesser")
 		SStreasury.give_money_account(ECONOMIC_LOWER_MIDDLE_CLASS, H, "Savings.")
 
 // Here lies the grave of Azurcaephon Associate, removed because a good portion of mage players are using it as a validhunting class
