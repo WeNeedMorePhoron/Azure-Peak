@@ -15,6 +15,7 @@
 	no_early_release = TRUE
 	charging_slowdown = 1
 	spell_tier = 1
+	spell_impact_intensity = SPELL_IMPACT_LOW
 	invocations = list("Recolligere Minora")
 	invocation_type = "whisper"
 	hide_charge_effect = TRUE // essential for rogue mage

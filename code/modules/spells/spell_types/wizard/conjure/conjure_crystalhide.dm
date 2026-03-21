@@ -15,6 +15,7 @@
 	charging_slowdown = 3
 	cost = 4
 	spell_tier = 3
+	spell_impact_intensity = SPELL_IMPACT_NONE
 
 	invocations = list("Psymagia Congrego!") //COLLECT WORLD-LUX/WORLD-LEY.
 	invocation_type = "shout"

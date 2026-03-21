@@ -33,6 +33,7 @@
 	cooldown_time = 15 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 
 /obj/projectile/magic/lightning
 	name = "bolt of lightning"

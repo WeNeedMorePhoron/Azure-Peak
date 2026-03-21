@@ -25,6 +25,7 @@
 	cooldown_time = 25 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
+	spell_impact_intensity = SPELL_IMPACT_LOW
 
 	var/area_of_effect = 1
 	var/ensnare_duration = 5 SECONDS

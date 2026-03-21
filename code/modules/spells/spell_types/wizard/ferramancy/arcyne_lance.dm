@@ -29,6 +29,7 @@
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 
 // --- Arcyne spear projectile ---
 

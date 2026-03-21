@@ -13,6 +13,7 @@
 	charging_slowdown = 3
 	cost = 2
 	spell_tier = 2 // Spellblade tier.
+	spell_impact_intensity = SPELL_IMPACT_LOW
 
 	invocations = list("Valtarem!")
 	invocation_type = "shout"

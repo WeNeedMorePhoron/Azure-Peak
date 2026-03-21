@@ -16,6 +16,7 @@
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 1
+	spell_impact_intensity = SPELL_IMPACT_LOW
 	invocations = list("Minora Exmoveo!")
 	invocation_type = "whisper"
 	glow_color = GLOW_COLOR_DISPLACEMENT

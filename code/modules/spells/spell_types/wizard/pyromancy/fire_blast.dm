@@ -26,6 +26,7 @@
 	cooldown_time = 10 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 
 	var/line_length = 4
 	var/blast_damage = 30
@@ -84,6 +85,7 @@
 				break
 			victim.adjust_fire_stacks(fire_stacks_applied)
 			victim.ignite_mob()
+			new /obj/effect/temp_visual/spell_impact(get_turf(victim), spell_color, spell_impact_intensity)
 			already_hit += victim
 			var/push_dir = get_dir(H, victim)
 			if(!push_dir)

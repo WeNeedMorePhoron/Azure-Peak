@@ -24,6 +24,7 @@
 	no_early_release = TRUE
 	movement_interrupt = FALSE
 	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_LOW
 	invocations = list("Aeris Gladios!")
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_ARCANE

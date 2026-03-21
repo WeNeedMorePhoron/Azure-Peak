@@ -30,6 +30,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 3
 	point_cost = 6
+	spell_impact_intensity = SPELL_IMPACT_HIGH
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
@@ -95,6 +96,7 @@
 			apply_frost_stack(L)
 			playsound(affected_turf, pick('sound/combat/fracture/fracturedry (1).ogg', 'sound/combat/fracture/fracturedry (2).ogg', 'sound/combat/fracture/fracturedry (3).ogg'), 80, TRUE)
 			to_chat(L, span_userdanger("The air chills your bones!"))
+			new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
 
 	if(play_cleave)
 		playsound(T, 'sound/spellbooks/crystal.ogg', 100, TRUE, soundping = TRUE)

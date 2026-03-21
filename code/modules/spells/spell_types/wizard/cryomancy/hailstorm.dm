@@ -37,6 +37,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 4
 	point_cost = 6
+	spell_impact_intensity = SPELL_IMPACT_HIGH
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
@@ -166,4 +167,5 @@
 			else
 				L.adjustFireLoss(bolt_damage)
 			apply_frost_stack(L)
+			new /obj/effect/temp_visual/spell_impact(get_turf(L), GLOW_COLOR_ICE, SPELL_IMPACT_HIGH)
 	qdel(src)

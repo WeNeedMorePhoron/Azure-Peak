@@ -13,6 +13,7 @@
 	projectile_type_arc = /obj/projectile/magic/aoe/fireball/rogue/arc
 	cast_range = 8
 	point_cost = 6
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MAJOR_PROJECTILE

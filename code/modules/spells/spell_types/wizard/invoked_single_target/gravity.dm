@@ -15,6 +15,7 @@
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 	invocations = list("Pondus!")
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_DISPLACEMENT
@@ -62,6 +63,7 @@
 				L.OffBalance(10)
 				L.adjustBruteLoss(15)
 				to_chat(L, "<span class='userdanger'>I'm magically weighed down, but my strength resist!</span>")
+			new /obj/effect/temp_visual/spell_impact(get_turf(L), glow_color, spell_impact_intensity)
 	return TRUE
 
 /obj/effect/temp_visual/gravity

@@ -15,6 +15,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	range = 6
 	spell_tier = 3
+	spell_impact_intensity = SPELL_IMPACT_LOW
 	invocations = list("Impedio!")
 	invocation_type = "shout"
 	gesture_required = TRUE // Offensive spell

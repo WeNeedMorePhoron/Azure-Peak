@@ -65,6 +65,8 @@
 	var/point_cost = 0
 	/// Tier of the spell, used to determine whether you can learn it based on class.
 	var/spell_tier = 1
+	/// Visual impact intensity for on-hit effects. See SPELL_IMPACT defines.
+	var/spell_impact_intensity = SPELL_IMPACT_NONE
 	/// If true, the spell can be refunded. Set by learnspell when learned.
 	var/refundable = FALSE
 	/// If this spell is evil and can only be learned by heretics.

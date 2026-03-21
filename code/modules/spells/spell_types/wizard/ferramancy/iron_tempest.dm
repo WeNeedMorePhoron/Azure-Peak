@@ -32,6 +32,7 @@
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 
 	/// How long the tempest persists
 	var/tempest_duration = 10 SECONDS
@@ -168,6 +169,7 @@
 					allow_shield_check = TRUE)
 			else
 				L.adjustBruteLoss(tick_damage)
+			new /obj/effect/temp_visual/spell_impact(get_turf(L), GLOW_COLOR_METAL, SPELL_IMPACT_MEDIUM)
 
 // --- Spinning dagger visual effect ---
 

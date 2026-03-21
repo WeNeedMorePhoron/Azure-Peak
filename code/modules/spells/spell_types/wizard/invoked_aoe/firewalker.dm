@@ -11,6 +11,7 @@
 	recharge_time = 45 SECONDS
 	warnie = "spellwarning"
 	spell_tier = 3
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 	invocations = list("Ignis Saltatio.")
 	invocation_type = "whisper"
 	glow_color = GLOW_COLOR_FIRE

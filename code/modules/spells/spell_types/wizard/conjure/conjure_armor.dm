@@ -17,6 +17,7 @@
 	charging_slowdown = 3
 	cost = 2
 	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_NONE
 
 	invocations = list("Cladum Fati!") //destiny's defeat!
 	invocation_type = "shout"

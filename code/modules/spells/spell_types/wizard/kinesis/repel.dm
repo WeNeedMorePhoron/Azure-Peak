@@ -29,6 +29,7 @@
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_LOW
 
 /datum/action/cooldown/spell/projectile/repel/cast(atom/cast_on)
 	if(ishuman(owner))

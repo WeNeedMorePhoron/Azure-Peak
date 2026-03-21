@@ -18,6 +18,7 @@
 	cost = 1
 	range = 3
 	spell_tier = 1 // Utility, with situational combat use. Great for fighting trolls..
+	spell_impact_intensity = SPELL_IMPACT_NONE
 	ignore_los = FALSE
 
 	invocations = list("Ignis Castrensis Magicae.") // Literally "Magical Campfire"

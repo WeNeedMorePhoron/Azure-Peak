@@ -17,6 +17,7 @@
 	movement_interrupt = FALSE
 	antimagic_allowed = FALSE //can you use it if you are antimagicked?
 	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 	invocations = list("Tabificus!")
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_ARCANE

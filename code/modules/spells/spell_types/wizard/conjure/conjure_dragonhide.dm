@@ -17,6 +17,7 @@
 	charging_slowdown = 3
 	cost = 4 // upgrade on ring, + firestack immunity pretty dang good.
 	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_NONE
 
 	invocations = list("Equitare Draconis") // google translate latin 'ride the dragon' - If someone literate wants to change this, feel free to.
 	invocation_type = "shout"

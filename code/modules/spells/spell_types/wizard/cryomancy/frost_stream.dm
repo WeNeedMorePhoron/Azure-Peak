@@ -32,6 +32,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
 	point_cost = 3
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 
 	var/line_length = 4
 	var/blast_damage = 40

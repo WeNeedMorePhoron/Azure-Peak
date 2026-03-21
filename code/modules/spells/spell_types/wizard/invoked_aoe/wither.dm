@@ -16,6 +16,7 @@
 	gesture_required = TRUE // Offensive spell
 	human_req = TRUE // Combat spell
 	spell_tier = 3 // AOE
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 	invocations = list("Arescentem!")
 	invocation_type = "shout"
 	glow_color = "#b884f8" // evil ass purple
@@ -60,6 +61,7 @@
 			continue
 		L.adjustFireLoss(damage)
 		L.apply_status_effect(/datum/status_effect/buff/witherd/)
+		new /obj/effect/temp_visual/spell_impact(get_turf(L), glow_color, spell_impact_intensity)
 
 
 /obj/effect/temp_visual/trap/wither

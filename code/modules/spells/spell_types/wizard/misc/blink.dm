@@ -12,6 +12,7 @@
 	movement_interrupt = FALSE
 	gesture_required = TRUE // Mobility spell
 	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_NONE
 	charging_slowdown = CHARGING_SLOWDOWN_SMALL
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/arcane

@@ -18,6 +18,7 @@
 
 	spell_tier = 4
 	point_cost = 9
+	spell_impact_intensity = SPELL_IMPACT_HIGH
 
 /obj/projectile/magic/aoe/fireball/rogue/artillery
 	name = "Artillery Fireball"

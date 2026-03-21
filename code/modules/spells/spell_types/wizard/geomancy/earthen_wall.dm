@@ -27,6 +27,7 @@
 	cooldown_time = 30 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
+	spell_impact_intensity = SPELL_IMPACT_NONE
 
 	var/wall_width = 3
 	var/conjure_time = 2 SECONDS

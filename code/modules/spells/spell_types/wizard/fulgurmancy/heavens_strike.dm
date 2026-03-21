@@ -33,6 +33,7 @@
 	cooldown_time = 10 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
+	spell_impact_intensity = SPELL_IMPACT_HIGH
 
 	var/damage = 80
 	var/npc_simple_damage_mult = 2
@@ -85,3 +86,4 @@
 		else
 			L.electrocute_act(actual_damage, src, 1, SHOCK_NOSTUN)
 		L.electrocute_act(0, src, 1, SHOCK_NOSTUN|SHOCK_VISUAL_ONLY)
+		new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)

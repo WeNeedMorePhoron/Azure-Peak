@@ -13,6 +13,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	hand_path = /obj/item/melee/touch_attack/lesserknock
 	spell_tier = 1
+	spell_impact_intensity = SPELL_IMPACT_NONE
 	invocations = list("Parvus Pulso")
 	invocation_type = "whisper" // It is a fake stealth spell (lockpicking is very loud)
 	hide_charge_effect = TRUE

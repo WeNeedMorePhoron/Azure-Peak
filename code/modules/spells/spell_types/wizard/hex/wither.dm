@@ -31,6 +31,7 @@
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
@@ -127,6 +128,7 @@
 			if(!existing)
 				L.apply_status_effect(/datum/status_effect/debuff/withered)
 				to_chat(L, span_userdanger("A withering curse saps my strength!"))
+				new /obj/effect/temp_visual/spell_impact(get_turf(L), "#b884f8", SPELL_IMPACT_MEDIUM)
 
 /obj/effect/wither_zone/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)

@@ -29,6 +29,7 @@
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_LOW
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
@@ -76,6 +77,7 @@
 				M.set_resting(TRUE, TRUE)
 				M.adjustBruteLoss(20)
 				to_chat(M, span_danger("You're slammed into the floor by [user]!"))
+				new /obj/effect/temp_visual/spell_impact(get_turf(M), spell_color, spell_impact_intensity)
 		else
 			if(showsparkles)
 				new sparkle_path(get_turf(AM), get_dir(user, AM))

@@ -29,6 +29,7 @@
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
@@ -95,6 +96,7 @@
 				L.adjustBruteLoss(actual_damage)
 			playsound(affected_turf, "genslash", 80, TRUE)
 			to_chat(L, span_userdanger("You're cut by arcyne force!"))
+			new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
 
 	if(play_cleave)
 		playsound(T, 'sound/combat/newstuck.ogg', 80, TRUE, soundping = TRUE)

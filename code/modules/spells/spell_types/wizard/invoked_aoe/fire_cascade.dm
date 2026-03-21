@@ -3,6 +3,7 @@
 	desc = "Heats the air around you."
 	overlay_state = "fireaura"
 	spell_tier = 3
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 	cost = 6
 	releasedrain = SPELLCOST_MINOR_AOE
 	chargedrain = 1

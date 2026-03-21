@@ -13,6 +13,7 @@
 	no_early_release = TRUE
 	movement_interrupt = FALSE
 	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_NONE
 	invocations = list("Vivere Putrescere!")
 	invocation_type = "shout"
 	charging_slowdown = 2

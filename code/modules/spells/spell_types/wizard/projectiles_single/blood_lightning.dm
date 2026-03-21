@@ -15,6 +15,7 @@
 	no_early_release = TRUE
 	movement_interrupt = FALSE
 	spell_tier = 2 // Doesn't matter for the most part
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 	invocations = list("Sanguis Sagitta!")
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_VAMPIRIC

@@ -21,6 +21,7 @@
 	gesture_required = TRUE
 	human_req = TRUE
 	spell_tier = 3
+	spell_impact_intensity = SPELL_IMPACT_HIGH
 	invocations = list("Feri Fulmine Hostem!") // Based on Zeus - Strike the Enemy with Lightning!
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_LIGHTNING
@@ -73,3 +74,4 @@
 			L.visible_message(span_warning("[L] weathers the lightning strike!"))
 			continue
 		L.electrocute_act(damage * damage_mod, src, 1, SHOCK_NOSTUN)
+		new /obj/effect/temp_visual/spell_impact(get_turf(L), glow_color, spell_impact_intensity)

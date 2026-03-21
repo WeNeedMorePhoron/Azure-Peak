@@ -12,6 +12,7 @@
 	sound = 'sound/magic/whiteflame.ogg'
 	cost = 2
 	spell_tier = 1 // Utility. For repair
+	spell_impact_intensity = SPELL_IMPACT_NONE
 	glow_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_LOW
 	ignore_los = TRUE // temp. cus it breaks if it doesnt have this maybe
