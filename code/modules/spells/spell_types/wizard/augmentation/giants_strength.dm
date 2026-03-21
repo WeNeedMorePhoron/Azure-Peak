@@ -3,9 +3,8 @@
 /datum/action/cooldown/spell/giants_strength
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Giant's Strength"
-	desc = "Strengthen the target. (+3 Strength)\n\
-	Casting on another person extends the duration.\n\
-	<b>Activation:</b> Hold middle-click to charge. Release when charged, then middle-click on target."
+	desc = "Strengthen the target. (+3 Strength)\nCasting on another person extends the duration."
+	fluff_desc = "TODO"
 	button_icon_state = "giants_strength"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF

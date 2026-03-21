@@ -5,6 +5,7 @@
 	desc = "Summon a storm of arcyne blades erupting from the ground in an area. After a short delay, the blades burst upward and cut anything still standing in the zone. \
 	Always targets the feet.\n\
 	Damage is increased by 100% versus simple-minded creechurs."
+	fluff_desc = "TODO"
 	button_icon_state = "blade_burst"
 	sound = 'sound/magic/blade_burst.ogg'
 	spell_color = GLOW_COLOR_METAL
@@ -86,7 +87,7 @@
 			play_cleave = TRUE
 			var/total_damage = damage
 			if(ishuman(caster) && ishuman(L))
-				arcyne_strike(caster, L, null, total_damage, BODY_ZONE_R_LEG, \
+				arcyne_strike(caster, L, null, total_damage, pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT), \
 					BCLASS_STAB, spell_name = "Blade Burst", \
 					damage_type = BRUTE, npc_simple_damage_mult = npc_simple_damage_mult, \
 					skip_animation = TRUE)

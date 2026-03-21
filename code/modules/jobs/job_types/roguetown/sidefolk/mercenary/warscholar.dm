@@ -146,11 +146,11 @@
 		detailcolor = naledicolors[detailcolor]
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/fist_of_psydon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/grasp_of_psydon)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink/shadowstep)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/blink/shadowstep)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/storm_of_psydon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/empower_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/summonrogueweapon/bladeofpsydon)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mending)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/mending)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 
 	var/datum/status_effect/buff/arcyne_momentum/momentum = H.apply_status_effect(/datum/status_effect/buff/arcyne_momentum)
@@ -275,12 +275,12 @@
 		detailcolor = input("Choose a color.", "NALEDIAN COLORPLEX") as anything in naledicolors
 		detailcolor = naledicolors[detailcolor]
 		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcynebolt)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink/shadowstep)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/blink/shadowstep)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diminish)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/vizier_restoration)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/reversion)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/guidance)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mending)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/mending)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 	

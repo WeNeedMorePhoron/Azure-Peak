@@ -2,8 +2,8 @@
 /datum/action/cooldown/spell/leap
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Leap"
-	desc = "Empower a target's legs to allow them to leap to great heights for 20 seconds. Does not prevent fall damage.\n\
-	<b>Activation:</b> Hold middle-click to charge. Release when charged, then middle-click on target."
+	desc = "Empower a target's legs to allow them to leap to great heights for 20 seconds. Does not prevent fall damage."
+	fluff_desc = "TODO"
 	button_icon_state = "leap"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF

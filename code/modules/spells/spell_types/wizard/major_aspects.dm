@@ -147,9 +147,9 @@
 		/datum/action/cooldown/spell/leap,
 		/datum/action/cooldown/spell/nondetection,
 		// 1-cost utility filler
-		/obj/effect/proc_holder/spell/self/light,
-		/obj/effect/proc_holder/spell/invoked/mending,
-		/obj/effect/proc_holder/spell/invoked/create_campfire,
+		/datum/action/cooldown/spell/light,
+		/datum/action/cooldown/spell/mending,
+		/datum/action/cooldown/spell/create_campfire,
 		/obj/effect/proc_holder/spell/self/message,
 	)
 

@@ -11,6 +11,7 @@
 	desc = "Emit a bolt of lightning that burns a target, preventing them from attacking and slowing them down for 6 seconds. \
 	Damage is increased by 100% versus simple-minded creechurs. \
 	The CC effects cannot be reapplied to the same target within 15 seconds."
+	fluff_desc = "TODO"
 	button_icon_state = "lightning_bolt"
 	sound = 'sound/magic/lightning.ogg'
 	spell_color = GLOW_COLOR_LIGHTNING

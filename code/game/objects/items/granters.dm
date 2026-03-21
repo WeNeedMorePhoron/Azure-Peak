@@ -318,7 +318,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/lesserknock
 	name = "Scroll of Lesser Knock"
-	spell = /obj/effect/proc_holder/spell/targeted/touch/lesserknock
+	spell = /datum/action/cooldown/spell/lesser_knock
 	spellname = "Lesser Knock"
 	icon_state ="scrollred"
 	remarks = list("Clavis vetusta portam..", "Perdita numquam..", "Manus tremens..")
@@ -435,14 +435,14 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/blink
 	name = "Scroll of Blink"
-	spell = /obj/effect/proc_holder/spell/invoked/blink
+	spell = /datum/action/cooldown/spell/blink
 	spellname = "Blink"
 	icon_state ="scrolldarkred"
 	dreamcost = 6
 
 /obj/item/book/granter/spell/blackstone/mirror_transform
 	name = "Scroll of Mirror Transform"
-	spell = /obj/effect/proc_holder/spell/invoked/mirror_transform
+	spell = /datum/action/cooldown/spell/mirror_transform
 	spellname = "Mirror Transform"
 	icon_state ="scrolldarkred"
 	dreamcost = 3
@@ -463,7 +463,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 
 /obj/item/book/granter/spell/blackstone/mending
 	name = "Scroll of Mending"
-	spell = /obj/effect/proc_holder/spell/invoked/mending
+	spell = /datum/action/cooldown/spell/mending
 	spellname = "Stoneskin"
 	icon_state ="scrolldarkred"
 	dreamcost = 6

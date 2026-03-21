@@ -5,6 +5,7 @@
 	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Arcyne Lance"
 	desc = "Hurl a spectral arcyne lance that pierces through up to 3 targets without losing momentum."
+	fluff_desc = "TODO"
 	button_icon_state = "arcyne_lance"
 	sound = 'sound/magic/scrapeblade.ogg'
 	spell_color = GLOW_COLOR_METAL

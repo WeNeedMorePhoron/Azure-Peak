@@ -8,6 +8,7 @@
 	name = "Shock"
 	desc = "Fire a quick jolt of lightning at a target. Deals less damage than most other minor offensive spells, but strikes instantly. \
 	Damage is increased by 100% versus simple-minded creechurs."
+	fluff_desc = "TODO"
 	button_icon_state = "shock"
 	sound = 'sound/magic/lightning.ogg'
 	spell_color = GLOW_COLOR_LIGHTNING

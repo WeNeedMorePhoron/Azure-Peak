@@ -6,6 +6,7 @@
 	button_icon = 'icons/mob/actions/mage_kinesis.dmi'
 	name = "Gravity"
 	desc = "Weighten space around someone, crushing them and knocking them to the floor. Stronger opponents will resist and be off-balanced. Consumes <b>Arcane Marks</b> to slightly increase knockdown time and damage."
+	fluff_desc = "TODO"
 	button_icon_state = "gravity"
 	sound = 'sound/magic/gravity.ogg'
 	spell_color = GLOW_COLOR_KINESIS

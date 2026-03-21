@@ -1,9 +1,8 @@
-// Featherfall — Augmentation AOE self-cast buff (new action system)
-// Status effect kept in buffs_debuffs/featherfall.dm
 /datum/action/cooldown/spell/featherfall
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Featherfall"
 	desc = "Grant yourself and any creatures adjacent to you some defense against falls."
+	fluff_desc = "Featherfall is a simple spell that creates a barrier of air around the target that slows their descent. Mages can't fly, but they certainly do fall. It is said it was invented by a clumsy mage who kept breaking their legs climbing up fruit trees, but this is likely a myth and no one know the true origin of this common spell."
 	button_icon_state = "featherfall"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF

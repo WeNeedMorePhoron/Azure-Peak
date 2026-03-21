@@ -65,7 +65,7 @@
 		"TODO",
 	)
 	choice_spells = list(
-		/obj/effect/proc_holder/spell/invoked/blink,
+		/datum/action/cooldown/spell/blink,
 		/datum/action/cooldown/spell/repulse,
 	)
 
@@ -83,8 +83,8 @@
 		"TODO",
 	)
 	choice_spells = list(
-		/obj/effect/proc_holder/spell/self/conjure_armor/dragonhide,
-		/obj/effect/proc_holder/spell/self/conjure_armor/crystalhide,
+		/datum/action/cooldown/spell/conjure_armor/dragonhide,
+		/datum/action/cooldown/spell/conjure_armor/crystalhide,
 	)
 
 /datum/magic_aspect/lesser_augmentation
@@ -113,9 +113,9 @@
 		/datum/action/cooldown/spell/leap,
 		/datum/action/cooldown/spell/nondetection,
 		// 1-cost utility filler
-		/obj/effect/proc_holder/spell/self/light,
-		/obj/effect/proc_holder/spell/invoked/mending,
-		/obj/effect/proc_holder/spell/invoked/create_campfire,
+		/datum/action/cooldown/spell/light,
+		/datum/action/cooldown/spell/mending,
+		/datum/action/cooldown/spell/create_campfire,
 	)
 
 /datum/magic_aspect/illusion
@@ -150,7 +150,7 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/great_shelter,
-		/obj/effect/proc_holder/spell/invoked/create_campfire,
+		/datum/action/cooldown/spell/create_campfire,
 	)
 
 /datum/magic_aspect/hex

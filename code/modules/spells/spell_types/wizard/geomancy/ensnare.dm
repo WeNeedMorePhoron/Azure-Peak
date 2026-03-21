@@ -2,6 +2,7 @@
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Ensnare"
 	desc = "Tendrils of arcyne force hold anyone in a small area in place for a short while."
+	fluff_desc = "TODO"
 	button_icon_state = "ensnare"
 	sound = 'sound/magic/webspin.ogg'
 	spell_color = GLOW_COLOR_METAL

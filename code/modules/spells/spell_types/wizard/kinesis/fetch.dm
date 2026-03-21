@@ -4,6 +4,7 @@
 	button_icon = 'icons/mob/actions/mage_kinesis.dmi'
 	name = "Fetch"
 	desc = "Shoot out a magical bolt that draws in the target struck towards the caster."
+	fluff_desc = "TODO"
 	button_icon_state = "fetch"
 	sound = 'sound/magic/magnet.ogg'
 	spell_color = GLOW_COLOR_KINESIS

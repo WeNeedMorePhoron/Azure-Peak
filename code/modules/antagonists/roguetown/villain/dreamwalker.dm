@@ -67,7 +67,7 @@
 		ADD_TRAIT(body, trait, "[type]")
 	if(body.mind)
 		body.mind.RemoveAllSpells()
-		body.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink)
+		body.mind.AddSpell(new /datum/action/cooldown/spell/blink)
 		body.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mark_target)
 		body.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/jaunt)
 		body.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/dream_bind)
@@ -107,7 +107,7 @@
 	H.change_stat(STATKEY_WIL, 2)
 
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/blink)
 	H.ambushable = FALSE
 
 /datum/component/dreamwalker_repair

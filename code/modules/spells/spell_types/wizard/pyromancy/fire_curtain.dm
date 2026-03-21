@@ -5,6 +5,7 @@
 	After a 2-second telegraph, the fire erupts. \
 	The fire does not block movement but will burn anything that passes through or stands in it. \
 	You are not immune to your own curtain."
+	fluff_desc = "TODO"
 	button_icon_state = "fire_curtain"
 	sound = 'sound/magic/fireball.ogg'
 	spell_color = GLOW_COLOR_FIRE

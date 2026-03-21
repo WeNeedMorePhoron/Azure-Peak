@@ -154,7 +154,7 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/lich_announce)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/convert_heretic)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/tame_undead)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/raise_deadite)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/raise_deadite)
 	H.ambushable = FALSE
 	H.dna.species.soundpack_m = new /datum/voicepack/other/lich()
 

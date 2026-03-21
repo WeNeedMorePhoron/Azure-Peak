@@ -4,6 +4,7 @@
 	name = "Fireball"
 	desc = "Shoot out a ball of fire that explodes on impact, scorching nearby targets and knocking them back. \
 	Toggle arc mode (Ctrl+G) while the spell is active to fire it over intervening mobs. Arced attacks deal 25% less damage."
+	fluff_desc = "TODO"
 	button_icon_state = "fireball"
 	sound = 'sound/magic/fireball.ogg'
 	spell_color = GLOW_COLOR_FIRE

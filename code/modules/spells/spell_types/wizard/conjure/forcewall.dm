@@ -6,6 +6,7 @@
 	name = "Forcewall"
 	desc = "Conjure a 5x1 wall of arcyne force in front of you, preventing anyone and anything other than you from moving through it.\n\
 	The wall lasts for 20 seconds or until destroyed."
+	fluff_desc = "TODO"
 	button_icon_state = "forcewall"
 	sound = 'sound/magic/whiteflame.ogg'
 	spell_color = GLOW_COLOR_ARCANE

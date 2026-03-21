@@ -7,6 +7,7 @@
 	desc = "Curse an area with withering energy, sapping the strength, speed and constitution of anyone standing within.\n\
 	The zone persists for 20 seconds. Debuff lingers for 3 seconds after leaving the zone.\n\
 	5x5 area of effect."
+	fluff_desc = "TODO"
 	button_icon_state = "wither"
 	sound = 'sound/magic/shadowstep_destination.ogg'
 	spell_color = GLOW_COLOR_HEX

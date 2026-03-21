@@ -5,6 +5,7 @@
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Gravel Blast"
 	desc = "Spray a volley of stone shards at a target. Shards ricochet off walls and become deadlier with each bounce. Subsequent hits on the same target deal reduced damage."
+	fluff_desc = "TODO"
 	button_icon_state = "gravel_blast"
 	sound = 'sound/combat/hits/onstone/wallhit.ogg'
 	spell_color = GLOW_COLOR_METAL

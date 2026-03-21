@@ -3,9 +3,8 @@
 /datum/action/cooldown/spell/stoneskin
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Stoneskin"
-	desc = "Harden the target's skin like stone. (+5 Constitution)\n\
-	Casting on another person extends the duration.\n\
-	<b>Activation:</b> Hold middle-click to charge. Release when charged, then middle-click on target."
+	desc = "Harden the target's skin like stone. (+5 Constitution)\nCasting on another person extends the duration."
+	fluff_desc = "TODO"
 	button_icon_state = "stoneskin"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF

@@ -9,5 +9,12 @@ export const GrimoireSpellEntry = ({ spell }: { spell: Spell }) => (
         dangerouslySetInnerHTML={{ __html: spell.desc }}
       />
     )}
+    {spell.fluff_desc && (
+      <div
+        className="AspectPicker__spell-desc"
+        style={{ fontStyle: 'italic', opacity: 0.5, marginTop: '2px' }}
+        dangerouslySetInnerHTML={{ __html: spell.fluff_desc }}
+      />
+    )}
   </div>
 );

@@ -4,6 +4,7 @@
 	button_icon = 'icons/mob/actions/mage_kinesis.dmi'
 	name = "Repulse"
 	desc = "Conjure forth a wave of energy, repelling anyone around you."
+	fluff_desc = "TODO"
 	button_icon_state = "repulse"
 	sound = 'sound/magic/repulse.ogg'
 	spell_color = GLOW_COLOR_KINESIS

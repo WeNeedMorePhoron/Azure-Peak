@@ -8,6 +8,7 @@
 	desc = "Conjure an Arcyne Aegis - a projected shield of arcyne energy designed to counter projectiles.\n\
 	Less effective against deliberate melee strikes, but excellent against ranged attacks.\n\
 	The shield vanishes when broken or when a new one is conjured."
+	fluff_desc = "TODO"
 	button_icon_state = "conjure_aegis"
 	sound = 'sound/magic/whiteflame.ogg'
 	spell_color = GLOW_COLOR_ARCANE
@@ -54,6 +55,7 @@
 
 	var/obj/item/rogueweapon/shield/arcyne_aegis/S = new(H.drop_location())
 	S.linked_spell = src
+	S.caster_ref = WEAKREF(H)
 	S.AddComponent(/datum/component/conjured_item, null, TRUE)
 	H.put_in_hands(S)
 	conjured_shield = S
@@ -83,6 +85,7 @@
 	anvilrepair = null
 	parrysound = list('sound/combat/parry/shield/magicshield (1).ogg', 'sound/combat/parry/shield/magicshield (2).ogg', 'sound/combat/parry/shield/magicshield (3).ogg')
 	var/datum/action/cooldown/spell/conjure_aegis/linked_spell
+	var/datum/weakref/caster_ref
 
 /obj/item/rogueweapon/shield/arcyne_aegis/obj_break()
 	. = ..()
@@ -96,7 +99,11 @@
 
 /obj/item/rogueweapon/shield/arcyne_aegis/dropped(mob/living/user)
 	. = ..()
-	if(!QDELETED(src))
+	if(QDELETED(src))
+		return
+	var/mob/caster = caster_ref?.resolve()
+	// Only dispel if dropped on the ground (not held by the caster)
+	if(!caster || loc != caster)
 		dispel()
 
 /obj/item/rogueweapon/shield/arcyne_aegis/proc/dispel()

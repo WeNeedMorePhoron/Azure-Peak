@@ -108,7 +108,7 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/recall_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/empower_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/bind_weapon)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mending)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/mending)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/suicidebomb/lesser)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/bonemend)
 

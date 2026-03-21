@@ -5,6 +5,7 @@
 	desc = "Shoot out a rapid bolt of arcyne magic. Inflicts blunt damage, and applies one stack of <b>Arcane Mark</b> on the target. At three marks, it instead does piercing damage and consumes all <b>marks</b>. \
 	Damage is increased by 50% versus simple-minded creechurs. \
 	Toggle arc mode (Ctrl+G) while the spell is active to fire it over intervening mobs. Arced attacks deal 25% less damage."
+	fluff_desc = "TODO"
 	button_icon_state = "arcyne_bolt"
 	sound = 'sound/magic/vlightning.ogg'
 	spell_color = GLOW_COLOR_ARCANE

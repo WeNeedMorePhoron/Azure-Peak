@@ -234,14 +234,14 @@ Somewhat fitting, considering the broadness of their domains. I also just think 
 	var/list/utility_bundle = list(	//Utility means exactly that. Nothing offensive and nothing that can affect another person negatively. (Barring Fetch)
 		/obj/effect/proc_holder/spell/self/message,
 		/datum/action/cooldown/spell/leap,
-		/obj/effect/proc_holder/spell/targeted/touch/lesserknock,
-		/obj/effect/proc_holder/spell/invoked/mending,
+		/datum/action/cooldown/spell/lesser_knock,
+		/datum/action/cooldown/spell/mending,
 		/datum/action/cooldown/spell/projectile/fetch,
-		/obj/effect/proc_holder/spell/invoked/blink,
+		/datum/action/cooldown/spell/blink,
 	)
 	var/list/offensive_bundle = list(	//This is not meant to make them combat-capable. A weak offensive, and mostly defensive option.
 		/datum/action/cooldown/spell/projectile/soulshot,
-		/obj/effect/proc_holder/spell/self/conjure_armor/dragonhide,
+		/datum/action/cooldown/spell/conjure_armor/dragonhide,
 		/datum/action/cooldown/spell/arcyne_forge,
 	)
 	var/list/buff_bundle = list(	//Buffs! An Acolyte being a supportive caster is 100% what they already are, so this fits neatly. No debuffs -- every patron already has a plethora of those.
@@ -751,7 +751,6 @@ GLOBAL_LIST_INIT(noc_scrolls, (list(/obj/item/book/granter/spell/blackstone/fire
 		/obj/item/book/granter/spell/blackstone/lightning,
 		/obj/item/book/granter/spell/blackstone/fetch,
 		/obj/item/book/granter/spell/blackstone/invisibility,
-		/obj/item/book/granter/spell/blackstone/acidsplash,
 		/obj/item/book/granter/spell/blackstone/spitfire,
 		/obj/item/book/granter/spell/blackstone/lesserknock,
 		/obj/item/book/granter/spell/blackstone/repel,

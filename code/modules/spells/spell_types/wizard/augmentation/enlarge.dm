@@ -1,10 +1,8 @@
-// Enlarge — Augmentation buff spell (new action system)
-// Self-contained status effect (uses trait + transform)
 /datum/action/cooldown/spell/enlarge
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Enlarge Person"
-	desc = "For a time, enlarges your target to a giant hulking version of themselves capable of bashing into doors. Does not work on folk who are already large.\n\
-	<b>Activation:</b> Hold middle-click to charge. Release when charged, then middle-click on target."
+	desc = "For a time, enlarges your target to a giant hulking version of themselves capable of bashing into doors. Does not work on folk who are already large."
+	fluff_desc = "Despite its lack of practical combat utility, the spell of Enlarge is surprisingly popular and over 70% of male mages are known to be able to recite its incantation rapidly even if it is not prepared for the dae, according to a survey of the Grenzelhoftian Celestial War Academy's student body."
 	button_icon_state = "enlarge"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF

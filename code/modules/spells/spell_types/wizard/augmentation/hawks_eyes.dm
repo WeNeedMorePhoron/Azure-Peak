@@ -3,9 +3,8 @@
 /datum/action/cooldown/spell/hawks_eyes
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Hawk's Eyes"
-	desc = "Sharpens the target's vision. (+5 Perception)\n\
-	Casting on another person extends the duration.\n\
-	<b>Activation:</b> Hold middle-click to charge. Release when charged, then middle-click on target."
+	desc = "Sharpens the target's vision. (+5 Perception)\nCasting on another person extends the duration."
+	fluff_desc = "TODO"
 	button_icon_state = "hawks_eyes"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF

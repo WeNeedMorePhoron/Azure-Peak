@@ -11,7 +11,7 @@
 	var/list/utility_bundle = list(	//Fly! Well, sort of.
 		/datum/action/cooldown/spell/leap,
 		/datum/action/cooldown/spell/featherfall,
-		/obj/effect/proc_holder/spell/invoked/mirror_transform
+		/datum/action/cooldown/spell/mirror_transform
 	)
 	var/list/offensive_bundle = list( //Bonk. Bonk. Bonk. Bonk. Bonk.
 		/datum/action/cooldown/spell/projectile/arcynebolt

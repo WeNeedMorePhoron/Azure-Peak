@@ -570,7 +570,7 @@ LICH SKELETONS
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/recall_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/empower_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/bind_weapon)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mending)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/mending)
 		H.mind.mage_aspect_config = list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 4)
 
 	H.adjust_blindness(-3)

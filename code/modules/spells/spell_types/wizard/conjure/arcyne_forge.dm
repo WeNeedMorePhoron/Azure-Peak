@@ -6,6 +6,7 @@
 	name = "Arcyne Forge"
 	desc = "Conjure a weapon or tool of your choice. Conjured items have halved durability.\n\
 	Only one conjured item can exist at a time - conjuring a new one destroys the old."
+	fluff_desc = "TODO"
 	button_icon_state = "arcyne_forge"
 	sound = 'sound/magic/whiteflame.ogg'
 	spell_color = GLOW_COLOR_METAL
