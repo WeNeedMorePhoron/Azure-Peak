@@ -57,7 +57,7 @@
 		STATKEY_SPD = 1
 	)
 	age_mod = /datum/class_age_mod/apprentice_associate
-	subclass_spellpoints = 21
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 2, "minor" = 1, "utilities" = 6)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/staves = SKILL_LEVEL_APPRENTICE,
@@ -236,7 +236,7 @@
 		STATKEY_CON = 1,
 		STATKEY_WIL = 1,
 	)
-	subclass_spell_point_pools = list("utility" = 4)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 4)
 	subclass_skills = list(
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/shields = SKILL_LEVEL_APPRENTICE,

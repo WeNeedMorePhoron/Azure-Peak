@@ -17,7 +17,7 @@
 		STATKEY_PER = 1,
 		STATKEY_CON = 1
 	)
-	subclass_spell_point_pools = list("utility" = 4)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 4)
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_EXPERT,

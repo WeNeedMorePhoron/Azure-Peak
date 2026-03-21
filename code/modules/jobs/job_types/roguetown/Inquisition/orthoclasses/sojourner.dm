@@ -34,7 +34,7 @@
 		/datum/skill/magic/holy = SKILL_LEVEL_APPRENTICE,
 	)
 	subclass_spellpoints = 0
-	subclass_spell_point_pools = list("utility" = 4)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 4)
 	subclass_stashed_items = list(
 		"Tome of Psydon" = /obj/item/book/rogue/bibble/psy
 	)

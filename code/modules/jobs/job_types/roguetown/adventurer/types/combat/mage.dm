@@ -13,7 +13,7 @@
 		STATKEY_SPD = 1,
 	)
 	age_mod = /datum/class_age_mod/adv_mage
-	subclass_spellpoints = 14
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 2, "minor" = 1, "utilities" = 6)
 	subclass_skills = list(
 		/datum/skill/combat/staves = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
@@ -84,11 +84,7 @@
 		STATKEY_CON = 1,
 		STATKEY_WIL = 1,
 	)
-	subclass_spell_point_pools = list("utility" = 4)
-	// Just give them Jman for all three schools they can go into
-	// They are functionally crippled without abilities if they
-	// Dip outside of their subclass
-	// Non zero chance someone's gonna be bitching in Discord about this
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 4)
 	subclass_skills = list(
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/shields = SKILL_LEVEL_APPRENTICE,
@@ -297,33 +293,6 @@
 			if("Flute")
 				backr = /obj/item/rogue/instrument/flute
 
-/datum/advclass/mage/spellblade
-	name = "Azurcaephan"
-	tutorial = "You are an Azurcaephan — in common parlance, a Spellblade of the Azurean tradition. A hybrid melee warrior who channels arcyne momentum through combat. Build power with your weapon, then unleash it. Choose between three traditions: Blade (mobile swordsman with dashes and AoE), Phalangite (spear and shield — hold the line with thrusts and pushback), or Macebearer (blunt weapons — ground slams, charges, and shockwaves)."
-	outfit = /datum/outfit/job/roguetown/adventurer/spellblade
-	traits_applied = list(TRAIT_ARCYNE_T2)
-	subclass_stats = list(
-		STATKEY_INT = 1,
-		STATKEY_PER = 1,
-		STATKEY_CON = 1,
-		STATKEY_WIL = 1,
-	)
-	subclass_spell_point_pools = list("utility" = 4)
-	// Just give them Jman for all three schools they can go into
-	// They are functionally crippled without abilities if they
-	// Dip outside of their subclass
-	// Non zero chance someone's gonna be bitching in Discord about this
-	subclass_skills = list(
-		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/shields = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/magic/arcane = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
-	)
-
 /datum/advclass/mage/spellfist
 	name = "Spellfist"
 	tutorial = "You are a Spellfist, an unarmed warrior who combines martial prowess with arcyne magyck. Your art descends from the Pontifexes of Naledi, warrior-monks who first learned to channel arcyne power through their fists, though the technique has since spread across the world — especially to Lingyuese Psydonites in the east. You eschew most weapons in favor of using magyck to accelerate and strengthen your own body, striking enemies with blows from afar and storms of fists up close."
@@ -335,7 +304,7 @@
 		STATKEY_PER = 2,
 		STATKEY_CON = 1
 	)
-	subclass_spell_point_pools = list("utility" = 4)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 4)
 	subclass_spellpoints = 0
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
