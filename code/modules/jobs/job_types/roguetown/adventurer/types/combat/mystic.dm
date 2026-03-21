@@ -110,17 +110,17 @@
 			STATKEY_WIL = 2,
 	)
 	age_mod = /datum/class_age_mod/mystic
-	subclass_spellpoints = 4 // +2 spellpoint, added flexibility, this is a healer focussed class and should be able to a bit more than just healing with the arcyne-holy training
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 3, "utilities" = 4, "locked_aspects" = list(/datum/magic_aspect/lesser_augmentation))
 	subclass_skills = list(
 		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/craft/alchemy = SKILL_LEVEL_APPRENTICE, // the healer focused class, making red should be one of goals to help you with your reduced miracle capabilities
-		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE, // the healer focused class, stitching bleeding wounds faster should help you with your reduced miracle capabilities and stone skin helping your reducing bleeding rate
+		/datum/skill/craft/alchemy = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/magic/arcane = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/magic/holy = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/staves = SKILL_LEVEL_JOURNEYMAN, // usual weapon proficiency, they start with a staff for self defense but shouldn't be crippled if they change for a quarterstaff
+		/datum/skill/combat/staves = SKILL_LEVEL_JOURNEYMAN,
 	)
 
 /datum/outfit/job/roguetown/adventurer/resilient/pre_equip(mob/living/carbon/human/H)
@@ -148,6 +148,23 @@
 		)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/stoneskin)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/fortitude)
+	var/list/poke_options = list("Arcyne Bolt", "Spitfire", "Frost Bolt", "Shock", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
+	var/poke_choice = input(H, "Choose your offensive cantrip.", "Arcyne Training") as anything in poke_options
+	switch(poke_choice)
+		if("Arcyne Bolt")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcynebolt)
+		if("Spitfire")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/spitfire)
+		if("Frost Bolt")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/frost_bolt)
+		if("Shock")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/shock)
+		if("Gravel Blast")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/gravel_blast)
+		if("Stygian Efflorescence")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/stygian_efflorescence)
+		if("Arcyne Lance")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcyne_lance)
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_DEVOTEE, devotion_limit = CLERIC_REQ_1)
 	if(H.mind)
@@ -213,7 +230,7 @@
 			STATKEY_WIL = 1,
 	)
 	age_mod = /datum/class_age_mod/mystic
-	subclass_spellpoints = 4 // +3 spellpoints, despite your training to melee weapon and spell you are still not capable of good defense and offense
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 2, "locked_aspects" = list(/datum/magic_aspect/lesser_augmentation))
 	subclass_skills = list(
 		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
@@ -260,7 +277,23 @@
 		/obj/item/recipe_book/survival = 1,
 		)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/enchant_weapon)
-	H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/arcynestrike)
+	var/list/poke_options = list("Arcyne Bolt", "Spitfire", "Frost Bolt", "Shock", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
+	var/poke_choice = input(H, "Choose your offensive cantrip.", "Arcyne Training") as anything in poke_options
+	switch(poke_choice)
+		if("Arcyne Bolt")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcynebolt)
+		if("Spitfire")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/spitfire)
+		if("Frost Bolt")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/frost_bolt)
+		if("Shock")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/shock)
+		if("Gravel Blast")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/gravel_blast)
+		if("Stygian Efflorescence")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/stygian_efflorescence)
+		if("Arcyne Lance")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcyne_lance)
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_WITCH, devotion_limit = CLERIC_REQ_1)
 	if(H.mind)
@@ -324,7 +357,7 @@
 			STATKEY_WIL = 2,
 	)
 	age_mod = /datum/class_age_mod/mystic
-	subclass_spellpoints = 3 // +2 spellpoints, you focused on offensive training and loose on utility
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 3)
 	subclass_skills = list(
 		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
@@ -359,35 +392,23 @@
 		/obj/item/spellbook_unfinished/pre_arcyne = 1,
 		)
 
-	var/options = list("Arcyne bolt and Repulse", "Arcyne bolt and Blink", "Frost bolt and Repulse", "Frost bolt and Blink", "Spitfire and Repulse", "Spitfire and Blink", "Lightning bolt and Repulse", "Lightning bolt and Blink")
-	var/option_choice = input("Shape your offense", "Rain Destruction!") as anything in options
-	switch(option_choice)
-		if("Arcyne bolt and Repulse")
+	var/list/poke_options = list("Arcyne Bolt", "Spitfire", "Frost Bolt", "Shock", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
+	var/poke_choice = input(H, "Choose your offensive cantrip.", "Arcyne Training") as anything in poke_options
+	switch(poke_choice)
+		if("Arcyne Bolt")
 			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcynebolt)
-			H.mind.AddSpell(new /datum/action/cooldown/spell/repulse)
-		if("Arcyne bolt and Blink")
-			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcynebolt)
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink)
-		if("Frost bolt and Repulse")
-			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/frost_bolt)
-			H.mind.AddSpell(new /datum/action/cooldown/spell/repulse)
-		if("Frost bolt and Blink")
-			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/frost_bolt)
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink)
-		if("Spitfire and Repulse")
+		if("Spitfire")
 			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/spitfire)
-			H.mind.AddSpell(new /datum/action/cooldown/spell/repulse)
-		if("Spitfire and Blink")
-			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/spitfire)
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink)
-		if("Lightning bolt and Repulse")
-			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/lightning_bolt)
-			H.mind.AddSpell(new /datum/action/cooldown/spell/repulse)
-		if("Lightning bolt and Blink")
-			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/lightning_bolt)
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink)
-
-
+		if("Frost Bolt")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/frost_bolt)
+		if("Shock")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/shock)
+		if("Gravel Blast")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/gravel_blast)
+		if("Stygian Efflorescence")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/stygian_efflorescence)
+		if("Arcyne Lance")
+			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcyne_lance)
 
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_WITCH, devotion_limit = CLERIC_REQ_1)
