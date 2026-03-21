@@ -212,6 +212,7 @@
 	cmode_music = 'sound/music/combat_grenzelhoft.ogg'
 	subclass_languages = list(/datum/language/grenzelhoftian)
 	traits_applied = list(TRAIT_INTELLECTUAL, TRAIT_STEELHEARTED, TRAIT_ALCHEMY_EXPERT)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 6)
 	subclass_stats = list(
 		STATKEY_INT = 3,
 		STATKEY_WIL = 3,
@@ -261,18 +262,11 @@
 		/obj/item/rogueweapon/huntingknife = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)
-	if(H.mind) // State mandated spells c:
+	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/message)
 		// Pyromancy with Grenzelhoftian variant — Fireball becomes Artillery Fireball (Grenzelhoftian)
 		H.mind.attune_aspect(new /datum/magic_aspect/pyromancy, "grenzelhoftian")
-		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcynebolt)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/magicians_brick)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/fetch)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/repulse)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/conjure_armor)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/message)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/counterspell)
-		H.mind?.adjust_spellpoints(3)
 	if(H.age == AGE_OLD) // FEAR the old man in a profession where men die young, or something corny like that.
 		ADD_TRAIT(H, TRAIT_ARCYNE_T3, TRAIT_GENERIC)
 	else

@@ -128,7 +128,8 @@
 	H.adjust_skillrank(/datum/skill/combat/knives, 5, TRUE)
 	H.adjust_skillrank(/datum/skill/craft/crafting, 1, TRUE)
 	H.adjust_skillrank(/datum/skill/misc/medicine, 3, TRUE)
-	H?.mind.adjust_spellpoints(27)
+	H?.mind.mage_aspect_config = list("mastery" = TRUE, "major" = 2, "minor" = 3, "utilities" = 9)
+	H?.mind.check_learnspell()
 	// Give it decent combat stats to make up for loss of 2 extra lives
 	H.change_stat(STATKEY_STR, 3)
 	H.change_stat(STATKEY_INT, 5)
