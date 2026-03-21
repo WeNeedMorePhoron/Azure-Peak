@@ -183,7 +183,7 @@
 		/datum/virtue/utility/riding
 	)
 
-	subclass_spellpoints = 15
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 2)
 
 	subclass_skills = list(
 		/datum/skill/combat/staves = SKILL_LEVEL_JOURNEYMAN,
