@@ -1,13 +1,17 @@
 // Constants for glow color used in spells
 #define GLOW_COLOR_FIRE "#FF4500" // Red
 #define GLOW_COLOR_ICE "#87CEEB" // Cyan
-#define GLOW_COLOR_LIGHTNING "#FFFF00" // Yellow
+#define GLOW_COLOR_LIGHTNING "#FFD700" // Warm gold-yellow
 #define GLOW_COLOR_BUFF "#A0E65C" // Green
 #define GLOW_COLOR_VAMPIRIC "#8B0000" // Dark Red
-#define GLOW_COLOR_METAL "#808080" // Gray
+#define GLOW_COLOR_METAL "#B0B8C8" // Silver-steel
 #define GLOW_COLOR_EARTHEN "#8B6914" // Brown, for earthen / stone spells
 #define GLOW_COLOR_DISPLACEMENT "#9400D3" // Purple, for generic displacement / CC spells
 #define GLOW_COLOR_ARCANE "#6495ED" // Light Blue, for generic arcane spells
+#define GLOW_COLOR_KINESIS "#7B68EE" // Purple, pure arcana
+#define GLOW_COLOR_HEX "#b884f8" // Hex purple
+#define GLOW_COLOR_ILLUSION "#CE93D8" // Illusory pink-purple
+#define GLOW_COLOR_HEARTH "#FF8A65" // Warm hearthfire salmon
 
 // Constants for spell glow intensity. These are literally 1 2 3 4 but it is for documenting design purposes
 #define GLOW_INTENSITY_LOW 1 // For spam projectiles or generic buffs

@@ -6,7 +6,7 @@
 	desc = "Shoot out a magical bolt that draws in the target struck towards the caster."
 	button_icon_state = "fetch"
 	sound = 'sound/magic/magnet.ogg'
-	spell_color = GLOW_COLOR_DISPLACEMENT
+	spell_color = GLOW_COLOR_KINESIS
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	projectile_type = /obj/projectile/magic/fetch

@@ -7,7 +7,7 @@
 	desc = "Shoot out a magical bolt that pushes out the target struck away from the caster. Instead of repelling a target, it will throw an object in your hand if cast while in throw mode."
 	button_icon_state = "repel"
 	sound = 'sound/magic/unmagnet.ogg'
-	spell_color = GLOW_COLOR_DISPLACEMENT
+	spell_color = GLOW_COLOR_KINESIS
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	projectile_type = /obj/projectile/magic/repel

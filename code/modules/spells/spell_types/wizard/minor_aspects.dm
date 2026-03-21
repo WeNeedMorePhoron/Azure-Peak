@@ -5,6 +5,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_METAL
 	binding_chants = list(
 		"TODO",
 	)
@@ -20,6 +21,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_ARCANE
 	binding_chants = list(
 		"TODO",
 	)
@@ -35,6 +37,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_ARCANE
 	binding_chants = list(
 		"TODO",
 	)
@@ -50,6 +53,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_DISPLACEMENT
 	binding_chants = list(
 		"TODO",
 	)
@@ -67,6 +71,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_METAL
 	binding_chants = list(
 		"TODO",
 	)
@@ -84,6 +89,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_BUFF
 	binding_chants = list(
 		"TODO",
 	)
@@ -113,6 +119,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_ILLUSION
 	binding_chants = list(
 		"TODO",
 	)
@@ -128,6 +135,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_HEARTH
 	binding_chants = list(
 		"TODO",
 	)
@@ -144,6 +152,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_HEX
 	binding_chants = list(
 		"TODO",
 	)

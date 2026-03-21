@@ -19,7 +19,7 @@
 	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 	invocations = list("Arescentem!")
 	invocation_type = "shout"
-	glow_color = "#b884f8" // evil ass purple
+	glow_color = GLOW_COLOR_HEX
 	glow_intensity = GLOW_INTENSITY_HIGH
 	var/delay = 3
 	var/strike_delay = 1 // delay between each individual strike. 3 delays seems to make someone stupid able to walk into every single strikes.
@@ -77,7 +77,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "curseblob"
 	light_outer_range = 2
-	light_color = "#b884f8" // evil
+	light_color = GLOW_COLOR_HEX
 	duration = 1 SECONDS
 	layer = MASSIVE_OBJ_LAYER
 

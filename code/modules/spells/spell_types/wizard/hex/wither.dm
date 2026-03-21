@@ -9,7 +9,7 @@
 	5x5 area of effect."
 	button_icon_state = "wither"
 	sound = 'sound/magic/shadowstep_destination.ogg'
-	spell_color = "#b884f8"
+	spell_color = GLOW_COLOR_HEX
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 
 	click_to_activate = TRUE
@@ -64,7 +64,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "curseblob"
 	light_outer_range = 3
-	light_color = "#b884f8"
+	light_color = GLOW_COLOR_HEX
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = BELOW_MOB_LAYER
@@ -128,7 +128,7 @@
 			if(!existing)
 				L.apply_status_effect(/datum/status_effect/debuff/withered)
 				to_chat(L, span_userdanger("A withering curse saps my strength!"))
-				new /obj/effect/temp_visual/spell_impact(get_turf(L), "#b884f8", SPELL_IMPACT_MEDIUM)
+				new /obj/effect/temp_visual/spell_impact(get_turf(L), GLOW_COLOR_HEX, SPELL_IMPACT_MEDIUM)
 
 /obj/effect/wither_zone/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
@@ -144,7 +144,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "curse"
 	light_outer_range = 1
-	light_color = "#b884f8"
+	light_color = GLOW_COLOR_HEX
 	layer = BELOW_MOB_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	randomdir = FALSE
@@ -162,7 +162,7 @@
 	duration = 3 SECONDS
 	effectedstats = list(STATKEY_STR = -2, STATKEY_SPD = -2, STATKEY_CON = -2)
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/withered
-	var/outline_colour = "#b884f8"
+	var/outline_colour = GLOW_COLOR_HEX
 
 /atom/movable/screen/alert/status_effect/debuff/withered
 	name = "Withered"

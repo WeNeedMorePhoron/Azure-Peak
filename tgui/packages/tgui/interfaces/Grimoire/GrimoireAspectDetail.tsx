@@ -42,17 +42,11 @@ export const GrimoireAspectDetail = ({
     <>
       <div style={{ flex: 1, overflowY: 'auto' }}>
         <div className="AspectPicker__heading">
-          {aspect.school_color && (
-            <span
-              className="AspectPicker__color-pip"
-              style={{
-                backgroundColor: aspect.school_color,
-                width: '10px',
-                height: '10px',
-              }}
-            />
-          )}
-          {aspect.name}
+          <span
+            style={aspect.school_color ? { color: aspect.school_color } : undefined}
+          >
+            {aspect.name}
+          </span>
           {isPendingUnbind && (
             <span
               style={{

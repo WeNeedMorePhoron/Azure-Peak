@@ -185,7 +185,8 @@ Somewhat fitting, considering the broadness of their domains. I also just think 
 	movement_interrupt = FALSE
 	spell_tier = 1
 	invocation_type = "none"
-	sound = 'sound/misc/area.ogg' 
+	glow_color = GLOW_COLOR_ILLUSION
+	sound = 'sound/misc/area.ogg'
 	associated_skill = /datum/skill/magic/arcane
 	antimagic_allowed = TRUE
 	hide_charge_effect = TRUE

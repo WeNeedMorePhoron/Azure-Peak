@@ -8,7 +8,7 @@
 	desc = "Weighten space around someone, crushing them and knocking them to the floor. Stronger opponents will resist and be off-balanced. Consumes <b>Arcane Marks</b> to slightly increase knockdown time and damage."
 	button_icon_state = "gravity"
 	sound = 'sound/magic/gravity.ogg'
-	spell_color = GLOW_COLOR_DISPLACEMENT
+	spell_color = GLOW_COLOR_KINESIS
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 
 	click_to_activate = TRUE

@@ -10,7 +10,7 @@
 	Basic offensive magic, refined for over a millenium since the first Magi expelled mana from their body with pure malice and determination to destroy another."
 	button_icon_state = "soulshot"
 	sound = 'sound/magic/vlightning.ogg'
-	spell_color = GLOW_COLOR_DISPLACEMENT
+	spell_color = GLOW_COLOR_KINESIS
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 
 	projectile_type = /obj/projectile/magic/soulshot

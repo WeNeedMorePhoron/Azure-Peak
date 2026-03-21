@@ -38,18 +38,13 @@ export const GrimoireChapterList = ({
           )}
           onClick={() => !blocked && onSelect(aspect.path)}
         >
-          {aspect.school_color && (
-            <span
-              className="AspectPicker__color-pip"
-              style={{ backgroundColor: aspect.school_color }}
-            />
-          )}
           <span
-            style={
-              isPendingUnbind
+            style={{
+              ...(aspect.school_color ? { color: aspect.school_color } : {}),
+              ...(isPendingUnbind
                 ? { textDecoration: 'line-through', opacity: 0.6 }
-                : undefined
-            }
+                : {}),
+            }}
           >
             {aspect.name}
           </span>

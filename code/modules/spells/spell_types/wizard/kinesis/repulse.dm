@@ -6,7 +6,7 @@
 	desc = "Conjure forth a wave of energy, repelling anyone around you."
 	button_icon_state = "repulse"
 	sound = 'sound/magic/repulse.ogg'
-	spell_color = GLOW_COLOR_DISPLACEMENT
+	spell_color = GLOW_COLOR_KINESIS
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 
 	click_to_activate = TRUE

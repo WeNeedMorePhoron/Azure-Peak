@@ -12,7 +12,7 @@
 	The shelter lasts for 15 minutes. Door always faces south."
 	button_icon_state = "yourewizardharry"
 	sound = 'sound/spellbooks/crystal.ogg'
-	spell_color = GLOW_COLOR_ARCANE
+	spell_color = GLOW_COLOR_HEARTH
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 
 	click_to_activate = TRUE

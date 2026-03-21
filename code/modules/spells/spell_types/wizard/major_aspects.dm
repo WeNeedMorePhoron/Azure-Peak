@@ -96,7 +96,7 @@
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
 	attuned_name = "Force"
-	school_color = GLOW_COLOR_ARCANE
+	school_color = GLOW_COLOR_KINESIS
 	binding_chants = list(
 		"TODO",
 	)
