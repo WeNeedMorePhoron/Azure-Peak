@@ -16,7 +16,7 @@
 		STATKEY_SPD = 1
 	)
 	age_mod = /datum/class_age_mod/wretch/rogue_mage
-	subclass_spellpoints = 12
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 0, "utilities" = 4)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/staves = SKILL_LEVEL_JOURNEYMAN,
