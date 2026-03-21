@@ -4,7 +4,7 @@
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Haste"
 	desc = "Cause a target to be magically hastened. (+3 Speed, 0.85x Action Cooldown)\n\
-	Casting on another person doubles the duration.\n\
+	Casting on another person extends the duration.\n\
 	<b>Activation:</b> Hold middle-click to charge. Release when charged, then middle-click on target."
 	button_icon_state = "haste"
 	sound = 'sound/magic/haste.ogg'
@@ -50,10 +50,10 @@
 
 	if(spelltarget != H)
 		H.visible_message("[H] mutters an incantation and [spelltarget] briefly shines yellow.")
-		to_chat(H, span_notice("With another person as a conduit, my spell's duration is doubled."))
-		spelltarget.apply_status_effect(/datum/status_effect/buff/haste, 2 MINUTES)
+		to_chat(H, span_notice("With another person as a conduit, my spell's duration is extended."))
+		spelltarget.apply_status_effect(/datum/status_effect/buff/haste, STAT_BUFF_ALLY_DURATION)
 	else
 		H.visible_message("[H] mutters an incantation and they briefly shine yellow.")
-		spelltarget.apply_status_effect(/datum/status_effect/buff/haste, 1 MINUTES)
+		spelltarget.apply_status_effect(/datum/status_effect/buff/haste, STAT_BUFF_SELF_DURATION)
 
 	return TRUE

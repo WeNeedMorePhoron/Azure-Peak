@@ -17,10 +17,7 @@
 	id = "haste"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/haste
 	effectedstats = list(STATKEY_SPD = 3)
-	duration = 1 MINUTES
-
-/datum/status_effect/buff/haste/other
-	duration = 2 MINUTES
+	duration = STAT_BUFF_SELF_DURATION
 
 /datum/status_effect/buff/haste/on_creation(mob/living/new_owner, var/new_duration = null)
 	if(new_duration)
@@ -58,10 +55,12 @@
 	id = "giantstrength"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/giants_strength
 	effectedstats = list(STATKEY_STR = 3)
-	duration = 1 MINUTES
+	duration = STAT_BUFF_SELF_DURATION
 
-/datum/status_effect/buff/giants_strength/other
-	duration = 2 MINUTES
+/datum/status_effect/buff/giants_strength/on_creation(mob/living/new_owner, var/new_duration = null)
+	if(new_duration)
+		duration = new_duration
+	. = ..()
 
 /datum/status_effect/buff/giants_strength/on_apply()
 	. = ..()
@@ -93,10 +92,12 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/stoneskin
 	effectedstats = list(STATKEY_CON = 5)
 	var/hadcritres = FALSE
-	duration = 1 MINUTES
+	duration = STAT_BUFF_SELF_DURATION
 
-/datum/status_effect/buff/stoneskin/other
-	duration = 2 MINUTES
+/datum/status_effect/buff/stoneskin/on_creation(mob/living/new_owner, var/new_duration = null)
+	if(new_duration)
+		duration = new_duration
+	. = ..()
 
 /datum/status_effect/buff/stoneskin/on_apply()
 	. = ..()
@@ -126,10 +127,12 @@
 	id = "hawkseyes"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/hawks_eyes
 	effectedstats = list(STATKEY_PER = 5)
-	duration = 1 MINUTES
+	duration = STAT_BUFF_SELF_DURATION
 
-/datum/status_effect/buff/hawks_eyes/other
-	duration = 2 MINUTES
+/datum/status_effect/buff/hawks_eyes/on_creation(mob/living/new_owner, var/new_duration = null)
+	if(new_duration)
+		duration = new_duration
+	. = ..()
 
 /datum/status_effect/buff/hawks_eyes/on_apply()
 	. = ..()
@@ -159,10 +162,12 @@
 	var/outline_colour ="#f58e2d"
 	id = "guidance"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/guidance
-	duration = 1 MINUTES
+	duration = STAT_BUFF_SELF_DURATION
 
-/datum/status_effect/buff/guidance/other
-	duration = 2 MINUTES
+/datum/status_effect/buff/guidance/on_creation(mob/living/new_owner, var/new_duration = null)
+	if(new_duration)
+		duration = new_duration
+	. = ..()
 
 /datum/status_effect/buff/guidance/on_apply()
 	. = ..()
@@ -193,10 +198,12 @@
 	var/outline_colour ="#008000" // Forest green to avoid le sparkle mage
 	id = "fortitude"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/fortitude
-	duration = 1 MINUTES
+	duration = STAT_BUFF_SELF_DURATION
 
-/datum/status_effect/buff/fortitude/other
-	duration = 2 MINUTES
+/datum/status_effect/buff/fortitude/on_creation(mob/living/new_owner, var/new_duration = null)
+	if(new_duration)
+		duration = new_duration
+	. = ..()
 
 /datum/status_effect/buff/fortitude/on_apply()
 	. = ..()
@@ -225,7 +232,7 @@
 /datum/status_effect/buff/featherfall
 	id = "featherfall"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/featherfall
-	duration = 1 MINUTES
+	duration = UTILITY_AOE_BUFF_DURATION
 
 /datum/status_effect/buff/featherfall/on_apply()
 	. = ..()
@@ -248,7 +255,7 @@
 /datum/status_effect/buff/darkvision
 	id = "darkvision"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/darkvision
-	duration = 15 MINUTES
+	duration = UTILITY_AOE_BUFF_DURATION
 
 /datum/status_effect/buff/darkvision/on_apply(mob/living/new_owner, assocskill)
 	if(assocskill)

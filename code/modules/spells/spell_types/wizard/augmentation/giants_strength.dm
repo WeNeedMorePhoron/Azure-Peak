@@ -4,7 +4,7 @@
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Giant's Strength"
 	desc = "Strengthen the target. (+3 Strength)\n\
-	Casting on another person doubles the duration.\n\
+	Casting on another person extends the duration.\n\
 	<b>Activation:</b> Hold middle-click to charge. Release when charged, then middle-click on target."
 	button_icon_state = "giants_strength"
 	sound = 'sound/magic/haste.ogg'
@@ -50,10 +50,10 @@
 
 	if(spelltarget != H)
 		H.visible_message("[H] mutters an incantation and [spelltarget]'s muscles strengthen and grow.")
-		to_chat(H, span_notice("With another person as a conduit, my spell's duration is doubled."))
-		spelltarget.apply_status_effect(/datum/status_effect/buff/giants_strength/other)
+		to_chat(H, span_notice("With another person as a conduit, my spell's duration is extended."))
+		spelltarget.apply_status_effect(/datum/status_effect/buff/giants_strength, STAT_BUFF_ALLY_DURATION)
 	else
 		H.visible_message("[H] mutters an incantation and their muscles strengthen and grow.")
-		spelltarget.apply_status_effect(/datum/status_effect/buff/giants_strength)
+		spelltarget.apply_status_effect(/datum/status_effect/buff/giants_strength, STAT_BUFF_SELF_DURATION)
 
 	return TRUE
