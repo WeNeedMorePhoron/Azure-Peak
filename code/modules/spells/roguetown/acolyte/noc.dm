@@ -247,7 +247,6 @@ Somewhat fitting, considering the broadness of their domains. I also just think 
 	var/list/buff_bundle = list(	//Buffs! An Acolyte being a supportive caster is 100% what they already are, so this fits neatly. No debuffs -- every patron already has a plethora of those.
 		/datum/action/cooldown/spell/hawks_eyes::name 			= /datum/action/cooldown/spell/hawks_eyes,
 		/datum/action/cooldown/spell/giants_strength::name 	= /datum/action/cooldown/spell/giants_strength,
-		/datum/action/cooldown/spell/longstrider::name 		= /datum/action/cooldown/spell/longstrider,
 		/datum/action/cooldown/spell/guidance::name 			= /datum/action/cooldown/spell/guidance,
 		/datum/action/cooldown/spell/haste::name 				= /datum/action/cooldown/spell/haste,
 		/datum/action/cooldown/spell/stoneskin::name 			= /datum/action/cooldown/spell/stoneskin,
@@ -771,7 +770,6 @@ GLOBAL_LIST_INIT(noc_scrolls, (list(/obj/item/book/granter/spell/blackstone/fire
 		/obj/item/book/granter/spell/blackstone/repulse,
 		/obj/item/book/granter/spell/blackstone/blade_burst,
 		/obj/item/book/granter/spell/blackstone/haste,
-		/obj/item/book/granter/spell/blackstone/longstrider,
 		/obj/item/book/granter/spell/blackstone/arcynebolt,
 		/obj/item/book/granter/spell/blackstone/counterspell,
 		/obj/item/book/granter/spell/blackstone/blink,

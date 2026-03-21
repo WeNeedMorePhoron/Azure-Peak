@@ -16,7 +16,6 @@ GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile
 		/datum/action/cooldown/spell/haste,
 		/datum/action/cooldown/spell/featherfall,
 		/datum/action/cooldown/spell/darkvision,
-		/datum/action/cooldown/spell/longstrider,
 		/obj/effect/proc_holder/spell/invoked/invisibility,
 		/obj/effect/proc_holder/spell/invoked/projectile/acidsplash,
 		/datum/action/cooldown/spell/projectile/fireball/greater,
