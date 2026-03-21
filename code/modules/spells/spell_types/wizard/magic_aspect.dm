@@ -68,6 +68,12 @@
 		return
 	for(var/base_path in swaps)
 		var/upgrade_path = swaps[base_path]
+		if(!base_path)
+			// Additive mastery - grant new spell without removing anything
+			var/datum/added = new upgrade_path
+			mark_aspect_spell(added)
+			target.AddSpell(added)
+			continue
 		var/datum/existing = target.get_spell(base_path)
 		if(existing)
 			// Find position in spell_list to preserve order
