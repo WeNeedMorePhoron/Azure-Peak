@@ -32,7 +32,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
 
-	point_cost = 4
+	point_cost = 3
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 

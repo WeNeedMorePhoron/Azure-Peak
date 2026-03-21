@@ -357,7 +357,7 @@
 
 /datum/status_effect/buff/familiar/burdened_coil
 	id = "burdened_coil"
-	effectedstats = list(STATKEY_LCK = -1, STATKEY_WIL = 1)
+	effectedstats = list(STATKEY_LCK = -1, STATKEY_CON = 1)
 	alert_type = /atom/movable/screen/alert/status_effect/buff/familiar/burdened_coil
 
 /atom/movable/screen/alert/status_effect/buff/familiar/burdened_coil

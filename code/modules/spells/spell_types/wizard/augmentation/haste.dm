@@ -3,7 +3,7 @@
 /datum/action/cooldown/spell/haste
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Haste"
-	desc = "Cause a target to be magically hastened. (+5 Speed, 0.85x Action Cooldown)\n\
+	desc = "Cause a target to be magically hastened. (+3 Speed, 0.85x Action Cooldown)\n\
 	Casting on another person doubles the duration.\n\
 	<b>Activation:</b> Hold middle-click to charge. Release when charged, then middle-click on target."
 	button_icon_state = "haste"
@@ -32,7 +32,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
 
-	point_cost = 4
+	point_cost = 3
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
