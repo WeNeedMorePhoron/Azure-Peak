@@ -57,7 +57,7 @@
 		STATKEY_SPD = 1
 	)
 	age_mod = /datum/class_age_mod/apprentice_associate
-	subclass_mage_aspects = list("mastery" = FALSE, "major" = 2, "minor" = 1, "utilities" = 6)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 2, "utilities" = 6)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/staves = SKILL_LEVEL_APPRENTICE,

@@ -107,16 +107,16 @@ export const GrimoireAspectPicker = () => {
   const getSealLabel = (): string => {
     if (!initial_setup && hasUnbinds) {
       return sealReady
-        ? 'Reshape Attunements'
+        ? 'Seal the Circuit'
         : 'Confirm Changes';
     }
     if (utilityOnly) {
       return sealReady
-        ? 'Seal the Grimoire'
+        ? 'Seal the Circuit'
         : `Seal (${utility_points_spent}/${max_utilities} pts)`;
     }
     return sealReady
-      ? 'Seal the Grimoire'
+      ? 'Seal the Circuit'
       : `Seal (${attuned_majors.length}/${max_majors} major, ${attuned_minors.length}/${max_minors} minor)`;
   };
 
