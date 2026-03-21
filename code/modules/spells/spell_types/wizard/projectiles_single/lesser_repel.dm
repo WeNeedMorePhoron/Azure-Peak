@@ -36,7 +36,6 @@
 		if(isobj(I) && H.in_throw_mode)
 			var/atom/throw_target = get_edge_target_turf(H, get_dir(H, get_step(H, H.dir)))
 			if(throw_target)
-				say_invocation(owner, invocations)
 				H.dropItemToGround(I)
 				if(I)
 					I.throw_at(throw_target, 7, 4)

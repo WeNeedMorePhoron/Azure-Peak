@@ -68,3 +68,39 @@
 
 /datum/action/cooldown/spell/forcewall/proc/spawn_wall(turf/target, mob/caster)
 	new /obj/structure/forcefield_weak(target, caster)
+
+/obj/structure/forcefield_weak
+	desc = "A wall of pure arcyne force."
+	name = "Arcyne Wall"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "arcynewall"
+	break_sound = 'sound/combat/hits/onstone/stonedeath.ogg'
+	attacked_sound = list('sound/combat/hits/onstone/wallhit.ogg', 'sound/combat/hits/onstone/wallhit2.ogg', 'sound/combat/hits/onstone/wallhit3.ogg')
+	opacity = 0
+	density = TRUE
+	max_integrity = 150
+	CanAtmosPass = ATMOS_PASS_DENSITY
+	var/timeleft = 20 SECONDS
+	var/mob/caster
+
+/obj/structure/forcefield_weak/Initialize(mapload, mob/summoner)
+	. = ..()
+	caster = summoner
+	if(timeleft)
+		QDEL_IN(src, timeleft)
+
+/obj/structure/forcefield_weak/CanPass(atom/movable/mover, turf/target)
+	if(mover == caster)
+		return TRUE
+	if(ismob(mover))
+		var/mob/M = mover
+		if(M.anti_magic_check(chargecost = 0))
+			return TRUE
+	return FALSE
+
+/obj/effect/temp_visual/trap_wall
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "trap"
+	light_outer_range = 2
+	duration = 1 SECONDS
+	layer = MASSIVE_OBJ_LAYER

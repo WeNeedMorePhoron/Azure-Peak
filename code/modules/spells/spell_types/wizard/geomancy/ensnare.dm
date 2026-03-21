@@ -69,3 +69,11 @@
 		L.OffBalance(ensnare_duration)
 		L.visible_message(span_warning("[L] is held by tendrils of arcyne force!"))
 		new /obj/effect/temp_visual/ensnare/long(get_turf(L))
+
+/obj/effect/temp_visual/ensnare
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "curseblob"
+	duration = 1 SECONDS
+
+/obj/effect/temp_visual/ensnare/long
+	duration = 3 SECONDS
