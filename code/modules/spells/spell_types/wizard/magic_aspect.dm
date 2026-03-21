@@ -24,7 +24,7 @@
 	/// "mastery" is automatically applied for T4 casters.
 	/// Other variants (e.g. "grenzelhoftian") are passed in via attune_aspect().
 	var/list/variants = list()
-	var/school_color = GLOW_COLOR_ARCANE
+	var/school_color
 	var/list/countersynergy = list()
 	/// Major: Latin, English, Latin. Minor: Latin, English.
 	var/list/binding_chants = list()

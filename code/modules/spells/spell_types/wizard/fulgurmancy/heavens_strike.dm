@@ -26,11 +26,11 @@
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
-	charge_time = CHARGETIME_MAJOR
+	charge_time = CHARGETIME_POKE
 	charge_drain = 1
-	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
+	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
-	cooldown_time = 12 SECONDS
+	cooldown_time = 10 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 
@@ -64,7 +64,7 @@
 	new /obj/effect/temp_visual/thunderstrike_actual(T)
 	playsound(T, 'sound/magic/lightning.ogg', 80)
 	var/mob/living/carbon/human/caster = owner
-	var/target_zone = istype(caster) ? caster.zone_selected : BODY_ZONE_CHEST
+	var/target_zone = pick(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	for(var/mob/living/L in T.contents)
 		if(L.anti_magic_check())
 			L.visible_message(span_warning("The lightning fades away around [L]!"))

@@ -1,7 +1,7 @@
 // Shock - Fulgurmancy staple poke
 // Hitscan, lowest burn efficiency of the 3 burn schools, but instant hit
 // No CC effects. Highest cooldown among staple pokes (5.5s vs 4s)
-// 0.5s charge time — standardized across all poke spells
+// 0.5s charge time - standardized across all poke spells
 
 /datum/action/cooldown/spell/projectile/shock
 	button_icon = 'icons/mob/actions/mage_fulgurmancy.dmi'

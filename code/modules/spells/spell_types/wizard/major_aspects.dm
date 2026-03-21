@@ -76,7 +76,7 @@
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
 	attuned_name = "Stone"
-	school_color = GLOW_COLOR_METAL
+	school_color = GLOW_COLOR_EARTHEN
 	binding_chants = list(
 		"TODO",
 	)

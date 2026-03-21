@@ -5,6 +5,7 @@
 #define GLOW_COLOR_BUFF "#A0E65C" // Green
 #define GLOW_COLOR_VAMPIRIC "#8B0000" // Dark Red
 #define GLOW_COLOR_METAL "#808080" // Gray
+#define GLOW_COLOR_EARTHEN "#8B6914" // Brown, for earthen / stone spells
 #define GLOW_COLOR_DISPLACEMENT "#9400D3" // Purple, for generic displacement / CC spells
 #define GLOW_COLOR_ARCANE "#6495ED" // Light Blue, for generic arcane spells
 
