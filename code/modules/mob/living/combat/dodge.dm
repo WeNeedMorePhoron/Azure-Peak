@@ -1,5 +1,4 @@
 /mob/living/proc/attempt_dodge(datum/intent/intenty, mob/living/user)
-	var/mob/living/H = src
 	if(pulledby || pulling)
 		return FALSE
 	if(world.time < last_dodge + dodgetime)

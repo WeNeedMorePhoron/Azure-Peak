@@ -91,3 +91,25 @@
 			L.OffBalance(offbalance_time)
 			L.adjustBruteLoss(resisted_damage)
 			to_chat(L, span_userdanger("I'm magically weighed down, but my strength resist!"))
+		new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
+
+/obj/effect/temp_visual/gravity
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "hierophant_squares"
+	name = "gravity magic"
+	desc = "Get out of the way!"
+	randomdir = FALSE
+	duration = 3 SECONDS
+	layer = MASSIVE_OBJ_LAYER
+	light_outer_range = 2
+	light_color = GLOW_COLOR_KINESIS
+
+/obj/effect/temp_visual/gravity_trap
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "hierophant_blast"
+	dir = NORTH
+	name = "rippling arcyne energy"
+	desc = "Get out of the way!"
+	randomdir = FALSE
+	duration = 5 SECONDS
+	layer = MASSIVE_OBJ_LAYER
