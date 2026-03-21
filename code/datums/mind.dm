@@ -891,6 +891,16 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	if(length(spell_list) == 1 && current)
 		addtimer(CALLBACK(src, PROC_REF(show_spell_tip)), 3 SECONDS)
 
+/// Ensure prestidigitation is present in the spell list if the caster should have it, then bump it to the end.
+/datum/mind/proc/ensure_prestidigitation()
+	var/datum/presto = get_spell(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+	if(!presto)
+		if(HAS_TRAIT(current, TRAIT_ARCYNE_T1) || HAS_TRAIT(current, TRAIT_ARCYNE_T2) || HAS_TRAIT(current, TRAIT_ARCYNE_T3) || HAS_TRAIT(current, TRAIT_ARCYNE_T4))
+			AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+		return
+	spell_list -= presto
+	spell_list += presto
+
 /// Move Prestidigitation to the end of the spell list so it's always last
 /datum/mind/proc/bump_prestidigitation()
 	var/datum/presto = get_spell(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)

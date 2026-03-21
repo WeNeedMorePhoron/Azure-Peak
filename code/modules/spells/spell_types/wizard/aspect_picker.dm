@@ -501,6 +501,7 @@
 
 			if(has_unbinds)
 				to_chat(owner, span_notice("The inscriptions in my grimoire shift and reform..."))
+			owner.mind.ensure_prestidigitation()
 			owner.mind.check_learnspell()
 
 			// Check if there are remaining aspect slots
