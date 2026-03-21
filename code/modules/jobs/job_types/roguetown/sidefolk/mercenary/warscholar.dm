@@ -17,7 +17,7 @@
 		STATKEY_CON = -1
 	)
 	age_mod = /datum/class_age_mod/war_scholar
-	subclass_spellpoints = 24
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 3, "utilities" = 8, "locked_aspects" = list(/datum/magic_aspect/augmentation))
 	subclass_skills = list(
 		/datum/skill/combat/staves = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
@@ -113,7 +113,6 @@
 		/datum/skill/misc/stealing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/lockpicking = SKILL_LEVEL_JOURNEYMAN,
 	)
-	subclass_spellpoints = 0 // Override inheritance — spells are granted directly
 	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 4)
 
 /datum/outfit/job/roguetown/mercenary/warscholar_pontifex

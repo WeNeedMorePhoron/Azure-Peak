@@ -12,7 +12,7 @@
 		STATKEY_WIL = -2,
 		STATKEY_SPD = -1
 	)
-	subclass_spellpoints = 9
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 2)
 	subclass_skills = list(
 		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,

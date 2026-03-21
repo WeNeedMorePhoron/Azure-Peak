@@ -117,7 +117,7 @@
 		STATKEY_WIL = 1
 	)
 	age_mod = /datum/class_age_mod/apprentice_alchemist
-	subclass_spellpoints = 18
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 6)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/staves = SKILL_LEVEL_NOVICE,
@@ -179,7 +179,7 @@
 		STATKEY_LCK = 1 // this is just a carrot for the folk who are mad enough to take this role...
 	)
 	age_mod = /datum/class_age_mod/apprentice_apprentice
-	subclass_spellpoints = 18
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 6)
 	subclass_skills = list(
 		/datum/skill/misc/reading = SKILL_LEVEL_MASTER,
 		/datum/skill/magic/arcane = SKILL_LEVEL_APPRENTICE,

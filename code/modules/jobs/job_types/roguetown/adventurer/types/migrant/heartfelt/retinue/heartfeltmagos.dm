@@ -21,7 +21,7 @@
 		STATKEY_CON = -2,
 	)
 
-	subclass_spellpoints = 24
+	subclass_mage_aspects = list("mastery" = TRUE, "major" = 2, "minor" = 3, "utilities" = 9)
 
 	subclass_skills = list(
 	/datum/skill/misc/reading = SKILL_LEVEL_LEGENDARY,
@@ -66,8 +66,6 @@
 		H.change_stat("speed", -1)
 		H.change_stat("intelligence", 1)
 		H.change_stat("perception", 1)
-	if(H.mind)
-		H?.mind.adjust_spellpoints(4)
 	if(ishumannorthern(H))
 		belt = /obj/item/storage/belt/rogue/leather/plaquegold
 		cloak = null
