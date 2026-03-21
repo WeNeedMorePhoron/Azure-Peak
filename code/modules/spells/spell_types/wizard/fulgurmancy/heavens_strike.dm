@@ -76,7 +76,7 @@
 			L.visible_message(span_warning("[L] weathers the lightning strike!"))
 			continue
 		var/actual_damage = damage
-		if(!L.mind || !ishuman(L))
+		if(!L.mind && !ishuman(L))
 			actual_damage *= npc_simple_damage_mult
 		// Zone-targeted burn damage via arcyne_strike for limb aiming
 		if(istype(caster) && ishuman(L))

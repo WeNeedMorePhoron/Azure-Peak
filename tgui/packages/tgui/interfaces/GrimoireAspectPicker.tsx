@@ -42,7 +42,10 @@ export const GrimoireAspectPicker = () => {
   const aspects = tab === 'major' ? major_aspects : minor_aspects;
   const attuned = tab === 'major' ? attuned_majors : attuned_minors;
   const maxSlots = tab === 'major' ? max_majors : max_minors;
-  const slotsUsed = attuned.length;
+  const unbindCount = attuned.filter((p) =>
+    staged_unbind_aspects.includes(p),
+  ).length;
+  const slotsUsed = attuned.length - unbindCount;
   const slotsFull = slotsUsed >= maxSlots;
 
   const selected = aspects.find((a) => a.path === selectedPath) || null;
@@ -54,6 +57,10 @@ export const GrimoireAspectPicker = () => {
 
   const allAttuned = [...attuned_majors, ...attuned_minors];
   const allAspects = [...major_aspects, ...minor_aspects];
+  // Effective attuned excludes pending unbinds for countersynergy checks
+  const effectiveAttuned = allAttuned.filter(
+    (p) => !staged_unbind_aspects.includes(p),
+  );
 
   const hasAccess = (t: Tab): boolean => {
     if (t === 'major') return max_majors > 0;
@@ -64,9 +71,9 @@ export const GrimoireAspectPicker = () => {
 
   const checkBlocked = (aspect: Aspect): boolean => {
     for (const counterPath of aspect.countersynergy) {
-      if (allAttuned.includes(counterPath)) return true;
+      if (effectiveAttuned.includes(counterPath)) return true;
     }
-    for (const attunedPath of allAttuned) {
+    for (const attunedPath of effectiveAttuned) {
       const attunedAspect = allAspects.find((a) => a.path === attunedPath);
       if (attunedAspect?.countersynergy.includes(aspect.path)) return true;
     }
@@ -93,12 +100,14 @@ export const GrimoireAspectPicker = () => {
     staged_unbind_aspects.length > 0 || staged_unbind_utilities.length > 0;
 
   const utilityOnly = max_majors === 0 && max_minors === 0;
+  const hasUnspentUtilities =
+    max_utilities > 0 && utility_points_spent < max_utilities;
   const canSeal = utilityOnly
     ? utility_points_spent > 0 || hasUnbinds
     : hasAny || hasUnbinds;
   const sealReady = utilityOnly
     ? utility_points_spent >= max_utilities
-    : allFilled;
+    : allFilled && !hasUnspentUtilities;
 
   const wrappedAct = (action: string, params?: Record<string, unknown>) => {
     if (action !== 'confirm') {
@@ -275,7 +284,9 @@ export const GrimoireAspectPicker = () => {
               }
             >
               {!sealReady && partialConfirmed
-                ? 'Do a partial binding - Rebinding requires a Grimoire!'
+                ? allFilled && hasUnspentUtilities
+                  ? 'Skip remaining utility spells - are you sure?'
+                  : 'Do a partial binding - Rebinding requires a Grimoire!'
                 : getSealLabel()}
             </div>
           </div>

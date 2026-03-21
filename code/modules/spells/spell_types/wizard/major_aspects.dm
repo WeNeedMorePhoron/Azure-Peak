@@ -8,11 +8,19 @@
 	attuned_name = ASPECT_NAME_PYROMANCY
 	school_color = GLOW_COLOR_FIRE
 	countersynergy = list(/datum/magic_aspect/cryomancy)
+	// Latin 1: "I call upon the eternal flame" | English suggestions: "I implore the flame within to burn bright, rise!" / "I call the fire that sleeps in my soul, awaken!"
+	// Latin 2: "Fire, bind yourself to me"
 	binding_chants = list(
-		"TODO",
+		"Invoco flammam aeternam!",
+		"I implore the flame within to burn bright, rise!",
+		"Ignis, in me ligare!",
 	)
+	// Latin 1: "I release the bound flame" | English suggestions: "I becalm the flame that dwells within, rest." / "I still the fire that burns in my heart, sleep."
+	// Latin 2: "Fire, depart from me"
 	unbinding_chants = list(
-		"TODO",
+		"Solvo flammam vinctam!",
+		"I becalm the flame that dwells within, rest.",
+		"Ignis, a me discedere!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/spitfire,
@@ -22,7 +30,7 @@
 	)
 	variants = list(
 		"mastery" = list(
-			/datum/action/cooldown/spell/projectile/fireball = /datum/action/cooldown/spell/projectile/fireball/greater,
+			VARIANT_ADDITIVE =/datum/action/cooldown/spell/projectile/fireball/greater,
 		),
 		"grenzelhoftian" = list(
 			/datum/action/cooldown/spell/projectile/fireball = /datum/action/cooldown/spell/projectile/fireball/artillery,
@@ -37,17 +45,30 @@
 	attuned_name = ASPECT_NAME_CRYOMANCY
 	school_color = GLOW_COLOR_ICE
 	countersynergy = list(/datum/magic_aspect/pyromancy)
+	// Latin 1: "I call upon the eternal frost" | English suggestions: "I invoke the cold that lingers deep, come forth!" / "I summon the frost that sleeps beneath, crystallize!"
+	// Latin 2: "Ice, bind yourself to me"
 	binding_chants = list(
-		"TODO",
+		"Invoco glaciem aeternam!",
+		"I invoke the cold that lingers deep, come forth!",
+		"Glacies, in me ligare!",
 	)
+	// Latin 1: "I release the bound frost" | English suggestions: "I release the chill that grips my veins, thaw." / "I dismiss the frost that dwells within, melt away."
+	// Latin 2: "Ice, depart from me"
 	unbinding_chants = list(
-		"TODO",
+		"Solvo glaciem vinctam!",
+		"I release the chill that grips my veins, thaw.",
+		"Glacies, a me discedere!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/frost_bolt,
 		/datum/action/cooldown/spell/frost_stream,
 		/datum/action/cooldown/spell/snap_freeze,
 		/datum/action/cooldown/spell/hailstorm,
+	)
+	variants = list(
+		"mastery" = list(
+			VARIANT_ADDITIVE =/datum/action/cooldown/spell/frozen_mist,
+		),
 	)
 
 /datum/magic_aspect/fulgurmancy
@@ -57,17 +78,30 @@
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_FULGURMANCY
 	school_color = GLOW_COLOR_LIGHTNING
+	// Latin 1: "I call upon the storm's fury" | English suggestions: "I beckon the storm that churns above, strike!" / "I call the thunder that roars unseen, descend!"
+	// Latin 2: "Lightning, bind yourself to me"
 	binding_chants = list(
-		"TODO",
+		"Invoco furorem tempestatis!",
+		"I beckon the storm that churns above, strike!",
+		"Fulmen, in me ligare!",
 	)
+	// Latin 1: "I release the bound storm" | English suggestions: "I quiet the storm that rages within, be still." / "I calm the thunder that echoes in me, silence."
+	// Latin 2: "Lightning, depart from me"
 	unbinding_chants = list(
-		"TODO",
+		"Solvo tempestatem vinctam!",
+		"I quiet the storm that rages within, be still.",
+		"Fulmen, a me discedere!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/shock,
 		/datum/action/cooldown/spell/projectile/lightning_bolt,
 		/datum/action/cooldown/spell/heavens_strike,
 		/datum/action/cooldown/spell/thunderstrike,
+	)
+	variants = list(
+		"mastery" = list(
+			VARIANT_ADDITIVE =/datum/action/cooldown/spell/greater_thunderstrike,
+		),
 	)
 
 /datum/magic_aspect/geomancy
@@ -77,17 +111,30 @@
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_GEOMANCY
 	school_color = GLOW_COLOR_EARTHEN
+	// Latin 1: "I call upon the enduring earth" | English suggestions: "I entreat the stone that stands unyielding, answer!" / "I rouse the earth that sleeps below, rise!"
+	// Latin 2: "Earth, bind yourself to me"
 	binding_chants = list(
-		"TODO",
+		"Invoco terram perennem!",
+		"I entreat the stone that stands unyielding, answer!",
+		"Terra, in me ligare!",
 	)
+	// Latin 1: "I release the bound earth" | English suggestions: "I relinquish the stone that fortifies me, crumble." / "I release the earth that steadies my hand, scatter."
+	// Latin 2: "Earth, depart from me"
 	unbinding_chants = list(
-		"TODO",
+		"Solvo terram vinctam!",
+		"I relinquish the stone that fortifies me, crumble.",
+		"Terra, a me discedere!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/gravel_blast,
 		/datum/action/cooldown/spell/projectile/boulder_strike,
 		/datum/action/cooldown/spell/ensnare,
 		/datum/action/cooldown/spell/earthen_wall,
+	)
+	variants = list(
+		"mastery" = list(
+			VARIANT_ADDITIVE =/datum/action/cooldown/spell/meteor_strike,
+		),
 	)
 
 /datum/magic_aspect/kinesis
@@ -97,11 +144,19 @@
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_KINESIS
 	school_color = GLOW_COLOR_KINESIS
+	// Latin 1: "I call upon the unseen force" | English suggestions: "I summon the force that bends all things, obey!" / "I command the invisible hand, manifest!"
+	// Latin 2: "Force, bind yourself to me"
 	binding_chants = list(
-		"TODO",
+		"Invoco vim invisibilem!",
+		"I summon the force that bends all things, obey!",
+		"Vis, in me ligare!",
 	)
+	// Latin 1: "I release the bound force" | English suggestions: "I unshackle the force that moves through me, disperse." / "I release the grip upon the unseen, dissolve."
+	// Latin 2: "Force, depart from me"
 	unbinding_chants = list(
-		"TODO",
+		"Solvo vim vinctam!",
+		"I unshackle the force that moves through me, disperse.",
+		"Vis, a me discedere!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/soulshot,
@@ -109,6 +164,11 @@
 		/datum/action/cooldown/spell/projectile/repel,
 		/datum/action/cooldown/spell/repulse,
 		/datum/action/cooldown/spell/gravity,
+	)
+	variants = list(
+		"mastery" = list(
+			VARIANT_ADDITIVE =/datum/action/cooldown/spell/mass_gravity,
+		),
 	)
 
 /datum/magic_aspect/augmentation
@@ -118,14 +178,27 @@
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_AUGMENTATION
 	school_color = GLOW_COLOR_BUFF
+	// Latin 1: "I call upon the power of perfection" | English suggestions: "I beseech the arcyne to hone my form, sharpen!" / "I invoke the art that refines the self, empower!"
+	// Latin 2: "Enhancement, bind yourself to me"
 	binding_chants = list(
-		"TODO",
+		"Invoco potentiam perfectionis!",
+		"I beseech the arcyne to hone my form, sharpen!",
+		"Augmentum, in me ligare!",
 	)
+	// Latin 1: "I release the bound enhancement" | English suggestions: "I forfeit the strength bestowed upon me, diminish." / "I shed the power that tempers my flesh, wane."
+	// Latin 2: "Enhancement, depart from me"
 	unbinding_chants = list(
-		"TODO",
+		"Solvo augmentum vinctum!",
+		"I forfeit the strength bestowed upon me, diminish.",
+		"Augmentum, a me discedere!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/soulshot,
+	)
+	variants = list(
+		"mastery" = list(
+			VARIANT_ADDITIVE =/datum/action/cooldown/spell/apotheosis,
+		),
 	)
 	pointbuy_budget = 12
 	pointbuy_spells = list(
@@ -154,11 +227,19 @@
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_FERRAMANCY
 	school_color = GLOW_COLOR_METAL
+	// Latin 1: "I call upon the unyielding steel" | English suggestions: "I call upon the forge within, create!" / "I wake the anvil-song that rings in my blood, resound!"
+	// Latin 2: "Steel, obey my command"
 	binding_chants = list(
-		"TODO",
+		"Invoco chalybem indomitum!",
+		"I call upon the forge within, create!",
+		"Chalybs, imperio meo parere!",
 	)
+	// Latin 1: "I quench the forge within" | English suggestions: "I silence the ring of hammer and steel, grow cold." / "I quench the forge-fire that shapes my craft, darken."
+	// Latin 2: "Steel, return to stillness"
 	unbinding_chants = list(
-		"TODO",
+		"Exstinguo fornacem internam!",
+		"I silence the ring of hammer and steel, grow cold.",
+		"Chalybs, ad quietem redire!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/iron_tempest,
@@ -169,4 +250,9 @@
 	choice_spells = list(
 		/datum/action/cooldown/spell/projectile/stygian_efflorescence,
 		/datum/action/cooldown/spell/projectile/arcyne_lance,
+	)
+	variants = list(
+		"mastery" = list(
+			VARIANT_ADDITIVE =/datum/action/cooldown/spell/steel_barrage,
+		),
 	)

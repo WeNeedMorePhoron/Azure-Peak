@@ -92,6 +92,13 @@
 			if(!push_dir)
 				push_dir = facing
 			victim.safe_throw_at(get_ranged_target_turf(victim, push_dir, push_dist), push_dist, 2, H, force = MOVE_FORCE_STRONG)
+		for(var/obj/item/I in T)
+			if(I.anchored)
+				continue
+			var/toss_dir = get_dir(H, I)
+			if(!toss_dir)
+				toss_dir = facing
+			I.throw_at(get_ranged_target_turf(I, toss_dir, push_dist), push_dist, 2)
 
 	if(length(already_hit))
 		H.visible_message(span_danger("[H] unleashes a blast of flame, sending [english_list(already_hit)] flying!"))

@@ -92,7 +92,7 @@
 					skip_animation = TRUE)
 			else
 				var/actual_damage = total_damage
-				if(!L.mind || !ishuman(L))
+				if(!L.mind && !ishuman(L))
 					actual_damage *= npc_simple_damage_mult
 				L.adjustBruteLoss(actual_damage)
 			playsound(affected_turf, "genslash", 80, TRUE)

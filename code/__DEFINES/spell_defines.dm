@@ -106,6 +106,9 @@
 #define ASPECT_NAME_FERRAMANCY  "Metal"
 #define ASPECT_NAME_AUGMENTATION "Enhancement"
 
+// Variant additive sentinel - used instead of null because DM skips null keys in for-in loops
+#define VARIANT_ADDITIVE "__additive__"
+
 // Weapon-in-hand casting penalty — applied when casting a penalized spell while holding a non-implement rogueweapon
 #define WEAPON_CAST_PENALTY 0.3
 

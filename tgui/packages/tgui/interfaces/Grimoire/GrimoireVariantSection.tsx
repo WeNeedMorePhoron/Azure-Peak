@@ -29,13 +29,27 @@ export const GrimoireVariantSection = ({
             ' \u2014 granted by your tier'}
         </div>
         {variant.swaps.map((swap) => {
-          const fromSpell = fixedSpells.find((s) => s.path === swap.from);
+          const isAdditive = !swap.from;
+          const fromSpell = isAdditive
+            ? null
+            : fixedSpells.find((s) => s.path === swap.from);
           return (
-            <div key={swap.from} className="AspectPicker__spell-entry">
-              <span className="AspectPicker__spell-desc">
-                {fromSpell?.name || '?'}
-              </span>
-              {' \u2192 '}
+            <div
+              key={swap.from || swap.to.name}
+              className="AspectPicker__spell-entry"
+            >
+              {isAdditive ? (
+                <span className="AspectPicker__spell-desc">
+                  {'Additional: '}
+                </span>
+              ) : (
+                <>
+                  <span className="AspectPicker__spell-desc">
+                    {fromSpell?.name || '?'}
+                  </span>
+                  {' \u2192 '}
+                </>
+              )}
               <span className="AspectPicker__spell-name">{swap.to.name}</span>
               {swap.to.desc && (
                 <div

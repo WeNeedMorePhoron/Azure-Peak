@@ -6,11 +6,15 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_METAL
+	// English: "Grant me the craftsman's eye." | Latin: "Craft, attend me" (Artificium, mihi adesse)
 	binding_chants = list(
-		"TODO",
+		"Grant me the craftsman's eye.",
+		"Artificium, mihi adesse!",
 	)
+	// English: "I set down the craftsman's tools." | Latin: "Craft, leave me" (Artificium, me relinquere)
 	unbinding_chants = list(
-		"TODO",
+		"I set down the craftsman's tools.",
+		"Artificium, me relinquere!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/arcyne_forge,
@@ -22,11 +26,15 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_ARCANE
+	// English: "Let me raise walls against my foes." | Latin: "Outer ward, attend me" (Exotutela, mihi adesse)
 	binding_chants = list(
-		"TODO",
+		"Let me raise walls against my foes.",
+		"Exotutela, mihi adesse!",
 	)
+	// English: "I lower the walls I have raised." | Latin: "Outer ward, leave me" (Exotutela, me relinquere)
 	unbinding_chants = list(
-		"TODO",
+		"I lower the walls I have raised.",
+		"Exotutela, me relinquere!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/forcewall,
@@ -38,11 +46,15 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_ARCANE
+	// English: "Let me bear the arcyne shield." | Latin: "Aegis, attend me" (Aegis, mihi adesse)
 	binding_chants = list(
-		"TODO",
+		"Let me bear the arcyne shield.",
+		"Aegis, mihi adesse!",
 	)
+	// English: "I set aside the shield." | Latin: "Aegis, leave me" (Aegis, me relinquere)
 	unbinding_chants = list(
-		"TODO",
+		"I set aside the shield.",
+		"Aegis, me relinquere!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/conjure_aegis,
@@ -54,11 +66,15 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_DISPLACEMENT
+	// English: "Let me step between the spaces." | Latin: "Passage, attend me" (Translatio, mihi adesse)
 	binding_chants = list(
-		"TODO",
+		"Let me step between the spaces.",
+		"Translatio, mihi adesse!",
 	)
+	// English: "I close the paths I have opened." | Latin: "Passage, leave me" (Translatio, me relinquere)
 	unbinding_chants = list(
-		"TODO",
+		"I close the paths I have opened.",
+		"Translatio, me relinquere!",
 	)
 	choice_spells = list(
 		/datum/action/cooldown/spell/blink,
@@ -71,11 +87,15 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_METAL
+	// English: "Let me clad myself in arcyne." | Latin: "Inner ward, attend me" (Autotutela, mihi adesse)
 	binding_chants = list(
-		"TODO",
+		"Let me clad myself in arcyne.",
+		"Autotutela, mihi adesse!",
 	)
+	// English: "I shed the arcyne mantle." | Latin: "Inner ward, leave me" (Autotutela, me relinquere)
 	unbinding_chants = list(
-		"TODO",
+		"I shed the arcyne mantle.",
+		"Autotutela, me relinquere!",
 	)
 	choice_spells = list(
 		/datum/action/cooldown/spell/conjure_armor/dragonhide,
@@ -88,11 +108,15 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_BUFF
+	// English: "Let me refine what is given." | Latin: "Enhancement, attend me" (Augmentum, mihi adesse)
 	binding_chants = list(
-		"TODO",
+		"Let me refine what is given.",
+		"Augmentum, mihi adesse!",
 	)
+	// English: "I release the refinements upon me." | Latin: "Enhancement, leave me" (Augmentum, me relinquere)
 	unbinding_chants = list(
-		"TODO",
+		"I release the refinements upon me.",
+		"Augmentum, me relinquere!",
 	)
 	pointbuy_budget = 4
 	// Budget: 1x 3-cost or 2x 2-cost or 1x 2-cost + fillers
@@ -118,11 +142,15 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_ILLUSION
+	// English: "Let me weave what is not there." | Latin: "Illusion, attend me" (Illusio, mihi adesse)
 	binding_chants = list(
-		"TODO",
+		"Let me weave what is not there.",
+		"Illusio, mihi adesse!",
 	)
+	// English: "I unravel the veil I have spun." | Latin: "Illusion, leave me" (Illusio, me relinquere)
 	unbinding_chants = list(
-		"TODO",
+		"I unravel the veil I have spun.",
+		"Illusio, me relinquere!",
 	)
 	fixed_spells = list(
 		/obj/effect/proc_holder/spell/invoked/invisibility,
@@ -134,11 +162,15 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_HEARTH
+	// English: "Let me tend the hearth and home." | Latin: "Hearth, attend me" (Domus, mihi adesse)
 	binding_chants = list(
-		"TODO",
+		"Let me tend the hearth and home.",
+		"Domus, mihi adesse!",
 	)
+	// English: "I let the hearthfire fade." | Latin: "Hearth, leave me" (Domus, me relinquere)
 	unbinding_chants = list(
-		"TODO",
+		"I let the hearthfire fade.",
+		"Domus, me relinquere!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/great_shelter,
@@ -151,11 +183,15 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_HEX
+	// English: "Let me speak the crooked word." | Latin: "Hex, attend me" (Maleficium, mihi adesse)
 	binding_chants = list(
-		"TODO",
+		"Let me speak the crooked word.",
+		"Maleficium, mihi adesse!",
 	)
+	// English: "I unsay the crooked word." | Latin: "Hex, leave me" (Maleficium, me relinquere)
 	unbinding_chants = list(
-		"TODO",
+		"I unsay the crooked word.",
+		"Maleficium, me relinquere!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/wither,

@@ -21,6 +21,8 @@
 	var/max_utilities = 0
 	/// Aspect type paths that are pre-bound and cannot be removed
 	var/list/locked_aspects = list()
+	/// TRUE while performing binding/unbinding chants — prevents ui_close from qdel'ing
+	var/chanting = FALSE
 
 /datum/aspect_picker/New(mob/living/new_owner, setup = TRUE, list/aspect_config)
 	owner = new_owner
@@ -192,7 +194,7 @@
 			for(var/base_path in swaps)
 				var/upgrade_path = swaps[base_path]
 				var/list/swap_entry = list()
-				swap_entry["from"] = "[base_path]"
+				swap_entry["from"] = (base_path == VARIANT_ADDITIVE) ? null : "[base_path]"
 				swap_entry["to"] = build_spell_entry(upgrade_path)
 				variant_entry["swaps"] += list(swap_entry)
 			entry["variants"] += list(variant_entry)
@@ -224,23 +226,29 @@
 		result += list(build_spell_entry(path))
 	return result
 
-/// Check if a staged path conflicts with other staged paths via countersynergy
+/// Check if a path conflicts with current/staged aspects via countersynergy (excluding pending unbinds)
 /datum/aspect_picker/proc/has_countersynergy(check_path)
 	var/datum/magic_aspect/check = new check_path
-	var/list/all_staged = staged_majors + staged_minors
-	for(var/staged_path in all_staged)
-		if(staged_path == check_path)
+	// Gather all effective aspect paths: staged picks + live aspects - pending unbinds
+	var/list/effective_paths = staged_majors + staged_minors
+	for(var/datum/magic_aspect/A in owner.mind.major_aspects)
+		effective_paths |= A.type
+	for(var/datum/magic_aspect/A in owner.mind.minor_aspects)
+		effective_paths |= A.type
+	effective_paths -= staged_unbind_aspects
+	for(var/epath in effective_paths)
+		if(epath == check_path)
 			continue
-		var/datum/magic_aspect/staged = new staged_path
-		if(staged.type in check.countersynergy)
+		var/datum/magic_aspect/other = new epath
+		if(other.type in check.countersynergy)
 			qdel(check)
-			qdel(staged)
+			qdel(other)
 			return TRUE
-		if(check.type in staged.countersynergy)
+		if(check.type in other.countersynergy)
 			qdel(check)
-			qdel(staged)
+			qdel(other)
 			return TRUE
-		qdel(staged)
+		qdel(other)
 	qdel(check)
 	return FALSE
 
@@ -258,6 +266,9 @@
 			var/path = text2path(params["path"])
 			if(!path)
 				return
+			// Don't re-select something already live or staged
+			if(owner.mind.has_aspect(path))
+				return
 			// Check countersynergy against staged selections
 			if(has_countersynergy(path))
 				to_chat(owner, span_warning("This aspect conflicts with my current selections."))
@@ -266,16 +277,28 @@
 			var/datum/magic_aspect/temp = new path
 			var/aspect_type = temp.aspect_type
 			qdel(temp)
+			// Count live aspects minus pending unbinds for effective slot usage
+			var/major_unbind_count = 0
+			var/minor_unbind_count = 0
+			for(var/unbind_path in staged_unbind_aspects)
+				var/datum/magic_aspect/utemp = new unbind_path
+				if(utemp.aspect_type == ASPECT_MAJOR)
+					major_unbind_count++
+				else
+					minor_unbind_count++
+				qdel(utemp)
 			switch(aspect_type)
 				if(ASPECT_MAJOR)
-					if(length(staged_majors) >= max_majors)
+					var/effective = LAZYLEN(owner.mind.major_aspects) - major_unbind_count + length(staged_majors)
+					if(effective >= max_majors)
 						to_chat(owner, span_warning("I cannot select another major aspect."))
 						return
 					if(path in staged_majors)
 						return
 					staged_majors += path
 				if(ASPECT_MINOR)
-					if(length(staged_minors) >= max_minors_resolved)
+					var/effective = LAZYLEN(owner.mind.minor_aspects) - minor_unbind_count + length(staged_minors)
+					if(effective >= max_minors_resolved)
 						to_chat(owner, span_warning("I cannot select another minor aspect."))
 						return
 					if(path in staged_minors)
@@ -352,6 +375,9 @@
 			if(staged_choices[aspect_path] == spell_path)
 				staged_choices -= aspect_path
 			else
+				if(is_spell_selected_elsewhere(spell_path, aspect_path))
+					to_chat(owner, span_warning("I have already selected this spell from another aspect."))
+					return
 				staged_choices[aspect_path] = spell_path
 			. = TRUE
 
@@ -417,112 +443,146 @@
 					return
 				qdel(check)
 
-			// Apply staged unbinds first — spend reset budget
-			for(var/unbind_path in staged_unbind_aspects)
-				var/datum/magic_aspect/target
-				for(var/datum/magic_aspect/A in owner.mind.major_aspects)
+			if(chanting)
+				return
+			// Hand off to async proc - do_after sleeps, which ui_act cannot do directly
+			INVOKE_ASYNC(src, PROC_REF(perform_confirm), max_majors, max_minors_resolved)
+			return TRUE
+
+/// Async confirm handler - performs chants then applies all staged changes.
+/// Chanting only happens when there are unbinds (i.e. reshaping, not initial setup).
+/// If interrupted, staged data is preserved so the player can retry.
+/datum/aspect_picker/proc/perform_confirm(max_majors, max_minors_resolved)
+	chanting = TRUE
+	var/has_unbinds = length(staged_unbind_aspects) || length(staged_unbind_utilities)
+
+	// Close the UI before chanting begins
+	SStgui.close_uis(src)
+
+	if(has_unbinds)
+		// Perform unbinding chants for staged aspect unbinds (not utility unbinds)
+		for(var/unbind_path in staged_unbind_aspects)
+			var/datum/magic_aspect/target
+			for(var/datum/magic_aspect/A in owner.mind.major_aspects)
+				if(A.type == unbind_path)
+					target = A
+					break
+			if(!target)
+				for(var/datum/magic_aspect/A in owner.mind.minor_aspects)
 					if(A.type == unbind_path)
 						target = A
 						break
-				if(!target)
-					for(var/datum/magic_aspect/A in owner.mind.minor_aspects)
-						if(A.type == unbind_path)
-							target = A
-							break
-				if(target)
-					if(!owner.mind.spend_aspect_reset(target))
-						to_chat(owner, span_warning("Not enough reset budget remaining."))
-						continue
-					owner.mind.remove_aspect(target)
-					qdel(target)
+			if(!target)
+				continue
+			if(!target.perform_chant(owner, binding = FALSE))
+				to_chat(owner, span_warning("The unbinding chant was interrupted. I can try again."))
+				chanting = FALSE
+				return
+			if(!owner.mind.spend_aspect_reset(target))
+				to_chat(owner, span_warning("Not enough reset budget remaining."))
+				continue
+			owner.mind.remove_aspect(target)
+			qdel(target)
 
-			for(var/unbind_spell_str in staged_unbind_utilities)
-				var/unbind_spell = text2path(unbind_spell_str)
-				if(unbind_spell && owner.mind.has_spell(unbind_spell))
-					if(!owner.mind.spend_utility_reset())
-						to_chat(owner, span_warning("Not enough reset budget remaining."))
-						continue
-					owner.mind.RemoveSpell(unbind_spell)
+		// Utility unbinds - no chant required
+		for(var/unbind_spell_str in staged_unbind_utilities)
+			var/unbind_spell = text2path(unbind_spell_str)
+			if(unbind_spell && owner.mind.has_spell(unbind_spell))
+				if(!owner.mind.spend_utility_reset())
+					to_chat(owner, span_warning("Not enough reset budget remaining."))
+					continue
+				owner.mind.RemoveSpell(unbind_spell)
 
-			// Apply new aspect attunements
-			var/variant = mastery ? "mastery" : null
-			for(var/path in staged_majors)
-				if(owner.mind.has_aspect(path))
-					continue
-				var/datum/magic_aspect/aspect = new path
-				var/choice = staged_choices["[path]"] ? text2path(staged_choices["[path]"]) : null
-				if(!owner.mind.attune_aspect(aspect, variant, choice))
-					qdel(aspect)
-			for(var/path in staged_minors)
-				if(owner.mind.has_aspect(path))
-					continue
-				var/datum/magic_aspect/aspect = new path
-				var/choice = staged_choices["[path]"] ? text2path(staged_choices["[path]"]) : null
-				if(!owner.mind.attune_aspect(aspect, variant, choice))
-					qdel(aspect)
-			// Apply pointbuy selections for attuned aspects
-			for(var/aspect_path_str in pointbuy_selections)
-				var/aspect_path = text2path(aspect_path_str)
-				if(!aspect_path)
-					continue
-				var/datum/magic_aspect/attuned
-				for(var/datum/magic_aspect/A in owner.mind.major_aspects)
-					if(A.type == aspect_path)
-						attuned = A
-						break
-				if(!attuned)
-					for(var/datum/magic_aspect/A in owner.mind.minor_aspects)
-						if(A.type == aspect_path)
-							attuned = A
-							break
-				if(!attuned)
-					continue
-				var/list/selections = pointbuy_selections[aspect_path_str]
-				for(var/spell_path_str in selections)
-					var/spell_path = text2path(spell_path_str)
-					if(!spell_path)
-						continue
-					if(owner.mind.has_spell(spell_path))
-						continue
-					var/datum/new_spell = new spell_path
-					attuned.mark_aspect_spell(new_spell)
-					owner.mind.AddSpell(new_spell)
-			// Apply utility spell selections
-			for(var/spell_path_str in staged_utilities)
-				var/spell_path = text2path(spell_path_str)
-				if(!spell_path)
-					continue
-				if(owner.mind.has_spell(spell_path))
-					continue
-				var/datum/new_spell = new spell_path
-				owner.mind.AddSpell(new_spell)
+	// Apply new aspect attunements - chant only if reshaping (has_unbinds)
+	var/variant = mastery ? "mastery" : null
+	for(var/path in staged_majors)
+		if(owner.mind.has_aspect(path))
+			continue
+		var/datum/magic_aspect/aspect = new path
+		if(has_unbinds)
+			if(!aspect.perform_chant(owner, binding = TRUE))
+				to_chat(owner, span_warning("The binding chant was interrupted. I can try again."))
+				qdel(aspect)
+				chanting = FALSE
+				return
+		var/choice = staged_choices["[path]"] ? text2path(staged_choices["[path]"]) : null
+		if(!owner.mind.attune_aspect(aspect, variant, choice))
+			qdel(aspect)
+	for(var/path in staged_minors)
+		if(owner.mind.has_aspect(path))
+			continue
+		var/datum/magic_aspect/aspect = new path
+		if(has_unbinds)
+			if(!aspect.perform_chant(owner, binding = TRUE))
+				to_chat(owner, span_warning("The binding chant was interrupted. I can try again."))
+				qdel(aspect)
+				chanting = FALSE
+				return
+		var/choice = staged_choices["[path]"] ? text2path(staged_choices["[path]"]) : null
+		if(!owner.mind.attune_aspect(aspect, variant, choice))
+			qdel(aspect)
+	// Apply pointbuy selections for attuned aspects
+	for(var/aspect_path_str in pointbuy_selections)
+		var/aspect_path = text2path(aspect_path_str)
+		if(!aspect_path)
+			continue
+		var/datum/magic_aspect/attuned
+		for(var/datum/magic_aspect/A in owner.mind.major_aspects)
+			if(A.type == aspect_path)
+				attuned = A
+				break
+		if(!attuned)
+			for(var/datum/magic_aspect/A in owner.mind.minor_aspects)
+				if(A.type == aspect_path)
+					attuned = A
+					break
+		if(!attuned)
+			continue
+		var/list/selections = pointbuy_selections[aspect_path_str]
+		for(var/spell_path_str in selections)
+			var/spell_path = text2path(spell_path_str)
+			if(!spell_path)
+				continue
+			if(owner.mind.has_spell(spell_path))
+				continue
+			var/datum/new_spell = new spell_path
+			attuned.mark_aspect_spell(new_spell)
+			owner.mind.AddSpell(new_spell)
+	// Apply utility spell selections - no chant required
+	for(var/spell_path_str in staged_utilities)
+		var/spell_path = text2path(spell_path_str)
+		if(!spell_path)
+			continue
+		if(owner.mind.has_spell(spell_path))
+			continue
+		var/datum/new_spell = new spell_path
+		owner.mind.AddSpell(new_spell)
 
-			if(has_unbinds)
-				to_chat(owner, span_notice("The inscriptions in my grimoire shift and reform..."))
-			owner.mind.ensure_prestidigitation()
-			owner.mind.check_learnspell()
+	if(has_unbinds)
+		to_chat(owner, span_notice("The inscriptions in my grimoire shift and reform..."))
+	owner.mind.ensure_prestidigitation()
+	owner.mind.check_learnspell()
 
-			// Check if there are remaining aspect slots
-			var/current_majors = LAZYLEN(owner.mind.major_aspects)
-			var/current_minors = LAZYLEN(owner.mind.minor_aspects)
-			var/has_remaining = (current_majors < max_majors) || (current_minors < max_minors_resolved)
+	chanting = FALSE
 
-			if(has_remaining)
-				staged_majors.Cut()
-				staged_minors.Cut()
-				staged_utilities.Cut()
-				staged_unbind_aspects.Cut()
-				staged_unbind_utilities.Cut()
-				staged_choices = list()
-				pointbuy_selections = list()
-				SStgui.close_uis(src)
-				to_chat(owner, span_notice("Aspects applied. You have remaining slots — use your spellbook to continue selecting."))
-			else
-				SStgui.close_uis(src)
-				qdel(src)
-			return TRUE
+	// Check if there are remaining aspect slots
+	var/current_majors = LAZYLEN(owner.mind.major_aspects)
+	var/current_minors = LAZYLEN(owner.mind.minor_aspects)
+	var/has_remaining = (current_majors < max_majors) || (current_minors < max_minors_resolved)
 
-/// Check if a spell is already selected in a different aspect's pointbuy or granted as a fixed spell
+	if(has_remaining)
+		staged_majors.Cut()
+		staged_minors.Cut()
+		staged_utilities.Cut()
+		staged_unbind_aspects.Cut()
+		staged_unbind_utilities.Cut()
+		staged_choices = list()
+		pointbuy_selections = list()
+		to_chat(owner, span_notice("Aspects applied. You have remaining slots - use your spellbook to continue selecting."))
+	else
+		qdel(src)
+
+/// Check if a spell is already selected in a different aspect's pointbuy, choice, or granted as a fixed spell
 /datum/aspect_picker/proc/is_spell_selected_elsewhere(spell_path, exclude_aspect_path)
 	// Check pointbuy selections in other aspects
 	for(var/other_aspect_path in pointbuy_selections)
@@ -531,7 +591,13 @@
 		var/list/other_selections = pointbuy_selections[other_aspect_path]
 		if(spell_path in other_selections)
 			return TRUE
-	// Check fixed spells in all staged aspects
+	// Check choice selections in other aspects
+	for(var/other_aspect_path in staged_choices)
+		if(other_aspect_path == exclude_aspect_path)
+			continue
+		if(staged_choices[other_aspect_path] == spell_path)
+			return TRUE
+	// Check fixed spells in all staged and already-attuned aspects
 	var/resolved_spell = text2path(spell_path)
 	if(resolved_spell)
 		var/list/all_staged = staged_majors + staged_minors
@@ -543,6 +609,17 @@
 				qdel(staged)
 				return TRUE
 			qdel(staged)
+		// Check already-attuned aspects
+		for(var/datum/magic_aspect/A in owner.mind.major_aspects)
+			if("[A.type]" == exclude_aspect_path)
+				continue
+			if(resolved_spell in A.fixed_spells)
+				return TRUE
+		for(var/datum/magic_aspect/A in owner.mind.minor_aspects)
+			if("[A.type]" == exclude_aspect_path)
+				continue
+			if(resolved_spell in A.fixed_spells)
+				return TRUE
 	return FALSE
 
 /// Get total points spent in an aspect's pointbuy selections
@@ -583,4 +660,5 @@
 	return total
 
 /datum/aspect_picker/ui_close(mob/user)
-	qdel(src)
+	if(!chanting)
+		qdel(src)

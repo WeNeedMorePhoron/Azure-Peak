@@ -31,7 +31,7 @@
 	spell_impact_intensity = SPELL_IMPACT_NONE
 
 	var/wall_width = 3
-	var/conjure_time = 2 SECONDS
+	var/telegraph_time = 3 SECONDS
 	var/wall_duration = 10 SECONDS
 
 /datum/action/cooldown/spell/earthen_wall/cast(atom/cast_on)
@@ -52,13 +52,7 @@
 	H.visible_message(span_danger("[H] begins to conjure a wall of stone!"))
 	playsound(get_turf(H), 'sound/combat/hits/onstone/wallhit.ogg', 60, TRUE)
 
-	if(!do_after(H, conjure_time, target = H))
-		to_chat(H, span_warning("The conjuration is interrupted!"))
-		return FALSE
-
-	spawn_walls(affected_turfs)
-
-	H.visible_message(span_danger("[H] conjures a wall of stone!"))
+	addtimer(CALLBACK(src, PROC_REF(spawn_walls), affected_turfs), telegraph_time)
 	return TRUE
 
 /datum/action/cooldown/spell/earthen_wall/proc/get_wall_turfs(turf/center, facing)
@@ -86,12 +80,15 @@
 	return turfs
 
 /datum/action/cooldown/spell/earthen_wall/proc/spawn_walls(list/turfs)
+	if(QDELETED(src) || QDELETED(owner))
+		return
 	for(var/turf/T in turfs)
 		var/obj/structure/earthen_wall/W = new(T)
 		W.timeleft = wall_duration
 	playsound(turfs[1], 'sound/combat/hits/onstone/stonedeath.ogg', 100, TRUE, 5)
+	owner.visible_message(span_danger("[owner] conjures a wall of stone!"))
 
 /obj/effect/temp_visual/trap_wall/earth
 	color = GLOW_COLOR_METAL
 	light_color = GLOW_COLOR_METAL
-	duration = 2 SECONDS
+	duration = 3 SECONDS

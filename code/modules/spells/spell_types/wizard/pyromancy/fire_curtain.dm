@@ -34,7 +34,7 @@
 	var/curtain_width = 5
 	var/curtain_depth = 2
 	var/hotspot_life = 10 SECONDS
-	var/telegraph_time = 2 SECONDS
+	var/telegraph_time = 3 SECONDS
 
 /datum/action/cooldown/spell/fire_curtain/cast(atom/cast_on)
 	. = ..()
@@ -93,6 +93,8 @@
 	return all_turfs
 
 /datum/action/cooldown/spell/fire_curtain/proc/spawn_curtain(list/turfs)
+	if(QDELETED(src) || QDELETED(owner))
+		return
 	for(var/turf/T in turfs)
 		new /obj/effect/hotspot(T, null, null, hotspot_life)
 		new /obj/effect/temp_visual/fire(T)
@@ -101,4 +103,4 @@
 /obj/effect/temp_visual/trap_wall/fire
 	color = GLOW_COLOR_FIRE
 	light_color = GLOW_COLOR_FIRE
-	duration = 2 SECONDS
+	duration = 3 SECONDS

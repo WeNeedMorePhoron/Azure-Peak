@@ -68,7 +68,7 @@
 		return
 	for(var/base_path in swaps)
 		var/upgrade_path = swaps[base_path]
-		if(!base_path)
+		if(base_path == VARIANT_ADDITIVE)
 			// Additive mastery - grant new spell without removing anything
 			var/datum/added = new upgrade_path
 			mark_aspect_spell(added)
@@ -125,6 +125,18 @@
 	else if(istype(spell_instance, /datum/action/cooldown/spell))
 		var/datum/action/cooldown/spell/S = spell_instance
 		S.refundable = FALSE
+
+/// Perform the binding or unbinding chant. Returns TRUE if completed, FALSE if interrupted.
+/// Each line is spoken aloud with a 2-second do_after between them.
+/datum/magic_aspect/proc/perform_chant(mob/living/chanter, binding = TRUE)
+	var/list/chant_lines = binding ? binding_chants : unbinding_chants
+	if(!length(chant_lines) || chant_lines[1] == "TODO")
+		return TRUE
+	for(var/line in chant_lines)
+		chanter.say(line, forced = "spell")
+		if(!do_after(chanter, 2 SECONDS, target = chanter))
+			return FALSE
+	return TRUE
 
 /datum/magic_aspect/proc/can_attune(datum/mind/target)
 	if(!target)

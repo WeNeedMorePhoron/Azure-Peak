@@ -48,8 +48,6 @@ GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile
 		/datum/action/cooldown/spell/conjure_armor/crystalhide,
 		/datum/action/cooldown/spell/magicians_brick,
 		/datum/action/cooldown/spell/thunderstrike,
-		/obj/effect/proc_holder/spell/invoked/sundering_lightning,
-		/obj/effect/proc_holder/spell/invoked/meteor_storm,
 		/datum/action/cooldown/spell/projectile/fireball/artillery,
 		/obj/effect/proc_holder/spell/invoked/conjure_primordial,
 		/datum/action/cooldown/spell/raise_deadite,
