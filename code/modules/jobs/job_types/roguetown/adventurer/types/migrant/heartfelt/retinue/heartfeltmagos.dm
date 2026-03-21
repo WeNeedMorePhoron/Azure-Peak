@@ -51,7 +51,7 @@
 	beltl = /obj/item/flashlight/flare/torch/lantern
 	beltr = /obj/item/storage/magebag/starter
 	id = /obj/item/clothing/ring/gold
-	r_hand = /obj/item/rogueweapon/woodstaff/ruby //Two Levels down from CW
+	r_hand = /obj/item/rogueweapon/woodstaff/implement/greater
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backpack_contents = list(
 		/obj/item/reagent_containers/glass/bottle/rogue/poison = 1,

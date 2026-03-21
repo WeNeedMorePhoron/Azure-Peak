@@ -57,7 +57,7 @@
 	if(H.mind)
 		detailcolor = input("Choose a color.", "NALEDIAN COLORPLEX") as anything in naledicolors
 		detailcolor = naledicolors[detailcolor]
-	r_hand = /obj/item/rogueweapon/woodstaff/naledi
+	r_hand = /obj/item/rogueweapon/woodstaff/implement/grand/naledi
 
 
 	head = /obj/item/clothing/head/roguetown/roguehood/hierophant
@@ -248,7 +248,7 @@
 		"MAROON" = "#5F1F34",
 		"BLACK" = "#242526"
 	))
-	r_hand = /obj/item/rogueweapon/woodstaff/naledi
+	r_hand = /obj/item/rogueweapon/woodstaff/implement/grand/naledi
 
 	head = /obj/item/clothing/head/roguetown/roguehood/hierophant
 	cloak = /obj/item/clothing/cloak/hierophant

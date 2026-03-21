@@ -69,7 +69,7 @@
 				beltl = /obj/item/quiver/poisonarrows
 			if("LET THERE BE PLAGUE!!!")
 				H.adjust_skillrank_up_to(/datum/skill/magic/arcane, 4, TRUE)
-				backr = /obj/item/rogueweapon/woodstaff/toper
+				backr = /obj/item/rogueweapon/woodstaff/implement
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/acidsplash)
 		wretch_select_bounty(H)

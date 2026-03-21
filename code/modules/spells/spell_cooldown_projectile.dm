@@ -65,6 +65,26 @@
 		if(L.mind)
 			to_fire.bonus_accuracy += (L.get_skill_level(associated_skill) * 5)
 
+	// Apply implement poke bonus if the caster is holding a spell implement in either hand
+	if(is_implement_scaled_spell && ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/best_mult = 0
+		var/obj/item/rogueweapon/best_implement
+		for(var/obj/item/held in list(H.get_active_held_item(), H.get_inactive_held_item()))
+			var/mult = 0
+			if(istype(held, /obj/item/rogueweapon/woodstaff/implement))
+				var/obj/item/rogueweapon/woodstaff/implement/staff = held
+				mult = staff.implement_multiplier
+			else if(istype(held, /obj/item/rogueweapon/wand))
+				var/obj/item/rogueweapon/wand/wand = held
+				mult = wand.implement_multiplier
+			if(mult > best_mult)
+				best_mult = mult
+				best_implement = held
+		if(best_mult)
+			to_fire.damage = round(to_fire.damage * best_mult)
+			best_implement?.attune_implement(spell_color, implement_aspect_name)
+
 	to_fire.preparePixelProjectile(target, user)
 
 	// Register hit signal so the spell knows when the projectile connects

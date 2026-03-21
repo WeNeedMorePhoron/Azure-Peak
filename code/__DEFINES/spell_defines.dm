@@ -97,3 +97,21 @@
 #define TELEGRAPH_HIGH_IMPACT 12 // Slow - highly telegraphed, big payoff
 #define TELEGRAPH_AREA_DENIAL 16 // Very Slow - AOE or ground targeted, requires setup to avoid
 #define TELEGRAPH_ULTIMATE 20 // Supremely slow. Getting hit is your own fault
+
+// Aspect attuned names — shared between magic_aspect datums and implement-scaled spells
+#define ASPECT_NAME_PYROMANCY   "Fire"
+#define ASPECT_NAME_CRYOMANCY   "Frost"
+#define ASPECT_NAME_FULGURMANCY "Storms"
+#define ASPECT_NAME_GEOMANCY    "Stone"
+#define ASPECT_NAME_KINESIS     "Force"
+#define ASPECT_NAME_FERRAMANCY  "Metal"
+#define ASPECT_NAME_AUGMENTATION "Enhancement"
+
+// Spell implement tiers and multipliers
+#define IMPLEMENT_TIER_LESSER  1
+#define IMPLEMENT_TIER_GREATER 2
+#define IMPLEMENT_TIER_GRAND   3
+
+#define IMPLEMENT_MULT_LESSER  1.2   // 20% poke damage bonus
+#define IMPLEMENT_MULT_GREATER 1.225 // 22.5% poke damage bonus
+#define IMPLEMENT_MULT_GRAND   1.25  // 25% poke damage bonus

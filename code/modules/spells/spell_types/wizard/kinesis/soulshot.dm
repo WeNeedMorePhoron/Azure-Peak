@@ -29,6 +29,8 @@
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
 	cooldown_time = 8 SECONDS // They only get one poke and it is AP so it should feel weighty.
+	is_implement_scaled_spell = TRUE
+	implement_aspect_name = ASPECT_NAME_KINESIS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2

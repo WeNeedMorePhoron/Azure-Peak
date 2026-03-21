@@ -157,6 +157,10 @@
 	var/charge_target_time = 0
 	/// Whether the spell is currently charged, for cases where you want to keep casting after the initial charge (projectiles).
 	var/charged = FALSE
+	/// If TRUE, this spell benefits from implement damage bonus when the caster holds a spell implement.
+	// Only poke spells (low CD staple spammable projectiles) should ever get this.
+	var/is_implement_scaled_spell = FALSE
+	var/implement_aspect_name = ""
 	/// If TRUE, spell charges on button press, then waits for a separate middle-click to cast.
 	/// If FALSE (default), spell uses hold-and-release: hold middle-click to charge, release to cast.
 	var/charge_then_click = FALSE

@@ -140,7 +140,7 @@
 	armor = /obj/item/clothing/cloak/poncho/fancycoat
 	neck = /obj/item/storage/belt/rogue/pouch/coins/veryrich
 	beltl = /obj/item/flashlight/flare/torch/lantern
-	r_hand = /obj/item/rogueweapon/woodstaff/diamond
+	r_hand = /obj/item/rogueweapon/woodstaff/implement/grand
 	beltr = /obj/item/rogueweapon/huntingknife
 	gloves = /obj/item/clothing/gloves/roguetown/leather/black
 	backl = /obj/item/storage/backpack/rogue/satchel // Paper and Feather

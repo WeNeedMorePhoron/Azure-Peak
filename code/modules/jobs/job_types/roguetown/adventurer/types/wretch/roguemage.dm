@@ -49,7 +49,7 @@
 	neck = /obj/item/clothing/neck/roguetown/leather // No iron gorget vs necro. They will have to acquire one in round.
 	beltl = /obj/item/storage/magebag
 	backl = /obj/item/storage/backpack/rogue/backpack
-	backr = /obj/item/rogueweapon/woodstaff/ruby
+	backr = /obj/item/rogueweapon/woodstaff/implement/greater
 	backpack_contents = list(
 		/obj/item/spellbook_unfinished/pre_arcyne = 1, 
 		/obj/item/roguegem/amethyst = 1,

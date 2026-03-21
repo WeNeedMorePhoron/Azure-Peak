@@ -5,7 +5,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
-	attuned_name = "Fire"
+	attuned_name = ASPECT_NAME_PYROMANCY
 	school_color = GLOW_COLOR_FIRE
 	countersynergy = list(/datum/magic_aspect/cryomancy)
 	binding_chants = list(
@@ -34,7 +34,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
-	attuned_name = "Frost"
+	attuned_name = ASPECT_NAME_CRYOMANCY
 	school_color = GLOW_COLOR_ICE
 	countersynergy = list(/datum/magic_aspect/pyromancy)
 	binding_chants = list(
@@ -55,7 +55,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
-	attuned_name = "Storms"
+	attuned_name = ASPECT_NAME_FULGURMANCY
 	school_color = GLOW_COLOR_LIGHTNING
 	binding_chants = list(
 		"TODO",
@@ -75,7 +75,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
-	attuned_name = "Stone"
+	attuned_name = ASPECT_NAME_GEOMANCY
 	school_color = GLOW_COLOR_EARTHEN
 	binding_chants = list(
 		"TODO",
@@ -95,7 +95,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
-	attuned_name = "Force"
+	attuned_name = ASPECT_NAME_KINESIS
 	school_color = GLOW_COLOR_KINESIS
 	binding_chants = list(
 		"TODO",
@@ -116,7 +116,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
-	attuned_name = "Enhancement"
+	attuned_name = ASPECT_NAME_AUGMENTATION
 	school_color = GLOW_COLOR_BUFF
 	binding_chants = list(
 		"TODO",
@@ -152,7 +152,7 @@
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
-	attuned_name = "Metal"
+	attuned_name = ASPECT_NAME_FERRAMANCY
 	school_color = GLOW_COLOR_METAL
 	binding_chants = list(
 		"TODO",
