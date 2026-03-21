@@ -65,9 +65,9 @@
 		/obj/item/storage/belt/rogue/pouch/coins/poor
 		)
 
-	// Spellblade chant selection - almah faction, shamshirs locked for blade
+	// Spellblade chant selection - almah faction, blade choice is locked to shamshirs
 	subclass_selected = null
-	var/selection_html = get_spellblade_chant_html(src, H, "almah", "Dual Shamshirs")
+	var/selection_html = get_spellblade_chant_html(src, H, "almah")
 	H << browse(selection_html, "window=spellblade_chant;size=1100x900")
 	onclose(H, "spellblade_chant", src)
 

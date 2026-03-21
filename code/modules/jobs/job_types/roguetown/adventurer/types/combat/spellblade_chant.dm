@@ -30,7 +30,7 @@
 			phalanx_weapons = "Halberd / Bardiche / Boar Spear / Dory & Shield / Naginata"
 			mace_weapons = "Steel Mace / Steel Warhammer & Shield / Grand Mace"
 		if("almah")
-			blade_weapons = "Dual Shamshirs / Shamshir & Dagger"
+			blade_weapons = "Dual Shamshirs"
 			phalanx_weapons = "Spear / Dory & Shield"
 			mace_weapons = "Steel Mace / Steel Warhammer & Shield"
 		if("undead")
