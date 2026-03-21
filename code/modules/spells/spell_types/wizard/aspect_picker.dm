@@ -91,6 +91,7 @@
 
 	data["pointbuy_selections"] = pointbuy_selections
 	data["selected_utilities"] = staged_utilities
+	data["utility_points_spent"] = get_utility_points_spent()
 
 	// Utilities the user already knows (for edit mode display)
 	var/list/known_utilities = list()
@@ -368,8 +369,9 @@
 			if(spell_path in staged_utilities)
 				staged_utilities -= spell_path
 			else
-				if(length(staged_utilities) >= max_utilities)
-					to_chat(owner, span_warning("No utility slots remaining."))
+				var/spell_cost = get_spell_cost_from_path(text2path(spell_path))
+				if(get_utility_points_spent() + spell_cost > max_utilities)
+					to_chat(owner, span_warning("Not enough utility points remaining."))
 					return
 				staged_utilities += spell_path
 			. = TRUE
@@ -512,6 +514,13 @@
 		return 0
 	var/total = 0
 	for(var/spell_path_str in selections)
+		total += get_spell_cost_from_path(text2path(spell_path_str))
+	return total
+
+/// Get total utility points spent on staged utility selections
+/datum/aspect_picker/proc/get_utility_points_spent()
+	var/total = 0
+	for(var/spell_path_str in staged_utilities)
 		total += get_spell_cost_from_path(text2path(spell_path_str))
 	return total
 
