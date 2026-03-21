@@ -165,7 +165,6 @@
 	// Not a real mage, no free spell point. Take Arcyne Potential if you want it.
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/enchant_weapon)
 	if(H.mind)
 		SStreasury.give_money_account(ECONOMIC_UPPER_MIDDLE_CLASS, H, "Savings.")
 

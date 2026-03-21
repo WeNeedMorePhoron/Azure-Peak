@@ -54,7 +54,6 @@ GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile
 		/datum/action/cooldown/spell/thunderstrike,
 		/obj/effect/proc_holder/spell/invoked/sundering_lightning,
 		/obj/effect/proc_holder/spell/invoked/meteor_storm,
-		/datum/action/cooldown/spell/enchant_weapon,
 		/obj/effect/proc_holder/spell/invoked/forcewall/arcyne_prison,
 		/obj/effect/proc_holder/spell/invoked/forcewall/greater,
 		/obj/effect/proc_holder/spell/invoked/wither,

@@ -331,7 +331,7 @@ a.choose-btn:hover {
 </div>
 <div class="shared-info">
 <h4>Shared Abilities</h4>
-<p>Bind Weapon · Recall Weapon · Empower Weapon · Mending · Enchant Weapon · 4 Utility Spell Points</p>
+<p>Bind Weapon · Recall Weapon · Empower Weapon · Mending · 4 Utility Spell Points</p>
 </div>
 <div class="shared-info" style="text-align: left;">
 <h4 style="text-align: center;">Shared Mechanics</h4>

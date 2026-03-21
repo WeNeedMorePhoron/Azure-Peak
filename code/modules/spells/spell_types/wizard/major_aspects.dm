@@ -164,7 +164,7 @@
 		/datum/action/cooldown/spell/projectile/iron_tempest,
 		/datum/action/cooldown/spell/blade_burst,
 		/datum/action/cooldown/spell/iron_skin,
-		/datum/action/cooldown/spell/enchant_weapon,
+		/datum/action/cooldown/spell/arcyne_forge,
 	)
 	pointbuy_budget = 3
 	pointbuy_spells = list(

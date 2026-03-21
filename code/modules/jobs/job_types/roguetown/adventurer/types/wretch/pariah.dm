@@ -120,7 +120,6 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/empower_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/bind_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mending)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/enchant_weapon)
 
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/trophyfur
 

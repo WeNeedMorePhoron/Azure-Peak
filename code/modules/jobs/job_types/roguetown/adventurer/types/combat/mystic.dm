@@ -276,7 +276,6 @@
 		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/recipe_book/survival = 1,
 		)
-	H.mind.AddSpell(new /datum/action/cooldown/spell/enchant_weapon)
 	var/list/poke_options = list("Arcyne Bolt", "Spitfire", "Frost Bolt", "Shock", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
 	var/poke_choice = input(H, "Choose your offensive cantrip.", "Arcyne Training") as anything in poke_options
 	switch(poke_choice)
