@@ -107,6 +107,9 @@
 #define ASPECT_NAME_FERRAMANCY  "Metal"
 #define ASPECT_NAME_AUGMENTATION "Enhancement"
 
+// Weapon-in-hand casting penalty — applied when casting a penalized spell while holding a non-implement rogueweapon
+#define WEAPON_CAST_PENALTY 0.3
+
 // Spell implement tiers and multipliers
 #define IMPLEMENT_TIER_LESSER  1
 #define IMPLEMENT_TIER_GREATER 2

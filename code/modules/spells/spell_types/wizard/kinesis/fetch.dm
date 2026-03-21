@@ -20,6 +20,7 @@
 	invocation_type = INVOCATION_WHISPER
 
 	charge_required = TRUE
+	weapon_cast_penalized = TRUE
 	charge_time = CHARGETIME_POKE
 	charge_drain = 0
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL

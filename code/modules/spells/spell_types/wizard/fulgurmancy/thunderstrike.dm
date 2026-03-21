@@ -28,6 +28,7 @@
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
+	weapon_cast_penalized = TRUE
 	charge_time = CHARGETIME_HEAVY
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_HEAVY

@@ -161,6 +161,11 @@
 	// Only poke spells (low CD staple spammable projectiles) should ever get this.
 	var/is_implement_scaled_spell = FALSE
 	var/implement_aspect_name = ""
+	/// If TRUE, casting this spell while holding a non-implement rogueweapon incurs a 30% cooldown and stamina penalty.
+	/// Offensive and CC spells should be TRUE. Buffs and utilities should be FALSE.
+	var/weapon_cast_penalized = FALSE
+	/// Transient flag set during Activate() when a weapon penalty is active for this cast.
+	var/weapon_penalty_active = FALSE
 	/// If TRUE, spell charges on button press, then waits for a separate middle-click to cast.
 	/// If FALSE (default), spell uses hold-and-release: hold middle-click to charge, release to cast.
 	var/charge_then_click = FALSE
@@ -385,6 +390,25 @@
 
 	return Activate(target)
 
+/// Returns TRUE if the caster is holding a non-implement rogueweapon (not a shield) in either hand.
+/datum/action/cooldown/spell/proc/check_weapon_in_hand()
+	if(!weapon_cast_penalized)
+		return FALSE
+	if(!ishuman(owner))
+		return FALSE
+	var/mob/living/carbon/human/H = owner
+	for(var/obj/item/held in list(H.get_active_held_item(), H.get_inactive_held_item()))
+		if(!istype(held, /obj/item/rogueweapon))
+			continue
+		if(istype(held, /obj/item/rogueweapon/shield))
+			continue
+		if(istype(held, /obj/item/rogueweapon/woodstaff/implement))
+			continue
+		if(istype(held, /obj/item/rogueweapon/wand))
+			continue
+		return TRUE
+	return FALSE
+
 /// Adjust the cooldown time based on INT and armor.
 /// Matches proc_holder's calculate_cooldown from PR #6316.
 /datum/action/cooldown/spell/proc/get_adjusted_cooldown()
@@ -411,6 +435,10 @@
 		else if(ac == ARMOR_CLASS_MEDIUM)
 			newcd += base * MEDIUM_ARMOR_CD_PENALTY
 
+	// Weapon-in-hand penalty
+	if(weapon_penalty_active)
+		newcd += base * WEAPON_CAST_PENALTY
+
 	return newcd
 
 /// Adjust stamina cost based on INT only.
@@ -428,6 +456,10 @@
 	else if(living_owner.STAINT < SPELL_SCALING_THRESHOLD)
 		var/diff = SPELL_SCALING_THRESHOLD - living_owner.STAINT
 		new_cost += base_cost * diff * FATIGUE_REDUCTION_PER_INT
+
+	// Weapon-in-hand penalty
+	if(weapon_penalty_active)
+		new_cost += base_cost * WEAPON_CAST_PENALTY
 
 	return max(new_cost, 0.1)
 
@@ -536,6 +568,11 @@
 		// That way stuff like teleports or shape-shifts can be invoked before ocurring
 		spell_feedback(owner)
 
+	// Check for weapon-in-hand penalty before cast
+	weapon_penalty_active = check_weapon_in_hand()
+	if(weapon_penalty_active)
+		to_chat(owner, span_warning("Holding a weapon in my hand interferes with my arcyne conduits! This spell is more exhausting than usual."))
+
 	// Actually cast the spell. Main effects go here
 	cast(target)
 
@@ -546,6 +583,8 @@
 	if(!(precast_result & SPELL_NO_IMMEDIATE_COST))
 		// Invoke the base cost of the spell based on primary/secondary resource types
 		invoke_cost()
+
+	weapon_penalty_active = FALSE
 
 	// And then proceed with the aftermath of the cast
 	// Final effects that happen after all the casting is done can go here
