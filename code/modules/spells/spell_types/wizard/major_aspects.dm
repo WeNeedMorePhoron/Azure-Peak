@@ -127,11 +127,10 @@
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/soulshot,
 	)
-	pointbuy_budget = 14
+	pointbuy_budget = 12
 	pointbuy_spells = list(
 		/datum/action/cooldown/spell/haste,
 		/datum/action/cooldown/spell/darkvision,
-		/datum/action/cooldown/spell/longstrider,
 		/datum/action/cooldown/spell/stoneskin,
 		/datum/action/cooldown/spell/hawks_eyes,
 		/datum/action/cooldown/spell/giants_strength,
