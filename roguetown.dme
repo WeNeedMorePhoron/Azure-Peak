@@ -2815,6 +2815,8 @@
 #include "code\modules\spells\spell_types\wizard\invoked_single_target\raise_deadite.dm"
 #include "code\modules\spells\spell_types\wizard\invoked_single_target\silence.dm"
 #include "code\modules\spells\spell_types\wizard\invoked_single_target\transform.dm"
+#include "code\modules\spells\spell_types\wizard\legacy_spells_unused\arcyne_strike.dm"
+#include "code\modules\spells\spell_types\wizard\legacy_spells_unused\acid_splash.dm"
 #include "code\modules\spells\spell_types\wizard\misc\blink.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\haste.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\giants_strength.dm"
