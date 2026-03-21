@@ -2,6 +2,7 @@
 
 /datum/magic_aspect/pyromancy
 	name = "Pyromancy"
+	latin_name = "Maior Aspectus Ignis"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
@@ -31,6 +32,7 @@
 
 /datum/magic_aspect/cryomancy
 	name = "Cryomancy"
+	latin_name = "Maior Aspectus Glaciei"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
@@ -52,6 +54,7 @@
 
 /datum/magic_aspect/fulgurmancy
 	name = "Fulgurmancy"
+	latin_name = "Maior Aspectus Fulminis"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
@@ -72,6 +75,7 @@
 
 /datum/magic_aspect/geomancy
 	name = "Geomancy"
+	latin_name = "Maior Aspectus Terrae"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
@@ -92,6 +96,7 @@
 
 /datum/magic_aspect/kinesis
 	name = "Kinesis"
+	latin_name = "Maior Aspectus Vis"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
@@ -113,6 +118,7 @@
 
 /datum/magic_aspect/augmentation
 	name = "Augmentation"
+	latin_name = "Maior Aspectus Augmenti"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
@@ -149,6 +155,7 @@
 
 /datum/magic_aspect/ferramancy
 	name = "Ferramancy"
+	latin_name = "Maior Aspectus Ferri"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MAJOR
@@ -166,8 +173,7 @@
 		/datum/action/cooldown/spell/iron_skin,
 		/datum/action/cooldown/spell/arcyne_forge,
 	)
-	pointbuy_budget = 3
-	pointbuy_spells = list(
+	choice_spells = list(
 		/datum/action/cooldown/spell/projectile/stygian_efflorescence,
 		/datum/action/cooldown/spell/projectile/arcyne_lance,
 	)

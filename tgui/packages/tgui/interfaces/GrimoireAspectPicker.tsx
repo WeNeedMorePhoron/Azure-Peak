@@ -25,6 +25,7 @@ export const GrimoireAspectPicker = () => {
     attuned_minors = [],
     selected_utilities = [],
     locked_aspects = [],
+    staged_choices = {},
     pointbuy_selections = {},
     all_selected_spells = [],
     utility_points_spent = 0,
@@ -36,6 +37,7 @@ export const GrimoireAspectPicker = () => {
 
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
   const [tab, setTab] = useState<Tab>('major');
+  const [partialConfirmed, setPartialConfirmed] = useState(false);
 
   const aspects = tab === 'major' ? major_aspects : minor_aspects;
   const attuned = tab === 'major' ? attuned_majors : attuned_minors;
@@ -97,6 +99,13 @@ export const GrimoireAspectPicker = () => {
   const sealReady = utilityOnly
     ? utility_points_spent >= max_utilities
     : allFilled;
+
+  const wrappedAct = (action: string, params?: Record<string, unknown>) => {
+    if (action !== 'confirm') {
+      setPartialConfirmed(false);
+    }
+    act(action, params);
+  };
 
   const switchTab = (t: Tab) => {
     if (!hasAccess(t)) return;
@@ -176,7 +185,7 @@ export const GrimoireAspectPicker = () => {
                   pointsBudget={max_utilities}
                   initialSetup={initial_setup}
                   resetBudget={reset_budget}
-                  act={act}
+                  act={wrappedAct}
                 />
               )}
             </div>
@@ -217,10 +226,11 @@ export const GrimoireAspectPicker = () => {
                   userTier={user_tier}
                   initialSetup={initial_setup}
                   resetBudget={reset_budget}
+                  stagedChoices={staged_choices}
                   pointbuySelections={pointbuy_selections}
                   allSelectedSpells={all_selected_spells}
                   getPointbuyUsed={getPointbuyUsed}
-                  act={act}
+                  act={wrappedAct}
                 />
               ) : (
                 <div className="AspectPicker__empty">
@@ -252,9 +262,21 @@ export const GrimoireAspectPicker = () => {
                 !canSeal && 'AspectPicker__action-btn--disabled',
               )}
               style={{ flex: 1 }}
-              onClick={canSeal ? () => act('confirm') : undefined}
+              onClick={
+                canSeal
+                  ? () => {
+                      if (!sealReady && initial_setup && !partialConfirmed) {
+                        setPartialConfirmed(true);
+                        return;
+                      }
+                      wrappedAct('confirm');
+                    }
+                  : undefined
+              }
             >
-              {getSealLabel()}
+              {!sealReady && partialConfirmed
+                ? 'Do a partial binding - Rebinding requires a Grimoire!'
+                : getSealLabel()}
             </div>
           </div>
         </div>

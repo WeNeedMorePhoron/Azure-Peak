@@ -1,3 +1,4 @@
+import { GrimoireChoiceSection } from './GrimoireChoiceSection';
 import { GrimoirePointBuySection } from './GrimoirePointBuySection';
 import { GrimoireSpellEntry } from './GrimoireSpellEntry';
 import { GrimoireVariantSection } from './GrimoireVariantSection';
@@ -14,6 +15,7 @@ export const GrimoireAspectDetail = ({
   userTier,
   initialSetup,
   resetBudget,
+  stagedChoices,
   pointbuySelections,
   allSelectedSpells,
   getPointbuyUsed,
@@ -29,6 +31,7 @@ export const GrimoireAspectDetail = ({
   userTier: number;
   initialSetup: boolean;
   resetBudget: number;
+  stagedChoices: Record<string, string>;
   pointbuySelections: Record<string, string[]>;
   allSelectedSpells: string[];
   getPointbuyUsed: (a: Aspect) => number;
@@ -61,6 +64,20 @@ export const GrimoireAspectDetail = ({
           )}
         </div>
 
+        {aspect.latin_name && (
+          <div
+            style={{
+              fontStyle: 'italic',
+              fontSize: '11px',
+              opacity: 0.5,
+              marginTop: '-2px',
+              marginBottom: '4px',
+            }}
+          >
+            {aspect.latin_name}
+          </div>
+        )}
+
         {aspect.fluff_desc && aspect.fluff_desc !== 'TODO' && (
           <div
             className="AspectPicker__fluff"
@@ -82,6 +99,15 @@ export const GrimoireAspectDetail = ({
         )}
 
         <div className="AspectPicker__divider" />
+
+        {aspect.choice_spells && aspect.choice_spells.length > 0 && (
+          <GrimoireChoiceSection
+            aspect={aspect}
+            stagedChoices={stagedChoices}
+            allSelectedSpells={allSelectedSpells}
+            act={act}
+          />
+        )}
 
         {aspect.fixed_spells.length > 0 && (
           <div>

@@ -18,6 +18,7 @@ export type Variant = {
 export type Aspect = {
   path: string;
   name: string;
+  latin_name: string;
   desc: string;
   fluff_desc: string;
   aspect_type: string;
@@ -25,6 +26,7 @@ export type Aspect = {
   school_color: string;
   pointbuy_budget: number;
   fixed_spells: Spell[];
+  choice_spells: Spell[];
   pointbuy_spells: Spell[];
   countersynergy: string[];
   variants: Variant[];
@@ -43,6 +45,7 @@ export type Data = {
   attuned_minors: string[];
   selected_utilities: string[];
   locked_aspects: string[];
+  staged_choices: Record<string, string>;
   pointbuy_selections: Record<string, string[]>;
   all_selected_spells: string[];
   spent_budgets: Record<string, number>;

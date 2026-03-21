@@ -10,6 +10,7 @@
 
 /datum/magic_aspect
 	var/name = "Aspect"
+	var/latin_name = ""
 	var/desc = "An arcyne discipline."
 	var/fluff_desc = ""
 	var/aspect_type = ASPECT_MAJOR
@@ -17,6 +18,8 @@
 	var/attuned_name = ""
 	// Always granted spells
 	var/list/fixed_spells = list()
+	/// Choice spells - pick exactly one. Granted FIRST (before fixed) so they appear first on the action bar.
+	var/list/choice_spells = list()
 	/// Pointbuy are optionals - for point buy aspect
 	var/list/pointbuy_spells = list()
 	var/pointbuy_budget = 0
@@ -34,6 +37,16 @@
 	if(!attuned_name)
 		return base_name
 	return "[base_name] of [attuned_name]"
+
+/// Grant a single choice spell. Called before grant_spells() so it appears first on the action bar.
+/datum/magic_aspect/proc/grant_choice_spell(datum/mind/target, spell_path)
+	if(!spell_path || !(spell_path in choice_spells))
+		return
+	if(target.has_spell(spell_path))
+		return
+	var/datum/new_spell = new spell_path
+	mark_aspect_spell(new_spell)
+	target.AddSpell(new_spell)
 
 /datum/magic_aspect/proc/grant_spells(datum/mind/target)
 	var/list/granted = list()
@@ -79,6 +92,10 @@
 				target.AddSpell(upgraded)
 
 /datum/magic_aspect/proc/revoke_spells(datum/mind/target)
+	for(var/spell_path in choice_spells)
+		var/datum/existing = target.get_spell(spell_path)
+		if(existing)
+			target.RemoveSpell(existing)
 	for(var/spell_path in fixed_spells)
 		var/datum/existing = target.get_spell(spell_path)
 		if(existing)

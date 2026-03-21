@@ -375,9 +375,10 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	if(!has_spell(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation))
 		AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 	check_learnspell()
+	bump_prestidigitation()
 
 
-/datum/mind/proc/attune_aspect(datum/magic_aspect/aspect, variant)
+/datum/mind/proc/attune_aspect(datum/magic_aspect/aspect, variant, choice_spell)
 	if(!aspect)
 		return FALSE
 	if(!aspect.can_attune(src))
@@ -399,12 +400,16 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 					to_chat(current, span_warning("I cannot attune to another minor aspect."))
 				return FALSE
 			LAZYADD(minor_aspects, aspect)
+	// Grant choice spell first so it appears first on the action bar
+	if(choice_spell)
+		aspect.grant_choice_spell(src, choice_spell)
 	aspect.grant_spells(src)
 	// Apply variant swaps — explicit variant takes priority, T4 gets "mastery" by default
 	if(variant)
 		aspect.apply_variant(src, variant)
 	else if(user_tier >= 4)
 		aspect.apply_variant(src, "mastery")
+	bump_prestidigitation()
 	return TRUE
 
 /datum/mind/proc/remove_aspect(datum/magic_aspect/aspect)
@@ -886,24 +891,30 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	if(length(spell_list) == 1 && current)
 		addtimer(CALLBACK(src, PROC_REF(show_spell_tip)), 3 SECONDS)
 
+/// Move Prestidigitation to the end of the spell list so it's always last
+/datum/mind/proc/bump_prestidigitation()
+	var/datum/presto = get_spell(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+	if(!presto)
+		return
+	spell_list -= presto
+	spell_list += presto
+
 /datum/mind/proc/show_spell_tip()
 	if(current)
 		to_chat(current, span_nicegreen("Tip: You can Ctrl-Click your hotkey bar to unlock it, then drag to rearrange your spells. Re-arranging them change which hotkeys they are bound to in order from left to right (Alt 1 to Alt 9 default). You can shift click your spells to learn more about them."))
 
 /datum/mind/proc/check_learnspell()
-	// Aspect config system — check if there are remaining aspect or utility slots
+	// Aspect config system — LearnSpell only appears until the first binding.
+	// After that, the spellbook handles edit mode.
 	if(LAZYLEN(mage_aspect_config))
-		var/list/config = mage_aspect_config
-		var/max_maj = config["major"] || 0
-		var/max_min = config["minor"] || 0
-		var/max_util = config["utilities"] || 0
 		var/current_majors = LAZYLEN(major_aspects)
 		var/current_minors = LAZYLEN(minor_aspects)
-		if(current_majors < max_maj || current_minors < max_min || max_util > 0)
-			if(!has_spell(/obj/effect/proc_holder/spell/self/learnspell))
-				AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))
+		if(current_majors > 0 || current_minors > 0)
+			RemoveSpell(/obj/effect/proc_holder/spell/self/learnspell)
 			return
-		RemoveSpell(/obj/effect/proc_holder/spell/self/learnspell)
+		// No aspects bound yet — show LearnSpell for initial setup
+		if(!has_spell(/obj/effect/proc_holder/spell/self/learnspell))
+			AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))
 		return
 
 	// T3+ casters without aspects still need learnspell to open the aspect picker

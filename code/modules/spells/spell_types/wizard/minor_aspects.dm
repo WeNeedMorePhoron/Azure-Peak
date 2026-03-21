@@ -2,6 +2,7 @@
 
 /datum/magic_aspect/artifice
 	name = "Artifice"
+	latin_name = "Minor Aspectus Artificii"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
@@ -18,6 +19,7 @@
 
 /datum/magic_aspect/exowardry
 	name = "Exowardry"
+	latin_name = "Minor Aspectus Exotutelae"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
@@ -34,6 +36,7 @@
 
 /datum/magic_aspect/aegiscraft
 	name = "Aegiscraft"
+	latin_name = "Minor Aspectus Aegidis"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
@@ -50,6 +53,7 @@
 
 /datum/magic_aspect/displacement
 	name = "Displacement"
+	latin_name = "Minor Aspectus Translationis"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
@@ -60,14 +64,14 @@
 	unbinding_chants = list(
 		"TODO",
 	)
-	pointbuy_budget = 3
-	pointbuy_spells = list(
+	choice_spells = list(
 		/obj/effect/proc_holder/spell/invoked/blink,
 		/datum/action/cooldown/spell/repulse,
 	)
 
 /datum/magic_aspect/autowardry
 	name = "Autowardry"
+	latin_name = "Minor Aspectus Autotutelae"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
@@ -78,14 +82,14 @@
 	unbinding_chants = list(
 		"TODO",
 	)
-	pointbuy_budget = 4
-	pointbuy_spells = list(
+	choice_spells = list(
 		/obj/effect/proc_holder/spell/self/conjure_armor/dragonhide,
 		/obj/effect/proc_holder/spell/self/conjure_armor/crystalhide,
 	)
 
 /datum/magic_aspect/lesser_augmentation
 	name = "Lesser Augmentation"
+	latin_name = "Minor Aspectus Augmenti"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
@@ -116,6 +120,7 @@
 
 /datum/magic_aspect/illusion
 	name = "Illusion"
+	latin_name = "Minor Aspectus Illusio"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
@@ -132,6 +137,7 @@
 
 /datum/magic_aspect/hearthcraft
 	name = "Hearthcraft"
+	latin_name = "Minor Aspectus Domus"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR
@@ -149,6 +155,7 @@
 
 /datum/magic_aspect/hex
 	name = "Hex"
+	latin_name = "Minor Aspectus Maleficii"
 	desc = "TODO"
 	fluff_desc = "TODO"
 	aspect_type = ASPECT_MINOR

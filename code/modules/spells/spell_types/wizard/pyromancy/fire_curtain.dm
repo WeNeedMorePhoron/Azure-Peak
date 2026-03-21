@@ -1,7 +1,8 @@
 /datum/action/cooldown/spell/fire_curtain
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Fire Curtain"
-	desc = "Conjure a 1x5 curtain of flame at a target location, perpendicular to your facing. \
+	desc = "Conjure a 5x2 curtain of flame at a target location, perpendicular to your facing. \
+	After a 2-second telegraph, the fire erupts. \
 	The fire does not block movement but will burn anything that passes through or stands in it. \
 	You are not immune to your own curtain."
 	button_icon_state = "fire_curtain"
@@ -31,8 +32,9 @@
 	spell_impact_intensity = SPELL_IMPACT_HIGH
 
 	var/curtain_width = 5
+	var/curtain_depth = 2
 	var/hotspot_life = 10 SECONDS
-	var/conjure_time = 2 SECONDS
+	var/telegraph_time = 2 SECONDS
 
 /datum/action/cooldown/spell/fire_curtain/cast(atom/cast_on)
 	. = ..()
@@ -49,20 +51,14 @@
 	for(var/turf/T in affected_turfs)
 		new /obj/effect/temp_visual/trap_wall/fire(T)
 
-	H.visible_message(span_danger("[H] begins to conjure a wall of flame!"))
+	H.visible_message(span_danger("[H] conjures a wall of flame!"))
 	playsound(get_turf(H), 'sound/magic/charging_fire.ogg', 60, TRUE)
 
-	if(!do_after(H, conjure_time, target = H))
-		to_chat(H, span_warning("The conjuration is interrupted!"))
-		return FALSE
-
-	spawn_curtain(affected_turfs)
-
-	H.visible_message(span_danger("[H] conjures a wall of flame!"))
+	addtimer(CALLBACK(src, PROC_REF(spawn_curtain), affected_turfs), telegraph_time)
 	return TRUE
 
 /datum/action/cooldown/spell/fire_curtain/proc/get_curtain_turfs(turf/center, facing)
-	var/list/turfs = list(center)
+	var/list/row_turfs = list(center)
 	var/spread_dir1
 	var/spread_dir2
 	if(facing == NORTH || facing == SOUTH)
@@ -77,13 +73,24 @@
 	for(var/i in 1 to half)
 		current = get_step(current, spread_dir1)
 		if(current)
-			turfs += current
+			row_turfs += current
 	current = center
 	for(var/i in 1 to half)
 		current = get_step(current, spread_dir2)
 		if(current)
-			turfs += current
-	return turfs
+			row_turfs += current
+
+	// Extend depth along the facing direction
+	var/list/all_turfs = row_turfs.Copy()
+	for(var/d in 1 to curtain_depth - 1)
+		var/list/next_row = list()
+		for(var/turf/T in row_turfs)
+			var/turf/deep = get_step(T, facing)
+			if(deep)
+				all_turfs |= deep
+				next_row += deep
+		row_turfs = next_row
+	return all_turfs
 
 /datum/action/cooldown/spell/fire_curtain/proc/spawn_curtain(list/turfs)
 	for(var/turf/T in turfs)

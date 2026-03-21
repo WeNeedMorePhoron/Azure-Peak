@@ -36,11 +36,14 @@ export const GrimoireChapterList = ({
             isPendingUnbind && 'AspectPicker__chapter-entry--unbinding',
             blocked && 'AspectPicker__chapter-entry--blocked',
           )}
-          onClick={() => !blocked && onSelect(aspect.path)}
+          onClick={() => onSelect(aspect.path)}
         >
           <span
             style={{
-              ...(aspect.school_color ? { color: aspect.school_color } : {}),
+              ...(aspect.school_color && !blocked
+                ? { color: aspect.school_color }
+                : {}),
+              ...(blocked ? { color: 'rgba(150,80,80,0.6)' } : {}),
               ...(isPendingUnbind
                 ? { textDecoration: 'line-through', opacity: 0.6 }
                 : {}),
@@ -48,12 +51,28 @@ export const GrimoireChapterList = ({
           >
             {aspect.name}
           </span>
+          {blocked && (
+            <span
+              className="AspectPicker__spell-desc"
+              style={{ marginLeft: '6px', color: 'rgba(150,80,80,0.5)', fontSize: '10px' }}
+            >
+              opposed
+            </span>
+          )}
           {isLocked && (
             <span
               className="AspectPicker__spell-desc"
               style={{ marginLeft: '6px' }}
             >
               bound
+            </span>
+          )}
+          {active && !isLocked && !isPendingUnbind && (
+            <span
+              className="AspectPicker__spell-desc"
+              style={{ marginLeft: '6px', opacity: 0.6 }}
+            >
+              attuned
             </span>
           )}
           {isPendingUnbind && (

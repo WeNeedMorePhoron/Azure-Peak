@@ -7,6 +7,8 @@
 	var/list/staged_minors = list()
 	/// Selected utility spell paths (string paths)
 	var/list/staged_utilities = list()
+	/// Staged choice selections — assoc list: aspect_path_str = spell_path_str
+	var/list/staged_choices = list()
 	/// Staged unbinds — aspect type paths to remove on confirm (edit mode)
 	var/list/staged_unbind_aspects = list()
 	/// Staged utility unbinds — spell path strings to remove on confirm (edit mode)
@@ -89,6 +91,7 @@
 	for(var/path in staged_minors)
 		data["attuned_minors"] |= "[path]"
 
+	data["staged_choices"] = staged_choices
 	data["pointbuy_selections"] = pointbuy_selections
 	data["selected_utilities"] = staged_utilities
 	data["utility_points_spent"] = get_utility_points_spent()
@@ -113,8 +116,10 @@
 	data["staged_unbind_utilities"] = staged_unbind_utilities
 
 	// Collect all selected/granted spell paths so the UI can grey out duplicates
-	// This includes both pointbuy selections AND fixed spells from all staged aspects
+	// This includes choice selections, pointbuy selections, AND fixed spells from all staged aspects
 	var/list/all_selected_spells = list()
+	for(var/aspect_path_str in staged_choices)
+		all_selected_spells |= staged_choices[aspect_path_str]
 	for(var/aspect_path_str in pointbuy_selections)
 		var/list/selections = pointbuy_selections[aspect_path_str]
 		for(var/spell_path_str in selections)
@@ -154,12 +159,17 @@
 		var/list/entry = list()
 		entry["path"] = "[path]"
 		entry["name"] = A.name
+		entry["latin_name"] = A.latin_name
 		entry["desc"] = A.desc
 		entry["fluff_desc"] = A.fluff_desc
 		entry["aspect_type"] = A.aspect_type
 		entry["attuned_name"] = A.attuned_name
 		entry["school_color"] = A.school_color
 		entry["pointbuy_budget"] = A.pointbuy_budget
+
+		entry["choice_spells"] = list()
+		for(var/spell_path in A.choice_spells)
+			entry["choice_spells"] += list(build_spell_entry(spell_path))
 
 		entry["fixed_spells"] = list()
 		for(var/spell_path in A.fixed_spells)
@@ -333,6 +343,18 @@
 			staged_unbind_utilities -= spell_path_str
 			. = TRUE
 
+		if("choice_toggle")
+			var/aspect_path = params["aspect_path"]
+			var/spell_path = params["spell_path"]
+			if(!aspect_path || !spell_path)
+				return
+			// Exclusive toggle — selecting one deselects the previous
+			if(staged_choices[aspect_path] == spell_path)
+				staged_choices -= aspect_path
+			else
+				staged_choices[aspect_path] = spell_path
+			. = TRUE
+
 		if("pointbuy_toggle")
 			var/aspect_path = params["aspect_path"]
 			var/spell_path = params["spell_path"]
@@ -384,6 +406,17 @@
 				to_chat(owner, span_warning("You must select something before sealing."))
 				return
 
+			// Validate choice selections — each new aspect with choice_spells must have a pick
+			for(var/path in staged_majors + staged_minors)
+				if(owner.mind.has_aspect(path))
+					continue
+				var/datum/magic_aspect/check = new path
+				if(length(check.choice_spells) && !staged_choices["[path]"])
+					to_chat(owner, span_warning("You must choose a spell for [check.name] before sealing."))
+					qdel(check)
+					return
+				qdel(check)
+
 			// Apply staged unbinds first — spend reset budget
 			for(var/unbind_path in staged_unbind_aspects)
 				var/datum/magic_aspect/target
@@ -412,17 +445,20 @@
 					owner.mind.RemoveSpell(unbind_spell)
 
 			// Apply new aspect attunements
+			var/variant = mastery ? "mastery" : null
 			for(var/path in staged_majors)
 				if(owner.mind.has_aspect(path))
 					continue
 				var/datum/magic_aspect/aspect = new path
-				if(!owner.mind.attune_aspect(aspect))
+				var/choice = staged_choices["[path]"] ? text2path(staged_choices["[path]"]) : null
+				if(!owner.mind.attune_aspect(aspect, variant, choice))
 					qdel(aspect)
 			for(var/path in staged_minors)
 				if(owner.mind.has_aspect(path))
 					continue
 				var/datum/magic_aspect/aspect = new path
-				if(!owner.mind.attune_aspect(aspect))
+				var/choice = staged_choices["[path]"] ? text2path(staged_choices["[path]"]) : null
+				if(!owner.mind.attune_aspect(aspect, variant, choice))
 					qdel(aspect)
 			// Apply pointbuy selections for attuned aspects
 			for(var/aspect_path_str in pointbuy_selections)
@@ -476,6 +512,7 @@
 				staged_utilities.Cut()
 				staged_unbind_aspects.Cut()
 				staged_unbind_utilities.Cut()
+				staged_choices = list()
 				pointbuy_selections = list()
 				SStgui.close_uis(src)
 				to_chat(owner, span_notice("Aspects applied. You have remaining slots — use your spellbook to continue selecting."))
