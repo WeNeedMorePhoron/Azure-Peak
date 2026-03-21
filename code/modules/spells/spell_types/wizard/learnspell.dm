@@ -90,14 +90,10 @@
 /obj/effect/proc_holder/spell/self/learnspell/proc/legacy_pointbuy_spells(mob/user)
 	var/list/choices = list()
 	var/list/spell_descriptions = list()
-	var/user_spell_tier = get_user_spell_tier(user)
 	var/user_evil = get_user_evilness(user)
 	var/list/spell_choices = GLOB.learnable_spells
 
 	for(var/spell_path in spell_choices)
-		var/tier = get_spell_tier(spell_path)
-		if(tier > user_spell_tier)
-			continue
 		var/zizo = get_spell_zizo(spell_path)
 		if(zizo > user_evil)
 			continue

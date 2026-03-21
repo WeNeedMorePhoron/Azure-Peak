@@ -267,8 +267,5 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/message)
 		// Pyromancy with Grenzelhoftian variant — Fireball becomes Artillery Fireball (Grenzelhoftian)
 		H.mind.attune_aspect(new /datum/magic_aspect/pyromancy, "grenzelhoftian")
-	if(H.age == AGE_OLD) // FEAR the old man in a profession where men die young, or something corny like that.
-		ADD_TRAIT(H, TRAIT_ARCYNE_T3, TRAIT_GENERIC)
-	else
-		ADD_TRAIT(H, TRAIT_ARCYNE_T2, TRAIT_GENERIC) // Only T2 arcyne (Unless they're old) so if they get spell points from something they can only pick from the curated spellblade list
+	ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 	H.merctype = 7

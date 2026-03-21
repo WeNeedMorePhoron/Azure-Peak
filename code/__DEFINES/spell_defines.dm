@@ -84,9 +84,8 @@
 #define SPELL_IMPACT_MEDIUM 2  // 4 wisps — staple projectiles, soulshot
 #define SPELL_IMPACT_HIGH   3  // 6 wisps — big hits, fireball, boulder
 
-// Magic Aspect system
-#define MAX_MAJOR_ASPECTS_T3 1
-#define MAX_MAJOR_ASPECTS_T4 2
+// Magic Aspect system - default slot counts (overridden by mage_aspect_config per class)
+#define MAX_MAJOR_ASPECTS 1
 #define MAX_MINOR_ASPECTS 2
 #define ASPECT_MAJOR "major"
 #define ASPECT_MINOR "minor"

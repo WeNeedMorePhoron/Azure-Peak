@@ -2,7 +2,7 @@
 	name = "Desert Rider Almah"
 	tutorial = "You're an Almah - a blade dancer, trained in the arts of spellbladery, an art originating from Azurea in ancient time. Your people have refined spellbladery into an artform. They call you a bladedancer - for the beautiful, bloody tapestry of magycks and blade you weave out of your foes in battle."
 	outfit = /datum/outfit/job/roguetown/mercenary/desert_rider_almah
-	traits_applied = list(TRAIT_ARCYNE_T2)
+	traits_applied = list(TRAIT_ARCYNE)
 	subclass_stats = list(
 		STATKEY_SPD = 1, // Weighted 7. Swap str for spd
 		STATKEY_INT = 1, // Weighted 7. But a very nice statblock

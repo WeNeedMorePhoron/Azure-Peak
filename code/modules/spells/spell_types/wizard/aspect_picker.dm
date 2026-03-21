@@ -66,9 +66,8 @@
 	var/list/data = list()
 	if(!owner?.mind)
 		return data
-	var/user_tier = get_user_spell_tier(owner)
-	data["user_tier"] = mastery ? 4 : user_tier
-	data["max_majors"] = isnull(override_max_majors) ? ((user_tier >= 4) ? MAX_MAJOR_ASPECTS_T4 : MAX_MAJOR_ASPECTS_T3) : override_max_majors
+	data["user_tier"] = mastery ? 4 : (HAS_TRAIT(owner, TRAIT_ARCYNE) ? 3 : 0)
+	data["max_majors"] = isnull(override_max_majors) ? MAX_MAJOR_ASPECTS : override_max_majors
 	data["max_minors"] = isnull(override_max_minors) ? MAX_MINOR_ASPECTS : override_max_minors
 	data["max_utilities"] = max_utilities
 	data["initial_setup"] = initial_setup
@@ -251,8 +250,7 @@
 	if(!owner?.mind)
 		return
 
-	var/user_tier = get_user_spell_tier(owner)
-	var/max_majors = isnull(override_max_majors) ? ((user_tier >= 4) ? MAX_MAJOR_ASPECTS_T4 : MAX_MAJOR_ASPECTS_T3) : override_max_majors
+	var/max_majors = isnull(override_max_majors) ? MAX_MAJOR_ASPECTS : override_max_majors
 	var/max_minors_resolved = isnull(override_max_minors) ? MAX_MINOR_ASPECTS : override_max_minors
 
 	switch(action)

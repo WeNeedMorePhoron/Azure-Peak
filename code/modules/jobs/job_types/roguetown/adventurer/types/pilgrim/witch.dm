@@ -54,7 +54,7 @@
 
 	switch (classchoice)
 		if("Old Magick")
-			ADD_TRAIT(H, TRAIT_ARCYNE_T2, TRAIT_GENERIC)
+			ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 			H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_APPRENTICE, TRUE)
 			if(H.mind)
 				H.mind.mage_aspect_config = list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 5, "locked_aspects" = list(/datum/magic_aspect/hex))
@@ -78,7 +78,7 @@
 			H.adjust_skillrank(/datum/skill/magic/holy, SKILL_LEVEL_NOVICE, TRUE)
 			D.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_MINOR, devotion_limit = CLERIC_REQ_1)
 			D.max_devotion *= 0.5
-			ADD_TRAIT(H, TRAIT_ARCYNE_T1, TRAIT_GENERIC)
+			ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 			H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_NOVICE, TRUE)
 			if(H.mind)
 				H.mind.mage_aspect_config = list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 3)

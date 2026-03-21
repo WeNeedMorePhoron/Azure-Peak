@@ -20,7 +20,7 @@
 	round_contrib_points = 3
 
 	job_traits = list(
-		TRAIT_ARCYNE_T2,
+		TRAIT_ARCYNE,
 		TRAIT_INTELLECTUAL,
 		TRAIT_SEEPRICES_SHITTY,
 		TRAIT_MEDICINE_EXPERT,

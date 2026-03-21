@@ -168,7 +168,7 @@
 	outfit = /datum/outfit/job/roguetown/hand/advisor
 
 	category_tags = list(CTAG_HAND)
-	traits_applied = list(TRAIT_ALCHEMY_EXPERT, TRAIT_ARCYNE_T2)
+	traits_applied = list(TRAIT_ALCHEMY_EXPERT, TRAIT_ARCYNE)
 	subclass_stats = list(
 		STATKEY_INT = 4,
 		STATKEY_PER = 3,

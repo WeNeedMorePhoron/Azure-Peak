@@ -385,17 +385,18 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		if(current)
 			to_chat(current, span_warning("This aspect conflicts with my current attunements."))
 		return FALSE
-	var/user_tier = current ? get_user_spell_tier(current) : 0
+	var/max_majors = LAZYLEN(mage_aspect_config) ? mage_aspect_config["major"] : MAX_MAJOR_ASPECTS
+	var/max_minors = LAZYLEN(mage_aspect_config) ? mage_aspect_config["minor"] : MAX_MINOR_ASPECTS
+	var/has_mastery = LAZYLEN(mage_aspect_config) ? mage_aspect_config["mastery"] : FALSE
 	switch(aspect.aspect_type)
 		if(ASPECT_MAJOR)
-			var/max_majors = (user_tier >= 4) ? MAX_MAJOR_ASPECTS_T4 : MAX_MAJOR_ASPECTS_T3
 			if(LAZYLEN(major_aspects) >= max_majors)
 				if(current)
 					to_chat(current, span_warning("I cannot attune to another major aspect."))
 				return FALSE
 			LAZYADD(major_aspects, aspect)
 		if(ASPECT_MINOR)
-			if(LAZYLEN(minor_aspects) >= MAX_MINOR_ASPECTS)
+			if(LAZYLEN(minor_aspects) >= max_minors)
 				if(current)
 					to_chat(current, span_warning("I cannot attune to another minor aspect."))
 				return FALSE
@@ -404,10 +405,10 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	if(choice_spell)
 		aspect.grant_choice_spell(src, choice_spell)
 	aspect.grant_spells(src)
-	// Apply variant swaps — explicit variant takes priority, T4 gets "mastery" by default
+	// Apply variant swaps — explicit variant takes priority, mastery config gets "mastery" by default
 	if(variant)
 		aspect.apply_variant(src, variant)
-	else if(user_tier >= 4)
+	else if(has_mastery)
 		aspect.apply_variant(src, "mastery")
 	bump_prestidigitation()
 	return TRUE
@@ -895,7 +896,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 /datum/mind/proc/ensure_prestidigitation()
 	var/datum/presto = get_spell(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 	if(!presto)
-		if(HAS_TRAIT(current, TRAIT_ARCYNE_T1) || HAS_TRAIT(current, TRAIT_ARCYNE_T2) || HAS_TRAIT(current, TRAIT_ARCYNE_T3) || HAS_TRAIT(current, TRAIT_ARCYNE_T4))
+		if(HAS_TRAIT(current, TRAIT_ARCYNE))
 			AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 		return
 	spell_list -= presto
@@ -927,10 +928,9 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 			AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))
 		return
 
-	// T3+ casters without aspects still need learnspell to open the aspect picker
+	// Arcyne casters without aspects still need learnspell to open the aspect picker
 	if(current)
-		var/user_tier = get_user_spell_tier(current)
-		if(user_tier >= 3 && !LAZYLEN(major_aspects))
+		if(HAS_TRAIT(current, TRAIT_ARCYNE) && !LAZYLEN(major_aspects))
 			if(!has_spell(/obj/effect/proc_holder/spell/self/learnspell))
 				AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))
 			return

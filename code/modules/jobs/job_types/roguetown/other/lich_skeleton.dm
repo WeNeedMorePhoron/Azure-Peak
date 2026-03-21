@@ -506,7 +506,7 @@ LICH SKELETONS
 	H.STAPER = 11
 
 	ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
-	ADD_TRAIT(H, TRAIT_ARCYNE_T2, TRAIT_GENERIC)
+	ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 
 	H.adjust_skillrank(/datum/skill/combat/shields, 3, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/wrestling, 2, TRUE)

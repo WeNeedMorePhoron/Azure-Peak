@@ -535,16 +535,8 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 	var/arcaneskill = user.get_skill_level(/datum/skill/magic/arcane)
 	if(arcaneskill >= SKILL_LEVEL_NOVICE) //Required arcane skill of NOVICE or higher to use the granter
 		to_chat(user, span_notice("I absorb the insights on the scroll, and feel more adept at spellcraft!"))
-		if(HAS_TRAIT(user, TRAIT_ARCYNE_T3) || HAS_TRAIT(user, TRAIT_ARCYNE_T4))
+		if(HAS_TRAIT(user, TRAIT_ARCYNE))
 			user.mind.adjust_spellpoints(5)
-		if(HAS_TRAIT(user, TRAIT_ARCYNE_T2))
-			ADD_TRAIT(user, TRAIT_ARCYNE_T3, TRAIT_GENERIC)
-			user.mind.adjust_spellpoints(1)
-			REMOVE_TRAIT(user, TRAIT_ARCYNE_T2, TRAIT_GENERIC)
-		if(HAS_TRAIT(user, TRAIT_ARCYNE_T1))
-			ADD_TRAIT(user, TRAIT_ARCYNE_T2, TRAIT_GENERIC)
-			user.mind.adjust_spellpoints(1)
-			REMOVE_TRAIT(user, TRAIT_ARCYNE_T1, TRAIT_GENERIC)
 		onlearned(user)
 
 /obj/item/book/granter/arcynetyr/onlearned(mob/living/carbon/user)

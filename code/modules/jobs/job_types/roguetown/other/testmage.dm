@@ -14,7 +14,7 @@
 	plevel_req = 0
 	display_order = JDO_MERCENARY
 	spells = list()
-	job_traits = list(TRAIT_ARCYNE_T4, TRAIT_ALCHEMY_EXPERT)
+	job_traits = list(TRAIT_ARCYNE, TRAIT_ALCHEMY_EXPERT)
 	job_subclasses = list(
 		/datum/advclass/testmage
 	)
@@ -25,7 +25,7 @@
 	name = "Test Mage"
 	tutorial = "A test mage with maximum aspect points."
 	outfit = /datum/outfit/job/roguetown/testmage
-	traits_applied = list(TRAIT_ARCYNE_T4, TRAIT_ALCHEMY_EXPERT)
+	traits_applied = list(TRAIT_ARCYNE, TRAIT_ALCHEMY_EXPERT)
 	subclass_mage_aspects = list("mastery" = TRUE, "major" = 7, "minor" = 15, "utilities" = 60)
 	subclass_stats = list(
 		STATKEY_INT = 10,

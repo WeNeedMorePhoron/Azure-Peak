@@ -21,7 +21,7 @@
 	var/mob/living/carbon/human/L = owner.current
 	L.become_skeleton()
 	ADD_TRAIT(L, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
-	ADD_TRAIT(L, TRAIT_ARCYNE_T2, TRAIT_GENERIC)
+	ADD_TRAIT(L, TRAIT_ARCYNE, TRAIT_GENERIC)
 
 /datum/antagonist/unbound_spellblade/proc/equip_spellblade()
 	owner.unknow_all_people()

@@ -2,7 +2,7 @@
 /datum/virtue/combat/magical_potential
 	name = "Arcyne Potential"
 	desc = "I am talented in the Arcyne arts, expanding my capacity for magic. I have become more intelligent from its studies. Other effects depends on what training I chose to focus on at a later age."
-	custom_text = "Classes that has a combat trait (Medium / Heavy Armor Training, Dodge Expert or Critical Resistance) get only prestidigitation. Everyone else get +3 spellpoints (or +3 utility spellpoints if pool-based) and T1 Arcyne Potential if they don't have any Arcyne."
+	custom_text = "Classes that has a combat trait (Medium / Heavy Armor Training, Dodge Expert or Critical Resistance) get only prestidigitation. Everyone else get +3 spellpoints (or +3 utility spellpoints if pool-based) and Arcyne Training if they don't have any Arcyne."
 	added_skills = list(list(/datum/skill/magic/arcane, 1, 6))
 
 /datum/virtue/combat/magical_potential/apply_to_human(mob/living/carbon/human/recipient)
@@ -10,7 +10,7 @@
 		if (!recipient.mind?.has_spell(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation))
 			recipient.mind?.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 		if (!HAS_TRAIT(recipient, TRAIT_MEDIUMARMOR) && !HAS_TRAIT(recipient, TRAIT_HEAVYARMOR) && !HAS_TRAIT(recipient, TRAIT_DODGEEXPERT) && !HAS_TRAIT(recipient, TRAIT_CRITICAL_RESISTANCE))
-			ADD_TRAIT(recipient, TRAIT_ARCYNE_T1, TRAIT_GENERIC)
+			ADD_TRAIT(recipient, TRAIT_ARCYNE, TRAIT_GENERIC)
 			add_arcyne_potential_spellpoints(recipient, 3)
 	else
 		add_arcyne_potential_spellpoints(recipient, 3)

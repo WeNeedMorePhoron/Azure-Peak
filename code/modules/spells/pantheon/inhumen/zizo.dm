@@ -259,7 +259,7 @@
 
 	ADD_TRAIT(user, TRAIT_NOHUNGER, "[type]")
 	ADD_TRAIT(user, TRAIT_NOBREATH, "[type]")
-	ADD_TRAIT(user, TRAIT_ARCYNE_T3, "[type]")
+	ADD_TRAIT(user, TRAIT_ARCYNE, "[type]")
 
 	if(prob(33))
 		to_chat(user, span_small("...what have I done?"))
