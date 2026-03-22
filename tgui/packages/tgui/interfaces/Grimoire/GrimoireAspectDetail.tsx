@@ -21,6 +21,7 @@ export const GrimoireAspectDetail = ({
   allSelectedSpells,
   getPointbuyUsed,
   act,
+  readOnly = false,
 }: {
   aspect: Aspect;
   isAttuned: boolean;
@@ -37,6 +38,7 @@ export const GrimoireAspectDetail = ({
   allSelectedSpells: string[];
   getPointbuyUsed: (a: Aspect) => number;
   act: (action: string, params: Record<string, unknown>) => void;
+  readOnly?: boolean;
 }) => {
   const isMajor = aspect.aspect_type === 'major';
   const unbindCost = isMajor ? 2 : 1;
@@ -132,7 +134,7 @@ export const GrimoireAspectDetail = ({
         )}
       </div>
 
-      <div style={{ marginTop: '8px', flexShrink: 0 }}>
+      {!readOnly && <div style={{ marginTop: '8px', flexShrink: 0 }}>
         {isPendingUnbind ? (
           <div
             className="AspectPicker__action-btn AspectPicker__action-btn--caution"
@@ -198,7 +200,7 @@ export const GrimoireAspectDetail = ({
             Bind {aspect.name}
           </div>
         )}
-      </div>
+      </div>}
     </>
   );
 };

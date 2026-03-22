@@ -11,6 +11,7 @@
  * Supports arc mode toggle via projectile_type_arc.
  */
 /datum/action/cooldown/spell/projectile
+	abstract_type = /datum/action/cooldown/spell/projectile
 	self_cast_possible = FALSE
 
 	/// What projectile we create when we shoot our spell.
@@ -21,6 +22,11 @@
 	var/projectiles_per_fire = 1
 	/// Whether this spell is currently set to fire in arc mode.
 	var/arc_mode = FALSE
+
+/datum/action/cooldown/spell/projectile/generate_wiki_html(mob/user)
+	if(!displayed_damage && projectile_type)
+		displayed_damage = initial(projectile_type.damage)
+	return ..()
 
 /// cast_on is the turf or atom we're firing at.
 /datum/action/cooldown/spell/projectile/cast(atom/cast_on)

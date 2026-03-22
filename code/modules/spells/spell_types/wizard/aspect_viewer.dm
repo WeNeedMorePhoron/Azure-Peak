@@ -1,5 +1,7 @@
 /datum/aspect_viewer
 	var/mob/living/owner
+	/// If TRUE, qdel self when UI closes (used for encyclopedia-spawned viewers)
+	var/ephemeral = FALSE
 
 /datum/aspect_viewer/New(mob/living/new_owner)
 	owner = new_owner
@@ -7,6 +9,10 @@
 /datum/aspect_viewer/Destroy()
 	owner = null
 	return ..()
+
+/datum/aspect_viewer/ui_close(mob/user)
+	if(ephemeral)
+		qdel(src)
 
 /datum/aspect_viewer/ui_state(mob/user)
 	return GLOB.always_state

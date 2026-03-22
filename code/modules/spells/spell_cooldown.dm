@@ -41,6 +41,7 @@
  *
  */
 /datum/action/cooldown/spell
+	abstract_type = /datum/action/cooldown/spell
 	name = "Spell"
 	desc = "A wizard spell."
 	background_icon = 'icons/mob/actions/roguespells.dmi'
@@ -937,6 +938,57 @@
 	SEND_SIGNAL(src, COMSIG_SPELL_CAST_RESET)
 	next_use_time -= cooldown_time // Basically, ensures that the ability can be used now
 	build_all_button_icons()
+
+/// Generate HTML for the OOC encyclopedia entry.
+/datum/action/cooldown/spell/proc/generate_wiki_html(mob/user)
+	var/s_range
+	if(self_cast_possible && !click_to_activate)
+		s_range = "Self"
+	else
+		s_range = "[cast_range] tiles"
+
+	var/s_invocation_type = "None"
+	switch(invocation_type)
+		if(INVOCATION_SHOUT)
+			s_invocation_type = "Shout"
+		if(INVOCATION_WHISPER)
+			s_invocation_type = "Whisper"
+		if(INVOCATION_EMOTE)
+			s_invocation_type = "Emote"
+
+	var/s_invocations = "None"
+	if(length(invocations))
+		s_invocations = invocations.Join(", ")
+
+	var/s_cost = "[primary_resource_cost] stamina"
+	if(primary_resource_type == SPELL_COST_DEVOTION)
+		s_cost = "[primary_resource_cost] devotion"
+	else if(primary_resource_type == SPELL_COST_NONE)
+		s_cost = "None"
+
+	var/s_charge = "None"
+	if(charge_required && charge_time)
+		s_charge = "[charge_time / 10]s"
+
+	var/s_damage = ""
+	if(displayed_damage)
+		s_damage = "<tr><th>Damage</th><td>[displayed_damage]</td></tr>"
+
+	var/html = {"
+		<h2>[name]</h2>
+		[desc ? "<div class='recipe-desc'>[desc]</div>" : ""]
+		<table>
+			<tr><th>Tier</th><td>[spell_tier]</td></tr>
+			[s_damage]
+			<tr><th>Cost</th><td>[s_cost]</td></tr>
+			<tr><th>Range</th><td>[s_range]</td></tr>
+			<tr><th>Charge Time</th><td>[s_charge]</td></tr>
+			<tr><th>Cooldown</th><td>[cooldown_time / 10]s</td></tr>
+			<tr><th>Invocations</th><td>[s_invocations]</td></tr>
+			<tr><th>Invocation Type</th><td>[s_invocation_type]</td></tr>
+		</table>
+	"}
+	return html
 
 /// Check if the spell is castable by cost. Checks both primary and secondary resources.
 /datum/action/cooldown/spell/proc/check_cost(feedback = TRUE)

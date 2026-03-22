@@ -13,6 +13,7 @@ export const GrimoireUtilityList = ({
   resetBudget,
   allSelectedSpells,
   act,
+  readOnly = false,
 }: {
   spells: Spell[];
   selected: string[];
@@ -25,6 +26,7 @@ export const GrimoireUtilityList = ({
   resetBudget: number;
   allSelectedSpells: string[];
   act: (action: string, params: Record<string, unknown>) => void;
+  readOnly?: boolean;
 }) => (
   <>
     {spells.map((spell) => {
@@ -36,21 +38,24 @@ export const GrimoireUtilityList = ({
       const tooExpensive =
         !isSelected && !isKnown && pointsSpent + spell.cost > pointsBudget;
       const isDisabled =
-        !isSelected &&
-        !isKnown &&
-        (tooExpensive || selectedElsewhere);
+        readOnly ||
+        (!isSelected &&
+          !isKnown &&
+          (tooExpensive || selectedElsewhere));
 
-      const handleClick = () => {
-        if (isPendingUnbind) {
-          act('undo_unbind_utility', { spell_path: spell.path });
-        } else if (isKnown && !initialSetup) {
-          if (resetBudget >= 1) {
-            act('unbind_utility', { spell_path: spell.path });
-          }
-        } else if (!isDisabled) {
-          act('utility_toggle', { spell_path: spell.path });
-        }
-      };
+      const handleClick = readOnly
+        ? undefined
+        : () => {
+            if (isPendingUnbind) {
+              act('undo_unbind_utility', { spell_path: spell.path });
+            } else if (isKnown && !initialSetup) {
+              if (resetBudget >= 1) {
+                act('unbind_utility', { spell_path: spell.path });
+              }
+            } else if (!isDisabled) {
+              act('utility_toggle', { spell_path: spell.path });
+            }
+          };
 
       return (
         <div

@@ -9,6 +9,7 @@ export const GrimoireUtilitiesDetail = ({
   pointsBudget,
   initialSetup,
   resetBudget,
+  readOnly = false,
 }: {
   spells: Spell[];
   selected: string[];
@@ -18,6 +19,7 @@ export const GrimoireUtilitiesDetail = ({
   pointsBudget: number;
   initialSetup: boolean;
   resetBudget: number;
+  readOnly?: boolean;
 }) => (
   <div style={{ flex: 1, overflowY: 'auto' }}>
     <div className="AspectPicker__heading">Cantrips &amp; Utilities</div>
@@ -28,7 +30,7 @@ export const GrimoireUtilitiesDetail = ({
     <div className="AspectPicker__divider" />
     <div className="AspectPicker__section-label">
       {pointsSpent} / {pointsBudget} pts spent
-      {!initialSetup && (
+      {!readOnly && !initialSetup && (
         <span style={{ marginLeft: '12px', fontStyle: 'italic' }}>
           (reshaping: {resetBudget} / 2)
         </span>

@@ -34,6 +34,7 @@ export type Aspect = {
 };
 
 export type Data = {
+  read_only: boolean;
   major_aspects: Aspect[];
   minor_aspects: Aspect[];
   utility_spells: Spell[];

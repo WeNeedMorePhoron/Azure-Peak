@@ -13,6 +13,7 @@ import { type Aspect, type Data, type Tab } from './Grimoire/types';
 export const GrimoireAspectPicker = () => {
   const { data, act } = useBackend<Data>();
   const {
+    read_only = false,
     major_aspects = [],
     minor_aspects = [],
     utility_spells = [],
@@ -69,6 +70,7 @@ export const GrimoireAspectPicker = () => {
   );
 
   const hasAccess = (t: Tab): boolean => {
+    if (read_only) return true;
     if (t === 'major') return max_majors > 0;
     if (t === 'minor') return max_minors > 0;
     if (t === 'utilities') return max_utilities > 0;
@@ -115,12 +117,15 @@ export const GrimoireAspectPicker = () => {
     ? utility_points_spent >= max_utilities
     : allFilled && !hasUnspentUtilities;
 
-  const wrappedAct = (action: string, params?: Record<string, unknown>) => {
-    if (action !== 'confirm') {
-      setPartialConfirmed(false);
-    }
-    act(action, params);
-  };
+  const noAct = (_action?: string, _params?: Record<string, unknown>) => {};
+  const wrappedAct = read_only
+    ? noAct
+    : (action: string, params?: Record<string, unknown>) => {
+        if (action !== 'confirm') {
+          setPartialConfirmed(false);
+        }
+        act(action, params);
+      };
 
   const switchTab = (t: Tab) => {
     setTab(t);
@@ -169,16 +174,20 @@ export const GrimoireAspectPicker = () => {
 
               {tab !== 'utilities' && (
                 <div className="AspectPicker__slot-display">
-                  {tabAccessible
-                    ? `${slotsUsed} / ${maxSlots} bound`
-                    : 'Browse only'}
+                  {read_only
+                    ? 'Arcyne Compendium'
+                    : tabAccessible
+                      ? `${slotsUsed} / ${maxSlots} bound`
+                      : 'Browse only'}
                 </div>
               )}
               {tab === 'utilities' && (
                 <div className="AspectPicker__slot-display">
-                  {tabAccessible
-                    ? `${utility_points_spent} / ${max_utilities} pts`
-                    : 'Browse only'}
+                  {read_only
+                    ? 'Arcyne Compendium'
+                    : tabAccessible
+                      ? `${utility_points_spent} / ${max_utilities} pts`
+                      : 'Browse only'}
                 </div>
               )}
 
@@ -207,6 +216,7 @@ export const GrimoireAspectPicker = () => {
                   resetBudget={reset_budget}
                   allSelectedSpells={all_selected_spells}
                   act={wrappedAct}
+                  readOnly={read_only}
                 />
               )}
             </div>
@@ -235,6 +245,7 @@ export const GrimoireAspectPicker = () => {
                     pointsBudget={max_utilities}
                     initialSetup={initial_setup}
                     resetBudget={reset_budget}
+                    readOnly={read_only}
                   />
                 ) : (
                   <div className="AspectPicker__empty">
@@ -259,6 +270,7 @@ export const GrimoireAspectPicker = () => {
                     allSelectedSpells={all_selected_spells}
                     getPointbuyUsed={getPointbuyUsed}
                     act={() => {}}
+                    readOnly
                   />
                 ) : (
                   <div className="AspectPicker__empty">
@@ -284,6 +296,7 @@ export const GrimoireAspectPicker = () => {
                   allSelectedSpells={all_selected_spells}
                   getPointbuyUsed={getPointbuyUsed}
                   act={wrappedAct}
+                  readOnly={read_only}
                 />
               ) : (
                 <div className="AspectPicker__empty">
@@ -293,47 +306,49 @@ export const GrimoireAspectPicker = () => {
             </div>
           </div>
 
-          {/* Footer bar */}
-          <div
-            style={{
-              padding: '4px 0 0 0',
-              display: 'flex',
-              gap: '8px',
-              alignItems: 'center',
-            }}
-          >
-            {!initial_setup && (
-              <div className="AspectPicker__reset-budget">
-                Reshaping: {reset_budget} / {reset_budget_max}
-              </div>
-            )}
+          {/* Footer bar - hidden in read-only mode */}
+          {!read_only && (
             <div
-              className={cls(
-                'AspectPicker__action-btn',
-                sealReady && 'AspectPicker__action-btn--confirm',
-                canSeal && !sealReady && 'AspectPicker__action-btn--caution',
-                !canSeal && 'AspectPicker__action-btn--disabled',
-              )}
-              style={{ flex: 1 }}
-              onClick={
-                canSeal
-                  ? () => {
-                      if (!sealReady && initial_setup && !partialConfirmed) {
-                        setPartialConfirmed(true);
-                        return;
-                      }
-                      wrappedAct('confirm');
-                    }
-                  : undefined
-              }
+              style={{
+                padding: '4px 0 0 0',
+                display: 'flex',
+                gap: '8px',
+                alignItems: 'center',
+              }}
             >
-              {!sealReady && partialConfirmed
-                ? allFilled && hasUnspentUtilities
-                  ? 'Skip remaining utility spells - are you sure?'
-                  : 'Do a partial binding - Rebinding requires a Grimoire!'
-                : getSealLabel()}
+              {!initial_setup && (
+                <div className="AspectPicker__reset-budget">
+                  Reshaping: {reset_budget} / {reset_budget_max}
+                </div>
+              )}
+              <div
+                className={cls(
+                  'AspectPicker__action-btn',
+                  sealReady && 'AspectPicker__action-btn--confirm',
+                  canSeal && !sealReady && 'AspectPicker__action-btn--caution',
+                  !canSeal && 'AspectPicker__action-btn--disabled',
+                )}
+                style={{ flex: 1 }}
+                onClick={
+                  canSeal
+                    ? () => {
+                        if (!sealReady && initial_setup && !partialConfirmed) {
+                          setPartialConfirmed(true);
+                          return;
+                        }
+                        wrappedAct('confirm');
+                      }
+                    : undefined
+                }
+              >
+                {!sealReady && partialConfirmed
+                  ? allFilled && hasUnspentUtilities
+                    ? 'Skip remaining utility spells - are you sure?'
+                    : 'Do a partial binding - Rebinding requires a Grimoire!'
+                  : getSealLabel()}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </Window.Content>
     </Window>
