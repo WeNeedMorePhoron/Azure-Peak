@@ -201,6 +201,8 @@
 
 		result += list(entry)
 		qdel(A)
+	// Sort alphabetically by name
+	sortTim(result, GLOBAL_PROC_REF(cmp_list_name_asc))
 	return result
 
 /datum/aspect_picker/proc/build_spell_entry(spell_path)
@@ -224,6 +226,7 @@
 	var/list/result = list()
 	for(var/path in GLOB.utility_spells)
 		result += list(build_spell_entry(path))
+	sortTim(result, GLOBAL_PROC_REF(cmp_list_name_asc))
 	return result
 
 /// Check if a path conflicts with current/staged aspects via countersynergy (excluding pending unbinds)
