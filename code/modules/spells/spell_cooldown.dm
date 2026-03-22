@@ -328,6 +328,8 @@
 // Note: Destroy() calls Remove(), Remove() calls unset_click_ability() if our spell is active.
 /datum/action/cooldown/spell/unset_click_ability(mob/on_who, refund_cooldown = TRUE)
 	if(click_to_activate)
+		if(currently_charging || charged)
+			cancel_casting()
 		on_deactivation(on_who, refund_cooldown = refund_cooldown)
 
 		if(on_who.client)
