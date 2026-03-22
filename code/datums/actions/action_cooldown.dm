@@ -164,6 +164,10 @@
 	if(owner.click_intercept && owner.click_intercept != src)
 		return
 
+	// Already selected - don't call Trigger() or it will toggle us off
+	if(owner.click_intercept == src)
+		return
+
 	Trigger()
 
 /// Cancel retriggering by removing the timer
