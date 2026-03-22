@@ -1,11 +1,12 @@
 #define GTSTRIKE_CENTER_DAMAGE 80
-#define GTSTRIKE_OUTER_DAMAGE 40
+#define GTSTRIKE_OUTER_DAMAGE 80
 #define GTSTRIKE_TELEGRAPH 16
 
 /datum/action/cooldown/spell/greater_thunderstrike
 	button_icon = 'icons/mob/actions/mage_fulgurmancy.dmi'
 	name = "Greater Thunderstrike"
-	desc = "Call a massive lightning strike that engulfs the entire area at once. \
+	desc = "PLACEHOLDER MASTERY SPELL - may be replaced later.\n\n\
+	Call a massive lightning strike that engulfs the entire area at once. \
 	Damage falls off with distance from the center."
 	button_icon_state = "thunderstrike"
 	sound = 'sound/magic/lightning.ogg'

@@ -4,7 +4,7 @@
 /datum/action/cooldown/spell/heavens_strike
 	button_icon = 'icons/mob/actions/mage_fulgurmancy.dmi'
 	name = "Heaven's Strike"
-	desc = "Call down a single devastating bolt of lightning on a target location. \
+	desc = "Call down a single devastating bolt of lightning on a target location, striking the aimed body part. \
 	The strike is telegraphed and can be dodged, but deals massive damage to anything still standing in the impact zone. \
 	Damage is increased by 100% versus simple-minded creechurs."
 	button_icon_state = "heavens_strike"
@@ -33,7 +33,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	spell_impact_intensity = SPELL_IMPACT_HIGH
 
-	var/damage = 80
+	var/damage = 60
 	var/npc_simple_damage_mult = 2
 
 /datum/action/cooldown/spell/heavens_strike/cast(atom/cast_on)
@@ -63,7 +63,7 @@
 	new /obj/effect/temp_visual/thunderstrike_actual(T)
 	playsound(T, 'sound/magic/lightning.ogg', 80)
 	var/mob/living/carbon/human/caster = owner
-	var/target_zone = pick(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+	var/target_zone = caster?.zone_selected || pick(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	for(var/mob/living/L in T.contents)
 		if(L.anti_magic_check())
 			L.visible_message(span_warning("The lightning fades away around [L]!"))

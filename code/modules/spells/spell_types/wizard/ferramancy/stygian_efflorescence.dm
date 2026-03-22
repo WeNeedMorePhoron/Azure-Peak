@@ -4,7 +4,8 @@
 /datum/action/cooldown/spell/projectile/stygian_efflorescence
 	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Stygian Efflorescence"
-	desc = "Burst forth a volley of sharpened obsidian shards in a wide spread. Additional shards striking the same target deal reduced damage."
+	desc = "Burst forth a volley of sharpened obsidian shards in a wide spread. Additional shards striking the same target deal reduced damage. \
+	Toggle arc mode (Ctrl+G) to lob over obstacles at reduced damage."
 	fluff_desc = "Before the first men learned to refine metal, men fought with sharpened stones - particularly obsidian from the foot of volcanos. \
 	It is said that Mount Golgotha had the best obsidian in all the world, sharp enough to cut flesh with ease. \
 	Malice, energy, and the imagination of the Magi cutting someone apart with Obsidian. \
@@ -15,6 +16,7 @@
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	projectile_type = /obj/projectile/energy/stygian
+	projectile_type_arc = /obj/projectile/energy/stygian/arc
 	cast_range = 7
 	projectiles_per_fire = 3
 	point_cost = 3
@@ -72,6 +74,11 @@
 	ricochet_incidence_leeway = 50
 	hitsound = 'sound/combat/hits/bladed/genstab (1).ogg'
 	var/reduced_damage = 19
+
+/obj/projectile/energy/stygian/arc
+	name = "arced stygian harpe"
+	damage = 29
+	arcshot = TRUE
 
 /obj/projectile/energy/stygian/on_hit(target)
 	if(ismob(target))

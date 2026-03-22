@@ -2,6 +2,7 @@
 	button_icon = 'icons/mob/actions/mage_fulgurmancy.dmi'
 	name = "Shock"
 	desc = "Fire a quick jolt of lightning at a target. Deals less damage than most other minor offensive spells, but strikes instantly. \
+	Toggle arc mode (Ctrl+G) to lob over obstacles at reduced damage. \
 	Damage is increased by 100% versus simple-minded creechurs."
 	button_icon_state = "shock"
 	sound = 'sound/magic/lightning.ogg'
@@ -9,6 +10,7 @@
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	projectile_type = /obj/projectile/magic/shock
+	projectile_type_arc = /obj/projectile/magic/shock/arc
 	cast_range = 8
 
 	primary_resource_type = SPELL_COST_STAMINA
@@ -48,6 +50,11 @@
 	speed = 0.3
 	flag = "fire"
 	light_outer_range = 5
+
+/obj/projectile/magic/shock/arc
+	name = "arced shock"
+	damage = 22
+	arcshot = TRUE
 
 /obj/projectile/magic/shock/on_hit(target)
 	. = ..()

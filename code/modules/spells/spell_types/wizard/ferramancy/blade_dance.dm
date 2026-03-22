@@ -6,7 +6,8 @@
 /datum/action/cooldown/spell/blade_dance
 	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Blade Dance"
-	desc = "Project arcyne energy into an area, conjuring a whirling storm of spectral blades \
+	desc = "PLACEHOLDER MASTERY SPELL - may be replaced later.\n\n\
+	Project arcyne energy into an area, conjuring a whirling storm of spectral blades \
 	that slash everything caught within. You must remain still to maintain the effect.\n\n\
 	The blades take a moment to expand before they begin dealing damage. \
 	Deals 30 brute damage per second for 10 seconds to all targets in a 7x7 area. Always strikes the chest."

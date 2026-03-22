@@ -4,13 +4,15 @@
 /datum/action/cooldown/spell/projectile/gravel_blast
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Gravel Blast"
-	desc = "Spray a volley of stone shards at a target. Shards ricochet off walls and become deadlier with each bounce. Subsequent hits on the same target deal reduced damage."
+	desc = "Spray a volley of stone shards at a target. Shards ricochet off walls and become deadlier with each bounce. Subsequent hits on the same target deal reduced damage. \
+	Toggle arc mode (Ctrl+G) to lob over obstacles at reduced damage."
 	button_icon_state = "gravel_blast"
 	sound = 'sound/combat/hits/onstone/wallhit.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	projectile_type = /obj/projectile/magic/gravel_blast
+	projectile_type_arc = /obj/projectile/magic/gravel_blast/arc
 	cast_range = 7
 	projectiles_per_fire = 5
 
@@ -65,6 +67,11 @@
 	ricochet_decay_chance = 1
 	ricochet_decay_damage = 1.5
 	var/reduced_damage = 12
+
+/obj/projectile/magic/gravel_blast/arc
+	name = "arced gravel shot"
+	damage = 22
+	arcshot = TRUE
 
 /obj/projectile/magic/gravel_blast/on_hit(target)
 	if(ismob(target))

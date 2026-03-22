@@ -1,13 +1,15 @@
 /datum/action/cooldown/spell/projectile/arcyne_lance
 	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Arcyne Lance"
-	desc = "Hurl a spectral arcyne lance that pierces through up to 3 targets without losing momentum."
+	desc = "Hurl a spectral arcyne lance that pierces through up to 3 targets without losing momentum. \
+	Toggle arc mode (Ctrl+G) to lob over obstacles at reduced damage."
 	button_icon_state = "arcyne_lance"
 	sound = 'sound/magic/scrapeblade.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 
 	projectile_type = /obj/projectile/magic/arcyne_lance
+	projectile_type_arc = /obj/projectile/magic/arcyne_lance/arc
 	cast_range = 9
 	point_cost = 3
 
@@ -48,6 +50,11 @@
 	var/hits = 0
 	/// Max mob targets before stopping
 	var/max_hits = 3
+
+/obj/projectile/magic/arcyne_lance/arc
+	name = "arced arcyne lance"
+	damage = 45
+	arcshot = TRUE
 
 /obj/projectile/magic/arcyne_lance/on_hit(target)
 	if(ismob(target))
