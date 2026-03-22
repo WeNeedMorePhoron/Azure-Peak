@@ -29,7 +29,8 @@ export const GrimoireAspectPicker = () => {
     pointbuy_selections = {},
     all_selected_spells = [],
     utility_points_spent = 0,
-    reset_budget = 2,
+    reset_budget = 4,
+    reset_budget_max = 4,
     staged_unbind_aspects = [],
     staged_unbind_utilities = [],
     known_utilities = [],
@@ -261,7 +262,7 @@ export const GrimoireAspectPicker = () => {
           >
             {!initial_setup && (
               <div className="AspectPicker__reset-budget">
-                Reshaping: {reset_budget} / 2
+                Reshaping: {reset_budget} / {reset_budget_max}
               </div>
             )}
             <div

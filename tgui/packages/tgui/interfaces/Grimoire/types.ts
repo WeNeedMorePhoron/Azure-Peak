@@ -52,6 +52,7 @@ export type Data = {
   spent_budgets: Record<string, number>;
   utility_points_spent: number;
   reset_budget: number;
+  reset_budget_max: number;
   resets_used: number;
   staged_unbind_aspects: string[];
   staged_unbind_utilities: string[];

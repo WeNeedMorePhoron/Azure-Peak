@@ -110,6 +110,7 @@
 	// Reset budget for unbinding (account for staged unbinds)
 	var/staged_cost = get_staged_reset_cost()
 	data["reset_budget"] = owner.mind.get_aspect_reset_remaining() - staged_cost
+	data["reset_budget_max"] = ASPECT_RESET_BUDGET
 	data["resets_used"] = owner.mind.aspect_resets_used
 
 	// Staged unbinds
@@ -382,7 +383,7 @@
 			var/spell_path = text2path(spell_path_str)
 			if(!spell_path || !owner.mind.has_spell(spell_path))
 				return
-			if(get_staged_reset_cost() + ASPECT_RESET_COST_MINOR > ASPECT_RESET_BUDGET)
+			if(get_staged_reset_cost() + ASPECT_RESET_COST_UTILITY > ASPECT_RESET_BUDGET)
 				to_chat(owner, span_warning("I cannot reshape any more attunements without rest."))
 				return
 			staged_unbind_utilities += spell_path_str
@@ -696,7 +697,7 @@
 		var/datum/magic_aspect/temp = new path
 		total += (temp.aspect_type == ASPECT_MAJOR) ? ASPECT_RESET_COST_MAJOR : ASPECT_RESET_COST_MINOR
 		qdel(temp)
-	total += length(staged_unbind_utilities) * ASPECT_RESET_COST_MINOR
+	total += length(staged_unbind_utilities) * ASPECT_RESET_COST_UTILITY
 	return total
 
 /// Get type paths of currently-attuned aspects of a given type

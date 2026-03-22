@@ -437,6 +437,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 #define ASPECT_RESET_BUDGET 4
 #define ASPECT_RESET_COST_MAJOR 4
 #define ASPECT_RESET_COST_MINOR 2
+#define ASPECT_RESET_COST_UTILITY 1
 
 /datum/mind/proc/get_aspect_reset_remaining()
 	return ASPECT_RESET_BUDGET - aspect_resets_used
@@ -457,12 +458,12 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	return TRUE
 
 /datum/mind/proc/can_reset_utility()
-	return get_aspect_reset_remaining() >= ASPECT_RESET_COST_MINOR
+	return get_aspect_reset_remaining() >= ASPECT_RESET_COST_UTILITY
 
 /datum/mind/proc/spend_utility_reset()
 	if(!can_reset_utility())
 		return FALSE
-	aspect_resets_used += ASPECT_RESET_COST_MINOR
+	aspect_resets_used += ASPECT_RESET_COST_UTILITY
 	return TRUE
 
 /datum/mind/proc/set_death_time()
