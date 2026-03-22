@@ -761,7 +761,19 @@
 			burn_threshold *= FIRE_HARDCRIT_MINDLESS_MULT
 		else if(HAS_TRAIT(src, TRAIT_NOPAIN) || HAS_TRAIT(src, TRAIT_NOPAINSTUN))
 			burn_threshold *= FIRE_HARDCRIT_NOPAIN_MULT
-		var/burn_damage = (total_burn / burn_threshold) * maxHealth
+		var/burn_ratio = total_burn / burn_threshold
+		if(!burn_warning_shown)
+			if(burn_ratio >= 1.0)
+				burn_warning_shown = TRUE
+				visible_message(span_danger("[src]'s flesh is charring and blistering!"), span_userdanger("My body is burning down!"))
+				balloon_alert_to_viewers("<font color='#bb2b2b'>burnt down!</font>")
+			else if(burn_ratio >= 0.75)
+				burn_warning_shown = TRUE
+				visible_message(span_danger("[src]'s flesh is charring and blistering!"), span_userdanger("My body is burning down!"))
+				balloon_alert_to_viewers("<font color='#bb2b2b'>burning down!</font>")
+		else if(burn_ratio < 0.75)
+			burn_warning_shown = FALSE
+		var/burn_damage = burn_ratio * maxHealth
 		used_damage = max(used_damage, burn_damage)
 	if(used_damage < total_tox)
 		used_damage = total_tox
@@ -780,6 +792,7 @@
 
 /mob/living/carbon
 	var/lightning_flashing = FALSE
+	var/burn_warning_shown = FALSE
 
 /mob/living/carbon/update_sight()
 	if(!client)
@@ -1080,6 +1093,7 @@
 						else
 							visible_message(span_danger("<b>[src] collapses, [src.p_their()] flesh charred and smoking!</b>"), \
 								span_userdanger("My body is too burnt to go on!"))
+						balloon_alert_to_viewers("<font color='#bb2b2b'>burnt down!</font>")
 						playsound(src, 'sound/health/burning.ogg', 60, TRUE)
 					else
 						visible_message(span_danger("<b>[src] collapses, broken and bloodied!</b>"), \
