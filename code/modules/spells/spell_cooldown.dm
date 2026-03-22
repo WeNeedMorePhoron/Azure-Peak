@@ -330,6 +330,7 @@
 	if(click_to_activate)
 		if(currently_charging || charged)
 			cancel_casting()
+			on_who.balloon_alert(on_who, "Channeling was interrupted!")
 		on_deactivation(on_who, refund_cooldown = refund_cooldown)
 
 		if(on_who.client)
@@ -870,7 +871,7 @@
 
 	if(owner.client)
 		UnregisterSignal(owner.client, list(COMSIG_CLIENT_MOUSEDOWN, COMSIG_CLIENT_MOUSEUP))
-	UnregisterSignal(owner, list(COMSIG_MOB_LOGOUT, COMSIG_MOB_DEATH, COMSIG_MOVABLE_MOVED, COMSIG_MOB_KICKED_SUCCESSFUL))
+	UnregisterSignal(owner, list(COMSIG_MOB_LOGOUT, COMSIG_MOB_DEATH, COMSIG_MOVABLE_MOVED, COMSIG_MOB_KICKED_SUCCESSFUL, COMSIG_CARBON_SWAPHANDS))
 
 	// When charging ends, other spells may have had their buttons stuck red
 	// because can_cast_spell() returned FALSE while we were charging.
@@ -1258,7 +1259,7 @@
 	RegisterSignal(source, COMSIG_CLIENT_MOUSEUP, PROC_REF(try_casting))
 	// Getting kicked interrupt your charging. It requires some skills on the part of the martial but is far more frequently
 	// Available than guard stances.
-	RegisterSignal(owner, list(COMSIG_MOB_DEATH, COMSIG_MOB_KICKED_SUCCESSFUL), PROC_REF(signal_cancel))
+	RegisterSignal(owner, list(COMSIG_MOB_DEATH, COMSIG_MOB_KICKED_SUCCESSFUL, COMSIG_CARBON_SWAPHANDS), PROC_REF(signal_cancel))
 	RegisterSignal(owner, COMSIG_MOB_LOGOUT, PROC_REF(signal_cancel_full))
 	if(spell_requirements & SPELL_REQUIRES_NO_MOVE)
 		RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(signal_cancel), TRUE)
