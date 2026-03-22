@@ -1,6 +1,3 @@
-// Stygian Efflorescence - Ferramancy shotgun spell
-// Fires a spread of obsidian shards. Like Gravel Blast but BCLASS_STAB. No AP.
-
 #define MT_STYGIAN "stygian"
 #define STYGIAN_DR_DURATION 1 SECONDS
 

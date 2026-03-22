@@ -1,13 +1,3 @@
-/*
- * Magic Aspects - the discipline system for full casters.
- *
- * Each full caster picks 1 Major Aspect and 2 Minor Aspects.
- * T4 casters may pick 2 Major Aspects instead (the exception that proves the rule).
- *
- * Binding/unbinding involves reciting chants — Latin-English alternation.
- * Major aspects: Latin, English, Latin (triple). Minor aspects: Latin, English (pair).
- */
-
 /datum/magic_aspect
 	var/name = "Aspect"
 	var/latin_name = ""

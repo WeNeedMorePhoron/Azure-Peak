@@ -2809,7 +2809,7 @@
 #include "code\modules\spells\spell_types\wizard\ferramancy\iron_skin.dm"
 #include "code\modules\spells\spell_types\wizard\ferramancy\arcyne_lance.dm"
 #include "code\modules\spells\spell_types\wizard\ferramancy\stygian_efflorescence.dm"
-#include "code\modules\spells\spell_types\wizard\ferramancy\steel_barrage.dm"
+#include "code\modules\spells\spell_types\wizard\ferramancy\blade_dance.dm"
 #include "code\modules\spells\spell_types\wizard\cryomancy\_cryomancy_shared.dm"
 #include "code\modules\spells\spell_types\wizard\cryomancy\frost_bolt.dm"
 #include "code\modules\spells\spell_types\wizard\cryomancy\frost_stream.dm"

@@ -1,5 +1,3 @@
-// Global list for all learnable spells.
-// Maybe one day we'll have different schools of spells etc. and a system tied to them but this is fine for now.
 
 GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile/fireball,
 		/datum/action/cooldown/spell/projectile/lightning_bolt,

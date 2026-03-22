@@ -1,6 +1,3 @@
-// Heaven's Strike - Single-tile targeted lightning strike
-// Head-targeted, high damage. Not hard to dodge for a real human, PVE powerhouse.
-// Essentially the middle tier of Thunderstrike but on a single tile.
 
 #define HEAVENS_STRIKE_TELEGRAPH 8 // Ticks of warning before the strike lands
 

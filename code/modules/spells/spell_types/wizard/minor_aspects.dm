@@ -1,5 +1,3 @@
-// Minor Aspect definitions. See magic_aspect.dm for the base datum.
-
 /datum/magic_aspect/artifice
 	name = "Artifice"
 	latin_name = "Minor Aspectus Artificii"

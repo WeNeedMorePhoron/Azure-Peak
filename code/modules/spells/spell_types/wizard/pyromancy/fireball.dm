@@ -1,4 +1,3 @@
-// New spell system
 /datum/action/cooldown/spell/projectile/fireball
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Fireball"
@@ -33,11 +32,12 @@
 
 /obj/projectile/magic/aoe/fireball/rogue
 	name = "fireball"
+	speed = 2
 	exp_heavy = -1
 	exp_light = -1
 	exp_flash = 0
 	exp_fire = 0
-	damage = 60
+	damage = 70
 	damage_type = BURN
 	npc_simple_damage_mult = 3
 	accuracy = 40 // Lower base — burn bypasses armor
@@ -50,7 +50,7 @@
 	/// AOE damage as a fraction of the projectile's base damage.
 	var/arcyne_aoe_damage_ratio = 0.66
 	/// Structural damage dealt to structures/walls in AOE radius. 0 = none.
-	var/structural_damage = 50
+	var/structural_damage = 60
 	/// Radius for structural damage. Uses arcyne_aoe_radius if not set.
 	var/structural_damage_radius = 0
 

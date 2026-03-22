@@ -1,5 +1,3 @@
-// Major Aspect definitions. See magic_aspect.dm for the base datum.
-
 /datum/magic_aspect/pyromancy
 	name = "Pyromancy"
 	latin_name = "Maior Aspectus Ignis"
@@ -253,6 +251,6 @@
 	)
 	variants = list(
 		"mastery" = list(
-			VARIANT_ADDITIVE =/datum/action/cooldown/spell/steel_barrage,
+			VARIANT_ADDITIVE =/datum/action/cooldown/spell/blade_dance,
 		),
 	)
