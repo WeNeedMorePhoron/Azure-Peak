@@ -46,9 +46,6 @@
 	/// Subclass virtues.
 	var/list/subclass_virtues
 
-	/// Spellpoints. If More than 0, Gives Prestidigitation & the Learning Spell.
-	var/subclass_spellpoints = 0
-
 	/// Mage aspect system config. If set, opens the Grimoire on learnspell.
 	/// Keys: "mastery" (bool), "major" (int), "minor" (int), "utilities" (int)
 	var/list/subclass_mage_aspects
@@ -126,8 +123,6 @@
 	if(LAZYLEN(subclass_mage_aspects))
 		H.mind?.mage_aspect_config = subclass_mage_aspects.Copy()
 		H.mind?.check_learnspell()
-	else if(subclass_spellpoints > 0)
-		H.mind?.adjust_spellpoints(subclass_spellpoints)
 
 	if(length(subclass_virtues))
 		for(var/virtue in subclass_virtues)

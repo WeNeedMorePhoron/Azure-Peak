@@ -227,4 +227,6 @@
 		H.change_stat("strength", -1)
 		H.change_stat("intelligence", 1)
 		H.change_stat("perception", 1)
-		H?.mind.adjust_spellpoints(3)
+		if(H.mind)
+			H.mind.mage_aspect_config = list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 3)
+			H.mind.check_learnspell()

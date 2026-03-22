@@ -50,8 +50,6 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	/// Wizard mode & "Give Spell" badmin button.
 	var/list/spell_list = list()
 
-	var/spell_points
-	var/used_spell_points
 	var/list/major_aspects
 	var/list/minor_aspects
 	/// Mage aspect system config from subclass. Keys: "mastery", "major", "minor", "utilities". Optional: "locked_aspects" (list of type paths).
@@ -131,7 +129,6 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	/// List of personal objectives not tied to the antag roles.
 	var/list/personal_objectives = list()
 
-	var/has_changed_spell = FALSE
 	var/has_rituos = FALSE
 	var/obj/effect/proc_holder/spell/rituos_spell
 
@@ -369,13 +366,6 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	if(!isnull(old_current))
 		SEND_SIGNAL(old_current, COMSIG_MOB_MIND_TRANSFERRED_OUT_OF, current)
 
-// adjusts the amount of available spellpoints
-/datum/mind/proc/adjust_spellpoints(points)
-	spell_points += points
-	if(!has_spell(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation))
-		AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
-	check_learnspell()
-	bump_prestidigitation()
 
 
 /datum/mind/proc/attune_aspect(datum/magic_aspect/aspect, variant, choice_spell)
@@ -935,15 +925,6 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 				AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))
 			return
 
-	// Legacy flat spellpoints
-	if(!has_spell(/obj/effect/proc_holder/spell/self/learnspell))
-		if((spell_points - used_spell_points) > 0)
-			AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))
-			return
-
-	if((spell_points - used_spell_points) <= 0)
-		RemoveSpell(/obj/effect/proc_holder/spell/self/learnspell)
-		return
 	return
 
 /datum/mind/proc/has_spell(spell_type, specific = FALSE)

@@ -222,9 +222,6 @@
 /datum/sleep_adv/proc/close_ui()
 	if(!mind.current)
 		return
-	if(mind.has_changed_spell)
-		mind.has_changed_spell = FALSE
-		to_chat(mind.current, span_smallnotice("I feel like I can change my spells again."))
 	if(mind.aspect_resets_used > 0)
 		mind.aspect_resets_used = 0
 	mind.current << browse(null, "window=dreams")
@@ -334,9 +331,6 @@
 /datum/sleep_adv/proc/finish()
 	if(!mind.current)
 		return
-	if(mind.has_changed_spell)
-		mind.has_changed_spell = FALSE
-		to_chat(mind.current, span_smallnotice("I feel like I can change my spells again."))
 	if(mind.aspect_resets_used > 0)
 		mind.aspect_resets_used = 0
 	if(mind.has_rituos)

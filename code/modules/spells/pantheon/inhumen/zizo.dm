@@ -254,7 +254,9 @@
 	user.adjust_skillrank(/datum/skill/magic/arcane, 3, TRUE)
 	user.grant_language(/datum/language/undead)
 	user.mind?.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
-	user.mind?.adjust_spellpoints(18)
+	if(user.mind)
+		user.mind.mage_aspect_config = list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 6)
+		user.mind.check_learnspell()
 	user.visible_message(span_boldwarning("[user]'s form swells with terrible power as they cast away almost all of the remnants of their mortal flesh, arcyne runes glowing upon their exposed bones..."), span_notice("I HAVE DONE IT! I HAVE COMPLETED HER LESSER WORK! I stand at the cusp of unspeakable power, but something is yet missing..."))
 
 	ADD_TRAIT(user, TRAIT_NOHUNGER, "[type]")

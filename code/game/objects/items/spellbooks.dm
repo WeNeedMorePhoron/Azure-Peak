@@ -108,41 +108,11 @@ decreases charge time if held opened in hand, for pure mage build + aesthetics.
 	var/datum/mind/user_mind = user.mind
 	if(!user_mind)
 		return
-	// Aspect system — open the Grimoire in edit mode
-	if(LAZYLEN(user_mind.mage_aspect_config))
-		var/datum/aspect_picker/picker = new(user, FALSE, user_mind.mage_aspect_config)
-		picker.ui_interact(user)
+	if(!LAZYLEN(user_mind.mage_aspect_config))
+		to_chat(user, span_warning("I lack the arcyne training to make use of this."))
 		return
-	// Legacy spellpoint system
-	if(user_mind.has_changed_spell)
-		to_chat(user, span_warning("I have already unbinded my spells today!"))
-		return
-	var/list/resettable_spells = list()
-	var/list/spell_list = user_mind.spell_list
-	for(var/i = 1, i <= spell_list.len, i++)
-		var/obj/effect/proc_holder/spell/spell = spell_list[i]
-		if(spell.refundable == TRUE)
-			if(spell.cost > 0)
-				resettable_spells["[spell.name]: [spell.cost]"] = spell_list[i]
-	if(!resettable_spells.len)
-		to_chat(user, span_warning("I have no spells to unbind!"))
-		return
-	user_mind.has_changed_spell = TRUE
-	var/unlearn_success = FALSE
-	for(var/i = 1, i <= 2, i++)
-		var/choice = tgui_input_list(user, "Choose up to two spells to unbind. Cancel both to not use up your daily unbinding.", "Unbind Spell", resettable_spells)
-		var/obj/effect/proc_holder/spell/item = resettable_spells[choice]
-		if(!item)
-			break
-		if(!resettable_spells.len)
-			return
-		if(user_mind.RemoveSpell(item))
-			user_mind.used_spell_points -= item.cost
-			unlearn_success = TRUE
-		resettable_spells.Remove(choice)
-		user_mind.check_learnspell()
-	if(!unlearn_success)
-		user_mind.has_changed_spell = FALSE
+	var/datum/aspect_picker/picker = new(user, FALSE, user_mind.mage_aspect_config)
+	picker.ui_interact(user)
 
 /obj/item/book/spellbook/proc/get_castred()
 	if(born_of_rock)

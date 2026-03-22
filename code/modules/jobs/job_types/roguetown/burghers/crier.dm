@@ -87,8 +87,9 @@
 	backpack_contents = list(
 		/obj/item/recipe_book/alchemy
 	)
-	if (H && H.mind)
-		H.mind.adjust_spellpoints(6)
+	if(H?.mind)
+		H.mind.mage_aspect_config = list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 3)
+		H.mind.check_learnspell()
 	if(H.mind)
 		SStreasury.give_money_account(ECONOMIC_UPPER_CLASS, H, "Savings.")
 
