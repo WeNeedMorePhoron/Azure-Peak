@@ -1,6 +1,3 @@
-// Arcyne Lance - Ferramancy piercing projectile
-// Fires a single spectral spear that pierces through up to 3 targets with no damage falloff.
-
 /datum/action/cooldown/spell/projectile/arcyne_lance
 	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Arcyne Lance"
@@ -26,7 +23,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
-	cooldown_time = 4.5 SECONDS
+	cooldown_time = 5.5 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
@@ -39,11 +36,11 @@
 	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "air_blade_stab"
 	guard_deflectable = TRUE
-	damage = 50
+	damage = 60
 	damage_type = BRUTE
 	woundclass = BCLASS_STAB
 	npc_simple_damage_mult = 1.5
-	speed = 1.5
+	speed = MAGE_PROJ_MEDIUM
 	range = 9
 	movement_type = UNSTOPPABLE
 	hitsound = 'sound/combat/hits/bladed/genthrust (1).ogg'

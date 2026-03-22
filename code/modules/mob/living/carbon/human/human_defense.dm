@@ -912,7 +912,7 @@
 
 /mob/living/carbon/human/on_fire_stack(seconds_per_tick, datum/status_effect/fire_handler/fire_stacks/fire_handler)
 	//SEND_SIGNAL(src, COMSIG_HUMAN_BURNING)
-	if(fire_handler.stacks >= 5)
+	if(fire_handler.stacks >= 10)
 		burn_clothing(seconds_per_tick, fire_handler.stacks)
 	var/no_protection = FALSE
 	fire_handler.harm_human(seconds_per_tick, no_protection)

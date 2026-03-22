@@ -72,6 +72,12 @@
 #define CHARGETIME_MAJOR         1.5 SECONDS  // Major projectiles
 #define CHARGETIME_HEAVY         2 SECONDS    // Heavy AOE / ultimates
 
+// Standardized mage projectile speeds — lower = faster
+#define MAGE_PROJ_FAST        1.25  // Quick bolts (arcyne bolt, frost bolt)
+#define MAGE_PROJ_MEDIUM      1.75  // Mid-range projectiles (spitfire, lance)
+#define MAGE_PROJ_SLOW        2     // Heavier projectiles (gravel blast)
+#define MAGE_PROJ_VERY_SLOW   2.5   // Looming doom (fireball)
+
 // Charging slowdown tiers — how much the caster is slowed while charging
 #define CHARGING_SLOWDOWN_NONE 0       // Spellblade abilities, no movement penalty
 #define CHARGING_SLOWDOWN_SMALL 1      // Small projectiles, minor spells

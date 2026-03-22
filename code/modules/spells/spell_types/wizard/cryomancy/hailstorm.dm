@@ -1,9 +1,3 @@
-// Hail Storm - Cryomancy ultimate channeled AOE
-// Caster stands still and lobs arcing frost bolts at a target area.
-// Each wave fires 5 arcing projectiles at random turfs in a 7x7 zone.
-// On impact each bolt deals 30 burn arcyne_strike (head) + frost stack in a 3x3 AOE.
-// Caster must stand still (do_after) and maintain LOS between each wave.
-
 /datum/action/cooldown/spell/hailstorm
 	button_icon = 'icons/mob/actions/mage_cryomancy.dmi'
 	name = "Hail Storm"
@@ -133,7 +127,7 @@
 	damage_type = BURN
 	flag = "magic"
 	range = 20
-	speed = 1.5
+	speed = MAGE_PROJ_MEDIUM
 	/// Actual damage dealt by the AOE on impact
 	var/bolt_damage = 50
 	/// Reference to the spell for guard checks

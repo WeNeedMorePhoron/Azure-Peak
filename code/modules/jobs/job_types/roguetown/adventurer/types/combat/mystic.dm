@@ -148,11 +148,9 @@
 		)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/stoneskin)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/fortitude)
-	var/list/poke_options = list("Arcyne Bolt", "Spitfire", "Frost Bolt", "Shock", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
+	var/list/poke_options = list("Spitfire", "Frost Bolt", "Shock", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
 	var/poke_choice = input(H, "Choose your offensive cantrip.", "Arcyne Training") as anything in poke_options
 	switch(poke_choice)
-		if("Arcyne Bolt")
-			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcynebolt)
 		if("Spitfire")
 			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/spitfire)
 		if("Frost Bolt")
@@ -276,11 +274,9 @@
 		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/recipe_book/survival = 1,
 		)
-	var/list/poke_options = list("Arcyne Bolt", "Spitfire", "Frost Bolt", "Shock", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
+	var/list/poke_options = list("Spitfire", "Frost Bolt", "Shock", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
 	var/poke_choice = input(H, "Choose your offensive cantrip.", "Arcyne Training") as anything in poke_options
 	switch(poke_choice)
-		if("Arcyne Bolt")
-			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcynebolt)
 		if("Spitfire")
 			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/spitfire)
 		if("Frost Bolt")
@@ -391,11 +387,9 @@
 		/obj/item/spellbook_unfinished/pre_arcyne = 1,
 		)
 
-	var/list/poke_options = list("Arcyne Bolt", "Spitfire", "Frost Bolt", "Shock", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
+	var/list/poke_options = list("Spitfire", "Frost Bolt", "Shock", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
 	var/poke_choice = input(H, "Choose your offensive cantrip.", "Arcyne Training") as anything in poke_options
 	switch(poke_choice)
-		if("Arcyne Bolt")
-			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcynebolt)
 		if("Spitfire")
 			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/spitfire)
 		if("Frost Bolt")

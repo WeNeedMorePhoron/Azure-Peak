@@ -23,7 +23,6 @@ GLOBAL_LIST_INIT(learnable_spells, (list(/datum/action/cooldown/spell/projectile
 		/datum/action/cooldown/spell/projectile/frost_bolt,
 		/datum/action/cooldown/spell/frost_stream,
 		/datum/action/cooldown/spell/hailstorm,
-		/datum/action/cooldown/spell/projectile/arcynebolt,
 		/datum/action/cooldown/spell/gravity,
 		/datum/action/cooldown/spell/projectile/repel,
 

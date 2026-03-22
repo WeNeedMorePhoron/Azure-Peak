@@ -31,7 +31,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
-	cooldown_time = 6 SECONDS
+	cooldown_time = 7 SECONDS
 	is_implement_scaled_spell = TRUE
 	implement_aspect_name = ASPECT_NAME_FERRAMANCY
 
@@ -57,11 +57,11 @@
 	range = 5
 	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "stygian"
-	damage = 30
+	damage = 38
 	damage_type = BRUTE
 	woundclass = BCLASS_STAB
 	npc_simple_damage_mult = 1.5
-	speed = 2
+	speed = MAGE_PROJ_SLOW
 	accuracy = 65
 	flag = "magic"
 	ricochets_max = 4
@@ -70,7 +70,7 @@
 	ricochet_auto_aim_range = 5
 	ricochet_incidence_leeway = 50
 	hitsound = 'sound/combat/hits/bladed/genstab (1).ogg'
-	var/reduced_damage = 15
+	var/reduced_damage = 19
 
 /obj/projectile/energy/stygian/on_hit(target)
 	if(ismob(target))

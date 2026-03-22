@@ -1,6 +1,3 @@
-// Frost Bolt - Cryomancy staple poke projectile
-// Low damage, low CD, applies one frost stack
-
 /datum/action/cooldown/spell/projectile/frost_bolt
 	button_icon = 'icons/mob/actions/mage_cryomancy.dmi'
 	name = "Frost Bolt"
@@ -29,7 +26,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
-	cooldown_time = 4.5 SECONDS
+	cooldown_time = 5.5 SECONDS
 	is_implement_scaled_spell = TRUE
 	implement_aspect_name = ASPECT_NAME_CRYOMANCY
 
@@ -41,18 +38,18 @@
 /obj/projectile/magic/frostbolt
 	name = "frost bolt"
 	icon_state = "ice_2"
-	damage = 20
+	damage = 25
 	npc_simple_damage_mult = 2
 	damage_type = BURN
 	flag = "magic"
 	range = 10
-	speed = 1
+	speed = MAGE_PROJ_FAST
 	accuracy = 40
 	nodamage = FALSE
 
 /obj/projectile/magic/frostbolt/arc
 	name = "arced frost bolt"
-	damage = 15
+	damage = 19
 	arcshot = TRUE
 
 /obj/projectile/magic/frostbolt/on_hit(target)

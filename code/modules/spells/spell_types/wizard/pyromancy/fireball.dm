@@ -32,7 +32,7 @@
 
 /obj/projectile/magic/aoe/fireball/rogue
 	name = "fireball"
-	speed = 2
+	speed = MAGE_PROJ_VERY_SLOW
 	exp_heavy = -1
 	exp_light = -1
 	exp_flash = 0

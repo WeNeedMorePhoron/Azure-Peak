@@ -1,4 +1,3 @@
-// New spell system
 /datum/action/cooldown/spell/projectile/arcynebolt
 	button_icon = 'icons/mob/actions/mage_shared.dmi'
 	name = "Arcyne Bolt"
@@ -20,8 +19,13 @@
 	invocations = list("Magicae Sagitta!")
 	invocation_type = INVOCATION_SHOUT
 
-	charge_required = FALSE
-	cooldown_time = 4 SECONDS
+	charge_required = TRUE
+	weapon_cast_penalized = TRUE
+	charge_time = CHARGETIME_POKE
+	charge_drain = 1
+	charge_slowdown = CHARGING_SLOWDOWN_SMALL
+	charge_sound = 'sound/magic/charging.ogg'
+	cooldown_time = 5 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_impact_intensity = SPELL_IMPACT_LOW
@@ -30,16 +34,16 @@
 	name = "Arcyne Bolt"
 	icon_state = "arcane_barrage"
 	guard_deflectable = TRUE
-	damage = 40
+	damage = 50
 	woundclass = BCLASS_BLUNT
 	nodamage = FALSE
 	npc_simple_damage_mult = 1.5 // Makes it more effective against NPCs.
 	hitsound = 'sound/combat/hits/blunt/shovel_hit2.ogg'
-	speed = 1
+	speed = MAGE_PROJ_FAST
 
 /obj/projectile/energy/arcynebolt/arc
 	name = "Arced Arcyne Bolt"
-	damage = 30 // You cannot modify charge and releasedrain dynamically so lower damage it is.
+	damage = 38 // You cannot modify charge and releasedrain dynamically so lower damage it is.
 	arcshot = TRUE
 
 /obj/projectile/energy/arcynebolt/on_hit(target)

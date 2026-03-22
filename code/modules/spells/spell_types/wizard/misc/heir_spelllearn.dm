@@ -13,8 +13,8 @@
 		/datum/action/cooldown/spell/featherfall,
 		/datum/action/cooldown/spell/mirror_transform
 	)
-	var/list/offensive_bundle = list( //Bonk. Bonk. Bonk. Bonk. Bonk.
-		/datum/action/cooldown/spell/projectile/arcynebolt
+	var/list/offensive_bundle = list(
+		/datum/action/cooldown/spell/projectile/arcyne_lance
 	)
 	var/list/buff_bundle = list( //Support a knight, maybe. Or like, ERP harder without stamcritting.
 		/datum/action/cooldown/spell/stoneskin,

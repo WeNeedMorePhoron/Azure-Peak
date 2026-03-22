@@ -25,7 +25,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging_fire.ogg'
-	cooldown_time = 4.5 SECONDS
+	cooldown_time = 5.5 SECONDS
 	is_implement_scaled_spell = TRUE
 	implement_aspect_name = ASPECT_NAME_PYROMANCY
 
@@ -34,12 +34,12 @@
 
 /obj/projectile/magic/aoe/fireball/spitfire
 	name = "Spitfire"
-	speed = 1.5
+	speed = MAGE_PROJ_MEDIUM
 	exp_heavy = -1
 	exp_light = -1
 	exp_flash = 0
 	exp_fire = 0
-	damage = 25
+	damage = 30
 	npc_simple_damage_mult = 2
 	accuracy = 40
 	damage_type = BURN
@@ -50,7 +50,7 @@
 
 /obj/projectile/magic/aoe/fireball/spitfire/arc
 	name = "Arced Spitfire"
-	damage = 19
+	damage = 23
 	arcshot = TRUE
 
 /obj/projectile/magic/aoe/fireball/spitfire/on_hit(target)

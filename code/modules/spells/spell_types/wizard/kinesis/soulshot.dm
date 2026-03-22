@@ -30,7 +30,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
-	cooldown_time = 8 SECONDS // They only get one poke and it is AP so it should feel weighty.
+	cooldown_time = 10 SECONDS
 	is_implement_scaled_spell = TRUE
 	implement_aspect_name = ASPECT_NAME_KINESIS
 

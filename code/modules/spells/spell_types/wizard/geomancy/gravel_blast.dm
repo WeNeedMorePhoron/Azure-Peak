@@ -26,7 +26,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging_fire.ogg'
-	cooldown_time = 4.5 SECONDS
+	cooldown_time = 5.5 SECONDS
 	is_implement_scaled_spell = TRUE
 	implement_aspect_name = ASPECT_NAME_GEOMANCY
 	var/spread_step = 8
@@ -46,13 +46,13 @@
 	name = "gravel shot"
 	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "stone"
-	damage = 25
+	damage = 30
 	nodamage = FALSE
 	damage_type = BRUTE
 	woundclass = BCLASS_BLUNT
 	flag = "magic"
 	range = 10
-	speed = 2.5 // Stones slow AF boi
+	speed = MAGE_PROJ_SLOW
 	accuracy = 50
 	guard_deflectable = TRUE
 	npc_simple_damage_mult = 1.5
