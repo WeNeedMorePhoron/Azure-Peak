@@ -36,7 +36,9 @@ export const GrimoireUtilityList = ({
       const tooExpensive =
         !isSelected && !isKnown && pointsSpent + spell.cost > pointsBudget;
       const isDisabled =
-        !isSelected && !isKnown && (isFull || tooExpensive || selectedElsewhere);
+        !isSelected &&
+        !isKnown &&
+        (tooExpensive || selectedElsewhere);
 
       const handleClick = () => {
         if (isPendingUnbind) {

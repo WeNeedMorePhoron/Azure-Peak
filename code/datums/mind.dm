@@ -434,9 +434,9 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		return first.school_color
 	return GLOW_COLOR_ARCANE
 
-#define ASPECT_RESET_BUDGET 2
-#define ASPECT_RESET_COST_MAJOR 2
-#define ASPECT_RESET_COST_MINOR 1
+#define ASPECT_RESET_BUDGET 4
+#define ASPECT_RESET_COST_MAJOR 4
+#define ASPECT_RESET_COST_MINOR 2
 
 /datum/mind/proc/get_aspect_reset_remaining()
 	return ASPECT_RESET_BUDGET - aspect_resets_used

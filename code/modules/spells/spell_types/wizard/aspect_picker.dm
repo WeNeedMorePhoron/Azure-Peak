@@ -348,6 +348,29 @@
 			if(!path)
 				return
 			staged_unbind_aspects -= path
+			// If undoing this unbind would exceed the slot limit, clear staged replacements of the same type
+			var/datum/magic_aspect/temp = new path
+			var/restored_type = temp.aspect_type
+			qdel(temp)
+			if(restored_type == ASPECT_MAJOR)
+				var/max_maj = isnull(override_max_majors) ? MAX_MAJOR_ASPECTS : override_max_majors
+				var/current_count = length(owner.mind.major_aspects) - length(staged_unbind_aspects & get_attuned_paths(ASPECT_MAJOR))
+				// Remove staged majors that aren't already attuned until we're within budget
+				while(current_count + length(staged_majors - get_attuned_paths(ASPECT_MAJOR)) > max_maj)
+					var/list/removable = staged_majors - get_attuned_paths(ASPECT_MAJOR)
+					removable -= locked_aspects
+					if(!length(removable))
+						break
+					staged_majors -= removable[length(removable)]
+			else if(restored_type == ASPECT_MINOR)
+				var/max_min = isnull(override_max_minors) ? MAX_MINOR_ASPECTS : override_max_minors
+				var/current_count = length(owner.mind.minor_aspects) - length(staged_unbind_aspects & get_attuned_paths(ASPECT_MINOR))
+				while(current_count + length(staged_minors - get_attuned_paths(ASPECT_MINOR)) > max_min)
+					var/list/removable = staged_minors - get_attuned_paths(ASPECT_MINOR)
+					removable -= locked_aspects
+					if(!length(removable))
+						break
+					staged_minors -= removable[length(removable)]
 			. = TRUE
 
 		if("unbind_utility")
@@ -640,9 +663,18 @@
 		total += get_spell_cost_from_path(text2path(spell_path_str))
 	return total
 
-/// Get total utility points spent on staged utility selections
+/// Get total utility points spent — includes already-known utilities (minus pending unbinds) and staged selections
 /datum/aspect_picker/proc/get_utility_points_spent()
 	var/total = 0
+	// Count already-known utility spells (edit mode)
+	if(!initial_setup)
+		for(var/path in GLOB.utility_spells)
+			var/path_str = "[path]"
+			if(path_str in staged_unbind_utilities)
+				continue
+			if(owner.mind.has_spell(path))
+				total += get_spell_cost_from_path(path)
+	// Count new staged selections
 	for(var/spell_path_str in staged_utilities)
 		total += get_spell_cost_from_path(text2path(spell_path_str))
 	return total
@@ -666,6 +698,14 @@
 		qdel(temp)
 	total += length(staged_unbind_utilities) * ASPECT_RESET_COST_MINOR
 	return total
+
+/// Get type paths of currently-attuned aspects of a given type
+/datum/aspect_picker/proc/get_attuned_paths(aspect_type)
+	var/list/paths = list()
+	var/list/source = (aspect_type == ASPECT_MAJOR) ? owner.mind.major_aspects : owner.mind.minor_aspects
+	for(var/datum/magic_aspect/A in source)
+		paths += A.type
+	return paths
 
 /datum/aspect_picker/ui_close(mob/user)
 	if(!chanting)

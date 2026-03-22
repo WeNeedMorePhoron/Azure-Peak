@@ -1,9 +1,5 @@
-#define ROCK_CHARGE_REDUCTION 0.15
-#define GEM_CHARGE_REDUCTION 0.25
-
 /* Spellbook
-Intended to be a reward or a goal for pure mage, allowing them to reset and swap out 2 spells per day, and
-decreases charge time if held opened in hand, for pure mage build + aesthetics.
+Intended to be a reward or a goal for pure mage, allowing them to rebind their aspect spells.
 */
 
 /obj/item/book/spellbook
@@ -20,7 +16,7 @@ decreases charge time if held opened in hand, for pure mage build + aesthetics.
 	associated_skill = /datum/skill/misc/reading
 	possible_item_intents = list(/datum/intent/use)
 	name = "\improper tome of the arcyne"
-	desc = "A crackling, glowing book, filled with runes and symbols that hurt the mind to stare at. Can be used to unbind spells."
+	desc = "A crackling, glowing book, filled with runes and symbols that hurt the mind to stare at. Can be used to rebind aspect spells."
 	var/picked // if the book has had it's style picked or not
 	var/born_of_rock = FALSE // was a magical stone used to make it instead of a gem
 
@@ -82,11 +78,7 @@ decreases charge time if held opened in hand, for pure mage build + aesthetics.
 
 /obj/item/book/spellbook/examine(mob/user)
 	. = ..()
-	. += span_notice("Reading it once per day allows you to unbind up to two spells and refund their spell points.")
-	if(born_of_rock)
-		. += span_notice("This tome was made from a magical stone instead of a proper gem. Holding it in your hand with it open reduces spell casting time by [ROCK_CHARGE_REDUCTION * 100]%")
-	else
-		. += span_notice("This tome was made from a gem. Holding it in your hand with it open reduces spell casting time by [GEM_CHARGE_REDUCTION * 100]%")
+	. += span_notice("Reading it allows you to rebind your aspect spells.")
 
 /obj/item/book/spellbook/attack_self(mob/user)
 	if(!open)
@@ -113,12 +105,6 @@ decreases charge time if held opened in hand, for pure mage build + aesthetics.
 		return
 	var/datum/aspect_picker/picker = new(user, FALSE, user_mind.mage_aspect_config)
 	picker.ui_interact(user)
-
-/obj/item/book/spellbook/proc/get_castred()
-	if(born_of_rock)
-		return ROCK_CHARGE_REDUCTION
-	else
-		return GEM_CHARGE_REDUCTION
 
 /obj/item/book/spellbook/attack_right(mob/user)
 	if(!picked)
@@ -274,5 +260,3 @@ decreases charge time if held opened in hand, for pure mage build + aesthetics.
 	else
 		return ..()
 
-#undef ROCK_CHARGE_REDUCTION
-#undef GEM_CHARGE_REDUCTION
