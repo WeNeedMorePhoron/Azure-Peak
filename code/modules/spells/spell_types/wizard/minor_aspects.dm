@@ -74,9 +74,8 @@
 		"I close the paths I have opened.",
 		"Translatio, me relinquere!",
 	)
-	choice_spells = list(
+	fixed_spells = list(
 		/datum/action/cooldown/spell/blink,
-		/datum/action/cooldown/spell/repulse,
 	)
 
 /datum/magic_aspect/autowardry
