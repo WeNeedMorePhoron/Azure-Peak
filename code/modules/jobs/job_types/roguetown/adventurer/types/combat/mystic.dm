@@ -228,7 +228,7 @@
 			STATKEY_WIL = 1,
 	)
 	age_mod = /datum/class_age_mod/mystic
-	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 2, "locked_aspects" = list(/datum/magic_aspect/lesser_augmentation))
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 2)
 	subclass_skills = list(
 		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
