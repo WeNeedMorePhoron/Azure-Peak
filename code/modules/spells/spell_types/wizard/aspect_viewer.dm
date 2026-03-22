@@ -58,6 +58,7 @@
 	return data
 
 /datum/aspect_viewer/ui_act(action, list/params, datum/tgui/ui)
+	. = ..()
 	return FALSE
 
 /obj/item/book/arcyne_compendium
