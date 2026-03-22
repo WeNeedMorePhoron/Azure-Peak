@@ -10,7 +10,8 @@
 	Project arcyne energy into an area, conjuring a whirling storm of spectral blades \
 	that slash everything caught within. You must remain still to maintain the effect.\n\n\
 	The blades take a moment to expand before they begin dealing damage. \
-	Deals 30 brute damage per second for 10 seconds to all targets in a 7x7 area. Always strikes the chest."
+	Targets your aimed zone, with reduced accuracy for precise zones. \
+	Deals 30 brute damage per second for 10 seconds to all targets in a 7x7 area."
 	button_icon_state = "iron_tempest"
 	sound = 'sound/magic/scrapeblade.ogg'
 	spell_color = GLOW_COLOR_METAL
@@ -172,7 +173,8 @@
 			if(source_spell?.spell_guard_check(L))
 				continue
 			if(ishuman(L))
-				arcyne_strike(caster, L, null, tick_damage, BODY_ZONE_CHEST, \
+				var/target_zone = caster.zone_selected || BODY_ZONE_CHEST
+				arcyne_strike(caster, L, null, tick_damage, target_zone, \
 					BCLASS_CUT, spell_name = "Blade Dance", \
 					damage_type = BRUTE, npc_simple_damage_mult = 1, \
 					skip_animation = TRUE, skip_message = TRUE, \

@@ -8,7 +8,8 @@
 	name = "Iron Tempest"
 	desc = "Hurl a blade that detonates into a whirling storm of arcyne daggers on impact. \
 	The cloud persists for 10 seconds, slashing anyone who remains in the area.\n\n\
-	Each strike done every second deals 20 damage against the chest of your target."
+	Targets your aimed zone, with reduced accuracy for precise zones. \
+	Each strike done every second deals 20 damage."
 	button_icon_state = "iron_tempest"
 	sound = 'sound/magic/scrapeblade.ogg'
 	spell_color = GLOW_COLOR_METAL
