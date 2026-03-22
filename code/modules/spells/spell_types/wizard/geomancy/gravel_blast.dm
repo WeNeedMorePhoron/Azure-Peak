@@ -26,7 +26,7 @@
 	weapon_cast_penalized = TRUE
 	charge_time = CHARGETIME_POKE
 	charge_drain = 1
-	charge_slowdown = CHARGING_SLOWDOWN_SMALL
+	charge_slowdown = CHARGING_SLOWDOWN_NONE
 	charge_sound = 'sound/magic/charging_fire.ogg'
 	cooldown_time = 5.5 SECONDS
 	is_implement_scaled_spell = TRUE

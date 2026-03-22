@@ -504,7 +504,7 @@
 	if(!owner)
 		CRASH("[type] - can_cast_spell called on a spell without an owner!")
 
-	if(!(spell_flags & SPELL_IGNORE_SPELLBLOCK) && HAS_TRAIT(owner, TRAIT_SPELLBLOCK))
+	if(!(spell_flags & SPELL_IGNORE_SPELLBLOCK) && (HAS_TRAIT(owner, TRAIT_SPELLBLOCK) || HAS_TRAIT(owner, TRAIT_SPELLCOCKBLOCK)))
 		if(feedback)
 			owner.balloon_alert(owner, "Can't focus on casting...")
 		return FALSE

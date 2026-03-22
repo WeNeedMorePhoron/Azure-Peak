@@ -91,7 +91,7 @@
 		"Fulmen, a me discedere!",
 	)
 	fixed_spells = list(
-		/datum/action/cooldown/spell/projectile/shock,
+		/datum/action/cooldown/spell/projectile/arc_bolt,
 		/datum/action/cooldown/spell/projectile/lightning_bolt,
 		/datum/action/cooldown/spell/heavens_strike,
 		/datum/action/cooldown/spell/thunderstrike,

@@ -122,7 +122,7 @@
 					if("Frost Bolt")
 						H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/frost_bolt)
 					if("Arc Bolt")
-						H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/shock)
+						H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arc_bolt)
 					if("Gravel Blast")
 						H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/gravel_blast)
 					if("Stygian Efflorescence")
