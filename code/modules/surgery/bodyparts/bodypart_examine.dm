@@ -55,6 +55,8 @@
 		bodypart_status += "[src] is fractured."
 	if(has_wound(/datum/wound/dislocation))
 		bodypart_status += "[src] is dislocated."
+	if(has_wound(/datum/wound/charring))
+		bodypart_status += "[src] is charred."
 	var/location_accessible = TRUE
 	if(owner)
 		location_accessible = get_location_accessible(owner, body_zone)

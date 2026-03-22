@@ -41,6 +41,7 @@
 	damage = 25
 	npc_simple_damage_mult = 2
 	damage_type = BURN
+	woundclass = BCLASS_BURN
 	flag = "magic"
 	range = 10
 	speed = MAGE_PROJ_FAST

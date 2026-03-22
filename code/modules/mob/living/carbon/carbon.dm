@@ -747,26 +747,10 @@
 /mob/living/carbon/updatehealth()
 	if(status_flags & GODMODE)
 		return
-	var/total_burn	= 0
 	var/total_stamina = 0
 	var/total_tox = getToxLoss()
 	var/total_oxy = getOxyLoss()
 	var/used_damage = 0
-	// Sum total burn across all limbs, use chest max_damage as the reference unit (scales with CON)
-	var/ref_max_damage = 200 // fallback
-	for(var/obj/item/bodypart/bodypart as anything in bodyparts)
-		total_burn += bodypart.burn_dam
-		if(bodypart.body_zone == BODY_ZONE_CHEST)
-			ref_max_damage = bodypart.max_damage
-	var/burn_crit = ref_max_damage * (!mind ? BURN_CRIT_MULT_MINDLESS : BURN_CRIT_MULT)
-	var/burn_warn = ref_max_damage * BURN_CRIT_WARN_MULT
-	if(total_burn >= burn_crit)
-		used_damage = maxHealth // Enter hardcrit
-	else if(total_burn >= burn_warn && !burn_warned)
-		burn_warned = TRUE
-		to_chat(src, span_userdanger("Your body is covered in burns! You won't survive much more of this!"))
-	if(total_burn < burn_warn)
-		burn_warned = FALSE
 	if(used_damage < total_tox)
 		used_damage = total_tox
 	if(used_damage < total_oxy)
@@ -784,8 +768,6 @@
 
 /mob/living/carbon
 	var/lightning_flashing = FALSE
-	/// Tracks whether we've already warned the player about total burn damage
-	var/burn_warned = FALSE
 
 /mob/living/carbon/update_sight()
 	if(!client)

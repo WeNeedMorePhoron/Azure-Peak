@@ -41,6 +41,7 @@
 	damage = 30
 	npc_simple_damage_mult = 2
 	damage_type = BURN
+	woundclass = BCLASS_BURN
 	accuracy = 40
 	nodamage = FALSE
 	guard_deflectable = TRUE

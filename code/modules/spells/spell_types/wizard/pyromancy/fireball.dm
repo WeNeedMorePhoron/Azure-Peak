@@ -39,6 +39,7 @@
 	exp_fire = 0
 	damage = 70
 	damage_type = BURN
+	woundclass = BCLASS_BURN
 	npc_simple_damage_mult = 3
 	accuracy = 40 // Lower base — burn bypasses armor
 	nodamage = FALSE

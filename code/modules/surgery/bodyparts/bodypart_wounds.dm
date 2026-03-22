@@ -146,10 +146,12 @@
 			acheck_dflag = "stab"
 		if(BCLASS_PIERCE)
 			acheck_dflag = "piercing"
+		if(BCLASS_BURN)
+			acheck_dflag = "magic"
 	armor = owner.run_armor_check(zone_precise, acheck_dflag, damage = 0)
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
-		if(human_owner.checkcritarmor(zone_precise, bclass) && armor)
+		if(!(bclass in GLOB.charring_bclasses) && human_owner.checkcritarmor(zone_precise, bclass) && armor)
 			do_crit = FALSE
 		var/crit_threshold = (owner.mind || HAS_TRAIT(owner, TRAIT_CRIT_THRESHOLD)) ? CRIT_DISMEMBER_DAMAGE_THRESHOLD : CRIT_DISMEMBER_DAMAGE_THRESHOLD_NPC
 		if(get_damage() <= (max_damage * crit_threshold))
@@ -301,6 +303,10 @@
 			used = round(damage_dividend * 20 + (dam / 2))
 			if(prob(used))
 				attempted_wounds += /datum/wound/sunder
+	if(bclass in GLOB.charring_bclasses)
+		used = round(damage_dividend * 20 + (dam / 3))
+		if(prob(used))
+			attempted_wounds += /datum/wound/charring
 	// Check if critical resistance applies
 	var/has_crit_attempt = length(attempted_wounds)
 	if(!has_crit_attempt)
@@ -380,6 +386,10 @@
 			used = round(damage_dividend * 20 + (dam / 2))
 			if(prob(used))
 				attempted_wounds += list(/datum/wound/sunder/chest)
+	if(bclass in GLOB.charring_bclasses)
+		used = round(damage_dividend * 20 + (dam / 3))
+		if(prob(used))
+			attempted_wounds += /datum/wound/charring/chest
 	// Check if critical resistance applies
 	var/has_crit_attempt = length(attempted_wounds)
 	if(!has_crit_attempt)
@@ -511,6 +521,10 @@
 			used = round(damage_dividend * 20 + (dam / 2), 1)
 			if(prob(used))
 				attempted_wounds += /datum/wound/sunder/head
+	if(bclass in GLOB.charring_bclasses)
+		used = round(damage_dividend * 20 + (dam / 3))
+		if(prob(used))
+			attempted_wounds += /datum/wound/charring/head
 	var/has_crit_attempt = length(attempted_wounds) || try_knockout
 	if(!has_crit_attempt)
 		return FALSE
