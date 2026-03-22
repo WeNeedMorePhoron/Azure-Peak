@@ -365,7 +365,7 @@
 /// When clicking out of view, use screen-loc to find the direction
 /// and walk a line from the caster to the farthest tile at cast_range,
 /// returning the farthest visible tile along that line.
-/datum/action/cooldown/spell/proc/resolve_out_of_view_click(client/source)
+/datum/action/cooldown/spell/proc/resolve_out_of_view_click(client/source, click_params)
 	if(!source || !owner)
 		return null
 	var/turf/caster_turf = get_turf(owner)
@@ -377,7 +377,7 @@
 		return caster_turf
 
 	// Get angle from caster toward mouse position on screen
-	var/angle = mouse_angle_from_client(source)
+	var/angle = mouse_angle_from_client(source, click_params)
 	if(isnull(angle))
 		return null
 
@@ -1243,7 +1243,7 @@
 
 	// At this point we DO care about the _target value
 	if(isnull(location) || istype(_target, /atom/movable/screen))
-		_target = resolve_out_of_view_click(source)
+		_target = resolve_out_of_view_click(source, params)
 		if(!_target)
 			return // Stay selected, let them try again
 
@@ -1270,7 +1270,7 @@
 	UnregisterSignal(source, COMSIG_CLIENT_MOUSEDOWN)
 
 	if(isnull(location) || istype(_target, /atom/movable/screen))
-		_target = resolve_out_of_view_click(source)
+		_target = resolve_out_of_view_click(source, params)
 		if(!_target)
 			// Re-register so they can try again
 			RegisterSignal(source, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(cast_after_charge))
