@@ -16,7 +16,7 @@
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/shields = SKILL_LEVEL_NOVICE,
+		/datum/skill/combat/shields = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
@@ -40,7 +40,7 @@
 	..()
 	to_chat(H, span_warning("You start with Bind Weapon. Remember to Bind your weapon so you can use your abilities and build up Arcyne Momentum."))
 
-	// Gear - mirrors Zeybek, dual shamshirs locked for blade chant
+	// Gear - mirrors Zeybek
 	head = /obj/item/clothing/head/roguetown/roguehood/shalal/hijab/raneshen
 	neck = /obj/item/clothing/neck/roguetown/gorget/copper
 	mask = /obj/item/clothing/mask/rogue/facemask/copper
@@ -52,10 +52,7 @@
 	shoes = /obj/item/clothing/shoes/roguetown/shalal
 	belt = /obj/item/storage/belt/rogue/leather/shalal
 	backr = /obj/item/storage/backpack/rogue/satchel/black
-	beltl = /obj/item/rogueweapon/scabbard/sword
-	beltr = /obj/item/rogueweapon/scabbard/sword
-	l_hand = /obj/item/rogueweapon/sword/sabre/shamshir
-	r_hand = /obj/item/rogueweapon/sword/sabre/shamshir
+
 	backpack_contents = list(
 		/obj/item/roguekey/mercenary,
 		/obj/item/rogueweapon/huntingknife/idagger/navaja,
@@ -108,5 +105,40 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/empower_weapon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/bind_weapon)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/mending)
+
+	switch(subclass_selected)
+		if("blade")
+			var/blade_weapons = list("Dual Shamshirs", "Shalal Saber & Shield")
+			var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in blade_weapons
+			switch(weapon_choice)
+				if("Dual Shamshirs")
+					ADD_TRAIT(H, TRAIT_DUALWIELDER, TRAIT_GENERIC)
+					r_hand = /obj/item/rogueweapon/sword/sabre/shamshir
+					l_hand = /obj/item/rogueweapon/sword/sabre/shamshir
+					beltl = /obj/item/rogueweapon/scabbard/sword
+					beltr = /obj/item/rogueweapon/scabbard/sword
+				if("Shalal Saber & Shield")
+					r_hand = /obj/item/rogueweapon/sword/long/marlin
+					beltr = /obj/item/rogueweapon/scabbard/sword
+					backl = /obj/item/rogueweapon/shield/tower/raneshen
+		if("phalangite")
+			var/polearm_weapons = list("Spear", "Dory & Shield")
+			var/polearm_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in polearm_weapons
+			switch(polearm_choice)
+				if("Spear")
+					r_hand = /obj/item/rogueweapon/spear
+					backl = /obj/item/rogueweapon/scabbard/gwstrap
+				if("Dory & Shield")
+					r_hand = /obj/item/rogueweapon/spear/spellblade
+					backl = /obj/item/rogueweapon/shield/tower/raneshen
+		if("macebearer")
+			var/mace_weapons = list("Steel Mace", "Steel Warhammer & Shield")
+			var/mace_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in mace_weapons
+			switch(mace_choice)
+				if("Steel Mace")
+					r_hand = /obj/item/rogueweapon/mace/steel
+				if("Steel Warhammer & Shield")
+					r_hand = /obj/item/rogueweapon/mace/warhammer/steel
+					backl = /obj/item/rogueweapon/shield/tower/raneshen
 
 	H.merctype = 4
