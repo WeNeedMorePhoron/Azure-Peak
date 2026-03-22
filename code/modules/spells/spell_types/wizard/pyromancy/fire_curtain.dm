@@ -26,14 +26,14 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/charging_fire.ogg'
-	cooldown_time = 30 SECONDS
+	cooldown_time = 20 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_impact_intensity = SPELL_IMPACT_HIGH
 
 	var/curtain_width = 5
 	var/curtain_depth = 2
-	var/hotspot_life = 10 SECONDS
+	var/hotspot_life = 20 // hotspot subsystem ticks, not deciseconds. 20 ticks × 5 ds/tick = 10 seconds
 	var/telegraph_time = 3 SECONDS
 
 /datum/action/cooldown/spell/fire_curtain/cast(atom/cast_on)

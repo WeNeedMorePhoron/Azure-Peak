@@ -747,10 +747,22 @@
 /mob/living/carbon/updatehealth()
 	if(status_flags & GODMODE)
 		return
+	var/total_burn = 0
 	var/total_stamina = 0
 	var/total_tox = getToxLoss()
 	var/total_oxy = getOxyLoss()
 	var/used_damage = 0
+	// Burn hardcrit - total burn across all bodyparts vs threshold
+	for(var/obj/item/bodypart/BP as anything in bodyparts)
+		total_burn += BP.burn_dam
+	if(total_burn > 0)
+		var/burn_threshold = FIRE_HARDCRIT_BASE
+		if(HAS_TRAIT(src, TRAIT_NOPAIN) || HAS_TRAIT(src, TRAIT_NOPAINSTUN))
+			burn_threshold *= FIRE_HARDCRIT_NOPAIN_MULT
+		if(!mind && !HAS_TRAIT(src, TRAIT_CRIT_THRESHOLD))
+			burn_threshold *= FIRE_HARDCRIT_MINDLESS_MULT
+		var/burn_damage = (total_burn / burn_threshold) * maxHealth
+		used_damage = max(used_damage, burn_damage)
 	if(used_damage < total_tox)
 		used_damage = total_tox
 	if(used_damage < total_oxy)
@@ -1062,12 +1074,16 @@
 					visible_message(span_danger("<b>[src] collapses, [src.p_their()] lips turning blue!</b>"), \
 						span_userdanger("I cannot breathe... the world grows dark."))
 				else if(health <= HEALTH_THRESHOLD_FULLCRIT)
-					if(getBruteLoss() >= getFireLoss())
+					if(getFireLoss() >= getBruteLoss())
+						if(!mind && !HAS_TRAIT(src, TRAIT_CRIT_THRESHOLD))
+							visible_message(span_danger("<b>[src] collapses - [src.p_their()] will is too weak to endure the burns!</b>"))
+						else
+							visible_message(span_danger("<b>[src] collapses, [src.p_their()] flesh charred and smoking!</b>"), \
+								span_userdanger("My body is too burnt to go on!"))
+						playsound(src, 'sound/health/burning.ogg', 60, TRUE)
+					else
 						visible_message(span_danger("<b>[src] collapses, broken and bloodied!</b>"), \
 							span_userdanger("My bones are shattered... I cannot go on."))
-					else
-						visible_message(span_danger("<b>[src] collapses, [src.p_their()] flesh charred and smoking!</b>"), \
-							span_userdanger("The burning... it has taken everything from me."))
 			stat = UNCONSCIOUS
 			if(ishuman(src))
 				var/mob/living/carbon/human/H = src

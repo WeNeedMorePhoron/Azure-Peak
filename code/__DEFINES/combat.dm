@@ -49,8 +49,10 @@
 
 #define HEALTH_THRESHOLD_NEARDEATH -90 //Not used mechanically, but to determine if someone is so close to death they hear the other side
 
-// Burn damage contributes this fraction to pain (vs brute at 1.0)
-#define BURN_PAIN_MODIFIER 0.66
+#define FIRE_HARDCRIT_BASE 300 //Total burn damage across all bodyparts to hardcrit a player
+#define FIRE_HARDCRIT_MINDLESS_MULT 0.5 //Mindless mobs without TRAIT_CRIT_THRESHOLD hardcrit at half (150)
+#define FIRE_HARDCRIT_NOPAIN_MULT 1.5 //NOPAIN/NOPAINSTUN increases threshold by 50% (450)
+
 #define STRENGTH_SOFTCAP 14	//STR value past which we get diminishing returns in our damage calculations.
 #define STRENGTH_MULT 0.1	//STR multiplier per STR point up to the softcap. Works as a %-age. 0.1 = 10% per point.
 #define STRENGTH_CAPPEDMULT 0.05	//STR multiplier per STR point past the softcap

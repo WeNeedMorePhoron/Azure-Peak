@@ -299,10 +299,6 @@
 			used = round(damage_dividend * 20 + (dam / 2))
 			if(prob(used))
 				attempted_wounds += /datum/wound/sunder
-	if(bclass in GLOB.charring_bclasses)
-		used = round(damage_dividend * 20 + (dam / 3))
-		if(prob(used))
-			attempted_wounds += /datum/wound/charring
 	// Check if critical resistance applies
 	var/has_crit_attempt = length(attempted_wounds)
 	if(!has_crit_attempt)
@@ -382,10 +378,6 @@
 			used = round(damage_dividend * 20 + (dam / 2))
 			if(prob(used))
 				attempted_wounds += list(/datum/wound/sunder/chest)
-	if(bclass in GLOB.charring_bclasses)
-		used = round(damage_dividend * 20 + (dam / 3))
-		if(prob(used))
-			attempted_wounds += /datum/wound/charring/chest
 	// Check if critical resistance applies
 	var/has_crit_attempt = length(attempted_wounds)
 	if(!has_crit_attempt)
@@ -517,10 +509,6 @@
 			used = round(damage_dividend * 20 + (dam / 2), 1)
 			if(prob(used))
 				attempted_wounds += /datum/wound/sunder/head
-	if(bclass in GLOB.charring_bclasses)
-		used = round(damage_dividend * 20 + (dam / 3))
-		if(prob(used))
-			attempted_wounds += /datum/wound/charring/head
 	var/has_crit_attempt = length(attempted_wounds) || try_knockout
 	if(!has_crit_attempt)
 		return FALSE
