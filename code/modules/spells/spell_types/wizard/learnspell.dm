@@ -29,7 +29,7 @@
 					var/obj/effect/proc_holder/spell/S = path
 					util_points_spent += initial(S.cost)
 		if(current_majors < max_maj || current_minors < max_min || util_points_spent < max_util)
-			var/datum/aspect_picker/picker = new(user, !current_majors, config)
+			var/datum/aspect_picker/picker = new(user, TRUE, config)
 			picker.ui_interact(user)
 			return
 		return
