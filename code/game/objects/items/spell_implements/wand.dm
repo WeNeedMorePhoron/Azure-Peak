@@ -19,8 +19,8 @@
 	associated_skill = /datum/skill/magic/arcane
 	possible_item_intents = list(SPEAR_BASH)
 	sellprice = 34
-	var/implement_tier = IMPLEMENT_TIER_LESSER
-	var/implement_multiplier = IMPLEMENT_MULT_LESSER
+	implement_tier = IMPLEMENT_TIER_LESSER
+	implement_multiplier = IMPLEMENT_MULT_LESSER
 
 /obj/item/rogueweapon/wand/greater
 	base_implement_name = "greater wand"
@@ -56,5 +56,3 @@
 	if(implement_multiplier)
 		. += span_notice("This implement empowers staple spells by [round((implement_multiplier - 1) * 100)]% when held.")
 
-/obj/item/rogueweapon/wand/attune_implement(spell_color, spell_name)
-	apply_attunement_glow(src, spell_color, implement_tier, spell_name)

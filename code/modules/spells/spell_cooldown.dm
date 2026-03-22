@@ -438,9 +438,8 @@
 			continue
 		if(istype(held, /obj/item/rogueweapon/shield))
 			continue
-		if(istype(held, /obj/item/rogueweapon/woodstaff/implement))
-			continue
-		if(istype(held, /obj/item/rogueweapon/wand))
+		var/obj/item/rogueweapon/W = held
+		if(W.implement_multiplier)
 			continue
 		return TRUE
 	return FALSE

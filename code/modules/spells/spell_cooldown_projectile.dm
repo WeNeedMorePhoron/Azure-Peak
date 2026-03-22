@@ -71,13 +71,10 @@
 		var/best_mult = 0
 		var/obj/item/rogueweapon/best_implement
 		for(var/obj/item/held in list(H.get_active_held_item(), H.get_inactive_held_item()))
-			var/mult = 0
-			if(istype(held, /obj/item/rogueweapon/woodstaff/implement))
-				var/obj/item/rogueweapon/woodstaff/implement/staff = held
-				mult = staff.implement_multiplier
-			else if(istype(held, /obj/item/rogueweapon/wand))
-				var/obj/item/rogueweapon/wand/wand = held
-				mult = wand.implement_multiplier
+			if(!istype(held, /obj/item/rogueweapon))
+				continue
+			var/obj/item/rogueweapon/W = held
+			var/mult = W.implement_multiplier
 			if(mult > best_mult)
 				best_mult = mult
 				best_implement = held

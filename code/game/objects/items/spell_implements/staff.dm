@@ -4,8 +4,8 @@
 	desc = "A mage's staff fitted with a lesser focus-gem. It hums faintly with arcyne energy, empowering the wielder's staple spells."
 	icon = 'icons/obj/items/staffs.dmi'
 	icon_state = "topazstaff"
-	var/implement_tier = IMPLEMENT_TIER_LESSER
-	var/implement_multiplier = IMPLEMENT_MULT_LESSER
+	implement_tier = IMPLEMENT_TIER_LESSER
+	implement_multiplier = IMPLEMENT_MULT_LESSER
 	resistance_flags = FIRE_PROOF
 	possible_item_intents = list(SPEAR_BASH)
 	gripped_intents = list(SPEAR_BASH, /datum/intent/mace/smash/wood)
@@ -37,8 +37,6 @@
 	if(implement_multiplier)
 		. += span_notice("This implement empowers staple spells by [round((implement_multiplier - 1) * 100)]% when held.")
 
-/obj/item/rogueweapon/woodstaff/implement/attune_implement(spell_color, spell_name)
-	apply_attunement_glow(src, spell_color, implement_tier, spell_name)
 
 /datum/intent/magos_electrocute
 	name = "shock associate"

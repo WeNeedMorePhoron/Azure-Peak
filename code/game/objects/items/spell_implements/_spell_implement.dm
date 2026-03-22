@@ -1,6 +1,6 @@
 // Spell Implement System
 // Staves and Wands are spell implements that boost staple spell damage when held.
-// implement_tier and implement_multiplier vars live on the implement subclasses (staff and wand).
+// implement_tier and implement_multiplier vars live on /obj/item/rogueweapon, defaulting to 0 (non-implement).
 // The multiplier is applied in ready_projectile() for is_implement_scaled_spell spells.
 //
 // Staff: Two-handed, best durability and parry. Melee defensive option.
@@ -21,10 +21,14 @@
 /obj/item/rogueweapon
 	var/attuned_color = null
 	var/base_implement_name = null
+	var/implement_tier = 0
+	var/implement_multiplier = 0
 	COOLDOWN_DECLARE(attunement_cd)
 
 /obj/item/rogueweapon/proc/attune_implement(spell_color, spell_name)
-	return
+	if(!implement_tier)
+		return
+	apply_attunement_glow(src, spell_color, implement_tier, spell_name)
 
 /proc/apply_attunement_glow(obj/item/rogueweapon/implement, spell_color, implement_tier, spell_name)
 	if(implement.attuned_color == spell_color)
