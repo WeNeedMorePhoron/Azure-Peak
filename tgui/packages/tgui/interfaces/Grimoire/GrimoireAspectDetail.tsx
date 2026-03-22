@@ -2,6 +2,7 @@ import { GrimoireChoiceSection } from './GrimoireChoiceSection';
 import { GrimoirePointBuySection } from './GrimoirePointBuySection';
 import { GrimoireSpellEntry } from './GrimoireSpellEntry';
 import { GrimoireVariantSection } from './GrimoireVariantSection';
+import { stripHtml } from './helpers';
 import { type Aspect, type Tab } from './types';
 
 export const GrimoireAspectDetail = ({
@@ -47,6 +48,7 @@ export const GrimoireAspectDetail = ({
         <div className="AspectPicker__heading">
           <span
             style={aspect.school_color ? { color: aspect.school_color } : undefined}
+            title={aspect.fluff_desc && aspect.fluff_desc !== 'TODO' ? stripHtml(aspect.fluff_desc) : undefined}
           >
             {aspect.name}
           </span>
@@ -76,13 +78,6 @@ export const GrimoireAspectDetail = ({
           >
             {aspect.latin_name}
           </div>
-        )}
-
-        {aspect.fluff_desc && aspect.fluff_desc !== 'TODO' && (
-          <div
-            className="AspectPicker__fluff"
-            dangerouslySetInnerHTML={{ __html: aspect.fluff_desc }}
-          />
         )}
 
         {aspect.desc && aspect.desc !== 'TODO' && (

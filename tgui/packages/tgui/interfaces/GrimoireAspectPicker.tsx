@@ -194,6 +194,7 @@ export const GrimoireAspectPicker = () => {
                   pointsBudget={max_utilities}
                   initialSetup={initial_setup}
                   resetBudget={reset_budget}
+                  allSelectedSpells={all_selected_spells}
                   act={wrappedAct}
                 />
               )}

@@ -11,6 +11,7 @@ export const GrimoireUtilityList = ({
   pointsBudget,
   initialSetup,
   resetBudget,
+  allSelectedSpells,
   act,
 }: {
   spells: Spell[];
@@ -22,6 +23,7 @@ export const GrimoireUtilityList = ({
   pointsBudget: number;
   initialSetup: boolean;
   resetBudget: number;
+  allSelectedSpells: string[];
   act: (action: string, params: Record<string, unknown>) => void;
 }) => (
   <>
@@ -29,9 +31,12 @@ export const GrimoireUtilityList = ({
       const isSelected = selected.includes(spell.path);
       const isKnown = known.includes(spell.path);
       const isPendingUnbind = pendingUnbinds.includes(spell.path);
+      const selectedElsewhere =
+        !isSelected && !isKnown && allSelectedSpells.includes(spell.path);
       const tooExpensive =
         !isSelected && !isKnown && pointsSpent + spell.cost > pointsBudget;
-      const isDisabled = !isSelected && !isKnown && (isFull || tooExpensive);
+      const isDisabled =
+        !isSelected && !isKnown && (isFull || tooExpensive || selectedElsewhere);
 
       const handleClick = () => {
         if (isPendingUnbind) {
@@ -87,6 +92,14 @@ export const GrimoireUtilityList = ({
               style={{ marginLeft: '4px', color: 'rgba(200,100,100,0.8)' }}
             >
               unbinding
+            </span>
+          )}
+          {selectedElsewhere && (
+            <span
+              className="AspectPicker__spell-desc"
+              style={{ marginLeft: '4px', opacity: 0.6 }}
+            >
+              chosen in aspect
             </span>
           )}
         </div>
