@@ -145,6 +145,7 @@
 		/obj/item/reagent_containers/glass/bottle/alchemical = 3,
 		/obj/item/recipe_book/alchemy = 1,
 		/obj/item/roguegem/amethyst = 1, // for their starting staff or a gem-bound spellbook if they take the time to craft one, increase how fast they cast stoneskin/fortitude
+		/obj/item/book/spellbook = 1,
 		)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/stoneskin)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/fortitude)
@@ -273,6 +274,7 @@
 	backpack_contents = list(
 		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/recipe_book/survival = 1,
+		/obj/item/book/spellbook = 1,
 		)
 	var/list/poke_options = list("Spitfire", "Frost Bolt", "Shock", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
 	var/poke_choice = input(H, "Choose your offensive cantrip.", "Arcyne Training") as anything in poke_options

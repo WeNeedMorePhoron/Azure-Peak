@@ -82,6 +82,7 @@
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife/idagger/steel/corroded = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
+		/obj/item/book/spellbook = 1,
 	)
 
 	if(H.mind)

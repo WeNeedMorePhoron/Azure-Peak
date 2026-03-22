@@ -64,8 +64,9 @@
 	backr = /obj/item/rogueweapon/shield/heater
 	backl = /obj/item/storage/backpack/rogue/satchel
 
-	// DO NOT GIVE THEM MAGE CHALK. This is a SKELETON. Don't let them 
+	// DO NOT GIVE THEM MAGE CHALK. This is a SKELETON. Don't let them
 	// grind the gameplay loop (without putting in the efforts to acquire a chalk)
+	backpack_contents = list(/obj/item/book/spellbook = 1)
 
 	// Chant selection — uses undead faction for "MEMORIES" UI
 	to_chat(H, span_warning("You start with Bind Weapon. Remember to Bind your weapon so you can use your abilities and build up Arcyne Momentum."))
