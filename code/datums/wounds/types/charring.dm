@@ -16,7 +16,7 @@
 	can_cauterize = FALSE
 	disabling = TRUE
 	critical = TRUE
-	bleed_rate = 0
+	bleed_rate = 5
 	bypass_bloody_wound_check = TRUE
 	var/gain_emote = "painscream"
 
@@ -39,14 +39,18 @@
 	affected.Slowdown(15)
 	shake_camera(affected, 2, 2)
 	playsound(affected, 'sound/health/burning.ogg', 60, TRUE)
-	// Two burn crits anywhere on your body = death
-	var/burn_crit_count = 0
-	for(var/datum/wound/charring/char_wound in affected.get_wounds())
-		burn_crit_count++
-	if(burn_crit_count >= 2)
-		affected.visible_message(span_boldwarning("[affected]'s body is consumed by searing burns!"))
-		affected.emote("deathgasp", TRUE)
-		affected.death()
+	// NOBREATH/NOBLOOD mobs can't bleed out - warn on first, kill on second
+	if(HAS_TRAIT(affected, TRAIT_NOBREATH) || (iscarbon(affected) && (NOBLOOD in affected:dna?.species?.species_traits)))
+		var/burn_crit_count = 0
+		for(var/datum/wound/charring/char_wound in affected.get_wounds())
+			burn_crit_count++
+		if(burn_crit_count >= 2)
+			affected.visible_message(span_boldwarning("[affected]'s body is consumed by searing burns!"))
+			to_chat(affected, span_boldwarning("The searing heat overwhelms my body!"))
+			affected.emote("deathgasp", TRUE)
+			affected.death()
+		else
+			to_chat(affected, span_userdanger("Searing heat scorches through me - another burn like this will be fatal!"))
 
 /datum/wound/charring/chest
 	name = "torso charring"
