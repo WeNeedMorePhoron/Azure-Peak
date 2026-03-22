@@ -209,6 +209,7 @@
 		STATKEY_INT = 1,
 		STATKEY_SPD = -1
 	)
+	minor_mod = 1
 	utility_mod = 3
 
 /datum/class_age_mod/apprentice_alchemist
@@ -233,6 +234,7 @@
 		STATKEY_STR = -1,
 		STATKEY_CON = -2
 	)
+	minor_mod = 1
 	utility_mod = 3
 
 /datum/class_age_mod/adv_mage
@@ -252,6 +254,7 @@
 		STATKEY_INT = 1,
 		STATKEY_SPD = -1,
 	)
+	minor_mod = 1
 	utility_mod = 2
 
 /datum/class_age_mod/exorcist
@@ -290,6 +293,7 @@
 		STATKEY_INT= 1,
 		STATKEY_SPD = -1
 	)
+	minor_mod = 1
 
 /datum/class_age_mod/druid
 	target_age = AGE_OLD
@@ -366,6 +370,7 @@
 		STATKEY_INT = 1,
 		STATKEY_SPD = -1
 	)
+	minor_mod = 1
 	utility_mod = 3
 
 /datum/class_age_mod/innkeeper

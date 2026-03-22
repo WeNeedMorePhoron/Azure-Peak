@@ -220,7 +220,6 @@
 		STATKEY_PER = 3,
 		STATKEY_SPD = 1
 	)
-	extra_context = "This class gains T3 spells at Old age."
 	age_mod = /datum/class_age_mod/grenzel_mage
 	subclass_skills = list(
 		/datum/skill/magic/arcane = SKILL_LEVEL_JOURNEYMAN,
