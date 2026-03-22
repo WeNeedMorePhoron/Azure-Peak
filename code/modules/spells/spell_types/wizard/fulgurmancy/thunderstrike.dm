@@ -99,3 +99,7 @@
 			L.electrocute_act(stage_damage, src, 1, SHOCK_NOSTUN)
 		L.electrocute_act(0, src, 1, SHOCK_NOSTUN|SHOCK_VISUAL_ONLY)
 		new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
+
+#undef TSTRIKE_STAGE1_DAMAGE
+#undef TSTRIKE_STAGE2_DAMAGE
+#undef TSTRIKE_STAGE3_DAMAGE

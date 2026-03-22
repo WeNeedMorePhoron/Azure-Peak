@@ -60,3 +60,6 @@
 				L.apply_status_effect(/datum/status_effect/buff/lightningstruck, 8 SECONDS)
 				L.mob_timers[MT_LIGHTNING_ADAPTATION] = world.time
 	qdel(src)
+
+#undef LIGHTNING_ADAPTATION_COOLDOWN
+#undef MT_LIGHTNING_ADAPTATION

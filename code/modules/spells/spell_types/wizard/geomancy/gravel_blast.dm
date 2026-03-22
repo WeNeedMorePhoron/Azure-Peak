@@ -79,3 +79,6 @@
 		else
 			M.mob_timers[MT_ROCKSHOT] = world.time
 	. = ..()
+
+#undef MT_ROCKSHOT
+#undef ROCKSHOT_DR_DURATION

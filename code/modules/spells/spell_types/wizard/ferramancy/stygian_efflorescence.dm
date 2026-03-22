@@ -86,3 +86,6 @@
 		else
 			M.mob_timers[MT_STYGIAN] = world.time
 	. = ..()
+
+#undef MT_STYGIAN
+#undef STYGIAN_DR_DURATION

@@ -40,7 +40,12 @@
 	shake_camera(affected, 2, 2)
 	playsound(affected, 'sound/health/burning.ogg', 60, TRUE)
 	// NOBREATH/NOBLOOD mobs can't bleed out - warn on first, kill on second
-	if(HAS_TRAIT(affected, TRAIT_NOBREATH) || (iscarbon(affected) && (NOBLOOD in affected:dna?.species?.species_traits)))
+	var/noblood = FALSE
+	if(iscarbon(affected))
+		var/mob/living/carbon/C = affected
+		if(C.dna?.species)
+			noblood = (NOBLOOD in C.dna.species.species_traits)
+	if(HAS_TRAIT(affected, TRAIT_NOBREATH) || noblood)
 		var/burn_crit_count = 0
 		for(var/datum/wound/charring/char_wound in affected.get_wounds())
 			burn_crit_count++
