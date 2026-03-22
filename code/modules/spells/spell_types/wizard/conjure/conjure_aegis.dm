@@ -76,7 +76,7 @@
 	icon_state = "moonlight_shield"
 	pixel_x = -16
 	bigboy = TRUE
-	wdefense = 5
+	wdefense = 7
 	coverage = 80
 	max_integrity = 150
 	force = 5
