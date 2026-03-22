@@ -382,6 +382,7 @@ Medical defines
  Misc. Category. Spin it out if needed
 */
 #define CRIT_DISMEMBER_DAMAGE_THRESHOLD 0.75 // 75% damage threshold for dismemberment / crit
+#define CRIT_DISMEMBER_DAMAGE_THRESHOLD_NPC 0.375 // Half the player threshold for mindless NPCs
 #define STANDING_DECAP_GRACE_PERIOD 2 SECONDS // Time after falling prone where you still count as standing for decap purpose
 #define INT_NOISE_DELAY 1 SECONDS
 

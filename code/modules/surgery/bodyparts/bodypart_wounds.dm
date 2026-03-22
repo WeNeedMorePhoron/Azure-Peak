@@ -151,8 +151,9 @@
 		var/mob/living/carbon/human/human_owner = owner
 		if(human_owner.checkcritarmor(zone_precise, bclass) && armor)
 			do_crit = FALSE
-		if((owner.mind || HAS_TRAIT(owner, TRAIT_CRIT_THRESHOLD)) && (get_damage() <= (max_damage * CRIT_DISMEMBER_DAMAGE_THRESHOLD))) //No crits unless the damage is maxed out.
-			do_crit = FALSE // We used to check if they are buckled or lying down but being grounded is a big enough advantage.
+		var/crit_threshold = (owner.mind || HAS_TRAIT(owner, TRAIT_CRIT_THRESHOLD)) ? CRIT_DISMEMBER_DAMAGE_THRESHOLD : CRIT_DISMEMBER_DAMAGE_THRESHOLD_NPC
+		if(get_damage() <= (max_damage * crit_threshold))
+			do_crit = FALSE
 	if(user)
 		if(user.goodluck(2))
 			dam += 10
@@ -300,7 +301,6 @@
 			used = round(damage_dividend * 20 + (dam / 2))
 			if(prob(used))
 				attempted_wounds += /datum/wound/sunder
-
 	// Check if critical resistance applies
 	var/has_crit_attempt = length(attempted_wounds)
 	if(!has_crit_attempt)
@@ -380,7 +380,6 @@
 			used = round(damage_dividend * 20 + (dam / 2))
 			if(prob(used))
 				attempted_wounds += list(/datum/wound/sunder/chest)
-
 	// Check if critical resistance applies
 	var/has_crit_attempt = length(attempted_wounds)
 	if(!has_crit_attempt)
@@ -512,7 +511,6 @@
 			used = round(damage_dividend * 20 + (dam / 2), 1)
 			if(prob(used))
 				attempted_wounds += /datum/wound/sunder/head
-
 	var/has_crit_attempt = length(attempted_wounds) || try_knockout
 	if(!has_crit_attempt)
 		return FALSE
