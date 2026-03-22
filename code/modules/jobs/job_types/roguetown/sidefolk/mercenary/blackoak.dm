@@ -170,7 +170,7 @@
 	name = "Black Oak's Adept"
 	tutorial = "A spellblade of the Black Oaks. Half mercenary band, half irregular militia fighting for control of their ancestral elven homeland of the Peaks. You have honed the ancient Azurean art of spellbladery - an art that is yours and your people's alone. Thankfully, you are not here today to shed the blood of the Duke's men - unless someone pays you to..."
 	outfit = /datum/outfit/job/roguetown/mercenary/blackoak_adept
-	class_select_category = CLASS_CAT_BATTLEMAGE
+	class_select_category = CLASS_CAT_RACIAL
 	traits_applied = list(TRAIT_AZURENATIVE, TRAIT_OUTDOORSMAN, TRAIT_BLACKOAK, TRAIT_ARCYNE, TRAIT_WOODWALKER)
 	subclass_stats = list(
 		STATKEY_INT = 1,
