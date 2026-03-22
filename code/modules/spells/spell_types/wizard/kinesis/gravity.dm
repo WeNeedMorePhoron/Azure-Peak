@@ -36,7 +36,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
 	/// Ticks of warning before the crush lands
-	var/telegraph_delay = 5
+	var/telegraph_delay = TELEGRAPH_SKILLSHOT
 	/// Damage dealt to targets whose STR is at or below the threshold
 	var/crush_damage = 60
 	/// Damage dealt to targets who resist via STR

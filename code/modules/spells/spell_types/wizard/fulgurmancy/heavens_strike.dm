@@ -1,6 +1,3 @@
-
-#define HEAVENS_STRIKE_TELEGRAPH 8 // Ticks of warning before the strike lands
-
 /datum/action/cooldown/spell/heavens_strike
 	button_icon = 'icons/mob/actions/mage_fulgurmancy.dmi'
 	name = "Heaven's Strike"
@@ -33,6 +30,7 @@
 	spell_impact_intensity = SPELL_IMPACT_HIGH
 
 	var/damage = 60
+	var/telegraph_tick = TELEGRAPH_SKILLSHOT
 	var/npc_simple_damage_mult = 2
 
 /datum/action/cooldown/spell/heavens_strike/cast(atom/cast_on)
@@ -54,8 +52,8 @@
 		to_chat(H, span_warning("I can't cast where I can't see!"))
 		return FALSE
 
-	new /obj/effect/temp_visual/trap/thunderstrike(T, HEAVENS_STRIKE_TELEGRAPH)
-	addtimer(CALLBACK(src, PROC_REF(strike_damage), T), HEAVENS_STRIKE_TELEGRAPH)
+	new /obj/effect/temp_visual/trap/thunderstrike(T, TELEGRAPH_SKILLSHOT)
+	addtimer(CALLBACK(src, PROC_REF(strike_damage), T), TELEGRAPH_SKILLSHOT)
 	return TRUE
 
 /datum/action/cooldown/spell/heavens_strike/proc/strike_damage(turf/T)
