@@ -2,7 +2,7 @@
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Fire Curtain"
 	desc = "Conjure a 5x2 curtain of flame at a target location, perpendicular to your facing. \
-	After a 2-second telegraph, the fire erupts. \
+	After a 2-second telegraph, the fire erupts. Burning for 10 seconds. \
 	The fire does not block movement but will burn anything that passes through or stands in it. \
 	You are not immune to your own curtain."
 	button_icon_state = "fire_curtain"
@@ -26,7 +26,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/charging_fire.ogg'
-	cooldown_time = 20 SECONDS
+	cooldown_time = 25 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_impact_intensity = SPELL_IMPACT_HIGH
