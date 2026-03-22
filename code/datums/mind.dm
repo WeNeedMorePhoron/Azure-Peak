@@ -129,9 +129,6 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	/// List of personal objectives not tied to the antag roles.
 	var/list/personal_objectives = list()
 
-	var/has_rituos = FALSE
-	var/obj/effect/proc_holder/spell/rituos_spell
-
 	var/has_bomb = FALSE
 
 /datum/mind/New(key)

@@ -333,13 +333,6 @@
 		return
 	if(mind.aspect_resets_used > 0)
 		mind.aspect_resets_used = 0
-	if(mind.has_rituos)
-		mind.has_rituos = FALSE
-		to_chat(mind.current, span_smallnotice("The toil of invoking Her Lesser Work has fled my feeble form. I can continue my transfiguration..."))
-	if (mind.rituos_spell)
-		to_chat(mind.current, span_warning("My glimpse of [mind.rituos_spell.name] flees my slumbering mind..."))
-		mind.RemoveSpell(mind.rituos_spell)
-		mind.rituos_spell = null
 	to_chat(mind.current, span_notice("...and that's all I dreamt of."))
 	if(HAS_TRAIT(mind.current, TRAIT_STUDENT))
 		REMOVE_TRAIT(mind.current, TRAIT_STUDENT, TRAIT_GENERIC)
