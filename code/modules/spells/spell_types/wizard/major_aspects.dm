@@ -192,6 +192,7 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/soulshot,
+		/datum/action/cooldown/spell/forcewall,
 	)
 	variants = list(
 		"mastery" = list(
