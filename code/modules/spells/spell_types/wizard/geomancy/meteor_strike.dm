@@ -1,4 +1,3 @@
-#define METEOR_STRIKE_IMPACTS 9
 #define METEOR_STRIKE_RADIUS 3 // 7x7 area
 #define METEOR_SPLASH_RADIUS 1 // 3x3 splash per meteor
 #define METEOR_FRAGMENT_COUNT 6
@@ -38,10 +37,11 @@
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
-	var/direct_damage = 50
+	var/direct_damage = 60 // If you get hit direct you deserve it
 	var/splash_damage = 25
 	var/fragment_damage = 15
 	var/npc_simple_damage_mult = 2
+	var/impact_count = 12
 
 /datum/action/cooldown/spell/meteor_strike/cast(atom/cast_on)
 	. = ..()
@@ -72,7 +72,7 @@
 		return FALSE
 
 	var/list/impact_turfs = list()
-	for(var/i in 1 to METEOR_STRIKE_IMPACTS)
+	for(var/i in 1 to impact_count)
 		impact_turfs += pick(valid_turfs)
 
 	centerpoint.visible_message(span_boldwarning("The sky darkens as boulders begin to fall!"))
