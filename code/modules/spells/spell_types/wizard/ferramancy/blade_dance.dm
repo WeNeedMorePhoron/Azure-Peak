@@ -109,7 +109,9 @@
 	caster = summoner
 	source_spell = spell_ref
 	ticks_remaining = BLADE_DANCE_DURATION / (1 SECONDS)
+	INVOKE_ASYNC(src, PROC_REF(setup_visuals))
 
+/obj/effect/blade_dance_zone/proc/setup_visuals()
 	// Visible beam from zone center to caster
 	caster_beam = new(src, caster, 'icons/effects/beam.dmi', "b_beam", BLADE_DANCE_DURATION + 1 SECONDS, maxdistance = 20)
 	caster_beam.Start()

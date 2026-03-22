@@ -2,6 +2,7 @@
 #define METEOR_STRIKE_RADIUS 3 // 7x7 area
 #define METEOR_SPLASH_RADIUS 1 // 3x3 splash per meteor
 #define METEOR_FRAGMENT_COUNT 6
+#define METEOR_TELEGRAPH_TIME 3 SECONDS
 
 /datum/action/cooldown/spell/meteor_strike
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
@@ -74,9 +75,14 @@
 	for(var/i in 1 to METEOR_STRIKE_IMPACTS)
 		impact_turfs += pick(valid_turfs)
 
-	centerpoint.visible_message(span_boldwarning("Boulders rain from the sky!"))
+	centerpoint.visible_message(span_boldwarning("The sky darkens as boulders begin to fall!"))
 
-	var/delay_offset = 0
+	// Show telegraph markers on all tiles in the impact zone
+	for(var/turf/T in valid_turfs)
+		new /obj/effect/temp_visual/trap/meteor(T)
+
+	// Boulders start dropping after the telegraph
+	var/delay_offset = METEOR_TELEGRAPH_TIME
 	for(var/turf/impact_turf in impact_turfs)
 		addtimer(CALLBACK(src, PROC_REF(drop_boulder), impact_turf), delay_offset)
 		delay_offset += rand(3, 5)
@@ -178,7 +184,13 @@
 /obj/effect/temp_visual/falling_boulder/proc/do_impact()
 	on_impact?.Invoke()
 
+/obj/effect/temp_visual/trap/meteor
+	color = GLOW_COLOR_EARTHEN
+	light_color = GLOW_COLOR_EARTHEN
+	duration = METEOR_TELEGRAPH_TIME
+
 #undef METEOR_STRIKE_IMPACTS
 #undef METEOR_STRIKE_RADIUS
 #undef METEOR_SPLASH_RADIUS
 #undef METEOR_FRAGMENT_COUNT
+#undef METEOR_TELEGRAPH_TIME
