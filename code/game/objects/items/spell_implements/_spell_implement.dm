@@ -43,16 +43,12 @@
 	switch(implement_tier)
 		if(IMPLEMENT_TIER_LESSER)
 			glow_alpha = 80
-			implement.set_light(1, 1, 1, l_color = spell_color)
 		if(IMPLEMENT_TIER_GREATER)
 			glow_alpha = 120
-			implement.set_light(2, 1, 1, l_color = spell_color)
 		if(IMPLEMENT_TIER_GRAND)
 			glow_alpha = 155
-			implement.set_light(2, 2, 1, l_color = spell_color)
 		else
 			glow_alpha = 80
-			implement.set_light(1, 1, 1, l_color = spell_color)
 	implement.remove_filter(IMPLEMENT_GLOW_FILTER)
 	implement.add_filter(IMPLEMENT_GLOW_FILTER, 2, list("type" = "outline", "color" = spell_color, "alpha" = glow_alpha, "size" = 1))
 
