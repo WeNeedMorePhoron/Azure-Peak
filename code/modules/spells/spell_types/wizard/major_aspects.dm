@@ -6,15 +6,11 @@
 	attuned_name = ASPECT_NAME_PYROMANCY
 	school_color = GLOW_COLOR_FIRE
 	countersynergy = list(/datum/magic_aspect/cryomancy)
-	// Latin 1: "I call upon the eternal flame" | English suggestions: "I implore the flame within to burn bright, rise!" / "I call the fire that sleeps in my soul, awaken!"
-	// Latin 2: "Fire, bind yourself to me"
 	binding_chants = list(
 		"Invoco flammam aeternam!",
 		"I implore the flame within to burn bright, rise!",
 		"Ignis, in me ligare!",
 	)
-	// Latin 1: "I release the bound flame" | English suggestions: "I becalm the flame that dwells within, rest." / "I still the fire that burns in my heart, sleep."
-	// Latin 2: "Fire, depart from me"
 	unbinding_chants = list(
 		"Solvo flammam vinctam!",
 		"I becalm the flame that dwells within, rest.",
@@ -38,20 +34,16 @@
 /datum/magic_aspect/cryomancy
 	name = "Cryomancy"
 	latin_name = "Maior Aspectus Glaciei"
-	desc = "The school of Cryomancy relies on slowing its opponent with every single strike - going up to -3 SPD from 3 consecutive strike. Frost Bolt is quick and efficient, though lacking in pure damage. Snap Freeze burns everyone in a wide area through their chest. Frost Stream - Cryomancer's counterpart to the Fire Blast, burns everyone in a long line and slow them down. Hailstorm is the ultimate expression of Cryomancy - making a mage stand still as they bombard an area far away with endless hailstones. Cryomancy countersynergizes with Pyromancy and is incompatible - casting cryo spell chills one's body from fire and having cryo spells will help extinguish flames."
+	desc = "Cryomancy degrades its opponents with every strike. Frost stacks escalate from -1 SPD up to -3 SPD with progressively slower actions, and at four stacks the target is frozen solid. Frost Bolt is a quick, efficient poke that applies one frost stack. Frost Stream burns everyone in a long line and applies two stacks at once. Ice Shard shatters on impact in a 3x3 area, damaging and frosting all caught within. Snap Freeze burns everyone in a wide area with a delayed detonation. Cryomancy countersynergizes with Pyromancy - casting cryo spells chills the caster's own flames, and frost stacks on enemies are removed by fire."
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_CRYOMANCY
 	school_color = GLOW_COLOR_ICE
 	countersynergy = list(/datum/magic_aspect/pyromancy)
-	// Latin 1: "I call upon the eternal frost" | English suggestions: "I invoke the cold that lingers deep, come forth!" / "I summon the frost that sleeps beneath, crystallize!"
-	// Latin 2: "Ice, bind yourself to me"
 	binding_chants = list(
 		"Invoco glaciem aeternam!",
 		"I invoke the cold that lingers deep, come forth!",
 		"Glacies, in me ligare!",
 	)
-	// Latin 1: "I release the bound frost" | English suggestions: "I release the chill that grips my veins, thaw." / "I dismiss the frost that dwells within, melt away."
-	// Latin 2: "Ice, depart from me"
 	unbinding_chants = list(
 		"Solvo glaciem vinctam!",
 		"I release the chill that grips my veins, thaw.",
@@ -60,8 +52,8 @@
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/frost_bolt,
 		/datum/action/cooldown/spell/frost_stream,
+		/datum/action/cooldown/spell/projectile/ice_shard,
 		/datum/action/cooldown/spell/snap_freeze,
-		/datum/action/cooldown/spell/hailstorm,
 	)
 	variants = list(
 		"mastery" = list(
@@ -76,15 +68,11 @@
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_FULGURMANCY
 	school_color = GLOW_COLOR_LIGHTNING
-	// Latin 1: "I call upon the storm's fury" | English suggestions: "I beckon the storm that churns above, strike!" / "I call the thunder that roars unseen, descend!"
-	// Latin 2: "Lightning, bind yourself to me"
 	binding_chants = list(
 		"Invoco furorem tempestatis!",
 		"I beckon the storm that churns above, strike!",
 		"Fulmen, in me ligare!",
 	)
-	// Latin 1: "I release the bound storm" | English suggestions: "I quiet the storm that rages within, be still." / "I calm the thunder that echoes in me, silence."
-	// Latin 2: "Lightning, depart from me"
 	unbinding_chants = list(
 		"Solvo tempestatem vinctam!",
 		"I quiet the storm that rages within, be still.",
@@ -109,15 +97,11 @@
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_GEOMANCY
 	school_color = GLOW_COLOR_EARTHEN
-	// Latin 1: "I call upon the enduring earth" | English suggestions: "I entreat the stone that stands unyielding, answer!" / "I rouse the earth that sleeps below, rise!"
-	// Latin 2: "Earth, bind yourself to me"
 	binding_chants = list(
 		"Invoco terram perennem!",
 		"I entreat the stone that stands unyielding, answer!",
 		"Terra, in me ligare!",
 	)
-	// Latin 1: "I release the bound earth" | English suggestions: "I relinquish the stone that fortifies me, crumble." / "I release the earth that steadies my hand, scatter."
-	// Latin 2: "Earth, depart from me"
 	unbinding_chants = list(
 		"Solvo terram vinctam!",
 		"I relinquish the stone that fortifies me, crumble.",
@@ -142,15 +126,11 @@
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_KINESIS
 	school_color = GLOW_COLOR_KINESIS
-	// Latin 1: "I call upon the unseen force" | English suggestions: "I summon the force that bends all things, obey!" / "I command the invisible hand, manifest!"
-	// Latin 2: "Force, bind yourself to me"
 	binding_chants = list(
 		"Invoco vim invisibilem!",
 		"I summon the force that bends all things, obey!",
 		"Vis, in me ligare!",
 	)
-	// Latin 1: "I release the bound force" | English suggestions: "I unshackle the force that moves through me, disperse." / "I release the grip upon the unseen, dissolve."
-	// Latin 2: "Force, depart from me"
 	unbinding_chants = list(
 		"Solvo vim vinctam!",
 		"I unshackle the force that moves through me, disperse.",
@@ -176,15 +156,11 @@
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_AUGMENTATION
 	school_color = GLOW_COLOR_BUFF
-	// Latin 1: "I call upon the power of perfection" | English suggestions: "I beseech the arcyne to hone my form, sharpen!" / "I invoke the art that refines the self, empower!"
-	// Latin 2: "Enhancement, bind yourself to me"
 	binding_chants = list(
 		"Invoco potentiam perfectionis!",
 		"I beseech the arcyne to hone my form, sharpen!",
 		"Augmentum, in me ligare!",
 	)
-	// Latin 1: "I release the bound enhancement" | English suggestions: "I forfeit the strength bestowed upon me, diminish." / "I shed the power that tempers my flesh, wane."
-	// Latin 2: "Enhancement, depart from me"
 	unbinding_chants = list(
 		"Solvo augmentum vinctum!",
 		"I forfeit the strength bestowed upon me, diminish.",
@@ -226,15 +202,11 @@
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_FERRAMANCY
 	school_color = GLOW_COLOR_METAL
-	// Latin 1: "I call upon the unyielding steel" | English suggestions: "I call upon the forge within, create!" / "I wake the anvil-song that rings in my blood, resound!"
-	// Latin 2: "Steel, obey my command"
 	binding_chants = list(
 		"Invoco chalybem indomitum!",
 		"I call upon the forge within, create!",
 		"Chalybs, imperio meo parere!",
 	)
-	// Latin 1: "I quench the forge within" | English suggestions: "I silence the ring of hammer and steel, grow cold." / "I quench the forge-fire that shapes my craft, darken."
-	// Latin 2: "Steel, return to stillness"
 	unbinding_chants = list(
 		"Exstinguo fornacem internam!",
 		"I silence the ring of hammer and steel, grow cold.",

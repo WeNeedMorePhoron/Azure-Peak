@@ -4,12 +4,10 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_METAL
-	// English: "Grant me the craftsman's eye." | Latin: "Craft, attend me" (Artificium, mihi adesse)
 	binding_chants = list(
 		"Grant me the craftsman's eye.",
 		"Artificium, mihi adesse!",
 	)
-	// English: "I set down the craftsman's tools." | Latin: "Craft, leave me" (Artificium, me relinquere)
 	unbinding_chants = list(
 		"I set down the craftsman's tools.",
 		"Artificium, me relinquere!",
@@ -24,12 +22,10 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_ARCANE
-	// English: "Let me raise walls against my foes." | Latin: "Outer ward, attend me" (Exotutela, mihi adesse)
 	binding_chants = list(
 		"Let me raise walls against my foes.",
 		"Exotutela, mihi adesse!",
 	)
-	// English: "I lower the walls I have raised." | Latin: "Outer ward, leave me" (Exotutela, me relinquere)
 	unbinding_chants = list(
 		"I lower the walls I have raised.",
 		"Exotutela, me relinquere!",
@@ -44,14 +40,12 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_ARCANE
-	// English: "Let me bear the arcyne shield." | Latin: "Aegis, attend me" (Aegis, mihi adesse)
 	binding_chants = list(
-		"Let me bear the arcyne shield.",
+		"Let me the shield that will protect me.",
 		"Aegis, mihi adesse!",
 	)
-	// English: "I set aside the shield." | Latin: "Aegis, leave me" (Aegis, me relinquere)
 	unbinding_chants = list(
-		"I set aside the shield.",
+		"I set aside the shield, peace be with me.",
 		"Aegis, me relinquere!",
 	)
 	fixed_spells = list(
@@ -64,14 +58,12 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_DISPLACEMENT
-	// English: "Let me step between the spaces." | Latin: "Passage, attend me" (Translatio, mihi adesse)
 	binding_chants = list(
-		"Let me step between the spaces.",
+		"Let me step between the spaces between the realms.",
 		"Translatio, mihi adesse!",
 	)
-	// English: "I close the paths I have opened." | Latin: "Passage, leave me" (Translatio, me relinquere)
 	unbinding_chants = list(
-		"I close the paths I have opened.",
+		"I close the paths I have opened. I walk the realms no longer.",
 		"Translatio, me relinquere!",
 	)
 	fixed_spells = list(
@@ -84,14 +76,12 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_METAL
-	// English: "Let me clad myself in arcyne." | Latin: "Inner ward, attend me" (Autotutela, mihi adesse)
 	binding_chants = list(
-		"Let me clad myself in arcyne.",
+		"Let me clad myself in an armor of arcyne.",
 		"Autotutela, mihi adesse!",
 	)
-	// English: "I shed the arcyne mantle." | Latin: "Inner ward, leave me" (Autotutela, me relinquere)
 	unbinding_chants = list(
-		"I shed the arcyne mantle.",
+		"I bare myself and shed the arcyne mantle.",
 		"Autotutela, me relinquere!",
 	)
 	choice_spells = list(
@@ -105,14 +95,12 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_BUFF
-	// English: "Let me refine what is given." | Latin: "Enhancement, attend me" (Augmentum, mihi adesse)
 	binding_chants = list(
-		"Let me refine what is given.",
+		"Let me access the potent within.",
 		"Augmentum, mihi adesse!",
 	)
-	// English: "I release the refinements upon me." | Latin: "Enhancement, leave me" (Augmentum, me relinquere)
 	unbinding_chants = list(
-		"I release the refinements upon me.",
+		"I calm the potent within.",
 		"Augmentum, me relinquere!",
 	)
 	pointbuy_budget = 4
@@ -139,12 +127,10 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_ILLUSION
-	// English: "Let me weave what is not there." | Latin: "Illusion, attend me" (Illusio, mihi adesse)
 	binding_chants = list(
 		"Let me weave what is not there.",
 		"Illusio, mihi adesse!",
 	)
-	// English: "I unravel the veil I have spun." | Latin: "Illusion, leave me" (Illusio, me relinquere)
 	unbinding_chants = list(
 		"I unravel the veil I have spun.",
 		"Illusio, me relinquere!",
@@ -159,12 +145,10 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_HEARTH
-	// English: "Let me tend the hearth and home." | Latin: "Hearth, attend me" (Domus, mihi adesse)
 	binding_chants = list(
 		"Let me tend the hearth and home.",
 		"Domus, mihi adesse!",
 	)
-	// English: "I let the hearthfire fade." | Latin: "Hearth, leave me" (Domus, me relinquere)
 	unbinding_chants = list(
 		"I let the hearthfire fade.",
 		"Domus, me relinquere!",
@@ -180,12 +164,10 @@
 	desc = "TODO"
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_HEX
-	// English: "Let me speak the crooked word." | Latin: "Hex, attend me" (Maleficium, mihi adesse)
 	binding_chants = list(
 		"Let me speak the crooked word.",
 		"Maleficium, mihi adesse!",
 	)
-	// English: "I unsay the crooked word." | Latin: "Hex, leave me" (Maleficium, me relinquere)
 	unbinding_chants = list(
 		"I unsay the crooked word.",
 		"Maleficium, me relinquere!",
