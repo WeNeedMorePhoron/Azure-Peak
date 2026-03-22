@@ -52,6 +52,7 @@
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_PHASED
 	panel = "Spells"
 	click_to_activate = TRUE
+	unset_after_click = FALSE
 
 	/// Primary resource type: SPELL_COST_NONE, SPELL_COST_STAMINA, SPELL_COST_ENERGY, SPELL_COST_DEVOTION
 	var/primary_resource_type = SPELL_COST_STAMINA
@@ -595,6 +596,8 @@
 
 	// Extra safety
 	if(!check_cost())
+		if(charge_required && click_to_activate && owner?.client)
+			RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
 		return FALSE
 
 	// Spell is officially being cast
@@ -609,7 +612,15 @@
 		to_chat(owner, span_warning("Holding a weapon in my hand interferes with my arcyne conduits! This spell is more exhausting than usual."))
 
 	// Actually cast the spell. Main effects go here
-	cast(target)
+	var/cast_result = cast(target)
+
+	// If cast() returns FALSE, the spell fizzled - skip cooldown and cost
+	if(cast_result == FALSE)
+		weapon_penalty_active = FALSE
+		if(charge_required && click_to_activate && owner?.client)
+			RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
+		build_all_button_icons()
+		return FALSE
 
 	if(!(precast_result & SPELL_NO_IMMEDIATE_COOLDOWN))
 		// The entire spell is done, start the actual cooldown at its adjusted duration
@@ -649,7 +660,6 @@
 
 	if(click_to_activate)
 		if(sig_return & SPELL_CANCEL_CAST)
-			on_deactivation(owner, refund_cooldown = FALSE)
 			return sig_return
 
 		if(get_dist(owner, cast_on) > cast_range)
@@ -896,6 +906,9 @@
 		return
 	charged = FALSE
 	end_charging()
+	// Re-register mousedown so the spell can be cast again without reselecting
+	if(owner?.client && click_to_activate && charge_required)
+		RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
 
 /// Checks if the current OWNER of the spell is in a valid state to say the spell's invocation
 /datum/action/cooldown/spell/proc/can_invoke(feedback = TRUE)
@@ -1333,14 +1346,10 @@
 /datum/action/cooldown/spell/proc/signal_cancel()
 	SIGNAL_HANDLER
 
-	charged = FALSE
-	end_charging()
+	cancel_casting()
 	if(!owner)
 		return
 	owner.balloon_alert(owner, "Channeling was interrupted!")
-	// Re-register for the next mouse down so they can try again
-	if(owner.client && click_to_activate && charge_required)
-		RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
 
 /datum/action/cooldown/spell/proc/signal_cancel_full()
 	SIGNAL_HANDLER

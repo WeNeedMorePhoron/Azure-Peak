@@ -11,7 +11,6 @@
 
 	click_to_activate = TRUE
 	cast_range = 14
-	self_cast_possible = FALSE
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = 50

@@ -160,8 +160,8 @@
 	if(cooldown_time > 1 MINUTES)
 		return
 
-	// Another spell is been selected or another click intercept is active
-	if(owner.click_intercept)
+	// Another spell has been selected or another click intercept is active
+	if(owner.click_intercept && owner.click_intercept != src)
 		return
 
 	Trigger()

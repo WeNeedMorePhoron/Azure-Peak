@@ -56,19 +56,16 @@
 	var/dest_err = arcyne_validate_blink_dest(T, owner)
 	if(dest_err)
 		to_chat(owner, span_warning(dest_err))
-		reset_spell_cooldown()
 		return FALSE
 
 	var/distance = get_dist(start, T)
 	if(distance > max_range)
 		to_chat(owner, span_warning("That location is too far away! I can only blink up to [max_range] tiles."))
-		reset_spell_cooldown()
 		return FALSE
 
 	var/path_err = arcyne_validate_blink_path(start, T)
 	if(path_err)
 		to_chat(owner, span_warning(path_err))
-		reset_spell_cooldown()
 		return FALSE
 
 	owner.visible_message(span_warning("<b>[owner]'s body begins to shimmer with arcane energy as [owner.p_they()] prepare[owner.p_s()] to blink!</b>"),
