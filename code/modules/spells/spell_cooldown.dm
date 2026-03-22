@@ -1033,6 +1033,8 @@
 	// Activation mode
 	if(!click_to_activate)
 		stats += span_info("Activation: Self-cast")
+	else if(charge_required && charge_then_click)
+		stats += span_info("Activation: Hold middle-click to charge, then middle-click a target to cast")
 	else if(charge_required)
 		stats += span_info("Activation: Hold middle-click to charge, release to cast")
 	else
@@ -1179,7 +1181,9 @@
 	if(charge_started_at)
 		return
 
-	if(isnull(location) || istype(_target, /atom/movable/screen))
+	if(istype(_target, /atom/movable/screen/inventory))
+		pass() // Inventory clicks resolve to the actual item later in ClickOn — allow charging
+	else if(isnull(location) || istype(_target, /atom/movable/screen))
 		if(_target.plane != CLICKCATCHER_PLANE)
 			return
 

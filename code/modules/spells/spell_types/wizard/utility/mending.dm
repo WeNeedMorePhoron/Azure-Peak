@@ -17,11 +17,6 @@
 	invocations = list("Reficio")
 	invocation_type = INVOCATION_SHOUT
 
-	charge_required = TRUE
-	charge_time = 1 SECONDS
-	charge_drain = 1
-	charge_slowdown = CHARGING_SLOWDOWN_SMALL
-	charge_sound = 'sound/magic/charging.ogg'
 	cooldown_time = 20 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
@@ -35,24 +30,32 @@
 	var/repair_percent = 0.20
 	var/int_bonus = 0.00
 
+/datum/action/cooldown/spell/mending/is_valid_target(atom/cast_on)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(!istype(cast_on, /obj/item))
+		if(owner)
+			to_chat(owner, span_warning("I need to target an item!"))
+		return FALSE
+	var/obj/item/I = cast_on
+	if(!I.anvilrepair && !I.sewrepair)
+		if(owner)
+			to_chat(owner, span_warning("Not even magic can mend this item!"))
+		return FALSE
+	if(I.obj_integrity >= I.max_integrity && I.body_parts_covered_dynamic == I.body_parts_covered)
+		if(owner)
+			to_chat(owner, span_info("[I] appears to be in perfect condition."))
+		return FALSE
+	return TRUE
+
 /datum/action/cooldown/spell/mending/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/user = owner
 	if(!istype(user))
 		return FALSE
 
-	if(!istype(cast_on, /obj/item))
-		to_chat(user, span_warning("There is no item here!"))
-		return FALSE
-
 	var/obj/item/I = cast_on
-
-	if(!I.anvilrepair && !I.sewrepair)
-		to_chat(user, span_warning("Not even magic can mend this item!"))
-		return FALSE
-	if(I.obj_integrity >= I.max_integrity && I.body_parts_covered_dynamic == I.body_parts_covered)
-		to_chat(user, span_info("[I] appears to be in perfect condition."))
-		return FALSE
 
 	user.visible_message(
 		span_warning("[user] begins to concentrate on [I]!"),
