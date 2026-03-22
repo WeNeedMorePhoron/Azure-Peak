@@ -1,7 +1,7 @@
 // Lich / Vampire shared list only
 /obj/effect/proc_holder/spell/invoked/projectile/bloodlightning
 	name = "Blood Bolt"
-	desc = "Emit a bolt of lightning that burns a target harshly, preventing them from attacking and slowing them down for 8 seconds."
+	desc = "Emit a bolt of lightning that burns a target harshly, preventing them from attacking and slowing them down for 8 seconds. Applies lightning adaptation - the non-burn effects cannot be reapplied within 15 seconds."
 	clothes_req = FALSE
 	overlay_state = "bloodlightning"
 	sound = 'sound/magic/vlightning.ogg'
@@ -52,8 +52,11 @@
 			return BULLET_ACT_BLOCK
 		if(isliving(target))
 			var/mob/living/L = target
-			L.Immobilize(0.5 SECONDS)
-			L.apply_status_effect(/datum/status_effect/debuff/clickcd, 8 SECONDS)
 			L.electrocute_act(1, src, 1, SHOCK_NOSTUN)
-			L.apply_status_effect(/datum/status_effect/buff/lightningstruck, 8 SECONDS)
+			// Lightning Adaptation: CC effects gated behind the shared adaptation timer
+			if(!L.mob_timers[MT_LIGHTNING_ADAPTATION] || world.time > L.mob_timers[MT_LIGHTNING_ADAPTATION] + LIGHTNING_ADAPTATION_COOLDOWN)
+				L.Immobilize(0.5 SECONDS)
+				L.apply_status_effect(/datum/status_effect/debuff/clickcd, 8 SECONDS)
+				L.apply_status_effect(/datum/status_effect/buff/lightningstruck, 8 SECONDS)
+				L.mob_timers[MT_LIGHTNING_ADAPTATION] = world.time
 	qdel(src)
