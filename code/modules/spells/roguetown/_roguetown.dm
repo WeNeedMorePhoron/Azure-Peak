@@ -44,6 +44,7 @@
 	active = FALSE
 	remove_ranged_ability(null)
 	on_deactivation(user)
+	update_icon()
 
 /obj/effect/proc_holder/spell/invoked/proc/on_activation(mob/user)
 	return

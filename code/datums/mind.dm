@@ -903,12 +903,30 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	// Aspect config system — LearnSpell only appears until the first binding.
 	// After that, the spellbook handles edit mode.
 	if(LAZYLEN(mage_aspect_config))
+		var/list/config = mage_aspect_config
 		var/current_majors = LAZYLEN(major_aspects)
 		var/current_minors = LAZYLEN(minor_aspects)
-		if(current_majors > 0 || current_minors > 0)
+		var/max_maj = config["major"] || 0
+		var/max_min = config["minor"] || 0
+		var/max_util = config["utilities"] || 0
+		// Check if all slots and points are exhausted
+		var/has_remaining_slots = (current_majors < max_maj) || (current_minors < max_min)
+		var/has_remaining_util = FALSE
+		if(max_util > 0)
+			var/util_points_spent = 0
+			for(var/path in GLOB.utility_spells)
+				if(has_spell(path))
+					if(ispath(path, /datum/action/cooldown/spell))
+						var/datum/action/cooldown/spell/S = path
+						util_points_spent += initial(S.point_cost)
+					else
+						var/obj/effect/proc_holder/spell/S = path
+						util_points_spent += initial(S.cost)
+			has_remaining_util = (util_points_spent < max_util)
+		if(!has_remaining_slots && !has_remaining_util)
 			RemoveSpell(/obj/effect/proc_holder/spell/self/learnspell)
 			return
-		// No aspects bound yet — show LearnSpell for initial setup
+		// Still has available slots/points — show LearnSpell
 		if(!has_spell(/obj/effect/proc_holder/spell/self/learnspell))
 			AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))
 		return

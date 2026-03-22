@@ -55,6 +55,7 @@
 	if(active)
 		active = FALSE
 	remove_ranged_ability()
+	update_icon()
 
 /obj/effect/proc_holder/proc/on_gain(mob/living/user)
 	return
