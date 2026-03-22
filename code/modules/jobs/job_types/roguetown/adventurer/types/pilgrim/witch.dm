@@ -57,7 +57,7 @@
 			ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 			H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_APPRENTICE, TRUE)
 			if(H.mind)
-				H.mind.mage_aspect_config = list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 5, "locked_aspects" = list(/datum/magic_aspect/hex))
+				H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 5, "locked_aspects" = list(/datum/magic_aspect/hex)))
 			beltl = /obj/item/storage/magebag/starter
 			H.equip_to_slot_or_del(new /obj/item/spellbook_unfinished/pre_arcyne(H), SLOT_IN_BACKPACK)
 			H.equip_to_slot_or_del(new /obj/item/roguegem/amethyst(H), SLOT_IN_BACKPACK)
@@ -81,7 +81,7 @@
 			ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 			H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_NOVICE, TRUE)
 			if(H.mind)
-				H.mind.mage_aspect_config = list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 3)
+				H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 3))
 			beltl = /obj/item/storage/magebag/starter
 			H.equip_to_slot_or_del(new /obj/item/spellbook_unfinished/pre_arcyne(H), SLOT_IN_BACKPACK)
 			H.equip_to_slot_or_del(new /obj/item/roguegem/amethyst(H), SLOT_IN_BACKPACK)

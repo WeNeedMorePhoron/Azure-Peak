@@ -88,8 +88,7 @@
 		/obj/item/recipe_book/alchemy
 	)
 	if(H?.mind)
-		H.mind.mage_aspect_config = list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 3)
-		H.mind.check_learnspell()
+		H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 3))
 	if(H.mind)
 		SStreasury.give_money_account(ECONOMIC_UPPER_CLASS, H, "Savings.")
 

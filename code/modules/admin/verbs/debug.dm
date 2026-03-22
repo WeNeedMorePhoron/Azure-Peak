@@ -741,8 +741,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			
 			// Apply advclass mage aspects
 			if(LAZYLEN(advclass_datum.subclass_mage_aspects) && H.mind)
-				H.mind.mage_aspect_config = advclass_datum.subclass_mage_aspects.Copy()
-				H.mind.check_learnspell()
+				H.mind.setup_mage_aspects(advclass_datum.subclass_mage_aspects.Copy())
 
 			// Apply advclass traits
 			if(advclass_datum.traits_applied)
@@ -907,8 +906,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		if(advclass_path)
 			var/datum/advclass/advclass_datum = new advclass_path()
 			if(LAZYLEN(advclass_datum.subclass_mage_aspects))
-				H.mind.mage_aspect_config = advclass_datum.subclass_mage_aspects.Copy()
-				H.mind.check_learnspell()
+				H.mind.setup_mage_aspects(advclass_datum.subclass_mage_aspects.Copy())
 
 	if(actual_outfit)
 		to_chat(H, span_notice("Equipment and spells applied[is_migrant ? " from migrant role" : ""]!"))

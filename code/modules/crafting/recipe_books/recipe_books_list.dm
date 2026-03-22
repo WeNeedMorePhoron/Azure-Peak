@@ -186,17 +186,6 @@
 		/datum/runeritual/other,
 		)
 
-/obj/item/recipe_book/spell_compendium
-	name = "The Arcyne Compendium: All Known Spells"
-	wiki_name = "Spell List"
-	wiki_section = "Guides"
-	can_spawn = FALSE
-	icon_state = "book4_0"
-	base_icon_state = "book4"
-
-/obj/item/recipe_book/spell_compendium/New()
-	. = ..()
-	types = GLOB.learnable_spells.Copy()
 
 /obj/item/recipe_book/miracle_compendium
 	name = "The Divine Accord: Miracles of the Gods"

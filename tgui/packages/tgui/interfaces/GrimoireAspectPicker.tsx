@@ -37,7 +37,12 @@ export const GrimoireAspectPicker = () => {
   } = data;
 
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
-  const [tab, setTab] = useState<Tab>('major');
+  const getDefaultTab = (): Tab => {
+    if (max_majors > 0) return 'major';
+    if (max_minors > 0) return 'minor';
+    return 'utilities';
+  };
+  const [tab, setTab] = useState<Tab>(getDefaultTab);
   const [partialConfirmed, setPartialConfirmed] = useState(false);
 
   const aspects = tab === 'major' ? major_aspects : minor_aspects;
@@ -118,10 +123,11 @@ export const GrimoireAspectPicker = () => {
   };
 
   const switchTab = (t: Tab) => {
-    if (!hasAccess(t)) return;
     setTab(t);
     setSelectedPath(null);
   };
+
+  const tabAccessible = hasAccess(tab);
 
   const getSealLabel = (): string => {
     if (!initial_setup && hasUnbinds) {
@@ -163,28 +169,32 @@ export const GrimoireAspectPicker = () => {
 
               {tab !== 'utilities' && (
                 <div className="AspectPicker__slot-display">
-                  {slotsUsed} / {maxSlots} bound
+                  {tabAccessible
+                    ? `${slotsUsed} / ${maxSlots} bound`
+                    : 'Browse only'}
                 </div>
               )}
               {tab === 'utilities' && (
                 <div className="AspectPicker__slot-display">
-                  {utility_points_spent} / {max_utilities} pts
+                  {tabAccessible
+                    ? `${utility_points_spent} / ${max_utilities} pts`
+                    : 'Browse only'}
                 </div>
               )}
 
               {tab !== 'utilities' && (
                 <GrimoireChapterList
                   aspects={aspects}
-                  attuned={attuned}
-                  locked={locked_aspects}
-                  pendingUnbinds={staged_unbind_aspects}
+                  attuned={tabAccessible ? attuned : []}
+                  locked={tabAccessible ? locked_aspects : []}
+                  pendingUnbinds={tabAccessible ? staged_unbind_aspects : []}
                   selectedPath={selectedPath}
                   isBlocked={checkBlocked}
                   onSelect={setSelectedPath}
                 />
               )}
 
-              {tab === 'utilities' && (
+              {tab === 'utilities' && tabAccessible && (
                 <GrimoireUtilityList
                   spells={utility_spells}
                   selected={selected_utilities}
@@ -215,16 +225,48 @@ export const GrimoireAspectPicker = () => {
               }}
             >
               {tab === 'utilities' ? (
-                <GrimoireUtilitiesDetail
-                  spells={utility_spells}
-                  selected={selected_utilities}
-                  known={known_utilities}
-                  pendingUnbinds={staged_unbind_utilities}
-                  pointsSpent={utility_points_spent}
-                  pointsBudget={max_utilities}
-                  initialSetup={initial_setup}
-                  resetBudget={reset_budget}
-                />
+                tabAccessible ? (
+                  <GrimoireUtilitiesDetail
+                    spells={utility_spells}
+                    selected={selected_utilities}
+                    known={known_utilities}
+                    pendingUnbinds={staged_unbind_utilities}
+                    pointsSpent={utility_points_spent}
+                    pointsBudget={max_utilities}
+                    initialSetup={initial_setup}
+                    resetBudget={reset_budget}
+                  />
+                ) : (
+                  <div className="AspectPicker__empty">
+                    You do not have access to utility spells.
+                  </div>
+                )
+              ) : !tabAccessible ? (
+                selected ? (
+                  <GrimoireAspectDetail
+                    aspect={selected}
+                    isAttuned={false}
+                    isLocked={true}
+                    isBlocked={false}
+                    isPendingUnbind={false}
+                    slotsFull={true}
+                    tab={tab}
+                    userTier={user_tier}
+                    initialSetup={initial_setup}
+                    resetBudget={0}
+                    stagedChoices={{}}
+                    pointbuySelections={{}}
+                    allSelectedSpells={all_selected_spells}
+                    getPointbuyUsed={getPointbuyUsed}
+                    act={() => {}}
+                  />
+                ) : (
+                  <div className="AspectPicker__empty">
+                    You do not have access to {tab} aspects.
+                    <br />
+                    Select a discipline to browse its spells.
+                  </div>
+                )
               ) : selected ? (
                 <GrimoireAspectDetail
                   aspect={selected}

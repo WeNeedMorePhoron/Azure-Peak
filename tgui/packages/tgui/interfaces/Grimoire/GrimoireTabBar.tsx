@@ -20,7 +20,7 @@ export const GrimoireTabBar = ({
           key={t}
           className={cls(
             'AspectPicker__tab',
-            tab === t && accessible && 'AspectPicker__tab--active',
+            tab === t && 'AspectPicker__tab--active',
             !accessible && 'AspectPicker__tab--locked',
           )}
           onClick={() => switchTab(t)}

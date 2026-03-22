@@ -899,6 +899,10 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	if(current)
 		to_chat(current, span_nicegreen("Tip: You can Ctrl-Click your hotkey bar to unlock it, then drag to rearrange your spells. Re-arranging them change which hotkeys they are bound to in order from left to right (Alt 1 to Alt 9 default). You can shift click your spells to learn more about them."))
 
+/datum/mind/proc/setup_mage_aspects(list/config)
+	mage_aspect_config = config
+	check_learnspell()
+
 /datum/mind/proc/check_learnspell()
 	// Aspect config system — LearnSpell only appears until the first binding.
 	// After that, the spellbook handles edit mode.
