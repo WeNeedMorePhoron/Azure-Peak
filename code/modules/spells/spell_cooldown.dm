@@ -362,6 +362,49 @@
 
 	return TRUE
 
+/// When clicking out of view, use screen-loc to find the direction
+/// and walk a line from the caster to the farthest tile at cast_range,
+/// returning the farthest visible tile along that line.
+/datum/action/cooldown/spell/proc/resolve_out_of_view_click(client/source)
+	if(!source || !owner)
+		return null
+	var/turf/caster_turf = get_turf(owner)
+	if(!caster_turf)
+		return null
+
+	// Self-cast spells just fall back to caster turf
+	if(self_cast_possible)
+		return caster_turf
+
+	// Get angle from caster toward mouse position on screen
+	var/angle = mouse_angle_from_client(source)
+	if(isnull(angle))
+		return null
+
+	// Project a target tile at cast_range in that direction
+	var/turf/far_turf = caster_turf
+	for(var/i in 1 to cast_range)
+		var/turf/check = locate(caster_turf.x + cos(angle) * i, caster_turf.y + sin(angle) * i, caster_turf.z)
+		if(!check)
+			break
+		far_turf = check
+
+	if(far_turf == caster_turf)
+		return null
+
+	// Walk the line and find the farthest visible tile
+	var/list/line = get_line(caster_turf, far_turf)
+	var/list/visible = get_hear(cast_range, caster_turf)
+	var/turf/best
+	for(var/turf/T in line)
+		if(T == caster_turf)
+			continue
+		if(T in visible)
+			best = T
+		else
+			break
+	return best
+
 /datum/action/cooldown/spell/InterceptClickOn(mob/living/clicker, list/modifiers, atom/click_target)
 	// check_click_intercept passes raw params string, not a list — parse it
 	if(istext(modifiers))
@@ -814,19 +857,23 @@
 
 /// End the charging cycle
 /datum/action/cooldown/spell/proc/end_charging()
-	if(owner.client)
-		UnregisterSignal(owner.client, list(COMSIG_CLIENT_MOUSEDOWN, COMSIG_CLIENT_MOUSEUP))
-	UnregisterSignal(owner, list(COMSIG_MOB_LOGOUT, COMSIG_MOB_DEATH, COMSIG_MOVABLE_MOVED, COMSIG_MOB_KICKED_SUCCESSFUL))
 	currently_charging = FALSE
 	charge_started_at = null
 	charge_target_time = null
 	STOP_PROCESSING(SSfastprocess, src)
 	build_all_button_icons(UPDATE_BUTTON_STATUS|UPDATE_BUTTON_BACKGROUND)
 
+	if(!owner)
+		return
+
+	if(owner.client)
+		UnregisterSignal(owner.client, list(COMSIG_CLIENT_MOUSEDOWN, COMSIG_CLIENT_MOUSEUP))
+	UnregisterSignal(owner, list(COMSIG_MOB_LOGOUT, COMSIG_MOB_DEATH, COMSIG_MOVABLE_MOVED, COMSIG_MOB_KICKED_SUCCESSFUL))
+
 	// When charging ends, other spells may have had their buttons stuck red
 	// because can_cast_spell() returned FALSE while we were charging.
 	// Rebuild their icons now so they re-evaluate IsAvailable().
-	for(var/datum/action/cooldown/spell/other_spell in owner?.actions)
+	for(var/datum/action/cooldown/spell/other_spell in owner.actions)
 		if(other_spell == src)
 			continue
 		other_spell.build_all_button_icons(UPDATE_BUTTON_STATUS)
@@ -836,7 +883,6 @@
 
 	if(charge_sound_instance)
 		owner.stop_sound_channel(CHANNEL_CHARGED_SPELL)
-		// Play a null sound in to cancel the sound playing, because byond
 		playsound(owner, sound(null, repeat = 0), 50, FALSE, channel = CHANNEL_CHARGED_SPELL)
 
 	// Clean up overhead spell icon
@@ -1115,7 +1161,6 @@
 	return COMPONENT_CLIENT_MOUSEDOWN_INTERCEPT
 
 /// Try to begin the casting process on mouse down.
-/// Vanderlin ref: code/modules/spells/spell.dm L1041-1085
 /datum/action/cooldown/spell/proc/start_casting(client/source, atom/_target, turf/location, control, params)
 	SIGNAL_HANDLER
 
@@ -1143,7 +1188,8 @@
 	RegisterSignal(source, COMSIG_CLIENT_MOUSEUP, PROC_REF(try_casting))
 	// Getting kicked interrupt your charging. It requires some skills on the part of the martial but is far more frequently
 	// Available than guard stances.
-	RegisterSignal(owner, list(COMSIG_MOB_DEATH, COMSIG_MOB_LOGOUT, COMSIG_MOB_KICKED_SUCCESSFUL), PROC_REF(signal_cancel))
+	RegisterSignal(owner, list(COMSIG_MOB_DEATH, COMSIG_MOB_KICKED_SUCCESSFUL), PROC_REF(signal_cancel))
+	RegisterSignal(owner, COMSIG_MOB_LOGOUT, PROC_REF(signal_cancel_full))
 	if(spell_requirements & SPELL_REQUIRES_NO_MOVE)
 		RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(signal_cancel), TRUE)
 
@@ -1160,8 +1206,6 @@
 
 	return COMPONENT_CLIENT_MOUSEDOWN_INTERCEPT
 
-/// Attempt to cast the spell after the mouse up.
-/// Vanderlin ref: code/modules/spells/spell.dm L1087-1115
 /datum/action/cooldown/spell/proc/try_casting(client/source, atom/_target, turf/location, control, params)
 	SIGNAL_HANDLER
 
@@ -1199,11 +1243,9 @@
 
 	// At this point we DO care about the _target value
 	if(isnull(location) || istype(_target, /atom/movable/screen))
-		// Clicked on screen object / clickcatcher — resolve turf under owner as fallback
-		_target = get_turf(source.eye)
+		_target = resolve_out_of_view_click(source)
 		if(!_target)
-			cancel_casting()
-			return
+			return // Stay selected, let them try again
 
 	// Call this directly to do all the relevant checks and aim assist
 	InterceptClickOn(owner, modifiers, _target)
@@ -1228,9 +1270,10 @@
 	UnregisterSignal(source, COMSIG_CLIENT_MOUSEDOWN)
 
 	if(isnull(location) || istype(_target, /atom/movable/screen))
-		_target = get_turf(source.eye)
+		_target = resolve_out_of_view_click(source)
 		if(!_target)
-			cancel_casting()
+			// Re-register so they can try again
+			RegisterSignal(source, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(cast_after_charge))
 			return
 
 	InterceptClickOn(owner, modifiers, _target)
@@ -1287,14 +1330,19 @@
 /datum/action/cooldown/spell/proc/signal_cancel()
 	SIGNAL_HANDLER
 
-	// End charging but keep the spell selected so the player can re-attempt
 	charged = FALSE
 	end_charging()
-	if(owner)
-		owner.balloon_alert(owner, "Channeling was interrupted!")
-		// Re-register for the next mouse down so they can try again
-		if(owner.client && click_to_activate && charge_required)
-			RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
+	if(!owner)
+		return
+	owner.balloon_alert(owner, "Channeling was interrupted!")
+	// Re-register for the next mouse down so they can try again
+	if(owner.client && click_to_activate && charge_required)
+		RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
+
+/datum/action/cooldown/spell/proc/signal_cancel_full()
+	SIGNAL_HANDLER
+
+	cancel_casting()
 
 // Spell visual effects — mob-owned for safety (if spell hard-deletes, mob Destroy still cleans up).
 // AP uses per-spell color instead of Vanderlin's attunement blending.

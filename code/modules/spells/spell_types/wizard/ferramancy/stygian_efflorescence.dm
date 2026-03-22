@@ -18,7 +18,7 @@
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	projectile_type = /obj/projectile/energy/stygian
-	cast_range = 5
+	cast_range = 7
 	projectiles_per_fire = 3
 	point_cost = 3
 

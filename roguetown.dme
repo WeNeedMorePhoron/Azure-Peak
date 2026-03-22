@@ -2817,7 +2817,6 @@
 #include "code\modules\spells\spell_types\wizard\cryomancy\hailstorm.dm"
 #include "code\modules\spells\spell_types\wizard\cryomancy\frozen_mist.dm"
 #include "code\modules\spells\spell_types\wizard\invoked_aoe\sundering_lightning.dm"
-#include "code\modules\spells\spell_types\wizard\invoked_aoe\thunderstrike.dm"
 #include "code\modules\spells\spell_types\wizard\invoked_single_target\frostbite.dm"
 #include "code\modules\spells\spell_types\wizard\invoked_single_target\raise_deadite.dm"
 #include "code\modules\spells\spell_types\wizard\invoked_single_target\silence.dm"

@@ -1,6 +1,3 @@
-// Thunderstrike - Fulgurmancy massive AOE
-// Concentric layers of lightning: Stage 1 (center), Stage 2 (1 tile out), Stage 3 (2 tiles out)
-
 #define TSTRIKE_STAGE1_DAMAGE 80
 #define TSTRIKE_STAGE2_DAMAGE 40
 #define TSTRIKE_STAGE3_DAMAGE 30

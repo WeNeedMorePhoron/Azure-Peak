@@ -1,3 +1,7 @@
+#define GTSTRIKE_CENTER_DAMAGE 80
+#define GTSTRIKE_OUTER_DAMAGE 40
+#define GTSTRIKE_TELEGRAPH 16
+
 /datum/action/cooldown/spell/greater_thunderstrike
 	button_icon = 'icons/mob/actions/mage_fulgurmancy.dmi'
 	name = "Greater Thunderstrike"
@@ -32,8 +36,6 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
 	var/aoe_range = 3
-	var/list/damage_by_dist = list(100, 60, 40, 20)
-	var/telegraph_time = TELEGRAPH_AREA_DENIAL
 
 /datum/action/cooldown/spell/greater_thunderstrike/cast(atom/cast_on)
 	. = ..()
@@ -54,33 +56,28 @@
 		to_chat(H, span_warning("I can't cast where I can't see!"))
 		return FALSE
 
-	// Cache valid turfs once
-	var/list/valid_turfs = list()
+	// Telegraph on all tiles simultaneously
 	for(var/turf/T in range(aoe_range, centerpoint))
-		if(T in get_hear(aoe_range, centerpoint))
-			valid_turfs += T
-
-	if(!length(valid_turfs))
-		return FALSE
-
-	for(var/turf/T in valid_turfs)
-		var/obj/effect/temp_visual/trap/thunderstrike/V = new(T, telegraph_time)
-		V.color = GLOW_COLOR_LIGHTNING
+		if(!(T in get_hear(aoe_range, centerpoint)))
+			continue
+		new /obj/effect/temp_visual/trap/thunderstrike(T, GTSTRIKE_TELEGRAPH)
 
 	H.visible_message(span_boldwarning("[H] calls down a massive storm of lightning!"))
 	playsound(centerpoint, 'sound/magic/charging.ogg', 80, TRUE, 6)
-	addtimer(CALLBACK(src, PROC_REF(strike_all), centerpoint, valid_turfs), telegraph_time)
+	addtimer(CALLBACK(src, PROC_REF(strike_all), centerpoint), GTSTRIKE_TELEGRAPH)
 	return TRUE
 
-/datum/action/cooldown/spell/greater_thunderstrike/proc/strike_all(turf/centerpoint, list/valid_turfs)
+/datum/action/cooldown/spell/greater_thunderstrike/proc/strike_all(turf/centerpoint)
 	if(QDELETED(src) || QDELETED(owner))
 		return
 	var/mob/living/carbon/human/caster = owner
 	var/static/list/random_zones = list(BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	playsound(centerpoint, 'sound/magic/lightning.ogg', 100, TRUE, 8)
-	for(var/turf/T in valid_turfs)
+	for(var/turf/T in range(aoe_range, centerpoint))
+		if(!(T in get_hear(aoe_range, centerpoint)))
+			continue
 		var/dist = get_dist(centerpoint, T)
-		var/stage_damage = damage_by_dist[min(dist + 1, length(damage_by_dist))]
+		var/stage_damage = dist <= 0 ? GTSTRIKE_CENTER_DAMAGE : GTSTRIKE_OUTER_DAMAGE
 		new /obj/effect/temp_visual/thunderstrike_actual(T)
 		for(var/mob/living/L in T.contents)
 			if(L == owner)
@@ -101,3 +98,7 @@
 				L.electrocute_act(stage_damage, src, 1, SHOCK_NOSTUN)
 			L.electrocute_act(0, src, 1, SHOCK_NOSTUN|SHOCK_VISUAL_ONLY)
 			new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
+
+#undef GTSTRIKE_CENTER_DAMAGE
+#undef GTSTRIKE_OUTER_DAMAGE
+#undef GTSTRIKE_TELEGRAPH
