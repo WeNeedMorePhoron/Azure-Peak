@@ -2,8 +2,6 @@
 // Hitscan projectile that immobilizes, applies clickcd debuff and lightningstruck (speed -2 for 6s)
 // Has lightning adaptation: ALL CC effects cannot be reapplied within 15 seconds
 
-#define LIGHTNING_ADAPTATION_COOLDOWN 15 SECONDS
-#define MT_LIGHTNING_ADAPTATION "lightning_adaptation"
 
 /datum/action/cooldown/spell/projectile/lightning_bolt
 	button_icon = 'icons/mob/actions/mage_fulgurmancy.dmi'

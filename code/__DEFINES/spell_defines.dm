@@ -126,3 +126,13 @@
 #define IMPLEMENT_MULT_LESSER  1.2   // 20% poke damage bonus
 #define IMPLEMENT_MULT_GREATER 1.225 // 22.5% poke damage bonus
 #define IMPLEMENT_MULT_GRAND   1.25  // 25% poke damage bonus
+
+// Lightning Specific constants
+#define LIGHTNING_ADAPTATION_COOLDOWN 15 SECONDS
+#define MT_LIGHTNING_ADAPTATION "lightning_adaptation"
+
+// Aspect
+#define ASPECT_RESET_BUDGET 4
+#define ASPECT_RESET_COST_MAJOR 4
+#define ASPECT_RESET_COST_MINOR 2
+#define ASPECT_RESET_COST_UTILITY 1
