@@ -1,6 +1,6 @@
-/datum/action/cooldown/spell/apotheosis
+/datum/action/cooldown/spell/ascension
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
-	name = "Apotheosis"
+	name = "Ascension"
 	desc = "Channel all of your arcyne potential into another, granting them every augmentation at once - \
 	Haste, Stoneskin, Giant's Strength, Fortitude, Hawk's Eyes, and Guidance. \
 	This spell drains an enormous amount of energy from the caster and cannot be used on oneself."
@@ -36,7 +36,7 @@
 
 	var/buff_duration = STAT_BUFF_ALLY_DURATION
 
-/datum/action/cooldown/spell/apotheosis/cast(atom/cast_on)
+/datum/action/cooldown/spell/ascension/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H))

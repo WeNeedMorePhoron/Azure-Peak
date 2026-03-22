@@ -2834,7 +2834,7 @@
 #include "code\modules\spells\spell_types\wizard\augmentation\darkvision.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\featherfall.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\augmentation_status_effects.dm"
-#include "code\modules\spells\spell_types\wizard\augmentation\apotheosis.dm"
+#include "code\modules\spells\spell_types\wizard\augmentation\ascension.dm"
 #include "code\modules\spells\spell_types\wizard\misc\lesser_knock.dm"
 #include "code\modules\spells\spell_types\wizard\misc\magicians_brick.dm"
 #include "code\modules\spells\spell_types\wizard\misc\heir_spelllearn.dm"

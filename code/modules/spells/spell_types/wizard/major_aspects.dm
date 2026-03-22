@@ -195,7 +195,7 @@
 	)
 	variants = list(
 		"mastery" = list(
-			VARIANT_ADDITIVE =/datum/action/cooldown/spell/apotheosis,
+			VARIANT_ADDITIVE = /datum/action/cooldown/spell/ascension,
 		),
 	)
 	pointbuy_budget = 12
