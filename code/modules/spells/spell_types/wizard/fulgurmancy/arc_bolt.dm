@@ -1,6 +1,6 @@
-/datum/action/cooldown/spell/projectile/shock
+/datum/action/cooldown/spell/projectile/arc_bolt
 	button_icon = 'icons/mob/actions/mage_fulgurmancy.dmi'
-	name = "Shock"
+	name = "Arc Bolt"
 	desc = "Fire a quick jolt of lightning at a target. Deals less damage than most other minor offensive spells, but strikes instantly. \
 	Toggle arc mode (Ctrl+G) to lob over obstacles at reduced damage. \
 	Damage is increased by 100% versus simple-minded creechurs."
@@ -9,8 +9,8 @@
 	spell_color = GLOW_COLOR_LIGHTNING
 	glow_intensity = GLOW_INTENSITY_LOW
 
-	projectile_type = /obj/projectile/magic/shock
-	projectile_type_arc = /obj/projectile/magic/shock/arc
+	projectile_type = /obj/projectile/magic/arc_bolt
+	projectile_type_arc = /obj/projectile/magic/arc_bolt/arc
 	cast_range = 8
 
 	primary_resource_type = SPELL_COST_STAMINA
@@ -32,7 +32,7 @@
 	associated_skill = /datum/skill/magic/arcane
 	spell_impact_intensity = SPELL_IMPACT_LOW
 
-/obj/projectile/magic/shock
+/obj/projectile/magic/arc_bolt
 	name = "shock"
 	tracer_type = /obj/effect/projectile/tracer/wormhole
 	muzzle_type = null
@@ -51,12 +51,12 @@
 	flag = "fire"
 	light_outer_range = 5
 
-/obj/projectile/magic/shock/arc
+/obj/projectile/magic/arc_bolt/arc
 	name = "arced shock"
 	damage = 22
 	arcshot = TRUE
 
-/obj/projectile/magic/shock/on_hit(target)
+/obj/projectile/magic/arc_bolt/on_hit(target)
 	. = ..()
 	if(ismob(target))
 		var/mob/M = target

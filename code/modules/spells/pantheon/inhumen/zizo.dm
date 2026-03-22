@@ -256,7 +256,7 @@
 	qdel(src)
 
 /obj/effect/proc_holder/spell/invoked/rituos/proc/grant_poke_spell(mob/living/carbon/human/user)
-	var/list/poke_options = list("Spitfire", "Frost Bolt", "Shock", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
+	var/list/poke_options = list("Spitfire", "Frost Bolt", "Arc Bolt", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
 	var/poke_choice = tgui_input_list(user, "Choose your offensive cantrip.", "Arcyne Awakening", poke_options)
 	if(!poke_choice || !user.mind)
 		return
@@ -265,7 +265,7 @@
 			user.mind.AddSpell(new /datum/action/cooldown/spell/projectile/spitfire)
 		if("Frost Bolt")
 			user.mind.AddSpell(new /datum/action/cooldown/spell/projectile/frost_bolt)
-		if("Shock")
+		if("Arc Bolt")
 			user.mind.AddSpell(new /datum/action/cooldown/spell/projectile/shock)
 		if("Gravel Blast")
 			user.mind.AddSpell(new /datum/action/cooldown/spell/projectile/gravel_blast)
