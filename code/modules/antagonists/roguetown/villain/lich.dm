@@ -138,19 +138,20 @@
 	H.change_stat(STATKEY_SPD, 1)
 
 	H.grant_language(/datum/language/undead)
+	// Grant a spellbook so the lich can pick aspects
+	new /obj/item/book/spellbook(get_turf(H))
 
 	if(H.mind)
+		// Lich-specific spells (not from aspects)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/bonechill)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/raise_undead)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/raise_undead_formation)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/fireball)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/bloodlightning)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/fetch)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/minion_order)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/gravemark)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/suicidebomb)
-		H.mind.AddSpell(new	/obj/effect/proc_holder/spell/invoked/remotebomb)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/remotebomb)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/lich_announce)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/convert_heretic)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/tame_undead)

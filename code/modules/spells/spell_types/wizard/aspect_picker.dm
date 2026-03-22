@@ -23,6 +23,8 @@
 	var/list/locked_aspects = list()
 	/// TRUE while performing binding/unbinding chants — prevents ui_close from qdel'ing
 	var/chanting = FALSE
+	/// Named variant override from class config (e.g. "grenzelhoftian")
+	var/variant_override
 
 /datum/aspect_picker/New(mob/living/new_owner, setup = TRUE, list/aspect_config)
 	owner = new_owner
@@ -32,6 +34,7 @@
 		override_max_majors = aspect_config["major"]
 		override_max_minors = aspect_config["minor"]
 		max_utilities = aspect_config["utilities"] || 0
+		variant_override = aspect_config["variant"]
 		if(length(aspect_config["locked_aspects"]))
 			for(var/path in aspect_config["locked_aspects"])
 				locked_aspects += path
@@ -497,7 +500,6 @@
 				owner.mind.RemoveSpell(unbind_spell)
 
 	// Apply new aspect attunements - chant only if reshaping (has_unbinds)
-	var/variant = mastery ? "mastery" : null
 	for(var/path in staged_majors)
 		if(owner.mind.has_aspect(path))
 			continue
@@ -508,6 +510,8 @@
 				qdel(aspect)
 				chanting = FALSE
 				return
+		// Locked aspects with a variant override use that; otherwise mastery
+		var/variant = ((path in locked_aspects) && variant_override) ? variant_override : (mastery ? "mastery" : null)
 		var/choice = staged_choices["[path]"] ? text2path(staged_choices["[path]"]) : null
 		if(!owner.mind.attune_aspect(aspect, variant, choice))
 			qdel(aspect)
@@ -521,6 +525,7 @@
 				qdel(aspect)
 				chanting = FALSE
 				return
+		var/variant = ((path in locked_aspects) && variant_override) ? variant_override : (mastery ? "mastery" : null)
 		var/choice = staged_choices["[path]"] ? text2path(staged_choices["[path]"]) : null
 		if(!owner.mind.attune_aspect(aspect, variant, choice))
 			qdel(aspect)
