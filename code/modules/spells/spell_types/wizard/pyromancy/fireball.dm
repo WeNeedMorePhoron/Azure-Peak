@@ -57,7 +57,7 @@
 	var/structural_damage_radius = 0
 
 /obj/projectile/magic/aoe/fireball/rogue/arc
-	name = "Arced Fireball"
+	name = "arced fireball"
 	damage = 45 // 25% damage penalty
 	arcshot = TRUE
 

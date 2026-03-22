@@ -59,7 +59,7 @@
 
 
 /obj/projectile/energy/airblade
-	name = "Air Blade (Cut)"
+	name = "air blade (cut)"
 	icon_state = "air_blade_cut"
 	guard_deflectable = TRUE
 	damage = 40
@@ -70,13 +70,13 @@
 	speed = 1
 
 /obj/projectile/energy/airblade/blunt
-	name = "Air Blade (Blunt)"
+	name = "air blade (blunt)"
 	icon_state = "air_blade_blunt"
 	woundclass = BCLASS_BLUNT
 	hitsound = 'sound/combat/hits/blunt/shovel_hit2.ogg' // Different sound for blunt
 
 /obj/projectile/energy/airblade/stab
-	name = "Air Blade (Stab)"
+	name = "air blade (stab)"
 	icon_state = "air_blade_stab"
 	woundclass = BCLASS_STAB
 	hitsound = 'sound/combat/hits/bladed/genstab (3).ogg' // Different sound for stab

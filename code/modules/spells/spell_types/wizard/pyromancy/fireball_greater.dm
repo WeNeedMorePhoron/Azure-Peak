@@ -33,6 +33,6 @@
 	structural_damage = 150
 
 /obj/projectile/magic/aoe/fireball/rogue/great/arc
-	name = "Arced Greater Fireball"
+	name = "arced greater fireball"
 	damage = 70
 	arcshot = TRUE

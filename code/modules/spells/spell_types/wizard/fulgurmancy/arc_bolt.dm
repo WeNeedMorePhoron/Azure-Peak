@@ -33,7 +33,7 @@
 	spell_impact_intensity = SPELL_IMPACT_LOW
 
 /obj/projectile/magic/arc_bolt
-	name = "shock"
+	name = "arc bolt"
 	tracer_type = /obj/effect/projectile/tracer/wormhole
 	muzzle_type = null
 	impact_type = null
@@ -52,7 +52,7 @@
 	light_outer_range = 5
 
 /obj/projectile/magic/arc_bolt/arc
-	name = "arced shock"
+	name = "arced arc bolt"
 	damage = 22
 	arcshot = TRUE
 

@@ -21,7 +21,7 @@
 	spell_impact_intensity = SPELL_IMPACT_HIGH
 
 /obj/projectile/magic/aoe/fireball/rogue/artillery
-	name = "Artillery Fireball"
+	name = "artillery fireball"
 	exp_heavy = -1
 	exp_light = -1
 	exp_flash = 0
@@ -39,7 +39,7 @@
 	structural_damage_radius = 1
 
 /obj/projectile/magic/aoe/fireball/rogue/artillery/arc
-	name = "Arced Artillery Fireball"
+	name = "arced artillery fireball"
 	damage = 40
 	arcshot = TRUE
 

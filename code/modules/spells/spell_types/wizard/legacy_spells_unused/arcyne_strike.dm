@@ -49,7 +49,7 @@
 
 
 /obj/projectile/energy/arcynestrike
-	name = "Arcyne Smite (Cut)"
+	name = "arcyne smite (cut)"
 	icon_state = "air_blade_cut"
 	guard_deflectable = TRUE
 	damage = 40 // 70 again simple mobs
@@ -62,13 +62,13 @@
 	speed = 1 // to make sure it hit the target
 
 /obj/projectile/energy/arcynestrike/blunt
-	name = "Arcyne Smite (Blunt)"
+	name = "arcyne smite (blunt)"
 	icon_state = "air_blade_blunt"
 	woundclass = BCLASS_BLUNT
 	hitsound = 'sound/combat/hits/blunt/shovel_hit2.ogg' // Different sound for blunt
 
 /obj/projectile/energy/arcynestrike/stab
-	name = "Arcyne Smite (Stab)"
+	name = "arcyne smite (stab)"
 	icon_state = "air_blade_stab"
 	woundclass = BCLASS_STAB
 	hitsound = 'sound/combat/hits/bladed/genstab (3).ogg' // Different sound for stab

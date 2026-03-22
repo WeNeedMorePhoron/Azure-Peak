@@ -33,7 +33,7 @@
 	spell_impact_intensity = SPELL_IMPACT_LOW
 
 /obj/projectile/magic/aoe/fireball/spitfire
-	name = "Spitfire"
+	name = "spitfire"
 	speed = MAGE_PROJ_MEDIUM
 	exp_heavy = -1
 	exp_light = -1
@@ -50,7 +50,7 @@
 	aoe_range = 0
 
 /obj/projectile/magic/aoe/fireball/spitfire/arc
-	name = "Arced Spitfire"
+	name = "arced spitfire"
 	damage = 23
 	arcshot = TRUE
 
