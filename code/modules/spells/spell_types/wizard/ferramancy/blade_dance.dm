@@ -1,12 +1,14 @@
 #define BLADE_DANCE_RADIUS 3
 #define BLADE_DANCE_DURATION 10 SECONDS
 #define BLADE_DANCE_TICK_DAMAGE 30
+#define BLADE_DANCE_WINDUP 1.5 SECONDS
 
 /datum/action/cooldown/spell/blade_dance
 	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Blade Dance"
 	desc = "Project arcyne energy into an area, conjuring a whirling storm of spectral blades \
 	that slash everything caught within. You must remain still to maintain the effect.\n\n\
+	The blades take a moment to expand before they begin dealing damage. \
 	Deals 30 brute damage per second for 10 seconds to all targets in a 7x7 area. Always strikes the chest."
 	button_icon_state = "iron_tempest"
 	sound = 'sound/magic/scrapeblade.ogg'
@@ -100,6 +102,7 @@
 	var/effect_radius = BLADE_DANCE_RADIUS
 	var/list/blade_visuals = list()
 	var/datum/beam/caster_beam
+	var/winding_up = TRUE
 
 /obj/effect/blade_dance_zone/Initialize(mapload, mob/living/carbon/human/summoner, datum/action/cooldown/spell/blade_dance/spell_ref)
 	. = ..()
@@ -111,21 +114,23 @@
 	caster_beam = new(src, caster, 'icons/effects/beam.dmi', "b_beam", BLADE_DANCE_DURATION + 1 SECONDS, maxdistance = 20)
 	caster_beam.Start()
 
-	// Spawn spinning daggers on every tile in the zone
+	// Spawn spinning daggers - they expand outward during the windup telegraph
 	var/turf/center = get_turf(src)
+	var/expand_time = BLADE_DANCE_WINDUP / (1 DECISECONDS) // ticks for the expansion
 	for(var/turf/T in range(effect_radius, center))
 		if(T == center)
 			continue
-		var/obj/effect/temp_visual/spinning_dagger/D = new(center, BLADE_DANCE_DURATION + 2 SECONDS, FALSE)
+		var/obj/effect/temp_visual/spinning_dagger/D = new(center, BLADE_DANCE_DURATION + BLADE_DANCE_WINDUP + 2 SECONDS, FALSE)
 		blade_visuals += D
 		var/dx = (T.x - center.x) * 32
 		var/dy = (T.y - center.y) * 32
-		animate(D, pixel_x = dx, pixel_y = dy, time = 3, easing = EASE_OUT)
-		addtimer(CALLBACK(D, TYPE_PROC_REF(/obj/effect/temp_visual/spinning_dagger, start_spinning)), 3)
+		animate(D, pixel_x = dx, pixel_y = dy, time = expand_time, easing = EASE_OUT)
+		addtimer(CALLBACK(D, TYPE_PROC_REF(/obj/effect/temp_visual/spinning_dagger, start_spinning)), expand_time)
 
 	playsound(src, 'sound/magic/scrapeblade.ogg', 80, TRUE, 6)
-	START_PROCESSING(SSprocessing, src)
-	QDEL_IN(src, BLADE_DANCE_DURATION + 1 SECONDS)
+	// Damage starts after windup - gives targets time to see the zone and move
+	addtimer(CALLBACK(src, PROC_REF(begin_damage)), BLADE_DANCE_WINDUP)
+	QDEL_IN(src, BLADE_DANCE_DURATION + BLADE_DANCE_WINDUP + 1 SECONDS)
 
 /obj/effect/blade_dance_zone/Destroy()
 	if(caster_beam)
@@ -139,8 +144,15 @@
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
+/obj/effect/blade_dance_zone/proc/begin_damage()
+	if(QDELETED(src))
+		return
+	winding_up = FALSE
+	playsound(src, 'sound/magic/scrapeblade.ogg', 80, TRUE, 6)
+	START_PROCESSING(SSprocessing, src)
+
 /obj/effect/blade_dance_zone/process(delta_time)
-	if(ticks_remaining <= 0 || QDELETED(caster) || caster.stat != CONSCIOUS)
+	if(winding_up || ticks_remaining <= 0 || QDELETED(caster) || caster.stat != CONSCIOUS)
 		qdel(src)
 		return
 
@@ -169,3 +181,4 @@
 #undef BLADE_DANCE_RADIUS
 #undef BLADE_DANCE_DURATION
 #undef BLADE_DANCE_TICK_DAMAGE
+#undef BLADE_DANCE_WINDUP
