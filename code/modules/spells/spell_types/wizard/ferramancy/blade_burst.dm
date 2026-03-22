@@ -22,7 +22,7 @@
 
 	charge_required = TRUE
 	weapon_cast_penalized = TRUE
-	charge_time = CHARGETIME_HEAVY
+	charge_time = CHARGETIME_MAJOR
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/charging.ogg'
@@ -34,10 +34,10 @@
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
-	displayed_damage = 80
+	displayed_damage = 65
 
 	var/delay = TELEGRAPH_HIGH_IMPACT
-	var/damage = 80
+	var/damage = 65
 	var/npc_simple_damage_mult = 2
 	var/area_of_effect = 1
 
