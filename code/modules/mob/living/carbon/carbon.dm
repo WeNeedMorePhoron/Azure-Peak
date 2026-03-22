@@ -757,10 +757,10 @@
 		total_burn += BP.burn_dam
 	if(total_burn > 0)
 		var/burn_threshold = FIRE_HARDCRIT_BASE
-		if(HAS_TRAIT(src, TRAIT_NOPAIN) || HAS_TRAIT(src, TRAIT_NOPAINSTUN))
-			burn_threshold *= FIRE_HARDCRIT_NOPAIN_MULT
 		if(!mind && !HAS_TRAIT(src, TRAIT_CRIT_THRESHOLD))
 			burn_threshold *= FIRE_HARDCRIT_MINDLESS_MULT
+		else if(HAS_TRAIT(src, TRAIT_NOPAIN) || HAS_TRAIT(src, TRAIT_NOPAINSTUN))
+			burn_threshold *= FIRE_HARDCRIT_NOPAIN_MULT
 		var/burn_damage = (total_burn / burn_threshold) * maxHealth
 		used_damage = max(used_damage, burn_damage)
 	if(used_damage < total_tox)
