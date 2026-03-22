@@ -45,7 +45,7 @@
 	damage_type = BURN
 	woundclass = BCLASS_BURN
 	nodamage = FALSE
-	flag = "magic"
+	flag = "fire"
 	hitsound = 'sound/blank.ogg'
 	aoe_range = 0
 

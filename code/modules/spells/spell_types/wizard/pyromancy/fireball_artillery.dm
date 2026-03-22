@@ -31,7 +31,7 @@
 	npc_simple_damage_mult = 2.4
 	accuracy = 40
 	nodamage = FALSE
-	flag = "magic"
+	flag = "fire"
 	hitsound = 'sound/blank.ogg'
 	aoe_range = 0
 	arcyne_aoe_radius = 1

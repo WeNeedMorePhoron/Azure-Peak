@@ -36,7 +36,7 @@
 	damage_type = BRUTE
 	nodamage = FALSE
 	speed = 0.3
-	flag = "magic"
+	flag = "piercing"
 	light_color = "#e74141"
 	light_outer_range = 7
 

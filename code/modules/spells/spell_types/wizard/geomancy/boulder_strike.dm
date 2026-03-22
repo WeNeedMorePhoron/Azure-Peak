@@ -37,7 +37,7 @@
 	nodamage = FALSE
 	damage_type = BRUTE
 	woundclass = BCLASS_BLUNT
-	flag = "magic"
+	flag = "blunt"
 	range = 7
 	speed = 6
 	accuracy = 30

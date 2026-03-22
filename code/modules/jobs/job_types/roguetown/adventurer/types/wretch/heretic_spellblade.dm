@@ -149,7 +149,7 @@
 
 	switch(subclass_selected)
 		if("blade")
-			var/list/weapons = list("Kriegmesser", "Longsword", "Rapier", "Sabre", "Steel Greatsword", "Steel Dagger")
+			var/list/weapons = list("Kriegmesser", "Longsword", "Rapier", "Sabre", "Steel Arming Sword", "Steel Greatsword", "Steel Dagger")
 			// Inject patron-specific weapon
 			if(istype(H.patron, /datum/patron/inhumen/zizo))
 				weapons.Insert(1, "Avantyne Longsword")
@@ -167,6 +167,8 @@
 					r_hand = /obj/item/rogueweapon/sword/rapier
 				if("Sabre")
 					r_hand = /obj/item/rogueweapon/sword/sabre
+				if("Steel Arming Sword")
+					r_hand = /obj/item/rogueweapon/sword
 				if("Steel Greatsword")
 					r_hand = /obj/item/rogueweapon/greatsword
 					backr = /obj/item/rogueweapon/scabbard/gwstrap

@@ -110,6 +110,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			user.ranged_ability.deactivate(user)
 		else
 			return
+	// If a new-style action spell is currently set as click_intercept, unset it first
+	var/datum/action/cooldown/active_action = user.click_intercept
+	if(istype(active_action))
+		active_action.unset_click_ability(user, refund_cooldown = TRUE)
 	user.ranged_ability = src
 	ranged_ability_user = user
 	user.click_intercept = src

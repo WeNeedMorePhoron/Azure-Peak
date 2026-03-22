@@ -39,7 +39,8 @@
 	damage_type = BURN
 	nodamage = FALSE
 	speed = 0.3
-	flag = "magic"
+	flag = "fire"
+	flag = "fire"
 	light_color = "#a98107"
 	light_outer_range = 7
 	var/fuck_that_guy_multiplier = 2

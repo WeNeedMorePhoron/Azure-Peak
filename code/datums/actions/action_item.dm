@@ -7,9 +7,21 @@
 /datum/action/item_action/New(Target)
 	. = ..()
 
+	if(target)
+		var/obj/item/item_target = target
+		LAZYINITLIST(item_target.actions)
+		item_target.actions += src
+
 	// If our button state is null, use the target's icon instead
 	if(target && isnull(button_icon_state))
 		AddComponent(/datum/component/action_item_overlay, target)
+
+/datum/action/item_action/Destroy()
+	if(target)
+		var/obj/item/item_target = target
+		item_target.actions -= src
+		UNSETEMPTY(item_target.actions)
+	return ..()
 
 /datum/action/item_action/vv_edit_var(var_name, var_value)
 	. = ..()

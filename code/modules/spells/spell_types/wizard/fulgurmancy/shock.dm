@@ -46,7 +46,7 @@
 	nodamage = FALSE
 	guard_deflectable = TRUE
 	speed = 0.3
-	flag = "magic"
+	flag = "fire"
 	light_outer_range = 5
 
 /obj/projectile/magic/shock/on_hit(target)

@@ -52,7 +52,7 @@
 	accuracy = 40
 	nodamage = FALSE
 	speed = 0.3
-	flag = "magic"
+	flag = "piercing"
 	hitsound = 'sound/magic/obeliskbeam.ogg'
 	light_color = "#9400D3"
 	light_outer_range = 7

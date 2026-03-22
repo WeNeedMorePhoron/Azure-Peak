@@ -42,7 +42,7 @@
 	npc_simple_damage_mult = 2
 	damage_type = BURN
 	woundclass = BCLASS_BURN
-	flag = "magic"
+	flag = "fire"
 	range = 10
 	speed = MAGE_PROJ_FAST
 	accuracy = 40

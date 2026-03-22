@@ -125,7 +125,7 @@
 	damage = 0 // Damage handled in on_hit AOE
 	nodamage = TRUE // Don't do base projectile damage
 	damage_type = BURN
-	flag = "magic"
+	flag = "fire"
 	range = 20
 	speed = MAGE_PROJ_MEDIUM
 	/// Actual damage dealt by the AOE on impact

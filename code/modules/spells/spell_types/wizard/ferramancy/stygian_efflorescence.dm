@@ -60,10 +60,11 @@
 	damage = 38
 	damage_type = BRUTE
 	woundclass = BCLASS_STAB
+	armor_penetration = PEN_LIGHT
 	npc_simple_damage_mult = 1.5
 	speed = MAGE_PROJ_SLOW
 	accuracy = 65
-	flag = "magic"
+	flag = "piercing"
 	ricochets_max = 4
 	ricochet_chance = 50
 	ricochet_auto_aim_angle = 40

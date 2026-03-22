@@ -142,24 +142,20 @@
 			acheck_dflag = "blunt"
 		if(BCLASS_CHOP, BCLASS_CUT, BCLASS_LASHING, BCLASS_PUNISH)
 			acheck_dflag = "slash"
-		if(BCLASS_PICK, BCLASS_STAB)
+		if(BCLASS_PICK, BCLASS_STAB, BCLASS_BITE)
 			acheck_dflag = "stab"
 		if(BCLASS_PIERCE)
 			acheck_dflag = "piercing"
 		if(BCLASS_BURN)
-			acheck_dflag = "magic"
+			acheck_dflag = "fire"
 	armor = owner.run_armor_check(zone_precise, acheck_dflag, damage = 0)
-	if(ishuman(owner))
-		var/mob/living/carbon/human/human_owner = owner
-		if(!(bclass in GLOB.charring_bclasses) && human_owner.checkcritarmor(zone_precise, bclass) && armor)
-			do_crit = FALSE
-		var/crit_threshold = (owner.mind || HAS_TRAIT(owner, TRAIT_CRIT_THRESHOLD)) ? CRIT_DISMEMBER_DAMAGE_THRESHOLD : CRIT_DISMEMBER_DAMAGE_THRESHOLD_NPC
-		if(get_damage() <= (max_damage * crit_threshold))
-			do_crit = FALSE
+	armor = owner.getarmor(zone_precise, acheck_dflag)
+	if((owner.mind || HAS_TRAIT(owner, TRAIT_CRIT_THRESHOLD)) && (get_damage() <= (max_damage * CRIT_DISMEMBER_DAMAGE_THRESHOLD))) //No crits unless the limb is at 75%+ damage.
+		do_crit = FALSE
 	if(user)
 		if(user.goodluck(2))
 			dam += 10
-		if(istype(user.rmb_intent, /datum/rmb_intent/weak) || bclass == BCLASS_PEEL)
+		if(istype(user.rmb_intent, /datum/rmb_intent/weak))
 			do_crit = FALSE
 
 	var/datum/wound/dynwound = manage_dynamic_wound(bclass, dam, armor)

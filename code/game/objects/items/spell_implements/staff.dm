@@ -47,7 +47,7 @@
 	tranged = TRUE
 	noaa = TRUE
 
-/obj/item/rogueweapon/woodstaff/implement/greater/magos
+/obj/item/rogueweapon/woodstaff/implement/grand/magos
 	base_implement_name = null
 	name = "\improper Staff of the Court Magos"
 	icon_state = "courtstaff"
@@ -55,7 +55,7 @@
 	gripped_intents = list(SPEAR_BASH, /datum/intent/mace/smash/wood, /datum/intent/magos_electrocute)
 	COOLDOWN_DECLARE(magosstaff)
 
-/obj/item/rogueweapon/woodstaff/implement/greater/magos/afterattack(atom/target, mob/user, flag)
+/obj/item/rogueweapon/woodstaff/implement/grand/magos/afterattack(atom/target, mob/user, flag)
 	. = ..()
 	if(get_dist(user, target) > 7)
 		return

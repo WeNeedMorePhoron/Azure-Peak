@@ -49,6 +49,8 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 
 	/// Wizard mode & "Give Spell" badmin button.
 	var/list/spell_list = list()
+	/// Whether this mind has arcyne momentum (persists through death)
+	var/has_arcyne_momentum = FALSE
 
 	var/list/major_aspects
 	var/list/minor_aspects
@@ -1013,18 +1015,41 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 
 /datum/mind/proc/transfer_mindbound_actions(mob/living/new_character)
 	for(var/X in spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		S.action.Grant(new_character)
+		// New action-based spells ARE actions — grant them directly
+		if(istype(X, /datum/action/cooldown/spell))
+			var/datum/action/cooldown/spell/action_spell = X
+			action_spell.Grant(new_character)
+		// Old proc_holder spells have a separate action wrapper
+		else if(istype(X, /obj/effect/proc_holder/spell))
+			var/obj/effect/proc_holder/spell/S = X
+			S.action?.Grant(new_character)
 
 /datum/mind/proc/disrupt_spells(delay, list/exceptions = New())
 	for(var/X in spell_list)
-		var/obj/effect/proc_holder/spell/S = X
-		for(var/type in exceptions)
-			if(istype(S, type))
+		// New action-based spells use cooldown system
+		if(istype(X, /datum/action/cooldown/spell))
+			var/datum/action/cooldown/spell/action_spell = X
+			var/dominated = FALSE
+			for(var/type in exceptions)
+				if(istype(action_spell, type))
+					dominated = TRUE
+					break
+			if(dominated)
 				continue
-		S.charge_counter = delay
-		S.action?.build_all_button_icons()
-		INVOKE_ASYNC(S, TYPE_PROC_REF(/obj/effect/proc_holder/spell, start_recharge))
+			action_spell.StartCooldownSelf(delay)
+		// Old proc_holder spells use charge_counter recharge system
+		else if(istype(X, /obj/effect/proc_holder/spell))
+			var/obj/effect/proc_holder/spell/S = X
+			var/dominated = FALSE
+			for(var/type in exceptions)
+				if(istype(S, type))
+					dominated = TRUE
+					break
+			if(dominated)
+				continue
+			S.charge_counter = delay
+			S.action?.build_all_button_icons()
+			INVOKE_ASYNC(S, TYPE_PROC_REF(/obj/effect/proc_holder/spell, start_recharge))
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter, ghosts_with_clients)
 	for(var/mob/dead/observer/G in (ghosts_with_clients ? GLOB.player_list : GLOB.dead_mob_list))

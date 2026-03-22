@@ -198,8 +198,18 @@
 			return unset_click_ability(user, refund_cooldown = TRUE)
 
 		else if(istype(already_set))
-			// if we have an active set already, unset it before we set our's
+			// if we have an active new-style action set already, unset it before we set ours
 			already_set.unset_click_ability(user, refund_cooldown = TRUE)
+
+		else if(user.click_intercept)
+			// An old proc_holder spell is active on click_intercept — deactivate it
+			var/datum/old_intercept = user.click_intercept
+			if(istype(old_intercept, /obj/effect/proc_holder/spell/invoked))
+				var/obj/effect/proc_holder/spell/invoked/old_spell = old_intercept
+				old_spell.deactivate(user)
+			else if(istype(old_intercept, /obj/effect/proc_holder))
+				var/obj/effect/proc_holder/old_proc = old_intercept
+				old_proc.remove_ranged_ability()
 
 		return set_click_ability(user)
 

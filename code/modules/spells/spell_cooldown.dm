@@ -117,10 +117,6 @@
 	// I don't really like this but oh well its required without creating a mess of inheritance.
 	/// If this spell can be cast on yourself.
 	var/self_cast_possible = TRUE
-	/// Message showing to the spell owner upon activating pointed spell.
-	var/active_msg
-	/// Message showing to the spell owner upon deactivating pointed spell.
-	var/deactive_msg
 	/// The casting range of our spell.
 	var/cast_range = 7
 	/// Variable dictating if the spell will use turf based aim assist.
@@ -189,11 +185,6 @@
 
 /datum/action/cooldown/spell/New(Target)
 	. = ..()
-	if(!active_msg)
-		active_msg = "You prepare to use [src] on a target..."
-	if(!deactive_msg)
-		deactive_msg = "You dispel [src]."
-
 	// Create overhead spell icon effect (matching old proc_holder system)
 	if(button_icon_state)
 		var/obj/effect/R = new /obj/effect/spell_rune
@@ -312,6 +303,13 @@
 	if(currently_charging)
 		return FALSE
 
+	// Clear any existing mmb_intent (specials, kick, etc.) so they don't fire alongside the spell
+	if(on_who.mmb_intent)
+		qdel(on_who.mmb_intent)
+		on_who.mmb_intent = null
+		if(on_who.hud_used)
+			on_who.hud_used.quad_intents?.switch_intent(null)
+
 	if(click_to_activate)
 		on_activation(on_who)
 
@@ -342,11 +340,6 @@
 /datum/action/cooldown/spell/proc/on_activation(mob/on_who)
 	SHOULD_CALL_PARENT(TRUE)
 
-	var/tip = "<B>Middle-click to cast the spell on a target!</B>"
-	if(charge_required)
-		tip = "<B>Hold Middle-click and release once charged to cast the spell on a target!</B>"
-
-	to_chat(on_who, span_smallnotice("[active_msg] [tip]"))
 	build_all_button_icons()
 
 	return TRUE
@@ -355,9 +348,6 @@
 /datum/action/cooldown/spell/proc/on_deactivation(mob/on_who, refund_cooldown = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(refund_cooldown)
-		// Only send the "deactivation" message if they're willingly disabling the ability
-		to_chat(on_who, span_smallnotice("[deactive_msg]"))
 	build_all_button_icons()
 
 	return TRUE
@@ -1041,6 +1031,14 @@
 /datum/action/cooldown/spell/proc/get_spell_statistics(mob/living/user)
 	var/list/stats = list()
 
+	// Activation mode
+	if(!click_to_activate)
+		stats += span_info("Activation: Self-cast")
+	else if(charge_required)
+		stats += span_info("Activation: Hold middle-click to charge, release to cast")
+	else
+		stats += span_info("Activation: Middle-click a target to cast")
+
 	if(click_to_activate)
 		stats += span_info("Range: [cast_range] tiles")
 	else
@@ -1056,10 +1054,12 @@
 	var/base_cd = initial(cooldown_time)
 	if(base_cd)
 		var/dynamic_cd = user ? get_adjusted_cooldown() : base_cd
-		if(dynamic_cd != base_cd)
+		if(abs(dynamic_cd - base_cd) > 0.5) // Meaningful change threshold
 			stats += span_info("Cooldown: [DisplayTimeText(base_cd)] (current: [DisplayTimeText(dynamic_cd)])")
 			if(user)
-				stats += get_cooldown_breakdown(user)
+				var/list/cd_breakdown = get_cooldown_breakdown(user)
+				if(length(cd_breakdown))
+					stats += cd_breakdown
 		else
 			stats += span_info("Cooldown: [DisplayTimeText(base_cd)]")
 

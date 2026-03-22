@@ -930,3 +930,36 @@
   - rscadd: Implements a remap of the University, Clinic, and the Sanctum of Pestra.
       All are now integrated in the original position of the University, directly
       south of the city keep.
+2026-03-20:
+  FreeStylaLT:
+  - balance: Arcyne campfires can be kicked over and vanish before expiring.
+  WeNeedMorePhoron:
+  - rscdel: Randomly generated half elven name no longer append "Halfelfen" as the
+      last name because that's stupid
+2026-03-21:
+  Ryan180602:
+  - bugfix: bad trainer now only lets you train two levels below yours.
+  - bugfix: fencer's dexterity only lets you wear sallets now.
+  - bugfix: gorgets are disallowed by fencer's dexterity, as was always intended.
+  mumblemancer:
+  - bugfix: miners have the right clothing type per preference
+2026-03-22:
+  Clem-The-Duck:
+  - rscadd: Adds three new items to the loadout, the Scaled Cloak, Bared Robe, and
+      Sleeved Tabard.
+  KatTheFox:
+  - qol: 'crafting attempts now have a ''pity threshold'': you will automatically
+      succeed after 99 failed attempts, so long as the recipe is possible for you
+      to make (i.e. not a 0% chance)'
+  Lamasmaster:
+  - balance: Graggar Silence
+  - bugfix: Waterskin starting uncorked
+  eirenxiv:
+  - rscadd: Added another unused cloak to the loadout selection, the now golden order
+      cloak
+  - rscadd: Added the naledian psy-bracelet to the loadout selection
+  mumblemancer:
+  - refactor: all "exotic silk items" are now "giltsilk." !!!IF YOU PREVIOUSLY HAD
+      THESE IN YOUR LOADOUT, YOU WILL NEED TO PICK THEM AGAIN!!!
+  rivercadaver:
+  - rscadd: Added writing

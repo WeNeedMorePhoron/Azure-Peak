@@ -28,7 +28,7 @@
 	exp_fire = 0
 	damage = 90
 	npc_simple_damage_mult = 2
-	flag = "magic"
+	flag = "fire"
 	arcyne_aoe_radius = 2
 	structural_damage = 150
 

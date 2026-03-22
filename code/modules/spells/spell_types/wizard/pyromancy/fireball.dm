@@ -29,6 +29,7 @@
 	cooldown_time = 16 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
+	spell_tier = 3
 
 /obj/projectile/magic/aoe/fireball/rogue
 	name = "fireball"
@@ -43,7 +44,7 @@
 	npc_simple_damage_mult = 3
 	accuracy = 40 // Lower base — burn bypasses armor
 	nodamage = FALSE
-	flag = "magic"
+	flag = "fire"
 	hitsound = 'sound/blank.ogg'
 	aoe_range = 0
 	/// Radius for AOE arcyne_strike blast around impact point. 0 = no AOE.
