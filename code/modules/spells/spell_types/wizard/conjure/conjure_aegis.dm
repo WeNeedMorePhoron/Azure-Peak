@@ -83,6 +83,7 @@
 	unenchantable = TRUE
 	anvilrepair = null
 	parrysound = list('sound/combat/parry/shield/magicshield (1).ogg', 'sound/combat/parry/shield/magicshield (2).ogg', 'sound/combat/parry/shield/magicshield (3).ogg')
+	associated_skill = /datum/skill/magic/arcane
 	var/datum/action/cooldown/spell/conjure_aegis/linked_spell
 	var/datum/weakref/caster_ref
 
