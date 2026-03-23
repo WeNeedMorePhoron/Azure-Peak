@@ -25,7 +25,7 @@
 	slottoequip = SLOT_ARMOR
 	checkspot = "armor"
 	cooldown_on_dissipate = TRUE
-	summondelay = 7 SECONDS
+	summondelay = 0
 
 /datum/action/cooldown/spell/conjure_armor/dragonhide/Destroy()
 	if(src.conjured_armor)

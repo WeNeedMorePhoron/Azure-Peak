@@ -24,7 +24,7 @@
 	slottoequip = SLOT_ARMOR
 	checkspot = "armor"
 	cooldown_on_dissipate = TRUE
-	summondelay = 7 SECONDS
+	summondelay = 0
 
 /obj/item/clothing/suit/roguetown/crystalhide
 	name = "crystalhide"
