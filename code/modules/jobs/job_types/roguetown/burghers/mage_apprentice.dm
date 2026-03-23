@@ -87,8 +87,6 @@
 	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	backpack_contents = list(
 		/obj/item/book/spellbook = 1,
-		/obj/item/recipe_book/alchemy = 1,
-		/obj/item/recipe_book/magic = 1,
 		/obj/item/chalk = 1,
 		)
 	switch(H.patron?.type)
@@ -146,8 +144,6 @@
 		/obj/item/book/spellbook = 1,
 		/obj/item/seeds/swampweed = 1,
 		/obj/item/seeds/pipeweed = 1,
-		/obj/item/recipe_book/alchemy = 1,
-		/obj/item/recipe_book/magic = 1,
 		/obj/item/chalk = 1,
 		)
 	switch(H.patron?.type)
@@ -195,8 +191,6 @@
 	shoes = /obj/item/clothing/shoes/roguetown/gladiator
 	backpack_contents = list(
 		/obj/item/book/spellbook = 1,
-		/obj/item/recipe_book/alchemy = 1,
-		/obj/item/recipe_book/magic = 1,
 		/obj/item/chalk = 1,
 		)
 	switch(H.patron?.type)
@@ -283,8 +277,6 @@
 	backr = /obj/item/rogueweapon/shield/wood
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	backpack_contents = list(
-		/obj/item/recipe_book/alchemy = 1,
-		/obj/item/recipe_book/magic = 1,
 		/obj/item/storage/keyring/apprentice = 1,
 		/obj/item/chalk = 1,)
 

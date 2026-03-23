@@ -41,9 +41,6 @@
 						/obj/item/reagent_containers/glass/mortar = 1,
 						/obj/item/pestle = 1,
 						/obj/item/candle/yellow = 2,
-						/obj/item/recipe_book/alchemy = 1,
-						/obj/item/recipe_book/survival = 1,
-						/obj/item/recipe_book/magic = 1,
 						/obj/item/chalk = 1
 						)
 	var/classes = list("Old Magick", "Godsblood", "Mystagogue")
