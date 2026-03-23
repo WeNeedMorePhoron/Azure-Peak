@@ -766,11 +766,9 @@
 		if(!burn_warning_shown)
 			if(burn_ratio >= 1.0)
 				burn_warning_shown = TRUE
-				visible_message(span_danger("[src]'s flesh is charring and blistering!"), span_userdanger("My body is burning down!"))
 				balloon_alert_to_viewers("<font color='#bb2b2b'>burnt down!</font>")
 			else if(burn_ratio >= 0.75)
 				burn_warning_shown = TRUE
-				visible_message(span_danger("[src]'s flesh is charring and blistering!"), span_userdanger("My body is burning down!"))
 				balloon_alert_to_viewers("<font color='#bb2b2b'>burning down!</font>")
 		else if(burn_ratio < 0.75)
 			burn_warning_shown = FALSE
