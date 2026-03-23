@@ -146,6 +146,11 @@
 		for(var/spell_path in staged.fixed_spells)
 			all_selected_spells |= "[spell_path]"
 		qdel(staged)
+	// Include spells the owner already knows (pre-granted by class, etc.)
+	for(var/datum/action/cooldown/spell/S in owner.mind.spell_list)
+		all_selected_spells |= "[S.type]"
+	for(var/obj/effect/proc_holder/spell/S in owner.mind.spell_list)
+		all_selected_spells |= "[S.type]"
 	data["all_selected_spells"] = all_selected_spells
 
 	// Collect spent budget per aspect
