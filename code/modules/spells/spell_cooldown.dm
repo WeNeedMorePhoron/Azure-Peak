@@ -1134,6 +1134,8 @@
 	// Charge time
 	if(charge_time > 0)
 		stats += span_info("Charge time: [DisplayTimeText(charge_time)]")
+		if(spell_requirements & SPELL_REQUIRES_NO_MOVE)
+			stats += span_warning("Channeling is interrupted by movement.")
 	else
 		stats += span_info("Charge time: Instant")
 
