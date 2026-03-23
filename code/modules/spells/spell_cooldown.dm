@@ -225,6 +225,13 @@
 		return PROCESS_KILL
 
 	if(charge_drain)
+		// Cancel charging if caster is at max fatigue
+		if(primary_resource_type == SPELL_COST_STAMINA && iscarbon(owner))
+			var/mob/living/carbon/C = owner
+			if(C.stamina >= C.max_stamina)
+				owner.balloon_alert(owner, "Too exhausted to channel!")
+				cancel_casting()
+				return PROCESS_KILL
 		if(!check_resource_available(primary_resource_type, charge_drain))
 			owner.balloon_alert(owner, "I cannot uphold the channeling!")
 			cancel_casting()
@@ -1023,8 +1030,6 @@
 			return TRUE
 
 		if(SPELL_COST_STAMINA)
-			// Stamina spells always pass the check — you CAN cast into stamcrit, that's the risk.
-			// The drain happens in invoke_resource_cost via stamina_add().
 			return TRUE
 
 		if(SPELL_COST_ENERGY)
