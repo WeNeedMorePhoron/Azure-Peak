@@ -227,7 +227,6 @@
 			user.adjust_skillrank(/datum/skill/magic/arcane, 3, TRUE)
 			if(user.mind)
 				user.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 4))
-				user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 				grant_poke_spell(user)
 			user.visible_message(span_boldwarning("Arcyne runes sear themselves across [user]'s skin, glowing with a sickly light before fading beneath the flesh!"), span_notice("THE LESSER WORK IS DONE! Arcyne knowledge floods my mind - I can see the threads of magic itself!"))
 
@@ -246,7 +245,6 @@
 			if(user.mind)
 				user.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 4))
 				user.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/bonechill)
-				user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 				grant_poke_spell(user)
 			user.visible_message(span_boldwarning("[user]'s flesh sloughs away in sheets, revealing bare bone beneath as [user.p_they()] [user.p_are()] consumed by the Lesser Work!"), span_notice("THE LESSER WORK IS DONE! My flesh is forfeit - but death itself answers my call!"))
 			to_chat(user, span_small("...what have I done?"))

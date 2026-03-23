@@ -399,7 +399,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		aspect.apply_variant(src, variant)
 	else if(has_mastery)
 		aspect.apply_variant(src, "mastery")
-	bump_prestidigitation()
+	ensure_prestidigitation()
 	return TRUE
 
 /datum/mind/proc/remove_aspect(datum/magic_aspect/aspect)
@@ -884,16 +884,10 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		if(HAS_TRAIT(current, TRAIT_ARCYNE))
 			AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
 		return
-	spell_list -= presto
-	spell_list += presto
-
-/// Move Prestidigitation to the end of the spell list so it's always last
-/datum/mind/proc/bump_prestidigitation()
-	var/obj/effect/proc_holder/spell/targeted/touch/prestidigitation/presto = get_spell(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
-	if(!presto)
-		return
+	// Remove and re-add to bump to end of both spell_list and action buttons
 	RemoveSpell(presto)
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+
 
 /datum/mind/proc/show_spell_tip()
 	if(current)
@@ -901,6 +895,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 
 /datum/mind/proc/setup_mage_aspects(list/config)
 	mage_aspect_config = config
+	ensure_prestidigitation()
 	check_learnspell()
 
 /datum/mind/proc/check_learnspell()
