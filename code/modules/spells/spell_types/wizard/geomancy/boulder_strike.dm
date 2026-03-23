@@ -39,7 +39,7 @@
 	woundclass = BCLASS_BLUNT
 	flag = "blunt"
 	range = 7
-	speed = 6
+	speed = 3.5
 	accuracy = 30
 	guard_deflectable = TRUE
 	hitsound = 'sound/combat/hits/onstone/stonedeath.ogg'
