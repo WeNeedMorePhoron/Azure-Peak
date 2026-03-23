@@ -71,4 +71,6 @@
 				L.apply_status_effect(/datum/status_effect/buff/lightningstruck, 6 SECONDS)
 				L.balloon_alert_to_viewers("<font color='#ffcc00'>shocked! (6s)</font>")
 				L.mob_timers[MT_LIGHTNING_ADAPTATION] = world.time
+			else
+				L.balloon_alert_to_viewers("<font color='#ffcc00'>shock adapted!</font>")
 	qdel(src)
