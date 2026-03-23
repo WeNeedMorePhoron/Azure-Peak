@@ -65,6 +65,8 @@
 	var/secondary_resource_cost = 0
 	/// Cost to learn this spell in the tree.
 	var/point_cost = 0
+	/// Whether this spell was chosen through the aspect picker (counts against point budget).
+	var/aspect_picked = FALSE
 	/// Tier of the spell, used to determine whether you can learn it based on class.
 	var/spell_tier = 1
 	/// Visual impact intensity for on-hit effects. See SPELL_IMPACT defines.
@@ -324,6 +326,17 @@
 			RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(intercept_mousedown))
 
 	return ..()
+
+/// Re-register input signals after cooldown ends while the spell is still selected.
+/// end_charging() unregisters MOUSEDOWN after a successful cast, so without this
+/// the spell appears selected but won't respond to clicks until manually toggled.
+/datum/action/cooldown/spell/on_retrigger_reselect()
+	if(!owner?.client || !click_to_activate)
+		return
+	if(charge_required)
+		RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
+	else
+		RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(intercept_mousedown))
 
 // Note: Destroy() calls Remove(), Remove() calls unset_click_ability() if our spell is active.
 /datum/action/cooldown/spell/unset_click_ability(mob/on_who, refund_cooldown = TRUE)

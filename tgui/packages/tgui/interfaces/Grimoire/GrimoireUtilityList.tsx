@@ -5,6 +5,7 @@ export const GrimoireUtilityList = ({
   spells,
   selected,
   known,
+  givenUtilities = [],
   pendingUnbinds,
   isFull,
   pointsSpent,
@@ -18,6 +19,7 @@ export const GrimoireUtilityList = ({
   spells: Spell[];
   selected: string[];
   known: string[];
+  givenUtilities?: string[];
   pendingUnbinds: string[];
   isFull: boolean;
   pointsSpent: number;
@@ -32,6 +34,7 @@ export const GrimoireUtilityList = ({
     {spells.map((spell) => {
       const isSelected = selected.includes(spell.path);
       const isKnown = known.includes(spell.path);
+      const isGiven = givenUtilities.includes(spell.path);
       const isPendingUnbind = pendingUnbinds.includes(spell.path);
       const selectedElsewhere =
         !isSelected && !isKnown && allSelectedSpells.includes(spell.path);
@@ -83,7 +86,7 @@ export const GrimoireUtilityList = ({
             className="AspectPicker__spell-desc"
             style={{ marginLeft: '6px' }}
           >
-            {spell.cost > 0 ? `(${spell.cost})` : '(free)'}
+            {isGiven ? '(Given)' : spell.cost > 0 ? `(${spell.cost})` : '(free)'}
           </span>
           {isKnown && !isPendingUnbind && !isSelected && (
             <span

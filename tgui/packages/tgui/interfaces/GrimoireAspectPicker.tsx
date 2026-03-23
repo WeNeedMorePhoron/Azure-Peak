@@ -35,6 +35,7 @@ export const GrimoireAspectPicker = () => {
     staged_unbind_aspects = [],
     staged_unbind_utilities = [],
     known_utilities = [],
+    given_utilities = [],
   } = data;
 
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
@@ -208,6 +209,7 @@ export const GrimoireAspectPicker = () => {
                   spells={utility_spells}
                   selected={selected_utilities}
                   known={known_utilities}
+                  givenUtilities={given_utilities}
                   pendingUnbinds={staged_unbind_utilities}
                   isFull={utilitiesFull}
                   pointsSpent={utility_points_spent}

@@ -58,6 +58,7 @@ export type Data = {
   staged_unbind_aspects: string[];
   staged_unbind_utilities: string[];
   known_utilities: string[];
+  given_utilities: string[];
 };
 
 export type Tab = 'major' | 'minor' | 'utilities';

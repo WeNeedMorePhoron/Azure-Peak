@@ -102,10 +102,14 @@
 
 	// Utilities the user already knows (for edit mode display)
 	var/list/known_utilities = list()
+	var/list/given_utilities = list()
 	for(var/path in GLOB.utility_spells)
 		if(owner.mind.has_spell(path))
 			known_utilities += "[path]"
+			if(!is_spell_aspect_picked(path))
+				given_utilities += "[path]"
 	data["known_utilities"] = known_utilities
+	data["given_utilities"] = given_utilities
 
 	// Reset budget for unbinding (account for staged unbinds)
 	var/staged_cost = get_staged_reset_cost()
@@ -588,6 +592,9 @@
 		if(owner.mind.has_spell(spell_path))
 			continue
 		var/datum/new_spell = new spell_path
+		if(istype(new_spell, /datum/action/cooldown/spell))
+			var/datum/action/cooldown/spell/S = new_spell
+			S.aspect_picked = TRUE
 		owner.mind.AddSpell(new_spell)
 
 	if(has_unbinds)
@@ -667,18 +674,27 @@
 /// Get total utility points spent — includes already-known utilities (minus pending unbinds) and staged selections
 /datum/aspect_picker/proc/get_utility_points_spent()
 	var/total = 0
-	// Count already-known utility spells (edit mode)
+	// Count already-known utility spells (edit mode), skipping given (free) spells
 	if(!initial_setup)
 		for(var/path in GLOB.utility_spells)
 			var/path_str = "[path]"
 			if(path_str in staged_unbind_utilities)
 				continue
 			if(owner.mind.has_spell(path))
+				if(!is_spell_aspect_picked(path))
+					continue
 				total += get_spell_cost_from_path(path)
 	// Count new staged selections
 	for(var/spell_path_str in staged_utilities)
 		total += get_spell_cost_from_path(text2path(spell_path_str))
 	return total
+
+/// Check if a known spell instance was chosen through the aspect picker (counts against budget)
+/datum/aspect_picker/proc/is_spell_aspect_picked(spell_path)
+	for(var/datum/action/cooldown/spell/S in owner.mind.spell_list)
+		if(S.type == spell_path && S.aspect_picked)
+			return TRUE
+	return FALSE
 
 /// Get spell cost from a type path (handles both spell systems)
 /datum/aspect_picker/proc/get_spell_cost_from_path(spell_path)
