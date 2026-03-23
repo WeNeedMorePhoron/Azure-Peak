@@ -164,11 +164,17 @@
 	if(owner.click_intercept && owner.click_intercept != src)
 		return
 
-	// Already selected - don't call Trigger() or it will toggle us off
+	// Already selected - just re-activate input handling without toggling
 	if(owner.click_intercept == src)
+		on_retrigger_reselect()
 		return
 
 	Trigger()
+
+/// Called by retrigger when the spell is already selected but needs input re-registered.
+/// Override in subtypes that need to restore signal handlers after a cast.
+/datum/action/cooldown/proc/on_retrigger_reselect()
+	return
 
 /// Cancel retriggering by removing the timer
 /datum/action/cooldown/proc/cancel_retrigger()
