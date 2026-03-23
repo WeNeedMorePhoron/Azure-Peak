@@ -3,7 +3,8 @@
 /datum/action/cooldown/spell/repulse
 	button_icon = 'icons/mob/actions/mage_kinesis.dmi'
 	name = "Repulse"
-	desc = "Conjure forth a wave of energy, repelling anyone around you."
+	desc = "Conjure forth a wave of energy, repelling anyone around you.\
+	Deals massive damage to anyone below you on the ground."
 	button_icon_state = "repulse"
 	sound = 'sound/magic/repulse.ogg'
 	spell_color = GLOW_COLOR_KINESIS
@@ -38,6 +39,7 @@
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	var/repulse_force = MOVE_FORCE_EXTREMELY_STRONG
 	var/showsparkles = TRUE
+	var/floor_slam_damage = 90
 	var/push_range = 1
 
 /datum/action/cooldown/spell/repulse/cast(atom/cast_on)
@@ -76,7 +78,10 @@
 			if(isliving(AM))
 				var/mob/living/M = AM
 				M.set_resting(TRUE, TRUE)
-				M.adjustBruteLoss(20)
+				arcyne_strike(user, AM, null, floor_slam_damage, BODY_ZONE_CHEST, \
+				BCLASS_BLUNT, spell_name = "Repulse", \
+				damage_type = BRUTE, npc_simple_damage_mult = 1, \
+				skip_animation = TRUE)
 				to_chat(M, span_danger("You're slammed into the floor by [user]!"))
 				new /obj/effect/temp_visual/spell_impact(get_turf(M), spell_color, spell_impact_intensity)
 		else

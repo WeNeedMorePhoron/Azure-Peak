@@ -1,6 +1,6 @@
 // Conjure Aegis - Aegiscraft Minor Aspect
 // Conjures an arcyne shield designed to counter projectiles.
-// 150 durability, 80 coverage, 5 WDef.
+// 200 durability, 70 coverage, 7 WDef.
 
 /datum/action/cooldown/spell/conjure_aegis
 	button_icon = 'icons/mob/actions/mage_conjure.dmi'
@@ -77,11 +77,11 @@
 	pixel_x = -16
 	bigboy = TRUE
 	wdefense = 7
-	coverage = 80
-	max_integrity = 150
+	coverage = 70
+	max_integrity = 200
 	force = 5
 	unenchantable = TRUE
-	anvilrepair = null
+	anvilrepair = /datum/skill/magic/arcane
 	parrysound = list('sound/combat/parry/shield/magicshield (1).ogg', 'sound/combat/parry/shield/magicshield (2).ogg', 'sound/combat/parry/shield/magicshield (3).ogg')
 	associated_skill = /datum/skill/magic/arcane
 	var/datum/action/cooldown/spell/conjure_aegis/linked_spell
