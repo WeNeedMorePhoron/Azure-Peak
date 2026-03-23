@@ -7,6 +7,8 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 	icon = 'icons/roguetown/items/books.dmi'
 	icon_state = "spellbookbrown_0"
 	slot_flags = ITEM_SLOT_HIP
+	grid_width = 32
+	grid_height = 32
 	var/base_icon_state = "spellbookbrown"
 	unique = TRUE
 	firefuel = 2 MINUTES
@@ -188,7 +190,7 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 	icon_state = "spellbook_unfinished"
 	desc = "A fully bound tome of scroll paper. It's lacking a certain arcyne energy. Crush a gem or a magical stone over it to complete it."
 	grid_width = 32
-	grid_height = 64
+	grid_height = 32
 
 
 /obj/item/spellbook_unfinished/pre_arcyne/attackby(obj/item/P, mob/living/carbon/human/user, params)

@@ -34,7 +34,7 @@
 /datum/magic_aspect/cryomancy
 	name = "Cryomancy"
 	latin_name = "Maior Aspectus Glaciei"
-	desc = "Cryomancy degrades its opponents with every strike. Frost stacks escalate from -1 SPD up to -3 SPD with progressively slower actions, and at four stacks the target is frozen solid. Frost Bolt is a quick, efficient poke that applies one frost stack. Frost Stream burns everyone in a long line and applies two stacks at once. Ice Shard shatters on impact in a 3x3 area, damaging and frosting all caught within. Snap Freeze burns everyone in a wide area with a delayed detonation. Cryomancy countersynergizes with Pyromancy - casting cryo spells chills the caster's own flames, and frost stacks on enemies are removed by fire."
+	desc = "Cryomancy degrades its opponents with every strike. Frost stacks escalate from -1 SPD up to -3 SPD with progressively slower actions, and at four stacks the target is frozen solid. Frost Bolt is a quick, efficient poke that applies one frost stack. Frost Stream burns everyone in a long line and applies two stacks at once. Ice Burst shatters on impact in a 3x3 area, damaging and frosting all caught within. Snap Freeze burns everyone in a wide area with a delayed detonation. Cryomancy countersynergizes with Pyromancy - casting cryo spells chills the caster's own flames, and frost stacks on enemies are removed by fire."
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_CRYOMANCY
 	school_color = GLOW_COLOR_ICE
@@ -52,7 +52,7 @@
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/frost_bolt,
 		/datum/action/cooldown/spell/frost_stream,
-		/datum/action/cooldown/spell/projectile/ice_shard,
+		/datum/action/cooldown/spell/projectile/ice_burst,
 		/datum/action/cooldown/spell/snap_freeze,
 	)
 	variants = list(

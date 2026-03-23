@@ -58,6 +58,7 @@
 				L.Immobilize(0.5 SECONDS)
 				L.apply_status_effect(/datum/status_effect/debuff/clickcd, 8 SECONDS)
 				L.apply_status_effect(/datum/status_effect/buff/lightningstruck, 8 SECONDS)
+				L.balloon_alert_to_viewers("<font color='#ffcc00'>shocked! (8s)</font>")
 				L.mob_timers[MT_LIGHTNING_ADAPTATION] = world.time
 	qdel(src)
 

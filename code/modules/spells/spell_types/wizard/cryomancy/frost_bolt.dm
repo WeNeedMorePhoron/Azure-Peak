@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/projectile/frost_bolt
 	button_icon = 'icons/mob/actions/mage_cryomancy.dmi'
 	name = "Frost Bolt"
-	desc = "A ray of frozen energy that slows and lightly damages a target. \
+	desc = "A shard of frozen energy that slows and damages a target. \
 	Applies one stack of frost on hit. \
 	Damage is increased by 100% versus simple-minded creechurs. \
 	Toggle arc mode (Ctrl+G) while the spell is active to fire it over intervening mobs. Arced attacks deal 25% less damage."
@@ -38,7 +38,7 @@
 /obj/projectile/magic/frostbolt
 	name = "frost bolt"
 	icon_state = "ice_2"
-	damage = 25
+	damage = 28
 	npc_simple_damage_mult = 2
 	damage_type = BURN
 	woundclass = BCLASS_BURN
@@ -50,7 +50,7 @@
 
 /obj/projectile/magic/frostbolt/arc
 	name = "arced frost bolt"
-	damage = 19
+	damage = 21
 	arcshot = TRUE
 
 /obj/projectile/magic/frostbolt/on_hit(target)
@@ -58,7 +58,7 @@
 	if(ismob(target))
 		var/mob/M = target
 		if(M.anti_magic_check())
-			visible_message(span_warning("[src] fizzles on contact with [target]!"))
+			visible_message(span_warning("[src] fizzles on contact with \the [target]!"))
 			playsound(get_turf(target), 'sound/magic/magic_nulled.ogg', 100)
 			qdel(src)
 			return BULLET_ACT_BLOCK

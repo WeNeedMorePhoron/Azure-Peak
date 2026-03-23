@@ -35,7 +35,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
 	var/delay = TELEGRAPH_HIGH_IMPACT
-	var/damage = 60
+	var/damage = 65
 	var/area_of_effect = 2
 
 /datum/action/cooldown/spell/snap_freeze/cast(atom/cast_on)
