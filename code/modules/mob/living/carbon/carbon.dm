@@ -752,11 +752,12 @@
 	var/total_tox = getToxLoss()
 	var/total_oxy = getOxyLoss()
 	var/used_damage = 0
-	// Burn hardcrit - total burn across all bodyparts vs threshold
+	// Burn hardcrit - total burn across all bodyparts vs threshold (scales to chest max HP / CON)
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		total_burn += BP.burn_dam
 	if(total_burn > 0)
-		var/burn_threshold = FIRE_HARDCRIT_BASE
+		var/obj/item/bodypart/chest/C = get_bodypart(BODY_ZONE_CHEST)
+		var/burn_threshold = C ? C.max_damage : FIRE_HARDCRIT_BASE
 		if(!mind && !HAS_TRAIT(src, TRAIT_CRIT_THRESHOLD))
 			burn_threshold *= FIRE_HARDCRIT_MINDLESS_MULT
 		else if(HAS_TRAIT(src, TRAIT_NOPAIN) || HAS_TRAIT(src, TRAIT_NOPAINSTUN))
