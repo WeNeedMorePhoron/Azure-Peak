@@ -68,7 +68,7 @@
 	ricochet_auto_aim_range = 5
 	ricochet_incidence_leeway = 40
 	ricochet_decay_chance = 1
-	ricochet_decay_damage = 1.5
+	ricochet_decay_damage = 1
 	var/reduced_damage = 9
 
 /obj/projectile/magic/gravel_blast/arc
@@ -84,7 +84,9 @@
 			playsound(get_turf(target), 'sound/magic/magic_nulled.ogg', 100)
 			qdel(src)
 			return BULLET_ACT_BLOCK
-		if(M.mob_timers[MT_ROCKSHOT] && world.time < M.mob_timers[MT_ROCKSHOT] + ROCKSHOT_DR_DURATION)
+		if(M == firer)
+			damage = round(damage / 2)
+		else if(M.mob_timers[MT_ROCKSHOT] && world.time < M.mob_timers[MT_ROCKSHOT] + ROCKSHOT_DR_DURATION)
 			damage = reduced_damage
 		else
 			M.mob_timers[MT_ROCKSHOT] = world.time
