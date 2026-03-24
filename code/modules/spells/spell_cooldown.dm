@@ -460,7 +460,8 @@
 
 	return Activate(target)
 
-/// Returns TRUE if the caster is holding a non-implement rogueweapon (not a shield) in either hand.
+/// Returns TRUE if the caster is holding a non-implement rogueweapon (not a shield) or ranged weapon in either hand,
+/// or recently had one.
 /datum/action/cooldown/spell/proc/check_weapon_in_hand()
 	if(!weapon_cast_penalized)
 		return FALSE
@@ -468,6 +469,8 @@
 		return FALSE
 	var/mob/living/carbon/human/H = owner
 	for(var/obj/item/held in list(H.get_active_held_item(), H.get_inactive_held_item()))
+		if(istype(held, /obj/item/gun))
+			return TRUE
 		if(!istype(held, /obj/item/rogueweapon))
 			continue
 		if(istype(held, /obj/item/rogueweapon/shield))
@@ -475,6 +478,8 @@
 		var/obj/item/rogueweapon/W = held
 		if(W.implement_multiplier)
 			continue
+		return TRUE
+	if(H.has_status_effect(/datum/status_effect/recent_weapon))
 		return TRUE
 	return FALSE
 
@@ -642,7 +647,7 @@
 	// Check for weapon-in-hand penalty before cast
 	weapon_penalty_active = check_weapon_in_hand()
 	if(weapon_penalty_active)
-		to_chat(owner, span_warning("Holding a weapon in my hand interferes with my arcyne conduits! This spell is more exhausting than usual."))
+		to_chat(owner, span_warning("Recently holding a weapon interferes with my arcyne conduits! This spell is more exhausting than usual."))
 
 	// Actually cast the spell. Main effects go here
 	var/cast_result = cast(target)
