@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/projectile/fireball
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Fireball"
-	desc = "Shoot out a ball of fire that explodes on impact, scorching nearby targets and knocking them back. \
+	desc = "Shoot out a ball of fire that explodes on impact, scorching and slowing nearby targets. \
 	Toggle arc mode (Ctrl+G) while the spell is active to fire it over intervening mobs. Arced attacks deal 25% less damage."
 	button_icon_state = "fireball"
 	sound = 'sound/magic/fireball.ogg'
@@ -97,15 +97,7 @@
 					skip_animation = TRUE)
 				L.adjust_fire_stacks(1)
 				L.ignite_mob()
-			for(var/atom/movable/AM in T)
-				if(AM.anchored || AM == src)
-					continue
-				var/throw_dir = get_dir(epicenter, AM)
-				if(!throw_dir)
-					throw_dir = pick(GLOB.cardinals)
-				var/turf/throw_target = get_ranged_target_turf(AM, throw_dir, 1)
-				if(throw_target)
-					AM.safe_throw_at(throw_target, 1, 1, firer, spin = FALSE)
+				L.Slowdown(1)
 
 	if(arcyne_aoe_radius > 0)
 		var/struct_radius = structural_damage_radius ? structural_damage_radius : arcyne_aoe_radius
