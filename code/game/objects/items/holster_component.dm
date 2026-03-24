@@ -90,6 +90,8 @@
 
 	A.forceMove(src)
 	sheathed = A
+	if(istype(A, /obj/item/rogueweapon) && !istype(A, /obj/item/rogueweapon/shield))
+		user.mob_timers[MT_WEAPON_PENALTY] = world.time
 	update_icon(user)
 
 	user.visible_message(

@@ -1,5 +1,3 @@
-// Haste — Augmentation buff spell (new action system)
-// Status effect kept in buffs_debuffs/haste.dm
 /datum/action/cooldown/spell/haste
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Haste"

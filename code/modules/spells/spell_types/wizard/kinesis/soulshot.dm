@@ -1,6 +1,3 @@
-// Soulshot - Kinesis hitscan beam
-// High-damage brute beam with eldritch visuals
-
 /datum/action/cooldown/spell/projectile/soulshot
 	button_icon = 'icons/mob/actions/mage_shared.dmi'
 	name = "Soulshot"

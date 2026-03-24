@@ -1,6 +1,3 @@
-// Forcewall - Bulwark Minor Aspect
-// Conjures a 5x1 wall of arcyne force perpendicular to the caster's facing direction.
-
 /datum/action/cooldown/spell/forcewall
 	button_icon = 'icons/mob/actions/mage_conjure.dmi'
 	name = "Forcewall"

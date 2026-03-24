@@ -1,5 +1,3 @@
-// Stoneskin — Augmentation buff spell (new action system)
-// Status effect kept in buffs_debuffs/stoneskin.dm
 /datum/action/cooldown/spell/stoneskin
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Stoneskin"

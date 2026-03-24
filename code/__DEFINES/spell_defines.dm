@@ -118,6 +118,8 @@
 
 // Weapon-in-hand casting penalty — applied when casting a penalized spell while holding a non-implement rogueweapon
 #define WEAPON_CAST_PENALTY 0.3
+#define WEAPON_PENALTY_LINGER 10 SECONDS
+#define MT_WEAPON_PENALTY "weapon_penalty"
 
 // Spell implement tiers and multipliers
 #define IMPLEMENT_TIER_LESSER  1

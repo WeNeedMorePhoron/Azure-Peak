@@ -1,6 +1,3 @@
-// Repel - Kinesis projectile that pushes the target away from the caster
-// Alt: throws held item if in throw mode
-
 /datum/action/cooldown/spell/projectile/repel
 	button_icon = 'icons/mob/actions/mage_kinesis.dmi'
 	name = "Repel"

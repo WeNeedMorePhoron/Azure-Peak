@@ -1,5 +1,3 @@
-// Repulse - Kinesis self-cast AOE knockback
-
 /datum/action/cooldown/spell/repulse
 	button_icon = 'icons/mob/actions/mage_kinesis.dmi'
 	name = "Repulse"
