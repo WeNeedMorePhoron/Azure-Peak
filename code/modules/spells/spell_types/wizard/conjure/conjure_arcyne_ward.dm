@@ -44,11 +44,6 @@
 	if(!istype(H))
 		return FALSE
 
-	if(H.highest_ac_worn() > 1)
-		to_chat(owner, span_warning("I must be wearing lighter armor!"))
-		reset_spell_cooldown()
-		return FALSE
-
 	if(conjured_ward && !QDELETED(conjured_ward))
 		qdel(conjured_ward)
 
