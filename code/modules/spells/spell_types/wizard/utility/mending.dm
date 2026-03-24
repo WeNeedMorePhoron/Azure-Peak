@@ -10,6 +10,7 @@
 	click_to_activate = TRUE
 	self_cast_possible = FALSE
 	cast_range = 7
+	charge_required = FALSE
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_CANTRIP
