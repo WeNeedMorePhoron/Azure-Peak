@@ -286,6 +286,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 
 	on_who.click_intercept = null
+	cancel_retrigger()
 	if(ranged_mousepointer)
 		on_who.client?.mouse_pointer_icon = initial(on_who.client?.mouse_pointer_icon)
 		on_who.update_mouse_pointer()
