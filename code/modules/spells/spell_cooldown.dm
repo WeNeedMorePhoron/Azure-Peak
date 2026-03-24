@@ -324,6 +324,14 @@
 	if(click_to_activate)
 		on_activation(on_who)
 
+		// Defensive cleanup: unregister ALL other spells' stale MOUSEDOWN/MOUSEUP
+		// from the client before we register ours. Belt-and-suspenders for edge cases.
+		if(on_who.client)
+			for(var/datum/action/cooldown/spell/other_spell in on_who.actions)
+				if(other_spell == src)
+					continue
+				other_spell.UnregisterSignal(on_who.client, list(COMSIG_CLIENT_MOUSEDOWN, COMSIG_CLIENT_MOUSEUP))
+
 		if(charge_required)
 			// If pointed we setup signals to override mouse down to call InterceptClickOn()
 			RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
@@ -353,8 +361,10 @@
 			on_who.balloon_alert(on_who, "Channeling was interrupted!")
 		on_deactivation(on_who, refund_cooldown = refund_cooldown)
 
+		// Clean up our own MOUSEDOWN/MOUSEUP and any lingering mob-level charge signals
 		if(on_who.client)
-			UnregisterSignal(on_who.client, COMSIG_CLIENT_MOUSEDOWN)
+			UnregisterSignal(on_who.client, list(COMSIG_CLIENT_MOUSEDOWN, COMSIG_CLIENT_MOUSEUP))
+		UnregisterSignal(on_who, list(COMSIG_MOB_LOGOUT, COMSIG_MOB_DEATH, COMSIG_MOVABLE_MOVED, COMSIG_MOB_KICKED_SUCCESSFUL, COMSIG_CARBON_SWAPHANDS))
 
 	return ..()
 
