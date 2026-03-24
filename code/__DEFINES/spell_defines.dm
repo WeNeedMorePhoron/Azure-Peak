@@ -136,6 +136,9 @@
 #define GRAVITY_ADAPTATION_COOLDOWN 15 SECONDS
 #define MT_GRAVITY_ADAPTATION "gravity_adaptation"
 
+// Temporary — move back to components.dm once PR #6301 merges
+#define COMSIG_MOB_KICKED_SUCCESSFUL "mob_kicked_successful" //from /mob/living/proc/try_kick(). Sent to target after a kick lands (past dodge/parry).
+
 // Aspect
 #define ASPECT_RESET_BUDGET 4
 #define ASPECT_RESET_COST_MAJOR 4
