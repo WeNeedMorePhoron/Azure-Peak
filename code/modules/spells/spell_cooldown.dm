@@ -460,8 +460,7 @@
 
 	return Activate(target)
 
-/// Returns TRUE if the caster is holding a non-implement rogueweapon (not a shield) in either hand,
-/// or recently sheathed one.
+/// Returns TRUE if the caster is holding a non-implement rogueweapon (not a shield) in either hand.
 /datum/action/cooldown/spell/proc/check_weapon_in_hand()
 	if(!weapon_cast_penalized)
 		return FALSE
@@ -476,9 +475,6 @@
 		var/obj/item/rogueweapon/W = held
 		if(W.implement_multiplier)
 			continue
-		H.mob_timers[MT_WEAPON_PENALTY] = world.time
-		return TRUE
-	if(H.mob_timers[MT_WEAPON_PENALTY] && world.time < H.mob_timers[MT_WEAPON_PENALTY] + WEAPON_PENALTY_LINGER)
 		return TRUE
 	return FALSE
 
