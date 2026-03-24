@@ -22,7 +22,8 @@
 		if(target.has_status_effect(/datum/status_effect/debuff/frosted3))
 			if(target.mob_timers[FROZEN_IMMUNITY_KEY] && world.time < target.mob_timers[FROZEN_IMMUNITY_KEY])
 				target.apply_status_effect(/datum/status_effect/debuff/frosted3)
-				target.balloon_alert_to_viewers("<font color='#4cadee'>frost adapted!</font>")
+				var/remaining = round((target.mob_timers[FROZEN_IMMUNITY_KEY] - world.time) / 10)
+				target.balloon_alert_to_viewers("<font color='#4cadee'>frost adapted ([remaining]s)</font>")
 				final_tier = max(final_tier, 3)
 				break
 			target.remove_status_effect(/datum/status_effect/debuff/frosted3)

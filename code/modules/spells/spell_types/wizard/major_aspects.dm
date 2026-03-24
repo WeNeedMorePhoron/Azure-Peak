@@ -138,8 +138,7 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/soulshot,
-		/datum/action/cooldown/spell/ensnare/kinesis,
-		/datum/action/cooldown/spell/repulse,
+		/datum/action/cooldown/spell/crush,
 		/datum/action/cooldown/spell/gravity,
 		/datum/action/cooldown/spell/mass_gravity,
 	)

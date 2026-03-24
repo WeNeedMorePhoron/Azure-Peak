@@ -132,6 +132,10 @@
 #define LIGHTNING_ADAPTATION_COOLDOWN 15 SECONDS
 #define MT_LIGHTNING_ADAPTATION "lightning_adaptation"
 
+// Gravity Specific constants
+#define GRAVITY_ADAPTATION_COOLDOWN 15 SECONDS
+#define MT_GRAVITY_ADAPTATION "gravity_adaptation"
+
 // Aspect
 #define ASPECT_RESET_BUDGET 4
 #define ASPECT_RESET_COST_MAJOR 4

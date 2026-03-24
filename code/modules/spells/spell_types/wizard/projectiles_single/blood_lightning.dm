@@ -61,7 +61,8 @@
 				L.balloon_alert_to_viewers("<font color='#ffcc00'>shocked! (8s)</font>")
 				L.mob_timers[MT_LIGHTNING_ADAPTATION] = world.time
 			else
-				L.balloon_alert_to_viewers("<font color='#ffcc00'>shock adapted!</font>")
+				var/remaining = round((L.mob_timers[MT_LIGHTNING_ADAPTATION] + LIGHTNING_ADAPTATION_COOLDOWN - world.time) / 10)
+				L.balloon_alert_to_viewers("<font color='#ffcc00'>shock adapted ([remaining]s)</font>")
 	qdel(src)
 
 #undef LIGHTNING_ADAPTATION_COOLDOWN

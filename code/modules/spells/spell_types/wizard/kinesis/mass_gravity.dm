@@ -4,6 +4,7 @@
 	desc = "Weighten space in an entire area, crushing everyone within and bringing them to the ground. \
 	Stronger opponents will resist and merely be off-balanced. \
 	The spell takes longer to materialize than its single-target counterpart, but covers a much larger zone.\n\n\
+	Target can adapt to gravity for 15 seconds after being knocked down, making them stand firm against conseuctive hit.\n\n\
 	Deals 100% more damage to simple-minded creechurs."
 	button_icon_state = "gravity"
 	sound = 'sound/magic/gravity.ogg'
@@ -84,16 +85,29 @@
 				L.visible_message(span_warning("[L] stands firm against the crushing force!"))
 				continue
 			var/target_zone = pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST)
+			// Gravity Adaptation: CC gated behind adaptation timer, damage always applies
+			var/adapted = L.mob_timers[MT_GRAVITY_ADAPTATION] && world.time < L.mob_timers[MT_GRAVITY_ADAPTATION] + GRAVITY_ADAPTATION_COOLDOWN
+			if(adapted)
+				var/remaining = round((L.mob_timers[MT_GRAVITY_ADAPTATION] + GRAVITY_ADAPTATION_COOLDOWN - world.time) / 10)
+				L.balloon_alert_to_viewers("<font color='#7B68EE'>gravity adapted ([remaining]s)!</font>")
 			if(L.STASTR <= str_threshold)
 				arcyne_strike(owner, L, null, crush_damage, target_zone, BCLASS_BLUNT, \
 					spell_name = "Mass Gravity", damage_type = BRUTE, \
 					npc_simple_damage_mult = simple_npc_damage_modifier, skip_animation = TRUE)
-				L.Knockdown(knockdown_time)
-				to_chat(L, span_userdanger("The immense gravity crushes me to the ground!"))
+				if(!adapted)
+					L.Knockdown(knockdown_time)
+					L.mob_timers[MT_GRAVITY_ADAPTATION] = world.time
+					to_chat(L, span_userdanger("The immense gravity crushes me to the ground!"))
+				else
+					to_chat(L, span_userdanger("The gravity crushes me, but I keep my footing!"))
 			else
-				L.OffBalance(offbalance_time)
 				arcyne_strike(owner, L, null, resisted_damage, target_zone, BCLASS_BLUNT, \
 					spell_name = "Mass Gravity", damage_type = BRUTE, \
 					npc_simple_damage_mult = 1, skip_animation = TRUE)
-				to_chat(L, span_userdanger("The gravity weighs on me, but my strength prevails!"))
+				if(!adapted)
+					L.OffBalance(offbalance_time)
+					L.mob_timers[MT_GRAVITY_ADAPTATION] = world.time
+					to_chat(L, span_userdanger("The gravity weighs on me, but my strength prevails!"))
+				else
+					to_chat(L, span_userdanger("The gravity crushes me, but I keep my footing!"))
 			new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
