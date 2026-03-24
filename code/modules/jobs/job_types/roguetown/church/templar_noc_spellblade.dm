@@ -120,7 +120,7 @@
 
 	switch(subclass_selected)
 		if("blade")
-			var/list/weapons = list("Moonlight Khopesh", "Longsword", "Rapier", "Sabre", "Steel Arming Sword", "Steel Greatsword", "Steel Dagger")
+			var/list/weapons = list("Moonlight Khopesh", "Longsword", "Rapier", "Sabre", "Steel Arming Sword", "Steel Greatsword", "Steel Dagger", "Twilight Fangs")
 			var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 			switch(weapon_choice)
 				if("Moonlight Khopesh")
@@ -143,7 +143,11 @@
 					H.put_in_hands(new /obj/item/rogueweapon/scabbard/gwstrap(H))
 				if("Steel Dagger")
 					H.equip_to_slot_or_del(new /obj/item/rogueweapon/huntingknife/idagger/steel(H), SLOT_BELT_R, TRUE)
-			if(weapon_choice == "Steel Dagger")
+				if("Twilight Fangs")
+					H.put_in_hands(new /obj/item/rogueweapon/huntingknife/throwingknife/steel/noc(H))
+					H.put_in_hands(new /obj/item/rogueweapon/huntingknife/throwingknife/steel/noc(H))
+					ADD_TRAIT(H, TRAIT_DUALWIELDER, TRAIT_GENERIC)
+			if(weapon_choice == "Steel Dagger" || weapon_choice == "Twilight Fangs")
 				H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_EXPERT, TRUE)
 			else
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
