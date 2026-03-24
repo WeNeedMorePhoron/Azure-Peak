@@ -6,7 +6,7 @@
 	The spell takes longer to materialize than its single-target counterpart, but covers a much larger zone.\n\n\
 	Target can adapt to gravity for 15 seconds after being knocked down, making them stand firm against conseuctive hit.\n\n\
 	Deals 100% more damage to simple-minded creechurs."
-	button_icon_state = "gravity"
+	button_icon_state = "mass_gravity"
 	sound = 'sound/magic/gravity.ogg'
 	spell_color = GLOW_COLOR_KINESIS
 	glow_intensity = GLOW_INTENSITY_VERY_HIGH

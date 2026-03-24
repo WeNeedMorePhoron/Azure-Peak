@@ -3,7 +3,7 @@
 	name = "Crush"
 	desc = "Compress gravitational force onto a single point, crushing the aimed body part. It is telegraphed and can be walked out of. \
 	Deals 100% more damage to simple-minded creechurs."
-	button_icon_state = "gravity"
+	button_icon_state = "crush"
 	sound = 'sound/magic/repulse.ogg'
 	spell_color = GLOW_COLOR_KINESIS
 	glow_intensity = GLOW_INTENSITY_HIGH
@@ -56,7 +56,7 @@
 		to_chat(H, span_warning("I can't cast where I can't see!"))
 		return FALSE
 
-	new /obj/effect/temp_visual/gravity_trap(T)
+	new /obj/effect/temp_visual/kinetic_blast(T)
 	playsound(T, 'sound/magic/gravity.ogg', 60, TRUE, soundping = FALSE)
 	addtimer(CALLBACK(src, PROC_REF(crush_strike), T, H), telegraph_delay)
 	return TRUE
@@ -75,7 +75,7 @@
 
 		var/target_zone = caster?.zone_selected || pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST)
 		arcyne_strike(caster, L, null, crush_damage, target_zone, BCLASS_BLUNT, \
-			spell_name = "Crush", damage_type = BRUTE, \
+			spell_name = "Crushing Force", damage_type = BRUTE, \
 			npc_simple_damage_mult = npc_simple_damage_mult, skip_animation = TRUE)
 		to_chat(L, span_userdanger("Gravitational force compresses around me!"))
 		new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)

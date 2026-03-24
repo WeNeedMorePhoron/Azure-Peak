@@ -111,7 +111,7 @@
 		/datum/action/cooldown/spell/projectile/gravel_blast,
 		/datum/action/cooldown/spell/projectile/boulder_strike,
 		/datum/action/cooldown/spell/ensnare,
-		/datum/action/cooldown/spell/earthen_wall,
+		/datum/action/cooldown/spell/seismic_pulse,
 	)
 	variants = list(
 		"mastery" = list(
@@ -141,6 +141,11 @@
 		/datum/action/cooldown/spell/crush,
 		/datum/action/cooldown/spell/gravity,
 		/datum/action/cooldown/spell/mass_gravity,
+	)
+	variants = list(
+		"mastery" = list(
+			VARIANT_ADDITIVE =/datum/action/cooldown/spell/mass_crush,
+		),
 	)
 
 /datum/magic_aspect/augmentation
