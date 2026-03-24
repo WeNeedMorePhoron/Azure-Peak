@@ -33,9 +33,9 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_NONE
 	charge_sound = 'sound/magic/charging.ogg'
-	cooldown_time = 7 SECONDS
+	cooldown_time = 6 SECONDS
 	is_implement_scaled_spell = TRUE
-	implement_aspect_name = ASPECT_NAME_FERRAMANCY
+	attunement_school = ASPECT_NAME_FERRAMANCY
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2

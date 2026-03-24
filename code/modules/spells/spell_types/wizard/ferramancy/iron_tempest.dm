@@ -14,6 +14,7 @@
 	sound = 'sound/magic/scrapeblade.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_MEDIUM
+	attunement_school = ASPECT_NAME_FERRAMANCY
 
 	projectile_type = /obj/projectile/magic/iron_tempest_seed
 	cast_range = 7

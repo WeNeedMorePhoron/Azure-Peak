@@ -10,6 +10,7 @@
 	sound = 'sound/magic/gravity.ogg'
 	spell_color = GLOW_COLOR_KINESIS
 	glow_intensity = GLOW_INTENSITY_VERY_HIGH
+	attunement_school = ASPECT_NAME_KINESIS
 
 	click_to_activate = TRUE
 	cast_range = 7

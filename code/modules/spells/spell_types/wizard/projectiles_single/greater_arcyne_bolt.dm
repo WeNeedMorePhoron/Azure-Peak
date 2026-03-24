@@ -32,6 +32,8 @@
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
 	spell_impact_intensity = SPELL_IMPACT_MEDIUM
+	is_implement_scaled_spell = TRUE
+	attunement_school = ASPECT_NAME_KINESIS
 
 /obj/projectile/magic/greater_arcyne_bolt
 	name = "greater arcyne bolt"
@@ -40,6 +42,7 @@
 	guard_deflectable = TRUE
 	damage = 65
 	damage_type = BRUTE
+	flag = "blunt"
 	woundclass = BCLASS_BLUNT
 	npc_simple_damage_mult = 1.5
 	nodamage = FALSE

@@ -160,7 +160,9 @@
 	/// If TRUE, this spell benefits from implement damage bonus when the caster holds a spell implement.
 	// Only poke spells (low CD staple spammable projectiles) should ever get this.
 	var/is_implement_scaled_spell = FALSE
-	var/implement_aspect_name = ""
+	/// The school this spell attunes to. If set, holding a spell implement while casting will attune it (glow + name).
+	/// Use ASPECT_NAME defines (e.g. ASPECT_NAME_PYROMANCY). Null means no attunement.
+	var/attunement_school
 	/// If TRUE, casting this spell while holding a non-implement rogueweapon incurs a 30% cooldown and stamina penalty.
 	/// Offensive and CC spells should be TRUE. Buffs and utilities should be FALSE.
 	var/weapon_cast_penalized = FALSE

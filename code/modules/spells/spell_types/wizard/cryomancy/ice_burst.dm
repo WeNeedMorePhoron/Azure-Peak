@@ -11,6 +11,7 @@
 	sound = 'sound/spellbooks/crystal.ogg'
 	spell_color = GLOW_COLOR_ICE
 	glow_intensity = GLOW_INTENSITY_HIGH
+	attunement_school = ASPECT_NAME_CRYOMANCY
 
 	projectile_type = /obj/projectile/magic/ice_burst
 	projectile_type_arc = /obj/projectile/magic/ice_burst/arc

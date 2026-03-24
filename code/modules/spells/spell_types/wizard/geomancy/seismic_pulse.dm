@@ -7,6 +7,7 @@
 	sound = 'sound/magic/repulse.ogg'
 	spell_color = GLOW_COLOR_EARTHEN
 	glow_intensity = GLOW_INTENSITY_LOW
+	attunement_school = ASPECT_NAME_GEOMANCY
 
 	click_to_activate = TRUE
 	self_cast_possible = TRUE

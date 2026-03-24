@@ -71,8 +71,8 @@
 		if(L.mind)
 			to_fire.bonus_accuracy += (L.get_skill_level(associated_skill) * 5)
 
-	// Apply implement poke bonus if the caster is holding a spell implement in either hand
-	if(is_implement_scaled_spell && ishuman(user))
+	// Apply implement poke bonus and/or attunement glow if the caster is holding a spell implement
+	if((is_implement_scaled_spell || attunement_school) && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/best_mult = 0
 		var/obj/item/rogueweapon/best_implement
@@ -85,8 +85,10 @@
 				best_mult = mult
 				best_implement = held
 		if(best_mult)
-			to_fire.damage = round(to_fire.damage * best_mult)
-			best_implement?.attune_implement(spell_color, implement_aspect_name)
+			if(is_implement_scaled_spell)
+				to_fire.damage = round(to_fire.damage * best_mult)
+			if(attunement_school)
+				best_implement?.attune_implement(spell_color, attunement_school)
 
 	to_fire.preparePixelProjectile(target, user)
 

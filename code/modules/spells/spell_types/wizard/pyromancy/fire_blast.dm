@@ -7,6 +7,7 @@
 	sound = 'sound/misc/explode/incendiary (1).ogg'
 	spell_color = GLOW_COLOR_FIRE
 	glow_intensity = GLOW_INTENSITY_MEDIUM
+	attunement_school = ASPECT_NAME_PYROMANCY
 
 	click_to_activate = TRUE
 	cast_range = 7

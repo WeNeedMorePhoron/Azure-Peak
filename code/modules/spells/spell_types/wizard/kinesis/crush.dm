@@ -7,6 +7,7 @@
 	sound = 'sound/magic/repulse.ogg'
 	spell_color = GLOW_COLOR_KINESIS
 	glow_intensity = GLOW_INTENSITY_HIGH
+	attunement_school = ASPECT_NAME_KINESIS
 
 	click_to_activate = TRUE
 	cast_range = 7
@@ -24,7 +25,6 @@
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
 	cooldown_time = 8 SECONDS
-	implement_aspect_name = ASPECT_NAME_KINESIS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2

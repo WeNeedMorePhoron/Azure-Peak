@@ -7,6 +7,7 @@
 	sound = 'sound/combat/hits/onstone/stonedeath.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_HIGH
+	attunement_school = ASPECT_NAME_GEOMANCY
 
 	projectile_type = /obj/projectile/magic/boulder
 	projectile_type_arc = /obj/projectile/magic/boulder/arc

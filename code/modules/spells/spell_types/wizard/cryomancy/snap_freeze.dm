@@ -9,6 +9,7 @@
 	sound = 'sound/spellbooks/crystal.ogg'
 	spell_color = GLOW_COLOR_ICE
 	glow_intensity = GLOW_INTENSITY_HIGH
+	attunement_school = ASPECT_NAME_CRYOMANCY
 
 	click_to_activate = TRUE
 	cast_range = 7

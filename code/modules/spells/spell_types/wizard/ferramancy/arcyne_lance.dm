@@ -7,7 +7,7 @@
 	sound = 'sound/magic/scrapeblade.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_MEDIUM
-	attunes_implement = TRUE
+	attunement_school = ASPECT_NAME_FERRAMANCY
 
 	projectile_type = /obj/projectile/magic/arcyne_lance
 	projectile_type_arc = /obj/projectile/magic/arcyne_lance/arc

@@ -13,6 +13,7 @@
 	sound = 'sound/magic/lightning.ogg'
 	spell_color = GLOW_COLOR_LIGHTNING
 	glow_intensity = GLOW_INTENSITY_MEDIUM
+	attunement_school = ASPECT_NAME_FULGURMANCY
 
 	projectile_type = /obj/projectile/magic/lightning
 	cast_range = 8

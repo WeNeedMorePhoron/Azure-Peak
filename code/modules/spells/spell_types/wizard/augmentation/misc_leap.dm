@@ -7,6 +7,7 @@
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF
 	glow_intensity = GLOW_INTENSITY_LOW
+	attunement_school = ASPECT_NAME_AUGMENTATION
 
 	click_to_activate = TRUE
 	cast_range = 7

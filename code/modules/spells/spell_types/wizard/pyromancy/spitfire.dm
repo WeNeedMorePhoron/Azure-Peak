@@ -27,7 +27,7 @@
 	charge_sound = 'sound/magic/charging_fire.ogg'
 	cooldown_time = 5.5 SECONDS
 	is_implement_scaled_spell = TRUE
-	implement_aspect_name = ASPECT_NAME_PYROMANCY
+	attunement_school = ASPECT_NAME_PYROMANCY
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_impact_intensity = SPELL_IMPACT_LOW

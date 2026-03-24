@@ -63,6 +63,7 @@
 	icon_state = "air_blade_cut"
 	guard_deflectable = TRUE
 	damage = 40
+	flag = "slash"
 	woundclass = BCLASS_CUT
 	nodamage = FALSE
 	npc_simple_damage_mult = 1.5 // Makes it more effective against NPCs.

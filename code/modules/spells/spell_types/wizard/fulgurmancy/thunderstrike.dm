@@ -13,6 +13,7 @@
 	sound = 'sound/magic/lightning.ogg'
 	spell_color = GLOW_COLOR_LIGHTNING
 	glow_intensity = GLOW_INTENSITY_HIGH
+	attunement_school = ASPECT_NAME_FULGURMANCY
 
 	click_to_activate = TRUE
 	cast_range = 7
