@@ -647,7 +647,17 @@
 	// Check for weapon-in-hand penalty before cast
 	weapon_penalty_active = check_weapon_in_hand()
 	if(weapon_penalty_active)
-		to_chat(owner, span_warning("Recently holding a weapon interferes with my arcyne conduits! This spell is more exhausting than usual."))
+		if(ishuman(owner))
+			var/mob/living/carbon/human/wpn_check = owner
+			var/has_weapon_now = FALSE
+			for(var/obj/item/held in list(wpn_check.get_active_held_item(), wpn_check.get_inactive_held_item()))
+				if(istype(held, /obj/item/gun) || (istype(held, /obj/item/rogueweapon) && !istype(held, /obj/item/rogueweapon/shield)))
+					has_weapon_now = TRUE
+					break
+			if(has_weapon_now)
+				to_chat(owner, span_warning("Holding a weapon interferes with my arcyne conduits! This spell is more exhausting than usual."))
+			else
+				to_chat(owner, span_warning("My hands still tingle from holding a weapon - my arcyne conduits are disrupted! This spell is more exhausting than usual."))
 
 	// Actually cast the spell. Main effects go here
 	var/cast_result = cast(target)

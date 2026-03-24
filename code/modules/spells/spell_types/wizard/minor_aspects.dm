@@ -49,7 +49,6 @@
 		"Aegis, me relinquere!",
 	)
 	choice_spells = list(
-		/datum/action/cooldown/spell/conjure_armor,
 		/datum/action/cooldown/spell/conjure_aegis,
 	)
 
@@ -74,7 +73,7 @@
 /datum/magic_aspect/autowardry
 	name = "Autowardry"
 	latin_name = "Minor Aspectus Autotutelae"
-	desc = "TODO"
+	desc = "Augment your existing arcyne ward with additional properties. The warding spell is replaced and an improved version takes its place while the aspect is active."
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_METAL
 	binding_chants = list(
@@ -86,8 +85,8 @@
 		"Autotutela, me relinquere!",
 	)
 	choice_spells = list(
-		/datum/action/cooldown/spell/conjure_armor/dragonhide,
-		/datum/action/cooldown/spell/conjure_armor/crystalhide,
+		/datum/action/cooldown/spell/conjure_arcyne_ward/dragonhide,
+		/datum/action/cooldown/spell/conjure_arcyne_ward/crystalhide,
 	)
 
 /datum/magic_aspect/lesser_kinesis

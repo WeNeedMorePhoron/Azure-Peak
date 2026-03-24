@@ -965,6 +965,16 @@
 	if(pose_text)
 		. += fieldset_block("Pose", pose_text, "pose_block")
 
+	if(istype(skin_armor, /obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward))
+		var/obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward/ward = skin_armor
+		var/ward_str = span_notice("\A [ward.name] shimmers faintly around [p_them()].")
+		var/int_percent = round((ward.obj_integrity / ward.max_integrity) * 100, 1)
+		if(is_smart)
+			ward_str += " " + span_warning("([int_percent]%)")
+		else if(int_percent < 100)
+			ward_str += " " + ward.integrity_check()
+		. += ward_str
+
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!

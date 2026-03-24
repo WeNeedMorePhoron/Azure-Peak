@@ -468,7 +468,7 @@
 			var/has_new_utilities = length(staged_utilities)
 			var/has_unbinds = length(staged_unbind_aspects) || length(staged_unbind_utilities)
 			if(!has_new_aspects && !has_new_utilities && !has_unbinds)
-				owner.mind.ensure_prestidigitation()
+				owner.mind.ensure_mage_basics()
 				owner.mind.check_learnspell()
 				to_chat(owner, span_warning("You must select something before sealing."))
 				return
@@ -606,7 +606,7 @@
 
 	if(has_unbinds)
 		to_chat(owner, span_notice("The inscriptions in my grimoire shift and reform..."))
-	owner.mind.ensure_prestidigitation()
+	owner.mind.ensure_mage_basics()
 	owner.mind.check_learnspell()
 
 	chanting = FALSE

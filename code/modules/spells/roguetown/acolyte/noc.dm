@@ -241,7 +241,7 @@ Somewhat fitting, considering the broadness of their domains. I also just think 
 	)
 	var/list/offensive_bundle = list(	//This is not meant to make them combat-capable. A weak offensive, and mostly defensive option.
 		/datum/action/cooldown/spell/projectile/greater_arcyne_bolt,
-		/datum/action/cooldown/spell/conjure_armor/dragonhide,
+		/datum/action/cooldown/spell/conjure_arcyne_ward/dragonhide,
 		/datum/action/cooldown/spell/arcyne_forge,
 	)
 	var/list/buff_bundle = list(	//Buffs! An Acolyte being a supportive caster is 100% what they already are, so this fits neatly. No debuffs -- every patron already has a plethora of those.

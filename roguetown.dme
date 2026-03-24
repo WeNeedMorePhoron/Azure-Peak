@@ -2821,6 +2821,7 @@
 #include "code\modules\spells\spell_types\wizard\augmentation\misc_leap.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\misc_nondetection.dm"
 #include "code\modules\spells\spell_types\wizard\conjure\arcyne_forge.dm"
+#include "code\modules\spells\spell_types\wizard\conjure\conjure_arcyne_ward.dm"
 #include "code\modules\spells\spell_types\wizard\conjure\conjure_aegis.dm"
 #include "code\modules\spells\spell_types\wizard\conjure\forcewall.dm"
 #include "code\modules\spells\spell_types\wizard\conjure\conjure_armor.dm"
