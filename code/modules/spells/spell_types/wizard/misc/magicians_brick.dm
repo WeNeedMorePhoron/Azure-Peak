@@ -59,7 +59,7 @@
 
 /obj/item/rogueweapon/magicbrick
 	name = "magician's brick"
-	desc = "A brick formed out of arcane energy. Not a actual brick and cannot be used for construction. Makes for a very deadly melee and throwing weapon."
+	desc = "A brick formed out of arcane energy. Not a actual brick and cannot be used for construction. Makes for a very deadly melee and throwing weapon. Considered an implement for casting spell."
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "claybrickcook"
 	dropshrink = 0.75
@@ -73,6 +73,8 @@
 	slot_flags = ITEM_SLOT_MOUTH
 	obj_flags = null
 	w_class = WEIGHT_CLASS_TINY
+	implement_tier = IMPLEMENT_TIER_LESSER
+	implement_multiplier = IMPLEMENT_MULT_LESSER
 	possible_item_intents = list(/datum/intent/mace/strike) // Not giving it smash so it don't become competetive with conjure weapon (as a melee weapon)
 	associated_skill = /datum/skill/combat/maces // If it was tied to Arcyne it'd be too strong
 	hitsound = list('sound/combat/hits/blunt/brick.ogg')
