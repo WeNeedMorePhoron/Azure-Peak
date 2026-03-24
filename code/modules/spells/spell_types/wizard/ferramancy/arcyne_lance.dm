@@ -7,6 +7,7 @@
 	sound = 'sound/magic/scrapeblade.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_MEDIUM
+	attunes_implement = TRUE
 
 	projectile_type = /obj/projectile/magic/arcyne_lance
 	projectile_type_arc = /obj/projectile/magic/arcyne_lance/arc
@@ -44,8 +45,9 @@
 	npc_simple_damage_mult = 1.5
 	nodamage = FALSE
 	speed = MAGE_PROJ_MEDIUM
+	armor_penetration = PEN_LIGHT
 	range = 9
-	movement_type = UNSTOPPABLE
+	flag = "piercing"
 	hitsound = 'sound/combat/hits/bladed/genthrust (1).ogg'
 	/// How many mob targets have been pierced
 	var/hits = 0
