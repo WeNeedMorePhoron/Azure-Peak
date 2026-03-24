@@ -62,7 +62,7 @@
 	for(var/i in 1 to frag_count)
 		var/obj/projectile/magic/gravel_blast/frag = new(impact)
 		frag.damage = frag_damage
-		frag.range = 1
+		frag.range = 3
 		frag.ricochets_max = 0
 		frag.ricochet_chance = 0
 		frag.firer = firer
