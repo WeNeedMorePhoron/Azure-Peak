@@ -110,7 +110,7 @@
 	armor = ARMOR_LEATHER
 	max_integrity = 225
 
-	repair_time = 20 SECONDS
+	repair_time = 30 SECONDS
 	auto_repair_mode = FALSE
 
 	repairmsg_begin = "The arcyne ward begins to mend itself, drawing from my energy..."
@@ -123,7 +123,6 @@
 	var/datum/action/cooldown/spell/conjure_arcyne_ward/linked_spell
 	var/mob/living/carbon/human/ward_owner
 	var/coverage_locked = FALSE
-	var/regen_delay = 5 SECONDS
 
 /obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward/proc/setup_ward(mob/living/carbon/human/H)
 	ward_owner = H
