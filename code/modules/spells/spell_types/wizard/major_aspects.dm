@@ -137,10 +137,13 @@
 		"Vis, a me discedere!",
 	)
 	fixed_spells = list(
-		/datum/action/cooldown/spell/projectile/soulshot,
 		/datum/action/cooldown/spell/crush,
 		/datum/action/cooldown/spell/gravity,
 		/datum/action/cooldown/spell/mass_gravity,
+	)
+	choice_spells = list(
+		/datum/action/cooldown/spell/projectile/soulshot,
+		/datum/action/cooldown/spell/projectile/greater_arcyne_bolt,
 	)
 	variants = list(
 		"mastery" = list(
@@ -166,8 +169,11 @@
 		"Augmentum, a me discedere!",
 	)
 	fixed_spells = list(
-		/datum/action/cooldown/spell/projectile/soulshot,
 		/datum/action/cooldown/spell/forcewall,
+	)
+	choice_spells = list(
+		/datum/action/cooldown/spell/projectile/soulshot,
+		/datum/action/cooldown/spell/projectile/greater_arcyne_bolt,
 	)
 	variants = list(
 		"mastery" = list(

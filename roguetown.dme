@@ -2893,6 +2893,7 @@
 #include "code\modules\spells\spell_types\wizard\pyromancy\fireball_greater.dm"
 #include "code\modules\spells\spell_types\wizard\projectiles_single\air_blade.dm"
 #include "code\modules\spells\spell_types\wizard\projectiles_single\blood_lightning.dm"
+#include "code\modules\spells\spell_types\wizard\projectiles_single\greater_arcyne_bolt.dm"
 #include "code\modules\spells\spell_types\wizard\projectiles_single\blood_steal.dm"
 #include "code\modules\spells\spell_types\wizard\projectiles_single\lesser_fetch.dm"
 #include "code\modules\spells\spell_types\wizard\projectiles_single\lesser_repel.dm"

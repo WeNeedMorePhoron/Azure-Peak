@@ -240,7 +240,7 @@ Somewhat fitting, considering the broadness of their domains. I also just think 
 		/datum/action/cooldown/spell/blink,
 	)
 	var/list/offensive_bundle = list(	//This is not meant to make them combat-capable. A weak offensive, and mostly defensive option.
-		/datum/action/cooldown/spell/projectile/soulshot,
+		/datum/action/cooldown/spell/projectile/greater_arcyne_bolt,
 		/datum/action/cooldown/spell/conjure_armor/dragonhide,
 		/datum/action/cooldown/spell/arcyne_forge,
 	)
