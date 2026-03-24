@@ -364,7 +364,7 @@
 			weapons += "Embertongues"
 		if(/datum/patron/divine/dendor)
 			weapons += "Summer Scythe"
-			weapons += "Maddening Thorns"
+			weapons += "Briarfangs"
 		if(/datum/patron/divine/xylix)
 			weapons += "Cackle Lash"
 			weapons += "Devilsknives"
@@ -376,7 +376,7 @@
 			weapons += "Heartstring & Misericorde"
 		if(/datum/patron/divine/abyssor)
 			weapons += "Tidecleaver"
-			weapons += "Darkwater Rippers"
+			weapons += "Riptide Fangs"
 	var/weapon_choice = input(H,"Choose your WEAPON.", "TAKE UP YOUR GOD'S ARMS") as anything in weapons
 	switch(weapon_choice)
 		if("Longsword")
@@ -501,7 +501,7 @@
 			ADD_TRAIT(H, TRAIT_DUALWIELDER, TRAIT_GENERIC)
 			H.adjust_skillrank_up_to(/datum/skill/combat/knives, 4, TRUE)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/roguetown/armor/plate/silver, SLOT_ARMOR, TRUE)
-		if("Maddening Thorns")
+		if("Briarfangs")
 			H.put_in_hands(new /obj/item/rogueweapon/huntingknife/idagger/steel/dendor(H))
 			H.put_in_hands(new /obj/item/rogueweapon/huntingknife/idagger/steel/dendor(H))
 			ADD_TRAIT(H, TRAIT_DUALWIELDER, TRAIT_GENERIC)
@@ -519,7 +519,7 @@
 			ADD_TRAIT(H, TRAIT_DUALWIELDER, TRAIT_GENERIC)
 			H.adjust_skillrank_up_to(/datum/skill/combat/knives, 4, TRUE)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/roguetown/armor/plate/silver, SLOT_ARMOR, TRUE)
-		if("Darkwater Rippers")
+		if("Riptide Fangs")
 			H.put_in_hands(new /obj/item/rogueweapon/huntingknife/idagger/steel/abyssor(H))
 			H.put_in_hands(new /obj/item/rogueweapon/huntingknife/idagger/steel/abyssor(H))
 			ADD_TRAIT(H, TRAIT_DUALWIELDER, TRAIT_GENERIC)
