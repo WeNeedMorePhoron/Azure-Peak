@@ -8,7 +8,7 @@
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	spells = list(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+	spells = list()
 	allowed_races = ALL_RACES_TYPES
 	allowed_ages = ALL_AGES_LIST
 
