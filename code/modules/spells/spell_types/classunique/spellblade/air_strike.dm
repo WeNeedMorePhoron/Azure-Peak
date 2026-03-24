@@ -15,7 +15,7 @@ hand and I intend for Spellblade, feeling wise.
 	At 3+ momentum: consumes 3 to double damage. \
 	Strikes your aimed bodypart. Adaptable to intent: \
 		- Cut: 3x1 perpendicular line, multiple targets. (30/60 damage) \
-		- Stab: 3x1 forward line, pierces through enemies. (20/40 damage, 25 AP) \
+		- Stab: 3x1 forward line, pierces through enemies. (20/40 damage, PEN_LIGHT) \
 		- Blunt: All force focused on a single target. (45/90 damage)"
 	clothes_req = FALSE
 	range = 4
@@ -36,7 +36,7 @@ hand and I intend for Spellblade, feeling wise.
 	xp_gain = FALSE
 	var/cut_damage = 30
 	var/stab_damage = 20
-	var/stab_ap = 25 // AP pierce low grade leather armor (40) unempowered, pierce hardened leather (50), but not light brig
+	var/stab_ap = PEN_LIGHT // AP pierce low grade leather armor (40) unempowered, pierce hardened leather (50), but not light brig
 	var/blunt_damage = 45
 	var/empowered_mult = 2
 	var/momentum_cost = 3
