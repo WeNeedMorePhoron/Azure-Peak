@@ -36,7 +36,7 @@
 /obj/projectile/magic/greater_arcyne_bolt
 	name = "greater arcyne bolt"
 	icon = 'icons/obj/magic_projectiles.dmi'
-	icon_state = "arcane_barrage"
+	icon_state = "arcyne_bolt"
 	guard_deflectable = TRUE
 	damage = 65
 	damage_type = BRUTE
