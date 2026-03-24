@@ -15,7 +15,7 @@ hand and I intend for Spellblade, feeling wise.
 	At 3+ momentum: consumes 3 to double damage. \
 	Strikes your aimed bodypart. Adaptable to intent: \
 		- Cut: 3x1 perpendicular line, multiple targets. (30/60 damage) \
-		- Stab: 3x1 forward line, pierces through enemies. (20/40 damage, PEN_LIGHT) \
+		- Stab: 3x1 forward line, pierces through enemies. (20/40 damage, LIGHT PENETRATION) \
 		- Blunt: All force focused on a single target. (45/90 damage)"
 	clothes_req = FALSE
 	range = 4
