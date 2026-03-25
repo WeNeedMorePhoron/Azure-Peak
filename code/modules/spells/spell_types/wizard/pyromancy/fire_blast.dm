@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/fire_blast
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Fire Blast"
-	desc = "Channel a blast of flame in a line toward your target, repelling those struck back 2 paces and leaving the ground ablaze. \
+	desc = "Channel a blast of flame in a 4-tile line toward your target, repelling those struck back 2 paces and leaving the ground ablaze. \
 	Can be blocked by a shield, stopping the blast from propagating further."
 	button_icon_state = "fire_blast"
 	sound = 'sound/misc/explode/incendiary (1).ogg'
