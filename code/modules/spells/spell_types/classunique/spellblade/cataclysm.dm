@@ -1,8 +1,8 @@
 /datum/action/cooldown/spell/cataclysm
 	name = "Cataclysm"
 	desc = "Let the mountain fall. Conjure a hammer of pure arcyne force and hurl it at a target area. \
-		On impact it explodes, crushing everyone in a 5x5 area for 100 blunt damage and leaving them Vulnerable. \
-		Requires 7 momentum. Overcharged at 10 momentum: 180 damage. \
+		On impact it explodes, crushing everyone in a 5x5 area for 75 blunt damage and leaving them Vulnerable. \
+		Requires 7 momentum. Overcharged at 10 momentum: 135 damage. \
 		Same level only. Can be blocked by Defend stance."
 	button_icon = 'icons/mob/actions/classuniquespells/spellblade.dmi'
 	button_icon_state = "cataclysm"
@@ -32,8 +32,8 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
 	var/delay = 10
-	var/damage = 100
-	var/bonus_damage = 80
+	var/damage = 75
+	var/bonus_damage = 60
 	var/area_of_effect = 2
 	var/min_momentum = 7
 	var/empowered_momentum = 10

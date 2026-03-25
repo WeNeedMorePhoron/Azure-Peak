@@ -32,7 +32,7 @@
 	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
-	var/base_damage = 40
+	var/base_damage = 30
 	var/empowered_mult = 2
 	var/push_dist = 1
 	var/momentum_cost = 3

@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/shatter
 	name = "Shatter"
-	desc = "What the blade cannot cut, the mace breaks. Smash a 3-tile line with arcyne force, knocking targets back 1 tile. Cannot penetrate armor, but inflicts high damage. \
+	desc = "What the blade cannot cut, the mace breaks. Smash a 3-tile line with arcyne force, knocking targets back 1 tile. \
 		Does not build momentum. At 3+ momentum: consumes 3 to double damage. \
 		Strikes your aimed bodypart. Can be deflected by Defend stance."
 	button_icon = 'icons/mob/actions/classuniquespells/spellblade.dmi'
@@ -31,7 +31,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
 	var/line_length = 3
-	var/base_damage = 40
+	var/base_damage = 30
 	var/empowered_mult = 2
 	var/push_dist = 1
 	var/momentum_cost = 3
