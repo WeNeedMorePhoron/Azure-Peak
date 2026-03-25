@@ -73,7 +73,9 @@
 /obj/projectile/energy/airblade/blunt
 	name = "air blade (blunt)"
 	icon_state = "air_blade_blunt"
+	flag = "blunt"
 	woundclass = BCLASS_BLUNT
+	intdamfactor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
 	hitsound = 'sound/combat/hits/blunt/shovel_hit2.ogg' // Different sound for blunt
 
 /obj/projectile/energy/airblade/stab

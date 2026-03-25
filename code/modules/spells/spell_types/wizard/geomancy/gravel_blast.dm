@@ -59,7 +59,7 @@
 	accuracy = 50
 	guard_deflectable = TRUE
 	npc_simple_damage_mult = 1.5
-	intdamfactor = 1.35
+	intdamfactor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
 	object_damage_multiplier = 1.35
 	hitsound = 'sound/combat/hits/onstone/wallhit.ogg'
 	ricochets_max = 2

@@ -29,12 +29,12 @@
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
 	spell_impact_intensity = SPELL_IMPACT_HIGH
-	displayed_damage = 80
+	displayed_damage = 60
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
 	var/telegraph_delay = TELEGRAPH_SKILLSHOT
-	var/crush_damage = 80
+	var/crush_damage = 60
 	var/npc_simple_damage_mult = 2
 
 /datum/action/cooldown/spell/crush/cast(atom/cast_on)

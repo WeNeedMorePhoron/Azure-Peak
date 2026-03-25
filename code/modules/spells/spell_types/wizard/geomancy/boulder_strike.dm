@@ -39,6 +39,7 @@
 	damage_type = BRUTE
 	woundclass = BCLASS_BLUNT
 	flag = "blunt"
+	intdamfactor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
 	range = 7
 	speed = 3.5
 	accuracy = 30
