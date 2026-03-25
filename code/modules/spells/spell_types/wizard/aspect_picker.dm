@@ -175,7 +175,6 @@
 		entry["name"] = A.name
 		entry["latin_name"] = A.latin_name
 		entry["desc"] = A.desc
-		entry["fluff_desc"] = A.fluff_desc
 		entry["aspect_type"] = A.aspect_type
 		entry["attuned_name"] = A.attuned_name
 		entry["school_color"] = A.school_color

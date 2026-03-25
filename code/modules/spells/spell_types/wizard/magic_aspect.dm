@@ -2,7 +2,6 @@
 	var/name = "Aspect"
 	var/latin_name = ""
 	var/desc = "An arcyne discipline."
-	var/fluff_desc = ""
 	var/aspect_type = ASPECT_MAJOR
 	/// Appended to implements when attuned: "Fire" -> "Staff of Fire"
 	var/attuned_name = ""

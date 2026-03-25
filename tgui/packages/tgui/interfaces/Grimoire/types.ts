@@ -21,7 +21,6 @@ export type Aspect = {
   name: string;
   latin_name: string;
   desc: string;
-  fluff_desc: string;
   aspect_type: string;
   attuned_name: string;
   school_color: string;

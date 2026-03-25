@@ -50,7 +50,6 @@ export const GrimoireAspectDetail = ({
         <div className="AspectPicker__heading">
           <span
             style={aspect.school_color ? { color: aspect.school_color } : undefined}
-            title={aspect.fluff_desc && aspect.fluff_desc !== 'TODO' ? stripHtml(aspect.fluff_desc) : undefined}
           >
             {aspect.name}
           </span>

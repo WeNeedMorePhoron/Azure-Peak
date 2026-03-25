@@ -1,7 +1,10 @@
 /datum/magic_aspect/pyromancy
 	name = "Pyromancy"
 	latin_name = "Maior Aspectus Ignis"
-	desc = "The school of Pyromancy. Pyromancers open up with the raw destructive power of spitfire - burning one single target, using Fireball to strike multiple foes, and uses Fire Blast to push opponents off them and leave a lingering flame on the ground. Fire Curtain might be hard to score, but it can block off an entire place and melt anyone trying to go through it. It countersynergizes with Cryomancy and is incompatible - casting fire spell heat one's body up and having fire spells hit someone frozen will cause them to warm up."
+	desc = "A first-order school focused on roasting the Magi's enemy alive with the primal fury of fire\
+	Its heritage is ancient, and it is often considered a sacred magick associated with Astrata's light.\
+	Pyromancers are notorious for rivalry with Cryomancers - though many mages in the modern age attune to both depending on the circumstances\
+	Their spells tends to negate a Cryomancer's effects - and vice versa."
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_PYROMANCY
 	school_color = GLOW_COLOR_FIRE
@@ -35,7 +38,11 @@
 /datum/magic_aspect/cryomancy
 	name = "Cryomancy"
 	latin_name = "Maior Aspectus Glaciei"
-	desc = "Cryomancy degrades its opponents with every strike. Frost stacks escalate from -1 SPD up to -3 SPD with progressively slower actions, and at four stacks the target is frozen solid. Frost Bolt is a quick, efficient poke that applies one frost stack. Frost Stream burns everyone in a long line and applies two stacks at once. Ice Burst shatters on impact in a 3x3 area, damaging and frosting all caught within. Snap Freeze burns everyone in a wide area with a delayed detonation. Cryomancy countersynergizes with Pyromancy - casting cryo spells chills the caster's own flames, and frost stacks on enemies are removed by fire."
+	desc = "A first-order school focused on degrading its opponents with every strike. What it lacks for in pure destruction \
+	or speed, it makes up for in building, debilitating effects as the Magi's opponent shudders, slows, then finally freezes under every blow.\
+	This school is most prevalent in Gronn, Hammerhold and Grenzelhoftian circle, and likely originated from one of these countries where frost is a daily \
+	reoccurence, making it easy for Magi to imagine themselves wielding its power. Cryomancers are notorious for rivalry with Pyromancers - \
+	though many mages in the modern age attune to one of the two depending on the circumstances."
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_CRYOMANCY
 	school_color = GLOW_COLOR_ICE
@@ -66,7 +73,9 @@
 /datum/magic_aspect/fulgurmancy
 	name = "Fulgurmancy"
 	latin_name = "Maior Aspectus Fulminis"
-	desc = "TODO"
+	desc = "A first-order school focused on striking with numbing speed and overwhelming force. \
+	Fulgurmancers are valued for their reliability - their spells are fast, accurate, and consistent in ways that flashier schools are not. \
+	It is said the most skilled Fulgurmancer has never once seen their bolt go wide."
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_FULGURMANCY
 	school_color = GLOW_COLOR_LIGHTNING
@@ -96,7 +105,10 @@
 /datum/magic_aspect/geomancy
 	name = "Geomancy"
 	latin_name = "Maior Aspectus Terrae"
-	desc = "TODO"
+	desc = "A first-order school focused on controlling the very ground. Rock was the oldest weapon known to man, and Geomancy is just as ancient as the earth. \
+	Every spell is heavy and weighty, and a nimble opponent might find themselves dodging out of the way. But a Geomancer fears not - with a blast of rocks \
+	they extinguish the possibility of evasion, with the grasp of earth they pin down their opponent, with a boulder they crush their foes into pulp. \
+	When the very earth fights you, how can one stand before such ancient might?"
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_GEOMANCY
 	school_color = GLOW_COLOR_EARTHEN
@@ -126,7 +138,11 @@
 /datum/magic_aspect/kinesis
 	name = "Kinesis"
 	latin_name = "Maior Aspectus Vis"
-	desc = "TODO"
+	desc = "Often called the Origin school. Kinesis, or Pure Arcana as it is known by others, is said to be the oldest school of magic - \
+	for magic itself is the art of converting raw energy into reality. Magicks are divided into three orders by their distance from pure force: \
+	first-order schools shape primal matters like fire, ice, and stone. Second-order schools work in things forged or made by humen hands. \
+	Third-order schools bend abstract concepts - the province of the divine. Kinesis alone stands apart from this ordering, for it converts nothing at all. \
+	It wields raw, undiluted, barely-shaped Mana directly. With it, a mage crushes and bends the world through will alone."
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_KINESIS
 	school_color = GLOW_COLOR_KINESIS
@@ -159,7 +175,10 @@
 /datum/magic_aspect/augmentation
 	name = "Augmentation"
 	latin_name = "Maior Aspectus Augmenti"
-	desc = "TODO"
+	desc = "Scholars debate whether Augmentation is a first, second, or even third-order school. Its adherents consider themselves third-order - \
+	with the honor of imitating the divine by augmenting the boundless potential of the humen form. Its spells are focused on enhancing the body, \
+	never the mind directly - for the mind is the true province of the divine, and one cannot use magycks to enhance one's own ability to wield magycks so bluntly. \
+	Woe betides those who face a warrior sharpened by the arcyne."
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_AUGMENTATION
 	school_color = GLOW_COLOR_BUFF
@@ -209,7 +228,13 @@
 /datum/magic_aspect/ferramancy
 	name = "Ferramancy"
 	latin_name = "Maior Aspectus Ferri"
-	desc = "TODO"
+	desc = "Ferramancy is a second-order magical school. Amongst the many major aspects, it is likely the youngest - \
+	though this merely puts it as younger than the other aspects by only a millennium or so. Ferramancers conceptualize primal matters \
+	rendered unto weapons and tools by humen hands, materialize them, and then send them out to slash and rend their foes apart. \
+	Of the major aspects, it is the only one often associated with Ravox instead of Noc - likely because of the myth that he slew Graggar \
+	by hurling weapons at him. Dedicated Ferramancers are proud of their arts, and oft think themselves superior \
+	by bridging the gap between primal forces and humen ingenuity. For the same reasons, some other scholars look down on it for the impureness of its power. \
+	But perhaps the true reason is that metal rends wards and a mage's robe apart more efficiently than any other school of magick."
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_FERRAMANCY
 	school_color = GLOW_COLOR_METAL
