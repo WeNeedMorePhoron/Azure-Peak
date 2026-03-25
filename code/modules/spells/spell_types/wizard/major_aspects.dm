@@ -197,7 +197,7 @@
 		/datum/action/cooldown/spell/light,
 		/datum/action/cooldown/spell/mending,
 		/datum/action/cooldown/spell/create_campfire,
-		/obj/effect/proc_holder/spell/self/message,
+		/datum/action/cooldown/spell/message,
 	)
 
 /datum/magic_aspect/ferramancy

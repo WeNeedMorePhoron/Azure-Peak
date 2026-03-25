@@ -232,7 +232,7 @@ Somewhat fitting, considering the broadness of their domains. I also just think 
 	associated_skill = /datum/skill/magic/holy
 	var/chosen_bundle
 	var/list/utility_bundle = list(	//Utility means exactly that. Nothing offensive and nothing that can affect another person negatively. (Barring Fetch)
-		/obj/effect/proc_holder/spell/self/message,
+		/datum/action/cooldown/spell/message,
 		/datum/action/cooldown/spell/leap,
 		/datum/action/cooldown/spell/lesser_knock,
 		/datum/action/cooldown/spell/mending,

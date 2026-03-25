@@ -95,7 +95,7 @@
         if(buff_given)
             familiar_summoner.remove_status_effect(buff_given)
         if(familiar_summoner.mind)
-            familiar_summoner.mind.RemoveSpell(/obj/effect/proc_holder/spell/self/message_familiar)
+            familiar_summoner.mind.RemoveSpell(/datum/action/cooldown/spell/message_familiar)
     return ..()
 
 /mob/living/simple_animal/pet/familiar/pondstone_toad

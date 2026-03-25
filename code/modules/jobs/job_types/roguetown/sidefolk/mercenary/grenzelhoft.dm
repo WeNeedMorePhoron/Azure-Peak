@@ -263,6 +263,6 @@
 		)
 	ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/message)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/message())
 		H.mind.AddSpell(new /datum/action/cooldown/spell/magicians_brick)
 	H.merctype = 7

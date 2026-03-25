@@ -4,9 +4,9 @@ to all mage classes.
 GLOBAL_LIST_INIT(utility_spells, (list(
 		/datum/action/cooldown/spell/light,
 		/datum/action/cooldown/spell/mending,
-		/obj/effect/proc_holder/spell/self/message,
+		/datum/action/cooldown/spell/message,
 		/datum/action/cooldown/spell/mindlink,
-		/obj/effect/proc_holder/spell/self/findfamiliar,
+		/datum/action/cooldown/spell/find_familiar,
 		/datum/action/cooldown/spell/create_campfire,
 		/datum/action/cooldown/spell/projectile/lesser_fetch,
 		/datum/action/cooldown/spell/projectile/lesser_repel,

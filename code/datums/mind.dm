@@ -959,18 +959,18 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 						util_points_spent += initial(S.cost)
 			has_remaining_util = (util_points_spent < max_util)
 		if(!has_remaining_slots && !has_remaining_util)
-			RemoveSpell(/obj/effect/proc_holder/spell/self/learnspell)
+			RemoveSpell(/datum/action/cooldown/spell/learnspell)
 			return
 		// Still has available slots/points — remove and re-add LearnSpell to bump it to end
-		RemoveSpell(/obj/effect/proc_holder/spell/self/learnspell)
-		AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))
+		RemoveSpell(/datum/action/cooldown/spell/learnspell)
+		AddSpell(new /datum/action/cooldown/spell/learnspell())
 		return
 
 	// Arcyne casters without aspects still need learnspell to open the aspect picker
 	if(current)
 		if(HAS_TRAIT(current, TRAIT_ARCYNE) && !LAZYLEN(major_aspects))
-			RemoveSpell(/obj/effect/proc_holder/spell/self/learnspell)
-			AddSpell(new /obj/effect/proc_holder/spell/self/learnspell(null))
+			RemoveSpell(/datum/action/cooldown/spell/learnspell)
+			AddSpell(new /datum/action/cooldown/spell/learnspell())
 			return
 
 	return
@@ -1013,6 +1013,15 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 //To remove a specific spell from a mind
 /datum/mind/proc/RemoveSpell(datum/spell)
 	if(!spell)
+		return FALSE
+
+	// Handle type paths directly — match by type in spell_list
+	if(ispath(spell))
+		for(var/datum/S in spell_list)
+			if(S.type == spell)
+				spell_list -= S
+				qdel(S)
+				return TRUE
 		return FALSE
 
 	// Handle new action-based spells

@@ -50,7 +50,7 @@
 /datum/outfit/job/roguetown/sojourner/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	..()
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/fist_of_psydon)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/fist_of_psydon)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/grasp_of_psydon)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/blink/shadowstep)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/storm_of_psydon)
