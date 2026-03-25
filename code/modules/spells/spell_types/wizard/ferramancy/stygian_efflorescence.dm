@@ -22,7 +22,7 @@
 	point_cost = 3
 
 	primary_resource_type = SPELL_COST_STAMINA
-	primary_resource_cost = SPELLCOST_MAJOR_PROJECTILE
+	primary_resource_cost = SPELLCOST_MINOR_PROJECTILE
 
 	invocations = list("Golgothae Acies!")
 	invocation_type = INVOCATION_SHOUT
@@ -59,7 +59,7 @@
 	range = 5
 	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "stygian"
-	damage = 38
+	damage = 35
 	damage_type = BRUTE
 	woundclass = BCLASS_STAB
 	armor_penetration = PEN_LIGHT

@@ -2772,7 +2772,7 @@
 #include "code\modules\spells\spell_types\classunique\spellblade\air_strike.dm"
 #include "code\modules\spells\spell_types\classunique\spellblade\anime_spells_helper.dm"
 #include "code\modules\spells\spell_types\classunique\spellblade\arcyne_momentum.dm"
-#include "code\modules\spells\spell_types\classunique\spellblade\azurean_javelin.dm"
+#include "code\modules\spells\spell_types\classunique\spellblade\azurean_pilum.dm"
 #include "code\modules\spells\spell_types\classunique\spellblade\azurean_phalanx.dm"
 #include "code\modules\spells\spell_types\classunique\spellblade\bind_weapon.dm"
 #include "code\modules\spells\spell_types\classunique\spellblade\blade_storm.dm"

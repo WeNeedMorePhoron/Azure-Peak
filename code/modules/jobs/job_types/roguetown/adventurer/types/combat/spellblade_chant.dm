@@ -310,8 +310,8 @@ a.choose-btn:hover {
 <div class="abilities">
 <h4>Abilities</h4>
 <ul>
-<li><b>Azurean Phalanx</b> — 3-tile line thrust that pushes enemies back 1 tile. Empowered: doubles damage.</li>
-<li><b>Azurean Javelin</b> — Hurl an armor-piercing phantom spear that slows. No slowdown while charging.</li>
+<li><b>Azurean Phalanx</b> — Prime your next melee strike with arcyne force. On hit, pierces through enemies in a line behind the target. Empowered (3 momentum): deeper, more damaging pierce.</li>
+<li><b>Azurean Pilum</b> — Hurl an icy phantom pilum that applies 2 frost stacks on hit. Empowered: applies 3 stacks, guaranteeing a freeze on any frosted target. No slowdown while charging.</li>
 <li><b>Advance!</b> — Leap forward up to 4 tiles, passing through enemies, then stab ahead on landing. Brief chargeup before leaping. Empowered: doubles damage.</li>
 <li><b>Gate of Reckoning</b> — Conjure a portal above a target, raining phantom spears down, then blink to their position and sweep everyone around you.</li>
 </ul>

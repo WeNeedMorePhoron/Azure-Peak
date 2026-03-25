@@ -15,7 +15,7 @@
 	point_cost = 3
 
 	primary_resource_type = SPELL_COST_STAMINA
-	primary_resource_cost = SPELLCOST_MAJOR_PROJECTILE
+	primary_resource_cost = SPELLCOST_MINOR_PROJECTILE
 
 	invocations = list("Hastae Ferri!")
 	invocation_type = INVOCATION_SHOUT
@@ -39,7 +39,7 @@
 	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "air_blade_stab"
 	guard_deflectable = TRUE
-	damage = 60
+	damage = 55
 	damage_type = BRUTE
 	woundclass = BCLASS_STAB
 	npc_simple_damage_mult = 1.5
