@@ -27,7 +27,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
-	cooldown_time = 10 SECONDS
+	cooldown_time = 8 SECONDS
 	is_implement_scaled_spell = TRUE
 	attunement_school = ASPECT_NAME_KINESIS
 
