@@ -46,6 +46,7 @@
 	nodamage = FALSE
 	speed = MAGE_PROJ_MEDIUM
 	armor_penetration = PEN_LIGHT
+	movement_type = UNSTOPPABLE
 	range = 9
 	flag = "piercing"
 	hitsound = 'sound/combat/hits/bladed/genthrust (1).ogg'
