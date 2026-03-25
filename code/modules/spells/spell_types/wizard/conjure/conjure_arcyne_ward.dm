@@ -2,7 +2,7 @@
 
 /datum/action/cooldown/spell/conjure_arcyne_ward
 	name = "Conjure Arcyne Ward"
-	desc = "Conjure an invisible arcyne ward that protects your entire body - head, face, chest, vitals, groin, arms, hands, legs and feet. \
+	desc = "Conjure an invisible arcyne ward that protects your entire body. \
 	The ward dynamically yields coverage to real armor you wear. \
 	A helmet replaces your head. A mask replaces your face. Gauntlets replace your hands. \
 	Arm armor replaces your arms. Leg armor replaces your legs. Boots replace your feet. \

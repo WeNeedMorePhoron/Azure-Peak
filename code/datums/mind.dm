@@ -883,33 +883,31 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	if(!current || !HAS_TRAIT(current, TRAIT_ARCYNE))
 		return
 
-	// Arcyne Ward - find all ward spells, remove base if a variant exists
-	var/datum/action/cooldown/spell/conjure_arcyne_ward/base_ward
-	var/datum/action/cooldown/spell/conjure_arcyne_ward/variant_ward
-	for(var/datum/action/cooldown/spell/conjure_arcyne_ward/ward in spell_list)
-		if(ward.type == /datum/action/cooldown/spell/conjure_arcyne_ward)
-			base_ward = ward
-		else
-			variant_ward = ward
-	if(variant_ward)
-		// Variant exists - remove base ward if present, leave variant alone
-		if(base_ward)
+	// Arcyne Ward - only granted if mage_aspect_config has "ward" = TRUE
+	if(mage_aspect_config && mage_aspect_config["ward"])
+		var/datum/action/cooldown/spell/conjure_arcyne_ward/base_ward
+		var/datum/action/cooldown/spell/conjure_arcyne_ward/variant_ward
+		for(var/datum/action/cooldown/spell/conjure_arcyne_ward/ward in spell_list)
+			if(ward.type == /datum/action/cooldown/spell/conjure_arcyne_ward)
+				base_ward = ward
+			else
+				variant_ward = ward
+		if(variant_ward)
+			if(base_ward)
+				RemoveSpell(base_ward)
+		else if(base_ward)
+			var/obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward/active_ward = base_ward.conjured_ward
+			if(active_ward)
+				base_ward.conjured_ward = null
+				active_ward.linked_spell = null
 			RemoveSpell(base_ward)
-	else if(base_ward)
-		// Only base ward - recreate to bump to end
-		var/obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward/active_ward = base_ward.conjured_ward
-		if(active_ward)
-			base_ward.conjured_ward = null
-			active_ward.linked_spell = null
-		RemoveSpell(base_ward)
-		var/datum/action/cooldown/spell/conjure_arcyne_ward/new_ward_spell = new /datum/action/cooldown/spell/conjure_arcyne_ward
-		AddSpell(new_ward_spell)
-		if(active_ward && !QDELETED(active_ward))
-			new_ward_spell.conjured_ward = active_ward
-			active_ward.linked_spell = new_ward_spell
-	else
-		// No ward at all - grant base
-		AddSpell(new /datum/action/cooldown/spell/conjure_arcyne_ward)
+			var/datum/action/cooldown/spell/conjure_arcyne_ward/new_ward_spell = new /datum/action/cooldown/spell/conjure_arcyne_ward
+			AddSpell(new_ward_spell)
+			if(active_ward && !QDELETED(active_ward))
+				new_ward_spell.conjured_ward = active_ward
+				active_ward.linked_spell = new_ward_spell
+		else
+			AddSpell(new /datum/action/cooldown/spell/conjure_arcyne_ward)
 
 	// Prestidigitation - always last
 	var/datum/presto = get_spell(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
