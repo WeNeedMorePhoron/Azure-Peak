@@ -656,12 +656,6 @@
 			RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
 		return FALSE
 
-	// Spell is officially being cast
-	if(!(precast_result & SPELL_NO_FEEDBACK))
-		// We do invocation and sound effects here, before actual cast
-		// That way stuff like teleports or shape-shifts can be invoked before ocurring
-		spell_feedback(owner)
-
 	// Check for weapon-in-hand penalty before cast
 	weapon_penalty_active = check_weapon_in_hand()
 	if(weapon_penalty_active)
@@ -680,7 +674,7 @@
 	// Actually cast the spell. Main effects go here
 	var/cast_result = cast(target)
 
-	// If cast() returns FALSE, the spell fizzled - skip cooldown and cost
+	// If cast() returns FALSE, the spell fizzled - skip cooldown, cost, and feedback
 	if(cast_result == FALSE)
 		weapon_penalty_active = FALSE
 		if(charge_required && click_to_activate && owner?.client)
@@ -688,6 +682,12 @@
 			RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
 		build_all_button_icons()
 		return FALSE
+
+	// Spell succeeded - do invocation and sound effects after cast
+	// Placed after cast() so failed casts don't trigger invocations
+	// Spells that need pre-cast invocation (e.g. teleports) should call spell_feedback() manually in cast()
+	if(!(precast_result & SPELL_NO_FEEDBACK))
+		spell_feedback(owner)
 
 	if(!(precast_result & SPELL_NO_IMMEDIATE_COOLDOWN))
 		// The entire spell is done, start the actual cooldown at its adjusted duration
@@ -1198,6 +1198,10 @@
 					stats += cd_breakdown
 		else
 			stats += span_info("Cooldown: [DisplayTimeText(base_cd)]")
+		// Show remaining cooldown if on cooldown
+		var/time_left = max(next_use_time - world.time, 0)
+		if(time_left > 0)
+			stats += span_warning("Remaining: [DisplayTimeText(time_left)]")
 
 	// Primary resource cost
 	if(primary_resource_cost > 0)

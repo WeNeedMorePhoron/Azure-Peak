@@ -2,12 +2,13 @@
 
 /datum/action/cooldown/spell/conjure_arcyne_ward
 	name = "Conjure Arcyne Ward"
-	desc = "Conjure an invisible arcyne ward that protects your entire body. \
+	desc = "Conjure an invisible arcyne ward that protects your entire body. Cast again to dismiss it. \
 	The ward dynamically yields coverage to real armor you wear - \
 	a helmet yields head coverage, a mask yields face coverage, gauntlets yield hand coverage, \
 	arm armor yields arm coverage, leg armor yields leg coverage, and boots yield foot coverage. \
 	Chest, vitals and groin coverage is only yielded when both your armor and shirt slots are filled. \
-	The ward has 225 integrity and regenerates over time by draining your energy. It lasts until destroyed or recast."
+	The ward has 225 integrity and regenerates over time by draining your energy. \
+	Cooldown begins when the ward is dismissed or destroyed."
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	button_icon_state = "conjure_armor"
 	sound = 'sound/magic/whiteflame.ogg'
@@ -37,6 +38,22 @@
 
 	var/obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward/conjured_ward
 	var/ward_type = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward
+	var/dismiss_invocation = "Aegis Dimittae."
+
+/datum/action/cooldown/spell/conjure_arcyne_ward/before_cast(atom/cast_on)
+	var/dismissing = conjured_ward && !QDELETED(conjured_ward)
+	// Dismiss is instant - temporarily zero charge time
+	var/saved_charge_time
+	if(dismissing)
+		saved_charge_time = charge_time
+		charge_time = 0
+	. = ..()
+	if(dismissing)
+		charge_time = saved_charge_time
+	. |= SPELL_NO_IMMEDIATE_COOLDOWN
+	if(dismissing)
+		// Dismiss doesn't cost stamina, and we handle invocation manually in cast()
+		. |= SPELL_NO_IMMEDIATE_COST | SPELL_NO_FEEDBACK
 
 /datum/action/cooldown/spell/conjure_arcyne_ward/cast(atom/cast_on)
 	. = ..()
@@ -44,19 +61,24 @@
 	if(!istype(H))
 		return FALSE
 
+	// Toggle off - dismiss active ward (cleanup_ward handles cooldown)
 	if(conjured_ward && !QDELETED(conjured_ward))
+		H.say(dismiss_invocation, forced = "spell")
+		to_chat(owner, span_notice("I dismiss my arcyne ward."))
 		qdel(conjured_ward)
+		return TRUE
 
 	if(H.skin_armor && !istype(H.skin_armor, /obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward))
 		to_chat(owner, span_warning("Something else already protects my skin!"))
-		reset_spell_cooldown()
 		return FALSE
 
+	// Toggle on - conjure ward, no cooldown (button stays available for dismiss)
 	owner.visible_message(span_notice("An arcyne ward shimmers into existence around [owner]!"))
 	conjured_ward = new ward_type(H)
 	H.skin_armor = conjured_ward
 	conjured_ward.setup_ward(H)
 	conjured_ward.linked_spell = src
+	reset_spell_cooldown()
 	return TRUE
 
 /datum/action/cooldown/spell/conjure_arcyne_ward/Destroy()
@@ -67,30 +89,27 @@
 
 /datum/action/cooldown/spell/conjure_arcyne_ward/dragonhide
 	name = "Conjure Dragonhide Ward"
-	desc = "Conjure an arcyne ward hardened with draconic scales. Grants fire immunity and superior blunt resistance. \
-	The ward yields coverage to real armor you wear - \
-	a helmet yields head coverage, a mask yields face coverage, gauntlets yield hand coverage, \
-	arm armor yields arm coverage, leg armor yields leg coverage, and boots yield foot coverage. \
-	Chest, vitals and groin coverage is only yielded when both armor and shirt slots are filled. \
-	The ward has 300 integrity and regenerates over time by draining your energy."
+	desc = "Conjure a dragonhide ward - an upgraded arcyne ward hardened with draconic scales. \
+	Grants fire immunity and superior blunt resistance. 300 integrity. \
+	Otherwise functions as a standard arcyne ward - yields coverage to real armor, regenerates by draining energy. \
+	Cast again to dismiss. Cooldown begins when dismissed or destroyed."
 	button_icon_state = "conjure_dragonhide"
 	spell_color = GLOW_COLOR_METAL
-	invocations = list("Equitare Draconis!")
+	invocations = list("Aegis Draconis!")
+	dismiss_invocation = "Aegis Dimittae."
 	point_cost = 4
 	ward_type = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward/dragonhide
 
 /datum/action/cooldown/spell/conjure_arcyne_ward/crystalhide
 	name = "Conjure Crystalhide Ward"
-	desc = "Conjure an arcyne ward crystallized with leyline energy. Grants plate-tier protection and bolsters intelligence. \
-	Shatters violently when broken, knocking back nearby foes. \
-	The ward yields coverage to real armor you wear - \
-	a helmet yields head coverage, a mask yields face coverage, gauntlets yield hand coverage, \
-	arm armor yields arm coverage, leg armor yields leg coverage, and boots yield foot coverage. \
-	Chest, vitals and groin coverage is only yielded when both armor and shirt slots are filled. \
-	The ward has 300 integrity and regenerates over time by draining your energy."
+	desc = "Conjure a crystalhide ward - an upgraded arcyne ward crystallized with leyline energy. \
+	Grants plate-tier protection and bolsters intelligence. Shatters violently when broken, knocking back nearby foes. 300 integrity. \
+	Otherwise functions as a standard arcyne ward - yields coverage to real armor, regenerates by draining energy. \
+	Cast again to dismiss. Cooldown begins when dismissed or destroyed."
 	button_icon_state = "conjure_dragonhide"
 	spell_color = GLOW_COLOR_ARCANE
-	invocations = list("Psymagia Congrego!")
+	invocations = list("Aegis Crystallis!")
+	dismiss_invocation = "Aegis Dimittae."
 	charge_time = 5 SECONDS
 	point_cost = 4
 	spell_tier = 3
@@ -255,6 +274,11 @@
 			ward_owner.skin_armor = null
 		ward_owner = null
 	if(linked_spell)
+		// Start cooldown on the linked spell if it's not being destroyed
+		// This handles both dismiss (recast) and break (combat damage) cases
+		// When the spell itself is being destroyed, QDELETED catches it and skips cooldown
+		if(!QDELETED(linked_spell))
+			linked_spell.StartCooldown(linked_spell.get_adjusted_cooldown())
 		linked_spell.conjured_ward = null
 		linked_spell = null
 

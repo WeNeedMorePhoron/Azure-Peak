@@ -1,4 +1,4 @@
-#define COOLDOWN_NO_DISPLAY_TIME (180 SECONDS)
+#define COOLDOWN_NO_DISPLAY_TIME (10 MINUTES)
 
 /// Preset for an action that has a cooldown.
 /datum/action/cooldown
