@@ -16,7 +16,7 @@
 	attunement_school = ASPECT_NAME_GEOMANCY
 
 	click_to_activate = TRUE
-	cast_range = 7
+	cast_range = SPELL_RANGE_GROUND
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_ULTIMATE

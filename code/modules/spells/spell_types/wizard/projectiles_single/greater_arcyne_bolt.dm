@@ -12,7 +12,7 @@
 
 	projectile_type = /obj/projectile/magic/greater_arcyne_bolt
 	projectile_type_arc = /obj/projectile/magic/greater_arcyne_bolt/arc
-	cast_range = 8
+	cast_range = SPELL_RANGE_PROJECTILE
 	point_cost = 3
 
 	primary_resource_type = SPELL_COST_STAMINA
@@ -48,7 +48,7 @@
 	npc_simple_damage_mult = 1.5
 	nodamage = FALSE
 	speed = MAGE_PROJ_FAST
-	range = 10
+	range = SPELL_RANGE_PROJECTILE
 	hitsound = 'sound/combat/hits/blunt/shovel_hit2.ogg'
 
 /obj/projectile/magic/greater_arcyne_bolt/arc

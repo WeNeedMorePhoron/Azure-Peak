@@ -11,7 +11,7 @@
 	attunement_school = ASPECT_NAME_FERRAMANCY
 
 	click_to_activate = TRUE
-	cast_range = 7
+	cast_range = SPELL_RANGE_GROUND
 	self_cast_possible = TRUE
 
 	primary_resource_type = SPELL_COST_STAMINA

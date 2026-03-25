@@ -14,7 +14,7 @@
 
 	projectile_type = /obj/projectile/magic/gravel_blast
 	projectile_type_arc = /obj/projectile/magic/gravel_blast/arc
-	cast_range = 7
+	cast_range = SPELL_RANGE_PROJECTILE
 	projectiles_per_fire = 5
 
 	primary_resource_type = SPELL_COST_STAMINA
@@ -54,7 +54,7 @@
 	damage_type = BRUTE
 	woundclass = BCLASS_BLUNT
 	flag = "blunt"
-	range = 10
+	range = SPELL_RANGE_PROJECTILE
 	speed = MAGE_PROJ_SLOW
 	accuracy = 50
 	guard_deflectable = TRUE

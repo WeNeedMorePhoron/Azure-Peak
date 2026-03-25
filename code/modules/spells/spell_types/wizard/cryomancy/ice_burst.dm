@@ -15,7 +15,7 @@
 
 	projectile_type = /obj/projectile/magic/ice_burst
 	projectile_type_arc = /obj/projectile/magic/ice_burst/arc
-	cast_range = 8
+	cast_range = SPELL_RANGE_PROJECTILE
 	point_cost = 6
 	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 

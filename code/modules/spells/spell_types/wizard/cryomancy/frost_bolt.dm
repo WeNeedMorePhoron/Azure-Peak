@@ -12,7 +12,7 @@
 
 	projectile_type = /obj/projectile/magic/frostbolt
 	projectile_type_arc = /obj/projectile/magic/frostbolt/arc
-	cast_range = 10
+	cast_range = SPELL_RANGE_PROJECTILE
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MINOR_PROJECTILE
@@ -43,7 +43,7 @@
 	damage_type = BURN
 	woundclass = BCLASS_BURN
 	flag = "fire"
-	range = 10
+	range = SPELL_RANGE_PROJECTILE
 	speed = MAGE_PROJ_FAST
 	accuracy = 40
 	nodamage = FALSE

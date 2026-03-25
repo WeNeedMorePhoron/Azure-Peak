@@ -11,7 +11,7 @@
 
 	projectile_type = /obj/projectile/magic/aoe/fireball/rogue
 	projectile_type_arc = /obj/projectile/magic/aoe/fireball/rogue/arc
-	cast_range = 8
+	cast_range = SPELL_RANGE_PROJECTILE
 	point_cost = 6
 	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 

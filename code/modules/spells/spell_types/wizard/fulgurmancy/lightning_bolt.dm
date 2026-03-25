@@ -16,7 +16,7 @@
 	attunement_school = ASPECT_NAME_FULGURMANCY
 
 	projectile_type = /obj/projectile/magic/lightning
-	cast_range = 8
+	cast_range = SPELL_RANGE_PROJECTILE
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MAJOR_PROJECTILE

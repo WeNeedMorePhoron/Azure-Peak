@@ -9,7 +9,7 @@
 
 	click_to_activate = TRUE
 	self_cast_possible = FALSE
-	cast_range = 7
+	cast_range = SPELL_RANGE_GROUND
 	charge_required = FALSE
 
 	primary_resource_type = SPELL_COST_STAMINA

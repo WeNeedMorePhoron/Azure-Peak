@@ -17,7 +17,7 @@
 	attunement_school = ASPECT_NAME_FERRAMANCY
 
 	projectile_type = /obj/projectile/magic/iron_tempest_seed
-	cast_range = 7
+	cast_range = SPELL_RANGE_PROJECTILE
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MAJOR_AOE

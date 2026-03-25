@@ -11,7 +11,7 @@
 
 	projectile_type = /obj/projectile/magic/boulder
 	projectile_type_arc = /obj/projectile/magic/boulder/arc
-	cast_range = 7
+	cast_range = SPELL_RANGE_PROJECTILE
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MAJOR_PROJECTILE
@@ -40,7 +40,7 @@
 	woundclass = BCLASS_BLUNT
 	flag = "blunt"
 	intdamfactor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
-	range = 7
+	range = SPELL_RANGE_PROJECTILE
 	speed = 3.5
 	accuracy = 30
 	guard_deflectable = TRUE

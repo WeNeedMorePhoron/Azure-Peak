@@ -7,7 +7,7 @@
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 
 	projectile_type = /obj/projectile/magic/bloodlightning
-	cast_range = 8
+	cast_range = SPELL_RANGE_PROJECTILE
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MAJOR_PROJECTILE

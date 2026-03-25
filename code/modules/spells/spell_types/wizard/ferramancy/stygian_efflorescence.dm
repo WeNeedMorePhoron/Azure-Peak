@@ -17,7 +17,7 @@
 
 	projectile_type = /obj/projectile/energy/stygian
 	projectile_type_arc = /obj/projectile/energy/stygian/arc
-	cast_range = 7
+	cast_range = SPELL_RANGE_PROJECTILE
 	projectiles_per_fire = 3
 	point_cost = 3
 

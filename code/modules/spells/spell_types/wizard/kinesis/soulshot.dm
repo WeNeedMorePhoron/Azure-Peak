@@ -12,7 +12,7 @@
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 
 	projectile_type = /obj/projectile/magic/soulshot
-	cast_range = 8
+	cast_range = SPELL_RANGE_PROJECTILE
 	point_cost = 3
 
 	primary_resource_type = SPELL_COST_STAMINA

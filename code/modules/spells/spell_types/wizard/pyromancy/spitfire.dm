@@ -11,7 +11,7 @@
 
 	projectile_type = /obj/projectile/magic/aoe/fireball/spitfire
 	projectile_type_arc = /obj/projectile/magic/aoe/fireball/spitfire/arc
-	cast_range = 8
+	cast_range = SPELL_RANGE_PROJECTILE
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MINOR_PROJECTILE

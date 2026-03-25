@@ -79,6 +79,10 @@
 #define MAGE_PROJ_SLOW        2     // Heavier projectiles (gravel blast)
 #define MAGE_PROJ_VERY_SLOW   2.5   // Looming doom (fireball)
 
+// Standardized spell ranges
+#define SPELL_RANGE_PROJECTILE 10  // Standard projectile travel distance and projectile spell cast range
+#define SPELL_RANGE_GROUND     7   // Standard ground-targeted / AOE spell cast range
+
 // Charging slowdown tiers — how much the caster is slowed while charging
 #define CHARGING_SLOWDOWN_NONE 0       // Spellblade abilities, no movement penalty
 #define CHARGING_SLOWDOWN_SMALL 1      // Small projectiles, minor spells

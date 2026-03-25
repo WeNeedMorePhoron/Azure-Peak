@@ -11,7 +11,7 @@
 
 	projectile_type = /obj/projectile/magic/arcyne_lance
 	projectile_type_arc = /obj/projectile/magic/arcyne_lance/arc
-	cast_range = 9
+	cast_range = SPELL_RANGE_PROJECTILE
 	point_cost = 3
 
 	primary_resource_type = SPELL_COST_STAMINA
@@ -47,7 +47,7 @@
 	speed = MAGE_PROJ_MEDIUM
 	armor_penetration = PEN_LIGHT
 	movement_type = UNSTOPPABLE
-	range = 9
+	range = SPELL_RANGE_PROJECTILE
 	flag = "piercing"
 	hitsound = 'sound/combat/hits/bladed/genthrust (1).ogg'
 	/// How many mob targets have been pierced
