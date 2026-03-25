@@ -123,6 +123,7 @@
 	var/datum/action/cooldown/spell/conjure_arcyne_ward/linked_spell
 	var/mob/living/carbon/human/ward_owner
 	var/coverage_locked = FALSE
+	var/ward_color = GLOW_COLOR_ARCANE
 
 /obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward/proc/setup_ward(mob/living/carbon/human/H)
 	ward_owner = H
@@ -264,6 +265,7 @@
 	desc = "An arcyne ward hardened with draconic scales. Impervious to flame."
 	armor = ARMOR_DRAGONHIDE
 	max_integrity = 300
+	ward_color = GLOW_COLOR_FIRE
 	repairmsg_begin = "The dragonhide ward begins to mend itself, drawing from my energy..."
 	repairmsg_continue = "The dragonhide ward weaves draconic scales back together..."
 	repairmsg_end = "The dragonhide ward stabilizes, fully restored."
@@ -284,6 +286,7 @@
 	desc = "An arcyne ward crystallized with leyline energy. Shatters violently when broken."
 	armor = ARMOR_PLATE
 	max_integrity = 300
+	ward_color = GLOW_COLOR_KINESIS
 	repairmsg_begin = "The crystalhide ward begins to mend itself, drawing from my energy..."
 	repairmsg_continue = "The crystalhide ward reforms crystalline lattice..."
 	repairmsg_end = "The crystalhide ward stabilizes, fully restored."

@@ -4,7 +4,6 @@
 	id = "dragonscaled"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/dragonhide
 	duration = -1
-	examine_text = "<font color='red'>SUBJECTPRONOUN is covered in ashy scales!</font>"
 	var/outline_colour = "#c23d09"
 
 /atom/movable/screen/alert/status_effect/buff/dragonhide

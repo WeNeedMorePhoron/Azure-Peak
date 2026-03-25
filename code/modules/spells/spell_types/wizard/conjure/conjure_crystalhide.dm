@@ -5,7 +5,6 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/crystalhide
 	duration = -1
 	effectedstats = list(STATKEY_INT = 1)
-	examine_text = "<font color='cyan'>SUBJECTPRONOUN glimmers with brittle arcyne crystal.</font>"
 	var/outline_colour = "#3aa8ff"
 
 /atom/movable/screen/alert/status_effect/buff/crystalhide
