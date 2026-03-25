@@ -3,10 +3,10 @@
 /datum/action/cooldown/spell/conjure_arcyne_ward
 	name = "Conjure Arcyne Ward"
 	desc = "Conjure an invisible arcyne ward that protects your entire body. \
-	The ward dynamically yields coverage to real armor you wear. \
-	A helmet replaces your head. A mask replaces your face. Gauntlets replace your hands. \
-	Arm armor replaces your arms. Leg armor replaces your legs. Boots replace your feet. \
-	Your chest, vitals and groin are only yielded when both your armor and shirt slots are filled. \
+	The ward dynamically yields coverage to real armor you wear - \
+	a helmet yields head coverage, a mask yields face coverage, gauntlets yield hand coverage, \
+	arm armor yields arm coverage, leg armor yields leg coverage, and boots yield foot coverage. \
+	Chest, vitals and groin coverage is only yielded when both your armor and shirt slots are filled. \
 	The ward has 225 integrity and regenerates over time by draining your energy. It lasts until destroyed or recast."
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	button_icon_state = "conjure_armor"
@@ -68,10 +68,10 @@
 /datum/action/cooldown/spell/conjure_arcyne_ward/dragonhide
 	name = "Conjure Dragonhide Ward"
 	desc = "Conjure an arcyne ward hardened with draconic scales. Grants fire immunity and superior blunt resistance. \
-	The ward yields coverage to real armor you wear. \
-	Helmet replaces head. Mask replaces face. Gauntlets replace hands. \
-	Arm armor replaces arms. Leg armor replaces legs. Boots replace feet. \
-	Chest, vitals and groin are only yielded when both armor and shirt slots are filled. \
+	The ward yields coverage to real armor you wear - \
+	a helmet yields head coverage, a mask yields face coverage, gauntlets yield hand coverage, \
+	arm armor yields arm coverage, leg armor yields leg coverage, and boots yield foot coverage. \
+	Chest, vitals and groin coverage is only yielded when both armor and shirt slots are filled. \
 	The ward has 300 integrity and regenerates over time by draining your energy."
 	button_icon_state = "conjure_dragonhide"
 	spell_color = GLOW_COLOR_METAL
@@ -83,10 +83,10 @@
 	name = "Conjure Crystalhide Ward"
 	desc = "Conjure an arcyne ward crystallized with leyline energy. Grants plate-tier protection and bolsters intelligence. \
 	Shatters violently when broken, knocking back nearby foes. \
-	The ward yields coverage to real armor you wear. \
-	Helmet replaces head. Mask replaces face. Gauntlets replace hands. \
-	Arm armor replaces arms. Leg armor replaces legs. Boots replace feet. \
-	Chest, vitals and groin are only yielded when both armor and shirt slots are filled. \
+	The ward yields coverage to real armor you wear - \
+	a helmet yields head coverage, a mask yields face coverage, gauntlets yield hand coverage, \
+	arm armor yields arm coverage, leg armor yields leg coverage, and boots yield foot coverage. \
+	Chest, vitals and groin coverage is only yielded when both armor and shirt slots are filled. \
 	The ward has 300 integrity and regenerates over time by draining your energy."
 	button_icon_state = "conjure_dragonhide"
 	spell_color = GLOW_COLOR_ARCANE

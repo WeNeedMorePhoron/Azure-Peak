@@ -8,7 +8,7 @@
 		Can be deflected by Defend stance.\n\n\
 		'Step forward, rotating your fist into the punch. And, as you strike, envision yourself repeating the same strike in your mynd, and open the arcyne conduit of your arms, but close that of your legs, so that all of your body's weight is behind the strike. Then, at the very last moment, close the conduit of your arms as well, and thus arrest the strike before it come out, and you shall strike as if the fist of Psydon Himself were behind the blow.'"
 
-	spell_color = GLOW_COLOR_ARCANE
+	spell_color = GLOW_COLOR_DISPLACEMENT
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	cast_range = 5

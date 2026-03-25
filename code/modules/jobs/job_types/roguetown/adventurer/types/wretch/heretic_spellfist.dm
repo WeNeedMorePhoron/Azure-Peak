@@ -66,9 +66,9 @@
 
 	if(H.mind)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/fist_of_psydon)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/grasp_of_psydon)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/grasp_of_psydon())
 		H.mind.AddSpell(new /datum/action/cooldown/spell/blink)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/storm_of_psydon)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/storm_of_psydon())
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/empower_weapon)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/mending)
 

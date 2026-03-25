@@ -4,7 +4,7 @@
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	button_icon_state = "rune6"
 	sound = 'sound/magic/blink.ogg'
-	spell_color = GLOW_COLOR_ARCANE
+	spell_color = GLOW_COLOR_DISPLACEMENT
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	click_to_activate = TRUE
