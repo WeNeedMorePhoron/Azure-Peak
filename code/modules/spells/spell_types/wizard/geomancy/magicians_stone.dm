@@ -2,10 +2,10 @@
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Magician's Stone"
 	desc = "Tear a stone from the earth itself and materialize it into your hand."
-	fluff_desc = "The predecessor of Magician's Brick. Likely one of the most ancient cantrip in existence.\
-	Perhaps as old as the first magi witnessing another man cracking another's head open with a rock and imagined using magick to do the same.\
-	Like Magician's Brick, it does not care about antimagic, so primal is the desire to hurl a rock at someone's head its magical version\
-	is but an extension of humen will. Unlike Magician's Brick, it takes a long time to prepare a second spell, but also unlike it, the piece of rock conjured\
+	fluff_desc = "The predecessor of Magician's Brick. Likely one of the most ancient cantrip in existence. \
+	Perhaps as old as the first magi witnessing another man cracking another's head open with a rock and imagined using magick to do the same. \
+	Like Magician's Brick, it does not care about antimagic, so primal is the desire to hurl a rock at someone's head its magical version \
+	is but an extension of humen will. Unlike Magician's Brick, it takes a long time to prepare a second spell, but also unlike it, the piece of rock conjured \
 	is real and material. Luckily for quarries around the world, this spell is mindnumbingly inefficient at outpacing them for making stones." 
 	button_icon_state = "magicians_stone"
 	sound = 'sound/items/stonestone.ogg'

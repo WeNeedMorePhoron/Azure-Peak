@@ -6,7 +6,7 @@
 	Toggle arc mode (Ctrl+G) while the spell is active to lob it over obstacles. Arced boulders deal reduced damage and produce fewer fragments."
 	button_icon_state = "boulder_strike"
 	sound = 'sound/combat/hits/onstone/stonedeath.ogg'
-	spell_color = GLOW_COLOR_METAL
+	spell_color = GLOW_COLOR_EARTHEN
 	glow_intensity = GLOW_INTENSITY_HIGH
 	attunement_school = ASPECT_NAME_GEOMANCY
 

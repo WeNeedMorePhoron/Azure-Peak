@@ -4,10 +4,10 @@
 	desc = "Chill a piece of food with a touch of frost without affecting its quality, extending its freshness by a half of a dae (15 MINUTES OOC). \
 	Cannot reverse rot already set in."
 	fluff_desc = "An ancient cantrip invented to preserve food. In ancient tymes, \
-	cooling tables were made en masse by inscribing the runes of this spell onto a table to preserve food\
-	Nowadays, the arts of making cooling table is rarely passed down and inevitably expensive.\
-	The Etruscan Trading Company is known for devising Greater and Grand Chill Food, which is then taught to company mages\
-	to be used on their food shipments, shipping premium, fresh fishes, fruits across the world to be sold at a premium price\
+	cooling tables were made en masse by inscribing the runes of this spell onto a table to preserve food. \
+	Nowadays, the arts of making cooling table is rarely passed down and inevitably expensive. \
+	The Etruscan Trading Company is known for devising Greater and Grand Chill Food, which is then taught to company mages \
+	to be used on their food shipments, shipping premium, fresh fishes, fruits across the world to be sold at a premium price. \
 	Chilled gronnic trouts with gronnic butter is particularly favored in Azuria."
 	button_icon_state = "chill_food"
 	sound = 'sound/spellbooks/crystal.ogg'

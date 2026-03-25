@@ -6,11 +6,13 @@ export const GrimoireChoiceSection = ({
   stagedChoices,
   allSelectedSpells,
   act,
+  readOnly = false,
 }: {
   aspect: Aspect;
   stagedChoices: Record<string, string>;
   allSelectedSpells: string[];
   act: (action: string, params: Record<string, unknown>) => void;
+  readOnly?: boolean;
 }) => {
   const currentChoice = stagedChoices[aspect.path] || null;
   const hasChosen = currentChoice !== null;
@@ -82,6 +84,13 @@ export const GrimoireChoiceSection = ({
                 className="AspectPicker__spell-desc"
                 style={{ marginLeft: '18px' }}
                 dangerouslySetInnerHTML={{ __html: spell.desc }}
+              />
+            )}
+            {readOnly && spell.fluff_desc && (
+              <div
+                className="AspectPicker__spell-fluff"
+                style={{ marginLeft: '18px' }}
+                dangerouslySetInnerHTML={{ __html: spell.fluff_desc }}
               />
             )}
           </div>

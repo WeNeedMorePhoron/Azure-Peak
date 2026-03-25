@@ -103,6 +103,7 @@ export const GrimoireAspectDetail = ({
             stagedChoices={stagedChoices}
             allSelectedSpells={allSelectedSpells}
             act={act}
+            readOnly={readOnly}
           />
         )}
 
@@ -130,6 +131,7 @@ export const GrimoireAspectDetail = ({
             allSelectedSpells={allSelectedSpells}
             getPointbuyUsed={getPointbuyUsed}
             act={act}
+            readOnly={readOnly}
           />
         )}
       </div>

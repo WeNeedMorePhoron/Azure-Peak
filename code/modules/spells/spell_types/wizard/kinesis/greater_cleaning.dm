@@ -2,11 +2,11 @@
 	button_icon = 'icons/mob/actions/mage_kinesis.dmi'
 	name = "Greater Cleaning"
 	desc = "Unleash a wave of kinetic force that scours a nearby area clean of grime and debris."
-	fluff_desc = "An advanced cantrip, a development from the original Lesser Cleaning - also known as Apprentice's Woe.\
-	It scours and cleans a wide area. No one knows where the filth and grime really went - just that it must've gone somewhere.\
-	Perhaps there's an elemental realm of rubbish where all casts of prestidigitation and greater cleaning send the filth to?\
-	Mages reasoned that since elemental realms for first-order concepts like fire and water exist, and second-order concepts like daemons and fae exist,\
-	then there might be a second or third-order realm of rubbish that such spells have been sending filth to.\
+	fluff_desc = "An advanced cantrip, a development from the original Lesser Cleaning - also known as Apprentice's Woe. \
+	It scours and cleans a wide area. No one knows where the filth and grime really went - just that it must've gone somewhere. \
+	Perhaps there's an elemental realm of rubbish where all casts of prestidigitation and greater cleaning send the filth to? \
+	Mages reasoned that since elemental realms for first-order concepts like fire and water exist, and second-order concepts like daemons and fae exist, \
+	then there might be a second or third-order realm of rubbish that such spells have been sending filth to. \
 	Alas, there has not been conclusive proof for the existence of such realm. This mystery will remain unanswered." 
 	button_icon_state = "greater_cleaning"
 	sound = 'sound/magic/whiteflame.ogg'

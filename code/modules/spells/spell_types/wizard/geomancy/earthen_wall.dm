@@ -6,7 +6,7 @@
 	The wall blocks movement and line of sight."
 	button_icon_state = "earthen_wall"
 	sound = 'sound/combat/hits/onstone/wallhit.ogg'
-	spell_color = GLOW_COLOR_METAL
+	spell_color = GLOW_COLOR_EARTHEN
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 
 	click_to_activate = TRUE
@@ -89,6 +89,6 @@
 	owner.visible_message(span_danger("[owner] conjures a wall of stone!"))
 
 /obj/effect/temp_visual/trap_wall/earth
-	color = GLOW_COLOR_METAL
-	light_color = GLOW_COLOR_METAL
+	color = GLOW_COLOR_EARTHEN
+	light_color = GLOW_COLOR_EARTHEN
 	duration = 3 SECONDS

@@ -1153,11 +1153,11 @@
 	var/list/inspec = list("<br><span class='notice'><b>[name]</b></span>")
 	if(desc)
 		inspec += "\n[desc]"
+	if(fluff_desc)
+		inspec += "<br><details><summary><small>Learn More</small></summary><br>[span_notice(fluff_desc)]</details>"
 	var/list/stats = get_spell_statistics(user)
 	if(length(stats))
 		inspec += "<br>" + stats.Join("<br>")
-	if(fluff_desc)
-		inspec += "<br>" + span_small(fluff_desc)
 	to_chat(user, "[inspec.Join()]")
 
 /// Returns a list of spell statistics for examine display.

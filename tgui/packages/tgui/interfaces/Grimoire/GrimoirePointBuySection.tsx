@@ -7,12 +7,14 @@ export const GrimoirePointBuySection = ({
   allSelectedSpells,
   getPointbuyUsed,
   act,
+  readOnly = false,
 }: {
   aspect: Aspect;
   pointbuySelections: Record<string, string[]>;
   allSelectedSpells: string[];
   getPointbuyUsed: (a: Aspect) => number;
   act: (action: string, params: Record<string, unknown>) => void;
+  readOnly?: boolean;
 }) => {
   const selections = pointbuySelections[aspect.path] || [];
   const used = getPointbuyUsed(aspect);
@@ -55,6 +57,18 @@ export const GrimoirePointBuySection = ({
               >
                 already inscribed
               </span>
+            )}
+            {readOnly && spell.desc && (
+              <div
+                className="AspectPicker__spell-desc"
+                dangerouslySetInnerHTML={{ __html: spell.desc }}
+              />
+            )}
+            {readOnly && spell.fluff_desc && (
+              <div
+                className="AspectPicker__spell-fluff"
+                dangerouslySetInnerHTML={{ __html: spell.fluff_desc }}
+              />
             )}
           </div>
         );
