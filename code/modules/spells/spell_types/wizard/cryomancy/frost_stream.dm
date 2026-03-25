@@ -1,13 +1,9 @@
-// Frost Stream - Cryomancy point-blank line attack
-// No pushback, applies two frost stacks, decent damage
-// Same CD and properties as Fire Blast
-
-/datum/action/cooldown/spell/frost_stream
+/datum/action/cooldown/spell/frost_blast
 	button_icon = 'icons/mob/actions/mage_cryomancy.dmi'
-	name = "Frost Stream"
-	desc = "Channel a stream of biting frost in a line toward your target, chilling those struck to the bone. \
-	Can be blocked by a shield, stopping the stream from propagating further."
-	button_icon_state = "frost_stream"
+	name = "Frost Blast"
+	desc = "Channel a blast of frost in a 4-tile line toward your target, repelling those struck back 2 paces and chilling them to the bone. \
+	Can be blocked by a shield, stopping the blast from propagating further."
+	button_icon_state = "frost_blast"
 	sound = 'sound/spellbooks/icicle.ogg'
 	spell_color = GLOW_COLOR_ICE
 	glow_intensity = GLOW_INTENSITY_MEDIUM
@@ -37,8 +33,9 @@
 
 	var/line_length = 4
 	var/blast_damage = 40
+	var/push_dist = 2
 
-/datum/action/cooldown/spell/frost_stream/cast(atom/cast_on)
+/datum/action/cooldown/spell/frost_blast/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H))
@@ -59,6 +56,8 @@
 		if(!T || T.density)
 			break
 		line_turfs += T
+
+	var/facing = length(line_turfs) ? get_dir(start, line_turfs[1]) : H.dir
 
 	if(!length(line_turfs))
 		return FALSE
@@ -87,7 +86,7 @@
 				victim.extinguish_mob()
 				victim.visible_message(span_warning("The frost extinguishes [victim]!"))
 			var/damage_dealt = arcyne_strike(H, victim, null, blast_damage, H.zone_selected || BODY_ZONE_CHEST, \
-				BCLASS_BURN, spell_name = "Frost Stream", \
+				BCLASS_BURN, spell_name = "Frost Blast", \
 				allow_shield_check = TRUE, damage_type = BURN, \
 				skip_animation = TRUE)
 			if(!damage_dealt)
@@ -95,10 +94,14 @@
 				break
 			apply_frost_stack(victim, 2)
 			already_hit += victim
+			var/push_dir = get_dir(H, victim)
+			if(!push_dir)
+				push_dir = facing
+			victim.safe_throw_at(get_ranged_target_turf(victim, push_dir, push_dist), push_dist, 2, H, force = MOVE_FORCE_STRONG)
 
 	if(length(already_hit))
-		H.visible_message(span_danger("[H] unleashes a stream of frost, chilling [english_list(already_hit)]!"))
+		H.visible_message(span_danger("[H] unleashes a blast of frost, sending [english_list(already_hit)] flying!"))
 	else
-		H.visible_message(span_danger("[H] unleashes a stream of frost!"))
+		H.visible_message(span_danger("[H] unleashes a blast of frost!"))
 
 	return TRUE

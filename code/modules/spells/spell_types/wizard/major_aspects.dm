@@ -51,7 +51,7 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/frost_bolt,
-		/datum/action/cooldown/spell/frost_stream,
+		/datum/action/cooldown/spell/frost_blast,
 		/datum/action/cooldown/spell/projectile/ice_burst,
 		/datum/action/cooldown/spell/snap_freeze,
 	)
@@ -218,8 +218,9 @@
 		"Chalybs, ad quietem redire!",
 	)
 	fixed_spells = list(
-		/datum/action/cooldown/spell/projectile/iron_tempest,
+		/datum/action/cooldown/spell/projectile/sawblade_volley,
 		/datum/action/cooldown/spell/blade_burst,
+		/datum/action/cooldown/spell/projectile/iron_tempest,
 		/datum/action/cooldown/spell/iron_skin,
 		/datum/action/cooldown/spell/arcyne_forge,
 	)
