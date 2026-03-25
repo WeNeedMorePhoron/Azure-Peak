@@ -62,7 +62,7 @@
 	for(var/turf/affected_turf in get_hear(area_of_effect, T))
 		if(!(affected_turf in get_hear(cast_range, source_turf)))
 			continue
-		new /obj/effect/temp_visual/trap(affected_turf)
+		new /obj/effect/temp_visual/trap/ferramancy(affected_turf)
 	playsound(T, 'sound/magic/blade_burst.ogg', 80, TRUE, soundping = TRUE)
 
 	addtimer(CALLBACK(src, PROC_REF(blade_burst_detonate), T, source_turf, H), delay)
@@ -109,6 +109,10 @@
 	light_outer_range = 2
 	duration = 12
 	layer = MASSIVE_OBJ_LAYER
+
+/obj/effect/temp_visual/trap/ferramancy
+	color = GLOW_COLOR_METAL
+	light_color = GLOW_COLOR_METAL
 
 /obj/effect/temp_visual/blade_burst
 	icon = 'icons/effects/wizard_spell_effects.dmi'

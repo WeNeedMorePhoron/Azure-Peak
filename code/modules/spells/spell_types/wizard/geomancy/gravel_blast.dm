@@ -5,7 +5,7 @@
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Gravel Blast"
 	desc = "Spray a volley of stones at a target. Stones ricochet off walls and become deadlier with each bounce. Subsequent hits on the same target deal reduced damage. \
-	Stones are particularly effective at degrading armor. \
+	Stones are particularly effective at degrading armor. Deals 2x damage to structures. \
 	Toggle arc mode (Ctrl+G) to lob over obstacles at reduced damage."
 	button_icon_state = "gravel_blast"
 	sound = 'sound/combat/hits/onstone/wallhit.ogg'
@@ -60,7 +60,7 @@
 	guard_deflectable = TRUE
 	npc_simple_damage_mult = 1.5
 	intdamfactor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
-	object_damage_multiplier = 1.35
+	object_damage_multiplier = 2
 	hitsound = 'sound/combat/hits/onstone/wallhit.ogg'
 	ricochets_max = 2
 	ricochet_chance = 80

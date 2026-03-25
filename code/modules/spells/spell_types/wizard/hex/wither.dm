@@ -83,7 +83,7 @@
 	// Build the zone turfs and show telegraph visuals
 	for(var/turf/affected in range(radius, src))
 		zone_turfs += affected
-		new /obj/effect/temp_visual/trap(affected) // Telegraph warning
+		new /obj/effect/temp_visual/trap/hex(affected)
 
 	// After 1.2s telegraph, activate the zone
 	addtimer(CALLBACK(src, PROC_REF(activate_zone), duration), 1.2 SECONDS)
@@ -180,3 +180,7 @@
 	owner.remove_filter(WITHER_FILTER)
 
 #undef WITHER_FILTER
+
+/obj/effect/temp_visual/trap/hex
+	color = GLOW_COLOR_HEX
+	light_color = GLOW_COLOR_HEX

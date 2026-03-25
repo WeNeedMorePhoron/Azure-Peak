@@ -2,6 +2,7 @@
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Boulder Strike"
 	desc = "Hurl a massive boulder at a target. On impact, it shatters into a cloud of stone fragments. \
+	Deals 2x damage to structures. \
 	Toggle arc mode (Ctrl+G) while the spell is active to lob it over obstacles. Arced boulders deal reduced damage and produce fewer fragments."
 	button_icon_state = "boulder_strike"
 	sound = 'sound/combat/hits/onstone/stonedeath.ogg'
@@ -44,6 +45,7 @@
 	speed = 3.5
 	accuracy = 30
 	guard_deflectable = TRUE
+	object_damage_multiplier = 2
 	hitsound = 'sound/combat/hits/onstone/stonedeath.ogg'
 	var/frag_count = 8
 	var/frag_damage = 15
