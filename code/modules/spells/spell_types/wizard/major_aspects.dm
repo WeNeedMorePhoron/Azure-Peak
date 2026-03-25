@@ -21,6 +21,7 @@
 		/datum/action/cooldown/spell/projectile/fireball,
 		/datum/action/cooldown/spell/fire_blast,
 		/datum/action/cooldown/spell/fire_curtain,
+		/datum/action/cooldown/spell/create_campfire,
 	)
 	variants = list(
 		"mastery" = list(
@@ -54,6 +55,7 @@
 		/datum/action/cooldown/spell/frost_blast,
 		/datum/action/cooldown/spell/projectile/ice_burst,
 		/datum/action/cooldown/spell/snap_freeze,
+		/datum/action/cooldown/spell/chill_food,
 	)
 	variants = list(
 		"mastery" = list(
@@ -83,6 +85,7 @@
 		/datum/action/cooldown/spell/projectile/lightning_bolt,
 		/datum/action/cooldown/spell/heavens_strike,
 		/datum/action/cooldown/spell/thunderstrike,
+		/datum/action/cooldown/spell/light,
 	)
 	variants = list(
 		"mastery" = list(
@@ -112,6 +115,7 @@
 		/datum/action/cooldown/spell/emergence,
 		/datum/action/cooldown/spell/projectile/boulder_strike,
 		/datum/action/cooldown/spell/ensnare,
+		/datum/action/cooldown/spell/magicians_stone,
 	)
 	variants = list(
 		"mastery" = list(
@@ -140,6 +144,7 @@
 		/datum/action/cooldown/spell/crush,
 		/datum/action/cooldown/spell/gravity,
 		/datum/action/cooldown/spell/mass_gravity,
+		/datum/action/cooldown/spell/greater_cleaning,
 	)
 	choice_spells = list(
 		/datum/action/cooldown/spell/projectile/soulshot,
@@ -170,6 +175,7 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/forcewall,
+		/datum/action/cooldown/spell/mending,
 	)
 	choice_spells = list(
 		/datum/action/cooldown/spell/projectile/soulshot,

@@ -228,6 +228,7 @@
 	if (istype(target, /obj/structure/roguewindow))
 		user.visible_message(span_notice("[user] gestures at \the [target.name]. Tiny motes of arcyne power dance across its surface..."), span_notice("I begin to clean \the [target.name] with my arcyne power..."))
 		if (do_after(user, src.cleanspeed, target = target))
+			new /obj/effect/temp_visual/cleaning_pulse(get_turf(target))
 			wash_atom(target,CLEAN_MEDIUM)
 			to_chat(user, span_notice("I render \the [target.name] clean."))
 			return TRUE
@@ -235,6 +236,7 @@
 	else if (istype(target, /obj/effect/decal/cleanable))
 		user.visible_message(span_notice("[user] gestures at \the [target.name]. Arcyne power slowly scours it away..."), span_notice("I begin to scour \the [target.name] away with my arcyne power..."))
 		if (do_after(user, src.cleanspeed, target = target))
+			new /obj/effect/temp_visual/cleaning_pulse(get_turf(target))
 			wash_atom(get_turf(target),CLEAN_MEDIUM)
 			to_chat(user, span_notice("I expunge \the [target.name] with my mana."))
 			return TRUE
@@ -242,6 +244,7 @@
 	else
 		user.visible_message(span_notice("[user] gestures at \the [target.name]. Tiny motes of arcyne power surge over [target.p_them()]..."), span_notice("I begin to clean \the [target.name] with my arcyne power..."))
 		if (do_after(user, src.cleanspeed, target = target))
+			new /obj/effect/temp_visual/cleaning_pulse(get_turf(target))
 			wash_atom(target,CLEAN_MEDIUM)
 			to_chat(user, span_notice("I render \the [target.name] clean."))
 			return TRUE
