@@ -5,7 +5,11 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/prestidigitation
 	name = "Prestidigitation"
-	desc = "A few basic tricks many apprentices use to practice basic manipulation of the arcyne."
+	desc = "A few basic tricks many apprentices use to practice basic manipulation of the arcyne. Except for light, cooldown is decreased by 10% per point of Int above 10 up to 50%. Includes the following modes:\n \
+	<b>Touch</b>: Use your arcyne powers to scrub an object or something clean, like using soap. Also known as the Apprentice's Woe.\n \
+	<b>Shove</b>: Will forth a spark on an item of your choosing (or in front of you, if used on the ground) to ignite flammable items and things like torches, lanterns or campfires. \n \
+	<b>Use</b>: Conjure forth an orbiting mote of magelight to light your way. Starts at 5 tiles light range and get one more per Int above 10 up to 15.\n \
+	<b>Grab</b>: Attune to the veil and sense nearby leylines. "
 	clothes_req = FALSE
 	drawmessage = "I prepare to perform a minor arcyne incantation."
 	dropmessage = "I release my minor arcyne focus."
@@ -21,11 +25,6 @@
 
 /obj/item/melee/touch_attack/prestidigitation
 	name = "\improper prestidigitating touch"
-	desc = "You recall the following incantations you've learned:\n \
-	<b>Touch</b>: Use your arcyne powers to scrub an object or something clean, like using soap. Also known as the Apprentice's Woe.\n \
-	<b>Shove</b>: Will forth a spark on an item of your choosing (or in front of you, if used on the ground) to ignite flammable items and things like torches, lanterns or campfires. \n \
-	<b>Use</b>: Conjure forth an orbiting mote of magelight to light your way.\n \
-	<b>Grab</b>: Attune to the veil and sense nearby leylines."
 	catchphrase = null
 	possible_item_intents = list(INTENT_HELP, INTENT_DISARM, /datum/intent/use, INTENT_GRAB)
 	icon = 'icons/mob/roguehudgrabs.dmi'
@@ -38,6 +37,10 @@
 	var/sparkspeed = 30 // spark summoning speed
 	var/spark_cd = 0
 	experimental_inhand = FALSE
+
+/obj/item/melee/touch_attack/prestidigitation/proc/get_int_speed_mult(mob/living/user)
+	var/int_above = max(user.STAINT - 10, 0)
+	return clamp(1 - (int_above * 0.1), 0.5, 1)
 
 /obj/item/melee/touch_attack/prestidigitation/Initialize()
 	. = ..()
@@ -178,16 +181,15 @@
 	if (!mote)
 		return // should really never happen
 
-	//let's adjust the light power based on our skill, too
-	var/skill_level = user.get_skill_level(attached_spell.associated_skill)
-	var/mote_power = clamp(5 + (skill_level - 3), 5, 7) // every step above journeyman should get us 1 more tile of brightness
+	var/int_bonus = max(user.STAINT - 10, 0)
+	var/mote_power = min(5 + int_bonus, 10)
 	mote.set_light_range(mote_power)
 	if(mote.light_system == STATIC_LIGHT)
 		mote.update_light()
 
 	if (mote.loc == src)
 		user.visible_message(span_notice("[user] holds open the palm of [user.p_their()] hand and concentrates..."), span_notice("I hold open the palm of my hand and concentrate on my arcyne power..."))
-		if (do_after(user, src.motespeed, target = user))
+		if (do_after(user, initial(motespeed) * get_int_speed_mult(user), target = user))
 			mote.orbit(user, 1, TRUE, 0, 48, TRUE)
 			return TRUE
 		return FALSE
@@ -197,8 +199,8 @@
 		return TRUE
 
 /obj/item/melee/touch_attack/prestidigitation/proc/create_spark(mob/living/carbon/human/user, atom/thing)
-	// adjusted from /obj/item/flint
-	if (world.time < spark_cd + sparkspeed)
+	var/actual_sparkspeed = initial(sparkspeed) * get_int_speed_mult(user)
+	if (world.time < spark_cd + actual_sparkspeed)
 		return FALSE
 	spark_cd = world.time
 
@@ -221,9 +223,7 @@
 /obj/item/melee/touch_attack/prestidigitation/proc/clean_thing(atom/target, mob/living/carbon/human/user)
 	// adjusted from /obj/item/soap in clown_items.dm, some duplication unfortunately (needed for flavor)
 
-	// let's adjust the clean speed based on our skill level
-	var/skill_level = user.get_skill_level(attached_spell.associated_skill)
-	cleanspeed = initial(cleanspeed) - (skill_level * 3) // 3 cleanspeed per skill level, from 35 down to a maximum of 17 (pretty quick)
+	cleanspeed = initial(cleanspeed) * get_int_speed_mult(user)
 
 	if (istype(target, /obj/structure/roguewindow))
 		user.visible_message(span_notice("[user] gestures at \the [target.name]. Tiny motes of arcyne power dance across its surface..."), span_notice("I begin to clean \the [target.name] with my arcyne power..."))
@@ -253,7 +253,7 @@
 	name = "minor magelight mote"
 	desc = "A tiny display of arcyne power used to illuminate."
 	pixel_x = 20
-	light_outer_range =  4
+	light_outer_range =  5
 	light_color = "#3FBAFD"
 
 	icon = 'icons/roguetown/items/lighting.dmi'

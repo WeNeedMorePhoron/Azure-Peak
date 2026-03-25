@@ -174,7 +174,7 @@ Somewhat fitting, considering the broadness of their domains. I also just think 
 	name = "Invisibility"
 	overlay_state = "invisibility"
 	base_icon_state = "wisescroll"
-	desc = "Make another (or yourself) invisible for some time. Duration scales with the arcyne skill. Casting, attacking or being attacked will cancel the duration."
+	desc = "Make another (or yourself) invisible for some time. Duration scales with intelligence. Casting, attacking or being attacked will cancel the duration."
 	releasedrain = 30
 	chargedrain = 5
 	chargetime = 5
@@ -207,7 +207,11 @@ Somewhat fitting, considering the broadness of their domains. I also just think 
 		if(target.anti_magic_check(TRUE, TRUE))
 			return FALSE
 		target.visible_message(span_warning("[target] starts to fade into thin air!"), span_notice("You start to become invisible!"))
-		var/dur = max((5 * (user.get_skill_level(associated_skill))), 15)
+		var/dur
+		if(miracle)
+			dur = max((5 * (user.get_skill_level(associated_skill))), 15)
+		else
+			dur = 15 + min(max(user.STAINT - 10, 0) * 2.5, 12.5)
 		if(dur >= recharge_time)
 			recharge_time = dur + 5 SECONDS
 		animate(target, alpha = 0, time = 1 SECONDS, easing = EASE_IN)
