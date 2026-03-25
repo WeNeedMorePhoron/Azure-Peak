@@ -53,7 +53,7 @@
 	icon = 'icons/roguetown/weapons/templar_daggers32.dmi'
 	icon_state = "necra_dagger"
 	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/chop/necra)
-	force = 22
+	force = 17
 	max_integrity = 200
 	smeltresult = /obj/item/ingot/silver
 	is_silver = TRUE
