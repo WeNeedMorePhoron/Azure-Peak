@@ -944,6 +944,15 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 			var/util_points_spent = 0
 			for(var/path in GLOB.utility_spells)
 				if(has_spell(path))
+					// Only count spells chosen through the aspect picker (aspect_picked = TRUE)
+					// Free spells from aspects or jobs don't count against the utility budget
+					var/is_picked = FALSE
+					for(var/datum/action/cooldown/spell/S in spell_list)
+						if(S.type == path && S.aspect_picked)
+							is_picked = TRUE
+							break
+					if(!is_picked)
+						continue
 					if(ispath(path, /datum/action/cooldown/spell))
 						var/datum/action/cooldown/spell/S = path
 						util_points_spent += initial(S.point_cost)
