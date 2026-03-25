@@ -4,7 +4,7 @@
 	desc = "Summons a condensed orb of light."
 	button_icon_state = "light"
 	sound = 'sound/magic/whiteflame.ogg'
-	spell_color = GLOW_COLOR_ARCANE
+	spell_color = GLOW_COLOR_LIGHT
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	click_to_activate = FALSE

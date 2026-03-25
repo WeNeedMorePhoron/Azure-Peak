@@ -1156,6 +1156,8 @@
 	var/list/stats = get_spell_statistics(user)
 	if(length(stats))
 		inspec += "<br>" + stats.Join("<br>")
+	if(fluff_desc)
+		inspec += "<br>" + span_small(fluff_desc)
 	to_chat(user, "[inspec.Join()]")
 
 /// Returns a list of spell statistics for examine display.

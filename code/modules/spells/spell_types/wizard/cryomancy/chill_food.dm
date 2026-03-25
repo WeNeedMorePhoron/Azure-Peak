@@ -24,7 +24,8 @@
 	invocations = list("Congela.")
 	invocation_type = INVOCATION_SHOUT
 
-	charge_required = FALSE
+	charge_required = TRUE
+	charge_time = CHARGETIME_POKE
 	cooldown_time = 30 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane

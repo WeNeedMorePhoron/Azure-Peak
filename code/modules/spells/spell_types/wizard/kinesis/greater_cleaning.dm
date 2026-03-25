@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/greater_cleaning
 	button_icon = 'icons/mob/actions/mage_kinesis.dmi'
 	name = "Greater Cleaning"
-	desc = "Unleash a wave of kinetic force that scours a wide area clean of grime and debris."
+	desc = "Unleash a wave of kinetic force that scours a nearby area clean of grime and debris."
 	fluff_desc = "An advanced cantrip, a development from the original Lesser Cleaning - also known as Apprentice's Woe.\
 	It scours and cleans a wide area. No one knows where the filth and grime really went - just that it must've gone somewhere.\
 	Perhaps there's an elemental realm of rubbish where all casts of prestidigitation and greater cleaning send the filth to?\
@@ -22,7 +22,8 @@
 	invocations = list("Purga Omnia.")
 	invocation_type = INVOCATION_SHOUT
 
-	charge_required = FALSE
+	charge_required = TRUE
+	charge_time = CHARGETIME_POKE
 	cooldown_time = 30 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
@@ -42,8 +43,8 @@
 	owner.visible_message(span_notice("[owner] gestures forcefully. A wave of arcyne force ripples outward, scouring the area clean."), span_notice("I unleash a wave of kinetic force, purging the area of filth."))
 
 	var/washed = 0
-	var/max_washes = 50
-	for(var/turf/T in range(2, target_turf))
+	var/max_washes = 75
+	for(var/turf/T in range(1, target_turf))
 		if(washed >= max_washes)
 			break
 		new /obj/effect/temp_visual/cleaning_pulse(T)
@@ -52,7 +53,7 @@
 		for(var/atom/A in T)
 			if(washed >= max_washes)
 				break
-			if(istype(A, /obj/effect/decal/cleanable) || ismob(A) || isobj(A))
+			if(istype(A, /obj/effect/decal/cleanable) || ismob(A) || (isobj(A) && !istype(A, /obj/effect)))
 				wash_atom(A, CLEAN_MEDIUM)
 				washed++
 

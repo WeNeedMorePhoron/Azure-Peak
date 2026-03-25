@@ -4,7 +4,7 @@
 	desc = "Uses arcyne energy to mend an item. Effect of repair scales off of your Intelligence."
 	button_icon_state = "mending"
 	sound = 'sound/magic/whiteflame.ogg'
-	spell_color = GLOW_COLOR_ARCANE
+	spell_color = GLOW_COLOR_BUFF
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	click_to_activate = TRUE

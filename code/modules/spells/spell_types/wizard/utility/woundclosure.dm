@@ -17,7 +17,7 @@
 	chargedloop = /datum/looping_sound/wind
 	sound = 'sound/magic/woundheal_crunch.ogg'
 	invocation_type = "none"
-	glow_color = GLOW_COLOR_ARCANE
+	glow_color = GLOW_COLOR_BUFF
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 3
