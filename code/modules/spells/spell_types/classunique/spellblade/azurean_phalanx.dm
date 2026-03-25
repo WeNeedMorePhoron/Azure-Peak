@@ -1,55 +1,56 @@
-/* Azurean Phalanx - Phalangite bread-and-butter 3x1 line thrust with pushback
-Hits everyone in a 3-tile line in front of the caster and pushes them back 1 tile.
-Spacing tool — the core of the Phalangite's "hold the line" identity.
-Builds 1 momentum on hit regardless of targets struck (same as a normal weapon swing).
-At 3+ momentum: consumes 3 stacks and doubles damage. */
-
-/obj/effect/proc_holder/spell/invoked/azurean_phalanx
+/datum/action/cooldown/spell/azurean_phalanx
 	name = "Azurean Phalanx"
 	desc = "Hold the line. Thrust forward with arcyne-infused reach, striking a 3-tile line and pushing them back 1 tile. \
 		Builds 1 momentum on hit. \
 		At 3+ momentum: consumes 3 to double damage. \
 		Strikes your aimed bodypart. Can be deflected by Defend stance."
-	clothes_req = FALSE
-	range = 7
-	action_icon = 'icons/mob/actions/classuniquespells/spellblade.dmi'
-	overlay_state = "azurean_phalanx" // Icon by Prominence
-	releasedrain = SPELLCOST_SB_POKE
-	chargedrain = 0
-	chargetime = 5
-	recharge_time = 12 SECONDS
-	warnie = "spellwarning"
-	no_early_release = TRUE
-	movement_interrupt = FALSE
-	charging_slowdown = 0
-	chargedloop = /datum/looping_sound/invokegen
+	button_icon = 'icons/mob/actions/classuniquespells/spellblade.dmi'
+	button_icon_state = "azurean_phalanx"
+	sound = 'sound/combat/wooshes/bladed/wooshsmall (1).ogg'
+	spell_color = GLOW_COLOR_ARCANE
+	glow_intensity = GLOW_INTENSITY_MEDIUM
+
+	cast_range = 7
+
+	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_cost = SPELLCOST_SB_POKE
+
 	invocations = list("Phalanx Azurea!")
-	invocation_type = "shout"
-	gesture_required = TRUE
-	xp_gain = FALSE
+	invocation_type = INVOCATION_SHOUT
+
+	charge_required = TRUE
+	weapon_cast_penalized = FALSE
+	charge_time = CHARGETIME_POKE
+	charge_drain = 0
+	charge_slowdown = CHARGING_SLOWDOWN_NONE
+	charge_sound = 'sound/magic/charging.ogg'
+	cooldown_time = 12 SECONDS
+
+	associated_skill = /datum/skill/magic/arcane
+	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+
 	var/line_length = 3
 	var/base_damage = 40
 	var/empowered_mult = 2
-	var/push_dist = 1 // I tried making the pushing higher and it was just too much
-	// Turns out rotating a very high tile push makes it impossible to deal with.
+	var/push_dist = 1
 	var/empowered_push = 1
 	var/momentum_cost = 3
 	var/telegraph_delay = 4
 
-/obj/effect/proc_holder/spell/invoked/azurean_phalanx/cast(list/targets, mob/user = usr)
-	var/mob/living/carbon/human/H = user
+/datum/action/cooldown/spell/azurean_phalanx/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/H = owner
 	if(!istype(H))
-		revert_cast()
-		return
+		return FALSE
 
 	var/obj/item/held_weapon = arcyne_get_weapon(H)
 	if(!held_weapon)
 		to_chat(H, span_warning("I need my bound weapon in hand!"))
-		revert_cast()
-		return
+		return FALSE
 
-	var/atom/target = targets[1]
-	var/turf/target_turf = get_turf(target)
+	var/turf/target_turf = get_turf(cast_on)
 	var/turf/start = get_turf(H)
 	var/facing = get_dir(start, target_turf) || H.dir
 
@@ -58,7 +59,7 @@ At 3+ momentum: consumes 3 stacks and doubles damage. */
 	if(M && M.stacks >= momentum_cost)
 		M.consume_stacks(momentum_cost)
 		empowered = TRUE
-		to_chat(H, span_notice("[momentum_cost] momentum released — empowered thrust!"))
+		to_chat(H, span_notice("[momentum_cost] momentum released - empowered thrust!"))
 
 	var/damage = empowered ? (base_damage * empowered_mult) : base_damage
 
@@ -79,10 +80,9 @@ At 3+ momentum: consumes 3 stacks and doubles damage. */
 
 	if(!length(line_turfs))
 		to_chat(H, span_warning("There's no room to thrust!"))
-		revert_cast()
-		return
+		return FALSE
 
-	// Telegraph — show warning on affected tiles
+	// Telegraph - show warning on affected tiles
 	for(var/turf/T in line_turfs)
 		new /obj/effect/temp_visual/air_strike_telegraph(T)
 
@@ -92,7 +92,7 @@ At 3+ momentum: consumes 3 stacks and doubles damage. */
 	addtimer(CALLBACK(src, PROC_REF(resolve_thrust), H, line_turfs, facing, damage, empowered), telegraph_delay)
 	return TRUE
 
-/obj/effect/proc_holder/spell/invoked/azurean_phalanx/proc/resolve_thrust(mob/living/carbon/human/H, list/line_turfs, facing, damage, empowered)
+/datum/action/cooldown/spell/azurean_phalanx/proc/resolve_thrust(mob/living/carbon/human/H, list/line_turfs, facing, damage, empowered)
 	if(QDELETED(H) || H.stat == DEAD)
 		return
 

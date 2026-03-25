@@ -1,80 +1,74 @@
-/* Azurean Javelin - Phalangite ranged AP projectile with slow
-Conjures a phantom spear and hurls it. Armor-piercing, applies slowdown on hit.
-Does NOT throw your actual weapon. (You can still toss it with
-Recall Weapon or a manual throw)
-
-Normal Throw: 25 damage, 20 AP - 5 damage pierces shitty leather.
-Empowered Throw: 50 damage, 20 AP - 10 damage pierces hardened leather. Cannot pierce plate (80). Still slows
-
-Toggle arc mode (Ctrl+G) while the spell is active to arc the javelin
-over allies for dungeon support.
-
-CD: 10 seconds, you are not a true ranged class and you can literally
-rotate tossing your actual spear risk free unlike a real melee. Plus,
-it is an AP projectile and high impact vs other light.
-
-Chargetime reduced from 20 to 10 ticks (1 second) to feel less awkward.
-
-*/
-
-/obj/effect/proc_holder/spell/invoked/projectile/azurean_javelin
+/datum/action/cooldown/spell/projectile/azurean_javelin
 	name = "Azurean Javelin"
 	desc = "The ancient art of skirmishers in arcyne form - conjure a phantom spear and hurl it. \
 		Armor-piercing (20 AP), slows the target on hit for 4 seconds regardless of armor. \
 		At 3+ momentum: consumes 3 to double damage. \
 		Toggle arc mode (Ctrl+G) to arc the javelin over allies."
-	clothes_req = FALSE
-	range = 15
+	button_icon = 'icons/mob/actions/classuniquespells/spellblade.dmi'
+	button_icon_state = "azurean_javelin"
+	sound = 'sound/combat/wooshes/bladed/wooshsmall (1).ogg'
+	spell_color = GLOW_COLOR_ARCANE
+	glow_intensity = GLOW_INTENSITY_LOW
+
 	projectile_type = /obj/projectile/energy/azurean_javelin
 	projectile_type_arc = /obj/projectile/energy/azurean_javelin/arc
-	sound = list('sound/combat/wooshes/bladed/wooshsmall (1).ogg')
-	releasedrain = SPELLCOST_MINOR_PROJECTILE
-	chargedrain = 1
-	chargetime = 10
-	recharge_time = 10 SECONDS
-	warnie = "spellwarning"
-	no_early_release = TRUE
-	movement_interrupt = FALSE
-	charging_slowdown = 0
-	chargedloop = /datum/looping_sound/invokegen
-	action_icon = 'icons/mob/actions/classuniquespells/spellblade.dmi'
-	overlay_state = "azurean_javelin" // Icon by Prominence. Reversed Azurean_Phalanx in a different direction
+	cast_range = 15
+
+	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_cost = SPELLCOST_MINOR_PROJECTILE
+
 	invocations = list("Pilum Azureum!")
-	invocation_type = "shout"
-	gesture_required = TRUE
-	xp_gain = FALSE
+	invocation_type = INVOCATION_SHOUT
+
+	charge_required = TRUE
+	weapon_cast_penalized = FALSE
+	charge_time = CHARGETIME_POKE
+	charge_drain = 1
+	charge_slowdown = CHARGING_SLOWDOWN_NONE
+	charge_sound = 'sound/magic/charging.ogg'
+	cooldown_time = 10 SECONDS
+
+	associated_skill = /datum/skill/magic/arcane
+	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+
 	var/base_damage = 25
 	var/empowered_mult = 2
 	var/momentum_cost = 3
+	var/cached_damage = 0
+	var/cached_empowered = FALSE
 
-/obj/effect/proc_holder/spell/invoked/projectile/azurean_javelin/cast(list/targets, mob/user = usr)
-	var/mob/living/carbon/human/H = user
+/datum/action/cooldown/spell/projectile/azurean_javelin/cast(atom/cast_on)
+	var/mob/living/carbon/human/H = owner
 	if(!istype(H))
-		revert_cast()
-		return
+		return FALSE
 
 	if(!arcyne_get_weapon(H))
 		to_chat(H, span_warning("I need my bound weapon in hand!"))
-		revert_cast()
-		return
+		return FALSE
 
-	var/empowered = FALSE
+	cached_empowered = FALSE
 	var/datum/status_effect/buff/arcyne_momentum/M = H.has_status_effect(/datum/status_effect/buff/arcyne_momentum)
 	if(M && M.stacks >= momentum_cost)
 		M.consume_stacks(momentum_cost)
-		empowered = TRUE
-		to_chat(H, span_notice("[momentum_cost] momentum released — empowered javelin!"))
+		cached_empowered = TRUE
+		to_chat(H, span_notice("[momentum_cost] momentum released - empowered javelin!"))
 
-	var/final_damage = empowered ? (base_damage * empowered_mult) : base_damage
+	cached_damage = cached_empowered ? (base_damage * empowered_mult) : base_damage
 
-	if(empowered)
-		projectile_type = arc_mode ? /obj/projectile/energy/azurean_javelin/empowered/arc : /obj/projectile/energy/azurean_javelin/empowered
+	if(cached_empowered)
+		projectile_type = /obj/projectile/energy/azurean_javelin/empowered
+		projectile_type_arc = /obj/projectile/energy/azurean_javelin/empowered/arc
 	else
-		projectile_type = arc_mode ? /obj/projectile/energy/azurean_javelin/arc : /obj/projectile/energy/azurean_javelin
-
-	projectile_var_overrides = list("damage" = final_damage)
+		projectile_type = /obj/projectile/energy/azurean_javelin
+		projectile_type_arc = /obj/projectile/energy/azurean_javelin/arc
 
 	. = ..()
+
+/datum/action/cooldown/spell/projectile/azurean_javelin/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
+	..()
+	to_fire.damage = cached_damage
 
 /obj/projectile/energy/azurean_javelin
 	name = "Azurean Javelin"
@@ -82,7 +76,7 @@ Chargetime reduced from 20 to 10 ticks (1 second) to feel less awkward.
 	damage = 25
 	woundclass = BCLASS_STAB
 	nodamage = FALSE
-	speed = 1.5 // Slow enough to dodge not so slow you will never hit
+	speed = 1.5
 	armor_penetration = PEN_LIGHT
 	hitsound = 'sound/combat/hits/bladed/genthrust (1).ogg'
 
@@ -95,7 +89,7 @@ Chargetime reduced from 20 to 10 ticks (1 second) to feel less awkward.
 			playsound(get_turf(L), 'sound/magic/magic_nulled.ogg', 100)
 			return BULLET_ACT_BLOCK
 		L.apply_status_effect(/datum/status_effect/debuff/azurean_javelin_slow)
-		to_chat(L, span_danger("An arcyne javelin pierces through — my movements are sluggish!"))
+		to_chat(L, span_danger("An arcyne javelin pierces through - my movements are sluggish!"))
 		if(firer)
 			log_combat(firer, L, "javelin-struck")
 
