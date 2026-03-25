@@ -64,8 +64,8 @@
 #define SPELLCOST_MAJOR_SKILL        50
 
 // Spellblade specific cost
-#define SPELLCOST_SB_POKE 15 // Roughly 3 attacks worth
-#define SPELLCOST_SB_MOBILITY 15 // Dashes / Teleports / Anchor
+#define SPELLCOST_SB_POKE 12 // Roughly 3 attacks worth
+#define SPELLCOST_SB_MOBILITY 12 // Dashes / Teleports / Anchor
 #define SPELLCOST_SB_ULT 50 // Their ult
 
 // Standardized charge times — keeps poke/major/heavy spells consistent for balance passes
