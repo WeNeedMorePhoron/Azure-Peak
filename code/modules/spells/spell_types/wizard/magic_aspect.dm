@@ -86,12 +86,18 @@
 			else
 				target.AddSpell(upgraded)
 
-/datum/magic_aspect/proc/revoke_spells(datum/mind/target)
+/// Revoke all spells granted by this aspect.
+/// skip_spells: flat list of spell paths that should NOT be removed (granted by another source).
+/datum/magic_aspect/proc/revoke_spells(datum/mind/target, list/skip_spells)
 	for(var/spell_path in choice_spells)
+		if(LAZYLEN(skip_spells) && (spell_path in skip_spells))
+			continue
 		var/datum/existing = target.get_spell(spell_path)
 		if(existing)
 			target.RemoveSpell(existing)
 	for(var/spell_path in fixed_spells)
+		if(LAZYLEN(skip_spells) && (spell_path in skip_spells))
+			continue
 		var/datum/existing = target.get_spell(spell_path)
 		if(existing)
 			target.RemoveSpell(existing)
@@ -99,10 +105,14 @@
 		var/list/swaps = variants[variant_name]
 		for(var/base_path in swaps)
 			var/upgrade_path = swaps[base_path]
+			if(LAZYLEN(skip_spells) && (upgrade_path in skip_spells))
+				continue
 			var/datum/existing = target.get_spell(upgrade_path)
 			if(existing)
 				target.RemoveSpell(existing)
 	for(var/spell_path in pointbuy_spells)
+		if(LAZYLEN(skip_spells) && (spell_path in skip_spells))
+			continue
 		var/datum/existing = target.get_spell(spell_path)
 		if(existing)
 			target.RemoveSpell(existing)

@@ -543,6 +543,25 @@
 	SStgui.close_uis(src)
 
 	if(has_unbinds)
+		// Build a list of spells that will survive the reshaping — from aspects being kept and newly staged aspects.
+		// revoke_spells() will skip these so overlapping spells aren't deleted.
+		var/list/surviving_spells = list()
+		// Spells from aspects that are staying (not being unbound)
+		for(var/datum/magic_aspect/A in owner.mind.major_aspects + owner.mind.minor_aspects)
+			if("[A.type]" in staged_unbind_aspects)
+				continue
+			surviving_spells |= A.fixed_spells
+			surviving_spells |= A.choice_spells
+		// Spells from newly staged aspects about to be added
+		for(var/staged_path in staged_majors + staged_minors)
+			var/datum/magic_aspect/staged = new staged_path
+			surviving_spells |= staged.fixed_spells
+			surviving_spells |= staged.choice_spells
+			qdel(staged)
+		// Utility spells the player learned (not being unbound)
+		for(var/spell_path_str in staged_utilities)
+			surviving_spells |= text2path(spell_path_str)
+
 		// Perform unbinding chants for staged aspect unbinds (not utility unbinds)
 		for(var/unbind_path in staged_unbind_aspects)
 			var/datum/magic_aspect/target
@@ -564,7 +583,7 @@
 			if(!owner.mind.spend_aspect_reset(target))
 				to_chat(owner, span_warning("Not enough reset budget remaining."))
 				continue
-			owner.mind.remove_aspect(target)
+			owner.mind.remove_aspect(target, surviving_spells)
 			qdel(target)
 
 		// Utility unbinds - no chant required

@@ -402,10 +402,10 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	ensure_mage_basics()
 	return TRUE
 
-/datum/mind/proc/remove_aspect(datum/magic_aspect/aspect)
+/datum/mind/proc/remove_aspect(datum/magic_aspect/aspect, list/skip_spells)
 	if(!aspect)
 		return FALSE
-	aspect.revoke_spells(src)
+	aspect.revoke_spells(src, skip_spells)
 	switch(aspect.aspect_type)
 		if(ASPECT_MAJOR)
 			LAZYREMOVE(major_aspects, aspect)
