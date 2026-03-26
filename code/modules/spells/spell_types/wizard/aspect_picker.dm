@@ -106,7 +106,7 @@
 	for(var/path in GLOB.utility_spells)
 		if(owner.mind.has_spell(path))
 			known_utilities += "[path]"
-			if(!is_spell_aspect_picked(path))
+			if(!is_utility_learned(path))
 				given_utilities += "[path]"
 	data["known_utilities"] = known_utilities
 	data["given_utilities"] = given_utilities
@@ -391,6 +391,9 @@
 			var/spell_path = text2path(spell_path_str)
 			if(!spell_path || !owner.mind.has_spell(spell_path))
 				return
+			// Can't unbind spells given by aspects — only player-picked utilities
+			if(!is_utility_learned(spell_path))
+				return
 			if(get_staged_reset_cost() + ASPECT_RESET_COST_UTILITY > ASPECT_RESET_BUDGET)
 				to_chat(owner, span_warning("I cannot reshape any more attunements without rest."))
 				return
@@ -493,6 +496,46 @@
 /// Chanting only happens when there are unbinds (i.e. reshaping, not initial setup).
 /// If interrupted, staged data is preserved so the player can retry.
 /datum/aspect_picker/proc/perform_confirm(max_majors, max_minors_resolved)
+	var/major_unbinds = 0
+	for(var/unbind_path in staged_unbind_aspects)
+		var/datum/magic_aspect/utemp = new unbind_path
+		if(utemp.aspect_type == ASPECT_MAJOR)
+			major_unbinds++
+		qdel(utemp)
+	var/effective_majors = LAZYLEN(owner.mind.major_aspects) - major_unbinds + length(staged_majors)
+	if(effective_majors > max_majors)
+		to_chat(owner, span_warning("Too many major aspects selected."))
+		return
+
+	// Validate minor aspect count
+	var/minor_unbinds = 0
+	for(var/unbind_path in staged_unbind_aspects)
+		var/datum/magic_aspect/utemp = new unbind_path
+		if(utemp.aspect_type == ASPECT_MINOR)
+			minor_unbinds++
+		qdel(utemp)
+	var/effective_minors = LAZYLEN(owner.mind.minor_aspects) - minor_unbinds + length(staged_minors)
+	if(effective_minors > max_minors_resolved)
+		to_chat(owner, span_warning("Too many minor aspects selected."))
+		return
+
+	// Validate utility points - count already-known picked utilities plus new staged ones
+	if(max_utilities > 0)
+		var/util_total = 0
+		for(var/path in GLOB.utility_spells)
+			var/path_str = "[path]"
+			if(path_str in staged_unbind_utilities)
+				continue
+			if(owner.mind.has_spell(path))
+				if(!is_utility_learned(path))
+					continue
+				util_total += get_spell_cost_from_path(path)
+		for(var/spell_path_str in staged_utilities)
+			util_total += get_spell_cost_from_path(text2path(spell_path_str))
+		if(util_total > max_utilities)
+			to_chat(owner, span_warning("Too many utility spells selected."))
+			return
+
 	chanting = TRUE
 	var/has_unbinds = length(staged_unbind_aspects) || length(staged_unbind_utilities)
 
@@ -600,7 +643,7 @@
 		var/datum/new_spell = new spell_path
 		if(istype(new_spell, /datum/action/cooldown/spell))
 			var/datum/action/cooldown/spell/S = new_spell
-			S.aspect_picked = TRUE
+			S.utility_learned = TRUE
 		owner.mind.AddSpell(new_spell)
 
 	if(has_unbinds)
@@ -680,25 +723,28 @@
 /// Get total utility points spent — includes already-known utilities (minus pending unbinds) and staged selections
 /datum/aspect_picker/proc/get_utility_points_spent()
 	var/total = 0
-	// Count already-known utility spells (edit mode), skipping given (free) spells
-	if(!initial_setup)
-		for(var/path in GLOB.utility_spells)
-			var/path_str = "[path]"
-			if(path_str in staged_unbind_utilities)
+	// Always count already-known utility spells that the player manually learned (not given by aspects)
+	for(var/path in GLOB.utility_spells)
+		var/path_str = "[path]"
+		if(path_str in staged_unbind_utilities)
+			continue
+		// Skip spells we're about to add from staged — they're counted below
+		if(path_str in staged_utilities)
+			continue
+		if(owner.mind.has_spell(path))
+			if(!is_utility_learned(path))
 				continue
-			if(owner.mind.has_spell(path))
-				if(!is_spell_aspect_picked(path))
-					continue
-				total += get_spell_cost_from_path(path)
+			total += get_spell_cost_from_path(path)
 	// Count new staged selections
 	for(var/spell_path_str in staged_utilities)
 		total += get_spell_cost_from_path(text2path(spell_path_str))
 	return total
 
-/// Check if a known spell instance was chosen through the aspect picker (counts against budget)
-/datum/aspect_picker/proc/is_spell_aspect_picked(spell_path)
+/// Check if a known utility spell was manually learned by the player (counts against budget)
+/// Returns FALSE for spells given free by aspects.
+/datum/aspect_picker/proc/is_utility_learned(spell_path)
 	for(var/datum/action/cooldown/spell/S in owner.mind.spell_list)
-		if(S.type == spell_path && S.aspect_picked)
+		if(S.type == spell_path && S.utility_learned)
 			return TRUE
 	return FALSE
 

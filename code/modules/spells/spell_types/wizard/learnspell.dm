@@ -32,7 +32,7 @@
 		if(user.mind.has_spell(path))
 			var/is_picked = FALSE
 			for(var/datum/action/cooldown/spell/S in user.mind.spell_list)
-				if(S.type == path && S.aspect_picked)
+				if(S.type == path && S.utility_learned)
 					is_picked = TRUE
 					break
 			if(!is_picked)

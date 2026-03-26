@@ -946,7 +946,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 				if(has_spell(path))
 					var/is_picked = FALSE
 					for(var/datum/action/cooldown/spell/S in spell_list)
-						if(S.type == path && S.aspect_picked)
+						if(S.type == path && S.utility_learned)
 							is_picked = TRUE
 							break
 					if(!is_picked)

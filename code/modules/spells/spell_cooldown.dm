@@ -66,7 +66,7 @@
 	/// Cost to learn this spell in the tree.
 	var/point_cost = 0
 	/// Whether this spell was chosen through the aspect picker (counts against point budget).
-	var/aspect_picked = FALSE
+	var/utility_learned = FALSE
 	/// Tier of the spell, used to determine whether you can learn it based on class.
 	var/spell_tier = 1
 	/// Visual impact intensity for on-hit effects. See SPELL_IMPACT defines.
