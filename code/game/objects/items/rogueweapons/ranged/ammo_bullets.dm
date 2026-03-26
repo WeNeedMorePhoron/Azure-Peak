@@ -1,6 +1,9 @@
 #define MIN_BULLET_RANGE	2
 #define MAX_BULLET_RANGE	7
 #define DAM_FALLOFF_BULLET	0.5
+#define HEAVY_AMMO_SPEED	3
+#define HEAVY_AMMO_CHARGE	1.5
+#define MIN_SCATTER_RANGE	1
 
 // Slings - 0.75x Charge Time, 2x ammo capacity in pouch
 // Never penetrate armor, it is meant to win by attrition, so it starts off with
@@ -12,6 +15,7 @@
 	desc = "You shouldn't be seeing this."
 	projectile_type = /obj/projectile/bullet/sling_bullet
 	caliber = "slingbullet"
+	icon = 'icons/roguetown/weapons/ranged/sling_mob.dmi'
 	icon_state = "stone_sling_bullet"
 	force = 5
 	throwforce = 20 //you can still throw them
@@ -20,6 +24,75 @@
 	slot_flags = ITEM_SLOT_MOUTH
 	max_integrity = 20
 	charge_time_mult = 0.75 // Sling shoots faster than bows, but is in exchange, weaker.
+	var/inscription
+
+	var/static/list/sling_inscriptions = list(
+		"CATCH",
+		"TAKE THAT",
+		"OUCH",
+		"A GIFT",
+		"FOR YOUR HEAD",
+		"VICTORY",
+		"SWALLOW THIS",
+		"YOU ASKED FOR IT",
+		"A NASTY SURPRISE",
+		"SWIFT DEATH",
+		"FROM THE SLINGER WITH LOVE",
+		"RUN FASTER",
+		"DODGE THIS",
+		"FOR YOUR TEETH",
+		"EAT LEAD",
+		"GREETINGS",
+		"TASTE IRON",
+		"BULLS-EYE",
+		"HELLO",
+		"HEY",
+		"GOOD DAE",
+		"GOOD NITE",
+		"GOOD EVENING",
+		"MASK OFF",
+		"PARRY THIS",
+		"BLOCK THIS",
+		"RIPOSTE THIS",
+		"NEXT TIME I WONT MISS",
+		"FEELS BETTER SOON",
+		"MISS YOU",
+		"SLEEP WELL",
+		"FOR YOUR GOD'S BACKSIDE",
+	)
+
+/obj/item/ammo_casing/caseless/rogue/sling_bullet/examine(mob/user)
+	. = ..()
+	if(!inscription)
+		return
+	if(user.is_literate())
+		. += span_smallnotice("Engraved: <i>\"[inscription]\"</i>")
+	else
+		. += span_smallnotice("It has some squiggly jiggly scratches on it.")
+
+/obj/item/ammo_casing/caseless/rogue/sling_bullet/stone/Initialize()
+	. = ..()
+	inscription = pick(sling_inscriptions)
+
+/obj/item/ammo_casing/caseless/rogue/sling_bullet/bronze/Initialize()
+	. = ..()
+	inscription = pick(sling_inscriptions)
+
+/obj/item/ammo_casing/caseless/rogue/sling_bullet/iron/Initialize()
+	. = ..()
+	inscription = pick(sling_inscriptions)
+
+/obj/item/ammo_casing/caseless/rogue/sling_bullet/aalloy/Initialize()
+	. = ..()
+	inscription = pick(sling_inscriptions)
+
+/obj/item/ammo_casing/caseless/rogue/sling_bullet/paalloy/Initialize()
+	. = ..()
+	inscription = pick(sling_inscriptions)
+
+/obj/item/ammo_casing/caseless/rogue/sling_bullet/scattershot/Initialize()
+	. = ..()
+	inscription = pick(sling_inscriptions)
 
 /obj/item/ammo_casing/caseless/rogue/sling_bullet/getonmobprop(tag)
 	. = ..()
@@ -42,11 +115,6 @@
 	projectile_type = /obj/projectile/bullet/reusable/sling_bullet/bronze
 	icon_state = "bronze_sling_bullet"
 
-/obj/item/ammo_casing/caseless/rogue/sling_bullet/steel
-	name = "steel sling bullet"
-	desc = "Not to be mistaken with an actual bullet. </br>'As one who binds a stone in a sling, so is he who gives honor to a fool.'"
-	projectile_type = /obj/projectile/bullet/reusable/sling_bullet/steel
-	icon_state = "steel_sling_bullet"
 
 /obj/item/ammo_casing/caseless/rogue/sling_bullet/aalloy
 	name = "decrepit sling bullet"
@@ -74,7 +142,7 @@
 	damage_type = BRUTE
 	armor_penetration = PEN_NONE
 	npc_simple_damage_mult = 2
-	icon = 'icons/roguetown/weapons/ammo.dmi'
+	icon = 'icons/roguetown/weapons/ranged/sling_mob.dmi'
 	icon_state = "stone_sling_bullet"
 	range = 15
 	hitsound = 'sound/combat/hits/blunt/bluntsmall (1).ogg'
@@ -102,6 +170,7 @@
 	damage = 40
 	damage_type = BRUTE
 	armor_penetration = PEN_NONE
+	icon = 'icons/roguetown/weapons/ranged/sling_proj.dmi'
 	icon_state = "slingbullet_proj"
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/sling_bullet
 	range = 15
@@ -155,15 +224,102 @@
 	damage = 40
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/sling_bullet/iron
 
-/obj/projectile/bullet/reusable/sling_bullet/steel
-	name = "steel sling bullet"
-	damage = 45 //Best-of-the-best. Harder to mass-produce
-	ammo_type = /obj/item/ammo_casing/caseless/rogue/sling_bullet/steel
 
 /obj/projectile/bullet/reusable/sling_bullet/paalloy
 	name = "ancient sling bullet"
 	damage = 40
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/sling_bullet/paalloy
+
+// SCATTERSHOT - Steel pellets that shatter on impact. Non-recoverable.
+// No minimum range, extra ricochets, but short max range. Better DPS if all pellets land.
+/obj/item/ammo_casing/caseless/rogue/sling_bullet/scattershot
+	name = "steel scattershot"
+	desc = "A cluster of steel pellets packed into a pouch. They scatter on release, shredding anything nearby - but they won't fly far."
+	projectile_type = /obj/projectile/bullet/sling_bullet/scattershot
+	icon_state = "scattershot"
+	pellets = 3
+	variance = 30
+
+/obj/projectile/bullet/sling_bullet/scattershot
+	name = "steel scattershot"
+	icon = 'icons/roguetown/weapons/ranged/sling_proj.dmi'
+	icon_state = "scatter_proj"
+	damage = 20
+	ricochets_max = 3
+	ricochet_chance = 90
+	ricochet_auto_aim_angle = 50
+	ricochet_auto_aim_range = 4
+	ricochet_incidence_leeway = 50
+	ricochet_decay_chance = 1
+	ricochet_decay_damage = 1.3
+	min_range = MIN_SCATTER_RANGE
+	max_range = 5
+	dam_falloff_factor = DAM_FALLOFF_BULLET
+
+// HEAVY ROCK - Big slow projectile. High integrity damage, takes 3 weight in the pouch.
+/obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_rock
+	name = "heavy rock"
+	desc = "A hefty stone, barely small enough to fit in a sling. It won't fly fast or far, but whatever it hits is going to feel it. The sheer mass can knock a target back on impact."
+	projectile_type = /obj/projectile/bullet/reusable/sling_bullet/heavy_rock
+	icon_state = "heavy_rock"
+	ammo_weight = 3
+	charge_time_mult = HEAVY_AMMO_CHARGE
+
+/obj/projectile/bullet/reusable/sling_bullet/heavy_rock
+	name = "heavy rock"
+	icon_state = "rock_proj"
+	damage = 80
+	ammo_type = /obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_rock
+	speed = HEAVY_AMMO_SPEED
+	ricochets_max = 0
+	ricochet_chance = 0
+	max_range = 6
+	npc_simple_damage_mult = 3
+
+/obj/projectile/bullet/reusable/sling_bullet/heavy_rock/on_hit(atom/target)
+	. = ..()
+	if(!isliving(target))
+		return
+	var/mob/living/M = target
+	var/throw_dir = get_dir(src, target)
+	var/atom/throw_target = get_edge_target_turf(M, throw_dir)
+	M.safe_throw_at(throw_target, 1, 1)
+
+// FIRE POT - Ceramic pot of alchemical fire. Ignites on impact.
+/obj/item/ammo_casing/caseless/rogue/sling_bullet/fire_pot
+	name = "fire pot"
+	desc = "A small ceramic pot filled with volatile alchemical fire. It shatters on impact, spreading flames."
+	projectile_type = /obj/projectile/bullet/sling_bullet/fire_pot
+	icon_state = "fire_pot"
+	ammo_weight = 3
+	charge_time_mult = HEAVY_AMMO_CHARGE
+
+/obj/projectile/bullet/sling_bullet/fire_pot
+	name = "fire pot"
+	damage = 10
+	damage_type = BURN
+	icon = 'icons/roguetown/weapons/ranged/sling_proj.dmi'
+	icon_state = "pot_proj"
+	range = 15
+	hitsound = 'sound/combat/hits/blunt/bluntsmall (1).ogg'
+	embedchance = 0
+	woundclass = BCLASS_BLUNT
+	flag = "blunt"
+	speed = HEAVY_AMMO_SPEED
+	min_range = MIN_BULLET_RANGE
+	max_range = MAX_BULLET_RANGE
+	dam_falloff_factor = DAM_FALLOFF_BULLET
+
+/obj/projectile/bullet/sling_bullet/fire_pot/on_hit(atom/target)
+	. = ..()
+	if(ismob(target))
+		var/mob/living/M = target
+		M.adjust_fire_stacks(2)
+		M.adjustFireLoss(10)
+		M.ignite_mob()
+	var/turf/T = get_turf(target)
+	if(T)
+		new /obj/effect/hotspot(T, null, null, 15)
 
 // GUNPOWDER AMMO
 /obj/projectile/bullet/reusable/bullet
@@ -299,3 +455,6 @@
 #undef MIN_BULLET_RANGE
 #undef MAX_BULLET_RANGE
 #undef DAM_FALLOFF_BULLET
+#undef HEAVY_AMMO_SPEED
+#undef HEAVY_AMMO_CHARGE
+#undef MIN_SCATTER_RANGE
