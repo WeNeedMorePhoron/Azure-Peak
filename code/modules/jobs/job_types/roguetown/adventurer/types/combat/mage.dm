@@ -43,23 +43,10 @@
 	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
 	if(H.mind)
 		backr = choose_implement(H, "lesser")
-		var/spec = list("Sorcerer", "Alchemist")
-		var/spec_choice = input(H, "Choose your specialization.", "WHO AM I?") as anything in spec
-		switch(spec_choice)
-			if("Sorcerer")
-				backpack_contents = list(
-					/obj/item/book/spellbook = 1,
-					/obj/item/chalk = 1
-					)
-			if("Alchemist")
-				H.adjust_skillrank_up_to(/datum/skill/craft/alchemy, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				backl = /obj/item/storage/backpack/rogue/backpack
-				backpack_contents = list(
-					/obj/item/book/spellbook = 1,
-					/obj/item/folding_alchcauldron_stored = 1,
-					/obj/item/reagent_containers/glass/bottle = 3,
-					/obj/item/reagent_containers/glass/bottle/alchemical = 3,
-					)
+		backpack_contents = list(
+			/obj/item/book/spellbook = 1,
+			/obj/item/chalk = 1
+			)
 	backpack_contents |= list(
 		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
