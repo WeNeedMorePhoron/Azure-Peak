@@ -370,10 +370,6 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 /datum/mind/proc/attune_aspect(datum/magic_aspect/aspect, variant, choice_spell)
 	if(!aspect)
 		return FALSE
-	if(!aspect.can_attune(src))
-		if(current)
-			to_chat(current, span_warning("This aspect conflicts with my current attunements."))
-		return FALSE
 	var/max_majors = LAZYLEN(mage_aspect_config) ? mage_aspect_config["major"] : MAX_MAJOR_ASPECTS
 	var/max_minors = LAZYLEN(mage_aspect_config) ? mage_aspect_config["minor"] : MAX_MINOR_ASPECTS
 	var/has_mastery = LAZYLEN(mage_aspect_config) ? mage_aspect_config["mastery"] : FALSE

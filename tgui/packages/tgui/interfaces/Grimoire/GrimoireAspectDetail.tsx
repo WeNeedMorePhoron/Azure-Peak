@@ -9,7 +9,6 @@ export const GrimoireAspectDetail = ({
   aspect,
   isAttuned,
   isLocked,
-  isBlocked,
   isPendingUnbind,
   slotsFull,
   tab,
@@ -26,7 +25,6 @@ export const GrimoireAspectDetail = ({
   aspect: Aspect;
   isAttuned: boolean;
   isLocked: boolean;
-  isBlocked: boolean;
   isPendingUnbind: boolean;
   slotsFull: boolean;
   tab: Tab;
@@ -175,17 +173,6 @@ export const GrimoireAspectDetail = ({
                 : 'Currently attuned.'}
             </div>
           )
-        ) : isBlocked ? (
-          <div
-            className="AspectPicker__attunement"
-            style={{
-              textAlign: 'center',
-              padding: '8px',
-              color: 'rgba(200,100,100,0.6)',
-            }}
-          >
-            Conflicts with a current attunement.
-          </div>
         ) : slotsFull ? (
           <div
             className="AspectPicker__attunement"

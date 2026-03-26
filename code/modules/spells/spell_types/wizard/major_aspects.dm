@@ -8,7 +8,6 @@
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_PYROMANCY
 	school_color = GLOW_COLOR_FIRE
-	countersynergy = list(/datum/magic_aspect/cryomancy)
 	binding_chants = list(
 		"Invoco flammam aeternam!",
 		"I implore the flame within to burn bright, rise!",
@@ -46,7 +45,6 @@
 	aspect_type = ASPECT_MAJOR
 	attuned_name = ASPECT_NAME_CRYOMANCY
 	school_color = GLOW_COLOR_ICE
-	countersynergy = list(/datum/magic_aspect/pyromancy)
 	binding_chants = list(
 		"Invoco glaciem aeternam!",
 		"I invoke the cold that lingers deep, come forth!",

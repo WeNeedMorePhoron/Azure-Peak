@@ -28,7 +28,6 @@ export type Aspect = {
   fixed_spells: Spell[];
   choice_spells: Spell[];
   pointbuy_spells: Spell[];
-  countersynergy: string[];
   variants: Variant[];
 };
 

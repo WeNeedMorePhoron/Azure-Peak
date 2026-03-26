@@ -45,7 +45,7 @@
 	if(!istype(H))
 		return FALSE
 
-	// Cryomancy countersynergy: reduce fire stacks on caster
+	// Reduce fire stacks on caster
 	if(H.fire_stacks > 0)
 		H.adjust_fire_stacks(-1)
 		to_chat(H, span_notice("The frost becalms the flame on me."))

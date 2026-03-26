@@ -17,7 +17,6 @@
 	/// Other variants (e.g. "grenzelhoftian") are passed in via attune_aspect().
 	var/list/variants = list()
 	var/school_color
-	var/list/countersynergy = list()
 	/// Major: Latin, English, Latin. Minor: Latin, English.
 	var/list/binding_chants = list()
 	var/list/unbinding_chants = list()
@@ -134,21 +133,6 @@
 	for(var/line in chant_lines)
 		chanter.say(line, forced = "spell")
 		if(!do_after(chanter, 2 SECONDS, target = chanter))
-			return FALSE
-	return TRUE
-
-/datum/magic_aspect/proc/can_attune(datum/mind/target)
-	if(!target)
-		return FALSE
-	var/list/all_attuned = list()
-	if(LAZYLEN(target.major_aspects))
-		all_attuned += target.major_aspects
-	if(LAZYLEN(target.minor_aspects))
-		all_attuned += target.minor_aspects
-	for(var/datum/magic_aspect/existing in all_attuned)
-		if(existing.type in countersynergy)
-			return FALSE
-		if(type in existing.countersynergy)
 			return FALSE
 	return TRUE
 

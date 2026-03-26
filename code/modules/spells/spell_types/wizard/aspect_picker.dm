@@ -192,10 +192,6 @@
 		for(var/spell_path in A.pointbuy_spells)
 			entry["pointbuy_spells"] += list(build_spell_entry(spell_path))
 
-		entry["countersynergy"] = list()
-		for(var/counter_path in A.countersynergy)
-			entry["countersynergy"] += "[counter_path]"
-
 		// Include variant info so the UI can show spell swaps
 		entry["variants"] = list()
 		for(var/variant_name in A.variants)
@@ -241,32 +237,6 @@
 	sortTim(result, GLOBAL_PROC_REF(cmp_list_name_asc))
 	return result
 
-/// Check if a path conflicts with current/staged aspects via countersynergy (excluding pending unbinds)
-/datum/aspect_picker/proc/has_countersynergy(check_path)
-	var/datum/magic_aspect/check = new check_path
-	// Gather all effective aspect paths: staged picks + live aspects - pending unbinds
-	var/list/effective_paths = staged_majors + staged_minors
-	for(var/datum/magic_aspect/A in owner.mind.major_aspects)
-		effective_paths |= A.type
-	for(var/datum/magic_aspect/A in owner.mind.minor_aspects)
-		effective_paths |= A.type
-	effective_paths -= staged_unbind_aspects
-	for(var/epath in effective_paths)
-		if(epath == check_path)
-			continue
-		var/datum/magic_aspect/other = new epath
-		if(other.type in check.countersynergy)
-			qdel(check)
-			qdel(other)
-			return TRUE
-		if(check.type in other.countersynergy)
-			qdel(check)
-			qdel(other)
-			return TRUE
-		qdel(other)
-	qdel(check)
-	return FALSE
-
 /datum/aspect_picker/ui_act(action, list/params)
 	if(..())
 		return
@@ -283,10 +253,6 @@
 				return
 			// Don't re-select something already live or staged
 			if(owner.mind.has_aspect(path))
-				return
-			// Check countersynergy against staged selections
-			if(has_countersynergy(path))
-				to_chat(owner, span_warning("This aspect conflicts with my current selections."))
 				return
 			// Determine if major or minor
 			var/datum/magic_aspect/temp = new path
