@@ -38,7 +38,7 @@
 
 /datum/supply_pack/rogue/potions/runicflask
 	name = "Runic Tincture Flask"
-	cost = 50
+	cost = 100
 	contains = list(/obj/item/runicflask/charged)
 
 /datum/supply_pack/rogue/potions/strpot
