@@ -355,7 +355,7 @@
 	if(!broken_matress && (broken_percentage >= 100))
 		broken_matress = TRUE
 		sleepy = 1 //Worse than a bedroll, better than nothing
-		visible_message(span_warning("\The [src] gives a violent snap. It looks broken!"))
+		visible_message(span_warning("\The [src] gives a violent snap, it looks broken!"))
 		playsound(src, 'sound/misc/mat/bed break.ogg', 50, TRUE, ignore_walls = FALSE)
 		desc += " The bed looks stained and seen better days."
 	else if(broken_percentage >= 100)
