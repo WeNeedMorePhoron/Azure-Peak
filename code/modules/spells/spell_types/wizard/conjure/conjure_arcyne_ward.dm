@@ -20,7 +20,7 @@
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_CONJURE
 
-	invocations = list("Aegis Arcynae!")
+	invocations = list("Aegis Congrego!")
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
@@ -38,7 +38,7 @@
 
 	var/obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward/conjured_ward
 	var/ward_type = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward
-	var/dismiss_invocation = "Aegis Dimittae."
+	var/dismiss_invocation = "Aegis Dissipo!"
 
 /datum/action/cooldown/spell/conjure_arcyne_ward/before_cast(atom/cast_on)
 	var/dismissing = conjured_ward && !QDELETED(conjured_ward)
@@ -95,8 +95,8 @@
 	Cast again to dismiss. Cooldown begins when dismissed or destroyed."
 	button_icon_state = "conjure_dragonhide"
 	spell_color = GLOW_COLOR_METAL
-	invocations = list("Aegis Draconis!")
-	dismiss_invocation = "Aegis Dimittae."
+	invocations = list("Draconis Congrego!")
+	dismiss_invocation = "Draconis Dissipo!"
 	point_cost = 4
 	ward_type = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward/dragonhide
 
@@ -108,8 +108,8 @@
 	Cast again to dismiss. Cooldown begins when dismissed or destroyed."
 	button_icon_state = "conjure_dragonhide"
 	spell_color = GLOW_COLOR_ARCANE
-	invocations = list("Aegis Crystallis!")
-	dismiss_invocation = "Aegis Dimittae."
+	invocations = list("Psymagia Congrego!")
+	dismiss_invocation = "Psymagia Dissipo!"
 	charge_time = 5 SECONDS
 	point_cost = 4
 	spell_tier = 3
