@@ -1262,10 +1262,10 @@
 	i_type = "Ammo"
 
 /datum/anvil_recipe/weapons/bronze/slingbullets
-	name = "Sling Bullets, Bronze (x10)"
+	name = "Sling Bullets, Bronze (x20)"
 	req_bar = /obj/item/ingot/bronze
 	created_item = /obj/item/ammo_casing/caseless/rogue/sling_bullet/bronze
-	createditem_num = 10
+	createditem_num = 20
 	i_type = "Ammo"
 
 /datum/anvil_recipe/weapons/aalloy/slingbullets
