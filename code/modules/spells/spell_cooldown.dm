@@ -967,6 +967,11 @@
 	if(owner.client)
 		owner.client.mouse_pointer_icon = 'icons/effects/mousemice/human.dmi'
 
+	// Always restore the spell to "selected and listening" if it's still the active click intercept.
+	// This prevents dead-spell states where charging ends but no input handler is registered.
+	if(click_to_activate && charge_required && owner?.client)
+		RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
+
 /// Cancel casting and all its effects.
 /datum/action/cooldown/spell/proc/cancel_casting()
 	if(QDELETED(src)) // Timer
@@ -975,11 +980,7 @@
 		deltimer(auto_cancel_timer)
 		auto_cancel_timer = null
 	charged = FALSE
-	end_charging()
-	// Re-register mousedown so the spell can be cast again without reselecting
-	if(owner?.client && click_to_activate && charge_required)
-		UnregisterSignal(owner.client, list(COMSIG_CLIENT_MOUSEDOWN, COMSIG_CLIENT_MOUSEUP))
-		RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
+	end_charging() // end_charging() handles MOUSEDOWN re-registration
 
 /// Checks if the current OWNER of the spell is in a valid state to say the spell's invocation
 /datum/action/cooldown/spell/proc/can_invoke(feedback = TRUE)
@@ -1322,6 +1323,8 @@
 		return
 	if(!isturf(owner.loc))
 		return
+	if(!IsAvailable())
+		return COMPONENT_CLIENT_MOUSEDOWN_INTERCEPT // Still consume the click so it doesn't fall through to old charge system
 	if(charge_started_at || currently_charging)
 		return
 
@@ -1386,8 +1389,7 @@
 			owner.balloon_alert(owner, "Spell ready — middle-click target!")
 		return
 
-	if(!on_end_charge(success)) // Give them another try if they mess up the timing
-		RegisterSignal(source, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
+	if(!on_end_charge(success)) // Give them another try — end_charging() already re-registered MOUSEDOWN
 		return
 
 	var/list/modifiers = params2list(params)
@@ -1396,9 +1398,10 @@
 	if(isnull(location) || istype(_target, /atom/movable/screen))
 		_target = resolve_out_of_view_click(source, params)
 		if(!_target)
-			return // Stay selected, let them try again
+			return // Stay selected — end_charging() already re-registered MOUSEDOWN
 
 	// Call this directly to do all the relevant checks and aim assist
+	// If it fails (cooldown, invalid target), end_charging() already re-registered MOUSEDOWN
 	InterceptClickOn(owner, modifiers, _target)
 	source.click_intercept_time = 0
 
