@@ -256,34 +256,35 @@
 	max_range = 5
 	dam_falloff_factor = DAM_FALLOFF_BULLET
 
-// HEAVY ROCK - Big slow projectile. High integrity damage, takes 3 weight in the pouch.
-/obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_rock
-	name = "heavy rock"
-	desc = "A hefty stone, barely small enough to fit in a sling. It won't fly fast or far, but whatever it hits is going to feel it. The sheer mass can knock a target back on impact."
-	projectile_type = /obj/projectile/bullet/reusable/sling_bullet/heavy_rock
-	icon_state = "heavy_rock"
+// HEAVY SLING BULLET - Big slow projectile. High integrity damage, takes 3 weight in the pouch.
+/obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_sling_bullet
+	name = "heavy sling bullet"
+	desc = "A hefty stone polished and rounded to fit in a sling as a projectile, at the upper limit of how heavy a sling bullet can be. It won't fly fast or far, but would obliterate armor on impact. The sheer mass can knock a target back on impact."
+	projectile_type = /obj/projectile/bullet/reusable/sling_bullet/heavy_sling_bullet
+	icon_state = "heavy_sling_bullet"
 	ammo_weight = 3
 	charge_time_mult = HEAVY_AMMO_CHARGE
 
-/obj/projectile/bullet/reusable/sling_bullet/heavy_rock
-	name = "heavy rock"
-	icon_state = "rock_proj"
-	damage = 80
-	ammo_type = /obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_rock
+/obj/projectile/bullet/reusable/sling_bullet/heavy_sling_bullet
+	name = "heavy sling bullet"
+	icon_state = "heavy_proj"
+	damage = 60 // Breaks equipments
+	ammo_type = /obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_sling_bullet
 	speed = HEAVY_AMMO_SPEED
 	ricochets_max = 0
 	ricochet_chance = 0
 	max_range = 6
+	intdamfacftor = 2
 	npc_simple_damage_mult = 3
 
-/obj/projectile/bullet/reusable/sling_bullet/heavy_rock/on_hit(atom/target)
+/obj/projectile/bullet/reusable/sling_bullet/heavy_sling_bullet/on_hit(atom/target)
 	. = ..()
 	if(!isliving(target))
 		return
 	var/mob/living/M = target
 	var/throw_dir = get_dir(src, target)
 	var/atom/throw_target = get_edge_target_turf(M, throw_dir)
-	M.safe_throw_at(throw_target, 1, 1)
+	M.safe_throw_at(throw_target, 2, 1)
 
 // FIRE POT - Ceramic pot of alchemical fire. Ignites on impact.
 /obj/item/ammo_casing/caseless/rogue/sling_bullet/fire_pot

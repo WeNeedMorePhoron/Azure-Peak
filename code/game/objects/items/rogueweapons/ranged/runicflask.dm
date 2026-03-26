@@ -1,48 +1,50 @@
 #define TINCTURE_FIRE "fire"
-#define TINCTURE_FROST "frost"
-#define TINCTURE_SMOKE "smoke"
-#define TINCTURE_LIGHTNING "lightning"
+// #define TINCTURE_FROST "frost" // Pending PR #6406 frost stack system
+#define TINCTURE_THUNDER "thunder"
+#define TINCTURE_KINETIC "kinetic"
+#define TINCTURE_SPLINTER "splinter"
 
-#define TINCTURE_MAX_CHARGES 40
+#define TINCTURE_MAX_CHARGES 20
 #define TINCTURE_REFUEL_AMOUNT 20
+#define TINCTURE_REFUEL_SKILL SKILL_LEVEL_JOURNEYMAN
 
 /obj/item/runicflask
 	name = "runic tincture flask"
 	desc = "A miraculous flask inscribed with runic alchemical magic to convert primal alchemical matters into a solution that can be applied onto arrows and create elemental effects."
-	icon = 'icons/roguetown/weapons/ranged/ta_misc.dmi'
+	icon = 'icons/roguetown/weapons/ranged/runicflask.dmi'
 	icon_state = "runicflask_fire"
 	item_state = "runicflask"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_HIP
 	sellprice = 15
 	dropshrink = 0.6
-	grid_width = 64
+	grid_width = 32
 	grid_height = 32
 
 	var/tincture_mode = TINCTURE_FIRE
 	var/charges = 0
 
-	var/static/list/tincture_modes = list(TINCTURE_FIRE, TINCTURE_FROST, TINCTURE_SMOKE, TINCTURE_LIGHTNING)
+	var/static/list/tincture_modes = list(TINCTURE_FIRE, TINCTURE_THUNDER, TINCTURE_KINETIC, TINCTURE_SPLINTER)
 
 	var/static/list/tincture_names = list(
 		TINCTURE_FIRE = "Fire Tincture",
-		TINCTURE_FROST = "Frost Tincture",
-		TINCTURE_SMOKE = "Smoke Tincture",
-		TINCTURE_LIGHTNING = "Lightning Tincture",
+		TINCTURE_THUNDER = "Thunder Tincture",
+		TINCTURE_KINETIC = "Kinetic Tincture",
+		TINCTURE_SPLINTER = "Splinter Tincture",
 	)
 
 	var/static/list/tincture_arrow_types = list(
 		TINCTURE_FIRE = /obj/item/ammo_casing/caseless/rogue/arrow/elemental/fire,
-		TINCTURE_FROST = /obj/item/ammo_casing/caseless/rogue/arrow/elemental/frost,
-		TINCTURE_SMOKE = /obj/item/ammo_casing/caseless/rogue/arrow/elemental/smoke,
-		TINCTURE_LIGHTNING = /obj/item/ammo_casing/caseless/rogue/arrow/elemental/lightning,
+		TINCTURE_THUNDER = /obj/item/ammo_casing/caseless/rogue/arrow/elemental/thunder,
+		TINCTURE_KINETIC = /obj/item/ammo_casing/caseless/rogue/arrow/elemental/kinetic,
+		TINCTURE_SPLINTER = /obj/item/ammo_casing/caseless/rogue/arrow/elemental/splinter,
 	)
 
 	var/static/list/tincture_descs = list(
 		TINCTURE_FIRE = "Coats arrows in a flammable tincture that ignites on impact.",
-		TINCTURE_FROST = "Coats arrows in a chilling solution that slows and weakens.",
-		TINCTURE_SMOKE = "Coats arrows in a volatile compound that erupts into blinding smoke.",
-		TINCTURE_LIGHTNING = "Coats arrows in a crackling solution that shocks on impact.",
+		TINCTURE_THUNDER = "Coats arrows in a crackling solution that sears with thunder.",
+		TINCTURE_KINETIC = "Coats arrows in a volatile kinetic solution that blasts targets back.",
+		TINCTURE_SPLINTER = "Coats arrows in a golden solution that shatters the head into a spread of three darts with low range but devastating damage up close.",
 	)
 
 	var/static/list/refuel_dust_types = list(
@@ -87,7 +89,7 @@
 			is_dust = TRUE
 			break
 	if(is_dust)
-		if(!user.mind || user.get_skill_level(/datum/skill/craft/alchemy) < SKILL_LEVEL_JOURNEYMAN)
+		if(!user.mind || user.get_skill_level(/datum/skill/craft/alchemy) < TINCTURE_REFUEL_SKILL)
 			to_chat(user, span_warning("I don't understand the runes well enough to refuel this flask. I need more knowledge of alchemy."))
 			return
 		if(charges >= TINCTURE_MAX_CHARGES)
@@ -95,7 +97,7 @@
 			return
 		charges = min(charges + TINCTURE_REFUEL_AMOUNT, TINCTURE_MAX_CHARGES)
 		to_chat(user, span_notice("I pour the [I.name] into the flask. Charges: [charges]/[TINCTURE_MAX_CHARGES]."))
-		playsound(src, 'sound/foley/dropsound/liquid_drop.ogg', 80)
+		playsound(src, 'sound/items/fillbottle.ogg', 80)
 		qdel(I)
 		return
 	return ..()
@@ -131,7 +133,7 @@
 		return
 
 	var/max_coatable = min(coatable_count, charges)
-	var/coat_count = tgui_input_number(user, "How many arrows to coat? ([max_coatable] available)", "Coat Arrows", max_coatable, max_coatable, 1)
+	var/coat_count = tgui_input_number(user, "How many arrows to coat? ([max_coatable] available, [charges] charges remaining)", "Coat Arrows", max_coatable, max_coatable, 1)
 	if(!coat_count || !user.canUseTopic(src, BE_CLOSE))
 		return
 
@@ -155,8 +157,8 @@
 		qdel(target_arrow)
 		charges--
 		coated++
+		playsound(src, 'sound/items/fillbottle.ogg', 60)
 
-	playsound(src, 'sound/foley/dropsound/liquid_drop.ogg', 60)
 	to_chat(user, span_notice("Coated [coated] arrow\s. [charges] charges remaining."))
 	Q.update_icon()
 
@@ -173,7 +175,7 @@
 	qdel(target)
 	user.put_in_hands(new_arrow)
 	charges--
-	playsound(src, 'sound/foley/dropsound/liquid_drop.ogg', 60)
+	playsound(src, 'sound/items/fillbottle.ogg', 60)
 	to_chat(user, span_notice("I coat the arrow with [tincture_names[tincture_mode]]. [charges] charges remaining."))
 
 /obj/item/runicflask/getonmobprop(tag)
@@ -189,8 +191,10 @@
 	charges = 20
 
 #undef TINCTURE_FIRE
-#undef TINCTURE_FROST
-#undef TINCTURE_SMOKE
-#undef TINCTURE_LIGHTNING
+// #undef TINCTURE_FROST // Pending PR #6406
+#undef TINCTURE_THUNDER
+#undef TINCTURE_KINETIC
+#undef TINCTURE_SPLINTER
 #undef TINCTURE_MAX_CHARGES
 #undef TINCTURE_REFUEL_AMOUNT
+#undef TINCTURE_REFUEL_SKILL

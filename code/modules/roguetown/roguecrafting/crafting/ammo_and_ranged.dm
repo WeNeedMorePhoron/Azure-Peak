@@ -381,12 +381,14 @@
 	verbage_simple = "hammer out"
 	verbage = "hammers out"
 
-/datum/crafting_recipe/roguetown/survival/heavy_rock
-	name = "heavy rock (x2)"
+/datum/crafting_recipe/roguetown/survival/heavy_sling_bullet
+	name = "heavy sling bullet (x4)"
 	category = "Ranged"
 	result = list(
-		/obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_rock,
-		/obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_rock,
+		/obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_sling_bullet,
+		/obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_sling_bullet,
+		/obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_sling_bullet,
+		/obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_sling_bullet,
 	)
 	reqs = list(/obj/item/natural/stone = 3)
 	req_table = TRUE
@@ -395,9 +397,11 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/fire_pot
-	name = "fire pot (x2)"
+	name = "fire pot (x4)"
 	category = "Ranged"
 	result = list(
+		/obj/item/ammo_casing/caseless/rogue/sling_bullet/fire_pot,
+		/obj/item/ammo_casing/caseless/rogue/sling_bullet/fire_pot,
 		/obj/item/ammo_casing/caseless/rogue/sling_bullet/fire_pot,
 		/obj/item/ammo_casing/caseless/rogue/sling_bullet/fire_pot,
 	)
@@ -414,18 +418,15 @@
 /datum/crafting_recipe/roguetown/survival/runicflask
 	name = "runic tincture flask"
 	category = "Ranged"
-	result = /obj/item/runicflask
+	result = /obj/item/runicflask/charged
 	reqs = list(
-		/obj/item/alch/firedust = 1,
-		/obj/item/alch/airdust = 1,
-		/obj/item/alch/coaldust = 1,
-		/obj/item/alch/waterdust = 1,
-		/obj/item/natural/glass_shard = 1,
-		/obj/item/natural/hide = 1,
+		/obj/item/alch/firedust = 2,
+		/obj/item/alch/waterdust = 2,
+		/obj/item/natural/hide/cured = 2,
 	)
 	req_table = TRUE
 	craftdiff = 4
-	skillcraft = /datum/skill/craft/engineering
+	skillcraft = /datum/skill/craft/alchemy
 	verbage_simple = "assemble"
 	verbage = "assembles"
 

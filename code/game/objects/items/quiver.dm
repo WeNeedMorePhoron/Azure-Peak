@@ -708,10 +708,10 @@
 		arrows += A
 	update_icon()
 
-/obj/item/quiver/sling/heavy_rock/Initialize()
+/obj/item/quiver/sling/heavy_sling_bullet/Initialize()
 	. = ..()
 	for(var/i in 1 to 13) // 3 weight each, 13 rocks = 39/40 capacity
-		var/obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_rock/A = new()
+		var/obj/item/ammo_casing/caseless/rogue/sling_bullet/heavy_sling_bullet/A = new()
 		arrows += A
 	update_icon()
 
