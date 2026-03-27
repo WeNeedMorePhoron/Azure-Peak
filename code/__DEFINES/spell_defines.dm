@@ -96,6 +96,18 @@
 #define SPELL_IMPACT_MEDIUM 2  // 4 wisps — staple projectiles, soulshot
 #define SPELL_IMPACT_HIGH   3  // 6 wisps — big hits, fireball, boulder
 
+// Rune Ward types and icon states
+#define RUNE_WARD_STUN "stun"
+#define RUNE_WARD_FIRE "fire"
+#define RUNE_WARD_CHILL "chill"
+#define RUNE_WARD_DAMAGE "damage"
+#define RUNE_WARD_ALARM "alarm"
+#define RUNE_WARD_ICON_STUN "rune_stun"
+#define RUNE_WARD_ICON_FIRE "rune_fire"
+#define RUNE_WARD_ICON_CHILL "rune_chill"
+#define RUNE_WARD_ICON_DAMAGE "rune_damage"
+#define RUNE_WARD_ICON_ALARM "rune_alarm"
+
 // Magic Aspect system - default slot counts (overridden by mage_aspect_config per class)
 #define MAX_MAJOR_ASPECTS 1
 #define MAX_MINOR_ASPECTS 2

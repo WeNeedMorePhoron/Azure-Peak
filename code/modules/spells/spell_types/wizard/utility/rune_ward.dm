@@ -1,9 +1,3 @@
-#define RUNE_WARD_STUN "stun"
-#define RUNE_WARD_FIRE "fire"
-#define RUNE_WARD_CHILL "chill"
-#define RUNE_WARD_DAMAGE "damage"
-#define RUNE_WARD_ALARM "alarm"
-
 /datum/action/cooldown/spell/touch/rune_ward
 	name = "Rune Ward"
 	desc = "Channel arcyne energy through ash to inscribe protective runes upon the ground. The runes trigger when trespassers cross them. Includes the following modes:\n \
@@ -76,11 +70,11 @@
 		return FALSE
 
 	var/list/choices = list()
-	choices[RUNE_WARD_STUN] = image(icon = 'icons/roguetown/misc/rune_wards.dmi', icon_state = "rune_stun")
-	choices[RUNE_WARD_FIRE] = image(icon = 'icons/roguetown/misc/rune_wards.dmi', icon_state = "rune_fire")
-	choices[RUNE_WARD_CHILL] = image(icon = 'icons/roguetown/misc/rune_wards.dmi', icon_state = "rune_chill")
-	choices[RUNE_WARD_DAMAGE] = image(icon = 'icons/roguetown/misc/rune_wards.dmi', icon_state = "rune_damage")
-	choices[RUNE_WARD_ALARM] = image(icon = 'icons/roguetown/misc/rune_wards.dmi', icon_state = "rune_alarm")
+	choices[RUNE_WARD_STUN] = image(icon = 'icons/roguetown/misc/rune_wards.dmi', icon_state = RUNE_WARD_ICON_STUN)
+	choices[RUNE_WARD_FIRE] = image(icon = 'icons/roguetown/misc/rune_wards.dmi', icon_state = RUNE_WARD_ICON_FIRE)
+	choices[RUNE_WARD_CHILL] = image(icon = 'icons/roguetown/misc/rune_wards.dmi', icon_state = RUNE_WARD_ICON_CHILL)
+	choices[RUNE_WARD_DAMAGE] = image(icon = 'icons/roguetown/misc/rune_wards.dmi', icon_state = RUNE_WARD_ICON_DAMAGE)
+	choices[RUNE_WARD_ALARM] = image(icon = 'icons/roguetown/misc/rune_wards.dmi', icon_state = RUNE_WARD_ICON_ALARM)
 
 	var/choice = show_radial_menu(caster, caster, choices)
 	if(!choice)
@@ -240,8 +234,3 @@
 	if(spell)
 		spell.cast_on_hand_hit(src, target, user)
 
-#undef RUNE_WARD_STUN
-#undef RUNE_WARD_FIRE
-#undef RUNE_WARD_CHILL
-#undef RUNE_WARD_DAMAGE
-#undef RUNE_WARD_ALARM
