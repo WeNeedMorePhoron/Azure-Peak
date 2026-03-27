@@ -36,6 +36,7 @@ export const GrimoireAspectPicker = () => {
     staged_unbind_utilities = [],
     known_utilities = [],
     given_utilities = [],
+    variant_overrides = {},
   } = data;
 
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
@@ -254,6 +255,7 @@ export const GrimoireAspectPicker = () => {
                     getPointbuyUsed={getPointbuyUsed}
                     act={() => {}}
                     readOnly
+                    variantOverride={variant_overrides[selected.path]}
                   />
                 ) : (
                   <div className="AspectPicker__empty">
@@ -280,6 +282,7 @@ export const GrimoireAspectPicker = () => {
                   getPointbuyUsed={getPointbuyUsed}
                   act={wrappedAct}
                   readOnly={read_only}
+                  variantOverride={variant_overrides[selected.path]}
                 />
               ) : (
                 <div className="AspectPicker__empty">

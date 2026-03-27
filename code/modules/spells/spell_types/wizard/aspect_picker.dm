@@ -23,8 +23,8 @@
 	var/list/locked_aspects = list()
 	/// TRUE while performing binding/unbinding chants — prevents ui_close from qdel'ing
 	var/chanting = FALSE
-	/// Named variant override from class config (e.g. "grenzelhoftian")
-	var/variant_override
+	/// Assoc list of variant overrides from class config: aspect_path = variant_name (e.g. /datum/magic_aspect/pyromancy = "grenzelhoftian")
+	var/list/variant_overrides
 
 /datum/aspect_picker/New(mob/living/new_owner, setup = TRUE, list/aspect_config)
 	owner = new_owner
@@ -34,7 +34,8 @@
 		override_max_majors = aspect_config["major"]
 		override_max_minors = aspect_config["minor"]
 		max_utilities = aspect_config["utilities"] || 0
-		variant_override = aspect_config["variant"]
+		if(islist(aspect_config["variants"]))
+			variant_overrides = aspect_config["variants"]
 		if(length(aspect_config["locked_aspects"]))
 			for(var/path in aspect_config["locked_aspects"])
 				locked_aspects += path
@@ -81,6 +82,13 @@
 	for(var/path in locked_aspects)
 		locked_paths += "[path]"
 	data["locked_aspects"] = locked_paths
+
+	// Send variant overrides so the UI can highlight which variant applies per aspect
+	var/list/variant_override_paths = list()
+	if(LAZYLEN(variant_overrides))
+		for(var/path in variant_overrides)
+			variant_override_paths["[path]"] = variant_overrides[path]
+	data["variant_overrides"] = variant_override_paths
 
 	// Show both already-attuned and staged selections
 	data["attuned_majors"] = list()
@@ -441,16 +449,8 @@
 				to_chat(owner, span_warning("You must select something before sealing."))
 				return
 
-			// Validate choice selections — each new aspect with choice_spells must have a pick
-			for(var/path in staged_majors + staged_minors)
-				if(owner.mind.has_aspect(path))
-					continue
-				var/datum/magic_aspect/check = new path
-				if(length(check.choice_spells) && !staged_choices["[path]"])
-					to_chat(owner, span_warning("You must choose a spell for [check.name] before sealing."))
-					qdel(check)
-					return
-				qdel(check)
+			// Choice spell validation removed — attune_aspect() auto-resolves:
+			// prefers an already-inscribed choice spell, else falls back to first in list
 
 			if(chanting)
 				return
@@ -517,12 +517,24 @@
 			if(A.type in staged_unbind_aspects)
 				continue
 			surviving_spells |= A.fixed_spells
-			surviving_spells |= A.choice_spells
+			// Only preserve the choice spell this aspect actually granted, not all options
+			if(A.chosen_spell)
+				surviving_spells |= A.chosen_spell
 		// Spells from newly staged aspects about to be added
 		for(var/staged_path in staged_majors + staged_minors)
 			var/datum/magic_aspect/staged = new staged_path
 			surviving_spells |= staged.fixed_spells
-			surviving_spells |= staged.choice_spells
+			// Preserve the explicit choice, or the one the player already has (attune_aspect will auto-resolve)
+			var/chosen = staged_choices["[staged_path]"] ? text2path(staged_choices["[staged_path]"]) : null
+			if(!chosen)
+				for(var/candidate in staged.choice_spells)
+					if(owner.mind.has_spell(candidate))
+						chosen = candidate
+						break
+			if(!chosen && length(staged.choice_spells))
+				chosen = staged.choice_spells[1]
+			if(chosen)
+				surviving_spells |= chosen
 			qdel(staged)
 		// Utility spells the player learned (not being unbound)
 		for(var/spell_path_str in staged_utilities)
@@ -572,8 +584,10 @@
 				qdel(aspect)
 				chanting = FALSE
 				return
-		// Locked aspects with a variant override use that; otherwise mastery
-		var/variant = ((path in locked_aspects) && variant_override) ? variant_override : (mastery ? "mastery" : null)
+		// Check for class variant override on this specific aspect, otherwise mastery
+		var/variant = LAZYLEN(variant_overrides) ? variant_overrides[path] : null
+		if(!variant && mastery)
+			variant = "mastery"
 		var/choice = staged_choices["[path]"] ? text2path(staged_choices["[path]"]) : null
 		if(!owner.mind.attune_aspect(aspect, variant, choice))
 			qdel(aspect)
@@ -587,7 +601,9 @@
 				qdel(aspect)
 				chanting = FALSE
 				return
-		var/variant = ((path in locked_aspects) && variant_override) ? variant_override : (mastery ? "mastery" : null)
+		var/variant = LAZYLEN(variant_overrides) ? variant_overrides[path] : null
+		if(!variant && mastery)
+			variant = "mastery"
 		var/choice = staged_choices["[path]"] ? text2path(staged_choices["[path]"]) : null
 		if(!owner.mind.attune_aspect(aspect, variant, choice))
 			qdel(aspect)

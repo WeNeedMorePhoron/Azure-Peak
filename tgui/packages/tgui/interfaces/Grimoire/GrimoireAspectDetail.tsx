@@ -21,6 +21,7 @@ export const GrimoireAspectDetail = ({
   getPointbuyUsed,
   act,
   readOnly = false,
+  variantOverride,
 }: {
   aspect: Aspect;
   isAttuned: boolean;
@@ -37,6 +38,7 @@ export const GrimoireAspectDetail = ({
   getPointbuyUsed: (a: Aspect) => number;
   act: (action: string, params: Record<string, unknown>) => void;
   readOnly?: boolean;
+  variantOverride?: string;
 }) => {
   const isMajor = aspect.aspect_type === 'major';
   const unbindCost = isMajor ? 2 : 1;
@@ -118,6 +120,7 @@ export const GrimoireAspectDetail = ({
             variants={aspect.variants}
             fixedSpells={aspect.fixed_spells}
             userTier={userTier}
+            variantOverride={variantOverride}
           />
         )}
 

@@ -117,7 +117,7 @@
 			holder = new(B)
 			B.vis_contents.Add(holder)
 		holder.maptext = MAPTEXT(label)
-		holder.maptext_x = 4
+		holder.maptext_x = 5
 		holder.color = GLOW_COLOR_WARD
 
 /obj/effect/temp_visual/trap_wall/battle_ward

@@ -57,6 +57,7 @@ export type Data = {
   staged_unbind_utilities: string[];
   known_utilities: string[];
   given_utilities: string[];
+  variant_overrides: Record<string, string>;
 };
 
 export type Tab = 'major' | 'minor' | 'utilities';

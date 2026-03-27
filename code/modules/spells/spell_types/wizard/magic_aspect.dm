@@ -20,6 +20,8 @@
 	/// Major: Latin, English, Latin. Minor: Latin, English.
 	var/list/binding_chants = list()
 	var/list/unbinding_chants = list()
+	/// The choice spell that was actually picked during attunement. Set by grant_choice_spell().
+	var/chosen_spell
 
 /datum/magic_aspect/proc/get_implement_name(base_name)
 	if(!attuned_name)
@@ -30,6 +32,7 @@
 /datum/magic_aspect/proc/grant_choice_spell(datum/mind/target, spell_path)
 	if(!spell_path || !(spell_path in choice_spells))
 		return
+	chosen_spell = spell_path
 	if(target.has_spell(spell_path))
 		return
 	var/datum/new_spell = new spell_path
