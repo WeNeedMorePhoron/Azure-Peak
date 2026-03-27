@@ -514,7 +514,7 @@
 		var/list/surviving_spells = list()
 		// Spells from aspects that are staying (not being unbound)
 		for(var/datum/magic_aspect/A in owner.mind.major_aspects + owner.mind.minor_aspects)
-			if("[A.type]" in staged_unbind_aspects)
+			if(A.type in staged_unbind_aspects)
 				continue
 			surviving_spells |= A.fixed_spells
 			surviving_spells |= A.choice_spells
