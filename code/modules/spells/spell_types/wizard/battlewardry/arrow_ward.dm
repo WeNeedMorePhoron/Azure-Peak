@@ -100,10 +100,11 @@
 /obj/structure/arrow_ward/CanPass(atom/movable/mover, turf/target)
 	if(isprojectile(mover))
 		var/obj/projectile/proj = mover
-		// Only let through if firer is directly behind the shield
+		// Let through if firer is anywhere in the behind arc (e.g. S, SW, SE all pass a N-facing shield)
 		if(proj.firer)
+			var/behind = REVERSE_DIR(shield_dir)
 			var/firer_dir = get_dir(src, proj.firer)
-			if(firer_dir == REVERSE_DIR(shield_dir))
+			if(firer_dir & behind)
 				return TRUE
 		return FALSE
 	return TRUE

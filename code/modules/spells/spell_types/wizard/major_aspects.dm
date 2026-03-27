@@ -291,3 +291,8 @@
 		/datum/action/cooldown/spell/projectile/soulshot,
 		/datum/action/cooldown/spell/projectile/greater_arcyne_bolt,
 	)
+	variants = list(
+		"mastery" = list(
+			VARIANT_ADDITIVE =/datum/action/cooldown/spell/arcyne_fortress,
+		),
+	)

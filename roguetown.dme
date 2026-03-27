@@ -2823,6 +2823,7 @@
 #include "code\modules\spells\spell_types\wizard\spells_status_effects.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\misc_leap.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\misc_nondetection.dm"
+#include "code\modules\spells\spell_types\wizard\battlewardry\arcyne_fortress.dm"
 #include "code\modules\spells\spell_types\wizard\battlewardry\arrow_ward.dm"
 #include "code\modules\spells\spell_types\wizard\conjure\arcyne_forge.dm"
 #include "code\modules\spells\spell_types\wizard\battlewardry\bestow_ward.dm"
