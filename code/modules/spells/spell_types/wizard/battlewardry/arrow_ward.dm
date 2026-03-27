@@ -60,12 +60,17 @@
 		affected_turfs += get_step(get_step(front, perpendicular_dirs[1]), perpendicular_dirs[1])
 		affected_turfs += get_step(get_step(front, perpendicular_dirs[2]), perpendicular_dirs[2])
 
+	var/cast_dir = H.dir
 	for(var/turf/affected_turf in affected_turfs)
-		var/obj/structure/arrow_ward/B = new(affected_turf, H, barrier_duration)
-		B.set_shield_dir(H.dir)
+		new /obj/effect/temp_visual/trap_wall(affected_turf)
+		addtimer(CALLBACK(src, PROC_REF(spawn_ward), affected_turf, H, cast_dir), 1 SECONDS)
 
 	H.visible_message(span_notice("[H] raises a shimmering arrow ward!"))
 	return TRUE
+
+/datum/action/cooldown/spell/arrow_ward/proc/spawn_ward(turf/target, mob/caster, shield_direction)
+	var/obj/structure/arrow_ward/B = new(target, caster, barrier_duration)
+	B.set_shield_dir(shield_direction)
 
 /obj/structure/arrow_ward
 	name = "arrow ward"
