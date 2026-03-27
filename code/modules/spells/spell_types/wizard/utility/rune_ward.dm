@@ -148,7 +148,7 @@
 	else
 		var/turf/T = get_turf(victim)
 		if(T)
-			target_trap = locate(/obj/structure/trap) in T
+			target_trap = locate(/obj/structure/rune_ward) in T
 
 	if(!target_trap)
 		to_chat(caster, span_warning("There is no rune or trap here to scrub."))
