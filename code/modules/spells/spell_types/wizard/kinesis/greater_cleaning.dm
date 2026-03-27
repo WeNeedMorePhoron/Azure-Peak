@@ -24,7 +24,7 @@
 
 	charge_required = TRUE
 	charge_time = CHARGETIME_POKE
-	cooldown_time = 30 SECONDS
+	cooldown_time = 10 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 1
