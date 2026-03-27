@@ -274,7 +274,7 @@
 	ricochets_max = 0
 	ricochet_chance = 0
 	max_range = 6
-	intdamfacftor = 2
+	intdamfactor = 2
 	npc_simple_damage_mult = 3
 
 /obj/projectile/bullet/reusable/sling_bullet/heavy_sling_bullet/on_hit(atom/target)
