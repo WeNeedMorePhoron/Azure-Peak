@@ -906,12 +906,12 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 			AddSpell(new /datum/action/cooldown/spell/conjure_arcyne_ward)
 
 	// Prestidigitation - always last
-	var/datum/presto = get_spell(/obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+	var/datum/presto = get_spell(/datum/action/cooldown/spell/touch/prestidigitation)
 	if(!presto)
-		AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+		AddSpell(new /datum/action/cooldown/spell/touch/prestidigitation)
 	else
 		RemoveSpell(presto)
-		AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+		AddSpell(new /datum/action/cooldown/spell/touch/prestidigitation)
 
 
 /datum/mind/proc/show_spell_tip()

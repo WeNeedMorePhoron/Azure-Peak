@@ -41,7 +41,7 @@
 // Standardized spell stamina costs
 #define SPELLCOST_CANTRIP            5
 #define SPELLCOST_MINOR_PROJECTILE   10 // Should feels good to spam and not stamcrit you
-#define SPELLCOST_MAJOR_PROJECTILE   20 // 25 seems decent
+#define SPELLCOST_MAJOR_PROJECTILE   20 // 20 seems decent
 #define SPELLCOST_SUPER_PROJECTILE   45 // Only used for GFB for now as an intermediary
 #define SPELLCOST_ULTIMATE           70
 #define SPELLCOST_MINOR_AOE          15
