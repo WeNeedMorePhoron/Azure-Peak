@@ -13,6 +13,7 @@
 #define GLOW_COLOR_ILLUSION "#CE93D8" // Illusory pink-purple
 #define GLOW_COLOR_HEARTH "#FF8A65" // Warm hearthfire salmon
 #define GLOW_COLOR_LIGHT "#FFFDE7" // Pale warm white, for light spells
+#define GLOW_COLOR_WARD "#D4A844" // Warm amber-gold, for battlewardry / protective ward spells
 
 // Constants for spell glow intensity. These are literally 1 2 3 4 but it is for documenting design purposes
 #define GLOW_INTENSITY_LOW 1 // For spam projectiles or generic buffs
@@ -129,6 +130,12 @@
 #define ASPECT_NAME_KINESIS     "Force"
 #define ASPECT_NAME_FERRAMANCY  "Metal"
 #define ASPECT_NAME_AUGMENTATION "Enhancement"
+#define ASPECT_NAME_BATTLEWARDRY "Wards"
+
+// Arcyne ward tier hierarchy - higher tier wards override lower, equal or lower cannot override
+#define ARCYNE_WARD_TIER_OTHER   1 // Other Ward (cast on allies)
+#define ARCYNE_WARD_TIER_BASE    4 // Standard arcyne ward (self-cast)
+#define ARCYNE_WARD_TIER_GREATER 5 // Dragonhide / Crystalhide upgrades
 
 // Variant additive sentinel - used instead of null because DM skips null keys in for-in loops
 #define VARIANT_ADDITIVE "__additive__"

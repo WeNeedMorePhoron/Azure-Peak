@@ -1,9 +1,11 @@
 /datum/action/cooldown/spell/touch/rune_ward
+	button_icon = 'icons/mob/actions/mage_utilities.dmi'
 	name = "Rune Ward"
-	desc = "Channel arcyne energy through ash to inscribe protective runes upon the ground. The runes trigger when trespassers cross them. Includes the following modes:\n \
+	desc = "Channel arcyne energy through ash to inscribe protective runes upon the ground. The runes trigger when trespassers cross them - but can be circumvented by jumping or flying over them. Includes the following modes:\n \
 	<b>Touch</b>: Draw a rune on the ground using ash from your off-hand. Choose from Stun, Fire, Chill, Damage, or Alarm types.\n \
 	<b>Shove</b>: Scrub an existing rune from the ground. Skilled mages can do this silently.\n \
 	<b>Use</b>: Memorize or forget allies - memorized people will not trigger your runes."
+
 	button_icon_state = "rune_ward"
 
 	draw_message = span_notice("I focus my arcyne power into my fingertips, ready to inscribe.")
@@ -133,7 +135,7 @@
 			qdel(oldest)
 
 	caster.visible_message(span_notice("[caster] finishes inscribing a rune on the ground."), span_notice("I finish the [choice] rune ward."))
-	playsound(target_turf, 'sound/magic/charging.ogg', 30, TRUE)
+	playsound(target_turf, 'sound/magic/whiteflame.ogg', 30, TRUE)
 
 	var/fatigue = get_adjusted_cost(primary_resource_cost)
 	caster.stamina_add(fatigue)

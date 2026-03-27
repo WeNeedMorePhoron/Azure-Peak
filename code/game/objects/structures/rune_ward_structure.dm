@@ -37,19 +37,24 @@
 			return
 		if(HAS_TRAIT(AM, TRAIT_LIGHT_STEP))
 			return
-		// Prevent chaining multiple runes via knockback/fetch/repel
+		if(AM.throwing)
+			return
 		if(isliving(AM))
 			var/mob/living/L = AM
+			if(L.movement_type & (FLYING|FLOATING))
+				return
+			if(L.is_jumping)
+				return
 			if(L.mob_timers[RUNE_WARD_IMMUNITY_KEY] && world.time < L.mob_timers[RUNE_WARD_IMMUNITY_KEY])
 				return
 	if(charges <= 0)
 		return
-	flare()
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.mob_timers[RUNE_WARD_IMMUNITY_KEY] = world.time + RUNE_WARD_IMMUNITY_DURATION
 		log_combat(AM, src, "triggered [name] placed by [owner_name] ([owner_ckey]) at [AREACOORD(src)]")
 		trap_effect(L)
+	flare()
 
 /obj/structure/trap/rune_ward/Destroy()
 	owner_ref = null
@@ -63,7 +68,11 @@
 
 /obj/structure/trap/rune_ward/examine(mob/user)
 	. = ..()
-	. += span_info("A skilled mage can scrub this effortlessly. Otherwise, it must be destroyed by force.")
+	if(max_integrity <= 50)
+		. += span_info("This rune looks very fragile - a few solid hits would destroy it.")
+	else
+		. += span_info("A skilled mage can scrub this effortlessly. Otherwise, it must be destroyed by force.")
+	. += span_info("Flying, jumping, or being thrown over the rune will not trigger it.")
 
 /obj/structure/trap/rune_ward/stun
 	name = "shock rune"
@@ -81,10 +90,11 @@
 
 /obj/structure/trap/rune_ward/fire/trap_effect(mob/living/L)
 	to_chat(L, span_danger("<B>The rune erupts in flames!</B>"))
+	playsound(src, pick('sound/misc/explode/incendiary (1).ogg', 'sound/misc/explode/incendiary (2).ogg'), 80, TRUE)
 	new /obj/effect/hotspot(get_turf(src))
 	L.Knockdown(30)
 	L.Slowdown(2)
-	L.adjust_fire_stacks(10)
+	L.adjust_fire_stacks(5)
 	L.ignite_mob()
 
 /obj/structure/trap/rune_ward/chill
@@ -93,6 +103,7 @@
 
 /obj/structure/trap/rune_ward/chill/trap_effect(mob/living/L)
 	to_chat(L, span_danger("<B>Frost erupts from the rune and seizes your limbs!</B>"))
+	playsound(src, 'sound/spellbooks/crystal.ogg', 80, TRUE)
 	new /obj/effect/temp_visual/trapice(get_turf(src))
 	L.Paralyze(20)
 	L.adjustFireLoss(30)
@@ -107,6 +118,7 @@
 /obj/structure/trap/rune_ward/damage/trap_effect(mob/living/L)
 	to_chat(L, span_danger("<B>Arcyne blades erupt from the rune!</B>"))
 	playsound(src, 'sound/magic/blade_burst.ogg', 80, TRUE)
+	playsound(src, pick('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg'), 80, TRUE)
 	new /obj/effect/temp_visual/blade_burst(get_turf(src))
 	L.Knockdown(30)
 	L.Slowdown(2)

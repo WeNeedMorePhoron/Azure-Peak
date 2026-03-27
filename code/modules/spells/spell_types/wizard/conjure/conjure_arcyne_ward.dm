@@ -68,9 +68,14 @@
 		qdel(conjured_ward)
 		return TRUE
 
-	if(H.skin_armor && !istype(H.skin_armor, /obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward))
-		to_chat(owner, span_warning("Something else already protects my skin!"))
-		return FALSE
+	if(H.skin_armor)
+		if(!istype(H.skin_armor, /obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward))
+			to_chat(owner, span_warning("Something else already protects my skin!"))
+			return FALSE
+		var/obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward/existing = H.skin_armor
+		if(existing.arcyne_armor_tier > initial(ward_type:arcyne_armor_tier))
+			to_chat(owner, span_warning("A stronger ward already protects me!"))
+			return FALSE
 
 	// Toggle on - conjure ward, no cooldown (button stays available for dismiss)
 	owner.visible_message(span_notice("An arcyne ward shimmers into existence around [owner]!"))
@@ -143,6 +148,7 @@
 	var/mob/living/carbon/human/ward_owner
 	var/coverage_locked = FALSE
 	var/ward_color = GLOW_COLOR_ARCANE
+	var/arcyne_armor_tier = ARCYNE_WARD_TIER_BASE
 
 /obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward/proc/setup_ward(mob/living/carbon/human/H)
 	ward_owner = H
@@ -290,6 +296,7 @@
 	armor = ARMOR_DRAGONHIDE
 	max_integrity = 300
 	ward_color = GLOW_COLOR_FIRE
+	arcyne_armor_tier = ARCYNE_WARD_TIER_GREATER
 	repairmsg_begin = "The dragonhide ward begins to mend itself, drawing from my energy..."
 	repairmsg_continue = "The dragonhide ward weaves draconic scales back together..."
 	repairmsg_end = "The dragonhide ward stabilizes, fully restored."
@@ -311,6 +318,7 @@
 	armor = ARMOR_PLATE
 	max_integrity = 300
 	ward_color = GLOW_COLOR_KINESIS
+	arcyne_armor_tier = ARCYNE_WARD_TIER_GREATER
 	repairmsg_begin = "The crystalhide ward begins to mend itself, drawing from my energy..."
 	repairmsg_continue = "The crystalhide ward reforms crystalline lattice..."
 	repairmsg_end = "The crystalhide ward stabilizes, fully restored."
