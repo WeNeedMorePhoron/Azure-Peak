@@ -49,7 +49,7 @@
 #define SPELLCOST_SINGLE_CC          30
 #define SPELLCOST_UTILITY_BUFF       20
 #define SPELLCOST_STAT_BUFF          40
-#define SPELLCOST_CONJURE            20
+#define SPELLCOST_CONJURE            20	
 #define SPELLCOST_TELEPORT           15
 #define SPELLCOST_MINOR_SUMMON       30
 #define SPELLCOST_MAJOR_SUMMON       50
