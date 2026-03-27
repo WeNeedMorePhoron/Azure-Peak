@@ -37,6 +37,8 @@
 	pumpkin spice and tossed into a kettle, it makes for an absolutely divine drink."
 	bitesize = 3 //Sharing is caring!
 	icon_state = "chocolatehalf"
+	slices_num = null
+	slice_path = null
 
 /obj/item/reagent_containers/food/snacks/jamtallow
 	name = "stick of jamtallow"
@@ -291,6 +293,7 @@
 	slice_path = null
 	rotprocess = null
 	faretype = FARE_FINE
+	obj_flags = CAN_BE_HIT|UNIQUE_RENAME
 	bitesize = 3
 	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
 	tastes = list("crispy sugarglass" = 1)

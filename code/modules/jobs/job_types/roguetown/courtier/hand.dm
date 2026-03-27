@@ -31,8 +31,8 @@
 /datum/outfit/job/roguetown/hand
 	backr = /obj/item/storage/backpack/rogue/satchel/short
 	shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
-	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/light/fencer //steel protection with awful integrity, to go under the awful integrity gambeson- light tho
-	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy/hand
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/light //regular
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/hand
 	belt = /obj/item/storage/belt/rogue/leather/steel
 	id = /obj/item/scomstone/garrison/hand
 	job_bitflag = BITFLAG_ROYALTY

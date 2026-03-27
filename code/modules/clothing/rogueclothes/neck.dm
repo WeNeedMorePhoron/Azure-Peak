@@ -265,6 +265,15 @@
 	max_integrity = ARMOR_INT_SIDE_IRON
 	anvilrepair = /datum/skill/craft/armorsmithing
 
+/obj/item/clothing/neck/roguetown/bevor/bronze
+	name = "bronze gorgette"
+	desc = "A jutting slab of bronze, traditionally mounted atop a panoplic assembly to veil the neck from precise strikes. </br>To tip the chin up while grounded is an ancient gesture; one which willingly beckons for the 'gift of mercy'."
+	icon_state = "bbevor"
+	smeltresult = /obj/item/ingot/bronze
+	armor = ARMOR_BRONZE
+	max_integrity = ARMOR_INT_SIDE_BRONZE
+	anvilrepair = /datum/skill/craft/armorsmithing
+
 /obj/item/clothing/neck/roguetown/gorget
 	name = "gorget"
 	desc = "A series of iron plates designed to protect the neck, traditionally atop a jacket or cuirass. While it lacks a coif's coverage, it is more-than-capable of thwarting a dagger's viscous bite."
@@ -627,6 +636,27 @@
 	desc = "'YOU FIGHT WELL, RAVOX OF UR-SYON. YOUR CLEMENCY HATH BEEN EARNED. SURRENDER NOW, AND GRAGGAR SHALL-'</br>‎  </br>'No.' </br>‎  </br>'-WHAT? YOU'RE GOING TO THROW AWAY YOUR LYFE FOR A GOD THAT HAS NO LOVE FOR YOU?' </br>‎  </br>'One of us will.'"
 	icon_state = "ravox_b"
 
+/obj/item/clothing/neck/roguetown/psicross/astrata/bronze
+	name = "bronze amulet of Astrata"
+	desc = "'We are Her soldiers, the Legion of light.' </br>'We are the center, the depth of the Sun.' </br>'Fire and flame - we are one.'"
+	icon_state = "astrata_b"
+	item_state = "astrata_b"
+	sellprice = 25 // same as a bronze psycross
+
+/obj/item/clothing/neck/roguetown/psicross/malum/bronze
+	name = "bronze amulet of Malum"
+	desc = "Stone to steel, bone to bronze, mulched to masterworked."
+	icon_state = "malum_b"
+	item_state = "malum_b"
+	sellprice = 25
+
+/obj/item/clothing/neck/roguetown/psicross/inhumen/graggar/bronze
+	name = "bronze amulet of Graggar"
+	desc = "'EVERYTHING - AND EVERYONE YOU LOVE - WILL BE GONE! WHAT WILL YOU HAVE, AFTER THE LAST FIRE'S BEEN SMOTHERED OUT?!' </br>‎  </br>'..You. I'd still have you.'"
+	icon_state = "graggar_b"
+	item_state = "graggar_b"
+	sellprice = 25
+
 /obj/item/clothing/neck/roguetown/psicross/malum
 	name = "amulet of Malum"
 	desc = "From the ashes, creation."
@@ -897,34 +927,6 @@
 	muteinmouth = FALSE
 	spitoutmouth = FALSE
 	sewrepair = TRUE
-
-////////////////////////
-// Triumph Exclusive! //
-////////////////////////
-
-//Purchasable via Triumphs. Blacklisted from the Stockpile and fitted with a reduced saleprice.
-/obj/item/clothing/neck/roguetown/ornateamulet/noble/triumph
-	name = "ornate amulet"
-	desc = "An opulent, golden necklace. When it catches the candelight, it offers a warped yet unmarred reflection of its wearer's guise."
-	sellprice = 33
-
-/obj/item/clothing/neck/roguetown/psicross/g/triumph
-	name = "ornate golden psycross"
-	desc = "'It does not matter, whether He is lyving or gone. His greatest creation still persists; the very world that our feet tread 'pon, now. That, alone, makes everything worth fighting for.'"
-	sellprice = 55
-
-/obj/item/clothing/neck/roguetown/psicross/inhumen/g/triumph
-	name = "ornate inverted psycross"
-	desc = "'Meet your lord, and know your place. Let progress be my chariot, and let my hands be the vessel that rips paradise free from its heavenly grasp. Let Psydonia's carcass not spell the death of Man, but the birth of Gods.'"
-	sellprice = 66
-
-/obj/item/clothing/neck/roguetown/psicross/astrata/g/triumph
-	name = "ornate amulet of Astrata"
-	desc = "Her command is absolute, and Her tyranny is unmarrable. Reclaim this world, child of mine, from those who'd seek to destroy it."
-	icon_state = "astrata_g"
-	sellprice = 77
-
-//
 
 /obj/item/clothing/neck/roguetown/luckcharm
 	name = "luck charm"
