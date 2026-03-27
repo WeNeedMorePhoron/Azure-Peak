@@ -29,7 +29,7 @@
 	cooldown_time = 30 SECONDS
 
 	var/list/allowed_names = list()
-	var/list/obj/structure/trap/rune_ward/active_runes = list()
+	var/list/obj/structure/rune_ward/active_runes = list()
 	var/max_runes = 10
 
 	var/draw_time = 4 SECONDS
@@ -37,12 +37,12 @@
 	var/scrub_time_unskilled = 8 SECONDS
 
 /datum/action/cooldown/spell/touch/rune_ward/Destroy()
-	for(var/obj/structure/trap/rune_ward/rune in active_runes)
+	for(var/obj/structure/rune_ward/rune in active_runes)
 		UnregisterSignal(rune, COMSIG_PARENT_QDELETING)
 	active_runes.Cut()
 	return ..()
 
-/datum/action/cooldown/spell/touch/rune_ward/proc/on_rune_destroyed(obj/structure/trap/rune_ward/source)
+/datum/action/cooldown/spell/touch/rune_ward/proc/on_rune_destroyed(obj/structure/rune_ward/source)
 	SIGNAL_HANDLER
 	active_runes -= source
 
@@ -105,31 +105,30 @@
 	var/rune_path
 	switch(choice)
 		if(RUNE_WARD_STUN)
-			rune_path = /obj/structure/trap/rune_ward/stun
+			rune_path = /obj/structure/rune_ward/stun
 		if(RUNE_WARD_FIRE)
-			rune_path = /obj/structure/trap/rune_ward/fire
+			rune_path = /obj/structure/rune_ward/fire
 		if(RUNE_WARD_CHILL)
-			rune_path = /obj/structure/trap/rune_ward/chill
+			rune_path = /obj/structure/rune_ward/chill
 		if(RUNE_WARD_DAMAGE)
-			rune_path = /obj/structure/trap/rune_ward/damage
+			rune_path = /obj/structure/rune_ward/damage
 		if(RUNE_WARD_ALARM)
-			rune_path = /obj/structure/trap/rune_ward/alarm
+			rune_path = /obj/structure/rune_ward/alarm
 
 	if(!rune_path)
 		return FALSE
 
 	qdel(ash_item)
-	var/obj/structure/trap/rune_ward/rune = new rune_path(target_turf)
+	var/obj/structure/rune_ward/rune = new rune_path(target_turf)
 	rune.owner_ref = WEAKREF(caster)
 	rune.spell_ref = WEAKREF(src)
-	rune.immune_minds += caster.mind
 	rune.owner_name = caster.real_name
 	rune.owner_ckey = caster.ckey || "no ckey"
 	active_runes += rune
 	RegisterSignal(rune, COMSIG_PARENT_QDELETING, PROC_REF(on_rune_destroyed))
 
 	if(length(active_runes) > max_runes)
-		var/obj/structure/trap/rune_ward/oldest = active_runes[1]
+		var/obj/structure/rune_ward/oldest = active_runes[1]
 		if(!QDELETED(oldest))
 			oldest.visible_message(span_warning("The oldest rune fades as its creator inscribes a new one."))
 			qdel(oldest)

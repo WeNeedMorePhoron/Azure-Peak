@@ -1,27 +1,25 @@
 #define RUNE_WARD_IMMUNITY_DURATION (3 SECONDS)
 #define RUNE_WARD_IMMUNITY_KEY "rune_ward_immunity"
 
-/obj/structure/trap/rune_ward
+/obj/structure/rune_ward
 	name = "arcyne rune"
 	desc = "A faintly glowing symbol etched into the ground."
 	icon = 'icons/roguetown/misc/rune_wards.dmi'
 	icon_state = "rune"
 	attacked_sound = 'sound/magic/magic_nulled.ogg'
+	density = FALSE
+	anchored = TRUE
 	alpha = 180
-	charges = 1
-	checks_antimagic = TRUE
-	time_between_triggers = 0
+	layer = TURF_LAYER + 0.1
+	max_integrity = 100
 
 	var/datum/weakref/owner_ref
 	var/datum/weakref/spell_ref
 	var/owner_name = "unknown"
 	var/owner_ckey = "unknown"
+	var/checks_antimagic = TRUE
 
-/obj/structure/trap/rune_ward/Crossed(atom/movable/AM)
-	if(!armed)
-		return
-	if(is_type_in_typecache(AM, ignore_typecache))
-		return
+/obj/structure/rune_ward/Crossed(atom/movable/AM)
 	if(ismob(AM))
 		var/mob/M = AM
 		var/mob/owner = owner_ref?.resolve()
@@ -30,10 +28,9 @@
 		var/datum/action/cooldown/spell/touch/rune_ward/spell = spell_ref?.resolve()
 		if(spell && (M.real_name in spell.allowed_names))
 			return
-		if(M.mind in immune_minds)
-			return
 		if(checks_antimagic && M.anti_magic_check())
-			flare()
+			trigger_visual()
+			qdel(src)
 			return
 		if(HAS_TRAIT(AM, TRAIT_LIGHT_STEP))
 			return
@@ -47,26 +44,31 @@
 				return
 			if(L.mob_timers[RUNE_WARD_IMMUNITY_KEY] && world.time < L.mob_timers[RUNE_WARD_IMMUNITY_KEY])
 				return
-	if(charges <= 0)
+	else
 		return
-	if(isliving(AM))
-		var/mob/living/L = AM
-		L.mob_timers[RUNE_WARD_IMMUNITY_KEY] = world.time + RUNE_WARD_IMMUNITY_DURATION
-		log_combat(AM, src, "triggered [name] placed by [owner_name] ([owner_ckey]) at [AREACOORD(src)]")
-		trap_effect(L)
-	flare()
+	var/mob/living/L = AM
+	if(!isliving(L))
+		return
+	L.mob_timers[RUNE_WARD_IMMUNITY_KEY] = world.time + RUNE_WARD_IMMUNITY_DURATION
+	log_combat(AM, src, "triggered [name] placed by [owner_name] ([owner_ckey]) at [AREACOORD(src)]")
+	rune_effect(L)
+	trigger_visual()
+	qdel(src)
 
-/obj/structure/trap/rune_ward/Destroy()
+/obj/structure/rune_ward/proc/trigger_visual()
+	alpha = 255
+	// Brief flash before deletion
+	flick(icon_state, src)
+
+/obj/structure/rune_ward/proc/rune_effect(mob/living/L)
+	return
+
+/obj/structure/rune_ward/Destroy()
 	owner_ref = null
 	spell_ref = null
 	return ..()
 
-/obj/structure/trap/rune_ward/flare()
-	last_trigger = world.time
-	charges--
-	qdel(src)
-
-/obj/structure/trap/rune_ward/examine(mob/user)
+/obj/structure/rune_ward/examine(mob/user)
 	. = ..()
 	if(max_integrity <= 50)
 		. += span_info("This rune looks very fragile - a few solid hits would destroy it.")
@@ -74,21 +76,23 @@
 		. += span_info("A skilled mage can scrub this effortlessly. Otherwise, it must be destroyed by force.")
 	. += span_info("Flying, jumping, or being thrown over the rune will not trigger it.")
 
-/obj/structure/trap/rune_ward/stun
+// --- Subtypes ---
+
+/obj/structure/rune_ward/stun
 	name = "shock rune"
 	icon_state = RUNE_WARD_ICON_STUN
 
-/obj/structure/trap/rune_ward/stun/trap_effect(mob/living/L)
+/obj/structure/rune_ward/stun/rune_effect(mob/living/L)
 	to_chat(L, span_danger("<B>The rune locks your muscles in place!</B>"))
 	playsound(src, 'sound/magic/lightning.ogg', 80, TRUE)
 	L.electrocute_act(10, src, flags = SHOCK_NOGLOVES)
 	L.Paralyze(120)
 
-/obj/structure/trap/rune_ward/fire
+/obj/structure/rune_ward/fire
 	name = "flame rune"
 	icon_state = RUNE_WARD_ICON_FIRE
 
-/obj/structure/trap/rune_ward/fire/trap_effect(mob/living/L)
+/obj/structure/rune_ward/fire/rune_effect(mob/living/L)
 	to_chat(L, span_danger("<B>The rune erupts in flames!</B>"))
 	playsound(src, pick('sound/misc/explode/incendiary (1).ogg', 'sound/misc/explode/incendiary (2).ogg'), 80, TRUE)
 	new /obj/effect/hotspot(get_turf(src))
@@ -97,11 +101,11 @@
 	L.adjust_fire_stacks(5)
 	L.ignite_mob()
 
-/obj/structure/trap/rune_ward/chill
+/obj/structure/rune_ward/chill
 	name = "frost rune"
 	icon_state = RUNE_WARD_ICON_CHILL
 
-/obj/structure/trap/rune_ward/chill/trap_effect(mob/living/L)
+/obj/structure/rune_ward/chill/rune_effect(mob/living/L)
 	to_chat(L, span_danger("<B>Frost erupts from the rune and seizes your limbs!</B>"))
 	playsound(src, 'sound/spellbooks/crystal.ogg', 80, TRUE)
 	new /obj/effect/temp_visual/trapice(get_turf(src))
@@ -109,13 +113,12 @@
 	L.adjustFireLoss(30)
 	apply_frost_stack(L, 4)
 
-// Damage - One big stab hit through armor. Knockdown + slow.
-/obj/structure/trap/rune_ward/damage
+/obj/structure/rune_ward/damage
 	name = "force rune"
 	icon_state = RUNE_WARD_ICON_DAMAGE
 	var/rune_damage = 80
 
-/obj/structure/trap/rune_ward/damage/trap_effect(mob/living/L)
+/obj/structure/rune_ward/damage/rune_effect(mob/living/L)
 	to_chat(L, span_danger("<B>Arcyne blades erupt from the rune!</B>"))
 	playsound(src, 'sound/magic/blade_burst.ogg', 80, TRUE)
 	playsound(src, pick('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg'), 80, TRUE)
@@ -130,12 +133,12 @@
 	else
 		L.adjustBruteLoss(rune_damage)
 
-/obj/structure/trap/rune_ward/alarm
+/obj/structure/rune_ward/alarm
 	name = "alarm rune"
 	icon_state = RUNE_WARD_ICON_ALARM
 	alpha = 40
 
-/obj/structure/trap/rune_ward/alarm/trap_effect(mob/living/L)
+/obj/structure/rune_ward/alarm/rune_effect(mob/living/L)
 	to_chat(L, span_danger("<B>The rune chimes loudly!</B>"))
 	playsound(src, 'sound/magic/charging.ogg', 80, TRUE)
 	var/mob/owner = owner_ref?.resolve()

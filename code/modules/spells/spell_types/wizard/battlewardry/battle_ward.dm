@@ -77,7 +77,7 @@
 
 /datum/action/cooldown/spell/battle_ward/proc/spawn_runes(list/turfs, rune_path, caster_name, caster_ckey)
 	for(var/turf/T in turfs)
-		var/obj/structure/trap/rune_ward/rune = new rune_path(T)
+		var/obj/structure/rune_ward/rune = new rune_path(T)
 		rune.owner_name = caster_name
 		rune.owner_ckey = caster_ckey
 		rune.max_integrity = 50
@@ -87,13 +87,13 @@
 /datum/action/cooldown/spell/battle_ward/proc/get_rune_path()
 	switch(ward_mode)
 		if(RUNE_WARD_STUN)
-			return /obj/structure/trap/rune_ward/stun
+			return /obj/structure/rune_ward/stun
 		if(RUNE_WARD_FIRE)
-			return /obj/structure/trap/rune_ward/fire
+			return /obj/structure/rune_ward/fire
 		if(RUNE_WARD_CHILL)
-			return /obj/structure/trap/rune_ward/chill
+			return /obj/structure/rune_ward/chill
 		if(RUNE_WARD_DAMAGE)
-			return /obj/structure/trap/rune_ward/damage
+			return /obj/structure/rune_ward/damage
 	return null
 
 /datum/action/cooldown/spell/battle_ward/toggle_alt_mode(mob/user)
