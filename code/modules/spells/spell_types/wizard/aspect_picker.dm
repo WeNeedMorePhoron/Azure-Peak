@@ -307,7 +307,7 @@
 					var/datum/magic_aspect/temp = new path
 					var/cost = (temp.aspect_type == ASPECT_MAJOR) ? ASPECT_RESET_COST_MAJOR : ASPECT_RESET_COST_MINOR
 					qdel(temp)
-					if(get_staged_reset_cost() + cost > ASPECT_RESET_BUDGET)
+					if(get_staged_reset_cost() + cost > owner.mind.get_aspect_reset_remaining())
 						to_chat(owner, span_warning("I cannot reshape any more attunements without rest."))
 						return
 					staged_unbind_aspects += path
@@ -360,7 +360,7 @@
 			// Can't unbind spells given by aspects — only player-picked utilities
 			if(!is_utility_learned(spell_path))
 				return
-			if(get_staged_reset_cost() + ASPECT_RESET_COST_UTILITY > ASPECT_RESET_BUDGET)
+			if(get_staged_reset_cost() + ASPECT_RESET_COST_UTILITY > owner.mind.get_aspect_reset_remaining())
 				to_chat(owner, span_warning("I cannot reshape any more attunements without rest."))
 				return
 			staged_unbind_utilities += spell_path_str
