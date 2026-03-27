@@ -25,6 +25,8 @@
 	var/chanting = FALSE
 	/// Assoc list of variant overrides from class config: aspect_path = variant_name (e.g. /datum/magic_aspect/pyromancy = "grenzelhoftian")
 	var/list/variant_overrides
+	/// Spell paths granted after aspects are bound - ensures proper action bar ordering (e.g. class-granted Message, Magician's Brick)
+	var/list/post_aspect_spells
 
 /datum/aspect_picker/New(mob/living/new_owner, setup = TRUE, list/aspect_config)
 	owner = new_owner
@@ -36,6 +38,8 @@
 		max_utilities = aspect_config["utilities"] || 0
 		if(islist(aspect_config["variants"]))
 			variant_overrides = aspect_config["variants"]
+		if(islist(aspect_config["post_aspect_spells"]))
+			post_aspect_spells = aspect_config["post_aspect_spells"]
 		if(length(aspect_config["locked_aspects"]))
 			for(var/path in aspect_config["locked_aspects"])
 				locked_aspects += path
@@ -536,6 +540,9 @@
 			if(chosen)
 				surviving_spells |= chosen
 			qdel(staged)
+		// Post-aspect spells from class config
+		for(var/post_path in post_aspect_spells)
+			surviving_spells |= post_path
 		// Utility spells the player learned (not being unbound)
 		for(var/spell_path_str in staged_utilities)
 			surviving_spells |= text2path(spell_path_str)
@@ -634,6 +641,12 @@
 			var/datum/new_spell = new spell_path
 			attuned.mark_aspect_spell(new_spell)
 			owner.mind.AddSpell(new_spell)
+	// Grant post-aspect spells (class-granted spells ordered after aspect spells)
+	for(var/post_path in post_aspect_spells)
+		if(owner.mind.has_spell(post_path))
+			continue
+		owner.mind.AddSpell(new post_path)
+
 	// Apply utility spell selections - no chant required
 	for(var/spell_path_str in staged_utilities)
 		var/spell_path = text2path(spell_path_str)
