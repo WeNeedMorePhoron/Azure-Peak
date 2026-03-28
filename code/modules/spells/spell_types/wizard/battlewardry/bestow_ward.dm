@@ -31,7 +31,7 @@
 	spell_tier = 2
 	spell_impact_intensity = SPELL_IMPACT_NONE
 
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
 	var/ward_type = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward/bestowed
 	var/ward_duration = 2.5 MINUTES

@@ -33,7 +33,7 @@
 	point_cost = 6
 	spell_impact_intensity = SPELL_IMPACT_HIGH
 
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
 	var/delay = TELEGRAPH_HIGH_IMPACT
 	var/damage = 65

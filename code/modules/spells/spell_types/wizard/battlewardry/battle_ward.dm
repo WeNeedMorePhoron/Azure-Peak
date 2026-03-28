@@ -33,7 +33,7 @@
 	spell_tier = 2
 	spell_impact_intensity = SPELL_IMPACT_NONE
 
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
 	var/ward_mode = RUNE_WARD_STUN
 	var/list/ward_modes = list(RUNE_WARD_STUN, RUNE_WARD_FIRE, RUNE_WARD_CHILL, RUNE_WARD_DAMAGE)
