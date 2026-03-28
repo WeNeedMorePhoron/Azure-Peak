@@ -83,10 +83,11 @@
 	var/motespeed = 20
 	var/sparkspeed = 30
 	var/spark_cd = 0
+	var/cast_range = 7
 	experimental_inhand = FALSE
 
 /obj/item/melee/new_touch_attack/prestidigitation/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity)
+	if(!proximity && get_dist(user, target) > cast_range)
 		return
 	var/datum/action/cooldown/spell/touch/prestidigitation/spell = spell_which_made_us?.resolve()
 	if(spell)
@@ -233,28 +234,27 @@
 /obj/item/melee/new_touch_attack/prestidigitation/proc/clean_thing(atom/target, mob/living/carbon/human/user)
 	cleanspeed = initial(cleanspeed) * get_int_speed_mult(user)
 
-	if(istype(target, /obj/structure/roguewindow))
-		user.visible_message(span_notice("[user] gestures at \the [target.name]. Tiny motes of arcyne power dance across its surface..."), span_notice("I begin to clean \the [target.name] with my arcyne power..."))
-		if(do_after(user, src.cleanspeed, target = target))
-			new /obj/effect/temp_visual/cleaning_pulse(get_turf(target))
-			wash_atom(target,CLEAN_MEDIUM)
-			to_chat(user, span_notice("I render \the [target.name] clean."))
-			return TRUE
-		return FALSE
-	else if(istype(target, /obj/effect/decal/cleanable))
+	if(istype(target, /obj/effect/decal/cleanable))
 		user.visible_message(span_notice("[user] gestures at \the [target.name]. Arcyne power slowly scours it away..."), span_notice("I begin to scour \the [target.name] away with my arcyne power..."))
 		if(do_after(user, src.cleanspeed, target = target))
-			new /obj/effect/temp_visual/cleaning_pulse(get_turf(target))
-			wash_atom(get_turf(target),CLEAN_MEDIUM)
+			var/turf/T = get_turf(target)
+			new /obj/effect/temp_visual/cleaning_pulse(T)
+			for(var/obj/effect/decal/cleanable/C in T)
+				wash_atom(C, CLEAN_MEDIUM)
+			wash_atom(T, CLEAN_MEDIUM)
 			to_chat(user, span_notice("I expunge \the [target.name] with my mana."))
 			return TRUE
 		return FALSE
 	else
-		user.visible_message(span_notice("[user] gestures at \the [target.name]. Tiny motes of arcyne power surge over [target.p_them()]..."), span_notice("I begin to clean \the [target.name] with my arcyne power..."))
+		var/clean_name = isturf(target) ? "the ground" : "\the [target.name]"
+		user.visible_message(span_notice("[user] gestures at [clean_name]. Tiny motes of arcyne power surge over it..."), span_notice("I begin to clean [clean_name] with my arcyne power..."))
 		if(do_after(user, src.cleanspeed, target = target))
-			new /obj/effect/temp_visual/cleaning_pulse(get_turf(target))
-			wash_atom(target,CLEAN_MEDIUM)
-			to_chat(user, span_notice("I render \the [target.name] clean."))
+			var/turf/T = get_turf(target)
+			new /obj/effect/temp_visual/cleaning_pulse(T)
+			wash_atom(target, CLEAN_MEDIUM)
+			for(var/obj/effect/decal/cleanable/C in T)
+				wash_atom(C, CLEAN_MEDIUM)
+			to_chat(user, span_notice("I render [clean_name] clean."))
 			return TRUE
 		return FALSE
 
