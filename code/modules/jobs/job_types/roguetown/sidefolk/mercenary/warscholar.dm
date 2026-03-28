@@ -194,7 +194,8 @@
 		/obj/item/lockpick = 1,
 		/obj/item/rogueweapon/huntingknife = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
-		(naledi_book) = 1
+		(naledi_book) = 1,
+		/obj/item/book/spellbook = 1,
 		)
 	H.merctype = 14
 
