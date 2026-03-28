@@ -76,7 +76,7 @@
 	backpack_contents = list(
 		/obj/item/roguekey/mercenary = 1,
 		/obj/item/rogueweapon/huntingknife/idagger = 1,
-		/obj/item/spellbook_unfinished/pre_arcyne = 1,
+		/obj/item/book/spellbook = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		(naledi_book) = 1
 		)
