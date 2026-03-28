@@ -43,7 +43,9 @@
 		if(length(aspect_config["locked_aspects"]))
 			for(var/path in aspect_config["locked_aspects"])
 				locked_aspects += path
-				// Auto-stage locked aspects
+				// Auto-stage locked aspects only if not already bound
+				if(new_owner.mind && new_owner.mind.has_aspect(path))
+					continue
 				var/datum/magic_aspect/temp = new path
 				switch(temp.aspect_type)
 					if(ASPECT_MAJOR)
