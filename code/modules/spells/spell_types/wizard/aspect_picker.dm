@@ -246,7 +246,12 @@
 
 /datum/aspect_picker/proc/build_utility_list()
 	var/list/result = list()
+	var/has_aspect_access = (isnull(override_max_minors) || override_max_minors > 0) || (isnull(override_max_majors) || override_max_majors > 0)
 	for(var/path in GLOB.utility_spells)
+		if(ispath(path, /datum/action/cooldown/spell))
+			var/datum/action/cooldown/spell/S = path
+			if(initial(S.requires_aspect_access) && !has_aspect_access)
+				continue
 		result += list(build_spell_entry(path))
 	sortTim(result, GLOBAL_PROC_REF(cmp_list_name_asc))
 	return result
@@ -438,6 +443,14 @@
 			if(spell_path in staged_utilities)
 				staged_utilities -= spell_path
 			else
+				var/resolved_path = text2path(spell_path)
+				if(ispath(resolved_path, /datum/action/cooldown/spell))
+					var/datum/action/cooldown/spell/S = resolved_path
+					if(initial(S.requires_aspect_access))
+						var/has_aspect_access = (isnull(override_max_minors) || override_max_minors > 0) || (isnull(override_max_majors) || override_max_majors > 0)
+						if(!has_aspect_access)
+							to_chat(owner, span_warning("This spell requires deeper arcyne training to learn."))
+							return
 				var/spell_cost = get_spell_cost_from_path(text2path(spell_path))
 				if(get_utility_points_spent() + spell_cost > max_utilities)
 					to_chat(owner, span_warning("Not enough utility points remaining."))

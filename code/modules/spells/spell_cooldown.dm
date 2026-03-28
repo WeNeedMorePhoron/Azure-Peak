@@ -69,6 +69,8 @@
 	var/utility_learned = FALSE
 	/// Tier of the spell, used to determine whether you can learn it based on class.
 	var/spell_tier = 1
+	/// If true, this utility spell requires the class to have minor aspect access (T2+ mage) to select.
+	var/requires_aspect_access = FALSE
 	/// Visual impact intensity for on-hit effects. See SPELL_IMPACT defines.
 	var/spell_impact_intensity = SPELL_IMPACT_NONE
 	/// If true, the spell can be refunded. Set by learnspell when learned.
