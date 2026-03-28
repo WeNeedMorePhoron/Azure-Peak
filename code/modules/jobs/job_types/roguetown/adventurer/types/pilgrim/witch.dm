@@ -54,7 +54,7 @@
 			ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 			H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_APPRENTICE, TRUE)
 			if(H.mind)
-				H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 5, "locked_aspects" = list(/datum/magic_aspect/hex), "ward" = TRUE))
+				H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 5, "ward" = TRUE))
 			beltl = /obj/item/storage/magebag/starter
 			H.equip_to_slot_or_del(new /obj/item/spellbook_unfinished/pre_arcyne(H), SLOT_IN_BACKPACK)
 			H.equip_to_slot_or_del(new /obj/item/roguegem/amethyst(H), SLOT_IN_BACKPACK)
@@ -104,13 +104,8 @@
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/witch/rous)
 			if("Cabbit")
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/witch/cabbit)
-
 		switch (classchoice)
-			if("Old Magick")
-				H.mind.AddSpell(new /datum/action/cooldown/spell/guidance)
-				H.mind.AddSpell(new /datum/action/cooldown/spell/fortitude)
-		switch (classchoice)
-			if("Old Magick", "Mystagogue")
+			if("Mystagogue")
 				var/list/poke_options = list("Spitfire", "Frost Bolt", "Arc Bolt", "Gravel Blast", "Stygian Efflorescence", "Arcyne Lance")
 				var/poke_choice = input(H, "Choose your offensive cantrip.", "Arcyne Training") as anything in poke_options
 				switch(poke_choice)
