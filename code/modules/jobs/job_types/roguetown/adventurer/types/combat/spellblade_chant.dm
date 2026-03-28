@@ -313,7 +313,7 @@ a.choose-btn:hover {
 <li><b>Azurean Phalanx</b> — Prime your next melee strike with arcyne force. On hit, pierces through enemies in a line behind the target. Empowered (3 momentum): deeper, more damaging pierce.</li>
 <li><b>Azurean Pilum</b> — Hurl an icy phantom pilum that applies 2 frost stacks on hit. Empowered: applies 3 stacks, guaranteeing a freeze on any frosted target. No slowdown while charging.</li>
 <li><b>Advance!</b> — Leap forward up to 4 tiles, passing through enemies, then stab ahead on landing. Brief chargeup before leaping. Empowered: doubles damage.</li>
-<li><b>Gate of Reckoning</b> — Conjure a portal above a target, raining phantom spears down, then blink to their position and sweep everyone around you.</li>
+<li><b>Gate of Reckoning</b> — Summon two phantom spears that flank you in formation. For 12 seconds, each melee hit sends the spears thrusting in a 3-wide line ahead of you. Shield-blockable. Overcharged: 6 charges instead of 3.</li>
 </ul>
 </div>
 <p class="weapon-info">[phalanx_weapons]</p>
