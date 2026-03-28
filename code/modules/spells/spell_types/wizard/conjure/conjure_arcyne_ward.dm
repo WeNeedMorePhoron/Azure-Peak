@@ -108,7 +108,7 @@
 /datum/action/cooldown/spell/conjure_arcyne_ward/crystalhide
 	name = "Conjure Crystalhide Ward"
 	desc = "Conjure a crystalhide ward - an upgraded arcyne ward crystallized with leyline energy. \
-	Grants plate-tier protection and bolsters intelligence. Shatters violently when broken, knocking back nearby foes. 300 integrity. \
+	Grants brigandine-tier protection and bolsters intelligence. Shatters violently when broken, knocking back nearby foes. 300 integrity. \
 	Otherwise functions as a standard arcyne ward - yields coverage to real armor, regenerates by draining energy. \
 	Cast again to dismiss. Cooldown begins when dismissed or destroyed."
 	button_icon_state = "conjure_dragonhide"
@@ -314,8 +314,8 @@
 
 /obj/item/clothing/suit/roguetown/armor/regenerating/skin/arcyne_ward/crystalhide
 	name = "crystalhide ward"
-	desc = "An arcyne ward crystallized with leyline energy. Shatters violently when broken."
-	armor = ARMOR_PLATE
+	desc = "An arcyne ward crystallized with leyline energy. Tough against blunt force but less rigid than plate. Shatters violently when broken."
+	armor = ARMOR_BRIGANDINE
 	max_integrity = 300
 	ward_color = GLOW_COLOR_KINESIS
 	arcyne_armor_tier = ARCYNE_WARD_TIER_GREATER
