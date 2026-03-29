@@ -3,7 +3,7 @@
 	name = "Emergence"
 	desc = "Command stone to erupt from the earth, dealing heavy damage to anyone standing on the target and repelling everyone nearby back 1 pace. Leaves a temporary stone pillar behind. \
 	Deals 2x damage to structures. Can be self-cast - the caster is unharmed by their own eruption. \
-	The pillar blocks movement and line of sight until it crumbles or is destroyed."
+	The pillar blocks movement and line of sight until it crumbles or is destroyed, shattering into gravel shrapnel."
 	button_icon_state = "emergence"
 	sound = 'sound/combat/hits/onstone/stonedeath.ogg'
 	spell_color = GLOW_COLOR_EARTHEN
@@ -139,7 +139,7 @@
 
 /obj/structure/earthen_pillar
 	name = "stone pillar"
-	desc = "A pillar of conjured stone. Sturdy, but not indestructible."
+	desc = "A pillar of conjured stone. Sturdy, but not indestructible. Shatters into gravel when destroyed."
 	icon = 'icons/obj/flora/rocks.dmi'
 	icon_state = "basalt1"
 	break_sound = 'sound/combat/hits/onstone/stonedeath.ogg'
@@ -148,6 +148,25 @@
 	opacity = TRUE
 	max_integrity = 150
 	anchored = TRUE
+	var/fragment_count = 3
+	var/fragment_damage = 15
+
+/obj/structure/earthen_pillar/obj_break()
+	shatter_fragments()
+	return ..()
+
+/obj/structure/earthen_pillar/proc/shatter_fragments()
+	var/turf/T = get_turf(src)
+	if(!T)
+		return
+	var/list/dirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
+	for(var/i in 1 to fragment_count)
+		var/dir = pick_n_take(dirs)
+		var/turf/target = get_ranged_target_turf(T, dir, 3)
+		var/obj/projectile/magic/gravel_blast/frag = new(T)
+		frag.damage = fragment_damage
+		frag.preparePixelProjectile(target, T)
+		frag.fire()
 
 /obj/effect/temp_visual/trap/emergence
 	color = GLOW_COLOR_EARTHEN
