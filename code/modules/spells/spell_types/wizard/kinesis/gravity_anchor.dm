@@ -8,7 +8,7 @@
 	desc = "Massively increase gravity in a 5x5 area, weighing down everyone within - including yourself. \
 	Targets are heavily slowed while inside the zone. \
 	The zone persists for 20 seconds. Debuff lingers for 3 seconds after leaving."
-	button_icon_state = "gravity"
+	button_icon_state = "gravity_anchor"
 	sound = 'sound/magic/gravity.ogg'
 	spell_color = GLOW_COLOR_KINESIS
 	glow_intensity = GLOW_INTENSITY_MEDIUM
