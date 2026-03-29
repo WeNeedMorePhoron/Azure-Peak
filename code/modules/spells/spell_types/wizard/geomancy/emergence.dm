@@ -1,9 +1,9 @@
 /datum/action/cooldown/spell/emergence
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Emergence"
-	desc = "Command stone to erupt from the earth, dealing heavy damage to anyone standing on the target and repelling everyone nearby back 1 pace. Leaves a stone pillar behind. \
+	desc = "Command stone to erupt from the earth, dealing heavy damage to anyone standing on the target and repelling everyone nearby back 1 pace. Leaves a temporary stone pillar behind. \
 	Deals 2x damage to structures. Can be self-cast - the caster is unharmed by their own eruption. \
-	The pillar blocks movement and line of sight until destroyed."
+	The pillar blocks movement and line of sight until it crumbles or is destroyed."
 	button_icon_state = "emergence"
 	sound = 'sound/combat/hits/onstone/stonedeath.ogg'
 	spell_color = GLOW_COLOR_EARTHEN
@@ -130,11 +130,12 @@
 		for(var/obj/structure/S in struct_turf)
 			S.take_damage(direct_damage, BRUTE, "blunt", object_damage_multiplier = 2)
 
-	// Spawn the pillar
+	// Spawn the pillar - lasts until the spell is off cooldown
 	new /obj/effect/temp_visual/kinetic_blast(T)
 	var/obj/structure/earthen_pillar/pillar = new(T)
 	pillar.max_integrity = pillar_integrity
 	pillar.obj_integrity = pillar_integrity
+	QDEL_IN(pillar, cooldown_time)
 
 /obj/structure/earthen_pillar
 	name = "stone pillar"
