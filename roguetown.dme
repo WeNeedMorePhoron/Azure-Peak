@@ -2893,6 +2893,7 @@
 #include "code\modules\spells\spell_types\wizard\kinesis\mass_crush.dm"
 #include "code\modules\spells\spell_types\wizard\kinesis\fetch.dm"
 #include "code\modules\spells\spell_types\wizard\kinesis\gravity.dm"
+#include "code\modules\spells\spell_types\wizard\kinesis\gravity_anchor.dm"
 #include "code\modules\spells\spell_types\wizard\kinesis\repel.dm"
 #include "code\modules\spells\spell_types\wizard\kinesis\repulse.dm"
 #include "code\modules\spells\spell_types\wizard\kinesis\soulshot.dm"
