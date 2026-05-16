@@ -224,7 +224,7 @@
 	attack_verb = list("sweeps", "disarms")
 	blade_class = BCLASS_DISARM
 	hitsound = list('sound/combat/hits/blunt/bluntsmall (1).ogg', 'sound/combat/hits/blunt/bluntsmall (2).ogg')
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = PEN_NONE
 	swingdelay = 2	//Small delay to hook
 	damfactor = 0
 	clickcd = 22	//Can't spam this; long delay.
@@ -236,7 +236,7 @@
 	force = 10
 	force_wielded = 15
 	possible_item_intents = list(SPEAR_BASH)
-	gripped_intents = list(SPEAR_BASH,/datum/intent/mace/smash/wood)
+	gripped_intents = list(SPEAR_BASH, /datum/intent/mace/smash/wood, /datum/intent/spear/disarm/quarterstaff)
 	name = "wooden staff"
 	desc = "A solid dependable walking stick that allows one to traverse rough terrain with ease, keep the weight off an \
 	injured leg, or reliably fend off incoming blows. Perfect for beggars, pilgrims, and mages."
