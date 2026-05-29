@@ -32,7 +32,7 @@
 //			hearts_consumed++
 //			to_chat(owner.current, span_cult("You feel Graggar's pleasure as you consume a heart!"))
 	if(organs_consumed < organs_required) 
-		to_chat(owner.current, span_danger("The flesh of men... satisfying, but this hunger can only be sated by [organs_view] more organ\s..."))
+		to_chat(owner.current, span_danger("The flesh of men... Satisfying, but this hunger can only be sated by [organs_view] more organ\s..."))
 //	if(organs_consumed >= organs_required && hearts_consumed < hearts_required)
 //		to_chat(owner.current, span_cult("That will be enough! I NEED A HEART!"))
 
@@ -40,7 +40,7 @@
 		complete_objective()
 
 /datum/objective/consume_organs/proc/complete_objective()
-	to_chat(owner.current, span_danger("TRIUMPH! Engorged with flesh, this unnatural hunger fades! The DARKSTAR smiles at me!"))
+	to_chat(owner.current, span_danger("TRIUMPH! Engorged with flesh, the unnatural hunger fades! The DARKSTAR smiles at me!"))
 	owner.current.adjust_triumphs(1)
 	completed = TRUE
 	adjust_storyteller_influence("Graggar", 15)
