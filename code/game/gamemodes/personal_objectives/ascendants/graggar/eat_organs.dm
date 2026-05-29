@@ -40,7 +40,7 @@
 		complete_objective()
 
 /datum/objective/consume_organs/proc/complete_objective()
-	to_chat(owner.current, span_danger("TRIUMPH! Engorged with flesh, the unnatural hunger fades! The DARKSTAR smiles at me!"))
+	to_chat(owner.current, span_danger("TRIUMPH! Engorged with flesh, the unnatural hunger fades! The DARKSTAR smiles upon me!"))
 	owner.current.adjust_triumphs(1)
 	completed = TRUE
 	adjust_storyteller_influence("Graggar", 15)
