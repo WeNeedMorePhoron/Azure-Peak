@@ -255,9 +255,6 @@
 //				attacker_dualw = TRUE
 		//----------Dual Wielding check end---------
 
-		if(HAS_TRAIT(src, TRAIT_DUALWIELDER) && offhand && mainhand)
-			prob2defend = min(prob2defend, 80)
-
 		var/attacker_feedback 
 
 		if(src.client?.prefs.showrolls)
@@ -275,21 +272,24 @@
 		if(L.has_status_effect(/datum/status_effect/swingdelay/penalty))
 			prob2defend = clamp(prob2defend - 50, 5, 90)
 
-		var/dodge_status = FALSE
-		if((!defender_dualw && !attacker_dualw) || (defender_dualw && attacker_dualw)) //They cancel each other out
-			if(attacker_feedback)
-				attacker_feedback = "Advantage cancelled out!"
-			if(prob(prob2defend))
-				dodge_status = TRUE
-		else if(attacker_dualw)
-			if(prob(prob2defend))
-				dodge_status = TRUE
-		else if(defender_dualw)
-			if(prob(prob2defend) && extradefroll)
-				dodge_status = TRUE
+		if(HAS_TRAIT(src, TRAIT_DUALWIELDER) && offhand && mainhand)
+			prob2defend = min(prob2defend, 80)
 
-		if(attacker_feedback)
-			to_chat(user, span_info("[attacker_feedback]"))
+		var/dodge_status = FALSE
+//		if((!defender_dualw && !attacker_dualw) || (defender_dualw && attacker_dualw)) //They cancel each other out
+//			if(attacker_feedback)
+//				attacker_feedback = "Advantage cancelled out!"
+//			if(prob(prob2defend))
+//				dodge_status = TRUE
+//		else if(attacker_dualw)
+//			if(prob(prob2defend))
+//				dodge_status = TRUE
+//		else if(defender_dualw)
+//			if(prob(prob2defend) && extradefroll)
+//				dodge_status = TRUE
+
+//		if(attacker_feedback)
+//			to_chat(user, span_info("[attacker_feedback]"))
 
 		if(!dodge_status)
 			return FALSE
