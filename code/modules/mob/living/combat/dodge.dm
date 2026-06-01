@@ -235,35 +235,38 @@
 		prob2defend = clamp((prob2defend + max_dodge), 5, (90 + max_dodge))
 
 		//------------Dual Wielding Checks------------
-		var/attacker_dualw
-		var/defender_dualw
-		var/extradefroll
+//		var/attacker_dualw
+//		var/defender_dualw
+//		var/extradefroll
 		var/mainhand = L.get_active_held_item()
 		var/offhand	= L.get_inactive_held_item()
 
 		//Dual Wielder defense disadvantage
-		if(mainhand && offhand)
-			if(HAS_TRAIT(src, TRAIT_DUALWIELDER) && istype(offhand, mainhand))
-				extradefroll = prob(prob2defend)
-				defender_dualw = TRUE
+//		if(mainhand && offhand)
+//			if(HAS_TRAIT(src, TRAIT_DUALWIELDER) && istype(offhand, mainhand))
+//				extradefroll = prob(prob2defend)
+//				defender_dualw = TRUE
 
 		//dual-wielder attack advantage
-		var/obj/item/mainh = U.get_active_held_item()
-		var/obj/item/offh = U.get_inactive_held_item()
-		if(mainh && offh && HAS_TRAIT(U, TRAIT_DUALWIELDER))
-			if(istype(mainh, offh))
-				attacker_dualw = TRUE
+//		var/obj/item/mainh = U.get_active_held_item()
+//		var/obj/item/offh = U.get_inactive_held_item()
+//		if(mainh && offh && HAS_TRAIT(U, TRAIT_DUALWIELDER))
+//			if(istype(mainh, offh))
+//				attacker_dualw = TRUE
 		//----------Dual Wielding check end---------
+
+		if(HAS_TRAIT(src, TRAIT_DUALWIELDER) && offhand && mainhand)
+			prob2defend = min(prob2defend, 80)
 
 		var/attacker_feedback 
 
 		if(src.client?.prefs.showrolls)
 			var/text = "Roll to dodge... [HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "???" : prob2defend]%"
-			if((defender_dualw || attacker_dualw))
-				if(defender_dualw && attacker_dualw)
-					text += " Our dual wielding cancels out!"
-				else//If we're defending against or as a dual wielder, we roll disadv. But if we're both dual wielding it cancels out.
-					text += " Twice! Disadvantage! [!HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "([(prob2defend / 100) * (prob2defend / 100) * 100]%)" : ""]"
+//			if((defender_dualw || attacker_dualw))
+//				if(defender_dualw && attacker_dualw)
+//					text += " Our dual wielding cancels out!"
+//				else//If we're defending against or as a dual wielder, we roll disadv. But if we're both dual wielding it cancels out.
+//					text += " Twice! Disadvantage! [!HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "([(prob2defend / 100) * (prob2defend / 100) * 100]%)" : ""]"
 			to_chat(src, span_info("[text]"))
 
 		if(user.client?.prefs.showrolls && !HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS) && has_trait && client)

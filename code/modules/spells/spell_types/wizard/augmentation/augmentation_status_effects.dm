@@ -301,3 +301,49 @@
 
 #undef IRON_SKIN_FILTER
 
+#define DUALWIELD_FILTER "dualwield_glow"
+
+/atom/movable/screen/alert/status_effect/buff/dualrush
+	name = "Dual Rush"
+	desc = "What a rush! My swings flow like a tsunami, and sting like a mirelurker."
+	icon_state = "buff"
+
+/datum/status_effect/buff/dualrush
+	id = "dualrush"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/dualrush
+	duration = 8 SECONDS
+	effectedstats = list(STATKEY_SPD = 2)
+
+	var/outline_colour = "#ff0000"
+
+/datum/status_effect/buff/dualrush/on_apply()
+	. = ..()
+
+	if(!owner)
+		return FALSE
+
+	owner.dualwield_buff_cd = world.time + 18 SECONDS
+
+	if(!owner.get_filter(DUALWIELD_FILTER))
+		owner.add_filter(DUALWIELD_FILTER,2,list("type"="outline","color"=outline_colour,"alpha"=40,"size"=1))
+
+	ADD_TRAIT(owner, TRAIT_GUIDANCE, id)
+
+	to_chat(owner, span_warning("My assault enters a flawless rhythm."))
+
+/datum/status_effect/buff/dualrush/on_remove()
+	. = ..()
+
+	if(!owner)
+		return
+
+	owner.remove_filter(DUALWIELD_FILTER)
+
+	REMOVE_TRAIT(owner, TRAIT_GUIDANCE, id)
+
+	to_chat(owner, span_warning("My momentum fades."))
+
+/datum/status_effect/buff/dualrush/nextmove_modifier()
+	return 0.75
+
+#undef DUALWIELD_FILTER

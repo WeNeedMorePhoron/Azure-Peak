@@ -406,7 +406,6 @@
 		return FALSE
 	return get_dist(my_turf, target_turf) > used_intent.reach
 
-
 /mob/living/proc/add_swingdelay(datum/intent/used_intent)
 	if(!used_intent)
 		return FALSE
@@ -430,6 +429,90 @@
 	else
 		return (has_status_effect(/datum/status_effect/swingdelay/disrupt))
 
+/mob/living/proc/can_dualwield(obj/item/mainhand, obj/item/offhand)
+	if(!mainhand || !offhand)
+		return FALSE
+	if(istype(mainhand, /obj/item/rogueweapon/shield))
+		return FALSE
+	if(istype(offhand, /obj/item/rogueweapon/shield))
+		return FALSE
+	if(mainhand.w_class >= WEIGHT_CLASS_HUGE)
+		return FALSE
+	if(offhand.w_class >= WEIGHT_CLASS_HUGE)
+		return FALSE
+	if(mainhand.wlength >= WLENGTH_GREAT)
+		return FALSE
+	if(offhand.wlength >= WLENGTH_GREAT)
+		return FALSE
+	if(mainhand.associated_skill)
+		if(get_skill_level(mainhand.associated_skill) < SKILL_LEVEL_JOURNEYMAN)
+			return FALSE
+	if(offhand.associated_skill)
+		if(get_skill_level(offhand.associated_skill) < SKILL_LEVEL_JOURNEYMAN)
+			return FALSE
+
+	return TRUE
+
+/mob/living/proc/process_dualwield(atom/A, obj/item/W, params)
+	if(!HAS_TRAIT(src, TRAIT_DUALWIELDER))
+		return
+
+	if(dualwield_processing)
+		return
+
+	var/obj/item/offh = get_inactive_held_item()
+	var/obj/item/active = get_active_held_item()
+
+	// Weapon mode
+	if(W)
+		if(!offh)
+			return
+		if(W == offh)
+			return
+		if(check_arm_grabbed(get_inactive_hand_index()))
+			return
+		if(!can_dualwield(W, offh))
+			return
+
+	// Pure unarmed mode (BOTH hands empty only)
+	else
+		if(active || offh)
+			return
+
+	if(world.time > dualwield_resets_in)
+		dualwield_attack_count = 0
+		dualwield_finisher = FALSE
+
+	dualwield_resets_in = world.time + 3 SECONDS
+
+	// Finisher
+	if(dualwield_finisher)
+		dualwield_finisher = FALSE
+		dualwield_processing = TRUE
+
+		if(stamina_add(3))
+			balloon_alert_to_viewers("<font color='#bb2b2b'>X-Strike!!</font>")
+
+			if(W && offh)
+				offh.melee_attack_chain(src, A, params)
+			else
+				UnarmedAttack(A, TRUE, params)
+
+			if(world.time >= dualwield_buff_cd)
+				apply_status_effect(/datum/status_effect/buff/dualrush)
+				dualwield_buff_cd = world.time + 18 SECONDS
+
+		dualwield_processing = FALSE
+		return
+
+	dualwield_attack_count++
+
+	if(dualwield_attack_count >= 5)
+		dualwield_attack_count = 0
+		dualwield_finisher = TRUE
+
+	swap_hand()
+
 //Branching path for Adjacent clicks with or without items
 //DOES NOT ACTUALLY KNOW IF YOU'RE ADJACENT, DO NOT CALL ON IT'S OWN
 /mob/proc/resolveAdjacentClick(atom/A,obj/item/W,params,used_hand)
@@ -437,24 +520,6 @@
 		return
 	if(W)
 		W.melee_attack_chain(src, A, params)
-		if(isliving(src))
-			var/mob/living/L = src
-
-
-			if(HAS_TRAIT(L, TRAIT_DUALWIELDER) && L.last_used_double_attack <= world.time)
-				var/obj/item/offh = L.get_inactive_held_item()
-				var/dual_wielding = offh && (istype(W, offh) || istype(offh, W)) && W != offh && !L.check_arm_grabbed(L.get_inactive_hand_index())
-				if(dual_wielding && !L.is_swinging())
-					var/forceoffhand = L.dualwieldpitystacks >= L.dualwieldpitythreshhold
-					if(forceoffhand)
-						L.dualwieldpitystacks = 0
-						if(L.stamina_add(3))
-							L.last_used_double_attack = world.time + 2.5 SECONDS
-							to_chat(L, span_warning("An opening! I strike with my off-hand."))
-							offh.melee_attack_chain(src, A, params)
-					else
-						L.dualwieldpitystacks++
-
 	else
 		if(ismob(A))
 			var/adf = used_intent.clickcd
@@ -463,6 +528,7 @@
 			else if(istype(rmb_intent, /datum/rmb_intent/swift))
 				adf = max(round(adf * CLICK_CD_MOD_SWIFT), CLICK_CD_INTENTCAP)
 			changeNext_move(adf)
+		
 		UnarmedAttack(A,1,params)
 
 	var/invis_timer = mob_timers[MT_INVISIBILITY]
