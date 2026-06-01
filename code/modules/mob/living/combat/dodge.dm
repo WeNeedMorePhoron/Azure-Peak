@@ -255,7 +255,7 @@
 //				attacker_dualw = TRUE
 		//----------Dual Wielding check end---------
 
-		var/attacker_feedback 
+//		var/attacker_feedback 
 
 		if(src.client?.prefs.showrolls)
 			var/text = "Roll to dodge... [HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "???" : prob2defend]%"
