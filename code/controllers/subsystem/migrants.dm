@@ -548,7 +548,10 @@ SUBSYSTEM_DEF(migrants)
 	if(length(slots))
 		line += "<br>Slots open for [slots.Join(", ")]."
 	line += "<br><a href='?src=[REF(src)];open_panel=1'>Click to join.</a> [wave_wait_time / (1 SECONDS)]s remaining."
-	to_chat(world, "\n<font color='purple'>[line]</font>")
+	for(var/mob/dead/new_player/lobby_nerd in GLOB.player_list)
+		if(!lobby_nerd.client)
+			continue
+		to_chat(lobby_nerd, "\n<font color='purple'>[line]</font>")
 
 /datum/controller/subsystem/migrants/Topic(href, list/href_list)
 	. = ..()
