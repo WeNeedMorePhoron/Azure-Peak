@@ -291,6 +291,9 @@
 //		if(attacker_feedback)
 //			to_chat(user, span_info("[attacker_feedback]"))
 
+		if(prob(prob2defend))
+			dodge_status = TRUE
+
 		if(!dodge_status)
 			return FALSE
 
