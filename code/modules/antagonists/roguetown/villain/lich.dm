@@ -206,7 +206,7 @@
 		H.mind.AddSpell(new /datum/action/cooldown/spell/eyebite)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/lacrima)
 	H.ambushable = FALSE
-	H.dna.species.soundpack_m = new /datum/voicepack/other/lich()
+	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/other/lich]
 
 	addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, choose_name_popup), "LICH"), 5 SECONDS)
 
