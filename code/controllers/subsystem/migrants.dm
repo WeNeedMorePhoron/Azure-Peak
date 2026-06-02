@@ -421,8 +421,6 @@ SUBSYSTEM_DEF(migrants)
 			continue
 		if(wave_cooldown[wave_type] && world.time < wave_cooldown[wave_type])
 			continue
-		if(!has_any_candidate(wave))
-			continue
 		available_weighted_waves[wave_type] = calculate_triumph_weight(wave)
 
 	if(!length(available_weighted_waves))
@@ -586,13 +584,6 @@ SUBSYSTEM_DEF(migrants)
 		if(client.prefs.migrant.queued_wave == wave_type)
 			candidates += client
 	return candidates
-
-/datum/controller/subsystem/migrants/proc/has_any_candidate(datum/migrant_wave/wave)
-	for(var/client/client as anything in get_wave_candidates(wave.type))
-		for(var/role_type in wave.get_all_role_types())
-			if(can_be_role(client, role_type))
-				return TRUE
-	return FALSE
 
 /datum/controller/subsystem/migrants/proc/reset_wave_queue(wave_type)
 	for(var/client/client as anything in get_wave_candidates(wave_type))
