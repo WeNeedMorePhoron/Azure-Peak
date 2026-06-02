@@ -271,9 +271,9 @@
 
 		if(L.has_status_effect(/datum/status_effect/swingdelay/penalty))
 			prob2defend = clamp(prob2defend - 50, 5, 90)
-
+		/// Dual Wield Cap
 		if(HAS_TRAIT(src, TRAIT_DUALWIELDER) && offhand && mainhand)
-			prob2defend = min(prob2defend, 80)
+			prob2defend = min(prob2defend, 85)
 
 		var/dodge_status = FALSE
 //		if((!defender_dualw && !attacker_dualw) || (defender_dualw && attacker_dualw)) //They cancel each other out

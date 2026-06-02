@@ -271,8 +271,10 @@
 //		if(prob(prob2defend))
 //			parry_status = TRUE
 
+	/// Dual Wield Cap
 	if(HAS_TRAIT(src, TRAIT_DUALWIELDER) && offhand && mainhand)
-		prob2defend = min(prob2defend, 80)
+		prob2defend += 20
+		prob2defend = min(prob2defend, 85)
 
 	if(prob(prob2defend))
 		parry_status = TRUE
