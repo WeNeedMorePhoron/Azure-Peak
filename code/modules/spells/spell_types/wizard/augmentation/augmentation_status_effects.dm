@@ -312,7 +312,8 @@
 	id = "dualrush"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/dualrush
 	duration = 8 SECONDS
-	effectedstats = list(STATKEY_SPD = 2)
+	effectedstats = list(STATKEY_SPD = 3)
+	tick_interval = 1 SECONDS
 
 	var/outline_colour = "#ff0000"
 
@@ -322,7 +323,7 @@
 	if(!owner)
 		return FALSE
 
-	owner.dualwield_buff_cd = world.time + 18 SECONDS
+	owner.dualwield_buff_cd = world.time + 20 SECONDS
 
 	if(!owner.get_filter(DUALWIELD_FILTER))
 		owner.add_filter(DUALWIELD_FILTER,2,list("type"="outline","color"=outline_colour,"alpha"=40,"size"=1))
@@ -330,6 +331,11 @@
 	ADD_TRAIT(owner, TRAIT_GUIDANCE, id)
 
 	to_chat(owner, span_warning("My assault enters a flawless rhythm."))
+
+/datum/status_effect/buff/dualrush/tick()
+	. = ..()
+	owner.energy_add(25)
+	owner.stamina_add(-10)
 
 /datum/status_effect/buff/dualrush/on_remove()
 	. = ..()
@@ -344,6 +350,6 @@
 	to_chat(owner, span_warning("My momentum fades."))
 
 /datum/status_effect/buff/dualrush/nextmove_modifier()
-	return 0.75
+	return 0.6
 
 #undef DUALWIELD_FILTER
