@@ -173,8 +173,6 @@
 		return
 	if(user.get_active_held_item() != src && !HAS_TRAIT(user, TRAIT_DUALWIELDER))
 		return
-	if(HAS_TRAIT(user, TRAIT_DUALWIELDER))
-		user.process_dualwield(M, src, null)
 	if(user.incapacitated())
 		return
 	if((M.mobility_flags & MOBILITY_STAND))
@@ -183,6 +181,8 @@
 				if(get_dist(get_turf(user), get_turf(M)) <= user.used_intent.reach)
 					user.do_attack_animation(M, user.used_intent.animname, used_item = src, used_intent = user.used_intent, simplified = TRUE)
 			return
+	if(HAS_TRAIT(user, TRAIT_DUALWIELDER))
+		user.process_dualwield(M, src, null)
 	var/rmb_stam_penalty = 0
 	if(istype(user.rmb_intent, /datum/rmb_intent/strong))
 		rmb_stam_penalty = EXTRA_STAMDRAIN_SWIFSTRONG
@@ -253,12 +253,11 @@
 			return
 
 	if(M.attacked_by(src, user))
-		if(user.used_intent == cached_intent)
-			var/tempsound = user.used_intent.hitsound
-			if(tempsound)
-				playsound(M.loc,  tempsound, 100, FALSE, -1)
-			else
-				playsound(M.loc,  "nodmg", 100, FALSE, -1)
+		var/tempsound = cached_intent?.hitsound
+		if(tempsound)
+			playsound(M.loc, tempsound, 100, FALSE, -1)
+		else
+			playsound(M.loc, "nodmg", 100, FALSE, -1)
 
 		if(M.has_flaw(/datum/charflaw/addiction/thrillseeker))
 			var/datum/component/arousal/CAR = M.GetComponent(/datum/component/arousal)
