@@ -95,7 +95,6 @@
 	track = MIGRANT_TRACK_SPECIAL
 	weight = 16
 	min_round_time = 45 MINUTES
-	hidden = TRUE
 	is_raid = TRUE
 	spawn_landmark = "Bandit"
 	required_roles = list(
@@ -110,7 +109,6 @@
 	track = MIGRANT_TRACK_SPECIAL
 	weight = 12
 	min_round_time = 60 MINUTES
-	hidden = TRUE
 	is_raid = TRUE
 	required_roles = list(
 		/datum/migrant_role/assassin = 1,
@@ -124,7 +122,6 @@
 	track = MIGRANT_TRACK_SPECIAL
 	weight = 12
 	min_round_time = 45 MINUTES
-	hidden = TRUE
 	is_raid = TRUE
 	required_roles = list(
 		/datum/migrant_role/gnoll = 1,

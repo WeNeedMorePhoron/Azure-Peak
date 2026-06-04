@@ -88,14 +88,14 @@
 	var/list/track_total_weight = list()
 	for(var/wave_type in GLOB.migrant_waves)
 		var/datum/migrant_wave/wave = MIGRANT_WAVE(wave_type)
-		if(wave.hidden || !wave.can_roll)
+		if(wave.hidden || !wave.can_roll || wave.is_raid)
 			continue
 		track_total_weight[wave.track] += SSmigrants.calculate_triumph_weight(wave)
 
 	var/list/waves = list()
 	for(var/wave_type in GLOB.migrant_waves)
 		var/datum/migrant_wave/wave = MIGRANT_WAVE(wave_type)
-		if(wave.hidden || !wave.can_roll)
+		if(wave.hidden || !wave.can_roll || wave.is_raid)
 			continue
 		var/maxed = FALSE
 		if(!isnull(wave.max_spawns))
@@ -175,7 +175,7 @@
 	if(!client)
 		return
 	var/datum/migrant_wave/wave = MIGRANT_WAVE(wave_type)
-	if(!wave || wave.hidden || !wave.can_roll)
+	if(!wave || wave.hidden || !wave.can_roll || wave.is_raid)
 		return
 	var/current_triumph = SStriumphs.get_triumphs(client.ckey)
 	if(current_triumph <= 0)
