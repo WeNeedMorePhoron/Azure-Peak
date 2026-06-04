@@ -50,6 +50,10 @@
 	var/mob/living/carbon/human/H = owner.current
 	if(!istype(H.patron, /datum/patron/inhumen))
 		H.set_patron(/datum/patron/inhumen/matthios)	//If you aren't a heretical worshiper, forces you to Matthios worship. (All bandits follow Matthios.)
+	for(var/datum/charflaw/cf in H.charflaws)
+		if(istype(cf, /datum/charflaw/hunted) || istype(cf, /datum/charflaw/targeted))
+			H.charflaws.Remove(cf)
+			QDEL_NULL(cf)
 	H.verbs |= /mob/proc/haltyell_exhausting
 	ADD_TRAIT(H, TRAIT_BANDITCAMP, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_SEEPRICES, TRAIT_GENERIC)

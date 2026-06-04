@@ -83,6 +83,10 @@
 		body.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/dream_bind)
 		body.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/dream_trance)
 		body.grant_language(/datum/language/abyssal)
+	for(var/datum/charflaw/cf in body.charflaws)
+		if(istype(cf, /datum/charflaw/hunted) || istype(cf, /datum/charflaw/targeted))
+			body.charflaws.Remove(cf)
+			QDEL_NULL(cf)
 	body.ambushable = FALSE
 	body.AddComponent(/datum/component/dreamwalker_repair)
 	body.AddComponent(/datum/component/dreamwalker_mark)
