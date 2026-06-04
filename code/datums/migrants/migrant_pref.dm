@@ -72,7 +72,6 @@
 		// Hidden waves stay out of the panel unless an admin forced them (then they're shown + queueable).
 		if(wave.hidden && !is_forced)
 			continue
-		var/readonly = (track == MIGRANT_TRACK_EVENT) && !is_forced
 		forming += list(list(
 			"track" = track,
 			"ref" = "[wave_type]",
@@ -80,7 +79,6 @@
 			"arrival_at" = SSmigrants.track_arrival[track],
 			"queued" = (queued_wave == wave_type),
 			"min_optional_fills" = wave.min_optional_fills,
-			"readonly" = readonly,
 			"roles" = build_role_data(wave),
 		))
 	data["forming"] = forming
@@ -177,7 +175,7 @@
 	if(!client)
 		return
 	var/datum/migrant_wave/wave = MIGRANT_WAVE(wave_type)
-	if(!wave || wave.hidden)
+	if(!wave || wave.hidden || !wave.can_roll)
 		return
 	var/current_triumph = SStriumphs.get_triumphs(client.ckey)
 	if(current_triumph <= 0)

@@ -107,10 +107,7 @@ SUBSYSTEM_DEF(migrants)
 
 /datum/controller/subsystem/migrants/proc/try_spawn_wave(datum/migrant_wave/wave, forced = FALSE)
 	var/list/active_migrants
-	if(!forced && (wave.hidden || wave.track == MIGRANT_TRACK_EVENT))
-		active_migrants = get_active_migrants()
-	else
-		active_migrants = get_wave_candidates(wave.type)
+	active_migrants = get_wave_candidates(wave.type)
 	active_migrants = shuffle(active_migrants)
 	if(!length(active_migrants))
 		return FALSE

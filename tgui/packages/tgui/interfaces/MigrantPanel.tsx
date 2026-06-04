@@ -63,7 +63,6 @@ type FormingWave = {
   arrival_at: number;
   queued: BooleanLike;
   min_optional_fills: number;
-  readonly: BooleanLike;
   roles: Role[];
 };
 
@@ -185,42 +184,20 @@ const FormingRoster = (props: {
   const required = forming.roles.filter((r) => r.kind === 'required');
   const optional = forming.roles.filter((r) => r.kind !== 'required');
   const hasFloor = forming.min_optional_fills > 0;
-  const rowFor = (r: Role) =>
-    forming.readonly ? (
-      <div
-        key={r.ref}
-        title={roleTooltip(r)}
-        style={{ fontSize: '12px', padding: '2px 4px', cursor: 'help', color: kindColor(r.kind) }}
-      >
-        {r.name} <span style={{ color: INK_SOFT }}>x{r.amount}</span>
-      </div>
-    ) : (
-      <QueueRoleRow
-        key={r.ref}
-        waveRef={forming.ref}
-        waveQueued={forming.queued}
-        role={r}
-        act={act}
-      />
-    );
+  const rowFor = (r: Role) => (
+    <QueueRoleRow
+      key={r.ref}
+      waveRef={forming.ref}
+      waveQueued={forming.queued}
+      role={r}
+      act={act}
+    />
+  );
   return (
     <div style={{ ...cardStyle, marginBottom: 0, padding: '6px 8px' }}>
       <div style={{ fontWeight: 'bold', color: INK, fontSize: '13px' }}>
         {forming.name}
       </div>
-      {!!forming.readonly && (
-        <div
-          style={{
-            fontSize: '10px',
-            fontVariant: 'small-caps',
-            fontWeight: 'bold',
-            color: SEAL_RED,
-            letterSpacing: '0.5px',
-          }}
-        >
-          Preview only - cannot be joined
-        </div>
-      )}
       <div style={{ color: SEAL_GREEN, fontSize: '12px', marginBottom: '3px' }}>
         Arrives in {fmtClock(forming.arrival_at - now)}
       </div>
