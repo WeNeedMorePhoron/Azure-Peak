@@ -648,17 +648,17 @@
 		"wdefense" = 2
 	)
 
-// I am wary of giving the avantyne longsword much more.
-// The sword has 40 force. I cannot give it the 0.8x damage blunt or it's just a grand mace.
+// Certain swords are especially nuclear like the Martyr and ZIZO swords.
+// The swords have 40 force. I cannot give it the 0.8x damage blunt or it's just a grand mace.
 // Instead, you get to keep new daze and the new stabs but not the new blunt intents or plate pen halfswording.
-/datum/alt_grip/halfsword/zizo 
+/datum/alt_grip/halfsword/lesser
 	grip_intents = list(
 		/datum/intent/sword/thrust/long/halfsword/jab,
 		SWORD_BASH, 
 		/datum/intent/sword/thrust/long/deep/halfsword
 	)
 
-/datum/alt_grip/mordhau/sword/zizo
+/datum/alt_grip/mordhau/sword/lesser
 	grip_intents = list(		
 		SWORD_BASH,
 		/datum/intent/effect/daze

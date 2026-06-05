@@ -433,7 +433,7 @@
 	unequip_delay_self = 0
 	wdefense_wbonus = 7
 	smeltresult = /obj/item/ingot/component/zizo
-	alt_grips = list(/datum/alt_grip/mordhau/sword/zizo, /datum/alt_grip/halfsword/zizo)
+	alt_grips = list(/datum/alt_grip/mordhau/sword/lesser, /datum/alt_grip/halfsword/lesser)
 
 /obj/item/rogueweapon/sword/long/zizo/Initialize()
 	. = ..()

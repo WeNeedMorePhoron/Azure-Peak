@@ -625,6 +625,7 @@
 	override_state = null
 	is_important = TRUE
 	special = /datum/special_intent/martyr_blazing_sweep_sword
+	alt_grips = list(/datum/alt_grip/mordhau/sword/lesser, /datum/alt_grip/halfsword/lesser)
 
 /obj/item/rogueweapon/sword/long/martyr/ComponentInitialize()
 	AddComponent(\
