@@ -185,7 +185,7 @@
 	force = 25
 	force_wielded = 30
 	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust/long, /datum/intent/sword/strike)
-	gripped_intents = list(/datum/intent/sword/cut/long, /datum/intent/sword/thrust/long, /datum/intent/sword/chop, /datum/intent/sword/thrust/long/deep)
+	gripped_intents = list(/datum/intent/sword/cut/long, /datum/intent/sword/thrust/long, /datum/intent/sword/chop/long, /datum/intent/sword/thrust/long/deep)
 	alt_grips = list(/datum/alt_grip/mordhau/sword, /datum/alt_grip/halfsword)
 	icon_state = "longsword"
 	icon = 'icons/roguetown/weapons/swords64.dmi'
@@ -433,6 +433,7 @@
 	unequip_delay_self = 0
 	wdefense_wbonus = 7
 	smeltresult = /obj/item/ingot/component/zizo
+	alt_grips = list(/datum/alt_grip/mordhau/sword, /datum/alt_grip/halfsword/zizo)
 
 /obj/item/rogueweapon/sword/long/zizo/Initialize()
 	. = ..()
@@ -2270,8 +2271,8 @@
 	name = "steel shotel"
 	icon_state = "shotel_steel"
 	desc = "A long curved blade of Ranesheni Design."
-	possible_item_intents = list(/datum/intent/sword/cut/zwei, /datum/intent/sword/chop/long) //Shotels get 2 tile reach.
-	gripped_intents = list(/datum/intent/sword/cut/zwei, /datum/intent/sword/chop/long)
+	possible_item_intents = list(/datum/intent/sword/cut/zwei, /datum/intent/sword/chop/shotel) //Shotels get 2 tile reach.
+	gripped_intents = list(/datum/intent/sword/cut/zwei, /datum/intent/sword/chop/shotel)
 	swingsound = BLADEWOOSH_LARGE
 	parrysound = "largeblade"
 	pickup_sound = "brandish_blade"
