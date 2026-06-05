@@ -338,7 +338,6 @@
 	inspiration in humenity's darkest hour. Centuries later, it still remains the ideal choice for skewering infidels and monsters alike. </br>'I am the \
 	holder of light, in the dark abyss..' </br>'..I am the holder of order and ward against vileness..' </br>'..let the Gods guide my hand, and let the Inhumen cower before me.'"
 	icon_state = "churchsword"
-	max_blade_int = 250
 	max_integrity = 180
 
 /obj/item/rogueweapon/sword/long/undivided
@@ -348,7 +347,6 @@
 	gleaming, radiant heat, warm my soul, immolate my enemies..' </br>'..and let me vanquish all those who would dare to Divide us, once more.'"
 	icon_state = "seeblade"
 	sheathe_icon = "eclipsum"
-	max_blade_int = 250
 	max_integrity = 180
 	force = 28
 	force_wielded = 33
