@@ -658,7 +658,7 @@
 		/datum/intent/sword/thrust/long/deep/halfsword
 	)
 
-/datum/alt_grip/mordhau/zizo
+/datum/alt_grip/mordhau/sword/zizo
 	grip_intents = list(		
 		SWORD_BASH,
 		/datum/intent/effect/daze
