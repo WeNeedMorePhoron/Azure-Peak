@@ -603,7 +603,6 @@
 	righthand_file = 'icons/mob/inhands/weapons/roguemartyr_righthand.dmi'
 	name = "divine longsword"
 	desc = "A relic from the Holy See's own vaults; a blessed silver longsword, marked with the ten-pointed sigil of Astrata's undivided might. </br>It simmers with godly energies, and will only yield to the hands of those who have taken the Oath."
-	max_blade_int = 200
 	parrysound = "bladedmedium"
 	swingsound = BLADEWOOSH_LARGE
 	pickup_sound = 'sound/foley/equip/swordlarge2.ogg'
