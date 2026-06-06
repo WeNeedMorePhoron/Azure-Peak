@@ -67,6 +67,13 @@
 	*message_out = span_info("An emanance of love blossoms around [target]!")
 	*message_self = span_notice("I'm filled with the restorative warmth of love!")
 
+	var/flower_crowns = list(
+		"crown of rosa",
+		"crown of salvia",
+		"crown of calendula",
+		"crown of matricaria",
+	)
+
 	var/bonus = 0
 
 	if(HAS_TRAIT(target, TRAIT_PACIFISM))
@@ -74,6 +81,12 @@
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		bonus += 1.5
+
+	if(target.get_item_by_slot(SLOT_HEAD).name in flower_crowns)
+		bonus += 0.75
+
+	if(user.get_item_by_slot(SLOT_HEAD).name in flower_crowns)
+		bonus += 0.45
 
 	if(!bonus)
 		return
