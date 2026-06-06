@@ -1825,7 +1825,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/adrenaline_rush
 	duration = 18 SECONDS
 	examine_text = "SUBJECTPRONOUN is amped up!"
-	effectedstats = list(STATKEY_WIL = 1)
+	effectedstats = list(STATKEY_WIL = 1, STATKEY_SPD = 2)
 	var/blood_restore = 30
 
 /datum/status_effect/buff/adrenaline_rush/on_apply()
