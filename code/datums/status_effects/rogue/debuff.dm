@@ -396,7 +396,7 @@
 	duration = 15 MINUTES		//Should be long enough to stop someone from running back into battle. Plus, this stacks with body-rot debuff. RIP.
 
 /atom/movable/screen/alert/status_effect/debuff/revived
-	name = "Resurrection" //Formerly 'Revival Sickness'.
+	name = "Revived" //Formerly 'Revival Sickness'.
 	desc = "Brought back from death's sweet embrace, you walk amongst the living once more. Yet, it is not without consequence - your body aches, your spirit wanes, and your fate is still uncertain."
 	icon_state = "revived"
 
