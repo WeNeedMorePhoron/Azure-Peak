@@ -432,9 +432,9 @@
 /mob/living/proc/can_dualwield(obj/item/mainhand, obj/item/offhand)
 	if(!mainhand || !offhand)
 		return FALSE
-	if(istype(mainhand, /obj/item/rogueweapon/shield))
+	if(istype(mainhand, /obj/item/rogueweapon/shield) || istype(mainhand, /obj/item/lantern) || istype(mainhand, /obj/item/flashlight))
 		return FALSE
-	if(istype(offhand, /obj/item/rogueweapon/shield))
+	if(istype(offhand, /obj/item/rogueweapon/shield) || istype(mainhand, /obj/item/lantern) || istype(mainhand, /obj/item/flashlight))
 		return FALSE
 	if(mainhand.w_class >= WEIGHT_CLASS_HUGE)
 		return FALSE
@@ -499,7 +499,7 @@
 				UnarmedAttack(A, TRUE, params)
 
 			if(world.time >= dualwield_buff_cd)
-				apply_status_effect(/datum/status_effect/buff/dualrush)
+//				apply_status_effect(/datum/status_effect/buff/dualrush)
 				dualwield_buff_cd = world.time + 18 SECONDS
 
 		dualwield_processing = FALSE
@@ -507,7 +507,7 @@
 
 	dualwield_attack_count++
 
-	if(dualwield_attack_count >= 5)
+	if(dualwield_attack_count >= 4)
 		dualwield_attack_count = 0
 		dualwield_finisher = TRUE
 

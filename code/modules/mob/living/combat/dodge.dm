@@ -237,10 +237,15 @@
 			var/text = "Roll to dodge... [HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "???" : prob2defend]%"
 			to_chat(src, span_info("[text]"))
 
-		/// Dual Wield Dodge Hard Cap (basically, it removes the bonuses you'd get from DExpert)
+/*		/// Dual Wield Dodge Hard Cap (basically, it removes the bonuses you'd get from DExpert)
 		if(HAS_TRAIT(src, TRAIT_DUALWIELDER) && H.can_dualwield(mainh, offh))
 			prob2defend = min(prob2defend, 90)
 			text += "Footwork Penalty! (90%)"
+*/
+		// Dual wield drawback (-5%)
+		if(HAS_TRAIT(src, TRAIT_DUALWIELDER) && H.can_dualwield(mainh, offh))
+			prob2defend = max(prob2defend - 5, 0)
+			text += " (-5%)"
 
 		if(user.client?.prefs.showrolls && !HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS) && has_trait && client)
 			to_chat(user, span_info("Their roll to dodge was... [prob2defend]%"))

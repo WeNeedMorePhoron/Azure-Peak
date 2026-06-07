@@ -253,32 +253,44 @@
 	var/parry_status = FALSE
 	var/text
 
-	if(HAS_TRAIT(src, TRAIT_DUALWIELDER) && src.can_dualwield(mainhand, offhand))
-		prob2defend = min(prob2defend, 75)
-		text += "Roll to parry... [HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "???" : prob2defend]%"
-		text += " Twice! Advantage! [!HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "([round((1 - (1 - prob2defend / 100) ** 2) * 100, 0.1)]%)" : ""]"
-		if(prob(prob2defend) || prob(prob2defend))
-			parry_status = TRUE
-	else
-		text += "Roll to parry... [HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "???" : prob2defend]%"
-		if(prob(prob2defend))
-			parry_status = TRUE
+	// Dual wield drawback (-5%)
+	var/dualwield_penalty = HAS_TRAIT(src, TRAIT_DUALWIELDER) && src.can_dualwield(mainhand, offhand)
 
+	if(dualwield_penalty)
+		prob2defend = max(prob2defend - 5, 0)
+
+	// Base parry roll display
+	text += "Roll to parry... [HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "???" : prob2defend]%"
+	if(dualwield_penalty)
+		text += " (-5%)"
+
+/*	// Dual wield advantage
+	var/dualwield_advantage = HAS_TRAIT(src, TRAIT_DUALWIELDER) && src.can_dualwield(mainhand, offhand)
+
+	if(dualwield_advantage)
+		var/dualwield_chance = min(prob2defend, 75)
+
+		text += " Twice! Advantage! [!HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "([round((1 - (1 - dualwield_chance / 100) ** 2) * 100, 0.1)]%)" : ""]"
+
+		parry_status = prob(dualwield_chance) || prob(dualwield_chance)
+	else
+		parry_status = prob(prob2defend)
+*/
 	if(parry_status)
 		if(!has_status_effect(/datum/status_effect/buff/weapon_binded))
 			if(intenty.masteritem)
-				if(intenty.masteritem.wbalance == WBALANCE_HEAVY && user.STASTR > src.STASTR) //enemy weapon is heavy, so get a bonus scaling on strdiff
-					drained = drained + ( intenty.masteritem.wbalance * ((user.STASTR - src.STASTR) * STAM_DRAIN_PER_STR_DIFF_HEAVY_BAL) )
+				if(intenty.masteritem.wbalance == WBALANCE_HEAVY && user.STASTR > src.STASTR)
+					drained += intenty.masteritem.wbalance * ((user.STASTR - src.STASTR) * STAM_DRAIN_PER_STR_DIFF_HEAVY_BAL)
 	else
 		text += span_warning(" The enemy defeated my parry!")
+
 	if(src.client?.prefs.showrolls)
 		to_chat(src, span_info("[text]"))
 
 	// Failed parry cutoff here
 	if(!parry_status)
-		return FALSE
-
-
+		return FALSE	
+	
 	drained = max(drained, 5)
 
 	var/exp_multi = 1
