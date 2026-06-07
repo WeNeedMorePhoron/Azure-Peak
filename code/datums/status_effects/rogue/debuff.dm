@@ -375,6 +375,11 @@
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/ritesexpended_heavy
 	duration = 1 HOURS
 
+/atom/movable/screen/alert/status_effect/debuff/armamentrites
+	name = "Rituos Desicco"
+	desc = "My ritual is complete, yet not without cost. I must gift my lux plenty of tyme to recover, before I can conduct another rite."
+	icon_state = "rituos_cooldown_greater"
+
 /atom/movable/screen/alert/status_effect/debuff/ritesexpended_heavy
 	name = "Rituos Desicco"
 	desc = "My ritual is complete, yet not without cost. I must gift my lux plenty of tyme to recover, before I can conduct another rite."
