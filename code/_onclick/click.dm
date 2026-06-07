@@ -453,65 +453,68 @@
 
 	return TRUE
 
-/mob/living/proc/process_dualwield(atom/A, obj/item/W, params)
+/mob/living/proc/process_dualwield(atom/A, obj/item/attack_weapon, params)
 	if(!HAS_TRAIT(src, TRAIT_DUALWIELDER))
 		return
 
 	if(dualwield_processing)
 		return
 
-	var/obj/item/offh = get_inactive_held_item()
-	var/obj/item/active = get_active_held_item()
+	var/obj/item/mainhand = get_active_held_item()
+	var/obj/item/offhand = get_inactive_held_item()
 
-	// Weapon mode
-	if(W)
-		if(!offh)
+	// Weapon attack validation
+	if(attack_weapon)
+		if(!offhand)
 			return
-		if(W == offh)
+
+		if(attack_weapon == offhand)
 			return
+
 		if(check_arm_grabbed(get_inactive_hand_index()))
 			return
-		if(!can_dualwield(W, offh))
+
+		if(!can_dualwield(attack_weapon, offhand))
 			return
 
-	// Pure unarmed mode (BOTH hands empty only)
+	// Unarmed validation
 	else
-		if(active || offh)
+		if(mainhand || offhand)
 			return
 
+	// Combo timeout
 	if(world.time > dualwield_resets_in)
 		dualwield_attack_count = 0
 		dualwield_finisher = FALSE
 
 	dualwield_resets_in = world.time + 3 SECONDS
 
-	// Finisher
+	// Finisher attack
 	if(dualwield_finisher)
 		dualwield_finisher = FALSE
 		dualwield_processing = TRUE
 
 		if(stamina_add(3))
 			balloon_alert_to_viewers("<font color='#bb2b2b'>X-Strike!!</font>")
-
-			if(W && offh)
-				offh.melee_attack_chain(src, A, params)
+			visible_message("<font color='#ffc400'>Doublehit!</font>", "<font color='#ffc400'>Doublehit!</font>")
+			if(attack_weapon && offhand)
+				offhand.melee_attack_chain(src, A, params)
 			else
 				UnarmedAttack(A, TRUE, params)
-
-			if(world.time >= dualwield_buff_cd)
-//				apply_status_effect(/datum/status_effect/buff/dualrush)
-				dualwield_buff_cd = world.time + 18 SECONDS
 
 		dualwield_processing = FALSE
 		return
 
+	// Build combo
 	dualwield_attack_count++
 
-	if(dualwield_attack_count >= 4)
+	if(dualwield_attack_count >= 3)
 		dualwield_attack_count = 0
 		dualwield_finisher = TRUE
 
-	swap_hand()
+	// Swap only after everything else is finished
+	if(attack_weapon)
+		swap_hand()
 
 //Branching path for Adjacent clicks with or without items
 //DOES NOT ACTUALLY KNOW IF YOU'RE ADJACENT, DO NOT CALL ON IT'S OWN

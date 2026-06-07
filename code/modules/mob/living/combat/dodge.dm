@@ -233,41 +233,23 @@
 					L.changeNext_def(CLICK_CD_DODGE)
 		prob2defend = clamp((prob2defend + max_dodge), 5, (90 + max_dodge))
 
+		// Dual wield drawback (-5%)
+		var/dualwield_penalty = HAS_TRAIT(src, TRAIT_DUALWIELDER) && H.can_dualwield(mainh, offh)
+		if(dualwield_penalty)
+			prob2defend = max(prob2defend - 5, 0)
+
 		if(src.client?.prefs.showrolls)
 			var/text = "Roll to dodge... [HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "???" : prob2defend]%"
-			to_chat(src, span_info("[text]"))
 
-/*		/// Dual Wield Dodge Hard Cap (basically, it removes the bonuses you'd get from DExpert)
-		if(HAS_TRAIT(src, TRAIT_DUALWIELDER) && H.can_dualwield(mainh, offh))
-			prob2defend = min(prob2defend, 90)
-			text += "Footwork Penalty! (90%)"
-*/
-		// Dual wield drawback (-5%)
-		if(HAS_TRAIT(src, TRAIT_DUALWIELDER) && H.can_dualwield(mainh, offh))
-			prob2defend = max(prob2defend - 5, 0)
-			text += " (-5%)"
+			if(dualwield_penalty)
+				text += " (-5%)"
 
-		if(user.client?.prefs.showrolls && !HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS) && has_trait && client)
-			to_chat(user, span_info("Their roll to dodge was... [prob2defend]%"))
+			to_chat(src, span_info(text))
 
 		if(L.has_status_effect(/datum/status_effect/swingdelay/penalty))
 			prob2defend = clamp(prob2defend - 50, 5, 90)
 
 		var/dodge_status = FALSE
-//		if((!defender_dualw && !attacker_dualw) || (defender_dualw && attacker_dualw)) //They cancel each other out
-//			if(attacker_feedback)
-//				attacker_feedback = "Advantage cancelled out!"
-//			if(prob(prob2defend))
-//				dodge_status = TRUE
-//		else if(attacker_dualw)
-//			if(prob(prob2defend))
-//				dodge_status = TRUE
-//		else if(defender_dualw)
-//			if(prob(prob2defend) && extradefroll)
-//				dodge_status = TRUE
-
-//		if(attacker_feedback)
-//			to_chat(user, span_info("[attacker_feedback]"))
 
 		if(prob(prob2defend))
 			dodge_status = TRUE

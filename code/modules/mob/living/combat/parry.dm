@@ -255,7 +255,6 @@
 
 	// Dual wield drawback (-5%)
 	var/dualwield_penalty = HAS_TRAIT(src, TRAIT_DUALWIELDER) && src.can_dualwield(mainhand, offhand)
-
 	if(dualwield_penalty)
 		prob2defend = max(prob2defend - 5, 0)
 
@@ -264,18 +263,6 @@
 	if(dualwield_penalty)
 		text += " (-5%)"
 
-/*	// Dual wield advantage
-	var/dualwield_advantage = HAS_TRAIT(src, TRAIT_DUALWIELDER) && src.can_dualwield(mainhand, offhand)
-
-	if(dualwield_advantage)
-		var/dualwield_chance = min(prob2defend, 75)
-
-		text += " Twice! Advantage! [!HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "([round((1 - (1 - dualwield_chance / 100) ** 2) * 100, 0.1)]%)" : ""]"
-
-		parry_status = prob(dualwield_chance) || prob(dualwield_chance)
-	else
-		parry_status = prob(prob2defend)
-*/
 	if(parry_status)
 		if(!has_status_effect(/datum/status_effect/buff/weapon_binded))
 			if(intenty.masteritem)
