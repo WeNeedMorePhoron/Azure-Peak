@@ -41,7 +41,7 @@
 			QDEL_NULL(cf)
 	H.equipOutfit(/datum/outfit/job/vamplord)
 	H.set_patron(/datum/patron/inhumen/zizo)
-	H.verbs |= /mob/living/carbon/human/proc/demand_submission
+	add_verb(H, /mob/living/carbon/human/proc/demand_submission)
 	H.maxbloodpool += 3000
 	H.adjust_bloodpool(3000)
 	for(var/S in MOBSTATS)
@@ -106,7 +106,7 @@
 // NEW VERBS
 /mob/living/carbon/human/proc/demand_submission()
 	set name = "Demand Submission"
-	set category = "VAMPIRE"
+	set category = "RoleUnique.Vampire"
 	if(SSmapping.retainer.king_submitted)
 		to_chat(src, span_warning("I am already the Master of [SSmapping.config.map_name]."))
 		return
@@ -130,7 +130,7 @@
 
 /mob/living/carbon/human/proc/punish_spawn()
 	set name = "Punish Minion"
-	set category = "VAMPIRE"
+	set category = "RoleUnique.Vampire"
 
 	if(!clan_position)
 		to_chat(src, span_warning("You have no subordinates to punish."))

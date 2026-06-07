@@ -54,7 +54,7 @@
 		if(istype(cf, /datum/charflaw/hunted) || istype(cf, /datum/charflaw/targeted))
 			H.charflaws.Remove(cf)
 			QDEL_NULL(cf)
-	H.verbs |= /mob/proc/haltyell_exhausting
+	add_verb(H, /mob/proc/haltyell_exhausting)
 	ADD_TRAIT(H, TRAIT_BANDITCAMP, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_SEEPRICES, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
