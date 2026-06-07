@@ -349,7 +349,9 @@
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/ritesexpended
 	duration = 30 MINUTES
 
-/datum/status_effect/debuff/ritesexpended/heretic
+/datum/status_effect/debuff/armamentrites
+	id = "armamentrites"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/armamentrites
 	duration = 2 HOURS
 
 /atom/movable/screen/alert/status_effect/debuff/ritesexpended
