@@ -4,9 +4,9 @@
 	fluff_desc = "One of the earliest applications of Origin Magick, Acceleration was first devised to hasten crop growth and shorten agricultural cycles. The experiment revealed a fundamental limitation of the art: while a subject's personal timeline can be advanced, the debt incurred cannot be avoided. Reality inevitably reconciles the discrepancy, repaying every stolen moment in equal measure. Though unsuitable for cultivation, the technique found lasting use among Naledi Viziers as a potent, if taxing, combat tool."	
 	button_icon_state = "accel"
 	sound = list('sound/magic/haste.ogg')
-	cast_range = 4
+	cast_range = 6
 	charge_required = FALSE
-	cooldown_time = 5 MINUTES
+	cooldown_time = 2 MINUTES
 	invocations = list("Aggil!")
 	invocation_type = INVOCATION_SHOUT
 
@@ -44,7 +44,7 @@
 	id = "acceleration"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/accel
 	effectedstats = list(STATKEY_SPD = 20)
-	duration = 15 SECONDS
+	duration = 6 SECONDS
 	tick_interval = 1 SECONDS
 	var/afterimage_active = FALSE
 
@@ -93,7 +93,7 @@
 	id = "deceleration"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/decel
 	effectedstats = list(STATKEY_SPD = -20)
-	duration = 15 SECONDS
+	duration = 6 SECONDS
 
 /datum/status_effect/debuff/decel/on_creation(mob/living/new_owner, new_duration = null)
 	if(new_duration)
@@ -104,7 +104,7 @@
 	. = ..()
 
 	ADD_TRAIT(owner, TRAIT_NODEF, "naledi_cat_nonsense")
-	owner.stamina_add(125)
+	owner.stamina_add(100)
 	to_chat(owner, span_red("Everything feels unbearably slow. I am defenseless!"))
 
 /datum/status_effect/debuff/decel/on_remove()
