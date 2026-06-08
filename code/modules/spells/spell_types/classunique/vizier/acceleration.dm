@@ -6,9 +6,11 @@
 	sound = list('sound/magic/haste.ogg')
 	cast_range = 6
 	charge_required = FALSE
-	cooldown_time = 2 MINUTES
-	invocations = list("Aggil!")
+	cooldown_time = 1.25 MINUTES
+	invocations = list("Aggil! Advance, timeline!")
 	invocation_type = INVOCATION_SHOUT
+	primary_resource_type = SPELL_COST_ENERGY
+	primary_resource_cost = 76
 
 /datum/action/cooldown/spell/vizier/acceleration/cast(atom/cast_on)
 	. = ..()
@@ -44,7 +46,7 @@
 	id = "acceleration"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/accel
 	effectedstats = list(STATKEY_SPD = 20)
-	duration = 6 SECONDS
+	duration = 4 SECONDS
 	tick_interval = 1 SECONDS
 	var/afterimage_active = FALSE
 
@@ -93,7 +95,7 @@
 	id = "deceleration"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/decel
 	effectedstats = list(STATKEY_SPD = -20)
-	duration = 6 SECONDS
+	duration = 4 SECONDS
 
 /datum/status_effect/debuff/decel/on_creation(mob/living/new_owner, new_duration = null)
 	if(new_duration)
