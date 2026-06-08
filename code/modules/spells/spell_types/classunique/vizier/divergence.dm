@@ -8,7 +8,7 @@
 	self_cast_possible = TRUE
 	charge_required = FALSE
 	cooldown_time = 60 SECONDS
-	invocations = list("Naf'ir! Diverge, timeline!")
+	invocations = list("Iftiraq!")
 	invocation_type = INVOCATION_SHOUT
 	primary_resource_type = SPELL_COST_ENERGY
 	primary_resource_cost = 76

@@ -7,7 +7,7 @@
 	cast_range = 6
 	charge_required = FALSE
 	cooldown_time = 1.25 MINUTES
-	invocations = list("Aggil! Advance, timeline!")
+	invocations = list("Tasaru'!")
 	invocation_type = INVOCATION_SHOUT
 	primary_resource_type = SPELL_COST_ENERGY
 	primary_resource_cost = 76
