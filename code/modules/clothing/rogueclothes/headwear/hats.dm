@@ -461,6 +461,7 @@
 /obj/item/clothing/head/roguetown/witchhat
 	name = "witch hat"
 	desc = "Fair is foul, and foul is fair; Hover through the fog and filthy air."
+	adjustable = CAN_CADJUST
 	icon_state = "witch"
 	item_state = "witch"
 	detail_tag = "_detail"
