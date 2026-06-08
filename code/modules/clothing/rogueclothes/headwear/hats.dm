@@ -471,6 +471,7 @@
 	detail_color = CLOTHING_BROWN
 
 /obj/item/clothing/head/roguetown/witchhat/ComponentInitialize()
+	..()
 	AddComponent(/datum/component/adjustable_clothing, null, null, null, 'sound/foley/cloth_wipe (1).ogg', null, UPD_HEAD)
 
 /obj/item/clothing/head/roguetown/witchhat/mageblue
