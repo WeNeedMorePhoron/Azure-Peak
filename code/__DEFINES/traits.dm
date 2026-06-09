@@ -286,6 +286,7 @@
 #define TRAIT_ASSASSIN	"Assassin"
 #define TRAIT_EQUESTRIAN "Equestrian"
 #define TRAIT_REGROW_LIMBS "Regrow Limbs"
+#define TRAIT_LEVY_BOYS "The Conscripted"
 // ARMOR / CLOTHING GIVEN TRAITS (GIVEN BY WEARING CLOTHES/ARMOR PIECES)
 #define TRAIT_MONK_ROBE	"Holy Vestatures"
 #define TRAIT_BLACKOAK "Heritage Vision"
@@ -328,6 +329,7 @@
 // If you want description to show up you gotta have the trait name defined BEFORE this lol
 
 GLOBAL_LIST_INIT(roguetraits, list(
+	TRAIT_LEVY_BOYS = span_danger("IT'S ME 'N DA PALS AGAINST THIS BITCHE O' A WORLDE! I am part of the Town's Levy squad. We ain't Armsmen, and nobody mistakes us for such. We're the folk handed a helmet, a weapon, and a pat on the back before being pointed towards trouble our guards can't fix!"),
 	TRAIT_STEELHEARTED = span_info("I have hardened nerves, and do not waiver from the sight of violence in battle."),
 	TRAIT_OUTLAW = span_info("This land's meisters and castificos reject my touch."),
 	TRAIT_ALDERMAN = span_info("Alderman of the Assembly, voice of the respectable citizenry of Azuria. Upon my charter I may spend the Crown's Purse and commission the realm's defense within the bounds the Commons have set me."),
@@ -592,7 +594,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_WHITE_STAG = span_info("The power of the white stag lives on inside of me!"),
 	TRAIT_EDIT_DESCRIPTORS = span_info("I can change my appearance at a magic mirror in a thorough manner."),
 	TRAIT_DUSTRUNNER = span_info("I run dust for the Thieves' Guild. Those in the trade know how to spot one of their own."),
-	TRAIT_REGROW_LIMBS = span_info("I can regrow my limbs in my sleep, but doing so will make me hungry.")
+	TRAIT_REGROW_LIMBS = span_info("I can regrow my limbs in my sleep, but doing so will make me hungry."),
 ))
 
 // trait accessor defines

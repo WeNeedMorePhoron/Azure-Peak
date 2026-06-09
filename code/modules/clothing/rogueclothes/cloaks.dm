@@ -715,6 +715,10 @@
 	GLOB.lordcolor -= src
 	return ..()
 
+/obj/item/clothing/cloak/tabard/stabard/bog/levy
+	name = "levy militia tabard"
+	desc = "A tabard colored in a glorius green of the mighty protectors of the BOG. Except you are not a TRAITOR. Yet."
+
 /obj/item/clothing/cloak/tabard/stabard/bog
 	name = "bogman tabard"
 	desc = "A tabard colored in a glorius green of the mighty protectors of the BOG." // THE BOG DESERVES A BETTER DESCRIPTION!
