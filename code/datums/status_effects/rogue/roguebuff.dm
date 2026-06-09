@@ -1842,7 +1842,7 @@
 	owner.emote("breathgasp", forced = TRUE)
 	owner.cmode_music = originalcmode
 	owner.Slowdown(3)
-	if(owner.cmode)	//No cmode, no point - More Gigajank for combat music
+	if(owner.cmode && !owner.has_status_effect(/datum/status_effect/buff/call_to_slaughter))	//No cmode, no point - More Gigajank for combat music UNLESS call to slaughter is active
 		owner.toggle_cmode()
 		owner.toggle_cmode()
 
