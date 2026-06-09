@@ -1807,18 +1807,18 @@
 
 /datum/status_effect/buff/bloodrage/on_apply()
 	ADD_TRAIT(owner, TRAIT_STRENGTH_UNCAPPED, TRAIT_MIRACLE)
-	shake_camera(owner, 3, 3) //Aura
+	shake_camera(owner, 5, 2) //Aura
 	originalcmode = owner.cmode_music
 	owner.cmode_music = 'sound/music/combat_bloodrage.ogg' //I'LL FUCK ANYTHING THAT MOVES
+	to_chat(owner, span_userdanger(pick("KILL, FUCKING KILL! SLAUGHTER THEM!", "BLOOD, FUCKING SPILL THE BLOOD!", "BLOOD AND FURY, SPLITTING MY SKULL!", "I'LL KILL ANYTHING THAT MOVES!", "I'M FUCKING UNSTOPPABLE, I'LL BREAK THEM!")))
+	var/holyskill = owner.get_skill_level(/datum/skill/magic/holy)
+	duration = ((15 SECONDS) * holyskill)
+	var/filter = owner.get_filter(BLOODRAGE_FILTER)
 	if(!owner.cmode)	//Turns on combat mode
 		owner.toggle_cmode()
 	else		//Gigajank to reset your combat music
 		owner.toggle_cmode()
 		owner.toggle_cmode()
-	to_chat(owner, span_userdanger(pick("KILL, FUCKING KILL!", "BLOOD, FUCKING SPILL THE BLOOD!", "BLOOD AND FURY, SPLITTING MY SKULL!", "I'LL KILL ANYTHING THAT MOVES!", "I'M FUCKING UNSTOPPABLE, I'LL BREAK THEM!")))
-	var/holyskill = owner.get_skill_level(/datum/skill/magic/holy)
-	duration = ((15 SECONDS) * holyskill)
-	var/filter = owner.get_filter(BLOODRAGE_FILTER)
 	if(!filter)
 		owner.add_filter(BLOODRAGE_FILTER, 2, list("type" = "outline", "color" = outline_color, "alpha" = 60, "size" = 2))
 	if(!HAS_TRAIT(owner, TRAIT_DODGEEXPERT))
