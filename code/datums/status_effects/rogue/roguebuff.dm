@@ -1802,10 +1802,19 @@
 	id = "bloodrage"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/graggar_bloodrage
 	var/outline_color = "#ad0202"
+	var/originalcmode = ""
 	duration = 15 SECONDS
 
 /datum/status_effect/buff/bloodrage/on_apply()
 	ADD_TRAIT(owner, TRAIT_STRENGTH_UNCAPPED, TRAIT_MIRACLE)
+	originalcmode = owner.cmode_music
+	if(!owner.cmode)	//Turns on combat mode
+		owner.toggle_cmode()
+	else		//Gigajank to reset your combat music
+		owner.toggle_cmode()
+		owner.toggle_cmode()
+	owner.cmode_music = 'sound/music/combat_bloodrage.ogg' //I'LL FUCK ANYTHING THAT MOVES
+	to_chat(owner, span_userdanger(pick("KILL, FUCKING KILL!", "BLOOD, FUCKING SPILL THE BLOOD!", "BLOOD AND FURY, SPLITTING MY SKULL!", "I'LL KILL ANYTHING THAT MOVES!")))
 	var/holyskill = owner.get_skill_level(/datum/skill/magic/holy)
 	duration = ((15 SECONDS) * holyskill)
 	var/filter = owner.get_filter(BLOODRAGE_FILTER)
@@ -1830,7 +1839,11 @@
 	owner.OffBalance(3 SECONDS)
 	owner.remove_filter(BLOODRAGE_FILTER)
 	owner.emote("breathgasp", forced = TRUE)
+	owner.cmode_music = originalcmode
 	owner.Slowdown(3)
+	if(owner.cmode)	//No cmode, no point - More Gigajank for combat music
+		owner.toggle_cmode()
+		owner.toggle_cmode()
 
 /datum/status_effect/buff/psydonic_endurance
 	id = "psydonic_endurance"
