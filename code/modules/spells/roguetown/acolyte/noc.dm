@@ -216,6 +216,8 @@
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
+	ignore_stealth_reveal = TRUE
+
 /datum/action/cooldown/spell/noc/invisibility/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/spelltarget = cast_on
