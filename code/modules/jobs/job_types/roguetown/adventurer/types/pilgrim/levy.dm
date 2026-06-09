@@ -8,7 +8,7 @@
 	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
 	category_tags = list(CTAG_TOWNER)
 	townie_contract_gate_exempt = TRUE
-	maximum_possible_slots = 6 // two teams of 3 levy should be enough to reclaim the bog
+	maximum_possible_slots = 4 // fine, a squad of 4, because that's what squad means
 	subclass_stats = list(
 		STATKEY_STR = 2,
 		STATKEY_PER = 1,
