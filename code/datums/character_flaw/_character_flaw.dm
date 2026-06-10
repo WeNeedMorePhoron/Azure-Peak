@@ -859,7 +859,7 @@ GLOBAL_LIST_INIT(hunted_protected_roles, list(
 		addtimer(CALLBACK(src, PROC_REF(check_for_candidates), user), 5 SECONDS)
 
 /datum/charflaw/wanted
-	name = "Wanted (+3 TRI)"
+	name = "Wanted (+2 TRI)"
 	desc = "You're a known outsider, your name can be found on the EXCIDIUM. Your crime may have been a misdeed worthy of a fine, or a great offense against the powers at play. Only Adventurers, Pilgrims (Migrants), Traders, Vagabonds and Lunatics may pick this vice and it requires another."
 	needs_extra_vice = TRUE
 	allowed_jobs = list(
@@ -872,7 +872,7 @@ GLOBAL_LIST_INIT(hunted_protected_roles, list(
 
 /datum/charflaw/wanted/on_mob_creation(mob/user)
 	. = ..()
-	user.adjust_triumphs(3)
+	user.adjust_triumphs(2)
 
 /datum/charflaw/wanted/apply_post_equipment(mob/user)
 	..()
