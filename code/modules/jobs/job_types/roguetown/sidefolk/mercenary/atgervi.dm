@@ -241,7 +241,6 @@
 	item_state = "atgervi_shield"
 	lefthand_file = 'icons/mob/inhands/weapons/rogue_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/rogue_righthand.dmi'
-	mob_overlay_icon = 'icons/roguetown/clothing/onmob/back_l.dmi'
 	force = 15
 	throwforce = 10
 	dropshrink = 0.8
@@ -250,6 +249,13 @@
 	parrysound = list('sound/combat/parry/shield/towershield (1).ogg','sound/combat/parry/shield/towershield (2).ogg','sound/combat/parry/shield/towershield (3).ogg')
 	max_integrity = 300
 	experimental_inhand = FALSE
+
+/obj/item/rogueweapon/shield/atgervi/getonmobprop(tag)
+	. = ..()
+	if(tag)
+		switch(tag)
+			if("onback")
+				return list("shrink" = 0.6,"sx" = -16,"sy" = -16,"nx" = -16,"ny" = -16,"wx" = -16,"wy" = -16,"ex" = -16,"ey" = -16,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 8,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 1,"southabove" = 0,"eastabove" = 0,"westabove" = 0)
 
 /obj/item/rogueweapon/stoneaxe/woodcut/steel/atgervi
 	name = "bearded axe"
