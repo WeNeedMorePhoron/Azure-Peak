@@ -337,7 +337,7 @@ GLOBAL_LIST_INIT(stone_personality_descs, list(
 			S.set_up(1, 1, front)
 			S.start()
 	if( user.used_intent.type == /datum/intent/chisel )
-		var/location = src.loc
+		var/location = loc
 		for(var/obj/item/natural/stone/S in get_turf(src))
 			user.visible_message("<span class='info'>[user] chisels the stone into a block.</span>")
 			if(do_after(user, work_time))
