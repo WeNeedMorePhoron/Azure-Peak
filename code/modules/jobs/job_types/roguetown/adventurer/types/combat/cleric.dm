@@ -660,14 +660,14 @@
 			ADD_TRAIT(H, TRAIT_SOUL_EXAMINE, TRAIT_GENERIC)
 			H.adjust_skillrank(/datum/skill/misc/athletics, SKILL_LEVEL_APPRENTICE, TRUE) // digging graves and carrying bodies builds muscles probably.
 			H.cmode_music = 'sound/music/cmode/church/combat_necra.ogg'
-			var/list/necra_tools = list("Silver Shovel", "Silver Scythe")
+			var/list/necra_tools = list("Shovel", "Scythe")
 			var/tool_choice = input(H, "A reaper, or a digger?", "HOW WILL YOU APPEASE THE UNDERMAIDEN?") as anything in necra_tools
 			switch(tool_choice) // choose wisely... larp or effectiveness?
-				if("Silver Shovel")
-					l_hand = /obj/item/rogueweapon/shovel/silver
-				if("Silver Scythe") // o lawd we farmin
+				if("Shovel")
+					l_hand = /obj/item/rogueweapon/shovel
+				if("Scythe") // o lawd we farmin
 					backr = /obj/item/rogueweapon/scabbard/gwstrap
-					l_hand = /obj/item/rogueweapon/scythe/silver
+					l_hand = /obj/item/rogueweapon/scythe
 		if (/datum/patron/divine/malum)
 			head = /obj/item/clothing/head/roguetown/roguehood //placeholder
 			cloak = /obj/item/clothing/cloak/tabard/devotee/malum
