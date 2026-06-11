@@ -860,7 +860,7 @@ GLOBAL_LIST_INIT(hunted_protected_roles, list(
 
 /datum/charflaw/wanted
 	name = "Wanted (+2 TRI)"
-	desc = "You're a known outsider, your name can be found on the EXCIDIUM. Your crime may have been a misdeed worthy of a fine, or a great offense against the powers at play. Only Adventurers, Pilgrims (Migrants), Traders, Vagabonds and Lunatics may pick this vice and it requires another."
+	desc = "You're a known criminal; your name can be found on the EXCIDIUM. Your crime may have been a misdeed worthy of a fine, or a great offense against the powers at play. Only Adventurers, Pilgrims (Migrants), Traders, Vagabonds and Lunatics may pick this vice and it requires another."
 	needs_extra_vice = TRUE
 	allowed_jobs = list(
 		/datum/job/roguetown/adventurer,
