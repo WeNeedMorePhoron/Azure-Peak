@@ -12,8 +12,6 @@
 		return FALSE
 	if(!check_location_accessible(user, target, BODY_ZONE_PRECISE_GROIN, TRUE))
 		return FALSE
-	if(!target.getorganslot(ORGAN_SLOT_ANUS))
-		return FALSE
 	return TRUE
 
 /datum/sex_action/masturbate/other/magejob_anal/can_perform(mob/living/carbon/human/user, mob/living/carbon/human/target)
@@ -28,8 +26,6 @@
 	if(!check_location_accessible(user, target, BODY_ZONE_PRECISE_GROIN, TRUE))
 		return FALSE
 	if(check_sex_lock(target, ORGAN_SLOT_ANUS))
-		return FALSE
-	if(!target.getorganslot(ORGAN_SLOT_ANUS))
 		return FALSE
 	return TRUE
 
