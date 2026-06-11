@@ -167,6 +167,9 @@
 		if(HAS_TRAIT(src, TRAIT_AGENT_BATHHOUSE))
 			. += span_notice("An agent of the Bathhouse.")
 
+		if(HAS_TRAIT(src, TRAIT_ARMOR_BREAK))
+			. += span_phobia("[capitalize(m2)] armor hangs on by a thread...")
+
 		if(HAS_TRAIT(src, TRAIT_DEBTOR))
 			if(ishuman(user))
 				var/mob/living/carbon/human/viewer = user
