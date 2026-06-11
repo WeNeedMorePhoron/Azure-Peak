@@ -12,6 +12,9 @@
 	max_integrity = 150
 	sellprice = 34
 
+/obj/item/rogueweapon/woodstaff/amythest
+	icon_state = "amethyststaff"
+
 /obj/item/rogueweapon/woodstaff/implement/greater
 	base_implement_name = "greater staff"
 	name = "greater staff"
@@ -22,7 +25,17 @@
 	max_integrity = 200
 	sellprice = 42
 
+/obj/item/rogueweapon/woodstaff/implement/greater/ruby
+	icon_state = "rubystaff"
+
+/obj/item/rogueweapon/woodstaff/implement/greater/quartz
+	icon_state = "quartzstaff"
+
+/obj/item/rogueweapon/woodstaff/implement/greater/sapphire
+	icon_state = "sapphirestaff"
+
 /obj/item/rogueweapon/woodstaff/implement/grand
+	icon_state = "amethyststaff"
 	base_implement_name = "grand staff"
 	name = "grand staff"
 	desc = "A masterwork staff set with a gem of extraordinary quality. The gem captures excess energy dissipated into the air when a spell is cast, giving most of it back to the wielder - arcyne economy refined to an art."
@@ -31,6 +44,9 @@
 	implement_refund = IMPLEMENT_REFUND_GRAND
 	max_integrity = 250
 	sellprice = 121
+
+/obj/item/rogueweapon/woodstaff/implement/grand/riddle
+	icon_state = "riddlestaff"
 
 /obj/item/rogueweapon/woodstaff/implement/examine(mob/user)
 	. = ..()
