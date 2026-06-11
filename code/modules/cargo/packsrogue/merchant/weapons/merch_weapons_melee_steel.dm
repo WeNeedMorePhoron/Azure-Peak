@@ -175,7 +175,7 @@
 	cost = 75 // 2 Steel Ingot, 1 Small Log
 	contains = list(/obj/item/rogueweapon/halberd)
 
-/datum/supply_pack/rogue/iron_weapons/bardiche
+/datum/supply_pack/rogue/steel_weapons/bardiche
 	name = "Bardiche"
 	cost = 75 // 2 Steel Ingot, 1 Small Log
 	contains = list(/obj/item/rogueweapon/halberd/bardiche)
