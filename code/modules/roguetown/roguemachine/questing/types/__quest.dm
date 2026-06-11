@@ -149,11 +149,16 @@
 /datum/quest/proc/pop_all_spawners()
 	if(length(spawners))
 		on_first_pop()
+	// Stagger reveals one tick apart so a 20-mob warband doesn't forceMove + flick + qdel in a
+	// single frame. addtimer rather than sleep because we run inside HasProximity, which must not
+	// block, and Cut() below clears the list immediately so a re-entrant proximity trip no-ops.
+	var/reveal_delay = 0
 	for(var/datum/weakref/ref in spawners)
 		var/obj/effect/quest_spawn/spawner = ref.resolve()
 		if(QDELETED(spawner) || !spawner.contained_atom)
 			continue
-		spawner.reveal_contained()
+		addtimer(CALLBACK(spawner, TYPE_PROC_REF(/obj/effect/quest_spawn, reveal_contained)), reveal_delay)
+		reveal_delay += 1
 	spawners.Cut()
 
 /datum/quest/proc/on_first_pop()
