@@ -82,6 +82,11 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 #define QUEST_REWARD_BASE_FETCH 15
 #define QUEST_REWARD_BASE_RECOVERY 25
 
+// Flat bonus layered on by difficulty, on top of the base + tp/distance reward.
+#define QUEST_DIFFICULTY_BONUS_EASY 0
+#define QUEST_DIFFICULTY_BONUS_MEDIUM 0
+#define QUEST_DIFFICULTY_BONUS_HARD 25
+
 #define QUEST_DEPOSIT_EASY 5
 #define QUEST_DEPOSIT_MEDIUM 10
 #define QUEST_DEPOSIT_HARD 20
@@ -152,3 +157,13 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 // 2.0× region (Terrorbog, Mt Decap, Underdark) adds the full amount.
 #define QUEST_DELIVERY_THREAT_BONUS 20
 
+#define BLOCKADE_FELLOWSHIP_REQUIREMENT 3
+#define BLOCKADE_WAVE_TIMER_DS (10 MINUTES)
+
+#define BLOCKADE_ARM_TIMEOUT_DS (30 MINUTES)
+#define BLOCKADE_RECALL_WINDOW_DS (15 MINUTES)
+
+#define BLOCKADE_TOTAL_WAVES 3
+#define BLOCKADE_WAVE_1_TP 90
+#define BLOCKADE_WAVE_2_TP 90
+#define BLOCKADE_WAVE_3_TP 120
