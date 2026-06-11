@@ -414,6 +414,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/armor_break
 	name = "Loose Straps"
 	desc = "My armor never seems to fit quite right. It has a nasty habit of exploding off my body when under inordinate stress."
+	needs_extra_vice = TRUE
 
 /datum/charflaw/armor_break/on_mob_creation(mob/user)
 	..()
