@@ -119,6 +119,7 @@
 		"Olympia" = SKIN_COLOR_OLYMPIA,
 		"Necral" = SKIN_COLOR_NECRAL,
 		"Abyssal" = SKIN_COLOR_ABYSSAL,
+		"Figulus" = SKIN_COLOR_FIGULUS,
 	)
 
 /datum/species/aasimar/get_hairc_list()
