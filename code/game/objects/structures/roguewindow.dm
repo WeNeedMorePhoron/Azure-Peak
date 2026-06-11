@@ -204,20 +204,20 @@
 /obj/structure/roguewindow/proc/open_up(mob/user)
 	visible_message(span_info("[user] opens [src]."))
 	playsound(src, 'sound/foley/doors/windowup.ogg', 100, FALSE)
-	climbable = TRUE
+	set_climbable(TRUE)
 	opacity = FALSE
 	update_icon()
 
 /obj/structure/roguewindow/proc/force_open()
 	playsound(src, 'sound/foley/doors/windowup.ogg', 100, FALSE)
-	climbable = TRUE
+	set_climbable(TRUE)
 	opacity = FALSE
 	update_icon()
 
 /obj/structure/roguewindow/proc/close_up(mob/user)
 	visible_message(span_info("[user] closes [src]."))
 	playsound(src, 'sound/foley/doors/windowdown.ogg', 100, FALSE)
-	climbable = FALSE
+	set_climbable(FALSE)
 	opacity = TRUE
 	update_icon()
 
@@ -290,7 +290,7 @@
 		loud_message("A loud crash of a window getting broken rings out", hearing_distance = 14)
 		new /obj/item/natural/glass_shard (get_turf(src))
 		new /obj/effect/decal/cleanable/debris/glassy(get_turf(src))
-		climbable = TRUE
+		set_climbable(TRUE)
 		brokenstate = TRUE
 		opacity = FALSE
 	update_icon()
