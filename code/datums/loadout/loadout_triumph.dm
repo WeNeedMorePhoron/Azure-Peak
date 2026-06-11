@@ -266,24 +266,6 @@
 	triumph_cost = 3
 	sort_category = "Triumphs"
 
-/datum/loadout_item/triumph_weaponkit_wodao
-	name = "Morphing Elixir, 'Wodao'"
-	path = /obj/item/enchantingkit/weapon/triumph_weaponkit_wodao
-	triumph_cost = 3
-	sort_category = "Triumphs"
-
-/datum/loadout_item/triumph_weaponkit_dadao
-	name = "Morphing Elixir, 'Dadao'"
-	path = /obj/item/enchantingkit/weapon/triumph_weaponkit_dadao
-	triumph_cost = 3
-	sort_category = "Triumphs"
-
-/datum/loadout_item/triumph_weaponkit_gdadao
-	name = "Morphing Elixir, 'Greatdadao'"
-	path = /obj/item/enchantingkit/weapon/triumph_weaponkit_gdadao
-	triumph_cost = 3
-	sort_category = "Triumphs"
-
 /datum/loadout_item/triumph_weaponkit_estoc
 	name = "Morphing Elixir, 'Azurian Estoc'"
 	path = /obj/item/enchantingkit/triumph_weaponkit_estoc
@@ -347,6 +329,12 @@
 /datum/loadout_item/triumph_weaponkit_sengese
 	name = "Morphing Elixir, 'Sengese'"
 	path = /obj/item/enchantingkit/weapon/triumph_weaponkit_sengese
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_weaponkit_clericsword
+	name = "Morphing Elixir, 'Clerical Longsword'"
+	path = /obj/item/enchantingkit/weapon/triumph_weaponkit_clericsword
 	triumph_cost = 3
 	sort_category = "Triumphs"
 
