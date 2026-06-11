@@ -12,7 +12,7 @@
 	max_integrity = 150
 	sellprice = 34
 
-/obj/item/rogueweapon/woodstaff/amythest
+/obj/item/rogueweapon/woodstaff/implement/amethyst
 	icon_state = "amethyststaff"
 
 /obj/item/rogueweapon/woodstaff/implement/greater
@@ -35,7 +35,6 @@
 	icon_state = "sapphirestaff"
 
 /obj/item/rogueweapon/woodstaff/implement/grand
-	icon_state = "amethyststaff"
 	base_implement_name = "grand staff"
 	name = "grand staff"
 	desc = "A masterwork staff set with a gem of extraordinary quality. The gem captures excess energy dissipated into the air when a spell is cast, giving most of it back to the wielder - arcyne economy refined to an art."

@@ -10,7 +10,7 @@
 
 /datum/crafting_recipe/roguetown/arcana/staff/lesser_amethyst
 	name = "lesser staff (amethyst)"
-	result = /obj/item/rogueweapon/woodstaff/implement/amythest
+	result = /obj/item/rogueweapon/woodstaff/implement/amethyst
 	reqs = list(/obj/item/rogueweapon/woodstaff = 1,
 				/obj/item/roguegem/amethyst = 1)
 
