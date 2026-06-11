@@ -286,7 +286,7 @@
 #define TRAIT_ASSASSIN	"Assassin"
 #define TRAIT_EQUESTRIAN "Equestrian"
 #define TRAIT_REGROW_LIMBS "Regrow Limbs"
-#define TRAIT_LEVY_BOYS "The Conscripted"
+#define TRAIT_LEVY "Azurean Militia"
 // ARMOR / CLOTHING GIVEN TRAITS (GIVEN BY WEARING CLOTHES/ARMOR PIECES)
 #define TRAIT_MONK_ROBE	"Holy Vestatures"
 #define TRAIT_BLACKOAK "Heritage Vision"
@@ -329,7 +329,7 @@
 // If you want description to show up you gotta have the trait name defined BEFORE this lol
 
 GLOBAL_LIST_INIT(roguetraits, list(
-	TRAIT_LEVY_BOYS = span_danger("IT'S ME 'N DA PALS AGAINST THIS BITCHE O' A WORLDE! I am part of the Town's Levy squad. We ain't Armsmen, and nobody mistakes us for such. We're the folk handed a helmet, a weapon, and a pat on the back before being pointed towards trouble our guards can't fix!"),
+	TRAIT_LEVY = span_greentext("I am one among the Levy! We are the Crown's spare spears, sent ahead of the Armsmen to face dangers beyond the walls and hold the line until better soldiers arrive. When fighting alongside fellow levymen, I can issue coordinated callouts (Shift + Ctrl + RMB)!"),
 	TRAIT_STEELHEARTED = span_info("I have hardened nerves, and do not waiver from the sight of violence in battle."),
 	TRAIT_OUTLAW = span_info("This land's meisters and castificos reject my touch."),
 	TRAIT_ALDERMAN = span_info("Alderman of the Assembly, voice of the respectable citizenry of Azuria. Upon my charter I may spend the Crown's Purse and commission the realm's defense within the bounds the Commons have set me."),

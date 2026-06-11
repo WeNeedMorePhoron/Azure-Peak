@@ -1,21 +1,19 @@
 /datum/advclass/levy
 	name = "Levy"
-	tutorial = "When the bailiff came to your household it was the worst dae of your lyfe, dragging you away into service to the Crown with nothing more but whatever household object you managed to piece together into a weapon.<br><br>Safeguard your home from the terrors beyond the walls and those lurking in the bog, and always remember what you and your fellow troopers often say: 'Strenf'n'Numbas, carker!'. Or was it 'Get'em boys!'? Who knows!"
+	tutorial = "When the bailiff came to your household, it was the worst dae of your lyfe. Dragged into service of the Crown, you were given little more than a helmet, a tabard and whatever household tool you could fashion into a weapon.<br><br>As one of the Levy, you are among the first sent to answer reports of danger beyond the walls. Whether brigands, beasts, or devils-spawn, it is your duty to find the threat, send word, and hold the line until real Armsmen arrive to earn their keep."
 	allowed_sexes = list(MALE, FEMALE)
 	
 	outfit = /datum/outfit/job/roguetown/adventurer/levy
-	traits_applied = list(TRAIT_LEVY_BOYS, TRAIT_DECEIVING_MEEKNESS, TRAIT_LEECHIMMUNE, TRAIT_JACKOFALLTRADES)
+	traits_applied = list(TRAIT_LEVY, TRAIT_DECEIVING_MEEKNESS, TRAIT_LEECHIMMUNE, TRAIT_JACKOFALLTRADES)
 	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
 	category_tags = list(CTAG_TOWNER)
 	townie_contract_gate_exempt = TRUE
 	maximum_possible_slots = 4 // fine, a squad of 4, because that's what squad means
 	subclass_stats = list(
-		STATKEY_STR = 2,
-		STATKEY_PER = 1,
-		STATKEY_SPD = 2,
-		STATKEY_WIL = -1,
-		STATKEY_INT = -2,
-		STATKEY_LCK = -1, // worst dae of your lyfe, boyo...
+		STATKEY_STR = 1,
+		STATKEY_CON = 1,
+		STATKEY_SPD = 1,
+		STATKEY_LCK = -1,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/axes = SKILL_LEVEL_APPRENTICE,
@@ -58,22 +56,49 @@
 		)
 	if(H.mind)
 		var/list/weapons = list(
-			"DA FAMILY SORD (Sword)",
-			"DA BIGGA BEATSTICKE (Club)",
-			"YEE-HAW!!! (Whip)",
-			"MINE PITCHFORK (Polearm)",
+			"THE FAMILY SWORD (Sword)",
+			"THE LEGENDARY BOG-STICK (Club)",
+			"AN OLDE CATTLE LASH (Whip)",
+			"THE FINEST PITCHFORK (Polearm)",
 			"MINE THRESHER (Flail)",
-			"MINE SHOVEL (Axe)",
-			"MINE PICK'AX (Pickaxe)",
+			"A GOOD SHOVEL (Axe)",
+			"THE MINER'S PICKAXE (Pickaxe)",
 			"MINE SCYTHE (Scythe)",
-			"MINE WHOLE KITCHEN (Mess Kit + Cleaver)",
-			"DESE CARKIN' HANDS (Unarmed)",
+			"THE WHOLE KITCHEN (Mess Kit + Cleaver)",
+			"THESE GODS-GIVEN FISTS (Unarmed)",
 		)
 
-		var/weapon_choice = input(H, "Choose your improvised weapon.", "WHAT DID YOU TAKE FROM YOUR HOME?") as anything in weapons
+		var/weapon_choice = tgui_input_list(
+			H,
+			"Choose what you could nab and turn into a weapon.",
+			"WHAT IS YOUR WEAPON?",
+			weapons
+		)
+
+
 		H.set_blindness(0)
 		switch(weapon_choice)
-			if("MINE PITCHFORK (Polearm)")
+
+			if ("THE FAMILY SWORD (Sword)")
+				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				r_hand = /obj/item/rogueweapon/sword/falchion/militia
+				gloves = /obj/item/clothing/gloves/roguetown/chain/iron
+				backr = /obj/item/rogueweapon/scabbard/sword
+				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/woodcutter
+
+			if ("THE LEGENDARY BOG-STICK (Club)")
+				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				r_hand = /obj/item/rogueweapon/mace/woodclub/militia
+				gloves = /obj/item/clothing/gloves/roguetown/chain/iron
+				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/woodcutter
+
+			if ("AN OLDE CATTLE LASH (Whip)")
+				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				r_hand = /obj/item/rogueweapon/whip
+				gloves = /obj/item/clothing/gloves/roguetown/chain/iron
+				backr = /obj/item/rogueweapon/stoneaxe/woodcut/woodcutter
+
+			if("THE FINEST PITCHFORK (Polearm)")
 				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/spear/militia
 				gloves = /obj/item/clothing/gloves/roguetown/chain/iron
@@ -87,27 +112,14 @@
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
 				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/woodcutter
 
-			if ("DA FAMILY SORD (Sword)")
-				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				r_hand = /obj/item/rogueweapon/sword/falchion/militia
-				gloves = /obj/item/clothing/gloves/roguetown/chain/iron
-				backr = /obj/item/rogueweapon/scabbard/sword
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/woodcutter
-
-			if ("DA BIGGA BEATSTICKE (Club)")
-				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				r_hand = /obj/item/rogueweapon/mace/woodclub/militia
-				gloves = /obj/item/clothing/gloves/roguetown/chain/iron
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/woodcutter
-
-			if ("MINE SHOVEL (Axe)")
+			if ("A GOOD SHOVEL (Axe)")
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/greataxe/militia
 				gloves = /obj/item/clothing/gloves/roguetown/chain/iron
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
 				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/woodcutter
 
-			if ("MINE PICK'AX (Pickaxe)")
+			if ("THE MINER'S PICKAXE (Pickaxe)")
 				H.adjust_skillrank_up_to(/datum/skill/labor/mining, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/pick/militia
 				gloves = /obj/item/clothing/gloves/roguetown/chain/iron
@@ -120,13 +132,7 @@
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
 				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/woodcutter
 
-			if ("YEE-HAW!!! (Whip)")
-				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				r_hand = /obj/item/rogueweapon/whip
-				gloves = /obj/item/clothing/gloves/roguetown/chain/iron
-				backr = /obj/item/rogueweapon/stoneaxe/woodcut/woodcutter
-
-			if ("MINE WHOLE KITCHEN (Mess Kit + Cleaver)")
+			if ("THE WHOLE KITCHEN (Mess Kit + Cleaver)")
 				H.adjust_skillrank_up_to(/datum/skill/craft/cooking, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/storage/gadget/messkit
@@ -134,8 +140,8 @@
 				gloves = /obj/item/clothing/gloves/roguetown/chain/iron
 				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/woodcutter
 
-			if ("DESE CARKIN' HANDS (Unarmed)")
-				H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_EXPERT, TRUE)
+			if ("THESE GODS-GIVEN FISTS (Unarmed)")
+				H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				gloves = /obj/item/clothing/gloves/roguetown/bandages/pugilist
 				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/woodcutter
 
@@ -147,16 +153,16 @@
 			"SMITHING, SER!!",
 			"HOMESTEADING, SER!!",
 			"HUNTING, SER!!",
+			"TAILORING, SER!!",
 			"THUG LYFE, SER!!",
 			"ALMOST A SQUIRE, SER!!",
 			"ALMOST AN ARMSMAN, SER!!"
 		)
 
-		var/specialty_choice = input(
-			H,
-			"Choose your background. (The Levy does not provide tools, equipment, compensation, legal representation, funeral expenses, or refunds.)",
-			"WHAT DID YE DO 'FORE DA LEVY?"
-		) as anything in specialties
+		var/specialty_choice = tgui_input_list(H, "Choose your background. (The Levy does not provide tools, equipment, compensation, legal representation, funeral expenses, or refunds.)",
+			"JOB BEFORE THE LEVY?",
+			specialties
+		)
 
 		switch(specialty_choice)
 
@@ -192,3 +198,87 @@
 				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				id = /obj/item/scomstone/bad/garrison
+
+/// Point at a target and shout a context-sensitive contact report. Only works if there is more than one TRAIT_LEVY around.
+/mob/proc/callout_point(atom/A)
+	if(!client || !mind)
+		return
+
+	if(istype(A, /obj/effect/temp_visual/point))
+		return
+
+	if(!linepoint(A))
+		return
+
+	if(world.time < mob_timers["contact_callout"] + 10 SECONDS)
+		return
+
+	var/nearby_levies = 0
+	for(var/mob/living/carbon/human/H in view(8, src))
+		if(H == src)
+			continue
+
+		if(HAS_TRAIT(H, TRAIT_LEVY))
+			nearby_levies++
+
+	if(!nearby_levies)
+		return
+
+	mob_timers["contact_callout"] = world.time
+
+	var/contact_name = A.name
+
+	if(ishuman(A))
+		var/mob/living/carbon/human/H = A
+
+		var/masked = (H.wear_mask && (H.wear_mask.flags_inv & HIDEFACE)) || (H.head && (H.head.flags_inv & HIDEFACE))
+
+		if(masked)
+			var/list/d_list = H.get_mob_descriptors()
+			var/list/name_parts = list()
+
+			for(var/desc_type in d_list)
+				var/datum/mob_descriptor/descriptor = MOB_DESCRIPTOR(desc_type)
+
+				if(descriptor.slot in list(MOB_DESCRIPTOR_SLOT_TRAIT, MOB_DESCRIPTOR_SLOT_STATURE))
+					name_parts += descriptor.name
+
+			contact_name = length(name_parts) ? jointext(name_parts, " ") : "masked figure"
+
+		else if(H.job)
+			contact_name = H.job
+
+	var/held_item = get_active_held_item()
+	var/action
+
+	if(istype(A, /obj/item/rogueore/gold) || istype(A, /obj/item/rogueore/silver) || istype(A, /obj/item/roguegem))
+		action = "We're rich!"
+
+	else if(ismob(A))
+		if(istype(held_item, /obj/item/gun/ballistic))
+			action = "Shoot them!"
+		else if(istype(held_item, /obj/item/rogueweapon))
+			action = "Cut them down!"
+		else
+			action = "Get them!"
+
+	else if(isturf(A))
+		action = "Over there!"
+
+	else
+		action = "Break it!"
+
+	var/target_callout
+	if(ismob(A))
+		target_callout = capitalize(parse_zone(zone_selected))
+
+	var/dist = get_dist(src, A)
+	var/dir_text = dir2text(get_dir(src, A))
+
+	if(dir_text)
+		var/msg = "[capitalize(contact_name)], [dist] [dist == 1 ? "pace" : "paces"], [dir_text]! [action]"
+
+		if(target_callout)
+			msg += " Strike the [target_callout]!"
+
+		say_verb(msg)

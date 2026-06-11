@@ -288,9 +288,9 @@
 	no_loot_taint = TRUE
 
 /obj/item/rogueweapon/mace/woodclub/militia // it literally just has an aura, and demolish intent
-	name = "da bigga beatstick"
-	desc = "A primitive cudgel carved of a stout piece of treefall. This one has an aura of power to it. It must be really strong."
-	aura_color = "#ff7b00"
+	name = "bog-blessed wooden club"
+	desc = "A primitive cudgel carved of a stout piece of treefall, from the deepest parts of the Terrorbog. An unmistakable aura of power surrounds it. This thing looks dangerously strong."
+	aura_color = "#00ff00"
 	gripped_intents = list(/datum/intent/mace/strike/wood/, /datum/intent/mace/smash/wood, /datum/intent/effect/daze, /datum/intent/mace/demolish)
 
 /obj/item/rogueweapon/mace/woodclub
