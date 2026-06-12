@@ -514,7 +514,7 @@
 
 /obj/item/rogueweapon/sword/long/judgement/vlord
 	name = "\"Ichor Fang\""
-	desc = "An unholy longsword, who's crystalline blade radiates with insurmountable sharpness. It has been brought forth unto this world \
+	desc = "An unholy longsword, whose crystalline blade radiates with insurmountable sharpness. It has been brought forth into this world \
 	for a singular purpose; not to bring peace, but to dominate all who'd dare to oppose the coming darkness. ‎</br>‎‎ </br>'And I looked, and \
 	beheld a pale horse - the name that sat upon Her was Death, and Hell followed with them.'"
 	force = 40
