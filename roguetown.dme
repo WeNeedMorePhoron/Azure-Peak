@@ -891,6 +891,7 @@
 #include "code\datums\keybinding\robot.dm"
 #include "code\datums\loadout\_loadout.dm"
 #include "code\datums\loadout\loadout_accessories.dm"
+#include "code\datums\loadout\loadout_amulets.dm"
 #include "code\datums\loadout\loadout_caparisons.dm"
 #include "code\datums\loadout\loadout_cloaks.dm"
 #include "code\datums\loadout\loadout_donators.dm"
