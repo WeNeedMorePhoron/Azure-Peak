@@ -246,3 +246,66 @@
 /obj/item/scomstone/bad/garrison/dropped(mob/living/user)
 	..()
 	REMOVE_TRAIT(user, TRAIT_GARRISON_ITEM, "[ref(src)]")
+
+/obj/item/scomstone/bad/garrison/bog
+	name = "bogstone"
+	desc = "A basic metal ring. It has a well-cut, dismal gem embedded - bearing the mark of the Crown. This one has an odd glow of witchlight to it, iconic to the bog."
+	var/one_use_remaining = TRUE
+
+/obj/item/scomstone/bad/garrison/bog/get_mechanics_examine(mob/user)
+	. = ..()
+	if(one_use_remaining)
+		. += span_info("Flarestones can only be used once to broadcast an emergency message. After its use is spent, it becomes a normal houndstone.")
+
+/obj/item/scomstone/bad/garrison/bog/attack_right(mob/living/carbon/human/user)
+	if(!one_use_remaining)
+		return ..()
+
+	if(!get_location_accessible(user, BODY_ZONE_PRECISE_MOUTH, grabs = TRUE))
+		to_chat(user, span_warning("My mouth is covered!"))
+		return
+
+	var/choice = alert(user, "The gem will shatter forever after a single transmission to the Crown's SCOMline.", "Emergency Only!", "IT'S DIRE, SER!!!", "Cancel")
+	if(choice != "IT'S DIRE, SER!!!")
+		return
+
+	choice = alert(user, "This cannot be undone. The flarestone will become a normal houndstone after the message is sent.", "Final Warning", "IT'S BLEAK, SER!!!", "Nevermind")
+	if(choice != "IT'S BLEAK, SER!!!")
+		return
+
+	one_use_remaining = FALSE
+	var/input_text = input(user, "Send an emergency broadcast to the Garrison's SCOMline.", "Emergency Cry!") as text|null
+	if(!input_text)
+		return
+
+	var/usedcolor = user.voice_color
+	if(user.voicecolor_override)
+		usedcolor = user.voicecolor_override
+
+	user.whisper(input_text)
+
+	if(length(input_text) > 100)
+		input_text = "<small>[input_text]</small>"
+
+	input_text = "<big><span style='color: [GARRISON_SCOM_COLOR]'>[input_text]</span></big>"
+
+	playsound(loc, 'sound/misc/garrisonscom.ogg', 100, FALSE, -1)
+
+	for(var/obj/item/scomstone/bad/garrison/S in SSroguemachine.scomm_machines)
+		S.repeat_message(input_text, src, usedcolor)
+	for(var/obj/item/scomstone/garrison/S in SSroguemachine.scomm_machines)
+		S.repeat_message(input_text, src, usedcolor)
+	for(var/obj/structure/roguemachine/scomm/S in SSroguemachine.scomm_machines)
+		if(S.garrisonline)
+			S.repeat_message(input_text, src, usedcolor)
+
+	SSroguemachine.crown?.repeat_message(input_text, src, usedcolor)
+	GLOB.broadcast_list += list(list("message" = input_text, "tag" = "FLARESTONE #[scomstone_number]", "timestamp" = station_time_timestamp("hh:mm:ss")))
+
+	user.visible_message(span_warning("[user]'s flarestone erupts with sickly green witchlight before the gem splinters apart!"), span_warning("The witchlight is spent. My cry has reached the Crown."))
+
+	playsound(loc, 'sound/foley/glassbreak.ogg', 100, FALSE)
+
+	name = initial(/obj/item/scomstone/bad/garrison.name)
+	desc = initial(/obj/item/scomstone/bad/garrison.desc)
+	aura_color = null

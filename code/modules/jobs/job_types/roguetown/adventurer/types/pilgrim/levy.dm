@@ -1,6 +1,6 @@
 /datum/advclass/levy
 	name = "Levy"
-	tutorial = "When the bailiff came to your household, it was the worst dae of your lyfe. Dragged into service of the Crown, you were given little more than a helmet, a tabard and whatever household tool you could fashion into a weapon.<br><br>As one of the Levy, you are among the first sent to answer reports of danger beyond the walls. Whether brigands, beasts, or devils-spawn, it is your duty to find the threat, send word, and hold the line until real Armsmen arrive to earn their keep."
+	tutorial = "When the Bailiff came for you, it was the worst dae of your lyfe. Pressed into the Crown's service with little more than a helmet, a household tool turned weapon and a bottle of beer for comfort, you joined the Levy.<br><br>As one of Azurea's so-called \"heroes\", you are first to answer reports of danger beyond the walls. Find the threat, send word for backup, and hold the line against brigands, beasts, and devil-spawn until the Armsmen arrive."
 	allowed_sexes = list(MALE, FEMALE)
 	
 	outfit = /datum/outfit/job/roguetown/adventurer/levy
@@ -27,7 +27,11 @@
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/carpentry = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/labor/lumberjacking = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/masonry = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/craft/blacksmithing = SKILL_LEVEL_NOVICE,
+		/datum/skill/craft/armorsmithing = SKILL_LEVEL_NOVICE,
+		/datum/skill/craft/weaponsmithing = SKILL_LEVEL_NOVICE,
+		/datum/skill/labor/lumberjacking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/labor/farming = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/hunting = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/butchering = SKILL_LEVEL_APPRENTICE,
@@ -46,13 +50,14 @@
 	pants = /obj/item/clothing/under/roguetown/splintlegs
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/iron
 	backl = /obj/item/storage/backpack/rogue/satchel
-	beltl = /obj/item/signal_horn
-	id = /obj/item/scomstone/bad
+	beltl = /obj/item/flashlight/flare/torch/lantern/bog
+	id = /obj/item/scomstone/bad/garrison/bog
 	backpack_contents = list(
-		/obj/item/flashlight/flare/torch/lantern = 1,
+		/obj/item/signal_horn = 1,
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
-		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/rogueweapon/huntingknife = 1,
+		/obj/item/rope = 1,
+		/obj/item/reagent_containers/glass/bottle/rogue/triumphbeer = 1, // this one is for good luck, you'll need it
 		)
 	if(H.mind)
 		var/list/weapons = list(
@@ -68,14 +73,7 @@
 			"THESE GODS-GIVEN FISTS (Unarmed)",
 		)
 
-		var/weapon_choice = tgui_input_list(
-			H,
-			"Choose what you could nab and turn into a weapon.",
-			"WHAT IS YOUR WEAPON?",
-			weapons
-		)
-
-
+		var/weapon_choice = tgui_input_list(H, "Choose what you could nab and turn into a weapon.", "WHAT IS YOUR WEAPON?", weapons)
 		H.set_blindness(0)
 		switch(weapon_choice)
 
@@ -157,11 +155,7 @@
 			"ALMOST AN ARMSMAN, SER!!"
 		)
 
-		var/specialty_choice = tgui_input_list(H, "Choose your background. (The Levy does not provide tools, equipment, compensation, legal representation, funeral expenses, or refunds.)",
-			"JOB BEFORE THE LEVY?",
-			specialties
-		)
-
+		var/specialty_choice = tgui_input_list(H, "Choose your background. (The Levy does not provide tools, equipment, compensation, legal representation, funeral expenses, or refunds.)", "JOB BEFORE THE LEVY?", specialties)
 		switch(specialty_choice)
 
 			if("A HOMESTEADER, SER!!")
@@ -187,7 +181,6 @@
 			if("ALMOST AN ARMSMAN, SER!!")
 				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				id = /obj/item/scomstone/bad/garrison
 				H.change_stat(STATKEY_WIL, 1)
 
 /// Point at a target and shout a context-sensitive contact report. Only works if there is more than one TRAIT_LEVY around.

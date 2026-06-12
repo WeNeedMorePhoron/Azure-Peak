@@ -296,6 +296,47 @@
 	. = ..()
 	spark_act()
 
+/obj/item/flashlight/flare/torch/lantern/bog // better idea than giving them nitevision, tbh. Extra feature also lets them put together Braziers with a bit more ease, giving Levies more reason to go out there do things instead of holing up in one place.
+	name = "bogbark lamptern"
+	desc = "A light to guide the way. There is an odd kindling in the middle made from an odd, green-glowing wood. Many Levy either receive this from supersittious locals or pry out from the corpse of their allies, making this both their lyfeline and rite of passage into becoming a professional bog-dweller."
+	aura_color = "#00ff22"
+	light_color = LIGHT_COLOR_WHITE
+	light_outer_range = 8
+
+/obj/item/grown/log/tree/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Bogbark Lampterns can directly smelt Small Logs into Charcoal, or Scrap into Iron Ore after a bit of a wait.")
+
+/obj/item/flashlight/flare/torch/lantern/bogbark/afterattack(atom/movable/A, mob/user, proximity)
+	if(!proximity || !on)
+		return ..()
+
+	if(istype(A, /obj/item/grown/log/tree/small))
+		user.visible_message(span_artery("[user] feeds [A] to the magical fyre of [src]."), span_artery("The bogbark's witchfire begins consuming the wood..."))
+		if(!do_after(user, 3.5 SECONDS, A))
+			return
+		if(QDELETED(A) || !on)
+			return
+		var/turf/T = get_turf(A)
+		qdel(A)
+		new /obj/item/rogueore/coal/charcoal(T)
+		user.visible_message(span_artery("[src] leaves behind only charcoal."), span_artery("The wood is reduced to charcoal."))
+		return
+
+	if(istype(A, /obj/item/scrap))
+		user.visible_message(span_artery("[user] holds [src] over [A], rearranging it to something more pure."), span_artery("The bogbark's glow begins refining the scrap into ore..."))
+		if(!do_after(user, 3.5 SECONDS, A))
+			return
+		if(QDELETED(A) || !on)
+			return
+		var/turf/T = get_turf(A)
+		qdel(A)
+		new /obj/item/rogueore/iron(T)
+		user.visible_message(span_artery("The scrap is purified back into raw iron."), span_artery("Only workable iron remains, for the best or worst."))
+		return
+
+	return ..()
+
 /obj/item/flashlight/flare/torch/lantern
 	name = "iron lamptern"
 	icon_state = "lamp"
