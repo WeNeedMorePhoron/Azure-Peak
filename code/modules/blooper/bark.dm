@@ -18,8 +18,8 @@ GLOBAL_LIST_INIT(bark_random_list, init_random_bark_list())
 
 //Datums for barks and bark accessories
 /datum/bark
-	var/name = "Default"
-	var/id = "Default"
+	var/name = "None"
+	var/id = "None"
 	var/soundpath //Path for the actual sound file used for the bark
 
 	// Pitch vars. The actual range for a bark is [(pitch - (maxvariance*0.5)) to (pitch + (maxvariance*0.5))]
@@ -155,11 +155,6 @@ GLOBAL_LIST_INIT(bark_random_list, init_random_bark_list())
 	soundpath = 'code/modules/blooper/voice/bloopers/undertale/voice_ralsei.ogg'
 	minvariance = 0
 
-/datum/bark/sans //real
-	name = "Sans"
-	id = "sans"
-	soundpath = 'code/modules/blooper/voice/bloopers/undertale/voice_sans.ogg'
-	minvariance = 0
 
 /datum/bark/toriel
 	name = "Toriel"
@@ -385,10 +380,3 @@ GLOBAL_LIST_INIT(bark_random_list, init_random_bark_list())
 	name = "Chitter2"
 	id = "chitter2"
 	soundpath = 'code/modules/blooper/voice/bloopers/kazooie/chitter1.ogg'
-
-/datum/bark/xenohiss
-	name = "Xenohiss"
-	id = "Xenohiss"
-	soundpath = 'code/modules/blooper/voice/bloopers/Xenohiss.ogg'
-	minspeed = 10
-	maxspeed = 16

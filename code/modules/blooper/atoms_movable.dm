@@ -9,7 +9,7 @@
 	var/vocal_bark_id
 	var/vocal_pitch = 1
 	var/vocal_pitch_range = 0.2 //Actual pitch is (pitch - (vocal_pitch_range*0.5)) to (pitch + (vocal_pitch_range*0.5))
-	var/vocal_volume = 70 //Baseline. This gets modified by yelling and other factors
+	var/vocal_volume = 50 //Baseline. This gets modified by yelling and other factors
 	var/vocal_speed = 4 //Lower values are faster, higher values are slower
 
 	var/vocal_current_bark //When barks are queued, this gets passed to the bark proc. If vocal_current_bark doesn't match the args passed to the bark proc (if passed at all), then the bark simply doesn't play. Basic curtailing of spam~
