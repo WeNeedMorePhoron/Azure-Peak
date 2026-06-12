@@ -535,10 +535,12 @@
 				do_melt = TRUE
 				need_scrap = TRUE
 		if(do_melt)
-			user.visible_message(span_warningbig("[user] begins melting and deforming \the [src] with [I]!"))
-			if(do_after(user, 8 SECONDS, TRUE, same_direction = TRUE, no_interrupt = TRUE))
-				user.visible_message(span_warning("[user] destroys \the [src] with [I]!"))
+			playsound(user, 'sound/surgery/cautery1.ogg', 100)
+			user.visible_message(span_artery("[user] begins melting and deforming \the [src] with [I]!"))
+			if(do_after(user, 4 SECONDS, TRUE, same_direction = TRUE, no_interrupt = TRUE))
+				user.visible_message(span_warning("[user] melts down \the [src] with [I]!"))
 				obj_destruction(need_scrap ? BRUTE : BURN)
+				playsound(user, 'sound/surgery/cautery2.ogg', 100)
 				return
 
 	var/newforce = get_complex_damage(I, user, blade_dulling)

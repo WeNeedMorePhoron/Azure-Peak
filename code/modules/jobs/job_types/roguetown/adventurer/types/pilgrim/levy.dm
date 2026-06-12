@@ -1,6 +1,6 @@
 /datum/advclass/levy
 	name = "Levy"
-	tutorial = "When the Bailiff came for you, it was the worst dae of your lyfe. Pressed into the Crown's service with little more than a helmet, a household tool turned weapon and a bottle of beer for comfort, you joined the Levy.<br><br>As one of Azurea's so-called \"heroes\", you are first to answer reports of danger beyond the walls. Find the threat, send word for backup, and hold the line against brigands, beasts, and devil-spawn until the Armsmen arrive."
+	tutorial = "When the Bailiff came knocking for you, it was the worst dae of your lyfe. Hastily pressed into the Crown's service with little more than a helmet, a household tool turned weapon and a bottle of beer for comfort, you joined the Levy squad.<br><br>As one of Azurea's so-called \"folk-heroes\", you are first to answer a peasant's reports of danger beyond the walls. Find the problem and solve it yourself or, if dire, send word for backup, and hold the line until the Armsmen or Wardens arrive to earn their keep."
 	allowed_sexes = list(MALE, FEMALE)
 	
 	outfit = /datum/outfit/job/roguetown/adventurer/levy
@@ -19,7 +19,7 @@
 		/datum/skill/combat/axes = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/swimming = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
@@ -51,7 +51,7 @@
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/iron
 	backl = /obj/item/storage/backpack/rogue/satchel
 	beltl = /obj/item/flashlight/flare/torch/lantern/bog
-	id = /obj/item/scomstone/bad/garrison/bog
+	id = /obj/item/scomstone/bad
 	backpack_contents = list(
 		/obj/item/signal_horn = 1,
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
@@ -155,33 +155,39 @@
 			"ALMOST AN ARMSMAN, SER!!"
 		)
 
-		var/specialty_choice = tgui_input_list(H, "Choose your background. (The Levy does not provide tools, equipment, compensation, legal representation, funeral expenses, or refunds.)", "JOB BEFORE THE LEVY?", specialties)
+		var/specialty_choice = tgui_input_list(H, "Choose your background. (The Levy is not legally obligated to provide tools, equipment, compensation, legal representation, funeral expenses, or refunds. Good luck, and we love you.)", "JOB BEFORE THE LEVY?", specialties)
 		switch(specialty_choice)
 
 			if("A HOMESTEADER, SER!!")
 				ADD_TRAIT(H, TRAIT_JACKOFALLTRADES, TRAIT_GENERIC)
-				H.change_stat(STATKEY_INT, 1)
+				ADD_TRAIT(H, TRAIT_HOMESTEAD_EXPERT, TRAIT_GENERIC)
+				ADD_TRAIT(H, TRAIT_SURVIVAL_EXPERT, TRAIT_GENERIC)
+				H.change_stat(STATKEY_INT, 2)
 				H.change_stat(STATKEY_SPD, 1)
 
 			if("A THUG, SER!!")
 				H.grant_language(/datum/language/thievescant)
 				ADD_TRAIT(H, TRAIT_NOPAINSTUN, TRAIT_GENERIC)
+				H.adjust_skillrank_up_to(/datum/skill/misc/athletics, SKILL_LEVEL_EXPERT, TRUE)
 				H.change_stat(STATKEY_CON, 1)
 
 			if("A KNAVE, SER!!")
 				H.grant_language(/datum/language/thievescant)
 				ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
+				H.adjust_skillrank_up_to(/datum/skill/misc/lockpicking, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				H.change_stat(STATKEY_SPD, 1)
 
 			if("ALMOST A SQUIRE, SER!!")
 				ADD_TRAIT(H, TRAIT_SQUIRE_REPAIR, TRAIT_GENERIC)
 				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 				H.change_stat(STATKEY_WIL, 1)
+				id = /obj/item/scomstone/bad/garrison
 
 			if("ALMOST AN ARMSMAN, SER!!")
 				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				H.change_stat(STATKEY_WIL, 1)
+				id = /obj/item/scomstone/bad/garrison
 
 /// Point at a target and shout a context-sensitive contact report. Only works if there is more than one TRAIT_LEVY around.
 /mob/proc/callout_point(atom/A)

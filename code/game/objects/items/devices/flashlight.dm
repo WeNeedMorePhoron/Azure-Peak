@@ -298,41 +298,63 @@
 
 /obj/item/flashlight/flare/torch/lantern/bog // better idea than giving them nitevision, tbh. Extra feature also lets them put together Braziers with a bit more ease, giving Levies more reason to go out there do things instead of holing up in one place.
 	name = "bogbark lamptern"
-	desc = "A light to guide the way. There is an odd kindling in the middle made from an odd, green-glowing wood. Many Levy either receive this from supersittious locals or pry out from the corpse of their allies, making this both their lyfeline and rite of passage into becoming a professional bog-dweller."
+	desc = "A light to guide the way. An odd green-glowing wood burns at its heart, said to be harvested from the deepest parts of the Terrorbog. Passed between Levies by grateful locals or stripped from fallen comrades, it is both a lifeline and a badge of a true bog-dweller."
 	aura_color = "#00ff22"
 	light_color = LIGHT_COLOR_WHITE
 	light_outer_range = 8
 
-/obj/item/grown/log/tree/get_mechanics_examine(mob/user)
+/obj/item/flashlight/flare/torch/lantern/bog/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_info("Bogbark Lampterns can directly smelt Small Logs into Charcoal, or Scrap into Iron Ore after a bit of a wait.")
+	. += span_info("<font color='#00ff22'>Bogbark Lampterns can smelt Small Logs or Stick Bundles (Full) into Charcoal, or Scrap into Iron Ore, when used on them while lit.</font>")
 
-/obj/item/flashlight/flare/torch/lantern/bogbark/afterattack(atom/movable/A, mob/user, proximity)
+/obj/item/flashlight/flare/torch/lantern/bog/afterattack(atom/movable/A, mob/user, proximity)
 	if(!proximity || !on)
 		return ..()
 
-	if(istype(A, /obj/item/grown/log/tree/small))
+	if(istype(A, /obj/item/natural/bundle/stick))
+		var/obj/item/natural/bundle/stick/S = A
+		if(S.amount < 10)
+			to_chat(user, span_yellow("Not enough sticks in the pile! Fill this up first, young cricket."))
+			return
 		user.visible_message(span_artery("[user] feeds [A] to the magical fyre of [src]."), span_artery("The bogbark's witchfire begins consuming the wood..."))
-		if(!do_after(user, 3.5 SECONDS, A))
+		playsound(user, 'sound/surgery/cautery1.ogg', 100)
+		if(!do_after(user, 3 SECONDS, A))
 			return
 		if(QDELETED(A) || !on)
 			return
 		var/turf/T = get_turf(A)
 		qdel(A)
 		new /obj/item/rogueore/coal/charcoal(T)
-		user.visible_message(span_artery("[src] leaves behind only charcoal."), span_artery("The wood is reduced to charcoal."))
+		user.visible_message(span_green("[src] leaves behind only charcoal."), span_green("The wood is reduced to charcoal."))
+		playsound(user, 'sound/surgery/cautery2.ogg', 100)
+		return
+
+	if(istype(A, /obj/item/grown/log/tree/small))
+		user.visible_message(span_artery("[user] feeds [A] to the magical fyre of [src]."), span_artery("The bogbark's witchfire begins consuming the wood..."))
+		playsound(user, 'sound/surgery/cautery1.ogg', 100)
+		if(!do_after(user, 3 SECONDS, A))
+			return
+		if(QDELETED(A) || !on)
+			return
+		var/turf/T = get_turf(A)
+		qdel(A)
+		new /obj/item/rogueore/coal/charcoal(T)
+		user.visible_message(span_green("[src] leaves behind only charcoal."), span_green("The wood is reduced to charcoal."))
+		playsound(user, 'sound/surgery/cautery2.ogg', 100)
 		return
 
 	if(istype(A, /obj/item/scrap))
+		playsound(user, 'sound/surgery/cautery1.ogg', 100)
 		user.visible_message(span_artery("[user] holds [src] over [A], rearranging it to something more pure."), span_artery("The bogbark's glow begins refining the scrap into ore..."))
-		if(!do_after(user, 3.5 SECONDS, A))
+		if(!do_after(user, 4 SECONDS, A))
 			return
 		if(QDELETED(A) || !on)
 			return
 		var/turf/T = get_turf(A)
 		qdel(A)
 		new /obj/item/rogueore/iron(T)
-		user.visible_message(span_artery("The scrap is purified back into raw iron."), span_artery("Only workable iron remains, for the best or worst."))
+		user.visible_message(span_green("The scrap is purified back into raw iron."), span_green("Only workable iron remains, for the best or worst."))
+		playsound(user, 'sound/surgery/cautery2.ogg', 100)
 		return
 
 	return ..()

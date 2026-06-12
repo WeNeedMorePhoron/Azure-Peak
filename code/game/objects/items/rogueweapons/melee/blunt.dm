@@ -288,10 +288,11 @@
 	no_loot_taint = TRUE
 
 /obj/item/rogueweapon/mace/woodclub/militia // it literally just has an aura, and demolish intent
-	name = "bog-blessed wooden club"
+	name = "bogbark club"
 	desc = "A primitive cudgel carved of a stout piece of treefall, from the deepest parts of the Terrorbog. An unmistakable aura of power surrounds it. This thing looks dangerously strong."
 	aura_color = "#00ff00"
 	gripped_intents = list(/datum/intent/mace/strike/wood/, /datum/intent/mace/smash/wood, /datum/intent/effect/daze, /datum/intent/mace/demolish)
+	w_class = WEIGHT_CLASS_NORMAL // it's just a stick, can put it in your backpack
 
 /obj/item/rogueweapon/mace/woodclub
 	force = 15
