@@ -1638,9 +1638,6 @@
 	name = "Puff Right"
 	icon_state = "puffright"
 
-/datum/sprite_accessory/hair/head/puffright
-	name = "Puff Right"
-	icon_state = "puffright"
 
 /datum/sprite_accessory/hair/head/alchemist
 	name = "Alchemist"
