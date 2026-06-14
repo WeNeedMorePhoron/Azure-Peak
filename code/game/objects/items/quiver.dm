@@ -889,20 +889,24 @@
 	update_icon()
 	return TRUE
 
-/obj/item/quiver/mechanized/attackby(obj/item/I, mob/living/user, params)
-	if(valid_weapon && istype(I, valid_weapon))
-		if(holstered_weapon)
-			to_chat(user, span_warning("[src] already has [holstered_weapon.name] holstered. Right-click to draw it."))
-			return
-		if(!move_after(user, sheathe_time, target = user))
-			return FALSE
-		if(user.transferItemToLoc(I, src))
-			holstered_weapon = I
-			to_chat(user, span_notice("I holster [I] into [src]."))
-			playsound(src, 'sound/misc/chestclose.ogg', 30, TRUE)
-			update_icon()
+/obj/item/quiver/mechanized/MiddleClick(mob/living/user)
+	//pull out the bow if its holstered
+	if(holstered_weapon)
+		draw_bow(user)
 		return
-	return ..()
+	// nothing is holstered, are we carrying a valid bow?
+	var/obj/item/held = user.get_active_held_item()
+	if(!held)
+		to_chat(user, span_warning("I'm not holding anything to stow in [src]."))
+		return
+	if(!valid_weapon || !istype(held, valid_weapon))
+		to_chat(user, span_warning("[held] doesn't fit in [src]."))
+		return
+	if(user.transferItemToLoc(held, src))
+		holstered_weapon = held
+		to_chat(user, span_notice("I holster [held] into [src]."))
+		playsound(src, 'sound/misc/chestclose.ogg', 30, TRUE)
+		update_icon()
 
 /obj/item/quiver/mechanized/attack_right(mob/user)
 	if(holstered_weapon)
@@ -1011,13 +1015,6 @@
 		if(get_current_weight() >= max_storage)
 			break
 		eatarrow(A)
-	// Auto-holster crossbow or slurbow but not siegebow
-	if(!holstered_weapon)
-		for(var/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/W in T.contents)
-			if(istype(W, /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/heavy))
-				continue
-			holster_bow(W, null)
-			break
 
 /obj/item/quiver/mechanized/crossbow/holster_bow(obj/item/gun/ballistic/revolver/grenadelauncher/W, mob/living/user)
 	if(!istype(W, /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow) || \
@@ -1027,19 +1024,25 @@
 		return FALSE
 	return ..()
 
-/obj/item/quiver/mechanized/crossbow/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow) && \
-	  !istype(I, /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/heavy))
-		if(holstered_weapon)
-			to_chat(user, span_warning("[src] already has [holstered_weapon.name] holstered. Right-click to draw it."))
-			return
-		if(user.transferItemToLoc(I, src))
-			holstered_weapon = I
-			to_chat(user, span_notice("I holster [I] to [src]."))
-			playsound(src, 'sound/misc/chestclose.ogg', 30, TRUE)
-			update_icon()
+/obj/item/quiver/mechanized/crossbow/MiddleClick(mob/living/user)
+	//if there's somthing holstered, pull it out
+	if(holstered_weapon)
+		draw_bow(user)
 		return
-	return ..()
+	//next we check what we're holding and holster it if its valid
+	var/obj/item/held = user.get_active_held_item()
+	if(!held)
+		to_chat(user, span_warning("I'm not holding anything to stow in [src]."))
+		return
+	if(!istype(held, /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow) || \
+	    istype(held, /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/slurbow))
+		to_chat(user, span_warning("[held] doesn't fit — only crossbows and slurbows."))
+		return
+	if(user.transferItemToLoc(held, src))
+		holstered_weapon = held
+		to_chat(user, span_notice("I clip [held] to [src]."))
+		playsound(src, 'sound/misc/chestclose.ogg', 30, TRUE)
+		update_icon()
 
 // ============================================================
 // SIEGEBOW QUIVER — heavy bolts only, siegebow only
@@ -1078,15 +1081,21 @@
 		return FALSE
 	return ..()
 
-/obj/item/quiver/mechanized/siegebow/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/heavy))
-		if(holstered_weapon)
-			to_chat(user, span_warning("[src] already has [holstered_weapon.name] holstered. Right-click to draw it."))
-			return
-		if(user.transferItemToLoc(I, src))
-			holstered_weapon = I
-			to_chat(user, span_notice("I holster [I] to [src]."))
-			playsound(src, 'sound/misc/chestclose.ogg', 30, TRUE)
-			update_icon()
+/obj/item/quiver/mechanized/siegebow/MiddleClick(mob/living/user)
+	//if there's somthing holstered, pull it out
+	if(holstered_weapon)
+		draw_bow(user)
 		return
-	return ..()
+	//next we check what we're holding and holster it if its valid
+	var/obj/item/held = user.get_active_held_item()
+	if(!held)
+		to_chat(user, span_warning("I'm not holding anything to stow in [src]."))
+		return
+	if(!istype(held, /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/heavy))
+		to_chat(user, span_warning("[held] doesn't fit — this pouch can only hold siegebows."))
+		return
+	if(user.transferItemToLoc(held, src))
+		holstered_weapon = held
+		to_chat(user, span_notice("I strap [held] to [src]."))
+		playsound(src, 'sound/misc/chestclose.ogg', 30, TRUE)
+		update_icon()
