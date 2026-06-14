@@ -46,6 +46,18 @@
 	var/mob/living/carbon/human/H = loc
 	return H.advjob in allowed_jobs
 
+/obj/item/scomstone/proc/get_cooldown_text()
+	var/time_left = max(0, cooldown_end_time - world.time)
+
+	var/total_seconds = round(time_left / 10)
+	var/minutes = FLOOR(total_seconds / 60, 1)
+	var/seconds = total_seconds % 60
+
+	if(minutes)
+		return "[minutes] minute[minutes == 1 ? "" : "s"] and [seconds] second[seconds == 1 ? "" : "s"]"
+
+	return "[seconds] second[seconds == 1 ? "" : "s"]"
+
 /obj/item/scomstone/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_info("Most SCOMSTONEs function as handheld SCOMs. The only exception are HOUNDSTONES, which have access to an exclusive SCOMline for the Keep's royalty and guards.")
@@ -349,16 +361,4 @@
 		"message" = input_text,
 		"tag" = "WARDSTONE #[scomstone_number]",
 		"timestamp" = station_time_timestamp("hh:mm:ss")
-	))
-
-/obj/item/scomstone/proc/get_cooldown_text()
-	var/time_left = max(0, cooldown_end_time - world.time)
-
-	var/total_seconds = round(time_left / 10)
-	var/minutes = FLOOR(total_seconds / 60, 1)
-	var/seconds = total_seconds % 60
-
-	if(minutes)
-		return "[minutes] minute[minutes == 1 ? "" : "s"] and [seconds] second[seconds == 1 ? "" : "s"]"
-
-	return "[seconds] second[seconds == 1 ? "" : "s"]"*/
+	))*/
