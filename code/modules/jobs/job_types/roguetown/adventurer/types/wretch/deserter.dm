@@ -2,7 +2,7 @@
 	name = "Disgraced Knight"
 	tutorial = "You were once a venerated and revered knight - now, a traitor who abandoned your liege. You lyve the lyfe of an outlaw, shunned and looked down upon by society."
 	allowed_sexes = list(MALE, FEMALE)
-	
+
 	outfit = /datum/outfit/job/roguetown/wretch/deserter
 	class_select_category = CLASS_CAT_WARRIOR
 	category_tags = list(CTAG_WRETCH)
@@ -228,6 +228,7 @@
 				r_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 				backl = /obj/item/quiver/bolt/standard
 	add_verb(H, list(/mob/living/carbon/human/mind/proc/setorders))
+	mask = /obj/item/clothing/mask/rogue/facemask/steel
 	belt = /obj/item/storage/belt/rogue/leather
 	beltl = /obj/item/rogueweapon/mace/cudgel
 	backr = /obj/item/storage/backpack/rogue/satchel
@@ -242,7 +243,7 @@
 			"Winged Helmet" 		 	= /obj/item/clothing/head/roguetown/helmet/winged,
 			//Helmets below are ethnic choices.
 			"Grenzelhoftian Plume Hat"	= /obj/item/clothing/head/roguetown/grenzelhofthat,
-			"Steel Shishak" 			= /obj/item/clothing/head/roguetown/helmet/sallet/shishak,	
+			"Steel Shishak" 			= /obj/item/clothing/head/roguetown/helmet/sallet/shishak,
 			"Gronnic Ownel Helmet"		= /obj/item/clothing/head/roguetown/helmet/bascinet/atgervi/gronn/ownel,
 			"Varangian Owl Helmet"		= /obj/item/clothing/head/roguetown/helmet/bascinet/atgervi,
 			"Kulah Khud"				= /obj/item/clothing/head/roguetown/helmet/sallet/raneshen,
@@ -297,7 +298,7 @@
 			if("Gronnic Set")
 				neck = /obj/item/clothing/neck/roguetown/leather
 				armor = /obj/item/clothing/suit/roguetown/armor/brigandine/gronn
-				shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy //Apparently legit Leðurháls don't get a shirt-slot item at all. Why? 
+				shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy //Apparently legit Leðurháls don't get a shirt-slot item at all. Why?
 				pants = /obj/item/clothing/under/roguetown/chainlegs/gronn
 				wrists = /obj/item/clothing/wrists/roguetown/bracers/splint
 				gloves = /obj/item/clothing/gloves/roguetown/chain/gronn
