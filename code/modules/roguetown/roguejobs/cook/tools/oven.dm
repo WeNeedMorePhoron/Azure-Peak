@@ -151,3 +151,15 @@
 			update_icon()
 	else
 		return ..()
+
+/obj/item/proc/try_bakers_peel_oven_insert(atom/target, mob/user)
+	return FALSE
+
+/obj/machinery/light/rogue/oven/attack_right(mob/user)
+	var/obj/item/held = user.get_active_held_item()
+	if(held?.try_bakers_peel_oven_insert(src, user))
+		return TRUE
+	held = user.get_inactive_held_item()
+	if(held?.try_bakers_peel_oven_insert(src, user))
+		return TRUE
+	return ..()
