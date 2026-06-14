@@ -90,7 +90,7 @@
 		for(var/mob/M in hearers)
 			if(!M.client)
 				continue
-			if(!(M.client.prefs.hear_barks))
+			if((M.client.prefs.mute_barks))
 				hearers -= M
 		var/barks = min(round((LAZYLEN(message) / vocal_speed)) + 1, BARK_MAX_BARKS)
 		var/total_delay

@@ -280,9 +280,9 @@
 	set category = "Preferences.Options"
 	set desc = ""
 	if(prefs)
-		prefs.hear_barks = !prefs.hear_barks
+		prefs.mute_barks = !prefs.mute_barks
 		prefs.save_preferences()
-	to_chat(src, "You will [prefs.hear_barks ? "" : "not "]hear vocal barks.")
+	to_chat(src, "You will [prefs.mute_barks ? "not " : ""]hear vocal barks.")
 
 /client/verb/toggle_hitzonetext() // Whether the user can see a text popup for where they got hit.
 	set category = "Preferences.Options"

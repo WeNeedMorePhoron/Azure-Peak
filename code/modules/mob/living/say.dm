@@ -553,7 +553,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		for(var/mob/M in listening)
 			if(!M.client)
 				continue
-			if(!(M.client.prefs.hear_barks))
+			if((M.client.prefs.mute_barks))
 				listening -= M
 		var/is_yell = Zs_yell || Zs_all
 		var/barks = min(round((LAZYLEN(message) / vocal_speed)) + 1, BARK_MAX_BARKS)
