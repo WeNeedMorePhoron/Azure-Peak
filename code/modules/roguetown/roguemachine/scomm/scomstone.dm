@@ -267,7 +267,7 @@
 /obj/item/scomstone/bad/garrison/dropped(mob/living/user)
 	..()
 	REMOVE_TRAIT(user, TRAIT_GARRISON_ITEM, "[ref(src)]")
-
+/*
 // TL;DR, houndstone that only works for garrison members so mugging a Levy or a Warden isn't the end of the round for the garrison's comms. It can broadcast to other Wardstones, and thus, the intent of this is for them to coordinate better in PvE.
 /obj/item/scomstone/bad/garrison/ward
 	name = "wardstone"
@@ -361,4 +361,4 @@
 	if(minutes)
 		return "[minutes] minute[minutes == 1 ? "" : "s"] and [seconds] second[seconds == 1 ? "" : "s"]"
 
-	return "[seconds] second[seconds == 1 ? "" : "s"]"
+	return "[seconds] second[seconds == 1 ? "" : "s"]"*/

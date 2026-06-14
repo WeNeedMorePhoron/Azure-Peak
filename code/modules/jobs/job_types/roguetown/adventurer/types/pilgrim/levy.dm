@@ -50,7 +50,7 @@
 	pants = /obj/item/clothing/under/roguetown/splintlegs
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/iron
 	beltl = /obj/item/flashlight/flare/torch/lantern/bog
-	id = /obj/item/scomstone/bad/garrison/ward
+	id = /obj/item/scomstone/bad/garrison
 
 	to_chat(H, span_notice("<b>THE WEAPON I COULD SCROUNGE UP:</b>"))
 	to_chat(H, span_info("<b>THE FAMILY SWORD</b> - Journeyman Swords. Comes with a militia falchion."))
