@@ -296,9 +296,10 @@
 	. = ..()
 	spark_act()
 
-/obj/item/flashlight/flare/torch/lantern/bog // better idea than giving them nitevision, tbh. Extra feature also lets them put together Braziers with a bit more ease, giving Levies more reason to go out there do things instead of holing up in one place.
+/obj/item/flashlight/flare/torch/lantern/bog // better idea than giving them an unfitting nitevision, tbh. Extra feature also lets them put together Braziers with a bit more ease, giving Levies more reason to go out there do things instead of holing up in one place.
 	name = "bogbark lamptern"
 	desc = "A light to guide the way. An odd green-glowing wood burns at its heart, said to be harvested from the deepest parts of the Terrorbog. Passed between Levies by grateful locals or stripped from fallen comrades, it is both a lifeline and a badge of a true bog-dweller."
+	icon_state = "bronzelamp"
 	aura_color = "#00ff22"
 	light_color = LIGHT_COLOR_WHITE
 	light_outer_range = 8

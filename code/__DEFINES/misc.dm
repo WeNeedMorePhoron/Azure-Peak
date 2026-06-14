@@ -501,6 +501,7 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define EMOTE_AUDIBLE 2
 
 #define GARRISON_SCOM_COLOR "#FF4242"
+#define WARDEN_SCOM_COLOR "#09ff00"
 
 // Zombie infection defines
 #define ZOMBIE_INFECTION_PROBABILITY 20 	/// Zombie infection probability for bites on a wound

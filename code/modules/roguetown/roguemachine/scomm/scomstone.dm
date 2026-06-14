@@ -17,6 +17,7 @@
 	muteinmouth = TRUE
 	var/cooldown = 60 SECONDS
 	var/on_cooldown = FALSE
+	var/cooldown_end_time 
 	var/listening = TRUE
 	var/speaking = TRUE
 	var/loudmouth_listening = TRUE
@@ -26,6 +27,24 @@
 	drop_sound = 'sound/foley/coinphy (1).ogg'
 	grid_width = 32
 	grid_height = 32
+	/// This list is a reference of advjobs permitted, no limitations are given until this is called to validate it. CURRENTLY ONLY USED BY WARDSTONES.
+	var/list/allowed_jobs = list(
+		"Levy",
+		"Watchman",
+		"Sergeant",
+		"Man at Arms",
+		"Knight",
+		"Marshal",
+		"Warden",
+		"Bailiff",
+	)
+
+/obj/item/scomstone/proc/is_authorized()
+	if(!ishuman(loc))
+		return FALSE
+
+	var/mob/living/carbon/human/H = loc
+	return H.advjob in allowed_jobs
 
 /obj/item/scomstone/get_mechanics_examine(mob/user)
 	. = ..()
@@ -37,7 +56,7 @@
 
 /obj/item/scomstone/attack_right(mob/living/carbon/human/user)
 	if(on_cooldown)
-		to_chat(user, span_warning("The gemstone inside the ring radiates heat. It's still cooling down from its last use."))
+		to_chat(user, span_warning("The gemstone inside still radiates heat from its last transmission. It will cool in [get_cooldown_text()]."))
 		playsound(loc, 'sound/misc/machineno.ogg', 100, FALSE, -1)
 		return
 	user.changeNext_move(CLICK_CD_INTENTCAP)
@@ -59,6 +78,7 @@
 		S.repeat_message(input_text, src, usedcolor)
 	SSroguemachine.crown?.repeat_message(input_text, src, usedcolor)
 	on_cooldown = TRUE
+	cooldown_end_time = world.time + cooldown
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown), user), cooldown)
 
 	//Log message to global broadcast list.
@@ -170,7 +190,7 @@
 /obj/item/scomstone/garrison/attack_right(mob/living/carbon/human/user)
 	user.changeNext_move(CLICK_CD_INTENTCAP)
 	if(on_cooldown)
-		to_chat(user, span_warning("The gemstone inside \the [src] radiates heat. It's still cooling down from its last use."))
+		to_chat(user, span_warning("The gemstone inside still radiates heat from its last transmission. It will cool in [get_cooldown_text()]."))
 		playsound(loc, 'sound/misc/machineno.ogg', 100, FALSE, -1)
 		return
 	if(!get_location_accessible(user, BODY_ZONE_PRECISE_MOUTH, grabs = TRUE))
@@ -198,6 +218,7 @@
 				S.repeat_message(input_text, src, usedcolor)
 		SSroguemachine.crown?.repeat_message(input_text, src, usedcolor)
 		on_cooldown = TRUE
+		cooldown_end_time = world.time + cooldown
 		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown)
 		return
 	for(var/obj/structure/roguemachine/scomm/S in SSroguemachine.scomm_machines)
@@ -215,7 +236,7 @@
 	"tag"		= "CROWNSTONE #[scomstone_number]",
 	"timestamp" = station_time_timestamp("hh:mm:ss")
 	))
-
+	cooldown_end_time = world.time + cooldown
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown)
 
 /obj/item/scomstone/garrison/attack_self(mob/living/user)
@@ -247,76 +268,97 @@
 	..()
 	REMOVE_TRAIT(user, TRAIT_GARRISON_ITEM, "[ref(src)]")
 
-/*
-// As Ansari put it best, a "1 use gankstone". Just keeping it here for self-reference since I never touched houndstones before. Uncomment at the dire risk of your toes being inhaled.
-
-/obj/item/scomstone/bad/garrison/bog
-	name = "bogstone"
-	desc = "A basic metal ring. It has a well-cut, dismal gem embedded - bearing the mark of the Crown. This one has an odd glow of witchlight to it, iconic to the bog."
+// TL;DR, houndstone that only works for garrison members so mugging a Levy or a Warden isn't the end of the round for the garrison's comms. It can broadcast to other Wardstones, and thus, the intent of this is for them to coordinate better in PvE.
+/obj/item/scomstone/bad/garrison/ward
+	name = "wardstone"
+	desc = "A crude metal ring. It bears the Crown's mark, though its gem glows with an eerie witchlight. The result of a pact someone had to pay dearly to bring this to existence."
+	icon_state = "ring_houndscom"
+	messagereceivedsound = 'sound/misc/garrisonscom.ogg'
+	cooldown = 2 MINUTES
 	aura_color = "#00ff55"
-	var/one_use_remaining = TRUE
-	var/using = FALSE
 
-/obj/item/scomstone/bad/garrison/bog/get_mechanics_examine(mob/user)
+/obj/item/scomstone/bad/garrison/ward/get_mechanics_examine(mob/user)
 	. = ..()
-	if(one_use_remaining)
-		. += span_info("<font color='#00ff55'>Bogstones can only be used ONCE to broadcast an emergency message for all of the garrison. After its use is spent, it becomes a normal houndstone. Use wisely and in good faith, please.</font>")
+	. += span_info("<font color='#00ff55'>Wardstones behave like Houndstones, but may only broadcast to other Wardstones.</font>")
+	. += span_info("<font color='#00ff55'>The nature of Wardstones makes them difficult to whisper into, so a louder and clearer voice tone must be used.</font>")
+	. += span_info("<font color='#00ff55'>The witchlight only answers those sworn to the Crown's service. Unless you are part of, or adjacent to the Garrison, it will not function.</font>")
 
-/obj/item/scomstone/bad/garrison/bog/attack_right(mob/living/carbon/human/user)
-	if(!one_use_remaining || using)
-		return ..()
-	using = TRUE
+/obj/item/scomstone/garrison/ward/equipped(mob/living/user, slot)
+	. = ..()
+	if(!is_authorized())
+		return
+	if(slot == SLOT_RING)
+		ADD_TRAIT(user, TRAIT_GARRISON_ITEM, "[ref(src)]")
+
+/obj/item/scomstone/garrison/ward/dropped(mob/living/user)
+	..()
+	REMOVE_TRAIT(user, TRAIT_GARRISON_ITEM, "[ref(src)]")
+
+/obj/item/scomstone/bad/garrison/ward/repeat_message(message, atom/A, tcolor, message_language)
+	if(!is_authorized())
+		return
+	..()
+
+/obj/item/scomstone/bad/garrison/ward/attack_right(mob/living/carbon/human/user)
+	if(!is_authorized())
+		to_chat(user, span_warning("The wardstone remains inert. Is it broken?"))
+		return
+
+	if(on_cooldown)
+		to_chat(user, span_warning("The gemstone inside still radiates heat from its last transmission. It will cool in [get_cooldown_text()]."))
+		playsound(loc, 'sound/misc/machineno.ogg', 100, FALSE, -1)
+		return
+
 	if(!get_location_accessible(user, BODY_ZONE_PRECISE_MOUTH, grabs = TRUE))
 		to_chat(user, span_warning("My mouth is covered!"))
-		using = FALSE
 		return
 
-	var/choice = alert(user, "The gem will shatter forever after a single transmission to the Crown's SCOMline.", "Emergency Only!", "IT'S DIRE, SER!!!", "Cancel")
-	if(choice != "IT'S DIRE, SER!!!")
-		using = FALSE
-		return
+	user.changeNext_move(CLICK_CD_INTENTCAP)
 
-	choice = alert(user, "This cannot be undone. The flarestone will become a normal houndstone after the message is sent.", "Final Warning", "IT'S BLEAK, SER!!!", "Nevermind")
-	if(choice != "IT'S BLEAK, SER!!!")
-		using = FALSE
-		return
+	visible_message(span_notice("[user] presses [src] against [user.p_their()] mouth."))
 
-	one_use_remaining = FALSE
-	var/input_text = input(user, "Send an emergency broadcast to the Garrison's SCOMline.", "AIIIIEEEEEE!") as text|null
+	var/input_text = input(user, "Broadcast to the Ranger's network (Only other Wardstones will listen).", "Wardstone") as text|null
 	if(!input_text)
-		using = FALSE
 		return
 
 	var/usedcolor = user.voice_color
 	if(user.voicecolor_override)
 		usedcolor = user.voicecolor_override
 
-	user.whisper(input_text)
+	user.say(input_text) // They can't whisper in it, unlike normal stones. You got to be loud and clear, ser.
 
 	if(length(input_text) > 100)
 		input_text = "<small>[input_text]</small>"
 
-	input_text = "<big><span style='color: ['#09ff00']'>*PANICKING NOISES* [input_text]!!</span></big>"
+	input_text = "<big><span style='color: [WARDEN_SCOM_COLOR]'>[input_text]</span></big>"
 
-	playsound(loc, 'sound/misc/garrisonscom.ogg', 100, FALSE, -1)
-
-	for(var/obj/item/scomstone/bad/garrison/S in SSroguemachine.scomm_machines)
+	for(var/obj/item/scomstone/bad/garrison/ward/S in SSroguemachine.scomm_machines)
+//		if(S == src)
+//			continue
 		S.repeat_message(input_text, src, usedcolor)
-	for(var/obj/item/scomstone/garrison/S in SSroguemachine.scomm_machines)
-		S.repeat_message(input_text, src, usedcolor)
-	for(var/obj/structure/roguemachine/scomm/S in SSroguemachine.scomm_machines)
-		if(S.garrisonline)
-			S.repeat_message(input_text, src, usedcolor)
 
+	// Crown relay for logging/monitoring.
 	SSroguemachine.crown?.repeat_message(input_text, src, usedcolor)
-	GLOB.broadcast_list += list(list("message" = input_text, "tag" = "BOGSTONE (LEVY) #[scomstone_number]", "timestamp" = station_time_timestamp("hh:mm:ss")))
 
-	user.visible_message(span_warning("[user]'s bogstone gem erupts with sickly green witchlight before it splinters apart!"), span_warning("The witchlight is spent. My cry for help has reached the Crown, hopefully."))
+	// Start cooldown.
+	cooldown_end_time = world.time + cooldown
+	on_cooldown = TRUE
+	addtimer(CALLBACK(src, PROC_REF(reset_cooldown), user), cooldown)
 
-	playsound(loc, 'sound/foley/glassbreak.ogg', 100, FALSE)
+	GLOB.broadcast_list += list(list(
+		"message" = input_text,
+		"tag" = "WARDSTONE #[scomstone_number]",
+		"timestamp" = station_time_timestamp("hh:mm:ss")
+	))
 
-	name = "houndstone"
-	desc = "A basic metal ring. It has a well-cut, dismal gem embedded - bearing the mark of the Crown. You see a crack on the gem."
-	aura_color = null
-	apply_aura()
-*/
+/obj/item/scomstone/proc/get_cooldown_text()
+	var/time_left = max(0, cooldown_end_time - world.time)
+
+	var/total_seconds = round(time_left / 10)
+	var/minutes = FLOOR(total_seconds / 60, 1)
+	var/seconds = total_seconds % 60
+
+	if(minutes)
+		return "[minutes] minute[minutes == 1 ? "" : "s"] and [seconds] second[seconds == 1 ? "" : "s"]"
+
+	return "[seconds] second[seconds == 1 ? "" : "s"]"

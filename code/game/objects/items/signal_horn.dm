@@ -8,8 +8,8 @@
 	icon_state = "signalhorn"
 	slot_flags = ITEM_SLOT_HIP|ITEM_SLOT_NECK
 	w_class = WEIGHT_CLASS_NORMAL
-	grid_height = 32
-	grid_width = 64
+	grid_height = 64
+	grid_width = 32
 
 /obj/item/signal_horn/examine()
 	. = ..()
