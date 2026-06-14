@@ -237,7 +237,7 @@
 			H.put_in_hands(new /obj/item/rogueweapon/sword/long/undivided/absolutio(H))
 			H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
 		if("Sunburst")
-			H.put_in_hands(new /obj/item/rogueweapon/mace/goden/psymace/sunburst(H))
+			H.put_in_hands(new /obj/item/rogueweapon/mace/steel/holyseemace/sunburst(H))
 			H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_EXPERT, TRUE)
 
 	// -- Start of section for god specific bonuses --
