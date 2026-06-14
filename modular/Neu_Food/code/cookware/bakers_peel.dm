@@ -9,6 +9,12 @@
 /datum/intent/use/bakers_peel/rmb_ranged(atom/target, mob/user)
 	masteritem?.try_bakers_peel_right_click_target(target, user)
 
+/datum/intent/spear/bash/ranged/bakers_peel
+	name = "swat"
+	attack_verb = list("swats", "strikes")
+	hitsound = list('sound/combat/hits/blunt/woodblunt (1).ogg', 'sound/combat/hits/blunt/woodblunt (2).ogg')
+	damfactor = 1
+
 /obj/item/cooking/bakers_peel
 	name = "baker's peel"
 	desc = "A long wooden paddle used by bakers to put food into and take food out of the oven."
@@ -20,16 +26,20 @@
 	w_class = WEIGHT_CLASS_HUGE
 	wlength = WLENGTH_LONG
 	twohands_required = TRUE
-	possible_item_intents = list(/datum/intent/use/bakers_peel)
-	gripped_intents = list(/datum/intent/use/bakers_peel)
+	possible_item_intents = list(/datum/intent/use/bakers_peel, /datum/intent/spear/bash/ranged/bakers_peel)
+	gripped_intents = list(/datum/intent/use/bakers_peel, /datum/intent/spear/bash/ranged/bakers_peel)
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	grid_width = 32
 	grid_height = 96
 	bigboy = TRUE
-	force = 0
-	force_wielded = 0
+	force = 10
+	force_wielded = 10
 	throwforce = 0
+	sharpness = IS_BLUNT
+	can_parry = TRUE
+	wdefense = 8
+	associated_skill = /datum/skill/combat/staves
 	var/list/loaded_items = list()
 	var/max_items = 5
 
@@ -277,14 +287,3 @@
 	user.visible_message(span_info("[user] draws [count] item[count == 1 ? "" : "s"] from [oven] onto [src]."), span_info("I draw [count] item[count == 1 ? "" : "s"] from [oven] onto [src]."))
 	playsound(get_turf(oven), 'sound/items/wood_sharpen.ogg', 50)
 	return TRUE
-
-/datum/crafting_recipe/roguetown/survival/bakers_peel
-	name = "baker's peel"
-	category = "Houseware"
-	result = /obj/item/cooking/bakers_peel
-	reqs = list(
-		/obj/item/grown/log/tree = 1,
-		/obj/item/grown/log/tree/small = 1,
-		)
-	skillcraft = /datum/skill/craft/carpentry
-	craftdiff = SKILL_LEVEL_NOVICE
