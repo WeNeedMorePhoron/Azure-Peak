@@ -397,7 +397,8 @@
 		- Voila!~ This brew is guaranteed to put some hair on your chest; and remember: 'Real Bogdwellers don't whine! They drink wine!'
 		</font>
 	"}
-/// Point at a target and shout a context-sensitive contact report. Only works if there is more than one TRAIT_LEVY around.
+
+/// Point at a target and shout a context-sensitive callout. Only works if there is more than one TRAIT_LEVY around you.
 /mob/proc/callout_point(atom/A)
 	if(!client || !mind)
 		return
@@ -424,59 +425,98 @@
 
 	mob_timers["contact_callout"] = world.time
 
-	var/contact_name = A.name
+	var/contact_desc = A.name
 
 	if(ishuman(A))
 		var/mob/living/carbon/human/H = A
 
-		var/masked = (H.wear_mask && (H.wear_mask.flags_inv & HIDEFACE)) || (H.head && (H.head.flags_inv & HIDEFACE))
+		var/list/trait_parts = list()
+		var/stature_name
 
-		if(masked)
-			var/list/d_list = H.get_mob_descriptors()
-			var/list/name_parts = list()
+		var/list/d_list = H.get_mob_descriptors_unknown(FALSE, src)
 
-			for(var/desc_type in d_list)
-				var/datum/mob_descriptor/descriptor = MOB_DESCRIPTOR(desc_type)
+		for(var/desc_type in d_list)
+			var/datum/mob_descriptor/D = MOB_DESCRIPTOR(desc_type)
 
-				if(descriptor.slot in list(MOB_DESCRIPTOR_SLOT_TRAIT, MOB_DESCRIPTOR_SLOT_STATURE))
-					name_parts += descriptor.name
+			if(D.slot == MOB_DESCRIPTOR_SLOT_STATURE)
+				stature_name = D.name
 
-			contact_name = length(name_parts) ? jointext(name_parts, " ") : "masked figure"
+				if(findtext(stature_name, "/"))
+					var/list/split = splittext(stature_name, "/")
 
-		else if(H.job)
-			contact_name = H.job
+					if(length(split) >= 2)
+						stature_name = (H.gender == FEMALE) ? split[2] : split[1]
 
-	var/held_item = get_active_held_item()
-	var/action
+			else if(D.slot == MOB_DESCRIPTOR_SLOT_TRAIT)
+				trait_parts += D.name
 
-	if(istype(A, /obj/item/rogueore/gold) || istype(A, /obj/item/rogueore/silver) || istype(A, /obj/item/roguegem))
-		action = "We're rich!"
+		var/list/final_parts = list()
 
-	else if(ismob(A))
-		if(istype(held_item, /obj/item/gun/ballistic))
-			action = "Shoot them!"
-		else if(istype(held_item, /obj/item/rogueweapon))
-			action = "Cut them down!"
-		else
-			action = "Get them!"
+		for(var/trait_name in trait_parts)
+			final_parts += trait_name
 
-	else if(isturf(A))
-		action = "Over there!"
+		if(stature_name)
+			final_parts += stature_name
 
-	else
-		action = "Break it!"
+		if(H.stat != CONSCIOUS)
+			final_parts += "fallen"
 
-	var/target_callout
-	if(ismob(A))
-		target_callout = capitalize(parse_zone(zone_selected))
+		contact_desc = length(final_parts) ? jointext(final_parts, " ") : "someone"
 
 	var/dist = get_dist(src, A)
 	var/dir_text = dir2text(get_dir(src, A))
 
-	if(dir_text)
-		var/msg = "[capitalize(contact_name)], [dist] [dist == 1 ? "pace" : "paces"], [dir_text]! [action]"
+	var/msg
 
-		if(target_callout)
-			msg += " Strike the [target_callout]!"
+	// Valuable loot
+	if(istype(A, /obj/item/rogueore/gold) || istype(A, /obj/item/rogueore/silver) || istype(A, /obj/item/roguegem))
+		msg = "Shiny! [dist] [dist == 1 ? "pace" : "paces"] [dir_text]!"
 
+	// Living targets
+	else if(ismob(A))
+		var/zone_name = lowertext(parse_zone(zone_selected))
+
+		if(cmode)
+			var/list/aggressive = list(
+				"[capitalize(contact_desc)]! Get 'em!",
+				"[capitalize(contact_desc)]! On 'em!",
+				"[capitalize(contact_desc)]! Bring 'em down!",
+				"[capitalize(contact_desc)]! There!",
+				"[capitalize(contact_desc)]! Kill the bastard!",
+				"[capitalize(contact_desc)]! Flank 'em!",
+			)
+
+			msg = pick(aggressive)
+
+			if(zone_name)
+				msg += " Go for the [uppertext(zone_name)]!"
+
+		else
+			if(isliving(A))
+				var/mob/living/L = A
+
+				if(L.stat != CONSCIOUS)
+					msg = "[capitalize(contact_desc)] down and out, [dist] [dist == 1 ? "pace" : "paces"] [dir_text]!"
+				else
+					msg = "[capitalize(contact_desc)], [dist] [dist == 1 ? "pace" : "paces"] [dir_text]!"
+
+	// Ground
+	else if(isturf(A))
+		var/turf/T = A
+
+		if(cmode)
+			msg = "Move there! [dist] [dist == 1 ? "pace" : "paces"] [dir_text]!"
+		else
+			msg = "[capitalize(T.name)], [dist] [dist == 1 ? "pace" : "paces"] [dir_text]!"
+
+	// Objects
+	else
+		var/object_name = capitalize(A.name)
+
+		if(cmode)
+			msg = "[object_name]! Break that! [dist] [dist == 1 ? "pace" : "paces"] [dir_text]!"
+		else
+			msg = "[object_name], [dist] [dist == 1 ? "pace" : "paces"] [dir_text]!"
+
+	if(msg)
 		say_verb(msg)
