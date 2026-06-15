@@ -1469,9 +1469,8 @@
 	if(enhanced_strip)
 		strip_delayed = 0.1 SECONDS
 	if(do_after(src, strip_delayed * surrender_mod, who))
-		if(what && (Adjacent(who) || ((enhanced_strip) && (get_dist(src, who) <= 3))))
-			if(enhanced_strip)
-				enhanced_strip = FALSE
+		if(what && (Adjacent(who) || (enhanced_strip && (get_dist(src, who) <= 3))))
+			enhanced_strip = FALSE
 			if(islist(where))
 				var/list/L = where
 				if(what == who.get_item_for_held_index(L[2]))
