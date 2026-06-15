@@ -176,7 +176,7 @@
 /obj/item/rogueweapon/bakers_peel/proc/storage_component()
 	return GetComponent(/datum/component/storage)
 
-/obj/item/rogueweapon/bakers_peel/proc/stored_items()
+/obj/item/rogueweapon/bakers_peel/proc/stored_items() as /list
 	var/datum/component/storage/STR = storage_component()
 	if(!STR)
 		return list()
