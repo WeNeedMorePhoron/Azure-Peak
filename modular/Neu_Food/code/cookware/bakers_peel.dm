@@ -39,7 +39,7 @@
 	sharpness = IS_BLUNT
 	can_parry = TRUE
 	wdefense = 8
-	associated_skill = /datum/skill/combat/staves
+	associated_skill = /datum/skill/craft/cooking
 	var/list/loaded_items = list()
 	var/max_items = 5
 	var/mob/living/peel_holder
