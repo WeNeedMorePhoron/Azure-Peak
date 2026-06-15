@@ -3,7 +3,7 @@
 // PORT TO AZURE COMMENT: When I originally added this to vanderlin, I had to axe existing teas, In good conciousness I refuse to touch it here because it doest conflict and I refuse to refactor entire thing. Goodluck to whoever does tho.
 /datum/reagent/consumable/tea/
 	name = "Generic tea"
-	description = "If you see this, stop using moondust"
+	description = "A common concept of a generic tea made from whatever, by whoever."
 	reagent_state = LIQUID
 	color = "#c38553"
 	nutriment_factor = 2
@@ -22,7 +22,7 @@
 
 /datum/reagent/consumable/tea/taraxamint
 	name = "Taraxacum-Mentha tea"
-	description = "If you see this, stop using moondust"
+	description = "Soothing herbal green tea, rumored to help ease burns, liver issues and help with head traumas"
 	color = "#acaf01"
 	nutriment_factor = 2
 	metabolization_rate = 0.3 // 33% of normal metab
@@ -44,7 +44,7 @@
 
 /datum/reagent/consumable/tea/utricasalvia
 	name = "Urtica-Salvia tea"
-	description = "If you see this, stop using moondust"
+	description = "Deep, velvet tea. Taste of tingling sour fruits. Used by a traditional remedy by common folk to recover from bruises and burns. Some even say it can heal wounds."
 	color = "#451853"
 	nutriment_factor = 2
 	metabolization_rate = 1
@@ -64,7 +64,7 @@
 
 /datum/reagent/consumable/tea/badidea
 	name = "westleach tar tea"
-	description = "If you see this, stop using moondust"
+	description = "Refined westleach resin, made by boiling leafs in water. Nay good for consumption in this state, but widely used by naledian nomads to be made into portable smoke paste."
 	color = "#490100"
 	nutriment_factor = 2
 	metabolization_rate = 2 // ye be fucked my guy
@@ -89,7 +89,7 @@
 
 /datum/reagent/consumable/tea/fourtwenty
 	name = "swampweed brew"
-	description = "If you see this, stop using moondust"
+	description = "Swampweed leaf brewed into a drink. Used by shamans and other spiritual guides. Its gemerald color hides its true earhty taste. "
 	color = "#04750a"
 	nutriment_factor = 2
 	metabolization_rate = 1
@@ -106,7 +106,7 @@
 
 /datum/reagent/consumable/tea/manabloom
 	name = "Manabloom tea"
-	description = "If you see this, stop using moondust"
+	description = "Manabloom flower is tossed into hot, boiling water. A crude, inefficient but cheap method to extract its properties."
 	color = "#5986b1"
 	nutriment_factor = 2
 	metabolization_rate = 0.2 // 20% of normal metab
@@ -129,7 +129,7 @@
 
 /datum/reagent/consumable/tea/compot
 	name = "Compot"
-	description = "If you see this, stop using moondust"
+	description = "Drink of Gronnic origin, dried fruit is made into nutritious sweet delicacy they partake regardless of status."
 	color = "#cca358"
 	nutriment_factor = 2
 	metabolization_rate = 0.2 // 20% of normal metab
@@ -145,7 +145,7 @@
 
 /datum/reagent/consumable/tea/sbiten
 	name = "Sbiten" //not a typo
-	description = "If you see this, stop using moondust"
+	description = "Marvel of Gronnic cuisine, rivals even well aged liquors in how enjoyable it is. Honey is infused with spices and then diluted in hot water. Highly luxurious item in the North."
 	reagent_state = LIQUID
 	color = "#f0dba3"
 	nutriment_factor = 2
