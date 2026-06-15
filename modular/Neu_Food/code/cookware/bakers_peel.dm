@@ -42,6 +42,31 @@
 	associated_skill = /datum/skill/combat/staves
 	var/list/loaded_items = list()
 	var/max_items = 5
+	var/mob/living/peel_holder
+
+/obj/item/cooking/bakers_peel/Initialize()
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_ATTACK_SUCCESS, PROC_REF(on_attack_success))
+
+/obj/item/cooking/bakers_peel/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(peel_holder && peel_holder != user)
+		UnregisterSignal(peel_holder, COMSIG_MOVABLE_MOVED, PROC_REF(on_holder_moved))
+		peel_holder = null
+	if(slot != ITEM_SLOT_HANDS || !isliving(user))
+		if(peel_holder)
+			UnregisterSignal(peel_holder, COMSIG_MOVABLE_MOVED, PROC_REF(on_holder_moved))
+			peel_holder = null
+		return
+	var/mob/living/living_user = user
+	peel_holder = living_user
+	RegisterSignal(peel_holder, COMSIG_MOVABLE_MOVED, PROC_REF(on_holder_moved), TRUE)
+
+/obj/item/cooking/bakers_peel/dropped(mob/user, silent = FALSE)
+	. = ..()
+	if(peel_holder)
+		UnregisterSignal(peel_holder, COMSIG_MOVABLE_MOVED, PROC_REF(on_holder_moved))
+		peel_holder = null
 
 /obj/item/cooking/bakers_peel/examine(mob/user)
 	. = ..()
@@ -82,8 +107,38 @@
 	return ..()
 
 /obj/item/cooking/bakers_peel/Destroy()
+	if(peel_holder)
+		UnregisterSignal(peel_holder, COMSIG_MOVABLE_MOVED, PROC_REF(on_holder_moved))
+		peel_holder = null
+	UnregisterSignal(src, COMSIG_ITEM_ATTACK_SUCCESS, PROC_REF(on_attack_success))
 	dump_loaded_items(get_turf(src))
 	return ..()
+
+/obj/item/cooking/bakers_peel/attack_obj(obj/O, mob/living/user)
+	. = ..()
+	if(. && istype(user?.used_intent, /datum/intent/spear/bash/ranged/bakers_peel))
+		spill_loaded_items(user, "The impact knocks")
+
+/obj/item/cooking/bakers_peel/attack_turf(turf/T, mob/living/user, multiplier)
+	. = ..()
+	if(. && istype(user?.used_intent, /datum/intent/spear/bash/ranged/bakers_peel))
+		spill_loaded_items(user, "The impact knocks")
+
+/obj/item/cooking/bakers_peel/proc/on_attack_success(obj/item/source, mob/living/target, mob/living/user)
+	SIGNAL_HANDLER
+	if(istype(user?.used_intent, /datum/intent/spear/bash/ranged/bakers_peel))
+		spill_loaded_items(user, "The impact knocks")
+
+/obj/item/cooking/bakers_peel/proc/on_holder_moved(mob/living/user, atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	SIGNAL_HANDLER
+	if(!user || QDELETED(src) || loc != user || !user.is_holding(src))
+		if(peel_holder)
+			UnregisterSignal(peel_holder, COMSIG_MOVABLE_MOVED, PROC_REF(on_holder_moved))
+			peel_holder = null
+		return
+	if(forced || user.m_intent != MOVE_INTENT_RUN)
+		return
+	spill_loaded_items(user, "Running with [src] sends")
 
 /obj/item/cooking/bakers_peel/try_bakers_peel_right_click_target(atom/target, mob/user)
 	return use_on_right_click_target(target, user)
@@ -207,6 +262,21 @@
 	user.visible_message(span_info("[user] turns [count] item[count == 1 ? "" : "s"] out onto [table]."), span_info("I turn [count] item[count == 1 ? "" : "s"] out onto [table]."))
 	playsound(table_turf, 'sound/foley/dropsound/wooden_drop.ogg', 50, TRUE)
 	return TRUE
+
+/obj/item/cooking/bakers_peel/proc/spill_loaded_items(mob/living/user, message_start)
+	clean_loaded_items()
+	if(!loaded_items.len)
+		return 0
+	var/turf/drop_turf = user ? get_turf(user) : get_turf(src)
+	var/count = dump_loaded_items(drop_turf)
+	if(!count)
+		return 0
+	if(user)
+		user.visible_message(span_warning("[message_start] [count] item[count == 1 ? "" : "s"] from [src] onto the floor."), span_warning("[message_start] [count] item[count == 1 ? "" : "s"] from [src] onto the floor."))
+	else
+		visible_message(span_warning("[count] item[count == 1 ? "" : "s"] fall from [src] onto the floor."))
+	playsound(drop_turf, 'sound/foley/dropsound/wooden_drop.ogg', 50, TRUE)
+	return count
 
 /obj/item/cooking/bakers_peel/proc/dump_loaded_items(turf/T)
 	if(!T)
