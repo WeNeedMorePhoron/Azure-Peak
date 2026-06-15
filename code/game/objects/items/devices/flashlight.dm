@@ -319,7 +319,10 @@
 			return
 		user.visible_message(span_artery("[user] feeds [A] to the magical fyre of [src]."), span_artery("The bogbark's witchfire begins consuming the wood..."))
 		playsound(user, 'sound/surgery/cautery1.ogg', 100)
-		if(!do_after(user, 3 SECONDS, A))
+		var/scavenge_speed = 5 SECONDS
+		if(HAS_TRAIT(user, TRAIT_LOOTGOBLIN))
+			scavenge_speed = 3 SECONDS
+		if(!do_after(user, scavenge_speed, A))
 			return
 		if(QDELETED(A) || !on)
 			return
@@ -333,7 +336,10 @@
 	if(istype(A, /obj/item/grown/log/tree/small))
 		user.visible_message(span_artery("[user] feeds [A] to the magical fyre of [src]."), span_artery("The bogbark's witchfire begins consuming the wood..."))
 		playsound(user, 'sound/surgery/cautery1.ogg', 100)
-		if(!do_after(user, 3 SECONDS, A))
+		var/scavenge_speed = 5 SECONDS
+		if(HAS_TRAIT(user, TRAIT_LOOTGOBLIN))
+			scavenge_speed = 3 SECONDS
+		if(!do_after(user, scavenge_speed, A))
 			return
 		if(QDELETED(A) || !on)
 			return
@@ -347,7 +353,10 @@
 	if(istype(A, /obj/item/scrap))
 		playsound(user, 'sound/surgery/cautery1.ogg', 100)
 		user.visible_message(span_artery("[user] holds [src] over [A], rearranging it to something more pure."), span_artery("The bogbark's glow begins refining the scrap into ore..."))
-		if(!do_after(user, 4 SECONDS, A))
+		var/scavenge_speed = 6 SECONDS
+		if(HAS_TRAIT(user, TRAIT_LOOTGOBLIN))
+			scavenge_speed = 4 SECONDS
+		if(!do_after(user, scavenge_speed, A))
 			return
 		if(QDELETED(A) || !on)
 			return
