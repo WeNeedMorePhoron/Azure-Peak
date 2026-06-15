@@ -197,6 +197,17 @@
 	Skills: Shields (Journeyman).<br>\
 	Equipment: Satchel, Chain, Rope, Signal Horn, Hunting Knife, Triumph Beer, Scomstone.<br><br>"))
 
+	if(H.mind)
+		var/list/specialties = list(
+			"UNEMPLOYED, SER!!",
+			"A HOMESTEADER, SER!!",
+			"A COOKER-DOC, SER!!",
+			"A THUG, SER!!",
+			"A SCAVENGER, SER!!",
+			"A BATHMAID, SER!!",
+			"ALMOST A SQUIRE, SER!!",
+			"ALMOST AN ARMSMAN, SER!!"
+		)
 		var/specialty_choice = tgui_input_list(H, "Choose your background. (The Levy is not legally obligated to provide tools, equipment, compensation, legal representation, funeral expenses, or refunds. Good luck, and we love you.)", "JOB BEFORE THE LEVY?", specialties)
 		switch(specialty_choice)
 
