@@ -873,6 +873,7 @@ GLOBAL_LIST_INIT(hunted_protected_roles, list(
 /datum/charflaw/wanted/on_mob_creation(mob/user)
 	. = ..()
 	user.adjust_triumphs(2)
+	ADD_TRAIT(user, TRAIT_OUTLAW, "[type]")
 
 /datum/charflaw/wanted/apply_post_equipment(mob/user)
 	..()
