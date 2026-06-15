@@ -27,24 +27,6 @@
 	drop_sound = 'sound/foley/coinphy (1).ogg'
 	grid_width = 32
 	grid_height = 32
-	/// This list is a reference of advjobs permitted, no limitations are given until this is called to validate it. CURRENTLY ONLY USED BY WARDSTONES.
-	var/list/allowed_jobs = list(
-		"Levy",
-		"Watchman",
-		"Sergeant",
-		"Man at Arms",
-		"Knight",
-		"Marshal",
-		"Warden",
-		"Bailiff",
-	)
-
-/obj/item/scomstone/proc/is_authorized()
-	if(!ishuman(loc))
-		return FALSE
-
-	var/mob/living/carbon/human/H = loc
-	return H.advjob in allowed_jobs
 
 /obj/item/scomstone/proc/get_cooldown_text()
 	var/time_left = max(0, cooldown_end_time - world.time)
