@@ -1439,11 +1439,8 @@
 		if(item.sewrepair && item.salvage_result) // We can only salvage objects which can be sewn!
 			var/salvage_time = 70
 			salvage_time = (70 - ((user.get_skill_level(/datum/skill/craft/sewing)) * 10))
-			if(HAS_TRAIT(user, TRAIT_LOOTGOBLIN))
-				salvage_time = round(salvage_time / 2)
 			if(!do_after(user, salvage_time, target = user))
 				return
-
 			if(item.fiber_salvage) //We're getting fiber as base if fiber is present on the item
 				new /obj/item/natural/fibers(get_turf(item))
 			if(istype(item, /obj/item/storage))

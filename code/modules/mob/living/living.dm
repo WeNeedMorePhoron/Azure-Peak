@@ -1458,9 +1458,7 @@
 	if(!who.Adjacent(src))
 		return
 
-	var/lootgoblin_strip = HAS_TRAIT(src, TRAIT_LOOTGOBLIN) && who.stat == DEAD
-
-	if(!enhanced_strip && !lootgoblin_strip)
+	if(!enhanced_strip)
 		who.visible_message(span_warning("[src] tries to remove [who]'s [what.name]."), \
 						span_danger("[src] tries to remove my [what.name]."), null, null, src)
 
@@ -1468,13 +1466,11 @@
 	what.add_fingerprint(src)
 
 	var/strip_delayed = what.strip_delay
-	if(lootgoblin_strip)
-		strip_delayed = 0.5 SECONDS
 	if(enhanced_strip)
 		strip_delayed = 0.1 SECONDS
 
 	if(do_after(src, strip_delayed * surrender_mod, who))
-		if(what && (Adjacent(who) || ((enhanced_strip || lootgoblin_strip) && (get_dist(src, who) <= 3))))
+		if(what && (Adjacent(who) || ((enhanced_strip) && (get_dist(src, who) <= 3))))
 			if(enhanced_strip)
 				enhanced_strip = FALSE
 

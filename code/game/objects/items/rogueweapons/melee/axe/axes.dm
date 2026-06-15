@@ -178,20 +178,6 @@
 	wlength = WLENGTH_NORMAL
 	toolspeed = 2
 
-/obj/item/rogueweapon/stoneaxe/woodcut/wardenpick/bog
-	name = "bogbark hatchet"
-	desc = "A broken Warden's axe that should have stayed broken. Through a mixture of bogbark, scavenged parts, and poor judgment, a Levy managed to make it (barely) usable again."
-	grid_height = 64
-	grid_width = 32
-	icon_state = "wardenpax"
-	color = "#c7844d" // rusty!!!
-	aura_color = "#00ff00" // bogbark doing god's work to keep this together!!
-	smeltresult = /obj/item/ingot/iron // barely any steel left in!!
-	w_class = WEIGHT_CLASS_SMALL // it's more a hatchet than an axe at this point!!
-	wdefense = 0 // not for combat!!!
-	wlength = WLENGTH_NORMAL
-	toolspeed = 2
-
 /obj/item/rogueweapon/stoneaxe/woodcut/wardenpick
 	name = "warden's axe"
 	desc = "A multi-use axe smithed by the Wardens since time immemorial for both its use as a tool and a weapon."
