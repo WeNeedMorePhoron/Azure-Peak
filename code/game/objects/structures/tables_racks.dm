@@ -101,16 +101,18 @@
 				user.stop_pulling()
 	return ..()
 
-/obj/item/proc/try_bakers_peel_table_unload(atom/target, mob/user)
-	return FALSE
-
 /obj/structure/table/attack_right(mob/user)
 	var/obj/item/held = user.get_active_held_item()
-	if(held?.try_bakers_peel_table_unload(src, user))
-		return TRUE
+	var/obj/item/rogueweapon/bakers_peel/peel
+	if(istype(held, /obj/item/rogueweapon/bakers_peel))
+		peel = held
+		if(peel.unload_onto_table(src, user))
+			return TRUE
 	held = user.get_inactive_held_item()
-	if(held?.try_bakers_peel_table_unload(src, user))
-		return TRUE
+	if(istype(held, /obj/item/rogueweapon/bakers_peel))
+		peel = held
+		if(peel.unload_onto_table(src, user))
+			return TRUE
 	return ..()
 
 /obj/structure/table/proc/hideinside(mob/living/user)

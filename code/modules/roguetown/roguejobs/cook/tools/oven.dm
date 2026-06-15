@@ -152,14 +152,16 @@
 	else
 		return ..()
 
-/obj/item/proc/try_bakers_peel_oven_insert(atom/target, mob/user)
-	return FALSE
-
 /obj/machinery/light/rogue/oven/attack_right(mob/user)
 	var/obj/item/held = user.get_active_held_item()
-	if(held?.try_bakers_peel_oven_insert(src, user))
-		return TRUE
+	var/obj/item/rogueweapon/bakers_peel/peel
+	if(istype(held, /obj/item/rogueweapon/bakers_peel))
+		peel = held
+		if(peel.insert_into_oven(src, user))
+			return TRUE
 	held = user.get_inactive_held_item()
-	if(held?.try_bakers_peel_oven_insert(src, user))
-		return TRUE
+	if(istype(held, /obj/item/rogueweapon/bakers_peel))
+		peel = held
+		if(peel.insert_into_oven(src, user))
+			return TRUE
 	return ..()

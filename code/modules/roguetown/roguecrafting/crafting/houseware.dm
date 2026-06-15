@@ -36,7 +36,7 @@
 /datum/crafting_recipe/roguetown/survival/bakers_peel
 	name = "baker's peel"
 	category = "Houseware"
-	result = /obj/item/cooking/bakers_peel
+	result = /obj/item/rogueweapon/bakers_peel
 	reqs = list(
 		/obj/item/grown/log/tree = 1,
 		/obj/item/grown/log/tree/small = 1,

@@ -227,10 +227,7 @@
 	var/wet_flour_amount = min(flour_amount, floor(water_amount / water_per_dough))
 	for(var/i in 1 to wet_flour_amount)
 		var/obj/item/reagent_containers/powder/flour/F = new(T)
-		F.name = "wet flour"
-		F.desc = "Destined for greatness, at your hands."
-		F.water_added = TRUE
-		F.color = "#d9d0cb"
+		F.make_wet()
 
 	var/dry_flour_amount = flour_amount - wet_flour_amount
 	for(var/i in 1 to dry_flour_amount)

@@ -183,9 +183,6 @@
 		if(A.w_class >= WEIGHT_CLASS_BULKY)
 			return TRUE
 
-	if(istype(A, /obj/item/cooking/bakers_peel))
-		return TRUE
-
 	if(!istype(A, /obj/item/clothing/neck/roguetown/psicross)) //snowflake that bypasses the valid_blades that i made. i will commit seppuku eventually
 		return FALSE
 
