@@ -18,7 +18,7 @@
 		to_chat(user, span_info("Their beauty brings a smile to my face, and fortune to my steps!"))
 
 /mob/living/carbon/human/examine(mob/user)
-	. = list()
+	. = list(span_info("ø ------------ ø"))
 	var/observer_privilege = isobserver(user)
 	var/t_He = p_they(TRUE)
 	var/t_his = p_their()
