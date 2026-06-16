@@ -710,6 +710,12 @@
 	AddComponent(/datum/component/armour_filtering/positive, TRAIT_FENCERDEXTERITY)
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_HONORBOUND)
 
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/legacy
+	name = "valorian fencer's cuirass"
+	desc = "A steel cuirass. Do you still remember the first time you tasted blood; that sanguine succor, dribbling from a busted lip?"
+	icon_state = "legacycuirass"
+	item_state = "legacycuirass"
+
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/psydon
 	name = "psydonic chestplate"
 	desc = "A form-fitting steel cuirass with flutings of blessed server. It is much lighter and agile than its contemporaries, but breaks \
