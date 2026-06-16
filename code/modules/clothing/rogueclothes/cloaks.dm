@@ -718,12 +718,17 @@
 /obj/item/clothing/cloak/tabard/stabard/bog/levy
 	name = "levy militia tabard"
 	desc = "A tabard colored in a glorius green of the mighty protectors of the BOG. Except you are not a TRAITOR. Yet."
+	color = CLOTHING_GREEN
+	detail_color = CLOTHING_DARK_GREEN
 
 /obj/item/clothing/cloak/tabard/stabard/bog
 	name = "bogman tabard"
-	desc = "A tabard colored in a glorius green of the mighty protectors of the BOG." // THE BOG DESERVES A BETTER DESCRIPTION!
-	color = CLOTHING_GREEN
-	detail_color = CLOTHING_DARK_GREEN
+	desc = "Once a proud symbol of service to the Bog, now faded, tattered, and rotten. Its owner abandoned their duty long before the cloth began to decay."
+	color = "#7a8138" // faded green
+	detail_color = "#414d26" // ditto
+
+/obj/item/clothing/cloak/tabard/stabard/bog/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_VIBE_FOE, VIBEDESC_FOE)
 
 /obj/item/clothing/cloak/tabard/stabard/grenzelhoft
 	name = "grenzelhoft mercenary tabard"

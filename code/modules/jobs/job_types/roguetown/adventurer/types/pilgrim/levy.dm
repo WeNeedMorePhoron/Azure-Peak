@@ -64,6 +64,7 @@
 	if(H.mind)
 		var/list/weapons = list(
 			"THE FAMILY SWORD (Sword)",
+			"A BIG KNIFE (Dagger)",
 			"THE LEGENDARY BOG-STICK (Club)",
 			"AN OLDE CATTLE LASH (Whip)",
 			"THE FINEST PITCHFORK (Polearm)",
@@ -131,6 +132,13 @@
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
 				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
 
+			if ("A BIG KNIFE (Dagger)")
+				H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				l_hand = /obj/item/rogueweapon/huntingknife/combat/iron
+				backr = /obj/item/rogueweapon/scabbard/sheath
+				gloves = /obj/item/clothing/gloves/roguetown/leather
+				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+
 			if ("THE WHOLE KITCHEN (Mess Kit + Cleaver)")
 				H.adjust_skillrank_up_to(/datum/skill/craft/cooking, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_JOURNEYMAN, TRUE)
@@ -140,6 +148,7 @@
 				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
 
 			if ("THESE GODS-GIVEN FISTS (Unarmed)")
+				ADD_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN, TRAIT_GENERIC)
 				H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				gloves = /obj/item/clothing/gloves/roguetown/bandages/pugilist
 				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
@@ -170,7 +179,7 @@
 	to_chat(H, span_info("<b>A THUG, SER!!</b><br>\
 	Traits: No Pain Stun, Steelhearted. Knows Thieves' Cant.<br>\
 	Final Stats: +2 STR, +1 WIL, +2 CON, -1 SPD, -2 INT, -1 LCK.<br>\
-	Skills: Athletics (Journeyman), Maces (Journeyman).<br>\
+	Skills: Athletics (Journeyman), Maces (Apprentice).<br>\
 	Equipment: Satchel, Cudgel, Signal Horn, Hunting Knife, 2x Triumph Beer.<br><br>"))
 
 	to_chat(H, span_info("<b>A SCAVENGER, SER!!</b><br>\
@@ -282,7 +291,7 @@
 				ADD_TRAIT(H, TRAIT_NOPAINSTUN, TRAIT_GENERIC)
 				ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
 				H.adjust_skillrank_up_to(/datum/skill/misc/athletics, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_APPRENTICE, TRUE)
 				// Final: +2 STR, +1 WIL, +2 CON, -1 SPD, -2 INT, -1 LCK.
 				H.change_stat(STATKEY_STR, 1)
 				H.change_stat(STATKEY_CON, 1)
