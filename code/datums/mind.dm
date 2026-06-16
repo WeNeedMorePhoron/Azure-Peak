@@ -1258,8 +1258,8 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 							var/datum/loadout_item/LI = GLOB.loadout_items_by_name[item]
 							if(!LI?.triumph_cost)
 								I.sellprice = 0
-								I.smeltresult = null
-								I.salvage_result = null
+								I.smeltresult = /obj/item/ash
+								I.salvage_result = /obj/item/ash
 							// Apply metadata (color, custom name, custom desc)
 							if(metadata["color"])
 								I.add_atom_colour(metadata["color"], FIXED_COLOUR_PRIORITY)
