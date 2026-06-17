@@ -727,9 +727,6 @@
 	color = "#7a8138" // faded green
 	detail_color = "#414d26" // ditto
 
-/obj/item/clothing/cloak/tabard/stabard/bog/get_examine_highlight_status()
-	return list(EXAMINEHIGHLIGHT_VIBE_FOE, VIBEDESC_FOE)
-
 /obj/item/clothing/cloak/tabard/stabard/grenzelhoft
 	name = "grenzelhoft mercenary tabard"
 	desc = "A tabard bearing the colors of the Grenzelhoft emperiate mercenary guild."

@@ -37,12 +37,12 @@
 	name = "Medicinal Fish Honeygar, Fermented"
 	category = "Other"
 	bottle_name = "medicinal fish honeygar"
-	bottle_desc = "A Terrorbog-learned variation of the classic medicinal fish vinegar. Honey softens the vinegar's bite into a richer, sweeter savor while hastening fermentation. Easier to drink, yet harder to procure and mass produce."
+	bottle_desc = "A Terrorbog-learned variation of the classic medicinal fish vinegar. Spider's honey softens the vinegar's bite into a richer, sweeter savor while hastening fermentation. Easier to drink, yet harder to procure and mass produce for obvious reasons."
 	reagent_to_brew = /datum/reagent/medicine/healthpot/zarum/bog
 	needed_reagents = list(/datum/reagent/water = 198)
 	needed_items = list(
 		/obj/item/reagent_containers/food/snacks/rogue/meat/fish = 3,
-		/obj/item/reagent_containers/food/snacks/rogue/honey = 1,
+		/obj/item/reagent_containers/food/snacks/rogue/honey/spider = 1,
 		/obj/item/reagent_containers/powder/salt = 1,
 		/obj/item/alch/calendula = 1,
 	)
