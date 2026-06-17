@@ -81,6 +81,7 @@
 	But one thing, at least, is certain: they are quite fashionable."
 
 // Smokey onyxa spectacles summonable lesser varient - with no mechanical effects (seperate cause my third-eye senses potental for the original varient)
+// ALso because your specs aren't the authentic real-deal, its funnier to have them visably a knockoff varient.
 
 /obj/item/clothing/mask/rogue/spectacles/onyxa_lesser_summoned
 	name = "summoned smokey onyxa spectacles"
