@@ -18,7 +18,9 @@
 		to_chat(user, span_info("Their beauty brings a smile to my face, and fortune to my steps!"))
 
 /mob/living/carbon/human/examine(mob/user)
-	. = list(span_info("ø ------------ ø"))
+	. = list()
+	if(!user.client?.prefs?.top_examine)
+		. += span_info("ø ------------ ø")
 	var/observer_privilege = isobserver(user)
 	var/t_He = p_they(TRUE)
 	var/t_his = p_their()
@@ -58,6 +60,9 @@
 
 	if(observer_privilege)
 		obscure_name = FALSE
+
+	if(user.client?.prefs?.top_examine)
+		. += generate_main_examine_body(user, m1, m2, m3, obscure_name, race_name, origin_name, observer_privilege, unknown_names)
 
 	if(user != src && HAS_TRAIT(user, TRAIT_MATTHIOS_EYES) && !HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS))
 		var/atom/item = get_most_expensive()
@@ -751,8 +756,16 @@
 	if(!isnull(trait_exam))
 		. += trait_exam
 
+	if(!user.client?.prefs?.top_examine)
+		. += generate_main_examine_body(user, m1, m2, m3, obscure_name, race_name, origin_name, observer_privilege, unknown_names)
+
 	if(pose_text)
 		. += fieldset_block("Pose", pose_text, "pose_block")
+
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
+/mob/living/carbon/human/proc/generate_main_examine_body(mob/user, m1, m2, m3, obscure_name, race_name, origin_name, observer_privilege, list/unknown_names)
+	. = list()
 	if(name in unknown_names)
 		. += span_info("ø ------------ ø\nThis is <EM>[name]</EM>.")
 	else if(obscure_name && !client?.prefs?.masked_examine)
@@ -1106,8 +1119,6 @@
 	if(length(rumour) || length(noble_gossip))
 		if(!obscure_name || (obscure_name && client?.prefs.masked_examine) || observer_privilege)
 			. += "<a href='?src=[REF(src)];task=view_rumours_gossip;'>Recall Rumours & Gossip</a>"
-
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
 	var/list/dat = list()
