@@ -2357,7 +2357,7 @@
 //
 
 /obj/effect/decal/cleanable/roguerune/god/psydon
-	name = "Rune of Psydon"
+	name = "Rune of Perseverance"
 	desc = "A holy rune of the Weeping God. </br> <i>It depicts His holy symbol, yet nothing stirs within you.</i>"
 	icon_state = "psydon_chalky"
 	allowed_patron = /datum/patron/old_god
