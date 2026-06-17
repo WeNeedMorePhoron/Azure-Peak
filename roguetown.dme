@@ -2221,6 +2221,7 @@
 #include "code\modules\jobs\job_types\roguetown\sidefolk\vagabond\goatherd.dm"
 #include "code\modules\jobs\job_types\roguetown\sidefolk\vagabond\runner.dm"
 #include "code\modules\jobs\job_types\roguetown\sidefolk\vagabond\the_original.dm"
+#include "code\modules\jobs\job_types\roguetown\sidefolk\vagabond\thrall.dm"
 #include "code\modules\jobs\job_types\roguetown\sidefolk\vagabond\unraveled.dm"
 #include "code\modules\jobs\job_types\roguetown\sidefolk\vagabond\wanted.dm"
 #include "code\modules\keybindings\bindings_atom.dm"
