@@ -2159,13 +2159,6 @@
 /obj/item/clothing/head/roguetown/helmet/baotha/Initialize()
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "ARMOR")
-	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
-
-/obj/item/clothing/head/roguetown/helmet/baotha/dropped(mob/living/carbon/human/user)
-	. = ..()
-	if(QDELETED(src))
-		return
-	qdel(src)
 
 /obj/item/clothing/head/roguetown/helmet/baotha/get_examine_highlight_status()
 	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)
