@@ -78,7 +78,8 @@ SUBSYSTEM_DEF(statpanels)
 			target.stat_panel.send_message("remove_stats_tab")
 			target.statbrowser_stats_shown = FALSE
 
-		if(target.mob?.listed_turf || target.listedturf_sig)
+		if((target.mob?.listed_turf || target.listedturf_sig) && (target.listedturf_dirty || (num_fires % default_wait == 0)))
+			target.listedturf_dirty = FALSE
 			target.update_listed_turf()
 
 		if(!target.holder)
@@ -268,6 +269,7 @@ SUBSYSTEM_DEF(statpanels)
 				LAZYREMOVE(T.panel_listeners, src)
 			mob?.listed_turf = null
 			listedturf_sig = null
+			clear_listedturf_appearances()
 			stat_panel.send_message("remove_listedturf")
 		return
 	if(stat_tab == "[T]" && listedturf_sig != listedturf_signature(T))
@@ -277,6 +279,7 @@ SUBSYSTEM_DEF(statpanels)
 	var/turf/T = mob?.listed_turf
 	if(!T)
 		return
+	clear_listedturf_appearances()
 	listedturf_sig = listedturf_signature(T)
 	var/list/overrides = list()
 	for(var/image/override_image in images)
@@ -302,10 +305,20 @@ SUBSYSTEM_DEF(statpanels)
 	if(!thing.icon)
 		return null
 	if(ismob(thing) || length(thing.overlays) > 2 || !isfile(thing.icon))
-		var/atom/movable/screen/container = mob?.send_appearance(copy_appearance_filter_overlays(thing.appearance))
+		var/atom/movable/screen/container = mob?.send_appearance(copy_appearance_filter_overlays(thing.appearance), 0)
 		if(container)
+			LAZYADD(listedturf_appearances, container)
 			return "\ref[container]"
 	return "\ref[thing.icon]?state=[thing.icon_state]&dir=[thing.dir]"
+
+/client/proc/clear_listedturf_appearances()
+	if(!LAZYLEN(listedturf_appearances))
+		return
+	var/datum/hud/our_hud = mob?.hud_used
+	if(our_hud?.vis_holder)
+		for(var/atom/movable/screen/container as anything in listedturf_appearances)
+			our_hud.vis_holder.vis_contents -= container
+	listedturf_appearances = null
 
 /proc/statpanel_strip_article(name)
 	if(findtext(name, "the ") == 1)
