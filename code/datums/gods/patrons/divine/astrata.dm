@@ -1,6 +1,6 @@
 /datum/patron/divine/astrata
 	name = "Astrata"
-	domain = "Goddess of the Sun, Day, and Order"
+	domain = "Goddess of the Sun, Dae, and Order"
 	desc = "The Tyrant of the Ten, sister and rival to Noc - and the eldest of them all. Her radiance keeps the evils at bay during the dae. Nite, however, is a different tale."
 	worshippers = "Zealots, Farmers, and the Noble-Hearted"
 	mob_traits = list(TRAIT_APRICITY)
