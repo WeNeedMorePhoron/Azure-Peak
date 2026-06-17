@@ -81,7 +81,7 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 #define QUEST_BANDS_BOUNTY 4
 #define QUEST_BANDS_RECOVERY 2
 
-#define QUEST_REWARD_GLOBAL_MULT 0.8
+#define QUEST_REWARD_GLOBAL_MULT 0.75
 
 // Flat reward base
 #define QUEST_REWARD_BASE_FLAT 10
@@ -171,6 +171,6 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 #define BLOCKADE_RECALL_WINDOW_DS (15 MINUTES)
 
 #define BLOCKADE_TOTAL_WAVES 3
-#define BLOCKADE_WAVE_1_TP 90
-#define BLOCKADE_WAVE_2_TP 90
-#define BLOCKADE_WAVE_3_TP 120
+#define BLOCKADE_WAVE_1_TP 120
+#define BLOCKADE_WAVE_2_TP 120
+#define BLOCKADE_WAVE_3_TP 150
