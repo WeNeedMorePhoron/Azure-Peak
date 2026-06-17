@@ -1,5 +1,6 @@
-/// Listed-turf lag guard: hard-cap total entries.
-#define STATBROWSER_TURF_HARD_CAP 100
+/// Listed-turf lag guard: hard-cap total entries shown.
+#define STATBROWSER_TURF_HARD_CAP 250
+#define STATBROWSER_TURF_ICON_CAP 25
 
 SUBSYSTEM_DEF(statpanels)
 	name = "Stat Panels"
@@ -297,7 +298,8 @@ SUBSYSTEM_DEF(statpanels)
 		if(shown >= STATBROWSER_TURF_HARD_CAP)
 			data += list(list("...more contents not shown", null, null))
 			break
-		data += list(list(statpanel_strip_article("[thing]"), REF(thing), listedturf_icon(thing)))
+		var/thing_icon = (shown < STATBROWSER_TURF_ICON_CAP) ? listedturf_icon(thing) : null
+		data += list(list(statpanel_strip_article("[thing]"), REF(thing), thing_icon))
 		shown++
 	stat_panel.send_message("update_listedturf", data)
 
@@ -351,3 +353,4 @@ SUBSYSTEM_DEF(statpanels)
 	user.client.Click(src, loc, null, list2params(paramslist))
 
 #undef STATBROWSER_TURF_HARD_CAP
+#undef STATBROWSER_TURF_ICON_CAP
