@@ -665,11 +665,10 @@
 /datum/status_effect/buff/campfire_stamina/tick()
 	if(HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
-	var/stamheal = healing_on_tick
-	if(!owner.cmode)
-		stamheal *= 2
-	owner.energy_add(stamheal)
 	owner.adjust_bodytemperature(8)
+	if(!owner.resting)
+		return
+	owner.energy_add(healing_on_tick * 2)
 
 /datum/status_effect/buff/campfire_stamina/on_remove()
 	owner.remove_filter(CAMPFIRE_BASE_FILTER)
