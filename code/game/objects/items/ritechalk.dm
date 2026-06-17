@@ -128,7 +128,7 @@
 			to_chat(user,span_cultsmall("I begin inscribing the rune of Her addiction..."))
 			if(do_after(user, 30, src))
 				playsound(src, 'sound/foley/scribble.ogg', 40, TRUE)
-				new /obj/effect/decal/cleanable/roguerune/god/baotha(step_turf)
+				new /obj/structure/ritualcircle/baotha(step_turf)
 		if("Rune of Psydon")
 			to_chat(user,span_cultsmall("I begin inscribing the rune of His presence..."))
 			if(do_after(user, 30, src))
