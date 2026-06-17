@@ -220,8 +220,7 @@
 		var/specialty_choice = tgui_input_list(H, "Choose your background. (The Levy is not legally obligated to provide tools, equipment, compensation, legal representation, funeral expenses, or refunds. Good luck, and we love you.)", "JOB BEFORE THE LEVY?", specialties)
 		switch(specialty_choice)
 
-			if("UNEMPLOYED, SER!!") // the real hero. +1 LUC, 4 beer packs, no gear, full balls.
-				// Final: +1 CON, +1 STR, +1 WIL, -1 INT, +1 LCK.
+			if("UNEMPLOYED, SER!!") // the real hero. 4 beer packs, no gear, full balls.
 				H.change_stat(STATKEY_LCK, 1)
 				belt = /obj/item/storage/belt/rogue/leather
 				backl = /obj/item/storage/backpack/rogue/satchel
@@ -236,7 +235,6 @@
 				ADD_TRAIT(H, TRAIT_HOMESTEAD_EXPERT, TRAIT_GENERIC)
 				ADD_TRAIT(H, TRAIT_SMITHING_EXPERT, TRAIT_GENERIC)
 				ADD_TRAIT(H, TRAIT_SURVIVAL_EXPERT, TRAIT_GENERIC)
-				// Final: +3 INT, +1 STR, +1 WIL, +1 SPD, -1 LCK.
 				H.change_stat(STATKEY_INT, 4)
 				H.change_stat(STATKEY_SPD, 1)
 				H.change_stat(STATKEY_LCK, -1)
@@ -264,7 +262,6 @@
 				H.adjust_skillrank_up_to(/datum/skill/misc/medicine, SKILL_LEVEL_EXPERT, TRUE) // so secular diagnose gives better info after (if) they hit master
 				H.adjust_skillrank_up_to(/datum/skill/craft/cooking, SKILL_LEVEL_JOURNEYMAN, TRUE) // brew fish potions for field-healing, ser!!!
 				H.adjust_skillrank_up_to(/datum/skill/craft/alchemy, SKILL_LEVEL_APPRENTICE, TRUE) // this is for drug-crafting
-				// Final: +3 INT, +2 SPD, -1 LCK.
 				H.change_stat(STATKEY_INT, 4)
 				H.change_stat(STATKEY_SPD, 2)
 				H.change_stat(STATKEY_LCK, -1)
@@ -292,7 +289,6 @@
 				ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
 				H.adjust_skillrank_up_to(/datum/skill/misc/athletics, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_APPRENTICE, TRUE)
-				// Final: +2 STR, +1 WIL, +2 CON, -1 SPD, -2 INT, -1 LCK.
 				H.change_stat(STATKEY_STR, 1)
 				H.change_stat(STATKEY_CON, 1)
 				H.change_stat(STATKEY_SPD, -1)
@@ -314,7 +310,6 @@
 				H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/craft/sewing, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/craft/smelting, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				// Final: +1 STR, +3 SPD, +1 WIL, -3 CON, -1 INT, -1 LCK.
 				H.change_stat(STATKEY_CON, -4)
 				H.change_stat(STATKEY_SPD, 3)
 				H.change_stat(STATKEY_LCK, -1)
@@ -331,7 +326,7 @@
 					/obj/item/rogueore/coal = 1,
 					)
 
-			if("A BATHMAID, SER!!") // requested, basically copying 'some' qualities from the bathmaid, but not all
+			if("A BATHMAID, SER!!") // requested, basically copying 'some' qualities from the bathmaid, but not all, idk what riding will do for them but it's funny to imagine a bathmaiden on a hog with a whip, as people commented
 				H.grant_language(/datum/language/thievescant)
 				ADD_TRAIT(H, TRAIT_EMPATH, TRAIT_GENERIC)
 				ADD_TRAIT(H, TRAIT_GOODLOVER, TRAIT_GENERIC)
@@ -340,7 +335,6 @@
 				H.adjust_skillrank_up_to(/datum/skill/misc/lockpicking, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/misc/sneaking, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/misc/riding, SKILL_LEVEL_MASTER, TRUE) // sigh
-				// Final: +2 SPD, -2 INT, +1 LCK.
 				H.change_stat(STATKEY_SPD, 2)
 				H.change_stat(STATKEY_INT, -1)
 				H.change_stat(STATKEY_CON, -1)
@@ -357,10 +351,9 @@
 					/obj/item/rope = 1,
 					)
 
-			if("ALMOST A SQUIRE, SER!!") // probably should start richer to show that this is prolly the most prestigious
+			if("ALMOST A SQUIRE, SER!!") // probably should start richer to show that this is prolly the most prestigious among the group
 				ADD_TRAIT(H, TRAIT_SQUIRE_REPAIR, TRAIT_GENERIC)
 				ADD_TRAIT(H, TRAIT_EXPERT_HUNTER, TRAIT_GENERIC)
-				// Final: +1 STR, +1 CON, +1 SPD, +1 WIL, -1 PER, -1 LCK.
 				H.change_stat(STATKEY_SPD, 1)
 				H.change_stat(STATKEY_PER, -1)
 				H.change_stat(STATKEY_LCK, -1)
@@ -380,7 +373,6 @@
 				ADD_TRAIT(H, TRAIT_GUARDSMAN, TRAIT_GENERIC)
 				ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				// Final: +1 STR, +2 CON, +2 WIL, -2 PER, -1 LCK.
 				H.change_stat(STATKEY_CON, 1)
 				H.change_stat(STATKEY_WIL, 1)
 				H.change_stat(STATKEY_PER, -2)
