@@ -213,7 +213,7 @@
 /datum/quest/proc/calculate_reward(turf/origin_turf, turf/target_turf)
 	var/base = get_base_reward()
 	var/additional = get_additional_reward(origin_turf, target_turf)
-	return base + additional + get_difficulty_bonus()
+	return round((base + additional + get_difficulty_bonus()) * QUEST_REWARD_GLOBAL_MULT)
 
 /// Flat reward sweetener keyed off difficulty, applied to every quest type at the reward chokepoint.
 /datum/quest/proc/get_difficulty_bonus()
