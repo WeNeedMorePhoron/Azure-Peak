@@ -2268,7 +2268,7 @@
 /obj/item/clothing/wrists/roguetown/bracers/leather/baotha/Initialize()
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "BRACERS")
-	add_filter(FORCE_FILTER, 2, list("type" = "outline", "color" = "#720f62", "alpha" = 120, "size" = 1))
+	/*add_filter(FORCE_FILTER, 2, list("type" = "outline", "color" = "#720f62", "alpha" = 120, "size" = 1)) // A custom enchanting glow, used for Baothan items without custom sprites.*/
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
 /obj/item/clothing/wrists/roguetown/bracers/leather/baotha/dropped(mob/living/carbon/human/user)
@@ -2285,17 +2285,17 @@
 	desc = "Only did Belladona's haze clear, once She heard Eora's gasps and Ravox's fright; what else could She've done besides fleeing the heavens?"
 	armor = ARMOR_PADDED
 	color = "#524756"
-	//icon_state = "baothakilt"
+	//icon_state = "baothaskirt"
 	armor_class = ARMOR_CLASS_LIGHT
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
-	body_parts_covered = GROIN |LEGS
+	body_parts_covered = GROIN | LEGS
 	smeltresult = /obj/item/ingot/component/baotha
 
 /obj/item/clothing/under/roguetown/skirt/baotha/Initialize()
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "SKIRT")
-	add_filter(FORCE_FILTER, 2, list("type" = "outline", "color" = "#720f62", "alpha" = 120, "size" = 1))
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+	/*add_filter(FORCE_FILTER, 2, list("type" = "outline", "color" = "#720f62", "alpha" = 120, "size" = 1)) // A custom enchanting glow, used for Baothan items without custom sprites.*/
 
 /obj/item/clothing/under/roguetown/skirt/baotha/dropped(mob/living/carbon/human/user)
 	. = ..()
@@ -2385,7 +2385,7 @@
 	if(!do_after(user, 4 SECONDS))
 		return FALSE
 
-	loc.visible_message(span_userdanger("A ghostly, icy silver light visibly drains from [user]'s hand, surging into [weapon]—the very essence of their Steadfastness!"))
+	loc.visible_message(span_userdanger("A ghostly, icy silver light visibly drains from [user]'s hand, surging into [weapon] — the very essence of their steadfastness!"))
 	
 	if(!do_after(user, 4 SECONDS))
 		return FALSE
