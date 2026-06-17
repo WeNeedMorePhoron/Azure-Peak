@@ -14,14 +14,13 @@
 	var/best_force = 0
 	var/martial_art = new/datum/martial_art
 	var/resisting = FALSE
-	var/pickpocketing = FALSE
 	var/disposing_body = FALSE
 	var/obj/machinery/disposal/bodyDisposal = null
 	var/next_battle_screech = 0
 	var/battle_screech_cooldown = 50
 
 /mob/living/carbon/spirit/proc/IsStandingStill()
-	return resisting || pickpocketing || disposing_body
+	return resisting || disposing_body
 
 // blocks
 // taken from /mob/living/carbon/human/interactive/

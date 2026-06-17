@@ -14,14 +14,13 @@
 	var/best_force = 0
 	var/martial_art = new/datum/martial_art
 	var/resisting = FALSE
-	var/pickpocketing = FALSE
 	var/disposing_body = FALSE
 	var/obj/machinery/disposal/bodyDisposal = null
 	var/next_battle_screech = 0
 	var/battle_screech_cooldown = 50
 
 /mob/living/carbon/monkey/proc/IsStandingStill()
-	return resisting || pickpocketing || disposing_body
+	return resisting || disposing_body
 
 // blocks
 // taken from /mob/living/carbon/human/interactive/
@@ -147,12 +146,6 @@
 						equip_item(pickupTarget)
 						pickupTarget = null
 						pickupTimer = 0
-					else if(ismob(pickupTarget.loc)) // in someones hand
-						var/mob/M = pickupTarget.loc
-						if(!pickpocketing)
-							pickpocketing = TRUE
-							M.visible_message("<span class='warning'>[src] starts trying to take [pickupTarget] from [M]!</span>", "<span class='danger'>[src] tries to take [pickupTarget]!</span>")
-							INVOKE_ASYNC(src, PROC_REF(pickpocket), M)
 			return TRUE
 
 	switch(mode)
@@ -282,20 +275,6 @@
 			return TRUE
 
 	return IsStandingStill()
-
-/mob/living/carbon/monkey/proc/pickpocket(mob/M)
-	if(do_mob(src, M, MONKEY_ITEM_SNATCH_DELAY) && pickupTarget)
-		for(var/obj/item/I in M.held_items)
-			if(I == pickupTarget)
-				M.visible_message("<span class='danger'>[src] snatches [pickupTarget] from [M].</span>", "<span class='danger'>[src] snatched [pickupTarget]!</span>")
-				if(M.temporarilyRemoveItemFromInventory(pickupTarget))
-					if(!QDELETED(pickupTarget) && !equip_item(pickupTarget))
-						pickupTarget.forceMove(drop_location())
-				else
-					M.visible_message("<span class='danger'>[src] tried to snatch [pickupTarget] from [M], but failed!</span>", "<span class='danger'>[src] tried to grab [pickupTarget]!</span>")
-	pickpocketing = FALSE
-	pickupTarget = null
-	pickupTimer = 0
 
 /mob/living/carbon/monkey/proc/back_to_idle()
 

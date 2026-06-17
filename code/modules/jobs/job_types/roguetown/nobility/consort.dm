@@ -62,7 +62,6 @@
 		/obj/item/storage/keyring/lord = 1,
 		/obj/item/roguekey/skeleton = 1
 	)
-	H.adjust_skillrank(/datum/skill/misc/stealing, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/misc/lockpicking, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/misc/tracking, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/misc/sneaking, 4, TRUE)

@@ -121,7 +121,7 @@
 
 /datum/runeritual/enchanting/thievery
 	name = "Thievery"
-	desc = "Better pickpocketting and lockpicks!"
+	desc = "Better lockpicks!"
 	blacklisted = FALSE
 	tier = 2
 	required_atoms = list(/obj/item/rogueore/cinnabar = 1, /obj/item/paper/scroll = 1, /obj/item/magic/infernal/fang = 2)

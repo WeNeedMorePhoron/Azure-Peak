@@ -223,7 +223,7 @@ T1 Enchantments below here*/
 
 /obj/item/enchantmentscroll/superior/thievery
 	name = "enchanting scroll of nimble fingers"
-	desc = "A scroll imbued with an enchantment of thievery. Helps you steal and pick locks."
+	desc = "A scroll imbued with an enchantment of nimble fingers. Helps you pick locks."
 	component = /datum/magic_item/superior/thievery
 
 /obj/item/enchantmentscroll/superior/thievery/attack_obj(obj/item/O, mob/living/user)

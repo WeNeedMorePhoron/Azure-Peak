@@ -233,7 +233,6 @@
 #define STATS_NYMPHOMANIACS "nymphomaniacs"
 
 //Matthios
-#define STATS_ITEMS_PICKPOCKETED "items_pickpocketed"
 #define STATS_SHRINE_VALUE "shrine_value"
 #define STATS_GREEDY_PEOPLE "tomb_deaths"
 #define STATS_LOCKS_PICKED "locks_picked"
@@ -276,7 +275,6 @@ GLOBAL_LIST_INIT(azure_round_stats, list(
 	STATS_TREES_CUT = 0,
 	STATS_PRAYERS_MADE = 0,
 	STATS_FISH_CAUGHT = 0,
-	STATS_ITEMS_PICKPOCKETED = 0,
 	STATS_MASTERWORKS_FORGED = 0,
 	STATS_TAXES_COLLECTED = 0,
 	STATS_BANDITRY_LOSSES = 0,
@@ -511,7 +509,6 @@ GLOBAL_LIST_EMPTY(patron_follower_counts)
 
 // Featured stats of the round
 #define FEATURED_STATS_TREE_FELLERS "tree_fellers"
-#define FEATURED_STATS_THIEVES "thieves"
 #define FEATURED_STATS_ALCHEMISTS "alchemists"
 #define FEATURED_STATS_TAX_PAYERS "tax_payers"
 #define FEATURED_STATS_ALCOHOLICS "alcohol_drinkers"
@@ -614,11 +611,6 @@ GLOBAL_LIST_INIT(featured_stats, list(
 		"name" = "TOP Emotionals",
 		"color" = "#48505e", // im blue da ba de ba da die
 		"entires" = list()
-	),
-	FEATURED_STATS_THIEVES = list(
-		"name" = "TOP Thieves",
-		"color" = "#6e4a25",
-		"entries" = list()
 	),
 	FEATURED_STATS_ALCOHOLICS = list(
 		"name" = "TOP Alcoholics",
