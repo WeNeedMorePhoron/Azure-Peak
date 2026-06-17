@@ -2261,7 +2261,6 @@
 /obj/item/clothing/wrists/roguetown/bracers/leather/baotha/Initialize()
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "BRACERS")
-	/*add_filter(FORCE_FILTER, 2, list("type" = "outline", "color" = "#720f62", "alpha" = 120, "size" = 1)) // A custom enchanting glow, used for Baothan items without custom sprites.*/
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
 /obj/item/clothing/wrists/roguetown/bracers/leather/baotha/dropped(mob/living/carbon/human/user)
@@ -2288,7 +2287,6 @@
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "SKIRT")
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
-	/*add_filter(FORCE_FILTER, 2, list("type" = "outline", "color" = "#720f62", "alpha" = 120, "size" = 1)) // A custom enchanting glow, used for Baothan items without custom sprites.*/
 
 /obj/item/clothing/under/roguetown/skirt/baotha/dropped(mob/living/carbon/human/user)
 	. = ..()
