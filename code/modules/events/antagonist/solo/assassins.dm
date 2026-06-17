@@ -9,7 +9,6 @@
 	antag_flag = ROLE_ASSASSIN
 	shared_occurence_type = SHARED_MINOR_THREAT
 	storyteller_antag_flags = STORYTELLER_ANTAG_ROUNDSTART | STORYTELLER_ANTAG_SOFT
-	storyteller_guarantee_flags = STORYTELLER_FAVOR_ASSASSIN
 
 	restricted_roles = list(
 		"Grand Duke",

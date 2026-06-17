@@ -10,7 +10,6 @@
 	antagpanel_category = "Dreamwalker"
 	job_rank = ROLE_DREAMWALKER
 	storyteller_antag_flags = STORYTELLER_ANTAG_SOFT
-	storyteller_favor_flags = STORYTELLER_FAVOR_DREAMWALKER
 	confess_lines = list(
 		"MY VISION ABOVE ALL!",
 		"I'LL TAKE YOU TO MY REALM!",
