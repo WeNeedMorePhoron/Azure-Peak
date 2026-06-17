@@ -520,8 +520,6 @@ function draw_listedturf() {
     row.onmousedown = clickfunc;
     row.oncontextmenu = suppress;
     if (iconsrc) {
-      // Always refresh with the latest valid src instead of writing once, so the
-      // cache can never keep serving a ref that has since expired server-side.
       if (part[2]) {
         storedimages[part[1]] = part[2];
       }
@@ -544,8 +542,6 @@ function draw_listedturf() {
 function remove_listedturf() {
   removePermanentTab(turfname);
   checkStatusTab();
-  // Drop the icon cache when the turf panel closes; it is keyed by atom ref and
-  // would otherwise grow for the whole session (the panel is a persistent tab).
   storedimages = [];
   if (current_tab == turfname) {
     tab_change(defaultTab);
