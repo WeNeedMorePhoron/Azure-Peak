@@ -99,7 +99,7 @@
 		if("Guiding Light") // User selects Guiding Light, begins the stuff for it
 			if(!do_after(user, 5 SECONDS)) // just flavor stuff before activation
 				return
-			user.say("I beseech the guidance of the Sun!!")
+			user.say("I beseech the guidance of the Sun!!") // a
 			if(!do_after(user, 5 SECONDS))
 				return
 			user.say("To bring Order to a world of naught!!")
