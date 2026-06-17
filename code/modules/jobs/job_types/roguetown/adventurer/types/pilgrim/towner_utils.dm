@@ -102,7 +102,10 @@
 				var/mob/living/L = A
 
 				if(L.stat != CONSCIOUS)
-					msg = "[capitalize(contact_desc)] down and out, [dist] [dist == 1 ? "pace" : "paces"] [dir_text]!"
+					if(L.resting)
+						msg = "[capitalize(contact_desc)], DOWN and OUT, [dist] [dist == 1 ? "pace" : "paces"] [dir_text]!"
+				else if(L.resting)
+					msg = "[capitalize(contact_desc)], DOWN, [dist] [dist == 1 ? "pace" : "paces"] [dir_text]!"
 				else
 					msg = "[capitalize(contact_desc)], [dist] [dist == 1 ? "pace" : "paces"] [dir_text]!"
 
