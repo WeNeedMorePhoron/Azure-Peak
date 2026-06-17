@@ -123,17 +123,13 @@
 #define BLOCKADE_SCROLL_PLEDGE_COST 500
 #define BLOCKADE_SCROLL_REWARD 500
 
-// Mid-round replenishment. The roundstart batch is the only blockade source otherwise, so the
-// field empties out once it's cleared. A daily roll tops it back up toward the floor. The caps
-// below keep it from becoming a treadmill or forcing the Crown to commission a defense in the
-// round's final days, when there's no time to clear the resulting trade drag.
-#define BLOCKADE_REPLENISH_FLOOR 1                 // only roll when fewer than this many blockades are active
-#define BLOCKADE_REPLENISH_BUDGET_BASE 1           // replenishment blockades allowed per round before pop scaling
-#define BLOCKADE_REPLENISH_BUDGET_PER_PLAYER 0.05  // +1 per 20 active players...
-#define BLOCKADE_REPLENISH_BUDGET_MAX 2            // ...clamped here, so a busy round tops up twice, never more
-#define BLOCKADE_REPLENISH_FIRST_DAY 2             // roundstart seeds day 0; give the openers time before topping up
-#define BLOCKADE_REPLENISH_LAST_DAY 5              // round ends ~day 7; nothing new in the final two days
-#define BLOCKADE_REPLENISH_DAILY_CHANCE 50         // % chance to fire on an eligible day, so timing isn't predictable
+#define BLOCKADE_REPLENISH_FLOOR 1
+#define BLOCKADE_REPLENISH_BUDGET_BASE 1
+#define BLOCKADE_REPLENISH_BUDGET_PER_PLAYER 0.02  // +1 per 50 active players
+#define BLOCKADE_REPLENISH_BUDGET_MAX 2
+#define BLOCKADE_REPLENISH_FIRST_DAY 2
+#define BLOCKADE_REPLENISH_LAST_DAY 5 // No last minute blockade
+#define BLOCKADE_REPLENISH_DAILY_CHANCE 50 // Chance to fire on an eligible day
 
 #define COMMISSION_BONUS_PAY_NONE 0
 #define COMMISSION_BONUS_PAY_LIGHT 1

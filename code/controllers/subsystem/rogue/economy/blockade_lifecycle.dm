@@ -91,9 +91,6 @@
 		if(!roll_blockade())
 			break
 
-/// Daily top-up so blockade content doesn't dry up after the roundstart batch is cleared. Fires
-/// from daily_tick. Gated so it only refills an emptied field, within a pop-scaled per-round budget,
-/// inside a day window that keeps the Crown from being forced out in the round's final days.
 /datum/controller/subsystem/economy/proc/tick_blockade_replenish()
 	if(GLOB.dayspassed < BLOCKADE_REPLENISH_FIRST_DAY || GLOB.dayspassed > BLOCKADE_REPLENISH_LAST_DAY)
 		return
