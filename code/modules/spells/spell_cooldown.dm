@@ -146,7 +146,7 @@
 	 * Total drain is: ([charge_time] / [process_time]) * charge_drain
 	 * process_time is currently 4 from SSfastprocess.
 	 */
-	var/charge_drain = 0
+	var/charge_drain = 1
 	/// Time to charge.
 	var/charge_time = 0
 	/// Slowdown while charging.
