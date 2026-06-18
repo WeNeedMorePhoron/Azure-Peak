@@ -73,7 +73,7 @@
 			"A GOOD SHOVEL (Axe)",
 			"THE MINER'S PICKAXE (Pickaxe)",
 			"MINE SCYTHE (Scythe)",
-			"THE RELIABLE VOLFBEATER (Staff)",
+			"THE RELIABLE VOLFKILLER (Staff)",
 			"THE WHOLE KITCHEN (Mess Kit + Cleaver)",
 			"THESE GODS-GIVEN FISTS (Unarmed)",
 		)
