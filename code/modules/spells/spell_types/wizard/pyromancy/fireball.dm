@@ -74,6 +74,9 @@
 		qdel(src)
 		return BULLET_ACT_BLOCK
 
+	if(out_of_effective_range())
+		return
+
 	if(M)
 		M.adjust_fire_stacks(1)
 		M.ignite_mob()
