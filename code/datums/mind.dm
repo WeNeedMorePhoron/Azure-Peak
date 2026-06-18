@@ -409,6 +409,8 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		aspect.apply_variant(src, variant)
 	else if(has_mastery)
 		aspect.apply_variant(src, "mastery")
+	if(max_majors > 0 || max_minors > 0 && current)
+		ADD_TRAIT(current, TRAIT_LEYLINE_ATTUNEMENT, TRAIT_GENERIC)
 	ensure_mage_basics()
 	return TRUE
 

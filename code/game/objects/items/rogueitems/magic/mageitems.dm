@@ -70,6 +70,9 @@
 	rune_to_scribe = pickrune
 	if(rune_to_scribe == null)
 		return
+	if(ispath(rune_to_scribe, /obj/effect/decal/cleanable/roguerune/arcyne/enchantment) && !HAS_TRAIT(user, TRAIT_LEYLINE_ATTUNEMENT))
+		to_chat(user, span_warning("I lack the attunement to inscribe an imbuement array."))
+		return
 	var/turf/Turf = get_turf(user)
 	if(locate(/obj/effect/decal/cleanable/roguerune) in Turf)
 		to_chat(user, span_cult("There is already a rune here."))
@@ -145,6 +148,9 @@
 	pickrune = GLOB.rune_types[runenameinput]
 	rune_to_scribe = pickrune
 	if(rune_to_scribe == null)
+		return
+	if(ispath(rune_to_scribe, /obj/effect/decal/cleanable/roguerune/arcyne/enchantment) && !HAS_TRAIT(user, TRAIT_LEYLINE_ATTUNEMENT))
+		to_chat(user, span_warning("I lack the leyline attunement to inscribe an imbuement array."))
 		return
 	var/turf/Turf = get_turf(user)
 	if(locate(/obj/effect/decal/cleanable/roguerune) in Turf)
