@@ -12,10 +12,6 @@
 	},
 /turf/open/floor/rogue/dirt,
 /area/rogue/outdoors)
-"aF" = (
-/obj/structure/roguemachine/crier,
-/turf/open/floor/rogue/tile/harem,
-/area/rogue/indoors)
 "aO" = (
 /obj/item/millstone{
 	pixel_y = 12
@@ -264,10 +260,6 @@
 /area)
 "im" = (
 /obj/structure/table/vtable/v2,
-/obj/structure/broadcast_horn/loudmouth/guest{
-	pixel_y = 18;
-	dir = 4
-	},
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors)
 "iq" = (
@@ -554,11 +546,6 @@
 /area/rogue/indoors)
 "pV" = (
 /obj/structure/table/vtable,
-/obj/structure/broadcast_horn/loudmouth{
-	pixel_y = 16;
-	dir = 8;
-	broadcaster_tag = "Golden Mouth"
-	},
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors)
 "qI" = (
@@ -1098,11 +1085,6 @@
 /area/rogue/indoors/town/manor)
 "DG" = (
 /obj/machinery/light/rogue/candle/r,
-/obj/structure/broadcast_horn/paid{
-	dir = 8;
-	pixel_y = 12;
-	broadcaster_tag = "Test Broadcaster 2"
-	},
 /obj/structure/table/wood,
 /turf/open/floor/rogue/tile/harem,
 /area/rogue/indoors)
@@ -1742,11 +1724,6 @@
 /turf/open/floor/rogue/ruinedwood/herringbone,
 /area/rogue/indoors)
 "WY" = (
-/obj/structure/broadcast_horn/paid{
-	dir = 4;
-	pixel_y = 12;
-	broadcaster_tag = "Test Broadcaster 1"
-	},
 /obj/machinery/light/rogue/candle/l,
 /obj/structure/table/wood,
 /turf/open/floor/rogue/tile/harem,
@@ -1963,7 +1940,7 @@ AO
 zo
 nk
 Nb
-aF
+Ey
 zo
 WY
 zo
