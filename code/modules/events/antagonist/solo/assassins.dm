@@ -29,7 +29,6 @@
 		"Hand",
 		"Steward",
 		"Head Physician",
-		"Town Crier",
 		"Captain",
 		"Archivist",
 		"Knight",
