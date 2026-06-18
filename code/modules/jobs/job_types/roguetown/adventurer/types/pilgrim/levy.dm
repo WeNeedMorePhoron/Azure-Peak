@@ -66,12 +66,14 @@
 			"THE FAMILY SWORD (Sword)",
 			"A BIG KNIFE (Dagger)",
 			"THE LEGENDARY BOG-STICK (Club)",
+			"THE BOGMAN'S BOW (Sling)",
 			"AN OLDE CATTLE LASH (Whip)",
 			"THE FINEST PITCHFORK (Polearm)",
 			"MINE THRESHER (Flail)",
 			"A GOOD SHOVEL (Axe)",
 			"THE MINER'S PICKAXE (Pickaxe)",
 			"MINE SCYTHE (Scythe)",
+			"THE RELIABLE VOLFBEATER (Staff)",
 			"THE WHOLE KITCHEN (Mess Kit + Cleaver)",
 			"THESE GODS-GIVEN FISTS (Unarmed)",
 		)
@@ -145,6 +147,20 @@
 				r_hand = /obj/item/storage/gadget/messkit
 				l_hand = /obj/item/rogueweapon/huntingknife/chefknife/cleaver
 				gloves = /obj/item/clothing/gloves/roguetown/leather
+				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+
+			if ("THE BOGMAN'S BOW (Sling)")
+				H.adjust_skillrank_up_to(/datum/skill/combat/slings, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				gloves = /obj/item/clothing/gloves/roguetown/leather
+				r_hand = /obj/item/quiver/sling/iron
+				l_hand = /obj/item/quiver/sling/iron
+				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/sling/wood/bog
+				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+
+			if ("THE RELIABLE VOLFKILLER (Staff)")
+				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				gloves = /obj/item/clothing/gloves/roguetown/leather
+				backr = /obj/item/rogueweapon/woodstaff/quarterstaff/virtue
 				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
 
 			if ("THESE GODS-GIVEN FISTS (Unarmed)")
