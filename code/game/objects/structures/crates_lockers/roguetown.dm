@@ -104,6 +104,26 @@
 	base_icon_state = "closetdark"
 	icon_state = "closetdark"
 
+/obj/structure/closet/crate/roguecloset/dark/squire
+	name = "squirely storage"
+	desc = "The door seems oddly jammed, as if only a particular set of fingers knows how to open it. What did those squirrely dolts stash away in there?.."
+	base_icon_state = "closetdark"
+	icon_state = "closetdark"
+	var/has_opened = FALSE
+	var/gamby_chance = 5
+
+/obj/structure/closet/crate/roguecloset/dark/squire/can_open(mob/living/user)
+	. = ..()
+	if(user?.job != "Squire" && !locked)
+		to_chat(user, span_warning("The lock seems... jammed? I don't know how to open this."))
+		return FALSE
+
+/obj/structure/closet/crate/roguecloset/dark/squire/open(mob/living/user)
+	if(prob(gamby_chance) && !has_opened)
+		insert(new /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/squire)
+	has_opened = TRUE
+	..()
+
 /obj/structure/closet/crate/roguecloset/lord
 	desc = "An unusually ornate closet, fit for a lord!"
 	keylock = TRUE

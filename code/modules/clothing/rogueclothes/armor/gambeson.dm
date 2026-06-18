@@ -81,6 +81,10 @@
 	var/shiftable = TRUE
 	var/shifted = FALSE
 
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/squire
+	name = "the singular squire padded gambeson"
+	desc = "A gambeson with some padding, tucked and hidden away from prying Knightly eyes. Someone got lucky!"
+
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/holysee
 	color = "#d6dce6"
 
