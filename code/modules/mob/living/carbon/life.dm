@@ -319,8 +319,6 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			add_stress(/datum/stressevent/drunk)
 		else
 			remove_stress(/datum/stressevent/drunk)
-		if(drunkenness >= 8.5) // Roughly 2 cups
-			sate_addiction(/datum/charflaw/addiction/alcoholic)
 		if(drunkenness >= 11 && slurring < 5)
 			slurring += 1.2
 
