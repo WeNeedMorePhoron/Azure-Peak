@@ -39,6 +39,22 @@
 	if(ishuman(L))
 		addtimer(CALLBACK(L, TYPE_PROC_REF(/mob, cloak_and_title_setup)), 50)
 
+	var/prev_real_name = H.real_name
+	var/prev_name = H.name
+	var/honorary = "Ser"
+	if(H.titles_pref == TITLES_F)
+		honorary = "Dame"
+	// check if they already have it to avoid stacking titles
+	if(findtextEx(H.real_name, "[honorary] ") == 0)
+		H.real_name = "[honorary] [prev_real_name]"
+		H.name = "[honorary] [prev_name]"
+
+	for(var/X in peopleknowme)
+		for(var/datum/mind/MF in get_minds(X))
+			if(MF.known_people)
+				MF.known_people -= prev_real_name
+				H.mind.person_knows_me(MF)
+
 /datum/outfit/job/roguetown/knight
 	neck = /obj/item/clothing/neck/roguetown/bevor
 	gloves = /obj/item/clothing/gloves/roguetown/plate
