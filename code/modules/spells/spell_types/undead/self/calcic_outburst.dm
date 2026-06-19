@@ -163,4 +163,4 @@
 	target.Jitter(5 SECONDS) //Makes you shake + Telegraphs a bit more with a scream
 	target.emote("scream")
 
-	addtimer(CALLBACK(target, PROC_REF(skele_explode), user, target, exp_heavy, exp_light, exp_flash, exp_fire), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(skele_explode), target, target, exp_heavy, exp_light, exp_flash, exp_fire), 5 SECONDS)

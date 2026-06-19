@@ -8,12 +8,21 @@
 		"I WILL LIVE ETERNAL!",
 		"I AM BEHIND COUNTLESS PHYLACTERIES!",
 		"YOU CANNOT KILL ME!",
-		"I AM THE EXARCH OF THE DEAD!",
+		"I AM THE EXARCH OF THE UNDYING!",
 	)
 	rogue_enabled = TRUE
 
 	var/list/phylacteries = list()
 	var/out_of_lives = FALSE
+
+	//Save our entire statline here.
+	var/STASTR = 10
+	var/STASPD = 10
+	var/STACON = 10
+	var/STAINT = 10
+	var/STAWIL = 10
+	var/STAPER = 10
+	var/STALUC = 10
 
 	var/traits_lich = list(
 		TRAIT_INFINITE_STAMINA,
@@ -54,6 +63,7 @@
 	owner.special_role = name
 	skele_look()
 	equip_lich()
+	save_stats()
 	set_stats()
 	greet()
 	return ..()
@@ -64,13 +74,23 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/villain/lichintro.ogg', 80, FALSE, pressure_affected = FALSE)
 	..()
 
+/datum/antagonist/lich/proc/save_stats()
+	STASTR = owner.current.STASTR
+	STAPER = owner.current.STAPER
+	STACON = owner.current.STACON
+	STAINT = owner.current.STAINT
+	STASPD = owner.current.STASPD
+	STAWIL = owner.current.STAWIL
+	STALUC = owner.current.STALUC
+
 /datum/antagonist/lich/proc/set_stats()
-	owner.current.STASTR = 13
-	owner.current.STAPER = 13
-	owner.current.STAINT = 20
-	owner.current.STASPD = 11
-	owner.current.STAWIL = 18 //THIS MIGHT SEEM EXTREME but this is just not getting statchecked for pain easily. It physically does nothing else to you I know of since you have infinite stamina.
-	owner.current.STALUC = 15
+	owner.current.STASTR = src.STASTR
+	owner.current.STAPER = src.STAPER
+	owner.current.STACON = src.STACON
+	owner.current.STAINT = src.STAINT
+	owner.current.STASPD = src.STASPD
+	owner.current.STAWIL = src.STAWIL
+	owner.current.STALUC = src.STALUC
 
 /datum/antagonist/lich/proc/skele_look()
 	var/mob/living/carbon/human/L = owner.current
@@ -99,77 +119,93 @@
 	for (var/obj/item/bodypart/B in L.bodyparts)
 		B.skeletonize(FALSE)
 
+	owner.current.forceMove(pick(GLOB.lich_starts)) // as opposed to spawning at their normal role spot as a skeleton; which is le bad
 	equip_and_traits()
 	L.equipOutfit(/datum/outfit/job/roguetown/lich)
 	L.set_patron(/datum/patron/inhumen/zizo)
-	owner.current.forceMove(pick(GLOB.lich_starts)) // as opposed to spawning at their normal role spot as a skeleton; which is le bad
 
 
 /datum/outfit/job/roguetown/lich/pre_equip(mob/living/carbon/human/H) //Equipment is located below
 	..()
 	//Skilled upto, so we don't have legendary wrestling crit resist fullplate lich or legendary riding lich that nobody can keep up with
-	H.adjust_skillrank_up_to(/datum/skill/misc/reading, 6, TRUE)
-	H.adjust_skillrank_up_to(/datum/skill/craft/alchemy, 6, TRUE)
-	H.adjust_skillrank_up_to(/datum/skill/magic/arcane, 6, TRUE)
-	H.adjust_skillrank_up_to(/datum/skill/misc/riding, 4, TRUE)
-	H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 4, TRUE) //Expert, intended to be high, its a similar kind of weapon to a polearm.
-	H.adjust_skillrank_up_to(/datum/skill/combat/staves, 5, TRUE) //Always master (they virtually nearly always got this)
-	H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, 4, TRUE) //Always expert minimal, you won't tacklecheck a lich easily
-	H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, 4, TRUE)
-	H.adjust_skillrank_up_to(/datum/skill/misc/swimming, 2, TRUE)
-	H.adjust_skillrank_up_to(/datum/skill/misc/sneaking, 2, TRUE) //Lich under table jumpscare.
+	//Some of these will be replaced by class, but its a much healthier lich balance, all in in.
+
+	//Our general combat skills
+	H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 5, TRUE) //Always Master, they virtually always got this anyway
+	H.adjust_skillrank_up_to(/datum/skill/combat/staves, 5, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, 4, TRUE) //Always expert minimal. Tackle protection + Ability to Overpower most people.
+	H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, 4, TRUE) //Protection vs the dorpel floorkick.
+	H.adjust_skillrank_up_to(/datum/skill/combat/swords, 5, TRUE) //Better than Skeles in swords, Zizo armor sets grant a sword.
+	H.adjust_skillrank_up_to(/datum/skill/combat/shields, 4, TRUE) //If they take medium set, they can use the shield, very well.
+	H.adjust_skillrank_up_to(/datum/skill/combat/knives, 6, TRUE) //always gets legendary knives regardless of specialisation.
+
+	//Mobility Nessessities
+	H.adjust_skillrank_up_to(/datum/skill/misc/swimming, 3, TRUE) //Above bandits/wretch, despite infinite stamina.
 	H.adjust_skillrank_up_to(/datum/skill/misc/climbing, 5, TRUE) //Always master minimal, to climb walls most can't (you had infinite stamina anyway).
-	H.adjust_skillrank_up_to(/datum/skill/misc/athletics, 6, TRUE) //Who said PROGRESS can't have gains?
-	H.adjust_skillrank_up_to(/datum/skill/combat/swords, 4, TRUE) //Always expert at best, they've probably done armor rites at some point in their eternal lyfe.
-	H.adjust_skillrank_up_to(/datum/skill/combat/knives, 6, TRUE) //always gets legendary knives regardless of specialisation
-	H.adjust_skillrank_up_to(/datum/skill/misc/medicine, 4, TRUE) //Minimal for revivals
+	H.adjust_skillrank_up_to(/datum/skill/misc/athletics, 6, TRUE) //Doing flips and shit, because its badass. Otherwise misc skill.
+	H.adjust_skillrank_up_to(/datum/skill/misc/riding, 4, TRUE)
 
 	//QOL skillup minimals, adjust as-needed
-	H.adjust_skillrank_up_to(/datum/skill/craft/crafting, 2, TRUE) //all of these skills are for QOL, saving time or construction
+	H.adjust_skillrank_up_to(/datum/skill/craft/crafting, 2, TRUE)
 	H.adjust_skillrank_up_to(/datum/skill/craft/carpentry, 2, TRUE)
 	H.adjust_skillrank_up_to(/datum/skill/craft/masonry, 2, TRUE)
 	H.adjust_skillrank_up_to(/datum/skill/craft/sewing, 2, TRUE)
 	H.adjust_skillrank_up_to(/datum/skill/craft/engineering, 2, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/craft/smelting, 3, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/labor/mining, 3, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/labor/lumberjacking, 3, TRUE)
+
+	//Misc skills for immersion/funny moments/repurposing dungeons
 	H.adjust_skillrank_up_to(/datum/skill/craft/traps, 4, TRUE) //Takeover dungeons by disabling traps.
+	H.adjust_skillrank_up_to(/datum/skill/misc/medicine, 4, TRUE) //Minimal for reviving with lux.
+	H.adjust_skillrank_up_to(/datum/skill/misc/sneaking, 4, TRUE) //Lich under table jumpscare.
+	H.adjust_skillrank_up_to(/datum/skill/misc/lockpicking, 3, TRUE) //Keeping doors closed to summon out-of-sight to recover.
+	H.adjust_skillrank_up_to(/datum/skill/misc/reading, 6, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/craft/alchemy, 6, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/magic/arcane, 6, TRUE)
 
 	H?.mind.setup_mage_aspects(list("mastery" = TRUE, "major" = 2, "minor" = 3, "utilities" = 9, "ward" = TRUE))
 	// Give it decent combat stats to make up for loss of 2 extra lives
-	// These are preset, outside of skills to ensure that liches aren't memed on or histerically powerful
-	// Defining traits, job quirks, extra job spells, etc are kept.
 
-	//I will come back to this at some point and give lich specialisations maybe.
-	H.STASTR = 13
-	H.STASPD = 11
-	H.STACON = 15
-	H.STAWIL = 18 //Hold up, that's EXTREME? actually no, lich has infinite stamina, this is so that being painchecked by silver is very hard to do.
-	H.STAINT = 20 //Its a lich, ofc they're going to be smarter than most mortals.
-	H.STAPER = 13
-	H.STALUC = 15 //So we always have significantly above average-fortune, it should be VERY difficult to make us crit-miss
+	H.change_stat(STATKEY_STR, 3)
+	H.change_stat(STATKEY_INT, 6) //Smarter than the court magos
+	H.change_stat(STATKEY_CON, 5)
+	H.change_stat(STATKEY_PER, 3)
+	H.change_stat(STATKEY_SPD, 1)
+	H.change_stat(STATKEY_LCK, 2) //Leadership + Antag role
+
+	H.change_stat(STATKEY_WIL, 7) //Only affects your ability to withstand keeling over from pain while sundered. Intended to be disgustingly high, as they're not supposed to easily fall over.
 
 	H.grant_language(/datum/language/undead)
 	// Grant a spellbook so the lich can pick aspects
-	new /obj/item/book/spellbook(get_turf(H))
+	H.equip_to_slot_or_del(new /obj/item/book/spellbook,SLOT_IN_BACKPACK, TRUE)
+	// Grant a chalk so the lich can do rituals
+	H.equip_to_slot_or_del(new /obj/item/ritechalk,SLOT_IN_BACKPACK, TRUE)
 
 	if(H.mind)
-		// Lich-specific spells (not from aspects)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/bonechill)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/bonemend)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/eyebite)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/lacrima)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/raise_undead)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/raise_undead_formation)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/blood_bolt())
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/minion_order)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/gravemark)
+		// Our outburst version, its unique and a means to avoid softlocks
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/suicidebomb)
+		// Lich-specific spells (not from aspects)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/blood_bolt())
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/raise_undead)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/remotebomb)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/lich_announce)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/convert_heretic)
+		// Other role required spells.
+		H.mind.AddSpell(new /datum/action/cooldown/spell/raise_undead_formation)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/bonechill)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/bonemend)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/tame_undead)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/raise_deadite)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/minion_order)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/gravemark)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/raise_deadite) //Zombifies dead people
+		// Our Utility Spells
+		H.mind.AddSpell(new /datum/action/cooldown/spell/convert_heretic)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
 		// This is probably a bad idea, but let's live a little.
 		H.mind.AddSpell(new /datum/action/cooldown/spell/summon_terrorhog)
+		// Consistancy as they're basically a ruler in the hierarchy above Necromancers
+		H.mind.AddSpell(new /datum/action/cooldown/spell/eyebite)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/lacrima)
 	H.ambushable = FALSE
 	H.dna.species.soundpack_m = new /datum/voicepack/other/lich()
 
@@ -229,7 +265,6 @@
 		SLOT_BELT,
 		SLOT_BELT_R,
 		SLOT_BELT_L,
-		SLOT_BACK_R,
 		SLOT_HANDS,
 		SLOT_BACK_L,
 		)
@@ -248,7 +283,6 @@
 		/obj/item/reagent_containers/glass/bottle/rogue/manapot,
 		/obj/item/rogueweapon/huntingknife/idagger/steel,
 		/obj/item/rogueweapon/woodstaff/implement/grand,
-		/obj/item/ritechalk,
 		/obj/item/storage/backpack/rogue/satchel/black,
 	)
 	for (var/i = 1, i <= equipment_slots.len, i++)
@@ -273,7 +307,7 @@
 		new_body.charflaws.Remove(cf)
 		QDEL_NULL(cf)
 
-	new_body.real_name = old_body.name
+	new_body.real_name = old_body.real_name
 	new_body.dna.real_name = old_body.real_name
 	new_body.mob_biotypes |= MOB_UNDEAD
 	new_body.faction = list(FACTION_UNDEAD)
@@ -281,6 +315,10 @@
 	new_body.mind.grab_ghost(force = TRUE)
 	new_body.ambushable = FALSE
 	new_body.dna.species.soundpack_m = new /datum/voicepack/other/lich() //evil ass voice stays
+	// Grant a spellbook so the lich can pick aspects
+	new_body.equip_to_slot_or_del(new /obj/item/book/spellbook,SLOT_IN_BACKPACK, TRUE)
+	// Grant a chalk so the lich can do rituals
+	new_body.equip_to_slot_or_del(new /obj/item/ritechalk,SLOT_IN_BACKPACK, TRUE)
 
 	for (var/obj/item/bodypart/body_part in new_body.bodyparts)
 		body_part.skeletonize(FALSE)
@@ -291,6 +329,11 @@
 	equip_and_traits()
 	// Delete the old body if it still exists
 	if (!QDELETED(old_body))
+		old_body.visible_message(
+			span_danger("[old_body] is pulled into an unnatural rift.")
+		)
+		new /obj/effect/temp_visual/bluespace_fissure(get_turf(old_body))
+		playsound(get_turf(old_body), 'sound/misc/portalopen.ogg', 100)
 		qdel(old_body)
 
 
@@ -334,6 +377,11 @@
 	spawn(timer)
 		possessor.owner.current.forceMove(get_turf(src))
 		possessor.rise_anew()
+		possessor.visible_message(
+			span_danger("the phylactery shatters violently as it tears open a rift and [possessor] steps out where it once was!")
+		)
+		new /obj/effect/temp_visual/bluespace_fissure(get_turf(src))
+		playsound(get_turf(src), 'sound/spellbooks/glass.ogg', 100)
 		qdel(src)
 
 /obj/effect/proc_holder/spell/self/lich_announce
