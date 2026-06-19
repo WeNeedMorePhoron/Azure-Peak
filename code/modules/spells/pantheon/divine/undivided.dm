@@ -63,7 +63,7 @@
 
 	primary_resource_cost = SPELLCOST_MIRACLE_MAJOR - 10
 
-	secondary_resource_cost = SPELLCOST_UTILITY_BUFF
+	secondary_resource_cost = SPELLCOST_CANTRIP
 
 	//invocations = list("Setzt euer großartiges Werk fort.") //(Continue your great work/s)
 	invocation_type = INVOCATION_NONE
@@ -192,7 +192,7 @@
 /datum/status_effect/buff/twinned_gaze
 	id = "twinnedgaze"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/twinned_gaze
-	duration = 30 SECONDS
+	duration = 40 SECONDS
 	var/skill_level = 0
 	status_type = STATUS_EFFECT_REPLACE
 

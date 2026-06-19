@@ -117,7 +117,7 @@
 /datum/status_effect/buff/astrata_gaze
 	id = "astratagaze"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/astrata_gaze
-	duration = 30 SECONDS
+	duration = 40 SECONDS
 	var/skill_level = 0
 	status_type = STATUS_EFFECT_REPLACE
 
@@ -199,7 +199,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/holycharging.ogg'
-	cooldown_time = 40 SECONDS
+	cooldown_time = 45 SECONDS
 
 	associated_stat = null
 	associated_skill = /datum/skill/magic/holy
