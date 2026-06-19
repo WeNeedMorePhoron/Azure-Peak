@@ -472,8 +472,8 @@
 	icon_state = "gallows"
 
 /datum/stressevent/gallowshumor
-	timer = 10 MINUTES 
-	stressadd = 10 //Hop Tuah
+	timer = 5 MINUTES 
+	stressadd = 6 //Hop Tuah
 	desc = span_undivided("NO NO NO!")
 
 /datum/status_effect/debuff/gallowshumor/on_apply()
@@ -499,6 +499,8 @@
 	primary_resource_cost = SPELLCOST_MIRACLE_MAJOR - 10
 
 	secondary_resource_cost = SPELLCOST_MINOR_SKILL
+
+	cooldown_time = 1 MINUTES
 
 	sound = 'sound/magic/heal_new.ogg'
 	charge_required = TRUE

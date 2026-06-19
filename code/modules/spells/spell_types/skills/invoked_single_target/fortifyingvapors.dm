@@ -15,7 +15,7 @@
 	invocations = list("wafts clarifying vapor from a tin of smoldering herbs.")
 	associated_skill = /datum/skill/misc/reading
 	antimagic_allowed = FALSE
-	recharge_time = 12 SECONDS
+	recharge_time = 30 SECONDS
 	miracle = FALSE
 	devotion_cost = 0
 	ignore_los = FALSE
