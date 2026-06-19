@@ -377,7 +377,7 @@
 	spawn(timer)
 		possessor.owner.current.forceMove(get_turf(src))
 		possessor.rise_anew()
-		possessor.visible_message(
+		src.visible_message(
 			span_danger("the phylactery shatters violently as it tears open a rift and [possessor] steps out where it once was!")
 		)
 		new /obj/effect/temp_visual/bluespace_fissure(get_turf(src))
