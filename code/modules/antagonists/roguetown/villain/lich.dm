@@ -6,8 +6,9 @@
 	storyteller_antag_flags = STORYTELLER_ANTAG_VILLAIN | STORYTELLER_ANTAG_ROUNDSTART
 	confess_lines = list(
 		"I WILL LIVE ETERNAL!",
-		"I AM BEHIND SEVEN PHYLACTERIES!",
+		"I AM BEHIND COUNTLESS PHYLACTERIES!",
 		"YOU CANNOT KILL ME!",
+		"I AM THE EXARCH OF THE DEAD!",
 	)
 	rogue_enabled = TRUE
 
@@ -22,10 +23,12 @@
 		TRAIT_NOPAIN,
 		TRAIT_TOXIMMUNE,
 		TRAIT_STEELHEARTED,
-		TRAIT_NOSLEEP,
 		TRAIT_LICHLAIR, //Ability to far travel to and from our lair.
 		TRAIT_NOMOOD,
 		TRAIT_NOLIMBDISABLE,
+		TRAIT_GRAVEROBBER,
+		TRAIT_ALCHEMY_EXPERT,
+		TRAIT_MEDICINE_EXPERT,
 		TRAIT_SHOCKIMMUNE,
 		TRAIT_LIMBATTACHMENT,
 		TRAIT_SEEPRICES,
@@ -34,18 +37,13 @@
 		TRAIT_CABAL,
 		TRAIT_DEATHSIGHT,
 		TRAIT_COUNTERCOUNTERSPELL,
+		TRAIT_INTELLECTUAL,
 		TRAIT_RITUALIST,
 		TRAIT_ARCYNE,
 		TRAIT_SELF_SUSTENANCE,
 		TRAIT_ALCHEMY_EXPERT,
 		TRAIT_SILVER_WEAK
 		)
-
-	var/STASTR = 10
-	var/STASPD = 10
-	var/STAINT = 10
-	var/STAWIL = 10
-	var/STAPER = 10
 
 /datum/antagonist/lich/get_antag_cap_weight()
 	return 3
@@ -56,8 +54,8 @@
 	owner.special_role = name
 	skele_look()
 	equip_lich()
+	set_stats()
 	greet()
-	save_stats()
 	return ..()
 
 /datum/antagonist/lich/greet()
@@ -66,19 +64,13 @@
 	owner.current.playsound_local(get_turf(owner.current), 'sound/villain/lichintro.ogg', 80, FALSE, pressure_affected = FALSE)
 	..()
 
-/datum/antagonist/lich/proc/save_stats()
-	STASTR = owner.current.STASTR
-	STAPER = owner.current.STAPER
-	STAINT = owner.current.STAINT
-	STASPD = owner.current.STASPD
-	STAWIL = owner.current.STAWIL
-
 /datum/antagonist/lich/proc/set_stats()
-	owner.current.STASTR = src.STASTR
-	owner.current.STAPER = src.STAPER
-	owner.current.STAINT = src.STAINT
-	owner.current.STASPD = src.STASPD
-	owner.current.STAWIL = src.STAWIL
+	owner.current.STASTR = 13
+	owner.current.STAPER = 13
+	owner.current.STAINT = 20
+	owner.current.STASPD = 11
+	owner.current.STAWIL = 18 //THIS MIGHT SEEM EXTREME but this is just not getting statchecked for pain easily. It physically does nothing else to you I know of since you have infinite stamina.
+	owner.current.STALUC = 15
 
 /datum/antagonist/lich/proc/skele_look()
 	var/mob/living/carbon/human/L = owner.current
@@ -115,29 +107,44 @@
 
 /datum/outfit/job/roguetown/lich/pre_equip(mob/living/carbon/human/H) //Equipment is located below
 	..()
+	//Skilled upto, so we don't have legendary wrestling crit resist fullplate lich or legendary riding lich that nobody can keep up with
+	H.adjust_skillrank_up_to(/datum/skill/misc/reading, 6, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/craft/alchemy, 6, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/magic/arcane, 6, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/misc/riding, 4, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 4, TRUE) //Expert, intended to be high, its a similar kind of weapon to a polearm.
+	H.adjust_skillrank_up_to(/datum/skill/combat/staves, 5, TRUE) //Always master (they virtually nearly always got this)
+	H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, 4, TRUE) //Always expert minimal, you won't tacklecheck a lich easily
+	H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, 4, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/misc/swimming, 2, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/misc/sneaking, 2, TRUE) //Lich under table jumpscare.
+	H.adjust_skillrank_up_to(/datum/skill/misc/climbing, 5, TRUE) //Always master minimal, to climb walls most can't (you had infinite stamina anyway).
+	H.adjust_skillrank_up_to(/datum/skill/misc/athletics, 6, TRUE) //Who said PROGRESS can't have gains?
+	H.adjust_skillrank_up_to(/datum/skill/combat/swords, 4, TRUE) //Always expert at best, they've probably done armor rites at some point in their eternal lyfe.
+	H.adjust_skillrank_up_to(/datum/skill/combat/knives, 6, TRUE) //always gets legendary knives regardless of specialisation
+	H.adjust_skillrank_up_to(/datum/skill/misc/medicine, 4, TRUE) //Minimal for revivals
 
-	H.adjust_skillrank(/datum/skill/misc/reading, 6, TRUE)
-	H.adjust_skillrank(/datum/skill/craft/alchemy, 5, TRUE)
-	H.adjust_skillrank(/datum/skill/magic/arcane, 6, TRUE)
-	H.adjust_skillrank(/datum/skill/misc/riding, 4, TRUE)
-	H.adjust_skillrank(/datum/skill/combat/polearms, 4, TRUE)
-	H.adjust_skillrank(/datum/skill/combat/staves, 4, TRUE)
-	H.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
-	H.adjust_skillrank(/datum/skill/combat/unarmed, 1, TRUE)
-	H.adjust_skillrank(/datum/skill/misc/swimming, 1, TRUE)
-	H.adjust_skillrank(/datum/skill/misc/climbing, 1, TRUE)
-	H.adjust_skillrank(/datum/skill/misc/athletics, 1, TRUE)
-	H.adjust_skillrank(/datum/skill/combat/swords, 2, TRUE)
-	H.adjust_skillrank(/datum/skill/combat/knives, 5, TRUE)
-	H.adjust_skillrank(/datum/skill/craft/crafting, 1, TRUE)
-	H.adjust_skillrank(/datum/skill/misc/medicine, 3, TRUE)
+	//QOL skillup minimals, adjust as-needed
+	H.adjust_skillrank_up_to(/datum/skill/craft/crafting, 2, TRUE) //all of these skills are for QOL, saving time or construction
+	H.adjust_skillrank_up_to(/datum/skill/craft/carpentry, 2, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/craft/masonry, 2, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/craft/sewing, 2, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/craft/engineering, 2, TRUE)
+	H.adjust_skillrank_up_to(/datum/skill/craft/traps, 4, TRUE) //Takeover dungeons by disabling traps.
+
 	H?.mind.setup_mage_aspects(list("mastery" = TRUE, "major" = 2, "minor" = 3, "utilities" = 9, "ward" = TRUE))
 	// Give it decent combat stats to make up for loss of 2 extra lives
-	H.change_stat(STATKEY_STR, 3)
-	H.change_stat(STATKEY_INT, 5)
-	H.change_stat(STATKEY_CON, 5)
-	H.change_stat(STATKEY_PER, 3)
-	H.change_stat(STATKEY_SPD, 1)
+	// These are preset, outside of skills to ensure that liches aren't memed on or histerically powerful
+	// Defining traits, job quirks, extra job spells, etc are kept.
+
+	//I will come back to this at some point and give lich specialisations maybe.
+	H.STASTR = 13
+	H.STASPD = 11
+	H.STACON = 15
+	H.STAWIL = 18 //Hold up, that's EXTREME? actually no, lich has infinite stamina, this is so that being painchecked by silver is very hard to do.
+	H.STAINT = 20 //Its a lich, ofc they're going to be smarter than most mortals.
+	H.STAPER = 13
+	H.STALUC = 15 //So we always have significantly above average-fortune, it should be VERY difficult to make us crit-miss
 
 	H.grant_language(/datum/language/undead)
 	// Grant a spellbook so the lich can pick aspects
@@ -147,6 +154,8 @@
 		// Lich-specific spells (not from aspects)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/bonechill)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/bonemend)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/eyebite)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/lacrima)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/raise_undead)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/raise_undead_formation)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/blood_bolt())
@@ -220,7 +229,7 @@
 		SLOT_BELT,
 		SLOT_BELT_R,
 		SLOT_BELT_L,
-		SLOT_HANDS,
+		SLOT_BACK_R,
 		SLOT_HANDS,
 		SLOT_BACK_L,
 		)
@@ -228,7 +237,7 @@
 	var/list/equipment_items = list(
 		/obj/item/clothing/head/roguetown/roguehood/unholy/lich,
 		/obj/item/clothing/under/roguetown/chainlegs,
-		/obj/item/clothing/shoes/roguetown/boots,
+		/obj/item/clothing/shoes/roguetown/boots/leather/reinforced,
 		/obj/item/clothing/neck/roguetown/chaincoif,
 		/obj/item/clothing/suit/roguetown/shirt/robe/unholy/lich,
 		/obj/item/clothing/suit/roguetown/armor/plate/blacksteel,
@@ -240,7 +249,7 @@
 		/obj/item/rogueweapon/huntingknife/idagger/steel,
 		/obj/item/rogueweapon/woodstaff/implement/grand,
 		/obj/item/ritechalk,
-		/obj/item/storage/backpack/rogue/satchel,
+		/obj/item/storage/backpack/rogue/satchel/black,
 	)
 	for (var/i = 1, i <= equipment_slots.len, i++)
 		var/slot = equipment_slots[i]
@@ -270,6 +279,8 @@
 	new_body.faction = list(FACTION_UNDEAD)
 	new_body.set_patron(/datum/patron/inhumen/zizo)
 	new_body.mind.grab_ghost(force = TRUE)
+	new_body.ambushable = FALSE
+	new_body.dna.species.soundpack_m = new /datum/voicepack/other/lich() //evil ass voice stays
 
 	for (var/obj/item/bodypart/body_part in new_body.bodyparts)
 		body_part.skeletonize(FALSE)
@@ -308,16 +319,12 @@
 	. = ..()
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.patron.type == /datum/patron/inhumen/zizo)
+		if(H.patron.type == /datum/patron/inhumen/zizo) //DIVINITY. ASCENSION. ZIZO. ZIZO. ZIZO.
 			. += span_rose("A crystalline fragment of divinity, used by Lyches to thwart death's grasp. If a Lych's incarnation is slain, they will be resurrected wherever their nearest phylactrey happens to be, destroying it in the process. Lyches can only be slain, permenantly, once all phylactries linked to their spirit have been destroyed.")
-		else if(H.patron.type == /datum/patron/divine/undivided)
-			. += span_rose("A crystalline fragment of divinity, used by Lyches to thwart death's grasp. If a Lych's incarnation is slain, they will be resurrected wherever their nearest phylactrey happens to be, destroying it in the process. Lyches can only be slain, permenantly, once all phylactries linked to their spirit have been destroyed.")
-		else if(H.patron.type == /datum/patron/divine/astrata)
-			. += span_rose("A crystalline fragment of divinity, used by Lyches to thwart death's grasp. If a Lych's incarnation is slain, they will be resurrected wherever their nearest phylactrey happens to be, destroying it in the process. Lyches can only be slain, permenantly, once all phylactries linked to their spirit have been destroyed.")
-		else if(H.patron.type == /datum/patron/divine/necra)
-			. += span_rose("A crystalline fragment of divinity, used by Lyches to thwart death's grasp. If a Lych's incarnation is slain, they will be resurrected wherever their nearest phylactrey happens to be, destroying it in the process. Lyches can only be slain, permenantly, once all phylactries linked to their spirit have been destroyed.")
-		else if(H.patron.type == /datum/patron/old_god)
-			. += span_rose("A crystalline fragment of divinity, used by Lyches to thwart death's grasp. If a Lych's incarnation is slain, they will be resurrected wherever their nearest phylactrey happens to be, destroying it in the process. Lyches can only be slain, permenantly, once all phylactries linked to their spirit have been destroyed.")
+		else if(H.patron.type == /datum/patron/divine/necra || H.patron.type == /datum/patron/divine/astrata || H.patron.type == /datum/patron/divine/undivided) //Tennites believe Necra is death and in their eyes your divinity is false, because they're baised towards their masters.
+			. += span_rose("A crystalline fragment of false divinity, used by Lyches to thwart Necra's grasp. If a Lych's incarnation is slain, they will be resurrected wherever their nearest phylactrey happens to be, destroying it in the process. Lyches can only be slain, permenantly, once all phylactries linked to their spirit have been destroyed.")
+		else if(H.patron.type == /datum/patron/old_god) //Psydonites are moderately neutral, as they are wildcards, your divinity is self-made. Interpretation is up to you.
+			. += span_rose("A crystalline fragment of self-made divinity, used by Lyches to thwart death's grasp. If a Lych's incarnation is slain, they will be resurrected wherever their nearest phylactrey happens to be, destroying it in the process. Lyches can only be slain, permenantly, once all phylactries linked to their spirit have been destroyed.")
 
 /obj/item/phylactery/proc/be_consumed(timer)
 	var/offset = prob(50) ? -2 : 2
