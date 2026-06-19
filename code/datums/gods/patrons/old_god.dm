@@ -6,7 +6,7 @@
 	</br>''He, who breathed lyfe into the Pantheon to shepherd His virtues.'' \
 	</br>''He, who sacrificed His strength to strike down the Archdevil with the Comet Syon.'' \
 	</br>''He, who yet slumbers to this dae; and who may yet still return.''"
-	worshippers = "Commonfolk, Zealots, Heroes, and the Esoteric"
+	worshippers = "Commonfolk, Zealots, Heroes, Villains, and the Esoteric"
 	associated_faith = /datum/faith/old_god
 	mob_traits = list(TRAIT_PSYDONIAN_GRIT) //Assigned to all mobs with Psydon as the chosen patron. Gives a Willpower-scaling chance to resist succumbing to pain.
 	miracles = list(/datum/action/cooldown/spell/touch/orison		= CLERIC_ORI,
