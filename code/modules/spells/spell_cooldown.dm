@@ -50,7 +50,7 @@
 	active_background_icon_state = "spell1"
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	button_icon_state = "shieldsparkles"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_PHASED
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_PHASED|AB_CHECK_IMMOBILE
 	panel = "Spells"
 	click_to_activate = TRUE
 	unset_after_click = FALSE
