@@ -409,8 +409,6 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		aspect.apply_variant(src, variant)
 	else if(has_mastery)
 		aspect.apply_variant(src, "mastery")
-	if((max_majors > 0 || max_minors > 0) && current)
-		ADD_TRAIT(current, TRAIT_LEYLINE_ATTUNEMENT, TRAIT_GENERIC)
 	ensure_mage_basics()
 	return TRUE
 
@@ -950,8 +948,10 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	if(current)
 		to_chat(current, span_nicegreen("Tip: You can Ctrl-Click your hotkey bar to unlock it, then drag to rearrange your spells. Re-arranging them change which hotkeys they are bound to in order from left to right (Alt 1 to Alt 9 default). You can shift click your spells to learn more about them."))
 
-/datum/mind/proc/setup_mage_aspects(list/config)
+/datum/mind/proc/setup_mage_aspects(list/config, grant_attunement = TRUE)
 	mage_aspect_config = config
+	if(grant_attunement && current)
+		ADD_TRAIT(current, TRAIT_LEYLINE_ATTUNEMENT, TRAIT_GENERIC)
 	ensure_mage_basics()
 	check_learnspell()
 
