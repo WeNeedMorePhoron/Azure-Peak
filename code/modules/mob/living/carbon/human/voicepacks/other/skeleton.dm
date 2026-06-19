@@ -6,7 +6,7 @@
 		if("rage")
 			used = pick('sound/vo/mobs/skel/skeleton_rage (1).ogg','sound/vo/mobs/skel/skeleton_rage (2).ogg','sound/vo/mobs/skel/skeleton_rage (3).ogg')
 		if ("warcry")
-			used = list('sound/vo/lich/rage (1).ogg') //Close enough
+			used = list('sound/vo/mobs/skel/skeleton_rage (1).ogg','sound/vo/mobs/skel/skeleton_rage (2).ogg','sound/vo/mobs/skel/skeleton_rage (3).ogg') //RAGE AGAINST THE LYVING
 		if("laugh")
 			used = pick('sound/vo/mobs/skel/skeleton_laugh.ogg')
 		if("deathgurgle")
