@@ -136,7 +136,7 @@
 		return FALSE
 
 /obj/structure/closet/crate/roguecloset/dark/squire/open(mob/living/user)
-	if(prob(gamby_chance) && !has_opened)
+	if(!has_opened)
 		var/obj/O = pickweight(squire_loot)
 		if(O)
 			insert(new O)
