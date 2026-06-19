@@ -381,7 +381,7 @@
 		)
 		new /obj/effect/temp_visual/bluespace_fissure(get_turf(src))
 		playsound(get_turf(src), 'sound/spellbooks/glass.ogg', 100)
-		playsound(get_turf(old_body), 'sound/misc/portalopen.ogg', 100)
+		playsound(get_turf(src), 'sound/misc/portalopen.ogg', 100)
 		qdel(src)
 
 /obj/effect/proc_holder/spell/self/lich_announce
