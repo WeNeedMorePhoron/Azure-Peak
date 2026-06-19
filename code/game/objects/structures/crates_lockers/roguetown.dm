@@ -110,7 +110,24 @@
 	base_icon_state = "closetdark"
 	icon_state = "closetdark"
 	var/has_opened = FALSE
-	var/gamby_chance = 5
+	var/list/squire_loot = list(
+		/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/squire = 30,
+		/obj/item/rogueweapon/scabbard/sword/noble = 50,
+		/obj/item/rogueweapon/scabbard/sheath/noble = 50,
+		/obj/item/rogueweapon/sword/sabre = 15,
+		/obj/item/rogueweapon/sword/rapier = 15,
+		/obj/item/clothing/head/roguetown/helmet/heavy/knight = 9,
+		/obj/item/soap/bath = 30,
+		/obj/item/reagent_containers/food/snacks/butter = 15,
+		/obj/item/alch/transisdust = 3,
+		/obj/item/quiver/bodkin = 10,
+		/obj/item/quiver/bolt/pyro = 5,
+		/obj/item/clothing/under/roguetown/platelegs = 6,
+		/obj/item/clothing/suit/roguetown/armor/plate/cuirass = 30,
+		/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted = 4,
+		/obj/item/rogueweapon/greatsword/grenz/flamberge/blacksteel = 1,
+		/obj/item/rogueweapon/halberd/glaive = 4
+	)
 
 /obj/structure/closet/crate/roguecloset/dark/squire/can_open(mob/living/user)
 	. = ..()
@@ -120,7 +137,9 @@
 
 /obj/structure/closet/crate/roguecloset/dark/squire/open(mob/living/user)
 	if(prob(gamby_chance) && !has_opened)
-		insert(new /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/squire)
+		var/obj/O = pickweight(squire_loot)
+		if(O)
+			insert(new O)
 	has_opened = TRUE
 	..()
 

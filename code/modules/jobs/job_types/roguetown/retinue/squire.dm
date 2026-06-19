@@ -92,7 +92,7 @@
 		/obj/item/rogueweapon/hammer/copper
 	)
 	if(H.mind)
-		SStreasury.grant_savings(ECONOMIC_DESTITUTE, H)
+		SStreasury.grant_savings(ECONOMIC_WORKING_CLASS, H)
 
 /datum/advclass/squire/footman
 	name = "Squire at Arms"
@@ -152,7 +152,7 @@
 			if("Cudgel")
 				beltr = /obj/item/rogueweapon/mace/cudgel
 	if(H.mind)
-		SStreasury.grant_savings(ECONOMIC_DESTITUTE, H)
+		SStreasury.grant_savings(ECONOMIC_WORKING_CLASS, H)
 
 /datum/advclass/squire/skirmisher
 	name = "Irregular Squire"
@@ -204,4 +204,4 @@
 		/obj/item/rogueweapon/hammer/copper
 		)
 	if(H.mind)
-		SStreasury.grant_savings(ECONOMIC_DESTITUTE, H)
+		SStreasury.grant_savings(ECONOMIC_WORKING_CLASS , H)
