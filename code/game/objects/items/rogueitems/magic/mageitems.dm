@@ -57,7 +57,7 @@
 	var/chosen_keyword
 
 /obj/item/chalk/attack_self(mob/living/carbon/human/user)
-	if(!isarcyne(user))
+	if(!HAS_TRAIT(user, TRAIT_LEYLINE_ATTUNEMENT))
 		to_chat(user, span_cult("Nothing comes in mind to draw with the chalk."))
 		return
 
@@ -69,9 +69,6 @@
 	pickrune = GLOB.rune_types[runenameinput]
 	rune_to_scribe = pickrune
 	if(rune_to_scribe == null)
-		return
-	if(ispath(rune_to_scribe, /obj/effect/decal/cleanable/roguerune/arcyne/enchantment) && !HAS_TRAIT(user, TRAIT_LEYLINE_ATTUNEMENT))
-		to_chat(user, span_warning("I lack the attunement to inscribe an imbuement array."))
 		return
 	var/turf/Turf = get_turf(user)
 	if(locate(/obj/effect/decal/cleanable/roguerune) in Turf)
@@ -131,7 +128,7 @@
 	filter(type="drop_shadow", x=0, y=0, size=2, offset=1, color=rgb(128, 0, 128, 1))
 
 /obj/item/rogueweapon/huntingknife/idagger/silver/arcyne/attack_self(mob/living/carbon/human/user)
-	if(!isarcyne(user))
+	if(!HAS_TRAIT(user, TRAIT_LEYLINE_ATTUNEMENT))
 		return
 	if(!is_bled)
 		playsound(loc, get_sfx("genslash"), 100, TRUE)
@@ -148,9 +145,6 @@
 	pickrune = GLOB.rune_types[runenameinput]
 	rune_to_scribe = pickrune
 	if(rune_to_scribe == null)
-		return
-	if(ispath(rune_to_scribe, /obj/effect/decal/cleanable/roguerune/arcyne/enchantment) && !HAS_TRAIT(user, TRAIT_LEYLINE_ATTUNEMENT))
-		to_chat(user, span_warning("I lack the leyline attunement to inscribe an imbuement array."))
 		return
 	var/turf/Turf = get_turf(user)
 	if(locate(/obj/effect/decal/cleanable/roguerune) in Turf)

@@ -666,7 +666,7 @@
 	if(HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
 	owner.adjust_bodytemperature(8)
-	if(!owner.resting)
+	if(owner.has_status_effect(/datum/status_effect/combat_tag))
 		return
 	owner.energy_add(healing_on_tick * 2)
 
@@ -681,7 +681,7 @@
 	duration = 6 SECONDS
 
 /datum/status_effect/buff/campfire/tick()
-	if(owner.cmode)
+	if(owner.has_status_effect(/datum/status_effect/combat_tag))
 		return
 	if(HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return

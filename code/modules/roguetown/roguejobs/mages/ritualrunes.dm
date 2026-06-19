@@ -835,7 +835,7 @@ GLOBAL_LIST(teleport_runes)
 	LAZYADD(GLOB.teleport_runes, src)
 
 /obj/effect/decal/cleanable/roguerune/arcyne/teleport/attack_hand(mob/living/user)
-	if(!isarcyne(user))
+	if(!can_use_arcyne_rune(user))
 		to_chat(user, span_warning("You aren't able to understand the words of [src]."))
 		return
 	if(rune_in_use)
