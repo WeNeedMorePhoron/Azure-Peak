@@ -145,7 +145,7 @@
 /datum/crafting_recipe/roguetown/ceramics/glass/statue
 	name = "glass statue"
 	result = list(/obj/item/roguestatue/glass)
-	reqs = list(/obj/item/natural/glass = 2)
+	reqs = list(/obj/item/natural/glass = 1)
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/ceramics/portable_hookah
