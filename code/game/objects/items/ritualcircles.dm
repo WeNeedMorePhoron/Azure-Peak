@@ -2252,8 +2252,8 @@
 /obj/item/clothing/wrists/roguetown/bracers/leather/baotha
 	name = "saccharine cuffs"
 	desc = "A betrayal without compare, and a sin without redemption; or so, She believed.."
-	color = "#524756"
-	//icon_state = "baothabracers"
+	icon_state = "baothabracers"
+	chunkcolor = "#6d1c87"
 	armor = ARMOR_PADDED
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
 	smeltresult = /obj/item/ingot/component/baotha
@@ -2276,8 +2276,8 @@
 	name = "saccharine fauldcoat"
 	desc = "Only did Belladona's haze clear, once She heard Eora's gasps and Ravox's fright; what else could She've done besides fleeing the heavens?"
 	armor = ARMOR_PADDED
-	color = "#524756"
-	//icon_state = "baothaskirt"
+	icon_state = "baothaskirt"
+	chunkcolor = "#6d1c87"
 	armor_class = ARMOR_CLASS_LIGHT
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
 	body_parts_covered = GROIN | LEGS
