@@ -212,7 +212,7 @@
 	desc = "A statue made of fine glass. An incredible amount of skill must have went into this fragile masterpiece!"
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "statueglass1"
-	smeltresult = null	//No resource return
+	smeltresult = /obj/item/natural/glass
 	glaze_bonus_pct = GLAZE_BONUS_PCT
 
 /obj/item/roguestatue/glass/Initialize()
