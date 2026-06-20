@@ -118,14 +118,14 @@
 	Smelting it into a pane is a fairly straightforward process with a mold.
 	The goal should be to make it hard enough that only a dedicated potter can do it
 	But not to the point of apothecary health potions where no one bothers with it.
-	*/// -SunriseOYH 
+	*/// -SunriseOYH
 
 /datum/crafting_recipe/roguetown/ceramics/glassraw
-	name = "glass clay"			// This is not a clay, but I don't personally think 'batch' is fitting ICly.
+	name = "glass batch"
 	tools = list(/obj/item/reagent_containers/glass/mortar, /obj/item/pestle)
 	result = list(/obj/item/natural/glassbatch)
 	reqs = list(/obj/item/natural/clay = 2, /obj/item/ash = 2, /obj/item/natural/stone = 1)
-	craftdiff = 4 // Knowing how to mix glass is not a trivial knowledge.
+	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/ceramics/clay/claystatue
 	name = "clay statue"
@@ -135,7 +135,7 @@
 
 /* 5 diff */ // High-end glass containers. Should be a direct upgrade to clay in every possible way.
 
-/datum/crafting_recipe/roguetown/ceramics/glass/statue 
+/datum/crafting_recipe/roguetown/ceramics/glass/statue
 	name = "glass statue"
 	result = list(/obj/item/roguestatue/glass)
 	reqs = list(/obj/item/natural/glass = 2)
