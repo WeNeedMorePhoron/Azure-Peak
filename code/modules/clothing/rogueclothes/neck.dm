@@ -282,9 +282,9 @@
 	name = "bronze gorgette"
 	desc = "A jutting slab of bronze, traditionally mounted atop a panoplic assembly to veil the neck from precise strikes. </br>To tip the chin up while grounded is an ancient gesture; one which willingly beckons for the 'gift of mercy'."
 	icon_state = "bbevor"
-	smeltresult = /obj/item/ingot/bronze
 	armor = ARMOR_BRONZE
 	max_integrity = ARMOR_INT_SIDE_BRONZE
+	smeltresult = /obj/item/ingot/bronze
 	anvilrepair = /datum/skill/craft/armorsmithing
 
 /obj/item/clothing/neck/roguetown/gorget
