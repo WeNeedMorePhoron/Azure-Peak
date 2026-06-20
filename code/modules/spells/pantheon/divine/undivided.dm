@@ -434,6 +434,7 @@
 	charge_sound = 'sound/magic/holycharging.ogg'
 	cooldown_time = 1 MINUTES
 
+	spell_flags = SPELL_PSYDON
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
 /datum/action/cooldown/spell/undivided/gallow_humor/cast(atom/cast_on)

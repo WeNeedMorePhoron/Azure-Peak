@@ -47,6 +47,7 @@
 	charge_required = FALSE
 	cooldown_time = 10 SECONDS
 
+	spell_flags = SPELL_PSYDON
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
 /datum/action/cooldown/spell/astrata/ignition/cast(atom/cast_on)
@@ -296,7 +297,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/holycharging.ogg'
-	cooldown_time = 3 MINUTES
+	cooldown_time = 5 MINUTES
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_NO_MOVE | SPELL_REQUIRES_SAME_Z
 
