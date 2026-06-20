@@ -182,27 +182,27 @@
 
 	to_chat(H, span_info("<b>A HOMESTEADER, SER!!</b><br>\
 	Traits: Jack of All Trades, Homestead Expert, Smithing Expert, Survival Expert.<br>\
-	Final Stats: +3 INT, +1 STR, +1 WIL, +1 SPD, -1 LCK.<br>\
+	Final Stats: +1 CON, +1 STR, +1 WIL, +3 INT, +1 SPD, -1 LCK.<br>\
 	Skills: No extras.<br>\
 	Equipment: Backpack, Small Shovel, Stone Hammer, Chisel, Handsaw, Hoe, Hunting Knife, Rope, Poor Coin Pouch, Signal Horn, Triumph Beer, Broom, Coal.<br><br>"))
 
 	to_chat(H, span_info("<b>A COOKER-DOC, SER!!</b><br>\
 	Traits: Medicine Expert, Cicerone.<br>\
-	Final Stats: +3 INT, +2 SPD, -1 STR, -1 CON, -1 WIL, -1 LCK.<br>\
+	Final Stats: +3 INT, +2 SPD, -1 STR, -1 CON, -1 LCK.<br>\
 	Skills: Medicine (Expert), Cooking (Journeyman), Alchemy (Apprentice). Knows Secular Diagnose.<br>\
-	Equipment: Backpack, Bedroll, Signal Horn, Hunting Knife, Rope, Triumph Beer, Bottle Kit, Calendula Seeds, Healing Juice Recipe, Surgery Bag, Coal.<br><br>"))
+	Equipment: Backpack, Bedroll, Signal Horn, Hunting Knife, Rope, Triumph Beer, Bottle Kit, Calendula Seeds, Healing Juice Recipe, Surgery Bag, Folding Alchemy Cauldron, Coal.<br><br>"))
 
 	to_chat(H, span_info("<b>A THUG, SER!!</b><br>\
 	Traits: No Pain Stun, Steelhearted. Knows Thieves' Cant.<br>\
-	Final Stats: +2 STR, +1 WIL, +2 CON, -1 SPD, -2 INT, -1 LCK.<br>\
+	Final Stats: +2 STR, +2 CON, +1 WIL, -1 SPD, -2 INT, -1 LCK.<br>\
 	Skills: Athletics (Journeyman), Maces (Apprentice).<br>\
 	Equipment: Satchel, Cudgel, Signal Horn, Hunting Knife, 2x Triumph Beer.<br><br>"))
 
 	to_chat(H, span_info("<b>A SCAVENGER, SER!!</b><br>\
 	Traits: Dodge Expert, Graverobber.<br>\
-	Final Stats: +1 STR, +3 SPD, +1 WIL, -3 CON, -1 INT, -1 LCK.<br>\
+	Final Stats: -3 CON, +1 STR, +1 WIL, -1 INT, +3 SPD, -1 LCK.<br>\
 	Skills: Sneaking (Journeyman), Knives (Journeyman), Sewing (Journeyman), Smelting (Journeyman).<br>\
-	Equipment: Backpack, Combat Knife, Small Shovel, Scissors, Signal Horn, Triumph Beer, Rope, Scomstone, Coal.<br><br>"))
+	Equipment: Backpack, Combat Knife, Small Shovel, Scissors, Signal Horn, Triumph Beer, Rope, 2x Coal, Iron Ore, Tongs.<br><br>"))
 
 	to_chat(H, span_info("<b>A BATHMAID, SER!!</b><br>\
 	Traits: Empath, Good Lover, Nutcracker. Knows Thieves' Cant.<br>\
@@ -212,15 +212,15 @@
 
 	to_chat(H, span_info("<b>ALMOST A SQUIRE, SER!!</b><br>\
 	Traits: Squire Repair, Expert Hunter.<br>\
-	Final Stats: +1 STR, +1 CON, +1 SPD, +1 WIL, -1 PER, -1 LCK.<br>\
+	Final Stats: +1 CON, +1 STR, +1 WIL, -1 INT, +1 SPD, -1 PER, -1 LCK.<br>\
 	Skills: No extras.<br>\
-	Equipment: Satchel, Rich Coin Pouch, Stone Hammer, Polishing Cream, Armor Brush, Signal Horn, Needle, Scomstone.<br><br>"))
+	Equipment: Satchel, Rich Coin Pouch, Stone Hammer, Polishing Cream, Armor Brush, Signal Horn, Needle.<br><br>"))
 
 	to_chat(H, span_info("<b>ALMOST AN ARMSMAN, SER!!</b><br>\
 	Traits: Guardsman, Steelhearted.<br>\
-	Final Stats: +1 STR, +2 CON, +2 WIL, -2 PER, -1 LCK.<br>\
+	Final Stats: +2 CON, +1 STR, +2 WIL, -1 INT, -2 PER, -1 LCK.<br>\
 	Skills: Shields (Journeyman).<br>\
-	Equipment: Satchel, Chain, Rope, Signal Horn, Hunting Knife, Triumph Beer, Scomstone.<br><br>"))
+	Equipment: Heater Shield, Beltpack, Chain, Signal Horn, Hunting Knife, Health Potion, Triumph Beer.<br><br>"))
 
 	if(H.mind)
 		var/list/specialties = list(
