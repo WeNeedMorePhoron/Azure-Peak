@@ -52,6 +52,7 @@
 	STASPD = 5
 
 	var/rock_cd
+	var/yeet_cd
 	inherent_spells = list(/obj/effect/proc_holder/spell/invoked/ele_quake)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/elemental/behemoth/Initialize()
@@ -69,11 +70,12 @@
 		return FALSE //but more importantly return before attack_animal called
 	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
 	in_melee = TRUE
-	if(!target)
+	if(QDELETED(target))
 		return
-	addtimer(CALLBACK(src,PROC_REF(yeet),target), 1 SECONDS)
-	if(!QDELETED(target))
-		return target.attack_animal(src)
+	. = target.attack_animal(src)
+	if(. && world.time >= yeet_cd)
+		yeet_cd = world.time + 8 SECONDS
+		addtimer(CALLBACK(src, PROC_REF(yeet), target), 1 SECONDS)
 
 /obj/effect/temp_visual/marker
 	icon = 'icons/effects/effects.dmi'
