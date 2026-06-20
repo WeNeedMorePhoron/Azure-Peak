@@ -151,6 +151,7 @@
 #define TRAIT_BLACKLEG	"Blackleg" //Rig coin, dice, cards in your favor - UNUSED FOR NOW
 #define TRAIT_BETTER_SLEEP	"Better Sleep" //Recover more energy (blue bar) when sleeping
 #define TRAIT_LEECHIMMUNE "Unleechable" //leeches wont attach in bog squares + dendor boon.
+#define TRAIT_LEECHRESIST "Leech Awareness" //leeches have a chance to be avoided
 #define TRAIT_ASTRATAN_AFFINITY "Astratan Affinity" //Telling who's an Astratan on examine
 #define TRAIT_LONGSTRIDER "Longstrider"
 #define TRAIT_UNDIVIDED "The Ten Undivided"
@@ -404,6 +405,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_CYCLOPS_LEFT = span_warning("My left eye has been poked out..."),
 	TRAIT_CYCLOPS_RIGHT = span_warning("My right eye has been poked out..."),
 	TRAIT_LEECHIMMUNE = "Leeches are reluctant to bite me.",
+	TRAIT_LEECHRESIST = "I can safely remove leeches without injury, and I always feel when one latches onto me. I have a chance of avoiding them, based on my speed and fortune.",
 	TRAIT_BITERHELM = "Whether through design or symbiosis, I can now bite into others while wearing a visored helmet.",
 	TRAIT_INHUMEN_ANATOMY = "My anatomy is inhumen, preventing me from wearing hats and shoes.",
 	TRAIT_NASTY_EATER = span_dead("I can stomach rotten, raw, or burned food, organs, and murky water - but true poisons still afflict me."),

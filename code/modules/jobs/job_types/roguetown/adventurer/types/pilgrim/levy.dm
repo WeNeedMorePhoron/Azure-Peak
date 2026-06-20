@@ -4,7 +4,7 @@
 	allowed_sexes = list(MALE, FEMALE)
 	
 	outfit = /datum/outfit/job/roguetown/adventurer/levy
-	traits_applied = list(TRAIT_LEVY, TRAIT_DECEIVING_MEEKNESS, TRAIT_LEECHIMMUNE, TRAIT_SELF_RELIANCE)
+	traits_applied = list(TRAIT_LEVY, TRAIT_DECEIVING_MEEKNESS, TRAIT_LEECHRESIST, TRAIT_SELF_RELIANCE)
 	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
 	category_tags = list(CTAG_TOWNER)
 	townie_contract_gate_exempt = TRUE
@@ -87,59 +87,59 @@
 				r_hand = /obj/item/rogueweapon/sword/falchion/militia
 				gloves = /obj/item/clothing/gloves/roguetown/leather
 				backr = /obj/item/rogueweapon/scabbard/sword
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				beltr = /obj/item/rogueweapon/pick/bronze
 
 			if ("THE LEGENDARY BOG-STICK (Club)")
 				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/mace/woodclub/militia
 				gloves = /obj/item/clothing/gloves/roguetown/leather
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				beltr = /obj/item/rogueweapon/pick/bronze
 
 			if ("AN OLDE CATTLE LASH (Whip)")
 				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/whip
 				gloves = /obj/item/clothing/gloves/roguetown/leather
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				beltr = /obj/item/rogueweapon/pick/bronze
 
 			if("THE FINEST PITCHFORK (Polearm)")
 				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/spear/militia
 				gloves = /obj/item/clothing/gloves/roguetown/leather
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				beltr = /obj/item/rogueweapon/pick/bronze
 
 			if("MINE THRESHER (Flail)")
 				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/flail/militia
 				gloves = /obj/item/clothing/gloves/roguetown/leather
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				beltr = /obj/item/rogueweapon/pick/bronze
 
 			if ("A GOOD SHOVEL (Axe)")
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/greataxe/militia
 				gloves = /obj/item/clothing/gloves/roguetown/leather
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				beltr = /obj/item/rogueweapon/pick/bronze
 
 			if ("THE MINER'S PICKAXE (Pickaxe)")
 				H.adjust_skillrank_up_to(/datum/skill/labor/mining, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/pick/militia
 				gloves = /obj/item/clothing/gloves/roguetown/leather
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				beltr = /obj/item/rogueweapon/pick/bronze
 
 			if ("MINE SCYTHE (Scythe)")
 				H.adjust_skillrank_up_to(/datum/skill/labor/farming, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/scythe/militia
 				gloves = /obj/item/clothing/gloves/roguetown/leather
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				beltr = /obj/item/rogueweapon/pick/bronze
 
 			if ("A BIG KNIFE (Dagger)")
 				H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				l_hand = /obj/item/rogueweapon/huntingknife/combat/iron
 				backr = /obj/item/rogueweapon/scabbard/sheath
 				gloves = /obj/item/clothing/gloves/roguetown/leather
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				beltr = /obj/item/rogueweapon/pick/bronze
 
 			if ("THE WHOLE KITCHEN (Mess Kit + Cleaver)")
 				H.adjust_skillrank_up_to(/datum/skill/craft/cooking, SKILL_LEVEL_JOURNEYMAN, TRUE)
@@ -147,7 +147,7 @@
 				r_hand = /obj/item/storage/gadget/messkit
 				l_hand = /obj/item/rogueweapon/huntingknife/chefknife/cleaver
 				gloves = /obj/item/clothing/gloves/roguetown/leather
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				beltr = /obj/item/rogueweapon/pick/bronze
 
 			if ("THE BOGMAN'S BOW (Sling)")
 				H.adjust_skillrank_up_to(/datum/skill/combat/slings, SKILL_LEVEL_JOURNEYMAN, TRUE)
@@ -155,19 +155,19 @@
 				r_hand = /obj/item/quiver/sling/iron
 				l_hand = /obj/item/quiver/sling/iron
 				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/sling/wood/bog
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				beltr = /obj/item/rogueweapon/pick/bronze
 
 			if ("THE RELIABLE VOLFKILLER (Staff)")
 				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				gloves = /obj/item/clothing/gloves/roguetown/leather
 				backr = /obj/item/rogueweapon/woodstaff/quarterstaff/virtue
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				beltr = /obj/item/rogueweapon/pick/bronze
 
 			if ("THESE GODS-GIVEN FISTS (Unarmed)")
 				ADD_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN, TRAIT_GENERIC)
 				H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				gloves = /obj/item/clothing/gloves/roguetown/bandages/pugilist
-				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/pick
+				beltr = /obj/item/rogueweapon/pick/bronze
 
 	if(H.mind)
 		SStreasury.grant_savings(ECONOMIC_DESTITUTE, H)
@@ -297,6 +297,7 @@
 					/obj/item/paper/vinegar_healpot_recipe = 1, // give man a fish and he eats for 1 dae, give them the recipeh and they'll eat for lyfe
 					/obj/item/storage/belt/rogue/surgery_bag = 1,
 					/obj/item/rogueore/coal = 1,
+					/obj/item/folding_alchcauldron_stored = 1,
 					)
 
 			if("A THUG, SER!!") // meatball that's dumb and meaty and does nothing but do that, comes with a cudgel to sell that idea better
@@ -329,7 +330,6 @@
 				H.change_stat(STATKEY_CON, -4)
 				H.change_stat(STATKEY_SPD, 3)
 				H.change_stat(STATKEY_LCK, -1)
-				id = /obj/item/scomstone
 				belt = /obj/item/storage/backpack/rogue/satchel/beltpack
 				backl = /obj/item/storage/backpack/rogue/backpack
 				backpack_contents = list(
@@ -339,7 +339,9 @@
 					/obj/item/signal_horn = 1,
 					/obj/item/reagent_containers/glass/bottle/rogue/triumphbeer = 1, // this one is for good luck, you'll need it
 					/obj/item/rope = 1,
-					/obj/item/rogueore/coal = 1,
+					/obj/item/rogueore/coal = 2,
+					/obj/item/rogueore/iron = 1,
+					/obj/item/rogueweapon/tongs = 1,
 					)
 
 			if("A BATHMAID, SER!!") // requested, basically copying 'some' qualities from the bathmaid, but not all, idk what riding will do for them but it's funny to imagine a bathmaiden on a hog with a whip, as people commented
@@ -373,7 +375,6 @@
 				H.change_stat(STATKEY_SPD, 1)
 				H.change_stat(STATKEY_PER, -1)
 				H.change_stat(STATKEY_LCK, -1)
-				id = /obj/item/scomstone
 				belt = /obj/item/storage/belt/rogue/leather
 				backl = /obj/item/storage/backpack/rogue/satchel
 				backpack_contents = list(
@@ -393,14 +394,13 @@
 				H.change_stat(STATKEY_WIL, 1)
 				H.change_stat(STATKEY_PER, -2)
 				H.change_stat(STATKEY_LCK, -1)
-				id = /obj/item/scomstone/bad/garrison
-				belt = /obj/item/storage/belt/rogue/leather
-				backl = /obj/item/storage/backpack/rogue/satchel
+				belt = /obj/item/storage/backpack/rogue/satchel/beltpack
+				backl = /obj/item/rogueweapon/shield/heater
 				backpack_contents = list(
 					/obj/item/rope/chain = 1,
 					/obj/item/signal_horn = 1,
 					/obj/item/rogueweapon/huntingknife = 1,
-					/obj/item/rope = 1,
+					/obj/item/reagent_containers/glass/bottle/rogue/healthpotnew = 1, // armsmen get a little extra from their folks in the garrison
 					/obj/item/reagent_containers/glass/bottle/rogue/triumphbeer = 1, // this one is for good luck, you'll need it
 					)
 
