@@ -916,7 +916,7 @@ LICH SKELETONS
 	icon_state = "ancientlegionshield"
 	force = 15
 	throwforce = 25 // DO NOT GIVE ANYTHING; BUT TAKE FROM THEM.. EVERYTHING!
-	minstr = 8 //Decently heavy to use as a melee weapon. But lighter due to thinner material.
+	minstr = 9 //Decently heavy to use as a melee weapon. But lighter due to thinner material.
 	max_integrity = 180 //Intended to be weaker than the bronze shield, for balance reasonings but its cheaper than an iron shield ingot wise
 	//for lore's sake its thinner than steel shields since it used to work as well since gilbranze was once stronger than steel, now its sort of worn its former durability away.
 
@@ -929,5 +929,5 @@ LICH SKELETONS
 	blade_dulling = DULLING_SHAFT_CONJURED
 	color = "#bb9696"
 	coverage = 25
-	minstr = 7 //Barely anything left of it sire.
+	minstr = 8 //Barely anything left of it sire.
 	max_integrity = 60
