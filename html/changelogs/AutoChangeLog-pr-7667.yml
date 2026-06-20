@@ -1,7 +1,0 @@
-author: "WeNeedMorePhoron"
-delete-after: True
-changes:
-  - bugfix: "Reordered a ..() properly on hearth so that it no longer get attacked by pan when putting it on"
-  - bugfix: "Disabled legacy tg light spark on hearth / rogue fires in general that ignites things nearby"
-  - bugfix: "Categorized alchemical ingredients in the alch & potions category"
-  - bugfix: "Fine food, which previously had no buff, now gives a buff to noble instead of nothing. It is scaled at half the effectiveness of lavish food."

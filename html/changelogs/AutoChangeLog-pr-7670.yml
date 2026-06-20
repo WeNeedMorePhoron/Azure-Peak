@@ -1,4 +1,0 @@
-author: "WeNeedMorePhoron"
-delete-after: True
-changes:
-  - balance: "Shield Coverage has been reduced to be roughly in line with before the AOE intent PR moved them all up. Arcane Aegis dropped from 70 to 60"
