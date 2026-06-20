@@ -11,7 +11,7 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "claybottleraw"
 	cooked_type = /obj/item/reagent_containers/glass/bottle/claybottle
-	desc = "A bottle fashioned from clay. Still needs to be fired to be useful."
+	desc = "A bottle fashioned from clay. It still needs to be fired to be useful."
 	smeltresult = /obj/item/reagent_containers/glass/bottle/claybottle
 
 /obj/item/natural/clay/claybottleclassic
@@ -19,7 +19,7 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "claybottleraw"
 	cooked_type = /obj/item/reagent_containers/glass/bottle/claybottleclassic
-	desc = "A bottle fashioned from clay. Still needs to be fired to be useful."
+	desc = "A bottle fashioned from clay. It still needs to be fired to be useful."
 	smeltresult = /obj/item/reagent_containers/glass/bottle/claybottleclassic
 
 /obj/item/reagent_containers/glass/bottle/claybottle
@@ -50,7 +50,7 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "clayvaseraw"
 	cooked_type = /obj/item/reagent_containers/glass/bottle/clayvase
-	desc = "A vase fashioned from clay. Still needs to be fired to be useful."
+	desc = "A vase fashioned from clay. It still needs to be fired to be useful."
 	smeltresult = /obj/item/reagent_containers/glass/bottle/clayvase
 
 /obj/item/natural/clay/clayvaseclassic
@@ -58,7 +58,7 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "clayvaseraw"
 	cooked_type = /obj/item/reagent_containers/glass/bottle/clayvaseclassic
-	desc = "A vase fashioned from clay. Still needs to be fired to be useful."
+	desc = "A vase fashioned from clay. It still needs to be fired to be useful."
 	smeltresult = /obj/item/reagent_containers/glass/bottle/clayvaseclassic
 
 /obj/item/reagent_containers/glass/bottle/clayvase
@@ -89,7 +89,7 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "clayfancyvaseraw"
 	cooked_type = /obj/item/reagent_containers/glass/bottle/clayfancyvase
-	desc = "A fancy vase fashioned from clay. Still needs to be fired to be useful."
+	desc = "A fancy vase fashioned from clay. It still needs to be fired to be useful."
 	smeltresult = /obj/item/reagent_containers/glass/bottle/clayfancyvase
 
 /obj/item/natural/clay/clayfancyvaseclassic
@@ -97,7 +97,7 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "clayfancyvaseraw"
 	cooked_type = /obj/item/reagent_containers/glass/bottle/clayfancyvaseclassic
-	desc = "A fancy vase fashioned from clay. Still needs to be fired to be useful."
+	desc = "A fancy vase fashioned from clay. It still needs to be fired to be useful."
 	smeltresult = /obj/item/reagent_containers/glass/bottle/clayfancyvaseclassic
 
 /obj/item/reagent_containers/glass/bottle/clayfancyvase
@@ -128,7 +128,7 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "claycupraw"
 	cooked_type = /obj/item/reagent_containers/glass/cup/claycup
-	desc = "A small flask fashioned from clay. Still needs to be fired to be useful."
+	desc = "A small flask fashioned from clay. It still needs to be fired to be useful."
 	smeltresult = /obj/item/reagent_containers/glass/cup/claycup
 
 /obj/item/natural/clay/claycupclassic
@@ -136,7 +136,7 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "claycupraw"
 	cooked_type = /obj/item/reagent_containers/glass/cup/claycupclassic
-	desc = "A small flask fashioned from clay. Still needs to be fired to be useful."
+	desc = "A small flask fashioned from clay. It still needs to be fired to be useful."
 	smeltresult = /obj/item/reagent_containers/glass/cup/claycupclassic
 
 /obj/item/reagent_containers/glass/cup/claycup
@@ -161,26 +161,26 @@
 
 // Raw teapot
 /obj/item/natural/clay/rawteapot
-	name = "raw teapot"
+	name = "unfired teapot"
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "teapot_raw"
-	desc = "A teapot fashioned from clay. Still needs to be baked to be useful."
+	desc = "A teapot fashioned from clay. It still needs to be fired to be useful."
 	cooked_type = /obj/item/reagent_containers/glass/bucket/pot/teapot
 	smeltresult = /obj/item/reagent_containers/glass/bucket/pot/teapot
 
 // Raw teacup
 /obj/item/natural/clay/rawteacup
-	name = "raw teacup"
+	name = "unfired teacup"
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "teacup_raw"
-	desc = "A teacup fashioned from clay. Still needs to be baked to be useful."
+	desc = "A teacup fashioned from clay. It still needs to be fired to be useful."
 	cooked_type = /obj/item/reagent_containers/glass/cup/ceramic
 	smeltresult = /obj/item/reagent_containers/glass/cup/ceramic
 
 //Bricks - Makes bricks which are used for building. (Need brick-wall sprites for this.. augh..)
 /obj/item/natural/clay/claybrick
-	name = "uncooked clay brick"
-	desc = "An uncooked clay brick. It still needs to be cooked in a furnace."
+	name = "unfired clay brick"
+	desc = "An uncooked clay brick. It still needs to be fired to be useful."
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "claybrickraw"
 	cooked_type = /obj/item/natural/brick
@@ -188,8 +188,8 @@
 
 //Statues - Basically cheapest version of the metal-made statues, but way easier to make given no rare material usage. Just skill. Plus, dyeable.
 /obj/item/natural/clay/claystatue
-	name = "uncooked clay statue"
-	desc = "An uncooked clay statue. It still needs to be cooked in a furnace."
+	name = "unfired clay statue"
+	desc = "An uncooked clay statue. It still needs to be fired to be useful."
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "claystatueraw"
 	cooked_type = /obj/item/roguestatue/clay
