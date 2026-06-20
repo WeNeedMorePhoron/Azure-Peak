@@ -155,7 +155,7 @@
 		shake_camera(screenshaken, 5, 5)
 	for (var/mob/living/shaken in view(1, focalpoint))
 		to_chat(shaken, span_danger("<B>The ground ruptures beneath your feet!</B>"))
-		shaken.Paralyze(50)
+		shaken.Slowdown(4)
 		var/obj/structure/flora/rock/giant_rock = new(get_turf(shaken))
 		QDEL_IN(giant_rock, 200)
 	return TRUE
