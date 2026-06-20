@@ -176,7 +176,9 @@ const OrderCard = (props: {
                 color: f.have >= f.want ? SEAL_GREEN : INK_SOFT,
               }}
             >
-              {starsIf(f.name, canRead)}: {f.have} / {f.want}
+              {starsIf(f.name, canRead)}: {f.have}
+              {f.unit} / {f.want}
+              {f.unit}
             </div>
           ))}
         </div>
@@ -196,7 +198,7 @@ const OrderCard = (props: {
             style={inkButtonStyle()}
             onClick={() => act('claim_order', { ref: order.ref })}
           >
-            Claim (Smith)
+            Claim Order
           </button>
         )}
         {order.status === 'open' && isCommissioner && (

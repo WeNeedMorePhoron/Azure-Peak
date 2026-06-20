@@ -32,6 +32,7 @@ export type OrderFulfillment = {
   name: string;
   have: number;
   want: number;
+  unit: string;
 };
 
 export type OrderStatus = 'open' | 'claimed' | 'complete';
@@ -73,6 +74,9 @@ export type CommissionerData = {
   item_cap_per_order: number;
   my_manifest_items: number;
   has_active_order: BooleanLike;
+  has_materials: BooleanLike;
+  ping_enabled: BooleanLike;
+  open_order_count: number;
   catalog: CatalogEntry[];
   categories: string[];
   ingots: string[];

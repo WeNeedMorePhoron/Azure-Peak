@@ -1249,6 +1249,10 @@
 /obj/machinery/light/rogue/candle/blue,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors)
+"Hy" = (
+/obj/structure/roguemachine/escrow/arcane,
+/turf/open/floor/rogue/blocks/newstone/alt,
+/area/rogue/indoors/town/manor)
 "HO" = (
 /obj/structure/table/wood{
 	dir = 1;
@@ -1336,6 +1340,10 @@
 "LM" = (
 /turf/closed/wall/mineral/rogue/decowood/vert,
 /area/rogue/indoors/town/physician)
+"LQ" = (
+/obj/structure/roguemachine/escrow/alchemist,
+/turf/open/floor/rogue/blocks/newstone/alt,
+/area/rogue/indoors/town/manor)
 "Ml" = (
 /obj/effect/decal/cobbleedge{
 	dir = 1;
@@ -3414,7 +3422,7 @@ dc
 ev
 ev
 ev
-ev
+LQ
 OI
 zf
 nv
@@ -3518,7 +3526,7 @@ oh
 ev
 ev
 ev
-ev
+Hy
 TN
 Gk
 sh

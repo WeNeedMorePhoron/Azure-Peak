@@ -1,4 +1,4 @@
- import { useState } from 'react';
+import { useState } from 'react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -40,8 +40,8 @@ export const Commissioner = () => {
         <div style={pageStyle}>
           <div style={titleStyle}>The Commissioner</div>
           <div style={subtitleStyle}>
-            Commission smithing and engineering work. Coin held in escrow until
-            the order is fulfilled.
+            Commission crafted work. Coin held in escrow until the order is
+            fulfilled.
           </div>
           <div style={rulerStyle} />
 

@@ -166,7 +166,7 @@ export const ConfigPanel = (props: {
       </div>
       <MarginRow
         label="Percent Margin"
-        hint="% added to material cost"
+        hint="% added to base cost"
         current={data.percent_margin}
         minValue={0}
         maxValue={500}
@@ -184,21 +184,47 @@ export const ConfigPanel = (props: {
       />
 
       <div style={{ ...sectionHeaderStyle, marginTop: '16px' }}>
-        Material Prices & Acceptance
+        Notifications
       </div>
-      <div
-        style={{
-          marginTop: '4px',
-          fontSize: FONT_BODY,
-          color: INK_SOFT,
-          marginBottom: '6px',
-        }}
-      >
-        Per unit. Recipe price = (material cost) × (1 + percent margin / 100) +
-        flat margin. Disabling a material drops every recipe that uses it from
-        the catalog - whether it is a primary or secondary ingredient.
+      <div style={fieldRowStyle}>
+        <div style={{ flex: 1, color: INK, fontSize: FONT_BODY }}>
+          OOC reminder to eligible crafters every 15 minutes while commissions
+          sit unclaimed.
+          <span style={{ color: INK_FAINT, marginLeft: '8px' }}>
+            {data.open_order_count} unclaimed now.
+          </span>
+        </div>
+        <button
+          type="button"
+          style={inkButtonStyle({
+            color: data.ping_enabled ? SEAL_AMBER : undefined,
+          })}
+          onClick={() => act('toggle_pings')}
+        >
+          {data.ping_enabled ? 'Reminders: ON' : 'Reminders: OFF'}
+        </button>
       </div>
-      <MaterialColumns materials={data.materials} act={act} />
+
+      {!!data.has_materials && (
+        <>
+          <div style={{ ...sectionHeaderStyle, marginTop: '16px' }}>
+            Material Prices & Acceptance
+          </div>
+          <div
+            style={{
+              marginTop: '4px',
+              fontSize: FONT_BODY,
+              color: INK_SOFT,
+              marginBottom: '6px',
+            }}
+          >
+            Per unit. Price = (material cost) × (1 + percent margin / 100) + flat
+            margin. Disabling a material drops every recipe that uses it from the
+            catalog - whether it is a primary or secondary ingredient.
+          </div>
+          <MaterialColumns materials={data.materials} act={act} />
+        </>
+      )}
     </>
   );
 };
