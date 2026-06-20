@@ -22,14 +22,14 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	health = 700
 	maxHealth = 700
-	melee_damage_lower = 20
-	melee_damage_upper = 30
+	melee_damage_lower = 28
+	melee_damage_upper = 40
 	vision_range = 7
 	aggro_vision_range = 9
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	simple_detect_bonus = 20
-	retreat_distance = 2
-	minimum_distance = 1
+	retreat_distance = 4
+	minimum_distance = 3
 	food_type = list()
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	pooptype = null
@@ -50,12 +50,11 @@
 	rapid = 3
 	projectiletype = /obj/projectile/magic/frostbolt/greater
 	ranged_message = "throws icy magick"
+	var/frost_cd = 0
 
 /obj/projectile/magic/frostbolt/greater
 	name = "greater frostbolt"
-	damage = 25
-	range = 6
-	speed = 6 //higher is slower
+	damage = 36
 
 /mob/living/simple_animal/hostile/retaliate/rogue/fae/sylph/Initialize()
 	src.adjust_skillrank(/datum/skill/combat/unarmed, 5, TRUE)
@@ -63,6 +62,20 @@
 
 /mob/living/simple_animal/hostile/retaliate/rogue/fae/sylph/simple_add_wound(datum/wound/wound, silent = FALSE, crit_message = FALSE)	//no wounding the fiend
 	return
+
+/mob/living/simple_animal/hostile/retaliate/rogue/fae/sylph/AttackingTarget()
+	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_PREATTACK)
+		return FALSE
+	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
+	in_melee = TRUE
+	if(QDELETED(target))
+		return
+	. = target.attack_animal(src)
+	if(. && isliving(target) && world.time >= frost_cd)
+		frost_cd = world.time + 3 SECONDS
+		var/mob/living/L = target
+		apply_frost_stack(L)
+		L.visible_message(span_danger("[src]'s frozen touch bites deep into [L]!"))
 
 /mob/living/simple_animal/hostile/retaliate/rogue/fae/sylph/death(gibbed)
 	..()
