@@ -2142,7 +2142,7 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/baotha
 	backr = /obj/item/rogueweapon/spear/partizan/baotha
 
-	H.mind.RemoveSpell(new /datum/action/cooldown/spell/mending/lesser)
+	H.mind.AddSpell(new /datum/action/cooldown/spell/mending/lesser)
 
 //
 
