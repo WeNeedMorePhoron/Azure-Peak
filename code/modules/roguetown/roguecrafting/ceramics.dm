@@ -107,7 +107,7 @@
 	* A silica source, like sand, quartz or flint (This is the primary material. Silica has a melting point
 		of about 1700C.)
 	* flux, like soda ash (Na2CO3), potash(K2CO3) or Natron (sodium carbonate IIRC?), commonly used in ancient egyptian glassmaking.
-		Flux is paramount to reduce the melting point of silica to something achievable in a kiln.
+		Flux is paramount to reduce the melting point of silica to something achievable in a kiln (or oven/furnace in the case of this game).
 	* a Stablizer, like limestone, bone ash, or marble dust.
 		Did you know 'pure' glass dissolves in water? The stablizer is what binds everything together and makes it strong.
 	In reality, those different components will be abstracted in game, respectively to:
@@ -125,7 +125,7 @@
 	tools = list(/obj/item/reagent_containers/glass/mortar, /obj/item/pestle)
 	result = list(/obj/item/natural/glassbatch)
 	reqs = list(/obj/item/natural/clay = 2, /obj/item/ash = 2, /obj/item/natural/stone = 1)
-	craftdiff = 2
+	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/ceramics/clay/claystatue
 	name = "clay statue"
