@@ -2132,6 +2132,11 @@
 
 /datum/outfit/job/roguetown/baothanrite/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
+	var/list/items = list()
+	items |= H.get_equipped_items(TRUE)
+	for(var/I in items)
+		H.dropItemToGround(I, TRUE)
+	H.drop_all_held_items()
 	head = /obj/item/clothing/head/roguetown/helmet/baotha
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/fluted/baotha
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/baotha
@@ -2151,7 +2156,7 @@
 	desc = "Lo', the twins of beauty; Eora and Belladoth, they sought a prize which but one may have.."
 	icon_state = "baothahelm"
 	item_state = "baothahelm"
-	body_parts_covered = HEAD|HAIR|EARS|MOUTH
+	body_parts_covered = HEAD|HAIR|EARS|MOUTH|EYES
 	armor_class = ARMOR_CLASS_LIGHT
 	max_integrity = ARMOR_INT_HELMET_ANTAG - 300 //Halved durability, compared to traditional Ascendant-tier armor.
 	smeltresult = /obj/item/ingot/component/baotha
@@ -2170,10 +2175,11 @@
 	item_state = "baothacoif"
 	armor = ARMOR_PADDED
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
-	body_parts_covered = NECK|HAIR|EARS|HEAD|NOSE
+	body_parts_covered = NECK | HAIR | EARS | HEAD | NOSE | EYES
 	armor_class = ARMOR_CLASS_LIGHT
 	adjustable = CAN_CADJUST
 	toggle_icon_state = TRUE
+	resistance_flags = FIRE_PROOF
 	blocksound = SOFTHIT
 	color = null
 	chunkcolor = "#645567"
@@ -2229,6 +2235,7 @@
 	color = null
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
 	armor_class = ARMOR_CLASS_LIGHT
+	resistance_flags = FIRE_PROOF
 	body_parts_covered = CHEST | GROIN | ARMS
 	icon = 'icons/roguetown/clothing/shirts.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/shirts.dmi'
@@ -2255,6 +2262,7 @@
 	icon_state = "baothabracers"
 	chunkcolor = "#6d1c87"
 	armor = ARMOR_PADDED
+	resistance_flags = FIRE_PROOF
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
 	smeltresult = /obj/item/ingot/component/baotha
 
@@ -2278,6 +2286,7 @@
 	armor = ARMOR_PADDED
 	icon_state = "baothaskirt"
 	chunkcolor = "#6d1c87"
+	resistance_flags = FIRE_PROOF
 	armor_class = ARMOR_CLASS_LIGHT
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
 	body_parts_covered = GROIN | LEGS
