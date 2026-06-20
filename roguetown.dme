@@ -2999,6 +2999,7 @@
 #include "code\modules\roguetown\roguestock\stockpile_seafood.dm"
 #include "code\modules\roguetown\roguestock\stockpile_vegetable.dm"
 #include "code\modules\roguetown\roguestock\trade_goods\_trade_goods.dm"
+#include "code\modules\roguetown\roguestock\trade_goods\alchemical.dm"
 #include "code\modules\roguetown\roguestock\trade_goods\artisan.dm"
 #include "code\modules\roguetown\roguestock\trade_goods\equipment_armaments.dm"
 #include "code\modules\roguetown\roguestock\trade_goods\equipment_armor.dm"
