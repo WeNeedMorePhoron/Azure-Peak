@@ -41,7 +41,7 @@
 	aspect_type = ASPECT_MINOR
 	school_color = GLOW_COLOR_ARCANE
 	binding_chants = list(
-		"Let me the shield that will protect me.",
+		"Let me wield the shield that will protect me.",
 		"Aegis, mihi adesse!",
 	)
 	unbinding_chants = list(
@@ -50,6 +50,24 @@
 	)
 	choice_spells = list(
 		/datum/action/cooldown/spell/conjure_aegis,
+	)
+
+/datum/magic_aspect/levitation
+	name = "Levitation"
+	latin_name = "Minor Aspectus Ascéndere"
+	desc = "TODO" //yea idk
+	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_BUFF
+	binding_chants = list(
+		"Let me rise above the earthly realm.",
+		"Levitatio, mihi adesse!",
+	)
+	unbinding_chants = list(
+		"I return myself to the earth.",
+		"Levitatio, me relinquere!",
+	)
+	fixed_spells = list(
+		/datum/action/cooldown/spell/fly,
 	)
 
 /datum/magic_aspect/displacement
