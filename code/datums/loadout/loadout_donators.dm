@@ -566,6 +566,6 @@
 
 /datum/loadout_item/donator/olygsword
     name = "Donator Kit - Gre'as'anto d'Shar"
-    path = /obj/item/rogueweapon/greatsword/olygsword
+    path = /obj/item/enchantingkit/olygsword
     ckeywhitelist = list("olympus7")
 	
