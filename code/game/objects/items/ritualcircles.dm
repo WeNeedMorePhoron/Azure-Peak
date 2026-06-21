@@ -2209,7 +2209,7 @@
 	armor_class = ARMOR_CLASS_LIGHT //The big, big thing.
 	color = null
 	chunkcolor = "#dd2166"
-	body_parts_covered = CHEST | GROIN | ARMS | LEGS
+	body_parts_covered = COVERAGE_ALL_BUT_HANDFEET //Offers minor coverage for the stomach.
 	smeltresult = /obj/item/ingot/component/baotha
 
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/baotha/Initialize()
