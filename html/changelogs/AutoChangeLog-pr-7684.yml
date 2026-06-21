@@ -1,4 +1,0 @@
-author: "crunchypretzels"
-delete-after: True
-changes:
-  - bugfix: "fixed incorrect paths on new glasses"

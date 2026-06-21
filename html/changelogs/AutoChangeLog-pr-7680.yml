@@ -1,4 +1,0 @@
-author: "Ollanius"
-delete-after: True
-changes:
-  - bugfix: "Bevors with adjustable flags no longer become invisible when adjusted. Thanks to Quillian for pointing it out!"
