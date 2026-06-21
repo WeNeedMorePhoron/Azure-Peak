@@ -1,0 +1,6 @@
+author: "radarseas"
+delete-after: True
+changes:
+  - bugfix: "Ancient hoplin shields now properly inherit their ranged resist values"
+  - refactor: "Ancient shield varients on lich_skeletons properly inheret their ranged resist"
+  - balance: "slightly adjusted some values of the lich skele shields"
