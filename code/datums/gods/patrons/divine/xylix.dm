@@ -40,7 +40,8 @@
 
 	titles = list(
 		"Tragedian",
-		"Xyji"
+		"Xyji",
+		"Luck"
 	)
 
 // Near a gambling machine, cross, or within the church

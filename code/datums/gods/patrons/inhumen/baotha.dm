@@ -31,7 +31,9 @@
 		"Lady of Heartbreak",
 		"Scarlet Lady",
 		"Baosumi",
-		"Thorns" // Queen of thorns, Lady of thorns, etc etc. 
+		"Thorns", // Queen of thorns, Lady of thorns, etc etc. 
+		"Belladoth",
+		"Beladoth" //SOMEONE WILL MISPELL IT, I JUST KNOW IT. 
 	)
 
 /datum/patron/inhumen/baotha/can_pray(mob/living/follower)
