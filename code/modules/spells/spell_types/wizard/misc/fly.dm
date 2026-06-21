@@ -158,5 +158,5 @@
 /datum/status_effect/buff/fly/proc/on_hit(mob/source, damage, damagetype, def_zone)
 	SIGNAL_HANDLER
 	if(!damage)
-		retur freelyn
+		return
 	owner.remove_status_effect(/datum/status_effect/buff/fly)
