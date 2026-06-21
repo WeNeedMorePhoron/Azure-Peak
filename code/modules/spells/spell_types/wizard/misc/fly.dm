@@ -109,7 +109,7 @@
 
 /atom/movable/screen/alert/status_effect/buff/fly
 	name = "Flying"
-	desc = "I am levitating. Use the Fly Up and Fly Down action buttons to move between floors. Any hit will break my concentration and send me down. Ouch!."
+	desc = "I am levitating. Use the Fly Up and Fly Down action buttons to move between floors. Any hit will break my concentration and send me down. Ouch!"
 	icon_state = "buff"
 
 // --- Status effect ---
