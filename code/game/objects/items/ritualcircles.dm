@@ -2156,14 +2156,14 @@
 	desc = "Lo', the twins of beauty; Eora and Belladoth, they sought a prize which but one may have.."
 	icon_state = "baothahelm"
 	item_state = "baothahelm"
-	body_parts_covered = HEAD|HAIR|EARS|MOUTH|EYES
+	body_parts_covered = HEAD | HAIR | EARS | MOUTH | EYES
 	armor_class = ARMOR_CLASS_LIGHT
 	max_integrity = ARMOR_INT_HELMET_ANTAG - 300 //Halved durability, compared to traditional Ascendant-tier armor.
 	smeltresult = /obj/item/ingot/component/baotha
 
 /obj/item/clothing/head/roguetown/helmet/baotha/Initialize()
 	. = ..()
-	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "ARMOR")
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "HELMET")
 
 /obj/item/clothing/head/roguetown/helmet/baotha/get_examine_highlight_status()
 	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)
@@ -2175,7 +2175,7 @@
 	item_state = "baothacoif"
 	armor = ARMOR_PADDED
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
-	body_parts_covered = NECK | HAIR | EARS | HEAD | NOSE | EYES
+	body_parts_covered = NECK | HAIR | EARS | HEAD | NOSE
 	armor_class = ARMOR_CLASS_LIGHT
 	adjustable = CAN_CADJUST
 	toggle_icon_state = TRUE
@@ -2209,7 +2209,7 @@
 	armor_class = ARMOR_CLASS_LIGHT //The big, big thing.
 	color = null
 	chunkcolor = "#dd2166"
-	body_parts_covered = COVERAGE_ALL_BUT_HANDFEET //Offers minor coverage for the stomach.
+	body_parts_covered = COVERAGE_ALL_BUT_HANDFEET
 	smeltresult = /obj/item/ingot/component/baotha
 
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/baotha/Initialize()

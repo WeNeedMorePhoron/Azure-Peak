@@ -1420,11 +1420,11 @@
 
 /obj/item/rogueweapon/spear/partizan/baotha
 	name = "saccharine swordspear"
-	desc = "Keep the rest at arm's reach, lest you're burdened with the pain of rememberance."
+	desc = "Keep the rest at arm's length, lest you're burdened with the pain of rememberance."
 	force_wielded = 25
 	force_wielded = 35
-	possible_item_intents = list(/datum/intent/sword/thrust/long, /datum/intent/sword/cut/long, /datum/intent/sword/strike)
-	gripped_intents = list(SPEAR_THRUST, PARTIZAN_REND, /datum/intent/spear/cut/bardiche/cleave, /datum/intent/spear/cut/glaive/sweep)
+	possible_item_intents = list(/datum/intent/sword/thrust/long, /datum/intent/sword/cut/long, /datum/intent/sword/strike, /datum/intent/sword/thrust/heavy)
+	gripped_intents = list(SPEAR_THRUST, /datum/intent/spear/cut, PARTIZAN_REND, /datum/intent/spear/cut/glaive/sweep)
 	icon_state = "swordstaff"
 	icon = 'icons/roguetown/weapons/polearms64.dmi'
 	parrysound = list(
