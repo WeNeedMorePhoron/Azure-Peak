@@ -39,7 +39,8 @@
 	storyteller = /datum/storyteller/xylix
 
 	titles = list(
-		"Tragedian"
+		"Tragedian",
+		"Xyji"
 	)
 
 // Near a gambling machine, cross, or within the church

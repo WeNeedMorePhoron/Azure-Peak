@@ -29,7 +29,9 @@
 
 	titles = list(
 		"Lady of Heartbreak",
-		"Scarlet Lady"
+		"Scarlet Lady",
+		"Baosumi",
+		"Thorns" // Queen of thorns, Lady of thorns, etc etc. 
 	)
 
 /datum/patron/inhumen/baotha/can_pray(mob/living/follower)
