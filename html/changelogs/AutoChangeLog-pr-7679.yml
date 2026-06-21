@@ -1,0 +1,4 @@
+author: "Ollanius"
+delete-after: True
+changes:
+  - bugfix: "Wearing a headpiece with a coordinate-based offset now properly applies said-offset, when worn in a helmet's cosmetic slot. Likewise, said-offset will now properly be applied to any regular decorations placed in said-headpiece. Thanks, Siggy!"
