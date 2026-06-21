@@ -538,7 +538,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 		recruit.job = new_role
 		recruit.override_advclass_examine = TRUE // makes your servants display as 'servant' instead of like. 'witch' or w/e
 		for(var/trait in applied_traits)
-			ADD_TRAIT(recruit, trait)
+			ADD_TRAIT(recruit, trait, JOB_TRAIT)
 		SEND_SIGNAL(SSdcs, COMSIG_GLOB_ROLE_CONVERTED, recruiter, recruit, new_role)
 		message_admins("ROLE RECRUITMENT: [recruiter.real_name] ([recruiter.ckey]) has converted [recruit.real_name] ([recruit.ckey]) to [new_role]")
 		log_game("ROLE RECRUITMENT: [recruiter.real_name] ([recruiter.ckey]) has converted [recruit.real_name] ([recruit.ckey]) to [new_role]")
