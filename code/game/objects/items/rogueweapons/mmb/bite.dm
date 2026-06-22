@@ -36,6 +36,12 @@
 	if(HAS_TRAIT(user, TRAIT_NO_BITE))
 		to_chat(user, span_warning("I can't bite."))
 		return
+	if(ishuman(target))
+		var/mob/living/carbon/human/T = target
+		if(T.has_status_effect(/datum/status_effect/buff/clash) && ishuman(user))
+			var/obj/item/IM = T.get_active_held_item()
+			T.process_clash(user, IM)
+			return
 	if(!user_species || (user_species && !user_species.headless))
 		user.face_atom(target)
 	if(iscarbon(user))
