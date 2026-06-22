@@ -964,3 +964,31 @@
   - refactor: Ancient shield varients on lich_skeletons properly inheret their ranged
       resist
   - balance: slightly adjusted some values of the lich skele shields
+2026-06-22:
+  EtheoBoxxman:
+  - rscadd: Adds donor item for Jade
+  FreeStylaLT:
+  - bugfix: Fixed partial sating not working correctly.
+  KatTheFox:
+  - rscadd: Recruitment spells will now properly make you show your new job title
+      on examine
+  - rscadd: Recruited servants can now access the vomitorium like roundstart servants
+      - though they don't get the other traits
+  - bugfix: The description text for TRAIT_MARRIAGE_CAPABLE now properly reflects
+      how it works
+  Ollanius:
+  - bugfix: Olympus7's donator kit doesn't give the full sword, now. Oops.
+  - rscadd: Adds a greatsword-related reskin for a donator, Olympus7.
+  WeNeedMorePhoron:
+  - bugfix: Fur now accepts subtypes
+  bearrrrrrrr:
+  - bugfix: metal constructs are no longer allowed to inherit the holy power of wealth
+      directly into their souls (play tithebound)
+  borneblood:
+  - rscadd: Added an icon file for Mammonite.
+  - balance: Decreases the cooldown of Mammonite from 45 to 25 seconds.
+  - bugfix: Fixed a weird oversight that made Mammonite force you to get a bank account.
+  - refactor: Polishes Mammonite's code, removing oddities and redundancies.
+  eirenxiv:
+  - bugfix: 'excluded constructs from: Black Oaks, Grudgebearer an Anthraxi'
+  - bugfix: excluded gnomes from Grudgebearers
