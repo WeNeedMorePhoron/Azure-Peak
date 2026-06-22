@@ -26,7 +26,8 @@
 
 	titles = list(
 		"Forgefather", 
-		"Maker"
+		"Maker",
+		"Mamuke"
 		)
 
 // Near a smelter, hearth, cross, within the smithy, or within the church
