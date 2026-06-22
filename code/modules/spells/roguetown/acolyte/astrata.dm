@@ -291,7 +291,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/holycharging.ogg'
-	cooldown_time = 5 MINUTES
+	cooldown_time = 10 MINUTES
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_NO_MOVE | SPELL_REQUIRES_SAME_Z
 
@@ -322,12 +322,12 @@
 	density = FALSE
 	layer = 2.8
 	brightness = 10
-	fueluse = 30 MINUTES
+	fueluse = 15 MINUTES
 	color = GLOW_COLOR_ASTRATA
 	bulb_colour = GLOW_COLOR_ASTRATA
 	max_integrity = 150
 	healing_range = 2
-	var/lifespan = 30 MINUTES
+	var/lifespan = 15 MINUTES
 
 /obj/machinery/light/rogue/campfire/miracle_pyre/process()
 	..()
