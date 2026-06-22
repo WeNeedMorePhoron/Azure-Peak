@@ -121,13 +121,19 @@
 	spell_color = "#330000"
 
 	primary_resource_type = SPELL_COST_DEVOTION
-	devotion_cost = 50
+	primary_resource_cost = SPELLCOST_MIRACLE_MAJOR + 20
+
+	secondary_resource_type = SPELL_COST_STAMINA
+	secondary_resource_cost = SPELLCOST_MIRACLE
+
+	ignore_armor_penalty = TRUE
 	cooldown_time = 10 MINUTES
 	charge_time = 0.1 SECONDS
 
 	invocations = list("Malum's hand will heed you from harm!")
 	invocation_type = INVOCATION_SHOUT
 	cast_range = SPELL_RANGE_GROUND
+	associated_stat = null
 	associated_skill = /datum/skill/magic/holy
 
 /datum/action/cooldown/spell/malum_blessing/cast(atom/cast_on)
