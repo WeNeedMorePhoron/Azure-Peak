@@ -15,6 +15,9 @@
 	grid_width = 64
 	grid_height = 64
 
+	salvage_amount = 2
+	salvage_result = /obj/item/natural/cloth
+
 /obj/item/clothing/cloak/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_info("Certain cloaks - like jupons, tabards, and surcoats - can be given a unique pattern and coloration by right-clicking them.")
