@@ -28,7 +28,7 @@
 
 	titles = list(
 		"Justiciar",
-		"Justicar" // it is misspelled ingame enough that we should probably accept this too 
+		"Justicar", // it is misspelled ingame enough that we should probably accept this too 
 		"Ratake"
 	)
 
