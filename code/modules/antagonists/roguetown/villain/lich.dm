@@ -232,7 +232,7 @@
 /datum/outfit/job/roguetown/lich/post_equip(mob/living/carbon/human/H)
 	..()
 	var/datum/antagonist/lich/lichman = H.mind.has_antag_datum(/datum/antagonist/lich)
-	// One phylactery instead of 3 so that they don't need to get chased down non-stop.
+	// One phylactery, one second chance.
 	var/obj/item/phylactery/new_phylactery = new(H.loc)
 	lichman.phylacteries += new_phylactery
 	new_phylactery.possessor = lichman
@@ -363,7 +363,7 @@
 		var/mob/living/carbon/human/H = user
 		if(H.patron.type == /datum/patron/inhumen/zizo) //DIVINITY. ASCENSION. ZIZO. ZIZO. ZIZO.
 			. += span_rose("A crystalline fragment of divinity, used by Lyches to thwart death's grasp. If a Lych's incarnation is slain, they will be resurrected wherever their nearest phylactrey happens to be, destroying it in the process. Lyches can only be slain, permenantly, once all phylactries linked to their spirit have been destroyed.")
-		else if(H.patron.type == /datum/patron/divine/necra || H.patron.type == /datum/patron/divine/astrata || H.patron.type == /datum/patron/divine/undivided) //Tennites believe Necra is death and in their eyes your divinity is false, because they're baised towards their masters.
+		else if(H.patron.type == /datum/patron/divine/necra || H.patron.type == /datum/patron/divine/astrata || H.patron.type == /datum/patron/divine/undivided) //Tennites think Necra's getting your soul (hah) and in their eyes your divinity is false, because they're baised towards their masters.
 			. += span_rose("A crystalline fragment of false divinity, used by Lyches to thwart Necra's grasp. If a Lych's incarnation is slain, they will be resurrected wherever their nearest phylactrey happens to be, destroying it in the process. Lyches can only be slain, permenantly, once all phylactries linked to their spirit have been destroyed.")
 		else if(H.patron.type == /datum/patron/old_god) //Psydonites are moderately neutral, as they are wildcards, your divinity is self-made. Interpretation is up to you.
 			. += span_rose("A crystalline fragment of self-made divinity, used by Lyches to thwart death's grasp. If a Lych's incarnation is slain, they will be resurrected wherever their nearest phylactrey happens to be, destroying it in the process. Lyches can only be slain, permenantly, once all phylactries linked to their spirit have been destroyed.")
