@@ -1243,31 +1243,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		else
 			return 0
 
-	if(nuforce < 10)
-		return 0
-
-	var/probability = nuforce * (total_dam / affecting.max_damage)
-	var/hard_dismember = HAS_TRAIT(affecting, TRAIT_HARDDISMEMBER)
-	var/easy_dismember = affecting.rotted || affecting.skeletonized || HAS_TRAIT(affecting, TRAIT_EASYDISMEMBER)
-	var/easy_decapitation = HAS_TRAIT(affecting, TRAIT_EASYDECAPITATION)
-	if(affecting.owner)
-		if(!hard_dismember)
-			hard_dismember = HAS_TRAIT(affecting.owner, TRAIT_HARDDISMEMBER)
-		if(!easy_dismember)
-			easy_dismember = HAS_TRAIT(affecting.owner, TRAIT_EASYDISMEMBER)
-		if(!easy_decapitation)
-			easy_decapitation = HAS_TRAIT(affecting.owner, TRAIT_EASYDECAPITATION)
-	// If you don't have easy dismember, then you must hit 90% damage or more to dismember a limb.
-	if((affecting.get_damage() <= (affecting.max_damage * CRIT_DISMEMBER_DAMAGE_THRESHOLD)) && !easy_dismember)
-		return FALSE
-	if(easy_decapitation && zone_sel == BODY_ZONE_PRECISE_NECK)
-		// May want to include hard dismember compatibility.
-		return probability * 1.5
-	if(hard_dismember)
-		return min(probability, 5)
-	else if(easy_dismember)
-		return probability * 1.5
-	return probability
+	return affecting.dismemberment_chance_from_force(nuforce, zone_sel)
 
 /obj/item/proc/get_dismember_sound()
 	if(damtype == BURN)
