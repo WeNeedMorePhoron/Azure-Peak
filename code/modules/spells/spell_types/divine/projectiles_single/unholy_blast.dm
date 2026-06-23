@@ -71,7 +71,6 @@
 				if(/datum/patron/inhumen/baotha)
 					H.adjustToxLoss(10)
 					H.Dizzy(5)
-					H.slurring(5)
 					H.visible_message(span_warning("[H] looks unwell..."), span_warning("I feel dizzy... and I've been poisoned!"))
 				if(/datum/patron/inhumen/matthios)
 					if(HAS_TRAIT(H, TRAIT_NOBLE))
