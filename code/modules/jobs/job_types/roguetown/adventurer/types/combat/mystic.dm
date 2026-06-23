@@ -1,6 +1,6 @@
 /datum/advclass/mystic
 	name = "Mystic"
-	tutorial = "I have spent my youth deepening my faith, only to be lured by the way of the magi, to the great regret of my family and scorn of the Church, they will treat me but they wont ever accept me within the fold"
+	tutorial = "I have spent my youth deepening my faith, only to be lured by the way of the magi, to the great regret of my family and scorn of the Church, they will treat my wounds but they wont ever accept me within the fold"
 	allowed_sexes = list(MALE, FEMALE)
 	outfit = /datum/outfit/job/roguetown/adventurer/mystic
 	class_select_category = CLASS_CAT_MYSTIC
@@ -29,7 +29,7 @@
 
 /datum/outfit/job/roguetown/adventurer/mystic/pre_equip(mob/living/carbon/human/H)
 	..()
-	to_chat(H, span_warning("I have spent my youth deepening my faith, only to be lured by the way of the magi, to the great regret of my family"))
+	to_chat(H, span_warning("I have spent my youth deepening my faith, only to be lured by the way of the magi, to the great regret of my family and scorn of the Church, they will treat my wounds but they wont ever accept me within the fold"))
 	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	shoes = /obj/item/clothing/shoes/roguetown/boots
 	pants = /obj/item/clothing/under/roguetown/trou/leather
@@ -147,7 +147,7 @@
 
 /datum/advclass/mystic/resilientsoul
 	name = "Sage"
-	tutorial = "I have spent my youth studying both the Arcyne and Miraculous ways, and developed my mastery of shielding and preserving lyfe under my care. to the great displeasure of the Church they will still treat my wounds but will never welcome me back amoung the flock."
+	tutorial = "I have spent my youth studying both the Arcyne in secret and Miraculous ways in the open, and developed my mastery of shielding and preserving lyfe under my care. to the great displeasure of the Church they will still treat my wounds but will never welcome me back amoung the flock."
 	allowed_sexes = list(MALE, FEMALE)
 	outfit = /datum/outfit/job/roguetown/adventurer/resilient
 	class_select_category = CLASS_CAT_MYSTIC
@@ -175,7 +175,7 @@
 
 /datum/outfit/job/roguetown/adventurer/resilient/pre_equip(mob/living/carbon/human/H)
 	..()
-	to_chat(H, span_warning("I have spent my youth deepening my faith, but soon followed closely on the side of a generous enchantor who taught me a few tricks to preserve and save lyves"))
+	to_chat(H, span_warning("I have spent my youth studying both the Arcyne in secret and Miraculous ways in the open, and developed my mastery of shielding and preserving lyfe under my care. to the great displeasure of the Church they will still treat my wounds but will never welcome me back amoung the flock."))
 	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	shoes = /obj/item/clothing/shoes/roguetown/boots
 	pants = /obj/item/clothing/under/roguetown/trou/leather
@@ -288,7 +288,7 @@
 
 /datum/advclass/mystic/holyblade
 	name = "Luminary"
-	tutorial = "I have spent my youth deepening my faith and one day an azurcaephan was under my care at the church, ever since their recovery i became the pupil of the noccite priests and templars"
+	tutorial = "I have spent my youth deepening my faith and one day a spellblade was under my care at the church, after they recovered they taught me a thing of two of the arcyne, abandoning my duties for but a few daes infuriated the Bishop that banished me from the flock, they will still gladely treat my wounds in their infinite goodness."
 	allowed_sexes = list(MALE, FEMALE)
 	outfit = /datum/outfit/job/roguetown/adventurer/holyblade
 	class_select_category = CLASS_CAT_MYSTIC
