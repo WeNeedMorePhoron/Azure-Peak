@@ -95,7 +95,7 @@
 					H.Slowdown(2) // Shared with Ravox cuz immobilize + offbal is 2 strong
 					H.visible_message(span_warning("Roots coil around [H]'s legs!"), span_warning("Roots tangle around my legs!"))
 				if(/datum/patron/divine/necra)
-					if(H.mob_biotypes & MOB_UNDEAD) || if(HAS_TRAIT(H, TRAIT_DEATHLESS)) //DEATH TO THE DEATHLESS, NECRA HATES YOU.
+					if(H.mob_biotypes & MOB_UNDEAD) || (HAS_TRAIT(H, TRAIT_DEATHLESS)) //DEATH TO THE DEATHLESS, NECRA HATES YOU.
 						H.adjust_fire_stacks(4)
 						H.ignite_mob()
 						H.visible_message(span_warning("[H] is rebuked by Divine Scorn!"), span_warning("The Undermaiden's scornful gaze rebukes me!"))
