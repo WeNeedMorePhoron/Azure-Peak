@@ -329,7 +329,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 			var/cnt = 0
 			var/distfound = FALSE
 			for(var/mob/living/carbon/human/L in get_nearby_humans(user, 7)) // the distance check won't work if you're shapeshifted without some extra logic
-				var/obj/shapeshift_holder/S = locate(/obj/shapeshift_holder in L)
+				var/obj/shapeshift_holder/S = locate(/obj/shapeshift_holder) in L
 				if(S && S.shape && S.stored)
 					if(get_dist(S.shape, user) <= 1)
 						distfound = TRUE
