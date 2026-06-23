@@ -43,7 +43,7 @@
 	disgust = CLAMP(amount, 0, DISGUST_LEVEL_MAXEDOUT)
 
 /mob/living/carbon/set_sunder(amount)
-	sunder_stacks = CLAMP(amount, 0) //Don't call over 140-100 because players will suffer for this.
+	sunder_stacks = (amount, 0) //Don't call over 140-100 because players will suffer for this.
 
 
 ////////////////////////////////////////TRAUMAS/////////////////////////////////////////
