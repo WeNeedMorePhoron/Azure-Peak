@@ -1,6 +1,6 @@
 /datum/advclass/mystic
 	name = "Mystic"
-	tutorial = "I have spent my youth deepening my faith, only to be lured by the way of the magi, to the great regret of my family"
+	tutorial = "I have spent my youth deepening my faith, only to be lured by the way of the magi, to the great regret of my family and scorn of the Church, they will treat me but they wont ever accept me within the fold"
 	allowed_sexes = list(MALE, FEMALE)
 	outfit = /datum/outfit/job/roguetown/adventurer/mystic
 	class_select_category = CLASS_CAT_MYSTIC
@@ -147,7 +147,7 @@
 
 /datum/advclass/mystic/resilientsoul
 	name = "Sage"
-	tutorial = "I have spent my youth studying both the Arcyne and Miraculous ways, and developed my mastery of shielding and preserving lyfe under my care."
+	tutorial = "I have spent my youth studying both the Arcyne and Miraculous ways, and developed my mastery of shielding and preserving lyfe under my care. to the great displeasure of the Church they will still treat my wounds but will never welcome me back amoung the flock."
 	allowed_sexes = list(MALE, FEMALE)
 	outfit = /datum/outfit/job/roguetown/adventurer/resilient
 	class_select_category = CLASS_CAT_MYSTIC
@@ -316,7 +316,7 @@
 
 /datum/outfit/job/roguetown/adventurer/holyblade/pre_equip(mob/living/carbon/human/H)
 	..()
-	to_chat(H, span_warning("I have spent my youth deepening my faith and one day a spellblade was under my care at the church, ever since their recovery they accepted me as their pupil and taught me the way of the blade and arcyne"))
+	to_chat(H, span_warning("I have spent my youth deepening my faith and one day a spellblade was under my care at the church, after they recovered they taught me a thing of two of the arcyne, abandoning my duties for but a few daes infuriated the Bishop that banished me from the flock, they will still gladely treat my wounds in their infinite goodness."))
 	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	shoes = /obj/item/clothing/shoes/roguetown/boots
 	pants = /obj/item/clothing/under/roguetown/trou/leather
