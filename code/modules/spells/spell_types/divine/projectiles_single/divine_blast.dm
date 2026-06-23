@@ -58,7 +58,7 @@
 			qdel(src)
 			return BULLET_ACT_BLOCK
 		if(H.mob_biotypes & MOB_UNDEAD)
-			damage += 20
+			damage += 10
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(istype(H.patron, /datum/patron/divine))
@@ -72,18 +72,21 @@
 			H.visible_message("<font color='white'>Divine power sunders [H]!</font>")
 			to_chat(H, span_userdanger("Silver rebukes my presence! My vitae smolders, and my powers wane!"))
 			H.adjust_fire_stacks(2, /datum/status_effect/fire_handler/fire_stacks/sunder)
+			H.ignite_mob()
 		if(H.has_status_effect(/datum/status_effect/debuff/necran_cross))
 			// Undead weakened by a blessed necran cross are more fragile to divine magycks
-			damage += 20
+			damage += 30
 		var/mob/living/carbon/human/caster
 		if (ishuman(firer))
 			caster = firer
 			switch(caster.patron.type)
 				if(/datum/patron/divine/undivided)
 					damage += 15 // just more raw damage. As mentioned in UNDIVIDED. Our generics are better as a trade off of not having higher tier uniques.
+					H.visible_message(span_warning("Holy light slams into [H] with force!"), span_warning("Holy light slams into me with force!"))
 				if(/datum/patron/divine/astrata)
 					H.adjust_fire_stacks(2)
 					H.ignite_mob()
+					H.visible_message(span_warning("[H] is engulfed in flames!"), span_warning("Astrata's fury sets me aflame!"))
 				if(/datum/patron/divine/abyssor)
 					H.visible_message(span_warning("Water seeps from [H]'s lips!"), span_warning("Choking water in my lungs!"))
 					H.Dizzy(5)
@@ -92,9 +95,10 @@
 					H.Slowdown(2) // Shared with Ravox cuz immobilize + offbal is 2 strong
 					H.visible_message(span_warning("Roots coil around [H]'s legs!"), span_warning("Roots tangle around my legs!"))
 				if(/datum/patron/divine/necra)
-					if(H.mob_biotypes & MOB_UNDEAD)
+					if(H.mob_biotypes & MOB_UNDEAD || if(HAS_TRAIT(H, TRAIT_DEATHLESS))) //DEATH TO THE DEATHLESS, NECRA HATES YOU.
 						H.adjust_fire_stacks(4)
 						H.ignite_mob()
+						H.visible_message(span_warning("[H] is rebuked by Divine Scorn!"), span_warning("The Undermaiden's scornful gaze rebukes me!"))
 				if(/datum/patron/divine/pestra)
 					H.vomit(stun = 0)
 					H.adjustToxLoss(10)
@@ -111,9 +115,11 @@
 							O.extinguish()
 				if(/datum/patron/divine/ravox)
 					H.Slowdown(2)
+					H.visible_message(span_warning("Divine chains briefly coil around [H]'s legs!"), span_warning("Divine chains briefly shackle around my legs!"))
 				if(/datum/patron/divine/malum)
-					H.adjustFireLoss(10)
-					H.visible_message(span_warning("Singing flames lick at [H]!"), span_warning("Malum's forge broils me!"))
+					H.adjustBruteLoss(10) //Think of it like hammering into you, it was straight direct armor-peircing burn damage before and could crit you insanely fast
+					H.visible_message(span_warning("[H] is hammered with divine force!"), span_warning("Malum's disappointment hammers into me!"))
+					//He's not bad, he's not proud, he's not hateful, he's as neutrally disappointed in you as one can be. (Its also funnier this way)
 	else
 		return
 
