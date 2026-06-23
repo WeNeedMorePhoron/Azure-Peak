@@ -1,0 +1,6 @@
+author: "Oats"
+delete-after: True
+changes:
+  - rscadd: "Adds a Baker's Trough, used to knead large quantities of flour and water into dough."
+  - rscadd: "Adds a Baker's Peel, used to take items from tables and put them into ovens and vice versa, with the added benefit of having a long reach due to its long handle. Effective against pie thieves, if you have the skill."
+  - qol: "Adds crafting recipes for turning wheat, rice, and oats into flour so that people with the necessary cooking skill to mass produce flour can do so without hurting their hands due to the repeated clicking and dropping necessary of the usual method. You can still do it one handful of grain the old fashioned way as well."
