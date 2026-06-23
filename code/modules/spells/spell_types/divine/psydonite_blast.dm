@@ -24,7 +24,7 @@
 
 	devotion_cost = 25 //It costing the same amount despite being tenfold worse is hilarious, TBH.
 	charge_required = FALSE
-	recharge_time = 5 SECONDS //WE CLOWN IN THIS FUCKIN' TOWN
+	cooldown_time = 5 SECONDS //WE CLOWN IN THIS FUCKIN' TOWN
 
 /datum/action/cooldown/spell/psydon/psydonite_blast/cast(atom/cast_on)
 	. = ..()
