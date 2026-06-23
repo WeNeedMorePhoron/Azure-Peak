@@ -209,6 +209,9 @@
 #define DISGUST_LEVEL_GROSS 25
 #define DISGUST_LEVEL_SLIGHTLYGROSS 10
 
+//Workaround to cap SUNDER stacks
+#define SUNDER_STACK_MAXEDOUT 140
+
 //Used as an upper limit for species that continuously gain nutriment
 #define NUTRITION_LEVEL_ALMOST_FULL 995
 
