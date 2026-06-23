@@ -1,0 +1,6 @@
+author: "PepegaSandwich"
+delete-after: True
+changes:
+  - rscadd: "New drinks! Made using a pot and either premade teamix craftable in Cooking, or basic ingridients. Teas have properties according to their ingridients, while they are much weaker, they dont require alchemical skill to be made."
+  - rscadd: "Westleach tar brick (totaly not hash), slicable, smokable, compact. Naledi gamer's must."
+  - image: "added icons for tea mixes"
