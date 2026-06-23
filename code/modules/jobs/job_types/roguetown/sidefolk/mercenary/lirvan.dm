@@ -305,20 +305,13 @@ third; SUNSET, little neat ability. it may be buggy. don't quote me on that. it 
 	if(QDELETED(H) || H.stat == DEAD)
 		return FALSE
 
-	var/max_leap_steps = max(1, get_dist(start_turf, target_turf) + 1)
 	var/landing_turf = target_turf
-	while(get_turf(H) != target_turf && max_leap_steps-- > 0)
-		var/turf/current_turf = get_turf(H)
-		if(dragon_afterimage)
-			dragon_afterimage.forceMove(current_turf)
-		var/dir_to_target = get_dir(current_turf, target_turf)
-		var/turf/next = get_step(current_turf, dir_to_target)
-		if(!next || next.density)
-			landing_turf = current_turf
-			break
-		if(!step(H, dir_to_target))
-			landing_turf = current_turf
-			break
+	if(dragon_afterimage)
+		dragon_afterimage.forceMove(start_turf)
+
+//forcemove instead of step, yippee
+	if(!H.forceMove(target_turf))
+		landing_turf = get_turf(H)
 
 	animate(H, pixel_z = prev_pixel_z, time = 1, easing = EASE_IN)
 	H.pass_flags = old_pass
