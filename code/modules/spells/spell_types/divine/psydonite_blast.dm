@@ -5,10 +5,10 @@
 //A joke spell for missionaries, there's a 99% chance you get a rock, a 1% you get a boulder from your shoe
 //Hilarious
 
-/datum/action/cooldown/spell/psydon/psydonite_blast //Hilarious
-	name = "PSYDONIC BLAST"
+/datum/action/cooldown/spell/psydon/enduring_blast //Hilarious
+	name = "ENDURING BLAST"
 	desc = "'Now, where did I put that..?' </br>Checks your boot - or failing that, your surroundings - for something worthy of enacting HIS divine fury."
-	button_icon_state = "BOOTCHECK"
+	button_icon_state = "ENDURINGBLAST"
 	sound = null
 
 	click_to_activate = FALSE
@@ -26,7 +26,7 @@
 	charge_required = FALSE
 	cooldown_time = 5 SECONDS //WE CLOWN IN THIS FUCKIN' TOWN
 
-/datum/action/cooldown/spell/psydon/psydonite_blast/cast(atom/cast_on)
+/datum/action/cooldown/spell/psydon/enduring_blast/cast(atom/cast_on)
 	. = ..()
 	if(!ishuman(owner))
 		return FALSE
@@ -42,7 +42,7 @@
 	else
 		found_thing = new /obj/item/natural/rock(T) //HILARIOUS
 
-	to_chat(H, span_info("I pluck a [found_thing] from my boot, for unleashing his wraith upon my enemies"))
+	to_chat(H, span_info("I pluck a [found_thing] from my boot, for unleashing his wraith upon HIS enemies!"))
 	if(!H.put_in_hands(found_thing, FALSE))
 		found_thing.forceMove(T)
 
