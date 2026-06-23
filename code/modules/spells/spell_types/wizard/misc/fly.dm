@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/fly
 	name = "Fly"
-	desc = "Levitate yourself or another off the ground, granting flight over dangerous terrain and the ability to travel between floors freely.\nAny hit will shatter concentration and drop the flyer immediately."
+	desc = "Levitate yourself or another off the ground, granting flight over dangerous terrain and the ability to travel between floors freely.\nAny hit, attack, or spell cast will shatter concentration and drop the flyer immediately."
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	button_icon_state = "rune4"
 	sound = 'sound/magic/haste.ogg'
@@ -109,7 +109,7 @@
 
 /atom/movable/screen/alert/status_effect/buff/fly
 	name = "Flying"
-	desc = "I am levitating. Use the Fly Up and Fly Down action buttons to move between floors. Any hit will break my concentration and send me down. Ouch!"
+	desc = "I am levitating. Use the Fly Up and Fly Down action buttons to move between floors. Any hit, attack, or spell cast will break my concentration and send me down. Sneaking is disabled while airborne."
 	icon_state = "buff"
 
 // --- Status effect ---
@@ -130,6 +130,9 @@
 	owner.movement_type |= FLYING
 	owner.float(TRUE)
 	RegisterSignal(owner, COMSIG_MOB_APPLY_DAMGE, PROC_REF(on_hit))
+	RegisterSignal(owner, COMSIG_MOB_ATTACK_HAND, PROC_REF(on_attack))
+	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(on_attack))
+	RegisterSignal(owner, COMSIG_MOB_CAST_SPELL, PROC_REF(on_cast))
 	fly_up_action = new /datum/action/cooldown/spell/fly_up(owner)
 	fly_up_action.Grant(owner)
 	fly_down_action = new /datum/action/cooldown/spell/fly_down(owner)
@@ -140,6 +143,9 @@
 	owner.movement_type &= ~FLYING
 	owner.float(FALSE)
 	UnregisterSignal(owner, COMSIG_MOB_APPLY_DAMGE)
+	UnregisterSignal(owner, COMSIG_MOB_ATTACK_HAND)
+	UnregisterSignal(owner, COMSIG_MOB_ITEM_ATTACK)
+	UnregisterSignal(owner, COMSIG_MOB_CAST_SPELL)
 	if(fly_up_action)
 		fly_up_action.Remove(owner)
 		qdel(fly_up_action)
@@ -159,4 +165,12 @@
 	SIGNAL_HANDLER
 	if(!damage)
 		return
+	owner.remove_status_effect(/datum/status_effect/buff/fly)
+
+/datum/status_effect/buff/fly/proc/on_attack(mob/source, ...)
+	SIGNAL_HANDLER
+	owner.remove_status_effect(/datum/status_effect/buff/fly)
+
+/datum/status_effect/buff/fly/proc/on_cast(mob/source, datum/action/cooldown/spell/spell, atom/cast_on)
+	SIGNAL_HANDLER
 	owner.remove_status_effect(/datum/status_effect/buff/fly)

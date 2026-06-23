@@ -703,7 +703,9 @@
 		switch(intent)
 			if(MOVE_INTENT_SNEAK)
 				var/mob/living/L = src
-				if(!L.has_status_effect(/datum/status_effect/stealth_revealed))
+				if(L.has_status_effect(/datum/status_effect/buff/fly))
+					to_chat(src, span_warning("I can't sneak while flying!"))
+				else if(!L.has_status_effect(/datum/status_effect/stealth_revealed))
 					m_intent = MOVE_INTENT_SNEAK
 					update_sneak_invis()
 

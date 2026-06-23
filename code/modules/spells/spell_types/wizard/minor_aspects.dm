@@ -66,9 +66,7 @@
 		"I return myself to the earth.",
 		"Ascéndere, me relinquere!",
 	)
-	fixed_spells = list(
-		/datum/action/cooldown/spell/fly,
-	)
+	fixed_spells = list()
 
 /datum/magic_aspect/displacement
 	name = "Displacement"
