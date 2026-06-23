@@ -9,6 +9,7 @@
 	duration = 5 MINUTES
 
 /datum/status_effect/buff/drunk/on_creation(mob/living/new_owner)
+	new_owner.sate_addiction(/datum/charflaw/addiction/alcoholic)
 	if(HAS_TRAIT(new_owner, TRAIT_NOHUNGER))
 		return FALSE
 	. = ..()
@@ -72,7 +73,9 @@
 /datum/status_effect/buff/snackbuff/on_apply() //can't stack two snack buffs, it'll keep the highest one
 	. = ..()
 	owner.add_stress(/datum/stressevent/goodsnack)
-	if(owner.has_status_effect(/datum/status_effect/buff/greatsnackbuff))
+	if(owner.has_status_effect(/datum/status_effect/buff/mealbuff))
+		owner.remove_status_effect(/datum/status_effect/buff/mealbuff)
+	if(owner.has_status_effect(/datum/status_effect/buff/greatsnackbuff) || owner.has_status_effect(/datum/status_effect/buff/greatmealbuff))
 		owner.remove_status_effect(/datum/status_effect/buff/snackbuff)
 
 
@@ -92,14 +95,17 @@
 
 /atom/movable/screen/alert/status_effect/buff/greatsnackbuff
 	name = "Great Snack!"
-	desc = "Nothing like a great and nutritious snack to help you on that final strech. I feel invigorated."
+	desc = "Nothing like a great and nutritious snack to help you on that final stretch. I feel invigorated."
 	icon_state = "foodbuff"
 
 /datum/status_effect/buff/greatsnackbuff/on_apply()
 	. = ..()
 	owner.add_stress(/datum/stressevent/greatsnack)
-	if(owner.has_status_effect(/datum/status_effect/buff/snackbuff)) //most of the time you technically shouldn't need to check this, but otherwise you get runtimes, so keep it
+	if(owner.has_status_effect(/datum/status_effect/buff/mealbuff) || owner.has_status_effect(/datum/status_effect/buff/snackbuff))
+		owner.remove_status_effect(/datum/status_effect/buff/mealbuff)
 		owner.remove_status_effect(/datum/status_effect/buff/snackbuff)
+	if (owner.has_status_effect(/datum/status_effect/buff/greatmealbuff))
+		owner.remove_status_effect(/datum/status_effect/buff/greatsnackbuff)
 
 /datum/status_effect/buff/mealbuff
 	id = "meal"
@@ -123,7 +129,9 @@
 /datum/status_effect/buff/mealbuff/on_apply()
 	. = ..()
 	owner.add_stress(/datum/stressevent/goodmeal)
-	if(owner.has_status_effect(/datum/status_effect/buff/greatmealbuff))
+	if(owner.has_status_effect(/datum/status_effect/buff/snackbuff))
+		owner.remove_status_effect(/datum/status_effect/buff/snackbuff)
+	if (owner.has_status_effect(/datum/status_effect/buff/greatsnackbuff) || owner.has_status_effect(/datum/status_effect/buff/greatmealbuff))
 		owner.remove_status_effect(/datum/status_effect/buff/mealbuff)
 
 /datum/status_effect/buff/greatmealbuff
@@ -148,8 +156,10 @@
 /datum/status_effect/buff/greatmealbuff/on_apply()
 	. = ..()
 	owner.add_stress(/datum/stressevent/greatmeal)
-	if(owner.has_status_effect(/datum/status_effect/buff/mealbuff))
-		owner.remove_status_effect(/datum/status_effect/buff/mealbuff) //can't stack two meal buffs, it'll keep the highest one
+	if(owner.has_status_effect(/datum/status_effect/buff/mealbuff) || owner.has_status_effect(/datum/status_effect/buff/snackbuff) || owner.has_status_effect(/datum/status_effect/buff/greatsnackbuff))
+		owner.remove_status_effect(/datum/status_effect/buff/mealbuff)
+		owner.remove_status_effect(/datum/status_effect/buff/snackbuff)
+		owner.remove_status_effect(/datum/status_effect/buff/greatsnackbuff)
 
 /datum/status_effect/buff/sweet
 	id = "sugar"
@@ -565,6 +575,76 @@
 	owner.adjustCloneLoss(-healing_on_tick, 0)
 // Lesser miracle effect end
 
+#define REWIND_AURA "originhealing"
+
+/datum/status_effect/buff/originhealing // not affected by the heartbeast, since this is not really "healing", you're restoring someone in time. It will also only heal one limb at a time, to differ from other heals that are more uniform.
+	id = "originhealing"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/healing
+	duration = 10 SECONDS
+	examine_text = "<font color='#ffae00'>SUBJECTPRONOUN is slowly being rewound in time!</font>"
+	var/healing_on_tick = 3
+	var/outline_colour = "#ffc558"
+
+/datum/status_effect/buff/originhealing/on_creation(mob/living/new_owner, new_healing_on_tick)
+	if(!isnull(new_healing_on_tick))
+		healing_on_tick = new_healing_on_tick
+	return ..()
+
+/datum/status_effect/buff/originhealing/on_apply()
+	var/filter = owner.get_filter(REWIND_AURA)
+	if (!filter)
+		owner.add_filter(REWIND_AURA, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 60, "size" = 1))
+	return TRUE
+
+/datum/status_effect/buff/originhealing/on_remove()
+	. = ..()
+	owner.remove_filter(REWIND_AURA)
+
+/datum/status_effect/buff/originhealing/tick()
+	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/psyheal_rogue(get_turf(owner))
+	H.color = "#ffda95"
+
+	if(owner.blood_volume < BLOOD_VOLUME_NORMAL)
+		owner.blood_volume = min(owner.blood_volume + (BLOOD_VOLUME_NORMAL * 0.02), BLOOD_VOLUME_NORMAL)
+
+	// Rewind the most damaged limb.
+	if(ishuman(owner))
+		var/mob/living/carbon/human/HM = owner
+		var/obj/item/bodypart/most_damaged
+		for(var/obj/item/bodypart/BP in HM.bodyparts)
+			if(QDELETED(BP))
+				continue
+			if(!most_damaged || (BP.brute_dam + BP.burn_dam) > (most_damaged.brute_dam + most_damaged.burn_dam))
+				most_damaged = BP
+
+		if(most_damaged)
+			var/total_damage = most_damaged.brute_dam + most_damaged.burn_dam
+			if(total_damage > 0)
+				var/brute_heal = healing_on_tick
+				var/burn_heal = healing_on_tick
+				// Additional 8% rewind of current limb damage.
+				brute_heal += most_damaged.brute_dam * 0.08
+				burn_heal += most_damaged.burn_dam * 0.08
+				most_damaged.heal_damage(brute_heal, burn_heal)
+				HM.update_damage_overlays()
+
+	var/list/wCount = owner.get_wounds()
+
+	if(length(wCount))
+		owner.heal_wounds(healing_on_tick * 2)
+		owner.update_damage_overlays()
+
+	owner.adjustOxyLoss(-healing_on_tick, 0)
+	owner.adjustToxLoss(-healing_on_tick, 0)
+
+	owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -healing_on_tick)
+	owner.adjustCloneLoss(-healing_on_tick, 0)
+
+	owner.stamina_add(-6)
+	owner.energy_add(9)
+
+#undef REWIND_AURA
+
 /atom/movable/screen/alert/status_effect/buff/healing/campfire
 	name = "Camp Rest"
 	desc = "The warmth of a fire and a bed soothes my ails."
@@ -574,7 +654,6 @@
 	name = "Warming Respite"
 	desc = "A break by the fire restores some of my energy."
 	icon_state = "campfire"
-
 
 #define CAMPFIRE_BASE_FILTER "campfire_stamina"
 
@@ -596,11 +675,10 @@
 /datum/status_effect/buff/campfire_stamina/tick()
 	if(HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
-	var/stamheal = healing_on_tick
-	if(!owner.cmode)
-		stamheal *= 2
-	owner.energy_add(stamheal)
 	owner.adjust_bodytemperature(8)
+	if(owner.has_status_effect(/datum/status_effect/combat_tag))
+		return
+	owner.energy_add(healing_on_tick * 2)
 
 /datum/status_effect/buff/campfire_stamina/on_remove()
 	owner.remove_filter(CAMPFIRE_BASE_FILTER)
@@ -613,7 +691,7 @@
 	duration = 6 SECONDS
 
 /datum/status_effect/buff/campfire/tick()
-	if(owner.cmode)
+	if(owner.has_status_effect(/datum/status_effect/combat_tag))
 		return
 	if(HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
@@ -1733,13 +1811,23 @@
 	id = "bloodrage"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/graggar_bloodrage
 	var/outline_color = "#ad0202"
+	var/originalcmode = ""
 	duration = 15 SECONDS
 
 /datum/status_effect/buff/bloodrage/on_apply()
 	ADD_TRAIT(owner, TRAIT_STRENGTH_UNCAPPED, TRAIT_MIRACLE)
+	shake_camera(owner, 5, 2) //Aura
+	originalcmode = owner.cmode_music
+	owner.cmode_music = 'sound/music/combat_bloodrage.ogg' //I'LL FUCK ANYTHING THAT MOVES
+	to_chat(owner, span_userdanger(pick("KILL, FUCKING KILL! SLAUGHTER THEM!", "BLOOD, FUCKING SPILL THE BLOOD!", "BLOOD AND FURY, SPLITTING MY SKULL!", "I'LL KILL ANYTHING THAT MOVES!", "I'M FUCKING UNSTOPPABLE, I'LL BREAK THEM!")))
 	var/holyskill = owner.get_skill_level(/datum/skill/magic/holy)
 	duration = ((15 SECONDS) * holyskill)
 	var/filter = owner.get_filter(BLOODRAGE_FILTER)
+	if(!owner.cmode)	//Turns on combat mode
+		owner.toggle_cmode()
+	else		//Gigajank to reset your combat music
+		owner.toggle_cmode()
+		owner.toggle_cmode()
 	if(!filter)
 		owner.add_filter(BLOODRAGE_FILTER, 2, list("type" = "outline", "color" = outline_color, "alpha" = 60, "size" = 2))
 	if(!HAS_TRAIT(owner, TRAIT_DODGEEXPERT))
@@ -1761,7 +1849,11 @@
 	owner.OffBalance(3 SECONDS)
 	owner.remove_filter(BLOODRAGE_FILTER)
 	owner.emote("breathgasp", forced = TRUE)
+	owner.cmode_music = originalcmode
 	owner.Slowdown(3)
+	if(owner.cmode && !owner.has_status_effect(/datum/status_effect/buff/call_to_slaughter))	//No cmode, no point - More Gigajank for combat music UNLESS call to slaughter is active
+		owner.toggle_cmode()
+		owner.toggle_cmode()
 
 /datum/status_effect/buff/psydonic_endurance
 	id = "psydonic_endurance"
@@ -1822,6 +1914,7 @@
 
 /datum/status_effect/buff/adrenaline_rush
 	id = "adrrush"
+	status_type = STATUS_EFFECT_REPLACE
 	alert_type = /atom/movable/screen/alert/status_effect/buff/adrenaline_rush
 	duration = 18 SECONDS
 	examine_text = "SUBJECTPRONOUN is amped up!"
@@ -1840,10 +1933,23 @@
 
 /datum/status_effect/buff/adrenaline_rush/on_remove()
 	. = ..()
+	clear_adrenaline_rush()
+
+/datum/status_effect/buff/adrenaline_rush/be_replaced()
+	clear_adrenaline_rush()
+	return ..()
+
+/datum/status_effect/buff/adrenaline_rush/proc/clear_adrenaline_rush()
 	REMOVE_TRAIT(owner, TRAIT_ADRENALINE_RUSH, INNATE_TRAIT)
 	var/mob/living/carbon/human/human = owner
 	if(istype(human))
 		human.pain_threshold -= 50
+
+/datum/status_effect/buff/adrenaline_rush/ranged
+	effectedstats = list(STATKEY_SPD = 2)
+
+/datum/status_effect/buff/adrenaline_rush/melee
+	effectedstats = list(STATKEY_WIL = 1, STATKEY_CON = 1)
 
 /datum/status_effect/buff/nocblessing
 	id = "nocblessing"
@@ -2554,3 +2660,32 @@
 	return ..()
 
 #undef INVIGORATION_FILTER
+
+
+//overclock buff for prosthetics
+/atom/movable/screen/alert/status_effect/buff/overclock
+	name = "Overclocked"
+	desc = "You are pushing your prosthetics to their limits. But you may break something..."
+	icon_state = "buff"
+
+/datum/status_effect/buff/overclock
+	id = "overclock"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/overclock
+	duration = 2 MINUTES
+	status_type = STATUS_EFFECT_REPLACE
+
+/datum/status_effect/buff/overclock/on_creation(mob/living/new_owner, prosthetic_arms, prosthetic_legs)
+	effectedstats = list()
+	if(prosthetic_arms > 0)
+		effectedstats[STATKEY_STR] = prosthetic_arms
+	if(prosthetic_legs > 0)
+		effectedstats[STATKEY_SPD] = prosthetic_legs
+	return ..()
+
+/datum/status_effect/buff/overclock/on_apply()
+	. = ..()
+	to_chat(owner, span_warning("The interals of my prosthetics wind up faster, vibrating as they work harder for a little while."))
+
+/datum/status_effect/buff/overclock/on_remove()
+	. = ..()
+	to_chat(owner, span_notice("I feel the hum of my prosthetics slow down, they need time to recharge."))

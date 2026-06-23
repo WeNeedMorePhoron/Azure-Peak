@@ -154,8 +154,8 @@
 
 /mob/living/simple_animal/pet/familiar/proc/TryAddFlight()
 	if(movement_type & (FLYING | FLOATING))
-		verbs += list(/mob/living/simple_animal/proc/fly_up,
-		/mob/living/simple_animal/proc/fly_down)
+		add_verb(src, list(/mob/living/simple_animal/proc/fly_up,
+		/mob/living/simple_animal/proc/fly_down))
 
 // they can wear pouches and amulets around their neck, for sovl
 /mob/living/simple_animal/pet/familiar/can_equip(obj/item/I, slot, disable_warning, bypass_equip_delay_self)
@@ -520,7 +520,6 @@
 			if(foundstab)
 				var/prob2spoil = 33
 				if(cs)
-					to_chat(world,span_warning("[cs]"))
 					prob2spoil = 1
 				var/already_rolled = FALSE
 				user.visible_message("<span class='notice'>[user] starts to cook [I] over [src.name]'s flame...</span>")

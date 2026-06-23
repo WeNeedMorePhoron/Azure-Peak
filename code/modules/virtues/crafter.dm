@@ -103,7 +103,7 @@
 				added_skills.Add(list(list(/datum/skill/craft/engineering, 2, 2)))
 				added_skills.Add(list(list(/datum/skill/craft/smelting, 2, 2)))
 				added_skills.Add(list(list(/datum/skill/magic/arcane, 2, 2)))
-				added_traits.Add(TRAIT_ENCHANTING_EXPERT, TRAIT_ALCHEMY_EXPERT, TRAIT_ARCYNE)
+				added_traits.Add(TRAIT_ENCHANTING_EXPERT, TRAIT_ALCHEMY_EXPERT, TRAIT_ARCYNE, TRAIT_LEYLINE_ATTUNEMENT)
 				recipient.mind?.special_items["Pestle"] = /obj/item/pestle
 				recipient.mind?.special_items["Mortar"] = /obj/item/reagent_containers/glass/mortar
 				recipient.mind?.special_items["Chalk"] = /obj/item/chalk
@@ -121,6 +121,7 @@
 	name = "Labourious Apprentice"
 	desc = "I've toiled away a part of my lyfe at the behest of another labourer, learning a thing or two."
 	added_stashed_items = list("Lamptern" = /obj/item/flashlight/flare/torch/lantern)
+	added_traits = list(TRAIT_HOMESTEAD_EXPERT)
 	max_choices = 4
 	choice_costs = list(0, 0, 3, 3)
 	extra_choices = list(

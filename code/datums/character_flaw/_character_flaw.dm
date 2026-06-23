@@ -25,15 +25,18 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	/datum/charflaw/noeyer::name = /datum/charflaw/noeyer,
 	/datum/charflaw/noeyel::name = /datum/charflaw/noeyel,
 	/datum/charflaw/noeyeall::name = /datum/charflaw/noeyeall,
+	/datum/charflaw/armor_break::name=/datum/charflaw/armor_break,
 	/datum/charflaw/limbloss/arm_r::name = /datum/charflaw/limbloss/arm_r,
 	/datum/charflaw/limbloss/arm_l::name = /datum/charflaw/limbloss/arm_l,
 	/datum/charflaw/sleepless::name = /datum/charflaw/sleepless,
 	/datum/charflaw/mute::name = /datum/charflaw/mute,
 	/datum/charflaw/critweakness::name = /datum/charflaw/critweakness,
 	/datum/charflaw/hunted::name = /datum/charflaw/hunted,
+	/datum/charflaw/targeted::name = /datum/charflaw/targeted,
 	/datum/charflaw/mind_broken::name = /datum/charflaw/mind_broken,
 	/datum/charflaw/noflaw::name = /datum/charflaw/noflaw,
 	/datum/charflaw/leprosy::name = /datum/charflaw/leprosy,
+	/datum/charflaw/wanted::name = /datum/charflaw/wanted,
 	/datum/charflaw/randflaw::name = /datum/charflaw/randflaw
 	))
 
@@ -410,37 +413,23 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	..()
 	user.add_client_colour(/datum/client_colour/monochrome)
 
-GLOBAL_LIST_INIT(hunted_protected_roles, list(
-	"Head Physician",
-	"Martyr",
-	"Bishop",
-	"Councillor",
-	"Hand",
-	"Jester",
-	"Court Magician",
-	"Seneschal",
-	"Suitor",
-	"Sergeant",
-	"Inquisitor",
-	"Consort",
-	"Grand Duke",
-	"Prince",
-	"Servant",
-	"Knight",
-	"Marshal"
-))
+/datum/charflaw/armor_break
+	name = "Loose Straps"
+	desc = "My armor never seems to fit quite right. It has a nasty habit of exploding off my body when under inordinate stress."
+	needs_extra_vice = TRUE
 
+/datum/charflaw/armor_break/on_mob_creation(mob/user)
+	..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		ADD_TRAIT(H, TRAIT_ARMOR_BREAK, TRAIT_GENERIC)
 /datum/charflaw/hunted
-	name = "Hunted (+2 TRI)"
+	name = "Hunted"
 	desc = "Something in my past has made me a target. I'm always looking over my shoulder.	\
-	\nTHIS IS A DIFFICULT FLAW, YOU WILL BE HUNTED BY ASSASSINS AND HAVE ASSASINATION ATTEMPTS MADE AGAINST YOU WITHOUT ANY ESCALATION. \
+	\nTHIS IS A DIFFICULT FLAW, YOU WILL BE HUNTED BY GNOLLS. \
 	EXPECT A MORE DIFFICULT EXPERIENCE. PLAY AT YOUR OWN RISK. IT REQUIRES AN EXTRA VICE."
 	needs_extra_vice = TRUE
 	var/logged = FALSE
-
-/datum/charflaw/hunted/on_mob_creation(mob/user)
-	. = ..()
-	user.adjust_triumphs(2)
 
 /datum/charflaw/hunted/flaw_on_life(mob/user)
 	if(!ishuman(user))
@@ -452,6 +441,28 @@ GLOBAL_LIST_INIT(hunted_protected_roles, list(
 			logged = TRUE
 
 /datum/charflaw/hunted/apply_post_equipment(mob/user)
+	..()
+	if(!ishuman(user))
+		return
+
+/datum/charflaw/targeted
+	name = "Targeted"
+	desc = "Something in my past has made me a target. I'm always looking over my shoulder.	\
+	\nTHIS IS A DIFFICULT FLAW, YOU WILL BE HUNTED BY ASSASSINS AND HAVE ASSASINATION ATTEMPTS MADE AGAINST YOU WITHOUT ANY ESCALATION. \
+	EXPECT A MORE DIFFICULT EXPERIENCE. PLAY AT YOUR OWN RISK. IT REQUIRES AN EXTRA VICE."
+	needs_extra_vice = TRUE
+	var/logged = FALSE
+
+/datum/charflaw/targeted/flaw_on_life(mob/user)
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(logged == FALSE)
+		if(H.name) // If you don't check this, the log entry wont have a name as flaw_on_life is checked at least once before the name is set.
+			log_hunted("[H.ckey] playing as [H.name] had the targeted flaw by vice.") // we log this in the same place as hunted because making a seperate log for it would be silly
+			logged = TRUE
+
+/datum/charflaw/targeted/apply_post_equipment(mob/user)
 	..()
 	if(!ishuman(user))
 		return
@@ -852,6 +863,29 @@ GLOBAL_LIST_INIT(hunted_protected_roles, list(
 			active_since = world.time
 	if(is_active && user && !QDELETED(user))
 		addtimer(CALLBACK(src, PROC_REF(check_for_candidates), user), 5 SECONDS)
+
+/datum/charflaw/wanted
+	name = "Wanted (+2 TRI)"
+	desc = "You're a known criminal; your name can be found on the EXCIDIUM. Your crime may have been a misdeed worthy of a fine, or a great offense against the powers at play. Only Adventurers, Pilgrims (Migrants), Traders, Vagabonds and Lunatics may pick this vice and it requires another."
+	needs_extra_vice = TRUE
+
+/datum/charflaw/wanted/on_mob_creation(mob/user)
+	. = ..()
+	user.adjust_triumphs(2)
+	ADD_TRAIT(user, TRAIT_OUTLAW, "[type]")
+
+/datum/charflaw/wanted/apply_post_equipment(mob/user)
+	..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	addtimer(CALLBACK(src, PROC_REF(apply_bounty_when_ready), H), 5 SECONDS)
+
+/datum/charflaw/wanted/proc/apply_bounty_when_ready(mob/living/carbon/human/H)
+	if(H.advsetup)
+		addtimer(CALLBACK(src, PROC_REF(apply_bounty_when_ready), H), 5 SECONDS)
+		return
+	wretch_select_bounty(H)
 
 
 

@@ -2,6 +2,8 @@
 	//used by the basic ai controller /datum/ai_behavior/basic_melee_attack to determine how fast a mob can attack
 	var/melee_cooldown = CLICK_CD_MELEE
 	var/pain_threshold = 0
+	var/no_head_bounty = FALSE
+
 
 /mob/living/Initialize()
 	. = ..()
@@ -1452,7 +1454,7 @@
 		if(L.cmode && L.mobility_flags & MOBILITY_STAND && !L.restrained())
 			to_chat(src, span_warning("I can't take \the [what] off, they are too tense!"))
 			return
-		if(L.compliance || L.surrendering)
+		if(L.compliance || L.surrendering || HAS_TRAIT(L, TRAIT_ARMOR_BREAK))
 			surrender_mod = 0.5
 
 	if(!who.Adjacent(src))
@@ -1948,10 +1950,6 @@
 	A.on_lose(src)
 	if(A.action)
 		A.action.Remove(src)
-
-/mob/living/proc/add_abilities_to_panel()
-	for(var/obj/effect/proc_holder/A in abilities)
-		statpanel("[A.panel]",A.get_panel_text(),A)
 
 /mob/living/lingcheck()
 	return LINGHIVE_NONE
@@ -2634,3 +2632,12 @@
 		)
 	SEND_SIGNAL(offered_item, COMSIG_OBJ_HANDED_OVER, src, offerer)
 	offerer.stop_offering_item()
+
+/mob/living/proc/strip_head_bounty()
+	no_head_bounty = TRUE
+
+/mob/living/carbon/strip_head_bounty()
+	. = ..()
+	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
+	if(istype(head))
+		head.no_head_bounty = TRUE
