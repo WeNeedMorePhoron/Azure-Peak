@@ -1,4 +1,4 @@
-/datum/advclass/mystic/
+/datum/advclass/mystic
 	name = "Mystic"
 	tutorial = "I have spent my youth deepening my faith, only to be lured by the way of the magi, to the great regret of my family"
 	allowed_sexes = list(MALE, FEMALE)
