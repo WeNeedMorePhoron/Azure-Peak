@@ -7,7 +7,7 @@
 
 /datum/action/cooldown/spell/psydon/psydonite_blast //Hilarious
 	name = "PSYDONIC BLAST"
-	desc = "'Now, where did I put that..?' </br>Checks your boot - or failing that, your surroundings - for something worthy of felling evyls."
+	desc = "'Now, where did I put that..?' </br>Checks your boot - or failing that, your surroundings - for something worthy of enacting HIS divine fury."
 	button_icon_state = "BOOTCHECK"
 	sound = null
 
