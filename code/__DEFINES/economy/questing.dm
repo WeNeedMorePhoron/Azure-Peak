@@ -62,8 +62,12 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 
 // Max mobs for kill request to avoid lagging
 #define QUEST_KILL_MAX_MOBS 20
-// Floor for TP to avoid no TP mob from being spammed 
+// Floor for TP to avoid no TP mob from being spammed
 #define QUEST_MOB_MIN_TP 10
+// Contract/quest corpses linger this long, then dust away to nothing (no ash left behind).
+#define QUEST_MOB_DUST_DELAY (5 MINUTES)
+// A head cut from a contract/quest mob dusts almost immediately so it can't be carted around.
+#define QUEST_HEAD_DUST_DELAY (5 SECONDS)
 
 #define QUEST_TP_BUDGET_KILL_EASY 35
 #define QUEST_TP_BUDGET_CLEAR_OUT 80
