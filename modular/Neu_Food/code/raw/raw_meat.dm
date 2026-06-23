@@ -431,3 +431,4 @@
 	name = "salted minced long pig"
 	desc = "Tasty mince! Wait a second..."
 	icon_state = "pigsalt"
+	rotprocess = SHELFLIFE_LONG
