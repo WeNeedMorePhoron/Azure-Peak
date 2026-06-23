@@ -39,10 +39,11 @@
 	var/obj/item/found_thing
 	if(prob(99))
 		found_thing = new /obj/item/natural/stone/(T)
+		to_chat(H, span_info("I pluck a [found_thing] from my boot, for unleashing his wraith upon HIS enemies!"))
 	else
 		found_thing = new /obj/item/natural/rock(T) //HILARIOUS
+		to_chat(H, span_info("I pluck a [found_thing] from my boot... wait, how did that even fit in there?!"))
 
-	to_chat(H, span_info("I pluck a [found_thing] from my boot, for unleashing his wraith upon HIS enemies!"))
 	if(!H.put_in_hands(found_thing, FALSE))
 		found_thing.forceMove(T)
 
