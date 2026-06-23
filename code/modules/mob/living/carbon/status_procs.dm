@@ -42,6 +42,9 @@
 /mob/living/carbon/set_disgust(amount)
 	disgust = CLAMP(amount, 0, DISGUST_LEVEL_MAXEDOUT)
 
+/mob/living/carbon/set_sunder(amount)
+	sunder_stacks = CLAMP(amount, 0, DISGUST_LEVEL_MAXEDOUT)
+
 
 ////////////////////////////////////////TRAUMAS/////////////////////////////////////////
 
