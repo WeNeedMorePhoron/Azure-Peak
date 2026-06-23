@@ -40,6 +40,11 @@
 	cooktime = STEW_COOKING_TIME / 4
 
 // STANDARD
+/datum/stew_recipe/humanoid_whole_meat
+	inputs = list(/obj/item/reagent_containers/food/snacks/rogue/meat/steak/humanoid)
+	output = /datum/reagent/consumable/soup/stew/humanoid
+	cooktime = STEW_COOKING_TIME * 3
+
 /datum/stew_recipe/humanoid
 	inputs = list(/obj/item/reagent_containers/food/snacks/rogue/meat/mince/humanoid)
 	output = /datum/reagent/consumable/soup/stew/humanoid
