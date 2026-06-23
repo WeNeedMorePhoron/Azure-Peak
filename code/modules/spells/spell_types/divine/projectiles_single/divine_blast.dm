@@ -13,7 +13,7 @@
 	releasedrain = 20
 	chargedrain = 1
 	chargetime = 0
-	recharge_time = 8 SECONDS
+	recharge_time = 5 SECONDS
 	warnie = "spellwarning"
 	no_early_release = TRUE
 	movement_interrupt = FALSE
@@ -69,9 +69,9 @@
 		if(istype(H.patron, /datum/patron/old_god))
 			damage += 20
 		if(HAS_TRAIT(H, TRAIT_SILVER_WEAK) && !H.has_status_effect(STATUS_EFFECT_ANTIMAGIC))
-			H.visible_message("<font color='white'>Divine power sunders [H]!</font>")
-			to_chat(H, span_userdanger("Silver rebukes my presence! My vitae smolders, and my powers wane!"))
-			H.adjust_fire_stacks(2, /datum/status_effect/fire_handler/fire_stacks/sunder)
+			H.visible_message("<font color='white'>Divine power rebukes [H]!</font>")
+			to_chat(H, span_userdanger("Divine fury rebukes my presence! My body catches aflame!")) //Its NOT a Silver sunder, for balance reasons w/ the buffs. Change this back to sunders when clergy isn't absolutely fucked to fight.
+			H.adjust_fire_stacks(2, /datum/status_effect/fire_handler/fire_stacks/divine)
 			H.ignite_mob()
 		if(H.has_status_effect(/datum/status_effect/debuff/necran_cross))
 			// Undead weakened by a blessed necran cross are more fragile to divine magycks
@@ -84,9 +84,14 @@
 					damage += 15 // just more raw damage. As mentioned in UNDIVIDED. Our generics are better as a trade off of not having higher tier uniques.
 					H.visible_message(span_warning("Holy light slams into [H] with force!"), span_warning("Holy light slams into me with force!"))
 				if(/datum/patron/divine/astrata)
-					H.adjust_fire_stacks(2)
-					H.ignite_mob()
-					H.visible_message(span_warning("[H] is engulfed in flames!"), span_warning("Astrata's fury sets me aflame!"))
+					if(istype(H.patron, /datum/patron/inhumen/matthios))
+						H.visible_message(span_warning("[H] is engulfed in flames!"), span_warning("Astrata's <b>hatred</b> sets me aflame!"))
+						H.adjust_fire_stacks(3) //ANCIENT ENEMY I DO NOT FEAR YOU
+						H.ignite_mob()
+					else
+						H.visible_message(span_warning("[H] is engulfed in flames!"), span_warning("Astrata's fury sets me aflame!"))
+						H.adjust_fire_stacks(2) //Remains regular, setting everyone on fire is funnier
+						H.ignite_mob()
 				if(/datum/patron/divine/abyssor)
 					H.visible_message(span_warning("Water seeps from [H]'s lips!"), span_warning("Choking water in my lungs!"))
 					H.Dizzy(5)
@@ -96,9 +101,9 @@
 					H.visible_message(span_warning("Roots coil around [H]'s legs!"), span_warning("Roots tangle around my legs!"))
 				if(/datum/patron/divine/necra)
 					if((H.mob_biotypes & MOB_UNDEAD) || HAS_TRAIT(H, TRAIT_DEATHLESS)) //DEATH TO THE DEATHLESS, NECRA HATES YOU.
-						H.adjust_fire_stacks(4)
+						H.adjust_fire_stacks(4, /datum/status_effect/fire_handler/fire_stacks/divine)
 						H.ignite_mob()
-						H.visible_message(span_warning("[H] is rebuked by Divine Scorn!"), span_warning("The Undermaiden's scornful gaze rebukes me!"))
+						H.visible_message(span_warning("[H] is rebuked by Divine Scorn!"), span_warning("The Undermaiden's <b>scornful</b> gaze rebukes me!"))
 				if(/datum/patron/divine/pestra)
 					H.vomit(stun = 0)
 					H.adjustToxLoss(10)
