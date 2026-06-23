@@ -1,0 +1,6 @@
+author: "WeNeedMorePhoron"
+delete-after: True
+changes:
+  - balance: "Remove headhunting from contracts (Both simple and non-simple mobs) to prevent double dipping on rewards."
+  - balance: "Raised contract rewards back to 100%, where it was before"
+  - balance: "Reduced the default headeater rate to 15%."
