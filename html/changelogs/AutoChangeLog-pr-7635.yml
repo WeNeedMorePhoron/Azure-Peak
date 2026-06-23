@@ -1,0 +1,8 @@
+author: "Ollanius"
+delete-after: True
+changes:
+  - rscadd: "At last, the Baothans now have access to their Rite of Armaments. Their armor is the worst out of the bunch, but they receive a potent weapon (in the form of the Swordspear) and two very useful traits (in the form of Painless and Dodge Expert) in exchange. Credit to Dakken and Cre77 for commissioning and creating the sprites, featured here."
+  - code_imp: "Touches up the descriptions, names, and miscellaneous information of in-menu patrons and ritual circles."
+  - bugfix: "Added missing sprites to the Hand's unique bracer."
+  - rscadd: "Gemstone amulets can now be worn on the wrists, similar to how psicrosses work."
+  - rscadd: "Touches up sprites for gemstone amulets, lances and copper spears."
