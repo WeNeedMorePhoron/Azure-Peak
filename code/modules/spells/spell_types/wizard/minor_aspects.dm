@@ -52,22 +52,6 @@
 		/datum/action/cooldown/spell/conjure_aegis,
 	)
 
-/datum/magic_aspect/levitation
-	name = "Levitation"
-	latin_name = "Minor Aspectus Ascéndere"
-	desc = "TODO" //yea idk none of the others have one either
-	aspect_type = ASPECT_MINOR
-	school_color = GLOW_COLOR_BUFF
-	binding_chants = list(
-		"Let me rise above the earthly realm.",
-		"Ascéndere, mihi adesse!",
-	)
-	unbinding_chants = list(
-		"I return myself to the earth.",
-		"Ascéndere, me relinquere!",
-	)
-	fixed_spells = list()
-
 /datum/magic_aspect/displacement
 	name = "Displacement"
 	latin_name = "Minor Aspectus Translationis"
