@@ -5,7 +5,7 @@
 	Toggle arc mode (Ctrl+G) while the spell is active to fire it over intervening mobs. Arced attacks deal 25% less damage."
 	clothes_req = FALSE
 	range = 12
-	overlay_state = "divine_blast"
+	overlay_state = "unholy_blast"
 	projectile_type = /obj/projectile/energy/unholyblast
 	projectile_type_arc = /obj/projectile/energy/unholyblast/arc
 	sound = list('sound/magic/vlightning.ogg')
@@ -17,7 +17,7 @@
 	warnie = "spellwarning"
 	no_early_release = TRUE
 	movement_interrupt = FALSE
-	invocations = list("Dunkle macht!")
+	invocations = list("Dunkle macht")
 	invocation_type = "shout"
 	glow_color = GLOW_COLOR_LIGHTNING
 	glow_intensity = GLOW_INTENSITY_LOW
@@ -31,7 +31,7 @@
 
 /obj/projectile/energy/unholyblast
 	name = "Unholy Blast"
-	icon_state = "divine_blast"
+	icon_state = "unholy_blast"
 	damage = 20 // wont do much to a heretical worshipper
 	woundclass = BCLASS_CUT // I REALLY wanted to do cut
 	nodamage = FALSE
@@ -71,6 +71,7 @@
 				if(/datum/patron/inhumen/baotha)
 					H.adjustToxLoss(10)
 					H.Dizzy(5)
+					H.slurring(5)
 					H.visible_message(span_warning("[H] looks unwell..."), span_warning("I feel dizzy... and I've been poisoned!"))
 				if(/datum/patron/inhumen/matthios)
 					if(HAS_TRAIT(H, TRAIT_NOBLE))
@@ -85,7 +86,10 @@
 					H.blur_eyes(5)
 				if(/datum/patron/inhumen/zizo)
 					if(istype(H.patron, /datum/patron/divine/necra)) //Hilarious
-						H.adjust_fire_stacks(6)
+						H.adjust_fire_stacks(4)
+						H.ignite_mob()
+					if(!HAS_TRAIT(H, TRAIT_SILVER_WEAK)) //Hilarious
+						H.adjust_fire_stacks(2)
 						H.ignite_mob()
 					H.Slowdown(3) 
 					H.visible_message(span_warning("Seething ambition sears within [H]'s mind!"), span_warning("Visions of progress and ambition sear into my mind!"))
