@@ -217,7 +217,8 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 	)
 
 /obj/item/book/granter/spell/fly
-	name = "Scroll of Levitation"
+	name = "Scroll of Fly"
+	desc = "Teaches you how to cast Fly."
 	spell = /datum/action/cooldown/spell/fly
 	spellname = "Fly"
 	icon = 'icons/roguetown/items/misc.dmi'

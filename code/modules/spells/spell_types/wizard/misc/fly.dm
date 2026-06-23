@@ -173,4 +173,6 @@
 
 /datum/status_effect/buff/fly/proc/on_cast(mob/source, datum/action/cooldown/spell/spell, atom/cast_on)
 	SIGNAL_HANDLER
+	if(istype(spell, /datum/action/cooldown/spell/fly_up) || istype(spell, /datum/action/cooldown/spell/fly_down))
+		return
 	owner.remove_status_effect(/datum/status_effect/buff/fly)
