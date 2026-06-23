@@ -825,6 +825,13 @@
 	nutriment_factor = 20
 	alpha = 250
 
+/datum/reagent/consumable/soup/stew/humanoid/on_mob_life(mob/living/carbon/M)
+	..()
+	if(HAS_TRAIT(M, TRAIT_NASTY_EATER) || HAS_TRAIT(M, TRAIT_WILD_EATER))
+		return
+	M.adjustToxLoss(1)
+	M.add_nausea(12) //Over 8 units will cause puking
+
 /datum/reagent/consumable/soup/stew/humanoid_spiced
 	name = "salted meat stew"
 	color = "#693346"
