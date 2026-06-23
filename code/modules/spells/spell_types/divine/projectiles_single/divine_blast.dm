@@ -117,7 +117,7 @@
 					H.Slowdown(2)
 					H.visible_message(span_warning("Divine chains briefly coil around [H]'s legs!"), span_warning("Divine chains briefly shackle around my legs!"))
 				if(/datum/patron/divine/malum)
-					H.adjustBruteLoss(10) //Think of it like hammering into you, it was straight direct armor-peircing burn damage before and could crit you insanely fast
+					H.adjustBruteLoss(5) //Think of it like hammering into you, it was straight direct armor-peircing burn damage before and could crit you insanely fast
 					H.visible_message(span_warning("[H] is hammered with divine force!"), span_warning("Malum's disappointment hammers into me!"))
 					//He's not mad, he's not proud, he's not hateful, he's as neutrally disappointed in you as one can be. (Its also funnier this way)
 	else
