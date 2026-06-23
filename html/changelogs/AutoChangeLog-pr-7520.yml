@@ -1,0 +1,10 @@
+author: "radarseas"
+delete-after: True
+changes:
+  - rscadd: "Added a ton of new outfit picks for Astrocrat adv"
+  - rscadd: "Weaker version of the desert coat, exclusive to Raneshen Astrocrats"
+  - rscadd: "Astrocrat adv is now based around their proficencies, vs other advs they are extremely specialised leader roles without the strength of town ones and still weaker than a knight errant or battlemaster."
+  - balance: "Astrocrats play out massively different depending on pick"
+  - balance: "Astrocrats get trait_nutcracker for sovl, in practice this'll rarely be used anyway but its funny."
+  - balance: "Otavian Routier gets an Otavian satchel instead of a regular one"
+  - balance: "Grenzel + Emir get interlectual trait for free as proper envoy nobility, on-par with advisor hand and the likes."
