@@ -96,20 +96,26 @@
 						to_chat(H, span_userdanger("Silver rebukes my presence! My vitae smolders, and my powers wane!"))
 						H.adjust_fire_stacks(2, /datum/status_effect/fire_handler/fire_stacks/sunder)
 						H.ignite_mob()
+						H.Slowdown(4) //Suffer
 				if(/datum/patron/inhumen/zizo)
 					if(istype(H.patron, /datum/patron/divine/necra)) //Hilarious, always hit with full regardless of silver weak
 						H.adjust_fire_stacks(6)
 						H.ignite_mob()
 						H.visible_message(span_warning("Unholy spite rebukes [H]!"), span_warning("Unholy spite rebukes me!"))
+						H.Slowdown(3)
 					if(!HAS_TRAIT(H, TRAIT_SILVER_WEAK) && !HAS_TRAIT(H, TRAIT_LYCANRESILENCE) && !istype(H.patron, /datum/patron/divine/necra)) //We churn you for NOT being silver weak. ZIZO. ZIZO. ZIZO.
 						H.adjust_fire_stacks(3)
 						H.ignite_mob()
-						H.visible_message(span_warning("Seething ambition sears [H]'s flesh aflame!"), span_warning("Visions of progress and ambition sears my flesh aflame!"))
+						H.visible_message(span_warning("Seething ambition sears [H]'s flesh aflame!"), span_warning("Visions of progress and ambition sears my flesh, mynd and sets me aflame!"))
+						H.Slowdown(3)
 					if(HAS_TRAIT(H, TRAIT_LYCANRESILENCE) && !istype(H.patron, /datum/patron/divine/necra)) //EXCEPT WEREWOLVES... Fuck Dendor. Specifically within werebeast form, hense the trait, not the antag check.
 						H.adjust_fire_stacks(4) //Less cause this is an actual antag, UNLESS they worship Necra in which case you kind of deserve this.
 						H.ignite_mob()
 						H.visible_message(span_warning("Unholy spite rebukes [H]!"), span_warning("Unholy spite rebukes me!"))
-					H.Slowdown(3)
+						H.Slowdown(3)
+					if(HAS_TRAIT(H, TRAIT_SILVER_WEAK) && !HAS_TRAIT(H, TRAIT_LYCANRESILENCE) && !istype(H.patron, /datum/patron/divine/necra))
+						H.visible_message(span_warning("Unholy spite slams into [H]!"), span_warning("Unholy spite slams into me!"))
+						H.Slowdown(2) //Less severe slowdown
 	else
 		return
 
