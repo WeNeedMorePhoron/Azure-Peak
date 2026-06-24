@@ -15,6 +15,9 @@
 	grid_width = 64
 	grid_height = 64
 
+	salvage_amount = 2
+	salvage_result = /obj/item/natural/cloth
+
 /obj/item/clothing/cloak/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_info("Certain cloaks - like jupons, tabards, and surcoats - can be given a unique pattern and coloration by right-clicking them.")
@@ -723,11 +726,17 @@
 	GLOB.lordcolor -= src
 	return ..()
 
-/obj/item/clothing/cloak/tabard/stabard/bog
-	name = "bogman tabard"
-	desc = "A tabard colored in a glorius green of the mighty protectors of the BOG." // THE BOG DESERVES A BETTER DESCRIPTION!
+/obj/item/clothing/cloak/tabard/stabard/bog/levy
+	name = "levy militia tabard"
+	desc = "A tabard colored in a glorius green of the mighty protectors of the BOG. Except you are not a TRAITOR. Yet."
 	color = CLOTHING_GREEN
 	detail_color = CLOTHING_DARK_GREEN
+
+/obj/item/clothing/cloak/tabard/stabard/bog
+	name = "bogman tabard"
+	desc = "Once a proud symbol of service to the Bog, now faded, tattered, and rotten. Its owner abandoned their duty long before the cloth began to decay."
+	color = "#7a8138" // faded green
+	detail_color = "#414d26" // ditto
 
 /obj/item/clothing/cloak/tabard/stabard/grenzelhoft
 	name = "grenzelhoft mercenary tabard"
@@ -919,6 +928,7 @@
 	armor = ARMOR_CLOTHING
 	boobed = TRUE
 	salvage_result = /obj/item/natural/hide/cured
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/apron/brown
 	color = CLOTHING_BROWN
@@ -1010,6 +1020,7 @@
 	inhand_mod = FALSE
 	hoodtype = /obj/item/clothing/head/hooded/rainhood/furhood
 	salvage_result = /obj/item/natural/fur
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/raincloak/furcloak/crafted/Initialize()
 	. = ..()
@@ -1167,6 +1178,7 @@
 	allowed_race = NON_DWARVEN_RACE_TYPES
 	nodismemsleeves = TRUE
 	salvage_result = /obj/item/natural/fur
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/heartfelt
 	name = "red cloak"
@@ -1215,6 +1227,7 @@
 	allowed_sex = list(MALE, FEMALE)
 	flags_inv = null
 	var/flipped = FALSE
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/half/attack_right(mob/user)
 	if(!flipped)
@@ -1827,6 +1840,7 @@
 	boobed = FALSE
 	grid_width = 64
 	grid_height = 64
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/scaledcloak
 	name = "scaled cloak"
