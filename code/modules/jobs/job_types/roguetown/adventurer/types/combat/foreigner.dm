@@ -324,7 +324,6 @@
 			ADD_TRAIT(H, TRAIT_ALCHEMY_EXPERT, TRAIT_GENERIC)
 
 			if(H.mind)
-				var/spells = list("Avant Origin (Acceleration)", "Garde Origin (Divergence)")
 				grant_poke_spell(H)
 				H.mind.AddSpell(new /datum/action/cooldown/spell/blink/shadowstep)
 				H.mind.AddSpell(new /datum/action/cooldown/spell/vizier/restoration)
