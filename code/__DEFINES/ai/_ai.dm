@@ -150,9 +150,9 @@
 #define ARCHER_NPC_MIN_RANGE            3   // tiles - closer than this, prefer melee
 #define ARCHER_NPC_ARROW_SEARCH_RANGE   9
 #define ARCHER_NPC_SIMULATED_CHARGETIME 1.5 SECONDS // fallback bow charge time
-#define ARCHER_NPC_CROSSBOW_CHARGETIME  2.5 SECONDS // crossbows are slower to fire
-#define ARCHER_NPC_SLING_CHARGETIME     0.8 SECONDS // slings are fast
-#define ARCHER_NPC_ROF_PENALTY          1.3   // NPC charge time multiplier (1.3 = 30% slower than calculated)
+#define ARCHER_NPC_MIN_CROSSBOW_CHARGETIME  3 SECONDS // crossbows are slower to fire
+#define ARCHER_NPC_MIN_BOW_CHARGETIME        2.0 SECONDS
+#define ARCHER_NPC_MIN_SLING_CHARGETIME     2.0 SECONDS
 #define ARCHER_NPC_SPREAD_PER_POINT     7     // spread per PER point below 15
 #define ARCHER_NPC_ARC_SPREAD_PENALTY   20    // extra spread when arcing over allies
 

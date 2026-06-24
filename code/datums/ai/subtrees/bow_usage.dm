@@ -187,15 +187,18 @@
 /proc/_chamber_from_quiver(mob/living/carbon/human/pawn, obj/item/gun/ballistic/revolver/grenadelauncher/bow)
 	if(bow.chambered)
 		return TRUE
-	if(!bow.magazine)
-		return FALSE
+	var/wanted_caliber = bow.magazine?.caliber
 	for(var/obj/item/quiver/Q in pawn.get_equipped_items())
 		for(var/obj/item/ammo_casing/arrow in Q.arrows)
-			if(bow.magazine.give_round(arrow))
-				Q.arrows -= arrow
-				Q.update_icon()
-				bow.chamber_round()
-				return TRUE
+			if(wanted_caliber && arrow.caliber != wanted_caliber)
+				continue
+			Q.arrows -= arrow
+			Q.update_icon()
+			arrow.newshot()
+			arrow.forceMove(bow)
+			bow.chambered = arrow
+			bow.update_icon()
+			return TRUE
 	return FALSE
 
 /proc/_loose_arrow(mob/living/carbon/human/pawn, atom/target, obj/item/gun/ballistic/revolver/grenadelauncher/bow)

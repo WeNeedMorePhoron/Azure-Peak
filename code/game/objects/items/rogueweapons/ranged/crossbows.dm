@@ -3,7 +3,7 @@
 	var/newtime = max(20, reloadtime - user.STASTR - (user.get_skill_level(/datum/skill/combat/crossbows) * 2))
 	if(chambered)
 		newtime *= chambered.charge_time_mult
-	return newtime * ARCHER_NPC_ROF_PENALTY
+	return max(ARCHER_NPC_MIN_CROSSBOW_CHARGETIME, newtime)
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 	has_item_quality = TRUE
