@@ -101,6 +101,11 @@
 	cost = 25
 	contains = list(/obj/item/clothing/under/roguetown/chainlegs/iron)
 
+/datum/supply_pack/rogue/armor_iron/chainhose_iron
+	name = "Hoses, Chain"
+	cost = 25
+	contains = list(/obj/item/clothing/under/roguetown/chainlegs/iron/hose)
+
 /datum/supply_pack/rogue/armor_iron/chausses_brigandine
 	name = "Chausses, Splinted"
 	cost = 35 // 1 Iron 2 Leather
@@ -135,6 +140,11 @@
 	name = "Maille Boots"
 	cost = 25
 	contains = list(/obj/item/clothing/shoes/roguetown/boots/maille/iron)
+
+/datum/supply_pack/rogue/armor_iron/bascinet
+	name = "Helmet, Bascinet"
+	cost = 25
+	contains = list(/obj/item/clothing/head/roguetown/helmet/bascinet/iron)
 
 /datum/supply_pack/rogue/armor_iron/skullcap_helmet
 	name = "Helmet, Skullcap"
@@ -175,3 +185,13 @@
 	name = "Helmet, Knight"
 	cost = 40
 	contains = list(/obj/item/clothing/head/roguetown/helmet/heavy/knight/old/iron)
+
+/datum/supply_pack/rogue/armor_iron/aventailbascinet
+	name = "Helmet, Bascinet, Aventailed"
+	cost = 45
+	contains = list(/obj/item/clothing/head/roguetown/helmet/bascinet/iron/aventail)
+
+/datum/supply_pack/rogue/armor_iron/heavyaventailbascinet
+	name = "Helmet, Visored Bascinet, Aventailed"
+	cost = 70
+	contains = list(/obj/item/clothing/head/roguetown/helmet/heavy/aventail/iron)

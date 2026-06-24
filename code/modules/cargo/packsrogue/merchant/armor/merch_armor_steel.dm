@@ -105,6 +105,11 @@
 	name = "Chausses, Chain"
 	cost = 50 // 1 Steel
 	contains = list(/obj/item/clothing/under/roguetown/chainlegs)
+	
+/datum/supply_pack/rogue/armor_steel/chainhose_steel
+	name = "Hoses, Chain"
+	cost = 50 // 1 Steel
+	contains = list(/obj/item/clothing/under/roguetown/chainlegs/hose)
 
 /datum/supply_pack/rogue/armor_steel/platelegs
 	name = "Chausses, Plate"
@@ -285,3 +290,13 @@
 	name = "Belt, Tasseted"
 	cost = 50 // 1 Steel
 	contains = list(/obj/item/storage/belt/rogue/leather/steel/tasset)
+
+/datum/supply_pack/rogue/armor_steel/helmet_aventailbascinet
+	name = "Helmet, Bascinet, Aventailed"
+	cost = 90 
+	contains = list(/obj/item/clothing/head/roguetown/helmet/bascinet/aventail)
+
+/datum/supply_pack/rogue/armor_steel/helmet_heavyaventailbascinet
+	name = "Helmet, Visored Bascinet, Aventailed"
+	cost = 140
+	contains = list(/obj/item/clothing/head/roguetown/helmet/heavy/aventail)

@@ -505,6 +505,30 @@
 /obj/item/clothing/shoes/roguetown/boots/armor/avantyne/get_examine_highlight_status()
 	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARMOR)
 
+/obj/item/clothing/shoes/roguetown/boots/armor/baotha
+	name = "saccharine heels"
+	desc = "..yet, even as She indulges and mourns beneath the stars, one must wonder; is She truly damned by the Pantheon, or by Herself alone?"
+	icon_state = "baothaboots"
+	item_state = "baothaboots"
+	chunkcolor = "#6d1c87"
+	max_integrity = ARMOR_INT_SIDE_ANTAG - 250
+	armor_class = ARMOR_CLASS_LIGHT
+	smeltresult = /obj/item/ingot/component/baotha
+
+/obj/item/clothing/shoes/roguetown/boots/armor/baotha/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "BOOTS")
+	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+
+/obj/item/clothing/shoes/roguetown/boots/armor/baotha/dropped(mob/living/carbon/human/user)
+	. = ..()
+	if(QDELETED(src))
+		return
+	qdel(src)
+
+/obj/item/clothing/shoes/roguetown/boots/armor/baotha/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)
+
 /obj/item/clothing/shoes/roguetown/boots/armor/iron
 	name = "iron plated boots"
 	desc = "A pair of leather boots, reinforced with smaller steel plates along the feet and ankles. Woven into the top of each boot's cuff is a \

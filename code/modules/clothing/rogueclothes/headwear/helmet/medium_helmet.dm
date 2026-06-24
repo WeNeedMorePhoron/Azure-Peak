@@ -404,6 +404,33 @@
 			pic.color = get_detail_color()
 		add_overlay(pic)
 
+/obj/item/clothing/head/roguetown/helmet/bascinet/aventail
+	name = "bascinet with aventail"
+	desc = "A steel bascinet helmet, further protected with a thick maille aventail. Burdensome on the shoulders of those not trained to carry \
+	maille, yet excellent in both coverage and durability."
+	icon_state = "aventail"
+	item_state = "aventail"
+	body_parts_covered = HEAD|HAIR|EARS|MOUTH|NECK
+	block2add = FOV_BEHIND
+	armor_class = ARMOR_CLASS_MEDIUM
+
+/obj/item/clothing/head/roguetown/helmet/bascinet/iron
+	name = "iron bascinet"
+	desc = "An iron bascinet helmet, and the basis for many-a-visored greathelm. Though it lacks a visor, it still protects the head and ears."
+	icon_state = "ibascinet"
+	item_state = "ibascinet"
+	smeltresult = /obj/item/ingot/iron
+
+/obj/item/clothing/head/roguetown/helmet/bascinet/iron/aventail
+	name = "iron bascinet with aventail"
+	desc = "An iron bascinet helmet, further protected with a thick maille aventail. Burdensome on the shoulders of those not trained to carry \
+	maille, yet excellent in both coverage and durability."
+	icon_state = "iaventail"
+	item_state = "iaventail"
+	body_parts_covered = HEAD|HAIR|EARS|MOUTH|NECK
+	block2add = FOV_BEHIND
+	armor_class = ARMOR_CLASS_MEDIUM
+
 /obj/item/clothing/head/roguetown/helmet/bascinet/pigface
 	name = "pigface bascinet"
 	desc = "A steel bascinet helmet with a pigface visor that protects the entire head and face. Add a feather to show the colors of your family or allegiance."
@@ -758,3 +785,20 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/64x64/head.dmi'
 	bloody_icon = 'icons/effects/blood64.dmi'
 	smeltresult = /obj/item/ingot/iron
+
+/obj/item/clothing/head/roguetown/helmet/baotha
+	name = "saccharine sallet"
+	desc = "Lo', the twins of beauty; Eora and Belladoth, they sought a prize which but one may have.."
+	icon_state = "baothahelm"
+	item_state = "baothahelm"
+	body_parts_covered = HEAD | HAIR | EARS | MOUTH | EYES
+	armor_class = ARMOR_CLASS_LIGHT
+	max_integrity = ARMOR_INT_HELMET_ANTAG - 300 //Halved durability, compared to traditional Ascendant-tier armor.
+	smeltresult = /obj/item/ingot/component/baotha
+
+/obj/item/clothing/head/roguetown/helmet/baotha/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "HELMET")
+
+/obj/item/clothing/head/roguetown/helmet/baotha/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)

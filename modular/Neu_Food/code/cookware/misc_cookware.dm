@@ -38,8 +38,20 @@
 	name = "silk tablecloth"
 	desc = "A fancy silk tablecloth, laid out for diplomatic feasts and other important events."
 	icon = 'modular/Neu_Food/icons/cookware/misc.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/head_items.dmi'
 	icon_state = "tablecloth_silk"
 	w_class = WEIGHT_CLASS_NORMAL
 	grid_width = 32
 	grid_height = 64
+	flags_inv = HIDEHAIR|HIDEFACIALHAIR|HIDEFACE|HIDESNOUT|HIDEEARS
+	flags_cover = HEADCOVERSEYES
+	body_parts_covered = HEAD|HAIR|EARS|NECK|MOUTH|NOSE|EYES
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_MASK
+	body_parts_inherent = HEAD
+	dynamic_hair_suffix = "+generic"
+	bloody_icon_state = "helmetblood"
 	var/wet = 0
+
+/obj/item/tablecloth/silk/get_mechanics_examine(mob/user)
+    . = ..()
+    . += span_info("Tablecloths not only function like cloth - in regards to being able to clean messes, but can also be worn on the head in a pinch.")

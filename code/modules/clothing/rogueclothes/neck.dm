@@ -185,6 +185,21 @@
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_FENCERDEXTERITY)
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_HONORBOUND)
 
+/obj/item/clothing/neck/roguetown/chaincoif/aventail
+	name = "aventail"
+	desc = "A thick garment of steel maille and padding, traditionally attached to bascinets. It's burdensome on the shoulders of those who aren't properly \
+	trained to wear knightly garments."
+	icon_state = "aventailbase"
+	body_parts_covered = NECK|MOUTH
+	slot_flags = ITEM_SLOT_NECK
+	max_integrity = ARMOR_INT_SIDE_STEEL + 100 // (Or +50 over a traditional gorget.)
+	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
+	armor_class = ARMOR_CLASS_HEAVY
+
+/obj/item/clothing/neck/roguetown/chaincoif/chainmantle/ComponentInitialize()
+	AddComponent(/datum/component/armour_filtering/negative, TRAIT_FENCERDEXTERITY)
+	AddComponent(/datum/component/armour_filtering/negative, TRAIT_HONORBOUND)
+
 /obj/item/clothing/neck/roguetown/chaincoif/iron
 	name = "iron chain coif"
 	desc = "A maille-hood, fashioned from interlinked iron rings. Levymen oft-wear these atop a padded coif or beneath a kettle, depending on the nature of their rally; be it to defend their hearth-and-home from beastes or Bandits."
@@ -192,6 +207,21 @@
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/iron
 	max_integrity = ARMOR_INT_SIDE_IRON
+
+/obj/item/clothing/neck/roguetown/chaincoif/iron/aventail
+	name = "iron aventail"
+	desc = "A thick garment of iron maille and padding, traditionally attached to bascinets. It's burdensome on the shoulders of those who aren't properly \
+	trained to wear knightly garments."
+	icon_state = "iaventailbase"
+	body_parts_covered = NECK|MOUTH
+	slot_flags = ITEM_SLOT_NECK
+	max_integrity = ARMOR_INT_SIDE_IRON + 100 // (Or +50 over a traditional gorget.)
+	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
+	armor_class = ARMOR_CLASS_HEAVY
+
+/obj/item/clothing/neck/roguetown/chaincoif/iron/aventail/ComponentInitialize()
+	AddComponent(/datum/component/armour_filtering/negative, TRAIT_FENCERDEXTERITY)
+	AddComponent(/datum/component/armour_filtering/negative, TRAIT_HONORBOUND)
 
 /obj/item/clothing/neck/roguetown/chaincoif/bronze
 	name = "bronze chain coif"
@@ -1378,6 +1408,38 @@
 	AddComponent(/datum/component/cursed_item, TRAIT_HORDE, "ARMOR", "RENDERED ASUNDER")
 	/*add_filter(FORCE_FILTER, 2, list("type" = "outline", "color" = "#1a146e", "alpha" = 120, "size" = 1)) //Cursed look.
 */ // Combine with #ddc0a7 to make an easier, do-it-yourself version of Vicious items without the need for exotic sprites.
+
+/obj/item/clothing/neck/roguetown/coif/baotha
+	name = "saccharine veil"
+	desc = "And yet, their methods differed; Belladoth proposed with Her lust and temptation, Eora with Her love and warmth.."
+	icon_state = "baothacoif"
+	item_state = "baothacoif"
+	armor = ARMOR_PADDED
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
+	body_parts_covered = NECK | HAIR | EARS | HEAD | NOSE
+	armor_class = ARMOR_CLASS_LIGHT
+	adjustable = CAN_CADJUST
+	toggle_icon_state = TRUE
+	resistance_flags = FIRE_PROOF
+	blocksound = SOFTHIT
+	color = null
+	chunkcolor = "#645567"
+	smeltresult = /obj/item/ingot/component/baotha
+
+/obj/item/clothing/neck/roguetown/coif/baotha/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "VEIL")
+	AddComponent(/datum/component/adjustable_clothing, NECK, null, null, 'sound/foley/cloth_wipe (1).ogg', null, (UPD_HEAD|UPD_MASK|UPD_NECK))
+	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+
+/obj/item/clothing/neck/roguetown/coif/baotha/dropped(mob/living/carbon/human/user)
+	. = ..()
+	if(QDELETED(src))
+		return
+	qdel(src)
+
+/obj/item/clothing/neck/roguetown/coif/baotha/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)
 
 //
 
