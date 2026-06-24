@@ -598,7 +598,6 @@
 	color = CLOTHING_BLACK
 
 /obj/item/clothing/mask/rogue/lordmask/naledi/lesser
-	armor = ARMOR_PADDED // unsure if it should have armor or not, change here otherwise
 	name = "naledian runed mask"
 	desc = "Runes and wards, meant for daemons; the gold has somehow rusted in unnatural, impossible agony. The most prominent of these etchings is in the shape of the Naledian psycross. Lightly armored to protect the wearer's face."
 
