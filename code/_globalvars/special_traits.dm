@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 		to_chat(H, span_warning("My limbs are too frail and my body too tough... the contradiction leaves me unable to resist critical wounds."))
 		
 	var/datum/advclass/advclass = SSrole_class_handler.get_advclass_by_name(H.advjob)
-	if(advclass.tempo_capable && H.mind.assigned_role != "Court Agent" && H.mind.assigned_role != "Adventurer") // (Easier to filter these out than apply the bool to every subclass)
+	if(advclass.tempo_capable && H.mind.assigned_role != "Court Agent" && H.mind.assigned_role != "Adventurer" && H.mind.assigned_role != "Towner") // (Easier to filter these out than apply the bool to every subclass)
 		if(!H.mind.has_antag_datum(/datum/antagonist/skeleton) && !H.mind.has_antag_datum(/datum/antagonist/lich) && !H.mind.has_antag_datum(/datum/antagonist/vampire) && !H.mind.has_antag_datum(/datum/antagonist/vampire/lord))
 			ADD_TRAIT(H, TRAIT_TEMPO, SPECIES_TRAIT)		
 	return TRUE
