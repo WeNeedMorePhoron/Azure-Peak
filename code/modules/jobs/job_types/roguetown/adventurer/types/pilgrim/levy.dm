@@ -70,7 +70,9 @@
 			"THE BOGMAN'S BOW (Sling)",
 			"AN OLDE CATTLE LASH (Whip)",
 			"THE FINEST PITCHFORK (Polearm)",
+			"THE GOOD DAE'S GREETINGS (Polearm)",
 			"MINE THRESHER (Flail)",
+			"MINE WAR THRESHER (Flail, 2H)",
 			"A GOOD SHOVEL (Axe)",
 			"THE MINER'S PICKAXE (Pickaxe)",
 			"MINE SCYTHE (Scythe)",
@@ -112,6 +114,20 @@
 			if("MINE THRESHER (Flail)")
 				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/flail/militia
+				gloves = /obj/item/clothing/gloves/roguetown/leather
+				beltr = /obj/item/rogueweapon/pick/bronze
+
+			if("MINE WAR THRESHER (Flail, 2H)")
+				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				r_hand = /obj/item/rogueweapon/flail/peasantwarflail
+				backr = /obj/item/rogueweapon/scabbard/gwstrap
+				gloves = /obj/item/clothing/gloves/roguetown/leather
+				beltr = /obj/item/rogueweapon/pick/bronze
+
+			if("THE GOOD DAE'S GREETINGS (Polearm)")
+				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				r_hand = /obj/item/rogueweapon/woodstaff/militia
+				backr = /obj/item/rogueweapon/scabbard/gwstrap
 				gloves = /obj/item/clothing/gloves/roguetown/leather
 				beltr = /obj/item/rogueweapon/pick/bronze
 
@@ -264,6 +280,7 @@
 					/obj/item/rogueweapon/handsaw = 1,
 					/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 					/obj/item/rogueweapon/huntingknife = 1,
+					/obj/item/rogueweapon/scabbard/sheath = 1,
 					/obj/item/rope = 1,
 					/obj/item/reagent_containers/glass/bottle/rogue/triumphbeer = 1, // this one is for good luck, you'll need it
 					/obj/item/signal_horn = 1,
@@ -291,6 +308,7 @@
 					/obj/item/bedroll = 1,
 					/obj/item/signal_horn = 1,
 					/obj/item/rogueweapon/huntingknife = 1,
+					/obj/item/rogueweapon/scabbard/sheath = 1,
 					/obj/item/rope = 1,
 					/obj/item/reagent_containers/glass/bottle/rogue/triumphbeer = 1, // this one is for good luck, you'll need it
 					/obj/item/bottle_kit = 1,
@@ -318,7 +336,8 @@
 					/obj/item/rogueweapon/mace/cudgel = 1,
 					/obj/item/signal_horn = 1,
 					/obj/item/rogueweapon/huntingknife = 1,
-					/obj/item/reagent_containers/glass/bottle/rogue/triumphbeer = 2, // this one is for good luck, you'll need it. And an extra one because you're going to suffer a lot.
+					/obj/item/rogueweapon/scabbard/sheath = 1,
+					/obj/item/reagent_containers/glass/bottle/rogue/triumphbeer = 1, // this one is for good luck, you'll need it. And an extra one because you're going to suffer a lot.
 					)
 
 			if("A SCAVENGER, SER!!") // squishier glass cannon, fast on your feet, mr. back-and-forth man whose specialty is dragging stuff around and being dodgy. also free combat knife!
@@ -334,7 +353,8 @@
 				belt = /obj/item/storage/backpack/rogue/satchel/beltpack
 				backl = /obj/item/storage/backpack/rogue/backpack
 				backpack_contents = list(
-					/obj/item/rogueweapon/huntingknife/combat = 1,
+					/obj/item/rogueweapon/huntingknife/combat/iron = 1,
+					/obj/item/rogueweapon/scabbard/sheath = 1,
 					/obj/item/rogueweapon/huntingknife/scissors = 1,
 					/obj/item/rogueweapon/shovel/small = 1,
 					/obj/item/signal_horn = 1,
@@ -366,7 +386,8 @@
 					/obj/item/soap/bath = 1,
 					/obj/item/lockpick/goldpin = 1,
 					/obj/item/signal_horn = 1,
-					/obj/item/reagent_containers/glass/bottle/rogue/triumphbeer = 1, // this one is for good luck, you'll need it
+					/obj/item/rogueweapon/huntingknife = 1,
+					/obj/item/rogueweapon/scabbard/sheath = 1,
 					/obj/item/rope = 1,
 					)
 
@@ -401,6 +422,7 @@
 					/obj/item/rope/chain = 1,
 					/obj/item/signal_horn = 1,
 					/obj/item/rogueweapon/huntingknife = 1,
+					/obj/item/rogueweapon/scabbard/sheath = 1,
 					/obj/item/reagent_containers/glass/bottle/rogue/healthpotnew = 1, // armsmen get a little extra from their folks in the garrison
 					/obj/item/reagent_containers/glass/bottle/rogue/triumphbeer = 1, // this one is for good luck, you'll need it
 					)

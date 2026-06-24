@@ -27,7 +27,7 @@
 	var/atom/movable/holdingknife = null
 	salvage_amount = 1
 	armor = ARMOR_CLOTHING
-	salvage_result = /obj/item/natural/cloth
+	salvage_result = /obj/item/natural/hide/cured
 
 /obj/item/clothing/shoes/roguetown/boots/examine(mob/user)
 	. = ..()
@@ -625,6 +625,8 @@
 	is_barefoot = TRUE
 	sewrepair = TRUE
 	armor = ARMOR_CLOTHING
+	salvage_amount = 2
+	salvage_result = /obj/item/natural/cloth
 
 /obj/item/clothing/shoes/roguetown/boots/otavan/inqboots
 	name = "inquisitorial boots"
