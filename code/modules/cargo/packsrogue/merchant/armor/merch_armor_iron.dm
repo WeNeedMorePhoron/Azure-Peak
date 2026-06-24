@@ -121,6 +121,16 @@
 	cost = 25
 	contains = list(/obj/item/clothing/under/roguetown/chainlegs/iron/kilt)
 
+/datum/supply_pack/rogue/armor_iron/belt
+	name = "Belt"
+	cost = 25
+	contains = list(/obj/item/storage/belt/rogue/leather/iron)
+
+/datum/supply_pack/rogue/armor_iron/belt_tasset
+	name = "Belt, Tasseted"
+	cost = 35
+	contains = list(/obj/item/storage/belt/rogue/leather/iron/tasset)
+
 /datum/supply_pack/rogue/armor_iron/mask_iron
 	name = "Mask"
 	cost = 25
