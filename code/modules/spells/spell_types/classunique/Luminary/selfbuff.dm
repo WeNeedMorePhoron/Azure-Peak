@@ -22,25 +22,25 @@
 /datum/action/cooldown/spell/selfbuff/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
-	H.apply_status_effect(/datum/status_effect/buff/song/fervor/lesser_guidance)
+	H.apply_status_effect(/datum/status_effect/buff/lesser_guidance)
 	H.apply_status_effect(/datum/status_effect/buff/healingaura)
 	return TRUE
 
-/atom/movable/screen/alert/status_effect/buff/song/fervor/lesser_guidance
+/atom/movable/screen/alert/status_effect/buff/lesser_guidance
 	name = "Awakening"
-	desc = "Arcyne energy quickens the Mynd. (+12% chance to bypass parry / dodge, +12% chance to parry / dodge)"
+	desc = "Arcyne quickens the Mynd. (+12% chance to bypass parry / dodge, +12% chance to parry / dodge)"
 	icon_state = "buff"
 
-/datum/status_effect/buff/song/fervor/lesser_guidance
+/datum/status_effect/buff/lesser_guidance
 	id = "guidance"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/song/fervor/lesser_guidance
+	alert_type = /atom/movable/screen/alert/status_effect/buff/lesser_guidance
 	duration = 60 SECONDS
 
-/datum/status_effect/buff/song/fervor/lesser_guidance/on_apply()
+/datum/status_effect/buff/lesser_guidance/on_apply()
 	. = ..()
 	to_chat(owner, span_warning("Blessed Arcynes guides me true!"))
 
-/datum/status_effect/buff/song/fervor/lesser_guidance/on_remove()
+/datum/status_effect/buff/lesser_guidance/on_remove()
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_LESSER_GUIDANCE, MAGIC_TRAIT)
 	to_chat(owner, span_warning("Blessed Arcynes seeps out of my control!"))
