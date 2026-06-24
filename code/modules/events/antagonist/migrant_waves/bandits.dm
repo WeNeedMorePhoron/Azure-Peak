@@ -36,10 +36,6 @@
 		if(bandit_job.total_positions < bandit_maxcap)
 			SSmapping.retainer.bandit_goal += 1 * rand(200, 400)
 			SSrole_class_handler.bandits_in_round = TRUE
-			for(var/mob/dead/new_player/player as anything in GLOB.new_player_list)
-				if(!player.client)
-					continue
-				to_chat(player, span_danger("Matthios, is this true? Bandits flock to Azuria. four bandit slots have been opened."))
 	if(evilmode == "gnolls")
 		var/datum/job/gnoll_job = SSjob.GetJob("Gnoll")
 		var/gnoll_maxcap = max(SSgamemode.story_antag_slot_cap(/datum/antagonist/gnoll), gnoll_job.total_positions)

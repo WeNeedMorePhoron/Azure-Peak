@@ -1,6 +1,7 @@
 /datum/round_event_control/antagonist/migrant_wave/evil_knight
 	name = "The Unknightly Journey"
 	wave_type = /datum/migrant_wave/evil_knight
+	wave_enabled = TRUE
 
 	weight = 6
 	max_occurrences = 1

@@ -3,6 +3,17 @@
 	max_occurrences = 5
 
 	var/datum/migrant_wave/wave_type
+	var/wave_enabled = FALSE
+
+/datum/round_event_control/antagonist/migrant_wave/canSpawnEvent(players_amt, gamemode, fake_check)
+	if(!wave_enabled)
+		return FALSE
+	return ..()
+
+/datum/round_event_control/antagonist/migrant_wave/preRunEvent()
+	if(!wave_enabled)
+		return EVENT_CANT_RUN
+	return ..()
 
 /datum/round_event/migrant_wave
 	var/datum/migrant_wave/wave_type

@@ -69,6 +69,7 @@
 /datum/round_event_control/antagonist/migrant_wave/unbound_death_knight
 	name = "Death Knight (Unbound)"
 	wave_type = /datum/migrant_wave/unbound_death_knight
+	wave_enabled = TRUE
 
 	weight = 6
 	max_occurrences = 2
@@ -103,6 +104,7 @@
 /datum/round_event_control/antagonist/migrant_wave/unbound_spellblade
 	name = "Ancient Spellblade (Unbound)"
 	wave_type = /datum/migrant_wave/unbound_spellblade
+	wave_enabled = TRUE
 
 	weight = 6
 	max_occurrences = 2
