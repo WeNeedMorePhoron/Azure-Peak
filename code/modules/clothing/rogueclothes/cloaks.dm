@@ -1824,6 +1824,7 @@
 	boobed = FALSE
 	grid_width = 64
 	grid_height = 64
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/scaledcloak
 	name = "scaled cloak"
