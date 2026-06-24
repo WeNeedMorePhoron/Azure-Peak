@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/selfbuff
 	name = "Divine Arcynes"
-	desc = "Improves your reflexes and wrap yourself with soothing light"
+	desc = "Improves the reflexes and wrap yourself and nearby humens with soothing light"
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	button_icon_state = "guidance"
 	sound = 'sound/magic/undivided_perserverance.ogg'
@@ -8,9 +8,12 @@
 
 	click_to_activate = FALSE
 	cast_range = SPELL_RANGE_AURA
-	primary_resource_cost = SPELL_COST_STAMINA
 
-	secondary_resource_cost = SPELLCOST_UTILITY_BUFF
+	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_cost = SPELLCOST_SB_ULT - 20
+
+	secondary_resource_type = SPELL_COST_DEVOTION
+	secondary_resource_cost = SPELLCOST_MINOR_SKILL
 
 	invocations = list("Blessed Arcynes guide us true!")
 	invocation_type = INVOCATION_SHOUT
@@ -53,8 +56,10 @@
 
 /atom/movable/screen/alert/status_effect/buff/healingaura
 	name = "Recovery"
-	desc = "Holy light shoothes the Heart.(very low health regeneration effect)"
+	desc = "Holy light shoothes the Heart.(very light health regeneration effect)"
 	icon_state = "buff"
+
+#define HYBRID_BUFF_FILTER "Hybrid_Buff_Glow"
 
 /datum/status_effect/buff/healingaura
 
@@ -62,6 +67,14 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/healingaura
 	duration = 120 SECONDS
 	var/healing_on_tick = 0.5
+	var/outline_colour = "#0abdbd"
+
+/datum/status_effect/buff/healingaura/on_apply()
+	. = ..()
+	var/filter = owner.get_filter(HYBRID_BUFF_FILTER)
+	if (!filter)
+		owner.add_filter(HYBRID_BUFF_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 60, "size" = 1))
+	return TRUE
 
 /datum/status_effect/buff/healingaura/tick()
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_rogue(get_turf(owner))
@@ -79,3 +92,6 @@
 	owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -healing_on_tick)
 	owner.adjustCloneLoss(-healing_on_tick, 0)
 
+/datum/status_effect/buff/bloodheal/on_remove()
+	. = ..()
+	owner.remove_filter(HYBRID_BUFF_FILTER)
