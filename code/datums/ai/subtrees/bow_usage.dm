@@ -46,12 +46,13 @@
 		if(pawn.get_active_held_item() != bow)
 			return FALSE
 
-	_cock_if_crossbow(bow)
-	_chamber_from_quiver(pawn, bow)
-
 	set_movement_target(controller, target)
 	SEND_SIGNAL(controller.pawn, COMSIG_COMBAT_TARGET_SET, TRUE)
-	controller.set_blackboard_key(BB_ARCHER_NPC_NEXT_SHOT, world.time + bow.get_npc_chargetime(pawn))
+	if(istype(bow, /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow))
+		controller.set_blackboard_key(BB_ARCHER_NPC_NEXT_SHOT, world.time)
+	else
+		_chamber_from_quiver(pawn, bow)
+		controller.set_blackboard_key(BB_ARCHER_NPC_NEXT_SHOT, world.time + bow.get_npc_chargetime(pawn))
 	return TRUE
 
 /datum/ai_behavior/ranged_attack_bow/perform(delta_time, datum/ai_controller/controller, target_key)
@@ -70,8 +71,13 @@
 		finish_action(controller, FALSE, target_key)
 		return
 	if(!bow.chambered)
-		_cock_if_crossbow(bow)
-		if(!_chamber_from_quiver(pawn, bow))
+		if(istype(bow, /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow))
+			if(!_quiver_has_ammo(pawn))
+				finish_action(controller, FALSE, target_key)
+				return
+			if(!_reload_crossbow(controller, pawn, bow, target))
+				return
+		else if(!_chamber_from_quiver(pawn, bow))
 			finish_action(controller, FALSE, target_key)
 			return
 
@@ -85,7 +91,11 @@
 		return
 
 	_loose_arrow(pawn, target, bow)
-	controller.set_blackboard_key(BB_ARCHER_NPC_NEXT_SHOT, world.time + bow.get_npc_chargetime(pawn))
+	// A crossbow's cadence is the (slow, interruptible) span on the next cycle; bows pace off the timer.
+	if(istype(bow, /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow))
+		controller.set_blackboard_key(BB_ARCHER_NPC_NEXT_SHOT, world.time)
+	else
+		controller.set_blackboard_key(BB_ARCHER_NPC_NEXT_SHOT, world.time + bow.get_npc_chargetime(pawn))
 
 /datum/ai_behavior/ranged_attack_bow/finish_action(datum/ai_controller/controller, succeeded, target_key)
 	. = ..()
@@ -149,31 +159,44 @@
 	pawn.put_in_active_hand(stashed)
 	controller.clear_blackboard_key(BB_ARCHER_NPC_STASHED_WEAPON)
 
-/proc/_cock_if_crossbow(obj/item/gun/ballistic/revolver/grenadelauncher/bow)
-	if(!istype(bow, /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow))
-		return
-	var/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/xbow = bow
-	if(!xbow.cocked)
-		xbow.cocked = TRUE
-		xbow.update_icon()
+/proc/_quiver_has_ammo(mob/living/carbon/human/pawn)
+	for(var/obj/item/quiver/Q in pawn.get_equipped_items())
+		if(length(Q.arrows))
+			return TRUE
+	return FALSE
+
+
+/proc/_reload_crossbow(datum/ai_controller/controller, mob/living/carbon/human/pawn, obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/bow, atom/target)
+	if(get_dist(pawn, target) > (ARCHER_NPC_MIN_RANGE + 4))
+		return FALSE
+	controller.ai_movement.stop_moving_towards(controller)
+	pawn.face_atom(target)
+	if(!bow.cocked)
+		if(pawn.doing)
+			return FALSE
+		if(bow.cock_sound)
+			playsound(pawn, bow.cock_sound, 100, FALSE)
+		if(!do_after(pawn, bow.get_npc_chargetime(pawn), pawn))
+			return FALSE
+		bow.cocked = TRUE
+		bow.update_icon()
+	. = _chamber_from_quiver(pawn, bow)
+	if(. && bow.load_sound)
+		playsound(pawn, bow.load_sound, bow.load_sound_volume, bow.load_sound_vary)
 
 /proc/_chamber_from_quiver(mob/living/carbon/human/pawn, obj/item/gun/ballistic/revolver/grenadelauncher/bow)
 	if(bow.chambered)
 		return TRUE
-	var/ammo_check = bow.magazine?.ammo_type
-	if(!ammo_check)
+	if(!bow.magazine)
 		return FALSE
 	for(var/obj/item/quiver/Q in pawn.get_equipped_items())
-		if(!length(Q.arrows))
-			continue
 		for(var/obj/item/ammo_casing/arrow in Q.arrows)
-			if(ispath(arrow.type, ammo_check))
+			if(bow.magazine.give_round(arrow))
 				Q.arrows -= arrow
-				arrow.forceMove(bow)
-				bow.attackby(arrow, pawn, null)
-				break
-		break
-	return bow.chambered ? TRUE : FALSE
+				Q.update_icon()
+				bow.chamber_round()
+				return TRUE
+	return FALSE
 
 /proc/_loose_arrow(mob/living/carbon/human/pawn, atom/target, obj/item/gun/ballistic/revolver/grenadelauncher/bow)
 	var/should_arc = FALSE
