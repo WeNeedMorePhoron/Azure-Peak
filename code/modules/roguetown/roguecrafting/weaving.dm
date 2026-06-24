@@ -62,7 +62,7 @@
 	sellprice = 25
 
 /datum/crafting_recipe/roguetown/weaving/undividedclericrobe
-	name = "undivided clerical robes"
+	name = "undivided devotee robes"
 	result = list(/obj/item/clothing/suit/roguetown/shirt/robe/undividedcleric)
 	reqs = list(/obj/item/natural/cloth = 3,
 				/obj/item/natural/silk = 1)
