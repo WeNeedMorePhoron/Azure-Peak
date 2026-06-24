@@ -1,8 +1,8 @@
 /datum/action/cooldown/spell/bestow_ward
 	name = "Bestow Ward"
 	desc = "Channel arcyne energy to wrap an ally in a protective ward. The ward covers their entire body with light armor, \
-	yielding coverage to any real armor they wear. The ward lasts for 5 minutes or until destroyed. \
-	Cannot override an existing ward of equal or greater strength, and will never override non-arcyne protections."
+	superseding coverage to any real armor they wear. The ward lasts for 3 minutes or until destroyed. \
+	Cannot override an existing ward of equal or greater strength. "
 	button_icon = 'icons/mob/actions/mage_battlewardry.dmi'
 	button_icon_state = "bestow_ward"
 	sound = 'sound/magic/whiteflame.ogg'
@@ -25,7 +25,7 @@
 	charge_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/charging.ogg'
-	cooldown_time = 1 MINUTES
+	cooldown_time = 2 MINUTES
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
@@ -34,7 +34,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
 	var/ward_type = /obj/item/clothing/suit/roguetown/armor/manual/arcyne_ward/bestowed
-	var/ward_duration = 5 MINUTES
+	var/ward_duration = 3 MINUTES
 
 /datum/action/cooldown/spell/bestow_ward/cast(atom/cast_on)
 	. = ..()
@@ -122,6 +122,8 @@
 	var/duration_timer
 	var/expires_at = 0
 
+/obj/item/clothing/suit/roguetown/armor/manual/arcyne_ward/bestowed/recalculate_coverage(force_full = FALSE)
+	body_parts_covered_dynamic = COVERAGE_FULL_BODY_ACTUAL
 
 /obj/item/clothing/suit/roguetown/armor/manual/arcyne_ward/bestowed/proc/set_duration(duration)
 	if(duration_timer)
