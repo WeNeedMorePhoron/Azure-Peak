@@ -1,17 +1,18 @@
 /datum/action/cooldown/spell/selfbuff
 	name = "Divine Arcynes"
 	desc = "Improves your reflexes and wrap yourself with soothing light"
+	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	button_icon_state = "guidance"
-	sound = 'sound/magic/astrata_choir.ogg'
+	sound = 'sound/magic/undivided_perserverance.ogg'
 	glow_intensity = 0
 
 	click_to_activate = FALSE
-
+	cast_range = SPELL_RANGE_AURA
 	primary_resource_cost = SPELL_COST_STAMINA
 
 	secondary_resource_cost = SPELLCOST_UTILITY_BUFF
 
-	invocations = list("Blessed Arcynes guide me true!")
+	invocations = list("Blessed Arcynes guide us true!")
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = FALSE
@@ -22,8 +23,13 @@
 /datum/action/cooldown/spell/selfbuff/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
-	H.apply_status_effect(/datum/status_effect/buff/lesser_guidance)
-	H.apply_status_effect(/datum/status_effect/buff/healingaura)
+	if(!istype(H))
+		return
+	
+	for(var/mob/living/carbon/target in view(cast_range, get_turf(owner)))
+		if(H.mind)
+			H.apply_status_effect(/datum/status_effect/buff/lesser_guidance)
+			H.apply_status_effect(/datum/status_effect/buff/healingaura)
 	return TRUE
 
 /atom/movable/screen/alert/status_effect/buff/lesser_guidance
