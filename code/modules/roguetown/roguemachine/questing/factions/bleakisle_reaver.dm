@@ -7,7 +7,8 @@
 	can_blockade = TRUE
 	category = FACTION_CAT_GRONN
 	mob_types = list(
-		/mob/living/carbon/human/species/human/northern/searaider/ambush = 35, //Have greatweapons + iron armor + can do specials
+		/mob/living/carbon/human/species/human/northern/searaider/ambush = 26, //Have greatweapons + iron armor + can do specials
+		/mob/living/carbon/human/species/human/northern/searaider/archer/ambush = 9, // ~25% of the searaider mix
 		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 55,
 		/mob/living/carbon/human/species/human/northern/militia/deserter = 10,
 	)
