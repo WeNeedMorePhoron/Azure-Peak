@@ -85,12 +85,10 @@ LINEN BINS
 	icon_state = ""
 	item_state = ""
 	slot_flags = ITEM_SLOT_BELT
-	adjustable = CAN_CADJUST
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("whips", "lashes")
 	max_integrity = 300
 	equip_sound = 'sound/blank.ogg'
-	content_overlays = FALSE
 	bloody_icon_state = "bodyblood"
 	experimental_inhand = TRUE
 	grid_width = 64

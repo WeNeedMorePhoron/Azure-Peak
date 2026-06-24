@@ -48,8 +48,6 @@
 	body_parts_covered = HEAD|HAIR|EARS|NECK|MOUTH|NOSE|EYES
 	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_MASK
 	body_parts_inherent = HEAD
-	dynamic_hair_suffix = "+generic"
-	bloody_icon_state = "helmetblood"
 	var/wet = 0
 
 /obj/item/tablecloth/silk/get_mechanics_examine(mob/user)
