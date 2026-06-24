@@ -148,7 +148,6 @@
 	fluff_desc = "Within Their realm disease and ailments hold no sway over the devout, even the deepest wound shall soon come apart in Their light."
 	background_icon = 'icons/mob/actions/undividedmiracles.dmi'
 	button_icon = 'icons/mob/actions/undividedmiracles.dmi'
-	primary_resource_cost = SPELLCOST_MIRACLE
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // T1 - Twinned Gaze - Removes vision cone for duration as well grants night vision on high enough level. //
