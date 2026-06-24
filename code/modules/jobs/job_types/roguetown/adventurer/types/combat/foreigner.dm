@@ -207,15 +207,7 @@
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
 	head = /obj/item/clothing/head/roguetown/roguehood/shalal/hijab/black
 	beltr = /obj/item/flashlight/flare/torch/lantern
-
-	var/choice = list("I left for a reason... (Default)", "The Djinn could be anywhere! (Naledi Complex)")
-	var/complex = input(H, "How tightly bound to traditions you are?", "I HATE DJINNS!") as anything in choice
-	switch(complex)
-		if("The Djinn could be anywhere! (Naledi Complex)")
-			ADD_TRAIT(H, TRAIT_NALEDI, TRAIT_GENERIC)
-			mask = /obj/item/clothing/mask/rogue/lordmask/naledi
-		else
-			mask = /obj/item/clothing/mask/rogue/lordmask/tarnished
+	mask = /obj/item/clothing/mask/rogue/lordmask/tarnished
 
 	var/paths = list("Refugee (Default)", "Seminary Dropout (Hierophant)", "Desert Ascetic (Pontifex)", "Wandering Yogi (Vizier)")
 	var/path = input(H, "Choose your past.", "WHAT DID WAR TAKE FROM YOU?") as anything in paths
@@ -337,11 +329,7 @@
 				grant_poke_spell(H)
 				H.mind.AddSpell(new /datum/action/cooldown/spell/blink/shadowstep)
 				H.mind.AddSpell(new /datum/action/cooldown/spell/vizier/restoration)
-				switch(mastery)
-					if("Garde Origin (Divergence)")
-						H.mind.AddSpell(new /datum/action/cooldown/spell/vizier/divergence)
-					if("Avant Origin (Acceleration)")
-						H.mind.AddSpell(new /datum/action/cooldown/spell/vizier/acceleration)
+				H.mind.AddSpell(new /datum/action/cooldown/spell/vizier/acceleration)
 				H.mind.AddSpell(new /datum/action/cooldown/spell/bestow_ward)
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
 				H.mind.AddSpell(new /datum/action/cooldown/spell/conjure_arcyne_ward/crystalhide)
