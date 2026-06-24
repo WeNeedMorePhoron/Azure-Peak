@@ -291,7 +291,6 @@
 #include "code\__HELPERS\sorts\MergeSort.dm"
 #include "code\__HELPERS\sorts\TimSort.dm"
 #include "code\_globalvars\bitfields.dm"
-#include "code\_globalvars\browserpanel_hidden_verbs.dm"
 #include "code\_globalvars\configuration.dm"
 #include "code\_globalvars\food_preferences.dm"
 #include "code\_globalvars\game_modes.dm"
