@@ -1585,7 +1585,7 @@
 		target.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
 		spawn(40)
 			to_chat(target, span_purple("They are ignorant, backwards, without hope. You. You will be powerful."))
-		REMOVE_TRAIT(target, TRAIT_TEMPO, TRAIT_SPECIES)
+		REMOVE_TRAIT(target, TRAIT_TEMPO, SPECIES_TRAIT)
 
 /datum/outfit/job/roguetown/darksteelrite
 	var/obj/item/clothing/head/roguetown/helmet/heavy/selected_helm_path = /obj/item/clothing/head/roguetown/helmet/heavy/zizo
@@ -1729,7 +1729,7 @@
 		target.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_EXPERT, TRUE)
 		spawn(40)
 			to_chat(target, span_cult("More to the maw, this shall help feed our greed."))
-		REMOVE_TRAIT(target, TRAIT_TEMPO, TRAIT_SPECIES)
+		REMOVE_TRAIT(target, TRAIT_TEMPO, SPECIES_TRAIT)
 
 /// Performs the de-noblification ritual, which requires a noble character in the center of the circle. TRUE on success, FALSE on failure.
 /obj/structure/ritualcircle/matthios/proc/defenestration()
@@ -1947,7 +1947,7 @@
 		target.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_EXPERT, TRUE)
 		spawn(40)
 			to_chat(target, span_cult("Break them."))
-		REMOVE_TRAIT(target, TRAIT_TEMPO, TRAIT_SPECIES)
+		REMOVE_TRAIT(target, TRAIT_TEMPO, SPECIES_TRAIT)
 
 /// Performs the war ritual, which requires a noble, clergy, or inquisition member in the center of the circle. TRUE on success, FALSE on failure.
 /obj/structure/ritualcircle/graggar/proc/perform_warritual()
@@ -2151,7 +2151,7 @@
 	backr = /obj/item/rogueweapon/spear/partizan/baotha
 
 	H.mind.AddSpell(new /datum/action/cooldown/spell/mending/lesser)
-	REMOVE_TRAIT(H, TRAIT_TEMPO, TRAIT_SPECIES)
+	REMOVE_TRAIT(H, TRAIT_TEMPO, SPECIES_TRAIT)
 
 //
 
