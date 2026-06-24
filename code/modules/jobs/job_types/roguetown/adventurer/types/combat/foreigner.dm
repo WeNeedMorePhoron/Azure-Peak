@@ -325,7 +325,6 @@
 
 			if(H.mind)
 				var/spells = list("Avant Origin (Acceleration)", "Garde Origin (Divergence)")
-				var/mastery = input(H, "Choose your Origin Mastery.", "FORWARD OR BACKWARD?") as anything in spells
 				grant_poke_spell(H)
 				H.mind.AddSpell(new /datum/action/cooldown/spell/blink/shadowstep)
 				H.mind.AddSpell(new /datum/action/cooldown/spell/vizier/restoration)
