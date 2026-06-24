@@ -230,14 +230,14 @@
 	if(STACON >= CONSTITUTION_BLEEDRATE_CAP)
 		conbonus = CONSTITUTION_BLEEDRATE_CAP - 10
 	else if(STACON != 10)
-		conbonus = STACON - 10
-		amt -= amt * (conbonus * CONSTITUTION_BLEEDRATE_MOD)
-		if(HAS_TRAIT(src, TRAIT_CRITICAL_RESISTANCE))
-			amt = amt * CRIT_RESISTANCE_EFFECTIVE_BLEEDRATE
-		if(HAS_TRAIT(src, TRAIT_BLOOD_RESISTANCE))
+		if(HAS_TRAIT(src, TRAIT_CRITICAL_RESISTANCE))	// We apply the major multipliers first.
+			amt *= CRIT_RESISTANCE_EFFECTIVE_BLEEDRATE
+		else if(HAS_TRAIT(src, TRAIT_BLOOD_RESISTANCE))
 			amt *= BLOOD_RESISTANCE_EFFECTIVE_BLEEDRATE
 		if(HAS_TRAIT(src, TRAIT_CRITICAL_WEAKNESS))
 			amt = amt * 2
+		conbonus = STACON - 10
+		amt -= amt * (conbonus * CONSTITUTION_BLEEDRATE_MOD) // Then we reduce it by a flat value.
 	if(surrendering)
 		amt = amt / 4 // Helps yield condition not be a bloodloss failure state. Approx to grabbing all of your bodyparts at once
 	blood_volume = max(blood_volume - amt, 0)
