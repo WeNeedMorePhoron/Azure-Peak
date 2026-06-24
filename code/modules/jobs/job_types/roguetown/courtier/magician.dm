@@ -31,6 +31,7 @@
 	job_subclasses = list(
 		/datum/advclass/courtmage
 	)
+	tempo_capable = FALSE
 
 /datum/advclass/courtmage
 	name = "Court Magician"
