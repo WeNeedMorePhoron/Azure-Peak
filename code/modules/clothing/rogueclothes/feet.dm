@@ -27,7 +27,7 @@
 	var/atom/movable/holdingknife = null
 	salvage_amount = 1
 	armor = ARMOR_CLOTHING
-	salvage_result = /obj/item/natural/cloth
+	salvage_result = /obj/item/natural/hide/cured
 
 /obj/item/clothing/shoes/roguetown/boots/examine(mob/user)
 	. = ..()

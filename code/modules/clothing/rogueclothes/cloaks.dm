@@ -920,6 +920,7 @@
 	armor = ARMOR_CLOTHING
 	boobed = TRUE
 	salvage_result = /obj/item/natural/hide/cured
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/apron/brown
 	color = CLOTHING_BROWN
@@ -1011,6 +1012,7 @@
 	inhand_mod = FALSE
 	hoodtype = /obj/item/clothing/head/hooded/rainhood/furhood
 	salvage_result = /obj/item/natural/fur
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/raincloak/furcloak/crafted/Initialize()
 	. = ..()
@@ -1168,6 +1170,7 @@
 	allowed_race = NON_DWARVEN_RACE_TYPES
 	nodismemsleeves = TRUE
 	salvage_result = /obj/item/natural/fur
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/heartfelt
 	name = "red cloak"
@@ -1208,6 +1211,7 @@
 	allowed_sex = list(MALE, FEMALE)
 	flags_inv = null
 	var/flipped = FALSE
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/half/attack_right(mob/user)
 	if(!flipped)
