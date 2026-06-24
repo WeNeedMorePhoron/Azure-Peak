@@ -218,24 +218,32 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 	gloves = /obj/item/clothing/gloves/roguetown/leather
 	if(prob(40))
 		gloves = /obj/item/clothing/gloves/roguetown/plate/iron/banded
-	// Stopgap: archer roll removed because the ranged NPC AI is unreliable.
-	switch(rand(1, 6))
-		if(1)
-			r_hand = /obj/item/rogueweapon/sword/iron
-			l_hand = /obj/item/rogueweapon/shield/wood
-		if(2)
-			r_hand = /obj/item/rogueweapon/stoneaxe/handaxe
-			l_hand = /obj/item/rogueweapon/shield/wood
-		if(3)
-			r_hand = /obj/item/rogueweapon/spear
-		if(4)
-			r_hand = /obj/item/rogueweapon/greataxe
-		if(5)
-			r_hand = /obj/item/rogueweapon/greatsword/iron
-		if(6) //GRAGGAR, LET ME BE WITNESSED
-			r_hand = /obj/item/rogueweapon/stoneaxe/handaxe/copper
-			l_hand = /obj/item/rogueweapon/stoneaxe/handaxe/copper
-			ADD_TRAIT(H, TRAIT_DUALWIELDER, TRAIT_GENERIC) //lets them actually use it, not just for show, sire.
+	var/archer_variant = FALSE
+	if(prob(30)) // archer
+		backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
+		backl = /obj/item/quiver/arrows
+		r_hand = /obj/item/rogueweapon/sword/iron
+		H.adjust_skillrank(/datum/skill/combat/bows, 3, TRUE)
+		H.upgrade_ai_controller(/datum/ai_controller/human_npc/archer)
+		archer_variant = TRUE
+	else
+		switch(rand(1, 6))
+			if(1)
+				r_hand = /obj/item/rogueweapon/sword/iron
+				l_hand = /obj/item/rogueweapon/shield/wood
+			if(2)
+				r_hand = /obj/item/rogueweapon/stoneaxe/handaxe
+				l_hand = /obj/item/rogueweapon/shield/wood
+			if(3)
+				r_hand = /obj/item/rogueweapon/spear
+			if(4)
+				r_hand = /obj/item/rogueweapon/greataxe
+			if(5)
+				r_hand = /obj/item/rogueweapon/greatsword/iron
+			if(6) //GRAGGAR, LET ME BE WITNESSED
+				r_hand = /obj/item/rogueweapon/stoneaxe/handaxe/copper
+				l_hand = /obj/item/rogueweapon/stoneaxe/handaxe/copper
+				ADD_TRAIT(H, TRAIT_DUALWIELDER, TRAIT_GENERIC) //lets them actually use it, not just for show, sire.
 
 	shoes = /obj/item/clothing/shoes/roguetown/boots/furlinedboots
 	if(prob(30))
@@ -246,6 +254,9 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 	H.STAPER = 8 //AIMING? Who needs that lame-ass shit? GRAGGAR GRAGGAR GRAGGAR!!
 	H.STAINT = 8 //Minimal req to use specials
 	H.STASTR = 14
+	if(archer_variant)
+		H.STASTR -= 2
+		H.STAPER += 3
 	H.adjust_skillrank(/datum/skill/combat/polearms, 3, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/maces, 3, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/axes, 3, TRUE)

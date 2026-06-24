@@ -132,6 +132,7 @@
 #define BB_ARCHER_NPC_EQUIPMENT_CACHE_EXPIRY "archer_npc_equipment_cache_expiry"
 #define BB_ARCHER_NPC_BOW               "archer_npc_bow"
 #define BB_ARCHER_NPC_QUIVER            "archer_npc_quiver"
+#define BB_ARCHER_NPC_NEXT_SHOT         "archer_next_shot"     // world.time the archer may next loose an arrow
 #define BB_INVENTORY_MAP        "inventory_map"        // list(category = list(item_ref = slot_name))
 #define BB_CONTAINER_REFS       "container_refs"       // list(slot_name = item_ref)
 #define BB_INVENTORY_DIRTY      "inventory_dirty"      // bool, triggers reappraisal

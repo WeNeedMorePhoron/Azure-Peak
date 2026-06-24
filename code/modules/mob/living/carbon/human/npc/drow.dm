@@ -201,8 +201,15 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 		if(2)
 			neck = /obj/item/clothing/neck/roguetown/gorget
 			head = /obj/item/clothing/head/roguetown/helmet/kettle/iron //So they have head armor
-	// Stopgap: archer roll removed because the ranged NPC AI is unreliable.
-	if(prob(45)) // whip
+	var/archer_variant = FALSE
+	if(prob(20)) // archer
+		backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
+		backl = /obj/item/quiver/arrows
+		r_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/corroded/dirk
+		H.adjust_skillrank(/datum/skill/combat/bows, 4, TRUE)
+		H.upgrade_ai_controller(/datum/ai_controller/human_npc/archer)
+		archer_variant = TRUE
+	else if(prob(45)) // whip
 		r_hand = /obj/item/rogueweapon/whip
 	else if(prob(50)) // dual falx
 		r_hand = /obj/item/rogueweapon/sword/falx/stalker
@@ -217,6 +224,9 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	H.STAWIL = 8
 	H.STAPER = 10
 	H.STAINT = 10
+	if(archer_variant)
+		H.STASTR -= 2
+		H.STAPER += 3
 	H.adjust_skillrank(/datum/skill/combat/whipsflails, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/maces, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/axes, 4, TRUE)

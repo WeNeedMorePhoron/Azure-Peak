@@ -377,8 +377,7 @@ GLOBAL_LIST_INIT(goblin_pyromancer_aggro, list(
 		H.STAINT = 8
 	else
 		H.STAINT = 4
-	// Stopgap: bow (was 6) and slinger (was 7) loadouts removed from the random pool because the ranged NPC AI is unreliable. Bomber moved into the freed slot.
-	var/loadout = rand(1,6)
+	var/loadout = rand(1,8)
 	switch(loadout)
 		if(1) //tribal spear
 			r_hand = /obj/item/rogueweapon/spear/stone
@@ -434,6 +433,22 @@ GLOBAL_LIST_INIT(goblin_pyromancer_aggro, list(
 				l_hand = /obj/item/rogueweapon/stoneaxe
 				armor = /obj/item/clothing/suit/roguetown/armor/leather/goblin
 				ADD_TRAIT(H, TRAIT_DUALWIELDER, TRAIT_GENERIC) //I am a cruel god
+		if(7) // bow archer
+			r_hand = /obj/item/rogueweapon/huntingknife/stoneknife
+			backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow
+			backl = /obj/item/quiver/stonearrows
+			armor = /obj/item/clothing/suit/roguetown/armor/leather/hide/goblin
+			H.STASTR -= 2
+			H.STAPER += 3
+			H.adjust_skillrank(/datum/skill/combat/bows, 2, TRUE)
+			H.upgrade_ai_controller(/datum/ai_controller/human_npc/archer)
+		if(8) // slinger
+			r_hand = /obj/item/rogueweapon/huntingknife/stoneknife
+			wrists = /obj/item/gun/ballistic/revolver/grenadelauncher/sling
+			neck = /obj/item/quiver/sling/stone
+			armor = /obj/item/clothing/suit/roguetown/armor/leather/hide/goblin
+			H.adjust_skillrank(/datum/skill/combat/slings, 2, TRUE)
+			H.upgrade_ai_controller(/datum/ai_controller/human_npc/archer)
 	H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 2, TRUE)
 	H.adjust_skillrank_up_to(/datum/skill/combat/maces, 2, TRUE)
 	H.adjust_skillrank_up_to(/datum/skill/combat/axes, 2, TRUE)
