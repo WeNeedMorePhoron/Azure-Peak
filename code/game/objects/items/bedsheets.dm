@@ -93,6 +93,7 @@ LINEN BINS
 	experimental_inhand = TRUE
 	grid_width = 64
 	grid_height = 32
+	flags_inv = HIDEBOOB | HIDECROTCH
 
 /obj/item/bedsheet/rogue/get_mechanics_examine(mob/user)
 	. = ..()
