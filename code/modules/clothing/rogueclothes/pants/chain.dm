@@ -105,6 +105,7 @@
 	shortclothes to cover the lower body, the maille socks pair nicely with lighter boots. For those seeking to flaunt more regal colors, it \
 	can be combined with a pair of cloth hoses."
 	body_parts_covered = LEGS|FEET
+	flags_inv = null
 
 /obj/item/clothing/under/roguetown/chainlegs/hose
 	name = "steel chain hoses"
@@ -113,15 +114,21 @@
 	shortclothes to cover the lower body, the maille socks pair nicely with custom-fitted sabatons. For those seeking to flaunt more regal colors, it \
 	can be combined with a pair of cloth hoses."
 	body_parts_covered = LEGS|FEET
+	flags_inv = null
 
 /obj/item/clothing/under/roguetown/chainlegs/iron/hose/dyeable
 	name = "iron chain hoses with coverings"
 	icon_state = "iupchainhose"
+	item_state = "iupchainhose"
 	desc = "A set of maille-armored leggings, composed from interlinked iron rings and lightly padded for comfort. Worn in conjunction with one's \
 	shortclothes to cover the lower body, the maille socks pair nicely with lighter boots. For a more personalized look, a second pair of \
 	cloth hoses has been secured to cover the maille."
 	detail_tag = "_detail"
 	altdetail_tag = "_detailalt"
+
+/obj/item/clothing/under/roguetown/chainlegs/iron/hose/dyeable/Initialize()
+	. = ..()
+	update_icon()
 
 /obj/item/clothing/under/roguetown/chainlegs/iron/hose/dyeable/update_icon()
 	cut_overlays()
@@ -131,15 +138,26 @@
 		if(get_detail_color())
 			pic.color = get_detail_color()
 		add_overlay(pic)
+	if(get_altdetail_tag())
+		var/mutable_appearance/pic2 = mutable_appearance(icon(icon, "[icon_state][altdetail_tag]"))
+		pic2.appearance_flags = RESET_COLOR
+		if(get_altdetail_color())
+			pic2.color = get_altdetail_color()
+		add_overlay(pic2)
 
 /obj/item/clothing/under/roguetown/chainlegs/hose/dyeable
 	name = "steel chain hoses with coverings"
 	icon_state = "upchainhose"
+	item_state = "upchainhose"
 	desc = "A set of maille-armored leggings, composed from interlinked steel rings and lightly padded for comfort. Worn in conjunction with one's \
 	shortclothes to cover the lower body, the maille socks pair nicely with custom-fitted sabatons. For a more personalized look, a second pair of \
 	cloth hoses has been secured to cover the maille."
 	detail_tag = "_detail"
 	altdetail_tag = "_detailalt"
+
+/obj/item/clothing/under/roguetown/chainlegs/hose/dyeable/Initialize()
+	. = ..()
+	update_icon()
 
 /obj/item/clothing/under/roguetown/chainlegs/hose/dyeable/update_icon()
 	cut_overlays()
@@ -149,6 +167,12 @@
 		if(get_detail_color())
 			pic.color = get_detail_color()
 		add_overlay(pic)
+	if(get_altdetail_tag())
+		var/mutable_appearance/pic2 = mutable_appearance(icon(icon, "[icon_state][altdetail_tag]"))
+		pic2.appearance_flags = RESET_COLOR
+		if(get_altdetail_color())
+			pic2.color = get_altdetail_color()
+		add_overlay(pic2)
 
 ///////// CRAFTING DATUMS FOR CHAIN / CLOTH HOSE COMBINATIONS /////////
 

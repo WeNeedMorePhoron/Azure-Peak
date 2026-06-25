@@ -113,11 +113,17 @@
 /obj/item/clothing/under/roguetown/tights/hose
 	name = "cloth hoses"
 	icon_state = "hose" //Crafting-combining datum for maille hoses can be found in chain.dm.
+	item_state = "hose"
 	desc = "A pair of cloth leggings, traditionally worn in conjunction with one's shortclothes. These can be combined with maille hoses for \
 	the perfect blend of function-and-fashion; just pray no one has the mind to aim below the belt."
 	body_parts_covered = LEGS|FEET
 	detail_tag = "_detail"
 	altdetail_tag = "_detailalt"
+	flags_inv = null
+
+/obj/item/clothing/under/roguetown/tights/hose/Initialize()
+	. = ..()
+	update_icon()
 
 /obj/item/clothing/under/roguetown/tights/hose/update_icon()
 	cut_overlays()
@@ -127,6 +133,12 @@
 		if(get_detail_color())
 			pic.color = get_detail_color()
 		add_overlay(pic)
+	if(get_altdetail_tag())
+		var/mutable_appearance/pic2 = mutable_appearance(icon(icon, "[icon_state][altdetail_tag]"))
+		pic2.appearance_flags = RESET_COLOR
+		if(get_altdetail_color())
+			pic2.color = get_altdetail_color()
+		add_overlay(pic2)
 
 /obj/item/clothing/under/roguetown/tights/clothlegs
 	name = "padded chausses"
