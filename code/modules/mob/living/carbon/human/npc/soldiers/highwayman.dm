@@ -357,7 +357,7 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 /datum/outfit/job/roguetown/human/species/human/northern/highwayman/archer/pre_equip(mob/living/carbon/human/H)
 	r_hand = /obj/item/rogueweapon/sword/short/iron
 	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
-	backl = /obj/item/quiver/arrows
+	backl = /obj/item/quiver/randomfill/highwayman
 	H.STAPER += 3
 	H.adjust_skillrank(/datum/skill/combat/bows, 4, TRUE)
 

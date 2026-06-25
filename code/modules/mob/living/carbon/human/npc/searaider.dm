@@ -260,10 +260,17 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 
 /mob/living/carbon/human/species/human/northern/searaider/archer
 	ai_controller = /datum/ai_controller/human_npc/archer
+	var/archer_outfit = /datum/outfit/job/roguetown/human/species/human/northern/searaider/archer
+	H.STAPER = 12
+	H.STAINT = 8
+	H.STASTR = 12 // These are archers
 
 /mob/living/carbon/human/species/human/northern/searaider/archer/ambush
 	threat_point = THREAT_MODERATE
 	ambush_faction = "raiders"
+
+/mob/living/carbon/human/species/human/northern/searaider/archer/ambush/reaver
+	archer_outfit = /datum/outfit/job/roguetown/human/species/human/northern/searaider/archer/reaver
 
 /mob/living/carbon/human/species/human/northern/searaider/archer/after_creation()
 	..()
@@ -272,7 +279,7 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 	for(var/obj/item/I in get_equipped_items(FALSE))
 		if(istype(I, /obj/item/gun) || istype(I, /obj/item/quiver))
 			qdel(I)
-	equipOutfit(new /datum/outfit/job/roguetown/human/species/human/northern/searaider/archer)
+	equipOutfit(new archer_outfit)
 
 /datum/outfit/job/roguetown/human/species/human/northern/searaider/archer/pre_equip(mob/living/carbon/human/H)
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
@@ -302,3 +309,7 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 	H.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
 	H.upgrade_ai_controller(/datum/ai_controller/human_npc/archer)
+
+/datum/outfit/job/roguetown/human/species/human/northern/searaider/archer/reaver/pre_equip(mob/living/carbon/human/H)
+	..()
+	backl = /obj/item/quiver/randomfill/reaver
