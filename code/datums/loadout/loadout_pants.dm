@@ -4,6 +4,11 @@
 	path = /obj/item/clothing/under/roguetown/tights/black
 	sort_category = "Pants"
 
+/datum/loadout_item/hoses
+	name = "Cloth Hoses"
+	path = /obj/item/clothing/under/roguetown/tights/hose
+	sort_category = "Pants"
+
 /datum/loadout_item/leathertights
 	name = "Leather Tights"
 	path = /obj/item/clothing/under/roguetown/trou/leathertights
