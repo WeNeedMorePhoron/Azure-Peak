@@ -261,9 +261,6 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 /mob/living/carbon/human/species/human/northern/searaider/archer
 	ai_controller = /datum/ai_controller/human_npc/archer
 	var/archer_outfit = /datum/outfit/job/roguetown/human/species/human/northern/searaider/archer
-	H.STAPER = 12
-	H.STAINT = 8
-	H.STASTR = 12 // These are archers
 
 /mob/living/carbon/human/species/human/northern/searaider/archer/ambush
 	threat_point = THREAT_MODERATE
@@ -274,6 +271,9 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 
 /mob/living/carbon/human/species/human/northern/searaider/archer/after_creation()
 	..()
+	STAPER = 12
+	STAINT = 8
+	STASTR = 12 // These are archers
 	for(var/obj/item/I in held_items)
 		qdel(I)
 	for(var/obj/item/I in get_equipped_items(FALSE))
