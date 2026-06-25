@@ -1033,6 +1033,7 @@
 	tools = list(/obj/item/needle)
 	craftdiff = 3
 	sellprice = 20
+	bypass_dupe_test = TRUE
 
 /datum/crafting_recipe/roguetown/sewing/armingjacket
 	name = "arming jacket"
