@@ -120,6 +120,9 @@
 	detail_tag = "_detail"
 	altdetail_tag = "_detailalt"
 	flags_inv = null
+	color = null
+	detail_color = CLOTHING_WHITE
+	altdetail_color = CLOTHING_WHITE
 
 /obj/item/clothing/under/roguetown/tights/hose/Initialize()
 	. = ..()
