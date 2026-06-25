@@ -170,7 +170,7 @@
 /obj/item/clothing/gloves/roguetown/cloth
 	name = "padded mittens"
 	desc = "A pair of gloves, quilted from cloth. Warmth for the pilgrim, reassurance for the laborer, and protection for the militiaman."
-	icon_state = "leather_gloves"
+	icon_state = "paddedmitts"
 	armor = ARMOR_PADDED
 	max_integrity = ARMOR_INT_LEG_LEATHER
 	blocksound = SOFTUNDERHIT

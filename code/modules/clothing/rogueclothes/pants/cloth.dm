@@ -158,6 +158,7 @@
 	sewrepair = TRUE
 	body_parts_covered = GROIN|LEGS
 	cold_protection = 10
+	detail_color = CLOTHING_WHITE
 
 /obj/item/clothing/under/roguetown/tights/clothlegs/update_icon()
 	cut_overlays()
