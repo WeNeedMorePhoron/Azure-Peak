@@ -139,6 +139,7 @@
 #define BB_CONTAINER_REFS       "container_refs"       // list(slot_name = item_ref)
 #define BB_INVENTORY_DIRTY      "inventory_dirty"      // bool, triggers reappraisal
 #define BB_HELD_CONSUMABLE      "held_consumable"      // item we pulled out to use
+#define BB_THROW_WINDUP_UNTIL   "throw_windup_until"   // world.time the drawn throwable may be loosed (NPC holds it visibly until then)
 #define BB_TARGET_ZONE_OVERRIDE	"bb_target_override"
 #define BB_LOOT_TARGET "loot_target"
 #define BB_LOOT_TARGET_ITEM "loot_target_item"
