@@ -9,7 +9,7 @@
 	mob_types = list(
 		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 50,
 		/mob/living/carbon/human/species/human/northern/militia/deserter = 20,
-		/mob/living/carbon/human/species/human/northern/highwayman/archer = 15,
+		/mob/living/carbon/human/species/human/northern/highwayman/archer = 22, // archer+crossbowman ~30% of highwaymen
 		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 8,
 	)
 	boss_mob_types = list(

@@ -8,7 +8,7 @@
 	category = FACTION_CAT_GOBLINOID
 	mob_types = list(
 		/mob/living/carbon/human/species/goblin/npc/ambush/moon = 56,
-		/mob/living/carbon/human/species/goblin/npc/archer/moon = 12, // ~25% ranged/special mix
+		/mob/living/carbon/human/species/goblin/npc/archer/moon = 12, // ~30% ranged/special mix
 		/mob/living/carbon/human/species/goblin/npc/slinger/moon = 6,
 		/mob/living/carbon/human/species/goblin/npc/bomber/moon = 6,
 		/mob/living/simple_animal/hostile/retaliate/rogue/troll/cave = 10,

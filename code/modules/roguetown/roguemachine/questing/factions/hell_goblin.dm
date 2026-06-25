@@ -8,7 +8,7 @@
 	category = FACTION_CAT_GOBLINOID
 	mob_types = list(
 		/mob/living/carbon/human/species/goblin/npc/ambush/hell = 39,
-		/mob/living/carbon/human/species/goblin/npc/archer/hell = 8, // ~25% ranged/special mix
+		/mob/living/carbon/human/species/goblin/npc/archer/hell = 9, // ~30% ranged/special mix
 		/mob/living/carbon/human/species/goblin/npc/slinger/hell = 4,
 		/mob/living/carbon/human/species/goblin/npc/bomber/hell = 4,
 		/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp = 15,
