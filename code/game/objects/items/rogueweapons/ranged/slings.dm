@@ -70,7 +70,7 @@
 	var/newtime = 20 - (user.get_skill_level(/datum/skill/combat/slings) * 1.5) - (user.STAPER / 2) - (user.STASTR / 5)
 	if(chambered)
 		newtime *= chambered.charge_time_mult
-	return max(ARCHER_NPC_MIN_SLING_CHARGETIME, newtime)
+	return max(ARCHER_NPC_MIN_SLING_CHARGETIME, newtime) * ARCHER_NPC_ROF_PENALTY
 
 //objs
 

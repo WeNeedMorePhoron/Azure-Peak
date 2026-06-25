@@ -133,6 +133,8 @@
 #define BB_ARCHER_NPC_BOW               "archer_npc_bow"
 #define BB_ARCHER_NPC_QUIVER            "archer_npc_quiver"
 #define BB_ARCHER_NPC_NEXT_SHOT         "archer_next_shot"     // world.time the archer may next loose an arrow
+#define BB_ARCHER_NPC_REPOSITION_TURF   "archer_reposition_turf"  // post-shot juke destination we're committed to
+#define BB_ARCHER_NPC_REPOSITION_UNTIL  "archer_reposition_until" // world.time the post-shot juke commitment expires
 #define BB_INVENTORY_MAP        "inventory_map"        // list(category = list(item_ref = slot_name))
 #define BB_CONTAINER_REFS       "container_refs"       // list(slot_name = item_ref)
 #define BB_INVENTORY_DIRTY      "inventory_dirty"      // bool, triggers reappraisal
@@ -147,7 +149,14 @@
 #define BB_MUG_TARGET_ITEM "mug_rootbeer"
 
 #define ARCHER_NPC_EQUIPMENT_CACHE_TIME (40 SECONDS)
-#define ARCHER_NPC_MIN_RANGE            3   // tiles - closer than this, prefer melee
+#define ARCHER_NPC_MIN_RANGE            4 
+#define ARCHER_NPC_KITE_FLOOR           1   
+#define ARCHER_NPC_KITE_RANGE           5 
+#define ARCHER_NPC_SHOOT_RANGE          7
+#define ARCHER_NPC_ROF_PENALTY          1.3
+#define ARCHER_NPC_BASE_SPREAD          25 
+#define ARCHER_NPC_RETREAT_PROJECT      4
+#define ARCHER_NPC_REPOSITION_TIME      (0.6 SECONDS) // how long a post-shot random juke commits before the straight retreat resumes
 #define ARCHER_NPC_ARROW_SEARCH_RANGE   9
 #define ARCHER_NPC_SIMULATED_CHARGETIME 1.5 SECONDS // fallback bow charge time
 #define ARCHER_NPC_MIN_CROSSBOW_CHARGETIME  3 SECONDS // crossbows are slower to fire

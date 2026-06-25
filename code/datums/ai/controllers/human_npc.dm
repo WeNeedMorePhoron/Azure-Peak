@@ -118,6 +118,8 @@
 		BB_ARCHER_NPC_TARGET_ARROW = null,
 		BB_ARCHER_NPC_STASHED_WEAPON = null,
 		BB_ARCHER_NPC_NEXT_SHOT = 0,
+		BB_ARCHER_NPC_REPOSITION_TURF = null,
+		BB_ARCHER_NPC_REPOSITION_UNTIL = 0,
 	)
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/call_for_help,
