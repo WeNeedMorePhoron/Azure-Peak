@@ -601,7 +601,7 @@ mas//Lazily shoving all donator fluff items in here for now. Feel free to make t
 	desc = "A magnificent plume, intended to be worn atop a helmet; a touch of flamboyance, indiscriminate of the alloy."
 	item_state = "greatplume" //Won't look perfect on some helmets (due to the lack of direction-specific clipping), but it'll do.
 	icon_state = "greatplume"
-	slot_flags = null //Not designed to be worn outside of a helmet's cosmetic inventory. Going to see how this goes.
+	slot_flags = ITEM_SLOT_HEAD //Not designed to be worn outside of a helmet's cosmetic inventory. Going to see how this goes.
 	worn_offsets = list("x" = 0, "y" = 2)
 	color = null
 
