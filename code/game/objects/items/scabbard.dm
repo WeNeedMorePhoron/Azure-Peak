@@ -538,8 +538,8 @@
 	possible_item_intents = list(SHIELD_BASH, SHIELD_BLOCK)
 	can_parry = TRUE
 	sewrepair = FALSE
-	wdefense = 6
-	max_integrity = 150
+	wdefense = 5
+	max_integrity = 100
 	resistance_flags = null
 	cant_strip = TRUE
 
@@ -551,7 +551,7 @@
 	possible_item_intents = list(SHIELD_BASH, SHIELD_BLOCK)
 	can_parry = TRUE
 	sewrepair = FALSE
-	wdefense = 6
+	wdefense = 5
 	max_integrity = 150
 	resistance_flags = null
 	cant_strip = TRUE

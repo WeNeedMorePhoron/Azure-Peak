@@ -163,13 +163,13 @@
 /datum/loadout_item/triumph_scabbardnoble
 	name = "Decorated Scabbard, Silver"
 	path = /obj/item/rogueweapon/scabbard/sword/noble
-	triumph_cost = 5
+	triumph_cost = 3
 	sort_category = "Triumphs"
 
 /datum/loadout_item/triumph_sheathnoble
 	name = "Decorated Sheath, Silver"
 	path = /obj/item/rogueweapon/scabbard/sheath/noble
-	triumph_cost = 5
+	triumph_cost = 3
 	sort_category = "Triumphs"
 
 /datum/loadout_item/triumph_psycross
@@ -344,13 +344,13 @@
 /datum/loadout_item/triumph_scabbardroyal
 	name = "Decorated Scabbard, Golden"
 	path = /obj/item/rogueweapon/scabbard/sword/royal
-	triumph_cost = 7
+	triumph_cost = 5
 	sort_category = "Triumphs"
 
 /datum/loadout_item/triumph_sheathroyal
 	name = "Decorated Sheath, Golden"
 	path = /obj/item/rogueweapon/scabbard/sheath/royal
-	triumph_cost = 7
+	triumph_cost = 5
 	sort_category = "Triumphs"
 
 /datum/loadout_item/triumph_gdorpelring
