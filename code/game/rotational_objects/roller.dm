@@ -46,7 +46,7 @@
 	layer = BELOW_OPEN_DOOR_LAYER
 	rotation_structure = TRUE
 	stress_use = 0
-	initialize_dirs = CONN_DIR_LEFT | CONN_DIR_RIGHT | CONN_DIR_FORWARD | CONN_DIR_FLIP
+	initialize_dirs = CONN_DIR_LEFT | CONN_DIR_RIGHT //| CONN_DIR_FORWARD | CONN_DIR_FLIP
 
 	var/operating = FALSE
 	var/movedir
