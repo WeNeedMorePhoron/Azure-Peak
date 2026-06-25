@@ -608,3 +608,9 @@
 	path = /obj/item/reagent_containers/glass/bottle/alchemical/fermented_crab
 	triumph_cost = 5
 	sort_category = "Triumphs"
+
+/datum/loadout_item/greatplumestandalone
+	name = "Helmet Decoration, Greatplume"
+	path = /obj/item/clothing/head/roguetown/decoration/greatplume
+	triumph_cost = 3
+	sort_category = "Triumphs"
