@@ -149,32 +149,28 @@
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/ceramics/glass/bottles
-	name = "glass bottles (x3)"
+	name = "glass bottle"
 	result = list(/obj/item/reagent_containers/glass/bottle)
 	reqs = list(/obj/item/natural/glass = 1)
 	craftdiff = 5
-	var/createditem_num = 3
 
 /datum/crafting_recipe/roguetown/ceramics/glass/cups
-	name = "glass cups (x3)"
+	name = "glass cup"
 	result = list(/obj/item/reagent_containers/glass/cup/glass)
 	reqs = list(/obj/item/natural/glass = 1)
 	craftdiff = 5
-	var/createditem_num = 3
 
 /datum/crafting_recipe/roguetown/ceramics/glass/smallcups
-	name = "small glass cups (x3)"
+	name = "small glass cup"
 	result = list(/obj/item/reagent_containers/glass/cup/glass/small)
 	reqs = list(/obj/item/natural/glass = 1)
 	craftdiff = 5
-	var/createditem_num = 3
 
 /datum/crafting_recipe/roguetown/ceramics/glass/carafe
-	name = "glass carafe (x2)"
-	result = list(/obj/item/reagent_containers/glass/carafe/glass)
+	name = "glass carafe"
+	result = list(/obj/item/reagent_containers/glass/carafe)
 	reqs = list(/obj/item/natural/glass = 1)
 	craftdiff = 5
-	var/createditem_num = 2
 
 /datum/crafting_recipe/roguetown/ceramics/portable_hookah
 	name = "portable hookah"
