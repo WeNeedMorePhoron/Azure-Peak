@@ -10,6 +10,7 @@
 		/mob/living/carbon/human/species/human/northern/searaider/ambush = 26, //Have greatweapons + iron armor + can do specials
 		/mob/living/carbon/human/species/human/northern/searaider/archer/ambush/reaver = 11, // ~30% of the searaider mix; reaver quiver (bodkins + specials)
 		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 55,
+		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 8,
 		/mob/living/carbon/human/species/human/northern/militia/deserter = 10,
 	)
 	boss_mob_types = list(

@@ -10,6 +10,7 @@
 		/mob/living/carbon/human/species/human/northern/highwayman/mount_reaver = 55,
 		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 20,
 		/mob/living/carbon/human/species/human/northern/highwayman/archer = 25,
+		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 8,
 	)
 	boss_mob_types = list(
 		/mob/living/carbon/human/species/human/northern/outlaw_tank = 100,

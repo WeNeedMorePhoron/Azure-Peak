@@ -670,3 +670,22 @@
 	H.STAPER = 14
 	H.adjust_skillrank(/datum/skill/combat/bows, 4, TRUE)
 
+/mob/living/carbon/human/species/human/northern/bog_deserters/crossbowman
+	ai_controller = /datum/ai_controller/human_npc/archer
+	deserter_outfit = /datum/outfit/job/roguetown/human/northern/bog_deserters/crossbowman
+
+/mob/living/carbon/human/species/human/northern/bog_deserters/crossbowman/ambush
+	threat_point = THREAT_DANGEROUS
+	ambush_faction = "bandits"
+
+/mob/living/carbon/human/species/human/northern/bog_deserters/crossbowman/after_creation()
+	..()
+	job = "Garrison Crossbowman"
+
+/datum/outfit/job/roguetown/human/northern/bog_deserters/crossbowman/pre_equip(mob/living/carbon/human/H)
+	..()
+	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
+	backl = /obj/item/quiver/bolt/standard
+	H.STAPER = 13
+	H.adjust_skillrank(/datum/skill/combat/crossbows, 4, TRUE)
+
