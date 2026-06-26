@@ -75,3 +75,11 @@
 	grid_height = 64
 	slot_flags = null
 	possible_item_intents = list(/datum/intent/hit, /datum/intent/mace/smash/wood)
+	drop_sound = 'sound/foley/brickdrop.ogg'
+	pickup_sound = 'sound/foley/brickdrop.ogg'
+
+/obj/item/cooking/pan/stone/getonmobprop(tag)
+	if(tag)
+		switch(tag)
+			if("gen")
+				return list("shrink" = 0.6,"sx" = -7,"sy" = -4,"nx" = 7,"ny" = -4,"wx" = -4,"wy" = -4,"ex" = 2,"ey" = -4,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)

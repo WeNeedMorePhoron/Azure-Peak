@@ -15,7 +15,6 @@
 	poursounds = list('sound/items/fillbottle.ogg')
 	sewrepair = TRUE
 	desc_uncorked = "A leather waterskin. The cap on the mouth is off."
-	fill_icon_thresholds = null
 
 /obj/item/reagent_containers/glass/bottle/waterskin/Initialize()
 	. = ..()
