@@ -185,6 +185,14 @@
 	dropshrink = 1
 	dropshrink = 0.85
 
+/obj/item/reagent_containers/glass/cup/glass/flute
+	name = "glass flute"
+	desc = "A tall glass with a narrower chamber, delighted by those who wish to savor the finer things in lyfe."
+	icon_state = "glassflute"
+	force = 10
+	throwforce = 20 //Did you ever get a glass chucked at your head, before? It hurts!
+	volume = 15
+
 /obj/item/reagent_containers/glass/cup/aalloymug
 	name = "decrepit mug"
 	desc = "Frayed bronze, coiled into a cup. Here, adventurers of centuries-past would laugh and legendize; but now, nothing but empty chairs and empty tables remain."
