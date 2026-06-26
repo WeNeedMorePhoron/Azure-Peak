@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/bestow_ward
 	name = "Bestow Ward"
 	desc = "Channel arcyne energy to wrap an ally in a protective ward. The ward covers their entire body with light armor, \
-	superseding coverage to any real armor they wear. The ward lasts for 3 minutes or until destroyed. \
+	layering coverage over any real armor they wear. The ward lasts for 3 minutes or until destroyed. \
 	Cannot override an existing ward of equal or greater strength. "
 	button_icon = 'icons/mob/actions/mage_battlewardry.dmi'
 	button_icon_state = "bestow_ward"
