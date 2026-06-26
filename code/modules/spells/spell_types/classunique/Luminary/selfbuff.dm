@@ -7,7 +7,7 @@
 	glow_intensity = 0
 
 	click_to_activate = FALSE
-	cast_range = SPELL_RANGE_AURA
+	cast_range = SPELL_RANGE_AURA + 1
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_SB_ULT - 20
