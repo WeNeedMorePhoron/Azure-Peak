@@ -14,7 +14,7 @@
 		if("deathgurgle")
 			used = pick('sound/vo/lich/deathgurgle (1).ogg')
 		if("agony")
-			used = 'sound/vo/lich/fire_scream2.ogg'
+			used = 'sound/vo/lich/firescream (2).ogg'
 		if("hmm")
 			used = 'sound/vo/lich/hmm.ogg'
 		if("groan")
