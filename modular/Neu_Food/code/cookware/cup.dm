@@ -158,6 +158,19 @@
 	force = 10
 	throwforce = 15
 
+/obj/item/reagent_containers/glass/cup/glass
+	name = "glass"
+	desc = "A tall glass, offering a clear glimpse into the tastes of those who can afford it."
+	icon_state = "glassgoblet"
+	force = 10
+	throwforce = 20 //Did you ever get a glass chucked at your head, before? It hurts!
+	glass_on_impact = TRUE
+
+/obj/item/reagent_containers/glass/cup/glass/small
+	name = "small glass"
+	desc = "A short glass, abating the sorrows of royalty - one shot at a time."
+	icon_state = "glasscup"
+
 /obj/item/reagent_containers/glass/cup/aalloymug
 	name = "decrepit mug"
 	desc = "Frayed bronze, coiled into a cup. Here, adventurers of centuries-past would laugh and legendize; but now, nothing but empty chairs and empty tables remain."

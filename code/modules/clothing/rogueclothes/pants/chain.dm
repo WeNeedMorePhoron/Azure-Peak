@@ -99,30 +99,30 @@
 	smeltresult = /obj/item/ingot/iron
 
 /obj/item/clothing/under/roguetown/chainlegs/iron/hose
-	name = "iron chain hoses"
+	name = "iron chain hosen"
 	icon_state = "ichainhose"
 	desc = "A set of maille-armored leggings, composed from interlinked iron rings and lightly padded for comfort. Worn in conjunction with one's \
 	shortclothes to cover the lower body, the maille socks pair nicely with lighter boots. For those seeking to flaunt more regal colors, it \
-	can be combined with a pair of cloth hoses."
+	can be combined with a pair of cloth hosen."
 	body_parts_covered = LEGS|FEET
 	flags_inv = null
 
 /obj/item/clothing/under/roguetown/chainlegs/hose
-	name = "steel chain hoses"
+	name = "steel chain hosen"
 	icon_state = "chainhose"
 	desc = "A set of maille-armored leggings, composed from interlinked steel rings and lightly padded for comfort. Worn in conjunction with one's \
 	shortclothes to cover the lower body, the maille socks pair nicely with custom-fitted sabatons. For those seeking to flaunt more regal colors, it \
-	can be combined with a pair of cloth hoses."
+	can be combined with a pair of cloth hosen."
 	body_parts_covered = LEGS|FEET
 	flags_inv = null
 
 /obj/item/clothing/under/roguetown/chainlegs/iron/hose/dyeable
-	name = "iron chain hoses with coverings"
+	name = "iron chain hosen with coverings"
 	icon_state = "iupchainhose"
 	item_state = "iupchainhose"
 	desc = "A set of maille-armored leggings, composed from interlinked iron rings and lightly padded for comfort. Worn in conjunction with one's \
 	shortclothes to cover the lower body, the maille socks pair nicely with lighter boots. For a more personalized look, a second pair of \
-	cloth hoses has been secured to cover the maille."
+	cloth hosen has been secured to cover the maille."
 	detail_tag = "_detail"
 	altdetail_tag = "_detailalt"
 	color = null
@@ -149,12 +149,12 @@
 		add_overlay(pic2)
 
 /obj/item/clothing/under/roguetown/chainlegs/hose/dyeable
-	name = "steel chain hoses with coverings"
+	name = "steel chain hosen with coverings"
 	icon_state = "upchainhose"
 	item_state = "upchainhose"
 	desc = "A set of maille-armored leggings, composed from interlinked steel rings and lightly padded for comfort. Worn in conjunction with one's \
 	shortclothes to cover the lower body, the maille socks pair nicely with custom-fitted sabatons. For a more personalized look, a second pair of \
-	cloth hoses has been secured to cover the maille."
+	cloth hosen has been secured to cover the maille."
 	detail_tag = "_detail"
 	altdetail_tag = "_detailalt"
 	color = null
@@ -183,7 +183,7 @@
 ///////// CRAFTING DATUMS FOR CHAIN / CLOTH HOSE COMBINATIONS /////////
 
 /datum/crafting_recipe/roguetown/survival/steelandclothhose
-	name = "layer a cloth hose atop steel chain hoses"
+	name = "layer a cloth hose atop steel chain hosen"
 	result = list(/obj/item/clothing/under/roguetown/chainlegs/hose/dyeable)
 	reqs = list(/obj/item/clothing/under/roguetown/tights/hose = 1,
 	            /obj/item/clothing/under/roguetown/chainlegs/hose = 1)
@@ -192,7 +192,7 @@
 	bypass_dupe_test = TRUE
 
 /datum/crafting_recipe/roguetown/survival/ironandclothhose
-	name = "layer a cloth hose atop iron chain hoses"
+	name = "layer a cloth hose atop iron chain hosen"
 	result = list(/obj/item/clothing/under/roguetown/chainlegs/iron/hose/dyeable)
 	reqs = list(/obj/item/clothing/under/roguetown/tights/hose = 1,
 	            /obj/item/clothing/under/roguetown/chainlegs/iron = 1)

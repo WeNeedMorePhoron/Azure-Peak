@@ -111,10 +111,10 @@
 	color = "#464040"
 
 /obj/item/clothing/under/roguetown/tights/hose
-	name = "cloth hoses"
+	name = "cloth hosen"
 	icon_state = "hose" //Crafting-combining datum for maille hoses can be found in chain.dm.
 	item_state = "hose"
-	desc = "A pair of cloth leggings, traditionally worn in conjunction with one's shortclothes. These can be combined with maille hoses for \
+	desc = "A pair of cloth leggings, traditionally worn in conjunction with one's shortclothes. These can be combined with maille hosen for \
 	the perfect blend of function-and-fashion; just pray no one has the mind to aim below the belt."
 	body_parts_covered = LEGS|FEET
 	detail_tag = "_detail"

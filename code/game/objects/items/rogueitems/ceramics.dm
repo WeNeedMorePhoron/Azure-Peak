@@ -214,6 +214,7 @@
 	icon_state = "statueglass1"
 	smeltresult = /obj/item/natural/glass
 	glaze_bonus_pct = GLAZE_BONUS_PCT
+	glass_on_impact = TRUE
 
 /obj/item/roguestatue/glass/Initialize()
 	. = ..()

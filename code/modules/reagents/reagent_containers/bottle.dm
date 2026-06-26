@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(wisdoms, world.file2list("strings/rt/wisdoms.txt"))
 		underlays += filling
 
 	if(closed)
-		add_overlay("[icon_state]cork")
+		add_overlay("[icon_state]_cork")
 
 /obj/item/reagent_containers/glass/bottle/get_mechanics_examine(mob/user)
 	. = ..()
@@ -108,3 +108,44 @@ GLOBAL_LIST_INIT(wisdoms, world.file2list("strings/rt/wisdoms.txt"))
 	if(icon_state == "clear_bottle1")
 		icon_state = "clear_bottle[rand(1,4)]"
 	update_icon()
+
+/obj/item/reagent_containers/glass/carafe
+	name = "glass carafe"
+	desc = "A bulbous glass container with a flared lip, most often used for serving water and wine amongst guests."
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "glass_carafe"
+	w_class = WEIGHT_CLASS_SMALL
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(10)
+	volume = 100
+	fill_icon_thresholds = list(0, 25, 50, 75, 100)
+	dropshrink = 0.7
+	obj_flags = CAN_BE_HIT
+	spillable = TRUE
+	reagent_flags = OPENCONTAINER
+	w_class = WEIGHT_CLASS_NORMAL
+	drinksounds = list('sound/items/drink_gen (2).ogg','sound/items/drink_gen (3).ogg')
+	fillsounds = list('sound/items/fillcup.ogg')
+	poursounds = list('sound/items/fillbottle.ogg')
+	gripped_intents = list(INTENT_POUR)
+	glass_on_impact = TRUE
+	force = 10
+	throwforce = 20 //Ever get a glass chucked at your head, before?
+
+/obj/item/reagent_containers/glass/carafe/silver
+	name = "silver carafe"
+	desc = "A shining silver container with a flared lip, most often used for serving water and wine amongst nobility."
+	icon_state = "silver_carafe"
+	dropshrink = 0.8
+	is_silver = TRUE
+	is_lesser_silver = TRUE
+	force = 10
+	throwforce = 15
+
+/obj/item/reagent_containers/glass/carafe/gold
+	name = "golden carafe"
+	desc = "An opulent golden container with a flared lip, most often used for serving water and wine amongst royalty."
+	icon_state = "gold_carafe"
+	dropshrink = 0.8
+	force = 10
+	throwforce = 15

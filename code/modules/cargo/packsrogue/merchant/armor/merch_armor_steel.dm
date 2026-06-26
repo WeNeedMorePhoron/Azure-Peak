@@ -266,6 +266,11 @@
 	cost = 50 // 1 Steel
 	contains = list(/obj/item/clothing/neck/roguetown/gorget/steel)
 
+/datum/supply_pack/rogue/armor_steel/aventail_steel
+	name = "Aventail"
+	cost = 90 // 2 Steel
+	contains = list(/obj/item/clothing/neck/roguetown/chaincoif/aventail)
+
 /datum/supply_pack/rogue/armor_steel/plateboots_steel
 	name = "Plated Boots"
 	cost = 50 // 1 Steel
@@ -300,3 +305,8 @@
 	name = "Helmet, Visored Bascinet, Aventailed"
 	cost = 140
 	contains = list(/obj/item/clothing/head/roguetown/helmet/heavy/aventail)
+
+/datum/supply_pack/rogue/armor_steel/helmet_frogmouth
+	name = "Helmet, Froggemund"
+	cost = 140
+	contains = list(/obj/item/clothing/head/roguetown/helmet/heavy/frogmouth)

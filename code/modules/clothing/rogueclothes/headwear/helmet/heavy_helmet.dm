@@ -1512,7 +1512,7 @@
 	item_state = "seebascinet"
 
 /obj/item/clothing/head/roguetown/helmet/heavy/aventail
-	name = "visored bascinet with aventail"
+	name = "hounskull with aventail"
 	desc = "A steel hounskull bascinet with a thick maille aventail secured to the inside. Just as a froggemund befits a knight in the tournaments, an \
 	aventailed bascinet befits a knight on the battlefield; unmatched in coverage, durability, and weight."
 	icon_state = "visaventail"
@@ -1573,7 +1573,7 @@
 		add_overlay(pic2)
 
 /obj/item/clothing/head/roguetown/helmet/heavy/aventail/iron
-	name = "iron visored bascinet with aventail"
+	name = "iron hounskull with aventail"
 	desc = "An iron hounskull bascinet with a thick maille aventail secured to the inside. Just as a froggemund befits a knight in the tournaments, an \
 	aventailed bascinet befits a knight on the battlefield; unmatched in coverage, durability, and weight."
 	icon_state = "iavenheavy"

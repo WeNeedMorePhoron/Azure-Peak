@@ -51,6 +51,16 @@
 	cost = 25
 	contains = list(/obj/item/clothing/neck/roguetown/bevor/iron)
 
+/datum/supply_pack/rogue/armor_iron/aventail_iron
+	name = "Aventail"
+	cost = 50
+	contains = list(/obj/item/clothing/neck/roguetown/chaincoif/iron/aventail)
+
+/datum/supply_pack/rogue/armor_iron/chaincoif_iron
+	name = "Full Chain Coif"
+	cost = 25
+	contains = list(/obj/item/clothing/neck/roguetown/chaincoif/iron/full)
+
 /datum/supply_pack/rogue/armor_iron/breastplate_iron
 	name = "Breastplate"
 	cost = 35
