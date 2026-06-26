@@ -119,11 +119,10 @@
 	arcyne_armor_tier = ARCYNE_WARD_TIER_OTHER
 	ward_color = GLOW_COLOR_WARD
 	armor = ARMOR_BRIGANDINE
+	yields_to_armor = FALSE
 	var/duration_timer
 	var/expires_at = 0
 
-/obj/item/clothing/suit/roguetown/armor/manual/arcyne_ward/bestowed/recalculate_coverage(force_full = FALSE)
-	body_parts_covered_dynamic = COVERAGE_FULL_BODY_ACTUAL
 
 /obj/item/clothing/suit/roguetown/armor/manual/arcyne_ward/bestowed/proc/set_duration(duration)
 	if(duration_timer)
