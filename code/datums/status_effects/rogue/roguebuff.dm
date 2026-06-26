@@ -1608,7 +1608,7 @@
 
 /datum/status_effect/buff/emberward
 	id = "emberward"
-	duration = 4 SECONDS
+	duration = 1 SECONDS
 	alert_type = null
 
 /atom/movable/screen/alert/status_effect/buff/clash/limbguard
