@@ -367,7 +367,7 @@
 								break // one purge per reagent per tick is enough
 					if(_to_purge)
 						for(var/_purge_type in _to_purge)
-							remove_reagent(_purge_type, 10) // Matches the rate the old buff system used.
+							remove_reagent(_purge_type, 10) 
 
 	if(can_overdose)
 		if(addiction_tick == 6)
