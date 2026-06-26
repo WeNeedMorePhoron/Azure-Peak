@@ -183,6 +183,7 @@
 	desc = "A short glass, abating the sorrows of royalty - one shot at a time."
 	icon_state = "glasscup"
 	dropshrink = 1
+	dropshrink = 0.85
 
 /obj/item/reagent_containers/glass/cup/aalloymug
 	name = "decrepit mug"

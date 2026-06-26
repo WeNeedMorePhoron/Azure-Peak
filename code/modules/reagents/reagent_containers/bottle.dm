@@ -128,6 +128,27 @@ GLOBAL_LIST_INIT(wisdoms, world.file2list("strings/rt/wisdoms.txt"))
 	poursounds = list('sound/items/fillbottle.ogg')
 	gripped_intents = list(INTENT_POUR)
 
+/obj/item/reagent_containers/glass/carafe/update_icon(dont_fill=FALSE)
+	if(!fill_icon_thresholds || dont_fill)
+		return
+
+	cut_overlays()
+	underlays.Cut()
+
+	if(reagents?.total_volume)
+		var/fill_name = fill_icon_state? fill_icon_state : icon_state
+		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[fill_name][fill_icon_thresholds[1]]")
+
+		var/percent = round((reagents.total_volume / volume) * 100)
+		for(var/i in 1 to fill_icon_thresholds.len)
+			var/threshold = fill_icon_thresholds[i]
+			var/threshold_end = (i == fill_icon_thresholds.len)? INFINITY : fill_icon_thresholds[i+1]
+			if(threshold <= percent && percent < threshold_end)
+				filling.icon_state = "[fill_name][fill_icon_thresholds[i]]"
+		filling.alpha = mix_alpha_from_reagents(reagents.reagent_list)
+		filling.color = mix_color_from_reagents(reagents.reagent_list)
+		underlays += filling
+
 /obj/item/reagent_containers/glass/carafe/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, do_splash = TRUE)
 	playsound(loc, 'sound/combat/hits/onglass/glassbreak (4).ogg', 100)
 	shatter(get_turf(src))
