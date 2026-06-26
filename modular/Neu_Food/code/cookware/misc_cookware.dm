@@ -16,6 +16,7 @@
 	experimental_onhip = TRUE
 	experimental_inhand = TRUE
 	associated_skill = /datum/skill/craft/cooking //Same deal as the frypan!
+	slot_flags = ITEM_SLOT_HIP
 
 /obj/item/kitchen/rollingpin/getonmobprop(tag)
 	. = ..()

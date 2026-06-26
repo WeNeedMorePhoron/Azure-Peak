@@ -44,7 +44,6 @@
 /datum/intent/mace/strike/pan
 	hitsound = list('sound/combat/hits/blunt/frying_pan(1).ogg', 'sound/combat/hits/blunt/frying_pan(2).ogg', 'sound/combat/hits/blunt/frying_pan(3).ogg', 'sound/combat/hits/blunt/frying_pan(4).ogg')
 
-
 /obj/item/cooking/pan/aalloy
 	name = "decrepit pan"
 	desc = "Frayed bronze, wrought into a handheld griddle. Just a little oil's more than enough to slicken the surprisingly-unmarred surface."
@@ -58,3 +57,21 @@
 	icon_state = "bronzepan"
 	throwforce = 30 //We both know why.
 	max_integrity = 200
+
+/obj/item/cooking/pan/stone
+	name = "hotrock"
+	desc = "Chiseled flat to fry flesh atop a hearth, these stones were the first to shepherd finer tastes to Psydonia's ur-civilizations."
+	icon_state = "stonepan"
+	throwforce = 20
+	w_class = WEIGHT_CLASS_HUGE
+	twohands_required = TRUE
+	blade_dulling = DULLING_BASH
+	max_integrity = 100
+	minstr = 9
+	destroy_sound = 'sound/foley/smash_rock.ogg'
+	attacked_sound = 'sound/foley/hit_rock.ogg'
+	throw_range = 5
+	grid_width = 64
+	grid_height = 64
+	slot_flags = null
+	possible_item_intents = list(/datum/intent/hit, /datum/intent/mace/smash/wood)
