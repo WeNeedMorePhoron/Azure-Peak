@@ -1606,6 +1606,11 @@
 	desc = span_notice("A brief window of deflection lingers from my guard.")
 	icon_state = "clash"
 
+/datum/status_effect/buff/emberward
+	id = "emberward"
+	duration = 4 SECONDS
+	alert_type = null
+
 /atom/movable/screen/alert/status_effect/buff/clash/limbguard
 	name = "Limb Guard"
 	desc = span_notice("I have focused my attention to guarding one limb. I shall deflect projectiles and blows to that limb with ease.")
