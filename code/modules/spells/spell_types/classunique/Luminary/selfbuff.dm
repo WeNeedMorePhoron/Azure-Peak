@@ -97,7 +97,7 @@
 	owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -healing_on_tick)
 	owner.adjustCloneLoss(-healing_on_tick, 0)
 
-/datum/status_effect/buff/bloodheal/on_remove()
+/datum/status_effect/buff/healingaura/on_remove()
 	. = ..()
 	owner.remove_filter(HYBRID_BUFF_FILTER)
 
