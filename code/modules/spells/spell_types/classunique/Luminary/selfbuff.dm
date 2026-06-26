@@ -32,7 +32,7 @@
 	
 	for(var/mob/living/carbon/target in view(cast_range, get_turf(owner)))
 		var/buff = 0
-		if(buff >= 4)
+		if(buff >= 6)
 			break
 		if(H.mind)
 			H.apply_status_effect(/datum/status_effect/buff/lesser_guidance)
@@ -70,8 +70,8 @@
 
 	id = "stoneskin"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/healingaura
-	duration = 120 SECONDS
-	var/healing_on_tick = 0.5
+	duration = 100 SECONDS
+	var/healing_on_tick = 0.4
 	var/outline_colour = "#0abdbd"
 
 /datum/status_effect/buff/healingaura/on_apply()
