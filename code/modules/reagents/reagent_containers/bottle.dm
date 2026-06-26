@@ -110,8 +110,8 @@ GLOBAL_LIST_INIT(wisdoms, world.file2list("strings/rt/wisdoms.txt"))
 	update_icon()
 
 /obj/item/reagent_containers/glass/carafe
-	name = "glass carafe"
-	desc = "A bulbous glass container with a flared lip, most often used for serving water and wine amongst guests."
+	name = "carafe"
+	desc = "A bulbous container with a flared lip, most often used for serving water and wine amongst guests."
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "glass_carafe"
 	w_class = WEIGHT_CLASS_SMALL
@@ -119,7 +119,6 @@ GLOBAL_LIST_INIT(wisdoms, world.file2list("strings/rt/wisdoms.txt"))
 	possible_transfer_amounts = list(10)
 	volume = 100
 	fill_icon_thresholds = list(0, 25, 50, 75, 100)
-	dropshrink = 0.7
 	obj_flags = CAN_BE_HIT
 	spillable = TRUE
 	reagent_flags = OPENCONTAINER
@@ -128,9 +127,6 @@ GLOBAL_LIST_INIT(wisdoms, world.file2list("strings/rt/wisdoms.txt"))
 	fillsounds = list('sound/items/fillcup.ogg')
 	poursounds = list('sound/items/fillbottle.ogg')
 	gripped_intents = list(INTENT_POUR)
-	var/glass_on_impact = TRUE
-	force = 10
-	throwforce = 20 //Ever get a glass chucked at your head, before?
 
 /obj/item/reagent_containers/glass/carafe/silver
 	name = "silver carafe"
@@ -149,3 +145,24 @@ GLOBAL_LIST_INIT(wisdoms, world.file2list("strings/rt/wisdoms.txt"))
 	dropshrink = 0.8
 	force = 10
 	throwforce = 15
+
+/obj/item/reagent_containers/glass/carafe/glass
+	name = "glass carafe"
+	desc = "A bulbous glass container with a flared lip, most often used for serving water and wine amongst guests."
+	icon_state = "glass_carafe"
+	dropshrink = 0.8
+	force = 10
+	throwforce = 20
+
+/obj/item/reagent_containers/glass/carafe/glass/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, do_splash = TRUE)
+	playsound(loc, 'sound/combat/hits/onglass/glassbreak (4).ogg', 100)
+	shatter(get_turf(src))
+	..()
+
+/obj/item/reagent_containers/glass/carafe/glass/proc/shatter(turf/T)
+	if(istransparentturf(T))
+		shatter(GET_TURF_BELOW(T))
+		return 
+	glass_on_impact && new /obj/item/natural/glass_shard(get_turf(T))
+	new /obj/effect/decal/cleanable/debris/glassy(get_turf(T))
+	qdel(src)

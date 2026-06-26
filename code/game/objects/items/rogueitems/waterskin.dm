@@ -16,6 +16,10 @@
 	sewrepair = TRUE
 	desc_uncorked = "A leather waterskin. The cap on the mouth is off."
 
+/obj/item/reagent_containers/glass/bottle/waterskin/Initialize()
+	. = ..()
+	update_icon()
+
 /obj/item/reagent_containers/glass/bottle/waterskin/update_overlays()
 	. = ..()
 	if(closed)
@@ -29,7 +33,7 @@
 /obj/item/reagent_containers/glass/bottle/waterskin/purifier
 	name = "purifying waterskin"
 	desc = "Bronze tubes spiral about from the mouth of this waterskin in complex, dizzying patterns."
-	icon_state = "water-purifier"
+	icon_state = "waterpurifier"
 	volume = 150 //doubling the amount due to the cost
 	desc_uncorked = "Bronze tubes spiral about from the mouth of this waterskin in complex, dizzying patterns. The cap on the mouth is off."
 	var/filtered_reagents = list(/datum/reagent/water/gross, 

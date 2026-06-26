@@ -171,16 +171,10 @@
 
 /datum/crafting_recipe/roguetown/ceramics/glass/carafe
 	name = "glass carafe (x2)"
-	result = list(/obj/item/reagent_containers/glass/carafe)
+	result = list(/obj/item/reagent_containers/glass/carafe/glass)
 	reqs = list(/obj/item/natural/glass = 1)
 	craftdiff = 5
 	var/createditem_num = 2
-
-/datum/crafting_recipe/roguetown/ceramics/glass/statue
-	name = "glass statue"
-	result = list(/obj/item/roguestatue/glass)
-	reqs = list(/obj/item/natural/glass = 1)
-	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/ceramics/portable_hookah
 	name = "portable hookah"

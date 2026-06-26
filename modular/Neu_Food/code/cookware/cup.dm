@@ -164,12 +164,25 @@
 	icon_state = "glassgoblet"
 	force = 10
 	throwforce = 20 //Did you ever get a glass chucked at your head, before? It hurts!
-	var/glass_on_impact = TRUE
+
+/obj/item/reagent_containers/glass/cup/glass/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, do_splash = TRUE)
+	playsound(loc, 'sound/combat/hits/onglass/glassbreak (4).ogg', 100)
+	shatter(get_turf(src))
+	..()
+
+/obj/item/reagent_containers/glass/cup/glass/proc/shatter(turf/T)
+	if(istransparentturf(T))
+		shatter(GET_TURF_BELOW(T))
+		return 
+	glass_on_impact && new /obj/item/natural/glass_shard(get_turf(T))
+	new /obj/effect/decal/cleanable/debris/glassy(get_turf(T))
+	qdel(src)
 
 /obj/item/reagent_containers/glass/cup/glass/small
 	name = "small glass"
 	desc = "A short glass, abating the sorrows of royalty - one shot at a time."
 	icon_state = "glasscup"
+	dropshrink = 1
 
 /obj/item/reagent_containers/glass/cup/aalloymug
 	name = "decrepit mug"
