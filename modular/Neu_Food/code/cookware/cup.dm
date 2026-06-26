@@ -174,7 +174,7 @@
 	if(istransparentturf(T))
 		shatter(GET_TURF_BELOW(T))
 		return 
-	glass_on_impact && new /obj/item/natural/glass_shard(get_turf(T))
+	new /obj/item/natural/glass_shard(get_turf(T))
 	new /obj/effect/decal/cleanable/debris/glassy(get_turf(T))
 	qdel(src)
 

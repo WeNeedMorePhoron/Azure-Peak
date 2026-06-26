@@ -280,8 +280,8 @@
 				/obj/item/natural/fibers = 1)
 	craftdiff = 1
 
-/datum/crafting_recipe/roguetown/sewing/clothhoses
-	name = "cloth hoses"
+/datum/crafting_recipe/roguetown/sewing/clothhosen
+	name = "cloth hosen"
 	category = "Pants"
 	result = list(/obj/item/clothing/under/roguetown/tights/hose)
 	reqs = list(/obj/item/natural/cloth = 3,

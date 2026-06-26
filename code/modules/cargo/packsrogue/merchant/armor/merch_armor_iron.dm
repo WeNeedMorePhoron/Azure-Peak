@@ -112,7 +112,7 @@
 	contains = list(/obj/item/clothing/under/roguetown/chainlegs/iron)
 
 /datum/supply_pack/rogue/armor_iron/chainhose_iron
-	name = "Hoses, Chain"
+	name = "Hosen, Chain"
 	cost = 25
 	contains = list(/obj/item/clothing/under/roguetown/chainlegs/iron/hose)
 
