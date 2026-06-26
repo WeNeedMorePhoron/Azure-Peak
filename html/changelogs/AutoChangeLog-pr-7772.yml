@@ -1,0 +1,5 @@
+author: "SomeDeviant"
+delete-after: True
+changes:
+  - rscdel: "Removed .transform check in wrestling spells to prevent sprite scale corruption"
+  - bugfix: "fixed runtime on interrupted timers in wrestling spells"
