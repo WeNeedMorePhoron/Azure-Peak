@@ -209,7 +209,7 @@
 	beltr = /obj/item/flashlight/flare/torch/lantern
 	mask = /obj/item/clothing/mask/rogue/lordmask/tarnished
 
-	var/paths = list("Refugee (Default)", "Seminary Dropout (Hierophant)", "Desert Ascetic (Pontifex)", "Wandering Yogi (Vizier)")
+	var/paths = list("Refugee (Default)", "Seminary Dropout (Hierophant)", "Wandering Yogi (Vizier)")
 	var/path = input(H, "Choose your past.", "WHAT DID WAR TAKE FROM YOU?") as anything in paths
 	switch(path)
 		if("Refugee (Default)")
@@ -247,53 +247,6 @@
 			if(H.mind)
 				H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 1, "minor" = 2, "utilities" = 4))
 				H.mind.AddSpell(new /datum/action/cooldown/spell/ley_lines)
-
-		if("Desert Ascetic (Pontifex)") 
-			H.set_patron(/datum/patron/old_god)
-			to_chat(H, span_warning("You were being initiated as a Pontifex, training in body and will. When a Djinn attack razed your school, you survived where others fell. Shunned for your survival and left without a master, you wandered the deserts with unfinished discipline."))
-			r_hand = /obj/item/rogueweapon/katar
-			armor = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/disciple/monke
-			backpack_contents += list(/obj/item/chalk = 1)
-			backpack_contents += list(/obj/item/book/spellbook = 1)
-
-			H.adjust_skillrank_up_to(/datum/skill/magic/arcane, SKILL_LEVEL_APPRENTICE, TRUE)
-			H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_EXPERT, TRUE)
-			H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, SKILL_LEVEL_JOURNEYMAN, TRUE)
-			H.adjust_skillrank_up_to(/datum/skill/misc/swimming, SKILL_LEVEL_NOVICE, TRUE)
-			H.adjust_skillrank_up_to(/datum/skill/misc/climbing, SKILL_LEVEL_JOURNEYMAN, TRUE)
-			H.adjust_skillrank_up_to(/datum/skill/misc/athletics, SKILL_LEVEL_JOURNEYMAN, TRUE)
-			H.adjust_skillrank_up_to(/datum/skill/misc/medicine, SKILL_LEVEL_NOVICE, TRUE)
-			H.adjust_skillrank_up_to(/datum/skill/misc/reading, SKILL_LEVEL_NOVICE, TRUE)
-			H.adjust_skillrank_up_to(/datum/skill/misc/sneaking, SKILL_LEVEL_NOVICE, TRUE)
-			H.adjust_skillrank_up_to(/datum/skill/misc/lockpicking, SKILL_LEVEL_NOVICE, TRUE)
-
-			H.change_stat(STATKEY_CON, 2)
-			H.change_stat(STATKEY_STR, 2)
-			H.change_stat(STATKEY_PER, -1)
-			H.change_stat(STATKEY_WIL, -1)
-			H.change_stat(STATKEY_SPD, -1)
-
-			ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
-			ADD_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN, TRAIT_GENERIC)
-			ADD_TRAIT(H, TRAIT_BLOOD_RESISTANCE, TRAIT_GENERIC)
-
-			if(H.mind)
-				var/techniques = list("Dropkick - Pushback + Extra Damage", "Chokeslam - Stamina Damage", "Stunner - Dazed Debuff", "Headbutt - Vulnerable Debuff") // cool wrestling moves for non-magic guys.
-				var/technique_choice = input(H,"Choose your TECHNIQUE.", "DECIMATE AND DOMINATE WITH FLAIR.") as anything in techniques
-				switch(technique_choice)
-					if("Dropkick - Pushback + Extra Damage")
-						H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/dropkick)
-					if("Chokeslam - Stamina Damage")
-						H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/chokeslam)
-					if("Stunner - Dazed Debuff")
-						H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/stunner)
-					if("Headbutt - Vulnerable Debuff")
-						H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/headbutt)
-				H.mind.AddSpell(new /datum/action/cooldown/spell/fist_of_psydon)
-				H.mind.AddSpell(new /datum/action/cooldown/spell/grasp_of_psydon)
-				H.mind.AddSpell(new /datum/action/cooldown/spell/blink/shadowstep)
-				H.mind.AddSpell(new /datum/action/cooldown/spell/mending)
-				H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 5, "locked_aspects" = list(/datum/magic_aspect/lesser_augmentation)))
 
 		if("Wandering Yogi (Vizier)")
 			H.set_patron(/datum/patron/old_god)
