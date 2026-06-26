@@ -168,7 +168,7 @@
 
 /datum/crafting_recipe/roguetown/ceramics/glass/carafe
 	name = "glass carafe"
-	result = list(/obj/item/reagent_containers/glass/carafe)
+	result = list(/obj/item/reagent_containers/glass/carafe/glass)
 	reqs = list(/obj/item/natural/glass = 1)
 	craftdiff = 5
 

@@ -149,33 +149,37 @@ GLOBAL_LIST_INIT(wisdoms, world.file2list("strings/rt/wisdoms.txt"))
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
 		underlays += filling
 
-/obj/item/reagent_containers/glass/carafe/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, do_splash = TRUE)
+/obj/item/reagent_containers/glass/carafe/silver
+	name = "silver carafe"
+	desc = "A shining silver container with a flared lip, most often used for serving water and wine amongst nobility."
+	icon_state = "silver_carafe"
+	is_silver = TRUE
+	is_lesser_silver = TRUE
+	force = 10
+	throwforce = 15
+	fill_icon_thresholds = list(0, 50, 100)
+
+/obj/item/reagent_containers/glass/carafe/gold
+	name = "golden carafe"
+	desc = "An opulent golden container with a flared lip, most often used for serving water and wine amongst royalty."
+	icon_state = "gold_carafe"
+	force = 10
+	throwforce = 15
+	fill_icon_thresholds = list(0, 50, 100)
+
+/obj/item/reagent_containers/glass/carafe/glass
+	name = "glass carafe"
+	desc = "A bulbous container with a flared lip, most often used for serving water and wine amongst guests."
+
+/obj/item/reagent_containers/glass/carafe/glass/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum, do_splash = TRUE)
 	playsound(loc, 'sound/combat/hits/onglass/glassbreak (4).ogg', 100)
 	shatter(get_turf(src))
 	..()
 
-/obj/item/reagent_containers/glass/carafe/proc/shatter(turf/T)
+/obj/item/reagent_containers/glass/carafe/glass/proc/shatter(turf/T)
 	if(istransparentturf(T))
 		shatter(GET_TURF_BELOW(T))
 		return 
 	new /obj/item/natural/glass_shard(get_turf(T))
 	new /obj/effect/decal/cleanable/debris/glassy(get_turf(T))
 	qdel(src)
-
-/obj/item/reagent_containers/glass/carafe/silver
-	name = "silver carafe"
-	desc = "A shining silver container with a flared lip, most often used for serving water and wine amongst nobility."
-	icon_state = "silver_carafe"
-	dropshrink = 0.8
-	is_silver = TRUE
-	is_lesser_silver = TRUE
-	force = 10
-	throwforce = 15
-
-/obj/item/reagent_containers/glass/carafe/gold
-	name = "golden carafe"
-	desc = "An opulent golden container with a flared lip, most often used for serving water and wine amongst royalty."
-	icon_state = "gold_carafe"
-	dropshrink = 0.8
-	force = 10
-	throwforce = 15
