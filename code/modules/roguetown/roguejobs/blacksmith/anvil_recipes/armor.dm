@@ -575,7 +575,7 @@
 /datum/anvil_recipe/armor/iron/fullchaincoif
 	name = "Full Chain Coif, Iron"
 	req_bar = /obj/item/ingot/iron
-	created_item = /obj/item/clothing/neck/roguetown/chaincoif/full/iron
+	created_item = /obj/item/clothing/neck/roguetown/chaincoif/iron/full
 	display_category = ITEM_CAT_ARMOR_NECK
 	createditem_num = 1
 

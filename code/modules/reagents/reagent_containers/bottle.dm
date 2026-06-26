@@ -128,7 +128,7 @@ GLOBAL_LIST_INIT(wisdoms, world.file2list("strings/rt/wisdoms.txt"))
 	fillsounds = list('sound/items/fillcup.ogg')
 	poursounds = list('sound/items/fillbottle.ogg')
 	gripped_intents = list(INTENT_POUR)
-	glass_on_impact = TRUE
+	var/glass_on_impact = TRUE
 	force = 10
 	throwforce = 20 //Ever get a glass chucked at your head, before?
 

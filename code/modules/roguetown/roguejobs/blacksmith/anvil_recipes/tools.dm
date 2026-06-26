@@ -624,7 +624,7 @@
 /datum/anvil_recipe/tools/gold/smallcups
 	name = "Cup, Gold (x3)"
 	req_bar = /obj/item/ingot/gold
-	created_item = /obj/item/reagent_containers/glass/cup/gold/small
+	created_item = /obj/item/reagent_containers/glass/cup/golden/small
 	display_category = ITEM_CAT_TOOLS_COOKWARE
 	createditem_num = 3
 

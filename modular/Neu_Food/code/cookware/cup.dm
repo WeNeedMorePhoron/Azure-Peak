@@ -164,7 +164,7 @@
 	icon_state = "glassgoblet"
 	force = 10
 	throwforce = 20 //Did you ever get a glass chucked at your head, before? It hurts!
-	glass_on_impact = TRUE
+	var/glass_on_impact = TRUE
 
 /obj/item/reagent_containers/glass/cup/glass/small
 	name = "small glass"
