@@ -61,7 +61,7 @@
 
 /atom/movable/screen/alert/status_effect/buff/healingaura
 	name = "Recovery"
-	desc = "Holy light shoothes the Heart.(very light health regeneration effect)"
+	desc = "Holy light soothes the Heart.(very light health regeneration effect)"
 	icon_state = "buff"
 
 #define HYBRID_BUFF_FILTER "Hybrid_Buff_Glow"
