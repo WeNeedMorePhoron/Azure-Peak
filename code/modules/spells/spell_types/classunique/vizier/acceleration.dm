@@ -50,7 +50,7 @@
 	id = "acceleration"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/accel
 	effectedstats = list(STATKEY_SPD = 20)
-	duration = 4 SECONDS
+	duration = 6 SECONDS
 	var/afterimage_active = FALSE
 
 /datum/status_effect/buff/accel/on_creation(mob/living/new_owner, new_duration = null)
@@ -93,7 +93,7 @@
 	id = "deceleration"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/decel
 	effectedstats = list(STATKEY_SPD = -20)
-	duration = 4 SECONDS
+	duration = 3 SECONDS
 
 /datum/status_effect/debuff/decel/on_creation(mob/living/new_owner, new_duration = null)
 	if(new_duration)
