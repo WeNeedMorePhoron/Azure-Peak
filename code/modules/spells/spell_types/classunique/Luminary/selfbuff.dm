@@ -1,5 +1,5 @@
 /datum/action/cooldown/spell/selfbuff
-	name = "Divine Arcynes"
+	name = "Divine Arcunum"
 	desc = "Improves the reflexes and wrap yourself and nearby humens with soothing light"
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	button_icon_state = "guidance"
@@ -22,6 +22,7 @@
 	cooldown_time = 4 MINUTES
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
+	
 
 /datum/action/cooldown/spell/selfbuff/cast(atom/cast_on)
 	. = ..()
@@ -30,9 +31,13 @@
 		return
 	
 	for(var/mob/living/carbon/target in view(cast_range, get_turf(owner)))
+		var/buff = 0
+		if(buff >= 4)
+			break
 		if(H.mind)
 			H.apply_status_effect(/datum/status_effect/buff/lesser_guidance)
 			H.apply_status_effect(/datum/status_effect/buff/healingaura)
+			buff++
 	return TRUE
 
 /atom/movable/screen/alert/status_effect/buff/lesser_guidance
@@ -95,5 +100,3 @@
 /datum/status_effect/buff/bloodheal/on_remove()
 	. = ..()
 	owner.remove_filter(HYBRID_BUFF_FILTER)
-
-#undef HYBRID_BUFF_FILTER
