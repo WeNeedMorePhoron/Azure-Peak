@@ -100,3 +100,5 @@
 /datum/status_effect/buff/bloodheal/on_remove()
 	. = ..()
 	owner.remove_filter(HYBRID_BUFF_FILTER)
+
+#undef HYBRID_BUFF_FILTER
