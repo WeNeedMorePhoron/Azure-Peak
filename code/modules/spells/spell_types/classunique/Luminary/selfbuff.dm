@@ -68,7 +68,7 @@
 
 /datum/status_effect/buff/healingaura
 
-	id = "stoneskin"
+	id = "healingaura"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/healingaura
 	duration = 100 SECONDS
 	var/healing_on_tick = 0.4
