@@ -154,7 +154,6 @@ GLOBAL_LIST_INIT(voice_types_list, list(VOICE_TYPE_MASC, VOICE_TYPE_FEM, VOICE_T
 
 #define VOICE_PACK_DEFAULT	"Default"
 #define VOICE_PACK_MASC	"Masculine"
-#define VOICE_PACK_MASC_DWARF	"Dwarfish (Masc)"
 #define VOICE_PACK_MASC_ELF "Elvish (Masc)"
 #define VOICE_PACK_FOP	"Foppish (Masc)"
 #define VOICE_PACK_STERN "Stern (Masc)"
@@ -172,7 +171,6 @@ GLOBAL_LIST_INIT(voice_types_list, list(VOICE_TYPE_MASC, VOICE_TYPE_FEM, VOICE_T
 GLOBAL_LIST_INIT(voice_packs_list, list(
 	VOICE_PACK_DEFAULT = null,
 	VOICE_PACK_MASC = /datum/voicepack/male,
-	VOICE_PACK_MASC_DWARF = /datum/voicepack/male/dwarf,
 	VOICE_PACK_MASC_ELF = /datum/voicepack/male/elf,
 	VOICE_PACK_FOP = /datum/voicepack/male/foppish,
 	VOICE_PACK_STERN = /datum/voicepack/male/stern,
