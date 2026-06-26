@@ -7,8 +7,9 @@
 	can_blockade = TRUE
 	category = FACTION_CAT_HUMANOID
 	mob_types = list(
-		/mob/living/carbon/human/species/human/northern/highwayman/mount_reaver = 70,
-		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 30,
+		/mob/living/carbon/human/species/human/northern/highwayman/mount_reaver = 55,
+		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 20,
+		/mob/living/carbon/human/species/human/northern/highwayman/archer = 25,
 	)
 	boss_mob_types = list(
 		/mob/living/carbon/human/species/human/northern/outlaw_tank = 100,
