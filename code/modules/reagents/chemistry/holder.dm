@@ -345,6 +345,29 @@
 							if(istype(R, A))
 								A.addiction_stage = -15 // you're satisfied for a good while.
 				need_mob_update += R.on_mob_life(C)
+				// Anti-stacking: while this reagent is active, rapidly purge any
+				// other reagents it conflicts with so their effects can't combine.
+				// Self is always excluded so a reagent never purges itself - this is
+				// important when a conflict entry is a parent type of the reagent
+				// (e.g. /datum/reagent/buff listing /datum/reagent/buff to block
+				// stacking different stat buffs without nuking itself).
+				// We collect matches first and purge after scanning, to avoid
+				// mutating the list we are iterating over (cached_reagents).
+				if(R.conflicting_reagent_types)
+					var/list/_to_purge = null
+					for(var/_other in cached_reagents)
+						var/datum/reagent/CR = _other
+						if(CR == R)
+							continue
+						for(var/_ctype in R.conflicting_reagent_types)
+							if(istype(CR, _ctype))
+								if(!_to_purge)
+									_to_purge = list()
+								_to_purge += CR.type
+								break // one purge per reagent per tick is enough
+					if(_to_purge)
+						for(var/_purge_type in _to_purge)
+							remove_reagent(_purge_type, 10) // Matches the rate the old buff system used.
 
 	if(can_overdose)
 		if(addiction_tick == 6)
