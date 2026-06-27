@@ -91,7 +91,7 @@
 
 /datum/supply_pack/rogue/armor_exotic/legacyhelmet_knight_helmet_steel
 	name = "Valorian Helmet, Knight's Helmet, Steel"
-	cost = 90 /
+	cost = 90
 	contains = list(/obj/item/clothing/head/roguetown/helmet/heavy/knight/old)
 
 /datum/supply_pack/rogue/armor_exotic/legacyhelmet_kettle_iron
