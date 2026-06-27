@@ -18,11 +18,11 @@
 	craftdiff = 0
 /datum/crafting_recipe/roguetown/ceramics/claybauble
 	name = "clay bauble x3"
-	result = list(/obj/item/natural/clay/porcelain/bauble, /obj/item/natural/clay/porcelain/bauble, /obj/item/natural/clay/porcelain/bauble)
+	result = list(/obj/item/natural/clay/rawbauble, /obj/item/natural/clay/rawbauble, /obj/item/natural/clay/rawbauble)
 	reqs = list(/obj/item/natural/clay = 1)
 	craftdiff = 0 
 
-	/datum/crafting_recipe/roguetown/ceramics/claycameo
+/datum/crafting_recipe/roguetown/ceramics/claycameo
 	name = "clay cameo"
 	result = list(/obj/item/natural/clay/porcelain/cameo)
 	reqs = list(/obj/item/natural/clay = 1)
