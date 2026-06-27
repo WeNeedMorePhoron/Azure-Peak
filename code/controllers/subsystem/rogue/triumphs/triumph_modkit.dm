@@ -305,7 +305,7 @@
 	name = "'Valorian Steel Helmet' morphing elixir"
 	desc = "A small container of special morphing dust, perfect to make a specific item. It can restore the original appearance of a Steel Sallet, a Steel Visored Sallet, a Steel Kettlehelm, or a Steel Knight's Armet."
 	target_items = list(
-		/obj/item/clothing/head/roguetown/helmet/heavy/knight			= /obj/item/clothing/suit/roguetown/armor/plate/heavy/knight/old,
+		/obj/item/clothing/head/roguetown/helmet/heavy/knight			= /obj/item/clothing/head/roguetown/helmet/heavy/knight/old,
 		/obj/item/clothing/head/roguetown/helmet/sallet/visored 		= /obj/item/clothing/head/roguetown/helmet/sallet/visored/legacy,
 		/obj/item/clothing/head/roguetown/helmet/sallet					= /obj/item/clothing/head/roguetown/helmet/sallet/legacy,
 		/obj/item/clothing/head/roguetown/helmet/kettle	  				= /obj/item/clothing/head/roguetown/helmet/kettle/legacy
@@ -316,7 +316,7 @@
 	name = "'Valorian Iron Helmet' morphing elixir"
 	desc = "A small container of special morphing dust, perfect to make a specific item. It can restore the original appearance of an Iron Sallet, an Iron Visored Sallet, an Iron Kettlehelm, or an Iron Knight's Armet."
 	target_items = list(
-		/obj/item/clothing/head/roguetown/helmet/heavy/knight/iron			= /obj/item/clothing/suit/roguetown/armor/plate/heavy/knight/old/iron,
+		/obj/item/clothing/head/roguetown/helmet/heavy/knight/iron			= /obj/item/clothing/head/roguetown/helmet/heavy/knight/old/iron,
 		/obj/item/clothing/head/roguetown/helmet/sallet/visored/iron 		= /obj/item/clothing/head/roguetown/helmet/sallet/visored/iron/legacy,
 		/obj/item/clothing/head/roguetown/helmet/sallet/iron				= /obj/item/clothing/head/roguetown/helmet/sallet/iron/legacy,
 		/obj/item/clothing/head/roguetown/helmet/kettle/iron	  			= /obj/item/clothing/head/roguetown/helmet/kettle/iron/legacy
