@@ -42,7 +42,7 @@
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
 	beltl = /obj/item/rogueweapon/huntingknife
 	backl = /obj/item/storage/backpack/rogue/satchel
-	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
+	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/wizard]
 	if(H.mind)
 		backr = choose_implement(H, "lesser")
 		backpack_contents = list(
@@ -286,15 +286,14 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/spellfist
 	traits_applied = list(TRAIT_CIVILIZEDBARBARIAN, TRAIT_ARCYNE)
 	subclass_stats = list(
-		STATKEY_SPD = 1,
-		STATKEY_WIL = 2,
-		STATKEY_PER = 2,
-		STATKEY_CON = 1
+		STATKEY_STR = 2,
+		STATKEY_WIL = 1,
+		STATKEY_CON = 2
 	)
-	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 4)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 4, ward = TRUE)
 	subclass_skills = list(
-		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
@@ -313,10 +312,10 @@
 /datum/outfit/job/roguetown/adventurer/spellfist/pre_equip(mob/living/carbon/human/H)
 	..()
 	head = /obj/item/clothing/head/roguetown/headband/monk
-	shoes = /obj/item/clothing/shoes/roguetown/sandals
-	pants = /obj/item/clothing/under/roguetown/tights/black
-	shirt = /obj/item/clothing/suit/roguetown/shirt/tunic/black
-	armor = /obj/item/clothing/suit/roguetown/armor/gambeson
+	shoes = /obj/item/clothing/shoes/roguetown/boots
+	pants = /obj/item/clothing/under/roguetown/trou/leather
+	shirt =  /obj/item/clothing/suit/roguetown/armor/gambeson
+	armor =	/obj/item/clothing/suit/roguetown/armor/leather/heavy
 	gloves = /obj/item/clothing/gloves/roguetown/angle
 	neck = /obj/item/clothing/neck/roguetown/leather
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/cloth/monk
@@ -340,9 +339,9 @@
 
 	if(H.mind)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/fist_of_psydon)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/grasp_of_psydon())
-		H.mind.AddSpell(new /datum/action/cooldown/spell/blink)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/storm_of_psydon())
+		H.mind.AddSpell(new /datum/action/cooldown/spell/grasp_of_psydon)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/blink/shadowstep)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/storm_of_psydon)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/empower_weapon)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/mending)
 
