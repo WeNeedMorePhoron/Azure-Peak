@@ -294,6 +294,9 @@
 	slot_flags = ITEM_SLOT_MASK
 	stack_fovs = FALSE
 
+/obj/item/clothing/mask/rogue/facemask/steel/confessor/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_INQUIS_CONFESSOR_MASK) //Herecy or nessessity?
+
 /obj/item/clothing/mask/rogue/facemask/steel/confessor/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
 	if(user.wear_mask == src)
@@ -611,6 +614,9 @@
 	slot_flags = ITEM_SLOT_MASK|ITEM_SLOT_HIP
 	flags_inv = HIDEFACE|HIDESNOUT
 	sellprice = 10
+
+/obj/item/clothing/mask/rogue/lordmask/naledi/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_NALEDIAN)
 
 /obj/item/clothing/mask/rogue/lordmask/naledi/ComponentInitialize()
 	AddComponent(/datum/component/armour_filtering/positive, TRAIT_NALEDI, "naledi_mask")
