@@ -1894,7 +1894,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(EXAMINEHIGHLIGHT_VIBE_CROWN)
 			return "Divine"
 		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VAMPIRE)
-			return "HERETICAL"
+			return "ALARMINGLY ODD"
 	return null
 
 /// See `proc/get_examine_highlight_status()` and `code\__DEFINES\highlight_examine_defines.dm`. 
