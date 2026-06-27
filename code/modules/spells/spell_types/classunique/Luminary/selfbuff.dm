@@ -29,9 +29,10 @@
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H))
 		return
+
+	var/buff = 0
 	
 	for(var/mob/living/carbon/target in view(cast_range, get_turf(owner)))
-		var/buff = 0
 		if(buff >= 6)
 			break
 		if(H.mind)
