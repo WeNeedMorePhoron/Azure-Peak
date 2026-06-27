@@ -1,5 +1,5 @@
 /datum/action/cooldown/spell/selfbuff
-	name = "Divine Arcunum"
+	name = "Divine Arcynes"
 	desc = "Improves the reflexes and wrap yourself and nearby humens with soothing light"
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	button_icon_state = "guidance"
@@ -7,7 +7,7 @@
 	glow_intensity = 0
 
 	click_to_activate = FALSE
-	cast_range = SPELL_RANGE_AURA + 1
+	cast_range = SPELL_RANGE_AURA
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_SB_ULT - 20
@@ -23,17 +23,17 @@
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 	
+	var/buff = 0
 
 /datum/action/cooldown/spell/selfbuff/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H))
 		return
-
-	var/buff = 0
 	
 	for(var/mob/living/carbon/target in view(cast_range, get_turf(owner)))
 		if(buff >= 6)
+			buff = 0
 			break
 		if(H.mind)
 			H.apply_status_effect(/datum/status_effect/buff/lesser_guidance)
@@ -43,11 +43,11 @@
 
 /atom/movable/screen/alert/status_effect/buff/lesser_guidance
 	name = "Awakening"
-	desc = "Arcyne energy quickens the Mynd. (+12% chance to bypass parry / dodge, +12% chance to parry / dodge)"
+	desc = "Arcyne quickens the Mynd. (+12% chance to bypass parry / dodge, +12% chance to parry / dodge)"
 	icon_state = "buff"
 
 /datum/status_effect/buff/lesser_guidance
-	id = "guidance"
+	id = "lesser_guidance"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/lesser_guidance
 	duration = 60 SECONDS
 
@@ -62,7 +62,7 @@
 
 /atom/movable/screen/alert/status_effect/buff/healingaura
 	name = "Recovery"
-	desc = "Holy light soothes the Heart.(very light health regeneration effect)"
+	desc = "Holy light shoothes the Heart.(very light health regeneration effect)"
 	icon_state = "buff"
 
 #define HYBRID_BUFF_FILTER "Hybrid_Buff_Glow"
@@ -93,7 +93,8 @@
 		owner.update_damage_overlays()
 	owner.adjustBruteLoss(-healing_on_tick, 0)
 	owner.adjustFireLoss(-healing_on_tick, 0)
-	owner.adjustOxyLoss(-0.2, 0)
+	owner.adjustOxyLoss(-healing_on_tick, 0)
+	owner.adjustToxLoss(-healing_on_tick, 0)
 	owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -healing_on_tick)
 	owner.adjustCloneLoss(-healing_on_tick, 0)
 
