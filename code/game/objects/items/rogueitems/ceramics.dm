@@ -218,3 +218,26 @@
 /obj/item/roguestatue/glass/Initialize()
 	. = ..()
 	icon_state = "statueglass[pick(1,2,3,4,5)]"
+
+// LITERALLY EVERYTHING ELSE. ORGANIZATION BE DAMNED!
+
+/obj/item/natural/clay/rawbauble
+	name = "unfired bauble"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainbaubleraw"
+	desc = "A bauble fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/bauble
+	smeltresult = /obj/item/natural/clay/porcelain/bauble
+
+
+// THE COOKED ITEMS, AGAIN, ORGANIZATION BE DAMNED
+/obj/item/natural/clay/porcelain
+	name = "porcelain base"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainbauble"
+	desc = "This is a base item, if you are seeing this, it's a bug, report it lol."
+
+	/obj/item/natural/clay/porcelain/bauble
+	name = "porcelain bauble"
+	desc = "A small porcelain bauble."
+	
