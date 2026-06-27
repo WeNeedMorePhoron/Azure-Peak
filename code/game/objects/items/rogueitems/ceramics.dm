@@ -229,7 +229,7 @@
 	cooked_type = /obj/item/natural/clay/porcelain/bauble
 	smeltresult = /obj/item/natural/clay/porcelain/bauble
 
-/obj/item/natural/clay/rawbauble
+/obj/item/natural/clay/rawcameo
 	name = "unfired clay cameo"
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "clayporcelaincameoraw"

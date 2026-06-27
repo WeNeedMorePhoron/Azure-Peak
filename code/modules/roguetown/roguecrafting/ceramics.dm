@@ -24,7 +24,7 @@
 
 /datum/crafting_recipe/roguetown/ceramics/claycameo
 	name = "clay cameo"
-	result = list(/obj/item/natural/clay/porcelain/cameo)
+	result = list(/obj/item/natural/clay/rawcameo)
 	reqs = list(/obj/item/natural/clay = 1)
 	craftdiff = 0 
 
