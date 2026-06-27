@@ -1893,6 +1893,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return "Sworn Enemy"
 		if(EXAMINEHIGHLIGHT_VIBE_CROWN)
 			return "Divine"
+		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VAMPIRE)
+			return "HERETICAL"
 	return null
 
 /// See `proc/get_examine_highlight_status()` and `code\__DEFINES\highlight_examine_defines.dm`. 
@@ -1910,6 +1912,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return EXAMINEHIGHLIGHT_TOOLTIP_VIBE_FOE
 		if(EXAMINEHIGHLIGHT_VIBE_CROWN)
 			return EXAMINEHIGHLIGHT_TOOLTIP_VIBE_CROWN
+		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VAMPIRE)
+			return EXAMINEHIGHLIGHT_HERESYSEVERITY_VAMPIRE
 	return null
 
 /// See `proc/get_examine_highlight_status()` and `code\__DEFINES\highlight_examine_defines.dm`. 
@@ -1927,6 +1931,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return COLOR_VIBE_FOE
 		if(EXAMINEHIGHLIGHT_VIBE_CROWN)
 			return COLOR_VIBE_CROWN
+		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VAMPIRE)
+			return COLOR_HERESYSEVERITY_VAMPIRE
 	return null
 	
 /// See `proc/get_examine_highlight_status()` and `code\__DEFINES\highlight_examine_defines.dm`. 
@@ -1944,4 +1950,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return SYMBOL_VIBE_FOE
 		if(EXAMINEHIGHLIGHT_VIBE_CROWN)
 			return SYMBOL_VIBE_CROWN
+		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VAMPIRE)
+			return EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_VAMPIRE
 	return null
