@@ -526,6 +526,18 @@
 	triumph_cost = 3
 	sort_category = "Triumphs"
 
+/datum/loadout_item/triumph_armorkit_valoriansteelhelm
+	name = "Triumph Kit - Valorian Steel Helmet"
+	path = /obj/item/enchantingkit/triumph_armorkit_oldhelmets
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_armorkit_valorianironhelm
+	name = "Triumph Kit - Valorian Iron Helmet"
+	path = /obj/item/enchantingkit/triumph_armorkit_ironoldhelmets
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
 //////////////////
 //  PERFUMES !  //
 //////////////////

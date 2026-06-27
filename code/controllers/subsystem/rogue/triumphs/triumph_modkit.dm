@@ -301,6 +301,28 @@
 		)
 	result_item = /obj/item/rogueweapon/example/clericsword
 
+/obj/item/enchantingkit/triumph_armorkit_oldhelmets
+	name = "'Valorian Steel Helmet' morphing elixir"
+	desc = "A small container of special morphing dust, perfect to make a specific item. It can restore the original appearance of a Steel Sallet, a Steel Visored Sallet, a Steel Kettlehelm, or a Steel Knight's Armet."
+	target_items = list(
+		/obj/item/clothing/head/roguetown/helmet/heavy/knight			= /obj/item/clothing/suit/roguetown/armor/plate/heavy/knight/old,
+		/obj/item/clothing/head/roguetown/helmet/sallet/visored 		= /obj/item/clothing/head/roguetown/helmet/sallet/visored/legacy,
+		/obj/item/clothing/head/roguetown/helmet/sallet					= /obj/item/clothing/head/roguetown/helmet/sallet/legacy,
+		/obj/item/clothing/head/roguetown/helmet/kettle	  				= /obj/item/clothing/head/roguetown/helmet/kettle/legacy
+		)
+	result_item = null
+
+/obj/item/enchantingkit/triumph_armorkit_ironoldhelmets
+	name = "'Valorian Iron Helmet' morphing elixir"
+	desc = "A small container of special morphing dust, perfect to make a specific item. It can restore the original appearance of an Iron Sallet, an Iron Visored Sallet, an Iron Kettlehelm, or an Iron Knight's Armet."
+	target_items = list(
+		/obj/item/clothing/head/roguetown/helmet/heavy/knight/iron			= /obj/item/clothing/suit/roguetown/armor/plate/heavy/knight/old/iron,
+		/obj/item/clothing/head/roguetown/helmet/sallet/visored/iron 		= /obj/item/clothing/head/roguetown/helmet/sallet/visored/iron/legacy,
+		/obj/item/clothing/head/roguetown/helmet/sallet/iron				= /obj/item/clothing/head/roguetown/helmet/sallet/iron/legacy,
+		/obj/item/clothing/head/roguetown/helmet/kettle/iron	  			= /obj/item/clothing/head/roguetown/helmet/kettle/iron/legacy
+		)
+	result_item = null
+
 //////////////////////////////
 // TRIUMPH-RESKIN EXAMPLES! //
 //////////////////////////////
@@ -785,3 +807,33 @@
 	desc = "A complete set of iron plate armor, fitted with tassets and bracers for additional coverage. Ask yourself one last question, before \
 	you twist the blade; is humenity still worth saving?"
 	icon_state = "ilegacyplate"
+
+/obj/item/clothing/head/roguetown/helmet/kettle/legacy
+	name = "valorian kettle helmet"
+	desc = "A steel helmet which protects the top and sides of the head. Will you stand fast when the time to fight for your God and your Kingdom arise?"
+	icon_state = "kettleclassic"
+
+/obj/item/clothing/head/roguetown/helmet/sallet/legacy
+	name = "valorian sallet"
+	icon_state = "salletclassic"
+	desc = "A steel helmet which covers most of the head, offering superior coverage to the kettle helmet. Will you ever know what meal will be your last, before your heart falls still?"
+
+/obj/item/clothing/head/roguetown/helmet/sallet/visored/legacy
+	name = "valorian visored sallet"
+	desc = "A steel 'sallet'-styled helmet with an adjustable visor. Where do your loyalties lie; with thine Kingdom, or with thine God?"
+	icon_state = "salletclassic_visor"
+
+/obj/item/clothing/head/roguetown/helmet/kettle/iron/legacy
+	name = "valorian iron kettle helmet"
+	desc = "An iron helmet which protects the top and sides of the head. What can you do, when all you have are bows and arrows against the lightning?"
+	icon_state = "ikettleclassic"
+
+/obj/item/clothing/head/roguetown/helmet/sallet/iron/legacy
+	name = "valorian iron sallet"
+	icon_state = "isalletclassic"
+	desc = "An iron helmet which covers most of the head, offering superior coverage to the kettle helmet. March to the cadence, follow your betters into death; but why?"
+
+/obj/item/clothing/head/roguetown/helmet/sallet/visored/iron/legacy
+	name = "valorian iron visored sallet"
+	desc = "An iron 'sallet'-styled helmet with an adjustable visor. What will they remember of you, once the dust has settled?"
+	icon_state = "isalletclassic_visor"
