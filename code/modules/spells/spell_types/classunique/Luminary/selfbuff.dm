@@ -10,7 +10,7 @@
 	cast_range = SPELL_RANGE_AURA
 
 	primary_resource_type = SPELL_COST_STAMINA
-	primary_resource_cost = SPELLCOST_SB_ULT - 20
+	primary_resource_cost = SPELLCOST_MINOR_SKILL
 
 	secondary_resource_type = SPELL_COST_DEVOTION
 	secondary_resource_cost = SPELLCOST_MINOR_SKILL
