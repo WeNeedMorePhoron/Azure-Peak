@@ -149,20 +149,41 @@
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/ceramics/glass/bottles
-	name = "glass bottle"
-	result = list(/obj/item/reagent_containers/glass/bottle)
+	name = "glass bottle (x2)"
+	result = list(
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/glass/bottle
+		)
 	reqs = list(/obj/item/natural/glass = 1)
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/ceramics/glass/cups
-	name = "glass cup"
-	result = list(/obj/item/reagent_containers/glass/cup/glass)
+	name = "glass goblet (x3)"
+	result = list(
+		/obj/item/reagent_containers/glass/cup/glass,
+		/obj/item/reagent_containers/glass/cup/glass,
+		/obj/item/reagent_containers/glass/cup/glass
+		)
+	reqs = list(/obj/item/natural/glass = 1)
+	craftdiff = 5
+
+/datum/crafting_recipe/roguetown/ceramics/glass/cups
+	name = "glass flute (x3)"
+	result = list(
+		/obj/item/reagent_containers/glass/cup/glass/flute,
+		/obj/item/reagent_containers/glass/cup/glass/flute,
+		/obj/item/reagent_containers/glass/cup/glass/flute
+		)
 	reqs = list(/obj/item/natural/glass = 1)
 	craftdiff = 5
 
 /datum/crafting_recipe/roguetown/ceramics/glass/smallcups
-	name = "small glass cup"
-	result = list(/obj/item/reagent_containers/glass/cup/glass/small)
+	name = "glass cup (x3)"
+	result = list(
+		/obj/item/reagent_containers/glass/cup/glass/small,
+		/obj/item/reagent_containers/glass/cup/glass/small,
+		/obj/item/reagent_containers/glass/cup/glass/small
+		)
 	reqs = list(/obj/item/natural/glass = 1)
 	craftdiff = 5
 
