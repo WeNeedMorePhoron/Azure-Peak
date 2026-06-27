@@ -721,16 +721,21 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(istype(src, /obj/item/clothing))	//awful
 			var/obj/item/clothing/C = src
 			var/str
+			var/spdcap
 			switch(C.armor_class)
 				if(ARMOR_CLASS_NONE)
 					str = "None"
 				if(ARMOR_CLASS_LIGHT)
 					str = "Light"
+					spdcap = AC_LIGHT_SPDCAP
 				if(ARMOR_CLASS_MEDIUM)
 					str = "Medium"
+					spdcap = AC_MEDIUM_SPDCAP
 				if(ARMOR_CLASS_HEAVY)
 					str = "Heavy"
+					spdcap = AC_HEAVY_SPDCAP
 			inspec += "\n<b>ARMOR CLASS:</b> [str]"
+			inspec += "\n<b>MOVEMENT SPD CAP:</b> [spdcap ? spdcap : "None"]"
 
 		var/output = inspec.Join()
 		if(!usr.client.prefs.no_examine_blocks)
