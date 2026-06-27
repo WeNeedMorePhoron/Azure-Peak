@@ -23,7 +23,7 @@
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 	
-	var/buff = 0
+	var/buff = 0 // define the baseline number out of the buffing-targeting loop
 
 /datum/action/cooldown/spell/selfbuff/cast(atom/cast_on)
 	. = ..()
@@ -32,10 +32,10 @@
 		return
 	
 	for(var/mob/living/carbon/target in view(cast_range, get_turf(owner)))
-		if(buff >= 6)
-			buff = 0
-			break
-		if(H.mind)
+		if(buff >= 6) // self and 5 other persons, 6 total affected target(or a full fellowship)
+			buff = 0 // after reaching the expected limit re-define the value to origine value
+			break // a return true or false doesn't call out of the spell incantation, animation and sound
+		if(H.mind) // will target any entities with a player mind(H.mind) attached to them with the effects specified written under
 			H.apply_status_effect(/datum/status_effect/buff/lesser_guidance)
 			H.apply_status_effect(/datum/status_effect/buff/healingaura)
 			buff++
@@ -53,6 +53,7 @@
 
 /datum/status_effect/buff/lesser_guidance/on_apply()
 	. = ..()
+	ADD_TRAIT(owner, TRAIT_LESSER_GUIDANCE, MAGIC_TRAIT)
 	to_chat(owner, span_warning("Blessed Arcynes guides me true!"))
 
 /datum/status_effect/buff/lesser_guidance/on_remove()
