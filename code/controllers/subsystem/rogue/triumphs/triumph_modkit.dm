@@ -327,7 +327,7 @@
 // TRIUMPH-RESKIN EXAMPLES! //
 //////////////////////////////
 // Handles Triumph-specific variants of the items in enchanting_examples.dm. Refer to that file for more detailed instructions and up-to-date examples.
-// In essence, works like a 'reskin' that specifically changes the icon, name, and description (without having to further alter any mechanical details.)
+// In essence, it works like a 'reskin' that specifically changes the icon, name, and description (without having to further alter any mechanical details.)
 
 /obj/item/rogueweapon/example/valorian_sword
 	name = "valorian sword"
