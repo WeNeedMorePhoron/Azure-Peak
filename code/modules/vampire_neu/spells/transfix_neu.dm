@@ -37,6 +37,11 @@
 	perform(selection, user=user)
 
 /obj/effect/proc_holder/spell/targeted/transfix_neu/cast(list/targets, mob/user = usr)
+	if(user.cmode)
+		to_chat(user, span_warning("I can't focus on that right now!"))
+		revert_cast(user)
+		return
+
 	if(!length(targets))
 		to_chat(user, span_warning("There are no mortals nearby..."))
 		revert_cast(user)
@@ -62,12 +67,12 @@
 		user.visible_message("<font color='red'>[user]'s eyes glow a ghastly red as they project their will outwards!</font>")
 
 	for(var/mob/living/carbon/human/target as anything in targets)
-		var/current_will_dice = will_dice
 		if(target.cmode)
-			current_will_dice += 1
+			to_chat(user, span_userdanger("[target] is far too tense for that!"))
+			break
 
 		var/willpower = round(target.STAINT / int_divisor, 1)
-		var/willroll = roll(willpower, current_will_dice)
+		var/willroll = roll(willpower, will_dice)
 
 		// If the vampire failed badly
 		var/knowledgable = (willroll - bloodroll) >= 3
