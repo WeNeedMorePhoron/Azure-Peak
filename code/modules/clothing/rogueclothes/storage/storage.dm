@@ -140,13 +140,13 @@
 	icon_state = "rope"
 	item_state = "rope"
 	color = "#b9a286"
-	component_type = /datum/component/storage/concrete/roguetown/belt/cloth
+	component_type = /datum/component/storage/concrete/roguetown/belt
 
 /obj/item/storage/belt/rogue/leather/cloth
 	name = "cloth sash"
 	desc = "A strip of cloth tied together at the ends into a makeshift belt. It's better than nothing."
 	icon_state = "cloth"
-	component_type = /datum/component/storage/concrete/roguetown/belt/cloth
+	component_type = /datum/component/storage/concrete/roguetown/belt
 
 /obj/item/storage/belt/rogue/leather/cloth/lady
 	color = "#575160"

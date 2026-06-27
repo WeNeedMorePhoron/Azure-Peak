@@ -82,9 +82,6 @@
 	screen_max_rows = 3		//Lets you hold a regular knife + keys basically.
 	screen_max_columns = 1
 
-/datum/component/storage/concrete/roguetown/belt/cloth
-	screen_max_columns = 1
-
 /datum/component/storage/concrete/roguetown/belt/assassin
 	max_w_class = WEIGHT_CLASS_NORMAL
 
