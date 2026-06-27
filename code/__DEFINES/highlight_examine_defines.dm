@@ -48,8 +48,6 @@
 #define VIBEDESC_FRIEND "A loyal ally of Azure Peak."
 #define VIBEDESC_FOE "A disloyal enemy of Azure Peak."
 #define VIBEDESC_CROWN "A relic anointed by Astrata."
-#define VIBEDESC_HOUNDSTONE "A piece of equipment issued to a soldier or mercenary of the Azurian Garrison and shouldn't be seen outside of authorised hands"
-#define VIBEDESC_CROWNSTONE "A piece of equipment exclusively issued to an important noble, champion or commander of the Azurian Garrison and shouldn't be seen outside of authorised hands"
 
 /**
 * -========= HERESY ITEM SEVERITY LEVELS =========-
@@ -78,13 +76,11 @@
 * i.e. Gronn/Fjall carving amulets
 */
 #define EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD 3
+#define EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD 4
 
-#define EXAMINEHIGHLIGHT_VIBE_FRIEND 4
-#define EXAMINEHIGHLIGHT_VIBE_FOE 5
-#define EXAMINEHIGHLIGHT_VIBE_CROWN 6
-#define EXAMINEHIGHLIGHT_VIBE_GARRISON 7
-
-#define EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD 8 //Yea technically not much difference
+#define EXAMINEHIGHLIGHT_VIBE_FRIEND 5
+#define EXAMINEHIGHLIGHT_VIBE_FOE 6
+#define EXAMINEHIGHLIGHT_VIBE_CROWN 7
 /** For items that are unnautral and don't belong to this world, I.E ancient ceremonial armor, the vlord sword
 * not defined enough that the average Tennite / Psydonite would always attack on sight but definitely it will
 * get you probably taken captive by the Inqusition or pulled over by the Clergy/Garrison if you walked in without context.
@@ -96,12 +92,12 @@
 #define COLOR_HERESYSEVERITY_ALARMING "#c43535"
 #define COLOR_HERESYSEVERITY_SUSPICIOUS "#c49337"
 #define COLOR_HERESYSEVERITY_ODD "#c564c5"
+#define COLOR_HERESYSEVERITY_VERYODD "#c564c5"
 
 //Azuria-ties
 #define COLOR_VIBE_FRIEND "#6476c5"
 #define COLOR_VIBE_FOE "#c43535"
 #define COLOR_VIBE_CROWN "#ffdc7c"
-#define COLOR_VIBE_GARRISON "#63be57"
 
 // Heresy severity descriptions
 #define EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_ALARMING "<font color=[COLOR_HERESYSEVERITY_ALARMING]><b>This is a blatantly dangerous heretical item!</b></font><br>Carrying this out in the open is tantamount to declaring myself an enemy to Tennite and Psydonite faith. Those who serve the Ten and the One are likely to respond in kind."
@@ -112,10 +108,10 @@
 #define EXAMINEHIGHLIGHT_TOOLTIP_VIBE_FRIEND "<font color=[COLOR_VIBE_FRIEND]><b>A loyal bearing.</b></font><br>This carries the look of one who stands with the Crown and its laws. Many subjects may view its bearer as a friend, servant, or ally of the realm."
 #define EXAMINEHIGHLIGHT_TOOLTIP_VIBE_FOE "<font color=[COLOR_VIBE_FOE]><b>A disloyal bearing.</b></font><br>This carries the look of one who stands apart from the Crown and its laws. Many subjects may view its bearer with suspicion, seeing a potential rebel, outlaw, or enemy of the realm."
 #define EXAMINEHIGHLIGHT_TOOLTIP_VIBE_CROWN "<font color=[COLOR_VIBE_CROWN]><b>Heavy the Crown is, and ever shall it be.</b></font><br>Such symbols are not lightly bestowed, for they signify authority exercised beneath Astrata's eternal light. This is a recognized mark of divine sovereignty, symbolizing the sacred right to rule granted by the Sun-Tyrant to a chosen bloodline. Most subjects should regard its bearer with reverence, recognizing a station and authority very few can claim."
-#define EXAMINEHIGHLIGHT_TOOLTIP_VIBE_GARRISON "<font color=[COLOR_VIBE_GARRISON]><b>A piece of equipment used by those whom act out the Crown's laws.</b></font><br>Carrying this around if you aren't permited to by nobility or under hire of the crown may lend you a look of suspicion and confiscation <b>at best</b> if I am caught with it."
 
 // Heresy severity symbols
 #define EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_SUSPICIOUS "!"
+#define EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_VERYODD "!"
 /// Zcross unicode in HTML form
 #define EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_ALARMING "&#x16E3;"
 #define EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_ODD "?"
@@ -123,4 +119,3 @@
 #define SYMBOL_VIBE_FRIEND "&#x26E8;"
 #define SYMBOL_VIBE_FOE "&#x2694;"
 #define SYMBOL_VIBE_CROWN "&#x2654;"
-#define SYMBOL_VIBE_GARRISON "&#x26E8;"

@@ -165,9 +165,6 @@
 	hearrange = 0
 	sellprice = 100
 
-/obj/item/scomstone/garrison/get_examine_highlight_status()
-	return list(EXAMINEHIGHLIGHT_VIBE_GARRISON, VIBEDESC_CROWNSTONE)
-
 /obj/item/scomstone/garrison/hand
 	name = "handpin"
 	desc = "A unique crownstone, perfect for long days and short lives, both honor and burden."
@@ -255,9 +252,6 @@
 	listening = FALSE
 	messagereceivedsound = 'sound/misc/garrisonscom.ogg'
 	hearrange = 0
-
-/obj/item/scomstone/bad/garrison/get_examine_highlight_status()
-	return list(EXAMINEHIGHLIGHT_VIBE_GARRISON, VIBEDESC_HOUNDSTONE)
 
 /obj/item/scomstone/bad/garrison/equipped(mob/living/user, slot)
 	. = ..()

@@ -1938,7 +1938,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(EXAMINEHIGHLIGHT_VIBE_GARRISON)
 			return COLOR_VIBE_GARRISON
 		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD)
-			return COLOR_HERESYSEVERITY_ODD //Its meant to be a double-take. Intentional.
+			return COLOR_HERESYSEVERITY_VERYODD //Its meant to be a double-take. Intentional.
 	return null
 	
 /// See `proc/get_examine_highlight_status()` and `code\__DEFINES\highlight_examine_defines.dm`. 
@@ -1959,5 +1959,5 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(EXAMINEHIGHLIGHT_VIBE_GARRISON)
 			return SYMBOL_VIBE_GARRISON //Technically in service to the crown
 		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD)
-			return EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_SUSPICIOUS //Its meant to be a double-take. Intentional.
+			return EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_VERYODD //Its meant to be a double-take. Intentional.
 	return null
