@@ -33,7 +33,7 @@
 #define HERESYDESC_DREAM_ITEM "A piece of Abyssor's dream. It is dangerous, and shouldn't be seen outside of capable, sanctified hands."
 // Dreamwalker items
 #define HERESYDESC_DREAMWALKER_WEAPON "A weapon often found in the hands of an enigmatic and violent Dreamwalker" //Often because ATM you can fuck up and unmark it and have it stolen lol.
-#define HERESYDESC_DREAMWALKER_ARMOR "An armor piece worn by the enigmatic and violent Dreamwalkers"
+#define HERESYDESC_DREAMWALKER_ARMOR "An armor piece worn by the enigmatic and often violent Dreamwalkers"
 
 // Misc items
 #define HERESYDESC_GRONN "A symbol of the North's archaic beliefs"
@@ -75,7 +75,7 @@
 #define EXAMINEHIGHLIGHT_VIBE_FOE 5
 #define EXAMINEHIGHLIGHT_VIBE_CROWN 6
 
-#define EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD 7
+#define EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD 7 //Yea technically not much difference
 /** For items that are unnautral and don't belong to this world, I.E ancient ceremonial armor, the vlord sword
 * not defined enough that the average Tennite / Psydonite would always attack on sight but definitely it will
 * get you probably taken captive by the Inqusition or pulled over by the Clergy/Garrison if you walked in without context.
@@ -87,7 +87,6 @@
 #define COLOR_HERESYSEVERITY_ALARMING "#c43535"
 #define COLOR_HERESYSEVERITY_SUSPICIOUS "#c49337"
 #define COLOR_HERESYSEVERITY_ODD "#c564c5"
-#define COLOR_HERESYSEVERITY_VERYODD "#c93c7e"
 
 //Azuria-ties
 #define COLOR_VIBE_FRIEND "#6476c5"
@@ -111,8 +110,6 @@
 /// Zcross unicode in HTML form
 #define EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_ALARMING "&#x16E3;"
 #define EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_ODD "?"
-/// A little bit of extra spice between suspicious/odd
-#define EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_VERYODD "&#10192;" //HUH, WHAT IS THAT?!?
 
 #define SYMBOL_VIBE_FRIEND "&#x26E8;"
 #define SYMBOL_VIBE_FOE "&#x2694;"

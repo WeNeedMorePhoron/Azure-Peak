@@ -1932,7 +1932,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(EXAMINEHIGHLIGHT_VIBE_CROWN)
 			return COLOR_VIBE_CROWN
 		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD)
-			return COLOR_HERESYSEVERITY_VERYODD //Its meant to be a double-take. Intentional.
+			return COLOR_HERESYSEVERITY_ODD //Its meant to be a double-take. Intentional.
 	return null
 	
 /// See `proc/get_examine_highlight_status()` and `code\__DEFINES\highlight_examine_defines.dm`. 
@@ -1951,5 +1951,5 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(EXAMINEHIGHLIGHT_VIBE_CROWN)
 			return SYMBOL_VIBE_CROWN
 		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD)
-			return EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_VERYODD
+			return EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_ALARMING //Its meant to be a double-take. Intentional.
 	return null
