@@ -14,7 +14,7 @@
 /obj/item/clothing/suit/roguetown/armor/chainmail/light/ComponentInitialize()
 	..()
 	AddComponent(/datum/component/adjustable_clothing, CHEST, null, null, 'sound/foley/equip/equip_armor_chain.ogg', null, UPD_CHEST)
-	AddComponent(/datum/component/armour_filtering/negative, TRAIT_ARCYNE, TRAIT_DODGEEXPERT, TRAIT_CIVILIZEDBARBARIAN)
+	AddComponent(/datum/component/armour_filtering/negative, TRAIT_ARCYNE, TRAIT_CIVILIZEDBARBARIAN)
 
 /obj/item/clothing/suit/roguetown/armor/chainmail/light/get_mechanics_examine(mob/user)
 	. = ..()
@@ -23,8 +23,7 @@
 /obj/item/clothing/suit/roguetown/armor/chainmail/light/iron
 	name = "iron haubyrnie"
 	desc = "A sleeveless maille shirt, fashioned from dozens of interlinked iron rings. It's light enough to comfortably tuck underneath a \
-	blouse, yet tough enough to thwart the razor-sharp edges of unwelcomed company. The lack of any padding underneath makes the rings chafe, \
-	however; an issue that compromises finer martial-and-arcyne techniques. For the discerning peasant."
+	blouse, yet tough enough to thwart the razor-sharp edges of unwelcomed company. For the discerning peasant."
 	icon_state = "ihaubyrnie"
 	max_integrity = ARMOR_INT_CHEST_LIGHT_IRON - 30
 	smeltresult = /obj/item/ingot/iron
@@ -32,8 +31,7 @@
 /obj/item/clothing/suit/roguetown/armor/chainmail/light/bronze
 	name = "bronze haubyrnie"
 	desc = "A sleeveless maille shirt, fashioned from dozens of interlinked bronze rings. It's light enough to comfortably tuck underneath a \
-	blouse, yet tough enough to thwart the razor-sharp edges of unwelcomed company. The lack of any padding underneath makes the rings chafe, \
-	however; an issue that compromises finer martial-and-arcyne techniques. For the discerning traveler - ideally, from an antique land."
+	blouse, yet tough enough to thwart the razor-sharp edges of unwelcomed company. For the discerning traveler - ideally, from an antique land."
 	icon_state = "bhaubyrnie"
 	max_integrity = ARMOR_INT_CHEST_LIGHT_IRON - 50
 	smeltresult = /obj/item/ingot/bronze
