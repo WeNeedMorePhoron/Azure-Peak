@@ -30,26 +30,26 @@
 #define HERESYDESC_BAOTHA_MISC "A known design of Baotha"
 
 // Abyssor dream items
-#define HERESYDESC_DREAM_ITEM "A piece of Abyssor's dream. It is dangerous, and shouldn't be seen outside of capable, sanctified hands."
+#define HERESYDESC_DREAM_ITEM "A piece of Abyssor's dream. It is dangerous, and shouldn't be seen outside of capable, sanctified hands"
 // Dreamwalker items
 #define HERESYDESC_DREAMWALKER_WEAPON "A weapon often found in the hands of an enigmatic and violent Dreamwalker" //Often because ATM you can fuck up and unmark it and have it stolen lol.
 #define HERESYDESC_DREAMWALKER_ARMOR "An armor piece worn by the enigmatic and often violent Dreamwalkers"
 
 // Misc items
 #define HERESYDESC_GRONN "A symbol of the North's archaic beliefs"
-#define HERESYDESC_REFORMIST "A symbol of the Psydonic Reformists"
-#define HERESYDESC_WEEPING_CROSS "It is ensnared in a perpetual state of half-coagulation, the alloy cracked and bleeding."
+#define HERESYDESC_REFORMIST "A symbol of the Psydonic Reformist Order, \"God is dead but they follow his word\"" //A vague hint that the inquisition should not trust them/what the reform actually means.
+#define HERESYDESC_WEEPING_CROSS "It is ensnared in a perpetual state of half-coagulation, the alloy cracked and bleeding"
 
 // Vampire Lord Items
-#define HERESYDESC_VAMPIRE "An unnaturally enchanted armor piece that crackles with strange energies." //Less good/bad ties, more "genuinely what the fuck is this?"
-#define HERESYDESC_VAMPIRE_CROWN "An unnaturally enchanted crown that crackles with strange energies." //Less good/bad ties, more "genuinely what the fuck is this?"
-#define HERESYDESC_VAMPIRE_SWORD "An unnatural sword of some unknown alloy that crackles with strange energies." //Less good/bad ties, more "genuinely what the fuck is this?"
+#define HERESYDESC_VAMPIRE "An unnaturally enchanted armor piece that crackles with strange energies" //Less good/bad ties, more "genuinely what the fuck is this?"
+#define HERESYDESC_VAMPIRE_CROWN "An unnaturally enchanted crown that crackles with strange energies" //Less good/bad ties, more "genuinely what the fuck is this?"
+#define HERESYDESC_VAMPIRE_SWORD "An unnatural sword of some unknown alloy that crackles with strange energies" //Less good/bad ties, more "genuinely what the fuck is this?"
 
 #define VIBEDESC_FRIEND "A loyal ally of Azure Peak."
 #define VIBEDESC_FOE "A disloyal enemy of Azure Peak."
 #define VIBEDESC_CROWN "A relic anointed by Astrata."
-#define VIBEDESC_HOUNDSTONE "A piece of equipment issued to a soldier or mercenary of the Azurian Garrison and shouldn't be seen outside of authorised hands."
-#define VIBEDESC_CROWNSTONE "A piece of equipment exclusively issued to an important noble, champion or commander of the Azurian Garrison and shouldn't be seen outside of authorised hands."
+#define VIBEDESC_HOUNDSTONE "A piece of equipment issued to a soldier or mercenary of the Azurian Garrison and shouldn't be seen outside of authorised hands"
+#define VIBEDESC_CROWNSTONE "A piece of equipment exclusively issued to an important noble, champion or commander of the Azurian Garrison and shouldn't be seen outside of authorised hands"
 
 /**
 * -========= HERESY ITEM SEVERITY LEVELS =========-
