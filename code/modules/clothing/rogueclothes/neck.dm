@@ -511,6 +511,9 @@
 	sellprice = 0	//Heresy of the highest order. Unless...
 	icon_state = "reformistcross"
 
+/obj/item/clothing/neck/roguetown/psicross/reform/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_REFORMIST) //God is dead and I follow his word!
+
 /obj/item/clothing/neck/roguetown/psicross/reform/wood
 	name = "wooden reformist psycross"
 	desc = "'No matter if God is dead or not, it is clear that He had gifted us lyfe for a reason. Who are we, if we do not work to fufill His last wish?'"
@@ -1444,6 +1447,9 @@
 /obj/item/clothing/neck/roguetown/psicross/weeping/Initialize()
   ..()
   add_filter(FORCE_FILTER, 2, list("type" = "outline", "color" = GLOW_COLOR_VAMPIRIC, "alpha" = 200, "size" = 1))
+
+/obj/item/clothing/neck/roguetown/psicross/weeping/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD, HERESYDESC_WEEPING_CROSS) //Cursed ass Psicross, you probably should be giving this thing suspicious looks.
 
 /obj/item/clothing/neck/roguetown/psicross/weeping/equipped(mob/living/user, slot)
 	. = ..()
