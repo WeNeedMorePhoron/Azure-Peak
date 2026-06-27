@@ -37,7 +37,7 @@
 
 // Misc items
 #define HERESYDESC_GRONN "A symbol of the North's archaic beliefs"
-#define HERESYDESC_VAMPIRE "An unnatural, cursed design that crackles with strange and sinister energies." //Less god ties, more "genuinely what the fuck is this?"
+#define HERESYDESC_VAMPIRE "An unnatural, cursed design that crackles with strange energies." //Less god ties, more "genuinely what the fuck is this?"
 
 #define VIBEDESC_FRIEND "A loyal ally of Azure Peak."
 #define VIBEDESC_FOE "A disloyal enemy of Azure Peak."
