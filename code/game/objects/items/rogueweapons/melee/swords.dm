@@ -551,7 +551,7 @@
 	RegisterSignal(SSdcs, COMSIG_NEW_ICHOR_FANG_SPAWNED, PROC_REF(on_recall))
 
 /obj/item/rogueweapon/sword/long/judgement/vlord/get_examine_highlight_status() //Its an unholy longsword sire, what did you expect?
-	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_VAMPIRE, HERESYDESC_VAMPIRE)
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD, HERESYDESC_VAMPIRE)
 
 /obj/item/rogueweapon/sword/long/judgement/vlord/proc/on_recall(obj/new_sword)
 	if(new_sword == src)

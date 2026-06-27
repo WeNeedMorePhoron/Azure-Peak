@@ -32,12 +32,12 @@
 // Abyssor dream items
 #define HERESYDESC_DREAM_ITEM "A piece of Abyssor's dream. It is dangerous, and shouldn't be seen outside of capable, sanctified hands."
 // Dreamwalker items
-#define HERESYDESC_DREAMWALKER_WEAPON "A weapon of the enigmatic and violent Dreamwalkers"
-#define HERESYDESC_DREAMWALKER_ARMOR "An armor piece of the enigmatic and violent Dreamwalkers"
+#define HERESYDESC_DREAMWALKER_WEAPON "A weapon often found in the hands of an enigmatic and violent Dreamwalker" //Often because ATM you can fuck up and unmark it and have it stolen lol.
+#define HERESYDESC_DREAMWALKER_ARMOR "An armor piece worn by the enigmatic and violent Dreamwalkers"
 
 // Misc items
 #define HERESYDESC_GRONN "A symbol of the North's archaic beliefs"
-#define HERESYDESC_VAMPIRE "An unnatural design that crackles with strange energies, a bad omen." //Less good/bad ties, more "genuinely what the fuck is this?" Since vlord has been gone for yills upon yills.
+#define HERESYDESC_VAMPIRE "An unnatural design that crackles with strange energies." //Less good/bad ties, more "genuinely what the fuck is this?"
 
 #define VIBEDESC_FRIEND "A loyal ally of Azure Peak."
 #define VIBEDESC_FOE "A disloyal enemy of Azure Peak."
@@ -75,24 +75,32 @@
 #define EXAMINEHIGHLIGHT_VIBE_FOE 5
 #define EXAMINEHIGHLIGHT_VIBE_CROWN 6
 
-#define EXAMINEHIGHLIGHT_HERESYSEVERITY_VAMPIRE 7
+#define EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD 7
+/** For items that are unnautral and don't belong to this world, I.E ancient ceremonial armor, the vlord sword
+* not defined enough that the average Tennite / Psydonite would always attack on sight but definitely it will
+* get you probably taken captive by the Inqusition or pulled over by the Clergy/Garrison if you walked in without context.
+*
+* i.e. The Ichor Fang, Dreamwalker Armor, Blacksite Items like Listeners in their Obvious Form
+*/
 
 // Heresy severity colors
 #define COLOR_HERESYSEVERITY_ALARMING "#c43535"
 #define COLOR_HERESYSEVERITY_SUSPICIOUS "#c49337"
 #define COLOR_HERESYSEVERITY_ODD "#c564c5"
+#define COLOR_HERESYSEVERITY_VERYODD "#c04d83"
 
+//Azuria-ties
 #define COLOR_VIBE_FRIEND "#6476c5"
 #define COLOR_VIBE_FOE "#c43535"
 #define COLOR_VIBE_CROWN "#ffdc7c"
 
-#define COLOR_HERESYSEVERITY_VAMPIRE "#ffa176" //Mix between suspicious/heretical
+//Other ties
 
 // Heresy severity descriptions
 #define EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_ALARMING "<font color=[COLOR_HERESYSEVERITY_ALARMING]><b>This is a blatantly dangerous heretical item!</b></font><br>Carrying this out in the open is tantamount to declaring myself an enemy to Tennite and Psydonite faith. Those who serve the Ten and the One are likely to respond in kind."
 #define EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_SUSPICIOUS "<font color=[COLOR_HERESYSEVERITY_SUSPICIOUS]><b>This is a suspicious heretical item!</b></font><br>It is considered heretical by Tennite and Psydonite faith. Those who serve the Ten and the One are likely to view me with suspicion and distrust <b>at best</b> if I am caught with it."
 #define EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_ODD "<font color=[COLOR_HERESYSEVERITY_ODD]><b>An odd expression of faith...</b></font><br>It is not openly deemed heretical by Tennite and Psydonite faith. However, that does not stop it from being seen as unusual. I am likely to be given odd looks if I am seen with it and not much more, but more guarded (or paranoid) Tennites and Psydonites may not be so charitable."
-#define EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_VAMPIRE "<font color=[COLOR_HERESYSEVERITY_ALARMING]><b>This is a blatantly unnatural item...</b></font><br>Carrying this out in the open is highly suspicious to Tennite and Psydonite faith. Those who serve the Ten and the One are likely to view me with suspicion and distrust <b>at best</b> if I am caught with it.."
+#define EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_VERYODD "<font color=[COLOR_HERESYSEVERITY_ALARMING]><b>This is a blatantly unnatural item...</b></font>Carrying this out in the open is <b>highly suspicious</b> to Tennite and Psydonite faith. Those who serve the Ten and the One are likely to respond with suspicious and distrust <b>at best</b> if I am caught with it."
 
 #define EXAMINEHIGHLIGHT_TOOLTIP_VIBE_FRIEND "<font color=[COLOR_VIBE_FRIEND]><b>A loyal bearing.</b></font><br>This carries the look of one who stands with the Crown and its laws. Many subjects may view its bearer as a friend, servant, or ally of the realm."
 #define EXAMINEHIGHLIGHT_TOOLTIP_VIBE_FOE "<font color=[COLOR_VIBE_FOE]><b>A disloyal bearing.</b></font><br>This carries the look of one who stands apart from the Crown and its laws. Many subjects may view its bearer with suspicion, seeing a potential rebel, outlaw, or enemy of the realm."
@@ -103,8 +111,8 @@
 /// Zcross unicode in HTML form
 #define EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_ALARMING "&#x16E3;"
 #define EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_ODD "?"
-/// Inverted dagger in HTML format w/ boldening
-#define EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_VAMPIRE "<b>&#11832;</b>"
+/// A little bit of extra spice between suspicious/odd
+#define EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_VERYODD "<b>!?!</b>" //HUH, WHAT IS THAT?!?
 
 #define SYMBOL_VIBE_FRIEND "&#x26E8;"
 #define SYMBOL_VIBE_FOE "&#x2694;"
