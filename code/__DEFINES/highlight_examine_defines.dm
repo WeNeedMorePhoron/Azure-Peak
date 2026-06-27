@@ -30,10 +30,10 @@
 #define HERESYDESC_BAOTHA_MISC "A known design of Baotha"
 
 // Abyssor dream items
-#define HERESYDESC_DREAM_ITEM "A piece of Abyssor's dream. It is dangerous, and shouldn't be seen outside of capable, sanctified hands"
+#define HERESYDESC_DREAM_ITEM "A weapon from Abyssor's dream. It is dangerous, and shouldn't be seen outside of capable, sanctified hands"
 // Dreamwalker items
-#define HERESYDESC_DREAMWALKER_WEAPON "A weapon often found in the hands of an enigmatic and violent Dreamwalker" //Often because ATM you can fuck up and unmark it and have it stolen lol.
-#define HERESYDESC_DREAMWALKER_ARMOR "An armor piece worn by the enigmatic and often violent Dreamwalkers"
+#define HERESYDESC_DREAMWALKER_WEAPON "An enchanced weapon from Abyssor's dream, wielded by Abyssor's cursed - the enigmatic and violent Dreamwalkers"
+#define HERESYDESC_DREAMWALKER_ARMOR "An armor piece from Abyssor's dream, worn by Abyssor's cursed - the enigmatic and violent Dreamwalkers"
 
 // Misc items
 #define HERESYDESC_GRONN "A symbol of the North's archaic beliefs"
