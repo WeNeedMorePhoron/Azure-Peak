@@ -4,7 +4,7 @@
 	desc = "A sleeveless maille shirt, fashioned from dozens of interlinked steel rings. It's light enough to comfortably tuck underneath a \
 	blouse, yet tough enough to thwart the razor-sharp edges of unwelcomed company. For the discerning nobleman."
 	icon_state = "haubyrnie"
-	max_integrity = ARMOR_INT_CHEST_LIGHT_STEEL - 30
+	max_integrity = ARMOR_INT_CHEST_LIGHT_STEEL
 	armor_class = ARMOR_CLASS_LIGHT
 	body_parts_covered = CHEST | VITALS
 	flags_inv = HIDEBOOB //Let it hang, sire.
@@ -25,7 +25,7 @@
 	desc = "A sleeveless maille shirt, fashioned from dozens of interlinked iron rings. It's light enough to comfortably tuck underneath a \
 	blouse, yet tough enough to thwart the razor-sharp edges of unwelcomed company. For the discerning peasant."
 	icon_state = "ihaubyrnie"
-	max_integrity = ARMOR_INT_CHEST_LIGHT_IRON - 30
+	max_integrity = ARMOR_INT_CHEST_LIGHT_IRON
 	smeltresult = /obj/item/ingot/iron
 
 /obj/item/clothing/suit/roguetown/armor/chainmail/light/bronze
@@ -33,7 +33,7 @@
 	desc = "A sleeveless maille shirt, fashioned from dozens of interlinked bronze rings. It's light enough to comfortably tuck underneath a \
 	blouse, yet tough enough to thwart the razor-sharp edges of unwelcomed company. For the discerning traveler - ideally, from an antique land."
 	icon_state = "bhaubyrnie"
-	max_integrity = ARMOR_INT_CHEST_LIGHT_IRON - 50
+	max_integrity = ARMOR_INT_CHEST_LIGHT_IRON - 30
 	smeltresult = /obj/item/ingot/bronze
 	armor = ARMOR_BRONZE
 
