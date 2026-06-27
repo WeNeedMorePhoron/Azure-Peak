@@ -16,6 +16,17 @@
 	result = list(/obj/item/natural/clay/claycup)
 	reqs = list(/obj/item/natural/clay = 1)
 	craftdiff = 0
+/datum/crafting_recipe/roguetown/ceramics/claybauble
+	name = "clay bauble x3"
+	result = list(/obj/item/natural/clay/porcelain/bauble, /obj/item/natural/clay/porcelain/bauble, /obj/item/natural/clay/porcelain/bauble)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 0 
+
+	/datum/crafting_recipe/roguetown/ceramics/claycameo
+	name = "clay cameo"
+	result = list(/obj/item/natural/clay/porcelain/cameo)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 0 
 
 /datum/crafting_recipe/roguetown/ceramics/clay/claycup3
 	name = "clay cup, dyeable (3x)"
