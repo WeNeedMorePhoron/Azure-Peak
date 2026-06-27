@@ -199,7 +199,7 @@
   add_filter(FORCE_FILTER, 2, list("type" = "outline", "color" = GLOW_COLOR_VAMPIRIC, "alpha" = 180, "size" = 1)) //AURAFARMING BUFF
 
 /obj/item/clothing/head/roguetown/vampire/get_examine_highlight_status()
-	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD, HERESYDESC_VAMPIRE)
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD, HERESYDESC_VAMPIRE_CROWN)
 
 ////////BROKEN////////
 /obj/item/clothing/suit/roguetown/armor/chainmail/iron/vampire
