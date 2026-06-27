@@ -1951,5 +1951,5 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(EXAMINEHIGHLIGHT_VIBE_CROWN)
 			return SYMBOL_VIBE_CROWN
 		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD)
-			return EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_ALARMING //Its meant to be a double-take. Intentional.
+			return EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_SUSPICIOUS //Its meant to be a double-take. Intentional.
 	return null
