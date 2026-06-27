@@ -86,7 +86,7 @@
 #define COLOR_VIBE_FOE "#c43535"
 #define COLOR_VIBE_CROWN "#ffdc7c"
 
-#define COLOR_HERESYSEVERITY_VAMPIRE "#d35920" //Mix between suspicious/heretical
+#define COLOR_HERESYSEVERITY_VAMPIRE "#ffa176" //Mix between suspicious/heretical
 
 // Heresy severity descriptions
 #define EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_ALARMING "<font color=[COLOR_HERESYSEVERITY_ALARMING]><b>This is a blatantly dangerous heretical item!</b></font><br>Carrying this out in the open is tantamount to declaring myself an enemy to Tennite and Psydonite faith. Those who serve the Ten and the One are likely to respond in kind."
