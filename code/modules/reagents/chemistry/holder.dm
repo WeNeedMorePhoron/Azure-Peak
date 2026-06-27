@@ -345,29 +345,6 @@
 							if(istype(R, A))
 								A.addiction_stage = -15 // you're satisfied for a good while.
 				need_mob_update += R.on_mob_life(C)
-				// Anti-stacking: while this reagent is active, rapidly purge any
-				// other reagents it conflicts with so their effects can't combine.
-				// Self is always excluded so a reagent never purges itself - this is
-				// important when a conflict entry is a parent type of the reagent
-				// (e.g. /datum/reagent/buff listing /datum/reagent/buff to block
-				// stacking different stat buffs without nuking itself).
-				// We collect matches first and purge after scanning, to avoid
-				// mutating the list we are iterating over (cached_reagents).
-				if(R.conflicting_reagent_types)
-					var/list/_to_purge = null
-					for(var/_other in cached_reagents)
-						var/datum/reagent/CR = _other
-						if(CR == R)
-							continue
-						for(var/_ctype in R.conflicting_reagent_types)
-							if(istype(CR, _ctype))
-								if(!_to_purge)
-									_to_purge = list()
-								_to_purge += CR.type
-								break // one purge per reagent per tick is enough
-					if(_to_purge)
-						for(var/_purge_type in _to_purge)
-							remove_reagent(_purge_type, 10) 
 
 	if(can_overdose)
 		if(addiction_tick == 6)
@@ -428,7 +405,64 @@
 		R.on_update (A)
 	update_total()
 
+/// Anti-stacking: if a reagent and one of its declared conflicts are both
+/// present, they neutralize 1:1 into /datum/reagent/ruined_potion. 
+///
+/// Self never conflicts with itself (matters when a conflict entry is a parent
+/// type, e.g. /datum/reagent/buff).
+/datum/reagents/proc/handle_conflicting_reagents()
+	var/list/drain_amounts = find_conflicting_reagent_amounts()
+	if(!drain_amounts)
+		return
+
+	var/ruined_volume = 0
+	for(var/reagent_type in drain_amounts)
+		var/to_remove = drain_amounts[reagent_type]
+		remove_reagent(reagent_type, to_remove, safety = 1)
+		ruined_volume += to_remove
+	add_reagent(/datum/reagent/ruined_potion, ruined_volume, no_react = 1)
+
+	if(my_atom)
+		my_atom.on_reagent_change(REACT_REAGENTS)
+		if(!ismob(my_atom))
+			var/list/seen = viewers(4, get_turf(my_atom))
+			var/iconhtml = icon2html(my_atom, seen)
+			for(var/mob/M in seen)
+				to_chat(M, span_notice("[iconhtml] The mixture curdles into a foul, useless sludge."))
+	update_total()
+
+/datum/reagents/proc/find_conflicting_reagent_amounts()
+	var/list/drain_amounts = null
+
+	for(var/i in 1 to length(reagent_list))
+		var/datum/reagent/A = reagent_list[i]
+		if(!A.conflicting_reagent_types)
+			continue
+		for(var/j in (i + 1) to length(reagent_list))
+			var/datum/reagent/B = reagent_list[j]
+			if(!reagents_conflict(A, B))
+				continue
+			var/a_remaining = A.volume - (drain_amounts ? (drain_amounts[A.type] || 0) : 0)
+			var/b_remaining = B.volume - (drain_amounts ? (drain_amounts[B.type] || 0) : 0)
+			var/neutralize = min(a_remaining, b_remaining)
+			if(neutralize <= 0)
+				continue
+			if(!drain_amounts)
+				drain_amounts = list()
+			drain_amounts[A.type] = (drain_amounts[A.type] || 0) + neutralize
+			drain_amounts[B.type] = (drain_amounts[B.type] || 0) + neutralize
+
+	return drain_amounts
+
+/datum/reagents/proc/reagents_conflict(datum/reagent/A, datum/reagent/B)
+	if(A == B)
+		return FALSE
+	return is_type_in_list(B, A.conflicting_reagent_types) || is_type_in_list(A, B.conflicting_reagent_types)
+
 /datum/reagents/proc/handle_reactions()
+	// Anti-stacking check, runs before NO_REACT so it works on kegs too.
+	handle_conflicting_reagents()
+
 	if(flags & NO_REACT)
 		return //Yup, no reactions here. No siree.
 
