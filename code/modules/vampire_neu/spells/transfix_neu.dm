@@ -8,7 +8,7 @@
 	range = 7
 	chargetime = 0
 	releasedrain = 100
-	recharge_time = 15 SECONDS
+	recharge_time = 1 MINUTES
 
 	/// Ignore crosses and give a different message
 	var/powerful = FALSE
@@ -77,7 +77,7 @@
 				var/extra = "!"
 				if(knowledgable)
 					extra = ", I sense the caster was [user]!"
-				to_chat(target, "<font color='white'>The silver psycross shines and protect me from unholy magic[extra]</font>")
+				to_chat(target, "<font color='white'>The silver psycross shines and protects me from unholy magic[extra]</font>")
 				to_chat(user, span_userdanger("[target] has my BANE! It causes me to fail to ensnare their mind!"))
 				break
 
@@ -85,7 +85,7 @@
 			target.drowsyness = min(target.drowsyness + 50, 150)
 			switch(target.drowsyness)
 				if(0 to 50)
-					to_chat(target, "You feel like a curtain is coming over your mind.")
+					to_chat(target, "You feel slightly drowsy, as though a curtain is coming over your mind.")
 					to_chat(user, "The mind of [target] gives way slightly.")
 					target.Slowdown(20)
 				if(51 to 90)
@@ -111,10 +111,9 @@
 
 		if(!powerful)
 			var/holypower = target.get_skill_level(/datum/skill/magic/holy)
-			var/magicpower = round(target.get_skill_level(/datum/skill/magic/arcane) * 0.6, 1)
+			var/magicpower = target.get_skill_level(/datum/skill/magic/arcane)
 			var/roll = roll(1 + holypower + magicpower, 5)
 			if(roll > bloodroll)
-				to_chat(target, "I feel like the unholy magic came from [user]. I should use my magic or miracles on them.")
+				to_chat(target, "I sense fell, mind-altering magicks emanate from [user], but I remain steadfast.")
 
 		to_chat(user, span_userdanger("I fail to ensnare the mind of [target]!"))
-		to_chat(target, span_userdanger("Something is wrong in this place."))
