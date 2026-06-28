@@ -82,7 +82,7 @@
 	name = "clay duck figurine"
 	result = list(/obj/item/natural/clay/rawduck)
 	reqs = list(/obj/item/natural/clay = 1)
-	craftdiff = 10
+	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/ceramics/claydisplay
 	name = "clay display stand"
