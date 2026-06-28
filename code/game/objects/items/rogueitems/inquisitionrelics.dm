@@ -55,7 +55,7 @@
 	icon = 'icons/roguetown/items/misc.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	var/cranking = FALSE
-	var/cranking_true_nature = FALSE
+	var/cranking_true_nature = FALSE //Are we torturing the souls openly, or subtle in nature?
 	force = 15
 	max_integrity = 100
 	attacked_sound = 'sound/combat/hits/onwood/education2.ogg'
@@ -67,7 +67,7 @@
 
 /obj/item/psydonmusicbox/get_examine_highlight_status()
 	// If we are not crankin' that shit... its just a box yeah
-	if(cranking_true_nature = FALSE)
+	if(cranking_true_nature == FALSE)
 		return null
 	// Otherwise, it's obvious this thing is torturing souls.
 	else
@@ -166,6 +166,7 @@
 	var/graggarlines =list("'ANOINTED! TEAR THIS OTAVAN'S HEAD OFF!'", "'ANOINTED! SHATTER THE BOX, AND WE WILL KILL THEM TOGETHER!'", "'GRAGGAR, GIVE ME STRENGTH TO BREAK MY BONDS!'")
 	var/baothalines =list("'I miss the warmth of ozium... There is no feeling in here for me...'", "'Debauched one, rescue me from this contraption, I have such things to share with you.'", "'MY PERFECTION WAS TAKEN FROM ME BY THESE OTAVAN MONSTERS!'")
 	var/psydonianlines =list("'FREE US! FREE US! WE HAVE SUFFERED ENOUGH!'", "'PLEASE, RELEASE US!", "WE MISS OUR FAMILIES!'", "'WHEN WE ESCAPE, WE ARE GOING TO CHASE YOU INTO YOUR GRAVE.'")
+	var/otherlines =list("'FREE US! FREE US! WE HAVE SUFFERED ENOUGH!'", "'PLEASE, RELEASE US!", "WE MISS OUR FAMILIES!'", "'NO MORE! NO MORE! NO MORE!'")
 /datum/status_effect/buff/cranking_soulchurner/on_creation(mob/living/new_owner, stress, colour)
 	effect_color = "#800000"
 	return ..()
@@ -280,6 +281,13 @@
 						H.add_stress(/datum/stressevent/soulchurner)
 						if(!H.has_status_effect(/datum/status_effect/buff/churnernegative))
 							H.apply_status_effect(/datum/status_effect/buff/churnernegative)
+					else
+						to_chat(H, (span_hypnophrase("A voice calls out from the song for you...")))
+						to_chat(H, (span_cultsmall(pick(otherlines))))
+						H.add_stress(/datum/stressevent/soulchurner)
+						if(!H.has_status_effect(/datum/status_effect/buff/churnernegative))
+							H.apply_status_effect(/datum/status_effect/buff/churnernegative)
+
 
 
 /atom/movable/screen/alert/status_effect/buff/quelling_soulchurner
