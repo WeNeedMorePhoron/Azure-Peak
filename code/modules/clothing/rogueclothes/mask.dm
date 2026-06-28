@@ -615,9 +615,6 @@
 	flags_inv = HIDEFACE|HIDESNOUT
 	sellprice = 10
 
-/obj/item/clothing/mask/rogue/lordmask/naledi/get_examine_highlight_status()
-	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_NALEDIAN)
-
 /obj/item/clothing/mask/rogue/lordmask/naledi/ComponentInitialize()
 	AddComponent(/datum/component/armour_filtering/positive, TRAIT_NALEDI, "naledi_mask")
 

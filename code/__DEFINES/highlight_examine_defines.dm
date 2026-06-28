@@ -37,7 +37,6 @@
 
 // Misc items
 #define HERESYDESC_GRONN "A symbol of the North's archaic beliefs"
-#define HERESYDESC_NALEDIAN "A symbol of Naledian beliefs" //Cause its a foreign faith, unlike Otavan Psydonites, these ones are from much further out
 #define HERESYDESC_REFORMIST "A symbol of the Psydonic Reformist Order's beliefs in that god has left yet they follow his word" //A vague hint that the inquisition should not trust them/what the reform actually means.
 #define HERESYDESC_WEEPING_CROSS "It is ensnared in a perpetual state of half-coagulation, the alloy cracked and bleeding"
 
@@ -45,7 +44,7 @@
 #define HERESYDESC_VAMPIRE "An unnatural enchanted armor piece of solid gilbranze that crackles with strange energies" //Less good/bad ties, more "genuinely what the fuck is this?"
 #define HERESYDESC_VAMPIRE_CROWN "An unnatural enchanted crown that crackles with strange energies" //Less good/bad ties, more "genuinely what the fuck is this?"
 #define HERESYDESC_VAMPIRE_SWORD "An unnatural sword of some unknown alloy that crackles with strange energies" //Less good/bad ties, more "genuinely what the fuck is this?"
-#define HERESYDESC_INQUIS_WHISPERER "Left in the open, a blatently unusual design of ring that seems to whisper"
+#define HERESYDESC_INQUIS_WHISPERER "Left in the open, a blatently unusual design of ring...? that seems to whisper"
 #define HERESYDESC_INQUIS_CONFESSOR_MASK "A strange kind of mask once-used for obscure rituals... repurposed?" //Read the flavortext sire.
 
 #define VIBEDESC_FRIEND "A loyal ally of Azure Peak."
@@ -80,17 +79,17 @@
 */
 #define EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD 3
 
+#define EXAMINEHIGHLIGHT_VIBE_FRIEND 4
+#define EXAMINEHIGHLIGHT_VIBE_FOE 5
+#define EXAMINEHIGHLIGHT_VIBE_CROWN 6
+
 /** For items that are unnautral or clearly cursed, I.E ancient ceremonial armor, the vlord sword
 * not defined enough that the average Tennite / Psydonite would always attack on sight but definitely it will
 * get you probably taken captive/questioned by the Inqusition or pulled over by the Clergy/Garrison if you were just openly showing it.
 *
 * i.e. The Ichor Fang, Weeping Psycross, Blacksite Items like Listeners in their Obvious Form
 */
-#define EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD 4
-
-#define EXAMINEHIGHLIGHT_VIBE_FRIEND 5
-#define EXAMINEHIGHLIGHT_VIBE_FOE 6
-#define EXAMINEHIGHLIGHT_VIBE_CROWN 7
+#define EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD 7
 
 // Heresy severity colors
 #define COLOR_HERESYSEVERITY_ALARMING "#c43535"

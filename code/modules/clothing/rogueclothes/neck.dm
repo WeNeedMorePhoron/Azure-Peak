@@ -1203,9 +1203,6 @@
 	icon_state = "psybracelet"
 	item_state = null
 
-/obj/item/clothing/neck/roguetown/psicross/naledi/get_examine_highlight_status()
-	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_NALEDIAN)
-
 /obj/item/clothing/neck/roguetown/collar
 	name = "collar"
 	desc = "A band of leather which signifies bondage to another."
