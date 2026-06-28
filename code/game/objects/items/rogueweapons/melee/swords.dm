@@ -220,6 +220,55 @@
 	. = ..()
 	AddComponent(/datum/component/skill_blessed, TRAIT_LONGSWORDSMAN, /datum/skill/combat/swords, SKILL_LEVEL_MASTER)
 
+/obj/item/rogueweapon/sword/long/blacksteel
+	name = "blacksteel longsword"
+	desc = "A lethal and perfectly balanced weapon. The longsword is the protagonist of endless tales and myths \
+	all across Psydonia, seen in the hands of noblemen and an ever-decreasing quantity of master duelists. \
+	It has great cultural significance in the empires of Grenzelhoft and Etrusca, where legendary swordsmen \
+	have created and perfected many fighting techniques of todae."
+	force = 27
+	force_wielded = 33
+	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust/long, /datum/intent/sword/strike)
+	gripped_intents = list(/datum/intent/sword/cut/long, /datum/intent/sword/thrust/long, /datum/intent/sword/chop/long, /datum/intent/sword/thrust/long/deep)
+	alt_grips = list(/datum/alt_grip/mordhau/sword, /datum/alt_grip/halfsword)
+	icon_state = "bslongsword"
+	icon = 'icons/roguetown/weapons/swords64.dmi'
+	item_state = "bslongsword"
+	sheathe_icon = "bslongsword"
+	max_blade_int = 400
+	max_integrity = 180
+	wdefense_wbonus = 5
+	var/used = FALSE
+	var/list/selection = list(
+		/datum/special_intent/side_sweep,
+		/datum/special_intent/axe_swing,
+		/datum/special_intent/piercing_lunge,
+		/datum/special_intent/limbguard,
+		/datum/special_intent/dagger_dash
+		)
+
+/obj/item/rogueweapon/sword/long/blacksteel/examine(mob/user)
+	. = ..()
+	if(!used)
+		. += span_notice("The Special Manouevre of this weapon can be changed. RCLICK it with a free hand to select one.")
+
+/obj/item/rogueweapon/sword/long/blacksteel/attack_right(mob/user)
+	. = ..()
+	if(used)
+		return
+		
+	var/list/special_options = list()
+	for(var/thing in selection)
+		var/datum/special_intent/S = thing // Hate this DM quirk.
+		special_options[S::name] = S
+	
+	var/choice = input(user, "Choose the Manouevre", "MANOUEVRE") as anything in special_options
+	if(choice)
+		qdel(special)
+		var/datum/special_intent/S = special_options[choice]
+		special = new S()
+		used = TRUE
+
 /obj/item/rogueweapon/sword/long/ap
 	name = "stecher"
 	desc = "A unique longsword from the highest plateaus of the Azure Peak, sacrificing its cutting edge for a piercing tip that can easily penetrate maille. Tracing its roots to the \
