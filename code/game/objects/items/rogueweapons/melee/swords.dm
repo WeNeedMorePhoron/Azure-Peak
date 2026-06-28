@@ -222,10 +222,9 @@
 
 /obj/item/rogueweapon/sword/long/blacksteel
 	name = "blacksteel longsword"
-	desc = "A lethal and perfectly balanced weapon. The longsword is the protagonist of endless tales and myths \
-	all across Psydonia, seen in the hands of noblemen and an ever-decreasing quantity of master duelists. \
-	It has great cultural significance in the empires of Grenzelhoft and Etrusca, where legendary swordsmen \
-	have created and perfected many fighting techniques of todae."
+	desc = "A sleek blade of a dark, and burnished hue. \
+			A handle carved from a rosawood branch. A pairing that shall sing as it parts the air. \
+			With it, one can write a song across all of Psydonia."
 	force = 27
 	force_wielded = 33
 	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust/long, /datum/intent/sword/strike)
