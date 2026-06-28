@@ -88,15 +88,14 @@
 		switch(weapon_choice)
 			if("Lesser Staff")
 				r_hand = /obj/item/rogueweapon/woodstaff/implement
-				H.adjust_skillrank_up_to(/datum/skill/combat/staves, 3, TRUE)
-			if("Lesser Wand + Shield")
+				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
+			if("Lesser Wand")
 				r_hand = /obj/item/rogueweapon/wand
-				l_hand = /obj/item/rogueweapon/shield/wood
-				H.adjust_skillrank_up_to(/datum/skill/combat/shields, 2, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
 			if("Quarterstaff")
 				r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/iron
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
-				H.adjust_skillrank_up_to(/datum/skill/combat/staves, 3, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
 
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
@@ -228,16 +227,15 @@
 					H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/fortifyingvapors)
 
 	if(H.mind)
-		var/weapons = list("Lesser Staff", "Lesser Wand + Shield")
+		var/weapons = list("Lesser Staff", "Lesser Wand")
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		switch(weapon_choice)
 			if("Lesser Staff")
 				r_hand = /obj/item/rogueweapon/woodstaff/implement
-				H.adjust_skillrank_up_to(/datum/skill/combat/staves, 3, TRUE)
-			if("Lesser Wand + Shield")
+				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
+			if("Lesser Wand")
 				r_hand = /obj/item/rogueweapon/wand
-				l_hand = /obj/item/rogueweapon/shield/wood
-				H.adjust_skillrank_up_to(/datum/skill/combat/shields, 2, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
 
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
@@ -348,7 +346,7 @@
 			if("Quarterstaff")
 				r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/iron
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
-				H.adjust_skillrank_up_to(/datum/skill/combat/staves, 3, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
 			if("Mace + Shield")
 				r_hand = /obj/item/rogueweapon/mace
 				backr = /obj/item/rogueweapon/shield/wood

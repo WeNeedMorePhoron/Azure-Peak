@@ -116,3 +116,45 @@
 	if(linked_spell)
 		linked_spell.conjured_shield = null
 	qdel(src)
+
+/obj/item/rogueweapon/shield/arcyne_aegis/wand
+	name = "arcyne aegis"
+	desc = "A shield of arcyne energy projected from a wand. It is easily controlled and manipulated by a mage skilled in usage of staves. It vanishes if the wand leaves its wielder."
+	wdefense = 10
+	coverage = 30
+	max_integrity = 120
+	associated_skill = /datum/skill/combat/staves
+	special = null
+	var/datum/weakref/linked_wand
+
+/obj/item/rogueweapon/shield/arcyne_aegis/wand/greater
+	name = "greater arcyne aegis"
+	wdefense = 10
+	coverage = 40
+	max_integrity = 220
+
+/obj/item/rogueweapon/shield/arcyne_aegis/wand/grand
+	name = "grand arcyne aegis"
+	wdefense = 11
+	coverage = 60
+	max_integrity = 260
+
+/obj/item/rogueweapon/shield/arcyne_aegis/wand/proc/link_wand(obj/item/rogueweapon/wand/W, mob/living/carbon/human/caster)
+	linked_wand = WEAKREF(W)
+	caster_ref = WEAKREF(caster)
+
+/obj/item/rogueweapon/shield/arcyne_aegis/wand/proc/valid_wand_link()
+	var/mob/caster = caster_ref?.resolve()
+	var/obj/item/rogueweapon/wand/W = linked_wand?.resolve()
+	return caster && W && caster.is_holding(W)
+
+/obj/item/rogueweapon/shield/arcyne_aegis/wand/dropped(mob/living/user)
+	. = ..()
+	if(!QDELETED(src) && !valid_wand_link())
+		dispel()
+
+/obj/item/rogueweapon/shield/arcyne_aegis/wand/dispel()
+	var/obj/item/rogueweapon/wand/W = linked_wand?.resolve()
+	if(W && W.conjured_aegis == src)
+		W.conjured_aegis = null
+	return ..()

@@ -29,7 +29,7 @@
 	/datum/skill/magic/arcane = SKILL_LEVEL_EXPERT,
 	/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
 	/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
-	/datum/skill/combat/staves = SKILL_LEVEL_JOURNEYMAN,
+	/datum/skill/combat/staves = SKILL_LEVEL_EXPERT,
 	/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,
 	/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,
 	/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,

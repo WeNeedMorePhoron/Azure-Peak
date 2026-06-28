@@ -278,6 +278,8 @@
 		"Chalybs, ad quietem redire!",
 	)
 	fixed_spells = list(
+		/datum/action/cooldown/spell/ferramancy_form/sabre,
+		/datum/action/cooldown/spell/ferramancy_form/greatsword,
 		/datum/action/cooldown/spell/projectile/sawblade_volley,
 		/datum/action/cooldown/spell/blade_burst,
 		/datum/action/cooldown/spell/projectile/iron_tempest,

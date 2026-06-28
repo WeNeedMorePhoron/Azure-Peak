@@ -649,6 +649,42 @@ SPECIALS START HERE
 		playsound(howner, 'sound/combat/flail_sweep_hit_major.ogg', 100, TRUE)
 	victim.safe_throw_at(throwtarget, CLAMP(1, 5, victim_count), 1, howner, force = MOVE_FORCE_EXTREMELY_STRONG)
 
+/datum/special_intent/quarterstaff_sweep
+	name = "Quarterstaff Sweep"
+	desc = "Sweep a five-tile frontal arc, knocking foes back and exposing them. Aims for the targeted zone."
+	tile_coordinates = list(list(-1,-1), list(1,-1), list(-1,0), list(0,0), list(1,0))
+	post_icon_state = "sweep_fx"
+	pre_icon_state = "trap"
+	sfx_pre_delay = 'sound/combat/wooshes/blunt/wooshmed (1).ogg'
+	sfx_post_delay = 'sound/combat/hits/blunt/woodblunt (1).ogg'
+	delay = 0.6 SECONDS
+	cooldown = 15 SECONDS
+	requires_wielding = TRUE
+	stamcost = 20
+	var/exposed_dur = 3 SECONDS
+	var/dam
+
+/datum/special_intent/quarterstaff_sweep/on_create()
+	. = ..()
+
+/datum/special_intent/quarterstaff_sweep/process_attack()
+	var/obj/item/rogueweapon/W = iparent
+	if(istype(W))
+		dam = W.force_dynamic * max((max(howner.STASTR, howner.STAPER) / 10), 0.5)
+	. = ..()
+
+/datum/special_intent/quarterstaff_sweep/apply_hit(turf/T)
+	for(var/mob/living/L in get_hearers_in_view(0, T))
+		if(L == howner)
+			continue
+		var/throwdir = get_dir(howner, L)
+		var/turf/throwtarget = get_ranged_target_turf(get_turf(L), throwdir, 1)
+		L.safe_throw_at(throwtarget, 1, 1, howner, force = MOVE_FORCE_EXTREMELY_STRONG)
+		L.apply_status_effect(/datum/status_effect/debuff/exposed, exposed_dur)
+		var/hit_zone = get_aimed_zone(L)
+		apply_generic_weapon_damage(L, dam, "blunt", hit_zone, bclass = BCLASS_BLUNT, no_pen = TRUE)
+	..()
+
 #define AXE_SWING_GRID_DEFAULT 	list(list(-1,0), list(0,0, 0.2 SECONDS), list(1,0, 0.4 SECONDS))
 #define AXE_SWING_GRID_MIRROR	list(list(-1,0, 0.4 SECONDS), list(0,0, 0.2 SECONDS), list(1,0))
 
@@ -1359,4 +1395,3 @@ tile_coordinates = list(list(1,1), list(-1,1), list(-1,-1), list(1,-1),list(0,0)
 	howner.update_a_intents()
 	howner.regenerate_icons()
 	playsound(W.loc, 'sound/foley/waterenter.ogg', 100)
-

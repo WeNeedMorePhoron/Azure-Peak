@@ -493,8 +493,8 @@
 
 	return Activate(target)
 
-/// Returns TRUE if the caster is holding a non-implement rogueweapon (not a shield) or ranged weapon in either hand,
-/// or recently had one.
+/// Returns TRUE if the caster is holding a penalized weapon in either hand, or recently had one.
+/// Staves and Arcyne Armaments are valid spell conduits and do not trigger this penalty.
 /datum/action/cooldown/spell/proc/check_weapon_in_hand()
 	if(!weapon_cast_penalized)
 		return FALSE
@@ -502,6 +502,8 @@
 		return FALSE
 	var/mob/living/carbon/human/H = owner
 	for(var/obj/item/held in list(H.get_active_held_item(), H.get_inactive_held_item()))
+		if(ispath(held?.associated_skill, /datum/skill/combat/staves) || ispath(held?.associated_skill, /datum/skill/combat/arcyne))
+			continue
 		if(istype(held, /obj/item/gun))
 			return TRUE
 		if(!istype(held, /obj/item/rogueweapon))
@@ -719,6 +721,8 @@
 			var/mob/living/carbon/human/wpn_check = owner
 			var/has_weapon_now = FALSE
 			for(var/obj/item/held in list(wpn_check.get_active_held_item(), wpn_check.get_inactive_held_item()))
+				if(ispath(held?.associated_skill, /datum/skill/combat/staves) || ispath(held?.associated_skill, /datum/skill/combat/arcyne))
+					continue
 				if(istype(held, /obj/item/gun) || (istype(held, /obj/item/rogueweapon) && !istype(held, /obj/item/rogueweapon/shield)))
 					has_weapon_now = TRUE
 					break
@@ -1713,4 +1717,3 @@
 
 	if(spell_rune)
 		QDEL_NULL(spell_rune)
-

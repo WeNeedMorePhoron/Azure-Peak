@@ -8,8 +8,11 @@
 	implement_refund = IMPLEMENT_REFUND_LESSER
 	resistance_flags = FIRE_PROOF
 	possible_item_intents = list(SPEAR_BASH)
-	gripped_intents = list(SPEAR_BASH, /datum/intent/mace/smash/wood)
-	max_integrity = 150
+	gripped_intents = list(/datum/intent/spear/bash/staff, /datum/intent/mace/smash/wood/ranged)
+	force = 10
+	force_wielded = 20
+	max_integrity = 200
+	special = /datum/special_intent/quarterstaff_sweep
 	sellprice = 34
 
 /obj/item/rogueweapon/woodstaff/implement/amethyst
@@ -22,7 +25,8 @@
 	icon_state = "emeraldstaff"
 	implement_tier = IMPLEMENT_TIER_GREATER
 	implement_refund = IMPLEMENT_REFUND_GREATER
-	max_integrity = 200
+	force_wielded = 22
+	max_integrity = 250
 	sellprice = 42
 
 /obj/item/rogueweapon/woodstaff/implement/greater/ruby
@@ -41,7 +45,8 @@
 	icon_state = "diamondstaff"
 	implement_tier = IMPLEMENT_TIER_GRAND
 	implement_refund = IMPLEMENT_REFUND_GRAND
-	max_integrity = 250
+	force_wielded = 25
+	max_integrity = 280
 	sellprice = 121
 
 /obj/item/rogueweapon/woodstaff/implement/grand/riddle
@@ -65,7 +70,7 @@
 	name = "\improper Staff of the Court Magos"
 	icon_state = "courtstaff"
 	possible_item_intents = list(SPEAR_BASH, /datum/intent/magos_electrocute)
-	gripped_intents = list(SPEAR_BASH, /datum/intent/mace/smash/wood, /datum/intent/magos_electrocute)
+	gripped_intents = list(/datum/intent/spear/bash/staff, /datum/intent/mace/smash/wood/ranged, /datum/intent/magos_electrocute)
 	COOLDOWN_DECLARE(magosstaff)
 
 /obj/item/rogueweapon/woodstaff/implement/grand/magos/afterattack(atom/target, mob/user, flag)
@@ -119,7 +124,7 @@
 	desc = "A staff carrying the crescent moon of Psydon's knowledge, as well as the black and gold insignia of the war scholars."
 	icon_state = "naledistaff"
 	possible_item_intents = list(SPEAR_BASH)
-	gripped_intents = list(/datum/intent/spear/bash/ranged, /datum/intent/mace/smash/wood/ranged)
+	gripped_intents = list(/datum/intent/spear/bash/staff, /datum/intent/mace/smash/wood/ranged)
 	force = 18
 	force_wielded = 22
 	max_integrity = 300
