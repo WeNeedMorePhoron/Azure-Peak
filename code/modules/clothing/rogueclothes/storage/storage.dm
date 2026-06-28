@@ -153,12 +153,12 @@
 	icon_state = "cloth"
 	component_type = /datum/component/storage/concrete/roguetown/belt/cloth
 
-/obj/item/storage/belt/rogue/leather/cloth/upgrade
+/obj/item/storage/belt/rogue/leather/cloth/upgraded
 	name = "pouch-fitted cloth sash"
 	desc = "A strip of cloth tied together at the ends into a makeshift belt, fitted with pouches for the same space as a leather belt."
 	component_type = /datum/component/storage/concrete/roguetown/belt
 
-/obj/item/storage/belt/rogue/leather/cloth/upgrade/lady
+/obj/item/storage/belt/rogue/leather/cloth/upgraded/lady
 	color = "#575160"
 
 /obj/item/storage/belt/rogue/leather/cloth/bandit
