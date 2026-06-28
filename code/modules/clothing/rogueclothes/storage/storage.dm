@@ -144,7 +144,7 @@
 
 /obj/item/storage/belt/rogue/leather/rope/upgraded
 	name = "pouch-fitted rope belt"
-	desc = "A length of strong rope repurposed into a belt, fitted with pouches for the same space as a leather belt."
+	desc = "A length of strong rope repurposed into a belt, fitted with a pouch for the same space as a leather belt."
 	component_type = /datum/component/storage/concrete/roguetown/belt
 
 /obj/item/storage/belt/rogue/leather/cloth
@@ -155,7 +155,7 @@
 
 /obj/item/storage/belt/rogue/leather/cloth/upgraded
 	name = "pouch-fitted cloth sash"
-	desc = "A strip of cloth tied together at the ends into a makeshift belt, fitted with pouches for the same space as a leather belt."
+	desc = "A strip of cloth tied together at the ends into a makeshift belt, fitted with a pouch for the same space as a leather belt."
 	component_type = /datum/component/storage/concrete/roguetown/belt
 
 /obj/item/storage/belt/rogue/leather/cloth/upgraded/lady
