@@ -86,7 +86,7 @@
 				/obj/item/storage/belt/rogue/pouch = 1)
 	craftdiff = 1
 	verbage_simple = "tie"
-	verbage = "tie
+	verbage = "tie"
 
 /datum/crafting_recipe/roguetown/survival/clothbelt
 	name = "cloth belt"
