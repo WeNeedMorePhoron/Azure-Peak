@@ -108,4 +108,4 @@
 /datum/supply_pack/rogue/bath_clothes/belt
 	name = "Lady's Belt"
 	cost = 10
-	contains = list(/obj/item/storage/belt/rogue/leather/cloth/upgrade/lady)
+	contains = list(/obj/item/storage/belt/rogue/leather/cloth/upgraded/lady)
