@@ -38,7 +38,7 @@
 // Misc items
 #define HERESYDESC_GRONN "A symbol of the North's archaic beliefs"
 #define HERESYDESC_NALEDIAN "A symbol of Naledian beliefs" //Cause its a foreign faith, unlike Otavan Psydonites, these ones are from much further out
-#define HERESYDESC_REFORMIST "A symbol of the Psydonic Reformist Order's beliefs" //A vague hint that the inquisition should not trust them/what the reform actually means.
+#define HERESYDESC_REFORMIST "A symbol of the Psydonic Reformist Order's beliefs in that god has leftyet they follow his word" //A vague hint that the inquisition should not trust them/what the reform actually means.
 #define HERESYDESC_WEEPING_CROSS "It is ensnared in a perpetual state of half-coagulation, the alloy cracked and bleeding"
 
 // Vampire Lord Items
@@ -107,7 +107,7 @@
 #define EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_ALARMING "<font color=[COLOR_HERESYSEVERITY_ALARMING]><b>This is a blatantly dangerous heretical item!</b></font><br>Carrying this out in the open is tantamount to declaring myself an enemy to Tennite and Psydonite faith. Those who serve the Ten and the One are likely to respond in kind."
 #define EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_SUSPICIOUS "<font color=[COLOR_HERESYSEVERITY_SUSPICIOUS]><b>This is a suspicious heretical item!</b></font><br>It is considered heretical by Tennite and Psydonite faith. Those who serve the Ten and the One are likely to view me with suspicion and distrust <b>at best</b> if I am caught with it."
 #define EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_ODD "<font color=[COLOR_HERESYSEVERITY_ODD]><b>An odd expression of faith...</b></font><br>It is not openly deemed heretical by Tennite and Psydonite faith. However, that does not stop it from being seen as unusual. I am likely to be given odd looks if I am seen with it and not much more, but more guarded (or paranoid) Tennites and Psydonites may not be so charitable."
-#define EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_VERYODD "<font color=[COLOR_HERESYSEVERITY_ALARMING]><b>This is a blatantly unnatural item!</b></font><br>Carrying this out in the open is highly suspicious to Tennite and Psydonite faith. Those who serve the Ten and the One are likely to respond with suspicious and distrust <b>at best</b> if I am caught with it."
+#define EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_VERYODD "<font color=[COLOR_HERESYSEVERITY_ALARMING]><b>This is a blatantly weird item!</b></font><br>Carrying this out in the open is highly suspicious to Tennite and Psydonite faith. Those who serve the Ten and the One are likely to respond with suspicious and distrust <b>at best</b> if I am caught with it."
 
 #define EXAMINEHIGHLIGHT_TOOLTIP_VIBE_FRIEND "<font color=[COLOR_VIBE_FRIEND]><b>A loyal bearing.</b></font><br>This carries the look of one who stands with the Crown and its laws. Many subjects may view its bearer as a friend, servant, or ally of the realm."
 #define EXAMINEHIGHLIGHT_TOOLTIP_VIBE_FOE "<font color=[COLOR_VIBE_FOE]><b>A disloyal bearing.</b></font><br>This carries the look of one who stands apart from the Crown and its laws. Many subjects may view its bearer with suspicion, seeing a potential rebel, outlaw, or enemy of the realm."
