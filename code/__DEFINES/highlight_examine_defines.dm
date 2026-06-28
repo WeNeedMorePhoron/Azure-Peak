@@ -38,7 +38,7 @@
 // Misc items
 #define HERESYDESC_GRONN "A symbol of the North's archaic beliefs"
 #define HERESYDESC_NALEDIAN "A symbol of Naledian beliefs" //Cause its a foreign faith, unlike Otavan Psydonites, these ones are from much further out
-#define HERESYDESC_REFORMIST "A symbol of the Psydonic Reformist Order's beliefs in that god has leftyet they follow his word" //A vague hint that the inquisition should not trust them/what the reform actually means.
+#define HERESYDESC_REFORMIST "A symbol of the Psydonic Reformist Order's beliefs in that god has left yet they follow his word" //A vague hint that the inquisition should not trust them/what the reform actually means.
 #define HERESYDESC_WEEPING_CROSS "It is ensnared in a perpetual state of half-coagulation, the alloy cracked and bleeding"
 
 // Vampire Lord Items
