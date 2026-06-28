@@ -108,7 +108,6 @@
 		user.remove_status_effect(/datum/status_effect/buff/quelling_soulchurner)
 
 /obj/item/psydonmusicbox/Initialize()
-	cranking_true_nature = !cranking_true_nature //Hacky solution so we don't have to use it once to make it not obvious.
 	soundloop = new(src, FALSE)
 	. = ..()
 
