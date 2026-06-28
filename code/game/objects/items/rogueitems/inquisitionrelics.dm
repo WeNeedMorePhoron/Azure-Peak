@@ -67,7 +67,7 @@
 
 /obj/item/psydonmusicbox/get_examine_highlight_status()
 	// If we are not crankin' that shit... its just a box yeah
-	if(cranking_true_nature)
+	if(cranking_true_nature = FALSE)
 		return null
 	// Otherwise, it's obvious this thing is torturing souls.
 	else
@@ -108,6 +108,7 @@
 		user.remove_status_effect(/datum/status_effect/buff/quelling_soulchurner)
 
 /obj/item/psydonmusicbox/Initialize()
+	cranking_true_nature = !cranking_true_nature //Hacky solution so we don't have to use it once to make it not obvious.
 	soundloop = new(src, FALSE)
 	. = ..()
 
