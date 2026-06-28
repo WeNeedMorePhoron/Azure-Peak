@@ -55,6 +55,7 @@
 	icon = 'icons/roguetown/items/misc.dmi'
 	w_class = WEIGHT_CLASS_HUGE
 	var/cranking = FALSE
+	var/cranking_true_nature = FALSE
 	force = 15
 	max_integrity = 100
 	attacked_sound = 'sound/combat/hits/onwood/education2.ogg'
@@ -64,11 +65,18 @@
 	twohands_required = TRUE
 	var/datum/looping_sound/psydonmusicboxsound/soundloop
 
+/obj/item/psydonmusicbox/get_examine_highlight_status()
+	// If we are not crankin' that shit... its just a box yeah
+	if(cranking_true_nature)
+		return null
+	// Otherwise, it's obvious this thing is torturing souls.
+	else
+		return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_INQUIS_CHURNER)
 
 /obj/item/psydonmusicbox/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(usr, TRAIT_INQUISITION))
-		desc = "A relic from the bowels of the Grand Otavan Cathedral's thaumaturgical workshops. The spirits of fifteen heathens, bound within this infernal contraption, sign a haunting tune; one that disrupts the leylines, prevents the faithless from casting spells, and immunizing the faithful to all magicka. It would be wise to not teach outsiders of its true nature, and to only bring it to bear in dire circumstances."
+		desc = "A relic from the bowels of the Grand Otavan Cathedral's thaumaturgical workshops. The spirits of fifteen heathens, bound within this infernal contraption, sign a haunting tune; one that disrupts the leylines, prevents the faithless from casting spells, and immunizing the faithful to all magicka. <b>It would be wise to not teach outsiders of its true nature</b>, and to only bring it to bear in dire circumstances."
 	else
 		desc = "A cranked music box, bearing the seal of the Holy Otavan Inquisition on its side. It radiates with an inexplicable feeling of somberness."
 
@@ -78,14 +86,17 @@
 		user.add_stress(/datum/stressevent/soulchurnerhorror)
 		to_chat(user, (span_cultsmall("I FEEL SUFFERING WITH EVERY CRANK, WHAT AM I DOING?!")))
 	cranking = !cranking
+	cranking_true_nature = !cranking_true_nature
 	update_icon()
 	if(cranking)
 		if(!HAS_TRAIT(usr, TRAIT_INSPIRING_MUSICIAN))
+			cranking_true_nature = cranking_true_nature
 			user.apply_status_effect(/datum/status_effect/buff/cranking_soulchurner)
 		else
 			if(alert("Harmonize the voices or let them scream?",, "Harmonize", "Scream") != "Scream")
 				user.apply_status_effect(/datum/status_effect/buff/quelling_soulchurner)
 			else
+				cranking_true_nature = cranking_true_nature
 				user.apply_status_effect(/datum/status_effect/buff/cranking_soulchurner)	
 		soundloop.start()
 		var/songhearers = view(7, user)

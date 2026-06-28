@@ -37,15 +37,18 @@
 
 // Misc items
 #define HERESYDESC_GRONN "A symbol of the North's archaic beliefs"
-#define HERESYDESC_REFORMIST "A symbol of the Psydonic Reformist Order's beliefs in that god has left yet they follow his word" //A vague hint that the inquisition should not trust them/what the reform actually means.
+#define HERESYDESC_REFORMIST "A symbol of the Psydonic Reformist Order's beliefs in that god has left yet they follow his word" //A vague hint that they split between "God is dead" and "God has left" but still follow HIM
 #define HERESYDESC_WEEPING_CROSS "It is ensnared in a perpetual state of half-coagulation, the alloy cracked and bleeding"
 
-// Vampire Lord Items
-#define HERESYDESC_VAMPIRE "An unnatural enchanted armor piece of solid gilbranze that crackles with strange energies" //Less good/bad ties, more "genuinely what the fuck is this?"
-#define HERESYDESC_VAMPIRE_CROWN "An unnatural enchanted crown that crackles with strange energies" //Less good/bad ties, more "genuinely what the fuck is this?"
-#define HERESYDESC_VAMPIRE_SWORD "An unnatural sword of some unknown alloy that crackles with strange energies" //Less good/bad ties, more "genuinely what the fuck is this?"
+// Vampire Lord Items - General theme is mysterious but a bad omen
+#define HERESYDESC_VAMPIRE "An unnatural enchanted armor piece of solid gilbranze that crackles with strange energies"
+#define HERESYDESC_VAMPIRE_CROWN "An unnatural enchanted crown that crackles with strange energies" 
+#define HERESYDESC_VAMPIRE_SWORD "An unnatural sword of some unknown alloy that crackles with strange energies"
+
+// Inquisitional gear
 #define HERESYDESC_INQUIS_WHISPERER "Left in the open, a blatently unusual design of ring...? that seems to whisper"
 #define HERESYDESC_INQUIS_CONFESSOR_MASK "A strange kind of mask once-used for obscure rituals... repurposed?" //Read the flavortext sire.
+#define HERESYDESC_INQUIS_CHURNER "I CAN HEAR SCREAMS COMING FROM WITHIN, WHAT THE HELL IS THAT THING?!!" //Only case where calm turns to obvious
 
 #define VIBEDESC_FRIEND "A loyal ally of Azure Peak."
 #define VIBEDESC_FOE "A disloyal enemy of Azure Peak."
