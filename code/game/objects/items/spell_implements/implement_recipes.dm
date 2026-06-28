@@ -102,9 +102,9 @@
 	reqs = list(/obj/item/grown/log/tree/small = 1,
 				/obj/item/riddleofsteel = 1)
 
-// Blacksteel staff upgrade - special recipe
+// Blacksteel staff upgrade - the alchemical frame reaches grand output from a cheaper gem
 /datum/crafting_recipe/roguetown/arcana/blacksteel_upgrade
-	name = "upgrade blacksteel staff (dorpel)"
+	name = "upgrade blacksteel staff (gemerald)"
 	result = /obj/item/rogueweapon/woodstaff/implement/grand/blacksteel
 	reqs = list(/obj/item/rogueweapon/woodstaff/implement/greater/blacksteel = 1,
-				/obj/item/roguegem/diamond = 1)
+				/obj/item/roguegem/green = 1)

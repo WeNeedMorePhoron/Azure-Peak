@@ -664,9 +664,6 @@ SPECIALS START HERE
 	var/exposed_dur = 3 SECONDS
 	var/dam
 
-/datum/special_intent/quarterstaff_sweep/on_create()
-	. = ..()
-
 /datum/special_intent/quarterstaff_sweep/process_attack()
 	var/obj/item/rogueweapon/W = iparent
 	if(istype(W))

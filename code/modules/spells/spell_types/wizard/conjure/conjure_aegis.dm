@@ -124,7 +124,6 @@
 	coverage = 30
 	max_integrity = 120
 	associated_skill = /datum/skill/combat/staves
-	special = null
 	var/datum/weakref/linked_wand
 
 /obj/item/rogueweapon/shield/arcyne_aegis/wand/greater
