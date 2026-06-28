@@ -243,6 +243,7 @@
 		/datum/special_intent/side_sweep,
 		/datum/special_intent/axe_swing,
 		/datum/special_intent/piercing_lunge,
+		/datum/special_intent/polearm_backstep,
 		/datum/special_intent/limbguard,
 		/datum/special_intent/dagger_dash
 		)
