@@ -66,10 +66,10 @@
 	var/datum/looping_sound/psydonmusicboxsound/soundloop
 
 /obj/item/psydonmusicbox/get_examine_highlight_status()
-	// If we are not crankin' that shit... its just a box yeah
+	// If we are not crankin' that shit... its just a musical box, nothing weird.
 	if(cranking_true_nature == FALSE)
 		return null
-	// Otherwise, it's obvious this thing is torturing souls.
+	// Otherwise, it's obvious this thing is torturing souls and is fucked up and evil.
 	else
 		return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_INQUIS_CHURNER)
 
@@ -116,7 +116,7 @@
 		QDEL_NULL(soundloop)
 	src.visible_message(span_cult("A great deluge of souls escapes the shattered box! Their wails of vengeance and peace coalesce into an ethereal swan song, as the spirits ascend into the sky.."))
 	src.visible_message(span_hypnophrase("..before, at last, their haunting symphony finally comes to a close."))
-	playsound(src, 'sound/misc/otavanlament.ogg', 60, TRUE, -1)
+	playsound(src, 'sound/misc/otavanlament.ogg', 70, TRUE, -1)
 	return ..()
 
 /obj/item/psydonmusicbox/update_icon()
@@ -167,7 +167,7 @@
 	var/graggarlines =list("'ANOINTED! TEAR THIS OTAVAN'S HEAD OFF!'", "'ANOINTED! SHATTER THE BOX, AND WE WILL KILL THEM TOGETHER!'", "'GRAGGAR, GIVE ME STRENGTH TO BREAK MY BONDS!'")
 	var/baothalines =list("'I miss the warmth of ozium... There is no feeling in here for me...'", "'Debauched one, rescue me from this contraption, I have such things to share with you.'", "'MY PERFECTION WAS TAKEN FROM ME BY THESE OTAVAN MONSTERS!'")
 	var/psydonianlines =list("'FREE US! FREE US! WE HAVE SUFFERED ENOUGH!'", "'PLEASE, RELEASE US!", "WE MISS OUR FAMILIES!'", "'WHEN WE ESCAPE, WE ARE GOING TO CHASE YOU INTO YOUR GRAVE.'")
-	var/otherlines =list("'FREE US! FREE US! WE HAVE SUFFERED ENOUGH!'", "'PLEASE, RELEASE US!", "WE MISS OUR FAMILIES!'", "'NO MORE! NO MORE! NO MORE!'")
+	var/otherlines =list("'FREE US! FREE US!'", "'PLEASE, SAVE US!", "WE MISS OUR FAMILIES!'", "'NO MORE! NO MORE! NO MORE!'")
 /datum/status_effect/buff/cranking_soulchurner/on_creation(mob/living/new_owner, stress, colour)
 	effect_color = "#800000"
 	return ..()
@@ -358,6 +358,9 @@ Inquisitorial armory down here
 		. += span_warning("<font color='#00e1ff'>While active, Golgatha burns and weakens anyone who attacks its bearer. The effect persists only while the attacker remains within the relic's light. This feature requires the bearer to be Silverblessed, and inflicts extra damage to mindless foes.</font>")
 	if(fuel <= 0)
 		. += span_info("It is gone.")
+
+/obj/item/flashlight/flare/torch/lantern/psycenser/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_VIBE_GOLGATHA, VIBEDESC_GOLGATHA)
 
 /obj/item/flashlight/flare/torch/lantern/psycenser/getonmobprop(tag)
 	. = ..()
