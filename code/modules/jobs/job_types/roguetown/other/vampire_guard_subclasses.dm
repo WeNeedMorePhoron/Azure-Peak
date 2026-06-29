@@ -26,7 +26,7 @@
 		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/maces = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/whipsflails = SKILL_LEVEL_EXPERT, //No starting weapon specialisations, thusly they uniquely always have this at expert
+		/datum/skill/combat/whipsflails = SKILL_LEVEL_JOURNEYMAN
 		/datum/skill/combat/axes = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN, //Despite town MAAs getting this at expert, I want duelist to be better in this
 		/datum/skill/combat/shields = SKILL_LEVEL_JOURNEYMAN,
@@ -55,18 +55,23 @@
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_EXPERT, TRUE)
 				beltr = /obj/item/rogueweapon/mace/warhammer/steel
 				backl = /obj/item/rogueweapon/shield/iron
+			if("Flail & Shield")
+				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_EXPERT, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_EXPERT, TRUE)
+				r_hand = /obj/item/rogueweapon/flail/sflail
+				backl = /obj/item/rogueweapon/shield/iron
 			if("Sabre & Shield")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_EXPERT, TRUE)
 				beltr = /obj/item/rogueweapon/scabbard/sword
 				r_hand = /obj/item/rogueweapon/sword/sabre
-				backl = /obj/item/rogueweapon/shield/wood
+				backl = /obj/item/rogueweapon/shield/iron
 			if("Arming Sword & Shield")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_EXPERT, TRUE)
 				beltr = /obj/item/rogueweapon/scabbard/sword
 				r_hand = /obj/item/rogueweapon/sword
-				backl = /obj/item/rogueweapon/shield/wood
+				backl = /obj/item/rogueweapon/shield/iron
 			if("Axe & Shield") //Shield + axe for armor shatterer
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_EXPERT, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_EXPERT, TRUE)
@@ -222,7 +227,7 @@
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/shields = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/tracking = SKILL_LEVEL_APPRENTICE, //Vampire duelists are okay trackers, less so to account for speed loss.
-		/datum/skill/misc/sneaking = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/sneaking = SKILL_LEVEL_EXPERT, //Assassin potental W/ the climbing.
 		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE, //Keeping captives, alive. We're not a lich's army, we have standards.
 	)
 
@@ -290,8 +295,8 @@
 
 // Puglist arson experiment class, replacement for adventurer bombardier. Still despite going all-in they actually perform worst as a puglist class when fighting themselves over just using bombs, this is intended.
 /datum/advclass/vampbomber
-	name = "Vampiric Arsonist"
-	tutorial = "There has been nothing more enchanting in unlyfe than the dance of flames upon an inferno of your alchemical mixes and the taste of blood. Now your master arises once more and your talents shall see use again. Your lord's will be done."
+	name = "Vampiric Fyre-Pugilist"
+	tutorial = "There has been nothing more enchanting in unlyfe than the dance of flames upon an inferno of your alchemical mixes and the taste of blood freshly beaten out of a victim with your bare hands. Now your master arises once more and your talents shall see use again. Your lord's will be done."
 	outfit = /datum/outfit/job/roguetown/other/vampbomber
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_ALCHEMY_EXPERT, TRAIT_EXPLOSIVE_SUPPLY, TRAIT_MEDIUMARMOR, TRAIT_CIVILIZEDBARBARIAN,  TRAIT_BOMBER_EXPERT)
 	category_tags = list(CTAG_VAMPGUARD)
@@ -318,7 +323,7 @@
 
 /datum/outfit/job/roguetown/other/vampbomber/pre_equip(mob/living/carbon/human/H)
 	..()
-	to_chat(H, span_warning("There has been nothing more enchanting in unlyfe than the dance of flames upon an inferno of your alchemical mixes and the taste of blood. Now your master arises once more and your talents shall see use again. Your lord's will be done."))
+	to_chat(H, span_warning("There has been nothing more enchanting in unlyfe than the dance of flames upon an inferno of your alchemical mixes and the taste of blood freshly beaten out of a victim with your bare hands. Now your master arises once more and your talents shall see use again. Your lord's will be done."))
 	H.set_blindness(0)
 
 	add_verb(H, /mob/proc/haltyell_exhausting) //Halting the charred corpse is too funny, we're keeping it. sovl.
@@ -461,7 +466,7 @@
 	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/wizard] //Every wizzard gotta have the evyl laugh, I don't make the rules, sire.
 	add_verb(H, /mob/proc/haltyell_exhausting) //Halting the charred corpse is too funny, we're keeping it. sovl.
 
-	//UNIQUELY relies on WARDS off-the-bat, vs wretches/advs/mercenaries. Has NO chest armor, or head armor, save for neck. Legs/Feet remain armored by intent.
+	//UNIQUELY relies on WARDS off-the-bat, vs wretches/advs/mercenaries. Has NO chest armor, or head armor, save for neck. Legs/Feet remain decently armored by intent. Go for their arms instead.
 	cloak = /obj/item/clothing/cloak/tabard/stabard/vamp/hoodvamp
 	head = /obj/item/clothing/head/roguetown/witchhat/vamp //EVERY PALLY IN THE KINGDOM ON MA TAIL
 	mask = /obj/item/clothing/mask/rogue/facemask //Nessessary to hide face
