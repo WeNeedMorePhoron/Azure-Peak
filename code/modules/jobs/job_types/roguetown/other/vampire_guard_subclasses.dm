@@ -465,7 +465,7 @@
 	cloak = /obj/item/clothing/cloak/tabard/stabard/vamp/hoodvamp
 	head = /obj/item/clothing/head/roguetown/witchhat/vamp //EVERY PALLY IN THE KINGDOM ON MA TAIL
 	mask = /obj/item/clothing/mask/rogue/facemask //Nessessary to hide face
-	shirt = /obj/item/clothing/suit/roguetown/shirt/tunic/black
+	shirt = /obj/item/clothing/suit/roguetown/shirt/tunic/white
 	armor = /obj/item/clothing/cloak/tabard/stabard/vamp
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
 	neck = /obj/item/clothing/neck/roguetown/gorget/paalloy //No head armor but good anti-decap armor, intended.
