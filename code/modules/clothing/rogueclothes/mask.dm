@@ -294,14 +294,10 @@
 	slot_flags = ITEM_SLOT_MASK
 	stack_fovs = FALSE
 
-/obj/item/clothing/mask/rogue/facemask/steel/confessor/get_examine_highlight_status()
-	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_INQUIS_CONFESSOR_MASK) //Herecy or nessessity?
-
 /obj/item/clothing/mask/rogue/facemask/steel/confessor/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
 	if(user.wear_mask == src)
 		worn = TRUE
-
 
 /obj/item/clothing/mask/rogue/facemask/steel/confessor/ComponentInitialize()
 	AddComponent(/datum/component/armour_filtering/positive, TRAIT_NOSTINK, "plague_resistant")

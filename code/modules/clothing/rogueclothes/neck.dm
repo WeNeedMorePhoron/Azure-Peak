@@ -511,9 +511,6 @@
 	sellprice = 0	//Heresy of the highest order. Unless...
 	icon_state = "reformistcross"
 
-/obj/item/clothing/neck/roguetown/psicross/reform/get_examine_highlight_status()
-	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_REFORMIST) //God is dead and I follow his word!
-
 /obj/item/clothing/neck/roguetown/psicross/reform/wood
 	name = "wooden reformist psycross"
 	desc = "'No matter if God is dead or not, it is clear that He had gifted us lyfe for a reason. Who are we, if we do not work to fufill His last wish?'"
