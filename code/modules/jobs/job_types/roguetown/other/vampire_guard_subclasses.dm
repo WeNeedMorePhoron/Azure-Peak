@@ -46,7 +46,7 @@
 	..()
 	to_chat(H, span_warning("You are a professional soldier, clad in maille, with years of experience in warfare and battle under your belt, far more than most mortals could claim. Your lord's will be done."))
 	if(H.mind)
-		var/weapons = list("Warhammer & Shield","Sabre & Shield","Arming Sword & Shield","Axe & Shield","Battleaxe","Billhook","Greataxe","Halberd")
+		var/weapons = list("Warhammer & Shield","Sabre & Shield","Longsword & Shield","Axe & Shield","Battleaxe","Billhook","Greataxe","Halberd")
 		var/weapon_choice = input(H, "Choose your weapon.", "ARMS TO HERALD THE NITE") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
@@ -66,10 +66,10 @@
 				beltr = /obj/item/rogueweapon/scabbard/sword
 				r_hand = /obj/item/rogueweapon/sword/sabre
 				backl = /obj/item/rogueweapon/shield/iron
-			if("Arming Sword & Shield")
+			if("Longsword & Shield")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_EXPERT, TRUE)
-				beltr = /obj/item/rogueweapon/scabbard/sword
+				beltr = /obj/item/rogueweapon/sword/long
 				r_hand = /obj/item/rogueweapon/sword
 				backl = /obj/item/rogueweapon/shield/iron
 			if("Axe & Shield") //Shield + axe for armor shatterer
