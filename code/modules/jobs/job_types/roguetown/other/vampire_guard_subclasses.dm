@@ -26,7 +26,7 @@
 		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/maces = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/whipsflails = SKILL_LEVEL_JOURNEYMAN
+		/datum/skill/combat/whipsflails = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/axes = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN, //Despite town MAAs getting this at expert, I want duelist to be better in this
 		/datum/skill/combat/shields = SKILL_LEVEL_JOURNEYMAN,
