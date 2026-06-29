@@ -1,7 +1,22 @@
 /datum/intent/shoot/bow/ferramancy
+	name = "shoot"
 	charging_slowdown = 4
 
+/datum/intent/shoot/bow/ferramancy/arc
+	name = "arc shot"
+	desc = "Fires the shot in an arc that allows it to passes through mob in the way. Will also tracks the target IF you have your cursor over them. This also allows you to aims at a target above or below."
+	icon_state = "inarc"
+	charging_slowdown = 4
+
+/datum/intent/shoot/bow/ferramancy/arc/arc_check()
+	return TRUE
+
 /datum/intent/shoot/bow/ferramancy/lance
+	name = "lance"
+	icon_state = "inlance"
+	desc = "Fires a powerful, piercing arcyne lance that passes through mobs in the way indiscriminately, up to 5 of them without damage reduction."
+	chargetime = 3 SECONDS 
+	no_early_release = TRUE
 	charging_slowdown = 5
 
 /obj/item/ammo_casing/caseless/rogue/arrow/iron/ferramancy
@@ -33,11 +48,12 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bow/ferramancy
 	possible_item_intents = list(
 		/datum/intent/shoot/bow/ferramancy,
+		/datum/intent/shoot/bow/ferramancy/arc,
 		/datum/intent/shoot/bow/ferramancy/lance,
 		INTENT_GENERIC,
 		)
-	var/reload_cost = 60
-	var/lance_energy = 150
+	var/reload_cost = 20
+	var/lance_energy = 50
 	var/held_slowdown = 2
 	var/reload_time = 2 SECONDS
 	var/reloading = FALSE
@@ -77,9 +93,7 @@
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow/greatbow/proc/fire_lance(atom/target, mob/living/user)
 	user.Immobilize(1 SECONDS)
 	playsound(get_turf(user), 'sound/magic/scrapeblade.ogg', 80, TRUE)
-	var/obj/projectile/magic/arcyne_lance/P = new(get_turf(user))
-	P.armor_penetration = PEN_HEAVY
-	P.max_hits = 5
+	var/obj/projectile/magic/arcyne_lance/greatbow/P = new(get_turf(user))
 	P.firer = user
 	P.preparePixelProjectile(target, user)
 	P.fire()
@@ -108,9 +122,3 @@
 	if(holder)
 		playsound(loc, 'sound/foley/nockarrow.ogg', 50, TRUE)
 
-/datum/action/cooldown/spell/ferramancy_form/greatbow
-	name = "Form: Greatbow"
-	desc = "Conjure an arcyne greatbow. Its draw spends your own arcyne energy in place of arrows and roots you while you hold it - a siege engine, not a skirmisher. Its special looses a piercing, armor-rending lance."
-	button_icon_state = "arcyne_lance"
-	weapon_type = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/greatbow
-	form_balloon = "greatbow!"

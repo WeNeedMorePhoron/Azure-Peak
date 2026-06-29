@@ -4,7 +4,7 @@
 /datum/action/cooldown/spell/projectile/stygian_efflorescence
 	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Stygian Efflorescence"
-	desc = "Burst forth a volley of five sharpened obsidian shards in a wide spread. Additional shards striking the same target deal reduced damage. Projectile effectiveness decreases after 4 tiles.\"
+	desc = "Burst forth a volley of five sharpened obsidian shards in a wide spread. Additional shards striking the same target deal reduced damage. Projectile\ effectiveness decreases after 4 tiles."
 	fluff_desc = "Before the first men learned to refine metal, men fought with sharpened stones - particularly obsidian from the foot of volcanos. \
 	It is said that Mount Golgotha had the best obsidian in all the world, sharp enough to cut flesh with ease. \
 	Malice, energy, and the imagination of the Magi cutting someone apart with Obsidian. \
@@ -15,7 +15,6 @@
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	projectile_type = /obj/projectile/energy/stygian
-	projectile_type_arc = /obj/projectile/energy/stygian/arc
 	cast_range = SPELL_RANGE_PROJECTILE
 	projectiles_per_fire = 5
 	point_cost = 3

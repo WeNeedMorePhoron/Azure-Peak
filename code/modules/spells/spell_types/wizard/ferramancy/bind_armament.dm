@@ -1,8 +1,8 @@
 /datum/action/cooldown/spell/bind_armament
 	name = "Bind Armament"
 	desc = "Lay an arcyne bond on a held weapon so your conjurer's training guides it as surely as any conjured arm - its own martial school is suppressed while bound and returns when released. Cast with an empty hand to release the bond."
-	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
-	button_icon_state = "bind_armament"
+	button_icon = 'icons/mob/actions/classuniquespells/spellblade.dmi'
+	button_icon_state = "bind_weapon"
 	spell_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_LOW
 	attunement_school = ASPECT_NAME_FERRAMANCY
