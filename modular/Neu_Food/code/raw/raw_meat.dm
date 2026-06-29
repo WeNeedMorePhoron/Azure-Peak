@@ -414,6 +414,9 @@
 
 /* ............. Humanoid Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/humanoid
+	ingredient_size = 2
+	slices_num = 2
+	slice_bclass = BCLASS_CHOP
 	name = "raw long pig"
 	desc = "Perfect cut of swine flesh, raw and ready to be steamed. It seems oddly longer than a swine limb's length, however."
 	icon_state = "longpig"
@@ -421,7 +424,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/humanoid/fried
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/humanoid/fried
 	cooked_smell = /datum/pollutant/food/humanoid
-	tastes = list("bitter pork(?)" = 1)
+	tastes = list("pork(?)" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/mince/humanoid
 	name = "minced long pig"

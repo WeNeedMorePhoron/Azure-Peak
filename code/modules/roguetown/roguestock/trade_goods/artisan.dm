@@ -33,3 +33,12 @@
 	base_price = SELLPRICE_SINEW
 	source_region_id = TRADE_REGION_BLACKHOLT
 	item_type = /obj/item/alch/sinew
+
+/datum/trade_good/trollhorn
+	id = TRADE_GOOD_TROLL_HORN
+	name = "Troll Horn"
+	category = TRADE_CATEGORY_ARTISAN
+	behavior = TRADE_BEHAVIOR_RAW
+	base_price = SELLPRICE_DENDOR_ESSENCE
+	source_region_id = TRADE_REGION_BLACKHOLT
+	item_type = /obj/item/alch/horn
