@@ -16,7 +16,7 @@
 
 	projectile_type = /obj/projectile/energy/stygian
 	cast_range = SPELL_RANGE_PROJECTILE
-	projectiles_per_fire = 5
+	projectiles_per_fire = 3
 	point_cost = 3
 
 	primary_resource_type = SPELL_COST_STAMINA
@@ -56,7 +56,7 @@
 /obj/projectile/energy/stygian
 	name = "stygian harpe"
 	guard_deflectable = TRUE
-	range = 6
+	range = 5
 	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "stygian"
 	max_range = 4 // Effective range is lower than its maximal range
@@ -68,7 +68,7 @@
 	speed = MAGE_PROJ_SLOW
 	flag = "stab"
 	hitsound = 'sound/combat/hits/bladed/genstab (1).ogg'
-	var/reduced_damage = 15 // 60 damage from additional projectiles if point blanked
+	var/reduced_damage = 18
 
 /obj/projectile/energy/stygian/prehit(atom/target)
 	if(ismob(target))
