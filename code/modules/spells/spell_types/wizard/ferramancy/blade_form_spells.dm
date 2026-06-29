@@ -32,11 +32,11 @@
 	var/form_index = 1
 	/// Selectable forms, cycled with Ctrl+G. Each: label, weapon path, invocation, button icon_state.
 	var/list/forms = list(
-		list("label" = "Khopesh", "weapon" = /obj/item/rogueweapon/sword/sabre/ferramancy, "say" = "Forma Harpes!", "icon" = "form_sabre"),
-		list("label" = "Rapier", "weapon" = /obj/item/rogueweapon/sword/rapier/ferramancy, "say" = "Forma Aculei!", "icon" = "form_sabre"),
-		list("label" = "Greatsword", "weapon" = /obj/item/rogueweapon/greatsword/ferramancy, "say" = "Forma Ensis!", "icon" = "form_greatsword"),
+		list("label" = "Khopesh", "weapon" = /obj/item/rogueweapon/sword/sabre/ferramancy, "say" = "Forma Falx!", "icon" = "form_sabre"),
+		list("label" = "Rapier", "weapon" = /obj/item/rogueweapon/sword/rapier/ferramancy, "say" = "Forma Acus!", "icon" = "form_sabre"),
+		list("label" = "Greatsword", "weapon" = /obj/item/rogueweapon/greatsword/ferramancy, "say" = "Forma Ferrum!", "icon" = "form_greatsword"),
 		list("label" = "Greataxe", "weapon" = /obj/item/rogueweapon/greataxe/steel/doublehead/ferramancy, "say" = "Forma Bipennis!", "icon" = "form_greatsword"),
-		list("label" = "Halberd", "weapon" = /obj/item/rogueweapon/halberd/ferramancy, "say" = "Forma Falcis!", "icon" = "arcyne_lance"),
+		list("label" = "Halberd", "weapon" = /obj/item/rogueweapon/halberd/ferramancy, "say" = "Forma Hasta!", "icon" = "arcyne_lance"),
 		list("label" = "Greatbow", "weapon" = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/greatbow, "say" = "Forma Arcus!", "icon" = "arcyne_lance"),
 	)
 
