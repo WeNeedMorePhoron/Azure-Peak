@@ -76,7 +76,7 @@
 		/obj/item/chalk = 1,
 		/obj/item/roguekey/mercenary = 1,
 		/obj/item/rogueweapon/huntingknife/idagger = 1,
-		/obj/item/book/spellbook = 1,
+		/obj/item/rogueweapon/spellbook/greater = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		(naledi_book) = 1
 		)
@@ -202,7 +202,7 @@
 		/obj/item/rogueweapon/huntingknife = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		(naledi_book) = 1,
-		/obj/item/book/spellbook = 1,
+		/obj/item/rogueweapon/spellbook/greater = 1,
 		)
 	H.merctype = 14
 

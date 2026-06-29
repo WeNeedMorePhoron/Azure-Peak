@@ -359,6 +359,19 @@
 	releasedrain = 0
 	blade_class = BCLASS_PUNCH
 
+/datum/intent/tome/aegis
+	name = "arcyne aegis"
+	desc = "Project an arcyne shield into the offhand."
+	icon_state = "inuse"
+	chargetime = 0
+	noaa = TRUE
+	candodge = FALSE
+	canparry = FALSE
+	misscost = 0
+	no_attack = TRUE
+	releasedrain = 0
+	blade_class = BCLASS_PUNCH
+
 /datum/intent/give
 	name = "give"
 	candodge = FALSE

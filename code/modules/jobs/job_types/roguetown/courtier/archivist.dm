@@ -106,7 +106,7 @@
 		/obj/item/paper,
 		/obj/item/paper,
 		/obj/item/paper,
-		/obj/item/book/spellbook
+		/obj/item/rogueweapon/spellbook
 	)
 
 	if(H.mind)

@@ -449,7 +449,7 @@
 	neck = /obj/item/clothing/neck/roguetown/gorget/paalloy //No head armor but good anti-decap armor, intended.
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 	belt = /obj/item/storage/belt/rogue/leather/battleskirt
-	beltl = /obj/item/book/spellbook
+	beltl = /obj/item/rogueweapon/spellbook
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backr = /obj/item/rogueweapon/woodstaff/implement/greater
 

@@ -117,7 +117,7 @@
 	backpack_contents = list(
 		/obj/item/reagent_containers/glass/bottle/rogue/poison,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
-		/obj/item/book/spellbook,
+		/obj/item/rogueweapon/spellbook/grand,
 		/obj/item/rogueweapon/huntingknife/idagger/silver/arcyne,
 		/obj/item/chalk
 	)

@@ -215,7 +215,7 @@
 		/obj/item/roguekey/skeleton = 1,
 		/obj/item/lockpickring/mundane = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/poison = 1,//starts with a vial of poison, like all wizened evil advisors do!
-		/obj/item/book/spellbook = 1,
+		/obj/item/rogueweapon/spellbook = 1,
 	)
 	if(H.mind)
 		SStreasury.grant_savings(ECONOMIC_RICH, H)

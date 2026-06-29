@@ -30,7 +30,7 @@
 	if(!istype(H))
 		return null
 	for(var/obj/item/I in list(H.get_active_held_item(), H.get_inactive_held_item()))
-		if(istype(I, /obj/item/rogueweapon/woodstaff) || istype(I, /obj/item/rogueweapon/wand))
+		if(istype(I, /obj/item/rogueweapon/woodstaff) || istype(I, /obj/item/rogueweapon/spellbook))
 			return I
 	return null
 
@@ -40,7 +40,7 @@
 		return FALSE
 	if(!get_implement(owner))
 		if(feedback)
-			to_chat(owner, span_warning("I need a staff or wand in hand to shift its form."))
+			to_chat(owner, span_warning("I need a staff or tome in hand to shift its form."))
 		return FALSE
 	return TRUE
 

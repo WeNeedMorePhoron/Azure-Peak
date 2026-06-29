@@ -160,7 +160,7 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/heir_spell_bundle)
 	backpack_contents = list(
 		/obj/item/handmirror = 1,
-		/obj/item/book/spellbook = 1,
+		/obj/item/rogueweapon/spellbook = 1,
 		/obj/item/chalk = 1,
 	)
 

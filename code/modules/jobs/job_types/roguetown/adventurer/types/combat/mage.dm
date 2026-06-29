@@ -46,7 +46,7 @@
 	if(H.mind)
 		backr = choose_implement(H, "lesser")
 		backpack_contents = list(
-			/obj/item/book/spellbook = 1,
+			/obj/item/rogueweapon/spellbook = 1,
 			/obj/item/chalk = 1
 			)
 	backpack_contents |= list(
@@ -104,7 +104,7 @@
 	backl = /obj/item/storage/backpack/rogue/satchel
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
-	backpack_contents = list(/obj/item/flashlight/flare/torch = 1, /obj/item/chalk = 1, /obj/item/book/spellbook = 1)
+	backpack_contents = list(/obj/item/flashlight/flare/torch = 1, /obj/item/chalk = 1, /obj/item/rogueweapon/spellbook = 1)
 
 	to_chat(H, span_warning("You start with Bind Weapon. Remember to Bind your weapon so you can use your abilities and build up Arcyne Momentum."))
 
@@ -266,7 +266,7 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	beltr = /obj/item/rogueweapon/scabbard/sword
 	r_hand = /obj/item/rogueweapon/sword/sabre
-	backpack_contents = list(/obj/item/flashlight/flare/torch = 1, /obj/item/chalk = 1, /obj/item/book/spellbook = 1)
+	backpack_contents = list(/obj/item/flashlight/flare/torch = 1, /obj/item/chalk = 1, /obj/item/rogueweapon/spellbook = 1)
 	var/datum/inspiration/I = new /datum/inspiration(H)
 	I.grant_inspiration(H, bard_tier = BARD_T1)
 	if(H.mind)
@@ -329,7 +329,7 @@
 		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		(naledi_book) = 1,
-		/obj/item/book/spellbook = 1,
+		/obj/item/rogueweapon/spellbook = 1,
 		/obj/item/chalk = 1,
 	)
 
@@ -414,7 +414,7 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	beltl = /obj/item/rogueweapon/scabbard/sheath
 	beltr = /obj/item/rogueweapon/huntingknife/idagger/steel
-	backpack_contents = list(/obj/item/flashlight/flare/torch = 1, /obj/item/chalk = 1, /obj/item/book/spellbook = 1)
+	backpack_contents = list(/obj/item/flashlight/flare/torch = 1, /obj/item/chalk = 1, /obj/item/rogueweapon/spellbook = 1)
 	if(H.mind)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/lesser_knock)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/waterbolt)

@@ -53,7 +53,7 @@
 				H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 5, "ward" = TRUE))
 			backl = /obj/item/storage/backpack/rogue/satchel
 			backpack_contents = list(
-								/obj/item/book/spellbook = 1,
+								/obj/item/rogueweapon/spellbook = 1,
 								/obj/item/reagent_containers/glass/mortar = 1,
 								/obj/item/pestle = 1,
 								/obj/item/candle/yellow = 2,
@@ -89,7 +89,7 @@
 			neck = /obj/item/clothing/neck/roguetown/psicross/wood
 			backl = /obj/item/storage/backpack/rogue/satchel
 			backpack_contents = list(
-								/obj/item/book/spellbook = 1,
+								/obj/item/rogueweapon/spellbook = 1,
 								/obj/item/reagent_containers/glass/mortar = 1,
 								/obj/item/pestle = 1,
 								/obj/item/candle/yellow = 2,

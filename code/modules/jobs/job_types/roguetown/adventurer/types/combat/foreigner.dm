@@ -234,7 +234,7 @@
 			r_hand = /obj/item/rogueweapon/woodstaff/implement
 			head = /obj/item/clothing/head/roguetown/roguehood/hierophant
 			cloak = /obj/item/clothing/cloak/hierophant
-			backpack_contents += list(/obj/item/book/spellbook = 1)
+			backpack_contents += list(/obj/item/rogueweapon/spellbook = 1)
 			backpack_contents += list(/obj/item/chalk = 1)
 
 			H.adjust_skillrank_up_to(/datum/skill/magic/arcane, SKILL_LEVEL_EXPERT, TRUE)
@@ -262,7 +262,7 @@
 			r_hand = /obj/item/rogueweapon/katar
 			armor = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/disciple/monke
 			backpack_contents += list(/obj/item/chalk = 1)
-			backpack_contents += list(/obj/item/book/spellbook = 1)
+			backpack_contents += list(/obj/item/rogueweapon/spellbook = 1)
 
 			H.adjust_skillrank_up_to(/datum/skill/magic/arcane, SKILL_LEVEL_APPRENTICE, TRUE)
 			H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_EXPERT, TRUE)

@@ -53,7 +53,7 @@
 		/obj/item/rogueweapon/huntingknife/idagger/navaja,
 		/obj/item/rogueweapon/scabbard/sheath,
 		/obj/item/clothing/neck/roguetown/shalal,
-		/obj/item/book/spellbook,
+		/obj/item/rogueweapon/spellbook/greater,
 		/obj/item/flashlight/flare/torch,
 		/obj/item/storage/belt/rogue/pouch/coins/poor
 		)

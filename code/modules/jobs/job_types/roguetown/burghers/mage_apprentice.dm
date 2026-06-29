@@ -89,7 +89,7 @@
 	armor = /obj/item/clothing/suit/roguetown/shirt/robe/mage
 	head = /obj/item/clothing/head/roguetown/roguehood/mage
 	backpack_contents = list(
-		/obj/item/book/spellbook = 1,
+		/obj/item/rogueweapon/spellbook = 1,
 		/obj/item/chalk = 1,
 		)
 	switch(H.patron?.type)
@@ -144,7 +144,7 @@
 	backl = /obj/item/storage/backpack/rogue/satchel
 	shoes = /obj/item/clothing/shoes/roguetown/gladiator
 	backpack_contents = list(
-		/obj/item/book/spellbook = 1,
+		/obj/item/rogueweapon/spellbook = 1,
 		/obj/item/seeds/swampweed = 1,
 		/obj/item/seeds/pipeweed = 1,
 		/obj/item/chalk = 1,
@@ -193,7 +193,7 @@
 	backl = /obj/item/storage/backpack/rogue/satchel
 	shoes = /obj/item/clothing/shoes/roguetown/gladiator
 	backpack_contents = list(
-		/obj/item/book/spellbook = 1,
+		/obj/item/rogueweapon/spellbook = 1,
 		/obj/item/chalk = 1,
 		)
 	switch(H.patron?.type)

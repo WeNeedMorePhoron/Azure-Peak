@@ -1,10 +1,10 @@
 // Spell Implement System
-// Staves and Wands are spell implements that grant Residual Focus when held while casting.
+// Staves and Tomes are spell implements that grant Residual Focus when held while casting.
 // The buff captures the spell's resource cost and returns a tier-dependent fraction as energy
 // over 20 seconds. See residual_focus.dm and spell_cooldown.dm Activate() for the hook.
 //
 // Staff: Two-handed, best durability and parry. Melee defensive option.
-// Wand: One-handed, lighter, less durable, and able to project a temporary Aegis.
+// Tome: One-handed, lighter, less durable, and able to project a temporary Aegis.
 //
 // Tiers:
 //   Lesser  (Toper/Amethyst gems) - 20% refund, lowest durability
@@ -57,23 +57,23 @@ GLOBAL_LIST_INIT(implement_choices, list(
 		"lesser" = list(
 			"Toper Staff" = /obj/item/rogueweapon/woodstaff/implement,
 			"Amythorz Staff" = /obj/item/rogueweapon/woodstaff/implement/amethyst,
-			"Wand" = /obj/item/rogueweapon/wand
+			"Lesser Tome" = /obj/item/rogueweapon/spellbook
 			),
 		"greater" = list(
 			"Gemerald Staff" = /obj/item/rogueweapon/woodstaff/implement/greater,
 			"Rontz Staff" = /obj/item/rogueweapon/woodstaff/implement/greater/ruby,
 			"Blortz Staff" = /obj/item/rogueweapon/woodstaff/implement/greater/quartz,
 			"Saffira Staff" = /obj/item/rogueweapon/woodstaff/implement/greater/sapphire,
-			"Wand" = /obj/item/rogueweapon/wand/greater
+			"Greater Tome" = /obj/item/rogueweapon/spellbook/greater
 			),
 		"grand" = list(
 			"Dorpel Staff" = /obj/item/rogueweapon/woodstaff/implement/grand,
 			"Staff of the Riddlesteel" = /obj/item/rogueweapon/woodstaff/implement/grand/riddle,
-			"Wand" = /obj/item/rogueweapon/wand/grand
+			"Grand Tome" = /obj/item/rogueweapon/spellbook/grand
 			)
 		))
 
-/// Prompts the user to choose between a wand or staff implement of the given tier.
+/// Prompts the user to choose between a tome or staff implement of the given tier.
 /// Returns the chosen implement type path, or staff by default.
 /proc/choose_implement(mob/living/carbon/human/H, tier = "lesser")
 	if(!(tier in GLOB.implement_choices))

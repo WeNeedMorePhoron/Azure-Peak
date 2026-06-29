@@ -36,7 +36,7 @@
 	two_handed = TRUE
 
 /datum/alt_grip/ferramancy/is_two_handed(obj/item/source)
-	if(istype(source, /obj/item/rogueweapon/wand))
+	if(istype(source, /obj/item/rogueweapon/spellbook))
 		return FALSE
 	return two_handed
 

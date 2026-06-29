@@ -37,7 +37,7 @@
 		gloves = /obj/item/clothing/gloves/roguetown/fingerless
 
 	r_hand = /obj/item/rogueweapon/woodstaff
-	l_hand = /obj/item/book/spellbook
+	l_hand = /obj/item/rogueweapon/spellbook
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backpack_contents = list(
 	/obj/item/chalk = 1
