@@ -1,0 +1,4 @@
+author: "Ollanius"
+delete-after: True
+changes:
+  - bugfix: "The Rune of Storms should properly function once again."
