@@ -89,13 +89,16 @@
 			if("Lesser Staff")
 				r_hand = /obj/item/rogueweapon/woodstaff/implement
 				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/arcyne, SKILL_LEVEL_JOURNEYMAN, TRUE)
 			if("Lesser Tome")
 				r_hand = /obj/item/rogueweapon/spellbook
 				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/arcyne, SKILL_LEVEL_JOURNEYMAN, TRUE)
 			if("Quarterstaff")
 				r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/iron
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
 				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/arcyne, SKILL_LEVEL_JOURNEYMAN, TRUE)
 
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
@@ -233,9 +236,11 @@
 			if("Lesser Staff")
 				r_hand = /obj/item/rogueweapon/woodstaff/implement
 				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/arcyne, SKILL_LEVEL_JOURNEYMAN, TRUE)
 			if("Lesser Tome")
 				r_hand = /obj/item/rogueweapon/spellbook
 				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/arcyne, SKILL_LEVEL_JOURNEYMAN, TRUE)
 
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
@@ -347,6 +352,7 @@
 				r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/iron
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
 				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/arcyne, SKILL_LEVEL_JOURNEYMAN, TRUE)
 			if("Mace + Shield")
 				r_hand = /obj/item/rogueweapon/mace
 				backr = /obj/item/rogueweapon/shield/wood

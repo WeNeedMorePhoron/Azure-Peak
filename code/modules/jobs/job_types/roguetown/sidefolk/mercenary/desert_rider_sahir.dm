@@ -71,6 +71,7 @@
 				l_hand = /obj/item/rogueweapon/sword/sabre/shamshir
 			if("Greater Staff")
 				H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_EXPERT, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/arcyne, SKILL_LEVEL_EXPERT, TRUE)
 				r_hand = /obj/item/rogueweapon/woodstaff/implement/greater
 
 	H.merctype = 4
