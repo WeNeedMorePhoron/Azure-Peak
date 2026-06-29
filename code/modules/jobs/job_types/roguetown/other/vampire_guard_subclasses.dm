@@ -425,7 +425,7 @@
 				l_hand = /obj/item/rogue/instrument/flute //You know what must be done.
 
 // No-Armor mage, basically vampire magos for the lord. Specialises in faster casting, as a sort of step-in replacement for the grenzelhoftian seige mage. They may be buffed, nerfed or replaced depending how they perform.
-// Despite decent wards, stabbing them w/silver should make them fall over to pain pretty fast or straight dust them on the spot after a few critical sunders.
+// Despite decent wards, stabbing them w/silver should make them fall over to pain pretty fast or straight dust them on the spot after a few critical sunders. Expect them to lose a fair bit of blue w/ reliance on wards + spam casting.
 /datum/advclass/vampseigemage
 	name = "Vampiric Battlemage"
 	tutorial = "You were a magos of old, ever since the embrace you've never had more time to practice your persuit of arcayne magicks, let alone revel in your taste for blood; now your master arises once more and your arcayne research shall see fruitation. Your lord's will be done."
@@ -462,7 +462,7 @@
 	add_verb(H, /mob/proc/haltyell_exhausting) //Halting the charred corpse is too funny, we're keeping it. sovl.
 
 	//UNIQUELY relies on WARDS off-the-bat, vs wretches/advs/mercenaries. Has NO chest armor, or head armor, save for neck. Legs/Feet remain armored by intent.
-	cloak = /obj/item/clothing/cloak/tabard/stabard/vamp
+	cloak = /obj/item/clothing/cloak/tabard/stabard/vamp/hoodvamp
 	head = /obj/item/clothing/head/roguetown/witchhat/vamp //EVERY PALLY IN THE KINGDOM ON MA TAIL
 	mask = /obj/item/clothing/mask/rogue/facemask //Nessessary to hide face
 	shirt = /obj/item/clothing/suit/roguetown/shirt/tunic/black
