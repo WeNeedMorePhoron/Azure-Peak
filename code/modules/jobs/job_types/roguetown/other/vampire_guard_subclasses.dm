@@ -425,6 +425,7 @@
 				l_hand = /obj/item/rogue/instrument/flute //You know what must be done.
 
 // No-Armor mage, basically vampire magos for the lord. Specialises in faster casting, as a sort of step-in replacement for the grenzelhoftian seige mage. They may be buffed, nerfed or replaced depending how they perform.
+// Despite decent wards, stabbing them w/silver should make them fall over to pain pretty fast or straight dust them on the spot after a few critical sunders.
 /datum/advclass/vampseigemage
 	name = "Vampiric Battlemage"
 	tutorial = "You were a magos of old, ever since the embrace you've never had more time to practice your persuit of arcayne magicks, let alone revel in your taste for blood; now your master arises once more and your arcayne research shall see fruitation. Your lord's will be done."
@@ -435,15 +436,16 @@
 	subclass_stats = list(
 		STATKEY_INT = 4, //You've had long to study, a lot to study as well
 		STATKEY_STR = -1,
-		STATKEY_WIL = 2,
+		STATKEY_WIL = 2, //1 less than Grenzel magos
 		STATKEY_PER = 3,
 		// 8 point statline, mostly put into perception + int, they lack on their baseline speed being slightly higher unlike most mages on top of weaker martal talent
+		// Yeah vampire mages are pretty insanely strong with some clan potencies but rule of cool honestly.
 	)
 	subclass_skills = list(
 		/datum/skill/combat/staves = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
-		/datum/skill/magic/arcane = SKILL_LEVEL_MASTER, //You've had a long, time to practice
+		/datum/skill/magic/arcane = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE, //Weaker vs grapples, compared to everyone else
 		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
@@ -466,7 +468,6 @@
 	shirt = /obj/item/clothing/suit/roguetown/shirt/tunic/black
 	armor = /obj/item/clothing/cloak/tabard/stabard/vamp
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
-	wrists = /obj/item/clothing/wrists/roguetown/bracers/paalloy //Makes up for no gloves
 	neck = /obj/item/clothing/neck/roguetown/gorget/paalloy //No head armor but good anti-decap armor, intended.
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 	belt = /obj/item/storage/belt/rogue/leather/battleskirt
