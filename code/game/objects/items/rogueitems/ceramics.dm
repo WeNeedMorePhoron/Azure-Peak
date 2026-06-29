@@ -139,6 +139,53 @@
 	desc = "A small flask fashioned from clay. It still needs to be fired to be useful."
 	smeltresult = /obj/item/reagent_containers/glass/cup/claycupclassic
 
+/obj/item/natural/clay/rawcup
+	name = "unfired clay cup"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelaincupraw"
+	cooked_type = /obj/item/reagent_containers/glass/cup/carved/porcelain
+	desc = "A small cup fashioned from clay. It still needs to be fired to be useful."
+	smeltresult = /obj/item/reagent_containers/glass/cup/carved/porcelain
+
+/obj/item/natural/clay/rawcupfancy
+	name = "unfired fancy clay goblet"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelaincupfancyraw"
+	cooked_type = /obj/item/reagent_containers/glass/cup/carved/porcelainfancy
+	desc = "A fancy goblet fashioned from clay. It still needs to be fired to be useful."
+	smeltresult = /obj/item/reagent_containers/glass/cup/carved/porcelainfancy
+
+/obj/item/natural/clay/rawbowl
+	name = "unfired clay bowl"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainbowlraw"
+	cooked_type = /obj/item/reagent_containers/glass/bowl/carved/porcelain
+	desc = "A fancy bowl fashioned from clay. It still needs to be fired to be useful."
+	smeltresult = /obj/item/reagent_containers/glass/bowl/carved/porcelain
+
+/obj/item/natural/clay/rawspoon
+	name = "unfired clay spoon"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainspoonraw"
+	cooked_type = /obj/item/kitchen/spoon/carved/porcelain
+	desc = "A fancy spoon fashioned from clay. It still needs to be fired to be useful."
+
+
+/obj/item/natural/clay/rawfork
+	name = "unfired clay fork"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainforkraw"
+	cooked_type = /obj/item/kitchen/fork/carved/porcelain 
+	desc = "A fancy fork fashioned from clay. It still needs to be fired to be useful."
+
+/obj/item/natural/clay/rawplatter
+	name = "unfired clay platter"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainplatterraw"
+	cooked_type = /obj/item/cooking/platter/carved/porcelain
+	desc = "A fancy platter fashioned from clay. It still needs to be fired to be useful."
+
+
 /obj/item/reagent_containers/glass/cup/claycup
 	name = "clay flask"
 	desc = "A small ceramic flask."
@@ -348,6 +395,30 @@
 	desc = "A small display stand fashioned out of clay."
 	cooked_type = /obj/item/natural/clay/porcelain/display
 	smeltresult = /obj/item/natural/clay/porcelain/display
+
+/obj/item/natural/clay/rawring
+	name = "unfired clay ring"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainringraw"
+	desc = "A dainty ring fashioned out of clay."
+	cooked_type = /obj/item/clothing/ring/porcelain
+	smeltresult = /obj/item/clothing/ring/porcelain
+
+/obj/item/natural/clay/rawamulet
+	name = "unfired clay amulet"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainamuletraw"
+	desc = "A delicate amulet fashioned out of clay."
+	cooked_type = /obj/item/clothing/neck/roguetown/carved/porcelainamulet
+	smeltresult = /obj/item/clothing/neck/roguetown/carved/porcelainamulet
+
+/obj/item/natural/clay/rawcirclet
+	name = "unfired clay circlet"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelaincircletraw"
+	desc = "An elegant circlet fashioned out of clay."
+	cooked_type = /obj/item/clothing/head/roguetown/circlet/carvedgem/porcelain
+	smeltresult = /obj/item/clothing/head/roguetown/circlet/carvedgem/porcelain
 
 // THE COOKED ITEMS, AGAIN, ORGANIZATION BE DAMNED
 /obj/item/natural/clay/porcelain

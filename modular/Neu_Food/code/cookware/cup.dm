@@ -313,6 +313,12 @@
 	dropshrink = 1
 	icon_state = "cup_onyxa"
 
+/obj/item/reagent_containers/glass/cup/carved/porcelain
+	name = "porcelain cup"
+	desc = "A simple cup made out of porcelain."
+	dropshrink = 1
+	icon_state = "cup_porcelain"
+	sellprice = 5
 /obj/item/reagent_containers/glass/cup/carved/shell
 	name = "shell cup"
 	desc = "A simple cup carved out of shell."
@@ -378,3 +384,10 @@
 	desc = "A fancy cup carved out of onyxa."
 	dropshrink = 1
 	icon_state = "fancycup_onyxa"
+
+/obj/item/reagent_containers/glass/cup/carved/porcelainfancy
+	name = "fancy porcelain goblet"
+	desc = "A fancy goblet made out of porcelain."
+	dropshrink = 1
+	icon_state = "fancycup_porcelain"
+	sellprice = 15

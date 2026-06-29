@@ -1569,6 +1569,12 @@
 	desc = "A beautiful amulet carved from shells, donnable on both the neck and wrist."
 	icon_state = "amulet_shell"
 
+/obj/item/clothing/neck/roguetown/carved/porcelainamulet
+	name = "porcelain amulet"
+	icon_state = "amulet_porcelain"
+	desc = "A dainty amulet made out of fine porcelain, donnable on both the neck and wrist."
+	sellprice = 15
+
 /obj/item/clothing/neck/roguetown/collar/prisoner
 	name = "castifico collar"
 	icon_state = "castifico_collar"
