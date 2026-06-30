@@ -44,7 +44,6 @@
 	desc = "A longbow of condensed arcyne light. It draws on the wielder's own energy in place of arrows, looses with a heavy and deliberate pull, and is far too unwieldy to fire on the move."
 	color = GLOW_COLOR_ARCANE
 	minstr = 0
-	damfactor = 0.8
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bow/ferramancy
 	spill_ammo_on_drop = FALSE
 	possible_item_intents = list(
