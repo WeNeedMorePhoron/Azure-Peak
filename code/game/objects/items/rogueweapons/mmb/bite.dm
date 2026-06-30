@@ -149,7 +149,7 @@
 		/*
 			ZOMBIE INFECTION VIA NPC BITE
 		*/
-		if(!user.mind && HAS_TRAIT(user, TRAIT_DEADITE) && prob(33)) //NPC Deadites have a LOWER infection rate (33% to even try infecting you)
+		if(!user.mind && ishuman(src) && HAS_TRAIT(user, TRAIT_DEADITE) && prob(66)) //NPC Deadites have a LOWER infection rate (66% to even try infecting you)
 			bite_victim.zombie_infect_attempt()
 
 	var/obj/item/grabbing/bite/B = new()
