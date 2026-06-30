@@ -34,6 +34,24 @@
 		/datum/action/cooldown/spell/forcewall,
 	)
 
+/datum/magic_aspect/displacement
+	name = "Displacement"
+	latin_name = "Minor Aspectus Translationis"
+	desc = "TODO"
+	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_DISPLACEMENT
+	binding_chants = list(
+		"Let me step between the spaces between the realms.",
+		"Translatio, mihi adesse!",
+	)
+	unbinding_chants = list(
+		"I close the paths I have opened. I walk the realms no longer.",
+		"Translatio, me relinquere!",
+	)
+	fixed_spells = list(
+		/datum/action/cooldown/spell/phase,
+	)
+
 /datum/magic_aspect/autowardry
 	name = "Autowardry"
 	latin_name = "Minor Aspectus Autotutelae"
