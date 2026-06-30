@@ -70,7 +70,6 @@
 	eyes = SSwardrobe.provide_type(/obj/item/organ/eyes/night_vision/zombie)
 	eyes.Insert(src)
 	update_body()
-	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	//Grant undead tongue then force it
 	src.grant_language(/datum/language/undead) //Now we give you the language.
 	var/datum/language_holder/language_holder = src.get_language_holder()
@@ -91,6 +90,7 @@
 			part.rotted = TRUE
 		part.update_disabled()
 	//give ourselves the final part of the disguise, the skin colors
+	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	skin_tone = "#868e79"
 	if(organ_ears)
 		organ_ears.accessory_colors = "#868e79"

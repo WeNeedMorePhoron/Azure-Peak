@@ -27,132 +27,17 @@
 	ADD_TRAIT(src, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 	equipOutfit(new /datum/outfit/job/roguetown/human/species/human/northern/militia)
-	//Begin RANDOMISE here
-	gender = pick(MALE, FEMALE)
-	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
-	//But then we must do our y'know, hair and shit after this.
-	var/hairf = pick(list(
-						/datum/sprite_accessory/hair/head/lowbraid,
-						/datum/sprite_accessory/hair/head/countryponytailalt,
-						/datum/sprite_accessory/hair/head/gloomy,
-						/datum/sprite_accessory/hair/head/zone,
-						/datum/sprite_accessory/hair/head/hime,
-						/datum/sprite_accessory/hair/head/stacy,
-						/datum/sprite_accessory/hair/head/sabitsuki,
-						/datum/sprite_accessory/hair/head/sabitsuki_ponytail, 
-						/datum/sprite_accessory/hair/head/kusanagi_alt,
-						/datum/sprite_accessory/hair/head/fluffy,
-						/datum/sprite_accessory/hair/head/fluffylong))
-	var/hairm = pick(list(
-						/datum/sprite_accessory/hair/head/ponytailwitcher,
-						/datum/sprite_accessory/hair/head/bowlcut, 
-						/datum/sprite_accessory/hair/head/bowlcut2,
-						/datum/sprite_accessory/hair/head/lowbraid,
-						/datum/sprite_accessory/hair/head/emo,
-						/datum/sprite_accessory/hair/head/sabitsuki,
-						/datum/sprite_accessory/hair/head/sabitsuki_ponytail, 
-						/datum/sprite_accessory/hair/head/rogue))
-	var/beard = pick(list(/datum/sprite_accessory/hair/facial/stubble,
-						/datum/sprite_accessory/hair/facial/manly,
-						/datum/sprite_accessory/hair/facial/fiveoclockmoustache,
-						/datum/sprite_accessory/hair/facial/sevenoclockm,
-						/datum/sprite_accessory/hair/facial/chinlessbeard,
-						/datum/sprite_accessory/hair/facial/fullbeard,
-						/datum/sprite_accessory/hair/facial/chinstrap,
-						/datum/sprite_accessory/hair/facial/vandyke,
-						/datum/sprite_accessory/hair/facial/longbeard))
 	AddComponent(/datum/component/npc_death_line, null, 25)
 	dna.species.handle_body(src)
 	//Random voices, this can probably be more random-ish but it'll do for now
 	random_voice_NPC()
-	//Next up, we add hair
-	var/datum/bodypart_feature/hair/head/new_hair = new()
-	var/datum/bodypart_feature/hair/facial/new_facial = new()
-
-	if(gender == FEMALE)
-		new_hair.set_accessory_type(hairf, null, src)
-	else
-		new_hair.set_accessory_type(hairm, null, src)
-		new_facial.set_accessory_type(beard, null, src)
-
-	var/haircolor_choice = rand(1, 6)
-	switch(haircolor_choice)
-		if(1) //Blond-Brown
-			new_hair.accessory_colors = "#C1A287"
-			new_hair.hair_color = "#C1A287"
-			new_facial.accessory_colors = "#C1A287"
-			new_facial.hair_color = "#C1A287"
-			hair_color = "#C1A287"
-		if(2) //Ginger-ish
-			new_hair.accessory_colors = "#A56B3D"
-			new_hair.hair_color = "#A56B3D"
-			new_facial.accessory_colors = "#A56B3D"
-			new_facial.hair_color = "#A56B3D"
-			hair_color = "#A56B3D"
-		if(3) //Black
-			new_hair.accessory_colors = "#0d0c2e"
-			new_hair.hair_color = "#0d0c2e"
-			new_facial.accessory_colors = "#0d0c2e"
-			new_facial.hair_color = "#0d0c2e"
-			hair_color = "#0d0c2e"
-		if(4) //Red
-			new_hair.accessory_colors = "#a53d3d"
-			new_hair.hair_color = "#a53d3d"
-			new_facial.accessory_colors = "#a53d3d"
-			new_facial.hair_color = "#a53d3d"
-			hair_color = "#a53d3d"
-		if(5) //Olive
-			new_hair.accessory_colors = "#767c3f"
-			new_hair.hair_color = "#767c3f"
-			new_facial.accessory_colors = "#767c3f"
-			new_facial.hair_color = "#767c3f"
-			hair_color = "#767c3f"
-		if(6) //Dark Brown
-			new_hair.accessory_colors = "#503516"
-			new_hair.hair_color = "#503516"
-			new_facial.accessory_colors = "#503516"
-			new_facial.hair_color = "#503516"
-			hair_color = "#503516"
-		if(7) //Dull Blond
-			new_hair.accessory_colors = "#bdbb6b"
-			new_hair.hair_color = "#bdbb6b"
-			new_facial.accessory_colors = "#bdbb6b"
-			new_facial.hair_color = "#bdbb6b"
-			hair_color = "#bdbb6b"
-		if(8) //Dull Brown
-			new_hair.accessory_colors = "#7e6d53"
-			new_hair.hair_color = "#7e6d53"
-			new_facial.accessory_colors = "#7e6d53"
-			new_facial.hair_color = "#7e6d53"
-			hair_color = "#7e6d53"
+	random_hair_NPC()
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
-	if(organ_eyes)
-		var/eye_choice = rand(1, 8)
-		switch(eye_choice)
-			if(1)
-				organ_eyes.eye_color = "#336699"
-				organ_eyes.accessory_colors = "#336699#336699"
-			if(2)
-				organ_eyes.eye_color = "#339933"
-				organ_eyes.accessory_colors = "#339933#339933"
-			if(3)
-				organ_eyes.eye_color = "#995333"
-				organ_eyes.accessory_colors = "#995333#995333"
-			if(4)
-				organ_eyes.eye_color = "#131313" //Souless greytider look
-				organ_eyes.accessory_colors = "#131313#131313"
-			if(5)
-				organ_eyes.eye_color = "#999233"
-				organ_eyes.accessory_colors = "#999233#999233"
-			if(6)
-				organ_eyes.eye_color = "#993333"
-				organ_eyes.accessory_colors = "#993333#993333"
-			if(7)
-				organ_eyes.eye_color = "#33997a"
-				organ_eyes.accessory_colors = "#33997a#33997a"
-			if(8)
-				organ_eyes.eye_color = "#78bcc5"
-				organ_eyes.accessory_colors = "#78bcc5#78bcc5"
+	organ_eyes.eye_color = random_eye_color()
+	organ_eyes.accessory_colors = "[eye_color][eye_color]"
+	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
+	if(organ_ears)
+		organ_ears.accessory_colors = "[src.skin_tone]"
 
 	if(gender == FEMALE)
 		real_name = pick(world.file2list("strings/names/first_female.txt"))

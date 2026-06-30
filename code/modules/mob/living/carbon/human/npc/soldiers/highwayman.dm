@@ -74,6 +74,7 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	organ_eyes.eye_color = random_eye_color()
 	organ_eyes.accessory_colors = "[eye_color][eye_color]"
+	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	if(organ_ears)
 		organ_ears.accessory_colors = "[src.skin_tone]"
 
