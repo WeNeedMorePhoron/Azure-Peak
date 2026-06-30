@@ -3092,6 +3092,7 @@
 #include "code\modules\spells\roguetown\necromancer\raise_undead_guard.dm"
 #include "code\modules\spells\roguetown\necromancer\ray_of_sickness.dm"
 #include "code\modules\spells\roguetown\necromancer\tame_undead.dm"
+#include "code\modules\spells\spell_types\_telegraphed_strike.dm"
 #include "code\modules\spells\spell_types\aimed.dm"
 #include "code\modules\spells\spell_types\area_teleport.dm"
 #include "code\modules\spells\spell_types\bloodcrawl.dm"

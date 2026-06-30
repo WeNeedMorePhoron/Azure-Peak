@@ -1,20 +1,14 @@
 /datum/action/cooldown/spell/ferramancy_strike
+	parent_type = /datum/action/cooldown/spell/telegraphed_strike
 	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	sound = 'sound/magic/scrapeblade.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 	attunement_school = ASPECT_NAME_FERRAMANCY
 
-	click_to_activate = FALSE
-	self_cast_possible = TRUE
-
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MINOR_AOE
 
-	invocation_type = INVOCATION_SHOUT
-
-	charge_required = FALSE
-	weapon_cast_penalized = FALSE
 	cooldown_time = 15 SECONDS
 	shared_cooldown = "ferramancy_strike"
 
@@ -23,209 +17,11 @@
 	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
-	var/damage = 50
-	var/npc_simple_damage_mult = 1.5
-	var/blade_class = BCLASS_CUT
-	var/strike_armor_pen = PEN_NONE
-	var/detonate_sound = 'sound/combat/newstuck.ogg'
-	var/windup_time = TELEGRAPH_DODGEABLE
-	var/redraw_interval = 2
-	var/sweep_step = 1
-	var/impact_delay = 0
-	var/stop_at_dense = FALSE
-	var/swipe_state = null
-	var/vuln_on_hit = 0
-
-/datum/action/cooldown/spell/ferramancy_strike/cast(atom/cast_on)
-	. = ..()
-	var/mob/living/carbon/human/H = owner
-	if(!istype(H))
-		return FALSE
-	var/strike_duration = windup_time + impact_delay + max(0, length(get_pattern_offsets()) - 1) * sweep_step
-	H.changeNext_move(strike_duration)
-	H.apply_status_effect(/datum/status_effect/swingdelay/penalty/committed, strike_duration + 2, TRUE)
-	INVOKE_ASYNC(src, PROC_REF(windup_and_strike), H)
-	return TRUE
-
-/datum/action/cooldown/spell/ferramancy_strike/proc/windup_and_strike(mob/living/carbon/human/H)
-	var/list/indicator = list()
-	var/iterations = max(1, round(windup_time / redraw_interval))
-	var/turf/last_turf
-	var/last_facing
-	for(var/i in 1 to iterations)
-		if(QDELETED(H) || H.stat != CONSCIOUS)
-			break
-		var/facing = get_cardinal(H.dir)
-		if(get_turf(H) != last_turf || facing != last_facing)
-			last_turf = get_turf(H)
-			last_facing = facing
-			draw_indicators(H, facing, indicator)
-		sleep(redraw_interval)
-	if(QDELETED(H) || H.stat != CONSCIOUS)
-		clear_indicators(indicator)
-		return
-	strike(H, get_cardinal(H.dir), indicator)
-
-/datum/action/cooldown/spell/ferramancy_strike/proc/draw_indicators(mob/living/carbon/human/H, facing, list/indicator)
-	draw_offsets(H, facing, indicator, get_pattern_offsets())
-
-/datum/action/cooldown/spell/ferramancy_strike/proc/draw_offsets(mob/living/carbon/human/H, facing, list/indicator, list/offs)
-	var/turf/origin = get_turf(H)
-	var/list/wanted = list()
-	if(origin)
-		for(var/list/off in offs)
-			var/list/r = rotate_offset(off[1], off[2], facing)
-			var/turf/T = locate(origin.x + r[1], origin.y + r[2], origin.z)
-			if(T)
-				wanted |= T
-	for(var/obj/effect/old in indicator.Copy())
-		var/turf/ot = get_turf(old)
-		if(!QDELETED(old) && (ot in wanted))
-			wanted -= ot
-		else
-			indicator -= old
-			qdel(old)
-	for(var/turf/T in wanted)
-		indicator += new /obj/effect/temp_visual/trap/ferramancy(T)
-
-/datum/action/cooldown/spell/ferramancy_strike/proc/clear_indicators(list/indicator)
-	for(var/obj/effect/old in indicator)
-		if(!QDELETED(old))
-			qdel(old)
-
-/datum/action/cooldown/spell/ferramancy_strike/proc/strike(mob/living/carbon/human/H, facing, list/indicator)
-	if(!length(get_pattern_offsets()))
-		clear_indicators(indicator)
-		return
-	playsound(get_turf(H), 'sound/magic/blade_burst.ogg', 75, TRUE)
-	var/atom/movable/visual = do_blade_animation(H, facing)
-	INVOKE_ASYNC(src, PROC_REF(execute_hits), H, facing, indicator, visual)
-
-/datum/action/cooldown/spell/ferramancy_strike/proc/execute_hits(mob/living/carbon/human/H, facing, list/indicator, atom/movable/visual)
-	var/turf/last_turf = get_turf(H)
-	draw_indicators(H, facing, indicator)
-	var/elapsed = 0
-	while(elapsed < impact_delay)
-		if(QDELETED(H) || H.stat != CONSCIOUS)
-			clear_indicators(indicator)
-			return
-		if(get_turf(H) != last_turf)
-			last_turf = get_turf(H)
-			draw_indicators(H, facing, indicator)
-		sleep(redraw_interval)
-		elapsed += redraw_interval
-	if(!QDELETED(H) && H.stat == CONSCIOUS)
-		on_impact(H, facing, visual)
-	var/list/bands = get_sweep_bands()
-	var/deflected = FALSE
-	for(var/b in 1 to length(bands))
-		if(QDELETED(H) || H.stat != CONSCIOUS)
-			break
-		var/turf/origin = get_turf(H)
-		var/stop = FALSE
-		for(var/list/off in bands[b])
-			var/list/r = rotate_offset(off[1], off[2], facing)
-			var/turf/T = origin ? locate(origin.x + r[1], origin.y + r[2], origin.z) : null
-			if(!T)
-				continue
-			if(stop_at_dense && T.density)
-				stop = TRUE
-				break
-			deflected = hit_turf(H, T, facing, deflected)
-			if(swipe_state)
-				var/obj/effect/temp_visual/dir_setting/attack_effect/slash = new(T, facing)
-				slash.icon_state = swipe_state
-		var/list/remaining = list()
-		for(var/j in b + 1 to length(bands))
-			remaining += bands[j]
-		draw_offsets(H, facing, indicator, remaining)
-		if(stop)
-			break
-		if(sweep_step > 0 && b < length(bands))
-			sleep(sweep_step)
-	clear_indicators(indicator)
-
-/datum/action/cooldown/spell/ferramancy_strike/proc/on_impact(mob/living/carbon/human/H, facing, atom/movable/visual)
-	return
-
-/datum/action/cooldown/spell/ferramancy_strike/proc/hit_turf(mob/living/carbon/human/H, turf/T, facing, deflected = FALSE)
-	if(QDELETED(H) || QDELETED(T))
-		return deflected
-	var/hit_any = FALSE
-	for(var/mob/living/L in T.contents)
-		if(L == H)
-			continue
-		if(L.anti_magic_check())
-			L.visible_message(span_warning("The arcyne blades dispel as they near [L]!"))
-			playsound(get_turf(L), 'sound/magic/magic_nulled.ogg', 100)
-			continue
-		if(spell_guard_check(L, FALSE, deflected ? null : H))
-			deflected = TRUE
-			continue
-		hit_any = TRUE
-		if(ishuman(L))
-			var/target_zone = H.zone_selected || BODY_ZONE_CHEST
-			arcyne_strike(H, L, null, damage, target_zone, blade_class, armor_penetration = strike_armor_pen, spell_name = name, damage_type = BRUTE, npc_simple_damage_mult = npc_simple_damage_mult, skip_animation = TRUE)
-		else
-			var/actual_damage = damage
-			if(!L.mind)
-				actual_damage *= npc_simple_damage_mult
-			L.adjustBruteLoss(actual_damage)
-		if(vuln_on_hit)
-			L.apply_status_effect(/datum/status_effect/debuff/vulnerable, vuln_on_hit)
-		new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
-	if(hit_any && detonate_sound)
-		playsound(T, detonate_sound, 65, TRUE)
-	return deflected
-
-/datum/action/cooldown/spell/ferramancy_strike/proc/do_blade_animation(mob/living/carbon/human/H, facing)
-	return
-
-/datum/action/cooldown/spell/ferramancy_strike/proc/get_pattern_offsets()
-	return list()
-
-/datum/action/cooldown/spell/ferramancy_strike/proc/get_sweep_bands()
-	var/list/bands = list()
-	for(var/list/off in get_pattern_offsets())
-		bands += list(list(off))
-	return bands
-
-/datum/action/cooldown/spell/ferramancy_strike/proc/get_cardinal(dir)
-	if(dir & NORTH)
-		return NORTH
-	if(dir & SOUTH)
-		return SOUTH
-	if(dir & EAST)
-		return EAST
-	if(dir & WEST)
-		return WEST
-	return NORTH
-
-/// Rotate a NORTH-baseline (dx, dy) offset to the given cardinal facing.
-/datum/action/cooldown/spell/ferramancy_strike/proc/rotate_offset(dx, dy, facing)
-	switch(facing)
-		if(SOUTH)
-			return list(-dx, -dy)
-		if(EAST)
-			return list(dy, -dx)
-		if(WEST)
-			return list(-dy, dx)
-	return list(dx, dy)
-
-/// Angle clockwise from north for the facing direction, for placing effects on an arc via sin/cos.
-/datum/action/cooldown/spell/ferramancy_strike/proc/facing_position_angle(facing)
-	switch(facing)
-		if(EAST)
-			return 90
-		if(SOUTH)
-			return 180
-		if(WEST)
-			return 270
-	return 0
+	telegraph_type = /obj/effect/temp_visual/trap/ferramancy
 
 /datum/action/cooldown/spell/ferramancy_strike/falling_crescent
 	name = "Falling Crescent"
-	desc = "Wind up a greatsword's edge, then sweep a wide arc across the tiles in front of you, cleaving everything in reach in a single stroke. You are slowed and left wide open as you wind it up, but once begun it cannot be stopped - only stepped clear of. This strike can be defended against, but not parried or dodged.\n\n\
+	desc = "Wind up a greatsword's edge, then sweep a wide arc across the tiles in front of you, cleaving everything in reach right to left. You are slowed and left wide open as you wind it up, but once begun it cannot be stopped - only stepped clear of. This strike can be defended against, but not parried or dodged.\n\n\
 	Deals 65 brute damage to everything caught in the arc."
 	button_icon_state = "falling_crescent"
 	invocations = list("Acies Lunata!")
