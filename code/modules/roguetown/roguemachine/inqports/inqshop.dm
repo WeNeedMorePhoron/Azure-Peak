@@ -80,7 +80,7 @@
 
 /datum/inqports/supplies/litany
 	name = "The Archbishop's Litany - Singular Blessing Of Psydonic Weaponry"
-	item_type = /obj/item/paper/inqslip/litany
+	item_type = /obj/item/inqarticles/litany
 	maximum = 5
 	marquescost = 6
 
