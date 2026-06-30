@@ -12,14 +12,14 @@
 	self_cast_possible = TRUE
 
 	primary_resource_type = SPELL_COST_ENERGY
-	primary_resource_cost = SPELLCOST_form_blade
+	primary_resource_cost = SPELLCOST_FORM_BLADE
 
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
 	charge_time = CHARGETIME_POKE
-	charge_slowdown = CHARGING_SLOWDOWN_NONE
-	cooldown_time = 5 SECONDS
+	charge_slowdown = CHARGING_SLOWDOWN_SMALL
+	cooldown_time = 25 SECONDS
 	shared_cooldown = "form_blade"
 
 	associated_skill = /datum/skill/magic/arcane
