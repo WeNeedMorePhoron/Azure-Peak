@@ -353,6 +353,8 @@
 	ADD_TRAIT(src, TRAIT_SILVER_WEAK, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_DEADITE, TRAIT_GENERIC)
 
+	ADD_TRAIT(src, TRAIT_INFINITE_STAMINA, TRAIT_GENERIC) //Nessessary hack because the AI loves to exhaust itself disturbingly fast w/unarmed
+
 	//deadite statline - intentionally uniform
 	src.STASTR = 14
 	src.STASPD = 5
