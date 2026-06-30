@@ -15,8 +15,6 @@
 		return
 
 	var/mob/living/pawn = controller.pawn
-	if(HAS_TRAIT(controller.pawn, TRAIT_DEADITE))
-		return // Deadite, No point
 	var/datum/component/ai_inventory_manager/inv = controller.get_inventory()
 	if(!inv)
 		return

@@ -9,7 +9,6 @@
 		return
 
 	var/mob/living/living_pawn = controller.pawn
-
 	var/obj/item/held_item = living_pawn.get_active_held_item()
 	if(istype(held_item, /obj/item/rogueweapon/shield))
 		living_pawn.swap_hand()
