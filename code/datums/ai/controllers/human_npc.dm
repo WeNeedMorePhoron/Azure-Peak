@@ -145,3 +145,41 @@
 		/datum/ai_planning_subtree/retrieve_arrows,
 		/datum/ai_planning_subtree/loot,
 	)
+
+//Lobotomised version w/less loot/gear use
+/datum/ai_controller/human_npc/deadite
+	movement_delay = 0.1 SECONDS
+	max_target_distance = 13
+	ai_movement = /datum/ai_movement/hybrid_pathing
+	blackboard = list(
+		BB_WEAPON_TYPE = /obj/item/rogueweapon,
+		BB_ARMOR_CLASS = 2,
+		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic(),
+		BB_PET_TARGETING_DATUM = new /datum/targetting_datum/basic/not_friends(),
+
+		BB_HUMAN_NPC_ATTACK_ZONE_COUNTER = 0,  // how many times we've hit the same zone
+		BB_HUMAN_NPC_LAST_ATTACK_ZONE = null,  // last zone we attacked
+		BB_HUMAN_NPC_WEAKPOINT = null,         // cached weakpoint zone if we found one
+		BB_HUMAN_NPC_JUMP_COOLDOWN = 0,        // world.time when we can next jump
+		BB_HUMAN_NPC_FLANK_ANGLE = null,       // our claimed flank direction (degrees, 0-359)
+		BB_HUMAN_NPC_FLANK_TARGET = null,      // the turf we're moving toward for flanking
+		BB_HUMAN_NPC_HARASS_MODE = FALSE,      // TRUE when in hit-and-run mode
+		BB_HUMAN_NPC_HARASS_RETREATING = FALSE,// TRUE when in the back-off phase of harass
+		BB_HUMAN_NPC_HARASS_COOLDOWN = 0,      // world.time before we can dart in again
+		BB_HUMAN_NPC_JUKE_COOLDOWN = 0,        // world.time before we can juke again
+	)
+	/// Subtrees shared by all human NPC archetypes. Subtypes prepend archetype-specific
+	/// subtrees via their own planning_subtrees list.
+	planning_subtrees = list(
+		// /datum/ai_planning_subtree/pet_planning, - TEMP COMMENT OUT
+		/datum/ai_planning_subtree/call_for_help,
+		/datum/ai_planning_subtree/generic_break_restraints,
+		/datum/ai_planning_subtree/kick_attack,
+		/datum/ai_planning_subtree/generic_resist,
+		/datum/ai_planning_subtree/generic_stand,
+		/datum/ai_planning_subtree/tree_climb,
+		/datum/ai_planning_subtree/aggro_find_target,
+		/datum/ai_planning_subtree/attack_obstacle_in_path,
+		/datum/ai_planning_subtree/leap_attack,
+		/datum/ai_planning_subtree/basic_melee_attack_subtree/human_npc,
+	)

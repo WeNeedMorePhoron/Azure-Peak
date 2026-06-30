@@ -9,8 +9,6 @@
 		return
 
 	var/mob/living/living_pawn = controller.pawn
-	if(HAS_TRAIT(controller.pawn, TRAIT_DEADITE))
-		return // Deadite, No point
 
 	var/obj/item/held_item = living_pawn.get_active_held_item()
 	if(istype(held_item, /obj/item/rogueweapon/shield))

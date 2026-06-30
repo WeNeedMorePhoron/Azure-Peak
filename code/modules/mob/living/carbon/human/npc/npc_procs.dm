@@ -363,8 +363,8 @@
 	src.STAINT = 1
 	src.STAPER = 13
 
-	//Give the body deadite AI
-	src.ai_controller = /datum/ai_controller/human_npc //No archery, anymore.
+	//Give the body deadite AI - Override the AI too.
+	src.ai_controller = /datum/ai_controller/human_npc/deadite //Unique lobotomised version
 	src.d_intent = INTENT_DODGE //To simulate that deadites CANNOT parry
 	src.dodgetime = 10 //Since we can only claw (maybe bite soon?)
 	src.infected = TRUE //IDK what this does but keeping it
