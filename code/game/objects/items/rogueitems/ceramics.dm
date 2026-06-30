@@ -399,7 +399,7 @@
 /obj/item/natural/clay/rawring
 	name = "unfired clay ring"
 	icon = 'icons/roguetown/items/cooking.dmi'
-	icon_state = "clayporcelainringraw"
+	icon_state = "clayporeclainringraw"
 	desc = "A dainty ring fashioned out of clay."
 	cooked_type = /obj/item/clothing/ring/porcelain
 	smeltresult = /obj/item/clothing/ring/porcelain
