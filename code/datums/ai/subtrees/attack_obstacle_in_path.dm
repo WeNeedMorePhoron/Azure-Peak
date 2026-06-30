@@ -29,6 +29,9 @@
 /datum/ai_behavior/attack_obstructions/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
 	. = ..()
 	var/mob/living/basic_mob = controller.pawn
+	if(HAS_TRAIT(controller.pawn, TRAIT_DEADITE))
+		return // SHITCODE GALORE - basically we need to check /HEY BUDDY YOU HAVE ONLY FISTS, STOP RUNTIMING/
+
 	// Humans route through melee_attack_chain which only damages when used_intent is
 	// an attacking intent. Pick one (excluding help/shove/grab) before we click.
 	if(ishuman(basic_mob))
