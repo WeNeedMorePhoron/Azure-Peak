@@ -117,6 +117,7 @@
 	if(!QDELETED(H) && H.stat == CONSCIOUS)
 		on_impact(H, facing, visual)
 	var/list/offsets = get_pattern_offsets()
+	var/deflected = FALSE
 	for(var/i in 1 to length(offsets))
 		if(QDELETED(H) || H.stat != CONSCIOUS)
 			break
@@ -127,7 +128,7 @@
 		if(T)
 			if(stop_at_dense && T.density)
 				break
-			hit_turf(H, T, facing)
+			deflected = hit_turf(H, T, facing, deflected)
 			if(swipe_state)
 				var/obj/effect/temp_visual/dir_setting/attack_effect/slash = new(T, facing)
 				slash.icon_state = swipe_state
@@ -139,9 +140,9 @@
 /datum/action/cooldown/spell/ferramancy_strike/proc/on_impact(mob/living/carbon/human/H, facing, atom/movable/visual)
 	return
 
-/datum/action/cooldown/spell/ferramancy_strike/proc/hit_turf(mob/living/carbon/human/H, turf/T, facing)
+/datum/action/cooldown/spell/ferramancy_strike/proc/hit_turf(mob/living/carbon/human/H, turf/T, facing, deflected = FALSE)
 	if(QDELETED(H) || QDELETED(T))
-		return
+		return deflected
 	var/hit_any = FALSE
 	for(var/mob/living/L in T.contents)
 		if(L == H)
@@ -149,6 +150,9 @@
 		if(L.anti_magic_check())
 			L.visible_message(span_warning("The arcyne blades dispel as they near [L]!"))
 			playsound(get_turf(L), 'sound/magic/magic_nulled.ogg', 100)
+			continue
+		if(spell_guard_check(L, FALSE, deflected ? null : H))
+			deflected = TRUE
 			continue
 		hit_any = TRUE
 		if(ishuman(L))
@@ -164,6 +168,7 @@
 		new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
 	if(hit_any && detonate_sound)
 		playsound(T, detonate_sound, 65, TRUE)
+	return deflected
 
 /datum/action/cooldown/spell/ferramancy_strike/proc/do_blade_animation(mob/living/carbon/human/H, facing)
 	return
