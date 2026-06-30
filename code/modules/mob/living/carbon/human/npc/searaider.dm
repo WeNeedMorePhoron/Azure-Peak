@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 	)
 
 	set_species(pick(species))
-	sleep(1 SECOND) //To avoid bugs W/skin tone
+	sleep(1) //To avoid bugs W/skin tone
 	//Random voices, this can probably be more random-ish but it'll do for now
 	var/voice_choice = rand(1, 12)
 	switch(voice_choice)
