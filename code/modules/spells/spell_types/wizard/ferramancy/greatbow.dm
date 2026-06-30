@@ -46,6 +46,7 @@
 	minstr = 0
 	damfactor = 0.8
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bow/ferramancy
+	spill_ammo_on_drop = FALSE
 	possible_item_intents = list(
 		/datum/intent/shoot/bow/ferramancy,
 		/datum/intent/shoot/bow/ferramancy/arc,
@@ -83,6 +84,8 @@
 		fire_lance(target, user)
 		return TRUE
 	if(!chambered)
+		if(!reloading)
+			start_reload()
 		to_chat(user, span_warning("My greatbow has not yet conjured its next arrow!"))
 		return FALSE
 	. = ..()
