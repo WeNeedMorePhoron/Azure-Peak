@@ -292,6 +292,9 @@
 //MAKE DEADITE - TODO make this work for all NPCs + forcefully change their AI//
 
 /mob/living/carbon/human/proc/make_deadite()
+
+	blood_toll_bucket = STATS_KILLED_DEADITES //change to deadite kills
+
 	//called after creation so species isn't overriding our skin color
 	mob_biotypes |= MOB_UNDEAD
 	//give ourselves undead eyes.
