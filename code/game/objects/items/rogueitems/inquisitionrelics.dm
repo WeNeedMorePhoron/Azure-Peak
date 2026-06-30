@@ -1527,7 +1527,7 @@ Inquisitorial armory down here
 /obj/item/inqarticles/spyglass/attack_self(mob/living/user)
 	. = ..()
 
-/obj/item/paper/inqslip/litany
+/obj/item/inqarticles/litany
 	name = "litany"
 	desc = "A writ of religious anointment, printed on Otavan parchment. It bares the Absolver's 'rite of armaments' - a psalm dating back to the first crusades, recited \
 	to bless the faithful upon the eve of battle. Traditionally, these litanies are burned after recitement, and their ashes are smeared across a chosen weapon to consecrate \
@@ -1537,7 +1537,7 @@ Inquisitorial armory down here
 	item_state = "litany"
 	possible_item_intents = list(/datum/intent/bless)
 
-/obj/item/paper/inqslip/litany/afterattack(atom/movable/A, mob/user, proximity)
+/obj/item/inqarticles/litany/afterattack(atom/movable/A, mob/user, proximity)
 	. = ..()
 	if(isitem(A) && user.used_intent.type == /datum/intent/bless)
 		var/datum/component/silverbless/CP = A.GetComponent(/datum/component/silverbless)
