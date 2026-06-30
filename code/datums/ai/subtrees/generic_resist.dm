@@ -30,9 +30,9 @@
 
 /datum/ai_behavior/resist/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()
+	var/mob/living/living_pawn = controller.pawn
 
 	if(living_pawn.has_status_effect(STATUS_EFFECT_PARALYZED) || living_pawn.has_status_effect(STATUS_EFFECT_STUN)) //No point if we're -> Paralyzed or Stunned
-		var/mob/living/living_pawn = controller.pawn
 		if(QDELETED(living_pawn))
 			return
 		if(SHOULD_RESIST(living_pawn))
