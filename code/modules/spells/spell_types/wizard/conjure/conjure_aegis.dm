@@ -45,12 +45,11 @@
 
 /obj/item/rogueweapon/shield/arcyne_aegis/tome
 	name = "arcyne aegis"
-	desc = "A shield of arcyne energy projected from a tome. It is easily controlled by a mage skilled in staves and vanishes if the tome leaves its wielder."
+	desc = "A shield of arcyne energy projected from a tome. It is easily controlled by a mage skilled in the arcyne arts and vanishes if the tome leaves its wielder."
 	wdefense = 10
 	coverage = 30
 	max_integrity = 120
-	associated_skill = /datum/skill/combat/staves
-	special = null
+	associated_skill = /datum/skill/combat/arcyne
 	var/datum/weakref/linked_tome
 
 /obj/item/rogueweapon/shield/arcyne_aegis/tome/greater
