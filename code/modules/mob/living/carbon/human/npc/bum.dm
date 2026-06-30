@@ -33,10 +33,48 @@ GLOBAL_LIST_INIT(bum_aggro, world.file2list("strings/rt/bumaggrolines.txt"))
 	random_voice_NPC()
 	random_hair_NPC()
 	random_eye_color_NPC()
-	correct_ears_NPC()
-	equipOutfit(new /datum/outfit/job/roguetown/vagabond)
-	STACON = 4
-	STAWIL = 4
-	STAINT = 6
+	correct_features_NPC()
+	equipOutfit(new /datum/outfit/job/roguetown/bum_npc)
+	STALUC = rand(5, 15)
+	STACON = rand(4, 10)
+	STAWIL = rand(4, 10)
+	STASTR = rand(7, 10)
+	STAINT = rand(5, 15) //Hilarious
 
+/datum/outfit/job/roguetown/bum_npc/pre_equip(mob/living/carbon/human/H)
+	..()
+	if(prob(20))
+		head = /obj/item/clothing/head/roguetown/knitcap
 
+	if(prob(5))
+		beltr = /obj/item/reagent_containers/powder/moondust
+
+	if(prob(10))
+		beltl = /obj/item/clothing/mask/cigarette/rollie/cannabis
+
+	if(prob(10))
+		cloak = /obj/item/clothing/cloak/raincloak/brown
+
+	if(should_wear_femme_clothes(H))
+		armor = /obj/item/clothing/suit/roguetown/shirt/rags
+	else if(should_wear_masc_clothes(H))
+		armor = null
+		pants = /obj/item/clothing/under/roguetown/tights/vagrant
+
+		if(prob(50))
+			pants = /obj/item/clothing/under/roguetown/tights/vagrant/l
+
+		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant
+
+		if(prob(50))
+			shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant/l
+
+	if(prob(5))
+		r_hand = /obj/item/rogueweapon/mace/woodclub
+	else
+		r_hand = null
+
+	if(prob(5))
+		l_hand = /obj/item/rogueweapon/mace/woodclub
+	else
+		l_hand = null

@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(duelist_aggro, list(
 	random_voice_NPC()
 	random_hair_NPC()
 	random_eye_color_NPC()
-	correct_ears_NPC()
+	correct_features_NPC()
 	AddComponent(/datum/component/npc_death_line)
 	dna.species.handle_body(src)
 	src.regenerate_icons() //Fixes the weird body with random genders for NPCs.

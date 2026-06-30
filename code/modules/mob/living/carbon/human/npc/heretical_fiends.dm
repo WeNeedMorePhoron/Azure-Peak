@@ -79,7 +79,7 @@
 	random_voice_NPC()
 	random_hair_NPC()
 	random_eye_color_NPC()
-	correct_ears_NPC()
+	correct_features_NPC()
 	update_hair()
 	update_body()
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)

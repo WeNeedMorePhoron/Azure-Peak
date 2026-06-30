@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 	random_voice_NPC()
 	random_hair_no_beard_NPC()
 	random_eye_color_NPC()
-	correct_ears_NPC()
+	correct_features_NPC()
 
 	if(prob(1))
 		real_name = "Taras Mura"
