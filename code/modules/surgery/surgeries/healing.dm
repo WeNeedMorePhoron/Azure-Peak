@@ -81,7 +81,7 @@
 	if(missinghpbonus)
 		urhealedamt_brute += round((target.getBruteLoss()/ missinghpbonus),0.1)
 		urhealedamt_burn += round((target.getFireLoss()/ missinghpbonus),0.1)
-	if(!get_location_accessible(target, target_zone))
+	if(!get_location_accessible(target, target_zone, surgery = TRUE))
 		urhealedamt_brute *= 0.55
 		urhealedamt_burn *= 0.55
 		umsg += " as best as you can while they have clothing on"

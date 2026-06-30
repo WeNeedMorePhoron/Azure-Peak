@@ -205,7 +205,7 @@
 				return FALSE
 	*/
 
-	if(!ignore_clothes && !get_location_accessible(target, target_zone || bodypart.body_zone))
+	if(!ignore_clothes && !get_location_accessible(target, target_zone || bodypart.body_zone, surgery = TRUE))
 		return FALSE
 
 	return TRUE
