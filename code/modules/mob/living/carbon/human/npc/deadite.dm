@@ -1,9 +1,8 @@
 /mob/living/carbon/human/species/npc/deadite
 	ai_controller = /datum/ai_controller/human_npc
-	d_intent = INTENT_DODGE //To simulate that deadites CANNOT parry
-	dodgetime = 14
+	d_intent = INTENT_PARRY //Test if stuff breaks because make_deadite() should override this.
+	dodgetime = 30
 	ambushable = FALSE
-	infected = TRUE
 	//we give them AI through make_deadite() as well, but this is so they don't bug the fuck out in building, its a HORRIBLE hacky-solution
 
 /mob/living/carbon/human/species/npc/deadite/Initialize()
