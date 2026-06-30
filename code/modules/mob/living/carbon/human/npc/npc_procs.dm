@@ -1,3 +1,8 @@
+/mob/living/carbon/human/proc/correct_ears_NPC() //hacky solution to randomisation jank
+	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
+	if(organ_ears)
+		organ_ears.accessory_colors = "[skin_tone]"
+
 /mob/living/carbon/human/proc/random_eye_color_NPC()
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	if(organ_eyes)

@@ -33,9 +33,7 @@
 	random_voice_NPC()
 	random_hair_NPC()
 	random_eye_color_NPC()
-	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
-	if(organ_ears)
-		organ_ears.accessory_colors = "[src.skin_tone]"
+	correct_ears_NPC()
 
 	if(gender == FEMALE)
 		real_name = pick(world.file2list("strings/names/first_female.txt"))

@@ -33,6 +33,7 @@ GLOBAL_LIST_INIT(bum_aggro, world.file2list("strings/rt/bumaggrolines.txt"))
 	random_voice_NPC()
 	random_hair_NPC()
 	random_eye_color_NPC()
+	correct_ears_NPC()
 	equipOutfit(new /datum/outfit/job/roguetown/vagabond)
 	STACON = 4
 	STAWIL = 4

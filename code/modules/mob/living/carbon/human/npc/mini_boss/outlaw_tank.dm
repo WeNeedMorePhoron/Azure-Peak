@@ -56,6 +56,7 @@ GLOBAL_LIST_INIT(tank_aggro, list(
 	random_voice_NPC()
 	random_hair_NPC()
 	random_eye_color_NPC()
+	correct_ears_NPC()
 	dna.species.handle_body(src)
 	src.regenerate_icons() //Fixes the weird body with random genders for NPCs.
 
