@@ -313,10 +313,7 @@
 	src.base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, /datum/intent/unarmed/claw)
 	update_a_intents()
 	//Fuck with our factions to make us undead only
-	faction += "undead"
-	faction += "zombie"
-	faction -= "station"
-	faction -= "neutral"
+	src.faction = list(FACTION_ZOMBIE, FACTION_UNDEAD)
 	//Give ourselves the deadite voicepack
 	src.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/zombie/m]
 	src.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/zombie/f]
