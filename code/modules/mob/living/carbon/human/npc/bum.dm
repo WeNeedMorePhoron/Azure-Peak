@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(bum_aggro, world.file2list("strings/rt/bumaggrolines.txt"))
 			if(5)
 				l_hand = /obj/item/rogueweapon/woodstaff
 			if(6)
-				r_hand = /obj/item/rogueweapon/idagger
+				r_hand = /obj/item/rogueweapon/huntingknife/idagger
 			if(7)
 				l_hand = /obj/item/rogueweapon/stoneaxe/woodcut
 			if(8)
