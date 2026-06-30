@@ -16,59 +16,30 @@
 	parrysound = list('sound/combat/parry/shield/magicshield (1).ogg', 'sound/combat/parry/shield/magicshield (2).ogg', 'sound/combat/parry/shield/magicshield (3).ogg')
 	associated_skill = /datum/skill/combat/shields
 	var/datum/weakref/caster_ref
-	var/offhand_dispel_time = 10 SECONDS
-	var/dispel_timer
-
-/obj/item/rogueweapon/shield/arcyne_aegis/examine(mob/user)
-	. = ..()
-	. += span_notice("Out of hand, it dissipates in about [offhand_dispel_time / 10] seconds.")
 
 /obj/item/rogueweapon/shield/arcyne_aegis/obj_break()
 	. = ..()
 	if(!QDELETED(src))
 		dispel()
 
-/obj/item/rogueweapon/shield/arcyne_aegis/Destroy()
-	cancel_dispel_timer()
-	return ..()
-
 /obj/item/rogueweapon/shield/arcyne_aegis/attack_hand(mob/living/user)
 	. = ..()
-	refresh_dispel_state()
-
-/obj/item/rogueweapon/shield/arcyne_aegis/equipped(mob/user, slot, initial = FALSE)
-	. = ..()
-	refresh_dispel_state()
+	if(!QDELETED(src) && !(user.get_active_held_item() == src || user.get_inactive_held_item() == src))
+		dispel()
 
 /obj/item/rogueweapon/shield/arcyne_aegis/dropped(mob/living/user)
 	. = ..()
-	refresh_dispel_state()
-
-/obj/item/rogueweapon/shield/arcyne_aegis/proc/refresh_dispel_state()
 	if(QDELETED(src))
 		return
-	var/mob/holder = isliving(loc) ? loc : null
-	if(holder?.is_holding(src))
-		cancel_dispel_timer()
-	else
-		start_dispel_timer()
-
-/obj/item/rogueweapon/shield/arcyne_aegis/proc/start_dispel_timer()
-	if(QDELETED(src) || dispel_timer)
-		return
-	dispel_timer = addtimer(CALLBACK(src, PROC_REF(dispel)), offhand_dispel_time, TIMER_STOPPABLE)
-
-/obj/item/rogueweapon/shield/arcyne_aegis/proc/cancel_dispel_timer()
-	if(dispel_timer)
-		deltimer(dispel_timer)
-		dispel_timer = null
+	var/mob/caster = caster_ref?.resolve()
+	// Only dispel if dropped on the ground (not held by the caster)
+	if(!caster || loc != caster)
+		dispel()
 
 /obj/item/rogueweapon/shield/arcyne_aegis/proc/dispel()
 	if(QDELETED(src))
 		return
-	cancel_dispel_timer()
 	visible_message(span_warning("[src] shatters into motes of arcyne light!"))
-	balloon_alert_to_viewers("aegis fades")
 	playsound(get_turf(src), 'sound/magic/magic_nulled.ogg', 80)
 	qdel(src)
 
@@ -101,6 +72,11 @@
 	var/mob/caster = caster_ref?.resolve()
 	var/obj/item/rogueweapon/spellbook/T = linked_tome?.resolve()
 	return caster && T && caster.is_holding(T)
+
+/obj/item/rogueweapon/shield/arcyne_aegis/tome/dropped(mob/living/user)
+	. = ..()
+	if(!QDELETED(src) && !valid_tome_link())
+		dispel()
 
 /obj/item/rogueweapon/shield/arcyne_aegis/tome/dispel()
 	var/obj/item/rogueweapon/spellbook/T = linked_tome?.resolve()

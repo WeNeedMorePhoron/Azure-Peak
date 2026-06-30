@@ -124,7 +124,7 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 	. += span_notice("Reading it allows you to rebind your aspect spells.")
 	if(implement_refund)
 		. += span_notice("When held while casting, this implement leaves behind Residual Focus, returning [round(implement_refund * 100)]% of the spell's resource cost as energy over 20 seconds.")
-	. += span_notice("With the Arcyne Aegis intent selected, aim anywhere and hold to charge a shield into your offhand, costing [aegis_energy_cost] energy. The shield dissipates about 10 seconds after it leaves your hand.")
+	. += span_notice("With the Arcyne Aegis intent selected, aim anywhere and hold to charge a shield into your offhand, costing [aegis_energy_cost] energy.")
 
 /obj/item/rogueweapon/spellbook/attack_self(mob/living/carbon/human/user)
 	if(istype(user) && istype(user.a_intent, /datum/intent/tome/aegis))
