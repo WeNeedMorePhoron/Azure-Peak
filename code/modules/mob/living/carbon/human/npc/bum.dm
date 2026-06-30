@@ -55,7 +55,7 @@ GLOBAL_LIST_INIT(bum_aggro, world.file2list("strings/rt/bumaggrolines.txt"))
 
 	belt = /obj/item/storage/belt/rogue/leather/rope
 	if(prob(70))
-		switch(rand(1, 6))
+		switch(rand(1, 10))
 			if(1)
 				r_hand = /obj/item/rogueweapon/mace/woodclub
 			if(2)
