@@ -447,7 +447,7 @@
 		qdel(zombie)
 		return
 
-/mob/living/carbon/human/proc/try_do_zombie_idle() //Returns the SOVL noises
+/mob/living/carbon/human/proc/try_do_zombie_idle() //Returns the SOVL noises once we're turned
 	if(HAS_TRAIT(src, TRAIT_DEADITE))
 		if(mob_timers["deadite_idle"])
 			if(world.time < mob_timers["deadite_idle"] + rand(15 SECONDS, 20 SECONDS))

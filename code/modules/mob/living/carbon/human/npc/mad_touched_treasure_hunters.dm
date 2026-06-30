@@ -38,7 +38,7 @@
 	equipOutfit(new mad_outfit)
 	gender = pick(MALE, FEMALE)
 
-		var/species = list(
+	var/species = list(
 		/datum/species/human/northern,
 		/datum/species/human/northern, //Extra bias towards humens and wood/half elves
 		/datum/species/human/northern,

@@ -30,8 +30,6 @@
 		organ_ears.accessory_colors = "#868e79"
 
 	real_name = "[pick(deadite_firstnames)] [pick(deadite_lastnames)]"
-	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/zombie/m]
-	H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/zombie/f]
 
 	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 	equipOutfit(new /datum/outfit/job/roguetown/deadite) //Give ourselves the base outfit (traits of being a deadite + statline)
@@ -87,6 +85,10 @@
 	//Clear our hands out, we don't need stuff here.
 	r_hand = null
 	l_hand = null
+
+	//Give ourselves the deadite voicepack
+	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/zombie/m]
+	H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/zombie/f]
 
 /mob/living/carbon/human/proc/deadite_get_aimheight(victim)
 	if(!(mobility_flags & MOBILITY_STAND))
