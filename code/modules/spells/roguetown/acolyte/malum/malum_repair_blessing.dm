@@ -82,6 +82,7 @@
 /datum/action/cooldown/spell/apply_malum
 	name = "Invoke Malum Reinforcement"
 	desc = "Call upon the Malum energy gifted to you to reinforce your armor."
+	background_icon = 'icons/mob/actions/malummiracles.dmi'
 	button_icon = 'icons/mob/actions/malummiracles.dmi'
 	button_icon_state = "invoke_malum"
 
@@ -115,6 +116,7 @@
 	name = "Gift of Malum"
 	desc = "Grant a target the ability to invoke Malum armor reinforcement. \
 	Armor reinforcements causes pickuppable armor repair shards to be dropped when the target's armor is damaged."
+	background_icon = 'icons/mob/actions/malummiracles.dmi'
 	button_icon = 'icons/mob/actions/malummiracles.dmi'
 	button_icon_state = "malum_gift"
 	sound = 'sound/magic/bless.ogg'

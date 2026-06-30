@@ -27,7 +27,7 @@
 // T0 - Enkindle - Undivided Ignition. //
 /////////////////////////////////////////
 
-/datum/action/cooldown/spell/astrata/ignition/undivided
+/datum/action/cooldown/spell/miracle/ignition/undivided
 	name = "Enkindle"
 	background_icon = 'icons/mob/actions/undividedmiracles.dmi'
 	button_icon = 'icons/mob/actions/undividedmiracles.dmi'
@@ -79,7 +79,7 @@
 
 /datum/action/cooldown/spell/undivided/recuperation/cast(atom/cast_on)
 	. = ..()
-	var/const/energytoregen = 50
+	var/const/energytoregen = 100
 
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H))
@@ -91,10 +91,10 @@
 		show_visible_message(owner, "You can only cast this on living beings.")
 		return FALSE
 	if (spelltarget == H)
-		spelltarget.energy_add(energytoregen * (owner.get_skill_level(associated_skill)))//200 for templar, 300 for acolyte
+		spelltarget.energy_add((energytoregen * (owner.get_skill_level(associated_skill))) / 2)//You only get half
 		spelltarget.apply_status_effect(/datum/status_effect/buff/recuperation)
 		show_visible_message(owner, "<font color='cyan'>As [owner] intones the incantation, vibrant flames swirl around them.", "<font color='cyan'>As you intone the incantation, vibrant flames swirl around you. You feel refreshed.")
-	else if (H.energy > (energytoregen * 2))
+	else if (H.energy > (energytoregen))
 		owner.energy_add(-(energytoregen * (owner.get_skill_level(associated_skill))))
 		spelltarget.energy_add((energytoregen * (owner.get_skill_level(associated_skill))) * 2)
 		spelltarget.apply_status_effect(/datum/status_effect/buff/recuperation/other)

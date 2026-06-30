@@ -111,7 +111,11 @@
 	return ..()
 
 /datum/action/cooldown/spell/arcyne_forge/miracle
+	background_icon = 'icons/mob/actions/malummiracles.dmi'
+	button_icon = 'icons/mob/actions/malummiracles.dmi'
+	button_icon_state = "forge"
 	invocations = list("Malum, grant me your tool!")//Old incantation
 	point_cost = 0
 	spell_tier = 0
+	associated_stat = null
 	associated_skill = /datum/skill/magic/holy

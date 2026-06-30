@@ -5,6 +5,7 @@
 	worshippers = "Smiths, Miners, Engineers"
 	mob_traits = list(TRAIT_FORGEBLESSED)
 	miracles = list(/datum/action/cooldown/spell/touch/orison				= CLERIC_ORI,
+					/datum/action/cooldown/spell/miracle/ignition/malum		= CLERIC_T0,
 					/datum/action/cooldown/spell/malum/reconstruction       = CLERIC_T0,
 					/datum/action/cooldown/spell/arcyne_forge/miracle		= CLERIC_T0,
 					/datum/action/cooldown/spell/miracle/heal 				= CLERIC_T1,
@@ -14,6 +15,7 @@
 					/datum/action/cooldown/spell/malum/hammerfall			= CLERIC_T2,
 					/datum/action/cooldown/spell/malum/reforge				= CLERIC_T3,
 					/datum/action/cooldown/spell/malum_blessing				= CLERIC_T3,
+					/datum/action/cooldown/spell/miracle/intervention/malum = CLERIC_T4,
 					/obj/effect/proc_holder/spell/invoked/resurrect/malum	= CLERIC_T4,
 	)
 	confess_lines = list(

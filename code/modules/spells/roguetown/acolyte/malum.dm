@@ -22,6 +22,16 @@
 
 	required_items = list(/obj/item/clothing/neck/roguetown/psicross/malum, /obj/item/clothing/neck/roguetown/psicross/undivided, /obj/item/clothing/neck/roguetown/psicross/silver/undivided)
 
+/////////////////
+// T0 - Ignite //
+/////////////////
+
+/datum/action/cooldown/spell/miracle/ignition/malum
+	background_icon = 'icons/mob/actions/malummiracles.dmi'
+	button_icon = 'icons/mob/actions/malummiracles.dmi'
+	spell_color = GLOW_COLOR_MALUM
+	required_items = list(/obj/item/clothing/neck/roguetown/psicross/malum, /obj/item/clothing/neck/roguetown/psicross/undivided, /obj/item/clothing/neck/roguetown/psicross/silver/undivided)
+
 /////////////////////////
 // T0 - Reconstruction //
 /////////////////////////
@@ -42,8 +52,8 @@
 
 	secondary_resource_cost = SPELLCOST_MINOR_PROJECTILE
 
-	invocations = list("Repair!")
-	invocation_type = INVOCATION_SHOUT
+	//invocations = list("Repair!")
+	invocation_type = INVOCATION_NONE
 
 	charge_required = FALSE
 	cooldown_time = 20 SECONDS
@@ -151,8 +161,8 @@
 
 	secondary_resource_cost = SPELLCOST_UTILITY_BUFF
 
-	invocations = list("Through flame and ash, let vigor rise, by Malum’s hand, let strength reprise!")
-	invocation_type = INVOCATION_SHOUT
+	//invocations = list("Through flame and ash, let vigor rise, by Malum’s hand, let strength reprise!")
+	invocation_type = INVOCATION_NONE
 
 	charge_required = TRUE
 	charge_time = 1 SECONDS
@@ -177,12 +187,12 @@
 		show_visible_message(owner, "You can only cast this on living beings.")
 		return FALSE
 	if (spelltarget == H)
-		spelltarget.energy_add(energytoregen * (owner.get_skill_level(associated_skill)))//200 for templar, 300 for acolyte
-		show_visible_message(owner, "As [owner] intones the incantation, vibrant flames swirl around them.", "As you intone the incantation, vibrant flames swirl around you. You feel refreshed.")
-	else if (H.energy > (energytoregen * 2))
+		spelltarget.energy_add((energytoregen * (owner.get_skill_level(associated_skill))) / 2)//You only get half
+		show_visible_message(owner, "<font color='orange'>As [owner] intones the incantation, vibrant flames swirl around them.", "<font color='orange'>As you intone the incantation, vibrant flames swirl around you. You feel refreshed.")
+	else if (H.energy > (energytoregen))
 		owner.energy_add(-(energytoregen * (owner.get_skill_level(associated_skill))))
 		spelltarget.energy_add((energytoregen * (owner.get_skill_level(associated_skill))) * 2)
-		show_visible_message(spelltarget, "As [owner] intones the incantation, vibrant flames swirl around them, a dance of energy flowing towards [spelltarget].", "As [owner] intones the incantation, vibrant flames swirl around them, a dance of energy flowing towards you. You feel refreshed.")
+		show_visible_message(spelltarget, "<font color='orange'>As [owner] intones the incantation, vibrant flames swirl around them, a dance of energy flowing towards [spelltarget].", "<font color='orange'>As [owner] intones the incantation, vibrant flames swirl around them, a dance of energy flowing towards you. You feel refreshed.")
 
 /////////////////////
 // T2 - Heat Metal //
@@ -442,7 +452,7 @@
 
 /datum/action/cooldown/spell/malum/reforge
 	name = "Reforge"
-	desc = "Progressively repair all metal items on target."
+	desc = "Progressively repair all metal items on a target."
 	button_icon_state = "repair"
 	sound = null
 	glow_intensity = GLOW_INTENSITY_LOW
@@ -451,7 +461,7 @@
 	cast_range = SPELL_RANGE_GROUND
 	self_cast_possible = FALSE
 
-	primary_resource_cost = SPELLCOST_MIRACLE_LEGENDARY
+	primary_resource_cost = SPELLCOST_MIRACLE_MAJOR
 
 	secondary_resource_cost = SPELLCOST_MIRACLE
 
@@ -496,3 +506,16 @@
 			continue
 		cast(cast_on)
 	return TRUE
+
+//////////////////
+// T4 - Reforge //
+//////////////////
+
+/datum/action/cooldown/spell/miracle/intervention/malum
+	name = "Temper"
+	background_icon = 'icons/mob/actions/malummiracles.dmi'
+	button_icon = 'icons/mob/actions/malummiracles.dmi'
+	button_icon_state = "craftercovenant"
+	spell_color = GLOW_COLOR_MALUM
+	sparks_amt = 3
+	required_items = list(/obj/item/clothing/neck/roguetown/psicross/malum, /obj/item/clothing/neck/roguetown/psicross/undivided, /obj/item/clothing/neck/roguetown/psicross/silver/undivided)
