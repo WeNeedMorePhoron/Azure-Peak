@@ -130,14 +130,14 @@
 		finish_action(controller, FALSE, target_key)
 		return
 
-	var/attacks_done = controller.blackboard[BB_HUMAN_NPC_ATTACK_ZONE_COUNTER]
 	if(pawn.STAINT >= HUMAN_NPC_MIN_INT_FOR_TACTICS)
 		// Don't open with a special — need a few normal swings first
+		var/attacks_done = controller.blackboard[BB_HUMAN_NPC_ATTACK_ZONE_COUNTER]
 		if(attacks_done >= 2 && _try_weapon_special(controller))
 			return
 
-	//Don't open with biting, claw them a bit first. this is generally our "frag this guy we boxed in move" for deadites
-	if(HAS_TRAIT(pawn, TRAIT_DEADITE) && attacks_done >= 2)
+	//40% to try and bite
+	if(HAS_TRAIT(pawn, TRAIT_DEADITE) && prob(40))
 		pawn.do_deadite_attack()
 
 	_update_combat_intent(controller, pawn, target)
