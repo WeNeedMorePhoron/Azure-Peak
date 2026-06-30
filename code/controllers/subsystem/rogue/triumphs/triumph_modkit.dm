@@ -2,7 +2,7 @@
 // ! TRIUMPH EXCLUSIVE KITS!   //
 /////////////////////////////////
 // Special enchanting kits that can be acquired via Triumphs. Refer to 'donator_modkits.dm' for more details and up-to-date examples.
-// Try to keep anything specifically acquired via Triumphs - instead of Donations - here.
+// Try to keep anything specifically acquired via Triumphs - instead of Donations - here, if possible.
 
 //'Replacement' variants. These specifically replace the item-in-question with a whole new instance. More bloatish, but ensures complete adherence to skin restrictions and allows for supplemental tweaks (like new onmobs.)
 // No harm in using these if you prefer, but it's strongly suggested to implement reskins via the 'Skinned' system, below. This works best for clothing (like plate armor) and special weapons (like silver or avantyne.)
