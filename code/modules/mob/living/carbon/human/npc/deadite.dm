@@ -7,13 +7,37 @@
 
 /mob/living/carbon/human/species/npc/deadite/Initialize()
 	. = ..()
-	random_character(gender, FALSE, FALSE)
 	gender = pick(MALE, FEMALE)
+	dna.species.handle_body(src)
 	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
+
+	var/hairf = pick(list(
+						/datum/sprite_accessory/hair/head/lowbraid,
+						/datum/sprite_accessory/hair/head/countryponytailalt,
+						/datum/sprite_accessory/hair/head/gloomy,
+						/datum/sprite_accessory/hair/head/zone,
+						/datum/sprite_accessory/hair/head/hime,
+						/datum/sprite_accessory/hair/head/stacy,
+						/datum/sprite_accessory/hair/head/sabitsuki,
+						/datum/sprite_accessory/hair/head/sabitsuki_ponytail, 
+						/datum/sprite_accessory/hair/head/kusanagi_alt,
+						/datum/sprite_accessory/hair/head/fluffy,
+						/datum/sprite_accessory/hair/head/fluffylong))
+	var/hairm = pick(list(
+						/datum/sprite_accessory/hair/head/ponytailwitcher,
+						/datum/sprite_accessory/hair/head/bowlcut, 
+						/datum/sprite_accessory/hair/head/bowlcut2,
+						/datum/sprite_accessory/hair/head/lowbraid,
+						/datum/sprite_accessory/hair/head/emo,
+						/datum/sprite_accessory/hair/head/sabitsuki,
+						/datum/sprite_accessory/hair/head/sabitsuki_ponytail, 
+						/datum/sprite_accessory/hair/head/rogue))
+	//No beard, doesn't fit well with our hood.
+
+	RandomiseNPCLook()
 	var/list/deadite_firstnames = world.file2list("strings/rt/names/other/deaditenpcfirst.txt")
 	var/list/deadite_lastnames  = world.file2list("strings/rt/names/other/deaditenpclast.txt")
 	
-	skin_tone = "#868e79"
 	var/species = list(
 		/datum/species/human/northern,
 		/datum/species/human/northern, //Extra bias towards humens and dwarves/half elves
@@ -26,6 +50,8 @@
 	)
 
 	set_species(pick(species))
+	if(skin_tone)
+		skin_tone = "#868e79"
 	if(organ_ears)
 		organ_ears.accessory_colors = "#868e79"
 
