@@ -1539,7 +1539,7 @@ Inquisitorial armory down here
 
 /obj/item/paper/inqslip/litany/afterattack(atom/movable/A, mob/user, proximity)
 	. = ..()
-	if(isitem(A) && on && user.used_intent.type == /datum/intent/bless)
+	if(isitem(A) && user.used_intent.type == /datum/intent/bless)
 		var/datum/component/silverbless/CP = A.GetComponent(/datum/component/silverbless)
 		if(CP)
 			if(!CP.is_blessed && (CP.silver_type & SILVER_PSYDONIAN))
