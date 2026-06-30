@@ -42,7 +42,6 @@
 	)
 
 	set_species(pick(species))
-	sleep(1) //To avoid bugs W/skin tone
 	var/hairf = pick(list(
 						/datum/sprite_accessory/hair/head/lowbraid,
 						/datum/sprite_accessory/hair/head/countryponytailalt,

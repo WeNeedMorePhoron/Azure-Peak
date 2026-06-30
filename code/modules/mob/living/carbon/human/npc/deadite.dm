@@ -7,19 +7,7 @@
 
 /mob/living/carbon/human/species/npc/deadite/Initialize()
 	. = ..()
-	var/species = list(
-		/datum/species/human/northern,
-		/datum/species/dwarf/mountain,
-		/datum/species/elf/dark,
-		/datum/species/elf/wood,
-		/datum/species/goblinp,
-		/datum/species/aasimar,
-		/datum/species/human/halfelf,
-		/datum/species/halforc,
-	)
-
-	set_species(pick(species))
-	sleep(1) //To avoid bugs W/skin tone
+	random_character(gender, FALSE, FALSE)
 	gender = pick(MALE, FEMALE)
 
 	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
