@@ -116,24 +116,32 @@
 		elapsed += redraw_interval
 	if(!QDELETED(H) && H.stat == CONSCIOUS)
 		on_impact(H, facing, visual)
-	var/list/offsets = get_pattern_offsets()
+	var/list/bands = get_sweep_bands()
 	var/deflected = FALSE
-	for(var/i in 1 to length(offsets))
+	for(var/b in 1 to length(bands))
 		if(QDELETED(H) || H.stat != CONSCIOUS)
 			break
-		var/list/off = offsets[i]
-		var/list/r = rotate_offset(off[1], off[2], facing)
 		var/turf/origin = get_turf(H)
-		var/turf/T = origin ? locate(origin.x + r[1], origin.y + r[2], origin.z) : null
-		if(T)
+		var/stop = FALSE
+		for(var/list/off in bands[b])
+			var/list/r = rotate_offset(off[1], off[2], facing)
+			var/turf/T = origin ? locate(origin.x + r[1], origin.y + r[2], origin.z) : null
+			if(!T)
+				continue
 			if(stop_at_dense && T.density)
+				stop = TRUE
 				break
 			deflected = hit_turf(H, T, facing, deflected)
 			if(swipe_state)
 				var/obj/effect/temp_visual/dir_setting/attack_effect/slash = new(T, facing)
 				slash.icon_state = swipe_state
-		draw_offsets(H, facing, indicator, offsets.Copy(i + 1))
-		if(sweep_step > 0 && i < length(offsets))
+		var/list/remaining = list()
+		for(var/j in b + 1 to length(bands))
+			remaining += bands[j]
+		draw_offsets(H, facing, indicator, remaining)
+		if(stop)
+			break
+		if(sweep_step > 0 && b < length(bands))
 			sleep(sweep_step)
 	clear_indicators(indicator)
 
@@ -175,6 +183,12 @@
 
 /datum/action/cooldown/spell/ferramancy_strike/proc/get_pattern_offsets()
 	return list()
+
+/datum/action/cooldown/spell/ferramancy_strike/proc/get_sweep_bands()
+	var/list/bands = list()
+	for(var/list/off in get_pattern_offsets())
+		bands += list(list(off))
+	return bands
 
 /datum/action/cooldown/spell/ferramancy_strike/proc/get_cardinal(dir)
 	if(dir & NORTH)
@@ -221,12 +235,18 @@
 	damage = 65
 	swipe_state = "chop"
 
-/datum/action/cooldown/spell/ferramancy_strike/falling_crescent/get_pattern_offsets()
+/datum/action/cooldown/spell/ferramancy_strike/falling_crescent/get_sweep_bands()
 	return list(
-		list(1, 0), list(1, 1), list(1, 2),
-		list(0, 1), list(0, 2),
-		list(-1, 0), list(-1, 1), list(-1, 2),
+		list(list(1, 0), list(1, 1), list(1, 2)),
+		list(list(0, 1), list(0, 2)),
+		list(list(-1, 0), list(-1, 1), list(-1, 2)),
 	)
+
+/datum/action/cooldown/spell/ferramancy_strike/falling_crescent/get_pattern_offsets()
+	var/list/flat = list()
+	for(var/list/band in get_sweep_bands())
+		flat += band
+	return flat
 
 /datum/action/cooldown/spell/ferramancy_strike/sorcerers_lance
 	name = "Sorcerer's Lance"
