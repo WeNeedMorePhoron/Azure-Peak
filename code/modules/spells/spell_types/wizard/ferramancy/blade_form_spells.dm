@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/form_blade
 	name = "Form Blade"
-	desc = "Conjure an arcyne weapon shaped by your will and mana alone. Cycle the form with Ctrl+G. Only one conjured form may exist at a time."
+	desc = "Conjure an arcyne weapon shaped by your will and mana alone. Cycle the form with Ctrl+G. Only one conjured form may exist at a time. It dissipates about 10 seconds after it leaves your hand."
 	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	button_icon_state = "form_blade"
 	spell_color = GLOW_COLOR_METAL
@@ -61,10 +61,16 @@
 	if(W.max_integrity)
 		W.max_integrity = round(W.max_integrity * 0.5)
 		W.obj_integrity = W.max_integrity
-	W.AddComponent(/datum/component/conjured_item, "#5c7cff")
+	W.AddComponent(/datum/component/conjured_item, "#5c7cff", FALSE, 10 SECONDS)
+	RegisterSignal(W, COMSIG_PARENT_QDELETING, PROC_REF(on_weapon_destroyed))
 	H.put_in_hands(W)
 	conjured_weapon = W
 	return TRUE
+
+/datum/action/cooldown/spell/form_blade/proc/on_weapon_destroyed(datum/source)
+	SIGNAL_HANDLER
+	if(source == conjured_weapon)
+		conjured_weapon = null
 
 /datum/action/cooldown/spell/form_blade/Grant(mob/grant_to)
 	. = ..()
