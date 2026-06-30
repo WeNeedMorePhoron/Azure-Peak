@@ -1,9 +1,15 @@
 /mob/living/carbon/human/species/npc/deadite
-	//we give them AI through make_deadite()
+	ai_controller = /datum/ai_controller/human_npc
+	d_intent = INTENT_DODGE //To simulate that deadites CANNOT parry
+	dodgetime = 14
+	ambushable = FALSE
+	infected = TRUE
+	//we give them AI through make_deadite() as well, but this is so they don't bug the fuck out in building, its a HORRIBLE hacky-solution
 
 /mob/living/carbon/human/species/npc/deadite/Initialize()
 	. = ..()
 	//picked from a list because 1: Races that look better w/deaditing here 2: We need deadite infectable races for immersion's sake I.E not sun elves 3: we can bias towards common azurian races
+	//Yes it requires spamming the list with several entries to weight it, if you can do better. please do so. this sucks.
 	var/species = list(
 		/datum/species/human/northern,
 		/datum/species/human/northern,
