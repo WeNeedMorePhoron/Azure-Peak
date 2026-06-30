@@ -40,6 +40,7 @@
 		/datum/species/dwarf/mountain,
 	)
 
+	set_species(pick(species))
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	var/hairf = pick(list(
