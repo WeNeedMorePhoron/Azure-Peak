@@ -40,7 +40,7 @@
 /datum/ai_behavior/call_for_help/perform(delta_time, datum/ai_controller/controller, target_key)
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
-	living_pawn.emote("scream")
+	living_pawn.emote = pick("scream","warcry","rage")
 	living_pawn.visible_message(span_danger("[living_pawn] shouts for aid!"))
 	var/atom/current_target = controller.blackboard[target_key]
 
