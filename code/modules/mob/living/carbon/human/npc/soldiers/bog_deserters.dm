@@ -104,7 +104,10 @@
 
 /mob/living/carbon/human/species/human/northern/bog_deserters/Initialize()
 	. = ..()
+	//Begin RANDOMISE here
 	set_species(pick(NPC_RACES_TYPES))
+	gender = pick(MALE, FEMALE)
+	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
 	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 
@@ -120,10 +123,6 @@
 	ADD_TRAIT(src, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 	equipOutfit(new deserter_outfit)
-	//Begin RANDOMISE here
-	gender = pick(MALE, FEMALE)
-	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
-	//But then we must do our y'know, hair and shit after this.
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	head.sellprice = HEAD_BOUNTY_DESERTER
 	AddComponent(/datum/component/npc_death_line, null, 25)
@@ -133,6 +132,8 @@
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	organ_eyes.eye_color = random_eye_color()
 	organ_eyes.accessory_colors = "[eye_color][eye_color]"
+	if(organ_ears)
+		organ_ears.accessory_colors = "[src.skin_tone]"
 
 	if(gender == FEMALE)
 		real_name = pick(world.file2list("strings/names/first_female.txt"))
@@ -236,16 +237,13 @@
 	head.sellprice = HEAD_BOUNTY_DESERTER
 	AddComponent(/datum/component/npc_death_line, null, 25)
 	dna.species.handle_body(src)
-	//Begin RANDOMISE here
-	set_species(pick(NPC_RACES_TYPES))
-	gender = pick(MALE, FEMALE)
-	//Random voices, this can probably be more random-ish but it'll do for now
 	random_voice_NPC()
 	random_hair_NPC()
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	organ_eyes.eye_color = random_eye_color()
 	organ_eyes.accessory_colors = "[eye_color][eye_color]"
-	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
+	if(organ_ears)
+		organ_ears.accessory_colors = "[src.skin_tone]"
 
 	if(gender == FEMALE)
 		real_name = pick(world.file2list("strings/names/first_female.txt"))

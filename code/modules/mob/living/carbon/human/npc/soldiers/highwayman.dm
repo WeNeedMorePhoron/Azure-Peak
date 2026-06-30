@@ -46,7 +46,10 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 
 /mob/living/carbon/human/species/human/northern/highwayman/Initialize()
 	. = ..()
+	//Begin RANDOMISE here
 	set_species(pick(NPC_RACES_TYPES))
+	gender = pick(MALE, FEMALE)
+	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
 	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 
@@ -63,10 +66,6 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 	equipOutfit(new /datum/outfit/job/roguetown/human/species/human/northern/highwayman)
 	dna.species.handle_body(src)
-	//Begin RANDOMISE here
-	gender = pick(MALE, FEMALE)
-	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
-	//But then we must do our y'know, hair and shit after this.
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	head.sellprice = HEAD_BOUNTY_HIGHWAYMAN
 	//Random voices, this can probably be more random-ish but it'll do for now
@@ -75,6 +74,8 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	organ_eyes.eye_color = random_eye_color()
 	organ_eyes.accessory_colors = "[eye_color][eye_color]"
+	if(organ_ears)
+		organ_ears.accessory_colors = "[src.skin_tone]"
 
 	if(gender == FEMALE)
 		real_name = pick(world.file2list("strings/names/first_female.txt"))

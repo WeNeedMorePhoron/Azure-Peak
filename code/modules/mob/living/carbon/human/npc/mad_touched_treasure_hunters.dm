@@ -17,7 +17,10 @@
 
 /mob/living/carbon/human/species/human/northern/mad_touched_treasure_hunter/Initialize()
 	. = ..()
+	//Begin RANDOMISE here
 	set_species(pick(NPC_RACES_TYPES))
+	gender = pick(MALE, FEMALE)
+	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
 	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 /mob/living/carbon/human/species/human/northern/mad_touched_treasure_hunter/after_creation()
@@ -36,105 +39,16 @@
 	ADD_TRAIT(src, TRAIT_NOPAIN, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 	equipOutfit(new mad_outfit)
-	//Begin RANDOMISE here
-	gender = pick(MALE, FEMALE)
-	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
-	//But then we must do our y'know, hair and shit after this.
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	head.sellprice = HEAD_BOUNTY_MAD_TOUCHED
-	var/hairf = pick(list(
-						/datum/sprite_accessory/hair/head/lowbraid,
-						/datum/sprite_accessory/hair/head/countryponytailalt,
-						/datum/sprite_accessory/hair/head/gloomy,
-						/datum/sprite_accessory/hair/head/zone,
-						/datum/sprite_accessory/hair/head/hime,
-						/datum/sprite_accessory/hair/head/stacy,
-						/datum/sprite_accessory/hair/head/sabitsuki,
-						/datum/sprite_accessory/hair/head/sabitsuki_ponytail, 
-						/datum/sprite_accessory/hair/head/kusanagi_alt,
-						/datum/sprite_accessory/hair/head/fluffy,
-						/datum/sprite_accessory/hair/head/fluffylong))
-	var/hairm = pick(list(
-						/datum/sprite_accessory/hair/head/ponytailwitcher,
-						/datum/sprite_accessory/hair/head/bowlcut, 
-						/datum/sprite_accessory/hair/head/bowlcut2,
-						/datum/sprite_accessory/hair/head/lowbraid,
-						/datum/sprite_accessory/hair/head/emo,
-						/datum/sprite_accessory/hair/head/sabitsuki,
-						/datum/sprite_accessory/hair/head/sabitsuki_ponytail, 
-						/datum/sprite_accessory/hair/head/rogue))
-	//No beard, doesn't fit well with our hood.
 	dna.species.handle_body(src)
 	random_voice_NPC()
-	//Next up, we add hair
-	var/datum/bodypart_feature/hair/head/new_hair = new()
-	var/datum/bodypart_feature/hair/facial/new_facial = new()
-
-	if(gender == FEMALE)
-		new_hair.set_accessory_type(hairf, null, src)
-	else
-		new_hair.set_accessory_type(hairm, null, src)
-
-	var/haircolor_choice = rand(1, 6)
-	switch(haircolor_choice)
-		if(1) //Blond-Brown
-			new_hair.accessory_colors = "#C1A287"
-			new_hair.hair_color = "#C1A287"
-			new_facial.accessory_colors = "#C1A287"
-			new_facial.hair_color = "#C1A287"
-			hair_color = "#C1A287"
-		if(2) //Ginger-ish
-			new_hair.accessory_colors = "#A56B3D"
-			new_hair.hair_color = "#A56B3D"
-			new_facial.accessory_colors = "#A56B3D"
-			new_facial.hair_color = "#A56B3D"
-			hair_color = "#A56B3D"
-		if(3) //Black
-			new_hair.accessory_colors = "#0d0c2e"
-			new_hair.hair_color = "#0d0c2e"
-			new_facial.accessory_colors = "#0d0c2e"
-			new_facial.hair_color = "#0d0c2e"
-			hair_color = "#0d0c2e"
-		if(4) //Red
-			new_hair.accessory_colors = "#a53d3d"
-			new_hair.hair_color = "#a53d3d"
-			new_facial.accessory_colors = "#a53d3d"
-			new_facial.hair_color = "#a53d3d"
-			hair_color = "#a53d3d"
-		if(5) //Olive
-			new_hair.accessory_colors = "#767c3f"
-			new_hair.hair_color = "#767c3f"
-			new_facial.accessory_colors = "#767c3f"
-			new_facial.hair_color = "#767c3f"
-			hair_color = "#767c3f"
-		if(6) //Dark Brown
-			new_hair.accessory_colors = "#503516"
-			new_hair.hair_color = "#503516"
-			new_facial.accessory_colors = "#503516"
-			new_facial.hair_color = "#503516"
-			hair_color = "#503516"
-		if(7) //Dull Blond
-			new_hair.accessory_colors = "#bdbb6b"
-			new_hair.hair_color = "#bdbb6b"
-			new_facial.accessory_colors = "#bdbb6b"
-			new_facial.hair_color = "#bdbb6b"
-			hair_color = "#bdbb6b"
-		if(8) //Dull Brown
-			new_hair.accessory_colors = "#7e6d53"
-			new_hair.hair_color = "#7e6d53"
-			new_facial.accessory_colors = "#7e6d53"
-			new_facial.hair_color = "#7e6d53"
-			hair_color = "#7e6d53"
-	//Add our hair bodypart features
-	head.add_bodypart_feature(new_hair)
-	head.add_bodypart_feature(new_facial)
-
-	dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
+	random_hair_no_beard_NPC()
 
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	organ_eyes.eye_color = random_eye_color()
 	organ_eyes.accessory_colors = "[eye_color][eye_color]"
-	
+
 	dna.species.handle_body(src)
 	
 	real_name = pick(world.file2list("strings/rt/names/human/mad_touched_names.txt"))

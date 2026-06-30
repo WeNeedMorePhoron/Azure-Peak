@@ -17,7 +17,10 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 
 /mob/living/carbon/human/species/human/northern/searaider/Initialize()
 	. = ..()
+	//Begin RANDOMISE here
 	set_species(pick(NPC_RACES_TYPES))
+	gender = pick(MALE, FEMALE)
+	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
 	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 
@@ -46,10 +49,6 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 						/datum/sprite_accessory/hair/facial/manly,
 						/datum/sprite_accessory/hair/facial/longbeard))
 	dna.species.handle_body(src)
-	//Begin RANDOMISE here
-	gender = pick(MALE, FEMALE)
-	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
-	//But then we must do our y'know, hair and shit after this.
 	random_voice_NPC()
 	//Next up, we add hair BECAUSE we want the sovlful styles, only
 	var/datum/bodypart_feature/hair/head/new_hair = new()

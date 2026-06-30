@@ -68,6 +68,7 @@
 //BEARDED HAIR VERSION//
 
 /mob/living/carbon/human/proc/random_hair_NPC()
+	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	var/hairf = pick(list(
 						/datum/sprite_accessory/hair/head/lowbraid,
 						/datum/sprite_accessory/hair/head/countryponytailalt,
@@ -157,6 +158,11 @@
 			new_facial.accessory_colors = "#7e6d53"
 			new_facial.hair_color = "#7e6d53"
 			hair_color = "#7e6d53"
+	//Add our hair bodypart features
+	head.add_bodypart_feature(new_hair)
+	head.add_bodypart_feature(new_facial)
+
+	dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
 
 //BEARDLESS VERSION//
 

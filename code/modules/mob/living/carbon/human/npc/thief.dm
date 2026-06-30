@@ -11,7 +11,10 @@
 
 /mob/living/carbon/human/species/human/northern/thief/Initialize()
 	. = ..()
+	//Begin RANDOMISE here
 	set_species(pick(NPC_RACES_TYPES))
+	gender = pick(MALE, FEMALE)
+	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
 	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 /mob/living/carbon/human/species/human/northern/thief/after_creation()
@@ -27,9 +30,6 @@
 	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 	equipOutfit(new /datum/outfit/job/roguetown/human/species/human/northern/thief)
 	//Begin RANDOMISE here
-	gender = pick(MALE, FEMALE)
-	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
-	//But then we must do our y'know, hair and shit after this.
 	dna.species.handle_body(src)
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	random_voice_NPC()
@@ -39,6 +39,8 @@
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	organ_eyes.eye_color = random_eye_color()
 	organ_eyes.accessory_colors = "[eye_color][eye_color]"
+	if(organ_ears)
+		organ_ears.accessory_colors = "[src.skin_tone]"
 
 	if(gender == FEMALE)
 		real_name = pick(world.file2list("strings/names/first_female.txt"))
