@@ -93,9 +93,9 @@ GLOBAL_LIST_INIT(bum_aggro, world.file2list("strings/rt/bumaggrolines.txt"))
 	if(prob(10))
 		cloak = /obj/item/clothing/cloak/raincloak/brown
 
-	if(should_wear_femme_clothes(H))
+	if(H.gender == FEMALE)
 		armor = /obj/item/clothing/suit/roguetown/shirt/rags
-	else if(should_wear_masc_clothes(H))
+	else
 		armor = null
 		pants = /obj/item/clothing/under/roguetown/tights/vagrant
 

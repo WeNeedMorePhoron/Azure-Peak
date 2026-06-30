@@ -1,7 +1,7 @@
 /mob/living/carbon/human/proc/correct_features_NPC() //hacky solution to randomisation jank
 	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	if(organ_ears)
-		organ_ears.accessory_colors = "[skin_tone]"
+		organ_ears.accessory_colors = "["#" + skin_tone]" //yes we have to re-add the hash, sire. Suffer with me.
 
 /mob/living/carbon/human/proc/random_eye_color_NPC()
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
