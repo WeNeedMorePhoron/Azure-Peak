@@ -328,7 +328,6 @@
 
 	add_verb(H, /mob/proc/haltyell_exhausting) //Halting the charred corpse is too funny, we're keeping it. sovl.
 
-	mask = /obj/item/clothing/mask/rogue/ragmask/black
 	cloak = /obj/item/clothing/cloak/tabard/stabard/vamp
 	head = /obj/item/clothing/head/roguetown/helmet/heavy/guard //ancient-esc look
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/paalloy
@@ -469,7 +468,7 @@
 	//UNIQUELY relies on WARDS off-the-bat, vs wretches/advs/mercenaries. Has NO chest armor, or head armor, save for neck. Legs/Feet remain decently armored by intent. Go for their arms instead.
 	cloak = /obj/item/clothing/cloak/tabard/stabard/hoodvamp
 	head = /obj/item/clothing/head/roguetown/witchhat/vamp //EVERY PALLY IN THE KINGDOM ON MA TAIL
-	mask = /obj/item/clothing/mask/rogue/facemask //Nessessary to hide face
+	mask = /obj/item/clothing/mask/rogue/ragmask/black
 	shirt = /obj/item/clothing/suit/roguetown/shirt/tunic/white
 	armor = /obj/item/clothing/cloak/tabard/stabard/vamp
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
