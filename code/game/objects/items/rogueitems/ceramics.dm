@@ -427,7 +427,8 @@
 	icon_state = "clayporcelainbauble"
 	desc = "This is a base item, if you are seeing this, it's a bug, report it lol."
 	dropshrink = FALSE
-
+	obj_flags = CAN_BE_HIT|UNIQUE_RENAME
+	
 /obj/item/natural/clay/porcelain/bauble
 	name = "porcelain bauble"
 	desc = "A small porcelain bauble."
