@@ -121,7 +121,7 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 	. += span_notice("Reading it allows you to rebind your aspect spells.")
 	if(implement_refund)
 		. += span_notice("When held while casting, this implement leaves behind Residual Focus, returning [round(implement_refund * 100)]% of the spell's resource cost as energy over 20 seconds.")
-	. += span_notice("Use it in hand with the Arcyne Aegis intent selected to project a shield into your offhand, costing [aegis_energy_cost] energy.")
+	. += span_notice("With the Arcyne Aegis intent selected, aim anywhere and hold to charge a shield into your offhand, costing [aegis_energy_cost] energy.")
 
 /obj/item/rogueweapon/spellbook/attack_self(mob/living/carbon/human/user)
 	if(istype(user) && istype(user.a_intent, /datum/intent/tome/aegis))
@@ -132,6 +132,12 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 		return
 	read(user)
 	user.update_inv_hands()
+
+/obj/item/rogueweapon/spellbook/afterattack(atom/target, mob/living/user, proximity_flag, params)
+	. = ..()
+	if(!istype(user) || !istype(user.used_intent, /datum/intent/tome/aegis))
+		return
+	conjure_aegis(user)
 
 /obj/item/rogueweapon/spellbook/rmb_self(mob/user)
 	attack_right(user)
@@ -227,27 +233,27 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 			return /obj/item/rogueweapon/shield/arcyne_aegis/tome/grand
 	return /obj/item/rogueweapon/shield/arcyne_aegis/tome
 
-/obj/item/rogueweapon/spellbook/proc/conjure_aegis(mob/living/carbon/human/user)
-	if(!user.is_holding(src))
+/obj/item/rogueweapon/spellbook/proc/can_conjure_aegis(mob/living/carbon/human/user, feedback = FALSE)
+	if(!istype(user) || !user.is_holding(src))
 		return FALSE
 	if(user.get_inactive_held_item())
-		to_chat(user, span_warning("I need my offhand free to project the Aegis!"))
+		if(feedback)
+			to_chat(user, span_warning("I need my offhand free to project the Aegis!"))
 		return FALSE
 	if(!COOLDOWN_FINISHED(src, aegis_cd))
-		to_chat(user, span_warning("The [src] is still gathering arcyne force. [round(COOLDOWN_TIMELEFT(src, aegis_cd) / 10, 1)] seconds remain."))
+		if(feedback)
+			to_chat(user, span_warning("The [src] is still gathering arcyne force. [round(COOLDOWN_TIMELEFT(src, aegis_cd) / 10, 1)] seconds remain."))
 		return FALSE
 	if(user.energy < aegis_energy_cost)
-		to_chat(user, span_warning("I need [aegis_energy_cost] arcyne energy to project the Aegis!"))
+		if(feedback)
+			to_chat(user, span_warning("I need [aegis_energy_cost] arcyne energy to project the Aegis!"))
 		return FALSE
-	user.visible_message(span_warning("[user] begins channeling arcyne force through [src]..."), span_notice("I begin focusing on conjuring an Aegis..."))
-	playsound(user, 'sound/magic/charging.ogg', 100, TRUE)
-	user.play_overhead_indicator('icons/mob/actions/mage_conjure.dmi', "conjure_aegis", aegis_charge_time, OBJ_LAYER)
-	user.add_movespeed_modifier("TOME_AEGIS_CHARGE", multiplicative_slowdown = CHARGING_SLOWDOWN_HEAVY)
-	var/channel_ok = do_after(user, aegis_charge_time, target = src)
-	user.remove_movespeed_modifier("TOME_AEGIS_CHARGE")
-	if(!channel_ok)
+	return TRUE
+
+/obj/item/rogueweapon/spellbook/proc/conjure_aegis(mob/living/carbon/human/user)
+	if(user.client && user.client.chargedprog < 100)
 		return FALSE
-	if(!user.is_holding(src) || user.get_inactive_held_item() || !COOLDOWN_FINISHED(src, aegis_cd) || user.energy < aegis_energy_cost)
+	if(!can_conjure_aegis(user, feedback = TRUE))
 		return FALSE
 	clear_aegis()
 	var/aegis_type = get_aegis_type()
@@ -261,6 +267,7 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 	conjured_aegis = S
 	user.energy_add(-aegis_energy_cost)
 	COOLDOWN_START(src, aegis_cd, aegis_cooldown)
+	playsound(user, 'sound/magic/whiteflame.ogg', 80, TRUE)
 	user.balloon_alert(user, "<font color = '#9BCCD0'>Aegis!</font>")
 	user.visible_message(span_notice("[user] projects a shimmering arcyne shield from [src]!"))
 	return TRUE
