@@ -358,7 +358,7 @@
 	src.STAPER = 13
 
 	//Give the body deadite AI
-	ai_controller = /datum/ai_controller/human_npc
+	ai_controller = /datum/ai_controller/human_npc/deadite //Special version that does not equip
 	d_intent = INTENT_DODGE //To simulate that deadites CANNOT parry
 	dodgetime = 14
 	ambushable = FALSE

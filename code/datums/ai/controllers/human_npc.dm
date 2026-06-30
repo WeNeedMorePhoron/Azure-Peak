@@ -145,3 +145,19 @@
 		/datum/ai_planning_subtree/retrieve_arrows,
 		/datum/ai_planning_subtree/loot,
 	)
+
+////Lobotomised deadite NPC, this one will just attack and fight without equipping
+/datum/ai_controller/human_npc/deadite
+	planning_subtrees = list(
+		// /very lobotomised, cannot even retreat. KILL. KILL. KILL.
+		/datum/ai_planning_subtree/call_for_help,
+		/datum/ai_planning_subtree/generic_break_restraints,
+		/datum/ai_planning_subtree/kick_attack,
+		/datum/ai_planning_subtree/generic_resist,
+		/datum/ai_planning_subtree/generic_stand,
+		/datum/ai_planning_subtree/tree_climb,
+		/datum/ai_planning_subtree/aggro_find_target,
+		/datum/ai_planning_subtree/attack_obstacle_in_path,
+		/datum/ai_planning_subtree/leap_attack,
+		/datum/ai_planning_subtree/basic_melee_attack_subtree/human_npc,
+	)
