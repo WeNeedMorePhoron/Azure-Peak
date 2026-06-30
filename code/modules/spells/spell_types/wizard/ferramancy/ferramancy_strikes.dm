@@ -225,13 +225,13 @@
 
 /datum/action/cooldown/spell/ferramancy_strike/falling_crescent
 	name = "Falling Crescent"
-	desc = "Wind up a greatsword's edge, then sweep a wide arc across the tiles in front of you, cleaving everything in reach right to left. You are slowed and left wide open as you wind it up, but once begun it cannot be stopped - only stepped clear of. This strike can be defended against, but not parried or dodged.\n\n\
+	desc = "Wind up a greatsword's edge, then sweep a wide arc across the tiles in front of you, cleaving everything in reach in a single stroke. You are slowed and left wide open as you wind it up, but once begun it cannot be stopped - only stepped clear of. This strike can be defended against, but not parried or dodged.\n\n\
 	Deals 65 brute damage to everything caught in the arc."
 	button_icon_state = "falling_crescent"
 	invocations = list("Acies Lunata!")
 	blade_class = BCLASS_CUT
 	windup_time = TELEGRAPH_DODGEABLE
-	sweep_step = 2
+	sweep_step = 0
 	damage = 65
 	swipe_state = "chop"
 
