@@ -311,6 +311,7 @@
 	update_a_intents()
 	//Fuck with our factions to make us undead only
 	faction += "undead"
+	faction += "zombie"
 	faction -= "station"
 	faction -= "neutral"
 	//Give ourselves the deadite voicepack
