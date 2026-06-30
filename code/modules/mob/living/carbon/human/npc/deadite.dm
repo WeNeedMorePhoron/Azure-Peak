@@ -19,6 +19,7 @@
 	)
 
 	set_species(pick(species))
+	sleep(1 SECOND) //To avoid bugs W/skin tone
 	gender = pick(MALE, FEMALE)
 
 	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)

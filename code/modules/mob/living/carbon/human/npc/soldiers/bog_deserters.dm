@@ -133,6 +133,7 @@
 	)
 
 	set_species(pick(species))
+	sleep(1 SECOND) //To avoid bugs W/skin tone
 	gender = pick(MALE, FEMALE)
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	var/hairf = pick(list(
@@ -395,6 +396,7 @@
 	)
 
 	set_species(pick(species))
+	sleep(1 SECOND) //To avoid bugs W/skin tone
 	gender = pick(MALE, FEMALE)
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	var/hairf = pick(list(/datum/sprite_accessory/hair/head/lowbraid,

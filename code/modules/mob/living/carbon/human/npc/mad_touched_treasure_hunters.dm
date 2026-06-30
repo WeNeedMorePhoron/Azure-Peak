@@ -50,6 +50,7 @@
 	)
 	
 	set_species(pick(species))
+	sleep(1 SECOND) //To avoid bugs W/skin tone
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	head.sellprice = HEAD_BOUNTY_MAD_TOUCHED
