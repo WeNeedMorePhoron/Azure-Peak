@@ -24,6 +24,7 @@ by Arcyne user after a duration
 	I.fiber_salvage = FALSE
 	I.craft_blocked = TRUE
 	I.sellprice = 0
+	I.static_price = TRUE
 
 /datum/component/conjured_item/proc/on_examine(datum/source, mob/user, list/examine_list)
 	examine_list += "This item crackles with faint arcyne energy. It seems to be conjured."
