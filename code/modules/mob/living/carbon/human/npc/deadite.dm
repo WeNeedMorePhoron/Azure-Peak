@@ -9,12 +9,23 @@
 	. = ..()
 	random_character(gender, FALSE, FALSE)
 	gender = pick(MALE, FEMALE)
-
 	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	var/list/deadite_firstnames = world.file2list("strings/rt/names/other/deaditenpcfirst.txt")
 	var/list/deadite_lastnames  = world.file2list("strings/rt/names/other/deaditenpclast.txt")
 	
 	skin_tone = "#868e79"
+	var/species = list(
+		/datum/species/human/northern,
+		/datum/species/human/northern, //Extra bias towards humens and dwarves/half elves
+		/datum/species/human/northern,
+		/datum/species/elf/wood,
+		/datum/species/human/halfelf,
+		/datum/species/human/halfelf,
+		/datum/species/dwarf/mountain,
+		/datum/species/dwarf/mountain,
+	)
+
+	set_species(pick(species))
 	if(organ_ears)
 		organ_ears.accessory_colors = "#868e79"
 
