@@ -23,7 +23,8 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 	wlength = WLENGTH_SHORT
 	wdefense = 1
 	max_integrity = 80
-	associated_skill = /datum/skill/combat/staves
+	sewrepair = TRUE
+	associated_skill = /datum/skill/combat/arcyne
 	possible_item_intents = list(/datum/intent/mace/strike/wood, /datum/intent/tome/aegis)
 	name = "\improper lesser tome of the arcyne"
 	desc = "A crackling, glowing book, filled with runes and symbols that hurt the mind to stare at. It can rebind aspect spells and project an arcyne aegis."
