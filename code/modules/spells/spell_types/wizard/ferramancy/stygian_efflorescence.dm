@@ -4,7 +4,7 @@
 /datum/action/cooldown/spell/projectile/stygian_efflorescence
 	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Stygian Efflorescence"
-	desc = "Burst forth a volley of five sharpened obsidian shards in a wide spread. Additional shards striking the same target deal reduced damage. Projectile\ effectiveness decreases after 4 tiles."
+	desc = "Charge up, then loose a volley of five sharpened obsidian shards in a wide spread, blasting out in the direction you face. The first shard can cause a critical wound, but shards on the same target deal greatly reduced damage (8 damage) and cannot crit. Projectile effectiveness decreases after 5 tiles."
 	fluff_desc = "Before the first men learned to refine metal, men fought with sharpened stones - particularly obsidian from the foot of volcanos. \
 	It is said that Mount Golgotha had the best obsidian in all the world, sharp enough to cut flesh with ease. \
 	Malice, energy, and the imagination of the Magi cutting someone apart with Obsidian. \
@@ -16,8 +16,12 @@
 
 	projectile_type = /obj/projectile/energy/stygian
 	cast_range = SPELL_RANGE_PROJECTILE
-	projectiles_per_fire = 3
+	projectiles_per_fire = 5
 	point_cost = 3
+
+	click_to_activate = FALSE
+	cardinal_aim = TRUE
+	shared_cooldown = "ferramancy_strike"
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MAJOR_PROJECTILE // It is a big ass shotgun now
@@ -49,32 +53,32 @@
 		base_angle = Get_Angle(user, target)
 	var/center_index = (projectiles_per_fire + 1) / 2
 	to_fire.Angle = base_angle + ((iteration - center_index) * spread_step)
-	// It used to be only center shard crits, but now that it is on much higher cooldown :) everything can crit
 
 // --- Stygian projectile ---
 
 /obj/projectile/energy/stygian
 	name = "stygian harpe"
 	guard_deflectable = TRUE
-	range = 5
+	range = 7 // Let you pressure a whole screen, in theory
 	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "stygian"
-	max_range = 4 // Effective range is lower than its maximal range
+	max_range = 5 // Effective range is lower than its maximal range
 	damage = 34
 	damage_type = BRUTE
 	woundclass = BCLASS_STAB
 	armor_penetration = PEN_LIGHT
 	npc_simple_damage_mult = 1.5
-	speed = MAGE_PROJ_SLOW
+	speed = MAGE_PROJ_VERY_SLOW
 	flag = "stab"
 	hitsound = 'sound/combat/hits/bladed/genstab (1).ogg'
-	var/reduced_damage = 18
+	var/reduced_damage = 7 // 34 + 7 * 4 = 62. A point blank is gonna be as much damage as most of your melee Ferramantic attack, on purpose as a ranged pressure tool as not as a replacement to compete with your fancy NotSpecial
 
 /obj/projectile/energy/stygian/prehit(atom/target)
 	if(ismob(target))
 		var/mob/living/M = target
 		if(M.mob_timers[MT_STYGIAN] && world.time < M.mob_timers[MT_STYGIAN] + STYGIAN_DR_DURATION)
 			damage = reduced_damage
+			no_crit = TRUE
 		else
 			M.mob_timers[MT_STYGIAN] = world.time
 	return ..()

@@ -7,7 +7,7 @@
 	name = "Blade Dance"
 	desc = "Wreathe yourself in a whirling storm of arcyne blades that moves with you, slashing everything in the tiles around you.\n\n\
 	Deals 30 brute damage per second for 10 seconds to everything in the tiles adjacent to you."
-	button_icon_state = "iron_tempest"
+	button_icon_state = "blade_dance"
 	sound = 'sound/magic/scrapeblade.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_VERY_HIGH

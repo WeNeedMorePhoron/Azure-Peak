@@ -281,6 +281,7 @@
 		/datum/action/cooldown/spell/ferramancy_strike/falling_crescent,
 		/datum/action/cooldown/spell/ferramancy_strike/sorcerers_lance,
 		/datum/action/cooldown/spell/ferramancy_strike/hammer_of_heaven,
+		/datum/action/cooldown/spell/projectile/stygian_efflorescence,
 		/datum/action/cooldown/spell/form_blade,
 		/datum/action/cooldown/spell/bind_armament,
 		/datum/action/cooldown/spell/arcyne_forge,
