@@ -45,7 +45,7 @@
 		var/obj/item/r_held = pawn.get_item_for_held_index(1)
 		var/obj/item/l_held = pawn.get_item_for_held_index(2)
 		var/has_weapon = istype(r_held, /obj/item/rogueweapon) || istype(l_held, /obj/item/rogueweapon)
-		if(!has_weapon)
+		if(!has_weapon && !HAS_TRAIT(controller.pawn, TRAIT_DEADITE)) //Deadites do not care, we claw and attack. (In future I might make a check for puglist NPCs to also not bother)
 			for(var/obj/item/rogueweapon/nearby_weapon in view(7, pawn))
 				if(!isturf(nearby_weapon.loc))
 					continue
@@ -96,7 +96,7 @@
 	var/datum/targetting_datum/td = controller.blackboard[targetting_datum_key]
 
 	var/obj/item/held_weapon = pawn.get_active_held_item()
-	if(!istype(held_weapon, /obj/item/rogueweapon) && (!HAS_TRAIT(pawn, TRAIT_DEADITE))) //Deadites won't pick up weaponry
+	if(!istype(held_weapon, /obj/item/rogueweapon) && (!HAS_TRAIT(pawn, TRAIT_DEADITE))) //Deadites won't pick up weaponry - read above, puglists in future maybe.
 		// Snatch a dropped weapon adjacent to us — recovers from getting disarmed mid-fight
 		for(var/obj/item/rogueweapon/candidate in range(1, pawn))
 			if(!isturf(candidate.loc))
