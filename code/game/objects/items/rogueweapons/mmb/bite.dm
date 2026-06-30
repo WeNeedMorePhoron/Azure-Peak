@@ -121,8 +121,9 @@
 //nodmg if our teeth can't break through their armour
 	if(!nodmg)
 		playsound(src, "smallslash", vol = 50, vary = FALSE, extrarange = -1, ignore_walls = FALSE, quiet = TRUE)
+		var/mob/living/carbon/human/bite_victim = src
 		if(ishuman(src) && user.mind)
-			var/mob/living/carbon/human/bite_victim = src
+
 			/*
 				WEREWOLF INFECTION VIA BITE
 			*/
@@ -144,6 +145,13 @@
 				zombie_antag.last_bite = world.time
 				if(bite_victim.zombie_infect_attempt())   // infect_attempt on bite
 					to_chat(user, span_danger("You feel your gift trickling from your mouth into [bite_victim]'s wound..."))
+
+		/*
+			ZOMBIE INFECTION VIA NPC BITE
+		*/
+		if(!user.mind && HAS_TRAIT(user, TRAIT_DEADITE) && prob(33)) //NPC Deadites have a LOWER infection rate (33% to even try infecting you)
+			bite_victim.zombie_infect_attempt()
+
 	var/obj/item/grabbing/bite/B = new()
 	user.equip_to_slot_or_del(B, SLOT_MOUTH)
 	if(user.mouth == B)

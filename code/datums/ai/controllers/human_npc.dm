@@ -171,14 +171,13 @@
 	/// Subtrees shared by all human NPC archetypes. Subtypes prepend archetype-specific
 	/// subtrees via their own planning_subtrees list.
 	planning_subtrees = list(
-		/datum/ai_planning_subtree/call_for_help,
 		/datum/ai_planning_subtree/generic_break_restraints,
 		/datum/ai_planning_subtree/kick_attack,
 		/datum/ai_planning_subtree/generic_resist,
 		/datum/ai_planning_subtree/generic_stand,
 		/datum/ai_planning_subtree/tree_climb,
 		/datum/ai_planning_subtree/aggro_find_target,
-		/datum/ai_planning_subtree/attack_obstacle_in_path,
+		// /datum/ai_planning_subtree/attack_obstacle_in_path, //breaks it for some reasoning.
 		/datum/ai_planning_subtree/leap_attack,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/human_npc,
 	)

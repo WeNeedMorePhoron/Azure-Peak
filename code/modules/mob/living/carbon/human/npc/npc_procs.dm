@@ -358,10 +358,10 @@
 	//deadite statline - intentionally uniform
 	src.STASTR = 14
 	src.STASPD = 5
-	src.STACON = 12
+	src.STACON = 9 //3 less than players
 	src.STAWIL = 13
 	src.STAINT = 1
-	src.STAPER = 13
+	src.STAPER = 12 //1 less than players
 
 	//Give the body deadite AI - Override the AI too.
 	src.ai_controller = /datum/ai_controller/deadite_npc //Unique lobotomised version

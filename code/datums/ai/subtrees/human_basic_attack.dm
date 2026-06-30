@@ -45,7 +45,10 @@
 		var/obj/item/r_held = pawn.get_item_for_held_index(1)
 		var/obj/item/l_held = pawn.get_item_for_held_index(2)
 		var/has_weapon = istype(r_held, /obj/item/rogueweapon) || istype(l_held, /obj/item/rogueweapon)
-		if(!has_weapon && !HAS_TRAIT(controller.pawn, TRAIT_DEADITE)) //Deadites do not care, we claw and attack. (In future I might make a check for puglist NPCs to also not bother)
+		if(has_weapon && HAS_TRAIT(controller.pawn, TRAIT_DEADITE)) //Deadites drop anything they're holding on aggro.
+			pawn.drop_all_held_items() //Hacky solution.
+
+		if(!has_weapon && !HAS_TRAIT(controller.pawn, TRAIT_DEADITE)) //Deadites don't seek out weapons.
 			for(var/obj/item/rogueweapon/nearby_weapon in view(7, pawn))
 				if(!isturf(nearby_weapon.loc))
 					continue
@@ -96,7 +99,7 @@
 	var/datum/targetting_datum/td = controller.blackboard[targetting_datum_key]
 
 	var/obj/item/held_weapon = pawn.get_active_held_item()
-	if(!istype(held_weapon, /obj/item/rogueweapon) && (!HAS_TRAIT(pawn, TRAIT_DEADITE))) //Deadites won't pick up weaponry - read above, puglists in future maybe.
+	if(!istype(held_weapon, /obj/item/rogueweapon) && !HAS_TRAIT(pawn, TRAIT_DEADITE)) //Deadites won't pick up weaponry
 		// Snatch a dropped weapon adjacent to us — recovers from getting disarmed mid-fight
 		for(var/obj/item/rogueweapon/candidate in range(1, pawn))
 			if(!isturf(candidate.loc))
@@ -127,11 +130,15 @@
 		finish_action(controller, FALSE, target_key)
 		return
 
+	var/attacks_done = controller.blackboard[BB_HUMAN_NPC_ATTACK_ZONE_COUNTER]
 	if(pawn.STAINT >= HUMAN_NPC_MIN_INT_FOR_TACTICS)
 		// Don't open with a special — need a few normal swings first
-		var/attacks_done = controller.blackboard[BB_HUMAN_NPC_ATTACK_ZONE_COUNTER]
 		if(attacks_done >= 2 && _try_weapon_special(controller))
 			return
+
+	//Don't open with biting, claw them a bit first. this is generally our "frag this guy we boxed in move" for deadites
+	if(HAS_TRAIT(pawn, TRAIT_DEADITE) && attacks_done >= 2)
+		pawn.do_deadite_attack()
 
 	_update_combat_intent(controller, pawn, target)
 	var/list/modifiers = list()
