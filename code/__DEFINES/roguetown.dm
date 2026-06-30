@@ -354,8 +354,13 @@ Balloon Alert / Floating Text defines
 
 /*Used for races that won't break the game completely if an NPC picks from this listing - Or look terrible like, really, really terrible.
 
-HARD NOS: Reverents (Head/Body issues + NPCs can't use this properly) + Constructs (Meant to be RARE, keep them solely limited to NPC types MEANT for them)
+HARD NOS:
+-> Reverents (Head/Body issues + NPCs can't use this properly)
+-> Constructs (Meant to be RARE, keep them solely limited to NPC types MEANT for them)
+-> Assimar (Pure lux via lux extraction, balance issues)
 
+
+Notable but possible races
 -> Drow axed for now to avoid extra checks until I proc the voice + hair stuff properly in a refactor to make their hair white + yellow/red/green eye colors more often
 -> Murklings as well because y'know, hair is supposed to be body-colored since they're just gloop of some assimulated fool
 -> Anthromorphs/lizards look poor without their snouts, like really, really goofy af.
@@ -376,7 +381,6 @@ To avoid TOO much conflicts w/random char parts, consider a proc that checks if 
 	/datum/species/elf/sun,\
 	/datum/species/dwarf/mountain,\
 	/datum/species/tieberian,\
-	/datum/species/aasimar,\
 	/datum/species/demihuman,\
 	/datum/species/halforc,\
 	/datum/species/goblinp,\
