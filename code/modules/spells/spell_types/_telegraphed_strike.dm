@@ -13,16 +13,20 @@
 	var/detonate_sound = 'sound/combat/newstuck.ogg'
 	var/strike_sound = 'sound/magic/blade_burst.ogg'
 	var/windup_time = TELEGRAPH_DODGEABLE
+	var/committed_strike = TRUE
 	var/redraw_interval = 2
 	var/sweep_step = 1
 	var/impact_delay = 0
-	var/stop_at_dense = FALSE
+	var/stop_at_dense = TRUE
+	var/damage_structures = TRUE
+	var/structure_damage = 0
 	var/swipe_state = null
 	var/vuln_on_hit = 0
 	var/telegraph_type = /obj/effect/temp_visual/trap
 	var/requires_weapon = FALSE
 	var/weapon_missing_message = "I need a weapon to strike with!"
 	var/sweep_hit_count = 0
+	var/list/struck_obstacles
 
 /datum/action/cooldown/spell/telegraphed_strike/cast(atom/cast_on)
 	. = ..()
@@ -33,8 +37,9 @@
 		to_chat(H, span_warning(weapon_missing_message))
 		return FALSE
 	var/strike_duration = windup_time + impact_delay + max(0, length(get_pattern_offsets()) - 1) * sweep_step
-	H.changeNext_move(strike_duration)
-	H.apply_status_effect(/datum/status_effect/swingdelay/penalty/committed, strike_duration + 2, TRUE)
+	if(committed_strike)
+		H.changeNext_move(strike_duration)
+		H.apply_status_effect(/datum/status_effect/swingdelay/penalty/committed, strike_duration + 2, TRUE)
 	INVOKE_ASYNC(src, PROC_REF(windup_and_strike), H)
 	return TRUE
 
@@ -67,8 +72,11 @@
 		for(var/list/off in offs)
 			var/list/r = rotate_offset(off[1], off[2], facing)
 			var/turf/T = locate(origin.x + r[1], origin.y + r[2], origin.z)
-			if(T)
-				wanted |= T
+			if(!T || T.density)
+				continue
+			if(stop_at_dense && path_blocked(origin, T))
+				continue
+			wanted |= T
 	for(var/obj/effect/old in indicator.Copy())
 		var/turf/ot = get_turf(old)
 		if(!QDELETED(old) && (ot in wanted))
@@ -111,19 +119,24 @@
 	var/list/bands = get_sweep_bands()
 	var/deflected = FALSE
 	sweep_hit_count = 0
+	struck_obstacles = list()
 	for(var/b in 1 to length(bands))
 		if(QDELETED(H) || H.stat != CONSCIOUS)
 			break
 		var/turf/origin = get_turf(H)
-		var/stop = FALSE
 		for(var/list/off in bands[b])
 			var/list/r = rotate_offset(off[1], off[2], facing)
 			var/turf/T = origin ? locate(origin.x + r[1], origin.y + r[2], origin.z) : null
 			if(!T)
 				continue
-			if(stop_at_dense && T.density)
-				stop = TRUE
-				break
+			if(stop_at_dense)
+				var/turf/blocker = path_blocked(origin, T)
+				if(blocker)
+					if(damage_structures)
+						damage_obstacles(blocker)
+					continue
+			if(damage_structures)
+				damage_obstacles(T)
 			deflected = hit_turf(H, T, facing, deflected)
 			if(swipe_state)
 				var/obj/effect/temp_visual/dir_setting/attack_effect/slash = new(T, facing)
@@ -132,8 +145,6 @@
 		for(var/j in b + 1 to length(bands))
 			remaining += bands[j]
 		draw_offsets(H, facing, indicator, remaining)
-		if(stop)
-			break
 		if(sweep_step > 0 && b < length(bands))
 			sleep(sweep_step)
 	clear_indicators(indicator)
@@ -146,6 +157,7 @@
 	if(QDELETED(H) || QDELETED(T))
 		return deflected
 	var/obj/item/weapon = get_strike_weapon(H)
+	var/dmg = get_strike_damage()
 	var/hit_any = FALSE
 	for(var/mob/living/L in T.contents)
 		if(L == H)
@@ -160,9 +172,9 @@
 		sweep_hit_count++
 		if(ishuman(L))
 			var/target_zone = H.zone_selected || BODY_ZONE_CHEST
-			arcyne_strike(H, L, weapon, damage, target_zone, blade_class, armor_penetration = strike_armor_pen, spell_name = name, damage_type = BRUTE, npc_simple_damage_mult = npc_simple_damage_mult, skip_animation = TRUE)
+			arcyne_strike(H, L, weapon, dmg, target_zone, blade_class, armor_penetration = strike_armor_pen, spell_name = name, damage_type = BRUTE, npc_simple_damage_mult = npc_simple_damage_mult, skip_animation = TRUE)
 		else
-			var/actual_damage = damage
+			var/actual_damage = dmg
 			if(!L.mind)
 				actual_damage *= npc_simple_damage_mult
 			L.adjustBruteLoss(actual_damage)
@@ -174,8 +186,50 @@
 		playsound(T, detonate_sound, 65, TRUE)
 	return deflected
 
+/datum/action/cooldown/spell/telegraphed_strike/proc/path_blocked(turf/origin, turf/target)
+	if(!origin || !target || origin == target)
+		return null
+	for(var/turf/step in getline(origin, target))
+		if(step == origin)
+			continue
+		if(step == target)
+			break
+		if(step.density)
+			return step
+		for(var/obj/structure/S in step)
+			if(S.density && !S.climbable)
+				return step
+	return null
+
+/datum/action/cooldown/spell/telegraphed_strike/proc/damage_obstacles(turf/T)
+	if(!T || (T in struck_obstacles))
+		return
+	struck_obstacles += T
+	var/dmg = structure_damage ? structure_damage : damage
+	for(var/obj/structure/S in T)
+		if(!S.density || istype(S, /obj/structure/flora/newbranch))
+			continue
+		S.take_damage(dmg, BRUTE, "blunt", TRUE)
+
+/datum/action/cooldown/spell/telegraphed_strike/proc/forward_reach(mob/living/carbon/human/H, facing, max_steps)
+	var/reach = 0
+	var/turf/current = get_turf(H)
+	for(var/i in 1 to max_steps)
+		var/turf/next = get_step(current, facing)
+		if(!next || next.density)
+			break
+		current = next
+		reach++
+		for(var/obj/structure/S in next)
+			if(S.density && !S.climbable)
+				return reach
+	return reach
+
 /datum/action/cooldown/spell/telegraphed_strike/proc/get_strike_weapon(mob/living/carbon/human/H)
 	return null
+
+/datum/action/cooldown/spell/telegraphed_strike/proc/get_strike_damage()
+	return damage
 
 /datum/action/cooldown/spell/telegraphed_strike/proc/on_hit_target(mob/living/carbon/human/H, mob/living/L, facing)
 	return

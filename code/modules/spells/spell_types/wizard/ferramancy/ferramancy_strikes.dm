@@ -64,7 +64,7 @@
 	return offsets
 
 /datum/action/cooldown/spell/ferramancy_strike/sorcerers_lance/do_blade_animation(mob/living/carbon/human/H, facing)
-	var/reach = line_length
+	var/reach = stop_at_dense ? max(1, forward_reach(H, facing, line_length)) : line_length
 	var/obj/effect/temp_visual/ferramancy_blade/blade = new(null)
 	blade.vis_holder = H
 	H.vis_contents += blade
