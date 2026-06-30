@@ -233,6 +233,7 @@
 	max_blade_int = 400
 	max_integrity = 180
 	wdefense_wbonus = 5
+	smeltresult = /obj/item/ingot/blacksteel
 	var/used = FALSE
 	var/list/selection = list(
 		/datum/special_intent/side_sweep,
@@ -246,7 +247,7 @@
 /obj/item/rogueweapon/sword/long/blacksteel/examine(mob/user)
 	. = ..()
 	if(!used)
-		. += span_notice("The Special Manouevre of this weapon can be changed. RCLICK it with a free hand to select one. This can only be done once.")
+		. += span_notice("The Special Manoeuvre of this weapon can be changed. RCLICK it with a free hand to select one. This can only be done once.")
 
 /obj/item/rogueweapon/sword/long/blacksteel/attack_right(mob/user)
 	. = ..()
@@ -258,7 +259,7 @@
 		var/datum/special_intent/S = intent // Hate this DM quirk.
 		special_options[S::name] = S
 	
-	var/choice = input(user, "Choose the Manouevre", "MANOUEVRE") as anything in special_options
+	var/choice = input(user, "Choose the Manoeuvre", "MANOEUVRE") as anything in special_options
 	if(choice)
 		qdel(special)
 		var/datum/special_intent/S = special_options[choice]
