@@ -12,8 +12,6 @@
 		return
 	var/real = FALSE
 	var/mob/living/carbon/human/human_pawn = controller.pawn
-	if(HAS_TRAIT(controller.pawn, TRAIT_DEADITE))
-		return // Deadite, No point
 	for(var/obj/item/bodypart/bodypart as anything in human_pawn.bodyparts)
 		if((length(bodypart.wounds) || length(bodypart.embedded_objects)) && !bodypart.bandage)
 			real = TRUE

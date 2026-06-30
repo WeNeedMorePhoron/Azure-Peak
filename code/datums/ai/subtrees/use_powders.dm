@@ -30,8 +30,6 @@
 		return
 	var/datum/component/ai_inventory_manager/inv = controller.get_inventory()
 	var/mob/living/carbon/human/H = controller.pawn
-	if(HAS_TRAIT(controller.pawn, TRAIT_DEADITE))
-		return // Deadite, No point
 	if(H.get_active_held_item() != powder)
 		var/obj/item/usable = inv?.draw_usable_item(powder, AI_ITEM_POWDER)
 		if(!usable)

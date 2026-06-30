@@ -17,9 +17,6 @@
 		return
 
 	var/mob/living/pawn = controller.pawn
-	if(HAS_TRAIT(controller.pawn, TRAIT_DEADITE))
-		return // Deadite, No point
-
 	var/obj/item/throwingknife = inv.get_item(AI_ITEM_THROWING)
 	if(!throwingknife)
 		return
