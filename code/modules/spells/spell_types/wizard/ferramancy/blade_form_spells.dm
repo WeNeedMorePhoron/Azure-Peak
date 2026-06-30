@@ -30,14 +30,14 @@
 	var/obj/item/conjured_weapon
 	/// Index into forms of the currently-selected weapon.
 	var/form_index = 1
-	/// Selectable forms, cycled with Ctrl+G. Each: label, weapon path, invocation, button icon_state.
+	/// Selectable forms, cycled with Ctrl+G. Each: label, weapon path, invocation.
 	var/list/forms = list(
-		list("label" = "Khopesh", "weapon" = /obj/item/rogueweapon/sword/sabre/ferramancy, "say" = "Forma Falx!", "icon" = "form_sabre"),
-		list("label" = "Rapier", "weapon" = /obj/item/rogueweapon/sword/rapier/ferramancy, "say" = "Forma Acus!", "icon" = "form_sabre"),
-		list("label" = "Greatsword", "weapon" = /obj/item/rogueweapon/greatsword/ferramancy, "say" = "Forma Ferrum!", "icon" = "form_greatsword"),
-		list("label" = "Greataxe", "weapon" = /obj/item/rogueweapon/greataxe/steel/doublehead/ferramancy, "say" = "Forma Bipennis!", "icon" = "form_greatsword"),
-		list("label" = "Halberd", "weapon" = /obj/item/rogueweapon/halberd/ferramancy, "say" = "Forma Hasta!", "icon" = "arcyne_lance"),
-		list("label" = "Greatbow", "weapon" = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/greatbow, "say" = "Forma Arcus!", "icon" = "arcyne_lance"),
+		list("label" = "Khopesh", "weapon" = /obj/item/rogueweapon/sword/sabre/ferramancy, "say" = "Forma Falx!"),
+		list("label" = "Rapier", "weapon" = /obj/item/rogueweapon/sword/rapier/ferramancy, "say" = "Forma Acus!"),
+		list("label" = "Greatsword", "weapon" = /obj/item/rogueweapon/greatsword/ferramancy, "say" = "Forma Ferrum!"),
+		list("label" = "Greataxe", "weapon" = /obj/item/rogueweapon/greataxe/steel/doublehead/ferramancy, "say" = "Forma Bipennis!"),
+		list("label" = "Halberd", "weapon" = /obj/item/rogueweapon/halberd/ferramancy, "say" = "Forma Hasta!"),
+		list("label" = "Greatbow", "weapon" = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/greatbow, "say" = "Forma Arcus!"),
 	)
 
 /datum/action/cooldown/spell/form_blade/cast(atom/cast_on)
@@ -73,8 +73,6 @@
 /datum/action/cooldown/spell/form_blade/toggle_alt_mode(mob/user)
 	form_index = (form_index % length(forms)) + 1
 	var/list/f = forms[form_index]
-	button_icon_state = f["icon"]
-	build_all_button_icons(UPDATE_BUTTON_ICON)
 	update_form_maptext(f["label"])
 	to_chat(user, span_notice("Arcyne form shaped to: [f["label"]]."))
 	return TRUE
