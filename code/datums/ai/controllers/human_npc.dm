@@ -146,7 +146,7 @@
 		/datum/ai_planning_subtree/loot,
 	)
 
-////Lobotomised deadite NPC, this one will just attack and fight without equipping
+////Lobotomised deadite NPC, this one will just attack and fight without equipping or stopping, they don't even use items anymore.
 /datum/ai_controller/human_npc/deadite
 	planning_subtrees = list(
 		// /very lobotomised, cannot even retreat. KILL. KILL. KILL.

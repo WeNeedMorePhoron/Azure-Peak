@@ -316,7 +316,7 @@
 	AI_THINK(pawn, "ZONE: switching up! (skill [skill_level], threshold was [switch_threshold])")
 
 	// Parity with npc_choose_attack_zone aimheight picks
-	if(pawn.mind?.has_antag_datum(/datum/antagonist/zombie))
+	if(HAS_TRAIT(pawn, TRAIT_DEADITE))
 		pawn.aimheight_change(pawn.deadite_get_aimheight(target))
 		return
 	if(!(pawn.mobility_flags & MOBILITY_STAND))
@@ -513,7 +513,7 @@
 	return null
 
 /datum/ai_behavior/basic_melee_attack/human_npc/proc/_try_backstep(mob/living/carbon/human/pawn, atom/target)
-	if(pawn.mind?.has_antag_datum(/datum/antagonist/zombie))
+	if(HAS_TRAIT(pawn, TRAIT_DEADITE))
 		return FALSE
 	if(!pawn.ai_controller.can_move())
 		return FALSE
