@@ -54,7 +54,7 @@
 	id = /obj/item/clothing/neck/roguetown/psicross/silver
 	backpack_contents = list(/obj/item/roguekey/inquisitionmanor = 1,
 	/obj/item/paper/inqslip/arrival/ortho = 1,
-	/obj/item/rogueweapon/huntingknife/idagger/silver/stake/psy/lesser = 1,
+	/obj/item/rogueweapon/huntingknife/idagger/silver/stake/inq = 1,
 	/obj/item/clothing/ring/signet/psy = 1)
 
 	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/knight]
