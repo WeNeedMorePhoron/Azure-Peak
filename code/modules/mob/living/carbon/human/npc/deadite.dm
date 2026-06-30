@@ -1,9 +1,5 @@
 /mob/living/carbon/human/species/npc/deadite
-	ai_controller = /datum/ai_controller/human_npc
-	d_intent = INTENT_DODGE //To simulate that deadites CANNOT parry
-	dodgetime = 14
-	ambushable = FALSE
-	infected = TRUE
+	//we give them AI through make_deadite()
 
 /mob/living/carbon/human/species/npc/deadite/Initialize()
 	. = ..()
@@ -58,75 +54,6 @@
 	. = ..()
 	equipOutfit(new /datum/outfit/job/roguetown/deadite)
 	make_deadite()
-
-/mob/living/carbon/human/proc/make_deadite()
-	//called after creation so species isn't overriding our skin color
-	mob_biotypes |= MOB_UNDEAD
-	//give ourselves undead eyes.
-	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
-	if(eyes)
-		eyes.Remove(src,1)
-		QDEL_NULL(eyes)
-	eyes = SSwardrobe.provide_type(/obj/item/organ/eyes/night_vision/zombie)
-	eyes.Insert(src)
-	update_body()
-	//Grant undead tongue then force it
-	src.grant_language(/datum/language/undead) //Now we give you the language.
-	var/datum/language_holder/language_holder = src.get_language_holder()
-	language_holder.selected_default_language = /datum/language/undead
-	//claws for unarmed attacking
-	src.base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, /datum/intent/unarmed/claw)
-	update_a_intents()
-	//Fuck with our factions to make us undead only
-	faction += "undead"
-	faction -= "station"
-	faction -= "neutral"
-	//Give ourselves the deadite voicepack
-	src.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/zombie/m]
-	src.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/zombie/f]
-	//now we make all of our limbs rot and decay like an actual zombie
-	for(var/obj/item/bodypart/part as anything in bodyparts)
-		if(!part.rotted && !part.skeletonized)
-			part.rotted = TRUE
-		part.update_disabled()
-	//give ourselves the final part of the disguise, the skin colors
-	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
-	skin_tone = "#868e79"
-	if(organ_ears)
-		organ_ears.accessory_colors = "#868e79"
-	src.regenerate_icons()
-
-	//now we take every trait an actual deadite has and apply it.
-	ADD_TRAIT(src, TRAIT_LIMBATTACHMENT, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_BREADY, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_NOHUNGER, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_EASYDISMEMBER, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_NOPAIN, INNATE_TRAIT)
-	ADD_TRAIT(src, TRAIT_NOPAINSTUN, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_NOBREATH, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_DEATHLESS, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_TOXIMMUNE, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_CHUNKYFINGERS, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_NOSLEEP, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_BASHDOORS, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_BLOODLOSS_IMMUNE, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_ZOMBIE_SPEECH, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_ZOMBIE_IMMUNE, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_ROTMAN, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_SILVER_WEAK, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_DEADITE, TRAIT_GENERIC)
-
-	//deadite statline - intentionally uniform
-	src.STASTR = 14
-	src.STASPD = 5
-	src.STACON = 12
-	src.STAWIL = 13
-	src.STAINT = 1
-	src.STAPER = 13
-
-	//lastly, nessessity for ALL NPCs -> our examine trait
-	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 
 /datum/outfit/job/roguetown/deadite/pre_equip(mob/living/carbon/human/H)
 	..()
