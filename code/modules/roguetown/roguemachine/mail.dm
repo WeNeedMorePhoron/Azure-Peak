@@ -396,9 +396,9 @@
 				if(I.broken)
 					to_chat(user, (span_warning("Clean it first.")))
 
-	if(istype(P, /obj/item/paper/inqslip/litany))		
+	if(istype(P, /obj/item/inqarticles/litany))		
 		if((HAS_TRAIT(user, TRAIT_INQUISITION) || HAS_TRAIT(user, TRAIT_PURITAN)))	
-			var/obj/item/paper/inqslip/litany = P
+			var/obj/item/inqarticles/litany = P
 				visible_message(span_warning("[user] sends something."))
 				budget2change(6, user, "MARQUE") //Orthodoxist-centric. The number represents how much marques are restored to the Marquette upon refunding it.
 				qdel(P) //Design idea's that it costs 3/4ths of an Orthodoxist's free marque payout (8, in this case), and allows them to bless one weapon of their choosing.

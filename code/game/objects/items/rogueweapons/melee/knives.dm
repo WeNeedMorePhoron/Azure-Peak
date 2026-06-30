@@ -924,7 +924,7 @@
 	)
 
 /obj/item/rogueweapon/huntingknife/idagger/stake/inq
-	name = "silver-tipped handstake"
+	name = "otavan stake"
 	desc = "A smaller branch that has been broken off of an Otavan boswellia tree, sharpened to a fine point. It can lay most unholy creechers to rest, but only by piercing their hearts."
 	force = 15
 	throwforce = 15
