@@ -16,6 +16,8 @@
 		return
 
 	var/mob/living/carbon/human/H = controller.pawn
+	if(HAS_TRAIT(controller.pawn, TRAIT_DEADITE))
+		return // Deadite, No point
 	if(H.getBruteLoss() < 20 && H.getFireLoss() < 20)
 		return
 

@@ -16,6 +16,9 @@
 
 	var/mob/living/living_pawn = controller.pawn
 
+	if(HAS_TRAIT(controller.pawn, TRAIT_DEADITE))
+		return // Deadites cause runtimes, for some reasoning.
+
 	controller.set_blackboard_key("bb_call_for_help_cooldown", world.time + 5 SECONDS)
 
 	var/allowed = FALSE

@@ -3,7 +3,6 @@
 	d_intent = INTENT_PARRY //Test if stuff breaks because make_deadite() should override this.
 	dodgetime = 30
 	ambushable = FALSE
-	//we give them AI through make_deadite() as well, but this is so they don't bug the fuck out in building, its a HORRIBLE hacky-solution
 
 /mob/living/carbon/human/species/npc/deadite/Initialize()
 	. = ..()

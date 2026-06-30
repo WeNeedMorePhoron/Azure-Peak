@@ -8,6 +8,7 @@
 	var/mob/living/target = controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
 	if(!target)
 		return
+
 	if(controller.blackboard[BB_HELD_CONSUMABLE])
 		return
 
@@ -15,11 +16,14 @@
 	if(!inv)
 		return
 
+	var/mob/living/pawn = controller.pawn
+	if(HAS_TRAIT(controller.pawn, TRAIT_DEADITE))
+		return // Deadite, No point
+
 	var/obj/item/throwingknife = inv.get_item(AI_ITEM_THROWING)
 	if(!throwingknife)
 		return
 
-	var/mob/living/pawn = controller.pawn
 	var/dist = get_dist(pawn, target)
 
 	// Only throw within our sweet spot range
