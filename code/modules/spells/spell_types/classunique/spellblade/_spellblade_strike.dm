@@ -23,6 +23,7 @@
 
 	var/momentum_cost = 3
 	var/empowered_mult = 2
+	var/blunt_penalty = 5
 	var/momentum_on_hit = 0
 	var/momentum_on_surge = 1
 	var/push_dist = 0
@@ -32,7 +33,10 @@
 	return arcyne_get_weapon(H)
 
 /datum/action/cooldown/spell/telegraphed_strike/spellblade/get_strike_damage()
-	return empowered ? damage * empowered_mult : damage
+	var/dmg = damage
+	if(blade_class == BCLASS_BLUNT)
+		dmg = max(0, dmg - blunt_penalty)
+	return empowered ? dmg * empowered_mult : dmg
 
 /datum/action/cooldown/spell/telegraphed_strike/spellblade/cast(atom/cast_on)
 	empowered = FALSE
@@ -40,6 +44,11 @@
 	if(!.)
 		return
 	var/mob/living/carbon/human/H = owner
+	var/datum/intent/active = H.a_intent
+	if(active && (active.blade_class == BCLASS_BLUNT || active.blade_class == BCLASS_SMASH))
+		blade_class = BCLASS_BLUNT
+	else
+		blade_class = BCLASS_CUT
 	var/datum/status_effect/buff/arcyne_momentum/M = H.has_status_effect(/datum/status_effect/buff/arcyne_momentum)
 	if(M && M.stacks >= momentum_cost)
 		M.consume_stacks(momentum_cost)
@@ -67,6 +76,32 @@
 	if(hit_count >= 2 && momentum_on_surge)
 		M.add_stacks(momentum_on_surge)
 		to_chat(H, span_notice("DOUBLE STRIKE! ARCYNE SURGE!"))
+
+/datum/action/cooldown/spell/telegraphed_strike/spellblade/on_impact(mob/living/carbon/human/H, facing, atom/movable/visual)
+	var/turf/center = get_turf(H)
+	if(!center)
+		return
+	var/list/tiles = list()
+	for(var/list/off in get_pattern_offsets())
+		var/list/r = rotate_offset(off[1], off[2], facing)
+		var/turf/T = locate(center.x + r[1], center.y + r[2], center.z)
+		if(T && !path_blocked(center, T))
+			tiles += T
+	play_impact(center, facing, tiles)
+
+/datum/action/cooldown/spell/telegraphed_strike/spellblade/proc/play_impact(turf/center, facing, list/tiles)
+	if(blade_class == BCLASS_BLUNT)
+		playsound(center, pick('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg'), 90, TRUE, 3)
+		playsound(center, pick('sound/combat/ground_smash1.ogg', 'sound/combat/ground_smash2.ogg', 'sound/combat/ground_smash3.ogg'), 60, TRUE)
+		for(var/mob/shaken in range(4, center))
+			shake_camera(shaken, 1, 1)
+		for(var/turf/T in tiles)
+			new /obj/effect/temp_visual/kinetic_blast(T)
+	else
+		playsound(center, pick('sound/combat/hits/bladed/largeslash (1).ogg', 'sound/combat/hits/bladed/largeslash (2).ogg', 'sound/combat/hits/bladed/largeslash (3).ogg'), 90, TRUE, 3)
+		for(var/turf/T in tiles)
+			var/obj/effect/temp_visual/blade_cut/V = new(T)
+			V.dir = get_dir(center, T) || facing
 
 /obj/effect/temp_visual/trap/arcyne
 	color = GLOW_COLOR_ARCANE
