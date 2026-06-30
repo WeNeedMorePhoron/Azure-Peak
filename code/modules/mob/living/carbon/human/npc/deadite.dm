@@ -10,7 +10,7 @@
 	gender = pick(MALE, FEMALE)
 	dna.species.handle_body(src)
 	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
-
+	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	var/hairf = pick(list(
 						/datum/sprite_accessory/hair/head/lowbraid,
 						/datum/sprite_accessory/hair/head/countryponytailalt,
@@ -187,8 +187,7 @@
 	)
 
 	set_species(pick(species))
-	if(skin_tone) //hacky method to ensure we have a species BEFORE color changing us
-		skin_tone = "#868e79"
+	src.skin_tone = "#868e79"
 	if(organ_ears)
 		organ_ears.accessory_colors = "#868e79"
 

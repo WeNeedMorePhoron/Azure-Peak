@@ -55,15 +55,6 @@
 						/datum/sprite_accessory/hair/head/bowlcut, 
 						/datum/sprite_accessory/hair/head/bowlcut2, 
 						/datum/sprite_accessory/hair/head/rogue))
-	var/beard = pick(list(/datum/sprite_accessory/hair/facial/stubble,
-						/datum/sprite_accessory/hair/facial/manly,
-						/datum/sprite_accessory/hair/facial/fiveoclockmoustache,
-						/datum/sprite_accessory/hair/facial/sevenoclockm,
-						/datum/sprite_accessory/hair/facial/chinlessbeard,
-						/datum/sprite_accessory/hair/facial/fullbeard,
-						/datum/sprite_accessory/hair/facial/chinstrap,
-						/datum/sprite_accessory/hair/facial/vandyke,
-						/datum/sprite_accessory/hair/facial/longbeard))
 
 	//Random voices, this can probably be more random-ish but it'll do for now
 	var/voice_choice = rand(1, 30)
