@@ -147,8 +147,8 @@
 	)
 
 //Lobotomised version w/less loot/gear use
-/datum/ai_controller/human_npc/deadite
-	movement_delay = 0.1 SECONDS
+/datum/ai_controller/deadite_npc
+	movement_delay = 0.2 SECONDS //Stagger-walk
 	max_target_distance = 13
 	ai_movement = /datum/ai_movement/hybrid_pathing
 	blackboard = list(
@@ -171,7 +171,6 @@
 	/// Subtrees shared by all human NPC archetypes. Subtypes prepend archetype-specific
 	/// subtrees via their own planning_subtrees list.
 	planning_subtrees = list(
-		// /datum/ai_planning_subtree/pet_planning, - TEMP COMMENT OUT
 		/datum/ai_planning_subtree/call_for_help,
 		/datum/ai_planning_subtree/generic_break_restraints,
 		/datum/ai_planning_subtree/kick_attack,
