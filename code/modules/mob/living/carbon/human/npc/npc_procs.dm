@@ -1,7 +1,32 @@
 /mob/living/carbon/human/proc/random_eye_color_NPC()
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
-	organ_eyes.eye_color = random_eye_color()
-	organ_eyes.accessory_colors = "[eye_color][eye_color]"
+	if(organ_eyes)
+		var/eye_choice = rand(1, 8)
+		switch(eye_choice)
+			if(1)
+				organ_eyes.eye_color = "#336699" //Dull Blue
+				organ_eyes.accessory_colors = "#336699#336699"
+			if(2)
+				organ_eyes.eye_color = "#339933" //Green
+				organ_eyes.accessory_colors = "#339933#339933"
+			if(3)
+				organ_eyes.eye_color = "#995333" //Brown
+				organ_eyes.accessory_colors = "#995333#995333"
+			if(4)
+				organ_eyes.eye_color = "#ffe15d" //Hzzel-ish
+				organ_eyes.accessory_colors = "#ffe15d#ffe15d"
+			if(5)
+				organ_eyes.eye_color = "#679e6b" //Dull Green
+				organ_eyes.accessory_colors = "#131313#131313"
+			if(6)
+				organ_eyes.eye_color = "#131313" //Souless greytider look
+				organ_eyes.accessory_colors = "#131313#131313"
+			if(7)
+				organ_eyes.eye_color = "#c9338a" //Red-Pink
+				organ_eyes.accessory_colors = "#131313#131313"
+			if(8)
+				organ_eyes.eye_color = "#e9974b" //Orange
+				organ_eyes.accessory_colors = "#131313#131313"
 
 //LESS COPYPASTE -> RANDOM NPC VOICELINE COLORS//
 
