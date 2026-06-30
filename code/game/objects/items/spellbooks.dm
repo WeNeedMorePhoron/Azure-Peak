@@ -22,8 +22,10 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 	can_parry = FALSE
 	wlength = WLENGTH_SHORT
 	wdefense = 1
-	max_integrity = 80
+	max_integrity = 200
+	integrity_failure = 0.3
 	sewrepair = TRUE
+	anvilrepair = null
 	associated_skill = /datum/skill/combat/arcyne
 	possible_item_intents = list(/datum/intent/mace/strike/wood, /datum/intent/tome/aegis)
 	name = "\improper lesser tome of the arcyne"
@@ -39,7 +41,7 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 	var/aegis_charge_time = 2 SECONDS
 	var/obj/item/rogueweapon/shield/arcyne_aegis/tome/conjured_aegis
 	COOLDOWN_DECLARE(aegis_cd)
-	obj_flags = UNIQUE_RENAME
+	obj_flags = CAN_BE_HIT | UNIQUE_RENAME | CLAMP_BREAK
 
 /obj/item/rogueweapon/spellbook/greater
 	base_implement_name = "greater tome"
@@ -122,7 +124,7 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 	. += span_notice("Reading it allows you to rebind your aspect spells.")
 	if(implement_refund)
 		. += span_notice("When held while casting, this implement leaves behind Residual Focus, returning [round(implement_refund * 100)]% of the spell's resource cost as energy over 20 seconds.")
-	. += span_notice("With the Arcyne Aegis intent selected, aim anywhere and hold to charge a shield into your offhand, costing [aegis_energy_cost] energy.")
+	. += span_notice("With the Arcyne Aegis intent selected, aim anywhere and hold to charge a shield into your offhand, costing [aegis_energy_cost] energy. The shield dissipates about 10 seconds after it leaves your hand.")
 
 /obj/item/rogueweapon/spellbook/attack_self(mob/living/carbon/human/user)
 	if(istype(user) && istype(user.a_intent, /datum/intent/tome/aegis))
