@@ -447,6 +447,13 @@
 		qdel(zombie)
 		return
 
+/datum/antagonist/zombie/proc/try_do_zombie_idle() //Returns the SOVL noises
+	if(HASTRAIT (src, TRAIT_DEADITE))
+		if(mob_timers["deadite_idle"])
+			if(world.time < mob_timers["deadite_idle"] + rand(15 SECONDS, 20 SECONDS))
+				return
+		mob_timers["deadite_idle"] = world.time
+		emote("idle")
 
 ///Making sure they're not any other antag as well as adding the zombie datum to their mind
 /mob/living/carbon/human/proc/zombie_check_can_convert()

@@ -1,7 +1,7 @@
 /mob/living/carbon/human/species/npc/deadite
 	ai_controller = /datum/ai_controller/human_npc
-	d_intent = INTENT_PARRY
-	dodgetime = 8
+	d_intent = INTENT_DODGE //To simulate that deadites CANNOT parry
+	dodgetime = 20
 	ambushable = FALSE
 	infected = TRUE
 
@@ -25,51 +25,66 @@
 	var/list/deadite_firstnames = world.file2list("strings/rt/names/other/deaditenpcfirst.txt")
 	var/list/deadite_lastnames  = world.file2list("strings/rt/names/other/deaditenpclast.txt")
 	
+	skin_tone = "#868e79"
 	if(organ_ears)
 		organ_ears.accessory_colors = "#868e79"
 
 	real_name = "[pick(deadite_firstnames)] [pick(deadite_lastnames)]"
+	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/zombie/m]
+	H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/zombie/f]
 
 	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
+	equipOutfit(new /datum/outfit/job/roguetown/deadite) //Give ourselves the base outfit (traits of being a deadite + statline)
 
 /mob/living/carbon/human/species/npc/deadite/after_creation()
 	. = ..()
 	src.mind_initialize()
 	mob_biotypes |= MOB_UNDEAD
-	var/datum/antagonist/zombie/zombie_antag = src.mind.add_antag_datum(/datum/antagonist/zombie, team = FALSE, admin_panel = TRUE)
-	if(zombie_antag && !zombie_antag.has_turned)
-		zombie_antag.transform_zombie()
-		zombie_antag.has_turned = TRUE
-	equipOutfit(new /datum/outfit/job/roguetown/deadite)
-	//Make sure deadite NPCs don't show up in the antag listings
-	GLOB.antagonists -= zombie_antag
+	//give ourselves undead eyes.
+	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
+	if(eyes)
+		eyes.Remove(src,1)
+		QDEL_NULL(eyes)
+	eyes = SSwardrobe.provide_type(/obj/item/organ/eyes/night_vision/zombie)
+	eyes.Insert(src)
+
 	update_body()
 
 /datum/outfit/job/roguetown/deadite/pre_equip(mob/living/carbon/human/H)
 	..()
-	head = null
-	beltr = null
-	beltl = null
-	if(prob(30))
-		cloak = /obj/item/clothing/cloak/raincloak/brown
-	else
-		cloak = null
-	if(prob(10))
-		gloves = /obj/item/clothing/gloves/roguetown/fingerless
-	else
-		gloves = null
+	//We simulate being a """deadite""" here
+	ADD_TRAIT(src, TRAIT_LIMBATTACHMENT, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_BREADY, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_NOHUNGER, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_EASYDISMEMBER, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_NOPAIN, INNATE_TRAIT)
+	ADD_TRAIT(src, TRAIT_NOPAINSTUN, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_NOBREATH, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_DEATHLESS, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_TOXIMMUNE, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_CHUNKYFINGERS, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_NOSLEEP, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_BASHDOORS, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_BLOODLOSS_IMMUNE, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_ZOMBIE_SPEECH, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_ZOMBIE_IMMUNE, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_ROTMAN, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_SILVER_WEAK, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_DEADITE, TRAIT_GENERIC)
 
-	if(H.gender == FEMALE)
-		armor = /obj/item/clothing/suit/roguetown/shirt/rags
-	else
-		armor = null
-		pants = /obj/item/clothing/under/roguetown/tights/vagrant
-		if(prob(50))
-			pants = /obj/item/clothing/under/roguetown/tights/vagrant/l
-		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant
-		if(prob(50))
-			shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant/l
+	//deadite statline - intentionally uniform
+	H.STASTR = 14
+	H.STASPD = 5
+	H.STACON = 12
+	H.STAWIL = 13
+	H.STAINT = 1
+	H.STAPER = 13
 
+	//lastly, nessessity for ALL NPCs -> our examine trait
+	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
+
+	//Clear our hands out, we don't need stuff here.
 	r_hand = null
 	l_hand = null
 

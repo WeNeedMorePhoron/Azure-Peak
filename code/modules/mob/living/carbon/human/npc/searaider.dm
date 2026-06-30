@@ -44,6 +44,18 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 						/datum/sprite_accessory/hair/facial/manly,
 						/datum/sprite_accessory/hair/facial/longbeard))
 	head.sellprice = HEAD_BOUNTY_SEARAIDER
+	var/species = list(
+		/datum/species/human/northern,
+		/datum/species/human/northern, //Extra bias towards humens and dwarves/half elves
+		/datum/species/human/northern,
+		/datum/species/elf/wood,
+		/datum/species/human/halfelf,
+		/datum/species/human/halfelf,
+		/datum/species/dwarf/mountain,
+		/datum/species/dwarf/mountain,
+	)
+
+	set_species(pick(species))
 	//Random voices, this can probably be more random-ish but it'll do for now
 	var/voice_choice = rand(1, 12)
 	switch(voice_choice)
@@ -111,19 +123,33 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 	var/skintone_choice = rand(1, 7) //Heavily simplified
 	switch(skintone_choice)
 		if(1)
-			skin_tone = SKIN_COLOR_GRENZELHOFT
+			skin_tone = "SKIN_COLOR_GRENZELHOFT"
+			if(organ_ears)
+				organ_ears.accessory_colors = "SKIN_COLOR_GRENZELHOFT"
 		if(2)
-			skin_tone = SKIN_COLOR_AVAR
+			skin_tone = "SKIN_COLOR_AVAR"
+			if(organ_ears)
+				organ_ears.accessory_colors = "SKIN_COLOR_AVAR"
 		if(3)
-			skin_tone = SKIN_COLOR_OTAVA
+			skin_tone = "SKIN_COLOR_OTAVA"
+			if(organ_ears)
+				organ_ears.accessory_colors = "SKIN_COLOR_OTAVA"
 		if(4)
-			skin_tone = SKIN_COLOR_SHALVISTINE
+			skin_tone = "SKIN_COLOR_SHALVISTINE"
+			if(organ_ears)
+				organ_ears.accessory_colors = "SKIN_COLOR_SHALVISTINE"
 		if(5)
-			skin_tone = SKIN_COLOR_LALVESTINE
+			skin_tone = "SKIN_COLOR_LALVESTINE"
+			if(organ_ears)
+				organ_ears.accessory_colors = "SKIN_COLOR_LALVESTINE"
 		if(6)
-			skin_tone = SKIN_COLOR_NALEDI
+			skin_tone = "SKIN_COLOR_NALEDI"
+			if(organ_ears)
+				organ_ears.accessory_colors = "SKIN_COLOR_NALEDI"
 		if(7)
-			skin_tone = SKIN_COLOR_KAZENGUN
+			skin_tone = "SKIN_COLOR_KAZENGUN"
+			if(organ_ears)
+				organ_ears.accessory_colors = "SKIN_COLOR_KAZENGUN"
 	//Add our hair bodypart features
 	head.add_bodypart_feature(new_hair)
 	head.add_bodypart_feature(new_facial)
