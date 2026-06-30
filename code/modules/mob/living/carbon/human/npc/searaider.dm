@@ -38,86 +38,13 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 	equipOutfit(new /datum/outfit/job/roguetown/human/species/human/northern/searaider)
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	head.sellprice = HEAD_BOUNTY_SEARAIDER
-	var/hairf = pick(list(
-						/datum/sprite_accessory/hair/head/lowbraid,
-						/datum/sprite_accessory/hair/head/countryponytailalt))
-	var/hairm = pick(list(
-						/datum/sprite_accessory/hair/head/ponytailwitcher,
-						/datum/sprite_accessory/hair/head/lowbraid))
-	var/beard = pick(list(
-						/datum/sprite_accessory/hair/facial/viking,
-						/datum/sprite_accessory/hair/facial/manly,
-						/datum/sprite_accessory/hair/facial/longbeard))
 	dna.species.handle_body(src)
 	random_voice_NPC()
-	//Next up, we add hair BECAUSE we want the sovlful styles, only
-	var/datum/bodypart_feature/hair/head/new_hair = new()
-	var/datum/bodypart_feature/hair/facial/new_facial = new()
-
-	if(gender == FEMALE)
-		new_hair.set_accessory_type(hairf, null, src)
-	else
-		new_hair.set_accessory_type(hairm, null, src)
-		new_facial.set_accessory_type(beard, null, src)
-
-	var/haircolor_choice = rand(1, 6)
-	switch(haircolor_choice)
-		if(1) //Blond-Brown
-			new_hair.accessory_colors = "#C1A287"
-			new_hair.hair_color = "#C1A287"
-			new_facial.accessory_colors = "#C1A287"
-			new_facial.hair_color = "#C1A287"
-			hair_color = "#C1A287"
-		if(2) //Ginger-ish
-			new_hair.accessory_colors = "#A56B3D"
-			new_hair.hair_color = "#A56B3D"
-			new_facial.accessory_colors = "#A56B3D"
-			new_facial.hair_color = "#A56B3D"
-			hair_color = "#A56B3D"
-		if(3) //Black
-			new_hair.accessory_colors = "#0d0c2e"
-			new_hair.hair_color = "#0d0c2e"
-			new_facial.accessory_colors = "#0d0c2e"
-			new_facial.hair_color = "#0d0c2e"
-			hair_color = "#0d0c2e"
-		if(4) //Red
-			new_hair.accessory_colors = "#a53d3d"
-			new_hair.hair_color = "#a53d3d"
-			new_facial.accessory_colors = "#a53d3d"
-			new_facial.hair_color = "#a53d3d"
-			hair_color = "#a53d3d"
-		if(5) //Olive
-			new_hair.accessory_colors = "#767c3f"
-			new_hair.hair_color = "#767c3f"
-			new_facial.accessory_colors = "#767c3f"
-			new_facial.hair_color = "#767c3f"
-			hair_color = "#767c3f"
-		if(6) //Dark Brown
-			new_hair.accessory_colors = "#503516"
-			new_hair.hair_color = "#503516"
-			new_facial.accessory_colors = "#503516"
-			new_facial.hair_color = "#503516"
-			hair_color = "#503516"
-		if(7) //Dull Blond
-			new_hair.accessory_colors = "#bdbb6b"
-			new_hair.hair_color = "#bdbb6b"
-			new_facial.accessory_colors = "#bdbb6b"
-			new_facial.hair_color = "#bdbb6b"
-			hair_color = "#bdbb6b"
-		if(8) //Dull Brown
-			new_hair.accessory_colors = "#7e6d53"
-			new_hair.hair_color = "#7e6d53"
-			new_facial.accessory_colors = "#7e6d53"
-			new_facial.hair_color = "#7e6d53"
-			hair_color = "#7e6d53"
-
-	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
-	organ_eyes.eye_color = random_eye_color()
-	organ_eyes.accessory_colors = "[eye_color][eye_color]"
+	random_hair_NPC()
+	random_eye_color_NPC()
 	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	if(organ_ears)
 		organ_ears.accessory_colors = "[src.skin_tone]"
-
 
 	if(gender == FEMALE)
 		real_name = pick(world.file2list("strings/rt/names/human/vikingf.txt"))

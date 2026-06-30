@@ -44,10 +44,7 @@
 	dna.species.handle_body(src)
 	random_voice_NPC()
 	random_hair_no_beard_NPC()
-
-	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
-	organ_eyes.eye_color = random_eye_color()
-	organ_eyes.accessory_colors = "[eye_color][eye_color]"
+	random_eye_color_NPC()
 	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	if(organ_ears)
 		organ_ears.accessory_colors = "[src.skin_tone]"

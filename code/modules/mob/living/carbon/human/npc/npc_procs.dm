@@ -1,3 +1,8 @@
+/mob/living/carbon/human/proc/random_eye_color_NPC()
+	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
+	organ_eyes.eye_color = random_eye_color()
+	organ_eyes.accessory_colors = "[eye_color][eye_color]"
+
 //LESS COPYPASTE -> RANDOM NPC VOICELINE COLORS//
 
 /mob/living/carbon/human/proc/random_voice_NPC()

@@ -14,7 +14,10 @@ GLOBAL_LIST_INIT(bum_aggro, world.file2list("strings/rt/bumaggrolines.txt"))
 
 /mob/living/carbon/human/species/human/northern/bum/Initialize()
 	. = ..()
-	set_species(/datum/species/human/northern)
+	//Begin RANDOMISE here
+	set_species(pick(NPC_RACES_TYPES))
+	gender = pick(MALE, FEMALE)
+	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
 	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 /mob/living/carbon/human/species/human/northern/bum/after_creation()
@@ -27,6 +30,9 @@ GLOBAL_LIST_INIT(bum_aggro, world.file2list("strings/rt/bumaggrolines.txt"))
 	ADD_TRAIT(src, TRAIT_LEECHIMMUNE, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_BREADY, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
+	random_voice_NPC()
+	random_hair_NPC()
+	random_eye_color_NPC()
 	equipOutfit(new /datum/outfit/job/roguetown/vagabond)
 	STACON = 4
 	STAWIL = 4
