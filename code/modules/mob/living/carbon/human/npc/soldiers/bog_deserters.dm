@@ -230,6 +230,7 @@
 			new_facial.hair_color = "#a53d3d"
 			hair_color = "#a53d3d"
 	//Now we take skin-tone picks
+	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	var/skintone_choice = rand(1, 7) //Heavily simplified
 	switch(skintone_choice)
 		if(1)
@@ -469,6 +470,7 @@
 				organ_eyes.eye_color = "#131313" //Souless greytider look
 				organ_eyes.accessory_colors = "#131313#131313"
 
+	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	var/skintone_choice = rand(1, 7) //Heavily simplified
 	switch(skintone_choice)
 		if(1)

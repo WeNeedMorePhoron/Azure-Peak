@@ -128,6 +128,7 @@
 			new_hair.hair_color = "#a53d3d"
 			hair_color = "#a53d3d"
 	//Pick a skin tone
+	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	var/skintone_choice = rand(1, 7) //Heavily simplified
 	switch(skintone_choice)
 		if(1)

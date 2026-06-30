@@ -173,6 +173,7 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 			new_facial.hair_color = "#a53d3d"
 			hair_color = "#a53d3d"
 	//Now we take skin-tone picks
+	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	var/skintone_choice = rand(1, 7) //Heavily simplified
 	switch(skintone_choice)
 		if(1)
