@@ -92,10 +92,10 @@
 			H.put_in_hands(new /obj/item/rogueweapon/scabbard/sword(H))
 			H.adjust_skillrank_up_to(/datum/skill/combat/swords, 4, TRUE)
 		if("Psydonic Cudgel")
-			l_hand = /obj/item/rogueweapon/mace/cudgel/psyclassic
+			l_hand = /obj/item/rogueweapon/mace/cudgel/psy
 			H.adjust_skillrank_up_to(/datum/skill/combat/maces, 4, TRUE)
 		if("Psydonic Flanged Mace")
-			l_hand = /obj/item/rogueweapon/mace/cudgel/psy
+			l_hand = /obj/item/rogueweapon/mace/cudgel/flanged/psy
 			H.adjust_skillrank_up_to(/datum/skill/combat/maces, 4, TRUE)	
 	change_origin(H, /datum/virtue/origin/otava, "Holy order")
 /datum/outfit/job/roguetown/psyaltrist

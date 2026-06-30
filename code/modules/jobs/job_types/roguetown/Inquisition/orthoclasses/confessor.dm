@@ -64,10 +64,10 @@
 				l_hand = /obj/item/rogueweapon/stoneaxe/handaxe/psy
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, 4, TRUE)
 			if("Psydonic Cudgel")
-				l_hand = /obj/item/rogueweapon/mace/cudgel/psyclassic
+				l_hand = /obj/item/rogueweapon/mace/cudgel/psy
 				H.adjust_skillrank_up_to(/datum/skill/combat/maces, 4, TRUE)
 			if("Psydonic Flanged Mace")
-				l_hand = /obj/item/rogueweapon/mace/cudgel/psy
+				l_hand = /obj/item/rogueweapon/mace/cudgel/flanged/psy
 				H.adjust_skillrank_up_to(/datum/skill/combat/maces, 4, TRUE)	
 		var/armors = list("Confessor - Dodge Expert, Complete Coverage", "Arbalist - Master Crossbows, +III STR / -III SPD")
 		var/armor_choice = input(H, "Choose your ARCHETYPE.", "TAKE UP PSYDON'S DUTY.") as anything in armors

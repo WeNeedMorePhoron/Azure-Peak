@@ -73,7 +73,7 @@
 				H.change_stat(STATKEY_INT, 1) //Changes statblock from 3/3/3/-2/-1/0 to 3/3/3/-1/-1/1. Note that this comes at the cost of losing the 'critical resistance' trait, and retaining the unarmorable status.
 			if("Katar")
 				H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, SKILL_LEVEL_EXPERT, TRUE)
-				r_hand = /obj/item/rogueweapon/katar/psydon/preblessed
+				r_hand = /obj/item/rogueweapon/katar/psydon
 				gloves = /obj/item/clothing/gloves/roguetown/bandages/weighted
 			if("Knuckledusters")
 				H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, SKILL_LEVEL_EXPERT, TRUE)
