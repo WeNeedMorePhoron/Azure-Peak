@@ -15,7 +15,7 @@
 	name = "lance"
 	icon_state = "inlance"
 	desc = "Fires a powerful, piercing arcyne lance that passes through mobs in the way indiscriminately, up to 5 of them without damage reduction."
-	chargetime = 3 SECONDS 
+	chargetime = 3 SECONDS
 	no_early_release = TRUE
 	charging_slowdown = 5
 
@@ -53,11 +53,13 @@
 		/datum/intent/shoot/bow/ferramancy/lance,
 		INTENT_GENERIC,
 		)
-	var/reload_cost = 20
+	var/reload_cost = 25
 	var/lance_energy = 50
 	var/held_slowdown = 2
 	var/reload_time = 2 SECONDS
 	var/reloading = FALSE
+	var/lance_cooldown = 10 SECONDS
+	COOLDOWN_DECLARE(lance_cd)
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow/greatbow/Initialize()
 	. = ..()
@@ -77,10 +79,14 @@
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow/greatbow/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 	if(istype(user.used_intent, /datum/intent/shoot/bow/ferramancy/lance))
+		if(!COOLDOWN_FINISHED(src, lance_cd))
+			balloon_alert(user, "Lance CD:[CEILING(COOLDOWN_TIMELEFT(src, lance_cd) * 0.1, 1)]s remaining")
+			return FALSE
 		if(user.energy < lance_energy)
 			to_chat(user, span_warning("I haven't the arcyne energy to loose the lance!"))
 			return FALSE
 		user.energy_add(-lance_energy)
+		COOLDOWN_START(src, lance_cd, lance_cooldown)
 		fire_lance(target, user)
 		return TRUE
 	if(!chambered)
