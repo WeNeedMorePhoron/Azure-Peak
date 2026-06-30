@@ -187,9 +187,6 @@
 	)
 
 	set_species(pick(species))
-	src.skin_tone = "#868e79"
-	if(organ_ears)
-		organ_ears.accessory_colors = "#868e79"
 
 	real_name = "[pick(deadite_firstnames)] [pick(deadite_lastnames)]"
 
@@ -198,6 +195,10 @@
 
 /mob/living/carbon/human/species/npc/deadite/after_creation()
 	. = ..()
+	//called after creation so species isn't overriding our skin color
+	skin_tone = "#868e79"
+	if(organ_ears)
+		organ_ears.accessory_colors = "#868e79"
 	src.mind_initialize()
 	mob_biotypes |= MOB_UNDEAD
 	//give ourselves undead eyes.
