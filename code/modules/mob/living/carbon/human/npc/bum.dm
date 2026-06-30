@@ -43,11 +43,49 @@ GLOBAL_LIST_INIT(bum_aggro, world.file2list("strings/rt/bumaggrolines.txt"))
 
 /datum/outfit/job/roguetown/bum_npc/pre_equip(mob/living/carbon/human/H)
 	..()
+	H.adjust_skillrank(/datum/skill/combat/knives, rand(0,3), TRUE) // Exceedingly trash mobs, ...sometimes
+	H.adjust_skillrank(/datum/skill/combat/polearms, rand(0,3), TRUE)
+	H.adjust_skillrank(/datum/skill/combat/staves, rand(0,3), TRUE)
+	H.adjust_skillrank(/datum/skill/combat/maces, rand(0,3), TRUE)
+	H.adjust_skillrank(/datum/skill/combat/axes, rand(0,3), TRUE)
+	H.adjust_skillrank(/datum/skill/combat/unarmed, rand(0,3), TRUE)
+	H.adjust_skillrank(/datum/skill/combat/wrestling, rand(0,3), TRUE)
+	H.adjust_skillrank(/datum/skill/misc/swimming, rand(2,5), TRUE)
+	H.adjust_skillrank(/datum/skill/misc/climbing, rand(2,5), TRUE)
+
+	belt = /obj/item/storage/belt/rogue/leather/rope
+	if(prob(70))
+		switch(rand(1, 6))
+			if(1)
+				r_hand = /obj/item/rogueweapon/mace/woodclub
+			if(2)
+				r_hand = /obj/item/rogueweapon/mace/cudgel
+			if(3)
+				r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff
+			if(4)
+				r_hand = /obj/item/rogueweapon/stoneaxe
+			if(5)
+				l_hand = /obj/item/rogueweapon/woodstaff
+			if(6)
+				r_hand = /obj/item/rogueweapon/idagger
+			if(7)
+				l_hand = /obj/item/rogueweapon/stoneaxe/woodcut
+			if(8)
+				l_hand = /obj/item/rogueweapon/huntingknife/stoneknife
+			if(9)
+				l_hand = /obj/item/rogueweapon/flail
+			if(10)
+				l_hand = /obj/item/rogueweapon/spear
+	if(prob(1))
+		belt = /obj/item/storage/belt/rogue/leather/knifebelt/iron
 	if(prob(20))
 		head = /obj/item/clothing/head/roguetown/knitcap
 
 	if(prob(5))
 		beltr = /obj/item/reagent_containers/powder/moondust
+
+	if(prob(5))
+		backl = /obj/item/storage/backpack/rogue/backpack/bagpack
 
 	if(prob(10))
 		beltl = /obj/item/clothing/mask/cigarette/rollie/cannabis
@@ -69,12 +107,18 @@ GLOBAL_LIST_INIT(bum_aggro, world.file2list("strings/rt/bumaggrolines.txt"))
 		if(prob(50))
 			shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant/l
 
-	if(prob(5))
-		r_hand = /obj/item/rogueweapon/mace/woodclub
-	else
-		r_hand = null
-
-	if(prob(5))
-		l_hand = /obj/item/rogueweapon/mace/woodclub
-	else
-		l_hand = null
+	if(prob(30))
+		var/voicepack_choice = rand(1, 4)
+		switch(voicepack_choice)
+			if(1)
+				H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/warrior]
+				H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/female/warrior]
+			if(2)
+				H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/stern]
+				H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/female/haughty]
+			if(3)
+				H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/foppish]
+				H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/female/dainty]
+			if(4)
+				H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/knight]
+				H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/female/haughty]
