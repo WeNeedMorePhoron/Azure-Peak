@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	head.sellprice = HEAD_BOUNTY_HIGHWAYMAN
-		var/species = list(
+	var/species = list(
 		/datum/species/human/northern,
 		/datum/species/human/northern, //Extra bias towards humens and wood/half elves
 		/datum/species/human/northern,

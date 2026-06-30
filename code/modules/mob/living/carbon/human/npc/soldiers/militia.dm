@@ -30,7 +30,7 @@
 	gender = pick(MALE, FEMALE)
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
-		var/species = list(
+	var/species = list(
 		/datum/species/human/northern,
 		/datum/species/human/northern, //Extra bias towards humens and wood/half elves
 		/datum/species/human/northern,

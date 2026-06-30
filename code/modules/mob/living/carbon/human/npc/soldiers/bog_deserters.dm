@@ -382,7 +382,7 @@
 	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 	equipOutfit(new /datum/outfit/job/roguetown/human/northern/bog_deserters/better_gear)
 	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
-		var/species = list(
+	var/species = list(
 		/datum/species/human/northern,
 		/datum/species/human/northern, //Extra bias towards humens and wood/half elves
 		/datum/species/human/northern,
