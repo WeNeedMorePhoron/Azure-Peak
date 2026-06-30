@@ -1,15 +1,46 @@
 /mob/living/carbon/human/species/npc/deadite
 	ai_controller = /datum/ai_controller/human_npc
 	d_intent = INTENT_DODGE //To simulate that deadites CANNOT parry
-	dodgetime = 20
+	dodgetime = 14
 	ambushable = FALSE
 	infected = TRUE
 
 /mob/living/carbon/human/species/npc/deadite/Initialize()
 	. = ..()
+	var/species = list(
+		/datum/species/human/northern,
+		/datum/species/human/northern,
+		/datum/species/human/northern,
+		/datum/species/human/northern,
+		/datum/species/elf/wood, //Extra bias towards humens and elves/half elves Because deadites are locals likely
+		/datum/species/elf/wood,
+		/datum/species/elf/wood,
+		/datum/species/elf/wood,
+		/datum/species/human/halfelf,
+		/datum/species/human/halfelf,
+		/datum/species/human/halfelf,
+		/datum/species/human/halfelf,
+		/datum/species/dwarf/mountain, //Racial bias ticks of w/other races from here on
+		/datum/species/goblinp,
+		/datum/species/elf/dark,
+		/datum/species/aasimar,
+		/datum/species/halforc,
+		/datum/species/tieberian,
+		/datum/species/anthromorph,
+		/datum/species/anthromorphsmall,
+		/datum/species/demihuman,
+		/datum/species/akula,
+		/datum/species/moth,
+		/datum/species/tabaxi,
+		/datum/species/vulpkanin,
+		/datum/species/vulpkanin,
+		/datum/species/dracon,
+	)
+
+	set_species(pick(species))
 	gender = pick(MALE, FEMALE)
 	dna.species.handle_body(src)
-	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
+	dna.species.random_character(src)
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	var/hairf = pick(list(
 						/datum/sprite_accessory/hair/head/lowbraid,
@@ -174,32 +205,19 @@
 
 	var/list/deadite_firstnames = world.file2list("strings/rt/names/other/deaditenpcfirst.txt")
 	var/list/deadite_lastnames  = world.file2list("strings/rt/names/other/deaditenpclast.txt")
-	
-	var/species = list(
-		/datum/species/human/northern,
-		/datum/species/human/northern, //Extra bias towards humens and dwarves/half elves
-		/datum/species/human/northern,
-		/datum/species/elf/wood,
-		/datum/species/human/halfelf,
-		/datum/species/human/halfelf,
-		/datum/species/dwarf/mountain,
-		/datum/species/dwarf/mountain,
-	)
 
-	set_species(pick(species))
 
 	real_name = "[pick(deadite_firstnames)] [pick(deadite_lastnames)]"
 
-	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
-	equipOutfit(new /datum/outfit/job/roguetown/deadite) //Give ourselves the base outfit (traits of being a deadite + statline)
+	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS) //A second delay, let us race up first
 
 /mob/living/carbon/human/species/npc/deadite/after_creation()
 	. = ..()
+	equipOutfit(new /datum/outfit/job/roguetown/deadite)
+	make_deadite()
+
+/mob/living/carbon/human/proc/make_deadite()
 	//called after creation so species isn't overriding our skin color
-	skin_tone = "#868e79"
-	if(organ_ears)
-		organ_ears.accessory_colors = "#868e79"
-	src.mind_initialize()
 	mob_biotypes |= MOB_UNDEAD
 	//give ourselves undead eyes.
 	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
@@ -208,12 +226,23 @@
 		QDEL_NULL(eyes)
 	eyes = SSwardrobe.provide_type(/obj/item/organ/eyes/night_vision/zombie)
 	eyes.Insert(src)
-
 	update_body()
+	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
+	skin_tone = "#868e79"
+	faction += "undead"
+	faction -= "station"
+	faction -= "neutral"
+		//Give ourselves the deadite voicepack
+	src.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/zombie/m]
+	src.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/zombie/f]
+	for(var/obj/item/bodypart/part as anything in bodyparts)
+		if(!part.rotted && !part.skeletonized)
+			part.rotted = TRUE
+		part.update_disabled()
+	if(organ_ears)
+		organ_ears.accessory_colors = "#868e79"
+	src.regenerate_icons()
 
-/datum/outfit/job/roguetown/deadite/pre_equip(mob/living/carbon/human/H)
-	..()
-	//We simulate being a """deadite""" here
 	ADD_TRAIT(src, TRAIT_LIMBATTACHMENT, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_BREADY, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_GENERIC)
@@ -235,23 +264,41 @@
 	ADD_TRAIT(src, TRAIT_DEADITE, TRAIT_GENERIC)
 
 	//deadite statline - intentionally uniform
-	H.STASTR = 14
-	H.STASPD = 5
-	H.STACON = 12
-	H.STAWIL = 13
-	H.STAINT = 1
-	H.STAPER = 13
+	src.STASTR = 14
+	src.STASPD = 5
+	src.STACON = 12
+	src.STAWIL = 13
+	src.STAINT = 1
+	src.STAPER = 13
 
 	//lastly, nessessity for ALL NPCs -> our examine trait
 	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 
-	//Clear our hands out, we don't need stuff here.
-	r_hand = null
-	l_hand = null
+/datum/outfit/job/roguetown/deadite/pre_equip(mob/living/carbon/human/H)
+	..()
+	//We simulate being a """deadite""" here
+	head = null
+	beltr = null
+	beltl = null
+	if(prob(30))
+		cloak = /obj/item/clothing/cloak/raincloak/brown
+	else
+		cloak = null
+	if(prob(10))
+		gloves = /obj/item/clothing/gloves/roguetown/fingerless
+	else
+		gloves = null
 
-	//Give ourselves the deadite voicepack
-	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/zombie/m]
-	H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/zombie/f]
+	if(H.gender == FEMALE)
+		armor = /obj/item/clothing/suit/roguetown/shirt/rags
+	else
+		armor = null
+		pants = /obj/item/clothing/under/roguetown/tights/vagrant
+		if(prob(50))
+			pants = /obj/item/clothing/under/roguetown/tights/vagrant/l
+		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant
+		if(prob(50))
+			shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant/l
 
 /mob/living/carbon/human/proc/deadite_get_aimheight(victim)
 	if(!(mobility_flags & MOBILITY_STAND))
