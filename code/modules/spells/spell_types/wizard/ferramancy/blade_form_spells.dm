@@ -61,7 +61,7 @@
 	if(W.max_integrity)
 		W.max_integrity = round(W.max_integrity * 0.5)
 		W.obj_integrity = W.max_integrity
-	W.AddComponent(/datum/component/conjured_item, "#5c7cff")
+	W.AddComponent(/datum/component/conjured_item, "#5c7cff", FALSE, H, src)
 	H.put_in_hands(W)
 	conjured_weapon = W
 	return TRUE
@@ -100,10 +100,3 @@
 			form.conjured_weapon.visible_message(span_warning("[form.conjured_weapon] shimmers and fades away!"))
 			qdel(form.conjured_weapon)
 		form.conjured_weapon = null
-
-/datum/action/cooldown/spell/form_blade/Destroy()
-	if(conjured_weapon && !QDELETED(conjured_weapon))
-		conjured_weapon.visible_message(span_warning("[conjured_weapon] shimmers and fades away!"))
-		qdel(conjured_weapon)
-	conjured_weapon = null
-	return ..()

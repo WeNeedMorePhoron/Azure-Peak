@@ -146,10 +146,6 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 	attack_right(user)
 	return
 
-/obj/item/rogueweapon/spellbook/dropped(mob/user, silent)
-	clear_aegis()
-	return ..()
-
 /obj/item/rogueweapon/spellbook/Destroy()
 	clear_aegis()
 	return ..()
@@ -261,8 +257,8 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 	clear_aegis()
 	var/aegis_type = get_aegis_type()
 	var/obj/item/rogueweapon/shield/arcyne_aegis/tome/S = new aegis_type(user.drop_location())
-	S.link_tome(src, user)
-	S.AddComponent(/datum/component/conjured_item, GLOW_COLOR_ARCANE, TRUE)
+	S.link_tome(src)
+	S.AddComponent(/datum/component/conjured_item, GLOW_COLOR_ARCANE, TRUE, user, src)
 	if(!user.put_in_hands(S))
 		qdel(S)
 		to_chat(user, span_warning("I fail to conjure the Aegis in my offhand."))
@@ -277,5 +273,5 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 
 /obj/item/rogueweapon/spellbook/proc/clear_aegis()
 	if(conjured_aegis && !QDELETED(conjured_aegis))
-		conjured_aegis.dispel()
+		qdel(conjured_aegis)
 	conjured_aegis = null
