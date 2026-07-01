@@ -1357,12 +1357,14 @@ As Excaliber."
 	icon = 'icons/obj/items/donor_weapons.dmi'
 
 //NEROCAVALIER
+/* -- REMOVED BY REQUEST. KEPT FOR POSTERITY. NOW USED AS "BLACKSTEEL LONGSWORD".
 /obj/item/rogueweapon/nerocavalier/flsword
 	name = "blacksteel longsword"
 	desc = "A sleek blade of a dark, and burnished hue. A handle carved from a rosawood branch. A pairing that should sing a melody sweeter than any harp as it parts the air.. and yet, beautiful it may be, it is not worthy of song."
 	icon_state = "flsword"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	bigboy = TRUE
+*/
 
 //WALKTHEWASTE
 /obj/item/clothing/head/roguetown/mentorhat/walkthewaste
@@ -1389,14 +1391,14 @@ As Excaliber."
 	. = ..()
 	AddComponent(/datum/component/ignitable/fluff/sci_sand)
 
-/obj/item/rogueweapon/wand/aisu
-	base_implement_name = "crystalline wand"
-	name = "crystalline wand"
-	desc = "A crystalline wand, born from a single tear and weeks of prayers and enchantments, Oh my guiding Moonlight!"
+/obj/item/rogueweapon/sword/rapier/aisu
+	base_implement_name = "crystalline rapier"
+	name = "crystalline rapier"
+	desc = "A crystalline rapier, born from a single tear and weeks of prayers and enchantments, Oh my guiding Moonlight!"
 	icon_state = "aisuwand"
 	icon = 'icons/obj/items/donor_weapons.dmi'
 
-/obj/item/rogueweapon/wand/aisu/getonmobprop(tag)
+/obj/item/rogueweapon/rapier/aisu/getonmobprop(tag)
 	. = ..()
 	if(tag)
 		switch(tag)
@@ -1677,3 +1679,11 @@ As Excaliber."
     icon = 'icons/obj/items/donor_weapons_64.dmi'
     icon_state = "olygsword"
     bigboy = TRUE
+
+// SPARTANBOBBY
+/obj/item/clothing/head/roguetown/helmet/bascinet/pigface/spartanbobby
+	name = "holy astratan bascinet"
+	desc = "A silver bascinet with an ornate, golden klappvisier molded in HER image.</br>‎<font color='46bacf'>ASTRATA IMPRESSED.</font>"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	icon_state = "astrata_impressed"

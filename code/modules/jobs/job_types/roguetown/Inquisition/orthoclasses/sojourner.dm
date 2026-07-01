@@ -78,7 +78,7 @@
 
 	switch(sidearm_selected)
 		if("katar")
-			H.put_in_hands(new /obj/item/rogueweapon/katar/psydon/preblessed(H))
+			H.put_in_hands(new /obj/item/rogueweapon/katar/psydon(H))
 		if("knuckledusters")
 			H.put_in_hands(new /obj/item/rogueweapon/knuckledusters/psy(H))
 
@@ -90,7 +90,7 @@
 	shoes = /obj/item/clothing/shoes/roguetown/boots/psydonboots
 	neck = /obj/item/clothing/neck/roguetown/psicross/silver/naledi
 	id = /obj/item/clothing/ring/signet/psy/g
-	belt = /obj/item/storage/belt/rogue/leather/rope/dark
+	belt = /obj/item/storage/belt/rogue/leather/rope/upgraded/dark
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/mid
 	backl = /obj/item/storage/backpack/rogue/satchel/black
 	cloak = /obj/item/clothing/cloak/tabard/psydontabard/alt
