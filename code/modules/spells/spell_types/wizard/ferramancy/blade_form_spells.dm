@@ -19,7 +19,7 @@
 	charge_required = TRUE
 	charge_time = CHARGETIME_POKE
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
-	cooldown_time = 25 SECONDS
+	cooldown_time = 5 SECONDS
 	shared_cooldown = "form_blade"
 
 	associated_skill = /datum/skill/magic/arcane
