@@ -41,43 +41,6 @@
 	cost = 100
 	contains = list(/obj/item/runicflask/charged)
 
-// /datum/supply_pack/rogue/potions/strpot
-//	name = "Strength Potion"
-//	cost = 50
-//	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/strpot)
-
-//	/datum/supply_pack/rogue/potions/perpot
-//	name = "Perception Potion"
-//	cost = 50
-//	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/perpot)
-
-// /datum/supply_pack/rogue/potions/willpot
-//	name = "Willpower Potion"
-//	cost = 50
-//	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/willpot)
-
-// /datum/supply_pack/rogue/potions/conpot
-//	name = "Constitution Potion"
-//	cost = 50
-	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/conpot)
-					
-// /datum/supply_pack/rogue/potions/intpot
-//	name = "Intelligence Potion"
-//	cost = 50
-//	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/intpot)
-
-// /datum/supply_pack/rogue/potions/spdpot
-//	name = "Speed Potion"
-//	cost = 50
-//	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/spdpot)
-
-// /datum/supply_pack/rogue/potions/lucpot
-//	name = "Luck Potion"
-//	cost = 50
-//	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/lucpot)
-
-// I should edit this to have one version for antag stores, one for town. I am not sure how to do that. Would I jusst...
-// Put make another file like antag_potions.dm and have swap potions in categories in the antag store for their antag potion categorie? I am not sure. 
 
 // This is really fucking stupid but it's actually for the SILVERFACE.
 // Bottlebombs are made by the apothecary, NOT the blacksmith, who can otherwise lock
