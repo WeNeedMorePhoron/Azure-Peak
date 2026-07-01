@@ -3125,6 +3125,7 @@
 #include "code\modules\spells\spell_types\bardic\inspiration.dm"
 #include "code\modules\spells\spell_types\bardic\intellectual_interval.dm"
 #include "code\modules\spells\spell_types\bardic\melody-dirges.dm"
+#include "code\modules\spells\spell_types\bardic\muses_grace.dm"
 #include "code\modules\spells\spell_types\bardic\rattling_requiem.dm"
 #include "code\modules\spells\spell_types\bardic\recovery_song.dm"
 #include "code\modules\spells\spell_types\bardic\rejuvenation_song.dm"
