@@ -13,6 +13,7 @@
 	var/detonate_sound = 'sound/combat/newstuck.ogg'
 	var/strike_sound = 'sound/magic/blade_burst.ogg'
 	var/windup_time = TELEGRAPH_DODGEABLE
+	var/charging_slowdown = 0
 	var/committed_strike = TRUE
 	var/redraw_interval = 2
 	var/sweep_step = 1
@@ -48,6 +49,8 @@
 	var/iterations = max(1, round(windup_time / redraw_interval))
 	var/turf/last_turf
 	var/last_facing
+	if(charging_slowdown)
+		H.add_movespeed_modifier("telegraphed_strike_windup", TRUE, 100, override = TRUE, multiplicative_slowdown = charging_slowdown)
 	for(var/i in 1 to iterations)
 		if(QDELETED(H) || H.stat != CONSCIOUS)
 			break
@@ -57,6 +60,8 @@
 			last_facing = facing
 			draw_indicators(H, facing, indicator)
 		sleep(redraw_interval)
+	if(charging_slowdown && !QDELETED(H))
+		H.remove_movespeed_modifier("telegraphed_strike_windup")
 	if(QDELETED(H) || H.stat != CONSCIOUS)
 		clear_indicators(indicator)
 		return

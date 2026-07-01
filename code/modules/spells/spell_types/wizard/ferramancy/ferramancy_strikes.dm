@@ -11,6 +11,7 @@
 
 	cooldown_time = 15 SECONDS
 	shared_cooldown = "ferramancy_strike"
+	charging_slowdown = 1
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
@@ -90,8 +91,8 @@
 	QDEL_IN(blade, dur + 4)
 	return blade
 
-/datum/action/cooldown/spell/ferramancy_strike/hammer_of_heaven
-	name = "Hammer of Heaven"
+/datum/action/cooldown/spell/ferramancy_strike/heavens_hammer
+	name = "Heaven's Hammer"
 	desc = "Heave a conjured maul overhead, then bring it crashing down on the ground before you, leaving any struck reeling and vulnerable.\n\n\
 	Deals 50 brute damage and applies Vulnerable to everything in the smash."
 	button_icon_state = "hammer_of_heaven"
@@ -105,13 +106,14 @@
 	vuln_on_hit = 3 SECONDS
 	var/hammer_scale = 1.9
 
-/datum/action/cooldown/spell/ferramancy_strike/hammer_of_heaven/get_pattern_offsets()
+/datum/action/cooldown/spell/ferramancy_strike/heavens_hammer/get_pattern_offsets()
 	return list(
 		list(-1, 1), list(0, 1), list(1, 1),
 		list(-1, 2), list(0, 2), list(1, 2),
+		list(-1, 3), list(0, 3), list(1, 3),
 	)
 
-/datum/action/cooldown/spell/ferramancy_strike/hammer_of_heaven/do_blade_animation(mob/living/carbon/human/H, facing)
+/datum/action/cooldown/spell/ferramancy_strike/heavens_hammer/do_blade_animation(mob/living/carbon/human/H, facing)
 	var/obj/effect/temp_visual/ferramancy_hammer/hammer = new(null)
 	hammer.vis_holder = H
 	H.vis_contents += hammer
@@ -141,7 +143,7 @@
 	animate(hammer, alpha = 255, time = 1, flags = ANIMATION_PARALLEL)
 	return hammer
 
-/datum/action/cooldown/spell/ferramancy_strike/hammer_of_heaven/on_impact(mob/living/carbon/human/H, facing, atom/movable/visual)
+/datum/action/cooldown/spell/ferramancy_strike/heavens_hammer/on_impact(mob/living/carbon/human/H, facing, atom/movable/visual)
 	var/turf/T = get_step(get_turf(H), facing) || get_turf(H)
 	if(!T)
 		return
