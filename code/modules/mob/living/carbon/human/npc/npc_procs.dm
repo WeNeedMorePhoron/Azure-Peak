@@ -305,23 +305,32 @@
 	eyes = SSwardrobe.provide_type(/obj/item/organ/eyes/night_vision/zombie)
 	eyes.Insert(src)
 	update_body()
+
 	//Grant undead tongue then force it
 	src.grant_language(/datum/language/undead) //Now we give you the language.
 	var/datum/language_holder/language_holder = src.get_language_holder()
 	language_holder.selected_default_language = /datum/language/undead
+
 	//claws for unarmed attacking
 	src.base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, /datum/intent/unarmed/claw)
 	update_a_intents()
-	//Fuck with our factions to make us undead only
-	src.faction = list(FACTION_ZOMBIE, FACTION_UNDEAD)
+
+	//join zombies/undead factions
+	faction += "zombie"
+	faction += "undead"
+	faction -= "neutral"
+	faction -= "station"
+
 	//Give ourselves the deadite voicepack
 	src.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/zombie/m]
 	src.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/zombie/f]
+
 	//now we make all of our limbs rot and decay like an actual zombie
 	for(var/obj/item/bodypart/part as anything in bodyparts)
 		if(!part.rotted && !part.skeletonized)
 			part.rotted = TRUE
 		part.update_disabled()
+
 	//give ourselves the final part of the disguise, the skin colors
 	var/obj/item/organ/ears/organ_ears = getorgan(/obj/item/organ/ears)
 	skin_tone = "#868e79"

@@ -121,9 +121,8 @@
 //nodmg if our teeth can't break through their armour
 	if(!nodmg)
 		playsound(src, "smallslash", vol = 50, vary = FALSE, extrarange = -1, ignore_walls = FALSE, quiet = TRUE)
-		var/mob/living/carbon/human/bite_victim = src
 		if(ishuman(src) && user.mind)
-
+			var/mob/living/carbon/human/bite_victim = src
 			/*
 				WEREWOLF INFECTION VIA BITE
 			*/
@@ -145,17 +144,6 @@
 				zombie_antag.last_bite = world.time
 				if(bite_victim.zombie_infect_attempt())   // infect_attempt on bite
 					to_chat(user, span_danger("You feel your gift trickling from your mouth into [bite_victim]'s wound..."))
-
-		/*
-			ZOMBIE INFECTION VIA NPC BITE
-		*/
-		if(!user.mind && ishuman(src) && HAS_TRAIT(user, TRAIT_DEADITE) && prob(30) && bite_victim.mind) //NPC Deadites have a LOW and STATIC infection rate (30% to even try infecting you)
-			if(bite_victim.mind.has_antag_datum(/datum/antagonist/zombie) || mind.has_antag_datum(/datum/antagonist/werewolf) || mind.has_antag_datum(/datum/antagonist/hag) || HAS_TRAIT(bite_victim, TRAIT_ZOMBIE_IMMUNE))
-				return //Its not possible to turn them
-			to_chat(bite_victim, span_danger("A growing cold seeps into my body. I feel horrible... REALLY horrible..."))
-			bite_victim.infected = TRUE
-			bite_victim.vomit(1, blood = TRUE, stun = FALSE)
-			bite_victim.apply_status_effect(/datum/status_effect/zombie_infection, 7 MINUTES, FALSE) //2 minutes more than a player
 
 	var/obj/item/grabbing/bite/B = new()
 	user.equip_to_slot_or_del(B, SLOT_MOUTH)

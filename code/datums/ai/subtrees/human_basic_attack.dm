@@ -45,10 +45,7 @@
 		var/obj/item/r_held = pawn.get_item_for_held_index(1)
 		var/obj/item/l_held = pawn.get_item_for_held_index(2)
 		var/has_weapon = istype(r_held, /obj/item/rogueweapon) || istype(l_held, /obj/item/rogueweapon)
-		if(has_weapon && HAS_TRAIT(controller.pawn, TRAIT_DEADITE)) //Deadites drop anything they're holding on aggro.
-			pawn.drop_all_held_items() //Hacky solution.
-
-		if(!has_weapon && !HAS_TRAIT(controller.pawn, TRAIT_DEADITE)) //Deadites don't seek out weapons.
+		if(!has_weapon)
 			for(var/obj/item/rogueweapon/nearby_weapon in view(7, pawn))
 				if(!isturf(nearby_weapon.loc))
 					continue
@@ -99,7 +96,7 @@
 	var/datum/targetting_datum/td = controller.blackboard[targetting_datum_key]
 
 	var/obj/item/held_weapon = pawn.get_active_held_item()
-	if(!istype(held_weapon, /obj/item/rogueweapon) && !HAS_TRAIT(pawn, TRAIT_DEADITE)) //Deadites won't pick up weaponry
+	if(!istype(held_weapon, /obj/item/rogueweapon))
 		// Snatch a dropped weapon adjacent to us — recovers from getting disarmed mid-fight
 		for(var/obj/item/rogueweapon/candidate in range(1, pawn))
 			if(!isturf(candidate.loc))
@@ -135,10 +132,6 @@
 		var/attacks_done = controller.blackboard[BB_HUMAN_NPC_ATTACK_ZONE_COUNTER]
 		if(attacks_done >= 2 && _try_weapon_special(controller))
 			return
-
-	//40% to try and bite
-	if(HAS_TRAIT(pawn, TRAIT_DEADITE) && prob(40))
-		pawn.do_deadite_attack()
 
 	_update_combat_intent(controller, pawn, target)
 	var/list/modifiers = list()
@@ -323,7 +316,7 @@
 	AI_THINK(pawn, "ZONE: switching up! (skill [skill_level], threshold was [switch_threshold])")
 
 	// Parity with npc_choose_attack_zone aimheight picks
-	if(HAS_TRAIT(pawn, TRAIT_DEADITE))
+	if(pawn.mind?.has_antag_datum(/datum/antagonist/zombie))
 		pawn.aimheight_change(pawn.deadite_get_aimheight(target))
 		return
 	if(!(pawn.mobility_flags & MOBILITY_STAND))
@@ -520,7 +513,7 @@
 	return null
 
 /datum/ai_behavior/basic_melee_attack/human_npc/proc/_try_backstep(mob/living/carbon/human/pawn, atom/target)
-	if(HAS_TRAIT(pawn, TRAIT_DEADITE))
+	if(pawn.mind?.has_antag_datum(/datum/antagonist/zombie))
 		return FALSE
 	if(!pawn.ai_controller.can_move())
 		return FALSE
