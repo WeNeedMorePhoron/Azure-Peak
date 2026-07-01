@@ -608,7 +608,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_EDIT_DESCRIPTORS = span_info("I can change my appearance at a magic mirror in a thorough manner."),
 	TRAIT_DUSTRUNNER = span_info("I run dust for the Thieves' Guild. Those in the trade know how to spot one of their own."),
 	TRAIT_REGROW_LIMBS = span_info("I can regrow my limbs in my sleep, but doing so will make me hungry."),
-	TRAIT_MUSES_GRACE = span_info("My steps are light and swift. I make less noise while sneaking and wearing armor, and can sneak much quicker."),
+	TRAIT_MUSES_GRACE = span_info("I feel a sudden and powerful urge to break out into song."),
 ))
 
 // trait accessor defines
