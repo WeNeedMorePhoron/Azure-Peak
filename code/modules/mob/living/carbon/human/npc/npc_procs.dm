@@ -370,10 +370,9 @@
 	src.STAPER = 12 //1 less than players
 
 	//Give the body deadite AI - Override the AI too.
-	src.ai_controller = /datum/ai_controller/deadite_npc //Unique lobotomised version
+	src.ai_controller = /datum/ai_controller/human_npc //TODO someone kill this for custom AI
 	src.d_intent = INTENT_DODGE //To simulate that deadites CANNOT parry
-	src.dodgetime = 10 //Since we can only claw (maybe bite soon?)
-	src.infected = TRUE //IDK what this does but keeping it
+	src.dodgetime = 10
 
 	//lastly, nessessity for ALL NPCs -> our examine trait
 	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)

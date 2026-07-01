@@ -259,7 +259,7 @@
 #define TRAIT_GRABIMMUNE "Unstoppable"
 #define TRAIT_ROTMAN "Rotman"
 #define TRAIT_IRONMAN "Construct" // basically rotman but not really, used for diff flavor of some things
-#define TRAIT_DEADITE "Deadite" //Handles zombie regeneration + Deadite AI
+#define TRAIT_DEADITE "Deadite"
 #define TRAIT_ZOMBIE_IMMUNE "Deadite Immunity" //immune to deadite infection
 #define TRAIT_FACELESS_KNOWN "Faceless but Known" //recognizable despite having no face (skeletonized head - for skeleton) — does NOT bypass TRAIT_DISFIGURED
 #define TRAIT_NOHUNGER	"Foodless"

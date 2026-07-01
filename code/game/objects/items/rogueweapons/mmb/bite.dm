@@ -144,7 +144,6 @@
 				zombie_antag.last_bite = world.time
 				if(bite_victim.zombie_infect_attempt())   // infect_attempt on bite
 					to_chat(user, span_danger("You feel your gift trickling from your mouth into [bite_victim]'s wound..."))
-
 	var/obj/item/grabbing/bite/B = new()
 	user.equip_to_slot_or_del(B, SLOT_MOUTH)
 	if(user.mouth == B)
