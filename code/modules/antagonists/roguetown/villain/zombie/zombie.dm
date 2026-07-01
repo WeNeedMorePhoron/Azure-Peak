@@ -447,6 +447,7 @@
 		qdel(zombie)
 		return
 
+
 ///Making sure they're not any other antag as well as adding the zombie datum to their mind
 /mob/living/carbon/human/proc/zombie_check_can_convert()
 	if(!mind)
