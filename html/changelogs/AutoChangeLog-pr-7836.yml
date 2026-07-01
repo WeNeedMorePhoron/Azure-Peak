@@ -1,0 +1,6 @@
+author: "borneblood"
+delete-after: True
+changes:
+  - balance: "Nerfed Wandering Yogi a bit. Buffed Vizier a bit."
+  - bugfix: "Fixed missing interactions with a particular meat, and some Stockpile behavior/options."
+  - refactor: "most custom meat paths no longer have /steak as precedent"
