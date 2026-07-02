@@ -216,7 +216,7 @@
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
-	ignore_stealth_reveal = TRUE
+	ignore_combat_tag = TRUE
 
 /datum/action/cooldown/spell/noc/invisibility/cast(atom/cast_on)
 	. = ..()
@@ -261,7 +261,7 @@
 	antimagic_allowed = TRUE
 	hide_charge_effect = TRUE
 	cost = 3 // Very useful
-	ignore_stealth_reveal = TRUE
+	ignore_combat_tag = TRUE
 
 /obj/effect/proc_holder/spell/invoked/invisibility/cast(list/targets, mob/living/user)
 	if(isliving(targets[1]))
@@ -461,7 +461,7 @@
 		/datum/action/cooldown/spell/projectile/greater_arcyne_bolt, //Offensive Tool
 		/datum/action/cooldown/spell/forcewall,
 		/datum/action/cooldown/spell/conjure_arcyne_ward,
-		/datum/action/cooldown/spell/blink,
+		/datum/action/cooldown/spell/phase,
 		/datum/action/cooldown/spell/message, //Utility
 		/datum/action/cooldown/spell/create_campfire //Buff
 	)

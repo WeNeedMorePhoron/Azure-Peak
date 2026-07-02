@@ -76,11 +76,17 @@
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MEDIUM //50 more integrity and superior protection vs a light gamberson, and cheaper than a proper gamberson with the same integrity.
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/shadowrobe
-	name = "stalker robe"
-	desc = "A thick robe in royal purple, befitting the hand, while remaining easy for them to slip about in.."
+	name = "thin stalker robe"
+	desc = "A thick robe in royal purple, befitting a travelling noble, while remaining easy for them to slip about in.."
 	allowed_race = NON_DWARVEN_RACE_TYPES
 	icon_state = "shadowrobe"
 	shiftable = FALSE
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/raneshen
+	name = "thin desert coat"
+	desc = "A slim-fitting sherwani, a Ranesheni-styled coat meant to endure in the desert's climate. This one isn't padded, meant for a noble to wear."
+	icon_state = "sherwani"
+	color = "#eec39a"
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/light
 	name = "light gambeson"
@@ -318,3 +324,35 @@
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/hand/spymaster
 	detail_color = "#742277"
+
+//I'm feeling quite hungry!
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/baotha
+	name = "saccharine vestments"
+	desc = "A gemmed chalice, Eora's own, swilled with Psydonia's most noxious venoms - and but a simple sip was enough to bring Her to death's door.."
+	icon_state = "baothagamb"
+	armor_class = ARMOR_CLASS_LIGHT
+	armor = ARMOR_PADDED
+	color = null
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
+	armor_class = ARMOR_CLASS_LIGHT
+	resistance_flags = FIRE_PROOF
+	body_parts_covered = CHEST | GROIN | ARMS
+	icon = 'icons/roguetown/clothing/shirts.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/shirts.dmi'
+	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_shirts.dmi'
+	smeltresult = /obj/item/ingot/component/baotha
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/baotha/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "VESTMENTS")
+	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/baotha/dropped(mob/living/carbon/human/user)
+	. = ..()
+	if(QDELETED(src))
+		return
+	qdel(src)
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/baotha/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)
