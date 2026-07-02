@@ -219,7 +219,7 @@
 /datum/supply_pack/rogue/armor_iron/helmet_nasal
 	name = "Helmet, Nasal"
 	cost = 50 // 1 Steel
-	contains = list(/obj/item/clothing/head/roguetown/helmet/iron)
+	contains = list(/obj/item/clothing/head/roguetown/helmet/nasal/iron)
 
 /datum/supply_pack/rogue/armor_iron/helmet_winged
 	name = "Helmet, Winged"

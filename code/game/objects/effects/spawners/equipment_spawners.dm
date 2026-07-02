@@ -104,7 +104,6 @@
 		/obj/item/clothing/head/roguetown/helmet/kettle/iron = 6,
 		/obj/item/clothing/head/roguetown/helmet/sallet/iron = 6,
 		/obj/item/clothing/head/roguetown/helmet/sallet/visored/iron = 5,
-		/obj/item/clothing/head/roguetown/helmet/heavy/iron = 6,
 		/obj/item/clothing/head/roguetown/helmet/heavy/guard/iron = 4,
 		/obj/item/clothing/head/roguetown/helmet/heavy/bucket/iron = 4,
 		/obj/item/clothing/head/roguetown/helmet/bascinet/iron = 5,
