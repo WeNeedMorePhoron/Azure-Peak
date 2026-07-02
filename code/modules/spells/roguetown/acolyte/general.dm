@@ -1,3 +1,6 @@
+#define BASE_HEALING_PER_TICK 3
+#define MAX_BONUS_HEAL 0.5
+
 /datum/action/cooldown/spell/miracle
 	background_icon = 'icons/mob/actions/genericmiracles.dmi'
 	button_icon = 'icons/mob/actions/genericmiracles.dmi'
@@ -79,10 +82,22 @@
 		return FALSE
 
 	if(HAS_TRAIT(spelltarget, TRAIT_PSYDONITE))
-		spelltarget.visible_message(span_info("[spelltarget] stirs for a moment, the miracle dissipates."), span_notice("A dull warmth swells in your heart, only to fade as quickly as it arrived."))
+		spelltarget.visible_message(span_artery("[spelltarget] stirs for a moment, the miracle dissipates."), span_artery("A dull warmth swells in your heart, only to fade as quickly as it arrived."))
 		owner.playsound_local(owner, 'sound/magic/PSY.ogg', 100, FALSE, -1)
 		playsound(spelltarget, 'sound/magic/PSY.ogg', 100, FALSE, -1)
 		return FALSE
+
+	if(HAS_TRAIT(spelltarget, TRAIT_BLACKBLOOD))
+		spelltarget.visible_message(span_artery("[spelltarget] stirs in discomfort, the miracle dissipates."), span_artery("A dull warmth spreads through your body, only to fade as quickly as it arrived."))
+		owner.playsound_local(owner, 'sound/magic/PSY.ogg', 100, FALSE, -1)
+		playsound(spelltarget, 'sound/magic/PSY.ogg', 100, FALSE, -1)
+		spelltarget.emote("pain")
+		return FALSE
+
+	if(HAS_TRAIT(spelltarget, TRAIT_IRONMAN))
+		spelltarget.visible_message(span_artery("[target] doesn't seem to be organic, the miracle dissipates."), span_artery("A dull warmth never meets your non-existent heart, it fades as quickly as it arrives."))
+		owner.playsound_local(owner, 'sound/magic/PSY.ogg', 100, FALSE, -1)
+		playsound(spelltarget, 'sound/magic/PSY.ogg', 100, FALSE, -1)
 
 	if(spelltarget.has_status_effect(/datum/status_effect/buff/healing))
 		to_chat(owner, span_warning("They are already under the effects of a healing aura!"))
@@ -107,11 +122,11 @@
 
 	H.patron.on_lesser_heal(owner, spelltarget, &message_out, &message_self, &conditional_buff, &situational_bonus, &is_inhumen)
 
-	var/healing = 2.5
+	var/healing = BASE_HEALING_PER_TICK
 
 	if(conditional_buff)
 		to_chat(owner, "Channeling my patron's power is easier in these conditions!")
-		healing += situational_bonus
+		healing += min(MAX_BONUS_HEAL, situational_bonus)
 
 	if(!ishuman(spelltarget))
 		spelltarget.apply_status_effect(/datum/status_effect/buff/healing, healing, is_inhumen)
@@ -167,7 +182,7 @@
 	invocation_type = INVOCATION_NONE
 
 	charge_required = FALSE
-	cooldown_time = 30 SECONDS
+	cooldown_time = 45 SECONDS
 
 	spell_requirements = SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
@@ -183,7 +198,20 @@
 		return FALSE
 
 	if(HAS_TRAIT(spelltarget, TRAIT_PSYDONITE))
-		spelltarget.visible_message(span_info("[target] stirs for a moment, the miracle dissipates."), span_notice("A dull warmth swells in your heart, only to fade as quickly as it arrived."))
+		spelltarget.visible_message(span_artery("[spelltarget] stirs for a moment, the miracle dissipates."), span_artery("A dull warmth swells in your heart, only to fade as quickly as it arrived."))
+		owner.playsound_local(owner, 'sound/magic/PSY.ogg', 100, FALSE, -1)
+		playsound(spelltarget, 'sound/magic/PSY.ogg', 100, FALSE, -1)
+		return FALSE
+
+	if(HAS_TRAIT(spelltarget, TRAIT_BLACKBLOOD))
+		spelltarget.visible_message(span_artery("[spelltarget] stirs in pain, the miracle dissipates."), span_artery("You feel a dull pain spreading through your body, only to fade as quickly as it arrived."))
+		owner.playsound_local(owner, 'sound/magic/PSY.ogg', 100, FALSE, -1)
+		playsound(spelltarget, 'sound/magic/PSY.ogg', 100, FALSE, -1)
+		spelltarget.emote("pain")
+		return FALSE
+
+	if(HAS_TRAIT(spelltarget, TRAIT_IRONMAN))
+		spelltarget.visible_message(span_artery("[target] doesn't seem to be organic, the miracle dissipates."), span_artery("A dull warmth never meets your non-existent heart, it fades as quickly as it arrives."))
 		owner.playsound_local(owner, 'sound/magic/PSY.ogg', 100, FALSE, -1)
 		playsound(spelltarget, 'sound/magic/PSY.ogg', 100, FALSE, -1)
 		return FALSE
@@ -200,8 +228,9 @@
 	if(iscarbon(spelltarget) && !spelltarget.has_status_effect(/datum/status_effect/buff/fortify))
 		spelltarget.apply_status_effect(/datum/status_effect/buff/fortify)
 	else
-		spelltarget.adjustBruteLoss(-50)
-		spelltarget.adjustFireLoss(-50)
+		spelltarget.adjustBruteLoss(-25)
+		spelltarget.adjustFireLoss(-25)
+		spelltarget.adjustOxyLoss(-15)
 
 	return TRUE
 
@@ -382,3 +411,6 @@
 		bloodbeam.End()
 		return TRUE
 	return FALSE
+
+#undef BASE_HEALING_PER_TICK
+#undef MAX_BONUS_HEAL

@@ -42,6 +42,7 @@
 		TRAIT_SEEPRICES,
 		TRAIT_CRITICAL_RESISTANCE,
 		TRAIT_HEAVYARMOR,
+		TRAIT_ARMOR_NOSPDCAP, //Ancient dread; their armor never weighs on their stride.
 		TRAIT_CABAL,
 		TRAIT_DEATHSIGHT,
 		TRAIT_COUNTERCOUNTERSPELL,
@@ -177,7 +178,7 @@
 
 	H.grant_language(/datum/language/undead)
 	// Grant a spellbook so the lich can pick aspects
-	H.equip_to_slot_or_del(new /obj/item/book/spellbook,SLOT_IN_BACKPACK, TRUE)
+	H.equip_to_slot_or_del(new /obj/item/rogueweapon/spellbook/grand,SLOT_IN_BACKPACK, TRUE)
 	// Grant a chalk so the lich can do rituals
 	H.equip_to_slot_or_del(new /obj/item/ritechalk,SLOT_IN_BACKPACK, TRUE)
 
@@ -206,7 +207,7 @@
 		H.mind.AddSpell(new /datum/action/cooldown/spell/eyebite)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/lacrima)
 	H.ambushable = FALSE
-	H.dna.species.soundpack_m = new /datum/voicepack/other/lich()
+	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/other/lich]
 
 	addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, choose_name_popup), "LICH"), 5 SECONDS)
 
@@ -292,6 +293,8 @@
 	for (var/trait in traits_lich)
 		ADD_TRAIT(body, trait, "[type]")
 
+	body.update_move_intent_slowdown()
+
 /datum/antagonist/lich/proc/rise_anew()
 	if (!owner.current.mind)
 		CRASH("Lich: rise_anew called with no mind")
@@ -313,9 +316,9 @@
 	new_body.set_patron(/datum/patron/inhumen/zizo)
 	new_body.mind.grab_ghost(force = TRUE)
 	new_body.ambushable = FALSE
-	new_body.dna.species.soundpack_m = new /datum/voicepack/other/lich() //evil ass voice stays
+	new_body.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/other/lich] //evil ass voice stays
 	// Grant a spellbook so the lich can pick aspects
-	new_body.equip_to_slot_or_del(new /obj/item/book/spellbook,SLOT_IN_BACKPACK, TRUE)
+	new_body.equip_to_slot_or_del(new /obj/item/rogueweapon/spellbook/grand,SLOT_IN_BACKPACK, TRUE)
 	// Grant a chalk so the lich can do rituals
 	new_body.equip_to_slot_or_del(new /obj/item/ritechalk,SLOT_IN_BACKPACK, TRUE)
 

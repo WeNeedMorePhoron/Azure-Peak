@@ -114,6 +114,7 @@
 	req_bar = /obj/item/ingot/purifiedaalloy
 	additional_items = list(/obj/item/grown/log/tree/stick)
 	created_item = /obj/item/rogueweapon/hammer/paalloy
+	display_category = ITEM_CAT_TOOLS_WORKSHOP
 	i_type = "Tools"
 
 /datum/anvil_recipe/tools/aalloy/sickle
@@ -135,6 +136,7 @@
 	name = "Tongs, Ancient"
 	req_bar = /obj/item/ingot/purifiedaalloy
 	created_item = /obj/item/rogueweapon/tongs/paalloy
+	display_category = ITEM_CAT_TOOLS_WORKSHOP
 	i_type = "Tools"
 
 /datum/anvil_recipe/tools/aalloy/pick
@@ -485,11 +487,11 @@
 	createditem_num = 3
 
 /datum/anvil_recipe/tools/iron/scrap
-	name = "Pieces Of Scrap, Iron (x2)"
+	name = "Scrap, Iron"
 	req_bar = /obj/item/ingot/iron
 	created_item = /obj/item/scrap
 	display_category = ITEM_CAT_TOOLS_SUNDRIES
-	createditem_num = 2
+	createditem_num = 1
 
 /datum/anvil_recipe/tools/iron/cups
 	name = "Cups, Iron (x3)"
