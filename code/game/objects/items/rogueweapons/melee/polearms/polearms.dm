@@ -687,13 +687,11 @@
 /obj/item/rogueweapon/spear/stone/copper
 	name = "copper spear"
 	desc = "A simple spear with a copper tip. More durable than stone, but not much better."
-	pixel_y = 0
-	pixel_x = 0
+	force = 18
+	force_wielded = 22
 	max_integrity = 100
-	icon = 'icons/roguetown/weapons/misc32.dmi'
-	dam_icon = 'icons/effects/item_damage32.dmi'
 	icon_state = "cspear"
-	smeltresult = null
+	smeltresult = /obj/item/ingot/copper
 	anvilrepair = /datum/skill/craft/weaponsmithing
 
 /obj/item/rogueweapon/fishspear
