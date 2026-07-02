@@ -339,4 +339,4 @@
 	detail_color = "#6678c9"
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/hand/spymaster
-	detail_color = "#242031"
+	detail_color = "#742277"
