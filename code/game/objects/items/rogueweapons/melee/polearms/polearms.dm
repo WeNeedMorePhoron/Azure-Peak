@@ -691,8 +691,9 @@
 	force_wielded = 22
 	max_integrity = 100
 	icon_state = "cspear"
-	smeltresult = /obj/item/ingot/copper
+	smeltresult = /obj/item/ingot/copperslag
 	anvilrepair = /datum/skill/craft/weaponsmithing
+	special = /datum/special_intent/polearm_backstep
 
 /obj/item/rogueweapon/fishspear
 	force = 20
