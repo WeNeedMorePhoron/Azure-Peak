@@ -69,6 +69,8 @@
 		/obj/item/clothing/under/roguetown/platelegs/iron = 8, //No longer!
 		/obj/item/clothing/suit/roguetown/armor/plate/full/iron = 8,
 		/obj/item/clothing/suit/roguetown/armor/plate/iron/banded = 7,
+		/obj/item/clothing/head/roguetown/helmet/heavy/aventail = 3,
+		/obj/item/clothing/head/roguetown/helmet/heavy/aventail/iron = 4,
 	)
 
 /obj/effect/spawner/lootdrop/helmet_spawner
