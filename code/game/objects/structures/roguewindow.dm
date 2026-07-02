@@ -205,20 +205,20 @@
 	visible_message(span_info("[user] opens [src]."))
 	playsound(src, 'sound/foley/doors/windowup.ogg', 100, FALSE)
 	set_climbable(TRUE)
-	opacity = FALSE
+	set_opacity(FALSE)
 	update_icon()
 
 /obj/structure/roguewindow/proc/force_open()
 	playsound(src, 'sound/foley/doors/windowup.ogg', 100, FALSE)
 	set_climbable(TRUE)
-	opacity = FALSE
+	set_opacity(FALSE)
 	update_icon()
 
 /obj/structure/roguewindow/proc/close_up(mob/user)
 	visible_message(span_info("[user] closes [src]."))
 	playsound(src, 'sound/foley/doors/windowdown.ogg', 100, FALSE)
 	set_climbable(FALSE)
-	opacity = TRUE
+	set_opacity(TRUE)
 	update_icon()
 
 
@@ -292,6 +292,6 @@
 		new /obj/effect/decal/cleanable/debris/glassy(get_turf(src))
 		set_climbable(TRUE)
 		brokenstate = TRUE
-		opacity = FALSE
+		set_opacity(FALSE)
 	update_icon()
 	..()

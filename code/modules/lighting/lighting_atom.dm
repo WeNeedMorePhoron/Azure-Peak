@@ -123,7 +123,7 @@
 		return
 
 	opacity = new_opacity
-	var/turf/T = loc
+	var/turf/T = isturf(src) ? src : loc
 	if (!isturf(T))
 		return
 
