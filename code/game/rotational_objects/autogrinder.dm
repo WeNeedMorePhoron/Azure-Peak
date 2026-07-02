@@ -73,7 +73,7 @@
 
 /obj/structure/autogrinder/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_info("Left-click it with an empty hand to switch it on or off; skilled engineers do this without catching a hand under the stone.")
+	. += span_info("Left-click it with an empty hand to switch it on or off; non-skilled engineers will rarely catch their hand under the stone.")
 	. += span_info("It grinds anything millable from its attached hopper and only works while connected to a powered rotational network with enough RPM.")
 	. += span_info("Drop grain or other grindables onto the attached hopper's tile and switch the grinder on; it feeds itself.")
 	. += span_info("Ground product is dropped onto the grinder's own tile.")
