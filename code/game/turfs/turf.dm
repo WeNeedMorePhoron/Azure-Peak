@@ -62,6 +62,8 @@
 	var/climbable_atom_count = 0
 	/// How many atoms on this turf act as platforms (have BLOCK_Z_OUT_DOWN)?
 	var/platform_atom_count = 0
+	/// Cached sum of ai_path_weight from objs on this turf
+	var/ai_path_weight = 0
 
 	vis_flags = VIS_INHERIT_PLANE|VIS_INHERIT_ID
 
@@ -429,6 +431,10 @@
 			climbable_atom_count += 1
 		if(entered_structure.obj_flags & BLOCK_Z_OUT_DOWN)
 			platform_atom_count += 1
+	if(isobj(entered_movable))
+		var/obj/entered_obj = entered_movable
+		if(entered_obj.ai_path_weight)
+			ai_path_weight += entered_obj.ai_path_weight
 
 	if(LAZYLEN(panel_listeners))
 		notify_listed_turf_viewers()
@@ -448,6 +454,10 @@
 				climbable_atom_count -= 1
 			if(exited_structure.obj_flags & BLOCK_Z_OUT_DOWN)
 				platform_atom_count -= 1
+		if(isobj(gone))
+			var/obj/exited_obj = gone
+			if(exited_obj.ai_path_weight)
+				ai_path_weight -= exited_obj.ai_path_weight
 
 	if(LAZYLEN(panel_listeners))
 		notify_listed_turf_viewers()
@@ -584,8 +594,7 @@
 	var/obj/structure/mineral_door/door = locate() in src
 	if(door && door.density && !door.locked && door.anchored) // door will have to be opened
 		. += 2 // try to avoid closed doors where possible
-	for(var/obj/O in src)
-		. += O.ai_path_weight
+	. += ai_path_weight
 	// add cost from climbable obstacles
 	if(climbable_atom_count > 0)
 		. += 1 // extra tile penalty

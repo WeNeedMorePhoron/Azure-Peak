@@ -101,8 +101,11 @@
 				obj_flags |= string_to_objflag[flag]
 	var/turf/our_turf = get_turf(src)
 	// if the turf is uninitialized it'll just call Entered on us
-	if(our_turf && (our_turf.flags_1 & INITIALIZED_1) && (obj_flags & BLOCK_Z_OUT_DOWN))
-		our_turf.platform_atom_count++
+	if(our_turf && (our_turf.flags_1 & INITIALIZED_1))
+		if(obj_flags & BLOCK_Z_OUT_DOWN)
+			our_turf.platform_atom_count++
+		if(ai_path_weight)
+			our_turf.ai_path_weight += ai_path_weight
 
 /obj/Destroy(force=FALSE)
 	if(!ismachinery(src))
