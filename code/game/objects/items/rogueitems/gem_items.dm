@@ -237,8 +237,7 @@
 /obj/item/carvedgem/rose/carp
 	name = "rosestone carp statue"
 	desc = "A medium-sized carving of a carp made out of rosestone. The fish have been selectively bred by Eorans to bring out beautiful patterns in their scales, but have become invasive in some regions due to carelessness."
-	icon_state = "fish_rose"
-	dropshrink = 1.5
+	icon_state = "carp_rose"
 	grid_height = 64
 	grid_width = 64
 
