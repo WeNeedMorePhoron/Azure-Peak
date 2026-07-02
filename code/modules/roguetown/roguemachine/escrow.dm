@@ -195,26 +195,6 @@
 		if(derived <= 0)
 			continue
 		derived_material_prices[path] = max(1, round(derived * PRICING_ENGINE_COMMISSIONER_MARKUP))
-	apply_material_price_overrides()
-
-/// Force-set the commissioner price for specific materials, overriding whatever the trade-good
-/// baseline produced. Runs after init_material_prices builds the tables.
-/obj/structure/roguemachine/escrow/proc/apply_material_price_overrides()
-	if(!length(material_price_overrides))
-		return
-	for(var/path in material_price_overrides)
-		if(path_is_excluded_parent(path))
-			continue
-		var/override_price = material_price_overrides[path]
-		if(override_price <= 0)
-			continue
-		// Prefer the baseline table so the override participates in catalog/anvil eligibility
-		// checks (which test membership in material_prices); fall back to the derived table only
-		// if the material lives there instead.
-		if(path in derived_material_prices)
-			derived_material_prices[path] = override_price
-		else
-			material_prices[path] = override_price
 
 /obj/structure/roguemachine/escrow/proc/path_is_excluded_parent(path)
 	if(!length(excluded_material_parents))
