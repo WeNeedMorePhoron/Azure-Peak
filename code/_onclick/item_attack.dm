@@ -334,7 +334,13 @@
 	for(var/mob/living/L in living_targets + dead_targets)
 		if(cleave.max_targets && cleave_targets_hit >= cleave.max_targets)
 			break
-		if(L.checkdefense(user.used_intent, user))
+		var/cleave_override
+		var/_receiver_signal = SEND_SIGNAL(L, COMSIG_MOB_ITEM_BEING_ATTACKED, L, user, src)
+		if(_receiver_signal & COMPONENT_ITEM_NO_ATTACK)
+			continue
+		else if(_receiver_signal & COMPONENT_ITEM_NO_DEFENSE)
+			cleave_override = ATTACK_OVERRIDE_NODEFENSE
+		if(cleave_override != ATTACK_OVERRIDE_NODEFENSE && L.checkdefense(user.used_intent, user))
 			continue
 		if(L.attacked_by(src, user))
 			cleave_targets_hit++
