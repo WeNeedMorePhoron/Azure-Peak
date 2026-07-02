@@ -13,7 +13,7 @@
 // Steel Armor Section. Massive selection here so I am not going to include everything
 /datum/supply_pack/rogue/armor_steel/lightchainmail_steel
 	name = "Haubyrine"
-	cost = 50 // 1 Ingots
+	cost = 75
 	contains = list(/obj/item/clothing/suit/roguetown/armor/chainmail/light)
 
 /datum/supply_pack/rogue/armor_steel/haubergeon_steel
@@ -140,6 +140,11 @@
 	name = "Helmet, Nasal"
 	cost = 50 // 1 Steel
 	contains = list(/obj/item/clothing/head/roguetown/helmet)
+
+/datum/supply_pack/rogue/armor_steel/helmet_skullcap
+	name = "Helmet, Skullcap"
+	cost = 50 // 1 Steel
+	contains = list(/obj/item/clothing/head/roguetown/helmet/skullcap/steel)
 
 /datum/supply_pack/rogue/armor_steel/helmet_winged
 	name = "Helmet, Winged"

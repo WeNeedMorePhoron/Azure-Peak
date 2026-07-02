@@ -544,6 +544,12 @@
 	triumph_cost = 3
 	sort_category = "Triumphs"
 
+/datum/loadout_item/triumph_armorkit_agedskullcap
+	name = "Triumph Kit - Aged Skull Cap"
+	path = /obj/item/enchantingkit/triumph_armorkit_agedskullcap
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
 //////////////////
 //  PERFUMES !  //
 //////////////////

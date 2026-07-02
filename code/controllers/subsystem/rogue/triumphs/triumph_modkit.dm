@@ -110,6 +110,15 @@
 	target_items = list(/obj/item/rogueweapon/sword/long)
 	result_item = /obj/item/rogueweapon/sword/long/triumph
 
+/obj/item/enchantingkit/triumph_armorkit_agedskullcap
+	name = "'Aged Skull Cap' morphing elixir"
+	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Skull Cap."
+	target_items = list(
+		/obj/item/clothing/head/roguetown/helmet/skullcap/steel				= /obj/item/clothing/head/roguetown/helmet/skullcap/old,
+		/obj/item/clothing/head/roguetown/helmet/skullcap					= /obj/item/clothing/head/roguetown/helmet/skullcap/old
+		)
+	result_item = null
+
 /obj/item/enchantingkit/triumph_weaponkit_wide
 	name = "'Wideguard' morphing elixir"
 	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Steel Longsword, or a Rapier."
@@ -837,3 +846,8 @@
 	name = "valorian iron visored sallet"
 	desc = "An iron 'sallet'-styled helmet with an adjustable visor. What will they remember of you, once the dust has settled?"
 	icon_state = "isalletclassic_visor"
+
+/obj/item/clothing/head/roguetown/helmet/skullcap/old
+	name = "aged skull cap"
+	desc = "An aged helmet which covers the top of the head."
+	icon_state = "skullcapold"
