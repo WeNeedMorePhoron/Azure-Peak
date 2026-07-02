@@ -1,33 +1,3 @@
-#define MUSIC_TAVCAT_OTHERWORLDLY list(\
-	"Lore" = 'sound/music/jukeboxes/otherworld/ac-ler.ogg',\
-	"Landmarks of Lullabies" = 'sound/music/jukeboxes/otherworld/ac-lol.ogg',\
-	"Waters of Sacrifice" = 'sound/music/jukeboxes/otherworld/acn-wos.ogg',\
-	"Solar Wind" = 'sound/music/jukeboxes/otherworld/av_solar.ogg',\
-	"Balthasar" = 'sound/music/jukeboxes/otherworld/ac-balthasar.ogg',\
-	"Dead Windmills" = 'sound/music/jukeboxes/otherworld/dead_windmills.ogg',\
-	"In Heaven Everythin" = 'sound/music/jukeboxes/otherworld/in_heaven_eif.ogg',\
-	"Jazznocn" = 'sound/music/jukeboxes/otherworld/jazznocn.ogg',\
-	"Vivalaluna-Damla" = 'sound/music/jukeboxes/otherworld/vivalaluna-damla.ogg',\
-	"Shades of Futility" = 'sound/music/jukeboxes/otherworld/fb-sofutile.ogg',\
-	"Mr Doubt" = 'sound/music/jukeboxes/otherworld/mr_doubt.ogg'\
-)
-#define MUSIC_TAVCAT_GENERIC list(\
-	"Song 1" = 'sound/music/jukeboxes/gen/tavern1.ogg',\
-	"Song 2" = 'sound/music/jukeboxes/gen/tavern2.ogg',\
-	"Song 3" = 'sound/music/jukeboxes/gen/tavern3.ogg'\
-)
-#define MUSIC_TAVCAT_OLDSCHOOL list(\
-	"Autumn Voyage" = 'sound/music/jukeboxes/oldschool/Autumn_Voyage.ogg',\
-	"Fanfare" = 'sound/music/jukeboxes/oldschool/Fanfare.ogg',\
-	"Greatness" = 'sound/music/jukeboxes/oldschool/Greatness.ogg',\
-	"Medieval" = 'sound/music/jukeboxes/oldschool/Medieval.ogg',\
-	"Sea Shanty2" = 'sound/music/jukeboxes/oldschool/Sea_Shanty2.ogg',\
-	"Shine" = 'sound/music/jukeboxes/oldschool/Shine.ogg',\
-	"Spirit" = 'sound/music/jukeboxes/oldschool/Spirit.ogg',\
-	"Still Night" = 'sound/music/jukeboxes/oldschool/Still_Night.ogg',\
-	"Venture" = 'sound/music/jukeboxes/oldschool/Venture.ogg',\
-	"Yesteryear" = 'sound/music/jukeboxes/oldschool/Yesteryear.ogg'\
-)
 
 /datum/looping_sound/musloop
 	mid_sounds = list()
@@ -60,6 +30,36 @@
 	var/playing = FALSE // If music is playing or not. playmusic() deals with this don't mess with it.
 	var/curvol = 50 // The current volume at which audio is played. MAPPERS MAY TOUCH THIS.
 	var/playuponspawn = FALSE // Does the music box start playing music when it first spawns in? MAPPERS MAY TOUCH THIS.
+	var/list/static/songlist_otherworldly = list(
+		"Lore" = 'sound/music/jukeboxes/otherworld/ac-ler.ogg',
+		"Landmarks of Lullabies" = 'sound/music/jukeboxes/otherworld/ac-lol.ogg',
+		"Waters of Sacrifice" = 'sound/music/jukeboxes/otherworld/acn-wos.ogg',
+		"Solar Wind" = 'sound/music/jukeboxes/otherworld/av_solar.ogg',
+		"Balthasar" = 'sound/music/jukeboxes/otherworld/ac-balthasar.ogg',
+		"Dead Windmills" = 'sound/music/jukeboxes/otherworld/dead_windmills.ogg',
+		"In Heaven Everythin" = 'sound/music/jukeboxes/otherworld/in_heaven_eif.ogg',
+		"Jazznocn" = 'sound/music/jukeboxes/otherworld/jazznocn.ogg',
+		"Vivalaluna-Damla" = 'sound/music/jukeboxes/otherworld/vivalaluna-damla.ogg',
+		"Shades of Futility" = 'sound/music/jukeboxes/otherworld/fb-sofutile.ogg',
+		"Mr Doubt" = 'sound/music/jukeboxes/otherworld/mr_doubt.ogg'
+	)
+	var/list/static/songlist_generic = list(\
+		"Song 1" = 'sound/music/jukeboxes/gen/tavern1.ogg',
+		"Song 2" = 'sound/music/jukeboxes/gen/tavern2.ogg',
+		"Song 3" = 'sound/music/jukeboxes/gen/tavern3.ogg'
+	)
+	var/list/static/songlist_oldschool = list(\
+		"Autumn Voyage" = 'sound/music/jukeboxes/oldschool/Autumn_Voyage.ogg',
+		"Fanfare" = 'sound/music/jukeboxes/oldschool/Fanfare.ogg',
+		"Greatness" = 'sound/music/jukeboxes/oldschool/Greatness.ogg',
+		"Medieval" = 'sound/music/jukeboxes/oldschool/Medieval.ogg',
+		"Sea Shanty2" = 'sound/music/jukeboxes/oldschool/Sea_Shanty2.ogg',
+		"Shine" = 'sound/music/jukeboxes/oldschool/Shine.ogg',
+		"Spirit" = 'sound/music/jukeboxes/oldschool/Spirit.ogg',
+		"Still Night" = 'sound/music/jukeboxes/oldschool/Still_Night.ogg',
+		"Venture" = 'sound/music/jukeboxes/oldschool/Venture.ogg',
+		"Yesteryear" = 'sound/music/jukeboxes/oldschool/Yesteryear.ogg'
+	)
 
 /obj/structure/roguemachine/musicbox/get_mechanics_examine(mob/user)
 	. = ..()
@@ -87,8 +87,7 @@
 
 /obj/structure/roguemachine/musicbox/proc/start_playing()
 	playing = TRUE
-	soundloop.mid_sounds = list(curfile)
-	soundloop.cursound = null
+	soundloop.set_mid_sounds(list(curfile))
 	soundloop.volume = curvol
 	soundloop.start()
 
