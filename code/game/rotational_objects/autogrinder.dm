@@ -46,7 +46,7 @@
 	var/empty_alert = FALSE
 
 	var/datum/looping_sound/autogrinder_work/soundloop
-	debris = list(/obj/item/roguegear = 2, /obj/item/natural/wood/plank = 2, /obj/item/millstone = 1)
+	debris = list(/obj/item/roguegear = 2, /obj/item/natural/wood/plank = 2, /obj/item/natural/stone = 2)
 
 /obj/structure/autogrinder/Initialize()
 	. = ..()
@@ -75,8 +75,8 @@
 	. = ..()
 	. += span_info("Left-click it with an empty hand to switch it on or off; skilled engineers do this without catching a hand under the stone.")
 	. += span_info("It grinds anything millable from its attached hopper and only works while connected to a powered rotational network with enough RPM.")
-	. += span_info("Load grain or other grindables into the attached hopper (open or closed) and switch the grinder on; it feeds itself.")
-	. += span_info("Ground product is dropped onto the grinder's own tile. Leave the hopper open to toss grist onto its tile, or keep it closed and load it like a chest.")
+	. += span_info("Drop grain or other grindables onto the attached hopper's tile and switch the grinder on; it feeds itself.")
+	. += span_info("Ground product is dropped onto the grinder's own tile.")
 
 /obj/structure/autogrinder/attack_hand(mob/user)
 	. = ..()
@@ -110,16 +110,15 @@
 		grind_current()
 
 /**
- * The container the grinder currently pulls material from.
+ * The container the grinder pulls material from.
  *
- * A closed hopper holds its material inside its own contents; an open one dumps everything onto
- * its turf, so an open hopper feeds straight off the tile it sits on. Either way you never have
- * to close it — leave it open and drop grist in like a real feed bin.
+ * The hopper is a permanently open feed bin, so it always feeds straight off the tile it sits on —
+ * drop grist onto it like a real hopper and the stone takes it.
  */
 /obj/structure/autogrinder/proc/grind_pool()
 	if(!hopper)
 		return null
-	return hopper.opened ? get_turf(hopper) : hopper
+	return get_turf(hopper)
 
 /// Whether the given item is currently sitting in the grinder's active material pool.
 /obj/structure/autogrinder/proc/in_grind_pool(obj/item/candidate)
@@ -253,20 +252,24 @@
 		to_chat(user, span_notice("You start up [src]."))
 
 /*
- * The hopper chest that feeds the autogrinder. Behaves like a normal chest, but locks shut while
- * the grinder is running so material cannot be pulled mid-grind.
+ * The hopper that feeds the autogrinder. A permanently open, lidless feed bin: grist dropped onto
+ * its tile is pulled straight into the grinder. Two iron gears turn inside whenever the machine runs.
  */
 /obj/structure/closet/crate/chest/autogrinder
 	name = "autogrinder hopper"
-	desc = "A material hopper that feeds an autogrinder its grist, open or closed."
+	desc = "A lidless material hopper that feeds an autogrinder its grist. Iron gears churn within."
 	icon = 'icons/obj/autogrinder.dmi'
-	icon_state = "closed_off"
-	base_icon_state = "closed_off"
+	icon_state = "open_off"
+	base_icon_state = "open_off"
 	keylock = FALSE
 	locked = FALSE
 	anchored = TRUE
 	anchorable = FALSE
 	var/obj/structure/autogrinder/parent
+
+/obj/structure/closet/crate/chest/autogrinder/Initialize(mapload)
+	. = ..()
+	open()   // it has no lid; it stays open for good
 
 /obj/structure/closet/crate/chest/autogrinder/CanAStarPass(ID, dir, caller)
 	return TRUE
@@ -276,23 +279,23 @@
 
 /obj/structure/closet/crate/chest/autogrinder/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_info("Use it like a chest. The autogrinder feeds from it whether it is open or closed, so you never need to close it.")
-	. += span_info("Closed, it stores grist inside; open, it feeds from its own tile. Either way, ground product lands on the grinder's tile, not in here.")
+	. += span_info("A lidless feed bin — drop grain or other grindables onto its tile and the autogrinder pulls them in.")
+	. += span_info("Ground product lands on the grinder's tile, not in here.")
+
+/// The hopper has no lid, so it can never be closed.
+/obj/structure/closet/crate/chest/autogrinder/close(mob/living/user)
+	if(user)
+		to_chat(user, span_warning("[src] has no lid to close."))
+	return FALSE
 
 /obj/structure/closet/crate/chest/autogrinder/update_icon()
 	cut_overlays()
 	update_gear_anim()
 
-/// Picks the hopper sprite from its open/closed state and whether the parent grinder is running,
-/// so the gears visibly turn only while the machine is powered and switched on.
+/// The gears turn only while the parent grinder is powered and switched on.
 /obj/structure/closet/crate/chest/autogrinder/proc/update_gear_anim()
-	var/spinning = parent && parent.is_spinning()
-	if(opened)
-		layer = BELOW_OBJ_LAYER
-		icon_state = spinning ? "open_on" : "open_off"
-	else
-		layer = OBJ_LAYER
-		icon_state = spinning ? "closed_on" : "closed_off"
+	layer = BELOW_OBJ_LAYER
+	icon_state = (parent && parent.is_spinning()) ? "open_on" : "open_off"
 
 /obj/structure/closet/crate/chest/autogrinder/Destroy()
 	parent = null
