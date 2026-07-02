@@ -237,7 +237,7 @@
 	if(!do_after(user, 1.2 SECONDS, src))
 		return
 
-	if(was_working && engineering_skill < 3 && prob(50))
+	if(was_working && engineering_skill < 3 && prob(10))
 		user.visible_message(span_danger("[user] gets a hand caught under [src]'s stone!"), span_danger("You get your hand caught under [src]'s grinding stone!"))
 		user.apply_damage(max(2, round((4 * max(1, rotations_per_minute / 8)) / max(1, engineering_skill), 1)), BRUTE, active_hand_zone(user))
 		playsound(src, 'sound/foley/stone_scrape.ogg', 100, FALSE)
@@ -280,7 +280,6 @@
 /obj/structure/closet/crate/chest/autogrinder/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_info("A lidless feed bin — drop grain or other grindables onto its tile and the autogrinder pulls them in.")
-	. += span_info("Ground product lands on the grinder's tile, not in here.")
 
 /// The hopper has no lid, so it can never be closed.
 /obj/structure/closet/crate/chest/autogrinder/close(mob/living/user)
