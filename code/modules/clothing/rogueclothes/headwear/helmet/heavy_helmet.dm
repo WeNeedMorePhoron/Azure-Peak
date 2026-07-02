@@ -1578,7 +1578,7 @@
 
 /obj/item/clothing/head/roguetown/helmet/heavy/beakhelm/iron
 	name = "beaked iron helmet"
-	desc = "An odd spherical helmet with a beaklike visor."
+	desc = "No sacrifice is too great, when one is locked into the pursuit of dreams-most-divine."
 	icon_state = "ibeakhelmet"
 	smeltresult = /obj/item/ingot/iron
 	max_integrity = ARMOR_INT_HELMET_HEAVY_IRON
