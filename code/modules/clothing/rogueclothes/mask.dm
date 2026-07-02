@@ -299,7 +299,6 @@
 	if(user.wear_mask == src)
 		worn = TRUE
 
-
 /obj/item/clothing/mask/rogue/facemask/steel/confessor/ComponentInitialize()
 	AddComponent(/datum/component/armour_filtering/positive, TRAIT_NOSTINK, "plague_resistant")
 
