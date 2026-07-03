@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/precognition
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Precognition"
-	desc = "Peer a few moments into the future for yourself or an ally, readying them before the moment arrives. Cuts 30 seconds from the remaining cooldown of the target's Defend, Bait, and Special."
+	desc = "Peer a few moments into the future for yourself or an ally, readying them before the moment arrives. Cuts 30 seconds from the remaining cooldown of the target's Defend, Feint, Bait, and Special."
 	button_icon_state = "readomen"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF
@@ -42,6 +42,7 @@
 
 	var/hastened = FALSE
 	hastened |= reduce_intent_cooldown(target, /datum/status_effect/debuff/clashcd)
+	hastened |= reduce_intent_cooldown(target, /datum/status_effect/debuff/feintcd)
 	hastened |= reduce_intent_cooldown(target, /datum/status_effect/debuff/baitcd)
 	hastened |= reduce_intent_cooldown(target, /datum/status_effect/debuff/specialcd)
 
