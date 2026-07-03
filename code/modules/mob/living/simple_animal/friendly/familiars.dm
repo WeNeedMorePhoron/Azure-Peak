@@ -107,7 +107,7 @@
 	var/obj/item/mob_item/orb = ..()
 	orb.slot_flags = ITEM_SLOT_HIP|ITEM_SLOT_NECK|ITEM_SLOT_RING // little pendant-esque thing
 	orb.filters += filter(type = "drop_shadow", x=0, y=0, size=1, offset = 2, color = GLOW_COLOR_ARCANE)
-	orb.desc = "A small orb, containing the spirit of [user.name]."
+	orb.desc = "A small orb, containing the spirit of [name]."
 	orb.can_container = TRUE
 	orb.w_class = WEIGHT_CLASS_SMALL
 	return orb

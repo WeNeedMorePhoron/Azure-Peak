@@ -3,7 +3,7 @@
 	var/mob/living/stored_mob
 	slot_flags = ITEM_SLOT_HEAD
 	w_class = WEIGHT_CLASS_HUGE // this should never exist outside your hand/head/shoulder
-	can_container = FALSE // if this is true, we won't revert you when you get put in a bag - for familiars only atm
+	var/can_container = FALSE // if this is true, we won't revert you when you get put in a bag - for familiars only atm
 
 /obj/item/mob_item/Initialize()
 	. = ..()
