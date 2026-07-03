@@ -69,6 +69,41 @@
 	remains_type = /obj/effect/decal/remains/crow
 	fly_time = 3 SECONDS // slowing down crow for witches
 	sight = 0
+	/// Whether the zad is perched (stationary sprite, cannot move) rather than flying.
+	var/sitting = FALSE
+
+/mob/living/simple_animal/hostile/retaliate/bat/crow/Initialize()
+	. = ..()
+	add_verb(src, list(/mob/living/simple_animal/hostile/retaliate/bat/crow/proc/change_stance,
+	/mob/living/simple_animal/hostile/retaliate/bat/crow/proc/emote_caw))
+
+/mob/living/simple_animal/hostile/retaliate/bat/crow/proc/change_stance()
+	set category = "RoleUnique.Winged Form"
+	set name = "Change Stance"
+	sitting = !sitting
+	update_icon()
+	// BYOND only re-renders this mob's base sprite on a dir change, so the new icon_state won't show
+	// until the player looks/moves. Settle the bird to face forward on each stance change to force
+	// the refresh immediately - the EAST nudge guarantees dir actually changes even if already facing SOUTH.
+	setDir(EAST)
+	setDir(SOUTH)
+
+/mob/living/simple_animal/hostile/retaliate/bat/crow/update_icon_state()
+	icon_state = sitting ? "crow" : "crow_flying"
+
+/mob/living/simple_animal/hostile/retaliate/bat/crow/Move()
+	if(sitting)
+		return FALSE
+	return ..()
+
+/mob/living/simple_animal/hostile/retaliate/bat/crow/proc/emote_caw()
+	set category = "RoleUnique.Winged Form"
+	set name = "Caw"
+	emote("caw", intentional = TRUE, animal = TRUE)
+
+/mob/living/simple_animal/hostile/retaliate/bat/crow/get_sound(input)
+	if(input == "caw")
+		return pick('sound/vo/mobs/bird/CROW_01.ogg', 'sound/vo/mobs/bird/CROW_02.ogg', 'sound/vo/mobs/bird/CROW_03.ogg')
 
 /obj/effect/decal/remains/crow
 	name = "zad remains"
