@@ -14,6 +14,7 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/arcyne_forge,
+		/datum/acftion/cooldown/spell/mending,
 	)
 
 /datum/magic_aspect/exowardry
@@ -86,8 +87,7 @@
 		"I calm the potent within.",
 		"Augmentum, me relinquere!",
 	)
-	pointbuy_budget = 4
-	// Budget: 1x 3-cost or 2x 2-cost or 1x 2-cost + fillers
+	pointbuy_budget = 3
 	pointbuy_spells = list(
 		/datum/action/cooldown/spell/attune_haste,
 		/datum/action/cooldown/spell/darkvision,
