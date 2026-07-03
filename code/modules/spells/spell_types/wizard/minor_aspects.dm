@@ -14,7 +14,7 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/arcyne_forge,
-		/datum/acftion/cooldown/spell/mending,
+		/datum/action/cooldown/spell/mending,
 	)
 
 /datum/magic_aspect/exowardry
