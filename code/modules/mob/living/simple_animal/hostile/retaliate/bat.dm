@@ -82,9 +82,7 @@
 	set name = "Change Stance"
 	sitting = !sitting
 	update_icon()
-	// BYOND only re-renders this mob's base sprite on a dir change, so the new icon_state won't show
-	// until the player looks/moves. Settle the bird to face forward on each stance change to force
-	// the refresh immediately - the EAST nudge guarantees dir actually changes even if already facing SOUTH.
+	//Hack to make sprite update after hitting the verb
 	setDir(EAST)
 	setDir(SOUTH)
 
