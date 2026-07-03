@@ -3,7 +3,7 @@
 /datum/action/cooldown/spell/guidance
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Guidance"
-	desc = "Makes one's hand travel true, blessing them with arcyne luck in combat. (+20% chance to bypass parry / dodge, +20% chance to parry / dodge)\nCasting on another person extends the duration."
+	desc = "Makes one's hand travel true, blessing them with arcyne luck in combat. (+20% chance to bypass parry / dodge, +20% chance to parry / dodge)"
 	button_icon_state = "guidance"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF
@@ -25,13 +25,12 @@
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
-	charge_then_click = TRUE
-	cooldown_time = 2 MINUTES
+	cooldown_time = 90 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
 
-	point_cost = 2
+	point_cost = 1
 	spell_impact_intensity = SPELL_IMPACT_NONE
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
@@ -50,10 +49,8 @@
 
 	if(spelltarget != H)
 		H.visible_message("[H] mutters an incantation and [spelltarget] briefly shines orange.")
-		to_chat(H, span_notice("With another person as a conduit, my spell's duration is extended."))
-		spelltarget.apply_status_effect(/datum/status_effect/buff/guidance, STAT_BUFF_ALLY_DURATION)
 	else
 		H.visible_message("[H] mutters an incantation and they briefly shine orange.")
-		spelltarget.apply_status_effect(/datum/status_effect/buff/guidance, STAT_BUFF_SELF_DURATION)
+	spelltarget.apply_status_effect(/datum/status_effect/buff/guidance, STAT_BUFF_SELF_DURATION)
 
 	return TRUE

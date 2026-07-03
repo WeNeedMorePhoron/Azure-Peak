@@ -69,7 +69,7 @@
 #define SPELLCOST_MAJOR_SUMMON       50
 // Buff duration tiers
 #define STAT_BUFF_SELF_DURATION      1 MINUTES
-#define STAT_BUFF_ALLY_DURATION      2.5 MINUTES
+#define STAT_BUFF_ALLY_DURATION      1.5 MINUTES
 #define UTILITY_AOE_BUFF_DURATION    15 MINUTES
 
 //Miracle costs in devotion used.

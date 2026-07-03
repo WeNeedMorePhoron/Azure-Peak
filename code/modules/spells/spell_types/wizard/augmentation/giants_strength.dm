@@ -3,7 +3,7 @@
 /datum/action/cooldown/spell/giants_strength
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Giant's Strength"
-	desc = "Strengthen the target. (+3 Strength)\nCasting on another person extends the duration."
+	desc = "Strengthen the target. (+4 Strength)"
 	button_icon_state = "giants_strength"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF
@@ -25,8 +25,7 @@
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
-	charge_then_click = TRUE
-	cooldown_time = 2 MINUTES
+	cooldown_time = 90 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
@@ -50,10 +49,8 @@
 
 	if(spelltarget != H)
 		H.visible_message("[H] mutters an incantation and [spelltarget]'s muscles strengthen and grow.")
-		to_chat(H, span_notice("With another person as a conduit, my spell's duration is extended."))
-		spelltarget.apply_status_effect(/datum/status_effect/buff/giants_strength, STAT_BUFF_ALLY_DURATION)
 	else
 		H.visible_message("[H] mutters an incantation and their muscles strengthen and grow.")
-		spelltarget.apply_status_effect(/datum/status_effect/buff/giants_strength, STAT_BUFF_SELF_DURATION)
+	spelltarget.apply_status_effect(/datum/status_effect/buff/giants_strength, STAT_BUFF_SELF_DURATION)
 
 	return TRUE

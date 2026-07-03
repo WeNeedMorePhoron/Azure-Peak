@@ -221,10 +221,6 @@
 		"I forfeit the strength bestowed upon me, diminish.",
 		"Augmentum, a me discedere!",
 	)
-	fixed_spells = list(
-		/datum/action/cooldown/spell/forcewall,
-		/datum/action/cooldown/spell/mending,
-	)
 	choice_spells = list(
 		/datum/action/cooldown/spell/projectile/soulshot,
 		/datum/action/cooldown/spell/projectile/greater_arcyne_bolt,
@@ -236,22 +232,21 @@
 	)
 	pointbuy_budget = 12
 	pointbuy_spells = list(
-		/datum/action/cooldown/spell/haste,
-		/datum/action/cooldown/spell/darkvision,
 		/datum/action/cooldown/spell/stoneskin,
+		/datum/action/cooldown/spell/guidance,
 		/datum/action/cooldown/spell/hawks_eyes,
 		/datum/action/cooldown/spell/giants_strength,
+		/datum/action/cooldown/spell/haste,
 		/datum/action/cooldown/spell/fortitude,
-		/datum/action/cooldown/spell/guidance,
+		/datum/action/cooldown/spell/bind_armament,
+		/datum/action/cooldown/spell/surge,
+		/datum/action/cooldown/spell/precognition,
+		/datum/action/cooldown/spell/grasp,
+		/datum/action/cooldown/spell/forcewall,
 		/datum/action/cooldown/spell/featherfall,
 		/datum/action/cooldown/spell/enlarge,
 		/datum/action/cooldown/spell/leap,
 		/datum/action/cooldown/spell/nondetection,
-		// 1-cost utility filler
-		/datum/action/cooldown/spell/light,
-		/datum/action/cooldown/spell/mending,
-		/datum/action/cooldown/spell/create_campfire,
-		/datum/action/cooldown/spell/message,
 	)
 
 /datum/magic_aspect/ferramancy

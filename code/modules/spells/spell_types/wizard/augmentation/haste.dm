@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/haste
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Haste"
-	desc = "Cause a target to be magically hastened. (+3 Speed, 0.85x Action Cooldown)\nCasting on another person extends the duration."
+	desc = "Cause a target to be magically hastened. (+4 Speed, 0.85x Action Cooldown)"
 	button_icon_state = "haste"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF
@@ -23,8 +23,7 @@
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
-	charge_then_click = TRUE
-	cooldown_time = 2 MINUTES
+	cooldown_time = 90 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
@@ -48,10 +47,8 @@
 
 	if(spelltarget != H)
 		H.visible_message("[H] mutters an incantation and [spelltarget] briefly shines yellow.")
-		to_chat(H, span_notice("With another person as a conduit, my spell's duration is extended."))
-		spelltarget.apply_status_effect(/datum/status_effect/buff/haste, STAT_BUFF_ALLY_DURATION)
 	else
 		H.visible_message("[H] mutters an incantation and they briefly shine yellow.")
-		spelltarget.apply_status_effect(/datum/status_effect/buff/haste, STAT_BUFF_SELF_DURATION)
+	spelltarget.apply_status_effect(/datum/status_effect/buff/haste, STAT_BUFF_SELF_DURATION)
 
 	return TRUE

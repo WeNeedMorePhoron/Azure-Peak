@@ -2,7 +2,7 @@
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Ascension"
 	desc = "Channel all of your arcyne potential into another, granting them every augmentation at once - \
-	Haste, Stoneskin, Giant's Strength, Fortitude, Hawk's Eyes, and Guidance. \
+	Lunar Foresight, Stoneskin, Solar Fury, Fortitude, Hawk's Eyes, and Guidance. \
 	This spell drains an enormous amount of energy from the caster and cannot be used on oneself."
 	button_icon_state = "stoneskin"
 	sound = 'sound/magic/charging.ogg'

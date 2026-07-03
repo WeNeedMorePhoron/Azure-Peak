@@ -16,7 +16,7 @@
 	var/outline_colour ="#F0E68C" // Hopefully not TOO yellow
 	id = "haste"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/haste
-	effectedstats = list(STATKEY_SPD = 3)
+	effectedstats = list(STATKEY_SPD = 4)
 	duration = STAT_BUFF_SELF_DURATION
 
 /datum/status_effect/buff/haste/on_creation(mob/living/new_owner, var/new_duration = null)
@@ -26,6 +26,7 @@
 
 /datum/status_effect/buff/haste/on_apply()
 	. = ..()
+	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>haste (+4 spd)!</font>")
 	var/filter = owner.get_filter(HASTE_FILTER)
 	if (!filter)
 		owner.add_filter(HASTE_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 25, "size" = 1))
@@ -47,14 +48,14 @@
 
 /atom/movable/screen/alert/status_effect/buff/giants_strength
 	name = "Giant's Strength"
-	desc = "My muscles are strengthened. (+3 Strength)"
+	desc = "My muscles are strengthened. (+4 Strength)"
 	icon_state = "buff"
 
 /datum/status_effect/buff/giants_strength
 	var/outline_colour ="#8B0000" // Different from strength potion cuz red = strong
 	id = "giantstrength"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/giants_strength
-	effectedstats = list(STATKEY_STR = 3)
+	effectedstats = list(STATKEY_STR = 4)
 	duration = STAT_BUFF_SELF_DURATION
 
 /datum/status_effect/buff/giants_strength/on_creation(mob/living/new_owner, var/new_duration = null)
@@ -64,6 +65,7 @@
 
 /datum/status_effect/buff/giants_strength/on_apply()
 	. = ..()
+	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>giant's strength (+4 str)!</font>")
 	var/filter = owner.get_filter(GIANTSSTRENGTH_FILTER)
 	if (!filter)
 		owner.add_filter(GIANTSSTRENGTH_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 50, "size" = 1))
@@ -101,6 +103,7 @@
 
 /datum/status_effect/buff/stoneskin/on_apply()
 	. = ..()
+	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>stoneskin (+5 con, blood rest)!</font>")
 	var/filter = owner.get_filter(STONESKIN_FILTER)
 	if (!filter)
 		owner.add_filter(STONESKIN_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 50, "size" = 1))
@@ -136,6 +139,7 @@
 
 /datum/status_effect/buff/hawks_eyes/on_apply()
 	. = ..()
+	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>hawk's eyes (+5 per)!</font>")
 	var/filter = owner.get_filter(HAWKSEYES_FILTER)
 	if (!filter)
 		owner.add_filter(HAWKSEYES_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 25, "size" = 1))
@@ -171,6 +175,7 @@
 
 /datum/status_effect/buff/guidance/on_apply()
 	. = ..()
+	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>guidance (+20% parry/dodge)!</font>")
 	var/filter = owner.get_filter(GUIDANCE_FILTER)
 	if (!filter)
 		owner.add_filter(GUIDANCE_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 50, "size" = 1))
@@ -207,6 +212,7 @@
 
 /datum/status_effect/buff/fortitude/on_apply()
 	. = ..()
+	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>fortitude (-50% stam)!</font>")
 	var/filter = owner.get_filter(FORTITUDE_FILTER)
 	if (!filter)
 		owner.add_filter(FORTITUDE_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 50, "size" = 1))

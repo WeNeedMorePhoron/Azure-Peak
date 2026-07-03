@@ -49,7 +49,7 @@
 	npc_simple_damage_mult = 1.5
 	nodamage = FALSE
 	speed = MAGE_PROJ_FAST
-	range = SPELL_RANGE_PROJECTILE
+	max_range = 5
 	hitsound = 'sound/combat/hits/blunt/shovel_hit2.ogg'
 
 /obj/projectile/magic/greater_arcyne_bolt/arc
