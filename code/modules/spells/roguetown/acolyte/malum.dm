@@ -380,67 +380,101 @@
 
 /datum/action/cooldown/spell/malum/hammerfall
 	name = "Hammerfall"
-	desc = "Damages structures in an area, knocks down mobs."
-	fluff_desc = "The first gift to men, a sliver of Her radiance at fingertips of those devoted to Her wae of lyfe. Some sae it was Matthios who forced Astrata's hand in relinquishing such force to lowly mortals."
+	desc = "Heave a conjured maul overhead, then bring it crashing down on the ground before you, leaving any struck stumbling.\n\n\
+	Deals 50 brute damage and applies Immobilizes to everything in the smash."
+	fluff_desc = "Yeah"
+	background_icon = 'icons/mob/actions/malummiracles.dmi'
+	button_icon = 'icons/mob/actions/malummiracles.dmi'
 	button_icon_state = "hammerfall"
-	sound = 'sound/items/bsmithfail.ogg'
-	glow_intensity = GLOW_INTENSITY_LOW
+	blade_class = BCLASS_BLUNT
+	windup_time = TELEGRAPH_HIGH_IMPACT
+	damage = 50
+	sweep_step = 0
+	impact_delay = 4
+	detonate_sound = null
+	immobilize_on_hit = 2 SECONDS
+	var/hammer_scale = 1.9
 
-	click_to_activate = TRUE
-	cast_range = SPELL_RANGE_GROUND
+	parent_type = /datum/action/cooldown/spell/telegraphed_strike
+	sound = 'sound/magic/scrapeblade.ogg'
+	glow_intensity = GLOW_INTENSITY_MEDIUM
 
 	primary_resource_cost = SPELLCOST_MIRACLE_MAJOR + 20
 
 	secondary_resource_cost = SPELLCOST_MIRACLE
 
 	invocations = list("By molten might and hammer's weight, in Malum’s flame, the earth shall quake!")
-	invocation_type = INVOCATION_SHOUT //It has seperate message ON USE
+	invocation_type = INVOCATION_SHOUT
 
-	charge_required = TRUE
-	charge_time = 1 SECONDS
-	charge_drain = 3
-	charge_slowdown = CHARGING_SLOWDOWN_SMALL
-	charge_sound = 'sound/magic/holycharging.ogg'
-	cooldown_time = 4 MINUTES
+	cooldown_time = 45 SECONDS
+	charging_slowdown = 1
 
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
-/datum/action/cooldown/spell/malum/hammerfall/cast(atom/cast_on)
-	. = ..()
-	var/turf/fallzone = null
-	var/skill = owner.get_skill_level(/datum/skill/magic/holy)
-	var/damage = 150 + (skill * 100)
-	var/const/radius = 2 //Radius of the spell
-	var/const/shakeradius = 4 //Radius of the quake
-	var/const/delay = 2 SECONDS // Delay between the ground marking appearing and the effect playing.
-	fallzone = get_turf(cast_on)
-	if(!fallzone)
+	telegraph_type = /obj/effect/temp_visual/trap/hammerfall
+
+/datum/action/cooldown/spell/malum/hammerfall/get_pattern_offsets()
+	return list(
+		list(-1, 1), list(0, 1), list(1, 1),
+		list(-1, 2), list(0, 2), list(1, 2),
+		list(-1, 3), list(0, 3), list(1, 3),
+	)
+
+/datum/action/cooldown/spell/malum/hammerfall/do_blade_animation(mob/living/carbon/human/H, facing)
+	var/obj/effect/temp_visual/ferramancy_hammer/malum/hammer = new(null)
+	hammer.vis_holder = H
+	H.vis_contents += hammer
+	var/rest_y = round(6.5 * hammer_scale - 4)
+	var/fwd_x = 0
+	var/fwd_y = 0
+	switch(facing)
+		if(NORTH)
+			fwd_y = 32
+		if(SOUTH)
+			fwd_y = -32
+		if(EAST)
+			fwd_x = 32
+		if(WEST)
+			fwd_x = -32
+	var/matrix/upright = matrix()
+	upright.Scale(hammer_scale)
+	upright.Turn(180)
+	var/matrix/airborne = matrix()
+	airborne.Scale(hammer_scale, hammer_scale * 1.4)
+	airborne.Turn(180)
+	hammer.transform = airborne
+	hammer.pixel_x = fwd_x
+	hammer.pixel_y = fwd_y + rest_y + 176
+	hammer.alpha = 0
+	animate(hammer, pixel_y = fwd_y + rest_y, transform = upright, time = impact_delay, easing = CUBIC_EASING | EASE_IN)
+	animate(hammer, alpha = 255, time = 1, flags = ANIMATION_PARALLEL)
+	return hammer
+
+/datum/action/cooldown/spell/malum/hammerfall/on_impact(mob/living/carbon/human/H, facing, atom/movable/visual)
+	var/turf/T = get_step(get_turf(H), facing) || get_turf(H)
+	if(!T)
 		return
-	else
-		show_visible_message(usr, "[usr] raises their arm, conjuring a hammer wreathed in molten fire. As they hurl it toward the ground, the earth trembles under its impact, shaking its very foundations!", "You raise your arm, conjuring a hammer wreathed in molten fire. As you hurl it toward the ground, the earth trembles under its impact, shaking its very foundations!")
-	for (var/turf/open/visual in view(radius, fallzone))
-		var/obj/effect/temp_visual/lavastaff/Lava = new /obj/effect/temp_visual/lavastaff(visual)
-		animate(Lava, alpha = 255, time = 5)
-	sleep(delay)
-	for (var/mob/living/carbon/screenshaken in view(shakeradius, fallzone))
-		shake_camera(screenshaken, 5, 5)
-	for (var/mob/living/carbon/shaken in view(radius, fallzone))
-		if(spell_guard_check(shaken, TRUE))
-			shaken.visible_message(span_warning("[shaken] braces against the quake!"))
-			continue
-		else
-			shaken.apply_effect(3 SECONDS, EFFECT_IMMOBILIZE, 0)
-			shaken.apply_effect(1 SECONDS, EFFECT_KNOCKDOWN, 0)		
-			show_visible_message(shaken, null, "The ground quakes, making me fall over.")
-	for (var/obj/structure/damaged in view(radius, fallzone))
-		if(!istype(damaged, /obj/structure/flora/newbranch))
-			damaged.take_damage(damage,BRUTE,"blunt",1)
-	for (var/turf/closed/wall/damagedwalls in view(radius, fallzone))
-		damagedwalls.take_damage(damage,BRUTE,"blunt",1)
-	for (var/turf/closed/mineral/aoemining in view(radius, fallzone))
-		aoemining.lastminer = usr
-		aoemining.take_damage(damage,BRUTE,"blunt",1)
-	return TRUE
+	playsound(T, pick('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg'), 90, TRUE, 4)
+	playsound(T, 'sound/magic/repulse.ogg', 55, TRUE, 3)
+	for(var/mob/M in range(5, T))
+		shake_camera(M, 2, 1)
+	new /obj/effect/temp_visual/spell_impact(T, spell_color, SPELL_IMPACT_HIGH)
+	if(QDELETED(visual))
+		return
+	var/rest = visual.pixel_y
+	animate(visual, pixel_y = rest + 4, time = 1, easing = SINE_EASING | EASE_OUT)
+	animate(pixel_y = rest, time = 1, easing = SINE_EASING | EASE_IN)
+	animate(alpha = 0, time = 3)
+
+/obj/effect/temp_visual/trap/hammerfall
+	color = GLOW_COLOR_MALUM
+	light_color = GLOW_COLOR_MALUM
+	duration = 3 SECONDS
+
+/obj/effect/temp_visual/ferramancy_hammer/malum
+	icon = 'icons/mob/actions/malummiracles.dmi'
+	icon_state = "hammer_of_malum"
 
 /obj/effect/temp_visual/lavastaff
 	icon_state = "lavastaff_warn"
