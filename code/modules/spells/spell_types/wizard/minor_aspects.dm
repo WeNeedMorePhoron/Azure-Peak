@@ -89,11 +89,11 @@
 	pointbuy_budget = 4
 	// Budget: 1x 3-cost or 2x 2-cost or 1x 2-cost + fillers
 	pointbuy_spells = list(
-		/datum/action/cooldown/spell/haste,
+		/datum/action/cooldown/spell/attune_haste,
 		/datum/action/cooldown/spell/darkvision,
 		/datum/action/cooldown/spell/stoneskin,
-		/datum/action/cooldown/spell/hawks_eyes,
-		/datum/action/cooldown/spell/giants_strength,
+		/datum/action/cooldown/spell/attune_hawk,
+		/datum/action/cooldown/spell/attune_giant,
 		/datum/action/cooldown/spell/guidance,
 		/datum/action/cooldown/spell/featherfall,
 		/datum/action/cooldown/spell/enlarge,

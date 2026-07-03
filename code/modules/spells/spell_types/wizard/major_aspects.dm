@@ -234,9 +234,9 @@
 	pointbuy_spells = list(
 		/datum/action/cooldown/spell/stoneskin,
 		/datum/action/cooldown/spell/guidance,
-		/datum/action/cooldown/spell/hawks_eyes,
-		/datum/action/cooldown/spell/giants_strength,
-		/datum/action/cooldown/spell/haste,
+		/datum/action/cooldown/spell/attune_hawk,
+		/datum/action/cooldown/spell/attune_giant,
+		/datum/action/cooldown/spell/attune_haste,
 		/datum/action/cooldown/spell/fortitude,
 		/datum/action/cooldown/spell/bind_armament,
 		/datum/action/cooldown/spell/surge,

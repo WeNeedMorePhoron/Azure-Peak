@@ -2,7 +2,7 @@
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Ascension"
 	desc = "Channel all of your arcyne potential into another, granting them every augmentation at once - \
-	Lunar Foresight, Stoneskin, Solar Fury, Fortitude, Hawk's Eyes, and Guidance. \
+	the Attunements of Giant, Hawk, and Haste, plus Stoneskin, Fortitude, and Guidance. \
 	This spell drains an enormous amount of energy from the caster and cannot be used on oneself."
 	button_icon_state = "stoneskin"
 	sound = 'sound/magic/charging.ogg'
@@ -52,11 +52,11 @@
 		to_chat(H, span_warning("This power is too great to channel into myself!"))
 		return FALSE
 
-	target.apply_status_effect(/datum/status_effect/buff/haste, buff_duration)
+	target.apply_status_effect(/datum/status_effect/buff/attune_haste, buff_duration)
 	target.apply_status_effect(/datum/status_effect/buff/stoneskin, buff_duration)
-	target.apply_status_effect(/datum/status_effect/buff/giants_strength, buff_duration)
+	target.apply_status_effect(/datum/status_effect/buff/attune_giant, buff_duration)
 	target.apply_status_effect(/datum/status_effect/buff/fortitude, buff_duration)
-	target.apply_status_effect(/datum/status_effect/buff/hawks_eyes, buff_duration)
+	target.apply_status_effect(/datum/status_effect/buff/attune_hawk, buff_duration)
 	target.apply_status_effect(/datum/status_effect/buff/guidance, buff_duration)
 
 	to_chat(target, span_notice("Arcyne power surges through every fiber of my being!"))

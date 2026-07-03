@@ -1,10 +1,8 @@
-// Giant's Strength — Augmentation buff spell (new action system)
-// Status effect kept in buffs_debuffs/giants_strength.dm
-/datum/action/cooldown/spell/giants_strength
+/datum/action/cooldown/spell/attune_hawk
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
-	name = "Giant's Strength"
-	desc = "Strengthen the target. (+4 Strength)"
-	button_icon_state = "giants_strength"
+	name = "Attune: Hawk"
+	desc = "Sharpen the target's body and vision. (+1 Strength, +4 Perception, grants Guidance)\nAttunement - Giant, Hawk, and Haste share a cooldown; only one may be held at a time."
+	button_icon_state = "hawks_eyes"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF
 	glow_intensity = GLOW_INTENSITY_LOW
@@ -17,7 +15,7 @@
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_STAT_BUFF
 
-	invocations = list("Vis Gigantis.")
+	invocations = list("Oculi Accipitris.")
 	invocation_type = INVOCATION_WHISPER
 
 	charge_required = TRUE
@@ -26,16 +24,17 @@
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
 	cooldown_time = 90 SECONDS
+	shared_cooldown = "augment_attunement"
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
 
-	point_cost = 3
+	point_cost = 2
 	spell_impact_intensity = SPELL_IMPACT_NONE
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
-/datum/action/cooldown/spell/giants_strength/cast(atom/cast_on)
+/datum/action/cooldown/spell/attune_hawk/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H))
@@ -48,9 +47,9 @@
 	var/mob/living/spelltarget = cast_on
 
 	if(spelltarget != H)
-		H.visible_message("[H] mutters an incantation and [spelltarget]'s muscles strengthen and grow.")
+		H.visible_message("[H] mutters an incantation and [spelltarget]'s eyes glimmer.")
 	else
-		H.visible_message("[H] mutters an incantation and their muscles strengthen and grow.")
-	spelltarget.apply_status_effect(/datum/status_effect/buff/giants_strength, STAT_BUFF_SELF_DURATION)
+		H.visible_message("[H] mutters an incantation and their eyes glimmer.")
+	spelltarget.apply_status_effect(/datum/status_effect/buff/attune_hawk, STAT_BUFF_SELF_DURATION)
 
 	return TRUE

@@ -1,10 +1,8 @@
-// Hawk's Eyes — Augmentation buff spell (new action system)
-// Status effect kept in buffs_debuffs/hawks_eyes.dm
-/datum/action/cooldown/spell/hawks_eyes
+/datum/action/cooldown/spell/attune_haste
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
-	name = "Hawk's Eyes"
-	desc = "Sharpens the target's vision. (+5 Perception)"
-	button_icon_state = "hawks_eyes"
+	name = "Attune: Haste"
+	desc = "Cause a target to be magically hastened. (+3 Speed, 0.85x Action Cooldown, grants Guidance)\nAttunement - Giant, Hawk, and Haste share a cooldown; only one may be held at a time."
+	button_icon_state = "haste"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF
 	glow_intensity = GLOW_INTENSITY_LOW
@@ -17,8 +15,8 @@
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_STAT_BUFF
 
-	invocations = list("Oculi Accipitris.")
-	invocation_type = INVOCATION_WHISPER
+	invocations = list("Festinatio!")
+	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
 	charge_time = 1 SECONDS
@@ -26,6 +24,7 @@
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
 	cooldown_time = 90 SECONDS
+	shared_cooldown = "augment_attunement"
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
@@ -35,7 +34,7 @@
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
-/datum/action/cooldown/spell/hawks_eyes/cast(atom/cast_on)
+/datum/action/cooldown/spell/attune_haste/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H))
@@ -48,9 +47,9 @@
 	var/mob/living/spelltarget = cast_on
 
 	if(spelltarget != H)
-		H.visible_message("[H] mutters an incantation and [spelltarget]'s eyes glimmer.")
+		H.visible_message("[H] mutters an incantation and [spelltarget] briefly shines yellow.")
 	else
-		H.visible_message("[H] mutters an incantation and their eyes glimmer.")
-	spelltarget.apply_status_effect(/datum/status_effect/buff/hawks_eyes, STAT_BUFF_SELF_DURATION)
+		H.visible_message("[H] mutters an incantation and they briefly shine yellow.")
+	spelltarget.apply_status_effect(/datum/status_effect/buff/attune_haste, STAT_BUFF_SELF_DURATION)
 
 	return TRUE
