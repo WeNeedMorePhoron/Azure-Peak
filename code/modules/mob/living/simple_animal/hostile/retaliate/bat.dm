@@ -75,6 +75,7 @@
 // lets you wear them on your HEAD...
 /mob/living/simple_animal/hostile/retaliate/bat/crow/set_item_sprite(obj/item/mob_item/orb)
 	..()
+	orb.mob_overlay_icon = orb.icon
 	orb.worn_offsets = list("x" = 0, "y" = 22)
 	orb.alternate_worn_layer = BODY_UNDER_LAYER // so it looks like they're perching on your head and not clipping through
 
