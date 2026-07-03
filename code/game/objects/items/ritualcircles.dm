@@ -1950,7 +1950,7 @@
 		spawn(40)
 			to_chat(target, span_cult("Break them."))
 
-	if(!target.mind.has_spell(/datum/action/cooldown/spell/miracle/intervention) && H.devotion.max_devotion == CLERIC_REQ_4)	// Devotion check to make sure we give it to the HWretch not some Guy
+	if(!target.mind.has_spell(/datum/action/cooldown/spell/miracle/intervention) && target.devotion.max_devotion == CLERIC_REQ_4)	// Devotion check to make sure we give it to the HWretch not some Guy
 		target.mind.AddSpell(new /datum/action/cooldown/spell/miracle/intervention)
 
 /// Performs the war ritual, which requires a noble, clergy, or inquisition member in the center of the circle. TRUE on success, FALSE on failure.
