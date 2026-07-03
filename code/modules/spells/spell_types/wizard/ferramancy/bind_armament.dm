@@ -55,9 +55,6 @@
 			return TRUE
 		to_chat(H, span_warning("I have no bound weapon to release!"))
 		return FALSE
-	if(istype(weapon, /obj/item/rogueweapon/shield))
-		to_chat(H, span_warning("Shields are specifically blacklisted from arcyne binding."))
-		return FALSE
 	if(!istype(weapon, /obj/item/rogueweapon) || !ispath(weapon.associated_skill, /datum/skill/combat))
 		to_chat(H, span_warning("[weapon] is not something my arts can guide."))
 		return FALSE
