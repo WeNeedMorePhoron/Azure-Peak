@@ -152,7 +152,7 @@
 		"Alcohols",
 		"Consumable",
 		"Drugs",
-		"Sinister Potions",
+		"Potions",
 		"Weapons (Ranged)",
 		"Weapons (Iron and Shields)",
 		"Wardrobe"
