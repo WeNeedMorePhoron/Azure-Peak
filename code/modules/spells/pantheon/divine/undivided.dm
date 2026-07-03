@@ -70,7 +70,7 @@
 
 	charge_required = TRUE
 	charge_time = 1 SECONDS
-	charge_drain = 0
+	hold_drain = 0
 	charge_slowdown = CHARGING_SLOWDOWN_NONE
 	charge_sound = 'sound/magic/holycharging.ogg'
 	cooldown_time = 2 MINUTES
@@ -263,7 +263,7 @@
 
 	charge_required = TRUE
 	charge_time = 1 SECONDS
-	charge_drain = 0
+	hold_drain = 0
 	charge_slowdown = CHARGING_SLOWDOWN_NONE
 	charge_sound = 'sound/magic/holycharging.ogg'
 	cooldown_time = 2 MINUTES
@@ -428,7 +428,7 @@
 
 	charge_required = TRUE
 	charge_time = 1 SECONDS
-	charge_drain = 0
+	hold_drain = 0
 	charge_slowdown = CHARGING_SLOWDOWN_NONE
 	charge_sound = 'sound/magic/holycharging.ogg'
 	cooldown_time = 1 MINUTES
@@ -505,7 +505,7 @@
 	sound = 'sound/magic/heal_new.ogg'
 	charge_required = TRUE
 	charge_time = 1 SECONDS
-	charge_drain = 0
+	hold_drain = 0
 	charge_slowdown = CHARGING_SLOWDOWN_NONE
 	charge_sound = 'sound/magic/holycharging.ogg'
 
