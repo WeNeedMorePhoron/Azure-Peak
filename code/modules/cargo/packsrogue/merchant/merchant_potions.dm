@@ -41,6 +41,47 @@
 	cost = 100
 	contains = list(/obj/item/runicflask/charged)
 
+/datum/supply_pack/rogue/potions/strpot
+	name = "Strength Potion"
+	cost = 90
+	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/strpot)
+	not_in_public = TRUE
+
+/datum/supply_pack/rogue/potions/perpot
+	name = "Perception Potion"
+	cost = 75
+	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/perpot)
+	not_in_public = TRUE
+
+/datum/supply_pack/rogue/potions/willpot
+	name = "Willpower Potion"
+	cost = 75
+	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/willpot)
+	not_in_public = TRUE
+
+/datum/supply_pack/rogue/potions/conpot
+	name = "Constitution Potion"
+	cost = 75
+	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/conpot)
+	not_in_public = TRUE
+					
+/datum/supply_pack/rogue/potions/intpot
+	name = "Intelligence Potion"
+	cost = 70
+	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/intpot)
+	not_in_public = TRUE
+
+/datum/supply_pack/rogue/potions/spdpot
+	name = "Speed Potion"
+	cost = 90
+	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/spdpot)
+	not_in_public = TRUE
+	// I really just want to put a big fat 110-150 on this one in particular. 
+/datum/supply_pack/rogue/potions/lucpot
+	name = "Luck Potion"
+	cost = 75
+	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/lucpot)
+	not_in_public = TRUE 
 
 // This is really fucking stupid but it's actually for the SILVERFACE.
 // Bottlebombs are made by the apothecary, NOT the blacksmith, who can otherwise lock
