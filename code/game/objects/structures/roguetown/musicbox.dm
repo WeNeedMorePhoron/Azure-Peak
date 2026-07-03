@@ -25,7 +25,7 @@
 	anchored = TRUE
 	max_integrity = 0
 	var/datum/looping_sound/musloop/soundloop
-	var/list/init_curfile = list('sound/music/jukeboxes/gen/tavern1.ogg') // A list of songs that curfile is set to on init. MUST BE IN ONE OF THE MUSIC_TAVCAT_'s.
+	var/list/init_curfile = list('sound/music/jukeboxes/gen/tavern1.ogg') // A list of songs that curfile is set to on init.
 	var/curfile // The current track that is playing right now
 	var/playing = FALSE // If music is playing or not. playmusic() deals with this don't mess with it.
 	var/curvol = 50 // The current volume at which audio is played. MAPPERS MAY TOUCH THIS.
@@ -118,16 +118,17 @@
 		toggle_music()
 
 	if(button_selection=="Change Song")
-		var/songlists_selection = input(user, "Which song list?", "\The [src]") as null | anything in list("OTHERWORLDLY"=MUSIC_TAVCAT_OTHERWORLDLY, "GENERIC"=MUSIC_TAVCAT_GENERIC, "OLDSCHOOL"=MUSIC_TAVCAT_OLDSCHOOL)
+		var/songlists_selection = input(user, "Which song list?", "\The [src]") as null | anything in list("OTHERWORLDLY", "GENERIC", "OLDSCHOOL")
 		playsound(loc, pick('sound/misc/keyboard_select (1).ogg','sound/misc/keyboard_select (2).ogg','sound/misc/keyboard_select (3).ogg','sound/misc/keyboard_select (4).ogg'), 100, FALSE, -1)
 		user.visible_message(span_info("[user] presses a button on \the [src]."),span_info("I press a button on \the [src]."))
 		var/chosen_songlists_selection = null
-		if(songlists_selection=="OTHERWORLDLY")
-			chosen_songlists_selection = MUSIC_TAVCAT_OTHERWORLDLY
-		if(songlists_selection=="GENERIC")
-			chosen_songlists_selection = MUSIC_TAVCAT_GENERIC
-		if(songlists_selection=="OLDSCHOOL")
-			chosen_songlists_selection = MUSIC_TAVCAT_OLDSCHOOL
+		switch(songlists_selection)
+			if("OTHERWORLDLY")
+				chosen_songlists_selection = songlist_otherworldly
+			if("GENERIC")
+				chosen_songlists_selection = songlist_generic
+			if("OLDSCHOOL")
+				chosen_songlists_selection = songlist_oldschool
 		var/song_selection = input(user, "Which song do I play?", "\The [src]") as null | anything in chosen_songlists_selection
 		if(!Adjacent(user))
 			return
@@ -178,7 +179,3 @@
 	soundloop.extra_range = 12
 	soundloop.falloff = 6
 */
-
-#undef MUSIC_TAVCAT_OTHERWORLDLY
-#undef MUSIC_TAVCAT_GENERIC
-#undef MUSIC_TAVCAT_OLDSCHOOL
