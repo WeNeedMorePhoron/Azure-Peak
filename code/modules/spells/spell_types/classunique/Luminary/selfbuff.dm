@@ -37,8 +37,6 @@
 			break
 		if(!owner.faction_check_mob(target))
 			continue
-		if(target.mob_biotypes & MOB_UNDEAD)
-			continue
 		if(H.mind)
 			target.apply_status_effect(/datum/status_effect/buff/lesser_guidance)
 			target.apply_status_effect(/datum/status_effect/buff/healingaura)
