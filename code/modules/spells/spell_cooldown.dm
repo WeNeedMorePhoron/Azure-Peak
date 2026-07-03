@@ -205,6 +205,9 @@
 	/// A parent variable to store devotion cost. -- Kuan's Note: This is kinda needed if we want to shift Miracles from proc_holder to spell/cooldown
 	var/devotion_cost = null
 
+	/// SHIM CUZ OF TM FUUUCCCK REMOVE THIS
+	var/charge_drain = 0
+
 /datum/action/cooldown/spell/New(Target)
 	. = ..()
 	// Create overhead spell icon effect (matching old proc_holder system)
