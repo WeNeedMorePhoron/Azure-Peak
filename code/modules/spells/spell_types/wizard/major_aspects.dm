@@ -239,6 +239,7 @@
 		/datum/action/cooldown/spell/attune_haste,
 		/datum/action/cooldown/spell/fortitude,
 		/datum/action/cooldown/spell/bind_armament,
+		/datum/acftion/cooldown/spell/bestow_ward,
 		/datum/action/cooldown/spell/surge,
 		/datum/action/cooldown/spell/precognition,
 		/datum/action/cooldown/spell/grasp,
