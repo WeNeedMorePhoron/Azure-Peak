@@ -3203,7 +3203,6 @@
 #include "code\modules\spells\spell_types\wizard\augmentation\grasp.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\guidance.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\leap.dm"
-#include "code\modules\spells\spell_types\wizard\augmentation\misc_nondetection.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\nondetection.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\precognition.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\readomen.dm"
