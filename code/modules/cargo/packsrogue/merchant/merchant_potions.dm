@@ -76,7 +76,8 @@
 	cost = 90
 	contains = list(/obj/item/reagent_containers/glass/bottle/alchemical/spdpot)
 	not_in_public = TRUE
-	// I really just want to put a big fat 110-150 on this one in particular. 
+	// For something this powerful, this is still far too low IMO. I have found 2x+ this amount of money on the reg in unguarded structures very near to town. 
+	
 /datum/supply_pack/rogue/potions/lucpot
 	name = "Luck Potion"
 	cost = 75
