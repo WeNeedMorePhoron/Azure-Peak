@@ -192,8 +192,9 @@
 				M.remove_status_effect(/datum/status_effect/debuff/integrity_rig)
 				playsound(M.loc, 'sound/misc/bonk.ogg', 100, FALSE, -1) // satisfying
 				for(var/datum/wound/W in wCount)
-					if(W.severity >= WOUND_SEVERITY_MODERATE)
+					if(W.severity >= WOUND_SEVERITY_CRITICAL)
 						qdel(W)
+						break
 			hammerheal(M, user)
 	else
 		. = ..() //normal hit
