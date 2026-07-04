@@ -13,7 +13,8 @@
 		/mob/living/carbon/human/species/orc/npc/marauder = 18,
 		/mob/living/simple_animal/hostile/retaliate/rogue/troll/axe = 10,
 		/mob/living/simple_animal/hostile/retaliate/rogue/minotaur = 7,
-		/mob/living/carbon/human/species/orc/npc/warlord = 3,
+		/mob/living/carbon/human/species/orc/npc/warlord = 5,
+		/mob/living/carbon/human/species/orc/npc/juggernaut = 5, 
 	)
 	boss_mob_types = list(
 		/mob/living/carbon/human/species/orc/npc/warlord = 100,
