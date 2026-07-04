@@ -267,7 +267,7 @@
 	switch(complex)
 		if("Strict (Sunlight Sensitivity + Darksight)")
 			ADD_TRAIT(H, TRAIT_SUNLIGHT_SENSITIVE, TRAIT_GENERIC)
-			ADD_TRAIT(H, TRAIT_NITEVISION, TRAIT_GENERIC)
+			ADD_TRAIT(H, TRAIT_DARKVISION, TRAIT_GENERIC)
 			to_chat(H, span_notice("The sun is irritantly bright for you!"))
 		else
 			to_chat(H, span_notice("You're quick to adapt."))
