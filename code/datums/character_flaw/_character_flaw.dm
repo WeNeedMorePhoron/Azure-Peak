@@ -655,7 +655,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 
 /datum/charflaw/silverweakness
 	name = "Silver Weakness"
-	desc = "Silver is the greatest threat to my lyfe. Blows from silver weapons will set me alight, inhibit my ability to regenerate, and - if blessed - can outright destroy my vessel. This vice requires another."
+	desc = "Silver is the greatest threat to my lyfe. Blows from silver weapons will set me alight, inhibit my ability to regenerate, and - if blessed - can outright destroy my vessel. However small items like cutlery and smaller objects will not harm me if i don't hold it for too long."
 	needs_extra_vice = TRUE
 
 /datum/charflaw/silverweakness/on_mob_creation(mob/user)
