@@ -246,13 +246,15 @@
 	head = /obj/item/clothing/head/roguetown/helmet/heavy/aalloy
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/aalloy
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/aalloy
-	wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy
 	pants = /obj/item/clothing/under/roguetown/chainlegs/kilt/aalloy
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/iron/aalloy
 	gloves = /obj/item/clothing/gloves/roguetown/chain/aalloy
 	belt = /obj/item/storage/belt/rogue/leather/rope
 	if(prob(20)) //20% chance to have overpowered levels of aurafarming
 		mask = /obj/item/clothing/head/roguetown/roguehood/shalal/hijab/lich
+		wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy/chain
+	else
+		wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy
 	if(prob(15))
 		beltl = /obj/item/repair_kit/bad
 	if(prob(10))
