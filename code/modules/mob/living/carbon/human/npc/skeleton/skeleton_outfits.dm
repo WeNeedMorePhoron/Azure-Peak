@@ -201,13 +201,13 @@
 	H.STASPD = 8
 	H.STACON = 3
 	H.STAWIL = 6
-	H.STAINT = 1
 	name = "Skeleton Pirate"
 	head =  /obj/item/clothing/head/roguetown/helmet/tricorn
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/vest/sailor
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/aalloy
 	pants = /obj/item/clothing/under/roguetown/tights/sailor
 	shoes = /obj/item/clothing/shoes/roguetown/sandals/aalloy
+	gloves = /obj/item/clothing/gloves/roguetown/knuckles/decrepit
 	if(prob(20))
 		wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy/chain //DO WHAT YOU WANT BECAUSE A PIRATE IS FREE
 	else
@@ -223,16 +223,21 @@
 				id = /obj/item/clothing/neck/roguetown/psicross/noc/aalloy
 			if(4 to 6)
 				id = /obj/item/clothing/neck/roguetown/psicross/abyssor
-	if(prob(50))
+	if(prob(70))
 		r_hand = /obj/item/rogueweapon/huntingknife/idagger/adagger
+		l_hand = /obj/item/rogueweapon/huntingknife/idagger/adagger
+		ADD_TRAIT(H, TRAIT_DUALWIELDER, TRAIT_GENERIC) //Rapid knives build
+		H.STAINT = 1
 	else
-		gloves = /obj/item/clothing/gloves/roguetown/knuckles/decrepit
+		r_hand = /obj/item/rogueweapon/sword/sabre/alloy //Its the closet thing to an ancient cutlass, matie
+		H.STAINT = 5 //Not able to do specials, but slightly harder to fient
+
 	H.adjust_skillrank(/datum/skill/combat/polearms, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/maces, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/axes, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/swords, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/knives, 2, TRUE)
-	H.adjust_skillrank(/datum/skill/combat/shields, 2, TRUE)
+	//Uniquely, no shield skill
 	H.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/wrestling, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/misc/swimming, 4, TRUE) //YARR
@@ -317,6 +322,7 @@
 
 /datum/outfit/job/roguetown/skeleton/npc/hard/pre_equip(mob/living/carbon/human/H)
 	..()
+	ADD_TRAIT(H, TRAIT_NORUN, TRAIT_GENERIC) //I think the AI respects this, should stop them leaping or w/e which can cause them to lose their weapons.
 	H.STACON = 6
 	H.STAWIL = 10
 	H.STAINT = 1
