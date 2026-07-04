@@ -442,7 +442,7 @@
 	name = "Arcyne Affinity"
 	desc = "Allows you to learn a set of spells. \n \
 	<b>MAGISTER</b>: Greater Arcyne Bolt, Forcewall, Arcyne Ward, Phase, Message, Create Campfire \n \
-	<b>ENCHANTER</b>: Gravel Blast, Dragonhide Ward, Mending, Arcyne Forge, Hawk Eyes, Stoneskin\n \
+	<b>ENCHANTER</b>: Gravel Blast, Dragonhide Ward, Mending, Arcyne Forge, Hawk's Eyes, Stoneskin\n \
 	<b>SEER</b>: Crystalhide Ward, Giant's Strength, Guidance, Haste, Fortitude, Mindlink"
 	button_icon_state = "spellpack"
 
