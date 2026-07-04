@@ -23,7 +23,6 @@
 		"TRUE VALUE IS IN THE TOIL!",
 		"I AM AN INSTRUMENT OF CREATION!",
 	)
-	traits_tier = list(TRAIT_BETTER_SLEEP = CLERIC_T0)
 	storyteller = /datum/storyteller/malum
 
 	titles = list(

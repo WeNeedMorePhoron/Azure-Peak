@@ -82,7 +82,7 @@
 			playsound(owner, 'sound/misc/wood_saw.ogg', 100, TRUE)
 			door.icon_state = "[door.base_state]"
 			door.density = TRUE
-			door.set_opacity = (TRUE)
+			door.set_opacity(TRUE)
 			door.brokenstate = FALSE
 			door.obj_broken = FALSE
 			door.repair_state = 0								
@@ -379,14 +379,14 @@
 /datum/action/cooldown/spell/malum/hammerfall
 	name = "Hammerfall"
 	desc = "Heave a conjured maul overhead, then bring it crashing down on the ground before you, leaving any struck stumbling.\n\n\
-	Deals 50 brute damage and applies Immobilizes to everything in the smash."
-	fluff_desc = "Yeah"
+	Deals 50 brute damage and applies Immobilizes to everything in the smash. Against structures does triple damage."
 	background_icon = 'icons/mob/actions/malummiracles.dmi'
 	button_icon = 'icons/mob/actions/malummiracles.dmi'
-	button_icon_state = "forge"
+	button_icon_state = "hammerfall"
 	blade_class = BCLASS_BLUNT
 	windup_time = TELEGRAPH_HIGH_IMPACT
 	damage = 50
+	structure_damage = 150
 	sweep_step = 0
 	impact_delay = 4
 	detonate_sound = null
@@ -397,9 +397,11 @@
 	sound = 'sound/magic/scrapeblade.ogg'
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 
+	primary_resource_type = SPELL_COST_DEVOTION
 	primary_resource_cost = SPELLCOST_MIRACLE_MAJOR + 20
 
-	secondary_resource_cost = SPELLCOST_MIRACLE
+	secondary_resource_type = SPELL_COST_STAMINA
+	secondary_resource_cost = SPELLCOST_MIRACLE//Dunno it's not properly inhereting for some reason.
 
 	invocations = list("By molten might and hammer's weight, in Malum’s flame, the earth shall quake!")
 	invocation_type = INVOCATION_SHOUT
@@ -409,6 +411,8 @@
 
 	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+	associated_stat = null
+	associated_skill = /datum/skill/magic/holy
 
 	telegraph_type = /obj/effect/temp_visual/trap/hammerfall
 
@@ -571,7 +575,7 @@
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
-/datum/action/cooldown/spell/arcyne_fortress/cast(atom/cast_on)
+/datum/action/cooldown/spell/malum/fortress/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H))

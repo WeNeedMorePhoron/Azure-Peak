@@ -111,6 +111,7 @@
 	return ..()
 
 /datum/action/cooldown/spell/arcyne_forge/miracle
+	name = "Divine Forge"
 	background_icon = 'icons/mob/actions/malummiracles.dmi'
 	button_icon = 'icons/mob/actions/malummiracles.dmi'
 	button_icon_state = "forge"
