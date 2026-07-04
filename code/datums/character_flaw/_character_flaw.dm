@@ -31,6 +31,7 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	/datum/charflaw/sleepless::name = /datum/charflaw/sleepless,
 	/datum/charflaw/mute::name = /datum/charflaw/mute,
 	/datum/charflaw/critweakness::name = /datum/charflaw/critweakness,
+	/datum/charflaw/silverweakness::name = /datum/charflaw/silverweakness,
 	/datum/charflaw/hunted::name = /datum/charflaw/hunted,
 	/datum/charflaw/targeted::name = /datum/charflaw/targeted,
 	/datum/charflaw/mind_broken::name = /datum/charflaw/mind_broken,
@@ -651,6 +652,14 @@ GLOBAL_LIST_INIT(averse_factions, list(
 
 /datum/charflaw/critweakness/on_mob_creation(mob/user)
 	ADD_TRAIT(user, TRAIT_CRITICAL_WEAKNESS, TRAIT_GENERIC)
+
+/datum/charflaw/silverweakness
+	name = "Silver Weakness"
+	desc = "Silver is the greatest threat to my lyfe. Blows from silver weapons will set me alight, inhibit my ability to regenerate, and - if blessed - can outright destroy my vessel. This vice requires another."
+	needs_extra_vice = TRUE
+
+/datum/charflaw/silverweakness/on_mob_creation(mob/user)
+	ADD_TRAIT(user, TRAIT_SILVER_WEAK, TRAIT_GENERIC)
 
 /datum/charflaw/leprosy
 	name = "Leper (+3 TRI)"
