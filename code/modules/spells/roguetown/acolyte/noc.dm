@@ -209,7 +209,7 @@
 
 	charge_required = TRUE
 	charge_time = 1 SECONDS
-	hold_drain = 3
+	charge_drain = 3
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/holycharging.ogg'
 	cooldown_time = 1 MINUTES
@@ -309,7 +309,7 @@
 
 	charge_required = TRUE
 	charge_time = 1 SECONDS
-	hold_drain = 3
+	charge_drain = 3
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/holycharging.ogg'
 	cooldown_time = 1.5 MINUTES
@@ -386,7 +386,7 @@
 
 	charge_required = TRUE
 	charge_time = 1 SECONDS
-	hold_drain = 3
+	charge_drain = 3
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/holycharging.ogg'
 	cooldown_time = 1 MINUTES
@@ -678,5 +678,4 @@ GLOBAL_LIST_INIT(noc_scrolls, (list(
 	/obj/item/book/granter/spell/noc/message,
 	/obj/item/book/granter/spell/noc/mindlink,
 	/obj/item/book/granter/spell/noc/mending,
-	/obj/item/book/granter/spell/noc/blink,
 	)))
