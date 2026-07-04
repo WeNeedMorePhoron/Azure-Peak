@@ -588,6 +588,10 @@ LICH SKELETONS
 		if("Black Toga")
 			cloak = /obj/item/clothing/cloak/tabard/toga/lich
 
+	if(H.mind) //2 slot, irreplacable skeletons.
+		H.mind.AddSpell(new /datum/action/cooldown/spell/mending) //Gets replaced w/weaker version w/rituos armor, balances out.
+		H.mind.AddSpell(new /datum/action/cooldown/spell/bonemend)
+
 	H.energy = H.max_energy
 
 // Spellblade skeleton. Rarest of the bunch - a true Azurcaephan from the ancient era.
