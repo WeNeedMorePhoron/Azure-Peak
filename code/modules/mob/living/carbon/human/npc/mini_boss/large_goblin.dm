@@ -53,6 +53,9 @@ GLOBAL_LIST_INIT(large_goblin_aggro, list(
 /mob/living/carbon/human/species/goblin/npc/large/cave
 	race = /datum/species/goblin/cave
 
+/mob/living/carbon/human/species/goblin/npc/large/sea
+	race = /datum/species/goblin/sea
+
 /datum/outfit/job/roguetown/npc/mini_boss/large_goblin/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.STASTR = 16
