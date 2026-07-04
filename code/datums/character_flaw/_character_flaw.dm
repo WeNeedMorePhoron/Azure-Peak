@@ -883,11 +883,3 @@ GLOBAL_LIST_INIT(averse_factions, list(
 		addtimer(CALLBACK(src, PROC_REF(apply_bounty_when_ready), H), 5 SECONDS)
 		return
 	wretch_select_bounty(H)
-
-/datum/charflaw/sunlight_sensitive
-	name = "Sunlight Sensitivity"
-	desc = "Due to either an upbringing in the Underdark, Astrata's displeasure or albinism, I get fairly uncomfortable under direct sunlight. My limbs are also a bit more frail too."
-
-/datum/charflaw/sunlight_sensitive/on_mob_creation(mob/user)
-	ADD_TRAIT(user, TRAIT_SUNLIGHT_SENSITIVE, TRAIT_GENERIC)
-	ADD_TRAIT(user, TRAIT_EASYDISMEMBER, TRAIT_GENERIC)
