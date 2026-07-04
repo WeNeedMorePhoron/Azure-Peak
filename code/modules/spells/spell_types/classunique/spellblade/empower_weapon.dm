@@ -77,7 +77,7 @@
 /datum/status_effect/buff/empowered_strike
 	id = "empowered_strike"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/empowered_strike
-	duration = 10 SECONDS
+	duration = 5 SECONDS
 	status_type = STATUS_EFFECT_UNIQUE
 
 /datum/status_effect/buff/empowered_strike/on_apply()
@@ -85,6 +85,7 @@
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(on_attack))
 	RegisterSignal(owner, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
 	owner.add_filter(EMPOWER_FILTER, 2, list("type" = "outline", "color" = "#ff2020", "alpha" = 200, "size" = 2))
+	owner.balloon_alert_to_viewers("<font color='#ff2020'>empowered!</font>")
 
 /datum/status_effect/buff/empowered_strike/on_remove()
 	UnregisterSignal(owner, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_HUMAN_MELEE_UNARMED_ATTACK))
