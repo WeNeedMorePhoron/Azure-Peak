@@ -20,10 +20,9 @@
 	invocations = list("Impetus!")
 	invocation_type = INVOCATION_SHOUT
 
-	charge_required = TRUE
-	charge_time = 0.5 SECONDS
+	charge_required = FALSE
+	hold_drain = 0
 	cooldown_time = 90 SECONDS
-	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2

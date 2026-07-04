@@ -19,6 +19,7 @@
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = FALSE
+	hold_drain = 0
 	cooldown_time = 45 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
