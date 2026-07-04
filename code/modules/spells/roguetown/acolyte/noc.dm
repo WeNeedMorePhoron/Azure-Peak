@@ -678,4 +678,5 @@ GLOBAL_LIST_INIT(noc_scrolls, (list(
 	/obj/item/book/granter/spell/noc/message,
 	/obj/item/book/granter/spell/noc/mindlink,
 	/obj/item/book/granter/spell/noc/mending,
+	/obj/item/book/granter/spell/noc/blink,
 	)))
