@@ -34,12 +34,12 @@ GLOBAL_LIST_INIT(bum_aggro, world.file2list("strings/rt/bumaggrolines.txt"))
 	random_hair_NPC()
 	random_eye_color_NPC()
 	correct_features_NPC()
-	equipOutfit(new /datum/outfit/job/roguetown/bum_npc)
 	STALUC = rand(5, 15)
 	STACON = rand(4, 10)
 	STAWIL = rand(4, 10)
 	STASTR = rand(7, 10)
 	STAINT = rand(5, 15) //Hilarious
+	equipOutfit(new /datum/outfit/job/roguetown/bum_npc)
 
 /datum/outfit/job/roguetown/bum_npc/pre_equip(mob/living/carbon/human/H)
 	..()

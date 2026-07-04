@@ -333,7 +333,7 @@
 
 //Bigfoot - Custom great axe type
 /obj/item/enchantingkit/bigfoot_axe
-	name = "'Gilded Great Axe' morphing elixir"
+	name = "'Aureline' morphing elixir"
 	target_items = list(/obj/item/rogueweapon/greataxe/steel)
 	result_item = /obj/item/rogueweapon/greataxe/steel/gilded
 
@@ -714,6 +714,11 @@
 
 //SpartanBobby
 /obj/item/enchantingkit/bobby_helm
-    name = "'Holy Astratan Bascinet' morphing elixir"
-    target_items = list(/obj/item/clothing/head/roguetown/helmet/heavy/astratan)
-    result_item = /obj/item/clothing/head/roguetown/helmet/bascinet/pigface/spartanbobby
+	name = "'Holy Astratan Bascinet' morphing elixir"
+	target_items = list(
+		/obj/item/clothing/head/roguetown/helmet/heavy/astratan,
+		/obj/item/clothing/head/roguetown/helmet/bascinet/pigface/hounskull,
+		/obj/item/clothing/head/roguetown/helmet/bascinet/pigface
+
+	)
+	result_item = /obj/item/clothing/head/roguetown/helmet/bascinet/pigface/spartanbobby
