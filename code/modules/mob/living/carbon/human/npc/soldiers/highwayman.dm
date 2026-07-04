@@ -453,9 +453,10 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/iron
 	cloak = /obj/item/clothing/cloak/raincloak/green
 	belt = /obj/item/storage/belt/rogue/leather
+	beltl = /obj/item/quiver/randomfill/reaver
+	beltr = /obj/item/rogueweapon/sword/short/iron
 	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
 	backl = /obj/item/quiver/randomfill/reaver
-	r_hand = /obj/item/rogueweapon/sword/short/iron
 	H.STASTR = 12
 	H.STASPD = 10
 	H.STACON = 8
