@@ -259,7 +259,6 @@ LICH SKELETONS
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/paalloy
 	pants = /obj/item/clothing/under/roguetown/chainlegs/kilt/paalloy //Intended as non-plate, stands out from knights this way.
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/paalloy
-	wrists = /obj/item/clothing/wrists/roguetown/bracers/paalloy
 	neck = /obj/item/clothing/neck/roguetown/gorget/paalloy
 	shoes = /obj/item/clothing/shoes/roguetown/boots/paalloy
 	gloves = /obj/item/clothing/gloves/roguetown/chain/paalloy
@@ -315,9 +314,11 @@ LICH SKELETONS
 		if("Sayovard + Cuirass & Hauberk")
 			head = /obj/item/clothing/head/roguetown/helmet/heavy/guard/paalloy
 			shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/paalloy
+			wrists = /obj/item/clothing/wrists/roguetown/bracers/paalloy
 			armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/paalloy
 		if("Bascinet + Heavy Hauberk")
 			head = /obj/item/clothing/head/roguetown/helmet/heavy/knight/paalloy
+			wrists = /obj/item/clothing/wrists/roguetown/bracers/paalloy/chain
 			shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/light
 			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/paalloy/heavy
 	var/tabards = list("Black Tabard", "Black Jupon", "Black Cloak + Greathood", "Black Toga")
@@ -560,7 +561,7 @@ LICH SKELETONS
 
 	backpack_contents = list(
 		/obj/item/natural/feather = 1, //For your helm
-		/obj/item/storage/belt/rogue/pouch/coins/aalloy = 1 //Hilarious
+		/obj/item/storage/belt/rogue/pouch/coins/aalloy/rich = 1 //Hilarious
 	)
 
 	H.adjust_blindness(-3)
@@ -612,9 +613,10 @@ LICH SKELETONS
 /datum/outfit/job/roguetown/greater_skeleton/lich/spellblade/pre_equip(mob/living/carbon/human/H)
 	..()
 
+	//1:1 almost w/unbound not including statpacks
 	H.STASTR = 9
-	H.STASPD = 8
-	H.STACON = 10 //Nessessary to keep up with wretches (1 slot only)
+	H.STASPD = 9
+	H.STACON = 10
 	H.STAWIL = 12
 	H.STAINT = 14
 	H.STAPER = 12
@@ -639,7 +641,7 @@ LICH SKELETONS
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/paalloy
 	pants = /obj/item/clothing/under/roguetown/chainlegs/kilt/paalloy
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
-	wrists = /obj/item/clothing/wrists/roguetown/bracers/paalloy
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/paalloy/chain
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/paalloy
 	shoes = /obj/item/clothing/shoes/roguetown/sandals/paalloy
 	gloves = /obj/item/clothing/gloves/roguetown/chain/paalloy
@@ -648,7 +650,7 @@ LICH SKELETONS
 
 	backpack_contents = list(
 		/obj/item/natural/feather = 1, //For your helm
-		/obj/item/storage/belt/rogue/pouch/coins/aalloy = 1 //Hilarious
+		/obj/item/storage/belt/rogue/pouch/coins/aalloy/rich = 1 //Hilarious
 	)
 
 

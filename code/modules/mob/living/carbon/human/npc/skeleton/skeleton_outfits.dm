@@ -205,7 +205,7 @@
 	name = "Skeleton Pirate"
 	head =  /obj/item/clothing/head/roguetown/helmet/tricorn
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/vest/sailor
-	wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy/chain
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/aalloy
 	pants = /obj/item/clothing/under/roguetown/tights/sailor
 	shoes = /obj/item/clothing/shoes/roguetown/sandals/aalloy
@@ -255,6 +255,8 @@
 		mask = /obj/item/clothing/head/roguetown/roguehood/shalal/hijab/lich
 	if(prob(15))
 		beltl = /obj/item/repair_kit/bad
+	if(prob(10))
+		beltr = /obj/item/storage/belt/rogue/pouch/coins/aalloy
 	if(prob(10))
 		var/amulet_choice = rand(1, 3)
 		switch(amulet_choice)
@@ -324,7 +326,6 @@
 		cloak = /obj/item/clothing/cloak/hierophant
 		mask = /obj/item/clothing/mask/rogue/facemask/aalloy
 		head = /obj/item/clothing/head/roguetown/roguehood/shalal/hijab/lich
-		wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy
 		pants = /obj/item/clothing/under/roguetown/platelegs/aalloy
 		shoes = /obj/item/clothing/shoes/roguetown/boots/aalloy
 		neck = /obj/item/clothing/neck/roguetown/gorget/aalloy
@@ -332,6 +333,10 @@
 		gloves = /obj/item/clothing/gloves/roguetown/chain/aalloy
 		r_hand = /obj/item/rogueweapon/sword/sabre/alloy
 		l_hand = /obj/item/rogueweapon/sword/sabre/alloy
+		if(prob(20))
+			beltl = /obj/item/repair_kit/bad
+		if(prob(15))
+			beltr = /obj/item/storage/belt/rogue/pouch/coins/aalloy
 		var/amulet_choice = rand(1, 2) //Cultist look so, no Psydon choice
 		switch(amulet_choice)
 			if(1)
@@ -341,8 +346,10 @@
 		if(prob(60))
 			armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/aalloy
 			shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/aalloy
+			wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy
 		else
 			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/aalloy/heavy
+			wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy/chain
 			shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/light
 	else // Withered Dreadknight
 		H.STASPD = 8
@@ -354,6 +361,10 @@
 		neck = /obj/item/clothing/neck/roguetown/gorget/aalloy
 		gloves = /obj/item/clothing/gloves/roguetown/plate/aalloy
 		belt = /obj/item/storage/belt/rogue/leather
+		if(prob(20))
+			beltl = /obj/item/repair_kit/bad
+		if(prob(15))
+			beltr = /obj/item/storage/belt/rogue/pouch/coins/aalloy
 		if(prob(60))
 			head = /obj/item/clothing/head/roguetown/helmet/heavy/guard/aalloy
 		else
@@ -361,8 +372,10 @@
 		if(prob(60))
 			armor = /obj/item/clothing/suit/roguetown/armor/plate/aalloy
 			shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/aalloy
+			wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy
 		else
 			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/aalloy/heavy
+			wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy/chain
 			shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/light
 		if(prob(15))
 			beltl = /obj/item/repair_kit/metal/bad
