@@ -15,7 +15,7 @@
 					/datum/action/cooldown/spell/malum/hammerfall			= CLERIC_T2,
 					/datum/action/cooldown/spell/malum/reforge				= CLERIC_T3,
 					/datum/action/cooldown/spell/malum_blessing				= CLERIC_T3,
-					/datum/action/cooldown/spell/miracle/intervention/malum = CLERIC_T4,
+					/datum/action/cooldown/spell/malum/fortress				 = CLERIC_T4,
 					/obj/effect/proc_holder/spell/invoked/resurrect/malum	= CLERIC_T4,
 	)
 	confess_lines = list(

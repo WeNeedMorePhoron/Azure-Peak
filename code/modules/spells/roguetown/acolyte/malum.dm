@@ -39,7 +39,6 @@
 /datum/action/cooldown/spell/malum/reconstruction
 	name = "Reconstruction"
 	desc = "Restore integrity of any structure."
-	fluff_desc = "The first gift to men, a sliver of Her radiance at fingertips of those devoted to Her wae of lyfe. Some sae it was Matthios who forced Astrata's hand in relinquishing such force to lowly mortals."
 	button_icon_state = "restoration"
 	sound = 'sound/magic/timestop.ogg'
 	glow_intensity = GLOW_INTENSITY_LOW
@@ -201,7 +200,6 @@
 /datum/action/cooldown/spell/malum/heatmetal
 	name = "Heat Metal"
 	desc= "Damages Armor, forces target to drop a metallic weapon, heats up an ingot in tongs or smelts a single item."
-	fluff_desc = "The first gift to men, a sliver of Her radiance at fingertips of those devoted to Her wae of lyfe. Some sae it was Matthios who forced Astrata's hand in relinquishing such force to lowly mortals."
 	button_icon_state = "heatmetal"
 	sound = 'sound/items/bsmithfail.ogg'
 	glow_intensity = GLOW_INTENSITY_LOW
@@ -385,7 +383,7 @@
 	fluff_desc = "Yeah"
 	background_icon = 'icons/mob/actions/malummiracles.dmi'
 	button_icon = 'icons/mob/actions/malummiracles.dmi'
-	button_icon_state = "hammerfall"
+	button_icon_state = "forge"
 	blade_class = BCLASS_BLUNT
 	windup_time = TELEGRAPH_HIGH_IMPACT
 	damage = 50
@@ -545,11 +543,80 @@
 // T4 - Reforge //
 //////////////////
 
-/datum/action/cooldown/spell/miracle/intervention/malum
-	name = "Temper"
-	background_icon = 'icons/mob/actions/malummiracles.dmi'
-	button_icon = 'icons/mob/actions/malummiracles.dmi'
-	button_icon_state = "craftercovenant"
-	spell_color = GLOW_COLOR_MALUM
-	sparks_amt = 3
-	required_items = list(/obj/item/clothing/neck/roguetown/psicross/malum, /obj/item/clothing/neck/roguetown/psicross/undivided, /obj/item/clothing/neck/roguetown/psicross/silver/undivided)
+/datum/action/cooldown/spell/malum/fortress
+	name = "Fortress"
+	desc = "Channel an immense surge of arcyne energy to erect a 5x5 fortress of arrow wards around yourself. \
+	Each wall segment blocks incoming projectiles from the outside while allowing you and allies to shoot out freely. \
+	The fortress lasts until its cooldown expires or until the walls are destroyed."
+	button_icon_state = "fortress"
+	sound = 'sound/magic/whiteflame.ogg'
+	glow_intensity = GLOW_INTENSITY_VERY_HIGH
+
+	click_to_activate = FALSE
+	self_cast_possible = TRUE
+
+	primary_resource_cost = SPELLCOST_MIRACLE_LEGENDARY
+
+	secondary_resource_cost = SPELLCOST_ULTIMATE
+
+	invocations = list("Sanctuary!")
+	invocation_type = INVOCATION_SHOUT
+
+	charge_required = TRUE
+	charge_time = CHARGETIME_HEAVY
+	charge_drain = 1
+	charge_slowdown = CHARGING_SLOWDOWN_HEAVY
+	charge_sound = 'sound/magic/charging.ogg'
+	cooldown_time = 90 SECONDS
+
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
+
+/datum/action/cooldown/spell/arcyne_fortress/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H))
+		return FALSE
+
+	var/turf/center = get_turf(H)
+	if(!center)
+		return FALSE
+
+	// 5x5 perimeter - outer ring at range 2 from caster
+	var/list/perimeter_data = list() // list of list(turf, outward_dir)
+	for(var/turf/T in range(2, center))
+		var/dx = T.x - center.x
+		var/dy = T.y - center.y
+		if(abs(dx) != 2 && abs(dy) != 2)
+			continue
+		if(T.density)
+			continue
+		// Determine outward-facing direction based on which edge the tile is on
+		var/outward_dir = 0
+		if(abs(dx) == 2 && abs(dy) == 2)
+			// Corners face diagonally outward
+			outward_dir = get_dir(center, T)
+		else if(abs(dx) == 2)
+			// Left/right edges face east/west
+			outward_dir = dx > 0 ? EAST : WEST
+		else
+			// Top/bottom edges face north/south
+			outward_dir = dy > 0 ? NORTH : SOUTH
+		perimeter_data += list(list(T, outward_dir))
+
+	if(!length(perimeter_data))
+		return FALSE
+
+	H.visible_message(span_boldwarning("[H] channels a massive ward inscription - the air crackles with arcyne energy!"), span_notice("I erect the Arcyne Fortress!"))
+	playsound(center, 'sound/magic/whiteflame.ogg', 80, TRUE, 5)
+
+	for(var/list/entry in perimeter_data)
+		var/turf/T = entry[1]
+		var/outward_dir = entry[2]
+		var/obj/structure/arrow_ward/malum/wall = new(T, H, cooldown_time)
+		wall.set_shield_dir(outward_dir)
+
+	return TRUE
+
+/obj/structure/arrow_ward/malum
+	icon_state = "malum_ward"
+	max_integrity = 200
