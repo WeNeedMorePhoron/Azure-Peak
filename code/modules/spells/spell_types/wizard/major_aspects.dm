@@ -230,6 +230,9 @@
 			VARIANT_ADDITIVE = /datum/action/cooldown/spell/ascension,
 		),
 	)
+	fixed_spells = list(
+			/datum/action/cooldown/spell/bestow_ward,
+	)
 	pointbuy_budget = 12
 	pointbuy_spells = list(
 		/datum/action/cooldown/spell/stoneskin,
@@ -239,7 +242,6 @@
 		/datum/action/cooldown/spell/attune_haste,
 		/datum/action/cooldown/spell/fortitude,
 		/datum/action/cooldown/spell/bind_armament,
-		/datum/action/cooldown/spell/bestow_ward,
 		/datum/action/cooldown/spell/surge,
 		/datum/action/cooldown/spell/precognition,
 		/datum/action/cooldown/spell/grasp,
