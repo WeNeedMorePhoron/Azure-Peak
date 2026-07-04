@@ -11,7 +11,7 @@
 		"...you feel grass under your feet as you peer onto a meadow, you prepare a campfire and a tent and drift off into deep slumber...",
 		"...you dig through the mud for worms with a spade you made from wood and stone gathered by the lakeside. Your fishing rod stands eager to bring you a meal, just like your grandfather taught you..."
 	)
-	expert_name = "Crafter"
+	expert_name = "Craftsmen"
 
 /datum/skill/craft/weaponsmithing
 	name = "Weaponsmithing"
@@ -130,7 +130,7 @@
 		"...as the years go by, the mantra becomes increasingly oppressive. Stitch, sew, cut ties, stitch, sew, thread the needle twice...",
 		"...you turn over the fabric, and within the two layers of the gown, you hide a secret stitched into the gown, your initials, hidden within. A forbidden mark in some cultures... you never liked the bride much..."
 	)
-	expert_name = "Sewer"
+	expert_name = "Seamstress"
 	max_untraited_level = SKILL_LEVEL_APPRENTICE
 	trait_uncap = list(TRAIT_SEWING_EXPERT = SKILL_LEVEL_LEGENDARY,
 	TRAIT_SURVIVAL_EXPERT = SKILL_LEVEL_JOURNEYMAN,

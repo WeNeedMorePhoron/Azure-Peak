@@ -15,7 +15,7 @@
 		"...a flash of steel through the sky, and another, and another. Blades pass between your juggling hands as if you were pulling on singular, thick rope...",
 		"...you tuck the blade away in your cloak, and offer yourself up for inspection. While small, the invisible blade cannot be parried..."
 	)
-	expert_name = "Shanker"
+	expert_name = "Daggerer"
 
 
 /datum/skill/combat/swords
@@ -36,7 +36,7 @@
 	"...armed with your trusty staff, you hike through the muck and mire with ease. It serves not only as a weapon but a tool, its sturdy length offering support as you press onward, unfazed by the thick, unrelenting muck...",
 	"...the billhook hums through the air, its hooked blade striking with chilling precision. It rends through chain and leather. With each twist, your strikes become inevitable, seamless. A relentless dance of destruction, merciless and fluid..."
 	)
-	expert_name = "Polewielder"
+	expert_name = "Polearmist"
 
 /datum/skill/combat/maces
 	name = "Maces"
@@ -47,7 +47,7 @@
 	"...the air trembles with each of your mighty blows, each strike echoing like the final toll of a bell. This is your symphony. Revel in its brutal beauty, its crushing simplicity...",
 	"...'This blade is a masterwork of Malum's craftsmanship,' the elf declared. Moments later his head was abruptly transformed into pavement decor under the crushing weight of your brutish tool..."
 	)
-	expert_name = "Macer"
+	expert_name = "Maceman"
 
 /datum/skill/combat/axes
 	name = "Axes"
@@ -59,7 +59,7 @@
 	"...the heft of iron pulls upon your arm. It knows where it wishes to be - all you have to do is guide its fall. Knowing this, your axe feels lighter than you remember...",
 	"...despite the insurmountable challenge, you fear nothing, for the axe is thy companion eternal. Problem solving is quite simple, really..."
 	)
-	expert_name = "Axer"
+	expert_name = "Axeman"
 
 /datum/skill/combat/whipsflails
 	name = "Whips & Flails"
@@ -68,7 +68,7 @@
 	"...the sing-song of your flail cleaves through the air and rouses something primal, but the down swing of your hand quickly puts it to sleep...",
 	"...with a whistle and a snap and a crack, another bruise is left on flesh. With a sharp pull, you strike down again. They will be tamed..."
 	)
-	expert_name = "Whipper"
+	expert_name = "Whipster"
 
 /datum/skill/combat/bows
 	name = "Archery"
@@ -78,7 +78,7 @@
 	"...your fingers sting as you let loose another arrow and it glances off the pale knight's breastplate. You aim at their visor and pray to whatever gods you hold dear that this one will make it through...",
 	"...it takes half a minute for an experienced arbalist to cock and load a crossbow. You could kill five men with three arrows in half that time..."
 	)
-	expert_name = "Bower"
+	expert_name = "Archer"
 
 /datum/skill/combat/crossbows
 	name = "Crossbows"
@@ -87,7 +87,7 @@
 	"...you put your foot down and pull on the string. You wind the crossbow back with all your might. It feels like the thing is mocking you, impossible to pull taut. Only when a seasoned arbalist reminds you to pull from your back, and not your knees, do you make progress...",
 	"...the crossbow is a deadly marvel of engineering, waiting for your guidance. You steady your breath, finger poised on the trigger. The world narrows as you take aim, the perfect shot soon to come..."
 	)
-	expert_name = "Crossbower"
+	expert_name = "Arbalester"
 
 /datum/skill/combat/wrestling
 	name = "Wrestling"
@@ -105,7 +105,7 @@
 	"...the wet and harsh sound of skin against bone and clattering teeth reaches your ears before your mind processes what just happened. You got knocked out with a mighty blow to the jaw...",
 	"...your nails are claws, your hands are weapons. A silent watcher in pale plate armor nods with approval at your ferocity..."
 	)
-	expert_name = "Puncher"
+	expert_name = "Pugilist"
 
 /datum/skill/combat/shields
 	name = "Shields"
@@ -145,4 +145,4 @@
 	"...you form your conduits into the shape of blades, your blood flows with the feelings of iron, and you have created over a thousand blades, knowing the weight and edge of everyone of them. You have not practiced their forms, yet they flows like water in your hand...",
 	"...no weapon is a stranger to your hand, a slash with a khopesh, a thrust with a spear, a figure eight with a greatsword, the squires in the yard flow from one strike to another, you, from one weapon to another...7",
 	)
-	expert_name = "Arcyne Armiger"
+	expert_name = "Armiger"

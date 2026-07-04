@@ -12,7 +12,7 @@
 		"...you scrape and plow until your muscles ache. The day was long, and soon the apples you plucked today would be rolled into a delicious pie...",
 		"...you kneel in the soil, watering the seeds you've sown. The rows stretch out before you, green and thriving. You are filled with satisfaction, knowing your labor will soon bloom into abundance..."
 	)
-	expert_name = "Farmer"
+	expert_name = "Agriculturist"
 	max_untraited_level = SKILL_LEVEL_APPRENTICE
 	trait_uncap = list(TRAIT_HOMESTEAD_EXPERT = SKILL_LEVEL_LEGENDARY,
 	TRAIT_SELF_SUSTENANCE = SKILL_LEVEL_JOURNEYMAN, TRAIT_SELF_RELIANCE = SKILL_LEVEL_JOURNEYMAN)
@@ -68,7 +68,7 @@
 		"...splinters fly off as a tree falls down on the ground, sending a thundering boom throughout the forest...",
 		"...you pull on a saw, and the bearded lumberjack across from you pulls back on it. The great oak yawns as it threatens to topple over..."
 	)
-	expert_name = "Lumberjack"
+	expert_name = "Woodcutter"
 	max_untraited_level = SKILL_LEVEL_APPRENTICE
 	trait_uncap = list(TRAIT_HOMESTEAD_EXPERT = SKILL_LEVEL_LEGENDARY,
 	TRAIT_SELF_SUSTENANCE = SKILL_LEVEL_JOURNEYMAN, TRAIT_SELF_RELIANCE = SKILL_LEVEL_JOURNEYMAN)
