@@ -223,7 +223,7 @@
 				id = /obj/item/clothing/neck/roguetown/psicross/noc/aalloy
 			if(4 to 6)
 				id = /obj/item/clothing/neck/roguetown/psicross/abyssor
-	if(prob(70))
+	if(prob(50))
 		r_hand = /obj/item/rogueweapon/huntingknife/idagger/adagger
 		l_hand = /obj/item/rogueweapon/huntingknife/idagger/adagger
 		ADD_TRAIT(H, TRAIT_DUALWIELDER, TRAIT_GENERIC) //Rapid knives build
