@@ -205,12 +205,15 @@
 	name = "Skeleton Pirate"
 	head =  /obj/item/clothing/head/roguetown/helmet/tricorn
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/vest/sailor
-	wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy/chain
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/aalloy
 	pants = /obj/item/clothing/under/roguetown/tights/sailor
 	shoes = /obj/item/clothing/shoes/roguetown/sandals/aalloy
-	if(prob(10))
-		var/amulet_choice = rand(1, 4)
+	if(prob(20))
+		wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy/chain //DO WHAT YOU WANT BECAUSE A PIRATE IS FREE
+	else
+		wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy
+	if(prob(30))
+		var/amulet_choice = rand(1, 6)
 		switch(amulet_choice)
 			if(1)
 				id = /obj/item/clothing/neck/roguetown/psicross/inhumen/aalloy //ZIZO. ZIZO. ZIZO.
@@ -218,7 +221,7 @@
 				id = /obj/item/clothing/neck/roguetown/psicross/aalloy
 			if(3)
 				id = /obj/item/clothing/neck/roguetown/psicross/noc/aalloy
-			if(4)
+			if(4 to 6)
 				id = /obj/item/clothing/neck/roguetown/psicross/abyssor
 	if(prob(50))
 		r_hand = /obj/item/rogueweapon/huntingknife/idagger/adagger

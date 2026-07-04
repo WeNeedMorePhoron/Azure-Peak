@@ -63,7 +63,7 @@
 	gloves = /obj/item/clothing/gloves/roguetown/chain/paalloy
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/paalloy/chain
 	mask = /obj/item/clothing/head/roguetown/roguehood/shalal/hijab/lich //Stands out
-	backr = /obj/item/rogueweapon/shield/bronze/paalloy //As a treat, single its single-slotted now
+	backr = /obj/item/rogueweapon/shield/bronze/paalloy
 	backl = /obj/item/storage/backpack/rogue/satchel
 
 	H.taints_loot = TRUE //For that shitty-ass reanimated corpse gear look.
