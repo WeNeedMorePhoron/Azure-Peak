@@ -20,7 +20,7 @@
 	charge_required = TRUE
 	charge_time = CHARGETIME_MINOR
 	charge_slowdown = CHARGING_SLOWDOWN_NONE
-	cooldown_time = 60 SECONDS
+	cooldown_time = 3 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 1
