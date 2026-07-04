@@ -107,7 +107,7 @@
 
 /datum/status_effect/buff/stoneskin/on_apply()
 	. = ..()
-	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>stoneskin (+5 con, blood rest)!</font>")
+	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>stoneskin (+5 con)!</font>")
 	var/filter = owner.get_filter(STONESKIN_FILTER)
 	if (!filter)
 		owner.add_filter(STONESKIN_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 50, "size" = 1))
