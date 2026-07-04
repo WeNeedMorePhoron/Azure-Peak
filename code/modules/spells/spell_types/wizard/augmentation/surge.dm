@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/surge
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Surge"
-	desc = "Flood someone's body with vigors, instantly shaking off any stun, restoring their stamina and bringing them back to their feet."
+	desc = "Flood someone's body with vigors, instantly shaking off any stun, restoring their stamina and bringing them back to their feet. Cannot be cast on yourself"
 	button_icon_state = "enlarge"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF
@@ -12,7 +12,7 @@
 
 	click_to_activate = TRUE
 	cast_range = SPELL_RANGE_GROUND
-	self_cast_possible = TRUE
+	self_cast_possible = FALSE
 
 	primary_resource_type = SPELL_COST_ENERGY
 	primary_resource_cost = 100
