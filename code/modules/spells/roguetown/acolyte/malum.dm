@@ -83,7 +83,7 @@
 			playsound(owner, 'sound/misc/wood_saw.ogg', 100, TRUE)
 			door.icon_state = "[door.base_state]"
 			door.density = TRUE
-			door.opacity = TRUE
+			door.set_opacity = (TRUE)
 			door.brokenstate = FALSE
 			door.obj_broken = FALSE
 			door.repair_state = 0								
