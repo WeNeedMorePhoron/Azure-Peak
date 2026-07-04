@@ -142,7 +142,7 @@
 		var/mob_swap = FALSE
 		var/too_strong = (M.move_resist > move_force) //can't swap with immovable objects unless they help us
 		if(istype(M,/mob/living/simple_animal/hostile/retaliate))
-			if(!M:aggressive)
+			if(!M:aggressive && !M.client)
 				mob_swap = TRUE
 		if(!they_can_move) //we have to physically move them
 			if(!too_strong)
