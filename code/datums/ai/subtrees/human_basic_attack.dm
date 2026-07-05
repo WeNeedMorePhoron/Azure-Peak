@@ -29,8 +29,8 @@
 // Both are INT-scaled via AI_INT_SCALE_PROB — dumber NPCs whiff more and track less.
 #define HUMAN_NPC_WHIFF_FLOOR_CHANCE         8   // % chance to whiff even when target is stationary
 #define HUMAN_NPC_TRACK_CEILING_CHANCE       40  // % chance to still land a hit when target moved off the snapshot
-// Consecutive swings an NPC commits to the same body zone before re-picking. Higher = grinds one
-// zone longer. Scales up with weapon skill — a master keeps hammering the same limb far longer.
+// Consecutive swings an NPC commits to the same body zone before re-picking.
+
 #define HUMAN_NPC_ZONE_SWITCH_THRESHOLD_BASE         9
 #define HUMAN_NPC_ZONE_SWITCH_THRESHOLD_JOURNEYMAN   12
 #define HUMAN_NPC_ZONE_SWITCH_THRESHOLD_EXPERT       15
