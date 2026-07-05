@@ -518,10 +518,15 @@
 	stressadd = 3
 	desc = span_red("I long for the shelter of wall and roofs. The sun and moon are too bright for me to bear!")
 
+/datum/stressevent/sun_sensitivity_dark
+	timer = 2 MINUTES
+	stressadd = 3
+	desc = span_red("<b><i>The sunlight burns my eyes! It's too bright outside!</b></i>")
+
 /datum/stressevent/sun_sensitivity
 	timer = 2 MINUTES
-	stressadd = 4
-	desc = span_red("<b>The sunlight burns my eyes and skin! It's too bright outside!</b>")
+	stressadd = 10
+	desc = span_red("<b><i>The sunlight burns my eyes and skin! It's too bright outside!</b></i>")
 
 /datum/stressevent/lesser_sun_sensitivity
 	timer = 2 MINUTES
