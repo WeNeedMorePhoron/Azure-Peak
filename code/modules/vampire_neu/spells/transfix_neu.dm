@@ -99,11 +99,6 @@
 			to_chat(user, span_userdanger("[target] is far too tense for that!"))
 			break
 
-	for(var/mob/living/carbon/human/target as anything in targets)
-		if(!target in get_hearers_in_view(6, usr))
-			to_chat(user, span_userdanger("[target] is too far away!"))
-			break
-
 		var/willpower = round(target.STAINT / int_divisor, 1)
 		var/willroll = roll(willpower, will_dice)
 
