@@ -74,6 +74,7 @@
 	mid_length = 60
 	volume = 100
 	extra_range = -1
+	filter_pref = SOUND_AMBIENCE
 
 /datum/looping_sound/psydonmusicboxsound
 	mid_sounds = list('sound/magic/psydonmusicbox.ogg')
