@@ -32,12 +32,10 @@
 		return
 	
 	for(var/mob/living/carbon/target in view(cast_range, get_turf(owner)))
-		if(buff >= 6)
+		if(buff >= 4)
 			buff = 0
 			break
-		if(!owner.faction_check_mob(target))
-			continue
-		if(H.mind)
+		if(shares_fellowship(H,target)) //shares the same fellowship, also target self
 			target.apply_status_effect(/datum/status_effect/buff/lesser_guidance)
 			target.apply_status_effect(/datum/status_effect/buff/healingaura)
 			buff++
