@@ -774,7 +774,10 @@
 			to_chat(usr, span_warning("[M] doesn't seem to have an active client."))
 			return
 		var/datum/job/mob_job
-		var/target_job = SSrole_class_handler.get_advclass_by_name(M.advjob)
+		var/datum/advclass/target_job
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			target_job = H.get_advclass_datum()
 		if(M.mind)
 			mob_job = SSjob.GetJob(M.mind.assigned_role)
 			if(mob_job)
