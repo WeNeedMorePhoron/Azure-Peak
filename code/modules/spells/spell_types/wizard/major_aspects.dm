@@ -159,10 +159,7 @@
 		/datum/action/cooldown/spell/gravity,
 		/datum/action/cooldown/spell/gravity_anchor,
 		/datum/action/cooldown/spell/greater_cleaning,
-	)
-	choice_spells = list(
-		/datum/action/cooldown/spell/projectile/soulshot,
-		/datum/action/cooldown/spell/projectile/greater_arcyne_bolt,
+		/datum/action/cooldown/spell/projectile/basic_offensive,
 	)
 	variants = list(
 		"mastery" = list(
@@ -189,7 +186,7 @@
 		"Telum, a me discedere!",
 	)
 	fixed_spells = list(
-		/datum/action/cooldown/spell/projectile/greater_arcyne_bolt,
+		/datum/action/cooldown/spell/projectile/basic_offensive,
 		/datum/action/cooldown/spell/projectile/arcyne_salvo,
 		/datum/action/cooldown/spell/energetic_blast,
 		/datum/action/cooldown/spell/projectile/seeker_volley,
@@ -221,17 +218,18 @@
 		"I forfeit the strength bestowed upon me, diminish.",
 		"Augmentum, a me discedere!",
 	)
+	fixed_spells = list(
+		/datum/action/cooldown/spell/projectile/basic_offensive,
+		/datum/action/cooldown/spell/bestow_ward,
+	)
 	choice_spells = list(
-		/datum/action/cooldown/spell/projectile/soulshot,
-		/datum/action/cooldown/spell/projectile/greater_arcyne_bolt,
+		/datum/action/cooldown/spell/twin_link,
+		/datum/action/cooldown/spell/conjure_arcyne_ward/steelhide,
 	)
 	variants = list(
 		"mastery" = list(
 			VARIANT_ADDITIVE = /datum/action/cooldown/spell/ascension,
 		),
-	)
-	fixed_spells = list(
-			/datum/action/cooldown/spell/bestow_ward,
 	)
 	pointbuy_budget = 12
 	pointbuy_spells = list(

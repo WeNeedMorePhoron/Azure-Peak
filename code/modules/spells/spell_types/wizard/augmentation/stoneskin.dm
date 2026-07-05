@@ -23,6 +23,6 @@
 		H.visible_message("[H] mutters an incantation and [spelltarget]'s skin hardens like stone.")
 	else
 		H.visible_message("[H] mutters an incantation and their skin hardens.")
-	spelltarget.apply_status_effect(/datum/status_effect/buff/stoneskin, STAT_BUFF_SELF_DURATION)
+	apply_buff_to(spelltarget, /datum/status_effect/buff/stoneskin, STAT_BUFF_SELF_DURATION)
 
 	return TRUE
