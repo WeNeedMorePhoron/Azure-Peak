@@ -494,7 +494,7 @@
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	click_to_activate = TRUE
-	cast_range = SPELL_RANGE_GROUND
+	cast_range = SPELL_RANGE_ADJACENT
 	self_cast_possible = FALSE
 
 	primary_resource_cost = SPELLCOST_MIRACLE_MAJOR
@@ -508,9 +508,9 @@
 	charge_drain = 3
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/holycharging.ogg'
-	cooldown_time = 5 MINUTES
+	cooldown_time = 2 MINUTES
 
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z | SPELL_REQUIRES_NO_MOVE
 
 /datum/action/cooldown/spell/malum/reforge/cast(atom/cast_on)
 	. = ..()
@@ -527,25 +527,27 @@
 			continue
 		if(I.max_integrity <= I.obj_integrity)
 			continue
+		if(!owner.Adjacent(cast_on))
+			return TRUE
 		if(!do_after(owner, 2 SECONDS))
 			repair_points = 0
 			return FALSE
 		I.obj_integrity = min(I.obj_integrity + one_fix_points, I.max_integrity)
 		I.visible_message(span_info("[I] glows in a faint mending light."))
-		playsound(cast_on, 'sound/magic/magearmorup.ogg', 40)
+		playsound(cast_on, 'sound/magic/magearmorup.ogg', 10)
 		if(I.max_integrity <= I.obj_integrity)
 			if(I.obj_broken) // obj_fix() strips armor ratings/class when called on intact armor; only call it on items that were actually broken.
 				I.obj_fix()
 			I.repair_coverage()
 			I.visible_message(span_info("[I] mend together, completely."))
-			playsound(cast_on, 'sound/magic/magearmorup.ogg', 90)
+			playsound(cast_on, 'sound/magic/magearmorup.ogg', 50)
 			continue
 		cast(cast_on)
 	return TRUE
 
-//////////////////
-// T4 - Reforge //
-//////////////////
+///////////////////
+// T4 - Fortress //
+///////////////////
 
 /datum/action/cooldown/spell/malum/fortress
 	name = "Fortress"
