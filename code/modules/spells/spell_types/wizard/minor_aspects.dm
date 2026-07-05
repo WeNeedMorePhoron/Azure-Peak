@@ -90,10 +90,10 @@
 	pointbuy_budget = 3
 	pointbuy_spells = list(
 		/datum/action/cooldown/spell/darkvision,
-		/datum/action/cooldown/spell/stoneskin,
-		/datum/action/cooldown/spell/guidance,
+		/datum/action/cooldown/spell/augment_buff/stoneskin,
+		/datum/action/cooldown/spell/augment_buff/guidance,
 		/datum/action/cooldown/spell/featherfall,
-		/datum/action/cooldown/spell/enlarge,
+		/datum/action/cooldown/spell/augment_buff/enlarge,
 		/datum/action/cooldown/spell/leap,
 		/datum/action/cooldown/spell/nondetection,
 		/datum/action/cooldown/spell/surge,

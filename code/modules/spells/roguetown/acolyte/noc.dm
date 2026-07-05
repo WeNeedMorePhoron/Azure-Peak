@@ -470,15 +470,15 @@
 		/datum/action/cooldown/spell/conjure_arcyne_ward/dragonhide,
 		/datum/action/cooldown/spell/mending,
 		/datum/action/cooldown/spell/arcyne_forge, //Utility
-		/datum/action/cooldown/spell/attune_hawk,
-		/datum/action/cooldown/spell/stoneskin //Buff
+		/datum/action/cooldown/spell/augment_buff/attune_hawk,
+		/datum/action/cooldown/spell/augment_buff/stoneskin //Buff
 	)
 	var/list/seer_bundle = list(
 		/datum/action/cooldown/spell/conjure_arcyne_ward/crystalhide,
-		/datum/action/cooldown/spell/attune_giant,
-		/datum/action/cooldown/spell/guidance,
-		/datum/action/cooldown/spell/attune_haste,
-		/datum/action/cooldown/spell/fortitude,
+		/datum/action/cooldown/spell/augment_buff/attune_giant,
+		/datum/action/cooldown/spell/augment_buff/guidance,
+		/datum/action/cooldown/spell/augment_buff/attune_haste,
+		/datum/action/cooldown/spell/augment_buff/fortitude,
 		/datum/action/cooldown/spell/mindlink
 	)
 

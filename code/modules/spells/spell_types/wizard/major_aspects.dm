@@ -235,19 +235,19 @@
 	)
 	pointbuy_budget = 12
 	pointbuy_spells = list(
-		/datum/action/cooldown/spell/stoneskin,
-		/datum/action/cooldown/spell/guidance,
-		/datum/action/cooldown/spell/attune_hawk,
-		/datum/action/cooldown/spell/attune_giant,
-		/datum/action/cooldown/spell/attune_haste,
-		/datum/action/cooldown/spell/fortitude,
+		/datum/action/cooldown/spell/augment_buff/stoneskin,
+		/datum/action/cooldown/spell/augment_buff/guidance,
+		/datum/action/cooldown/spell/augment_buff/attune_hawk,
+		/datum/action/cooldown/spell/augment_buff/attune_giant,
+		/datum/action/cooldown/spell/augment_buff/attune_haste,
+		/datum/action/cooldown/spell/augment_buff/fortitude,
 		/datum/action/cooldown/spell/bind_armament,
 		/datum/action/cooldown/spell/surge,
 		/datum/action/cooldown/spell/precognition,
 		/datum/action/cooldown/spell/grasp,
 		/datum/action/cooldown/spell/forcewall,
 		/datum/action/cooldown/spell/featherfall,
-		/datum/action/cooldown/spell/enlarge,
+		/datum/action/cooldown/spell/augment_buff/enlarge,
 		/datum/action/cooldown/spell/leap,
 		/datum/action/cooldown/spell/nondetection,
 	)
