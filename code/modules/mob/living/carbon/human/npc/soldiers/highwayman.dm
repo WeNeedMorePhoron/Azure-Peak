@@ -385,7 +385,7 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 	add_downgrade_to_slot(SLOT_GLOVES, /obj/item/clothing/gloves/roguetown/plate/iron)
 	regenerate_icons()
 	for(var/obj/item/gear in get_equipped_items() + held_items)
-		ADD_TRAIT(gear, TRAIT_NODROP, "road_knight_gear")
+		lock_gear_piece(gear, "road_knight_gear")
 
 /mob/living/carbon/human/species/human/northern/highwayman/road_knight/death(gibbed, nocutscene = FALSE)
 	. = ..()
@@ -435,7 +435,7 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 	for(var/obj/item/gear in get_equipped_items())
 		if(gear == backr || gear == backl)
 			continue
-		ADD_TRAIT(gear, TRAIT_NODROP, "sharpshooter_gear")
+		lock_gear_piece(gear, "sharpshooter_gear")
 
 /mob/living/carbon/human/species/human/northern/highwayman/sharpshooter/death(gibbed, nocutscene = FALSE)
 	. = ..()

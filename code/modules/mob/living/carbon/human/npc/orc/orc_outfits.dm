@@ -275,7 +275,7 @@
 	if(jug_head)
 		jug_head.sellprice = HEAD_BOUNTY_BIG_GUY
 	for(var/obj/item/gear in get_equipped_items() + held_items)
-		ADD_TRAIT(gear, TRAIT_NODROP, "orc_juggernaut_gear")
+		lock_gear_piece(gear, "orc_juggernaut_gear")
 
 /mob/living/carbon/human/species/orc/npc/juggernaut/death(gibbed, nocutscene = FALSE)
 	. = ..()

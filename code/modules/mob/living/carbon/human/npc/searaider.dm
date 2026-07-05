@@ -332,7 +332,7 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 		blade.AddComponent(/datum/component/item_on_drop/downgrade, /obj/item/rogueweapon/greatsword/iron)
 	regenerate_icons()
 	for(var/obj/item/gear in get_equipped_items() + held_items)
-		ADD_TRAIT(gear, TRAIT_NODROP, "searaider_huscarl_gear")
+		lock_gear_piece(gear, "searaider_huscarl_gear")
 
 /mob/living/carbon/human/species/human/northern/searaider/huscarl/death(gibbed, nocutscene = FALSE)
 	. = ..()
