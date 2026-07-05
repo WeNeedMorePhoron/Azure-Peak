@@ -1,3 +1,5 @@
+#define HOMESTEADER_TITLE_COOLDOWN (15 MINUTES)
+
 /datum/advclass/homesteader
 	name = "Homesteader"
 	tutorial = "Azure population's tendency to take up arms and become unwashed beastslayers had forced you to take up jobs, small and large of most professions.\n A jack of all trades, what will you be known as this week?"
@@ -63,6 +65,40 @@
 		/datum/skill/labor/mining = SKILL_LEVEL_NOVICE
 	)
 	maximum_possible_slots = 20 // Should not fill, just a hack to make it shows what types of towners are in round
+	var/list/custom_title_options = list(
+		"Artisan",
+		"Artisana",
+		"Craftswoman",
+		"Devotee",
+		"Devotess",
+		"Fieldworker",
+		"Forager",
+		"Freeholder",
+		"Gardener",
+		"Handiworker",
+		"Hedgefolk",
+		"Herbalist",
+		"Homesteadress",
+		"Housekeeper",
+		"Householder",
+		"Househusband",
+		"Housewife",
+		"Hunter",
+		"Laborer",
+		"Nurse",
+		"Nun",
+		"Pioneer",
+		"Prospector",
+		"Scholar",
+		"Settler",
+		"Shepherd",
+		"Varlet",
+		"Villager",
+		"Weaver",
+		"Woodsman",
+		"Woodswoman",
+		"Chirurgeon"
+	)
 
 /datum/outfit/job/roguetown/homesteader/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -137,6 +173,8 @@
 	if(H.mind)
 		SStreasury.grant_savings(ECONOMIC_LOWER_CLASS, H)
 
+//==========
+
 //=========
 /datum/advclass/homesteader/proc/get_skill_title_options()
 	var/list/skill_titles = list()
@@ -154,7 +192,7 @@
 
 /datum/advclass/homesteader/proc/choose_title(mob/living/carbon/human/H)
 	if(!H?.client)
-		return
+		return FALSE
 	var/list/title_modes = list("Homesteader", "Single Skill Title", "Adaptive Skill Titles")
 	var/default_mode = "Homesteader"
 	if(!H.adaptive_name_title)
@@ -164,7 +202,7 @@
 
 	var/title_mode = input(H, "How should I be known?", "Homesteader Title", default_mode) as null|anything in title_modes
 	if(!title_mode)
-		return
+		return FALSE
 	switch(title_mode)
 		if("Homesteader")
 			H.adaptive_name_title = name
@@ -173,11 +211,11 @@
 			var/list/title_options = get_skill_title_options()
 			if(!length(title_options))
 				to_chat(H, span_warning("I do not have any titles to choose from."))
-				return
+				return FALSE
 			var/default_title = (H.adaptive_name_title && H.adaptive_name_title != name) ? H.adaptive_name_title : title_options[1]
 			var/title_choice = input(H, "Which title should I use?", "Homesteader Title", default_title) as null|anything in title_options
 			if(!title_choice)
-				return
+				return FALSE
 			H.adaptive_name_title = title_choice
 			H.advjob = title_choice
 		if("Adaptive Skill Titles")
@@ -185,6 +223,7 @@
 			H.advjob = name
 			H.update_adaptive_name()
 	to_chat(H, span_notice("I will be known as [H.advjob]."))
+	return TRUE
 
 /datum/advclass/homesteader/proc/choose_homesteader_title()
 	set name = "Choose Homesteader Title"
@@ -197,47 +236,9 @@
 		to_chat(H, span_warning("I am not a homesteader."))
 		remove_verb(H, /datum/advclass/homesteader/proc/choose_homesteader_title)
 		return
+	if(world.time < H.next_homesteader_title_change)
+		to_chat(H, span_warning("I must wait [round((H.next_homesteader_title_change - world.time)/600, 1)] minutes before changing my title again."))
+		return
 	var/datum/advclass/homesteader/homesteader_class = H.mind.picked_advclass
-	homesteader_class.choose_title(H)
-
-//==========
-
-	// Custom titles for homesteaders. These are added to the list of skill titles, and can be chosen by the player. They are not tied to any specific skill, and are purely cosmetic. They are not added to the list of skill titles if they are already present in the list of skill titles.
-	var/list/custom_title_options = list(
-		"Artisan",
-		"Artisana",
-		"Craftsman",
-		"Craftswoman",
-		"Devotee",
-		"Devotess",
-		"Fieldworker",
-		"Forager",
-		"Freeholder",
-		"Gardener",
-		"Handiworker",
-		"Hedgefolk",
-		"Herbalist",
-		"Homesteadress",
-		"Housekeeper",
-		"Householder",
-		"Househusband",
-		"Housewife",
-		"Hunter",
-		"Laborer",
-		"Nurse",
-		"Nun",
-		"Pioneer",
-		"Prospector",
-		"Scholar",
-		"Settler",
-		"Shepherd",
-		"Town Doctor",
-		"Tradesman",
-		"Tradewoman",
-		"Varlet",
-		"Villager",
-		"Weaver",
-		"Woodsman",
-		"Woodswoman",
-		"Chirurgeon"
-	)
+	if(homesteader_class.choose_title(H))
+		H.next_homesteader_title_change = world.time + HOMESTEADER_TITLE_COOLDOWN
