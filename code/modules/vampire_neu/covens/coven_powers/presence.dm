@@ -3,6 +3,7 @@
 	desc = "Invade the mortal mynd, your words are far mightier than any sword. Subjugate them."
 	icon_state = "presence"
 	power_type = /datum/coven_power/presence
+	max_level = 4
 
 /datum/coven_power/presence
 	name = "Presence power name"
