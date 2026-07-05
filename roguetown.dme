@@ -2435,6 +2435,7 @@
 #include "code\modules\mob\living\carbon\human\npc\hobgoblin.dm"
 #include "code\modules\mob\living\carbon\human\npc\lizardmen_dungeon.dm"
 #include "code\modules\mob\living\carbon\human\npc\mad_touched_treasure_hunters.dm"
+#include "code\modules\mob\living\carbon\human\npc\npc_procs.dm"
 #include "code\modules\mob\living\carbon\human\npc\searaider.dm"
 #include "code\modules\mob\living\carbon\human\npc\test_dummy.dm"
 #include "code\modules\mob\living\carbon\human\npc\thief.dm"
