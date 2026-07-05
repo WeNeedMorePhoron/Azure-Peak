@@ -188,7 +188,7 @@
 
 	if(has_status_effect(/datum/status_effect/buff/weapon_binded))
 		prob2defend += 20
-	if(used_weapon)
+	if(used_weapon && !allow_unarmed_fallback)
 		if(!has_status_effect(/datum/status_effect/buff/weapon_binded) && !has_status_effect(/datum/status_effect/debuff/weapon_binded))
 			if(ishuman(src) && user.get_tempo_bonus(TEMPO_TAG_BINDABLE) && mind)
 				var/mob/living/carbon/human/HL = src
