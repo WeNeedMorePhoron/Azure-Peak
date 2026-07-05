@@ -52,12 +52,12 @@
 		to_chat(H, span_warning("This power is too great to channel into myself!"))
 		return FALSE
 
-	target.apply_status_effect(/datum/status_effect/buff/attune_haste, buff_duration)
-	target.apply_status_effect(/datum/status_effect/buff/stoneskin, buff_duration)
-	target.apply_status_effect(/datum/status_effect/buff/attune_giant, buff_duration)
-	target.apply_status_effect(/datum/status_effect/buff/fortitude, buff_duration)
-	target.apply_status_effect(/datum/status_effect/buff/attune_hawk, buff_duration)
-	target.apply_status_effect(/datum/status_effect/buff/guidance, buff_duration)
+	apply_buff_to(target, /datum/status_effect/buff/attune_haste, buff_duration)
+	apply_buff_to(target, /datum/status_effect/buff/stoneskin, buff_duration)
+	apply_buff_to(target, /datum/status_effect/buff/attune_giant, buff_duration)
+	apply_buff_to(target, /datum/status_effect/buff/fortitude, buff_duration)
+	apply_buff_to(target, /datum/status_effect/buff/attune_hawk, buff_duration)
+	apply_buff_to(target, /datum/status_effect/buff/guidance, buff_duration)
 
 	to_chat(target, span_notice("Arcyne power surges through every fiber of my being!"))
 	to_chat(H, span_notice("I channel everything into [target] - ascending them beyond mortal limits!"))

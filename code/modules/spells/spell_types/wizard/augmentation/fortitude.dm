@@ -23,6 +23,6 @@
 		H.visible_message("[H] mutters an incantation and [spelltarget] briefly shines green.")
 	else
 		H.visible_message("[H] mutters an incantation and they briefly shine green.")
-	spelltarget.apply_status_effect(/datum/status_effect/buff/fortitude, STAT_BUFF_SELF_DURATION)
+	apply_buff_to(spelltarget, /datum/status_effect/buff/fortitude, STAT_BUFF_SELF_DURATION)
 
 	return TRUE

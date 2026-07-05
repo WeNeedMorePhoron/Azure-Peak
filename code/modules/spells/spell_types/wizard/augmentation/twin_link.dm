@@ -41,11 +41,14 @@ GLOBAL_LIST_EMPTY(twin_links)
 			return link
 	return null
 
-/datum/action/cooldown/spell/augment_buff/proc/apply_buff_to(mob/living/spelltarget, buff_type, duration)
+/proc/apply_buff_to(mob/living/spelltarget, buff_type, duration)
+	var/echo_type = weakened_twinlink_variant(buff_type)
+	if(echo_type)
+		spelltarget.remove_status_effect(echo_type)
 	spelltarget.apply_status_effect(buff_type, duration)
 	mirror_twin_link(spelltarget, buff_type)
 
-/datum/action/cooldown/spell/augment_buff/proc/mirror_twin_link(mob/living/spelltarget, buff_type)
+/proc/mirror_twin_link(mob/living/spelltarget, buff_type)
 	var/weakened = weakened_twinlink_variant(buff_type)
 	if(!weakened)
 		return
@@ -57,24 +60,31 @@ GLOBAL_LIST_EMPTY(twin_links)
 		return
 	if(!(partner in view(spelltarget)))
 		return
+	if(partner.has_status_effect(buff_type))
+		return
+	spelltarget.Beam(partner, icon_state = "b_beam", time = 1 SECONDS)
 	partner.apply_status_effect(weakened)
 
-/datum/action/cooldown/spell/augment_buff/proc/weakened_twinlink_variant(buff_type)
+/proc/weakened_twinlink_variant(buff_type)
 	switch(buff_type)
 		if(/datum/status_effect/buff/attune_haste)
-			return /datum/status_effect/buff/twinlink/guided/haste
+			return /datum/status_effect/buff/twinlink/haste
 		if(/datum/status_effect/buff/attune_giant)
-			return /datum/status_effect/buff/twinlink/guided/giant
+			return /datum/status_effect/buff/twinlink/giant
 		if(/datum/status_effect/buff/attune_hawk)
-			return /datum/status_effect/buff/twinlink/guided/hawk
+			return /datum/status_effect/buff/twinlink/hawk
 		if(/datum/status_effect/buff/stoneskin)
 			return /datum/status_effect/buff/twinlink/stoneskin
+		if(/datum/status_effect/buff/fortitude)
+			return /datum/status_effect/buff/twinlink/fortitude
+		if(/datum/status_effect/buff/guidance)
+			return /datum/status_effect/buff/twinlink/guidance
 	return null
 
 /datum/action/cooldown/spell/twin_link
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Twin Link"
-	desc = "Bind a single ally to yourself. While the two of you remain in sight of one another, any stat-enhancing augmentation applied to either of you echoes to the other at half strength. \
+	desc = "Bind a single ally to yourself. While the two of you remain in sight of one another, any augmentation placed on either of you echoes to the other - stat buffs at half strength, and Guidance or Fortitude as a lesser form. \
 	Casting again re-links to a new ally. The bond ends if either of you dies."
 	button_icon_state = "guidance"
 	sound = 'sound/magic/haste.ogg'
@@ -130,7 +140,6 @@ GLOBAL_LIST_EMPTY(twin_links)
 		qdel(other)
 
 	new /datum/twin_link(H, target)
-	H.Beam(target, icon_state = "b_beam", time = 1 SECONDS)
 	H.visible_message("[H] weaves a shimmering thread of arcyne between themselves and [target].")
 	to_chat(H, span_notice("I am now twin-linked with [target] - our augmentations will echo between us."))
 	to_chat(target, span_notice("A twin link binds me to [H] - their augmentations will echo to me, and mine to them."))
@@ -145,44 +154,57 @@ GLOBAL_LIST_EMPTY(twin_links)
 	alert_type = /atom/movable/screen/alert/status_effect/buff/twinlink
 	duration = STAT_BUFF_ALLY_DURATION
 	var/outline_colour = "#3aa8ff"
-	var/grants_guidance = FALSE
+	var/echo_trait
+	var/echo_trait_label
 
 /datum/status_effect/buff/twinlink/on_apply()
 	. = ..()
+	if(echo_trait)
+		ADD_TRAIT(owner, echo_trait, id)
 	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>[echo_description()]</font>")
+
+/datum/status_effect/buff/twinlink/on_remove()
+	if(echo_trait)
+		REMOVE_TRAIT(owner, echo_trait, id)
+	. = ..()
 
 /datum/status_effect/buff/twinlink/proc/echo_description()
 	var/list/parts = list()
 	for(var/statkey in effectedstats)
 		var/amount = effectedstats[statkey]
 		parts += "[amount > 0 ? "+" : ""][amount] [capitalize(statkey)]"
-	if(grants_guidance)
-		parts += "Lesser Guidance"
+	if(echo_trait_label)
+		parts += echo_trait_label
 	return "twin echo: [parts.Join(", ")]"
 
-/datum/status_effect/buff/twinlink/guided
-	grants_guidance = TRUE
-
-/datum/status_effect/buff/twinlink/guided/on_apply()
-	. = ..()
-	ADD_TRAIT(owner, TRAIT_LESSER_GUIDANCE, id)
-
-/datum/status_effect/buff/twinlink/guided/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_LESSER_GUIDANCE, id)
-	. = ..()
-
-/datum/status_effect/buff/twinlink/guided/haste
+/datum/status_effect/buff/twinlink/haste
 	id = "twinlink_haste"
 	effectedstats = list(STATKEY_SPD = 2)
+	echo_trait = TRAIT_LESSER_GUIDANCE
+	echo_trait_label = "Lesser Guidance"
 
-/datum/status_effect/buff/twinlink/guided/giant
+/datum/status_effect/buff/twinlink/giant
 	id = "twinlink_giant"
 	effectedstats = list(STATKEY_STR = 2)
+	echo_trait = TRAIT_LESSER_GUIDANCE
+	echo_trait_label = "Lesser Guidance"
 
-/datum/status_effect/buff/twinlink/guided/hawk
+/datum/status_effect/buff/twinlink/hawk
 	id = "twinlink_hawk"
 	effectedstats = list(STATKEY_PER = 2)
+	echo_trait = TRAIT_LESSER_GUIDANCE
+	echo_trait_label = "Lesser Guidance"
 
 /datum/status_effect/buff/twinlink/stoneskin
 	id = "twinlink_stoneskin"
 	effectedstats = list(STATKEY_CON = 2)
+
+/datum/status_effect/buff/twinlink/fortitude
+	id = "twinlink_fortitude"
+	echo_trait = TRAIT_LESSER_FORTITUDE
+	echo_trait_label = "Lesser Fortitude"
+
+/datum/status_effect/buff/twinlink/guidance
+	id = "twinlink_guidance"
+	echo_trait = TRAIT_LESSER_GUIDANCE
+	echo_trait_label = "Lesser Guidance"
