@@ -12,7 +12,7 @@
 		"...you scrape and plow until your muscles ache. The day was long, and soon the apples you plucked today would be rolled into a delicious pie...",
 		"...you kneel in the soil, watering the seeds you've sown. The rows stretch out before you, green and thriving. You are filled with satisfaction, knowing your labor will soon bloom into abundance..."
 	)
-	expert_name = "Agriculturist"
+	expert_name = "Farmer"
 	max_untraited_level = SKILL_LEVEL_APPRENTICE
 	trait_uncap = list(TRAIT_HOMESTEAD_EXPERT = SKILL_LEVEL_LEGENDARY,
 	TRAIT_SELF_SUSTENANCE = SKILL_LEVEL_JOURNEYMAN, TRAIT_SELF_RELIANCE = SKILL_LEVEL_JOURNEYMAN)

@@ -9,17 +9,17 @@
 /datum/skill/magic/holy
 	name = "Miracles"
 	desc = "Strenghtens power of certain miracles or outright provides bonus effects to them."
-	expert_name = "Thaumaturge"
+	expert_name = "Devotee"
 
 /datum/skill/magic/blood
 	name = "Hemomancy"
 	desc = "Affects Vampiric weapons, and Vampiric Disciplines."
-	expert_name = "Bloodletter"
+	expert_name = "Sorcerer"
 
 /datum/skill/magic/arcane
 	name = "Arcana"
 	desc = "Governs arcyne knowledge - improves arcane crafting, and magical identification of sneaking people."
-	expert_name = "Magus"
+	expert_name = "Arcanist"
 
 /datum/skill/magic/druidic
 	name = "Druidism"
