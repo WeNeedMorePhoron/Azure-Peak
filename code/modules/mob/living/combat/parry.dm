@@ -1,6 +1,6 @@
 // Unarmed base weapon defense equivalents — fed into the same (skill * 20) + (wdef * 10) formula as weapons
 #define UNARMED_BASE_WDEF_BARE 2		// Bare fists — still bad, but not hopeless
-#define UNARMED_BASE_WDEF_EQUIPPED 7	// Bracers / knuckles / bandages — matches a rapier
+#define UNARMED_BASE_WDEF_EQUIPPED 8	// Bracers / knuckles / bandages — 80 base parry for expert pugilists
 
 /mob/living/proc/attempt_parry(datum/intent/intenty, mob/living/user)
 	var/prob2defend = user.defprob
