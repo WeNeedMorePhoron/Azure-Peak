@@ -421,7 +421,7 @@
 
 /datum/action/cooldown/spell/miracle/ignition
 	name = "Ignition"
-	desc = "Ignites target, living or object."
+	desc = "Ignite an object."
 	fluff_desc = "The first gift to men, a sliver of Her radiance at fingertips of those devoted to Her wae of lyfe. Some sae it was Matthios who forced Astrata's hand in relinquishing such force to lowly mortals."
 	button_icon_state = "ignite"
 	sound = 'sound/items/firelight.ogg'
@@ -430,7 +430,6 @@
 
 	click_to_activate = TRUE
 	cast_range = SPELL_RANGE_GROUND
-	self_cast_possible = FALSE //Why are you trying to set YOURSELF on fire.
 
 	primary_resource_cost = SPELLCOST_MIRACLE_MINOR
 
@@ -439,12 +438,11 @@
 	invocation_type = INVOCATION_NONE //It has seperate message ON USE
 
 	charge_required = FALSE
-	cooldown_time = 10 SECONDS
+	cooldown_time = 2 SECONDS
 
-	spell_flags = SPELL_PSYDON
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
+	spell_requirements = SPELL_REQUIRES_SAME_Z
 
-/datum/action/cooldown/spell/ignition/cast(atom/cast_on)
+/datum/action/cooldown/spell/miracle/ignition/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H))
@@ -457,24 +455,9 @@
 			owner.visible_message("<font color='yellow'>[owner] engulfs [spelltarget] in sacred flame!</font>")
 			spelltarget.fire_act()
 			return TRUE
-		else
-			to_chat(owner, span_warning("You attempt to ignite [spelltarget], but it fails to catch fire."))
-			return FALSE
 	else
-		owner.visible_message("<font color='yellow'>[owner] engulfs [spelltarget] in sacred flame!</font>")
-		if(spelltarget.anti_magic_check(TRUE, TRUE))
-			return FALSE
-		if(spell_guard_check(spelltarget, TRUE))
-			spelltarget.visible_message(span_warning("[spelltarget] shields against the divine flame!"))
-			return TRUE
-		if(spelltarget.fire_stacks >= 0)
-			spelltarget.adjust_fire_stacks(2)
-			spelltarget.ignite_mob()
-			log_combat(owner, spelltarget, "ignited", addition="with the miracle [name]")
-			return TRUE
-		else
-			spelltarget.visible_message(span_warning("[spelltarget] is already engulfed in flames!"))
-			return TRUE
+		to_chat(owner, span_warning("I can only ignite inanimate objects."))
+		return FALSE
 
 /////////////////////////////////
 // MIRACLE - SACRED ASCENDANCE //
