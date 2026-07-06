@@ -4,11 +4,9 @@
 	crate_type = /obj/structure/closet/crate/chest/merchant
 
 /datum/supply_pack/rogue/medical_utility_wretch/smokebomb
-	name = "Smoke Bomb V Pack"
-	cost =	25
+	name = "Smoke Bomb III Pack"
+	cost =	20
 	contains = list(
-					/obj/item/bomb/smoke,
-					/obj/item/bomb/smoke,
 					/obj/item/bomb/smoke,
 					/obj/item/bomb/smoke,
 					/obj/item/bomb/smoke
