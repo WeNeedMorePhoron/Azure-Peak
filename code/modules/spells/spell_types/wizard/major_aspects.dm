@@ -219,6 +219,7 @@
 		"Augmentum, a me discedere!",
 	)
 	fixed_spells = list(
+		/datum/action/cooldown/spell/projectile/greater_arcyne_bolt,
 		/datum/action/cooldown/spell/bestow_ward,
 	)
 	choice_spells = list(
