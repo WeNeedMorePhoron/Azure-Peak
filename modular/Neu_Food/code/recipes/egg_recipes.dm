@@ -104,8 +104,8 @@
 	base_item = /obj/item/reagent_containers/food/snacks/rogue/omelette_raw_onion
 	ingredients = list(
 		list(
-			/obj/item/reagent_containers/food/snacks/grown/cucumber,
-			/obj/item/reagent_containers/food/snacks/grown/cabbage/rogue,
+			/obj/item/reagent_containers/food/snacks/rogue/veg/cucumber_sliced,
+			/obj/item/reagent_containers/food/snacks/rogue/veg/cabbage_sliced,
 		)
 	)
 	result_type = /obj/item/reagent_containers/food/snacks/rogue/omelette_raw_veggie
