@@ -99,13 +99,9 @@
 					protection = layers[C]
 			// DR tier formula: damage * 1 / (1 + 0.2 * tier)
 			if(protection > 0)
+				// Blunt/Fire/Acid: armor takes the DR-reduced amount, none reaches HP.
 				var/dr_mult = 1 / (1 + 0.2 * protection)
-				if(d_type in ARMOR_DR_PIERCE_TYPES)
-					// Fire/Acid: armor takes the blocked portion (what doesn't reach HP)
-					intdamage *= (1 - dr_mult)
-				else
-					// Blunt: armor takes the DR-reduced amount
-					intdamage *= dr_mult
+				intdamage *= dr_mult
 			if(intdamfactor != 1)
 				intdamage *= intdamfactor
 
