@@ -5,9 +5,9 @@
 	icon_state = "cornbread"
 	faretype = FARE_POOR
 	foodtype = GRAIN
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
 	rotprocess = SHELFLIFE_DECENT
-	slices_num = 3
+	slices_num = 5
 	slice_batch = TRUE
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/cornbread_slice
 	slice_sound = TRUE
