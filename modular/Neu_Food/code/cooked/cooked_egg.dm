@@ -175,7 +175,7 @@
 	faretype = FARE_NEUTRAL
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL)
 	rotprocess = SHELFLIFE_DECENT
-	slices_num = 2
+	slices_num = 4
 	slice_batch = TRUE
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/omelette_slice
 	slice_sound = TRUE
@@ -189,7 +189,7 @@
 	icon_state = "omelette_slice"
 	foodtype = MEAT
 	faretype = FARE_NEUTRAL
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_QUARTER_MEAL)
 	rotprocess = SHELFLIFE_DECENT
 	tastes = list("egg" = 1)
 
@@ -202,7 +202,7 @@
 	faretype = FARE_FINE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
 	rotprocess = SHELFLIFE_DECENT
-	slices_num = 2
+	slices_num = 4
 	slice_batch = TRUE
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/omelette_veggie_slice
 	slice_sound = TRUE
@@ -216,7 +216,7 @@
 	icon_state = "omelette_veggie_slice"
 	foodtype = MEAT | VEGETABLES
 	faretype = FARE_FINE
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THIRD_MEAL)
 	rotprocess = SHELFLIFE_DECENT
 	tastes = list("egg" = 1, "vegetables" = 1)
 
@@ -229,7 +229,7 @@
 	faretype = FARE_FINE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	rotprocess = SHELFLIFE_DECENT
-	slices_num = 2
+	slices_num = 4
 	slice_batch = TRUE
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/omelette_meat_slice
 	slice_sound = TRUE
@@ -243,6 +243,6 @@
 	icon_state = "omelette_meat_slice"
 	foodtype = MEAT
 	faretype = FARE_FINE
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THIRD_MEAL)
 	rotprocess = SHELFLIFE_DECENT
 	tastes = list("egg" = 1, "minced meat" = 1)
