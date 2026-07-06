@@ -74,7 +74,7 @@
 
 /datum/food_recipe/eggs/stuffed
 	name = "stuffed egg"
-	base_item = /obj/item/reagent_containers/food/snacks/egg
+	base_item = /obj/item/reagent_containers/food/snacks/rogue/egg
 	ingredients = list(
 		/obj/item/reagent_containers/food/snacks/rogue/cheddarwedge
 	)

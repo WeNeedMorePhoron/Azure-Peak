@@ -1,4 +1,4 @@
-/obj/item/reagent_containers/food/snacks/egg
+/obj/item/reagent_containers/food/snacks/rogue/egg
 	icon = 'modular/Neu_Food/icons/cooked/cooked_egg.dmi'
 	name = "egg"
 	desc = "A raw egg."
@@ -14,13 +14,13 @@
 
 	var/fertile = FALSE
 
-/obj/item/reagent_containers/food/snacks/egg/become_rotten()
+/obj/item/reagent_containers/food/snacks/rogue/egg/become_rotten()
 	. = ..()
 	if(.)
 		fertile = FALSE
 
 
-/obj/item/reagent_containers/food/snacks/egg/Crossed(mob/living/carbon/human/H)
+/obj/item/reagent_containers/food/snacks/rogue/egg/Crossed(mob/living/carbon/human/H)
 	..()
 	if(istype(H))
 		var/turf/T = get_turf(src)
@@ -30,7 +30,7 @@
 		visible_message("<span class='warning'>[H] crushes [src] underfoot.</span>")
 		qdel(src)
 
-/obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/I, mob/living/user, params)
+/obj/item/reagent_containers/food/snacks/rogue/egg/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
 	update_cooktime(user)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/cheddarwedge))
