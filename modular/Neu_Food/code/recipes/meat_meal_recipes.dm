@@ -188,7 +188,7 @@
 	name = "pale tartar"
 	base_item = /obj/item/reagent_containers/food/snacks/rogue/meat/saiga_loins_w
 	ingredients = list(
-		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/reagent_containers/food/snacks/rogue/egg,
 		/obj/item/alch/mentha
 	)
 	result_type = /obj/item/reagent_containers/food/snacks/rogue/meat/saiga_loins_w/cooked/tartar
