@@ -2042,6 +2042,9 @@
 /datum/status_effect/buff/adrenaline_rush/melee
 	effectedstats = list(STATKEY_WIL = 1, STATKEY_CON = 1)
 
+/datum/status_effect/buff/adrenaline_rush/graggar
+	effectedstats = list(STATKEY_CON = 3)
+
 /datum/status_effect/buff/nocblessing
 	id = "nocblessing"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/nocblessing
