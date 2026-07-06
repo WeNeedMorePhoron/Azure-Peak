@@ -1,3 +1,7 @@
+/datum/telegraphed_strike/ferramancy_strike
+	charging_slowdown = 1
+	telegraph_type = /obj/effect/temp_visual/trap/ferramancy
+
 /datum/action/cooldown/spell/ferramancy_strike
 	parent_type = /datum/action/cooldown/spell/telegraphed_strike
 	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
@@ -11,14 +15,33 @@
 
 	cooldown_time = 15 SECONDS
 	shared_cooldown = "ferramancy_strike"
-	charging_slowdown = 1
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
 	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
-	telegraph_type = /obj/effect/temp_visual/trap/ferramancy
+	engine_type = /datum/telegraphed_strike/ferramancy_strike
+
+/datum/telegraphed_strike/ferramancy_strike/falling_crescent
+	blade_class = BCLASS_CUT
+	windup_time = TELEGRAPH_DODGEABLE
+	sweep_step = 0
+	damage = 65
+	swipe_state = "chop"
+
+/datum/telegraphed_strike/ferramancy_strike/falling_crescent/get_sweep_bands()
+	return list(
+		list(list(1, 0), list(1, 1), list(1, 2)),
+		list(list(0, 1), list(0, 2)),
+		list(list(-1, 0), list(-1, 1), list(-1, 2)),
+	)
+
+/datum/telegraphed_strike/ferramancy_strike/falling_crescent/get_pattern_offsets()
+	var/list/flat = list()
+	for(var/list/band in get_sweep_bands())
+		flat += band
+	return flat
 
 /datum/action/cooldown/spell/ferramancy_strike/falling_crescent
 	name = "Falling Crescent"
@@ -26,31 +49,9 @@
 	Deals 65 brute damage to everything caught in the arc."
 	button_icon_state = "falling_crescent"
 	invocations = list("Acies Lunata!")
-	blade_class = BCLASS_CUT
-	windup_time = TELEGRAPH_DODGEABLE
-	sweep_step = 0
-	damage = 65
-	swipe_state = "chop"
+	engine_type = /datum/telegraphed_strike/ferramancy_strike/falling_crescent
 
-/datum/action/cooldown/spell/ferramancy_strike/falling_crescent/get_sweep_bands()
-	return list(
-		list(list(1, 0), list(1, 1), list(1, 2)),
-		list(list(0, 1), list(0, 2)),
-		list(list(-1, 0), list(-1, 1), list(-1, 2)),
-	)
-
-/datum/action/cooldown/spell/ferramancy_strike/falling_crescent/get_pattern_offsets()
-	var/list/flat = list()
-	for(var/list/band in get_sweep_bands())
-		flat += band
-	return flat
-
-/datum/action/cooldown/spell/ferramancy_strike/sorcerers_lance
-	name = "Sorcerer's Lance"
-	desc = "Wind up a couched lance, then drive it forward in a straight line, skewering everything up to five tiles ahead. You are slowed and left wide open as you wind it up, but once begun it cannot be stopped - only stepped clear of.\n\n\
-	Deals 35 brute damage to everything caught in the line, piercing through even heavy armor."
-	button_icon_state = "sorcerers_lance"
-	invocations = list("Hasta Perforans!")
+/datum/telegraphed_strike/ferramancy_strike/sorcerers_lance
 	blade_class = BCLASS_STAB
 	strike_armor_pen = PEN_HEAVY
 	windup_time = TELEGRAPH_HIGH_IMPACT
@@ -58,13 +59,13 @@
 	damage = 35
 	var/line_length = 5
 
-/datum/action/cooldown/spell/ferramancy_strike/sorcerers_lance/get_pattern_offsets()
+/datum/telegraphed_strike/ferramancy_strike/sorcerers_lance/get_pattern_offsets()
 	var/list/offsets = list()
 	for(var/i in 1 to line_length)
 		offsets += list(list(0, i))
 	return offsets
 
-/datum/action/cooldown/spell/ferramancy_strike/sorcerers_lance/do_blade_animation(mob/living/carbon/human/H, facing)
+/datum/telegraphed_strike/ferramancy_strike/sorcerers_lance/do_blade_animation(mob/living/carbon/human/H, facing)
 	var/reach = stop_at_dense ? max(1, forward_reach(H, facing, line_length)) : line_length
 	var/obj/effect/temp_visual/ferramancy_blade/blade = new(null)
 	blade.vis_holder = H
@@ -91,12 +92,15 @@
 	QDEL_IN(blade, dur + 4)
 	return blade
 
-/datum/action/cooldown/spell/ferramancy_strike/heavens_hammer
-	name = "Heaven's Hammer"
-	desc = "Heave a conjured maul overhead, then bring it crashing down on the ground before you, leaving any struck reeling and vulnerable.\n\n\
-	Deals 50 brute damage and applies Vulnerable to everything in the smash."
-	button_icon_state = "hammer_of_heaven"
-	invocations = list("Malleus Caeli!")
+/datum/action/cooldown/spell/ferramancy_strike/sorcerers_lance
+	name = "Sorcerer's Lance"
+	desc = "Wind up a couched lance, then drive it forward in a straight line, skewering everything up to five tiles ahead. You are slowed and left wide open as you wind it up, but once begun it cannot be stopped - only stepped clear of.\n\n\
+	Deals 35 brute damage to everything caught in the line, piercing through even heavy armor."
+	button_icon_state = "sorcerers_lance"
+	invocations = list("Hasta Perforans!")
+	engine_type = /datum/telegraphed_strike/ferramancy_strike/sorcerers_lance
+
+/datum/telegraphed_strike/ferramancy_strike/heavens_hammer
 	blade_class = BCLASS_BLUNT
 	windup_time = TELEGRAPH_HIGH_IMPACT
 	damage = 50
@@ -106,14 +110,14 @@
 	vuln_on_hit = 3 SECONDS
 	var/hammer_scale = 1.9
 
-/datum/action/cooldown/spell/ferramancy_strike/heavens_hammer/get_pattern_offsets()
+/datum/telegraphed_strike/ferramancy_strike/heavens_hammer/get_pattern_offsets()
 	return list(
 		list(-1, 1), list(0, 1), list(1, 1),
 		list(-1, 2), list(0, 2), list(1, 2),
 		list(-1, 3), list(0, 3), list(1, 3),
 	)
 
-/datum/action/cooldown/spell/ferramancy_strike/heavens_hammer/do_blade_animation(mob/living/carbon/human/H, facing)
+/datum/telegraphed_strike/ferramancy_strike/heavens_hammer/do_blade_animation(mob/living/carbon/human/H, facing)
 	var/obj/effect/temp_visual/ferramancy_hammer/hammer = new(null)
 	hammer.vis_holder = H
 	H.vis_contents += hammer
@@ -143,7 +147,7 @@
 	animate(hammer, alpha = 255, time = 1, flags = ANIMATION_PARALLEL)
 	return hammer
 
-/datum/action/cooldown/spell/ferramancy_strike/heavens_hammer/on_impact(mob/living/carbon/human/H, facing, atom/movable/visual)
+/datum/telegraphed_strike/ferramancy_strike/heavens_hammer/on_impact(mob/living/carbon/human/H, facing, atom/movable/visual)
 	var/turf/T = get_step(get_turf(H), facing) || get_turf(H)
 	if(!T)
 		return
@@ -158,6 +162,14 @@
 	animate(visual, pixel_y = rest + 4, time = 1, easing = SINE_EASING | EASE_OUT)
 	animate(pixel_y = rest, time = 1, easing = SINE_EASING | EASE_IN)
 	animate(alpha = 0, time = 3)
+
+/datum/action/cooldown/spell/ferramancy_strike/heavens_hammer
+	name = "Heaven's Hammer"
+	desc = "Heave a conjured maul overhead, then bring it crashing down on the ground before you, leaving any struck reeling and vulnerable.\n\n\
+	Deals 50 brute damage and applies Vulnerable to everything in the smash."
+	button_icon_state = "hammer_of_heaven"
+	invocations = list("Malleus Caeli!")
+	engine_type = /datum/telegraphed_strike/ferramancy_strike/heavens_hammer
 
 /obj/effect/temp_visual/ferramancy_blade
 	icon = 'icons/obj/magic_projectiles.dmi'

@@ -769,76 +769,14 @@ SPECIALS START HERE
 		playsound(T, 'sound/combat/sp_whip_whiff.ogg', 100, TRUE)
 	..()
 
-#define GAREN_WAVE1 1 SECONDS
-#define GAREN_WAVE2 1.7 SECONDS
-
 /datum/special_intent/greatsword_swing
+	parent_type = /datum/special_intent/telegraphed
 	name = "Great Swing"
-	desc = "Swing your greatsword all around you in a ring of Judgement. Always targets the chest."
-	tile_coordinates = list(
-		list(0,0), list(1,0), list(1,-1),list(1,-2),list(0,-2),list(-1,-2),list(-1,-1),list(-1,0),\
-		list(0,1, GAREN_WAVE1), list(1,1, GAREN_WAVE1), list(-1,1, GAREN_WAVE1),list(1,-3, GAREN_WAVE1),list(0,-3, GAREN_WAVE1),list(-1,-3, GAREN_WAVE1),list(-2,0, GAREN_WAVE1),list(-2,-1, GAREN_WAVE1),list(-2,-2, GAREN_WAVE1),list(2,0, GAREN_WAVE1),list(2,-1, GAREN_WAVE1),list(2,-2, GAREN_WAVE1),\
-		list(0,0, GAREN_WAVE2), list(1,0, GAREN_WAVE2), list(1,-1, GAREN_WAVE2),list(1,-2, GAREN_WAVE2),list(0,-2, GAREN_WAVE2),list(-1,-2, GAREN_WAVE2),list(-1,-1, GAREN_WAVE2),list(-1,0, GAREN_WAVE2)
-		)
-	post_icon_state = "sweep_fx"
-	pre_icon_state = "fx_trap_long"
-	sfx_pre_delay = 'sound/combat/rend_hit.ogg'
-	respect_adjacency = FALSE
-	respect_dir = TRUE
-	delay = 0.7 SECONDS
+	desc = "Wind up a sweeping blow, then scythe your greatsword through everyone in a ring around you. You are heavily slowed as you wind it up, but the strike tracks you until it lands. Aims for the chest, and can be turned aside by a raised guard."
 	cooldown = 30 SECONDS
 	requires_wielding = TRUE
-	custom_delays = list(1 SECONDS)	//First wave is delayed.
-	stamcost = 25	//Stamina cost
-	var/dam = 60
-	var/slow_dur = 2
-	var/hitcount = 0
-	var/self_debuffed = FALSE
-	var/self_immob = 2.5 SECONDS
-	var/self_clickcd = 3 SECONDS
-	var/self_vuln = 3 SECONDS
-
-/datum/special_intent/greatsword_swing/_reset()
-	hitcount = initial(hitcount)
-	self_debuffed = initial(self_debuffed)
-	. = ..()
-
-//It's a bad idea to hook into _process_grid, but this is a ghetto way to check which "wave" we are at.
-//As process grid is called for every set of tiles.
-/datum/special_intent/greatsword_swing/_process_grid(list/turfs, newdelay)
-	if(!self_debuffed)
-		howner.Immobilize(self_immob) //we're committing
-		howner.apply_status_effect(/datum/status_effect/debuff/vulnerable, self_vuln)
-		howner.apply_status_effect(/datum/status_effect/debuff/clickcd, self_clickcd)
-		self_debuffed = TRUE
-	hitcount++
-	. = ..()
-
-/datum/special_intent/greatsword_swing/post_delay(list/turfs)
-	. = ..()
-	playsound(howner, 'sound/combat/wooshes/bladed/wooshlarge (3).ogg', 100, TRUE)
-
-/datum/special_intent/greatsword_swing/apply_hit(turf/T)
-	for(var/mob/living/L in get_hearers_in_view(0, T))
-		if(L != howner)
-
-			L.Slowdown(slow_dur)
-			if(L.mobility_flags & MOBILITY_STAND)
-				var/hitdmg = dam
-				switch(hitcount)
-					if(2)
-						hitdmg *= 1.5
-					if(3)
-						hitdmg *= 2
-				apply_generic_weapon_damage(L, hitdmg, "slash", BODY_ZONE_CHEST, bclass = BCLASS_CUT)
-				if(hitcount == 3)	//Last hit deals a bit of extra damage to integrity only. Facetanking it is highly discouraged!
-					apply_generic_weapon_damage(L, (dam * 0.8), "slash", BODY_ZONE_CHEST, bclass = BCLASS_CUT, no_pen = TRUE)
-			var/sfx = 'sound/combat/sp_gsword_hit.ogg'
-			playsound(T, sfx, 100, TRUE)
-	..()
-
-#undef GAREN_WAVE1
-#undef GAREN_WAVE2
+	stamcost = 25
+	strike_type = /datum/telegraphed_strike/weapon_special/greatsword_swing
 
 #define VICIOUS_WAVE1 0.4 SECONDS
 #define VICIOUS_WAVE2 0.8 SECONDS

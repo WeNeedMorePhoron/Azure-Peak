@@ -173,8 +173,11 @@
 
 /datum/special_intent/greatsword_swing/white_stag
 	requires_wielding = FALSE
-	dam = 80
 	cooldown = 25 SECONDS
+	strike_type = /datum/telegraphed_strike/weapon_special/greatsword_swing/white_stag
+
+/datum/telegraphed_strike/weapon_special/greatsword_swing/white_stag
+	flat_damage = 80
 
 /mob/living/simple_animal/hostile/retaliate/rogue/white_stag_corpse
 	name = "White Stag"

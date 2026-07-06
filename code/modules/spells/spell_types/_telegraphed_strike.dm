@@ -1,10 +1,6 @@
-// Telegraphed melee strike AOE that travels with you
-/datum/action/cooldown/spell/telegraphed_strike
-	click_to_activate = FALSE
-	self_cast_possible = TRUE
-	weapon_cast_penalized = FALSE
-	charge_required = FALSE
-	invocation_type = INVOCATION_SHOUT
+/datum/telegraphed_strike
+	var/name = "telegraphed strike"
+	var/datum/host
 
 	var/damage = 50
 	var/npc_simple_damage_mult = 1.5
@@ -25,14 +21,15 @@
 	var/vuln_on_hit = 0
 	var/telegraph_type = /obj/effect/temp_visual/trap
 	var/requires_weapon = FALSE
+	var/uses_antimagic = TRUE
 	var/weapon_missing_message = "I need a weapon to strike with!"
+	var/spell_color = null
+	var/spell_impact_intensity = 0
 	var/sweep_hit_count = 0
 	var/list/struck_obstacles
 	var/list/struck_mobs
 
-/datum/action/cooldown/spell/telegraphed_strike/cast(atom/cast_on)
-	. = ..()
-	var/mob/living/carbon/human/H = owner
+/datum/telegraphed_strike/proc/begin_strike(mob/living/carbon/human/H)
 	if(!istype(H))
 		return FALSE
 	if(requires_weapon && !get_strike_weapon(H))
@@ -45,7 +42,7 @@
 	INVOKE_ASYNC(src, PROC_REF(windup_and_strike), H)
 	return TRUE
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/windup_and_strike(mob/living/carbon/human/H)
+/datum/telegraphed_strike/proc/windup_and_strike(mob/living/carbon/human/H)
 	var/list/indicator = list()
 	var/iterations = max(1, round(windup_time / redraw_interval))
 	var/turf/last_turf
@@ -68,10 +65,10 @@
 		return
 	strike(H, get_cardinal(H.dir), indicator)
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/draw_indicators(mob/living/carbon/human/H, facing, list/indicator)
+/datum/telegraphed_strike/proc/draw_indicators(mob/living/carbon/human/H, facing, list/indicator)
 	draw_offsets(H, facing, indicator, get_pattern_offsets())
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/draw_offsets(mob/living/carbon/human/H, facing, list/indicator, list/offs)
+/datum/telegraphed_strike/proc/draw_offsets(mob/living/carbon/human/H, facing, list/indicator, list/offs)
 	var/turf/origin = get_turf(H)
 	var/list/wanted = list()
 	if(origin)
@@ -93,12 +90,12 @@
 	for(var/turf/T in wanted)
 		indicator += new telegraph_type(T)
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/clear_indicators(list/indicator)
+/datum/telegraphed_strike/proc/clear_indicators(list/indicator)
 	for(var/obj/effect/old in indicator)
 		if(!QDELETED(old))
 			qdel(old)
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/strike(mob/living/carbon/human/H, facing, list/indicator)
+/datum/telegraphed_strike/proc/strike(mob/living/carbon/human/H, facing, list/indicator)
 	if(!length(get_pattern_offsets()))
 		clear_indicators(indicator)
 		return
@@ -107,7 +104,7 @@
 	var/atom/movable/visual = do_blade_animation(H, facing)
 	INVOKE_ASYNC(src, PROC_REF(execute_hits), H, facing, indicator, visual)
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/execute_hits(mob/living/carbon/human/H, facing, list/indicator, atom/movable/visual)
+/datum/telegraphed_strike/proc/execute_hits(mob/living/carbon/human/H, facing, list/indicator, atom/movable/visual)
 	var/turf/last_turf = get_turf(H)
 	draw_indicators(H, facing, indicator)
 	var/elapsed = 0
@@ -157,10 +154,10 @@
 	clear_indicators(indicator)
 	on_strike_complete(H, sweep_hit_count, deflected)
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/on_impact(mob/living/carbon/human/H, facing, atom/movable/visual)
+/datum/telegraphed_strike/proc/on_impact(mob/living/carbon/human/H, facing, atom/movable/visual)
 	return
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/hit_turf(mob/living/carbon/human/H, turf/T, facing, deflected = FALSE)
+/datum/telegraphed_strike/proc/hit_turf(mob/living/carbon/human/H, turf/T, facing, deflected = FALSE)
 	if(QDELETED(H) || QDELETED(T))
 		return deflected
 	var/obj/item/weapon = get_strike_weapon(H)
@@ -172,31 +169,43 @@
 		if(L in struck_mobs)
 			continue
 		struck_mobs += L
-		if(L.anti_magic_check())
+		if(uses_antimagic && L.anti_magic_check())
 			on_antimagic_block(L)
 			continue
-		if(spell_guard_check(L, FALSE, deflected ? null : H))
+		if(guard_check(H, L, deflected))
 			deflected = TRUE
 			continue
 		hit_any = TRUE
 		sweep_hit_count++
-		if(ishuman(L))
-			var/target_zone = H.zone_selected || BODY_ZONE_CHEST
-			arcyne_strike(H, L, weapon, dmg, target_zone, blade_class, armor_penetration = strike_armor_pen, spell_name = name, damage_type = BRUTE, npc_simple_damage_mult = npc_simple_damage_mult, skip_animation = TRUE)
-		else
-			var/actual_damage = dmg
-			if(!L.mind)
-				actual_damage *= npc_simple_damage_mult
-			L.adjustBruteLoss(actual_damage)
+		apply_strike_hit(H, L, weapon, dmg, facing)
 		if(vuln_on_hit)
 			L.apply_status_effect(/datum/status_effect/debuff/vulnerable, vuln_on_hit)
-		new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
+		spawn_impact_vfx(L)
 		on_hit_target(H, L, facing)
 	if(hit_any && detonate_sound)
 		playsound(T, detonate_sound, 65, TRUE)
 	return deflected
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/path_blocked(turf/origin, turf/target)
+/datum/telegraphed_strike/proc/guard_check(mob/living/carbon/human/H, mob/living/L, deflected = FALSE)
+	var/datum/action/cooldown/spell/S = host
+	if(istype(S))
+		return S.spell_guard_check(L, FALSE, deflected ? null : H)
+	return FALSE
+
+/datum/telegraphed_strike/proc/apply_strike_hit(mob/living/carbon/human/H, mob/living/L, obj/item/weapon, dmg, facing)
+	if(ishuman(L))
+		var/target_zone = H.zone_selected || BODY_ZONE_CHEST
+		arcyne_strike(H, L, weapon, dmg, target_zone, blade_class, armor_penetration = strike_armor_pen, spell_name = name, damage_type = BRUTE, npc_simple_damage_mult = npc_simple_damage_mult, skip_animation = TRUE)
+	else
+		var/actual_damage = dmg
+		if(!L.mind)
+			actual_damage *= npc_simple_damage_mult
+		L.adjustBruteLoss(actual_damage)
+
+/datum/telegraphed_strike/proc/spawn_impact_vfx(mob/living/L)
+	new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
+
+/datum/telegraphed_strike/proc/path_blocked(turf/origin, turf/target)
 	if(!origin || !target || origin == target)
 		return null
 	for(var/turf/step in getline(origin, target))
@@ -211,7 +220,7 @@
 				return step
 	return null
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/damage_obstacles(turf/T)
+/datum/telegraphed_strike/proc/damage_obstacles(turf/T)
 	if(!T || (T in struck_obstacles))
 		return
 	struck_obstacles += T
@@ -221,7 +230,7 @@
 			continue
 		S.take_damage(dmg, BRUTE, "blunt", TRUE)
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/forward_reach(mob/living/carbon/human/H, facing, max_steps)
+/datum/telegraphed_strike/proc/forward_reach(mob/living/carbon/human/H, facing, max_steps)
 	var/reach = 0
 	var/turf/current = get_turf(H)
 	for(var/i in 1 to max_steps)
@@ -235,35 +244,35 @@
 				return reach
 	return reach
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/get_strike_weapon(mob/living/carbon/human/H)
+/datum/telegraphed_strike/proc/get_strike_weapon(mob/living/carbon/human/H)
 	return null
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/get_strike_damage()
+/datum/telegraphed_strike/proc/get_strike_damage()
 	return damage
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/on_hit_target(mob/living/carbon/human/H, mob/living/L, facing)
+/datum/telegraphed_strike/proc/on_hit_target(mob/living/carbon/human/H, mob/living/L, facing)
 	return
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/on_strike_complete(mob/living/carbon/human/H, hit_count, deflected)
+/datum/telegraphed_strike/proc/on_strike_complete(mob/living/carbon/human/H, hit_count, deflected)
 	return
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/on_antimagic_block(mob/living/L)
+/datum/telegraphed_strike/proc/on_antimagic_block(mob/living/L)
 	L.visible_message(span_warning("The arcyne blades dispel as they near [L]!"))
 	playsound(get_turf(L), 'sound/magic/magic_nulled.ogg', 100)
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/do_blade_animation(mob/living/carbon/human/H, facing)
+/datum/telegraphed_strike/proc/do_blade_animation(mob/living/carbon/human/H, facing)
 	return
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/get_pattern_offsets()
+/datum/telegraphed_strike/proc/get_pattern_offsets()
 	return list()
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/get_sweep_bands()
+/datum/telegraphed_strike/proc/get_sweep_bands()
 	var/list/bands = list()
 	for(var/list/off in get_pattern_offsets())
 		bands += list(list(off))
 	return bands
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/get_cardinal(dir)
+/datum/telegraphed_strike/proc/get_cardinal(dir)
 	if(dir & NORTH)
 		return NORTH
 	if(dir & SOUTH)
@@ -274,7 +283,7 @@
 		return WEST
 	return NORTH
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/rotate_offset(dx, dy, facing)
+/datum/telegraphed_strike/proc/rotate_offset(dx, dy, facing)
 	switch(facing)
 		if(SOUTH)
 			return list(-dx, -dy)
@@ -284,7 +293,7 @@
 			return list(-dy, dx)
 	return list(dx, dy)
 
-/datum/action/cooldown/spell/telegraphed_strike/proc/facing_position_angle(facing)
+/datum/telegraphed_strike/proc/facing_position_angle(facing)
 	switch(facing)
 		if(EAST)
 			return 90
@@ -293,3 +302,41 @@
 		if(WEST)
 			return 270
 	return 0
+
+/datum/action/cooldown/spell/telegraphed_strike
+	click_to_activate = FALSE
+	self_cast_possible = TRUE
+	weapon_cast_penalized = FALSE
+	charge_required = FALSE
+	invocation_type = INVOCATION_SHOUT
+	var/engine_type = /datum/telegraphed_strike
+	var/datum/telegraphed_strike/engine
+
+/datum/action/cooldown/spell/telegraphed_strike/Destroy()
+	QDEL_NULL(engine)
+	return ..()
+
+/datum/action/cooldown/spell/telegraphed_strike/proc/get_engine()
+	if(!engine)
+		engine = new engine_type()
+		engine.host = src
+	return engine
+
+/datum/action/cooldown/spell/telegraphed_strike/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H))
+		return FALSE
+	var/datum/telegraphed_strike/E = get_engine()
+	E.name = name
+	E.spell_color = spell_color
+	E.spell_impact_intensity = spell_impact_intensity
+	if(E.requires_weapon && !E.get_strike_weapon(H))
+		to_chat(H, span_warning(E.weapon_missing_message))
+		return FALSE
+	if(!configure_engine(H, E))
+		return FALSE
+	return E.begin_strike(H)
+
+/datum/action/cooldown/spell/telegraphed_strike/proc/configure_engine(mob/living/carbon/human/H, datum/telegraphed_strike/E)
+	return TRUE
