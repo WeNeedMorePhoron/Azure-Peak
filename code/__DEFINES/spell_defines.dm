@@ -95,6 +95,7 @@
 #define CHARGETIME_MINOR         1 SECONDS    // Minor utility / support spells
 #define CHARGETIME_MAJOR         1.5 SECONDS  // Major projectiles
 #define CHARGETIME_HEAVY         2 SECONDS    // Heavy AOE / ultimates
+#define CHARGETIME_BARRAGE 	     3 SECONDS // Barrage / Channeled spells
 
 // Standardized mage projectile speeds — lower = faster
 #define MAGE_PROJ_FAST        1.25  // Quick bolts (arcyne bolt, frost bolt)
