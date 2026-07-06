@@ -158,7 +158,8 @@ GLOBAL_LIST_EMPTY(respawncounts)
 		return
 
 	if(href_list["open_encyclopedia"])
-		get_recipe_wiki().show_library(mob)
+		var/datum/recipe_wiki/wiki = get_recipe_wiki()
+		wiki.show_library(mob)
 		return
 
 	if(href_list["commandbar_typing"])
