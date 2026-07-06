@@ -31,7 +31,7 @@
 	icon_state = "cornbread_honey"
 	faretype = FARE_NEUTRAL
 	foodtype = GRAIN
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	rotprocess = SHELFLIFE_DECENT
 	slices_num = 3
 	slice_batch = TRUE
@@ -47,7 +47,7 @@
 	icon_state = "cornbreadhoneyslice"
 	faretype = FARE_NEUTRAL
 	foodtype = GRAIN
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THIRD_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	rotprocess = SHELFLIFE_DECENT
 	tastes = list("cornbread" = 1, "honey" = 1)
 
@@ -58,7 +58,7 @@
 	icon_state = "frybread"
 	faretype = FARE_NEUTRAL
 	foodtype = GRAIN
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL)
 	rotprocess = SHELFLIFE_DECENT
 	slices_num = 2
 	slice_batch = TRUE
@@ -73,7 +73,7 @@
 	icon_state = "frybread_slice"
 	faretype = FARE_NEUTRAL
 	foodtype = GRAIN
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_QUARTER_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	rotprocess = SHELFLIFE_DECENT
 	tastes = list("frybread" = 1)
 
@@ -84,7 +84,7 @@
 	icon_state = "frybread_salsa"
 	faretype = FARE_FINE
 	foodtype = GRAIN | FRUIT
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	rotprocess = SHELFLIFE_SHORT
 	slices_num = 2
 	slice_batch = TRUE
@@ -100,7 +100,7 @@
 	icon_state = "frybread_salsa_slice"
 	faretype = FARE_FINE
 	foodtype = GRAIN | FRUIT
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THIRD_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	rotprocess = SHELFLIFE_SHORT
 	tastes = list("frybread" = 1, "tomato" = 1)
 
@@ -111,7 +111,7 @@
 	icon_state = "frybread_guac"
 	faretype = FARE_LAVISH
 	foodtype = GRAIN | VEGETABLES
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	rotprocess = SHELFLIFE_SHORT
 	slices_num = 2
 	slice_batch = TRUE
@@ -127,7 +127,7 @@
 	icon_state = "frybread_guac_slice"
 	faretype = FARE_LAVISH
 	foodtype = GRAIN | VEGETABLES
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THIRD_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	rotprocess = SHELFLIFE_SHORT
 	tastes = list("frybread" = 1, "herbs" = 1)
 
@@ -138,7 +138,7 @@
 	icon_state = "corn_ball_cooked"
 	faretype = FARE_POOR
 	foodtype = GRAIN
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THIRD_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	rotprocess = SHELFLIFE_DECENT
 	tastes = list("fried corn" = 1)
 
@@ -149,7 +149,7 @@
 	icon_state = "grilledcorn"
 	faretype = FARE_NEUTRAL
 	foodtype = GRAIN | VEGETABLES
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THIRD_MEAL)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	rotprocess = SHELFLIFE_DECENT
 	tastes = list("corn" = 1)
 	var/buttered = FALSE

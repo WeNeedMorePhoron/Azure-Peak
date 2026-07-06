@@ -80,3 +80,42 @@
 	)
 	result_type = /obj/item/reagent_containers/food/snacks/rogue/stuffedegg
 	time_per_step = 3 SECONDS
+
+/datum/food_recipe/eggs/omelette
+	name = "raw omelette"
+	base_item = /obj/item/reagent_containers/food/snacks/rogue/egg
+	ingredients = list(
+		/obj/item/reagent_containers/food/snacks/rogue/egg
+	)
+	result_type = /obj/item/reagent_containers/food/snacks/rogue/omelette_raw
+	time_per_step = 3 SECONDS
+
+/datum/food_recipe/eggs/omelette_onion
+	name = "raw onion omelette"
+	base_item = /obj/item/reagent_containers/food/snacks/rogue/omelette_raw
+	ingredients = list(
+		/obj/item/reagent_containers/food/snacks/rogue/veg/onion_sliced
+	)
+	result_type = /obj/item/reagent_containers/food/snacks/rogue/omelette_raw_onion
+	time_per_step = 3 SECONDS
+
+/datum/food_recipe/eggs/omelette_veggie
+	name = "raw vegetable omelette"
+	base_item = /obj/item/reagent_containers/food/snacks/rogue/omelette_raw_onion
+	ingredients = list(
+		list(
+			/obj/item/reagent_containers/food/snacks/grown/cucumber,
+			/obj/item/reagent_containers/food/snacks/grown/cabbage/rogue,
+		)
+	)
+	result_type = /obj/item/reagent_containers/food/snacks/rogue/omelette_raw_veggie
+	time_per_step = 3 SECONDS
+
+/datum/food_recipe/eggs/omelette_meat
+	name = "raw meat omelette"
+	base_item = /obj/item/reagent_containers/food/snacks/rogue/omelette_raw
+	ingredients = list(
+		/obj/item/reagent_containers/food/snacks/rogue/meat/mince
+	)
+	result_type = /obj/item/reagent_containers/food/snacks/rogue/omelette_raw_meat
+	time_per_step = 3 SECONDS
