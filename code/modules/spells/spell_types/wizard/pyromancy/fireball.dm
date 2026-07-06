@@ -77,8 +77,7 @@
 		return
 
 	if(M)
-		M.adjust_fire_stacks(1)
-		M.ignite_mob()
+		apply_scorch_stack(M, 2)
 
 	var/aoe_damage = round(damage * arcyne_aoe_damage_ratio)
 
@@ -104,8 +103,7 @@
 					allow_shield_check = TRUE, damage_type = BURN, \
 					npc_simple_damage_mult = npc_simple_damage_mult, \
 					skip_animation = TRUE)
-				L.adjust_fire_stacks(1)
-				L.ignite_mob()
+				apply_scorch_stack(L, 1)
 				L.Slowdown(1)
 
 	if(arcyne_aoe_radius > 0)

@@ -74,8 +74,7 @@
 			visible_message(span_warning("The fire thaws the frost on [target]!"))
 			playsound(get_turf(target), 'sound/items/firesnuff.ogg', 100)
 			new /obj/effect/temp_visual/snap_freeze(get_turf(M))
-		M.adjust_fire_stacks(1)
-		M.ignite_mob()
+		apply_scorch_stack(M, 1)
 	else if(isatom(target))
 		var/atom/A = target
 		A.fire_act()

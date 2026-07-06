@@ -34,8 +34,6 @@
 	var/line_length = 4
 	var/blast_damage = 30
 	var/push_dist = 2
-	var/fire_stacks_applied = 1
-	var/hotspot_life = 4
 
 /datum/action/cooldown/spell/fire_blast/cast(atom/cast_on)
 	. = ..()
@@ -61,7 +59,6 @@
 
 	for(var/turf/T in line_turfs)
 		new /obj/effect/temp_visual/fire(T)
-		new /obj/effect/hotspot(T, null, null, hotspot_life)
 
 	playsound(start, pick('sound/misc/explode/incendiary (1).ogg', 'sound/misc/explode/incendiary (2).ogg'), 100, TRUE, 4)
 
@@ -89,8 +86,7 @@
 			if(!damage_dealt)
 				blocked = TRUE
 				continue
-			victim.adjust_fire_stacks(fire_stacks_applied)
-			victim.ignite_mob()
+			apply_scorch_stack(victim, 1)
 			new /obj/effect/temp_visual/spell_impact(get_turf(victim), spell_color, spell_impact_intensity)
 			already_hit += victim
 			var/push_dir = get_dir(H, victim)
