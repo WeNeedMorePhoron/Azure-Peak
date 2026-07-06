@@ -21,8 +21,6 @@
 
 	var/hastened = FALSE
 	hastened |= reduce_intent_cooldown(target, /datum/status_effect/debuff/clashcd)
-	hastened |= reduce_intent_cooldown(target, /datum/status_effect/debuff/feintcd)
-	hastened |= reduce_intent_cooldown(target, /datum/status_effect/debuff/baitcd)
 	hastened |= reduce_intent_cooldown(target, /datum/status_effect/debuff/specialcd)
 
 	var/obj/effect/temp_visual/origin_haste/V = new
