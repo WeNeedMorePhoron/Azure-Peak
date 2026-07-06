@@ -134,6 +134,7 @@
 	tastes = list("corn" = 1)
 	grind_results = list(/datum/reagent/floure = 10)
 	mill_result = /obj/item/reagent_containers/powder/flour/cornmeal
+	fried_type = /obj/item/reagent_containers/food/snacks/rogue/grilledcorn
 
 /obj/item/reagent_containers/food/snacks/grown/apple
 	seed = /obj/item/seeds/apple

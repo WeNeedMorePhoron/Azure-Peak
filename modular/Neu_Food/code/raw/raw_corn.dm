@@ -33,3 +33,28 @@
 	icon = 'modular/Neu_Food/icons/raw/raw_corn.dmi'
 	icon_state = "corndough_2"
 	w_class = WEIGHT_CLASS_NORMAL
+	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/cornbread
+
+/obj/item/reagent_containers/food/snacks/rogue/corndough_honey
+	name = "honeyed corn dough"
+	desc = "Corn dough infused with honey, ready for the oven."
+	icon = 'modular/Neu_Food/icons/raw/raw_corn.dmi'
+	icon_state = "corndoughhoney"
+	w_class = WEIGHT_CLASS_NORMAL
+	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/cornbread_honey
+
+/obj/item/reagent_containers/food/snacks/rogue/corn_flatdough
+	name = "corn flatbread"
+	desc = "Corn dough pressed flat, ready to fry into frybread."
+	icon = 'modular/Neu_Food/icons/raw/raw_corn.dmi'
+	icon_state = "corn_flat"
+	w_class = WEIGHT_CLASS_NORMAL
+	fried_type = /obj/item/reagent_containers/food/snacks/rogue/cornfrybread
+
+/obj/item/reagent_containers/food/snacks/rogue/corn_ball
+	name = "corn dough ball"
+	desc = "A pinched ball of corn dough, ready for the pan."
+	icon = 'modular/Neu_Food/icons/raw/raw_corn.dmi'
+	icon_state = "corn_ball"
+	w_class = WEIGHT_CLASS_NORMAL
+	fried_type = /obj/item/reagent_containers/food/snacks/rogue/corn_ball_cooked
