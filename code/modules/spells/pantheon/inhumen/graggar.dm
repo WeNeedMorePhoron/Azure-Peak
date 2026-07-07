@@ -408,7 +408,7 @@
 
 /datum/action/cooldown/spell/graggar/avatar
 	name = "Avatar of Rage"
-	desc = "Regain balance and become immune to any form of stun for the next 10 seconds."
+	desc = "Unleash your true rage for an entire MINUTE, making you immune to slowdown from pain, uncapping strenght and granting +3 on top. Removes stun-adjacent & stun effects which is only part that works on a GNOLL"
 	button_icon_state = "avatar"
 	sound = 'sound/magic/graggar_rage.ogg'
 	glow_intensity = GLOW_INTENSITY_MEDIUM
