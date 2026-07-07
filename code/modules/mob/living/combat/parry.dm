@@ -233,15 +233,15 @@
 		extradefroll = prob(prob2defend)
 		defender_dualw = TRUE
 
-	var/text = "Roll to parry... [HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "???" : prob2defend]%"
-	if(defender_dualw)
-		text += " Twice! Disadvantage! [!HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "([(prob2defend / 100) * (prob2defend / 100) * 100]%)" : ""]"
-
 	if(has_status_effect(/datum/status_effect/swingdelay/penalty))
 		prob2defend = clamp(prob2defend - 50, 5, 90)
 
 	if(HAS_TRAIT(src, TRAIT_NODEF))
 		prob2defend = 0
+
+	var/text = "Roll to parry... [HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "???" : prob2defend]%"
+	if(defender_dualw)
+		text += " Twice! Disadvantage! [!HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "([(prob2defend / 100) * (prob2defend / 100) * 100]%)" : ""]"
 
 	var/parry_status = FALSE
 	if(defender_dualw)
