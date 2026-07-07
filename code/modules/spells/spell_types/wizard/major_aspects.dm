@@ -158,7 +158,7 @@
 		/datum/action/cooldown/spell/crush,
 		/datum/action/cooldown/spell/gravity,
 		/datum/action/cooldown/spell/gravity_anchor,
-		/datum/action/cooldown/spell/greater_cleaning,
+		/datum/action/cooldown/spell/levitation,
 		/datum/action/cooldown/spell/projectile/basic_offensive,
 	)
 	variants = list(
