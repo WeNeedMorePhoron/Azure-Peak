@@ -121,6 +121,21 @@
 	grind_results = list(/datum/reagent/floure = 10)
 	mill_result = /obj/item/reagent_containers/powder/flour
 
+/obj/item/reagent_containers/food/snacks/grown/maize
+	seed = /obj/item/seeds/maize
+	name = "maize"
+	desc = "A cob of maize. Mill it into cornmeal, or roast it whole."
+	icon = 'icons/roguetown/items/produce.dmi'
+	icon_state = "maize"
+	filling_color = "#F0E68C"
+	bitesize_mod = 2
+	foodtype = GRAIN | VEGETABLES
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4)
+	tastes = list("corn" = 1)
+	grind_results = list(/datum/reagent/floure = 10)
+	mill_result = /obj/item/reagent_containers/powder/flour/cornmeal
+	fried_type = /obj/item/reagent_containers/food/snacks/rogue/grilledcorn
+
 /obj/item/reagent_containers/food/snacks/grown/apple
 	seed = /obj/item/seeds/apple
 	name = "apple"
@@ -863,6 +878,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/veg/cucumber_sliced
 	tastes = list("cucumber" = 1)
 	chopping_sound = TRUE
+	seed = /obj/item/seeds/cucumber
 
 /obj/item/reagent_containers/food/snacks/grown/eggplant
 	name = "eggplant"

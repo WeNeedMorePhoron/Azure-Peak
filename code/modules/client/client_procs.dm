@@ -157,6 +157,11 @@ GLOBAL_LIST_EMPTY(respawncounts)
 		chronicle.ui_interact(mob)
 		return
 
+	if(href_list["open_encyclopedia"])
+		var/datum/recipe_wiki/wiki = get_recipe_wiki()
+		wiki.show_library(mob)
+		return
+
 	if(href_list["commandbar_typing"])
 		handle_commandbar_typing(href_list)
 
@@ -1339,7 +1344,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	for(var/procpath/verb_to_init as anything in verbstoprocess)
 		if(!verb_to_init)
 			continue
-		if(GLOB.browserpanel_hidden_verbs["[verb_to_init]"])
+		if(verb_to_init.hidden)
 			continue
 		if(!istext(verb_to_init.category))
 			continue
