@@ -34,6 +34,10 @@
 		to_chat(user, span_warning("[src] doesn't know how to morph [I]."))
 		return TRUE
 
+	if(I.GetComponent(/datum/component/conjured_item))
+		to_chat(user, span_warning("[src] cannot morph conjured items."))
+		return TRUE
+
 	if(I.loc == user)
 		// pulls from hands/slots/inventory cleanly
 		user.temporarilyRemoveItemFromInventory(I, TRUE)
