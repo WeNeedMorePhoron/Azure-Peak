@@ -34,7 +34,13 @@
 	button_icon_state = "enkindle"
 	spell_color = GLOW_COLOR_UNDIVIDED
 
-	cast_range = SPELL_RANGE_GROUND - 2
+	cast_range = SPELL_RANGE_AURA - 1
+
+	primary_resource_cost = SPELLCOST_MIRACLE_MINOR + 5
+
+	secondary_resource_cost = SPELLCOST_MAJOR_PROJECTILE
+
+	cooldown_time = 15 SECONDS
 
 	required_items = list(/obj/item/clothing/neck/roguetown/psicross/undivided, /obj/item/clothing/neck/roguetown/psicross/silver/undivided)
 
