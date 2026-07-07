@@ -1,0 +1,4 @@
+author: "WeNeedMorePhoron"
+delete-after: True
+changes:
+  - rscadd: "NPC with steel gears no longer magically transmute it into iron (because they wear iron)"
