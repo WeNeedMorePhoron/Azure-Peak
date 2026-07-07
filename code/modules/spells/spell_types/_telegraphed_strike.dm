@@ -16,7 +16,6 @@
 	var/windup_time = TELEGRAPH_DODGEABLE
 	var/charging_slowdown = 0
 	var/committed_strike = TRUE
-	/// If TRUE, being struck during the windup disrupts and cancels the strike (imitates SWINGDELAY_CANCEL).
 	var/interruptible = FALSE
 	var/redraw_interval = 2
 	var/sweep_step = 1

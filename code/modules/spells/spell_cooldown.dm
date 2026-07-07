@@ -138,6 +138,8 @@
 	// Charged vars
 	/// If the spell requires time to charge.
 	var/charge_required = TRUE
+	/// Charging intent, mirroring melee swingdelay_type. PENALTY = vulnerable if struck (yellow), CANCEL = interrupted if struck (red).
+	var/charge_swingdelay_type = SWINGDELAY_NORMAL
 	/// Whether we're currently charging the spell.
 	var/currently_charging = FALSE
 	/// Whether the charge bar has completed and the spell is being held ready. While TRUE, hold_drain bleeds per process tick.
@@ -1052,6 +1054,7 @@
 	if(owner.client)
 		UnregisterSignal(owner.client, list(COMSIG_CLIENT_MOUSEDOWN, COMSIG_CLIENT_MOUSEUP))
 	UnregisterSignal(owner, list(COMSIG_MOB_LOGOUT, COMSIG_MOB_DEATH, COMSIG_MOVABLE_MOVED, COMSIG_MOB_KICKED_SUCCESSFUL, COMSIG_CARBON_SWAPHANDS))
+	clear_charge_intent()
 
 	// When charging ends, other spells may have had their buttons stuck red
 	// because can_cast_spell() returned FALSE while we were charging.
@@ -1088,6 +1091,28 @@
 	// This prevents dead-spell states where charging ends but no input handler is registered.
 	if(click_to_activate && charge_required && owner?.client)
 		RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
+.
+/datum/action/cooldown/spell/proc/apply_charge_intent()
+	var/mob/living/living_owner = owner
+	if(charge_swingdelay_type == SWINGDELAY_NORMAL || !istype(living_owner))
+		return
+	var/charge_dur = (charge_time || 0) + 20
+	switch(charge_swingdelay_type)
+		if(SWINGDELAY_PENALTY)
+			living_owner.apply_status_effect(/datum/status_effect/swingdelay/penalty, charge_dur)
+		if(SWINGDELAY_CANCEL, SWINGDELAY_CANCELSLOW)
+			living_owner.apply_status_effect(/datum/status_effect/swingdelay/disrupt, charge_dur, (charge_swingdelay_type == SWINGDELAY_CANCELSLOW))
+			living_owner.AddElement(/datum/element/relay_attackers)
+			RegisterSignal(living_owner, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(signal_cancel), TRUE)
+
+/datum/action/cooldown/spell/proc/clear_charge_intent()
+	var/mob/living/living_owner = owner
+	if(charge_swingdelay_type == SWINGDELAY_NORMAL || !istype(living_owner))
+		return
+	living_owner.remove_status_effect(/datum/status_effect/swingdelay/penalty)
+	living_owner.remove_status_effect(/datum/status_effect/swingdelay/disrupt)
+	if(charge_swingdelay_type == SWINGDELAY_CANCEL || charge_swingdelay_type == SWINGDELAY_CANCELSLOW)
+		UnregisterSignal(living_owner, COMSIG_ATOM_WAS_ATTACKED)
 
 /// Cancel casting and all its effects.
 /datum/action/cooldown/spell/proc/cancel_casting()
@@ -1508,6 +1533,7 @@
 	RegisterSignal(owner, COMSIG_MOB_LOGOUT, PROC_REF(signal_cancel_full))
 	if(spell_requirements & SPELL_REQUIRES_NO_MOVE)
 		RegisterSignal(owner, COMSIG_MOVABLE_MOVED, PROC_REF(signal_cancel), TRUE)
+	apply_charge_intent()
 
 	var/spell_timeout = 3 MINUTES
 

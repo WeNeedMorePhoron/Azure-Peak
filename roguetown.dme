@@ -3292,7 +3292,6 @@
 #include "code\modules\spells\spell_types\wizard\pyromancy\dragons_breath.dm"
 #include "code\modules\spells\spell_types\wizard\pyromancy\fire_curtain.dm"
 #include "code\modules\spells\spell_types\wizard\pyromancy\fireball.dm"
-#include "code\modules\spells\spell_types\wizard\pyromancy\fireball_artillery.dm"
 #include "code\modules\spells\spell_types\wizard\pyromancy\fireball_greater.dm"
 #include "code\modules\spells\spell_types\wizard\pyromancy\spitfire.dm"
 #include "code\modules\spells\spell_types\wizard\telomancy\arcyne_barrage.dm"

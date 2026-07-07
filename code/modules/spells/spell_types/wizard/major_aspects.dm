@@ -29,9 +29,6 @@
 		"mastery" = list(
 			VARIANT_ADDITIVE =/datum/action/cooldown/spell/projectile/fireball/greater,
 		),
-		"grenzelhoftian" = list(
-			/datum/action/cooldown/spell/projectile/fireball = /datum/action/cooldown/spell/projectile/fireball/artillery,
-		),
 	)
 
 /datum/magic_aspect/cryomancy
