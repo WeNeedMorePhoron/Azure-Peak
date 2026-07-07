@@ -26,6 +26,7 @@
 #define BURN_UPG_CLAMP_ARMORED (ARTERY_LIMB_BLEEDRATE * 0.05)
 #define BURN_UPG_CLAMP_RAW (ARTERY_LIMB_BLEEDRATE * 0.1)
 #define BURN_ARMORED_BLEED_CLAMP (ARTERY_LIMB_BLEEDRATE * 0.5)
+#define BURN_MAX_BLEED (ARTERY_LIMB_BLEEDRATE * 0.75)
 
 /datum/wound/dynamic/burn/upgrade(dam, armor, exposed)
 	whp += (dam * BURN_UPG_WHPRATE)
@@ -42,6 +43,8 @@
 			clamp_max = BURN_UPG_CLAMP_RAW
 		set_bleed_rate(bleed_rate + clamp((dam * BURN_UPG_BLEEDRATE), 0.1, clamp_max))
 		armor_check(armor, BURN_ARMORED_BLEED_CLAMP)
+		if(bleed_rate > BURN_MAX_BLEED)
+			set_bleed_rate(BURN_MAX_BLEED)
 	else
 		passive_healing = max(0.1, passive_healing - 0.1)
 	update_stage()
@@ -54,6 +57,7 @@
 #undef BURN_UPG_CLAMP_ARMORED
 #undef BURN_UPG_CLAMP_RAW
 #undef BURN_ARMORED_BLEED_CLAMP
+#undef BURN_MAX_BLEED
 
 /datum/wound/charring
 	name = "severe burn"
