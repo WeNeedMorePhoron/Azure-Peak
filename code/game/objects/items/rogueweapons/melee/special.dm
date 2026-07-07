@@ -1111,7 +1111,7 @@
 /obj/item/rogueweapon/knuckledusters/silver/ComponentInitialize()
 	AddComponent(\
 		/datum/component/silverbless,\
-		pre_blessed = BLESSING_TENNITE,\
+		pre_blessed = BLESSING_NONE,\
 		silver_type = SILVER_TENNITE,\
 		added_force = 0,\
 		added_blade_int = 0,\
@@ -1143,7 +1143,7 @@
 /obj/item/rogueweapon/knuckledusters/psy/ComponentInitialize()
 	AddComponent(\
 		/datum/component/silverbless,\
-		pre_blessed = BLESSING_PSYDONIAN,\
+		pre_blessed = BLESSING_NONE,\
 		silver_type = SILVER_PSYDONIAN,\
 		added_force = 0,\
 		added_blade_int = 0,\
