@@ -6,14 +6,14 @@
 	mob_traits = list(TRAIT_HORDE, TRAIT_ORGAN_EATER)
 	traits_tier = list(TRAIT_NASTY_EATER = CLERIC_T1)
 	miracles = list(/datum/action/cooldown/spell/touch/orison					= CLERIC_ORI,
-					/datum/action/cooldown/spell/graggar/strenght				= CLERIC_T0,
+					/datum/action/cooldown/spell/graggar/rush					= CLERIC_T0,
 					/datum/action/cooldown/spell/miracle/heal 					= CLERIC_T1,
 					/datum/action/cooldown/spell/miracle/bloodmiracle			= CLERIC_T1,
 					/datum/action/cooldown/spell/graggar/hamstring				= CLERIC_T1,
 					/datum/action/cooldown/spell/projectile/graggar_net		 	= CLERIC_T2,
 					/datum/action/cooldown/spell/graggar/graggar_battlecry		= CLERIC_T2,
-					/obj/effect/proc_holder/spell/invoked/revel_in_slaughter 	= CLERIC_T3,
-					/obj/effect/proc_holder/spell/self/graggar_bloodrage		= CLERIC_T4,
+					/datum/action/cooldown/spell/graggar/exsanguinate		 	= CLERIC_T3,
+					/datum/action/cooldown/spell/graggar/avatar					= CLERIC_T4,
 					/obj/effect/proc_holder/spell/invoked/resurrect/graggar		= CLERIC_T4,
 	)
 	confess_lines = list(

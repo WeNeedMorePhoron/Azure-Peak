@@ -19,16 +19,18 @@
 
 	point_cost = 0
 
+	spell_flags = SPELL_PSYDON
 	required_items = list(/obj/item/clothing/neck/roguetown/psicross)
 
 /////////////////////
 // T0 - Blood Rush //
 /////////////////////
 
-/datum/action/cooldown/spell/graggar/strenght
-	name = "Vicious Strenght"
-	desc = "PLACEHOLDER"
-	button_icon_state = "breakchains"
+/datum/action/cooldown/spell/graggar/rush
+	name = "Blood Rush"
+	desc = "Undergo an adrenaline rush to restore stamina and become tougher to kill. With increased miracle skill (Journeyman) gain ability to snap out of any restraints and (Master) become immune to grabs and pain for 30 seconds."
+	fluff_desc = "Tales of untamable wyldmen slaughtering their would-be captors are numerous, to most a mere legend - to any slaver a follower of the Sinistar is their worst nightmare."
+	button_icon_state = "bloodrage"
 	sound = 'sound/magic/graggar_bloodrush.ogg'
 
 	click_to_activate = FALSE
@@ -47,7 +49,7 @@
 
 	spell_requirements =  SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
-/datum/action/cooldown/spell/graggar/strenght/cast(atom/cast_on)
+/datum/action/cooldown/spell/graggar/rush/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/user = owner
 	if(!isliving(user))
@@ -89,8 +91,9 @@
 /datum/action/cooldown/spell/graggar/hamstring
 	name = "Hamstring"
 	desc = "Curse your next strike to slow the target."
+	fluff_desc = "Escape is a luxury in face of a beast."
 	button_icon_state = "hamstring"
-	sound = 'sound/magic/break_chains.ogg'
+	sound = 'sound/magic/bloodrage.ogg'
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	click_to_activate = FALSE
@@ -268,18 +271,18 @@
 /obj/projectile/magic/unholy_grasp/proc/ensnare(mob/living/carbon/carbon)
 	carbon.visible_message(span_warning("[src] ensnares [carbon] around their legs in a horrid cacophany of blood and guts!"), span_warning("I AM ENCAPTURED BY BLOOD AND GUTS! THERES A NET ON MY LEGS!"))
 	carbon.apply_status_effect(/datum/status_effect/debuff/netted/vile)
-	playsound(src, 'sound/combat/caught.ogg', 50, TRUE)
+	playsound(src, 'sound/combat/caught.ogg', 20, TRUE)
 
 ////////////////////////////
 // T2 - Call to Slaughter //
 ////////////////////////////
 
 /datum/action/cooldown/spell/graggar/graggar_battlecry
-	name = "Call to Slaughter"
+	name = "Vicious Roar"
 	desc = "Grants you and all allies nearby a buff to their strength, willpower, and constitution. Debuffs followers of the Ten, but not Psydonites."
 	fluff_desc = "The battlefield quakes with your roar! Shaken to their core, they will prove easy pickings for a worthy champion such as yourself; the power of the Sinistar, unleashed.\
 	SLAUGHTER THE LAMBS - DRINK THEIR MARROW - FEAST UPON THEIR FLESH - LEAVE NO TRACE OF THEIR PATHETIC EXISTENCE! - THE SINISTAR HUNGERS!"
-	button_icon_state = "call_to_slaughter"
+	button_icon_state = "vicious_roar"
 	sound = 'sound/magic/battle_cry_graggar.ogg'
 	glow_intensity = 0
 
@@ -319,7 +322,7 @@
 	return TRUE
 
 /atom/movable/screen/alert/status_effect/buff/call_to_slaughter
-	name = "Call to Slaughter"
+	name = "Vicious Roar"
 	desc = span_bloody("LAMBS TO THE SLAUGHTER!")
 	icon_state = "call_to_slaughter"
 
@@ -336,7 +339,7 @@
 		owner.toggle_cmode()
 
 /atom/movable/screen/alert/status_effect/debuff/call_to_slaughter
-	name = "Call to Slaughter"
+	name = "Vicious Roar"
 	desc = "Your blood runs cold, teeth clatter with fear - this is to be your end."
 	icon_state = "call_to_slaughter_negative"
 
@@ -346,78 +349,140 @@
 	effectedstats = list(STATKEY_WIL = -2, STATKEY_CON = -2)
 	duration = 2.5 MINUTES
 
-//T3: Revel in Death - Increase bleeding and pain of a target.
-/obj/effect/proc_holder/spell/invoked/revel_in_slaughter
-	name = "Revel in Death"
+//////////////////////////
+// T3 - Exsanguinate	//
+//////////////////////////
+
+/datum/action/cooldown/spell/graggar/exsanguinate
+	name = "Exsanguinate"
 	desc = "Increases the bleeding and pain of a target. Their blood-loss amount scales with every point of constitution over ten. \
-	Those with ten or less constituion will instead have a flat rate (x1.25)."
-	action_icon = 'icons/mob/actions/graggarmiracles.dmi'
-	overlay_icon = 'icons/mob/actions/graggarmiracles.dmi'
-	overlay_state = "bloodsteal"
-	recharge_time = 1 MINUTES
-	chargetime = 10
-	chargedrain = 0
-	chargedloop = /datum/looping_sound/invokeevil
-	invocations = list("SINISTAR, MAKE THEM BLEED!")
-	invocation_type = "shout"
+	Those with ten or less CONSTITUTION will instead have a flat rate (x1.25)."
+	button_icon_state = "bloodsteal"
 	sound = 'sound/magic/bleed_out.ogg'
-	releasedrain = 30
-	miracle = TRUE
-	devotion_cost = 70
-	human_req = TRUE
+	glow_intensity = GLOW_INTENSITY_LOW
 
-/obj/effect/proc_holder/spell/invoked/revel_in_slaughter/cast(list/targets, mob/living/user = usr)
-	var/mob/living/carbon/human/human = targets[1]
+	click_to_activate = TRUE
+	cast_range = SPELL_RANGE_AURA
+	self_cast_possible = FALSE
 
-	if(!istype(human) || human == user)
-		to_chat(user, span_danger("THAT WONT WORK!"))
-		revert_cast()
+	primary_resource_cost = SPELLCOST_MIRACLE_MAJOR + 20
+
+	secondary_resource_cost = SPELLCOST_UTILITY_BUFF
+
+	invocations = list("Bleed for your God!")
+	invocation_type = INVOCATION_SHOUT
+
+	charge_required = TRUE
+	charge_time = 1 SECONDS
+	charge_sound = 'sound/magic/chargingold.ogg'
+	cooldown_time = 2 MINUTES
+
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
+
+/datum/action/cooldown/spell/graggar/exsanguinate/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H))
 		return FALSE
 
-	if(spell_guard_check(human, TRUE))
-		human.visible_message(span_warning("[human] resists the bloodlust!"))
+	var/mob/living/spelltarget = cast_on
+
+	if(!isliving(spelltarget))
+		to_chat(owner, span_warning("There is nothing to BLEED."))
+		return FALSE
+	else
+		spelltarget.visible_message("<font color='bloody'>My lyfeblood flows away!</font>")
+		if(spelltarget.anti_magic_check(TRUE, TRUE))
+			return FALSE
+		if(spell_guard_check(spelltarget, TRUE))
+			spelltarget.visible_message(span_warning("[spelltarget] shields against the unholy power!"))
+			return TRUE
+		spelltarget.apply_status_effect(/datum/status_effect/debuff/bloody_mess)
+		spelltarget.apply_status_effect(/datum/status_effect/debuff/sensitive_nerves)
+		log_combat(owner, spelltarget, "exsanguinated", addition="with the miracle [name]")
 		return TRUE
-	
-	human.apply_status_effect(/datum/status_effect/debuff/bloody_mess)
-	human.apply_status_effect(/datum/status_effect/debuff/sensitive_nerves)
 
-	return TRUE
+//////////////////////////
+// T4 - Avatar of Rage	//
+//////////////////////////
 
-//T0: Bloodrage  -- Uncapped STR buff.
-/obj/effect/proc_holder/spell/self/graggar_bloodrage
-	name = "Bloodrage"
-	desc = "Tap into Graggar's wellspring of strength and knowledge, granting unbound power at the cost of temporary insanity and physical exhaustion." 		//reflavored into "graggar grants you some of the strength he got from stealing the souls of miscellaneous ravoxians"
-	action_icon = 'icons/mob/actions/graggarmiracles.dmi'
-	overlay_icon = 'icons/mob/actions/graggarmiracles.dmi'
-	overlay_state = "bloodrage"
-	recharge_time = 5 MINUTES
-	invocations = list("SINISTAR, SHATTER MY BINDS!!", // VERY CLEAR that you are a heretic and VERY clear you've popped
-						"GRAGGAR, GRAGGAR, GRAGGAR!!", // your anti-stun Im Going to Kill You Now spell
-						"I EMBODY THE MOTIVE FORCE!!") // DO NOT add any ambiguious invocations
-	invocation_type = "shout"
-	sound = 'sound/magic/bloodrage.ogg'
-	releasedrain = 10
-	miracle = TRUE
-	devotion_cost = 80
-	antimagic_allowed = FALSE
-	range = 0
+/datum/action/cooldown/spell/graggar/avatar
+	name = "Avatar of Rage"
+	desc = "Regain balance and become immune to any form of stun for the next 10 seconds."
+	button_icon_state = "avatar"
+	sound = 'sound/magic/graggar_rage.ogg'
+	glow_intensity = GLOW_INTENSITY_MEDIUM
+
+	click_to_activate = FALSE
+	cast_range = SPELL_RANGE_ADJACENT
+	self_cast_possible = TRUE
+
+	primary_resource_cost = SPELLCOST_MIRACLE_LEGENDARY
+
+	secondary_resource_cost = SPELLCOST_CANTRIP
+
+	invocation_type = INVOCATION_SHOUT
+	invocations = list("I will tear you apart!")
+
+	charge_required = TRUE
+	charge_slowdown = 2
+	charge_time = 2 SECONDS
+	cooldown_time = 6 MINUTES
+
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
+
 	var/static/list/purged_effects = list(
 	/datum/status_effect/incapacitating/immobilized,
 	/datum/status_effect/incapacitating/paralyzed,
 	/datum/status_effect/incapacitating/stun,
-	/datum/status_effect/incapacitating/knockdown,)
+	/datum/status_effect/incapacitating/knockdown
+	)
 
-/obj/effect/proc_holder/spell/self/graggar_bloodrage/cast(list/targets, mob/user)
+/datum/action/cooldown/spell/graggar/avatar/cast(atom/cast_on)
 	. = ..()
-	if(!ishuman(user))
-		revert_cast()
+	var/mob/living/carbon/human/user = owner
+	if(!isliving(user))
 		return FALSE
-	var/mob/living/carbon/human/H = user
-	if(H.resting)
-		H.set_resting(FALSE, FALSE)
-	H.emote("warcry")
 	for(var/effect in purged_effects)
-		H.remove_status_effect(effect)
-	H.apply_status_effect(/datum/status_effect/buff/bloodrage)
-	H.visible_message(span_danger("[H] rises upward, boiling with immense rage!"))
+		user.remove_status_effect(effect)
+	if(!isgnoll(user))//Gnolls don't get this
+		user.apply_status_effect(/datum/status_effect/buff/bloodrage)
+		user.emote("warcry")
 	return TRUE
+
+#define BLOODRAGE_FILTER "bloodrage"
+
+/atom/movable/screen/alert/status_effect/buff/graggar_bloodrage
+	name = "BLOODRAGE"
+	desc = "GRAGGAR! GRAGGAR! GRAGGAR!"
+	icon_state = "bloodrage"
+
+/datum/status_effect/buff/bloodrage
+	id = "bloodrage"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/graggar_bloodrage
+	var/outline_color = GLOW_COLOR_GRAGGAR
+	duration = 1 MINUTES
+	effectedstats = list(STATKEY_STR = 3)
+
+/datum/status_effect/buff/bloodrage/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_STRENGTH_UNCAPPED, TRAIT_MIRACLE)
+	ADD_TRAIT(owner, TRAIT_NOPAINSTUN, TRAIT_MIRACLE)
+	shake_camera(owner, 5, 2) //Aura
+	to_chat(owner, span_userdanger(pick("KILL, FUCKING KILL! SLAUGHTER THEM!", "BLOOD, FUCKING SPILL THE BLOOD!", "BLOOD AND FURY, SPLITTING MY SKULL!", "I'LL KILL ANYTHING THAT MOVES!", "I'M FUCKING UNSTOPPABLE, I'LL BREAK THEM!")))
+	var/filter = owner.get_filter(BLOODRAGE_FILTER)
+	if(!filter)
+		owner.add_filter(BLOODRAGE_FILTER, 2, list("type" = "outline", "color" = outline_color, "alpha" = 60, "size" = 2))
+	return TRUE
+
+/datum/status_effect/buff/bloodrage/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_STRENGTH_UNCAPPED, TRAIT_MIRACLE)
+	REMOVE_TRAIT(owner, TRAIT_NOPAINSTUN, TRAIT_MIRACLE)
+	owner.visible_message(span_warning("[owner] wavers, their rage simmering down."))
+	owner.OffBalance(3 SECONDS)
+	owner.remove_filter(BLOODRAGE_FILTER)
+	owner.emote("breathgasp", forced = TRUE)
+	owner.Slowdown(3)
+
+#undef BLOODRAGE_FILTER
