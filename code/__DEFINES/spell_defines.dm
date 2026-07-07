@@ -106,6 +106,7 @@
 // Standardized spell ranges
 #define SPELL_RANGE_PROJECTILE 10  // Standard projectile travel distance and projectile spell cast range
 #define SPELL_RANGE_GROUND     7   // Standard ground-targeted / AOE spell cast range
+#define SPELL_RANGE_TWO_SCREENS 14 // Two screens away for very very special spells
 #define SPELL_RANGE_AURA	   4   // For 'warcry' type miracles or AOE BUFFS originating on the caster
 #define SPELL_RANGE_ADJACENT   1   // Self explanatory
 
@@ -114,6 +115,9 @@
 #define CHARGING_SLOWDOWN_SMALL 1      // Small projectiles, minor spells
 #define CHARGING_SLOWDOWN_MEDIUM 2     // Big projectiles, significant spells
 #define CHARGING_SLOWDOWN_HEAVY 3      // Area denial, channeled spells
+
+#define SPELL_COOLDOWN_POKE 6 SECONDS
+#define SPELL_COOLDOWN_BIG_WHOOPER 18 SECONDS
 
 // Spell impact visual intensity tiers
 #define SPELL_IMPACT_NONE   0  // No impact visual

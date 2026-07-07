@@ -1,8 +1,8 @@
 /datum/action/cooldown/spell/telegraphed_strike/dragons_breath
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Dragon's Breath"
-	desc = "Let loose a widening cone of roaring flame that erupts outward tile by tile, searing and hurling back all it engulfs. \
-	The windup leaves you committed and wide open - a raised shield or guard turns the flames aside, and being knocked or stunned snuffs the breath before it lands."
+	desc = "Let loose a wide cone of flame that erupts forward, burning everything in its path and pushing back anyone it hits. \
+	The windup leaves you committed and wide open, a solid blow will interrupts the spell."
 	button_icon_state = "fire_blast"
 	sound = 'sound/magic/fireball.ogg'
 	spell_color = GLOW_COLOR_FIRE
@@ -10,7 +10,7 @@
 	attunement_school = ASPECT_NAME_PYROMANCY
 
 	invocation_type = INVOCATION_SHOUT
-	invocations = list("Halitus Draconis!")
+	invocations = list("Exhala, Draco!")
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MAJOR_AOE

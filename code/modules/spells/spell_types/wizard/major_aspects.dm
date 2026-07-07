@@ -21,13 +21,13 @@
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/spitfire,
 		/datum/action/cooldown/spell/telegraphed_strike/dragons_breath,
-		/datum/action/cooldown/spell/projectile/fireball,
+		/datum/action/cooldown/spell/projectile/fireball/barrage,
 		/datum/action/cooldown/spell/fire_curtain,
 		/datum/action/cooldown/spell/create_campfire,
 	)
 	variants = list(
 		"mastery" = list(
-			VARIANT_ADDITIVE =/datum/action/cooldown/spell/projectile/fireball/greater,
+			VARIANT_ADDITIVE =/datum/action/cooldown/spell/projectile/pyroclasm,
 		),
 	)
 

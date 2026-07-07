@@ -262,6 +262,7 @@
 				cancel_casting()
 				return PROCESS_KILL
 			invoke_resource_cost(primary_resource_type, hold_drain)
+		refresh_charge_intent()
 		return
 
 	if(!currently_charging)
@@ -1091,7 +1092,7 @@
 	// This prevents dead-spell states where charging ends but no input handler is registered.
 	if(click_to_activate && charge_required && owner?.client)
 		RegisterSignal(owner.client, COMSIG_CLIENT_MOUSEDOWN, PROC_REF(start_casting))
-.
+
 /datum/action/cooldown/spell/proc/apply_charge_intent()
 	var/mob/living/living_owner = owner
 	if(charge_swingdelay_type == SWINGDELAY_NORMAL || !istype(living_owner))
@@ -1113,6 +1114,21 @@
 	living_owner.remove_status_effect(/datum/status_effect/swingdelay/disrupt)
 	if(charge_swingdelay_type == SWINGDELAY_CANCEL || charge_swingdelay_type == SWINGDELAY_CANCELSLOW)
 		UnregisterSignal(living_owner, COMSIG_ATOM_WAS_ATTACKED)
+
+/// Keep the charge swingdelay penalty topped up while the spell is held ready, so the
+/// caster stays committed/vulnerable for the whole hold, not just the charge window.
+/datum/action/cooldown/spell/proc/refresh_charge_intent()
+	var/mob/living/living_owner = owner
+	if(charge_swingdelay_type == SWINGDELAY_NORMAL || !istype(living_owner))
+		return
+	var/datum/status_effect/swingdelay/SW
+	switch(charge_swingdelay_type)
+		if(SWINGDELAY_PENALTY)
+			SW = living_owner.has_status_effect(/datum/status_effect/swingdelay/penalty)
+		if(SWINGDELAY_CANCEL, SWINGDELAY_CANCELSLOW)
+			SW = living_owner.has_status_effect(/datum/status_effect/swingdelay/disrupt)
+	if(SW && SW.duration != -1)
+		SW.duration = max(SW.duration, world.time + 20)
 
 /// Cancel casting and all its effects.
 /datum/action/cooldown/spell/proc/cancel_casting()

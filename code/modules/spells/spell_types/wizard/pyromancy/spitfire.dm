@@ -1,3 +1,4 @@
+#define SPITFIRE_DAMAGE 50
 /datum/action/cooldown/spell/projectile/spitfire
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Spitfire"
@@ -20,12 +21,13 @@
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
+	charge_swingdelay_type = SWINGDELAY_PENALTY
 	weapon_cast_penalized = TRUE
 	charge_time = CHARGETIME_POKE
 	hold_drain = 1
-	charge_slowdown = CHARGING_SLOWDOWN_NONE
+	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging_fire.ogg'
-	cooldown_time = 5.5 SECONDS
+	cooldown_time = SPELL_COOLDOWN_POKE
 	attunement_school = ASPECT_NAME_PYROMANCY
 
 	associated_skill = /datum/skill/magic/arcane
@@ -38,10 +40,9 @@
 	icon_state = "fireball"
 	light_color = "#f8af07"
 	light_outer_range = 2
-	speed = MAGE_PROJ_MEDIUM
-	damage = 36
+	speed = MAGE_PROJ_VERY_SLOW
+	damage = SPITFIRE_DAMAGE
 	npc_simple_damage_mult = 2
-	accuracy = 40
 	damage_type = BURN
 	woundclass = BCLASS_BURN
 	nodamage = FALSE
@@ -78,3 +79,5 @@
 	else if(isatom(target))
 		var/atom/A = target
 		A.fire_act()
+
+#undef SPITFIRE_DAMAGE
