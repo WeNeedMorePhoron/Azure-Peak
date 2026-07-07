@@ -29,6 +29,25 @@
 
 	var/fellowship_snap = FALSE
 
+	/// Cooldown multiplier applied when the buff is cast on the caster instead of a fellow. 1 = no penalty.
+	/// Augmentations are meant to be shared - set this above 1 to make hoarding a buff for yourself cost extra downtime.
+	var/self_cast_cooldown_multiplier = 1
+	/// TRUE only while resolving a self-targeted cast, so the cooldown hook knows to apply the penalty.
+	var/tmp/empowering_self = FALSE
+
+/datum/action/cooldown/spell/augment_buff/before_cast(atom/cast_on)
+	empowering_self = (cast_on == owner)
+	return ..()
+
+/datum/action/cooldown/spell/augment_buff/after_cast(atom/cast_on)
+	. = ..()
+	empowering_self = FALSE
+
+/datum/action/cooldown/spell/augment_buff/get_adjusted_cooldown()
+	. = ..()
+	if(empowering_self && self_cast_cooldown_multiplier != 1)
+		. *= self_cast_cooldown_multiplier
+
 /datum/action/cooldown/spell/augment_buff/toggle_alt_mode(mob/user)
 	fellowship_snap = !fellowship_snap
 	if(fellowship_snap)
@@ -94,4 +113,6 @@
 /datum/action/cooldown/spell/augment_buff/get_spell_statistics(mob/living/user)
 	var/list/stats = ..()
 	stats += span_info("Fellowship Mode (toggle with Shift+G): an off-target cast snaps the buff to your nearest fellowship member in range.")
+	if(self_cast_cooldown_multiplier != 1)
+		stats += span_info("Casting this on yourself instead of a fellow costs [self_cast_cooldown_multiplier]x the cooldown.")
 	return stats

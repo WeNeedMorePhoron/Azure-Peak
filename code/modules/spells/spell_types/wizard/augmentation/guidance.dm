@@ -1,12 +1,19 @@
 /datum/action/cooldown/spell/augment_buff/guidance
 	name = "Guidance"
-	desc = "Sharpens the senses with arcyne focus, honing the target's awareness. (+3 Perception)\nSuperseded by Hawk's Eyes - the two do not stack."
+	desc = "Channel arcyne power unto an ally, empowering their next strike to bypass parry and dodge. Works with both weapons and unarmed attacks. \
+		Enable Fellowship Mode (Shift+G) to snap an off-target cast to your nearest fellowship member in range. \
+		Casting it on yourself increases the cooldown by half."
 	button_icon_state = "guidance"
 
 	invocations = list("Ducere")
-	cooldown_time = 90 SECONDS
+	cooldown_time = 30 SECONDS
 
 	point_cost = 1
+
+	self_cast_cooldown_multiplier = 1.5
+
+	/// How long the empowered strike lingers - longer than Empower Weapon's, so a guided ally has time to close in.
+	var/empowered_duration = 10 SECONDS
 
 /datum/action/cooldown/spell/augment_buff/guidance/cast(atom/cast_on)
 	. = ..()
@@ -20,15 +27,19 @@
 
 	var/mob/living/spelltarget = cast_on
 
-	if(spelltarget.has_status_effect(/datum/status_effect/buff/attune_hawk))
-		to_chat(H, span_warning("Hawk's Eyes already sharpens [spelltarget == H ? "my" : "[spelltarget]'s"] senses - Guidance would do nothing."))
-		H.balloon_alert(H, "superseded!")
+	if(spelltarget.has_status_effect(/datum/status_effect/buff/empowered_strike))
+		to_chat(H, span_warning("[spelltarget == H ? "My" : "[spelltarget]'s"] weapon is already empowered!"))
+		H.balloon_alert(H, "already empowered!")
 		return FALSE
 
-	if(spelltarget != H)
-		H.visible_message("[H] mutters an incantation and [spelltarget] briefly shines orange.")
+	spelltarget.apply_status_effect(/datum/status_effect/buff/empowered_strike, empowered_duration)
+
+	if(spelltarget == H)
+		H.visible_message("[H] mutters an incantation and their weapon flares with a violent red glow!")
+		to_chat(H, span_notice("I guide my own strike - the next will not be denied. ([self_cast_cooldown_multiplier]x cooldown)"))
 	else
-		H.visible_message("[H] mutters an incantation and they briefly shine orange.")
-	apply_buff_to(spelltarget, /datum/status_effect/buff/guidance, STAT_BUFF_SELF_DURATION)
+		H.visible_message("[H] mutters an incantation and [spelltarget]'s weapon flares with a violent red glow!")
+		to_chat(H, span_notice("I guide [spelltarget]'s strike - their next will not be denied."))
+		to_chat(spelltarget, span_notice("[H]'s guidance empowers my weapon - my next strike will not be denied!"))
 
 	return TRUE
