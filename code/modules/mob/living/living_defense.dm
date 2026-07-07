@@ -25,7 +25,7 @@
 	// don't feed it into checkarmor (which already ran above and handles null damage fine).
 	var/block_damage = damage || 999
 	var/blocked = 0
-	if(attack_flag in ARMOR_DR_ABSORB_TYPES)
+	if(attack_flag in ARMOR_DR_TYPES)
 		// Blunt/Fire/Acid: armor absorbs all HP damage. DR reduces integrity damage to armor (in checkarmor).
 		if(armor_tier > 0)
 			blocked = block_damage
@@ -63,7 +63,7 @@
 	if(used_weapon)
 		if(isitem(used_weapon))
 			var/obj/item/I = used_weapon
-			if(I.sharpness && I.max_blade_int && !(attack_flag in ARMOR_DR_ABSORB_TYPES))
+			if(I.sharpness && I.max_blade_int && !(attack_flag in ARMOR_DR_TYPES))
 				var/dullness_ratio = I.blade_int / I.max_blade_int
 				if(dullness_ratio <= SHARPNESS_TIER2_THRESHOLD)	//Our weapon is CHUNKED. What are we PENNING WITH.
 					blocked = block_damage * 10

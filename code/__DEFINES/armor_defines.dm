@@ -36,7 +36,6 @@
 // Armor damage type categories
 // DR Absorb: damage reduced by tier, ALL damage goes to armor integrity (none to HP). Blunt, fire, acid.
 // DBLOCK: tier pass/fail penetration system. Slash, stab, piercing.
-#define ARMOR_DR_ABSORB_TYPES list("blunt", "fire", "acid")
 #define ARMOR_DR_TYPES list("blunt", "fire", "acid")
 #define ARMOR_DBLOCK_TYPES list("slash", "stab", "piercing")
 
