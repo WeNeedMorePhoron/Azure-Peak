@@ -26,7 +26,7 @@
 
 /datum/status_effect/buff/attune_haste/on_apply()
 	. = ..()
-	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>attune: haste (+3 spd)!</font>")
+	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>attune: haste (+3 spd, 0.85x action cooldown)!</font>")
 	var/filter = owner.get_filter(HASTE_FILTER)
 	if (!filter)
 		owner.add_filter(HASTE_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 25, "size" = 1))
