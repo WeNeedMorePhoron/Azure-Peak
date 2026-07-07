@@ -1,4 +1,3 @@
-#define SCORCH_OVERLAY_COLOR rgb(255, 120, 50)
 #define SCORCH_ADAPTATION_DURATION (15 SECONDS)
 #define SCORCH_ADAPTATION_KEY "scorch_adaptation"
 
@@ -48,6 +47,7 @@
 	target.mob_timers[SCORCH_ADAPTATION_KEY] = world.time + SCORCH_ADAPTATION_DURATION
 	target.balloon_alert_to_viewers("<font color='#ff4a2a'>SCORCHED - EXPOSED!</font>")
 	playsound(get_turf(target), 'sound/misc/explode/incendiary (1).ogg', 100, TRUE)
+	new /obj/effect/temp_visual/fire(get_turf(target))
 	return TRUE
 
 /proc/remove_scorch_stack(mob/living/target)
@@ -108,10 +108,12 @@
 
 /datum/status_effect/debuff/scorched1/on_apply()
 	. = ..()
-	owner.add_atom_colour(SCORCH_OVERLAY_COLOR, TEMPORARY_COLOUR_PRIORITY)
+	owner.scorched_ablaze = TRUE
+	owner.update_fire()
 
 /datum/status_effect/debuff/scorched1/on_remove()
-	owner.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, SCORCH_OVERLAY_COLOR)
+	owner.scorched_ablaze = FALSE
+	owner.update_fire()
 	. = ..()
 
 /datum/status_effect/debuff/scorched2
@@ -127,10 +129,12 @@
 
 /datum/status_effect/debuff/scorched2/on_apply()
 	. = ..()
-	owner.add_atom_colour(SCORCH_OVERLAY_COLOR, TEMPORARY_COLOUR_PRIORITY)
+	owner.scorched_ablaze = TRUE
+	owner.update_fire()
 
 /datum/status_effect/debuff/scorched2/on_remove()
-	owner.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, SCORCH_OVERLAY_COLOR)
+	owner.scorched_ablaze = FALSE
+	owner.update_fire()
 	. = ..()
 
 /datum/status_effect/debuff/scorched3
@@ -146,10 +150,12 @@
 
 /datum/status_effect/debuff/scorched3/on_apply()
 	. = ..()
-	owner.add_atom_colour(SCORCH_OVERLAY_COLOR, TEMPORARY_COLOUR_PRIORITY)
+	owner.scorched_ablaze = TRUE
+	owner.update_fire()
 
 /datum/status_effect/debuff/scorched3/on_remove()
-	owner.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, SCORCH_OVERLAY_COLOR)
+	owner.scorched_ablaze = FALSE
+	owner.update_fire()
 	. = ..()
 
 /datum/status_effect/debuff/scorched4
@@ -165,12 +171,13 @@
 
 /datum/status_effect/debuff/scorched4/on_apply()
 	. = ..()
-	owner.add_atom_colour(SCORCH_OVERLAY_COLOR, TEMPORARY_COLOUR_PRIORITY)
+	owner.scorched_ablaze = TRUE
+	owner.update_fire()
 
 /datum/status_effect/debuff/scorched4/on_remove()
-	owner.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, SCORCH_OVERLAY_COLOR)
+	owner.scorched_ablaze = FALSE
+	owner.update_fire()
 	. = ..()
 
-#undef SCORCH_OVERLAY_COLOR
 #undef SCORCH_ADAPTATION_DURATION
 #undef SCORCH_ADAPTATION_KEY
