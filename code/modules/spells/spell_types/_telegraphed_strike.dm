@@ -17,6 +17,7 @@
 	var/charging_slowdown = 0
 	var/committed_strike = TRUE
 	var/interruptible = FALSE
+	var/lock_direction = TRUE
 	var/redraw_interval = 2
 	var/sweep_step = 1
 	var/impact_delay = 0
@@ -55,12 +56,18 @@
 	var/iterations = max(1, round(windup_time / redraw_interval))
 	var/turf/last_turf
 	var/last_facing
+	var/locked_facing = lock_direction ? get_cardinal(H.dir) : null
+	if(locked_facing)
+		H.setDir(locked_facing)
+		H.tempfixeye = TRUE
+		H.nodirchange = TRUE
+		H.facing_locked = TRUE
 	if(charging_slowdown)
 		H.add_movespeed_modifier("telegraphed_strike_windup", TRUE, 100, override = TRUE, multiplicative_slowdown = charging_slowdown)
 	for(var/i in 1 to iterations)
 		if(QDELETED(H) || H.stat != CONSCIOUS || strike_disrupted(H))
 			break
-		var/facing = get_cardinal(H.dir)
+		var/facing = locked_facing || get_cardinal(H.dir)
 		if(get_turf(H) != last_turf || facing != last_facing)
 			last_turf = get_turf(H)
 			last_facing = facing
@@ -68,10 +75,14 @@
 		sleep(redraw_interval)
 	if(charging_slowdown && !QDELETED(H))
 		H.remove_movespeed_modifier("telegraphed_strike_windup")
+	if(locked_facing && !QDELETED(H))
+		H.tempfixeye = FALSE
+		H.nodirchange = FALSE
+		H.facing_locked = FALSE
 	if(QDELETED(H) || H.stat != CONSCIOUS || strike_disrupted(H))
 		clear_indicators(indicator)
 		return
-	strike(H, get_cardinal(H.dir), indicator)
+	strike(H, locked_facing || get_cardinal(H.dir), indicator)
 
 /datum/action/cooldown/spell/telegraphed_strike/proc/strike_disrupted(mob/living/carbon/human/H)
 	if(!interruptible)
@@ -230,10 +241,16 @@
 		return
 	struck_obstacles += T
 	var/dmg = structure_damage ? structure_damage : damage
+	var/hit_any = FALSE
 	for(var/obj/structure/S in T)
 		if(!S.density || istype(S, /obj/structure/flora/newbranch))
 			continue
 		S.take_damage(dmg, BRUTE, "blunt", TRUE)
+		hit_any = TRUE
+	if(hit_any)
+		new /obj/effect/temp_visual/spell_impact(T, spell_color, spell_impact_intensity)
+		if(detonate_sound)
+			playsound(T, detonate_sound, 65, TRUE)
 
 /datum/action/cooldown/spell/telegraphed_strike/proc/forward_reach(mob/living/carbon/human/H, facing, max_steps)
 	var/reach = 0
