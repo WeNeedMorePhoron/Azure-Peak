@@ -333,13 +333,6 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 	return TRUE
 
 //Gonna be real these are placeholders until I figure out a normal way to make single - cast spells
-/obj/item/book/granter/spell/noc/fireball
-	name = "Scroll of Fireball"
-	desc = "Teaches you how to cast Fireball."
-	spell = /datum/action/cooldown/spell/projectile/fireball
-	spellname = "Fireball"
-	dreamcost = 10
-
 /obj/item/book/granter/spell/noc/lbolt
 	name = "Scroll of Lighting Bolt"
 	desc = "Teaches you how to cast Lighting Bolt."
