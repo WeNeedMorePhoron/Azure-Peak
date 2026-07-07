@@ -50,6 +50,7 @@
 	can_have_ai = FALSE
 	/// The typepath of the chest this mimic is mimicking.
 	var/obj/structure/closet/crate/chest/mimicking_chest = /obj/structure/closet/crate/chest
+	var/spooked = FALSE
 
 /mob/living/simple_animal/hostile/retaliate/rogue/mimic/Initialize(mapload)
 	. = ..()
@@ -96,10 +97,25 @@
 	icon = initial(icon)
 	icon_state = (stat == DEAD) ? icon_dead : icon_living
 
+// SURPRISE MODAFUCKA
+/mob/living/simple_animal/hostile/retaliate/rogue/mimic/proc/spook()
+	if(spooked)
+		return
+	spooked = TRUE
+	var/turf/T = get_turf(src)
+	if(!T)
+		return
+	visible_message(span_warning("[src] bursts open, revealing gnashing fangs!"))
+	playsound(loc, pick('sound/misc/jumpscare (1).ogg','sound/misc/jumpscare (2).ogg','sound/misc/jumpscare (3).ogg','sound/misc/jumpscare (4).ogg'), 100)
+
+	for(var/mob/living/carbon/C in view(3, src))
+		C.add_stress(/datum/stressevent/mimic_jumpscare)
+
 /mob/living/simple_animal/hostile/retaliate/rogue/mimic/Aggro()
 	..()
 	// go mask-off!
 	undisguise()
+	spook()
 	aggressive = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/rogue/mimic/death()
