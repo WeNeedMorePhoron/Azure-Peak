@@ -1,8 +1,9 @@
-#define FIREBALL_DAMAGE 70
+#define FIREBALL_DAMAGE 80
 #define FIREBALL_AOE_DAMAGE 50
-#define ARTILLERY_FIREBALL_DAMAGE 70
+#define ARTILLERY_FIREBALL_DAMAGE 80
 #define ARTILLERY_FIREBALL_AOE_DAMAGE 50
-#define PILLAR_OF_FLAME_DAMAGE 100
+#define PILLAR_OF_FLAME_DAMAGE 110
+#define WYRMFIRE_VULNERABLE_DURATION (5 SECONDS)
 #define CATACLYSM_DAMAGE 300
 #define CATACLYSM_STRUCTURAL_DAMAGE 3000
 #define CATACLYSM_RADIUS 3
@@ -88,6 +89,7 @@
 
 	if(M)
 		apply_scorch_stack(M, 2)
+		M.apply_status_effect(/datum/status_effect/debuff/vulnerable, WYRMFIRE_VULNERABLE_DURATION)
 
 	var/aoe_damage = arcyne_aoe_damage
 
@@ -114,6 +116,7 @@
 					npc_simple_damage_mult = npc_simple_damage_mult, \
 					skip_animation = TRUE)
 				apply_scorch_stack(L, 1)
+				L.apply_status_effect(/datum/status_effect/debuff/vulnerable, WYRMFIRE_VULNERABLE_DURATION)
 				L.Slowdown(1)
 
 	if(arcyne_aoe_radius > 0)
@@ -136,10 +139,10 @@
 // Combination spell for the pyromancer artillery mage - switch modes with Shift+G.
 /datum/action/cooldown/spell/projectile/fireball/barrage
 	name = "Wyrmfire"
-	desc = "Loose a devastating barrage of fire. Toggle firing mode (Shift+G) to switch:\n\
-	Fireball: Direct fire for 70 damage and 50 area damage around the target.\n\
-	Artillery Fireball: Arced bombardment with heavy structural damage and smoke for 70 damage and 50 area damage.\n\
-	Pillar of Flame: Ground-target a delayed eruption dealing 100 damage across a 3x3 after a short warning."
+	desc = "Loose a devastating barrage of fire. Every strikes leave its victim Vulnerable. Toggle firing mode (Shift+G) to switch:\n\
+	Fireball: Direct fire for 80 damage and 50 area damage around the target.\n\
+	Artillery Fireball: Arced bombardment with heavy structural damage and smoke for 80 damage and 50 area damage.\n\
+	Pillar of Flame: Ground-target a delayed eruption dealing 110 damage across a 3x3 after a short warning."
 	charge_swingdelay_type = SWINGDELAY_CANCEL
 	var/current_mode = 1
 	var/list/modes = list(
@@ -241,6 +244,7 @@
 			else
 				L.adjustFireLoss(damage)
 			apply_scorch_stack(L, 2)
+			L.apply_status_effect(/datum/status_effect/debuff/vulnerable, WYRMFIRE_VULNERABLE_DURATION)
 
 /obj/projectile/magic/aoe/fireball/rogue/artillery
 	name = "artillery fireball"
@@ -254,7 +258,7 @@
 
 /obj/projectile/magic/aoe/fireball/rogue/artillery/arc
 	name = "arced artillery fireball"
-	damage = 53
+	damage = 60
 	arcshot = TRUE
 
 /obj/projectile/magic/aoe/fireball/rogue/artillery/on_hit(target)
@@ -453,6 +457,7 @@
 #undef ARTILLERY_FIREBALL_DAMAGE
 #undef ARTILLERY_FIREBALL_AOE_DAMAGE
 #undef PILLAR_OF_FLAME_DAMAGE
+#undef WYRMFIRE_VULNERABLE_DURATION
 #undef CATACLYSM_DAMAGE
 #undef CATACLYSM_STRUCTURAL_DAMAGE
 #undef CATACLYSM_RADIUS
