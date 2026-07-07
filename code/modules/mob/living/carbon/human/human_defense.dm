@@ -112,14 +112,23 @@
 			if(tempo_bonus)
 				intdamage *= tempo_bonus
 
+			var/use_flat = flat_integ || istype(used_weapon, /obj/projectile)
 			var/full_dmg
 			if(has_status_effect(/datum/status_effect/debuff/exposed))
 				full_dmg = TRUE
+				if(use_flat)
+					intdamage += EXPOSED_INTEG_FLAT
+				else
+					intdamage *= EXPOSED_INTEG_MOD
 				playsound(src, 'sound/combat/exposed_pop.ogg', 100, TRUE)
 				visible_message("<span class = 'combatsecondarybodypart'>[src] suffers a savage hit to their armor while exposed!</span>")
 				remove_status_effect(/datum/status_effect/debuff/exposed)
 				emote("pain", forced = TRUE)
 			else if(has_status_effect(/datum/status_effect/debuff/vulnerable))
+				if(use_flat)
+					intdamage += VULN_INTEG_FLAT
+				else
+					intdamage *= VULN_INTEG_MOD
 				playsound(src, 'sound/combat/vulnerable_pop.ogg', 100, TRUE)
 				visible_message(span_biginfo("[src] is struck into their armor while vulnerable!"))
 				remove_status_effect(/datum/status_effect/debuff/vulnerable)

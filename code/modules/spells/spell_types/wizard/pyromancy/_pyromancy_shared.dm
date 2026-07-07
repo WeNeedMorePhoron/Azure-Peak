@@ -1,9 +1,16 @@
 #define SCORCH_ADAPTATION_DURATION (15 SECONDS)
 #define SCORCH_ADAPTATION_KEY "scorch_adaptation"
 
+/obj/effect/temp_visual/scorch_flash
+	icon = 'icons/mob/OnFire.dmi'
+	icon_state = "Generic_mob_burning"
+	layer = ABOVE_MOB_LAYER
+	duration = 8
+
 /proc/apply_scorch_stack(mob/living/target, stacks = 1)
 	if(!isliving(target))
 		return
+	new /obj/effect/temp_visual/scorch_flash(get_turf(target))
 	var/final_tier = 0
 	for(var/i in 1 to stacks)
 		if(target.has_status_effect(/datum/status_effect/debuff/scorched4))

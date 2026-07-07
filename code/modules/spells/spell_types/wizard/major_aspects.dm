@@ -20,8 +20,8 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/spitfire,
+		/datum/action/cooldown/spell/telegraphed_strike/dragons_breath,
 		/datum/action/cooldown/spell/projectile/fireball,
-		/datum/action/cooldown/spell/fire_blast,
 		/datum/action/cooldown/spell/fire_curtain,
 		/datum/action/cooldown/spell/create_campfire,
 	)

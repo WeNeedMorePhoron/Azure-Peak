@@ -1,4 +1,5 @@
 #define CURTAIN_TICK_DAMAGE 25
+#define CURTAIN_BURN_KEY "curtain_burn"
 
 /datum/action/cooldown/spell/fire_curtain
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
@@ -122,8 +123,7 @@
 	object_slowdown = 15
 	var/lifetime = 10 SECONDS
 	var/tick_damage = CURTAIN_TICK_DAMAGE
-	var/burn_interval = 2 SECONDS
-	var/next_burn = 0
+	var/burn_cooldown = 1 SECONDS
 	var/datum/weakref/caster_ref
 
 /obj/effect/curtain_fire/Initialize(mapload, life, mob/living/new_caster)
@@ -139,24 +139,32 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/effect/curtain_fire/Crossed(atom/movable/AM, oldLoc)
+	. = ..()
+	if(isliving(AM))
+		burn_occupant(AM)
+
 /obj/effect/curtain_fire/process(seconds_per_tick)
-	if(world.time < next_burn)
-		return
-	next_burn = world.time + burn_interval
 	var/turf/T = get_turf(src)
 	if(!isturf(T))
 		return
-	var/mob/living/carbon/human/caster = caster_ref?.resolve()
 	for(var/mob/living/L in T)
-		if(HAS_TRAIT(L, TRAIT_NOFIRE))
-			continue
-		if(istype(caster) && !QDELETED(caster))
-			arcyne_strike(caster, L, null, tick_damage, BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Fire Curtain", damage_type = BURN, skip_animation = TRUE, exact_zone = TRUE)
-		else
-			var/armor_block = L.run_armor_check(BODY_ZONE_CHEST, "fire", blade_dulling = BCLASS_BURN, damage = tick_damage, flat_integ = TRUE)
-			L.apply_damage(tick_damage, BURN, BODY_ZONE_CHEST, armor_block)
-		if(get_scorch_stacks(L) < 1)
-			apply_scorch_stack(L, 1)
-		L.emote("pain", forced = TRUE)
+		burn_occupant(L)
+
+/obj/effect/curtain_fire/proc/burn_occupant(mob/living/L)
+	if(HAS_TRAIT(L, TRAIT_NOFIRE))
+		return
+	if(L.mob_timers[CURTAIN_BURN_KEY] && world.time < L.mob_timers[CURTAIN_BURN_KEY])
+		return
+	L.mob_timers[CURTAIN_BURN_KEY] = world.time + burn_cooldown
+	var/mob/living/carbon/human/caster = caster_ref?.resolve()
+	if(istype(caster) && !QDELETED(caster))
+		arcyne_strike(caster, L, null, tick_damage, BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Fire Curtain", damage_type = BURN, skip_animation = TRUE, exact_zone = TRUE)
+	else
+		var/armor_block = L.run_armor_check(BODY_ZONE_CHEST, "fire", blade_dulling = BCLASS_BURN, damage = tick_damage, flat_integ = TRUE)
+		L.apply_damage(tick_damage, BURN, BODY_ZONE_CHEST, armor_block)
+	apply_scorch_stack(L, 1)
+	L.emote("pain", forced = TRUE)
 
 #undef CURTAIN_TICK_DAMAGE
+#undef CURTAIN_BURN_KEY
