@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/levitation
 	name = "Levitation"
-	desc = "Casting this spell on once self allows you to float whimsically (a small amount in the air). Gravity sadly will still effect you, but your footsteps will be silent (You will also be off balanced for the duration that you float)."
+	desc = "Casting this spell allows you to float whimsically (a small amount in the air). Gravity sadly will still effect you, but your footsteps will be silent (You will also be off balanced for the duration that you float)."
 	button_icon = 'icons/mob/actions/roguespells.dmi'
 	button_icon_state = "rune5"
 	sound = 'sound/magic/whiteflame.ogg'
