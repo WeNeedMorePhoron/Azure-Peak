@@ -6,6 +6,7 @@
 	cooldown_time = 60 SECONDS
 
 	invocations = list("Sanguis Fervet.")
+	charge_required = FALSE
 
 	point_cost = 1
 
