@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/augment_buff/surge
 	name = "Surge"
-	desc = "Flood someone's body with vigors, instantly shaking off any stun, restoring their stamina and bringing them back to their feet. Cannot be cast on yourself"
+	desc = "Flood someone's body with vigors, instantly shaking off any stun, bringing them back to their feet. Cannot be cast on yourself"
 	button_icon_state = "enlarge"
 
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_PHASED
@@ -8,7 +8,7 @@
 	self_cast_possible = FALSE
 
 	primary_resource_type = SPELL_COST_ENERGY
-	primary_resource_cost = 100
+	primary_resource_cost = SPELLCOST_SURGE
 
 	invocations = list("Impetus!")
 	invocation_type = INVOCATION_SHOUT
@@ -39,8 +39,8 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
 		carbon_target.stam_paralyzed = FALSE
-	target.stamina_reset()
 	target.set_resting(FALSE)
+	target.stamina_add(-10) // restore a burst of stamina (green bar) rather than a full reset
 
 	target.balloon_alert_to_viewers("<font color='[spell_color]'>surge!</font>")
 	target.visible_message(span_warning("[target] surges back up, wreathed in energy!"), span_notice("Arcyne energy floods my body - I rise!"))

@@ -63,6 +63,8 @@
 #define SPELLCOST_SINGLE_CC          30
 #define SPELLCOST_UTILITY_BUFF       5 // See below
 #define SPELLCOST_STAT_BUFF          5 // With new Augmentation design we don't really need to gate this hard anymore
+#define SPELLCOST_BRUSH 			 65 // For blood rush spells, which I don't want to become an overly easy trade for stamina
+#define SPELLCOST_SURGE 			 65 // For surge spells, which is pretty damn powerful
 #define SPELLCOST_CONJURE            20	
 #define SPELLCOST_TELEPORT           15
 #define SPELLCOST_MINOR_SUMMON       30

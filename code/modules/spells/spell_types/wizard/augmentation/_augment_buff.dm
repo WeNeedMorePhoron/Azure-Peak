@@ -53,6 +53,39 @@
 	if(empowering_self && self_cast_cooldown_multiplier != 1)
 		. *= self_cast_cooldown_multiplier
 
+/datum/action/cooldown/spell/augment_buff/get_cooldown_stat_lines(mob/living/user)
+	var/list/lines = list()
+	var/base_cd = cooldown_time
+	if(!base_cd)
+		return lines
+	if(!user)
+		lines += span_info("Cooldown: [DisplayTimeText(base_cd)]")
+		return lines
+
+	empowering_self = TRUE
+	var/self_cd = get_adjusted_cooldown()
+	empowering_self = FALSE
+	var/ally_cd = get_adjusted_cooldown()
+	empowering_self = FALSE
+
+	lines += span_info("Cooldown: [DisplayTimeText(base_cd)]")
+	if(!self_cast_possible)
+		// Ally-only augmentation - self_cd is never reachable, so show one figure.
+		if(abs(ally_cd - base_cd) > 0.5)
+			lines += span_info("&nbsp;&nbsp;Current: [DisplayTimeText(ally_cd)]")
+	else if(abs(ally_cd - self_cd) > 0.5)
+		lines += span_info("&nbsp;&nbsp;Self-cast: [DisplayTimeText(self_cd)]")
+		lines += span_info("&nbsp;&nbsp;Ally-cast: [DisplayTimeText(ally_cd)]")
+	else if(abs(self_cd - base_cd) > 0.5)
+		lines += span_info("&nbsp;&nbsp;Current: [DisplayTimeText(self_cd)]")
+	var/list/cd_breakdown = get_cooldown_breakdown(user)
+	if(length(cd_breakdown))
+		lines += cd_breakdown
+	var/time_left = max(next_use_time - world.time, 0)
+	if(time_left > 0)
+		lines += span_warning("Remaining: [DisplayTimeText(time_left)]")
+	return lines
+
 /datum/action/cooldown/spell/augment_buff/toggle_alt_mode(mob/user)
 	fellowship_snap = !fellowship_snap
 	if(fellowship_snap)

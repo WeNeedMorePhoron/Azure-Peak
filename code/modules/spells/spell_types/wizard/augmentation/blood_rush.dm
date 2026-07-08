@@ -5,6 +5,9 @@
 
 	cooldown_time = 60 SECONDS
 
+	primary_resource_type = SPELL_COST_ENERGY
+	primary_resource_cost = SPELLCOST_BRUSH
+
 	invocations = list("Sanguis Fervet.")
 	charge_required = FALSE
 
