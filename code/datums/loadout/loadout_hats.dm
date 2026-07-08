@@ -229,3 +229,8 @@
 	name = "Valorian Maid Headband"
 	path = /obj/item/clothing/head/roguetown/maidband
 	sort_category = "Hats"
+
+/datum/loadout_item/loudmouth_headgear
+	name = "Loudmouth's Headcover"
+	path = /obj/item/clothing/head/roguetown/veiled/loudmouth
+	sort_category = "Hats"
