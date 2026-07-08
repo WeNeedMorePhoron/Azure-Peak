@@ -7,7 +7,7 @@
 
 	invocations = list("Praevidere.")
 
-	charge_time = 0.5 SECONDS
+	charge_required = FALSE
 	cooldown_time = 75 SECONDS
 
 	point_cost = 1
