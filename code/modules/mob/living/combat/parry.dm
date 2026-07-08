@@ -224,40 +224,41 @@
 		drained = drained + 5							//More stamina usage for not being trained in the armor you're using.
 		untrained_armor = TRUE
 
+	var/parry_status = FALSE
+	var/text
+
+	text += "Roll to parry... [HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "???" : prob2defend]%"
+
+	// Dual wield drawback (-5%)
+	var/dualwield_penalty = HAS_TRAIT(src, TRAIT_DUALWIELDER) && src.can_dualwield(mainhand, offhand)
+	if(dualwield_penalty)
+		prob2defend = clamp(prob2defend - 5, 5, 90)
+		text += " (-5%)"
+
 	if(has_status_effect(/datum/status_effect/swingdelay/penalty))
 		prob2defend = clamp(prob2defend - 50, 5, 90)
 
 	if(HAS_TRAIT(src, TRAIT_NODEF))
 		prob2defend = 0
 
-	var/parry_status = FALSE
-	var/text
-
-	// Dual wield drawback (-5%)
-	var/dualwield_penalty = HAS_TRAIT(src, TRAIT_DUALWIELDER) && src.can_dualwield(mainhand, offhand)
-	if(dualwield_penalty)
-		prob2defend = max(prob2defend - 5, 0)
-
-	// Base parry roll display
-	text += "Roll to parry... [HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS) ? "???" : prob2defend]%"
-	if(dualwield_penalty)
-		text += " (-5%)"
+	if(prob(prob2defend))
+		parry_status = TRUE
 
 	if(parry_status)
 		if(!has_status_effect(/datum/status_effect/buff/weapon_binded))
 			if(intenty.masteritem)
-				if(intenty.masteritem.wbalance == WBALANCE_HEAVY && user.STASTR > src.STASTR)
-					drained += intenty.masteritem.wbalance * ((user.STASTR - src.STASTR) * STAM_DRAIN_PER_STR_DIFF_HEAVY_BAL)
+				if(intenty.masteritem.wbalance == WBALANCE_HEAVY && user.STASTR > src.STASTR) //enemy weapon is heavy, so get a bonus scaling on strdiff
+					drained = drained + ( intenty.masteritem.wbalance * ((user.STASTR - src.STASTR) * STAM_DRAIN_PER_STR_DIFF_HEAVY_BAL) )
 	else
 		text += span_warning(" The enemy defeated my parry!")
-
 	if(src.client?.prefs.showrolls)
 		to_chat(src, span_info("[text]"))
 
 	// Failed parry cutoff here
 	if(!parry_status)
-		return FALSE	
-	
+		return FALSE
+
+
 	drained = max(drained, 5)
 
 	var/exp_multi = 1
