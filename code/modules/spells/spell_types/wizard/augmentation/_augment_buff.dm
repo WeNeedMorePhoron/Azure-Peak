@@ -29,8 +29,6 @@
 
 	var/fellowship_snap = FALSE
 
-	/// Cooldown multiplier applied when the buff is cast on the caster instead of a fellow. 1 = no penalty.
-	/// Augmentations are meant to be shared - set this above 1 to make hoarding a buff for yourself cost extra downtime.
 	var/self_cast_cooldown_multiplier = 1
 	var/other_cast_cooldown_reduction = 0.25
 	/// TRUE only while resolving a self-targeted cast, so the cooldown hook knows to apply the penalty.

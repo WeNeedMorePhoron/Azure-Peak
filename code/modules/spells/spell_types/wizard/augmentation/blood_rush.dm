@@ -10,6 +10,7 @@
 
 	invocations = list("Sanguis Fervet.")
 	charge_required = FALSE
+	other_cast_cooldown_reduction = 0 // Too powerful otherwise
 
 	point_cost = 1
 
