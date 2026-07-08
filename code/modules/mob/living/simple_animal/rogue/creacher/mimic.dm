@@ -109,14 +109,10 @@
 	playsound(loc, pick('sound/misc/jumpscare (1).ogg','sound/misc/jumpscare (2).ogg','sound/misc/jumpscare (3).ogg','sound/misc/jumpscare (4).ogg'), 100)
 
 	for(var/mob/living/carbon/C in view(4, src))
-		if(C == src)
-			continue
-		if(HAS_TRAIT(C, TRAIT_NOMOOD))
+		if(C == src || HAS_TRAIT(C, TRAIT_NOMOOD))
 			continue
 		if(!HAS_TRAIT(C, TRAIT_PSYDONIAN_GRIT) && (!HAS_TRAIT(C, TRAIT_STEELHEARTED) || prob(50)))
-			C.emote("scream")
-		if(!C.has_stress_event(/datum/stressevent/mimic_jumpscare))
-			C.add_stress(/datum/stressevent/mimic_jumpscare)
+			C.freak_out_mimic(src)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/mimic/Aggro()
 	..()
