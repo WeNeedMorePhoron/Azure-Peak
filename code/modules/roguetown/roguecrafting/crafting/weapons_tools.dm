@@ -581,7 +581,7 @@
 	name = "fishing rod, blacksteel"
 	display_category = ITEM_CAT_TOOLS_SUNDRIES
 	category = "Tools"
-	result = /obj/item/fishingrod/crafted
+	result = /obj/item/fishingrod/blacksteel
 	reqs = list(
 		/obj/item/grown/log/tree/small = 1,
 		/obj/item/natural/fibers = 2,
