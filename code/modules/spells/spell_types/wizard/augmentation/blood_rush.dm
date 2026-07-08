@@ -21,13 +21,20 @@
 
 	var/mob/living/spelltarget = cast_on
 
-	if(spelltarget != H)
-		H.visible_message("[H] mutters an incantation and [spelltarget]'s veins flush with sudden vigor.")
-		spelltarget.apply_status_effect(/datum/status_effect/buff/adrenaline_rush)
-		H.apply_status_effect(/datum/status_effect/buff/adrenaline_rush)
-		to_chat(H, span_notice("The surge courses through me as well!"))
-	else
+	if(spelltarget == H)
 		H.visible_message("[H] mutters an incantation and their veins flush with sudden vigor.")
 		H.apply_status_effect(/datum/status_effect/buff/adrenaline_rush)
+		return TRUE
+
+	H.visible_message("[H] mutters an incantation and [spelltarget]'s veins flush with sudden vigor.")
+	spelltarget.apply_status_effect(/datum/status_effect/buff/adrenaline_rush)
+
+	var/datum/twin_link/link = get_twin_link(H)
+	if(link && link.partner_of(H) == spelltarget)
+		H.apply_status_effect(/datum/status_effect/buff/adrenaline_rush/blood_rush)
+		to_chat(H, span_notice("Our twin bond echoes the surge back through me!"))
 
 	return TRUE
+
+/datum/status_effect/buff/adrenaline_rush/blood_rush
+	duration = 9 SECONDS

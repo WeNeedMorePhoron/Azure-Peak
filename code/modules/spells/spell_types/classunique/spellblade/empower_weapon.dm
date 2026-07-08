@@ -62,7 +62,7 @@
 	H.apply_status_effect(/datum/status_effect/buff/empowered_strike)
 	playsound(get_turf(H), 'sound/magic/antimagic.ogg', 60, TRUE)
 	H.visible_message(
-		span_danger("[H]'s weapon flares with a violent red glow!"),
+		span_danger("[H]'s weapon flares with a brilliant blue glow!"),
 		span_notice("I channel [stacks_burned] momentum into my weapon. The next strike will not be denied."))
 
 	return TRUE
@@ -79,6 +79,8 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/empowered_strike
 	duration = 8 SECONDS
 	status_type = STATUS_EFFECT_UNIQUE
+	/// Outline/balloon colour of the empowerment glow.
+	var/glow_color = "#3aa8ff"
 
 /datum/status_effect/buff/empowered_strike/on_creation(mob/living/new_owner, new_duration)
 	if(new_duration)
@@ -89,8 +91,8 @@
 	. = ..()
 	RegisterSignal(owner, COMSIG_MOB_ITEM_ATTACK, PROC_REF(on_attack))
 	RegisterSignal(owner, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(on_unarmed_attack))
-	owner.add_filter(EMPOWER_FILTER, 2, list("type" = "outline", "color" = "#ff2020", "alpha" = 200, "size" = 2))
-	owner.balloon_alert_to_viewers("<font color='#ff2020'>empowered!</font>")
+	owner.add_filter(EMPOWER_FILTER, 2, list("type" = "outline", "color" = glow_color, "alpha" = 200, "size" = 2))
+	owner.balloon_alert_to_viewers("<font color='[glow_color]'>empowered!</font>")
 
 /datum/status_effect/buff/empowered_strike/on_remove()
 	UnregisterSignal(owner, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_HUMAN_MELEE_UNARMED_ATTACK))
