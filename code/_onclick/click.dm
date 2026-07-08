@@ -436,9 +436,9 @@
 /mob/living/proc/can_dualwield(obj/item/mainhand, obj/item/offhand)
 	if(!mainhand || !offhand)
 		return FALSE
-	if(istype(mainhand, /obj/item/rogueweapon/shield) || istype(mainhand, /obj/item/lantern) || istype(mainhand, /obj/item/flashlight))
+	if(istype(mainhand, /obj/item/rogueweapon/shield) || istype(mainhand, /obj/item/flashlight/flare/torch) || istype(mainhand, /obj/item/lantern) || istype(mainhand, /obj/item/flashlight))
 		return FALSE
-	if(istype(offhand, /obj/item/rogueweapon/shield) || istype(mainhand, /obj/item/lantern) || istype(mainhand, /obj/item/flashlight))
+	if(istype(offhand, /obj/item/rogueweapon/shield) || istype(mainhand, /obj/item/flashlight/flare/torch) || istype(mainhand, /obj/item/lantern) || istype(mainhand, /obj/item/flashlight))
 		return FALSE
 	if(mainhand.w_class >= WEIGHT_CLASS_HUGE)
 		return FALSE
@@ -499,8 +499,8 @@
 		dualwield_processing = TRUE
 
 		if(stamina_add(3))
-			balloon_alert_to_viewers("<font color='#bb2b2b'>X-Strike!!</font>")
-			visible_message("<font color='#ffc400'>Doublehit!</font>", "<font color='#ffc400'>Doublehit!</font>")
+			balloon_alert_to_viewers("<font color='#bb2b2b'>Dual Hit!!</font>")
+			visible_message("<font color='#ffc400'>Dual Hit!</font>", "<font color='#ffc400'>Dual Hit!</font>")
 			if(attack_weapon && offhand)
 				offhand.melee_attack_chain(src, A, params)
 			else
