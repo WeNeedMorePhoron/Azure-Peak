@@ -36,10 +36,10 @@
 	spelltarget.apply_status_effect(/datum/status_effect/buff/empowered_strike, empowered_duration)
 
 	if(spelltarget == H)
-		H.visible_message("[H] mutters an incantation and their weapon flares with a brilliant blue glow!")
+		H.visible_message("[H] mutters an incantation and their weapon flares with a violent red glow!")
 		to_chat(H, span_notice("I guide my own strike - the next will not be denied. ([self_cast_cooldown_multiplier]x cooldown)"))
 	else
-		H.visible_message("[H] mutters an incantation and [spelltarget]'s weapon flares with a brilliant blue glow!")
+		H.visible_message("[H] mutters an incantation and [spelltarget]'s weapon flares with a violent red glow!")
 		to_chat(H, span_notice("I guide [spelltarget]'s strike - their next will not be denied."))
 		to_chat(spelltarget, span_notice("[H]'s guidance empowers my weapon - my next strike will not be denied!"))
 
