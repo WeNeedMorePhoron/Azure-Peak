@@ -425,7 +425,7 @@ A LITTLE MORE CONSISTENT IN HERE. PLEASE DO YOUR BEST. THANKS.
 					/obj/item/clothing/suit/roguetown/shirt/undershirt/puritan,
 				)
 
-/datum/supply_pack/rogue/wardrobe/suits/formal
+/datum/supply_pack/rogue/wardrobe/suits/loudmouth_robes
 	name = "Crier's Garb"
 	cost = 40
 	contains = list(
