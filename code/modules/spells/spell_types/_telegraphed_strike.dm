@@ -29,6 +29,7 @@
 	var/weapon_missing_message = "I need a weapon to strike with!"
 	var/sweep_hit_count = 0
 	var/list/struck_obstacles
+	var/list/struck_mobs
 
 /datum/action/cooldown/spell/telegraphed_strike/cast(atom/cast_on)
 	. = ..()
@@ -126,6 +127,7 @@
 	var/deflected = FALSE
 	sweep_hit_count = 0
 	struck_obstacles = list()
+	struck_mobs = list()
 	for(var/b in 1 to length(bands))
 		if(QDELETED(H) || H.stat != CONSCIOUS)
 			break
@@ -168,6 +170,9 @@
 	for(var/mob/living/L in T.contents)
 		if(L == H)
 			continue
+		if(L in struck_mobs)
+			continue
+		struck_mobs += L
 		if(L.anti_magic_check())
 			on_antimagic_block(L)
 			continue

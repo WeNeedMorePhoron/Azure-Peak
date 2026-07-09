@@ -296,6 +296,7 @@
 #define TRAIT_REGROW_LIMBS "Regrow Limbs"
 #define TRAIT_LEVY "Azurean Militia"
 #define TRAIT_MUSES_GRACE	"Muses Grace"
+#define TRAIT_SUNLIGHT_SENSITIVE "Sunlight Sensitivity"
 // ARMOR / CLOTHING GIVEN TRAITS (GIVEN BY WEARING CLOTHES/ARMOR PIECES)
 #define TRAIT_MONK_ROBE	"Holy Vestatures"
 #define TRAIT_BLACKOAK "Heritage Vision"
@@ -464,10 +465,6 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_BLACKBAGGER = span_info("I've been trained to properly abduct individuals through the use of seizing garrotes and blackbags."),
 	TRAIT_LYCANRESILENCE = span_info("Dendor's fury flows through my veins, my wounds regenerate over time..."),
 	TRAIT_FORTITUDE = span_info("The typical drain I feel from day to day life is lessened, my athleticism greater."),
-	TRAIT_GUIDANCE = span_info("Something guides my hand in battle, my strikes and defenses are more precise."),
-	TRAIT_LESSER_GUIDANCE = span_info("Something faintly guides my hand in battle, my strikes and defenses are slightly more precise."),
-	TRAIT_REVERSE_GUIDANCE = span_warning("Something hinders me in battle, my strikes and defenses feel sluggish and imprecise."),
-	TRAIT_LESSER_REVERSE_GUIDANCE = span_warning("Something faintly hinders me in battle, my strikes and defenses feel slightly imprecise."),
 	TRAIT_DEPRAVED = span_info("The languid scent of Her debauchery is known to me."),
 	TRAIT_SILVER_BLESSED = span_info("I have been baptized in fire. Blessed silverdust flows through my blood, protecting me from both vampyrism and lycanthropy."),
 	TRAIT_UNLYCKERABLE = span_info("My kind cannot bear the Sun curse for it already has another."),
@@ -613,6 +610,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_DUSTRUNNER = span_info("I run dust for the Thieves' Guild. Those in the trade know how to spot one of their own."),
 	TRAIT_REGROW_LIMBS = span_info("I can regrow my limbs in my sleep, but doing so will make me hungry."),
 	TRAIT_MUSES_GRACE = span_info("I feel a sudden and powerful urge to break out into song."),
+	TRAIT_SUNLIGHT_SENSITIVE = span_danger("Put on those shades and wave to yesterday, 'cause the sunlight hurts my eyes!")
 ))
 
 // trait accessor defines
@@ -876,10 +874,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define POULTICE_TRAIT "poultice"
 
 // unique trait sources, still defines
-#define TRAIT_GUIDANCE "Guidance"
-#define TRAIT_LESSER_GUIDANCE "Lesser Guidance"
-#define TRAIT_REVERSE_GUIDANCE "Reverse Guidance"
-#define TRAIT_LESSER_REVERSE_GUIDANCE "Lesser Reverse Guidance"
 #define TRAIT_FORTITUDE "Fortitude"
 #define CLONING_POD_TRAIT "cloning-pod"
 #define STATUE_MUTE "statue"
