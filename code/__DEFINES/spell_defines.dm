@@ -72,6 +72,7 @@
 // Buff duration tiers
 #define STAT_BUFF_SELF_DURATION      1 MINUTES
 #define STAT_BUFF_ALLY_DURATION      1 MINUTES
+#define ATTUNE_BUFF_DURATION         45 SECONDS // Attune (Giant/Hawk/Haste) uptime, against a 90s cooldown
 #define UTILITY_AOE_BUFF_DURATION    15 MINUTES
 
 //Miracle costs in devotion used.

@@ -6,6 +6,7 @@
 	invocations = list("Oculi Accipitris.")
 
 	shared_cooldown = "augment_attunement"
+	other_cast_cooldown_reduction = 0.33 // Casting on an ally cuts a third off the cooldown
 
 	point_cost = 2
 
@@ -25,6 +26,6 @@
 		H.visible_message("[H] mutters an incantation and [spelltarget]'s eyes glimmer.")
 	else
 		H.visible_message("[H] mutters an incantation and their eyes glimmer.")
-	apply_buff_to(spelltarget, /datum/status_effect/buff/attune_hawk, STAT_BUFF_SELF_DURATION)
+	spelltarget.apply_status_effect(/datum/status_effect/buff/attune_hawk, ATTUNE_BUFF_DURATION)
 
 	return TRUE

@@ -117,3 +117,97 @@
 	if(holder)
 		playsound(loc, 'sound/foley/nockarrow.ogg', 50, TRUE)
 
+// --- Arcyne crossbow (Form Blade option) ---
+// Like the greatbow, it feeds on the wielder's own arcyne energy instead of a quiver.
+// Unlike the greatbow, which conjures its next arrow automatically after firing, the
+// crossbow conjures its bolt the moment the string is drawn taut (cocked).
+
+/obj/item/ammo_casing/caseless/rogue/bolt/ferramancy
+	name = "arcyne bolt"
+	desc = "A bolt of condensed arcyne light, drawn from raw mana. It will unravel the instant it strikes home."
+	color = GLOW_COLOR_ARCANE
+	projectile_type = /obj/projectile/bullet/reusable/bolt/ferramancy
+
+/obj/projectile/bullet/reusable/bolt/ferramancy
+	color = GLOW_COLOR_ARCANE
+
+/obj/projectile/bullet/reusable/bolt/ferramancy/on_hit()
+	. = ..()
+	QDEL_NULL(dropped)
+
+/obj/projectile/bullet/reusable/bolt/ferramancy/handle_drop()
+	QDEL_NULL(dropped)
+	return
+
+/obj/item/ammo_box/magazine/internal/shot/xbow/ferramancy
+	ammo_type = /obj/item/ammo_casing/caseless/rogue/bolt/ferramancy
+	start_empty = TRUE
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/ferramancy
+	name = "arcyne crossbow"
+	desc = "A crossbow of condensed arcyne light, conjured from raw mana by a Ferramancer's will. It bears no quiver - drawing the \
+	string taut coaxes a bolt of pure energy into being, ready to loose. It draws upon the wielder's own reserves in place of ammunition."
+	color = GLOW_COLOR_ARCANE
+	minstr = 0
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/xbow/ferramancy
+	unenchantable = TRUE
+	anvilrepair = null
+	smeltresult = null
+	associated_skill = /datum/skill/combat/arcyne
+	/// Arcyne energy drawn from the wielder each time the string is cocked and a bolt is conjured.
+	var/conjure_cost = 25
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/ferramancy/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Drawing the string conjures a bolt of arcyne energy, spending <b>[conjure_cost]</b> of your own energy. It accepts no other ammunition.")
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/ferramancy/attack_self(mob/living/user)
+	if(chambered)
+		to_chat(user, span_warning("The conjured bolt unravels as I ease [src] down."))
+		dispel_bolt()
+		cocked = FALSE
+		update_icon()
+		return
+	if(user.energy < conjure_cost)
+		to_chat(user, span_warning("I haven't the arcyne energy to charge [src]!"))
+		return
+	to_chat(user, span_info("I step on the stirrup and draw [src] taut..."))
+	if(!do_after(user, max(1, reloadtime - user.STASTR - user.get_skill_level(/datum/skill/combat/crossbows)), target = user))
+		return
+	playsound(user, cock_sound, 100, FALSE)
+	if(!conjure_bolt(user))
+		return
+	cocked = TRUE
+	update_icon()
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/ferramancy/attackby(obj/item/A, mob/user, params)
+	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
+		to_chat(user, span_warning("[src] draws only upon my own arcyne energy - it will not accept a common bolt."))
+		return
+	return ..()
+
+/// Spend the wielder's energy to conjure a fresh arcyne bolt and chamber it.
+/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/ferramancy/proc/conjure_bolt(mob/living/user)
+	if(!magazine)
+		return FALSE
+	if(user.energy < conjure_cost)
+		to_chat(user, span_warning("My arcyne energy fails me at the last moment!"))
+		return FALSE
+	user.energy_add(-conjure_cost)
+	if(!chambered && !magazine.ammo_count())
+		magazine.give_round(new /obj/item/ammo_casing/caseless/rogue/bolt/ferramancy(magazine))
+	chamber_round()
+	playsound(src, 'sound/foley/nockarrow.ogg', 50, TRUE)
+	user.visible_message(span_warning("A bolt of arcyne light coalesces upon [src]!"))
+	return TRUE
+
+/// Unravel the conjured bolt, emptying the crossbow without dropping anything real.
+/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/ferramancy/proc/dispel_bolt()
+	if(chambered)
+		QDEL_NULL(chambered)
+	if(magazine)
+		for(var/obj/item/ammo_casing/AC in magazine.stored_ammo)
+			magazine.stored_ammo -= AC
+			qdel(AC)
+	playsound(src, 'sound/magic/magic_nulled.ogg', 40, TRUE)
+

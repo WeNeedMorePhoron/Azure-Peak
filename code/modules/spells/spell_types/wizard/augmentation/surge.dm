@@ -14,6 +14,7 @@
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = FALSE
+	other_cast_cooldown_reduction = 0 // Does not benefit from ally-cast cooldown reduction
 
 	point_cost = 1
 	spell_impact_intensity = SPELL_IMPACT_MEDIUM

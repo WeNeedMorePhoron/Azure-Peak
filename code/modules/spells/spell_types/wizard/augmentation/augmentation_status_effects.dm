@@ -17,7 +17,7 @@
 	id = "haste"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/attune_haste
 	effectedstats = list(STATKEY_SPD = 3)
-	duration = STAT_BUFF_SELF_DURATION
+	duration = ATTUNE_BUFF_DURATION
 
 /datum/status_effect/buff/attune_haste/on_creation(mob/living/new_owner, var/new_duration = null)
 	if(new_duration)
@@ -56,7 +56,7 @@
 	id = "giantstrength"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/attune_giant
 	effectedstats = list(STATKEY_STR = 4)
-	duration = STAT_BUFF_SELF_DURATION
+	duration = ATTUNE_BUFF_DURATION
 
 /datum/status_effect/buff/attune_giant/on_creation(mob/living/new_owner, var/new_duration = null)
 	if(new_duration)
@@ -93,7 +93,7 @@
 	id = "hawkseyes"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/attune_hawk
 	effectedstats = list(STATKEY_STR = 1, STATKEY_PER = 4)
-	duration = STAT_BUFF_SELF_DURATION
+	duration = ATTUNE_BUFF_DURATION
 	exclusive_group = "augment_perception"
 	exclusive_priority = 2 // supersedes Guidance
 
