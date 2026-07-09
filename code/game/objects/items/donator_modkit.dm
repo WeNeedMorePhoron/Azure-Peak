@@ -32,7 +32,7 @@
 					break
 
 	if(!R_type && exact_type)
-		return .. ()
+		return ..()
 
 	if(!R_type && result_item)
 		R_type = result_item
