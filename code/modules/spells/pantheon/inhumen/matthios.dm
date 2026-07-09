@@ -18,6 +18,8 @@
 	point_cost = 0
 	required_items = list(/obj/item/clothing/neck/roguetown/psicross)
 
+	spell_flags = SPELL_PSYDON //He does not discriminate
+
 //////////////////////////
 // T0 - Freeman's Tools //
 //////////////////////////
@@ -701,10 +703,11 @@
 
 /datum/action/cooldown/spell/matthios/equalize/cast(atom/cast_on)
 	. = ..()
-	if(ishuman(cast_on))
-		var/mob/living/target = cast_on
-		if(spell_guard_check(target, TRUE))
-			target.visible_message(span_warning("[target] resists EQUALITY!"))
+	var/mob/living/carbon/human/user = owner
+	var/mob/living/target = cast_on
+	if(isliving(cast_on))
+		if(spell_guard_check(cast_on, TRUE))
+			cast_on.visible_message(span_warning("[cast_on] resists EQUALITY!"))
 			return TRUE
 		if(HAS_TRAIT(target, TRAIT_NOBLE))
 			target.apply_status_effect(/datum/status_effect/debuff/equalizedebuff_noble)
@@ -786,41 +789,40 @@
 
 #undef EQUALIZED_GLOW
 
-//T3 COUNT WEALTH, HURT TARGET/APPLY EFFECTS BASED ON AMOUNT OF WEALTH. AT 500+, OLD STYLE CHURNS THE TARGET.
+////////////////////////
+// T4 - Churn Wealthy //
+////////////////////////
 
-/obj/effect/proc_holder/spell/invoked/matthios_churn
+/datum/action/cooldown/spell/matthios/churn
 	name = "Churn Wealthy"
 	desc = "Attacks the target by weight of their greed, dealing increased damage and effects depending on how wealthy they are."
-	clothes_req = FALSE
-	action_icon = 'icons/mob/actions/matthiosmiracles.dmi'
-	overlay_icon = 'icons/mob/actions/matthiosmiracles.dmi'
-	overlay_state = "churnwealthy"
-	miracle = TRUE
-	devotion_cost = 100 //Big commitment
-	associated_skill = /datum/skill/magic/holy
-	chargedloop = /datum/looping_sound/invokeascendant
-	chargedrain = 0
-	chargetime = 5 SECONDS
-	releasedrain = 90
-	no_early_release = TRUE
-	antimagic_allowed = TRUE
-	movement_interrupt = FALSE
-	recharge_time = 5 MINUTES //This probably should not be on low cooldown
-	range = 4
-	human_req = TRUE
+	button_icon_state = "churnwealthy"
+	sound = null //Handled on cast
 
-/obj/effect/proc_holder/spell/invoked/matthios_churn/cast(list/targets, mob/living/user)
-	if(ishuman(targets[1]))
-		var/mob/living/carbon/human/target = targets[1]
+	click_to_activate = TRUE
+	cast_range = SPELL_RANGE_AURA
+	self_cast_possible = FALSE
 
-		if(user.z != target.z) //Stopping no-interaction snipes
-			to_chat(user, "<font color='yellow'>The Free-God compels me to face [target] on level ground before I transact.</font>")
-			revert_cast()
-			return
-		if(user == target)
-			to_chat(user,"<font color='yellow'>Why would I want to Churn MYSELF? I am not that insane.</font>")
-			revert_cast()
-			return
+	primary_resource_cost = SPELLCOST_MIRACLE_LEGENDARY
+
+	secondary_resource_cost = SPELLCOST_MIRACLE_MAJOR
+
+	invocation_type = INVOCATION_NONE //Handled on cast
+	invocations = null
+
+	charge_required = TRUE
+	charge_time = 5 SECONDS
+	charge_slowdown = 2
+	charge_sound = 'sound/magic/chargingold.ogg'
+	cooldown_time = 10 MINUTES
+
+	spell_requirements = SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
+
+/datum/action/cooldown/spell/matthios/churn/cast(atom/cast_on)
+	. = ..()
+	if(ishuman(cast_on))
+		var/mob/living/carbon/human/target = cast_on
+
 		if(spell_guard_check(target, TRUE))
 			target.visible_message(span_warning("[target] resists the weight of their greed!"))
 			return TRUE
@@ -833,66 +835,65 @@
 			totalvalue -= 50 // We do little bit less damage to other Matthiosites
 		switch(totalvalue)
 			if(0 to 10)
-				to_chat(user, "<font color='yellow'>[target] one has no wealth to hold against them.</font>")
-				revert_cast()
+				to_chat(owner, "<font color='yellow'>[target] one has no wealth to hold against them.</font>")
 				return FALSE
 			if(11 to 30)
-				user.emote("waves their hand in front of them.")
+				owner.say("Wealth becomes woe!")
 				target.visible_message(span_danger("[target] is burned by holy light!"), span_userdanger("I feel the weight of my wealth burning at my soul!"))
 				target.adjustFireLoss(30)
-				playsound(user, 'sound/magic/churn.ogg', 100, TRUE)
+				playsound(owner, 'sound/magic/churn.ogg', 100, TRUE)
 			if(31 to 60)
-				user.emote("waves their hand in front of them.")
+				owner.say("Wealth becomes woe!")
 				target.visible_message(span_danger("[target] is burned by holy light!"), span_userdanger("I feel the weight of my wealth burning at my soul!"))
 				target.adjustFireLoss(60)
-				playsound(user, 'sound/magic/churn.ogg', 100, TRUE)
+				playsound(owner, 'sound/magic/churn.ogg', 100, TRUE)
 			if(61 to 100)
-				user.emote("waves their hand in front of them.")
+				owner.say("Wealth becomes woe!")
 				target.visible_message(span_danger("[target] is burned by holy light!"), span_userdanger("I feel the weight of my wealth burning at my soul!"))
 				target.adjustFireLoss(80)
 				target.Stun(20)
-				playsound(user, 'sound/magic/churn.ogg', 100, TRUE)
+				playsound(owner, 'sound/magic/churn.ogg', 100, TRUE)
 			if(101 to 200)
-				user.emote("makes an obscene gesture towards [target]!") 	//if wizards can flip you the bird to set you on fire, matthios can, too.
+				owner.say("The Free-God rebukes!")
 				target.visible_message(span_danger("[target] is burned by holy light!"), span_userdanger("I feel the weight of my wealth tearing at my soul!"))
 				target.adjustFireLoss(100)
 				target.adjust_fire_stacks(7, /datum/status_effect/fire_handler/fire_stacks/divine)
 				target.Stun(20)
 				target.ignite_mob()
-				playsound(user, 'sound/magic/churn.ogg', 100, TRUE)
+				playsound(owner, 'sound/magic/churn.ogg', 100, TRUE)
 			if(201 to 500)
-				user.emote("makes an obscene gesture towards [target]!")
+				owner.say("The Free-God rebukes!")
 				target.visible_message(span_danger("[target] is burned by holy light!"), span_userdanger("I feel the weight of my wealth tearing at my soul!"))
 				target.adjustFireLoss(120)
 				target.adjust_fire_stacks(9, /datum/status_effect/fire_handler/fire_stacks/divine)
 				target.ignite_mob()
 				target.Stun(40)
-				playsound(user, 'sound/magic/churn.ogg', 100, TRUE)
+				playsound(owner, 'sound/magic/churn.ogg', 100, TRUE)
 			if(500 to 2500)
 				target.visible_message(span_danger("[target] is smited with holy light!"), span_userdanger("I feel the weight of my wealth rend my soul apart!"))
-				user.emote("makes an obscene gesture towards [target] and screams at the top of their lungs!")
+				owner.say("Your final transaction! The Free-God rebukes!!")
 				target.Stun(60)
 				target.emote("agony")
 				target.adjustFireLoss(140)
 				target.adjust_fire_stacks(9, /datum/status_effect/fire_handler/fire_stacks/divine)
 				target.ignite_mob()
-				playsound(user, 'sound/magic/churn.ogg', 100, TRUE)
+				playsound(owner, 'sound/magic/churn.ogg', 100, TRUE)
 				explosion(get_turf(target), light_impact_range = 1, flame_range = 1, smoke = FALSE)
 			if(2501 to 9999999) //THE POWER OF MY STAND: 'EXPLODE AND DIE INSTANTLY'
 				target.visible_message(span_danger("[target]'s skin begins to SLOUGH AND BURN HORRIFICALLY, glowing like molten metal!"), span_userdanger("MY LIMBS BURN IN AGONY..."))
-				user.emote("makes an obscene gesture towards [target] and screams at the top of their lungs! An ear-splitting drone fills the air!")
+				owner.say("Wealth beyond measure- YOUR FINAL TRANSACTION!!")
 				target.Stun(80)
 				target.emote("agony")
 				target.adjustFireLoss(50)
 				target.adjust_fire_stacks(9, /datum/status_effect/fire_handler/fire_stacks/divine)
 				target.ignite_mob()
-				playsound(user, 'sound/magic/churn.ogg', 100, TRUE)
+				playsound(owner, 'sound/magic/churn.ogg', 100, TRUE)
 				explosion(get_turf(target), light_impact_range = 1, flame_range = 1, smoke = FALSE)
 				sleep(80)
 
 				target.visible_message(span_danger("[target]'s limbs REND into coin and gem!"), span_userdanger("WEALTH. POWER. THE FINAL SIGHT UPON MYNE EYE IS A DRAGON'S MAW TEARING ME IN TWAIN. MY ENTRAILS ARE OF GOLD AND SILVER."))  		//this one's actually pretty good. i like this
-				playsound(user, 'sound/magic/churn.ogg', 100, TRUE)
-				playsound(user, 'sound/magic/whiteflame.ogg', 100, TRUE)
+				playsound(owner, 'sound/magic/churn.ogg', 100, TRUE)
+				playsound(owner, 'sound/magic/whiteflame.ogg', 100, TRUE)
 				explosion(get_turf(target), light_impact_range = 1, flame_range = 1, smoke = FALSE)
 				new /obj/item/roguecoin/silver/pile(target.loc)
 				new /obj/item/roguecoin/gold/pile(target.loc)
@@ -979,8 +980,10 @@
 	charge_required = TRUE
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_time = 1 SECONDS
-	primary_resource_cost = 125
-	secondary_resource_cost = 10
+	primary_resource_type = SPELL_COST_ENERGY//So lirvans can use it
+	primary_resource_cost = SPELLCOST_MIRACLE
+	secondary_resource_cost = SPELLCOST_MIRACLE_MINOR
+
 	associated_skill = /datum/skill/magic/holy
 	var/delay = 12
 	var/strike_delay = 2

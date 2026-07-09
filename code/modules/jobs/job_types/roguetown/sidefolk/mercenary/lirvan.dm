@@ -64,6 +64,7 @@
 	H.merctype = 16 //literally no idea what this does
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/lirvan_tithe)
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/saxtonhale)
+	H.mind.AddSpell(new /datum/action/cooldown/spell/matthios/raze)
 
 	if(H.mind)
 		var/list/patron_choices = list("The ORDER and MONARCHY of Astrata", "The WEALTH and POWER of Matthios")
