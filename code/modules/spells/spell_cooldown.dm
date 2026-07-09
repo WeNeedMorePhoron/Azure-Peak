@@ -997,6 +997,8 @@
 
 	// Spell glow light
 	if(glow_intensity && spell_color && isliving(owner))
+		if(spell_glow_light)
+			QDEL_NULL(spell_glow_light)
 		var/mob/living/L = owner
 		spell_glow_light = L.mob_light(spell_color, glow_intensity, FLASH_LIGHT_SPELLGLOW)
 
@@ -1046,6 +1048,11 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	build_all_button_icons(UPDATE_BUTTON_STATUS|UPDATE_BUTTON_BACKGROUND)
 
+	// Clean up glow before the owner guard below - the light is owner-independent and
+	// must be dropped even if owner is gone, or it lingers on the mob permanently.
+	if(spell_glow_light)
+		QDEL_NULL(spell_glow_light)
+
 	if(!owner)
 		return
 
@@ -1071,10 +1078,6 @@
 	// Clean up overhead spell icon
 	if(mob_charge_effect)
 		owner.vis_contents -= mob_charge_effect
-
-	// Clean up glow
-	if(spell_glow_light)
-		QDEL_NULL(spell_glow_light)
 
 	if(has_visual_effects)
 		var/mob/living/caster = owner
