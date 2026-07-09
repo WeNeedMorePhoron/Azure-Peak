@@ -16,7 +16,7 @@
 	charge_required = FALSE
 	other_cast_cooldown_reduction = 0 // Does not benefit from ally-cast cooldown reduction
 
-	point_cost = 1
+	point_cost = 2
 	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 
 /datum/action/cooldown/spell/augment_buff/surge/cast(atom/cast_on)

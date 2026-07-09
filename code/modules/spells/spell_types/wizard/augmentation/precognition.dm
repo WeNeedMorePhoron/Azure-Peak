@@ -11,7 +11,7 @@
 	cooldown_time = 75 SECONDS
 	other_cast_cooldown_reduction = 0 // Does not benefit from ally-cast cooldown reduction
 
-	point_cost = 1
+	point_cost = 2
 
 /datum/action/cooldown/spell/augment_buff/precognition/cast(atom/cast_on)
 	. = ..()

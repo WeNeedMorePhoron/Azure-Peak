@@ -90,7 +90,7 @@
 		"I calm the potent within.",
 		"Augmentum, me relinquere!",
 	)
-	pointbuy_budget = 3
+	pointbuy_budget = 6
 	pointbuy_spells = list(
 		/datum/action/cooldown/spell/darkvision,
 		/datum/action/cooldown/spell/augment_buff/blood_rush,

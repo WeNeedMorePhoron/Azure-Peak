@@ -12,7 +12,7 @@
 	charge_required = FALSE
 	other_cast_cooldown_reduction = 0 // Too powerful otherwise
 
-	point_cost = 1
+	point_cost = 2
 
 /datum/action/cooldown/spell/augment_buff/blood_rush/cast(atom/cast_on)
 	. = ..()

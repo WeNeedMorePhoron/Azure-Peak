@@ -38,6 +38,7 @@
 		list("label" = "Greataxe", "weapon" = /obj/item/rogueweapon/greataxe/steel/doublehead/ferramancy, "say" = "Forma Bipennis!"),
 		list("label" = "Halberd", "weapon" = /obj/item/rogueweapon/halberd/ferramancy, "say" = "Forma Hasta!"),
 		list("label" = "Greatbow", "weapon" = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/greatbow, "say" = "Forma Arcus!"),
+		list("label" = "Crossbow", "weapon" = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/ferramancy, "say" = "Forma Balista!"),
 	)
 
 /datum/action/cooldown/spell/form_blade/cast(atom/cast_on)
