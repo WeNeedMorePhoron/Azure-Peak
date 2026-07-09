@@ -334,9 +334,6 @@
 
 /datum/status_effect/buff/call_to_slaughter/on_remove()
 	. = ..()
-	if(owner.cmode && !owner.has_status_effect(/datum/status_effect/buff/bloodrage))	//No cmode, no point - More Gigajank for combat music if we lack bloodrage but got the tune from it
-		owner.toggle_cmode()
-		owner.toggle_cmode()
 
 /atom/movable/screen/alert/status_effect/debuff/call_to_slaughter
 	name = "Vicious Roar"
