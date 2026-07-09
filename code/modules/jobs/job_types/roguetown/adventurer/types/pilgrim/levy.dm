@@ -5,7 +5,7 @@
 	forbidden_races = list(RACES_DESPISED)
 	
 	outfit = /datum/outfit/job/roguetown/adventurer/levy
-	traits_applied = list(TRAIT_LEVY, TRAIT_SELF_RELIANCE)
+	traits_applied = list(TRAIT_LEVY, TRAIT_HOMESTEAD_EXPERT)
 	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
 	category_tags = list(CTAG_TOWNER)
 	townie_contract_gate_exempt = TRUE
@@ -54,7 +54,9 @@
 	beltr = /obj/item/rogueweapon/pick/bronze
 	backpack_contents = list(
 		/obj/item/rope = 1,
-		/obj/item/reagent_containers/glass/bottle/rogue/triumphbeer = 4, // this one is for good luck, you'll need it, OHH YOU'LL NEED IT.
+		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
+		/obj/item/rogueweapon/scabbard/sheath = 1,
+		/obj/item/rogueweapon/huntingknife = 1,
 		/obj/item/signal_horn = 1,
 	)
 	
