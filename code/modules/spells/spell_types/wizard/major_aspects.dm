@@ -54,9 +54,16 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/frost_bolt,
-		/datum/action/cooldown/spell/frost_blast,
-		/datum/action/cooldown/spell/projectile/ice_burst,
-		/datum/action/cooldown/spell/snap_freeze,
+		/datum/action/cooldown/spell/projectile/ice_lance,
+		/datum/action/cooldown/spell/forcewall/ice,
+		/datum/action/cooldown/spell/verglas,
+		/datum/action/cooldown/spell/fridigitation,
+	)
+	spell_order = list(
+		/datum/action/cooldown/spell/projectile/frost_bolt,
+		/datum/action/cooldown/spell/projectile/ice_lance,
+		/datum/action/cooldown/spell/forcewall/ice,
+		/datum/action/cooldown/spell/verglas,
 		/datum/action/cooldown/spell/fridigitation,
 	)
 	variants = list(

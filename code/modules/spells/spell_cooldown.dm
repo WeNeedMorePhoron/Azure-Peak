@@ -140,6 +140,8 @@
 	var/charge_required = TRUE
 	/// Charging intent, mirroring melee swingdelay_type. PENALTY = vulnerable if struck (yellow), CANCEL = interrupted if struck (red).
 	var/charge_swingdelay_type = SWINGDELAY_NORMAL
+	/// If nonzero, overrides the charge swingdelay penalty/disrupt duration (deciseconds) instead of charge_time + 20.
+	var/charge_swingdelay_duration = 0
 	/// Whether we're currently charging the spell.
 	var/currently_charging = FALSE
 	/// Whether the charge bar has completed and the spell is being held ready. While TRUE, hold_drain bleeds per process tick.
@@ -1097,7 +1099,7 @@
 	var/mob/living/living_owner = owner
 	if(charge_swingdelay_type == SWINGDELAY_NORMAL || !istype(living_owner))
 		return
-	var/charge_dur = (charge_time || 0) + 20
+	var/charge_dur = charge_swingdelay_duration || ((charge_time || 0) + 20)
 	switch(charge_swingdelay_type)
 		if(SWINGDELAY_PENALTY)
 			living_owner.apply_status_effect(/datum/status_effect/swingdelay/penalty, charge_dur)
@@ -1128,7 +1130,7 @@
 		if(SWINGDELAY_CANCEL, SWINGDELAY_CANCELSLOW)
 			SW = living_owner.has_status_effect(/datum/status_effect/swingdelay/disrupt)
 	if(SW && SW.duration != -1)
-		SW.duration = max(SW.duration, world.time + 20)
+		SW.duration = max(SW.duration, world.time + (charge_swingdelay_duration || 20))
 
 /// Cancel casting and all its effects.
 /datum/action/cooldown/spell/proc/cancel_casting()

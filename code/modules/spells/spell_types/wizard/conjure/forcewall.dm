@@ -8,6 +8,7 @@
 	spell_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 	attunement_school = ASPECT_NAME_AUGMENTATION
+	var/telegraph_type = /obj/effect/temp_visual/trap_wall
 
 	click_to_activate = TRUE
 	cast_range = SPELL_RANGE_GROUND
@@ -59,7 +60,7 @@
 		affected_turfs += get_step(get_step(front, SOUTH), SOUTH)
 
 	for(var/turf/affected_turf in affected_turfs)
-		new /obj/effect/temp_visual/trap_wall(affected_turf)
+		new telegraph_type(affected_turf)
 		addtimer(CALLBACK(src, PROC_REF(spawn_wall), affected_turf, H), 1 SECONDS)
 
 	H.visible_message("[H] mutters an incantation and a wall of arcyne force manifests out of thin air!")

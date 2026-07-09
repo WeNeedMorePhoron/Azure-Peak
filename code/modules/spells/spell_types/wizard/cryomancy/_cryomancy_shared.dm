@@ -25,9 +25,10 @@
 			// Burst
 			remove_all_frost_stacks(target)
 			target.apply_damage(FROST_BURST_DAMAGE, BURN)
+			target.apply_status_effect(/datum/status_effect/debuff/exposed)
 			target.mob_timers[FROST_BURST_IMMUNITY_KEY] = world.time + FROST_BURST_IMMUNITY_DURATION
 			target.visible_message(span_danger("The frost on [target] detonates in a flash of ice!"), span_userdanger("The frost bites deep - my body burns with cold!"))
-			target.balloon_alert_to_viewers("<font color='#4cadee'>shattered!</font>")
+			target.balloon_alert_to_viewers("<font color='#4cadee'>SHATTERED - EXPOSED!</font>")
 			playsound(get_turf(target), 'sound/spellbooks/crystal.ogg', 80, TRUE)
 			final_tier = 0
 			break

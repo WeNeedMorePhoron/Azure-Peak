@@ -150,7 +150,6 @@
 #define TELEGRAPH_AREA_DENIAL 16 // Very Slow - AOE or ground targeted, requires setup to avoid
 #define TELEGRAPH_ULTIMATE 20 // Supremely slow. Getting hit is your own fault
 
-// Aspect attuned names — shared between magic_aspect datums and implement-scaled spells
 #define ASPECT_NAME_PYROMANCY   "Fire"
 #define ASPECT_NAME_CRYOMANCY   "Frost"
 #define ASPECT_NAME_FULGURMANCY "Storms"
@@ -166,8 +165,11 @@
 #define ARCYNE_WARD_TIER_BASE    4 // Standard arcyne ward (self-cast)
 #define ARCYNE_WARD_TIER_GREATER 5 // Dragonhide / Crystalhide upgrades
 
-// Variant additive sentinel - used instead of null because DM skips null keys in for-in loops
 #define VARIANT_ADDITIVE "__additive__"
+
+// Resolves the order in which spells are sorted
+#define ASPECT_CHOICE "__choice__"
+#define ASPECT_POINTBUY "__pointbuy__"
 
 // Weapon-in-hand casting penalty — applied when casting a penalized spell while holding a non-implement rogueweapon
 #define WEAPON_CAST_PENALTY 0.3
