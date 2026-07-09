@@ -6,7 +6,7 @@
 #define WYRMFIRE_VULNERABLE_DURATION (5 SECONDS)
 #define CATACLYSM_DAMAGE 300
 #define CATACLYSM_STRUCTURAL_DAMAGE 3000
-#define CATACLYSM_RADIUS 3
+#define CATACLYSM_RADIUS 4
 
 // Abstract base for the Wyrmfire family (Wyrmfire, Cataclysm) - not grantable on its own.
 /datum/action/cooldown/spell/projectile/fireball
@@ -281,6 +281,16 @@
 /obj/effect/ebeam/pyroclasm
 	color = "#ff2b1a"
 
+/obj/effect/particle_effect/smoke/pyroclasm
+	color = "#2e2e2e"
+	alpha = 130
+	opaque = FALSE
+	opacity = FALSE
+	lifetime = 20
+
+/datum/effect_system/smoke_spread/pyroclasm
+	effect_type = /obj/effect/particle_effect/smoke/pyroclasm
+
 // Megumin's EXPLOSION (KonoSuba): https://konosuba.fandom.com/wiki/Explosion
 /datum/action/cooldown/spell/projectile/pyroclasm
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
@@ -322,7 +332,9 @@
 	var/blast_structural = CATACLYSM_STRUCTURAL_DAMAGE
 	var/chant_time = 12 SECONDS
 	var/energy_requirement = 800
-	var/exhaust_delay = 1.5 SECONDS
+	var/exhaust_delay = 3 SECONDS
+	var/hotspot_life = 15 SECONDS
+	var/hotspot_chance = 60
 
 /datum/action/cooldown/spell/projectile/pyroclasm/is_valid_target(atom/cast_on)
 	. = ..()
@@ -361,10 +373,10 @@
 
 /datum/action/cooldown/spell/projectile/pyroclasm/proc/perform_chant(mob/living/carbon/human/caster, turf/epicenter, list/warnings)
 	var/static/list/chant = list(
-		"Ignis candens, omnium elementorum clarissime!",
-		"Secundum leges PSYDONIS,",
-		"dissolve quae creavit -",
-		"cinis in cinerem, creata eius redde in favillam!",
+		"Ignis candens, omnium elementorum clarissime!!",
+		"Secundum leges PSYDONIS!!",
+		"dissolve quae creavit!!",
+		"cinis in cinerem, creata eius redde in favillam!!",
 	)
 	var/datum/beam/aim = new(caster, epicenter, 'icons/effects/beam.dmi', "b_beam", INFINITY, 20, /obj/effect/ebeam/pyroclasm)
 	INVOKE_ASYNC(aim, TYPE_PROC_REF(/datum/beam, Start))
@@ -384,7 +396,7 @@
 		return
 	if(!QDELETED(aim))
 		aim.End()
-	caster.say("CONFLAGRATIO!", forced = "spell", language = /datum/language/common)
+	caster.say("CONFLAGRATIO!!", forced = "spell", language = /datum/language/common)
 	erupt(caster, epicenter)
 
 /datum/action/cooldown/spell/projectile/pyroclasm/proc/chant_line(mob/living/carbon/human/caster, line)
@@ -395,12 +407,23 @@
 /datum/action/cooldown/spell/projectile/pyroclasm/proc/erupt(mob/living/carbon/human/caster, turf/epicenter)
 	if(!epicenter)
 		return
-	var/datum/effect_system/smoke_spread/S = new /datum/effect_system/smoke_spread/fast
+	var/datum/effect_system/smoke_spread/S = new /datum/effect_system/smoke_spread/pyroclasm
 	S.set_up(blast_radius, epicenter)
 	S.start()
 	new /obj/effect/temp_visual/explosion(epicenter)
 	new /obj/effect/temp_visual/fire_pillar(epicenter)
 	playsound(epicenter, pick('sound/misc/explode/bomb.ogg', 'sound/misc/explode/explosionclose (1).ogg', 'sound/misc/explode/explosionclose (2).ogg'), 120, TRUE, 10)
+	var/max_shake_dist = blast_radius + world.view
+	for(var/mob/M in GLOB.player_list)
+		if(M == caster)
+			continue
+		var/turf/M_turf = get_turf(M)
+		if(!M_turf || !is_in_zweb(M_turf.z, epicenter.z))
+			continue
+		var/dist = get_dist(M_turf, epicenter)
+		if(dist > max_shake_dist)
+			continue
+		shake_camera(M, 25, CLAMP(6 - (dist * 0.5), 1, 6))
 	var/list/hit = blast_turfs(epicenter)
 	for(var/turf/T in hit)
 		new /obj/effect/temp_visual/dragonfire(T)
@@ -408,6 +431,8 @@
 		if(prob(50))
 			new /obj/effect/temp_visual/explosion(T)
 		T.fire_act()
+		if(prob(hotspot_chance))
+			new /obj/effect/curtain_fire(T, hotspot_life, caster)
 		if(istype(T, /turf/closed/wall))
 			T.take_damage(blast_structural, BRUTE, "blunt", TRUE)
 		for(var/atom/A in T)
