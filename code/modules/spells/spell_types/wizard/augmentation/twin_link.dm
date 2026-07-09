@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(twin_links)
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	name = "Twin Link"
 	desc = "Bind a single ally to yourself. While the two of you remain in sight of one another, any augmentation placed on either of you echoes to the other at half strength. \
-	Casting again re-links to a new ally. The bond ends if either of you dies."
+	Casting again re-links to a new ally, or cast on empty space to sever the bond. The bond ends if either of you dies."
 	button_icon_state = "guidance"
 	sound = 'sound/magic/haste.ogg'
 	spell_color = GLOW_COLOR_BUFF
@@ -119,8 +119,19 @@ GLOBAL_LIST_EMPTY(twin_links)
 	if(!isliving(H))
 		return FALSE
 
+	if(isturf(cast_on))
+		var/datum/twin_link/current = get_twin_link(H)
+		if(current)
+			var/mob/living/former = current.partner_of(H)
+			qdel(current)
+			H.visible_message("The shimmering thread of arcyne around [H] unravels and fades.")
+			to_chat(H, span_notice("I sever my twin link[former ? " with [former]" : ""]."))
+			if(former)
+				to_chat(former, span_notice("The twin link binding me to [H] unravels."))
+			return TRUE
+
 	if(!isliving(cast_on) || cast_on == H)
-		to_chat(H, span_warning("I must bind myself to another living ally!"))
+		to_chat(H, span_warning("I must bind myself to another living ally, or cast on empty space to sever an existing bond."))
 		return FALSE
 
 	var/mob/living/target = cast_on
