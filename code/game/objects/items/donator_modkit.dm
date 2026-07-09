@@ -9,6 +9,8 @@
 	var/list/target_items = list()
 	/// Result item we'll exchange it to. Currently /weapon/ type kits use this as an example they'll copy all the visual data from. Keep this in mind if this never gets properly refactored!
 	var/result_item = null
+	/// Whether we'll be looking for exact types in target_items. This generally should be TRUE unless the user wants the elixir to be used on subtypes as well.
+	var/exact_type = FALSE
 
 /obj/item/enchantingkit/pre_attack(obj/item/I, mob/user)
 	if(!I || !user)
@@ -20,9 +22,17 @@
 	var/R_type = null
 	if(LAZYLEN(target_items))
 		for(var/T in target_items)
-			if(istype(I, T))
-				R_type = target_items[T]
-				break
+			if(exact_type)
+				if(I.type == T)
+					R_type = target_items[T]
+					break
+			else
+				if(istype(I, T))
+					R_type = target_items[T]
+					break
+
+	if(!R_type && exact_type)
+		return ..()
 
 	if(!R_type && result_item)
 		R_type = result_item
