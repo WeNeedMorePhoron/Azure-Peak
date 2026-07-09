@@ -217,8 +217,6 @@
 	struck_obstacles += T
 	var/dmg = structure_damage ? structure_damage : damage
 	for(var/obj/structure/S in T)
-		if(!S.density || istype(S, /obj/structure/flora/newbranch))
-			continue
 		S.take_damage(dmg, BRUTE, "blunt", TRUE)
 
 /datum/action/cooldown/spell/telegraphed_strike/proc/forward_reach(mob/living/carbon/human/H, facing, max_steps)
