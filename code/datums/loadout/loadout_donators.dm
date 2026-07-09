@@ -636,4 +636,4 @@
 /datum/loadout_item/donator/spaz_helm
 	name = "Donator Kit - Hound-Nosed Bascinet"
 	path = /obj/item/enchantingkit/spaz_helm
-	ckeywhitelist = list("spaz")
+	ckeywhitelist = list("seniorspaz")
