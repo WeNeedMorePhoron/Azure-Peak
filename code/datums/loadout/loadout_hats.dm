@@ -165,7 +165,7 @@
 	sort_category = "Hats"
 
 /datum/loadout_item/dyeable_crown
-	name = "Rosa Crown"
+	name = "Gray Flower Crown"
 	path = /obj/item/flowercrown/rosa/dyecrown
 	sort_category = "Hats"
 
