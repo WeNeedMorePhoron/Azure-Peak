@@ -19,7 +19,7 @@
 
 	point_cost = 0
 
-	spell_flags = SPELL_PSYDON
+	spell_flags = SPELL_PSYDON //You are not immune to the propaganda.
 	required_items = list(/obj/item/clothing/neck/roguetown/psicross)
 
 /////////////////////
@@ -42,11 +42,12 @@
 	secondary_resource_cost = SPELLCOST_CANTRIP
 
 	invocation_type = INVOCATION_SHOUT
-	invocations = list("Slaughter resumed!")
+	invocations = list("Shatter my binds!")
 
 	charge_required = FALSE
 	cooldown_time = 2 MINUTES
 
+	check_flags = AB_CHECK_CONSCIOUS
 	spell_requirements =  SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
 /datum/action/cooldown/spell/graggar/rush/cast(atom/cast_on)
