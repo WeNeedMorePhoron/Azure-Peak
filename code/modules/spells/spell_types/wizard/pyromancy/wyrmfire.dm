@@ -202,7 +202,7 @@
 
 /obj/effect/temp_visual/pillar_warning
 	icon = 'icons/effects/effects.dmi'
-	icon_state = "warning_static"
+	icon_state = "warning"
 	layer = ABOVE_MOB_LAYER
 	duration = 2 SECONDS
 
