@@ -21,6 +21,7 @@
 	charge_required = TRUE
 	weapon_cast_penalized = TRUE
 	charge_time = CHARGETIME_POKE
+	charge_swingdelay_type = SWINGDELAY_PENALTY
 	hold_drain = 1
 	// Very high slowdown to make it offensively less useful
 	charge_slowdown = CHARGING_SLOWDOWN_HEAVY 

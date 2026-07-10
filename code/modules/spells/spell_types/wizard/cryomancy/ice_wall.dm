@@ -10,6 +10,7 @@
 	spell_color = GLOW_COLOR_ICE
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 	attunement_school = ASPECT_NAME_CRYOMANCY
+	charge_swingdelay_type = SWINGDELAY_NORMAL
 	telegraph_type = /obj/effect/temp_visual/trapice
 	invocations = list("Murus Glaciei!")
 
