@@ -29,8 +29,8 @@
 	. = ..()
 	var/faction_tag = "[owner.mind.current.real_name]_faction"
 
-	if(ismob(cast_on) && istype(cast_on, /mob/living/simple_animal))
-		var/mob/living/simple_animal/minion = cast_on
+	if(ismob(cast_on) && (istype(cast_on, /mob/living/simple_animal) || HAS_TRAIT(cast_on, TRAIT_CONJURED_SUMMON)))
+		var/mob/living/minion = cast_on
 		if(faction_tag in minion.faction)
 			process_minions(order_type = "toggle_stance", target = minion, faction_tag = faction_tag)
 			return TRUE
@@ -59,8 +59,10 @@
 	var/msg = ""
 
 	for(var/mob/other_mob in oview(order_range, owner))
-		if(istype(other_mob, /mob/living/simple_animal) && !other_mob.client)
-			var/mob/living/simple_animal/minion = other_mob
+		if((istype(other_mob, /mob/living/simple_animal) || HAS_TRAIT(other_mob, TRAIT_CONJURED_SUMMON)) && !other_mob.client)
+			var/mob/living/minion = other_mob
+			if(!minion.ai_controller)
+				continue
 
 			if((faction_ordering && owner.faction_check_mob(minion)) || (!faction_ordering && faction_tag && (faction_tag in minion.faction)))
 				minion.ai_controller.CancelActions()
@@ -85,11 +87,15 @@
 						if(minion == target)
 							if("neutral" in minion.faction)
 								minion.faction -= "neutral"
-								minion.pet_passive = FALSE
+								if(isanimal(minion))
+									var/mob/living/simple_animal/simple_minion = minion
+									simple_minion.pet_passive = FALSE
 								msg = "attack non-marked on sight."
 							else
 								minion.faction += "neutral"
-								minion.pet_passive = TRUE
+								if(isanimal(minion))
+									var/mob/living/simple_animal/simple_minion = minion
+									simple_minion.pet_passive = TRUE
 								msg = "only retaliate when attacked."
 	if(count > 0)
 		to_chat(owner, "Ordered [count] minions to [msg]")

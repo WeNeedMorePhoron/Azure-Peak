@@ -346,11 +346,17 @@
 		"Vocatio, a me discedere!",
 	)
 	fixed_spells = list(
-		/datum/action/cooldown/spell/minion_order/primordial,
-		/datum/action/cooldown/spell/primordialmark,
+		/datum/action/cooldown/spell/minion_order/conjurer,
+		/datum/action/cooldown/spell/minion_mark,
 		/datum/action/cooldown/spell/conjure_dismiss,
+		/datum/action/cooldown/spell/augment_buff/grasp,
+		/datum/action/cooldown/spell/forcewall,
+		/datum/action/cooldown/spell/augment_buff/surge,
+		/datum/action/cooldown/spell/augment_buff/guidance,
+		/datum/action/cooldown/spell/augment_buff/blood_rush,
 	)
 	choice_spells = list(
-		/datum/action/cooldown/spell/conjure_primordial,
-		/datum/action/cooldown/spell/summon_champion,
+		/datum/action/cooldown/spell/conjure_summon/primordial,
+		/datum/action/cooldown/spell/conjure_summon/champion,
+		/datum/action/cooldown/spell/conjure_summon/hordes,
 	)

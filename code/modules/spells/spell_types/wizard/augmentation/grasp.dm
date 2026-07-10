@@ -38,8 +38,8 @@
 	if(target == H)
 		to_chat(H, span_warning("I cannot grasp myself!"))
 		return FALSE
-	if(!shares_fellowship(H, target))
-		to_chat(H, span_warning("[target] is not of my fellowship!"))
+	if(!shares_fellowship(H, target) && !H.faction_check_mob(target))
+		to_chat(H, span_warning("[target] shares no bond with me!"))
 		return FALSE
 
 	var/datum/beam/tether = H.Beam(target, "purple_lightning", time = channel_time)
@@ -59,8 +59,8 @@
 
 	if(QDELETED(target) || !isliving(target))
 		return FALSE
-	if(!shares_fellowship(H, target))
-		to_chat(H, span_warning("[target] is no longer of my fellowship - the grasp unravels."))
+	if(!shares_fellowship(H, target) && !H.faction_check_mob(target))
+		to_chat(H, span_warning("[target] is no longer bound to me - the grasp unravels."))
 		return FALSE
 	if(!can_see(H, target, cast_range))
 		to_chat(H, span_warning("[target] has slipped from my sight - the grasp fails!"))
