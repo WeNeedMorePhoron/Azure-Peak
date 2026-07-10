@@ -14,7 +14,7 @@
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MAJOR_AOE
 
-	cooldown_time = 15 SECONDS
+	cooldown_time = 20 SECONDS
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
 	spell_impact_intensity = SPELL_IMPACT_HIGH
@@ -27,7 +27,7 @@
 	committed_strike = TRUE
 	interruptible = FALSE
 	charging_slowdown = 1
-	windup_time = TELEGRAPH_DODGEABLE
+	windup_time = TELEGRAPH_AREA_DENIAL
 	sweep_step = 0
 	telegraph_type = /obj/effect/temp_visual/trap/telomancy
 	strike_sound = 'sound/magic/vlightning.ogg'

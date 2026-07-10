@@ -23,7 +23,7 @@
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_NONE
 	charge_sound = 'sound/magic/charging.ogg'
-	cooldown_time = 12 SECONDS
+	cooldown_time = 20 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2

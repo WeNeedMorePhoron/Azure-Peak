@@ -33,6 +33,7 @@
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
+	charge_swingdelay_type = SWINGDELAY_CANCEL
 	charge_time = 6 SECONDS
 	charge_slowdown = 3
 	charge_sound = 'sound/magic/charging.ogg'
@@ -198,6 +199,7 @@
 	var/upfront_stamina_cost = 70
 
 	charge_required = TRUE
+	charge_swingdelay_type = SWINGDELAY_CANCEL
 	charge_time = 10 SECONDS
 	hold_drain = 1
 	charge_slowdown = 3
