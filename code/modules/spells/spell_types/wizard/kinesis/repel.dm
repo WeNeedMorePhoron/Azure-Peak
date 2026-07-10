@@ -65,7 +65,7 @@
 		if(L.anti_magic_check() || !firer)
 			L.visible_message(span_warning("[src] vanishes on contact with [target]!"))
 			return BULLET_ACT_BLOCK
-		L.throw_at(throw_target, 7, 4)
+		L.throw_at(throw_target, out_of_effective_range() ? 3 : 7, 4)
 	else
 		if(isitem(target))
 			var/obj/item/I = target

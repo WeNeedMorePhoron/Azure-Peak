@@ -62,7 +62,7 @@
 	range = 7 // Let you pressure a whole screen, in theory
 	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "stygian"
-	max_range = 5 // Effective range is lower than its maximal range
+	max_range = MAGE_MID_PROJ_RANGE // Effective range is lower than its maximal range
 	damage = 34
 	damage_type = BRUTE
 	woundclass = BCLASS_STAB
