@@ -1,4 +1,4 @@
-#define SCORCH_ADAPTATION_DURATION (15 SECONDS)
+#define SCORCH_ADAPTATION_DURATION (10 SECONDS)
 #define SCORCH_ADAPTATION_KEY "scorch_adaptation"
 #define SCORCH_OVERLAY_COLOR rgb(255, 138, 61)
 
@@ -107,7 +107,7 @@
 /datum/status_effect/debuff/scorched1
 	id = "scorched1"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/scorched1
-	duration = 15 SECONDS
+	duration = 25 SECONDS
 
 /atom/movable/screen/alert/status_effect/debuff/scorched1
 	name = "Scorched"
@@ -125,7 +125,7 @@
 /datum/status_effect/debuff/scorched2
 	id = "scorched2"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/scorched2
-	duration = 15 SECONDS
+	duration = 25 SECONDS
 	effectedstats = list(STATKEY_WIL = -1)
 
 /atom/movable/screen/alert/status_effect/debuff/scorched2
@@ -144,7 +144,7 @@
 /datum/status_effect/debuff/scorched3
 	id = "scorched3"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/scorched3
-	duration = 15 SECONDS
+	duration = 25 SECONDS
 	effectedstats = list(STATKEY_WIL = -2)
 
 /atom/movable/screen/alert/status_effect/debuff/scorched3
@@ -163,7 +163,7 @@
 /datum/status_effect/debuff/scorched4
 	id = "scorched4"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/scorched4
-	duration = 15 SECONDS
+	duration = 25 SECONDS
 	effectedstats = list(STATKEY_WIL = -2)
 
 /atom/movable/screen/alert/status_effect/debuff/scorched4

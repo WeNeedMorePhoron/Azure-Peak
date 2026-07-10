@@ -1,4 +1,4 @@
-#define SPITFIRE_DAMAGE 50
+#define SPITFIRE_DAMAGE 40
 /datum/action/cooldown/spell/projectile/spitfire
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Spitfire"

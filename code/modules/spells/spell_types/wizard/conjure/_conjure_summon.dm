@@ -186,7 +186,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/conjure_backlash
 	effectedstats = list(STATKEY_STR = -4, STATKEY_SPD = -4, STATKEY_CON = -4, STATKEY_WIL = -4, STATKEY_PER = -3, STATKEY_INT = -3)
 	duration = 3 MINUTES
-	needs_processing = FALSE
+	needs_processing = TRUE
 
 /datum/status_effect/debuff/conjure_backlash/on_apply()
 	. = ..()

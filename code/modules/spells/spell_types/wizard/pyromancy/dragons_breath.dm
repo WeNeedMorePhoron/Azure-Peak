@@ -2,7 +2,7 @@
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Dragon's Breath"
 	desc = "Let loose a wide cone of flame that erupts forward, burning everything in its path and pushing back anyone it hits. \
-	The windup leaves you committed and wide open, a solid blow will interrupts the spell."
+	The windup leaves you committed and wide open."
 	button_icon_state = "fire_blast"
 	sound = 'sound/magic/fireball.ogg'
 	spell_color = GLOW_COLOR_FIRE
@@ -20,12 +20,12 @@
 	spell_impact_intensity = SPELL_IMPACT_HIGH
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
-	damage = 80
+	damage = 60
 	strike_damage_type = BURN
 	blade_class = BCLASS_BURN
 	npc_simple_damage_mult = 2
 	committed_strike = TRUE
-	interruptible = TRUE
+	interruptible = FALSE
 	charging_slowdown = 1
 	windup_time = TELEGRAPH_AREA_DENIAL
 	sweep_step = 0
