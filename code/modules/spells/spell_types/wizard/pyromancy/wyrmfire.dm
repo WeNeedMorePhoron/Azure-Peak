@@ -143,12 +143,12 @@
 	Fireball: Direct fire for 80 damage and 50 area damage around the target.\n\
 	Artillery Fireball: Arced bombardment with heavy structural damage and smoke for 80 damage and 50 area damage.\n\
 	Pillar of Flame: Ground-target a delayed eruption dealing 110 damage across a 3x3 after a short warning."
-	charge_swingdelay_type = SWINGDELAY_CANCEL
+	charge_swingdelay_type = SWINGDELAY_PENALTY
 	var/current_mode = 1
 	var/list/modes = list(
 		list("name" = "Fireball", "tag" = "BALL", "proj" = /obj/projectile/magic/aoe/fireball/rogue, "proj_arc" = /obj/projectile/magic/aoe/fireball/rogue/arc, "arc" = FALSE, "icon" = "fireball", "cost" = SPELLCOST_MAJOR_PROJECTILE, "cooldown" = 16 SECONDS, "charge" = CHARGETIME_MAJOR, "slowdown" = CHARGING_SLOWDOWN_MEDIUM, "sound" = 'sound/magic/fireball.ogg', "invocation" = "Sphaera Ignis!"),
 		list("name" = "Artillery Fireball", "tag" = "ARTY", "proj" = /obj/projectile/magic/aoe/fireball/rogue/artillery, "proj_arc" = /obj/projectile/magic/aoe/fireball/rogue/artillery/arc, "arc" = TRUE, "icon" = "fireball_artillery", "cost" = SPELLCOST_MAJOR_PROJECTILE, "cooldown" = 16 SECONDS, "charge" = CHARGETIME_HEAVY, "slowdown" = CHARGING_SLOWDOWN_HEAVY, "sound" = 'sound/magic/fireball.ogg', "invocation" = "Ignis Sphaera Bombardae!"),
-		list("name" = "Pillar of Flame", "tag" = "PILR", "proj" = /obj/projectile/magic/aoe/fireball/rogue, "proj_arc" = /obj/projectile/magic/aoe/fireball/rogue/arc, "arc" = FALSE, "ground" = TRUE, "icon" = "fireball_greater", "cost" = SPELLCOST_MAJOR_PROJECTILE, "cooldown" = 18 SECONDS, "charge" = CHARGETIME_HEAVY, "slowdown" = CHARGING_SLOWDOWN_HEAVY, "sound" = 'sound/magic/fireball.ogg', "invocation" = "Flamma Vorax!"),
+		list("name" = "Pillar of Flame", "tag" = "PILR", "proj" = /obj/projectile/magic/aoe/fireball/rogue, "proj_arc" = /obj/projectile/magic/aoe/fireball/rogue/arc, "arc" = FALSE, "ground" = TRUE, "icon" = "fireball_greater", "cost" = SPELLCOST_MAJOR_PROJECTILE, "cooldown" = 16 SECONDS, "charge" = CHARGETIME_HEAVY, "slowdown" = CHARGING_SLOWDOWN_HEAVY, "sound" = 'sound/magic/fireball.ogg', "invocation" = "Flamma Vorax!"),
 	)
 	var/pillar_radius = 1
 	var/pillar_delay = 2 SECONDS
