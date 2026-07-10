@@ -39,7 +39,7 @@
 	var/list/rings = list()
 	for(var/d in 1 to cone_range)
 		var/list/ring = list()
-		var/half = (d > 1) ? round(d / 2) : 0
+		var/half = max(1, round(d / 2))
 		for(var/lat in -half to half)
 			ring += list(list(lat, d))
 		rings += list(ring)
