@@ -350,6 +350,7 @@
 	armor_class = ARMOR_CLASS_MEDIUM
 	armor = ARMOR_MAILLE
 	blocksound = CHAINHIT
+	smeltresult = /obj/item/ingot/steel
 
 /obj/item/clothing/neck/roguetown/gorget/aventail/iron
 	name = "iron aventail"
