@@ -1,4 +1,4 @@
-#define CURTAIN_TICK_DAMAGE 25
+#define CURTAIN_TICK_DAMAGE 35
 #define CURTAIN_BURN_KEY "curtain_burn"
 
 /datum/action/cooldown/spell/fire_curtain
