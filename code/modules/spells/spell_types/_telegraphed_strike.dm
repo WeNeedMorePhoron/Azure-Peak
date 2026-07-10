@@ -17,7 +17,7 @@
 	var/charging_slowdown = 0
 	var/committed_strike = TRUE
 	var/interruptible = FALSE
-	var/lock_direction = TRUE
+	var/lock_direction = FALSE
 	var/redraw_interval = 2
 	var/sweep_step = 1
 	var/impact_delay = 0
