@@ -243,8 +243,6 @@
 	var/dmg = structure_damage ? structure_damage : damage
 	var/hit_any = FALSE
 	for(var/obj/structure/S in T)
-		if(!S.density || istype(S, /obj/structure/flora/newbranch))
-			continue
 		S.take_damage(dmg, BRUTE, "blunt", TRUE)
 		hit_any = TRUE
 	if(hit_any)

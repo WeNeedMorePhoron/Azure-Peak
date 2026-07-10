@@ -1002,6 +1002,8 @@
 
 	// Spell glow light
 	if(glow_intensity && spell_color && isliving(owner))
+		if(spell_glow_light)
+			QDEL_NULL(spell_glow_light)
 		var/mob/living/L = owner
 		spell_glow_light = L.mob_light(spell_color, glow_intensity, FLASH_LIGHT_SPELLGLOW)
 
@@ -1051,6 +1053,11 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	build_all_button_icons(UPDATE_BUTTON_STATUS|UPDATE_BUTTON_BACKGROUND)
 
+	// Clean up glow before the owner guard below - the light is owner-independent and
+	// must be dropped even if owner is gone, or it lingers on the mob permanently.
+	if(spell_glow_light)
+		QDEL_NULL(spell_glow_light)
+
 	if(!owner)
 		return
 
@@ -1077,10 +1084,6 @@
 	// Clean up overhead spell icon
 	if(mob_charge_effect)
 		owner.vis_contents -= mob_charge_effect
-
-	// Clean up glow
-	if(spell_glow_light)
-		QDEL_NULL(spell_glow_light)
 
 	if(has_visual_effects)
 		var/mob/living/caster = owner
@@ -1397,21 +1400,7 @@
 			stats += span_info(" <font color='#8c00ff'>(Swiftcast)</font>")
 
 	// Cooldown
-	var/base_cd = cooldown_time
-	if(base_cd)
-		var/dynamic_cd = user ? get_adjusted_cooldown() : base_cd
-		if(abs(dynamic_cd - base_cd) > 0.5) // Meaningful change threshold
-			stats += span_info("Cooldown: [DisplayTimeText(base_cd)] (current: [DisplayTimeText(dynamic_cd)])")
-			if(user)
-				var/list/cd_breakdown = get_cooldown_breakdown(user)
-				if(length(cd_breakdown))
-					stats += cd_breakdown
-		else
-			stats += span_info("Cooldown: [DisplayTimeText(base_cd)]")
-		// Show remaining cooldown if on cooldown
-		var/time_left = max(next_use_time - world.time, 0)
-		if(time_left > 0)
-			stats += span_warning("Remaining: [DisplayTimeText(time_left)]")
+	stats += get_cooldown_stat_lines(user)
 
 	// Primary resource cost
 	if(primary_resource_cost > 0)
@@ -1457,6 +1446,30 @@
 		if(SPELL_COST_DEVOTION)
 			return "Devotion cost"
 	return "Cost"
+
+/// Builds the cooldown-related examine lines (headline + stat breakdown + remaining).
+/// Split out so subtypes whose cooldown depends on cast context - e.g. augmentations
+/// that cost differently on self vs. ally - can present every relevant figure instead
+/// of the single ambiguous number get_adjusted_cooldown() returns outside a cast.
+/datum/action/cooldown/spell/proc/get_cooldown_stat_lines(mob/living/user)
+	var/list/lines = list()
+	var/base_cd = cooldown_time
+	if(!base_cd)
+		return lines
+	var/dynamic_cd = user ? get_adjusted_cooldown() : base_cd
+	if(abs(dynamic_cd - base_cd) > 0.5) // Meaningful change threshold
+		lines += span_info("Cooldown: [DisplayTimeText(base_cd)] (current: [DisplayTimeText(dynamic_cd)])")
+		if(user)
+			var/list/cd_breakdown = get_cooldown_breakdown(user)
+			if(length(cd_breakdown))
+				lines += cd_breakdown
+	else
+		lines += span_info("Cooldown: [DisplayTimeText(base_cd)]")
+	// Show remaining cooldown if on cooldown
+	var/time_left = max(next_use_time - world.time, 0)
+	if(time_left > 0)
+		lines += span_warning("Remaining: [DisplayTimeText(time_left)]")
+	return lines
 
 /// Breakdown of cooldown modifiers for examine.
 /datum/action/cooldown/spell/proc/get_cooldown_breakdown(mob/living/user)

@@ -63,6 +63,8 @@
 #define SPELLCOST_SINGLE_CC          30
 #define SPELLCOST_UTILITY_BUFF       5 // See below
 #define SPELLCOST_STAT_BUFF          5 // With new Augmentation design we don't really need to gate this hard anymore
+#define SPELLCOST_BRUSH 			 50 // For blood rush spells, which I don't want to become an overly easy trade for stamina
+#define SPELLCOST_SURGE 			 65 // For surge spells, which is pretty damn powerful
 #define SPELLCOST_CONJURE            20	
 #define SPELLCOST_TELEPORT           15
 #define SPELLCOST_MINOR_SUMMON       30
@@ -70,6 +72,7 @@
 // Buff duration tiers
 #define STAT_BUFF_SELF_DURATION      1 MINUTES
 #define STAT_BUFF_ALLY_DURATION      1 MINUTES
+#define ATTUNE_BUFF_DURATION         45 SECONDS // Attune (Giant/Hawk/Haste) uptime, against a 90s cooldown
 #define UTILITY_AOE_BUFF_DURATION    15 MINUTES
 
 //Miracle costs in devotion used.

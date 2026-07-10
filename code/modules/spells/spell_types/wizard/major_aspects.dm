@@ -202,57 +202,6 @@
 		),
 	)
 
-/datum/magic_aspect/augmentation
-	name = "Augmentation"
-	latin_name = "Maior Aspectus Augmenti"
-	desc = "Scholars debate whether Augmentation is a first, second, or even third-order school. Its adherents consider themselves third-order - \
-	with the honor of imitating the divine by augmenting the boundless potential of the humen form. Its spells are focused on enhancing the body, \
-	never the mind directly - for the mind is the true province of the divine, and one cannot use magycks to enhance one's own ability to wield magycks so bluntly. \
-	Woe betides those who face a warrior sharpened by the arcyne."
-	aspect_type = ASPECT_MAJOR
-	attuned_name = ASPECT_NAME_AUGMENTATION
-	school_color = GLOW_COLOR_BUFF
-	binding_chants = list(
-		"Invoco potentiam perfectionis!",
-		"I beseech the arcyne to hone my form, sharpen!",
-		"Augmentum, in me ligare!",
-	)
-	unbinding_chants = list(
-		"Solvo augmentum vinctum!",
-		"I forfeit the strength bestowed upon me, diminish.",
-		"Augmentum, a me discedere!",
-	)
-	fixed_spells = list(
-		/datum/action/cooldown/spell/bestow_ward,
-	)
-	choice_spells = list(
-		/datum/action/cooldown/spell/twin_link,
-		/datum/action/cooldown/spell/conjure_arcyne_ward/steelhide,
-	)
-	variants = list(
-		"mastery" = list(
-			VARIANT_ADDITIVE = /datum/action/cooldown/spell/ascension,
-		),
-	)
-	pointbuy_budget = 12
-	pointbuy_spells = list(
-		/datum/action/cooldown/spell/augment_buff/blood_rush,
-		/datum/action/cooldown/spell/augment_buff/guidance,
-		/datum/action/cooldown/spell/augment_buff/attune_hawk,
-		/datum/action/cooldown/spell/augment_buff/attune_giant,
-		/datum/action/cooldown/spell/augment_buff/attune_haste,
-		/datum/action/cooldown/spell/augment_buff/fortitude,
-		/datum/action/cooldown/spell/bind_armament,
-		/datum/action/cooldown/spell/augment_buff/surge,
-		/datum/action/cooldown/spell/augment_buff/precognition,
-		/datum/action/cooldown/spell/augment_buff/grasp,
-		/datum/action/cooldown/spell/forcewall,
-		/datum/action/cooldown/spell/featherfall,
-		/datum/action/cooldown/spell/augment_buff/enlarge,
-		/datum/action/cooldown/spell/leap,
-		/datum/action/cooldown/spell/nondetection,
-	)
-
 /datum/magic_aspect/ferramancy
 	name = "Ferramancy"
 	latin_name = "Maior Aspectus Ferri"
@@ -282,6 +231,7 @@
 		/datum/action/cooldown/spell/ferramancy_strike/heavens_hammer,
 		/datum/action/cooldown/spell/projectile/stygian_efflorescence,
 		/datum/action/cooldown/spell/form_blade,
+		/datum/action/cooldown/spell/conjure_arcyne_ward/ironhide,
 		/datum/action/cooldown/spell/bind_armament,
 		/datum/action/cooldown/spell/arcyne_forge,
 		/datum/action/cooldown/spell/mending,
