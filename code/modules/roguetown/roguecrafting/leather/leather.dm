@@ -297,7 +297,7 @@
 	display_category = ITEM_CAT_ARMOR_CHESTPIECES
 	reqs = list(
 		/obj/item/natural/hide/cured = 1,
-		/obj/item/natural/fibers = 1,
+		/obj/item/natural/cloth = 2,
 		/obj/item/storage/belt/rogue/pouch = 1,
 	)
 	result = /obj/item/clothing/cloak/suspenders
