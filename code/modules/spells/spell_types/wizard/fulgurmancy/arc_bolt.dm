@@ -6,7 +6,8 @@
 	button_icon = 'icons/mob/actions/mage_fulgurmancy.dmi'
 	name = "Arc Bolt"
 	desc = "Fire a precise jolt of lightning that sears a target's struck body part with heavy burn. \
-	Toggle firing mode (Shift+G) while active: Chain leaps to up to three foes behind the target, searing the same body part for half as much, while Focus only strike one target. \
+	Toggle firing mode (Shift+G) while active: Chain leaps to up to three foes behind the target, searing the same body part for half as much, \
+	Focus only strike one target, and Arc lobs a single weakened bolt over obstacles. \
 	The bolt loses power past 5 paces. \
 	Damage is increased by 50% versus simple-minded creechurs."
 	button_icon_state = "shock"
@@ -42,6 +43,7 @@
 	var/list/modes = list(
 		list("name" = "Chain", "tag" = "CHAIN", "proj" = /obj/projectile/magic/arc_bolt, "invocation" = "Fulgur!"),
 		list("name" = "Focus", "tag" = "FOCUS", "proj" = /obj/projectile/magic/arc_bolt/single, "invocation" = "Fulgur Singularis!"),
+		list("name" = "Arc", "tag" = "ARC", "proj" = /obj/projectile/magic/arc_bolt/single/arc, "invocation" = "Fulgur Arcus!"),
 	)
 
 /datum/action/cooldown/spell/projectile/arc_bolt/Grant(mob/grant_to)
@@ -74,7 +76,7 @@
 
 /datum/action/cooldown/spell/projectile/arc_bolt/get_spell_statistics(mob/living/user)
 	var/list/stats = ..()
-	stats += span_info("Firing mode (toggle with Shift+G): Chain (arcs to 3 foes behind for half damage) / Focus (single target).")
+	stats += span_info("Firing mode (toggle with Shift+G): Chain (arcs to 3 foes behind for half damage) / Focus (single target) / Arc (single target, lobs over obstacles, reduced damage).")
 	return stats
 
 /obj/projectile/magic/arc_bolt
@@ -101,6 +103,11 @@
 	name = "focused bolt"
 	damage = 60
 	arcs = FALSE
+
+/obj/projectile/magic/arc_bolt/single/arc
+	name = "arced bolt"
+	damage = 45
+	arcshot = TRUE
 
 
 /obj/projectile/magic/arc_bolt/on_hit(target)
