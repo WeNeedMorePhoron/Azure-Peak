@@ -71,6 +71,7 @@
 	ai_controller = /datum/ai_controller/big_rat
 	melee_cooldown = RAT_ATTACK_SPEED
 	stat_attack = UNCONSCIOUS
+	var/undead_rat = FALSE
 
 /obj/effect/decal/remains/bigrat
 	name = "remains"
@@ -86,7 +87,7 @@
 	AddComponent(/datum/component/ai_aggro_system)
 	gender = MALE
 	AddElement(/datum/element/ai_flee_while_injured, 0.75, 0.3)
-	if(prob(33))
+	if(prob(33) && !undead_rat)
 		gender = FEMALE
 	if(gender == FEMALE)
 		icon_state = "Frat"
