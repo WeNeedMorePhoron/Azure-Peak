@@ -88,8 +88,8 @@
 /datum/action/cooldown/spell/augury
 	abstract_type = /datum/action/cooldown/spell/augury
 	name = "Augury"
-	desc = "Play the Augury drawn into this slot, applying it to yourself and every conduit-linked fellow in your sight for 22 seconds. \
-	Both Augury slots share a cooldown - using one scatters both and two fresh Auguries are drawn once it ends.. \
+	desc = "Cast the Augury drawn into this slot, applying it to every conduit-linked fellow in your sight for 22 seconds. \
+	Both Augury slots share a cooldown - using one scatters both and two fresh Auguries are drawn once it ends. \
 	A person can bear only one Augury at a time.."
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	button_icon_state = "guidanceneu"
@@ -200,15 +200,18 @@
 		return FALSE
 
 	var/datum/augury/card = drawn_card
-	var/list/receivers = list(H)
+	var/list/receivers = list()
 	var/datum/augment_conduit/conduit = get_augment_conduit(H)
 	if(conduit)
 		receivers |= conduit.get_receivers()
 
+	if(!length(receivers))
+		owner.balloon_alert(owner, "No linked fellows are in range to receive this augury.")
+		return FALSE
+
 	for(var/mob/living/target in receivers)
 		card.play_on(target, card.duration)
-		if(target != H)
-			H.Beam(target, icon_state = "b_beam", time = 1 SECONDS)
+		H.Beam(target, icon_state = "b_beam", time = 1 SECONDS)
 
 	for(var/datum/action/cooldown/spell/augury/slot in H.actions)
 		slot.clear_card()

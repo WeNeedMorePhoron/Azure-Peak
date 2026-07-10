@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(augment_conduits)
 
 /datum/action/cooldown/spell/augment_conduit_link
 	name = "Conduit"
-	desc = "Weave a visible arcyne conduit between yourself and a fellow of my fellowship. Augury you cast flow apply to every linked fellow in your sight, \
+	desc = "Weave a visible arcyne conduit between yourself and a fellow of my fellowship. Augury you cast apply to every linked fellow in your sight, \
 	Up to two conduits may be held at once; cast upon a linked fellow to sever their conduit, \
 	or upon the ground to sever them all. The bond frays if either of you dies."
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'

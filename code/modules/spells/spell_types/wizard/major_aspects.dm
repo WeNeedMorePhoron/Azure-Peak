@@ -346,9 +346,9 @@
 		/datum/action/cooldown/spell/projectile/basic_offensive,
 		/datum/action/cooldown/spell/augury/first,
 		/datum/action/cooldown/spell/augury/second,
-		/datum/action/cooldown/spell/augment_conduit_link,
 		/datum/action/cooldown/spell/augment_buff/surge,
 		/datum/action/cooldown/spell/augment_buff/grasp,
+		/datum/action/cooldown/spell/augment_conduit_link,
 	)
 	variants = list(
 		"mastery" = list(
