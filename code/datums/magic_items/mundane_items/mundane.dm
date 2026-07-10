@@ -48,8 +48,6 @@
 		user.change_stat(STATKEY_WIL, -1)
 		to_chat(user, span_notice("I feel mundane once more"))
 
-
-
 /datum/magic_item/mundane/xylix
 	name = "Xylix's boon"
 	description = "It almost seems to give off the faint sound of laughter."
@@ -96,6 +94,20 @@
 		to_chat(user, span_notice("I grip [i] lightly, and the light fades away"))
 		i.set_light_on(FALSE)
 		i.update_icon()
+	. = ..()
+
+/datum/magic_item/mundane/fairseeming
+	name = "fair seeming"
+	description = "It never seems to gather dirt. (Right click on it to activate the cleaning effect.)"
+	glow_color = "#E6C9F0"
+
+/datum/magic_item/mundane/fairseeming/attack_right(var/obj/item/i, var/mob/living/user)
+	to_chat(user, span_notice("I grip [i] lightly, and a faint shimmer of glamour gathers around me..."))
+	if(do_after(user, 2 SECONDS, target = user))
+		new /obj/effect/temp_visual/cleaning_pulse(get_turf(user))
+		wash_atom(user, CLEAN_STRONG)
+		user.remove_stress(/datum/stressevent/sewertouched)
+		to_chat(user, span_notice("The glamour settles, and I am spotless once more."))
 	. = ..()
 
 /datum/magic_item/mundane/holding
