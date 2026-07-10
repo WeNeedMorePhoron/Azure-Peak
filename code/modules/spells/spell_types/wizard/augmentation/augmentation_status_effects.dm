@@ -296,3 +296,137 @@
 	owner.remove_filter(IRON_SKIN_FILTER)
 
 #undef IRON_SKIN_FILTER
+
+/datum/status_effect/buff/augury
+	duration = AUGURY_DURATION
+	exclusive_group = AUGURY_GROUP
+	var/outline_colour = "#a980df"
+	var/announce = ""
+
+/datum/status_effect/buff/augury/on_creation(mob/living/new_owner, new_duration = null, ascended = FALSE)
+	if(new_duration)
+		duration = new_duration
+	if(ascended)
+		exclusive_group = null
+	. = ..()
+
+/datum/status_effect/buff/augury/on_apply()
+	. = ..()
+	if(!.)
+		return
+	if(announce)
+		owner.balloon_alert_to_viewers("<font color='[outline_colour]'>[announce]</font>")
+	if(!owner.get_filter("[id]_glow"))
+		owner.add_filter("[id]_glow", 2, list("type" = "outline", "color" = outline_colour, "alpha" = 40, "size" = 1))
+
+/datum/status_effect/buff/augury/on_remove()
+	. = ..()
+	owner.remove_filter("[id]_glow")
+
+// ---- Augury: Might ----
+
+/atom/movable/screen/alert/status_effect/buff/augury_might
+	name = "Augury: Might"
+	desc = "Arcyne strength floods my muscles. (+3 Strength)"
+	icon_state = "buff"
+
+/datum/status_effect/buff/augury/might
+	id = "augury_might"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/augury_might
+	effectedstats = list(STATKEY_STR = 3)
+	outline_colour = "#8B0000"
+	announce = "might (+3 str)!"
+
+// ---- Augury: Hawk's Mark ----
+
+/atom/movable/screen/alert/status_effect/buff/augury_hawks_mark
+	name = "Augury: Hawk's Mark"
+	desc = "The arcyne sharpens my aim. (+3 Perception)"
+	icon_state = "buff"
+
+/datum/status_effect/buff/augury/hawks_mark
+	id = "augury_hawks_mark"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/augury_hawks_mark
+	effectedstats = list(STATKEY_PER = 3)
+	outline_colour = "#ffff00"
+	announce = "hawk's mark (+3 per)!"
+
+// ---- Augury: Fleetness ----
+
+/atom/movable/screen/alert/status_effect/buff/augury_fleetness
+	name = "Augury: Fleetness"
+	desc = "My limbs move swiftly. (+2 Speed, 0.9x Action Cooldown)"
+	icon_state = "buff"
+
+/datum/status_effect/buff/augury/fleetness
+	id = "augury_fleetness"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/augury_fleetness
+	effectedstats = list(STATKEY_SPD = 2)
+	outline_colour = "#F0E68C"
+	announce = "fleetness (+2 spd)!"
+
+/datum/status_effect/buff/augury/fleetness/nextmove_modifier()
+	return 0.9
+
+// ---- Augury: Second Wind ----
+
+/atom/movable/screen/alert/status_effect/buff/augury_second_wind
+	name = "Augury: Second Wind"
+	desc = "My fatigue lifts from my shoulders. (-25% Stamina Usage)"
+	icon_state = "buff"
+
+/datum/status_effect/buff/augury/second_wind
+	id = "augury_second_wind"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/augury_second_wind
+	outline_colour = "#008000"
+	announce = "second wind!"
+
+/datum/status_effect/buff/augury/second_wind/on_apply()
+	. = ..()
+	if(!.)
+		return
+	ADD_TRAIT(owner, TRAIT_FORTITUDE, "augury_second_wind")
+	owner.stamina_add(-15)
+
+/datum/status_effect/buff/augury/second_wind/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_FORTITUDE, "augury_second_wind")
+
+
+/datum/status_effect/buff/empowered_strike/augury
+	exclusive_group = AUGURY_GROUP
+
+/datum/status_effect/buff/empowered_strike/augury/on_creation(mob/living/new_owner, new_duration, ascended = FALSE)
+	if(ascended)
+		exclusive_group = null
+	return ..()
+
+/datum/status_effect/buff/adrenaline_rush/augury
+	exclusive_group = AUGURY_GROUP
+
+/datum/status_effect/buff/adrenaline_rush/augury/on_creation(mob/living/new_owner, new_duration = null, ascended = FALSE)
+	if(new_duration)
+		duration = new_duration
+	if(ascended)
+		exclusive_group = null
+	return ..()
+
+/datum/status_effect/buff/adrenaline_rush/augury/on_apply()
+	. = ..()
+	if(!.)
+		return
+	owner.balloon_alert_to_viewers("<font color='#c62f2f'>rush!</font>")
+
+/datum/status_effect/buff/iron_skin/augury
+	exclusive_group = AUGURY_GROUP
+
+/datum/status_effect/buff/iron_skin/augury/on_creation(mob/living/new_owner, new_duration = null, ascended = FALSE)
+	if(ascended)
+		exclusive_group = null
+	return ..()
+
+/datum/status_effect/buff/iron_skin/augury/on_apply()
+	. = ..()
+	if(!.)
+		return
+	owner.balloon_alert_to_viewers("<font color='#708090'>bulwark!</font>")

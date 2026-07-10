@@ -63,10 +63,11 @@
 #define SPELLCOST_MINOR_AOE          15
 #define SPELLCOST_MAJOR_AOE          30
 #define SPELLCOST_SINGLE_CC          30
-#define SPELLCOST_UTILITY_BUFF       5 // See below
-#define SPELLCOST_STAT_BUFF          5 // With new Augmentation design we don't really need to gate this hard anymore
+#define SPELLCOST_UTILITY_BUFF       20 // We want actual cost
+#define SPELLCOST_STAT_BUFF          20 // We want actual cost 
 #define SPELLCOST_BRUSH 			 50 // For blood rush spells, which I don't want to become an overly easy trade for stamina
 #define SPELLCOST_SURGE 			 65 // For surge spells, which is pretty damn powerful
+#define SPELLCOST_AUGURY             10 // Augury card is cheap
 #define SPELLCOST_CONJURE            20	
 #define SPELLCOST_TELEPORT           15
 #define SPELLCOST_MINOR_SUMMON       30
@@ -76,6 +77,13 @@
 #define STAT_BUFF_ALLY_DURATION      1 MINUTES
 #define ATTUNE_BUFF_DURATION         45 SECONDS // Attune (Giant/Hawk/Haste) uptime, against a 90s cooldown
 #define UTILITY_AOE_BUFF_DURATION    15 MINUTES
+
+// Augmentation augury hand
+#define AUGURY_DURATION              22 SECONDS // Nearly 100% uptime on 15 int.
+#define AUGURY_HAND_COOLDOWN         30 SECONDS
+#define AUGURY_GROUP                 "augury" // Buff exclusivity group - a person bears at most one Augury at a time
+#define AUGMENT_CONDUIT_RANGE        7
+#define AUGMENT_CONDUIT_MAX_LINKS    2
 
 //Miracle costs in devotion used.
 #define SPELLCOST_MIRACLE_ORISON	 5

@@ -344,13 +344,11 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/basic_offensive,
-		/datum/action/cooldown/spell/augment_hand/first,
-		/datum/action/cooldown/spell/augment_hand/second,
+		/datum/action/cooldown/spell/augury/first,
+		/datum/action/cooldown/spell/augury/second,
 		/datum/action/cooldown/spell/augment_conduit_link,
 		/datum/action/cooldown/spell/augment_buff/surge,
-		/datum/action/cooldown/spell/augment_buff/precognition,
 		/datum/action/cooldown/spell/augment_buff/grasp,
-		/datum/action/cooldown/spell/augment_buff/blood_rush,
 	)
 	variants = list(
 		"mastery" = list(
