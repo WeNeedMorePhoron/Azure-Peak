@@ -27,6 +27,7 @@
 	charge_time = CHARGETIME_MAJOR
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
+	charge_swingdelay_type = SWINGDELAY_CANCEL
 	charge_sound = 'sound/magic/charging.ogg'
 	cooldown_time = 15 SECONDS
 
@@ -47,7 +48,6 @@
 	damage = 60
 	npc_simple_damage_mult = 2
 	damage_type = BURN
-	accuracy = 40
 	nodamage = FALSE
 	speed = 0.3
 	flag = "fire"
@@ -67,6 +67,7 @@
 			if(out_of_effective_range())
 				return
 			L.lightning_shock(src)
+			L.apply_status_effect(/datum/status_effect/debuff/exposed, 4 SECONDS)
 	else if(isatom(target))
 		var/atom/A = target
 		A.fire_act()

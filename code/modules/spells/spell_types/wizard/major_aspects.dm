@@ -54,14 +54,14 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/frost_bolt,
-		/datum/action/cooldown/spell/projectile/ice_lance,
+		/datum/action/cooldown/spell/projectile/rimecast,
 		/datum/action/cooldown/spell/forcewall/ice,
 		/datum/action/cooldown/spell/verglas,
 		/datum/action/cooldown/spell/fridigitation,
 	)
 	spell_order = list(
 		/datum/action/cooldown/spell/projectile/frost_bolt,
-		/datum/action/cooldown/spell/projectile/ice_lance,
+		/datum/action/cooldown/spell/projectile/rimecast,
 		/datum/action/cooldown/spell/forcewall/ice,
 		/datum/action/cooldown/spell/verglas,
 		/datum/action/cooldown/spell/fridigitation,
@@ -94,8 +94,8 @@
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/arc_bolt,
 		/datum/action/cooldown/spell/projectile/lightning_bolt,
-		/datum/action/cooldown/spell/heavens_strike,
-		/datum/action/cooldown/spell/thunderstrike,
+		/datum/action/cooldown/spell/fulmination,
+		/datum/action/cooldown/spell/levinstroke,
 		/datum/action/cooldown/spell/light,
 	)
 	variants = list(
@@ -324,4 +324,34 @@
 		"mastery" = list(
 			VARIANT_ADDITIVE =/datum/action/cooldown/spell/arcyne_fortress,
 		),
+	)
+
+/datum/magic_aspect/conjuration
+	name = "Conjuration"
+	latin_name = "Maior Aspectus Vocationis"
+	desc = "A school devoted to tapping into the leyline, and calling forth the elements or others as one's servants. \
+	Where other magi hurl mana formed into elements, Conjurer commands their servants from behind to fight. Though, an artificial mind is often lacking in intellect and technique - many a conjurer therefore practice Projection, taking over their conjured servants to assault their enemies directly. \
+	Such magick cannot be maintained over a long range, and no conjurer can conjure a servant more powerful than fighting themselves. But the lack of long term risk is a major benefit, even if the conjurer suffers a horrific recoil once their conjured summons are taken down."
+	aspect_type = ASPECT_MAJOR
+	attuned_name = ASPECT_NAME_CONJURATION
+	school_color = GLOW_COLOR_ARCANE
+	binding_chants = list(
+		"Invoco famulos ex arcano!",
+		"I call forth a servant to stand at my side, arise!",
+		"Vocatio, in me ligare!",
+	)
+	unbinding_chants = list(
+		"Solvo vocationem vinctam!",
+		"I dismiss the servant I have called, return whence you came.",
+		"Vocatio, a me discedere!",
+	)
+	fixed_spells = list(
+		/datum/action/cooldown/spell/conjure_primordial,
+		/datum/action/cooldown/spell/minion_order/primordial,
+		/datum/action/cooldown/spell/primordialmark,
+	)
+	spell_order = list(
+		/datum/action/cooldown/spell/conjure_primordial,
+		/datum/action/cooldown/spell/minion_order/primordial,
+		/datum/action/cooldown/spell/primordialmark,
 	)

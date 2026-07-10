@@ -30,7 +30,6 @@
 	charge_sound = 'sound/magic/charging.ogg'
 	cooldown_time = 16 SECONDS
 
-	damage = 75
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 3
 
