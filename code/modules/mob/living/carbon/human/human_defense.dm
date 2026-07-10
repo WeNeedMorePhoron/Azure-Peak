@@ -22,6 +22,7 @@
 		def_zone = CBP.body_zone
 	var/obj/item/clothing/used
 	var/protection = 0
+	var/dr_armor_present = FALSE
 	var/intdamage = damage
 	// Exposed/Vulnerable are melee set-ups; a ranged hit (including a caster's own fire/frost) shouldn't burn the proc it just set up. Full armor penetration also clears this below.
 	var/consume_debuff = !istype(used_weapon, /obj/projectile)
@@ -95,6 +96,7 @@
 		// DR types: blunt, fire, acid
 		var/list/layers = get_best_worn_armor_layered(def_zone, d_type)
 		if(length(layers))
+			dr_armor_present = TRUE
 			for(var/C in layers)
 				if(layers[C] > protection)
 					protection = layers[C]
@@ -150,6 +152,9 @@
 
 	if(physiology)
 		protection += physiology.armor.getRating(d_type)
+
+	if(dr_armor_present && protection < 1)
+		return protection + 1
 
 	return protection
 
@@ -824,6 +829,10 @@
 					if(val > protection)
 						protection = val
 						used = C
+				// Fire/acid: fall back to a worn real-armor piece even at a 0 rating, so a fire/acid-0
+				// plate still reads as "armored" (engages absorb, shows crumble messages). A rated piece wins.
+				else if((d_type in ARMOR_DR_RESIST_TYPES) && C.max_integrity && !used)
+					used = C
 	return used
 
 /// Helper proc that returns the worn item ref that has the highest rating covering the def_zone (targeted zone) for the d_type (damage type). Returns the whole list of items that cover def_zone, from highest rating to lowest.
@@ -848,7 +857,10 @@
 					if(C.obj_integrity <= 0 || C.obj_broken)
 						continue
 				var/val = C.armor.getRating(d_type)
-				if(val > 0)
+				// Fire/acid: any worn real-armor piece counts even at a 0 rating (blunt keeps its own rating gate), so it soaks
+				// HP damage and takes integrity damage instead of letting it bypass. Cosmetics (no max_integrity)
+				// stay excluded. The stored rating is preserved as the value (effective/displayed tier).
+				if(val > 0 || ((d_type in ARMOR_DR_RESIST_TYPES) && C.max_integrity))
 					used_armor[C] = val
 	return used_armor
 
