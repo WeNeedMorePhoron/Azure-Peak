@@ -1143,8 +1143,7 @@
 		deltimer(auto_cancel_timer)
 		auto_cancel_timer = null
 	charged = FALSE
-	end_charging() // end_charging() handles MOUSEDOWN re-registration
-	// A canceled cast never resolves, so refund any cooldown instead of eating it on the interruption.
+	end_charging() // end_charging() handles MOUSEDOWN re-registrations
 	reset_spell_cooldown()
 
 /// Checks if the current OWNER of the spell is in a valid state to say the spell's invocation

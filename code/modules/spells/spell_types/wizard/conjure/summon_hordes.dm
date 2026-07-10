@@ -20,6 +20,6 @@
 		dest = pick(open)
 	var/mob/living/carbon/human/species/goblin/npc/conjured/goblin = new(dest)
 	goblin.summoner_ref = WEAKREF(user)
-	goblin.arcane_scale = clamp(user.get_skill_level(/datum/skill/magic/arcane), 1, 6)
+	goblin.arcane_scale = clamp(user.get_skill_level(/datum/skill/combat/arcyne), 1, 6)
 	goblin.gear_tier = get_summon_tier(user)
 	return goblin

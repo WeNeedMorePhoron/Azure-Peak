@@ -34,7 +34,7 @@
 	charge_sound = 'sound/magic/charging.ogg'
 	cooldown_time = 45 SECONDS
 
-	associated_skill = /datum/skill/magic/arcane
+	associated_skill = /datum/skill/combat/arcyne
 	spell_tier = 3
 	spell_impact_intensity = SPELL_IMPACT_NONE
 	point_cost = 6
@@ -150,12 +150,10 @@
 	return
 
 /datum/action/cooldown/spell/conjure_summon/proc/get_summon_tier(mob/living/user)
-	var/datum/mind/M = user?.mind
-	if(!M || !LAZYLEN(M.mage_aspect_config))
-		return 1
-	if(M.mage_aspect_config["mastery"])
+	var/lvl = user?.get_skill_level(/datum/skill/combat/arcyne)
+	if(lvl >= SKILL_LEVEL_MASTER)
 		return 3
-	if(M.mage_aspect_config["major"] >= 2)
+	if(lvl >= SKILL_LEVEL_EXPERT)
 		return 2
 	return 1
 
