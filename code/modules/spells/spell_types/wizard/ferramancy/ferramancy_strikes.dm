@@ -47,7 +47,7 @@
 
 /datum/action/cooldown/spell/ferramancy_strike/sorcerers_lance
 	name = "Sorcerer's Lance"
-	desc = "Wind up a couched lance, then drive it forward in a straight line, skewering everything up to five tiles ahead. You are slowed and left wide open as you wind it up, but once begun it cannot be stopped - only stepped clear of.\n\n\
+	desc = "Wind up a couched lance, then drive it forward in a straight line, skewering everything up to five tiles ahead. You are slowed and left wide open as you wind it up, but once begun it cannot be stopped - only stepped clear of. This strike can be defended against, but not parried or dodged.\n\n\
 	Deals 35 brute damage to everything caught in the line, piercing through even heavy armor."
 	button_icon_state = "sorcerers_lance"
 	invocations = list("Hasta Perforans!")
@@ -93,7 +93,7 @@
 
 /datum/action/cooldown/spell/ferramancy_strike/heavens_hammer
 	name = "Heaven's Hammer"
-	desc = "Heave a conjured maul overhead, then bring it crashing down on the ground before you, leaving any struck reeling and vulnerable.\n\n\
+	desc = "Heave a conjured maul overhead, then bring it crashing down on the ground before you, leaving any struck reeling and vulnerable. This strike can be defended against, but not parried or dodged.\n\n\
 	Deals 50 brute damage and applies Vulnerable to everything in the smash."
 	button_icon_state = "hammer_of_heaven"
 	invocations = list("Malleus Caeli!")
