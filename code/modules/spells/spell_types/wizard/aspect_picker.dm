@@ -27,6 +27,10 @@
 	var/list/variant_overrides
 	/// Spell paths granted after aspects are bound - ensures proper action bar ordering (e.g. class-granted Message, Magician's Brick)
 	var/list/post_aspect_spells
+	/// If set, only these major aspect paths may be attuned (choose-one-of-pool). Null/empty = all majors allowed.
+	var/list/allowed_majors
+	/// If set, only these minor aspect paths may be attuned. Null/empty = all minors allowed.
+	var/list/allowed_minors
 
 /datum/aspect_picker/New(mob/living/new_owner, setup = TRUE, list/aspect_config)
 	owner = new_owner
@@ -40,6 +44,10 @@
 			variant_overrides = aspect_config["variants"]
 		if(islist(aspect_config["post_aspect_spells"]))
 			post_aspect_spells = aspect_config["post_aspect_spells"]
+		if(length(aspect_config["allowed_majors"]))
+			allowed_majors = aspect_config["allowed_majors"].Copy()
+		if(length(aspect_config["allowed_minors"]))
+			allowed_minors = aspect_config["allowed_minors"].Copy()
 		if(length(aspect_config["locked_aspects"]))
 			for(var/path in aspect_config["locked_aspects"])
 				locked_aspects += path
@@ -69,8 +77,8 @@
 
 /datum/aspect_picker/ui_static_data(mob/user)
 	var/list/data = list()
-	data["major_aspects"] = build_aspect_list(GLOB.magic_aspects_major)
-	data["minor_aspects"] = build_aspect_list(GLOB.magic_aspects_minor)
+	data["major_aspects"] = build_aspect_list(filter_allowed(GLOB.magic_aspects_major, allowed_majors, owner?.mind?.major_aspects))
+	data["minor_aspects"] = build_aspect_list(filter_allowed(GLOB.magic_aspects_minor, allowed_minors, owner?.mind?.minor_aspects))
 	data["utility_spells"] = build_utility_list()
 	return data
 
@@ -204,6 +212,16 @@
 
 	return data
 
+/// Narrow an aspect path list to a class whitelist, always keeping already-attuned aspects visible
+/// (defensive - a legitimately bound aspect must never be hidden in edit mode).
+/datum/aspect_picker/proc/filter_allowed(list/all_paths, list/whitelist, list/attuned)
+	if(!length(whitelist))
+		return all_paths
+	var/list/out = whitelist.Copy()
+	for(var/datum/magic_aspect/A in attuned)
+		out |= A.type
+	return out
+
 /datum/aspect_picker/proc/build_aspect_list(list/aspect_paths)
 	var/list/result = list()
 	for(var/path in aspect_paths)
@@ -303,6 +321,12 @@
 			var/datum/magic_aspect/temp = new path
 			var/aspect_type = temp.aspect_type
 			qdel(temp)
+			if(aspect_type == ASPECT_MAJOR && length(allowed_majors) && !(path in allowed_majors))
+				to_chat(owner, span_warning("My discipline does not permit that aspect."))
+				return
+			if(aspect_type == ASPECT_MINOR && length(allowed_minors) && !(path in allowed_minors))
+				to_chat(owner, span_warning("My discipline does not permit that aspect."))
+				return
 			// Count live aspects minus pending unbinds for effective slot usage
 			var/major_unbind_count = 0
 			var/minor_unbind_count = 0

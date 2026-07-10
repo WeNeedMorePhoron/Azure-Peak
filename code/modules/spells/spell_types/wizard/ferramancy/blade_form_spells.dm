@@ -57,7 +57,8 @@
 		to_chat(H, span_warning("I need a free hand to shape it into this form."))
 		return FALSE
 
-	invocations = list(f["say"])
+	if(f["say"])
+		invocations = list(f["say"])
 	var/obj/item/W = new weapon_type(H.drop_location())
 	if(W.max_integrity)
 		W.max_integrity = round(W.max_integrity * 0.5)

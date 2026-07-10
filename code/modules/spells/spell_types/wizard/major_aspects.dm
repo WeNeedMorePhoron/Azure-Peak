@@ -29,6 +29,9 @@
 		"mastery" = list(
 			VARIANT_ADDITIVE =/datum/action/cooldown/spell/projectile/pyroclasm,
 		),
+		"grenzelhoftian" = list(
+			VARIANT_ADDITIVE = /datum/action/cooldown/spell/fire_strike,
+		),
 	)
 
 /datum/magic_aspect/cryomancy
@@ -135,6 +138,9 @@
 		"mastery" = list(
 			VARIANT_ADDITIVE =/datum/action/cooldown/spell/meteor_strike,
 		),
+		"grenzelhoftian" = list(
+			VARIANT_ADDITIVE = /datum/action/cooldown/spell/grenzel_meteor,
+		),
 	)
 
 /datum/magic_aspect/kinesis
@@ -239,6 +245,9 @@
 	variants = list(
 		"mastery" = list(
 			VARIANT_ADDITIVE =/datum/action/cooldown/spell/blade_dance,
+		),
+		"grenzelhoftian" = list(
+			VARIANT_ADDITIVE = /datum/action/cooldown/spell/form_blade/form_hammer,
 		),
 	)
 
