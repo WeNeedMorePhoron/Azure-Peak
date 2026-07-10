@@ -254,6 +254,7 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 		desc = "A scroll once inscribed with magical scripture. The surface is now barren of knowledge, siphoned by someone else. It's utterly useless."
 		icon_state = "scroll"
 		user.visible_message(span_warning("[src] has had its magic ink ripped from the scroll!"))
+<<<<<<< HEAD
 
 /obj/item/book/granter/spell/noc
 	name = "Scroll of if you see this you report it as a bug and not try to activate it because it calls gib() on you."
@@ -381,3 +382,5 @@ UNDER NO CIRCUMSTANCE SHOULD ANY OF THE BOOKS BE GIVEN OUT INTO SPAWNERS OR TO B
 	spell = /datum/action/cooldown/spell/repulse
 	spellname = "Repulse"
 	dreamcost = 6
+=======
+>>>>>>> 265f423ed9125a37e3766557d1267fdf23cb5478

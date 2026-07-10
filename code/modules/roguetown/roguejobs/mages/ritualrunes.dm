@@ -549,7 +549,6 @@ GLOBAL_LIST_INIT(t4rune_types, generate_t4rune_types())
 			fam.client?.init_verbs()
 			mind_datum.RemoveAllSpells()
 			mind_datum.AddSpell(new /datum/action/cooldown/spell/message_summoner())
-			mind_datum.AddSpell(new /datum/action/cooldown/spell/familiar_transform())
 			user.mind?.AddSpell(new /datum/action/cooldown/spell/message_familiar())
 
 			if(fam.inherent_spell)
