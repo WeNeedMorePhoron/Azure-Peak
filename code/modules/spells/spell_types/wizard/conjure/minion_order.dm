@@ -49,6 +49,9 @@
 		if(target == user)
 			to_chat(user, span_warning("It would be unwise to make an enemy of your own conjured servants."))
 			return FALSE
+		if(HAS_TRAIT(target, TRAIT_CONJURED_SUMMON))
+			to_chat(user, span_warning("[target] is already bound to another conjurer."))
+			return FALSE
 		if(target.mind && target.mind.current)
 			if(faction_tag in target.mind.current.faction)
 				target.mind.current.faction -= faction_tag
