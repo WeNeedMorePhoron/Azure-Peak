@@ -2371,6 +2371,7 @@
 #include "code\modules\mob\living\login.dm"
 #include "code\modules\mob\living\logout.dm"
 #include "code\modules\mob\living\misc.dm"
+#include "code\modules\mob\living\mob_pickup.dm"
 #include "code\modules\mob\living\overhead_effects.dm"
 #include "code\modules\mob\living\rolecheck.dm"
 #include "code\modules\mob\living\say.dm"
