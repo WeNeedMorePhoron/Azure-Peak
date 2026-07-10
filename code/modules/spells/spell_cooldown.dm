@@ -1144,6 +1144,8 @@
 		auto_cancel_timer = null
 	charged = FALSE
 	end_charging() // end_charging() handles MOUSEDOWN re-registration
+	// A canceled cast never resolves, so refund any cooldown instead of eating it on the interruption.
+	reset_spell_cooldown()
 
 /// Checks if the current OWNER of the spell is in a valid state to say the spell's invocation
 /datum/action/cooldown/spell/proc/can_invoke(feedback = TRUE)
@@ -1170,7 +1172,7 @@
 /// and allowing it to be used immediately (+ updating button icon accordingly)
 /datum/action/cooldown/spell/proc/reset_spell_cooldown()
 	SEND_SIGNAL(src, COMSIG_SPELL_CAST_RESET)
-	next_use_time -= cooldown_time // Basically, ensures that the ability can be used now
+	next_use_time = min(next_use_time, world.time) // Fully refund whatever cooldown was applied (adjusted or not) so the spell is ready now
 	build_all_button_icons()
 
 /// Generate HTML for the OOC encyclopedia entry.
