@@ -159,11 +159,11 @@
 		"Vis, a me discedere!",
 	)
 	fixed_spells = list(
+		/datum/action/cooldown/spell/projectile/basic_offensive,
 		/datum/action/cooldown/spell/crush,
 		/datum/action/cooldown/spell/gravity,
-		/datum/action/cooldown/spell/gravity_anchor,
+		/datum/action/cooldown/spell/telegraphed_strike/kinetic_burst,
 		/datum/action/cooldown/spell/greater_cleaning,
-		/datum/action/cooldown/spell/projectile/basic_offensive,
 	)
 	variants = list(
 		"mastery" = list(
@@ -192,8 +192,8 @@
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/basic_offensive,
 		/datum/action/cooldown/spell/projectile/arcyne_salvo,
-		/datum/action/cooldown/spell/energetic_blast,
-		/datum/action/cooldown/spell/projectile/seeker_volley,
+		/datum/action/cooldown/spell/telegraphed_strike/crossing_blast,
+		/datum/action/cooldown/spell/arcyne_burst,
 		/datum/action/cooldown/spell/greater_cleaning, // placeholder free utility - replace with Recall once implemented
 	)
 	variants = list(
@@ -346,12 +346,11 @@
 		"Vocatio, a me discedere!",
 	)
 	fixed_spells = list(
-		/datum/action/cooldown/spell/conjure_primordial,
 		/datum/action/cooldown/spell/minion_order/primordial,
 		/datum/action/cooldown/spell/primordialmark,
+		/datum/action/cooldown/spell/conjure_dismiss,
 	)
-	spell_order = list(
+	choice_spells = list(
 		/datum/action/cooldown/spell/conjure_primordial,
-		/datum/action/cooldown/spell/minion_order/primordial,
-		/datum/action/cooldown/spell/primordialmark,
+		/datum/action/cooldown/spell/summon_champion,
 	)
