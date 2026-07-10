@@ -317,5 +317,43 @@
 	choice_spells = list(
 		/datum/action/cooldown/spell/conjure_summon/primordial,
 		/datum/action/cooldown/spell/conjure_summon/champion,
+		/datum/action/cooldown/spell/conjure_summon/champion/goblin,
 		/datum/action/cooldown/spell/conjure_summon/hordes,
+	)
+
+/datum/magic_aspect/augmentation
+	name = "Augmentation"
+	latin_name = "Maior Aspectus Augmenti"
+	desc = "Scholars debate whether Augmentation is a first, second, or even third-order school. Its adherents consider themselves third-order - \
+	with the honor of imitating the divine by augmenting the boundless potential of the humen form. Its spells enhance the body, never the mind directly - \
+	for the mind is the true province of the divine. Where a dabbler memorizes a handful of set enhancements, the dedicated Augmentation Magi surrenders choice itself to the leyline: \
+	it deals them potential in pairs, and mastery lies in reading the moment - and the fellows bound to them by conduit - to know which to play, and which to let scatter. \
+	Woe betides those who face a warrior sharpened by the arcyne."
+	aspect_type = ASPECT_MAJOR
+	attuned_name = ASPECT_NAME_AUGMENTATION
+	school_color = GLOW_COLOR_BUFF
+	binding_chants = list(
+		"Invoco potentiam dormientem!",
+		"I rouse the potential that slumbers within, awaken!",
+		"Augmentum, in me ligare!",
+	)
+	unbinding_chants = list(
+		"Solvo potentiam vinctam!",
+		"I still the power I have stirred, rest.",
+		"Augmentum, a me discedere!",
+	)
+	fixed_spells = list(
+		/datum/action/cooldown/spell/projectile/basic_offensive,
+		/datum/action/cooldown/spell/augment_hand/first,
+		/datum/action/cooldown/spell/augment_hand/second,
+		/datum/action/cooldown/spell/augment_conduit_link,
+		/datum/action/cooldown/spell/augment_buff/surge,
+		/datum/action/cooldown/spell/augment_buff/precognition,
+		/datum/action/cooldown/spell/augment_buff/grasp,
+		/datum/action/cooldown/spell/augment_buff/blood_rush,
+	)
+	variants = list(
+		"mastery" = list(
+			VARIANT_ADDITIVE = /datum/action/cooldown/spell/ascension,
+		),
 	)
