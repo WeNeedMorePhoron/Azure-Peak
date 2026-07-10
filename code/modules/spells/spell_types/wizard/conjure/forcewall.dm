@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/forcewall
 	button_icon = 'icons/mob/actions/mage_conjure.dmi'
 	name = "Forcewall"
-	desc = "Conjure a 5x1 wall of arcyne force in front of you, preventing anyone and anything other than you from moving through it.\n\
+	desc = "Conjure a 5x1 wall of arcyne force in front of you, preventing anyone and anything from moving through it.\n\
 	The wall lasts for 20 seconds or until destroyed."
 	button_icon_state = "forcewall"
 	sound = 'sound/magic/whiteflame.ogg'
