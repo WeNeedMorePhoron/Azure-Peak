@@ -45,9 +45,11 @@
 		if(islist(aspect_config["post_aspect_spells"]))
 			post_aspect_spells = aspect_config["post_aspect_spells"]
 		if(length(aspect_config["allowed_majors"]))
-			allowed_majors = aspect_config["allowed_majors"].Copy()
+			var/list/config_majors = aspect_config["allowed_majors"]
+			allowed_majors = config_majors.Copy()
 		if(length(aspect_config["allowed_minors"]))
-			allowed_minors = aspect_config["allowed_minors"].Copy()
+			var/list/config_minors = aspect_config["allowed_minors"]
+			allowed_minors = config_minors.Copy()
 		if(length(aspect_config["locked_aspects"]))
 			for(var/path in aspect_config["locked_aspects"])
 				locked_aspects += path
