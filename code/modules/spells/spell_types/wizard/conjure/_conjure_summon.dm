@@ -55,6 +55,13 @@
 	. = ..()
 	apply_mode()
 
+/datum/action/cooldown/spell/conjure_summon/Destroy()
+	for(var/mob/living/M in conjured_mobs.Copy())
+		if(!QDELETED(M))
+			qdel(M)
+	conjured_mobs.Cut()
+	return ..()
+
 /datum/action/cooldown/spell/conjure_summon/toggle_alt_mode(mob/user)
 	if(length(modes) < 2)
 		return
