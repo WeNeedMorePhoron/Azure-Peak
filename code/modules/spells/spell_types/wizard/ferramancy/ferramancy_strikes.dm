@@ -27,7 +27,7 @@
 	button_icon_state = "falling_crescent"
 	invocations = list("Acies Lunata!")
 	blade_class = BCLASS_CUT
-	windup_time = TELEGRAPH_DODGEABLE
+	windup_time = TELEGRAPH_HIGH_IMPACT
 	sweep_step = 0
 	damage = 65
 	swipe_state = "chop"
@@ -53,7 +53,7 @@
 	invocations = list("Hasta Perforans!")
 	blade_class = BCLASS_STAB
 	strike_armor_pen = PEN_HEAVY
-	windup_time = TELEGRAPH_HIGH_IMPACT
+	windup_time = TELEGRAPH_AREA_DENIAL
 	stop_at_dense = TRUE
 	damage = 35
 	var/line_length = 5
@@ -98,7 +98,7 @@
 	button_icon_state = "hammer_of_heaven"
 	invocations = list("Malleus Caeli!")
 	blade_class = BCLASS_BLUNT
-	windup_time = TELEGRAPH_HIGH_IMPACT
+	windup_time = TELEGRAPH_AREA_DENIAL
 	damage = 50
 	sweep_step = 0
 	impact_delay = 4
