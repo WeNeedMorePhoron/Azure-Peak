@@ -106,7 +106,7 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/bigrat/update_icon()
 	cut_overlays()
 	..()
-	if(stat != DEAD)
+	if(stat != DEAD && !undead_rat)
 		var/mutable_appearance/eye_lights = mutable_appearance(icon, "bigrat-eyes")
 		eye_lights.plane = 19
 		eye_lights.layer = 19
