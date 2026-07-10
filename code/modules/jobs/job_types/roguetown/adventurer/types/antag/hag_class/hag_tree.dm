@@ -122,75 +122,72 @@
 		return
 	// Actual Harvesting
 	if(href_list["harvest"])
-	var/path = text2path(href_list["harvest"])
-	var/is_hag = text2num(href_list["hag"])
-	var/list/stock = is_hag ? hag_stock : public_stock
+		var/path = text2path(href_list["harvest"])
+		var/is_hag = text2num(href_list["hag"])
+		var/list/stock = is_hag ? hag_stock : public_stock
 	
-	if(harvesting) return
+		if(harvesting)
+			return
 	
-	harvesting = TRUE
-	var/harvest_count = 0
-	var/current_path = path
+		harvesting = TRUE
+		var/harvest_count = 0
+		var/current_path = path
 	
-	// Keep harvesting until all stock is empty or user stops
-	while(TRUE)
-		// Check if user is still alive and nearby
-		if(!usr || QDELETED(usr) || !usr.canUseTopic(src, BE_CLOSE))
-			break
-			
-		// Check if current path has stock
-		if(stock[current_path] <= 0)
-			// Find any non-empty path
-			var/found = FALSE
-			for(var/p in stock)
-				if(stock[p] > 0)
-					current_path = p
-					found = TRUE
-					break
-			if(!found)
-				break // No more moss available
-		
-		to_chat(usr, span_notice("You continue to knit the moss from the roots..."))
-		
-		if(!do_after(usr, 1 SECONDS, target = src))
-			break // User stopped or was interrupted
-			
-		if(stock[current_path] > 0)
-			stock[current_path]--
-			harvest_count++
-			
-			var/obj/structure/roguemachine/mossmother/destination_tree = null
-			var/is_fey = HAS_TRAIT(usr, TRAIT_FEYTOUCHED)
-			if(is_fey)
-				for(var/obj/structure/roguemachine/mossmother/T in GLOB.hag_trees)
-					var/area/A = get_area(T)
-					if(istype(A, /area/rogue/indoors/shelter/bog_hag))
-						destination_tree = T
+		// Keep harvesting until all stock is empty or user stops
+		while(TRUE)
+			// Check if user is still alive and nearby
+			if(!usr || QDELETED(usr) || !usr.canUseTopic(src, BE_CLOSE))
+				break
+
+			// Check if current path has stock
+			if(stock[current_path] <= 0)
+				// Find any non-empty path
+				var/found = FALSE
+				for(var/p in stock)
+					if(stock[p] > 0)
+						current_path = p
+						found = TRUE
 						break
-						
-			if((is_fey || is_hag) && destination_tree)
-				new current_path(get_turf(destination_tree))
-				if(is_fey && prob(30))
-					to_chat(usr, span_notice("The moss dissolves into the roots, flowing back toward the Hag's hearth as a silent tribute..."))
-				var/obj/effect/temp_visual/heal/H_energy = new /obj/effect/temp_visual/heal_rogue/hag(get_turf(destination_tree))
-				H_energy.color = "#4b5320"
-			else
-				new current_path(get_turf(src))
-				
-		// Small delay between harvests for readability
-		//sleep(1)
-	
-	harvesting = FALSE
-	
-	if(harvest_count > 0)
-		to_chat(usr, span_notice("You harvested [harvest_count] pieces of moss."))
-	else
-		to_chat(usr, span_warning("You stop harvesting."))
-	
-	// Refresh the specific window with updated stock
-	var/datum/browser/popup = new(usr, "moss_window", (is_hag ? "THE VEIL OF ROOTS" : "COMMON BLOSSOMS"), 400, 500)
-	popup.set_content(get_contents(is_hag))
-	popup.open()
+				if(!found)
+					break // No more moss available
+
+			to_chat(usr, span_notice("You continue to knit the moss from the roots..."))
+
+			if(!do_after(usr, 1 SECONDS, target = src))
+				break // User stopped or was interrupted
+
+			if(stock[current_path] > 0)
+				stock[current_path]--
+				harvest_count++
+
+				var/obj/structure/roguemachine/mossmother/destination_tree = null
+				var/is_fey = HAS_TRAIT(usr, TRAIT_FEYTOUCHED)
+				if(is_fey)
+					for(var/obj/structure/roguemachine/mossmother/T in GLOB.hag_trees)
+						var/area/A = get_area(T)
+						if(istype(A, /area/rogue/indoors/shelter/bog_hag))
+							destination_tree = T
+							break
+
+				if((is_fey || is_hag) && destination_tree)
+					new current_path(get_turf(destination_tree))
+					if(is_fey && prob(30))
+						to_chat(usr, span_notice("The moss dissolves into the roots, flowing back toward the Hag's hearth as a silent tribute..."))
+					var/obj/effect/temp_visual/heal/H_energy = new /obj/effect/temp_visual/heal_rogue/hag(get_turf(destination_tree))
+					H_energy.color = "#4b5320"
+				else
+					new current_path(get_turf(src))
+		harvesting = FALSE
+
+		if(harvest_count > 0)
+			to_chat(usr, span_notice("You harvested [harvest_count] pieces of moss."))
+		else
+			to_chat(usr, span_warning("You stop harvesting."))
+
+		// Refresh the specific window with updated stock
+		var/datum/browser/popup = new(usr, "moss_window", (is_hag ? "THE VEIL OF ROOTS" : "COMMON BLOSSOMS"), 400, 500)
+		popup.set_content(get_contents(is_hag))
+		popup.open()
 
 /obj/structure/roguemachine/mossmother/attack_hand(mob/living/user)
 	if(..()) 
