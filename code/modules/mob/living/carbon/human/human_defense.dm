@@ -23,7 +23,8 @@
 	var/obj/item/clothing/used
 	var/protection = 0
 	var/intdamage = damage
-	var/consume_debuff = TRUE
+	// Exposed/Vulnerable are melee set-ups; a ranged hit (including a caster's own fire/frost) shouldn't burn the proc it just set up. Full armor penetration also clears this below.
+	var/consume_debuff = !istype(used_weapon, /obj/projectile)
 	
 	if(HAS_TRAIT(src, TRAIT_IRONMAN)) // free clongo noise when hit
 		playsound(loc, get_armor_sound(PLATEHIT, blade_dulling), 100) // SOVLNUKE!!!
@@ -69,7 +70,7 @@
 				intdamage *= tempo_bonus
 
 			if(consume_debuff)
-				var/use_flat = flat_integ || istype(used_weapon, /obj/projectile)
+				var/use_flat = flat_integ
 				if(has_status_effect(/datum/status_effect/debuff/exposed))
 					if(use_flat)
 						intdamage += EXPOSED_INTEG_FLAT
@@ -112,9 +113,9 @@
 			if(tempo_bonus)
 				intdamage *= tempo_bonus
 
-			var/use_flat = flat_integ || istype(used_weapon, /obj/projectile)
+			var/use_flat = flat_integ
 			var/full_dmg
-			if(has_status_effect(/datum/status_effect/debuff/exposed))
+			if(consume_debuff && has_status_effect(/datum/status_effect/debuff/exposed))
 				full_dmg = TRUE
 				if(use_flat)
 					intdamage += EXPOSED_INTEG_FLAT
@@ -124,7 +125,7 @@
 				visible_message("<span class = 'combatsecondarybodypart'>[src] suffers a savage hit to their armor while exposed!</span>")
 				remove_status_effect(/datum/status_effect/debuff/exposed)
 				emote("pain", forced = TRUE)
-			else if(has_status_effect(/datum/status_effect/debuff/vulnerable))
+			else if(consume_debuff && has_status_effect(/datum/status_effect/debuff/vulnerable))
 				if(use_flat)
 					intdamage += VULN_INTEG_FLAT
 				else
