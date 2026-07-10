@@ -106,16 +106,6 @@
 		new /obj/effect/curtain_fire(T, curtain_life, caster)
 	playsound(turfs[1], pick('sound/misc/explode/incendiary (1).ogg', 'sound/misc/explode/incendiary (2).ogg'), 120, TRUE, 6)
 
-/datum/action/cooldown/spell/fire_curtain/thin
-	name = "Fegefeuer"
-	desc = "Conjure a thin 5x1 wall of flame at a target location, perpendicular to your facing. \
-	After a brief telegraph, the fire erupts and burns for 10 seconds. \
-	The wall does not block movement but sears anything that passes through or stands in it. \
-	You are not immune to your own flames."
-	fluff_desc = "A specialty of the Celestial Academy, taught to all mages regardless of their orientations or chosen specialty. It conjures a thin wall of fire to protect a breach or cover a retreat. While less potent than a fully attuned fire curtain, it is always available at a battle scholar's fingertips, and no true graduate of the Academy leaves without the incantation memorized."
-	invocations = list("Fegefeuer!")
-	curtain_depth = 1
-
 /obj/effect/temp_visual/trap_wall/fire
 	color = GLOW_COLOR_FIRE
 	light_color = GLOW_COLOR_FIRE
