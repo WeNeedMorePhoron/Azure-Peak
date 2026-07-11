@@ -140,6 +140,14 @@ GLOBAL_LIST_INIT(averse_factions, list(
 			if(cf_list[key] in mob_job.vice_restrictions)
 				cf_list -= key
 
+	var/datum/advclass/mob_advclass = target.mind?.picked_advclass
+	if(!mob_advclass && target.advjob)
+		mob_advclass = SSrole_class_handler.get_advclass_by_name(target.advjob)
+	if(mob_advclass)
+		for(var/key in cf_list)
+			if(mob_advclass.is_vice_limited(cf_list[key]))
+				cf_list -= key
+
 	var/datum/charflaw/chosen_type = null
 	if(length(cf_list))
 		var/chosen_key = pick_n_take(cf_list)
@@ -892,6 +900,5 @@ GLOBAL_LIST_INIT(averse_factions, list(
 		addtimer(CALLBACK(src, PROC_REF(apply_bounty_when_ready), H), 5 SECONDS)
 		return
 	wretch_select_bounty(H)
-
 
 

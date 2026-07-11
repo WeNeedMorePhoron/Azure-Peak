@@ -152,7 +152,43 @@
 
 	if(applies_post_equipment)
 		apply_character_post_equipment(H)
+//======== Massive shitcode, that works at least.
+/datum/advclass/proc/is_vice_limited(vice)
+	if(!length(vice_limits) || !vice)
+		return FALSE
+	for(var/vicetype in vice_limits)
+		if(ispath(vice, vicetype) || istype(vice, vicetype))
+			return TRUE
+	return FALSE
 
+/datum/advclass/proc/has_limited_vice(list/current_vices)
+	if(!length(current_vices) || !length(vice_limits))
+		return FALSE
+	for(var/vice in current_vices)
+		if(is_vice_limited(vice))
+			return TRUE
+	return FALSE
+
+/datum/advclass/proc/get_limited_vice_names(list/current_vices)
+	. = list()
+	if(!length(current_vices) || !length(vice_limits))
+		return
+	for(var/datum/charflaw/cf in current_vices)
+		if(is_vice_limited(cf))
+			. += cf.name
+
+/datum/advclass/proc/get_prefs_restriction_names(client/player)
+	. = list()
+	if(!player?.prefs)
+		return
+	if(length(virtue_limits))
+		for(var/virtuetype in virtue_limits)
+			if(istype(player.prefs.virtue, virtuetype))
+				. += player.prefs.virtue.name
+			if(istype(player.prefs.virtuetwo, virtuetype))
+				. += player.prefs.virtuetwo.name
+	. += get_limited_vice_names(player.prefs.charflaws)
+//===
 /datum/advclass/proc/post_equip(mob/living/carbon/human/H)
 	addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, add_credit), TRUE), 20)
 	if(cmode_music)
@@ -195,10 +231,8 @@
 				return FALSE
 
 	if(length(vice_limits) && H.client)
-		for(var/vicetype in vice_limits)
-			for(var/vice in H.charflaws)
-				if(istype(vice, vicetype))
-					return FALSE
+		if(has_limited_vice(H.charflaws))
+			return FALSE
 
 	if(maximum_possible_slots > -1)
 		if(total_slots_occupied >= maximum_possible_slots)
@@ -222,4 +256,3 @@
 
 //Final proc in the set for really silly shit
 ///datum/advclass/proc/extra_slop_proc_ending(mob/living/carbon/human/H)
-
