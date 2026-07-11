@@ -17,6 +17,8 @@
 	summoner_ref = WEAKREF(summoner)
 	recoil_energy_floor = energy_floor
 	recoil_debuff = apply_debuff
+	if(isliving(summoner))
+		summoner.add_summoned_minion(parent)
 	ADD_TRAIT(parent, TRAIT_CONJURED_SUMMON, REF(src))
 	RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_summon_death))
 	RegisterSignal(parent, COMSIG_MOVABLE_PRE_MOVE, PROC_REF(check_leash))
@@ -44,6 +46,9 @@
 	if(tether_timer)
 		deltimer(tether_timer)
 		tether_timer = null
+	var/mob/living/summoner = summoner_ref?.resolve()
+	if(isliving(summoner))
+		summoner.remove_summoned_minion(parent)
 	if(!QDELETED(parent))
 		REMOVE_TRAIT(parent, TRAIT_CONJURED_SUMMON, REF(src))
 		var/mob/living/M = parent
@@ -149,3 +154,70 @@
 	examine_list += span_notice("A phantasmal servant, bound to the will of [summoner ? summoner.real_name : "an unknown magus"].")
 
 #undef CONJURE_UNTETHER_ID
+
+/mob/living/proc/add_summoned_minion(mob/living/summon)
+	if(QDELETED(summon))
+		return
+	if(!summoned_minions)
+		summoned_minions = list()
+	if(summon in summoned_minions)
+		return
+	if(!length(summoned_minions))
+		if(!HAS_TRAIT(src, TRAIT_RELAYING_ATTACKER))
+			AddElement(/datum/element/relay_attackers)
+			added_relay_for_summons = TRUE
+		RegisterSignal(src, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(relay_attack_to_summons), override = TRUE)
+		RegisterSignal(src, COMSIG_MOB_ITEM_ATTACK, PROC_REF(relay_weapon_attack_to_summons), override = TRUE)
+		RegisterSignal(src, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(relay_unarmed_attack_to_summons), override = TRUE)
+	summoned_minions += summon
+
+/mob/living/proc/remove_summoned_minion(mob/living/summon)
+	if(!summoned_minions)
+		return
+	summoned_minions -= summon
+	if(length(summoned_minions))
+		return
+	summoned_minions = null
+	UnregisterSignal(src, list(COMSIG_ATOM_WAS_ATTACKED, COMSIG_MOB_ITEM_ATTACK, COMSIG_HUMAN_MELEE_UNARMED_ATTACK))
+	if(added_relay_for_summons)
+		RemoveElement(/datum/element/relay_attackers)
+		added_relay_for_summons = FALSE
+
+/mob/living/proc/relay_attack_to_summons(mob/living/source, atom/attacker, damage)
+	SIGNAL_HANDLER
+	if(!isliving(attacker) || !length(summoned_minions))
+		return
+	for(var/mob/living/summon in summoned_minions)
+		if(QDELETED(summon) || summon.stat == DEAD || summon == attacker)
+			continue
+		if(summon.faction_check_mob(attacker))
+			continue
+		var/datum/component/ai_aggro_system/aggro = summon.GetComponent(/datum/component/ai_aggro_system)
+		if(!aggro)
+			continue
+		aggro.add_threat_to_mob_capped(attacker, 20, 20)
+
+/mob/living/proc/relay_weapon_attack_to_summons(datum/source, mob/target, mob/user, obj/item/weapon)
+	SIGNAL_HANDLER
+	if(weapon && !weapon.force)
+		return
+	propagate_focus_aggro(target)
+
+/mob/living/proc/relay_unarmed_attack_to_summons(datum/source, atom/target, proximity)
+	SIGNAL_HANDLER
+	if(!cmode)
+		return
+	propagate_focus_aggro(target)
+
+/mob/living/proc/propagate_focus_aggro(atom/target)
+	if(!isliving(target) || target == src || !length(summoned_minions))
+		return
+	for(var/mob/living/summon in summoned_minions)
+		if(QDELETED(summon) || summon.stat == DEAD || summon == target)
+			continue
+		if(summon.faction_check_mob(target))
+			continue
+		var/datum/component/ai_aggro_system/aggro = summon.GetComponent(/datum/component/ai_aggro_system)
+		if(!aggro)
+			continue
+		aggro.add_threat_to_mob_capped(target, 12, 12)

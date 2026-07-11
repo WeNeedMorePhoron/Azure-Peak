@@ -32,10 +32,6 @@
 		if(controller.blackboard[target_key] == commanded_target)
 			controller.clear_blackboard_key(target_key)
 
-	if(living_mob.pet_passive)
-		finish_action(controller, succeeded = FALSE)
-		return
-
 	var/mob/current_target = controller.blackboard[BB_HIGHEST_THREAT_MOB]
 
 	// Validate existing threat target
@@ -81,6 +77,10 @@
 		return
 
 	controller.clear_blackboard_key(target_key)
+
+	if(living_mob.pet_passive)
+		finish_action(controller, succeeded = FALSE)
+		return
 
 	scan_for_new_targets(controller, living_mob, target_key, targetting_datum, hiding_location_key, targetting_datum_key)
 

@@ -11,7 +11,13 @@
 	var/turf/travel = controller.blackboard[location_key]
 	var/mob/following = controller.blackboard[follow_target]
 	var/mob/living/pawn = controller.pawn
-	
+
+	var/mob/living/threat = controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
+	if(!isliving(threat) || QDELETED(threat) || threat.stat == DEAD)
+		threat = controller.blackboard[BB_HIGHEST_THREAT_MOB]
+	if(isliving(threat) && !QDELETED(threat) && threat.stat != DEAD)
+		return
+
 	if(travel)
 		controller.queue_behavior(travel_behavior, location_key)
 		return SUBTREE_RETURN_FINISH_PLANNING //end here
