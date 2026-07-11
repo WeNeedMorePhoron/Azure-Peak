@@ -1,5 +1,6 @@
 /datum/action/cooldown/spell/augment_buff/augment_defense
 	name = "Augment Defense"
+	desc = "Uses arcyne energy to restore a target's defenses, clearing away any vulnerability or exposure they may have suffered."
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	button_icon_state = "stoneskin"
 
@@ -10,7 +11,7 @@
 
 	charge_required = FALSE
 
-	cooldown_time = 15 SECONDS
+	cooldown_time = 30 SECONDS
 
 /datum/action/cooldown/spell/augment_buff/augment_defense/cast(atom/cast_on)
 	. = ..()
