@@ -78,7 +78,7 @@
 /obj/projectile/magic/ice_lance
 	name = "ice lance"
 	icon_state = "u_laser"
-	damage = 75
+	damage = 90
 	npc_simple_damage_mult = 2
 	damage_type = BURN
 	woundclass = BCLASS_BURN
@@ -131,7 +131,7 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "wipe"
 	speed = MAGE_PROJ_VERY_SLOW
-	damage = 75
+	damage = 90
 	damage_type = BURN
 	woundclass = BCLASS_BURN
 	npc_simple_damage_mult = 2

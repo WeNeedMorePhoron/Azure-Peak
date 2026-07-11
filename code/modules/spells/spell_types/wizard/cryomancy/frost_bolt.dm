@@ -53,7 +53,7 @@
 /obj/projectile/magic/frost_shard
 	name = "frost shard"
 	icon_state = "ice_2"
-	damage = 40
+	damage = 35
 	npc_simple_damage_mult = 2
 	damage_type = BURN
 	woundclass = BCLASS_BURN
@@ -63,7 +63,7 @@
 	suppress_effects_past_range = TRUE
 	speed = MAGE_PROJ_FAST
 	nodamage = FALSE
-	var/reduced_damage = 10
+	var/reduced_damage = 9
 	var/repeat_hit = FALSE
 
 /obj/projectile/magic/frost_shard/arc
