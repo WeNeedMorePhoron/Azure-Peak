@@ -163,25 +163,41 @@
 	if(summon in summoned_minions)
 		return
 	if(!length(summoned_minions))
-		if(!HAS_TRAIT(src, TRAIT_RELAYING_ATTACKER))
-			AddElement(/datum/element/relay_attackers)
-			added_relay_for_summons = TRUE
+		request_attack_relay()
 		RegisterSignal(src, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(relay_attack_to_summons), override = TRUE)
 		RegisterSignal(src, COMSIG_MOB_ITEM_ATTACK, PROC_REF(relay_weapon_attack_to_summons), override = TRUE)
 		RegisterSignal(src, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(relay_unarmed_attack_to_summons), override = TRUE)
 	summoned_minions += summon
+	current_fellowship?.push_updates()
 
 /mob/living/proc/remove_summoned_minion(mob/living/summon)
-	if(!summoned_minions)
+	if(!summoned_minions || !(summon in summoned_minions))
 		return
 	summoned_minions -= summon
+	current_fellowship?.push_updates()
 	if(length(summoned_minions))
 		return
 	summoned_minions = null
 	UnregisterSignal(src, list(COMSIG_ATOM_WAS_ATTACKED, COMSIG_MOB_ITEM_ATTACK, COMSIG_HUMAN_MELEE_UNARMED_ATTACK))
-	if(added_relay_for_summons)
+	release_attack_relay()
+
+/mob/living/proc/request_attack_relay()
+	attack_relay_refs++
+	if(attack_relay_refs > 1)
+		return
+	if(!HAS_TRAIT(src, TRAIT_RELAYING_ATTACKER))
+		AddElement(/datum/element/relay_attackers)
+		attack_relay_self_added = TRUE
+
+/mob/living/proc/release_attack_relay()
+	if(attack_relay_refs <= 0)
+		return
+	attack_relay_refs--
+	if(attack_relay_refs > 0)
+		return
+	if(attack_relay_self_added)
 		RemoveElement(/datum/element/relay_attackers)
-		added_relay_for_summons = FALSE
+		attack_relay_self_added = FALSE
 
 /mob/living/proc/relay_attack_to_summons(mob/living/source, atom/attacker, damage)
 	SIGNAL_HANDLER
@@ -195,7 +211,7 @@
 		var/datum/component/ai_aggro_system/aggro = summon.GetComponent(/datum/component/ai_aggro_system)
 		if(!aggro)
 			continue
-		aggro.add_threat_to_mob_capped(attacker, 20, 20)
+		aggro.add_threat_to_mob_capped(attacker, 24, 24)
 
 /mob/living/proc/relay_weapon_attack_to_summons(datum/source, mob/target, mob/user, obj/item/weapon)
 	SIGNAL_HANDLER
@@ -220,4 +236,4 @@
 		var/datum/component/ai_aggro_system/aggro = summon.GetComponent(/datum/component/ai_aggro_system)
 		if(!aggro)
 			continue
-		aggro.add_threat_to_mob_capped(target, 12, 12)
+		aggro.add_threat_to_mob_capped(target, 18, 18)
