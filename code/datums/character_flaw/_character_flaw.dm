@@ -144,8 +144,9 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	if(!mob_advclass && target.advjob)
 		mob_advclass = SSrole_class_handler.get_advclass_by_name(target.advjob)
 	if(mob_advclass)
+		var/list/current_vice_limits = mob_advclass.get_vice_limits(target)
 		for(var/key in cf_list)
-			if(mob_advclass.is_vice_limited(cf_list[key]))
+			if(mob_advclass.is_vice_limited(cf_list[key], current_vice_limits))
 				cf_list -= key
 
 	var/datum/charflaw/chosen_type = null

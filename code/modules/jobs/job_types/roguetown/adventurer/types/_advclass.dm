@@ -160,28 +160,44 @@
 	if(applies_post_equipment)
 		apply_character_post_equipment(H)
 //======== Massive shitcode, that works at least.
-/datum/advclass/proc/is_vice_limited(vice)
-	if(!length(vice_limits) || !vice)
+/datum/advclass/proc/get_vice_limits(mob/living/carbon/human/H)
+	if(length(vice_limits))
+		return vice_limits.Copy()
+	return list()
+
+/datum/advclass/proc/get_prefs_vice_limits(client/player)
+	if(length(vice_limits))
+		return vice_limits.Copy()
+	return list()
+
+/datum/advclass/proc/is_vice_limited(vice, list/limited_vices)
+	if(isnull(limited_vices))
+		limited_vices = vice_limits
+	if(!length(limited_vices) || !vice)
 		return FALSE
-	for(var/vicetype in vice_limits)
+	for(var/vicetype in limited_vices)
 		if(ispath(vice, vicetype) || istype(vice, vicetype))
 			return TRUE
 	return FALSE
 
-/datum/advclass/proc/has_limited_vice(list/current_vices)
-	if(!length(current_vices) || !length(vice_limits))
+/datum/advclass/proc/has_limited_vice(list/current_vices, list/limited_vices)
+	if(isnull(limited_vices))
+		limited_vices = vice_limits
+	if(!length(current_vices) || !length(limited_vices))
 		return FALSE
 	for(var/vice in current_vices)
-		if(is_vice_limited(vice))
+		if(is_vice_limited(vice, limited_vices))
 			return TRUE
 	return FALSE
 
-/datum/advclass/proc/get_limited_vice_names(list/current_vices)
+/datum/advclass/proc/get_limited_vice_names(list/current_vices, list/limited_vices)
 	. = list()
-	if(!length(current_vices) || !length(vice_limits))
+	if(isnull(limited_vices))
+		limited_vices = vice_limits
+	if(!length(current_vices) || !length(limited_vices))
 		return
 	for(var/datum/charflaw/cf in current_vices)
-		if(is_vice_limited(cf))
+		if(is_vice_limited(cf, limited_vices))
 			. += cf.name
 
 /datum/advclass/proc/get_prefs_restriction_names(client/player)
@@ -194,7 +210,7 @@
 				. += player.prefs.virtue.name
 			if(istype(player.prefs.virtuetwo, virtuetype))
 				. += player.prefs.virtuetwo.name
-	. += get_limited_vice_names(player.prefs.charflaws)
+	. += get_limited_vice_names(player.prefs.charflaws, get_prefs_vice_limits(player))
 //===
 /datum/advclass/proc/post_equip(mob/living/carbon/human/H)
 	addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, add_credit), TRUE), 20)
@@ -237,8 +253,9 @@
 			if(istype(H.client.prefs?.virtue, virtuetype) || istype(H.client.prefs?.virtuetwo, virtuetype))
 				return FALSE
 
-	if(length(vice_limits) && H.client)
-		if(has_limited_vice(H.charflaws))
+	var/list/current_vice_limits = get_vice_limits(H)
+	if(length(current_vice_limits) && H.client)
+		if(has_limited_vice(H.charflaws, current_vice_limits))
 			return FALSE
 
 	if(maximum_possible_slots > -1)
