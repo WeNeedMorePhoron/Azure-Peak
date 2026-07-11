@@ -305,6 +305,7 @@
 		"Vocatio, a me discedere!",
 	)
 	fixed_spells = list(
+		/datum/action/cooldown/spell/projectile/basic_offensive, // If too op I will give them bolt instead
 		/datum/action/cooldown/spell/minion_order/conjurer,
 		/datum/action/cooldown/spell/minion_mark,
 		/datum/action/cooldown/spell/conjure_dismiss,
