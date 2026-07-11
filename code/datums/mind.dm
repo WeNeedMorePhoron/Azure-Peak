@@ -1259,7 +1259,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 							// Free loadout items cannot be sold, smelted, or salvaged (triumph items are exempt)
 							var/datum/loadout_item/LI = GLOB.loadout_items_by_name[item]
 							if(!LI?.triumph_cost)
-								I.sellprice = 0
+								I.special_item = TRUE
 								I.smeltresult = /obj/item/ash
 								I.salvage_result = /obj/item/ash
 							// Apply metadata (color, custom name, custom desc)
