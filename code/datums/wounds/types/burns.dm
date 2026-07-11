@@ -8,7 +8,7 @@
 	sewn_clotting_rate = 0.01
 	clotting_threshold = 0.15
 	sewn_clotting_threshold = 0.1
-	sew_threshold = 20
+	sew_threshold = 10
 	can_sew = TRUE
 	can_cauterize = FALSE
 	passive_healing = 0.4
@@ -101,10 +101,9 @@
 	affected.emote("firescream", TRUE)
 	flash_color(affected, "#a83c1a", 15)
 	affected.Slowdown(15)
+	affected.Paralyze(15)
 	shake_camera(affected, 2, 2)
 	playsound(affected, 'sound/health/burning.ogg', 60, TRUE)
-	if(cook_death_time && !QDELETED(affected) && affected.stat != DEAD)
-		death_timer = addtimer(CALLBACK(src, PROC_REF(cook_to_death)), cook_death_time, TIMER_STOPPABLE)
 	var/noblood = FALSE
 	if(iscarbon(affected))
 		var/mob/living/carbon/charred_carbon = affected
@@ -147,23 +146,3 @@
 	if(death_timer)
 		deltimer(death_timer)
 		death_timer = null
-
-/datum/wound/charring/chest
-	name = "torso charring"
-	crit_message = list(
-		"The torso is seared!",
-		"The chest is charred black!",
-		"The ribcage crackles with heat!",
-	)
-	mortal = TRUE
-	cook_death_time = 45 SECONDS
-
-/datum/wound/charring/head
-	name = "head charring"
-	crit_message = list(
-		"The skull is seared!",
-		"The face is charred beyond recognition!",
-		"The head is engulfed in searing heat!",
-	)
-	mortal = TRUE
-	cook_death_time = 45 SECONDS
