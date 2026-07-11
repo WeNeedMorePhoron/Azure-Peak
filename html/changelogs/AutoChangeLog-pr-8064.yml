@@ -1,4 +1,0 @@
-author: "WeNeedMorePhoron"
-delete-after: True
-changes:
-  - rscadd: "Raised the per client topic limit to 200 and no longer count the statpanel to hopefully alleviates issues"
