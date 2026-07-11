@@ -123,9 +123,8 @@
 #define SPELL_RANGE_AURA	   4   // For 'warcry' type miracles or AOE BUFFS originating on the caster
 #define SPELL_RANGE_ADJACENT   1   // Self explanatory
 
-// Mage projectile effective range - full damage/effect within, degrades beyond (max_range on the projectile)
-#define MAGE_LONG_PROJ_RANGE   7   // Long-range bolts (arcyne bolt, fireball, lightning, soulshot)
-#define MAGE_MID_PROJ_RANGE    5   // Mid-range bolts (arc bolt, greater arcyne bolt, stygian)
+// Mage projectile effective range - No rider and half damage beyond
+#define MAGE_LONG_PROJ_RANGE   7 // 1 definition, the entire screen
 
 // Charging slowdown tiers — how much the caster is slowed while charging
 #define CHARGING_SLOWDOWN_NONE 0       // Spellblade abilities, no movement penalty

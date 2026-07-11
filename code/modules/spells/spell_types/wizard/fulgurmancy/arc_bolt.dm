@@ -89,7 +89,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	damage = 60
 	npc_simple_damage_mult = 1.5
-	max_range = MAGE_MID_PROJ_RANGE
+	max_range = MAGE_LONG_PROJ_RANGE
 	damage_type = BURN
 	woundclass = BCLASS_BURN
 	nodamage = FALSE
