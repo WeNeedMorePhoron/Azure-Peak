@@ -123,6 +123,7 @@
 	var/spill_ammo_on_drop = TRUE
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow/get_mechanics_examine(mob/user)
+	. = ..()
 	. += span_info("Bows increase in damage and accuracy the higher your <b>PERCEPTION</b>.")
 	. += span_info("Bows with a heavy draw, such as longbows, have an increased draw time for characters with low <b>STRENGTH</b>.")
 
