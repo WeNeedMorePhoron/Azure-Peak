@@ -23,7 +23,7 @@
 	var/list/locked_aspects = list()
 	/// TRUE while performing binding/unbinding chants — prevents ui_close from qdel'ing
 	var/chanting = FALSE
-	/// Assoc list of variant overrides from class config: aspect_path = variant_name (e.g. /datum/magic_aspect/pyromancy = "grenzelhoftian")
+	/// Assoc list of variant overrides from class config: aspect_path = variant_name (e.g. /datum/magic_aspect/pyromancy = "gefechtsgelehrter")
 	var/list/variant_overrides
 	/// Spell paths granted after aspects are bound - ensures proper action bar ordering (e.g. class-granted Message, Magician's Brick)
 	var/list/post_aspect_spells

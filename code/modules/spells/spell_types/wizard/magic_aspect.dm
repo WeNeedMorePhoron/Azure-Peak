@@ -16,7 +16,7 @@
 	var/list/spell_order = list()
 	/// Named variant spell swaps. Assoc list: variant_name = list(base_path = replacement_path, ...)
 	/// "mastery" is automatically applied for T4 casters.
-	/// Other variants (e.g. "grenzelhoftian") are passed in via attune_aspect().
+	/// Other variants (e.g. "gefechtsgelehrter") are passed in via attune_aspect().
 	var/list/variants = list()
 	var/school_color
 	/// Major: Latin, English, Latin. Minor: Latin, English.

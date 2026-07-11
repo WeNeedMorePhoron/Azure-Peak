@@ -29,7 +29,7 @@
 		"mastery" = list(
 			VARIANT_ADDITIVE =/datum/action/cooldown/spell/projectile/pyroclasm,
 		),
-		"grenzelhoftian" = list(
+		"gefechtsgelehrter" = list(
 			VARIANT_ADDITIVE = /datum/action/cooldown/spell/fire_strike,
 		),
 	)
@@ -138,7 +138,7 @@
 		"mastery" = list(
 			VARIANT_ADDITIVE =/datum/action/cooldown/spell/meteor_strike,
 		),
-		"grenzelhoftian" = list(
+		"gefechtsgelehrter" = list(
 			VARIANT_ADDITIVE = /datum/action/cooldown/spell/grenzel_meteor,
 		),
 	)
@@ -246,7 +246,7 @@
 		"mastery" = list(
 			VARIANT_ADDITIVE =/datum/action/cooldown/spell/blade_dance,
 		),
-		"grenzelhoftian" = list(
+		"gefechtsgelehrter" = list(
 			VARIANT_ADDITIVE = /datum/action/cooldown/spell/form_blade/form_hammer,
 		),
 	)
