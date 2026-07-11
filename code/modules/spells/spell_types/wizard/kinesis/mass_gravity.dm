@@ -38,6 +38,7 @@
 	// Less damage than single target
 	var/crush_damage = 40
 	var/resisted_damage = 10
+	displayed_damage = 40
 	var/knockdown_time = 5
 	var/offbalance_time = 10
 	var/str_threshold = 15

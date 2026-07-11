@@ -36,6 +36,7 @@
 
 	var/telegraph_delay = TELEGRAPH_HIGH_IMPACT
 	var/crush_damage = 60
+	displayed_damage = 60
 	var/npc_simple_damage_mult = 2
 	var/crush_intdamage_factor = 2
 	var/aoe_range = 2 // 5x5

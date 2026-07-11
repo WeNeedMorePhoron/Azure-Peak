@@ -35,6 +35,7 @@
 	var/impact_delay = 2 SECONDS
 	var/structural_damage = 600
 	var/mob_damage = 110
+	displayed_damage = 110
 	var/curtain_life = 10 SECONDS
 
 /datum/action/cooldown/spell/fire_strike/cast(atom/cast_on)

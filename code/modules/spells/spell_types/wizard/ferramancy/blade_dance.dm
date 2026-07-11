@@ -38,6 +38,11 @@
 
 	var/obj/effect/blade_dance_zone/active_zone
 
+/datum/action/cooldown/spell/blade_dance/get_spell_statistics(mob/living/user)
+	var/list/stats = ..()
+	stats += span_info("Damage: [BLADE_DANCE_TICK_DAMAGE] brute per second (up to [DisplayTimeText(BLADE_DANCE_DURATION)])")
+	return stats
+
 /datum/action/cooldown/spell/blade_dance/Destroy()
 	if(active_zone && !QDELETED(active_zone))
 		qdel(active_zone)

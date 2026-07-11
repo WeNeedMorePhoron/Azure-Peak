@@ -39,6 +39,7 @@
 	var/repulse_force = MOVE_FORCE_EXTREMELY_STRONG
 	var/showsparkles = TRUE
 	var/floor_slam_damage = 90
+	displayed_damage = 90
 	var/push_range = 1
 
 /datum/action/cooldown/spell/repulse/cast(atom/cast_on)

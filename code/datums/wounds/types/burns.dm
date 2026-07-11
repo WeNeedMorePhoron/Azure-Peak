@@ -84,8 +84,6 @@
 	disabling = TRUE
 	critical = TRUE
 	bypass_bloody_wound_check = TRUE
-	var/cook_death_time = 0
-	var/death_timer
 
 /datum/wound/charring/can_stack_with(datum/wound/other)
 	if(istype(other, /datum/wound/charring) && (type == other.type))
@@ -121,28 +119,25 @@
 		else
 			to_chat(affected, span_userdanger("Searing heat scorches through me - another burn like this will be fatal!"))
 
-/datum/wound/charring/proc/cook_to_death()
-	death_timer = null
-	if(QDELETED(src) || !owner || owner.stat == DEAD)
-		return
-	if(is_sewn())
-		return
-	var/mob/living/victim = owner
-	victim.visible_message(span_danger("<b>[victim] shudders and goes limp as the charred flesh gives way!</b>"), \
-		span_userdanger("The burns are too deep... my body gives out."))
-	victim.emote("deathgasp", TRUE)
-	victim.death()
-
 /datum/wound/charring/sew_wound()
 	. = ..()
 	if(.)
-		if(death_timer)
-			deltimer(death_timer)
-			death_timer = null
 		bodypart_owner?.update_disabled()
 
-/datum/wound/charring/on_mob_loss(mob/living/affected)
-	. = ..()
-	if(death_timer)
-		deltimer(death_timer)
-		death_timer = null
+/datum/wound/charring/chest
+	name = "torso charring"
+	crit_message = list(
+		"The torso is seared!",
+		"The chest is charred black!",
+		"The ribcage crackles with heat!",
+	)
+	mortal = TRUE
+
+/datum/wound/charring/head
+	name = "head charring"
+	crit_message = list(
+		"The skull is seared!",
+		"The face is charred beyond recognition!",
+		"The head is engulfed in searing heat!",
+	)
+	mortal = TRUE

@@ -34,6 +34,12 @@
 	var/list/struck_obstacles
 	var/list/struck_mobs
 
+/datum/action/cooldown/spell/telegraphed_strike/get_spell_statistics(mob/living/user)
+	var/list/stats = ..()
+	if(damage > 0)
+		stats += span_info("Damage: [damage]")
+	return stats
+
 /datum/action/cooldown/spell/telegraphed_strike/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner

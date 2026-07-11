@@ -32,6 +32,7 @@
 
 	var/max_range = 5
 	var/strike_damage = 60
+	displayed_damage = 60
 
 /datum/action/cooldown/spell/levinstroke/cast(atom/cast_on)
 	. = ..()

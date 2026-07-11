@@ -1,4 +1,4 @@
-#define CURTAIN_TICK_DAMAGE 35
+#define CURTAIN_TICK_DAMAGE 30
 #define CURTAIN_BURN_KEY "curtain_burn"
 
 /datum/action/cooldown/spell/fire_curtain
@@ -43,6 +43,11 @@
 	var/curtain_life = 10 SECONDS
 	var/telegraph_time = 3 SECONDS
 
+/datum/action/cooldown/spell/fire_curtain/get_spell_statistics(mob/living/user)
+	var/list/stats = ..()
+	stats += span_info("Damage: [CURTAIN_TICK_DAMAGE] burn per second (up to [DisplayTimeText(curtain_life)] in the flames)")
+	return stats
+
 /datum/action/cooldown/spell/fire_curtain/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
@@ -61,7 +66,7 @@
 	H.visible_message(span_danger("[H] conjures a wall of flame!"))
 	playsound(get_turf(H), 'sound/magic/charging_fire.ogg', 60, TRUE)
 
-	addtimer(CALLBACK(src, PROC_REF(spawn_curtain), affected_turfs, H), telegraph_time)
+	addtimer(CALLBACK(src, PROC_REF(spawn_curtain), affected_turfs, H, H.zone_selected), telegraph_time)
 	return TRUE
 
 /datum/action/cooldown/spell/fire_curtain/proc/get_curtain_turfs(turf/center, facing)
@@ -99,11 +104,11 @@
 		row_turfs = next_row
 	return all_turfs
 
-/datum/action/cooldown/spell/fire_curtain/proc/spawn_curtain(list/turfs, mob/living/caster)
+/datum/action/cooldown/spell/fire_curtain/proc/spawn_curtain(list/turfs, mob/living/caster, aim_zone)
 	if(QDELETED(src) || QDELETED(owner))
 		return
 	for(var/turf/T in turfs)
-		new /obj/effect/curtain_fire(T, curtain_life, caster)
+		new /obj/effect/curtain_fire(T, curtain_life, caster, aim_zone)
 	playsound(turfs[1], pick('sound/misc/explode/incendiary (1).ogg', 'sound/misc/explode/incendiary (2).ogg'), 120, TRUE, 6)
 
 /obj/effect/temp_visual/trap_wall/fire
@@ -126,13 +131,15 @@
 	var/tick_damage = CURTAIN_TICK_DAMAGE
 	var/burn_cooldown = 1 SECONDS
 	var/datum/weakref/caster_ref
+	var/aim_zone
 
-/obj/effect/curtain_fire/Initialize(mapload, life, mob/living/new_caster)
+/obj/effect/curtain_fire/Initialize(mapload, life, mob/living/new_caster, aimed_zone)
 	. = ..()
 	if(life)
 		lifetime = life
 	if(new_caster)
 		caster_ref = WEAKREF(new_caster)
+	aim_zone = aimed_zone
 	START_PROCESSING(SSobj, src)
 	QDEL_IN(src, lifetime)
 
@@ -158,13 +165,15 @@
 	if(L.mob_timers[CURTAIN_BURN_KEY] && world.time < L.mob_timers[CURTAIN_BURN_KEY])
 		return
 	L.mob_timers[CURTAIN_BURN_KEY] = world.time + burn_cooldown
+	var/hit_zone = aim_zone || BODY_ZONE_CHEST
 	var/mob/living/carbon/human/caster = caster_ref?.resolve()
 	if(istype(caster) && !QDELETED(caster))
-		arcyne_strike(caster, L, null, tick_damage, BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Fire Curtain", damage_type = BURN, skip_animation = TRUE, exact_zone = TRUE)
+		arcyne_strike(caster, L, null, tick_damage, hit_zone, BCLASS_BURN, spell_name = "Fire Curtain", damage_type = BURN, skip_animation = TRUE, exact_zone = TRUE)
 	else
-		var/armor_block = L.run_armor_check(BODY_ZONE_CHEST, "fire", blade_dulling = BCLASS_BURN, damage = tick_damage, flat_integ = TRUE)
-		L.apply_damage(tick_damage, BURN, BODY_ZONE_CHEST, armor_block)
-	apply_scorch_stack(L, 1)
+		var/fallback_zone = check_zone(hit_zone)
+		var/armor_block = L.run_armor_check(fallback_zone, "fire", blade_dulling = BCLASS_BURN, damage = tick_damage, flat_integ = TRUE)
+		L.apply_damage(tick_damage, BURN, fallback_zone, armor_block)
+	apply_scorch_stack(L, 1, hit_zone)
 	L.emote("pain", forced = TRUE)
 
 #undef CURTAIN_TICK_DAMAGE

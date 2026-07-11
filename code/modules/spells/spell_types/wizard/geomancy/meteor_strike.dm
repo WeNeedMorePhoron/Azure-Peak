@@ -41,6 +41,7 @@
 
 	var/direct_damage = 120 // If you get hit direct you deserve it
 	var/splash_damage = 40
+	displayed_damage = 120
 	var/fragment_damage = 15
 	var/npc_simple_damage_mult = 2
 	var/impact_count = 12

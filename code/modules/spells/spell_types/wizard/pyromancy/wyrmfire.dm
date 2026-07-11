@@ -88,7 +88,7 @@
 		return
 
 	if(M)
-		apply_scorch_stack(M, 2)
+		apply_scorch_stack(M, 2, def_zone)
 		M.apply_status_effect(/datum/status_effect/debuff/vulnerable, WYRMFIRE_VULNERABLE_DURATION)
 
 	var/aoe_damage = arcyne_aoe_damage
@@ -153,6 +153,15 @@
 	var/pillar_radius = 1
 	var/pillar_delay = 2 SECONDS
 	var/pillar_damage = PILLAR_OF_FLAME_DAMAGE
+
+/datum/action/cooldown/spell/projectile/fireball/barrage/get_spell_statistics(mob/living/user)
+	var/list/stats = ..()
+	for(var/i in stats)
+		if(findtext(i, "Damage:"))
+			stats -= i
+			break
+	stats += span_info("Damage: Fireball [FIREBALL_DAMAGE] (+[FIREBALL_AOE_DAMAGE] splash) / Artillery [ARTILLERY_FIREBALL_DAMAGE] (+[ARTILLERY_FIREBALL_AOE_DAMAGE] splash) / Pillar of Flame [pillar_damage] (3x3)")
+	return stats
 
 /datum/action/cooldown/spell/projectile/fireball/barrage/proc/apply_mode(index)
 	var/list/mode = modes[index]
@@ -329,6 +338,7 @@
 
 	var/blast_radius = CATACLYSM_RADIUS
 	var/blast_damage = CATACLYSM_DAMAGE
+	displayed_damage = CATACLYSM_DAMAGE
 	var/blast_structural = CATACLYSM_STRUCTURAL_DAMAGE
 	var/chant_time = 12 SECONDS
 	var/energy_requirement = 800

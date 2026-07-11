@@ -35,6 +35,7 @@
 	var/impact_delay = 2 SECONDS
 	var/structural_damage = 1000
 	var/head_damage = 150
+	displayed_damage = 150
 
 /datum/action/cooldown/spell/grenzel_meteor/cast(atom/cast_on)
 	. = ..()

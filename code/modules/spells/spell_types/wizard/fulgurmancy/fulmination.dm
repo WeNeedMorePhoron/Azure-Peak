@@ -84,6 +84,7 @@
 
 /datum/action/cooldown/spell/fulmination/get_spell_statistics(mob/living/user)
 	var/list/stats = ..()
+	stats += span_info("Damage: [hs_damage] (Heaven's Strike) / [ts_damage] (Thunderstrike, 5x5)")
 	stats += span_info("Firing mode (toggle with Shift+G): Heaven's Strike (single devastating bolt, +100% vs simple creechurs) / Thunderstrike (telegraphed 5x5 blast, flat [ts_damage] damage all at once).")
 	return stats
 

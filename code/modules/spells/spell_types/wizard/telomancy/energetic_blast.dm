@@ -35,6 +35,7 @@
 
 	var/line_length = 4
 	var/blast_damage = 55
+	displayed_damage = 55
 	var/push_dist = 3
 
 /datum/action/cooldown/spell/energetic_blast/cast(atom/cast_on)

@@ -9,20 +9,20 @@
 	layer = ABOVE_MOB_LAYER
 	duration = 8
 
-/proc/apply_scorch_stack(mob/living/target, stacks = 1)
+/proc/apply_scorch_stack(mob/living/target, stacks = 1, zone_override = null)
 	if(!isliving(target))
 		return
 	new /obj/effect/temp_visual/scorch_flash(get_turf(target))
 	var/final_tier = 0
 	for(var/i in 1 to stacks)
 		if(target.has_status_effect(/datum/status_effect/debuff/scorched4))
-			apply_scorch_burn(target)
+			apply_scorch_burn(target, zone_override)
 			final_tier = 4
 			break
 		if(target.has_status_effect(/datum/status_effect/debuff/scorched3))
 			target.remove_status_effect(/datum/status_effect/debuff/scorched3)
 			target.apply_status_effect(/datum/status_effect/debuff/scorched4)
-			apply_scorch_burn(target)
+			apply_scorch_burn(target, zone_override)
 			final_tier = 4
 			break
 		if(target.has_status_effect(/datum/status_effect/debuff/scorched2))
@@ -45,7 +45,7 @@
 		if(3)
 			target.balloon_alert_to_viewers("<font color='#ff8a3d'>scorched III (-2 con)</font>")
 
-/proc/apply_scorch_burn(mob/living/target)
+/proc/apply_scorch_burn(mob/living/target, zone_override = null)
 	if(!isliving(target))
 		return FALSE
 	if(target.mob_timers[SCORCH_ADAPTATION_KEY] && world.time < target.mob_timers[SCORCH_ADAPTATION_KEY])
@@ -56,14 +56,18 @@
 	var/mob/living/carbon/carbon_target
 	if(iscarbon(target))
 		carbon_target = target
-		var/obj/item/bodypart/most_wounded
-		for(var/obj/item/bodypart/BP as anything in carbon_target.bodyparts)
-			if(QDELETED(BP))
-				continue
-			if(!most_wounded || (BP.brute_dam + BP.burn_dam) > (most_wounded.brute_dam + most_wounded.burn_dam))
-				most_wounded = BP
-		if(most_wounded && (most_wounded.brute_dam + most_wounded.burn_dam) > 0)
-			target_zone = most_wounded.body_zone
+		var/aimed_zone = zone_override ? check_zone(zone_override) : null
+		if(aimed_zone && carbon_target.get_bodypart(aimed_zone))
+			target_zone = aimed_zone
+		else
+			var/obj/item/bodypart/most_wounded
+			for(var/obj/item/bodypart/BP as anything in carbon_target.bodyparts)
+				if(QDELETED(BP))
+					continue
+				if(!most_wounded || (BP.brute_dam + BP.burn_dam) > (most_wounded.brute_dam + most_wounded.burn_dam))
+					most_wounded = BP
+			if(most_wounded && (most_wounded.brute_dam + most_wounded.burn_dam) > 0)
+				target_zone = most_wounded.body_zone
 	target.apply_damage(SCORCH_BURN_DAMAGE, BURN, target_zone, 0)
 	if(carbon_target)
 		var/obj/item/bodypart/affecting = carbon_target.get_bodypart(check_zone(target_zone))

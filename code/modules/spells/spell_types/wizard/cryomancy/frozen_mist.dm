@@ -39,6 +39,11 @@
 	var/tick_damage = 9
 	var/mist_radius = 2 // 5x5
 
+/datum/action/cooldown/spell/frozen_mist/get_spell_statistics(mob/living/user)
+	var/list/stats = ..()
+	stats += span_info("Damage: 5-[tick_damage] burn per second (up to [DisplayTimeText(mist_duration)] in the cloud)")
+	return stats
+
 /datum/action/cooldown/spell/frozen_mist/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
