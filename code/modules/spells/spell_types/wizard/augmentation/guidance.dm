@@ -5,7 +5,7 @@
 		Casting it on yourself increases the cooldown by half."
 	button_icon_state = "guidance"
 
-	invocations = list("Ducere")
+	invocations = list("Vera Manus!")
 	cooldown_time = 30 SECONDS
 
 	point_cost = 2

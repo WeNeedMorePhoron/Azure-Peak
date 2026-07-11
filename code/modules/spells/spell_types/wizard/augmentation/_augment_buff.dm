@@ -12,7 +12,7 @@
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_STAT_BUFF
 
-	invocation_type = INVOCATION_WHISPER
+	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
 	charge_swingdelay_type = SWINGDELAY_PENALTY

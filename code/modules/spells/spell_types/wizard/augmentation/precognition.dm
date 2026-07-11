@@ -5,7 +5,7 @@
 
 	primary_resource_cost = SPELLCOST_UTILITY_BUFF
 
-	invocations = list("Praevidere.")
+	invocations = list("Praescientia!")
 
 	charge_required = FALSE
 	cooldown_time = 75 SECONDS

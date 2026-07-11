@@ -10,7 +10,7 @@
 	primary_resource_type = SPELL_COST_ENERGY
 	primary_resource_cost = SPELLCOST_SURGE
 
-	invocations = list("Impetus!")
+	invocations = list("Resurge!")
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = FALSE

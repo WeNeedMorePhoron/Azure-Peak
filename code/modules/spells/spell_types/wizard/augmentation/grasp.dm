@@ -11,7 +11,7 @@
 
 	primary_resource_cost = SPELLCOST_TELEPORT
 
-	invocations = list("Ad me!")
+	invocations = list("Ad Me!")
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = FALSE

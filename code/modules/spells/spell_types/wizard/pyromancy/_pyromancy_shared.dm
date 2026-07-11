@@ -74,7 +74,7 @@
 			burn_wound?.upgrade(SCORCH_BURN_DAMAGE, 0, FALSE)
 	target.mob_timers[SCORCH_ADAPTATION_KEY] = world.time + SCORCH_ADAPTATION_DURATION
 	var/hit_zone_name = parse_zone(target_zone)
-	target.balloon_alert_to_viewers("<font color='#ff4a2a'>CHARRED - ARMOR PIERCED!</font>")
+	target.balloon_alert_to_viewers("<font color='#ff4a2a'>CHARRED!</font>")
 	target.visible_message(
 		span_boldwarning("Flames burn straight through [target]'s armor, searing a wound deep into the [hit_zone_name]!"),
 		span_userdanger("Flames burn straight through my armor, searing a wound deep into my [hit_zone_name]!"))
