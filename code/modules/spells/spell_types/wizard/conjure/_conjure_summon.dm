@@ -199,7 +199,7 @@
 /atom/movable/screen/alert/status_effect/debuff/conjure_backlash
 	name = "Conjurer's Backlash"
 	desc = "My summon was struck down. The recoil ravages me - my body and focus are sapped, and I cannot conjure anew until it passes."
-	icon_state = "conjure_backlash"
+	icon_state = "debuff"
 
 /proc/update_conjure_upkeep(mob/living/summoner)
 	if(!istype(summoner))
@@ -228,4 +228,4 @@
 /atom/movable/screen/alert/status_effect/debuff/conjure_upkeep
 	name = "Conjurer's Strain"
 	desc = "Sustaining my conjured servants saps my will, focus, and vigor - the more I hold, the heavier the toll."
-	icon_state = "conjure_upkeep"
+	icon_state = "debuff"

@@ -321,6 +321,18 @@
 		/datum/action/cooldown/spell/conjure_summon/champion/goblin,
 		/datum/action/cooldown/spell/conjure_summon/hordes,
 	)
+	spell_order = list(
+		/datum/action/cooldown/spell/projectile/basic_offensive,
+		ASPECT_CHOICE,
+		/datum/action/cooldown/spell/minion_order/conjurer,
+		/datum/action/cooldown/spell/minion_mark,
+		/datum/action/cooldown/spell/conjure_dismiss,
+		/datum/action/cooldown/spell/augment_buff/grasp,
+		/datum/action/cooldown/spell/forcewall,
+		/datum/action/cooldown/spell/augment_buff/surge,
+		/datum/action/cooldown/spell/augment_buff/guidance,
+		/datum/action/cooldown/spell/augment_buff/blood_rush,
+	)
 
 /datum/magic_aspect/augmentation
 	name = "Augmentation"
