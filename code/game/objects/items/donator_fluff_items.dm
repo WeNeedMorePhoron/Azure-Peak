@@ -2040,7 +2040,7 @@ As Excaliber."
 	Sometimes, you will encounter an insurmountable threat, and in order to survive against such a threat, \
 	you must flee. That is a fact of life."
 	icon = 'icons/clothing/donor_clothes.dmi'
-	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_MASK|ITEM_SLOT_MOUTH
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_MASK
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	alternate_worn_layer  = 8.9
 	icon_state = "donor_skull"
