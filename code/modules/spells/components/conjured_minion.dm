@@ -37,6 +37,7 @@
 	if(!summoner)
 		return
 	M.ai_controller.set_blackboard_key(BB_FOLLOW_TARGET, summoner)
+	M.ai_controller.set_blackboard_key(BB_TARGETTING_DATUM, GLOB.conjured_targetting)
 	M.pet_passive = TRUE
 
 /datum/component/conjured_minion/Destroy(force, silent)
@@ -78,11 +79,31 @@
 	if(QDELETED(M) || dismissing)
 		return
 	var/mob/living/summoner = summoner_ref?.resolve()
+	validate_combat_target(M, summoner)
 	if(summoner && !QDELETED(summoner) && summoner.z == M.z)
 		if(untether_strain > 0)
 			relax_tether(M)
 		return
 	strain_tether(M)
+
+/datum/component/conjured_minion/proc/validate_combat_target(mob/living/M, mob/living/summoner)
+	var/datum/ai_controller/AC = M.ai_controller
+	if(!AC)
+		return
+	var/mob/living/current = AC.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
+	if(isnull(current))
+		return
+	if(!QDELETED(current) && !current.stat)
+		if(!summoner || QDELETED(summoner) || summoner.z != M.z)
+			return
+		if(get_dist(current, summoner) <= leash_range + 1)
+			return
+	AC.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
+	if(AC.blackboard[BB_HIGHEST_THREAT_MOB] == current)
+		AC.clear_blackboard_key(BB_HIGHEST_THREAT_MOB)
+	var/list/table = AC.blackboard[BB_MOB_AGGRO_TABLE]
+	if(islist(table))
+		table -= current
 
 /datum/component/conjured_minion/proc/strain_tether(mob/living/M)
 	untether_strain++

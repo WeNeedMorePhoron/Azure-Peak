@@ -71,6 +71,7 @@
 				minion.ai_controller.clear_blackboard_key(BB_TRAVEL_DESTINATION)
 				minion.ai_controller.clear_blackboard_key(BB_BASIC_MOB_RETALIATE_LIST)
 				minion.ai_controller.clear_blackboard_key(BB_HIGHEST_THREAT_MOB)
+				minion.ai_controller.clear_blackboard_key(BB_CURRENT_PET_TARGET)
 				minion.ai_controller.blackboard[BB_MOB_AGGRO_TABLE] = list()
 				count += 1
 				switch(order_type)
@@ -83,11 +84,7 @@
 					if("aggressive")
 						msg = "act on their own."
 					if("attack")
-						var/datum/component/ai_aggro_system/aggro = minion.GetComponent(/datum/component/ai_aggro_system)
-						if(aggro)
-							aggro.add_threat_to_mob(target, 100)
-						else
-							minion.ai_controller.set_blackboard_key(BB_HIGHEST_THREAT_MOB, target)
+						minion.ai_controller.set_blackboard_key(BB_CURRENT_PET_TARGET, target)
 						minion.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 						msg = "attack [target.name] on sight."
 					if("toggle_stance")
