@@ -27,9 +27,9 @@
 
 /datum/action/cooldown/spell/conjure_summon/champion/goblin
 	name = "Summon Goblin Champion"
-	desc = "Call forth a phantasmal rendition of an unusually large goblin - a lumbering brute that smashes through doors and shrugs off blows. Toggle its loadout with Shift+G while the spell is selected: Mace & Shield, Greataxe, Flail & Shield, or Bomber. \
-	Its brawn and gear scale with your skill at Arcyne Armament. Cruder and slower than a true champion, but cheaper to bind. \
-	You can maintain only one at a time - recast at capacity to re-summon, or use Dismiss Conjuration to release it safely."
+	desc = "Call forth a phantasmal rendition of an unusually large goblin - a lumbering brute that smashes through doors and shrugs off blows. Toggle its loadout with Shift+G while the spell is selected: Mace & Shield, Greataxe, Flail & Shield. \
+	Its brawn and gear scale with your skill at Arcyne Armament. Cruder and slower than a true champion,. \
+	You can maintain only one at a time."
 	invocations = list("Exsurge, gobelinus!")
 	summon_noun = "goblin champion"
 	point_cost = 5
