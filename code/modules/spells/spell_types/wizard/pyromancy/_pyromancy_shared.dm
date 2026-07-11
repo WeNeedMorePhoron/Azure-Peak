@@ -1,7 +1,7 @@
 #define SCORCH_ADAPTATION_DURATION (3 SECONDS)
 #define SCORCH_ADAPTATION_KEY "scorch_adaptation"
 #define SCORCH_OVERLAY_COLOR rgb(255, 138, 61)
-#define SCORCH_BURN_DAMAGE 40
+#define SCORCH_BURN_DAMAGE 60
 
 /obj/effect/temp_visual/scorch_flash
 	icon = 'icons/mob/OnFire.dmi'
