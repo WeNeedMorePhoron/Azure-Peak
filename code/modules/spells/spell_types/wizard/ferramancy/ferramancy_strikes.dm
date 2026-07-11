@@ -122,13 +122,13 @@
 	var/fwd_y = 0
 	switch(facing)
 		if(NORTH)
-			fwd_y = 32
+			fwd_y = 64
 		if(SOUTH)
-			fwd_y = -32
+			fwd_y = -64
 		if(EAST)
-			fwd_x = 32
+			fwd_x = 64
 		if(WEST)
-			fwd_x = -32
+			fwd_x = -64
 	var/matrix/upright = matrix()
 	upright.Scale(hammer_scale)
 	upright.Turn(180)

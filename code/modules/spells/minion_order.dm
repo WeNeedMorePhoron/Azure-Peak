@@ -70,6 +70,8 @@
 				minion.ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 				minion.ai_controller.clear_blackboard_key(BB_TRAVEL_DESTINATION)
 				minion.ai_controller.clear_blackboard_key(BB_BASIC_MOB_RETALIATE_LIST)
+				minion.ai_controller.clear_blackboard_key(BB_HIGHEST_THREAT_MOB)
+				minion.ai_controller.blackboard[BB_MOB_AGGRO_TABLE] = list()
 				count += 1
 				switch(order_type)
 					if("goto")
@@ -81,21 +83,22 @@
 					if("aggressive")
 						msg = "act on their own."
 					if("attack")
+						var/datum/component/ai_aggro_system/aggro = minion.GetComponent(/datum/component/ai_aggro_system)
+						if(aggro)
+							aggro.add_threat_to_mob(target, 100)
+						else
+							minion.ai_controller.set_blackboard_key(BB_HIGHEST_THREAT_MOB, target)
 						minion.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 						msg = "attack [target.name] on sight."
 					if("toggle_stance")
 						if(minion == target)
 							if("neutral" in minion.faction)
 								minion.faction -= "neutral"
-								if(isanimal(minion))
-									var/mob/living/simple_animal/simple_minion = minion
-									simple_minion.pet_passive = FALSE
+								minion.pet_passive = FALSE
 								msg = "attack non-marked on sight."
 							else
 								minion.faction += "neutral"
-								if(isanimal(minion))
-									var/mob/living/simple_animal/simple_minion = minion
-									simple_minion.pet_passive = TRUE
+								minion.pet_passive = TRUE
 								msg = "only retaliate when attacked."
 	if(count > 0)
 		to_chat(owner, "Ordered [count] minions to [msg]")

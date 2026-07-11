@@ -37,9 +37,7 @@
 	if(!summoner)
 		return
 	M.ai_controller.set_blackboard_key(BB_FOLLOW_TARGET, summoner)
-	if(isanimal(M))
-		var/mob/living/simple_animal/SA = M
-		SA.pet_passive = TRUE
+	M.pet_passive = TRUE
 
 /datum/component/conjured_minion/Destroy(force, silent)
 	if(tether_timer)
@@ -64,6 +62,10 @@
 	SIGNAL_HANDLER
 	var/mob/living/summoner = summoner_ref?.resolve()
 	if(!summoner || summoner.z != source.z)
+		return
+	var/mob/living/M = source
+	var/datum/ai_controller/AC = M.ai_controller
+	if(AC && AC.blackboard[BB_TRAVEL_DESTINATION])
 		return
 	var/newdist = get_dist(newloc, summoner)
 	if(newdist <= leash_range)
