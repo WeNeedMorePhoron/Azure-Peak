@@ -6,6 +6,7 @@
 	button_icon_state = "guidance"
 
 	invocations = list("Vera Manus!")
+	invocation_type = INVOCATION_SHOUT
 	cooldown_time = 30 SECONDS
 
 	point_cost = 2

@@ -6,6 +6,7 @@
 	primary_resource_cost = SPELLCOST_UTILITY_BUFF
 
 	invocations = list("Praescientia!")
+	invocation_type = INVOCATION_SHOUT
 
 	charge_required = FALSE
 	cooldown_time = 75 SECONDS

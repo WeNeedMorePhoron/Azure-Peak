@@ -1,7 +1,7 @@
 #define SCORCH_ADAPTATION_DURATION (3 SECONDS)
 #define SCORCH_ADAPTATION_KEY "scorch_adaptation"
 #define SCORCH_OVERLAY_COLOR rgb(255, 138, 61)
-#define SCORCH_BURN_DAMAGE 30
+#define SCORCH_BURN_DAMAGE 40
 
 /obj/effect/temp_visual/scorch_flash
 	icon = 'icons/mob/OnFire.dmi'
@@ -80,6 +80,7 @@
 		span_userdanger("Flames burn straight through my armor, searing a wound deep into my [hit_zone_name]!"))
 	playsound(get_turf(target), 'sound/misc/explode/incendiary (1).ogg', 100, TRUE)
 	new /obj/effect/temp_visual/fire(get_turf(target))
+	new /obj/effect/temp_visual/explosion(get_turf(target))
 	return TRUE
 
 /proc/remove_scorch_stack(mob/living/target)

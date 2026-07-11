@@ -6,6 +6,7 @@
 	primary_resource_cost = 5
 
 	invocations = list("Resta!")
+	invocation_type = INVOCATION_SHOUT
 
 	charge_required = FALSE
 
