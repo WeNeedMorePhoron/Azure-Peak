@@ -2037,7 +2037,8 @@ As Excaliber."
 	name = "Gazelle Skull"
 	desc = "A skull, carved from a gazelle that rests overhead. The tribal identity of the gazelle is seen as an omen of sorts. \
 	Known for being quick to act and fleetfooted, it symbolizes the need to be fast to react and the need to get out of danger. \
-	Sometimes, in order to survive against a threat beyond your capability, you must flee. That is a fact of life."
+	Sometimes, you will encounter an insurmountable threat, and in order to survive against such a threat, \
+	you must flee. That is a fact of life."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_MASK|ITEM_SLOT_MOUTH
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
