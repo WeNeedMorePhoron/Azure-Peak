@@ -358,6 +358,7 @@
 	trained to wear knightly garments."
 	icon_state = "iaventailbase"
 	max_integrity = ARMOR_INT_SIDE_IRON + ARMOR_INT_SIDE_COVERAGE_BONUS
+	smeltresult = /obj/item/ingot/iron
 
 /obj/item/clothing/neck/roguetown/gorget/bronze
 	name = "bronze neckguard"
