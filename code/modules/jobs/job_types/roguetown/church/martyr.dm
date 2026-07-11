@@ -680,7 +680,7 @@
 			H.adjust_fire_stacks(5)
 			H.ignite_mob()
 		return FALSE
-	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]]."))
+	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]."))
 	H.emote("groan", forced = TRUE)
 	H.Stun(10)
 	return FALSE
@@ -786,7 +786,7 @@
 			H.adjust_fire_stacks(5)
 			H.ignite_mob()
 		return FALSE
-	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]]."))
+	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]."))
 	H.emote("groan", forced = TRUE)
 	H.Stun(10)
 	return FALSE
@@ -875,7 +875,7 @@
 			H.adjust_fire_stacks(5)
 			H.ignite_mob()
 		return FALSE
-	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]]."))
+	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]."))
 	H.emote("groan", forced = TRUE)
 	H.Stun(10)
 	return FALSE
@@ -966,7 +966,7 @@
 			H.adjust_fire_stacks(5)
 			H.ignite_mob()
 		return FALSE
-	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]]."))
+	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]."))
 	H.emote("groan", forced = TRUE)
 	H.Stun(10)
 	return FALSE
@@ -1028,7 +1028,7 @@
 			H.adjust_fire_stacks(5)
 			H.ignite_mob()
 		return FALSE
-	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]]."))
+	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]."))
 	H.emote("groan", forced = TRUE)
 	H.Stun(10)
 	return FALSE
@@ -1070,7 +1070,7 @@
 			H.adjust_fire_stacks(5)
 			H.ignite_mob()
 		return FALSE
-	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]]."))
+	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]."))
 	H.emote("groan", forced = TRUE)
 	H.Stun(10)
 	return FALSE
@@ -1113,7 +1113,7 @@
 			H.adjust_fire_stacks(5)
 			H.ignite_mob()
 		return FALSE
-	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]]."))
+	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]."))
 	H.emote("groan", forced = TRUE)
 	H.Stun(10)
 	return FALSE
@@ -1155,7 +1155,7 @@
 			H.adjust_fire_stacks(5)
 			H.ignite_mob()
 		return FALSE
-	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]]."))
+	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]."))
 	H.emote("groan", forced = TRUE)
 	H.Stun(10)
 	return FALSE
@@ -1201,7 +1201,7 @@
 			H.adjust_fire_stacks(5)
 			H.ignite_mob()
 		return FALSE
-	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]]."))
+	to_chat(user, span_warning("A painful jolt across your entire body sends you to the ground. You cannot touch [src]."))
 	H.emote("groan", forced = TRUE)
 	H.Stun(10)
 	return FALSE

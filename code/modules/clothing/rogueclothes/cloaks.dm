@@ -984,7 +984,6 @@
 
 /obj/item/clothing/cloak/raincloak/brown
 	color = CLOTHING_BROWN
-	sellprice = 25
 
 /obj/item/clothing/cloak/raincloak/green
 	color = CLOTHING_GREEN
@@ -1288,6 +1287,11 @@
 	icon_state = "shadowcloak"
 	color = null
 
+/obj/item/clothing/cloak/half/shadowcloak/spymaster
+	name = "hand's cloak"
+	desc = "Crafted not for warmth, but to complete an imposing silhouette. It is tailored to shroud both the hilt of a hidden blade and the true intentions of its wearer from prying eyes."
+	icon_state = "handcloak"
+
 /obj/item/clothing/cloak/thief_cloak
 	name = "rapscallion's shawl"
 	desc = "A simple shawl clapsed with an ersatz fastener. Practical and functional, though the fabric is rough and wearing bare."
@@ -1384,6 +1388,17 @@
 	sleevetype = "shirt"
 	slot_flags = ITEM_SLOT_CLOAK
 
+/obj/item/clothing/cloak/suspenders
+	name = "pouched suspenders"
+	desc = "A pair of suspenders which go over the shoulders. Usually used for keeping one's pants in place in an admittably fashionable style, but this one has a couple of belts for extra storage."
+	icon_state = "suspenders"
+	item_state = "suspenders"
+	icon = 'icons/roguetown/clothing/belts.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/belts.dmi'
+	body_parts_covered = CHEST|GROIN
+	alternate_worn_layer = TABARD_LAYER
+	slot_flags = ITEM_SLOT_CLOAK | ITEM_SLOT_ARMOR | ITEM_SLOT_SHIRT | ITEM_SLOT_BELT
+
 /obj/item/clothing/cloak/battlenun
 	name = "nun vestments"
 	desc = "Chaste, righteous, merciless to the wicked."
@@ -1427,6 +1442,9 @@
 	smeltresult = /obj/item/riddleofsteel
 	anvilrepair = /datum/skill/craft/armorsmithing
 	var/active_item = FALSE
+
+/obj/item/clothing/neck/roguetown/blkknight/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_MATTHIOS_ICON)
 
 /obj/item/clothing/neck/roguetown/blkknight/equipped(mob/living/user, slot)
 	. = ..()
