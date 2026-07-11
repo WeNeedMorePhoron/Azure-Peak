@@ -1,11 +1,14 @@
 /datum/wound/dynamic/burn
 	name = "burn"
-	whp = 10
-	bleed_rate = 0
-	clotting_threshold = null
-	sewn_clotting_threshold = null
-	woundpain = 4
-	sew_threshold = 60
+	whp = 1 // 1 to 1 to puncture, as it is an AP type
+	sewn_whp = 0
+	bleed_rate = 1
+	sewn_bleed_rate = 0.04
+	clotting_rate = 0.01
+	sewn_clotting_rate = 0.01
+	clotting_threshold = 0.15
+	sewn_clotting_threshold = 0.1
+	sew_threshold = 20
 	can_sew = TRUE
 	can_cauterize = FALSE
 	passive_healing = 0.4
