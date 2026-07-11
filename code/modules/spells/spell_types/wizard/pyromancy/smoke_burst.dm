@@ -2,13 +2,15 @@
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Smoke Burst"
 	desc = "Hurl a harmless ball of smouldering cinders that bursts into a thick 3x3 cloud of smoke on impact, blocking sight for around 15 seconds.\
-	Deals no damage."
+	Deals no damage. \
+	Toggle arc mode (Shift+G) while the spell is active to lob it over intervening mobs and obstacles."
 	button_icon_state = "smoke_burst"
 	sound = 'sound/items/firesnuff.ogg'
 	spell_color = GLOW_COLOR_FIRE
 	glow_intensity = GLOW_INTENSITY_LOW
 
 	projectile_type = /obj/projectile/magic/smoke_burst
+	projectile_type_arc = /obj/projectile/magic/smoke_burst/arc
 	cast_range = SPELL_RANGE_PROJECTILE
 
 	primary_resource_type = SPELL_COST_STAMINA
@@ -24,7 +26,7 @@
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging_fire.ogg'
-	cooldown_time = 35 SECONDS
+	cooldown_time = 45 SECONDS
 	attunement_school = ASPECT_NAME_PYROMANCY
 
 	associated_skill = /datum/skill/magic/arcane
@@ -47,6 +49,10 @@
 	guard_deflectable = FALSE
 	var/smoke_range = 1
 	var/has_burst = FALSE
+
+/obj/projectile/magic/smoke_burst/arc
+	name = "arced smoke burst"
+	arcshot = TRUE
 
 /obj/projectile/magic/smoke_burst/proc/burst_smoke(turf/epicenter)
 	if(has_burst || !epicenter)

@@ -24,7 +24,7 @@
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/charging_fire.ogg'
-	cooldown_time = 60 SECONDS
+	cooldown_time = 75 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_impact_intensity = SPELL_IMPACT_HIGH
@@ -34,7 +34,7 @@
 	var/blast_radius = 2
 	var/impact_delay = 2 SECONDS
 	var/structural_damage = 600
-	var/mob_damage = 100
+	var/mob_damage = 110
 	var/curtain_life = 10 SECONDS
 
 /datum/action/cooldown/spell/fire_strike/cast(atom/cast_on)
