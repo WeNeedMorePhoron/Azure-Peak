@@ -23,6 +23,7 @@
 		/datum/action/cooldown/spell/telegraphed_strike/dragons_breath,
 		/datum/action/cooldown/spell/projectile/fireball/barrage,
 		/datum/action/cooldown/spell/fire_curtain,
+		/datum/action/cooldown/spell/projectile/smoke_burst,
 		/datum/action/cooldown/spell/create_campfire,
 	)
 	variants = list(

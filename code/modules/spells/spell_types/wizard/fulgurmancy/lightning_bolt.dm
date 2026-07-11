@@ -67,7 +67,6 @@
 			if(out_of_effective_range())
 				return
 			L.lightning_shock(src)
-			L.apply_status_effect(/datum/status_effect/debuff/exposed, 4 SECONDS)
 	else if(isatom(target))
 		var/atom/A = target
 		A.fire_act()
