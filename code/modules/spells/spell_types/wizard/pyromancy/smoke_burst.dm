@@ -3,7 +3,7 @@
 	name = "Smoke Burst"
 	desc = "Hurl a harmless ball of smouldering cinders that bursts into a thick 3x3 cloud of smoke on impact, blocking sight for around 15 seconds.\
 	Deals no damage."
-	button_icon_state = "spitfire"
+	button_icon_state = "smoke_burst"
 	sound = 'sound/items/firesnuff.ogg'
 	spell_color = GLOW_COLOR_FIRE
 	glow_intensity = GLOW_INTENSITY_LOW
@@ -38,7 +38,7 @@
 	icon_state = "spark"
 	light_color = "#8a8a8a"
 	light_outer_range = 2
-	speed = MAGE_PROJ_MEDIUM
+	speed = MAGE_PROJ_VERY_SLOW
 	nodamage = TRUE
 	damage = 0
 	flag = "fire"
