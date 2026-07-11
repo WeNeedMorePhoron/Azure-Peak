@@ -1,4 +1,4 @@
 author: "borneblood"
 delete-after: True
 changes:
-  - refactor: "Reworked Dual Wielder virtue."
+  - bugfix: "fixed Avantail and Chainmantle"
