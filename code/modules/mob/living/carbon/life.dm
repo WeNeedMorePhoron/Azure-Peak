@@ -155,8 +155,7 @@
 
 	return TRUE
 
-
-
+#define BURN_PAIN_WEIGHT 0.6
 
 /mob/living/carbon/proc/get_complex_pain()
 	. = 0
@@ -164,13 +163,15 @@
 	for(var/obj/item/bodypart/limb as anything in bodyparts)
 		if(limb.status == BODYPART_ROBOTIC || limb.skeletonized && !has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder) && !has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed))
 			continue //If we're not sundered, skeletonised limbs do not hurt.
-		var/bodypart_pain = ((limb.brute_dam + limb.burn_dam) / limb.max_damage) * limb.max_pain_damage
+		var/bodypart_pain = ((limb.brute_dam + (limb.burn_dam * BURN_PAIN_WEIGHT)) / limb.max_damage) * limb.max_pain_damage
 		for(var/datum/wound/wound as anything in limb.wounds)
 			bodypart_pain += wound?.woundpain
 		bodypart_pain = min(bodypart_pain, limb.max_pain_damage)
 		if(has_adrenaline)
 			bodypart_pain *= 0.5
 		. += bodypart_pain
+
+#undef BURN_PAIN_WEIGHT
 
 /mob/living/carbon/human/get_complex_pain()
 	. = ..()

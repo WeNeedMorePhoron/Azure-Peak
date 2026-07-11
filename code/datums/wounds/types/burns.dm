@@ -4,7 +4,7 @@
 	bleed_rate = 0
 	clotting_threshold = null
 	sewn_clotting_threshold = null
-	woundpain = 8
+	woundpain = 4
 	sew_threshold = 60
 	can_sew = TRUE
 	can_cauterize = FALSE
@@ -20,7 +20,7 @@
 	)
 
 #define BURN_UPG_WHPRATE 1.2
-#define BURN_UPG_PAINRATE 0.2
+#define BURN_UPG_PAINRATE 0.15
 #define BURN_UPG_BLEEDRATE 0.1
 #define BURN_CHAR_THRESHOLD 120
 #define BURN_UPG_CLAMP_ARMORED (ARTERY_LIMB_BLEEDRATE * 0.05)
@@ -45,8 +45,6 @@
 		armor_check(armor, BURN_ARMORED_BLEED_CLAMP)
 		if(bleed_rate > BURN_MAX_BLEED)
 			set_bleed_rate(BURN_MAX_BLEED)
-	else
-		passive_healing = max(0.1, passive_healing - 0.1)
 	update_stage()
 	..()
 

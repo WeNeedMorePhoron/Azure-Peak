@@ -8,7 +8,8 @@
 	primary_resource_type = SPELL_COST_ENERGY
 	primary_resource_cost = SPELLCOST_BRUSH
 
-	invocations = list("Sanguis Fervet.")
+	invocations = list("Sanguis Fervet!")
+	invocation_type = INVOCATION_SHOUT
 	charge_required = FALSE
 	other_cast_cooldown_reduction = 0 // Too powerful otherwise
 
