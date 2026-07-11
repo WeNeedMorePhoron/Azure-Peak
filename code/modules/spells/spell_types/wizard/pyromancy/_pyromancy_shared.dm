@@ -78,7 +78,7 @@
 	target.visible_message(
 		span_boldwarning("Flames burn straight through [target]'s armor, searing a wound deep into the [hit_zone_name]!"),
 		span_userdanger("Flames burn straight through my armor, searing a wound deep into my [hit_zone_name]!"))
-	playsound(get_turf(target), 'sound/misc/explode/incendiary (1).ogg', 100, TRUE)
+	playsound(get_turf(target), pick('sound/misc/explode/explosionclose (1).ogg', 'sound/misc/explode/explosionclose (2).ogg', 'sound/misc/explode/explosionclose (3).ogg'), 100, TRUE)
 	new /obj/effect/temp_visual/fire(get_turf(target))
 	new /obj/effect/temp_visual/explosion(get_turf(target))
 	return TRUE
