@@ -26,6 +26,7 @@
 
 /obj/projectile/bullet/reusable/arrow/iron/ferramancy
 	color = GLOW_COLOR_ARCANE
+	trains_ranged_skill = FALSE
 
 /obj/projectile/bullet/reusable/arrow/iron/ferramancy/on_hit()
 	. = ..()
@@ -44,6 +45,8 @@
 	desc = "A longbow of condensed arcyne light. It draws on the wielder's own energy in place of arrows, looses with a heavy and deliberate pull, and is far too unwieldy to fire on the move."
 	color = GLOW_COLOR_ARCANE
 	minstr = 0
+	associated_skill = /datum/skill/combat/arcyne
+	ranged_skill = /datum/skill/combat/arcyne
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/bow/ferramancy
 	spill_ammo_on_drop = FALSE
 	possible_item_intents = list(
@@ -58,6 +61,10 @@
 	var/reloading = FALSE
 	var/lance_cooldown = 10 SECONDS
 	COOLDOWN_DECLARE(lance_cd)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow/greatbow/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Its draw answers to my <b>Arcyne Armament</b>, not any common archer's training.")
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow/greatbow/Initialize()
 	. = ..()
@@ -125,6 +132,7 @@
 
 /obj/projectile/bullet/reusable/bolt/ferramancy
 	color = GLOW_COLOR_ARCANE
+	trains_ranged_skill = FALSE
 
 /obj/projectile/bullet/reusable/bolt/ferramancy/on_hit()
 	. = ..()
@@ -149,12 +157,14 @@
 	anvilrepair = null
 	smeltresult = null
 	associated_skill = /datum/skill/combat/arcyne
+	ranged_skill = /datum/skill/combat/arcyne
 	/// Arcyne energy drawn from the wielder each time the string is cocked and a bolt is conjured.
 	var/conjure_cost = 25
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/ferramancy/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_info("Drawing the string conjures a bolt of arcyne energy, spending <b>[conjure_cost]</b> of your own energy. It accepts no other ammunition.")
+	. += span_info("Its draw and aim answer to my <b>Arcyne Armament</b>, not any common crossbow drill.")
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/ferramancy/attack_self(mob/living/user)
 	if(chambered)
@@ -167,7 +177,7 @@
 		to_chat(user, span_warning("I haven't the arcyne energy to charge [src]!"))
 		return
 	to_chat(user, span_info("I step on the stirrup and draw [src] taut..."))
-	if(!do_after(user, max(1, reloadtime - user.STASTR - user.get_skill_level(/datum/skill/combat/crossbows)), target = user))
+	if(!do_after(user, max(1, reloadtime - user.STASTR - user.get_skill_level(ranged_skill)), target = user))
 		return
 	playsound(user, cock_sound, 100, FALSE)
 	if(!conjure_bolt(user))
