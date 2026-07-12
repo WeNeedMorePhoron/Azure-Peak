@@ -48,7 +48,7 @@
 /obj/item/flashlight/attack(mob/living/carbon/M, mob/living/carbon/human/user)
 	add_fingerprint(user)
 	if(on)
-		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH && user.used_intent.type == INTENT_HELP)
+		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 			var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
 			if(cig)
 				if(cig.lit)
