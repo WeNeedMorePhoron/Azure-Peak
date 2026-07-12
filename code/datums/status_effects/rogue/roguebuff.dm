@@ -1,5 +1,27 @@
 /datum/status_effect/buff
 	status_type = STATUS_EFFECT_REFRESH
+	/// Buffs sharing this group are mutually exclusive; only the highest exclusive_priority stays.
+	var/exclusive_group = null
+	/// Higher wins within a group; on a tie the incumbent is kept.
+	var/exclusive_priority = 0
+	/// TRUE if refused on-apply by a stronger group member
+	var/rejected_by_exclusion = FALSE
+
+/datum/status_effect/buff/on_apply()
+	if(exclusive_group && owner)
+		var/list/outranked = list()
+		for(var/datum/status_effect/buff/rival in owner.status_effects)
+			if(rival == src || rival.exclusive_group != exclusive_group)
+				continue
+			if(rival.exclusive_priority >= exclusive_priority)
+				rejected_by_exclusion = TRUE
+				effectedstats = list()
+				owner.balloon_alert_to_viewers("superseded!")
+				return FALSE
+			outranked += rival
+		for(var/datum/status_effect/buff/loser in outranked)
+			qdel(loser) // Destroy() handles list cleanup + on_remove
+	return ..()
 
 
 /datum/status_effect/buff/drunk
@@ -1422,6 +1444,26 @@
 	to_chat(owner, span_warning("I feel Dendor's blessing leave my body..."))
 	REMOVE_TRAIT(owner, TRAIT_LONGSTRIDER, id)
 	REMOVE_TRAIT(owner, TRAIT_STRONGBITE, id)
+
+/atom/movable/screen/alert/status_effect/buff/malumritual
+	name = "Blessing of Malum"
+	desc = "Tiredness and failure is not an option I must finish my work..."
+	icon_state = "buff"
+
+/datum/status_effect/buff/malumritual
+	id = "malumritual"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/malumritual
+	duration = 20 MINUTES
+
+/datum/status_effect/buff/malumritual/on_apply()
+	. = ..()
+	to_chat(owner, span_warning("I feel Malum's persistance envelop me..."))
+	ADD_TRAIT(owner, TRAIT_MALUMCHOSEN , id)
+
+/datum/status_effect/buff/malumritual/on_remove()
+	. = ..()
+	to_chat(owner, span_warning("I feel Malum's blessing fade away..."))
+	REMOVE_TRAIT(owner, TRAIT_MALUMCHOSEN , id)
 
 /atom/movable/screen/alert/status_effect/buff/pacify
 	name = "Blessing of Eora"
