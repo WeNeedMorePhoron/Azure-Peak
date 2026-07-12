@@ -780,11 +780,13 @@ GLOBAL_LIST_INIT(t4rune_types, generate_t4rune_types())
 	var/turf/centerpoint = get_turf(src)
 	var/mob/living/user = usr
 	if(istype(user))
-		var/turf/front = get_step(centerpoint, user.dir)
-		if(front)
-			front = get_step(front, user.dir)
-		if(front)
-			centerpoint = front
+		var/turf/front = centerpoint
+		for(var/i in 1 to field_radius + 1)
+			var/turf/next = get_step(front, user.dir)
+			if(!next)
+				break
+			front = next
+		centerpoint = front
 	playsound(centerpoint, 'sound/spellbooks/crystal.ogg', 80, TRUE)
 	for(var/turf/T in get_hear(field_radius, centerpoint))
 		if(T.density)
