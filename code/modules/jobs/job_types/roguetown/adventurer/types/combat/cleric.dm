@@ -482,7 +482,7 @@
 		I.grant_inspiration(H, bard_tier = BARD_T1)
 		H.mind?.AddSpell(new /datum/action/cooldown/spell/projectile/vicious_mockery)
 	else
-		C.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_DEVOTEE, devotion_limit = CLERIC_REQ_2)
+		C.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_WEAK, devotion_limit = CLERIC_REQ_2)
 	backpack_contents = list(
 		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/recipe_book/survival = 1,
