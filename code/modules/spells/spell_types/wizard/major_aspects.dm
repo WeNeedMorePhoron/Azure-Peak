@@ -129,6 +129,7 @@
 		"Terra, a me discedere!",
 	)
 	fixed_spells = list(
+		/datum/action/cooldown/spell/conjure_boulder,
 		/datum/action/cooldown/spell/projectile/gravel_blast,
 		/datum/action/cooldown/spell/emergence,
 		/datum/action/cooldown/spell/projectile/boulder_strike,

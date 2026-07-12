@@ -3257,6 +3257,7 @@
 #include "code\modules\spells\spell_types\wizard\fulgurmancy\lightning_bolt.dm"
 #include "code\modules\spells\spell_types\wizard\geomancy\_geomancy_shared.dm"
 #include "code\modules\spells\spell_types\wizard\geomancy\boulder_strike.dm"
+#include "code\modules\spells\spell_types\wizard\geomancy\conjure_boulder.dm"
 #include "code\modules\spells\spell_types\wizard\geomancy\emergence.dm"
 #include "code\modules\spells\spell_types\wizard\geomancy\ensnare.dm"
 #include "code\modules\spells\spell_types\wizard\geomancy\gravel_blast.dm"
