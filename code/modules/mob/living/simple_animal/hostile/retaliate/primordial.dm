@@ -82,8 +82,8 @@
 	attack_sound = list('sound/misc/explode/incendiary (1).ogg','sound/misc/explode/incendiary (2).ogg')
 
 	base_intents = list(/datum/intent/simple/claw/primordial)
-	health = 300
-	maxHealth = 300
+	health = 400
+	maxHealth = 400
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	vision_range = 10
@@ -166,8 +166,8 @@
 
 	base_intents = list(/datum/intent/simple/claw/primordial)
 
-	health = 400
-	maxHealth = 400
+	health = 500
+	maxHealth = 500
 	melee_damage_lower = 15
 	melee_damage_upper = 25
 	vision_range = 10
@@ -276,8 +276,8 @@
 
 	base_intents = list(/datum/intent/simple/claw/primordial)
 
-	health = 250
-	maxHealth = 250
+	health = 450
+	maxHealth = 450
 	melee_damage_lower = 25
 	melee_damage_upper = 35
 	vision_range = 10

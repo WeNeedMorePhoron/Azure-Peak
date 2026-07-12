@@ -315,6 +315,7 @@
 		/datum/action/cooldown/spell/augment_buff/surge,
 		/datum/action/cooldown/spell/augment_buff/guidance,
 		/datum/action/cooldown/spell/augment_buff/blood_rush,
+		/datum/action/cooldown/spell/conjure_projection,
 	)
 	choice_spells = list(
 		/datum/action/cooldown/spell/conjure_summon/primordial,
@@ -327,6 +328,7 @@
 		ASPECT_CHOICE,
 		/datum/action/cooldown/spell/minion_order/conjurer,
 		/datum/action/cooldown/spell/minion_mark,
+		/datum/action/cooldown/spell/conjure_projection,
 		/datum/action/cooldown/spell/conjure_dismiss,
 		/datum/action/cooldown/spell/augment_buff/grasp,
 		/datum/action/cooldown/spell/forcewall,

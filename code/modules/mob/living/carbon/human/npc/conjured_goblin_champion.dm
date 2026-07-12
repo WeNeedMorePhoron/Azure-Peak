@@ -34,10 +34,10 @@
 		loadout = G.loadout
 	var/stat_bonus = (tier == 3) ? 4 : ((tier == 2) ? 2 : 0)
 	var/skill = clamp(1 + round(lvl / 2) + (tier - 1), 2, 4)
-	H.STASTR = 11 + tier
+	H.STASTR = 12 + tier
 	H.STASPD = 10
-	H.STACON = 8 + lvl + stat_bonus
-	H.STAWIL = 4 + lvl + (tier - 1)
+	H.STACON = 12 + lvl + stat_bonus
+	H.STAWIL = 10 + lvl + (tier - 1)
 	H.STAPER = 6
 	H.STAINT = 8
 	H.STALUC = 4
