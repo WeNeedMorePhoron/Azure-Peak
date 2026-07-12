@@ -143,6 +143,8 @@
 		conjured_mobs += summoned
 		RegisterSignal(summoned, COMSIG_QDELETING, PROC_REF(remove_conjure))
 		summoned.AddComponent(/datum/component/conjured_minion, user, recoil_energy_floor, recoil_debuff)
+		var/turf/landing = get_turf(summoned)
+		landing?.zFall(summoned)
 	update_conjure_upkeep(user)
 	return TRUE
 

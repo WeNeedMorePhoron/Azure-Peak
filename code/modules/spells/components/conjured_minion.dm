@@ -5,7 +5,8 @@
 	var/recoil_energy_floor = 200
 	var/recoil_debuff = TRUE
 	var/dismissing = FALSE
-	var/leash_range = 10
+	var/leash_range = 12
+	var/next_leash_message = 0
 	var/base_alpha = 255
 	var/untether_strain = 0
 	var/untether_max = 5
@@ -66,18 +67,22 @@
 
 /datum/component/conjured_minion/proc/check_leash(atom/movable/source, atom/newloc)
 	SIGNAL_HANDLER
+	var/mob/living/M = source
 	var/mob/living/summoner = summoner_ref?.resolve()
 	if(!summoner || summoner.z != source.z)
 		return
-	var/mob/living/M = source
 	var/datum/ai_controller/AC = M.ai_controller
 	if(AC && AC.blackboard[BB_TRAVEL_DESTINATION])
 		return
 	var/newdist = get_dist(newloc, summoner)
 	if(newdist <= leash_range)
 		return
-	if(newdist >= get_dist(source, summoner))
-		return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+	if(newdist < get_dist(source, summoner))
+		return
+	if(M.ckey && world.time > next_leash_message)
+		next_leash_message = world.time + 3 SECONDS
+		to_chat(M, span_warning("The tether binding you to your abandoned flesh draws taut - you can stray no further from your body."))
+	return COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 
 /datum/component/conjured_minion/proc/check_tether()
 	var/mob/living/M = parent
@@ -85,7 +90,7 @@
 		return
 	var/mob/living/summoner = summoner_ref?.resolve()
 	validate_combat_target(M, summoner)
-	if(summoner && !QDELETED(summoner) && summoner.z == M.z)
+	if(summoner && !QDELETED(summoner) && summoner.z == M.z && get_dist(M, summoner) <= leash_range)
 		if(untether_strain > 0)
 			relax_tether(M)
 		return
@@ -116,9 +121,13 @@
 		M.visible_message(span_warning("[M] flickers, its form straining against the distant leyline."))
 	M.alpha = max(50, M.alpha - 24)
 	M.add_movespeed_modifier(CONJURE_UNTETHER_ID, update = TRUE, override = TRUE, multiplicative_slowdown = min(untether_strain, untether_max) * 0.6)
-	if(untether_strain >= untether_max)
-		M.visible_message(span_warning("[M] loses all cohesion, unraveling as the leyline tether snaps."))
-		dismiss_conjured_minion(M)
+	if(untether_strain < untether_max)
+		return
+	if(M.ckey)
+		untether_strain = untether_max
+		return
+	M.visible_message(span_warning("[M] loses all cohesion, unraveling as the leyline tether snaps."))
+	dismiss_conjured_minion(M)
 
 /datum/component/conjured_minion/proc/relax_tether(mob/living/M)
 	untether_strain = 0

@@ -225,3 +225,6 @@
 	. = ..()
 	origin?.return_to_body("voluntary")
 	return TRUE
+
+/mob/living/proc/get_pilot_ability()
+	return null

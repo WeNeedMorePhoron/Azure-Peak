@@ -20,7 +20,7 @@
 	point_cost = 1
 	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 
-	var/channel_time = 3 SECONDS
+	var/channel_time = 1.5 SECONDS
 	var/channeling = FALSE
 
 /datum/action/cooldown/spell/augment_buff/grasp/cast(atom/cast_on)

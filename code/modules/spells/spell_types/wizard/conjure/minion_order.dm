@@ -77,3 +77,59 @@
 				primordial.ability(T, user)
 		return TRUE
 	return FALSE
+
+/datum/action/cooldown/spell/conjure_recall
+	button_icon = 'icons/mob/actions/mage_conjure.dmi'
+	button_icon_state = "order_servants"
+	name = "Recall Servants"
+	desc = "Wrench every conjured servant through the leyline to your side, wherever they have strayed - even across floors or a piloted body's leash."
+	sound = 'sound/magic/magnet.ogg'
+	spell_color = GLOW_COLOR_ARCANE
+	glow_intensity = GLOW_INTENSITY_MEDIUM
+	attunement_school = ASPECT_NAME_CONJURATION
+
+	click_to_activate = FALSE
+	self_cast_possible = TRUE
+	charge_required = FALSE
+	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_cost = SPELLCOST_CONJURE
+	cooldown_time = 30 SECONDS
+
+	associated_skill = /datum/skill/magic/arcane
+	spell_tier = 3
+	spell_impact_intensity = SPELL_IMPACT_NONE
+	point_cost = 0
+
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_MIND
+
+/datum/action/cooldown/spell/conjure_recall/can_cast_spell(feedback = TRUE)
+	. = ..()
+	if(!.)
+		return
+	var/mob/living/user = owner
+	if(!istype(user) || !length(user.summoned_minions))
+		if(feedback)
+			owner.balloon_alert(owner, "no servants to recall!")
+		return FALSE
+
+/datum/action/cooldown/spell/conjure_recall/cast(atom/cast_on)
+	. = ..()
+	var/mob/living/user = owner
+	if(!istype(user))
+		return FALSE
+	var/turf/center = get_turf(user)
+	if(!center)
+		return FALSE
+	var/count = 0
+	for(var/mob/living/M in user.summoned_minions.Copy())
+		if(QDELETED(M) || M.stat == DEAD || M == user)
+			continue
+		if(do_teleport(M, center, precision = 2, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE))
+			count++
+	if(!count)
+		to_chat(user, span_warning("None of my servants answer the pull."))
+		reset_spell_cooldown()
+		return FALSE
+	to_chat(user, span_notice("I draw the leyline taut, and my servants are dragged to my side."))
+	playsound(user, 'sound/magic/magnet.ogg', 60, TRUE)
+	return TRUE

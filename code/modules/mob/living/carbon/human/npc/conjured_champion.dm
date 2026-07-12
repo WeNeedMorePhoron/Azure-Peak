@@ -46,7 +46,7 @@
 		if(master.mind && master.mind.current)
 			master = master.mind.current
 		summoner = master.real_name
-		faction |= "[master.real_name]_faction"
+		faction = list("[master.real_name]_faction")
 		apply_fellowship_faction(master, src)
 	switch(loadout)
 		if("swordsman")

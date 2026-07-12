@@ -309,6 +309,7 @@
 		/datum/action/cooldown/spell/projectile/basic_offensive, // If too op I will give them bolt instead
 		/datum/action/cooldown/spell/minion_order/conjurer,
 		/datum/action/cooldown/spell/minion_mark,
+		/datum/action/cooldown/spell/conjure_recall,
 		/datum/action/cooldown/spell/conjure_dismiss,
 		/datum/action/cooldown/spell/augment_buff/grasp,
 		/datum/action/cooldown/spell/forcewall,
@@ -329,6 +330,7 @@
 		/datum/action/cooldown/spell/minion_order/conjurer,
 		/datum/action/cooldown/spell/minion_mark,
 		/datum/action/cooldown/spell/conjure_projection,
+		/datum/action/cooldown/spell/conjure_recall,
 		/datum/action/cooldown/spell/conjure_dismiss,
 		/datum/action/cooldown/spell/augment_buff/grasp,
 		/datum/action/cooldown/spell/forcewall,

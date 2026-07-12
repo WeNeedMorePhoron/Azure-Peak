@@ -30,7 +30,7 @@
 	return //no travel target and no one to follow. being a minion in other ways
 /// Follow the target
 /datum/ai_behavior/follow_friend
-	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 /datum/ai_behavior/follow_friend/setup(datum/ai_controller/controller, target_key)
 	. = ..()
 	var/atom/target = controller.blackboard[target_key]
