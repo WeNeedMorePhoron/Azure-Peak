@@ -32,7 +32,7 @@
 	charge_slowdown = CHARGING_SLOWDOWN_HEAVY
 	charge_swingdelay_type = SWINGDELAY_CANCEL
 	charge_sound = 'sound/magic/charging.ogg'
-	cooldown_time = 4 MINUTES
+	cooldown_time = 2 MINUTES
 
 	associated_skill = /datum/skill/combat/arcyne
 	spell_tier = 3
@@ -49,6 +49,7 @@
 	var/summon_noun = "servant"
 	var/recoil_energy_floor = 200
 	var/recoil_severity = CONJURE_RECOIL_FULL
+	var/recoil_stamina_only = FALSE
 
 /datum/action/cooldown/spell/conjure_summon/Grant(mob/grant_to)
 	. = ..()
@@ -108,7 +109,7 @@
 /datum/action/cooldown/spell/conjure_summon/get_spell_statistics(mob/living/user)
 	var/list/stats = ..()
 	if(length(modes))
-		stats += span_info("Mode (toggle with Shift+G): [modes[current_mode]["name"]]. You may maintain [max_summons] [summon_noun][max_summons > 1 ? "s" : ""] at a time; recasting at capacity re-summons. Losing one to death recoils violently upon you - use Dismiss Conjuration to release it safely.")
+		stats += span_info("Mode (toggle with Shift+G): [modes[current_mode]["name"]]. You may maintain [max_summons] [summon_noun][max_summons > 1 ? "s" : ""] at a time; recasting at capacity re-summons. Losing one to death recoils violently upon you. Dismiss Conjuration releases them without the shock, but a battered servant still recoils as it unbinds - the more hurt it is, the deeper the toll.")
 	return stats
 
 /datum/action/cooldown/spell/conjure_summon/can_cast_spell(feedback = TRUE)
@@ -152,7 +153,7 @@
 	for(var/mob/living/summoned in all_summoned)
 		conjured_mobs += summoned
 		RegisterSignal(summoned, COMSIG_QDELETING, PROC_REF(remove_conjure))
-		summoned.AddComponent(/datum/component/conjured_minion, user, recoil_energy_floor, recoil_severity)
+		summoned.AddComponent(/datum/component/conjured_minion, user, recoil_energy_floor, recoil_severity, recoil_stamina_only)
 		var/turf/landing = get_turf(summoned)
 		landing?.zFall(summoned)
 	return TRUE
@@ -176,54 +177,87 @@
 	SIGNAL_HANDLER
 	conjured_mobs -= summoned
 
-/proc/apply_conjure_recoil(mob/living/summoner, energy_floor = 200, severity = CONJURE_RECOIL_FULL)
+/mob/living/proc/conjure_damage_fraction()
+	if(maxHealth <= 0)
+		return 0
+	var/total = getBruteLoss() + getFireLoss() + getToxLoss() + getOxyLoss()
+	return clamp(total / maxHealth, 0, 1)
+
+/proc/apply_conjure_recoil(mob/living/summoner, energy_floor = 200, severity = CONJURE_RECOIL_FULL, scale = 1, shock = TRUE, stamina_only = FALSE)
 	if(!istype(summoner))
 		return
+	scale = clamp(scale, 0, 1)
+	if(scale <= 0)
+		return
+	if(stamina_only)
+		summoner.stamina_add(round(summoner.max_stamina * 0.5 * scale))
+		to_chat(summoner, span_warning("The leyline snaps taut and tears the wind from me as my primordial unravels."))
+		scale *= 0.5
+		shock = FALSE
+	if(severity == CONJURE_RECOIL_LIGHT)
+		to_chat(summoner, span_warning("A jolt of pain stings me as my conjured servant falls."))
+		return
+
 	if(summoner.energy > energy_floor)
-		summoner.energy = energy_floor
-	switch(severity)
-		if(CONJURE_RECOIL_LIGHT)
-			to_chat(summoner, span_warning("A jolt of pain stings me as my conjured servant falls."))
-		if(CONJURE_RECOIL_PARTIAL)
-			to_chat(summoner, span_warning("A sharp recoil lances through me as one of my conjured servants is cut down."))
-			summoner.apply_status_effect(/datum/status_effect/debuff/conjure_backlash_partial)
-		else
-			summoner.Knockdown(30)
-			summoner.emote("painscream")
-			to_chat(summoner, span_userdanger("Agony tears through me as my conjured servant is struck down!"))
-			summoner.apply_status_effect(/datum/status_effect/debuff/conjure_backlash)
+		summoner.energy = max(energy_floor, summoner.energy - (summoner.energy - energy_floor) * scale)
+
+	var/list/base_stats
+	var/base_duration
+	if(severity == CONJURE_RECOIL_FULL)
+		base_stats = list(STATKEY_STR = -4, STATKEY_SPD = -4, STATKEY_CON = -4, STATKEY_WIL = -4, STATKEY_PER = -3, STATKEY_INT = -3)
+		base_duration = 3 MINUTES
+	else
+		base_stats = list(STATKEY_STR = -2, STATKEY_CON = -2, STATKEY_WIL = -2)
+		base_duration = 45 SECONDS
+
+	if(shock)
+		summoner.Knockdown(round(30 * scale))
+		summoner.emote("painscream")
+		to_chat(summoner, span_userdanger("Agony tears through me as my conjured servant is struck down!"))
+	else if(!stamina_only)
+		to_chat(summoner, span_warning("A cold recoil ripples through me as I unbind my servant."))
+
+	summoner.apply_status_effect(/datum/status_effect/debuff/conjure_backlash, scale, base_stats, base_duration, shock)
 
 /datum/status_effect/debuff/conjure_backlash
 	id = "conjure_backlash"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/conjure_backlash
-	effectedstats = list(STATKEY_STR = -4, STATKEY_SPD = -4, STATKEY_CON = -4, STATKEY_WIL = -4, STATKEY_PER = -3, STATKEY_INT = -3)
+	status_type = STATUS_EFFECT_REPLACE
 	duration = 3 MINUTES
 	needs_processing = TRUE
+	var/blocks_resummon = FALSE
+
+/datum/status_effect/debuff/conjure_backlash/on_creation(mob/living/new_owner, scale = 1, list/base_stats, base_duration = 45 SECONDS, block = FALSE)
+	scale = clamp(scale, 0, 1)
+	blocks_resummon = block
+	var/list/scaled = list()
+	if(islist(base_stats))
+		for(var/statkey in base_stats)
+			var/mag = round(abs(base_stats[statkey]) * scale)
+			if(mag)
+				scaled[statkey] = -mag
+	effectedstats = scaled
+	duration = max(1 SECONDS, round(base_duration * scale))
+	return ..(new_owner)
 
 /datum/status_effect/debuff/conjure_backlash/on_apply()
 	. = ..()
 	if(!.)
 		return
-	ADD_TRAIT(owner, TRAIT_CONJURE_BACKLASH, "conjure_backlash")
+	if(blocks_resummon)
+		ADD_TRAIT(owner, TRAIT_CONJURE_BACKLASH, "conjure_backlash")
 
 /datum/status_effect/debuff/conjure_backlash/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_CONJURE_BACKLASH, "conjure_backlash")
+	if(blocks_resummon)
+		REMOVE_TRAIT(owner, TRAIT_CONJURE_BACKLASH, "conjure_backlash")
+	return ..()
+
+/datum/status_effect/debuff/conjure_backlash/be_replaced()
+	if(blocks_resummon)
+		REMOVE_TRAIT(owner, TRAIT_CONJURE_BACKLASH, "conjure_backlash")
 	return ..()
 
 /atom/movable/screen/alert/status_effect/debuff/conjure_backlash
 	name = "Conjurer's Backlash"
-	desc = "My summon was struck down. The recoil ravages me - my body and focus are sapped, and I cannot conjure anew until it passes."
-	icon_state = "debuff"
-
-/datum/status_effect/debuff/conjure_backlash_partial
-	id = "conjure_backlash_partial"
-	alert_type = /atom/movable/screen/alert/status_effect/debuff/conjure_backlash_partial
-	status_type = STATUS_EFFECT_REFRESH
-	effectedstats = list(STATKEY_STR = -2, STATKEY_CON = -2, STATKEY_WIL = -2)
-	duration = 45 SECONDS
-	needs_processing = TRUE
-
-/atom/movable/screen/alert/status_effect/debuff/conjure_backlash_partial
-	name = "Conjurer's Recoil"
-	desc = "One of my lesser servants was cut down. The backlash saps my strength and will for a short while - though it does not stop me conjuring anew."
+	desc = "The unbinding of my conjured servant recoils upon me - the more grievously it was hurt, the deeper the toll. My body and focus are sapped until it passes."
 	icon_state = "debuff"

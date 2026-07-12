@@ -1,5 +1,5 @@
 /datum/ai_controller/air_primordial
-	movement_delay = 0.2 SECONDS
+	movement_delay = 0.1 SECONDS
 	ai_movement = /datum/ai_movement/hybrid_pathing
 	blackboard = list(
 		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic()

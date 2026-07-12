@@ -97,17 +97,12 @@
 
 /datum/outfit/job/roguetown/conjured_champion/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
-	var/lvl = 3
 	var/tier = champion_tier(H)
-	if(istype(H, /mob/living/carbon/human/species/human/northern/conjured_champion))
-		var/mob/living/carbon/human/species/human/northern/conjured_champion/C = H
-		lvl = clamp(C.arcane_scale, 1, 6)
-	var/stat_bonus = (tier == 3) ? 2 : ((tier == 2) ? 1 : 0)
 	var/skill = champion_skill(H)
 	H.STASTR = 10 + tier
 	H.STASPD = 11 // To prevent NPC following problem
-	H.STACON = 8 + lvl + stat_bonus
-	H.STAWIL = 8 + lvl + stat_bonus
+	H.STACON = 11 + tier
+	H.STAWIL = 11 + tier
 	H.STAPER = 10
 	H.STAINT = 10
 	H.STALUC = 10
