@@ -3,6 +3,7 @@
 #define ARTILLERY_FIREBALL_DAMAGE 80
 #define ARTILLERY_FIREBALL_AOE_DAMAGE 50
 #define PILLAR_OF_FLAME_DAMAGE 110
+#define PILLAR_OF_FLAME_CURTAIN_LIFE (10 SECONDS)
 #define WYRMFIRE_VULNERABLE_DURATION (5 SECONDS)
 #define CATACLYSM_DAMAGE 300
 #define CATACLYSM_STRUCTURAL_DAMAGE 3000
@@ -142,7 +143,7 @@
 	desc = "Loose a devastating barrage of fire. Every strikes leave its victim Vulnerable. Toggle firing mode (Shift+G) to switch:\n\
 	Fireball: Direct fire for 80 damage and 50 area damage around the target.\n\
 	Artillery Fireball: Arced bombardment with heavy structural damage and smoke for 80 damage and 50 area damage.\n\
-	Pillar of Flame: Ground-target a delayed eruption dealing 110 damage across a 3x3 after a short warning."
+	Pillar of Flame: Ground-target a delayed eruption dealing 110 damage across a 3x3 after a short warning, leaving a lingering curtain of flame at its center."
 	charge_swingdelay_type = SWINGDELAY_PENALTY
 	var/current_mode = 1
 	var/list/modes = list(
@@ -240,6 +241,7 @@
 		return
 	new /obj/effect/temp_visual/explosion(epicenter)
 	new /obj/effect/temp_visual/fire_pillar(epicenter)
+	new /obj/effect/curtain_fire(epicenter, PILLAR_OF_FLAME_CURTAIN_LIFE, caster)
 	playsound(epicenter, pick('sound/misc/explode/incendiary (1).ogg', 'sound/misc/explode/incendiary (2).ogg'), 100, TRUE, 5)
 	for(var/turf/T in range(radius, epicenter))
 		new /obj/effect/temp_visual/dragonfire(T)
@@ -492,6 +494,7 @@
 #undef ARTILLERY_FIREBALL_DAMAGE
 #undef ARTILLERY_FIREBALL_AOE_DAMAGE
 #undef PILLAR_OF_FLAME_DAMAGE
+#undef PILLAR_OF_FLAME_CURTAIN_LIFE
 #undef WYRMFIRE_VULNERABLE_DURATION
 #undef CATACLYSM_DAMAGE
 #undef CATACLYSM_STRUCTURAL_DAMAGE
