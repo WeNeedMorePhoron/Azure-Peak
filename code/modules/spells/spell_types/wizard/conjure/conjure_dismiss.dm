@@ -2,16 +2,16 @@
 /datum/action/cooldown/spell/conjure_dismiss
 	button_icon = 'icons/mob/actions/mage_conjure.dmi'
 	name = "Dismiss Conjuration"
-	desc = "Release your conjured servants back to the leyline. They vanish quietly, sparing you the violent recoil of one struck down."
+	desc = "Channel for ten seconds to release your conjured servants back to the leyline. They vanish quietly, sparing you the violent recoil of one struck down - you are left open while you unbind them."
 	button_icon_state = "dismiss_conjure"
 	sound = null
 	spell_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_MEDIUM
 	attunement_school = ASPECT_NAME_CONJURATION
 
-	charge_required = FALSE
+	charge_required = TRUE
 	primary_resource_type = SPELL_COST_NONE
-	charge_time = CHARGETIME_BARRAGE
+	charge_time = 10 SECONDS
 	charge_swingdelay_type = SWINGDELAY_CANCEL // People CAN take advantage of you trying to combat unsummon if they are in a tight spot. This is on purpose
 	cooldown_time = 30 SECONDS
 
@@ -25,7 +25,15 @@
 	spell_requirements = SPELL_REQUIRES_HUMAN
 
 /datum/action/cooldown/spell/conjure_dismiss/can_cast_spell(feedback = TRUE)
-	return !isnull(owner)
+	if(isnull(owner))
+		return FALSE
+	for(var/datum/action/cooldown/spell/conjure_summon/summon_spell in owner.actions)
+		for(var/mob/living/M in summon_spell.conjured_mobs)
+			if(!QDELETED(M))
+				return TRUE
+	if(feedback)
+		owner.balloon_alert(owner, "no conjured servants")
+	return FALSE
 
 /datum/action/cooldown/spell/conjure_dismiss/cast(atom/cast_on)
 	. = ..()

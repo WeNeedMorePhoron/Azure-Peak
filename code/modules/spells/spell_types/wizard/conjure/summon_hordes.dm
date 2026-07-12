@@ -1,13 +1,13 @@
 /datum/action/cooldown/spell/conjure_summon/hordes
 	name = "Summon Horde"
-	desc = "Call forth a pack of three phantasmal goblins to swarm your foes. Individually weak and lightly armored, but expendable - losing one barely stings. Recast to reinforce the pack up to three, or replace it once full; use Dismiss Conjuration to release them."
+	desc = "Call forth a pack of three phantasmal goblins to swarm your foes. Individually weak and lightly armored - each one killed exacts a partial recoil, but not as much as a true champion. Recast to reinforce the pack up to three, or replace it once full; use Dismiss Conjuration to release them safely."
 	button_icon_state = "primetriangle"
 	invocations = list("Exsurgite, cohors!")
 	summon_noun = "goblin"
 	max_summons = 3
 	summons_per_cast = 3
 	recoil_energy_floor = 700
-	recoil_debuff = FALSE
+	recoil_severity = CONJURE_RECOIL_PARTIAL
 	upkeep_strain = 1
 
 /datum/action/cooldown/spell/conjure_summon/hordes/spawn_summon(turf/T, mob/living/user)
