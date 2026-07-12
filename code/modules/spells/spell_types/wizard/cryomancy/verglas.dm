@@ -131,7 +131,7 @@
 	if(!isliving(AM))
 		return
 	var/mob/living/L = AM
-	if(L.force_moving || L.throwing || L.buckled)
+	if(L.force_moving || L.throwing || L.buckled || L.IsImmobilized())
 		return
 	if(L.is_flying())
 		return
@@ -166,7 +166,7 @@
 		return
 	if(owner.force_moving || owner.throwing)
 		return
-	if(owner.is_flying() || owner.buckled)
+	if(owner.is_flying() || owner.buckled || owner.IsImmobilized())
 		qdel(src)
 		return
 	var/turf/here = get_turf(owner)
