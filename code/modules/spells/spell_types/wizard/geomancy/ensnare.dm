@@ -14,7 +14,7 @@
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_MAJOR_AOE
 
-	invocations = list("Impedio!")
+	invocations = list("Terra Teneat!")
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
