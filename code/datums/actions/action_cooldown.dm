@@ -15,6 +15,9 @@
 	var/text_cooldown = TRUE
 	/// Shares cooldowns with other cooldown abilities of the same value, not active if null
 	var/shared_cooldown
+	/// Multiplier applied to the cooldown handed to the OTHER abilities in this shared group when
+	/// this ability triggers it. 1 = they get the same cooldown; 0.5 = they get half of it.
+	var/shared_cooldown_mult = 1
 
 	// These are only used for click_to_activate actions
 	/// Setting for intercepting clicks before activating the ability
@@ -122,7 +125,10 @@
 		for(var/datum/action/cooldown/shared_ability in owner.actions - src)
 			if(shared_cooldown != shared_ability.shared_cooldown)
 				continue
-			shared_ability.StartCooldownSelf(override_cooldown_time)
+			var/shared_time = override_cooldown_time
+			if(shared_cooldown_mult != 1 && isnum(shared_time))
+				shared_time = round(shared_time * shared_cooldown_mult)
+			shared_ability.StartCooldownSelf(shared_time)
 
 	StartCooldownSelf(override_cooldown_time)
 
