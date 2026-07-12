@@ -13,7 +13,7 @@
 	ADD_TRAIT(src, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NODISMEMBER, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_BADTRAINER, TRAIT_GENERIC)
-	REMOVE_TRAIT(src, TRAIT_CRITICAL_WEAKNESS, TRAIT_GENERIC)
+	REMOVE_TRAIT(src, TRAIT_CRITICAL_WEAKNESS, null)
 	src.transform = src.transform.Scale(1.25, 1.25)
 	src.pixel_y += round(0.25 * 16)
 
@@ -61,6 +61,9 @@
 		if("flailman")
 			r_hand = /obj/item/rogueweapon/flail
 			l_hand = (tier >= 2) ? /obj/item/rogueweapon/shield/tower/metal : /obj/item/rogueweapon/shield/wood
+		if("bomber")
+			r_hand = /obj/item/rogueweapon/mace
+			neck = /obj/item/storage/belt/rogue/pouch/bombs/conjured
 		else
 			r_hand = /obj/item/rogueweapon/mace
 			l_hand = (tier >= 2) ? /obj/item/rogueweapon/shield/tower/metal : /obj/item/rogueweapon/shield/wood

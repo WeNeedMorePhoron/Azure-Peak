@@ -3264,6 +3264,7 @@
 #include "code\modules\spells\spell_types\wizard\geomancy\magicians_stone.dm"
 #include "code\modules\spells\spell_types\wizard\geomancy\grenzel_meteor.dm"
 #include "code\modules\spells\spell_types\wizard\geomancy\meteor_strike.dm"
+#include "code\modules\spells\spell_types\wizard\geomancy\stone_fists.dm"
 #include "code\modules\spells\spell_types\wizard\hex\wither.dm"
 #include "code\modules\spells\spell_types\wizard\invoked_aoe\knock.dm"
 #include "code\modules\spells\spell_types\wizard\invoked_aoe\meteor_storm.dm"

@@ -65,10 +65,21 @@
 /datum/action/cooldown/spell/conjure_summon/toggle_alt_mode(mob/user)
 	if(length(modes) < 2)
 		return
-	current_mode = (current_mode % length(modes)) + 1
+	var/next = current_mode
+	for(var/i in 1 to length(modes))
+		next = (next % length(modes)) + 1
+		if(mode_available(next, user))
+			break
+	current_mode = next
 	apply_mode()
 	to_chat(user, span_notice("[name]: [modes[current_mode]["name"]]."))
 	return TRUE
+
+/datum/action/cooldown/spell/conjure_summon/proc/mode_available(index, mob/user)
+	var/req = modes[index]["tier_req"]
+	if(!req)
+		return TRUE
+	return get_summon_tier(user) >= req
 
 /datum/action/cooldown/spell/conjure_summon/proc/apply_mode()
 	if(!length(modes))
