@@ -54,7 +54,7 @@
 	invocations = list("Hasta Perforans!")
 	blade_class = BCLASS_STAB
 	strike_armor_pen = PEN_HEAVY
-	windup_time = 4
+	windup_time = 8
 	stop_at_dense = TRUE
 	damage = 35
 	var/line_length = 5
