@@ -21,8 +21,7 @@
 	ADD_TRAIT(src, TRAIT_DUST_DELETE_GEAR, TRAIT_GENERIC)
 
 /mob/living/carbon/human/species/goblin/npc/conjured/Destroy()
-	for(var/obj/item/gear in (get_equipped_items() + held_items))
-		qdel(gear)
+	release_conjured_gear()
 	return ..()
 
 /datum/outfit/job/roguetown/npc/goblin/conjured/pre_equip(mob/living/carbon/human/H)
@@ -34,8 +33,8 @@
 		lvl = clamp(G.arcane_scale, 1, 6)
 		tier = G.gear_tier
 	H.STASTR = 8 + round(lvl / 2) + (tier - 1)
-	H.STACON = 4 + round(lvl / 3) + (tier - 1)
-	H.STAWIL = 4 + round(lvl / 3) + (tier - 1)
+	H.STACON = 5 + round(lvl / 3) + (tier - 1)
+	H.STAWIL = 5 + round(lvl / 3) + (tier - 1)
 	var/skill = clamp(1 + round(lvl / 2) + (tier - 1), 2, 4)
 	H.adjust_skillrank_up_to(/datum/skill/combat/polearms, skill, TRUE)
 	H.adjust_skillrank_up_to(/datum/skill/combat/axes, skill, TRUE)

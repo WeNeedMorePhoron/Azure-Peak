@@ -22,8 +22,7 @@
 		ADD_TRAIT(gear, TRAIT_NODROP, TRAIT_GENERIC)
 
 /mob/living/carbon/human/species/human/northern/conjured_champion/Destroy()
-	for(var/obj/item/gear in (get_equipped_items() + held_items))
-		qdel(gear)
+	release_conjured_gear()
 	return ..()
 
 /mob/living/carbon/human/species/human/northern/conjured_champion/after_creation()
@@ -105,8 +104,8 @@
 		lvl = clamp(C.arcane_scale, 1, 6)
 	var/stat_bonus = (tier == 3) ? 4 : ((tier == 2) ? 2 : 0)
 	var/skill = champion_skill(H)
-	H.STASTR = 9 + tier
-	H.STASPD = 10
+	H.STASTR = 10 + tier
+	H.STASPD = 11 // To prevent NPC following problem
 	H.STACON = 8 + lvl + stat_bonus
 	H.STAWIL = 8 + lvl + stat_bonus
 	H.STAPER = 10
