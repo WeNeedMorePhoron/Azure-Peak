@@ -1,5 +1,27 @@
 /datum/status_effect/buff
 	status_type = STATUS_EFFECT_REFRESH
+	/// Buffs sharing this group are mutually exclusive; only the highest exclusive_priority stays.
+	var/exclusive_group = null
+	/// Higher wins within a group; on a tie the incumbent is kept.
+	var/exclusive_priority = 0
+	/// TRUE if refused on-apply by a stronger group member
+	var/rejected_by_exclusion = FALSE
+
+/datum/status_effect/buff/on_apply()
+	if(exclusive_group && owner)
+		var/list/outranked = list()
+		for(var/datum/status_effect/buff/rival in owner.status_effects)
+			if(rival == src || rival.exclusive_group != exclusive_group)
+				continue
+			if(rival.exclusive_priority >= exclusive_priority)
+				rejected_by_exclusion = TRUE
+				effectedstats = list()
+				owner.balloon_alert_to_viewers("superseded!")
+				return FALSE
+			outranked += rival
+		for(var/datum/status_effect/buff/loser in outranked)
+			qdel(loser) // Destroy() handles list cleanup + on_remove
+	return ..()
 
 
 /datum/status_effect/buff/drunk
@@ -2179,7 +2201,7 @@
 /datum/status_effect/buff/ravox_vow/proc/on_life()
 	SIGNAL_HANDLER
 
-	owner.heal_wounds(1)
+	owner.heal_wounds(0.2)
 
 /datum/status_effect/buff/ravox_vow/on_apply()
 	. = ..()
