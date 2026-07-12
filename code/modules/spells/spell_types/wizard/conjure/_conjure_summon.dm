@@ -49,7 +49,6 @@
 	var/summon_noun = "servant"
 	var/recoil_energy_floor = 200
 	var/recoil_severity = CONJURE_RECOIL_FULL
-	var/upkeep_strain = 3
 
 /datum/action/cooldown/spell/conjure_summon/Grant(mob/grant_to)
 	. = ..()
@@ -156,7 +155,6 @@
 		summoned.AddComponent(/datum/component/conjured_minion, user, recoil_energy_floor, recoil_severity)
 		var/turf/landing = get_turf(summoned)
 		landing?.zFall(summoned)
-	update_conjure_upkeep(user)
 	return TRUE
 
 /datum/action/cooldown/spell/conjure_summon/proc/spawn_summon(turf/T, mob/living/user)
@@ -177,7 +175,6 @@
 /datum/action/cooldown/spell/conjure_summon/proc/remove_conjure(mob/living/summoned)
 	SIGNAL_HANDLER
 	conjured_mobs -= summoned
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(update_conjure_upkeep), owner)
 
 /proc/apply_conjure_recoil(mob/living/summoner, energy_floor = 200, severity = CONJURE_RECOIL_FULL)
 	if(!istype(summoner))
@@ -229,33 +226,4 @@
 /atom/movable/screen/alert/status_effect/debuff/conjure_backlash_partial
 	name = "Conjurer's Recoil"
 	desc = "One of my lesser servants was cut down. The backlash saps my strength and will for a short while - though it does not stop me conjuring anew."
-	icon_state = "debuff"
-
-/proc/update_conjure_upkeep(mob/living/summoner)
-	if(!istype(summoner))
-		return
-	var/strain = 0
-	for(var/datum/action/cooldown/spell/conjure_summon/summon_spell in summoner.actions)
-		for(var/mob/living/M in summon_spell.conjured_mobs)
-			if(!QDELETED(M))
-				strain += summon_spell.upkeep_strain
-	summoner.remove_status_effect(/datum/status_effect/debuff/conjure_upkeep)
-	if(strain > 0)
-		summoner.apply_status_effect(/datum/status_effect/debuff/conjure_upkeep, strain)
-
-/datum/status_effect/debuff/conjure_upkeep
-	id = "conjure_upkeep"
-	alert_type = /atom/movable/screen/alert/status_effect/debuff/conjure_upkeep
-	duration = -1
-	needs_processing = FALSE
-	var/total_strain = 3
-
-/datum/status_effect/debuff/conjure_upkeep/on_creation(mob/living/new_owner, strain = 3)
-	total_strain = max(strain, 1)
-	effectedstats = list(STATKEY_WIL = -total_strain, STATKEY_CON = -total_strain, STATKEY_INT = -total_strain)
-	return ..()
-
-/atom/movable/screen/alert/status_effect/debuff/conjure_upkeep
-	name = "Conjurer's Strain"
-	desc = "Sustaining my conjured servants saps my will, focus, and vigor - the more I hold, the heavier the toll."
 	icon_state = "debuff"

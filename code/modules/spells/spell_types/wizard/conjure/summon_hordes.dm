@@ -8,7 +8,6 @@
 	summons_per_cast = 3
 	recoil_energy_floor = 700
 	recoil_severity = CONJURE_RECOIL_PARTIAL
-	upkeep_strain = 1
 
 /datum/action/cooldown/spell/conjure_summon/hordes/spawn_summon(turf/T, mob/living/user)
 	var/turf/dest = T
