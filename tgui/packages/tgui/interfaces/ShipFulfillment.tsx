@@ -332,7 +332,7 @@ const Underledger = () => {
       </div>
       <button
         type="button"
-        style={inkButtonStyle({ danger: !!duty_suspended })}
+        style={inkButtonStyle({ color: duty_suspended ? "#a00" : undefined })}
         onClick={() => act('toggle_duty')}
       >
         Crown Duty: {duty_suspended ? 'DODGING' : 'PAYING'}

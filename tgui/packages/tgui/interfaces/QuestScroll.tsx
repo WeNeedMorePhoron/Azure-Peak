@@ -240,7 +240,6 @@ const WritBody = (props: WritBodyProps) => {
   if (data.writ_type === WRIT_TYPE_TOWNER_VEIN) {
     return (
       <OreVeinWrit
-        realm={realm}
         pickupRegion={data.pickup_region}
         {...rewardProps}
         {...sealProps}
