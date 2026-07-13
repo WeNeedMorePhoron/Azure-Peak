@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/geas
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Geas"
-	desc = "Lay a geas upon a small patch of ground - roots of stone and arcyne force bind anyone caught there fast for a short while."
+	desc = "Lay a geas upon a small patch of ground - roots of stone and arcyne force bind anyone caught there fast for 3 seconds. Can hit yourself."
 	button_icon_state = "ensnare"
 	sound = 'sound/magic/webspin.ogg'
 	spell_color = GLOW_COLOR_EARTHEN
@@ -32,7 +32,7 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
 	var/area_of_effect = 1
-	var/hold_duration = 5 SECONDS
+	var/hold_duration = 3 SECONDS
 	var/delay = 0.8 SECONDS
 
 /datum/action/cooldown/spell/geas/cast(atom/cast_on)
@@ -58,8 +58,6 @@
 	for(var/mob/living/simple_animal/hostile/animal in range(area_of_effect, T))
 		animal.Paralyze(hold_duration, updating = TRUE, ignore_canstun = TRUE)
 	for(var/mob/living/L in range(area_of_effect, T))
-		if(L == caster)
-			continue
 		if(L.anti_magic_check())
 			L.visible_message(span_warning("The binding can't seem to latch onto [L]!"))
 			playsound(get_turf(L), 'sound/magic/magic_nulled.ogg', 100)
