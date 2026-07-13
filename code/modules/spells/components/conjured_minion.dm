@@ -16,6 +16,8 @@
 /datum/component/conjured_minion/Initialize(mob/living/summoner, energy_floor = 200, severity = CONJURE_RECOIL_FULL, stamina_only = FALSE)
 	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
+	var/mob/living/minion = parent
+	minion.mark_contract_spawned()
 	summoner_ref = WEAKREF(summoner)
 	recoil_energy_floor = energy_floor
 	recoil_severity = severity
