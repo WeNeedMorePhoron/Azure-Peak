@@ -63,6 +63,9 @@ There are several things that need to be remembered:
 	update_body_parts()
 	return
 
+/mob/living/carbon/human/proc/update_female_chest()
+	update_body_parts(TRUE)
+
 /mob/living/carbon/human/update_body()
 	dna.species.handle_body(src)
 	..()
@@ -1285,7 +1288,7 @@ There are several things that need to be remembered:
 
 	rebuild_obscured_flags()
 	if(gender == FEMALE && dna?.species)
-		update_body_parts(redraw = TRUE)
+		update_female_chest()
 		dna.species.handle_body(src)
 	update_hair()
 
@@ -1358,7 +1361,7 @@ There are several things that need to be remembered:
 
 	rebuild_obscured_flags()
 	if(gender == FEMALE && dna?.species)
-		update_body_parts(redraw = TRUE)
+		update_female_chest()
 		dna.species.handle_body(src)
 	update_hair()
 	update_inv_shirt() // fix boob
