@@ -663,3 +663,27 @@
   - rscadd: Added 'Pouched Suspenders' as a cosmetic for the loadout.
   - bugfix: fixed Avantail and Chainmantle
   - bugfix: frei swords can now block projectiles on halfsword intent's block
+2026-07-13:
+  KatTheFox:
+  - bugfix: Elemental and void familiars can now resist to break out of tool transformations
+  - balance: Tier 1 earthen forge no longer halves the durability of conjured items
+  Lamasmaster:
+  - balance: Bishop Combat Skills were changed. Bishop now gains Master Unarmed instead
+      of Master Polearms.
+  - balance: Ravox Vow wound heal rate was reduced.
+  - bugfix: Noc T4 hopefully
+  Ollanius:
+  - rscadd: Shotstakes can now be made from any stationary heat source, courtesy of
+      a single recipe per stake.
+  WeNeedMorePhoron:
+  - rscadd: Reworked the entirety of mage schools
+  - rscadd: Added Conjuration School
+  - rscadd: Reworked Augmentation School to remove statbuffs in favor of situational
+      buff
+  - rscadd: Reworked burn to actually critical you and bleed you and be fatal, instead
+      of being an armor piercing damage type
+  - rscadd: Uppercut and Arcyne Descent Special should not bug out anymore
+  - rscadd: Tried to improve pet AI, may or may not work
+  - rscadd: Added Verglas Rune
+  - rscdel: Killed teleportation ruine
+  - rscadd: Kingsfield BLockade is now in the Grove
