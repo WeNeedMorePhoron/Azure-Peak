@@ -1,4 +1,4 @@
-import { type RoutedActFunctionType } from '../../backend';
+import type { RoutedActFunctionType } from '../../backend';
 
 export type FundEntry = {
   id: string;

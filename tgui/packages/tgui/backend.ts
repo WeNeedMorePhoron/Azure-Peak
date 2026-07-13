@@ -347,18 +347,25 @@ const chunkSplitter = {
 };
 
 export type ActFunctionType = (action: string, payload?: object) => void;
-export type RoutedActFunctionType = (action: string, payload?: object, routeId?: string | null) => void;
+export type RoutedActFunctionType = (
+  action: string,
+  payload?: object,
+  routeId?: string | null,
+) => void;
 
 /**
  * Sends an action to `ui_act` on `src_object` that this tgui window
  * is associated with.
  */
-export const sendAct: RoutedActFunctionType = (action: string, payload: object = {}, route_id?: string | null) => {
+export const sendAct: RoutedActFunctionType = (
+  action: string,
+  payload: object = {},
+  route_id?: string | null,
+) => {
   // Validate that payload is an object
   // prettier-ignore
-  const isObject = typeof payload === 'object'
-    && payload !== null
-    && !Array.isArray(payload);
+  const isObject =
+    typeof payload === 'object' && payload !== null && !Array.isArray(payload);
   if (!isObject) {
     logger.error(`Payload for act() must be an object, got this:`, payload);
     return;

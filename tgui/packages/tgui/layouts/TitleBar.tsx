@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { Button, Icon } from 'tgui-core/components';
-import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from 'tgui-core/constants';
+import { UI_INTERACTIVE, UI_UPDATE } from 'tgui-core/constants';
 import { type BooleanLike, classes } from 'tgui-core/react';
 import { toTitleCase } from 'tgui-core/string';
 
@@ -24,22 +24,14 @@ function statusToColor(status: number): string {
       return 'good';
     case UI_UPDATE:
       return 'average';
-    case UI_DISABLED:
     default:
       return 'bad';
   }
 }
 
 export function TitleBar(props: TitleBarProps) {
-  const {
-    className,
-    title,
-    canClose,
-    fancy,
-    onDragStart,
-    onClose,
-    children,
-  } = props;
+  const { className, title, canClose, fancy, onDragStart, onClose, children } =
+    props;
   const dispatch = globalStore.dispatch;
 
   const finalTitle =
@@ -52,7 +44,7 @@ export function TitleBar(props: TitleBarProps) {
     <div className={classes(['TitleBar', className])}>
       <div
         className="TitleBar__dragZone"
-        onMouseDown={(e) => fancy && onDragStart && onDragStart(e)}
+        onMouseDown={(e) => fancy && onDragStart?.(e)}
       />
       <div className="TitleBar__title">{finalTitle}</div>
       {!!children && <div className="TitleBar__buttons">{children}</div>}

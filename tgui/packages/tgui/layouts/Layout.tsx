@@ -35,7 +35,7 @@ export function Layout(props: Props) {
   const resolveVariant = PARCHMENT_VARIANTS[theme];
   const resolvedTheme = resolveVariant ? resolveVariant(config) : theme;
   const themeClass = `theme-${resolvedTheme}`;
-  
+
   useEffect(() => {
     document.documentElement.className = themeClass;
   }, [themeClass]);

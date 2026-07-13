@@ -1,9 +1,11 @@
-import { type RoutedActFunctionType } from '../../backend';
+import type { RoutedActFunctionType } from '../../backend';
 
 export const POSTING_TIER_NOTICE = 'notice';
 export const POSTING_TIER_LISTING = 'listing';
 
-export type PostingTier = typeof POSTING_TIER_NOTICE | typeof POSTING_TIER_LISTING;
+export type PostingTier =
+  | typeof POSTING_TIER_NOTICE
+  | typeof POSTING_TIER_LISTING;
 
 export type Posting = {
   posting_id: string;

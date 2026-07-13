@@ -4,7 +4,6 @@
  * @license MIT
  */
 
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { TooltipHTML } from 'tgui/components/TooltipHTML';
 import { createLogger } from 'tgui/logging';
@@ -276,7 +275,7 @@ class ChatRenderer {
     if (!highlightSettings) {
       return;
     }
-    highlightSettings.map((id) => {
+    highlightSettings.forEach((id) => {
       const setting = highlightSettingById[id];
       const text = setting.highlightText;
       const highlightColor = setting.highlightColor;
@@ -297,6 +296,7 @@ class ChatRenderer {
             (allowedRegex.test(str) ||
               (str.charAt(0) === '/' && str.charAt(str.length - 1) === '/')) &&
             // Reset lastIndex so it does not mess up the next word
+            // biome-ignore lint/suspicious/noAssignInExpressions: This allows us to deal with this inside the expression instead of having to rewrite the other logic
             ((allowedRegex.lastIndex = 0) || true),
         );
       let highlightWords;
@@ -305,7 +305,7 @@ class ChatRenderer {
       if (lines.length === 0) {
         return;
       }
-      let regexExpressions: any[] = [];
+      const regexExpressions: any[] = [];
       // Organize each highlight entry into regex expressions and words
       for (let line of lines) {
         // Regex expression syntax is /[exp]/
@@ -474,7 +474,7 @@ class ChatRenderer {
         } else {
           logger.error('Error: message is missing text payload', message);
         }
-        if (message.html && message.html.includes('data-component')) {
+        if (message.html?.includes('data-component')) {
           // Get all nodes in this message that want to be rendered like jsx
           const nodes = node.querySelectorAll('[data-component]');
           for (let i = 0; i < nodes.length; i++) {
@@ -490,7 +490,7 @@ class ChatRenderer {
               if (!attribute.nodeName.startsWith('data-')) {
                 continue;
               }
-              let working_value = attribute.nodeValue;
+              const working_value = attribute.nodeValue;
               if (!working_value) {
                 continue;
               }
@@ -503,7 +503,7 @@ class ChatRenderer {
                 parsed_value = false;
               } else {
                 const parsed_float = parseFloat(working_value);
-                if (!isNaN(parsed_float)) {
+                if (!Number.isNaN(parsed_float)) {
                   parsed_value = parsed_float;
                 }
               }
@@ -513,7 +513,7 @@ class ChatRenderer {
               }
               let canon_name = attribute.nodeName.replace('data-', '');
               // html attributes don't support upper case chars, so we need to map
-              let remapped = TGUI_CHAT_ATTRIBUTE_REMAPS[canon_name];
+              const remapped = TGUI_CHAT_ATTRIBUTE_REMAPS[canon_name];
               if (remapped) {
                 canon_name = remapped;
               } else {
@@ -552,7 +552,7 @@ class ChatRenderer {
 
         // Highlight text
         if (!message.avoidHighlighting && this.highlightParsers) {
-          this.highlightParsers.map((parser) => {
+          this.highlightParsers.forEach((parser) => {
             const highlighted = highlightNode(
               node,
               parser.highlightRegex,
@@ -565,7 +565,7 @@ class ChatRenderer {
           });
         }
         // Linkify text
-        if (message.html && message.html.includes('linkify')) {
+        if (message.html?.includes('linkify')) {
           const linkifyNodes = node.querySelectorAll('.linkify');
           for (let i = 0; i < linkifyNodes.length; ++i) {
             linkifyNode(linkifyNodes[i]);
@@ -573,8 +573,7 @@ class ChatRenderer {
         }
         // Assign an image error handler
         if (
-          message.html &&
-          message.html.includes('<img') &&
+          message.html?.includes('<img') &&
           now < message.createdAt + IMAGE_RETRY_MESSAGE_AGE
         ) {
           const imgNodes = node.querySelectorAll('img');

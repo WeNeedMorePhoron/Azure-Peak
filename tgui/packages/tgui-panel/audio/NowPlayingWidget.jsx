@@ -21,7 +21,7 @@ export const NowPlayingWidget = (props) => {
     upload_date = audio.meta?.upload_date || 'Unknown Date',
     album = audio.meta?.album || 'Unknown Album',
     duration = audio.meta?.duration,
-    date = !isNaN(upload_date)
+    date = !Number.isNaN(upload_date)
       ? upload_date?.substring(0, 4) +
         '-' +
         upload_date?.substring(4, 6) +
@@ -52,7 +52,8 @@ export const NowPlayingWidget = (props) => {
                 {duration !== 'Song Duration Hidden' && (
                   <Flex.Item grow={1} color="label">
                     Duration: {duration}
-                  </Flex.Item>)}
+                  </Flex.Item>
+                )}
                 {Artist !== 'Song Artist Hidden' &&
                   Artist !== 'Unknown Artist' && (
                     <Flex.Item grow={1} color="label">

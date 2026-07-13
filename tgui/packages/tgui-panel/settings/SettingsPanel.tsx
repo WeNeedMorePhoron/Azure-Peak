@@ -10,8 +10,8 @@ import { Section, Stack, Tabs } from 'tgui-core/components';
 import { ChatPageSettings } from '../chat';
 import { changeSettingsTab } from './actions';
 import { SETTINGS_TABS } from './constants';
-import { selectActiveTab } from './selectors';
 import { SettingsGeneral } from './SettingsGeneral';
+import { selectActiveTab } from './selectors';
 import { TextHighlightSettings } from './TextHighlight';
 
 export function SettingsPanel(props) {

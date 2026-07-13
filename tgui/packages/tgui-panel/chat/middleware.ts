@@ -124,6 +124,7 @@ export const chatMiddleware = (store: Store) => {
       }
 
       const sequence_count = sequences.length;
+      // biome-ignore lint/suspicious/noConfusingLabels: Needed for control flow
       seq_check: if (sequence_count > 0) {
         if (sequences_requested.includes(sequence)) {
           sequences_requested.splice(sequences_requested.indexOf(sequence), 1);
