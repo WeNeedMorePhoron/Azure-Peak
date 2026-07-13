@@ -41,6 +41,7 @@
 
 /datum/advclass/wapprentice/associate
 	name = "Magician's Associate"
+	sphere_flags = SPHERE_MAGIC
 	tutorial = "No one could truly master the entirety of the arcyne arts. But commanding the fundamentals \
 	is quite achievable. Deemed competent by your peers and mentor, you have become an Associate, paid \
 	a stipend to wield your power in the name of the Crown, or at least not against them. The Crown might \

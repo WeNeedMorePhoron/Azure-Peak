@@ -2,6 +2,7 @@
 	title = "Knight" //Back to proper knights.
 	flag = KNIGHT
 	department_flag = RETINUE
+	sphere_flags = SPHERE_MARTIAL
 	faction = "Station"
 	total_positions = 4
 	spawn_positions = 4

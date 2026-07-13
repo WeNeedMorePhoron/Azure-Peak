@@ -34,6 +34,7 @@
 
 /datum/advclass/courtmage
 	name = "Court Magician"
+	sphere_flags = SPHERE_MAGIC
 	tutorial = "Your creed is one dedicated to the conquering of the arcane arts and the constant thrill of knowledge. \
 		You owe your life to the Lord, for it was his coin that allowed you to continue your studies in these dark times. \
 		In return, you have proven time and time again as justicar and trusted advisor to their reign. You operate \

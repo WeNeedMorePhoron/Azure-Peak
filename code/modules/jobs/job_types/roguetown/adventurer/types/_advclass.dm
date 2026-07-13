@@ -17,6 +17,8 @@
 	var/min_pq = -100
 	var/class_select_category
 
+	var/sphere_flags = NONE
+
 	var/horse = FALSE
 	var/vampcompat = TRUE
 	var/list/traits_applied
@@ -151,6 +153,10 @@
 	if(applies_post_equipment)
 		apply_character_post_equipment(H)
 
+	var/sphere_read = H.get_spheres(src)
+	log_game("[key_name(H)] sphere-read as [H.job]/[name]: [sphere_flags_to_string(sphere_read)]")
+	message_admins("SPHERE DEBUG: [key_name_admin(H)] [H.job]/[name] -> [sphere_flags_to_string(sphere_read)]")
+
 /datum/advclass/proc/post_equip(mob/living/carbon/human/H)
 	addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, add_credit), TRUE), 20)
 	if(cmode_music)
@@ -220,4 +226,59 @@
 
 //Final proc in the set for really silly shit
 ///datum/advclass/proc/extra_slop_proc_ending(mob/living/carbon/human/H)
+
+/proc/dept_flag_to_spheres(df)
+	. = NONE
+	if(!df)
+		return
+	if(df & (RETINUE|GARRISON|COURTIERS))
+		. |= SPHERE_KEEP
+	if(df & CHURCHMEN)
+		. |= SPHERE_CHURCH
+	if(df & INQUISITION)
+		. |= SPHERE_INQUISITION
+	if(df & ATC)
+		. |= SPHERE_ATC
+	if(df & ANTAGONIST)
+		. |= SPHERE_OUTLAW
+
+/proc/sphere_flags_to_string(flags)
+	if(!flags)
+		return "none"
+	var/list/parts = list()
+	if(flags & SPHERE_MARTIAL)
+		parts += "MARTIAL"
+	if(flags & SPHERE_MAGIC)
+		parts += "MAGIC"
+	if(flags & SPHERE_DIVINE)
+		parts += "DIVINE"
+	if(flags & SPHERE_NOBLE)
+		parts += "NOBLE"
+	if(flags & SPHERE_KEEP)
+		parts += "KEEP"
+	if(flags & SPHERE_CHURCH)
+		parts += "CHURCH"
+	if(flags & SPHERE_INQUISITION)
+		parts += "INQUISITION"
+	if(flags & SPHERE_ATC)
+		parts += "ATC"
+	if(flags & SPHERE_BM)
+		parts += "BM"
+	if(flags & SPHERE_OUTLAW)
+		parts += "OUTLAW"
+	return jointext(parts, ", ")
+
+/mob/living/carbon/human/proc/get_spheres(datum/advclass/AC)
+	var/spheres = NONE
+	var/datum/job/J = SSjob.GetJob(job)
+	if(!J && mind)
+		J = SSjob.GetJob(mind.assigned_role)
+	if(J)
+		spheres |= dept_flag_to_spheres(J.department_flag)
+		spheres |= J.sphere_flags
+	if(AC)
+		spheres |= AC.sphere_flags
+	if(HAS_TRAIT(src, TRAIT_NOBLE))
+		spheres |= SPHERE_NOBLE
+	return spheres
 

@@ -125,6 +125,18 @@
 #define TESTER		(1<<0)
 
 
+#define SPHERE_MARTIAL		(1<<0)
+#define SPHERE_MAGIC		(1<<1)
+#define SPHERE_DIVINE		(1<<2)
+#define SPHERE_NOBLE		(1<<3)
+#define SPHERE_KEEP			(1<<4)
+#define SPHERE_CHURCH		(1<<5)
+#define SPHERE_INQUISITION	(1<<6)
+#define SPHERE_ATC			(1<<7)
+#define SPHERE_BM			(1<<8)
+#define SPHERE_OUTLAW		(1<<9)
+
+
 #define JCOLOR_NOBLE  "#007fff"
 #define JCOLOR_COURTIER "#aa83b9"
 #define JCOLOR_RETINUE "#597fb9"
