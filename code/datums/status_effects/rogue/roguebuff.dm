@@ -579,8 +579,10 @@
 /datum/status_effect/buff/healing/tick()
 	if(block_combat_mode && owner.cmode)
 		return
-	if(HAS_TRAIT(owner, TRAIT_IRONMAN) || HAS_TRAIT(owner, TRAIT_BLACKBLOOD))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
+	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
+		healing_on_tick /= 2
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_rogue(get_turf(owner))
 	H.color = "#FF0000"
 	if(owner.blood_volume < BLOOD_VOLUME_NORMAL)
@@ -674,7 +676,7 @@
 	id = "consumehealing"
 	status_type = STATUS_EFFECT_UNIQUE
 	alert_type = /atom/movable/screen/alert/status_effect/buff/healing
-	duration = 3 SECONDS
+	duration = 4 SECONDS
 	examine_text = "<font color='#b3b3b3'>SUBJECTPRONOUN is healing unnaturally fast!</font>"
 	var/fare_power = 0
 	var/healing_on_tick = 1
@@ -700,52 +702,24 @@
 /datum/status_effect/buff/foodhealing/tick()
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/psyheal_rogue(get_turf(owner))
 	H.color = "#bdbdbd"
-
-	// Hunger-based healing multiplier.
+	// Base heal.
+	var/base_heal = healing_on_tick
+	// Fare: +10% healing per tier
+	var/fare_mult = 1 + (fare_power * 0.10)
+	// Nutrition multiplier
 	var/effective_nutrition = clamp(owner.nutrition, 0, NUTRITION_LEVEL_FULL)
-	var/missing_nutrition = NUTRITION_LEVEL_FULL - effective_nutrition
-	var/hunger_ratio = missing_nutrition / NUTRITION_LEVEL_FULL
-
-	// 0.25x healing while full, 2.0x while starving.
-	var/healing_mult = 0.25 + (hunger_ratio * 1.75)
-
-	var/heal_amount = healing_on_tick * healing_mult
-
-	if(owner.blood_volume < BLOOD_VOLUME_NORMAL)
-		owner.blood_volume = min(owner.blood_volume + ((BLOOD_VOLUME_NORMAL * 0.005) * healing_mult), BLOOD_VOLUME_NORMAL) // 0.5% blood restored per tick, for pity's sake
-
-	if(ishuman(owner))
-		var/mob/living/carbon/human/HM = owner
-		var/obj/item/bodypart/most_damaged
-
-		for(var/obj/item/bodypart/BP in HM.bodyparts)
-			if(QDELETED(BP))
-				continue
-
-			if(!most_damaged || (BP.brute_dam + BP.burn_dam) > (most_damaged.brute_dam + most_damaged.burn_dam))
-				most_damaged = BP
-
-		if(most_damaged)
-			var/total_damage = most_damaged.brute_dam + most_damaged.burn_dam
-
-			if(total_damage > 0)
-				var/brute_heal = heal_amount
-				var/burn_heal = heal_amount
-
-				brute_heal += most_damaged.brute_dam * (0.08 * healing_mult)
-				burn_heal += most_damaged.burn_dam * (0.08 * healing_mult)
-
-				most_damaged.heal_damage(brute_heal, burn_heal)
-				HM.update_damage_overlays()
-
+	var/hunger_ratio = (NUTRITION_LEVEL_FULL - effective_nutrition) / NUTRITION_LEVEL_FULL
+	var/nutrition_mult = 0.75 + (hunger_ratio * 0.75)
+	// Final healing
+	var/heal_amount = base_heal * fare_mult * nutrition_mult
+	owner.adjustBruteLoss(-heal_amount, 0)
+	owner.adjustFireLoss(-heal_amount, 0)
 	owner.adjustOxyLoss(-heal_amount, 0)
 	owner.adjustToxLoss(-heal_amount, 0)
-
 	owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -heal_amount)
 	owner.adjustCloneLoss(-heal_amount, 0)
-
-	owner.stamina_add(-6)
-	owner.energy_add(9)
+	owner.energy_add(10)
+	owner.update_damage_overlays()
 
 #undef CONSUME_AURA
 
@@ -778,7 +752,7 @@
 	return TRUE
 
 /datum/status_effect/buff/campfire_stamina/tick()
-	if(HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOREGEN) || HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
 	owner.adjust_bodytemperature(8)
 	if(owner.in_combat_until > world.time)
@@ -798,8 +772,10 @@
 /datum/status_effect/buff/campfire/tick()
 	if(owner.in_combat_until > world.time)
 		return
-	if(HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
+	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
+		healing_on_tick /= 2
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_rogue/campfire(get_turf(owner))
 	H.color = "#c7aa5c"
 	var/bleeding = owner.bleed_rate > 1 ? TRUE : FALSE
@@ -859,8 +835,10 @@
 	owner.remove_filter(MIRACLE_BLOODHEAL_FILTER)
 
 /datum/status_effect/buff/bloodheal/tick()
-	if(HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
+	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
+		healing_on_tick /= 2
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_blood(get_turf(owner))
 	H.color = "#FF0000"
 	if(skill_level >= SKILL_LEVEL_JOURNEYMAN)
@@ -888,8 +866,10 @@
 	return TRUE
 
 /datum/status_effect/buff/healing/necras_vow/tick()
-	if(HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
+	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
+		healing_on_tick /= 2
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_rogue(get_turf(owner))
 	H.color = "#a5a5a5"
 	var/list/wCount = owner.get_wounds()
@@ -938,8 +918,10 @@
 	return TRUE
 
 /datum/status_effect/buff/psyhealing/tick()
-	if(HAS_TRAIT(owner, TRAIT_IRONMAN)) 
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || HAS_TRAIT(owner, TRAIT_IRONMAN)) 
 		return
+	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
+		healing_on_tick /= 2
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/psyheal_rogue(get_turf(owner))
 	H.color = "#d3d3d3"
 	var/list/wCount = owner.get_wounds()
@@ -1003,8 +985,10 @@
 	return ..()
 
 /datum/status_effect/buff/oremuncher/tick()
-	if(!HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || !HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
+	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
+		healing_on_tick /= 2
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_rogue(get_turf(owner))
 	H.color = "#ceb8a3"
 	var/list/wCount = owner.get_wounds()
@@ -1032,8 +1016,10 @@
 	return ..()
 
 /datum/status_effect/buff/ingotmuncher/tick()
-	if(!HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || !HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
+	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
+		healing_on_tick /= 2
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_rogue(get_turf(owner))
 	H.color = "#ffffff"
 	var/list/wCount = owner.get_wounds()
@@ -1071,8 +1057,10 @@
 	return ..()
 
 /datum/status_effect/buff/gemmuncher/tick()
-	if(!HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || !HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
+	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
+		healing_on_tick /= 2
 	var/randomcolor = pick("#ff0000","#ffee00","#09ff00","#00f7ff","#0004ff","#ae00ff","#ff00dd")
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_rogue(get_turf(owner))
 	H.color = randomcolor
