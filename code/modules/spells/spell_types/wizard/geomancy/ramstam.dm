@@ -1,7 +1,9 @@
 /datum/action/cooldown/spell/ramstam
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Ramstam"
-	desc = "Mark out a path, then transforms into a rolling mass of stone and hurtle toward your destination. Pushes everyone out of the way, and deal minor damage. If you are stopped by a wall, a burst of gravel will explode outward and you will deal significant damage to structures. Can be stopped by a Riposte that will leave you exposed."
+	desc = "Mark out a spot, then fold into a rolling mass of stone and hurtle to it, battering aside anyone caught for minor damage. \
+	Slam into a wall and you burst gravel outward, crack the structure, and ricochet back the way you came. \
+	Rolling through your own stone pillar shatters it into a spray you are immune to. A braced Riposte stops you cold and leaves you Exposed. Cannot be steered once begun."
 	button_icon_state = "ramstam"
 	sound = 'sound/foley/stone_scrape.ogg'
 	spell_color = GLOW_COLOR_EARTHEN
@@ -20,7 +22,7 @@
 
 	charge_required = FALSE
 	charge_swingdelay_type = SWINGDELAY_PENALTY
-	cooldown_time = 25 SECONDS
+	cooldown_time = 20 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
@@ -28,7 +30,6 @@
 
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
-	var/telegraph_length = 7
 	var/max_tiles = 7
 	var/telegraph_time = 6
 	var/roll_speed = 1
@@ -53,13 +54,16 @@
 	var/dir = get_dir(H, target)
 	if(!dir)
 		return FALSE
-	INVOKE_ASYNC(src, PROC_REF(do_ramstam), H, dir)
+	var/dist = min(get_dist(get_turf(H), target), max_tiles)
+	if(dist < 1)
+		return FALSE
+	INVOKE_ASYNC(src, PROC_REF(do_ramstam), H, dir, dist)
 	return TRUE
 
-/datum/action/cooldown/spell/ramstam/proc/do_ramstam(mob/living/carbon/human/H, dir)
+/datum/action/cooldown/spell/ramstam/proc/do_ramstam(mob/living/carbon/human/H, dir, dist)
 	rolling = TRUE
 	H.setDir(dir)
-	var/commit_time = telegraph_time + max_tiles * roll_speed + 2
+	var/commit_time = telegraph_time + dist * roll_speed * 2 + 4
 	H.changeNext_move(commit_time)
 	H.apply_status_effect(/datum/status_effect/swingdelay/penalty/committed, commit_time, TRUE)
 	H.tempfixeye = TRUE
@@ -69,7 +73,7 @@
 
 	var/list/indicators = list()
 	var/turf/cur = get_turf(H)
-	for(var/i in 1 to telegraph_length)
+	for(var/i in 1 to dist)
 		cur = get_step(cur, dir)
 		if(!cur || cur.density)
 			break
@@ -89,21 +93,32 @@
 	B.setDir(dir)
 
 	var/list/struck = list()
-	for(var/i in 1 to max_tiles)
+	var/tiles_rolled = 0
+	var/hit_wall = FALSE
+	var/stopped = FALSE
+	for(var/i in 1 to dist)
 		if(QDELETED(H) || H.stat != CONSCIOUS)
 			break
 		var/turf/next = get_step(H, dir)
 		if(!next || next.density)
 			roll_crash(H, next)
+			hit_wall = TRUE
 			break
-		var/blocked = FALSE
-		for(var/obj/structure/S in next)
-			if(S.density && !S.climbable)
-				blocked = TRUE
+		var/obj/structure/earthen_pillar/pillar = (locate(/obj/structure/earthen_pillar) in next)
+		if(pillar)
+			pillar.caster_ref = WEAKREF(H)
+			pillar.shatter_fragments()
+			qdel(pillar)
+		else
+			var/blocked = FALSE
+			for(var/obj/structure/S in next)
+				if(S.density && !S.climbable)
+					blocked = TRUE
+					break
+			if(blocked)
+				roll_crash(H, next)
+				hit_wall = TRUE
 				break
-		if(blocked)
-			roll_crash(H, next)
-			break
 		var/countered = FALSE
 		for(var/mob/living/L in next)
 			if(L == H)
@@ -113,10 +128,12 @@
 				countered = TRUE
 				break
 		if(countered)
+			stopped = TRUE
 			break
 		H.forceMove(next)
 		H.setDir(dir)
 		B.forceMove(next)
+		tiles_rolled++
 		playsound(next, 'sound/foley/stone_scrape.ogg', 45, TRUE)
 		new /obj/effect/temp_visual/kinetic_blast(next)
 		for(var/mob/living/L in next)
@@ -126,7 +143,32 @@
 			roll_hit(H, L, dir)
 		sleep(roll_speed)
 
+	if(hit_wall && !stopped)
+		roll_return(H, B, turn(dir, 180), tiles_rolled)
+
 	end_ramstam(H, B, saved_alpha)
+
+/datum/action/cooldown/spell/ramstam/proc/roll_return(mob/living/carbon/human/H, obj/effect/ramstam_boulder/B, return_dir, tiles)
+	for(var/i in 1 to tiles)
+		if(QDELETED(H) || H.stat != CONSCIOUS)
+			return
+		var/turf/next = get_step(H, return_dir)
+		if(!next || next.density)
+			return
+		var/blocked = FALSE
+		for(var/obj/structure/S in next)
+			if(S.density && !S.climbable)
+				blocked = TRUE
+				break
+		if(blocked)
+			return
+		H.forceMove(next)
+		H.setDir(return_dir)
+		if(!QDELETED(B))
+			B.setDir(return_dir)
+			B.forceMove(next)
+		playsound(next, 'sound/foley/stone_scrape.ogg', 40, TRUE)
+		sleep(roll_speed)
 
 /datum/action/cooldown/spell/ramstam/proc/end_ramstam(mob/living/carbon/human/H, obj/effect/ramstam_boulder/B, restore_alpha)
 	if(!QDELETED(B))
@@ -171,6 +213,7 @@
 		var/obj/projectile/magic/gravel_blast/frag = new(from)
 		frag.damage = fragment_damage
 		frag.range = 4
+		frag.ricochets_max = 0
 		frag.firer = H
 		frag.preparePixelProjectile(ftarget, from)
 		frag.fire()

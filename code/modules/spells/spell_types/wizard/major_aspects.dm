@@ -129,12 +129,11 @@
 		"Terra, a me discedere!",
 	)
 	fixed_spells = list(
-		/datum/action/cooldown/spell/telegraphed_strike/upheaval,
+		/datum/action/cooldown/spell/cairn,
 		/datum/action/cooldown/spell/ramstam,
-		/datum/action/cooldown/spell/stone_of_unmaking,
-		/datum/action/cooldown/spell/ensnare,
-		/datum/action/cooldown/spell/conjure_boulder,
-		/datum/action/cooldown/spell/conjure_arcyne_ward/stoneskin,
+		/datum/action/cooldown/spell/menhir,
+		/datum/action/cooldown/spell/geas,
+		/datum/action/cooldown/spell/stoneskin,
 		/datum/action/cooldown/spell/magicians_stone,
 	)
 	variants = list(

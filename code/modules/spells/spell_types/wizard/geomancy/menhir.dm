@@ -1,9 +1,9 @@
 #define BOULDER_MODE_HEAVE "heave"
 #define BOULDER_MODE_DROP "drop"
 
-/datum/action/cooldown/spell/stone_of_unmaking
+/datum/action/cooldown/spell/menhir
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
-	name = "Stone of Unmaking"
+	name = "Menhir"
 	desc = "Hurl a massive boulder that shatters into stone fragments and deals double damage to structures.\n\
 	HEAVE flings it in a flat line at a target - immediate, but stopped by walls and cover.\n\
 	DROP calls it down from directly above you.\n\
@@ -26,11 +26,11 @@
 	charge_required = TRUE
 	weapon_cast_penalized = TRUE
 	charge_time = CHARGETIME_MAJOR
-	charge_swingdelay_type = SWINGDELAY_CANCEL
+	charge_swingdelay_type = SWINGDELAY_PENALTY
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/charging_fire.ogg'
-	cooldown_time = 20 SECONDS
+	cooldown_time = 15 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
@@ -47,17 +47,17 @@
 	var/frag_damage = 15
 	var/static/list/mode_labels = list(BOULDER_MODE_HEAVE = "HEAVE", BOULDER_MODE_DROP = "DROP")
 
-/datum/action/cooldown/spell/stone_of_unmaking/Grant(mob/grant_to)
+/datum/action/cooldown/spell/menhir/Grant(mob/grant_to)
 	. = ..()
 	update_mode_maptext()
 
-/datum/action/cooldown/spell/stone_of_unmaking/toggle_alt_mode(mob/user)
+/datum/action/cooldown/spell/menhir/toggle_alt_mode(mob/user)
 	boulder_mode = (boulder_mode == BOULDER_MODE_HEAVE) ? BOULDER_MODE_DROP : BOULDER_MODE_HEAVE
-	to_chat(user, span_notice("Stone of Unmaking set to: [mode_labels[boulder_mode]]."))
+	to_chat(user, span_notice("Menhir set to: [mode_labels[boulder_mode]]."))
 	update_mode_maptext()
 	return TRUE
 
-/datum/action/cooldown/spell/stone_of_unmaking/proc/update_mode_maptext()
+/datum/action/cooldown/spell/menhir/proc/update_mode_maptext()
 	var/label = mode_labels[boulder_mode]
 	for(var/datum/hud/hud as anything in viewers)
 		var/atom/movable/screen/movable/action_button/B = viewers[hud]
@@ -72,7 +72,7 @@
 		holder.maptext_x = 5
 		holder.color = GLOW_COLOR_EARTHEN
 
-/datum/action/cooldown/spell/stone_of_unmaking/cast(atom/cast_on)
+/datum/action/cooldown/spell/menhir/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H))
@@ -86,7 +86,7 @@
 		do_heave(H, cast_on)
 	return TRUE
 
-/datum/action/cooldown/spell/stone_of_unmaking/proc/do_heave(mob/living/carbon/human/H, atom/aim)
+/datum/action/cooldown/spell/menhir/proc/do_heave(mob/living/carbon/human/H, atom/aim)
 	var/turf/origin = get_turf(H)
 	if(!origin || !aim)
 		return
@@ -99,18 +99,18 @@
 	B.preparePixelProjectile(aim, H)
 	B.fire()
 
-/datum/action/cooldown/spell/stone_of_unmaking/proc/do_drop(mob/living/carbon/human/H, turf/target)
+/datum/action/cooldown/spell/menhir/proc/do_drop(mob/living/carbon/human/H, turf/target)
 	new /obj/effect/temp_visual/trap/geomancy(target)
 	target.visible_message(span_boldwarning("A shadow spreads over [target] - a boulder plummets from the sky!"))
 	playsound(target, 'sound/combat/wooshes/blunt/wooshhuge (2).ogg', 60, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(drop_fall), target, H), drop_telegraph_time)
 
-/datum/action/cooldown/spell/stone_of_unmaking/proc/drop_fall(turf/target, mob/living/carbon/human/H)
+/datum/action/cooldown/spell/menhir/proc/drop_fall(turf/target, mob/living/carbon/human/H)
 	if(QDELETED(target))
 		return
 	new /obj/effect/temp_visual/falling_boulder(target, CALLBACK(src, PROC_REF(do_drop_hit), target, H))
 
-/datum/action/cooldown/spell/stone_of_unmaking/proc/do_drop_hit(turf/target, mob/living/carbon/human/H)
+/datum/action/cooldown/spell/menhir/proc/do_drop_hit(turf/target, mob/living/carbon/human/H)
 	if(QDELETED(target))
 		return
 	playsound(target, 'sound/combat/hits/onstone/stonedeath.ogg', 100, TRUE, 5)
@@ -126,7 +126,7 @@
 			strike_mob(H, L, drop_splash)
 	fragment_burst(target, H)
 
-/datum/action/cooldown/spell/stone_of_unmaking/proc/strike_mob(mob/living/carbon/human/H, mob/living/L, dmg)
+/datum/action/cooldown/spell/menhir/proc/strike_mob(mob/living/carbon/human/H, mob/living/L, dmg)
 	if(L == H || QDELETED(L))
 		return
 	if(L.anti_magic_check())
@@ -140,7 +140,7 @@
 		L.adjustBruteLoss(dmg * (L.mind ? 1 : 2))
 	new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
 
-/datum/action/cooldown/spell/stone_of_unmaking/proc/fragment_burst(turf/T, mob/living/carbon/human/H)
+/datum/action/cooldown/spell/menhir/proc/fragment_burst(turf/T, mob/living/carbon/human/H)
 	if(!T)
 		return
 	var/static/list/burst_dirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)

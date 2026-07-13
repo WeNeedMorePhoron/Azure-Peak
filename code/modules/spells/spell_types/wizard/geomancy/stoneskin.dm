@@ -1,63 +1,77 @@
-#define STONESKIN_FILTER "stoneskin_glow"
-
-/datum/action/cooldown/spell/conjure_arcyne_ward/stoneskin
-	name = "Stoneskin"
-	desc = "Conjure a stoneskin ward - a durable arcyne ward filled with earthen energy. \
-	Grants brigandine-tier protection and bolsters your constitution at the cost of your speed. 400 integrity. \
-	Otherwise functions as a standard arcyne ward - yields coverage to real armor, does not regenerate. \
-	Cast again to dismiss. Cooldown begins when dismissed or destroyed."
+/datum/action/cooldown/spell/stoneskin
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
-	button_icon_state = "stoneskin"
-	spell_color = GLOW_COLOR_EARTHEN
-	attunement_school = ASPECT_NAME_GEOMANCY
-	invocations = list("Cutis Petrae!")
-	dismiss_invocation = "Cutis Solvo!"
-	regen_invocation = "Cutis Restauro!"
-	point_cost = 4
-	spell_tier = 2
-	exclusive_group = "arcyne_ward"
-	ward_type = /obj/item/clothing/suit/roguetown/armor/manual/arcyne_ward/stoneskin
-	regen_spell_type = /datum/action/cooldown/spell/regenerate_arcyne_ward/stoneskin
-
-/datum/action/cooldown/spell/regenerate_arcyne_ward/stoneskin
-	name = "Regenerate Stone Ward"
-	spell_tier = 2
-
-/obj/item/clothing/suit/roguetown/armor/manual/arcyne_ward/stoneskin
-	name = "stone ward"
-	desc = "Rock and stone."
-	armor = ARMOR_BRIGANDINE
-	max_integrity = 400
-	ward_color = GLOW_COLOR_EARTHEN
-	arcyne_armor_tier = ARCYNE_WARD_TIER_GREATER
-
-/obj/item/clothing/suit/roguetown/armor/manual/arcyne_ward/stoneskin/setup_ward(mob/living/carbon/human/H)
-	..()
-	H.apply_status_effect(/datum/status_effect/buff/stoneskin)
-
-/obj/item/clothing/suit/roguetown/armor/manual/arcyne_ward/stoneskin/cleanup_ward()
-	if(ward_owner)
-		ward_owner.remove_status_effect(/datum/status_effect/buff/stoneskin)
-	..()
-
-/datum/status_effect/buff/stoneskin
-	id = "stoneskin"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/stoneskin
-	duration = -1
-	effectedstats = list(STATKEY_CON = 2, STATKEY_SPD = -1)
-	var/outline_colour = GLOW_COLOR_EARTHEN
-
-/atom/movable/screen/alert/status_effect/buff/stoneskin
 	name = "Stoneskin"
-	desc = "Rock and Stone."
+	desc = "Harden my skin into a shell of living stone. While it holds, blows against me are blunted by a quarter, but I move sluggishly. Cast again to shed it."
+	button_icon_state = "stoneskin"
+	sound = 'sound/foley/stone_scrape.ogg'
+	spell_color = GLOW_COLOR_EARTHEN
+	glow_intensity = GLOW_INTENSITY_LOW
+	attunement_school = ASPECT_NAME_GEOMANCY
 
-/datum/status_effect/buff/stoneskin/on_apply()
+	click_to_activate = FALSE
+	self_cast_possible = TRUE
+
+	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_cost = SPELLCOST_CANTRIP
+
+	invocations = list("Cutis Petrae!")
+	invocation_type = INVOCATION_SHOUT
+
+	charge_required = FALSE
+	cooldown_time = 2 SECONDS
+
+	associated_skill = /datum/skill/magic/arcane
+	spell_tier = 2
+	spell_impact_intensity = SPELL_IMPACT_NONE
+
+	point_cost = 2
+
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+
+/datum/action/cooldown/spell/stoneskin/cast(atom/cast_on)
 	. = ..()
-	if(!owner.get_filter(STONESKIN_FILTER))
-		owner.add_filter(STONESKIN_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 60, "size" = 1))
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H))
+		return FALSE
+	playsound(H, 'sound/foley/stone_scrape.ogg', 50, TRUE)
+	if(H.has_status_effect(/datum/status_effect/buff/iron_skin/stoneskin))
+		H.remove_status_effect(/datum/status_effect/buff/iron_skin/stoneskin)
+	else
+		H.apply_status_effect(/datum/status_effect/buff/iron_skin/stoneskin)
+	return TRUE
 
-/datum/status_effect/buff/stoneskin/on_remove()
+/atom/movable/screen/alert/status_effect/buff/iron_skin/stoneskin
+	name = "Stoneskin"
+	desc = "My skin is hardened to living stone - blows against me are blunted, but I move sluggishly."
+
+/datum/status_effect/buff/iron_skin/stoneskin
+	id = "stoneskin"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/iron_skin/stoneskin
+	duration = -1
+	effectedstats = list(STATKEY_SPD = -2)
+	outline_colour = GLOW_COLOR_EARTHEN
+	var/obj/effect/abstract/particle_holder/dust_holder
+
+/datum/status_effect/buff/iron_skin/stoneskin/on_apply()
 	. = ..()
-	owner.remove_filter(STONESKIN_FILTER)
+	dust_holder = new /obj/effect/abstract/particle_holder(owner, /particles/stoneskin)
 
-#undef STONESKIN_FILTER
+/datum/status_effect/buff/iron_skin/stoneskin/on_remove()
+	QDEL_NULL(dust_holder)
+	. = ..()
+
+/particles/stoneskin
+	icon = 'icons/effects/particles/smoke.dmi'
+	icon_state = list("smoke_1" = 1, "smoke_2" = 1, "smoke_3" = 1)
+	width = 64
+	height = 64
+	count = 30
+	spawning = 0.7
+	lifespan = 1.2 SECONDS
+	fade = 0.6 SECONDS
+	fadein = 0.3 SECONDS
+	color = "#8f8f8f"
+	position = generator("box", list(-9, -10, 0), list(9, 10, 0), UNIFORM_RAND)
+	velocity = generator("box", list(-0.15, -0.05, 0), list(0.15, 0.25, 0), NORMAL_RAND)
+	scale = 0.35
+	friction = 0.15
