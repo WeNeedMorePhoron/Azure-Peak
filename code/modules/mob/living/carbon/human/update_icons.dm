@@ -60,7 +60,7 @@ There are several things that need to be remembered:
 //HAIR OVERLAY
 /mob/living/carbon/human/update_hair()
 	rebuild_obscured_flags()
-	update_body_parts(TRUE)
+	update_body_parts()
 	return
 
 /mob/living/carbon/human/update_body()
@@ -1916,7 +1916,10 @@ generate/load female uniform sprites matching all previously decided variables
 			. += "rotted"
 		if(BP.skeletonized)
 			. += "skeletonized"
+		for(var/datum/bodypart_feature/feature as anything in BP.bodypart_features)
+			. += feature.get_cache_key()
 
+	. += "[obscured_flags]"
 	if(HAS_TRAIT(src, TRAIT_HUSK))
 		. += "husk"
 	return jointext(., "-")
