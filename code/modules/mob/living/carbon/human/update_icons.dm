@@ -66,6 +66,9 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/proc/update_female_chest()
 	update_body_parts()
 
+/mob/living/carbon/human/proc/update_shirt_body()
+	update_body_parts(TRUE)
+
 /mob/living/carbon/human/update_body()
 	dna.species.handle_body(src)
 	..()
@@ -1233,7 +1236,7 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/update_inv_shirt()
 	remove_overlay(SHIRT_LAYER)
 	remove_overlay(SHIRTSLEEVE_LAYER)
-	update_body_parts(TRUE)
+	update_shirt_body()
 
 	var/obj/item/bodypart/taur/taur = get_taur_tail()
 	var/icon/c_mask = taur?.clip_mask
