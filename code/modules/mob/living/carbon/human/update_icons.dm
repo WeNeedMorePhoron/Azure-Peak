@@ -64,7 +64,7 @@ There are several things that need to be remembered:
 	return
 
 /mob/living/carbon/human/proc/update_female_chest()
-	update_body_parts(TRUE)
+	update_body_parts()
 
 /mob/living/carbon/human/update_body()
 	dna.species.handle_body(src)
