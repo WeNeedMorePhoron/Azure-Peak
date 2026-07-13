@@ -76,7 +76,7 @@
 /obj/effect/temp_visual/trap/geomancy
 	color = GLOW_COLOR_EARTHEN
 	light_color = GLOW_COLOR_EARTHEN
-	duration = 2 SECONDS
+	duration = 4 SECONDS
 
 /obj/structure/earthen_pillar
 	name = "stone pillar"
@@ -112,6 +112,7 @@
 		var/turf/target = get_ranged_target_turf(T, dir, 3)
 		var/obj/projectile/magic/gravel_blast/frag = new(T)
 		frag.damage = fragment_damage
+		frag.ricochets_max = 0
 		if(caster)
 			frag.firer = caster
 		frag.preparePixelProjectile(target, T)

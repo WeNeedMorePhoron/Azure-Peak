@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/stoneskin
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Stoneskin"
-	desc = "Harden my skin into a shell of living stone. While it holds, blows against me are blunted by a quarter, but I move sluggishly. Cast again to shed it."
+	desc = "Harden your skin into a shell of living stone. While it holds, blows against you are blunted by a quarter, but you move sluggishly. Cast again to shed it."
 	button_icon_state = "stoneskin"
 	sound = 'sound/foley/stone_scrape.ogg'
 	spell_color = GLOW_COLOR_EARTHEN
@@ -18,7 +18,7 @@
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = FALSE
-	cooldown_time = 2 SECONDS
+	cooldown_time = 15 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
@@ -42,7 +42,7 @@
 
 /atom/movable/screen/alert/status_effect/buff/iron_skin/stoneskin
 	name = "Stoneskin"
-	desc = "My skin is hardened to living stone - blows against me are blunted, but I move sluggishly."
+	desc = "Your skin is hardened to living stone - blows against you are blunted, but you move sluggishly."
 
 /datum/status_effect/buff/iron_skin/stoneskin
 	id = "stoneskin"
@@ -54,9 +54,11 @@
 
 /datum/status_effect/buff/iron_skin/stoneskin/on_apply()
 	. = ..()
+	owner.add_filter("stoneskin_shell", 2, list("type" = "outline", "color" = GLOW_COLOR_EARTHEN, "alpha" = 120, "size" = 1))
 	dust_holder = new /obj/effect/abstract/particle_holder(owner, /particles/stoneskin)
 
 /datum/status_effect/buff/iron_skin/stoneskin/on_remove()
+	owner.remove_filter("stoneskin_shell")
 	QDEL_NULL(dust_holder)
 	. = ..()
 
