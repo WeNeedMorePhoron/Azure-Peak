@@ -17,7 +17,7 @@
 	var/equipped_before_drop = FALSE
 	var/can_be_bloody = TRUE
 	var/is_barefoot = FALSE
-	var/muted_steps = FALSE // Currently only used by the heel modifier.
+	var/stepnoise_flag = STEPNOISE_ALL // Currently only used by the heel modifier.
 	bloody_icon_state = "shoeblood"
 	sleeved_detail = null
 
