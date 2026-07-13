@@ -536,6 +536,9 @@
 	set desc="Start the round RIGHT NOW"
 	set name="Start Now"
 	if(SSticker.current_state == GAME_STATE_PREGAME || SSticker.current_state == GAME_STATE_STARTUP)
+		var/server = "[world.internet_address ? world.internet_address : "localhost"]:[world.port]"
+		if(alert(usr, "Force-start the round RIGHT NOW?\n[GLOB.clients.len] player(s) connected on [server].", "Start Now", "Yes", "No") != "Yes")
+			return 0
 		SSticker.start_immediately = TRUE
 		log_admin("[usr.key] has started the game.")
 		var/msg = ""
