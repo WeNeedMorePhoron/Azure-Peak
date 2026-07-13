@@ -7,6 +7,7 @@
 	desc = "Hurl a massive boulder that shatters into stone fragments and deals double damage to structures.\n\
 	HEAVE flings it in a flat line at a target - immediate, but stopped by walls and cover.\n\
 	DROP calls it down from directly above you.\n\
+	A piece of boulder will remain where it lands - you can roll through it with Ramstam to burst it.\n\
 	Use Shift-G to switch."
 	button_icon_state = "boulder_strike"
 	sound = 'sound/combat/hits/onstone/stonedeath.ogg'
@@ -39,12 +40,13 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
 	var/boulder_mode = BOULDER_MODE_HEAVE
-	var/heave_damage = 110
-	var/drop_damage = 110
+	var/heave_damage = 90
+	var/drop_damage = 90
 	var/drop_splash = 35
 	var/drop_telegraph_time = 3
 	var/frag_count = 8
 	var/frag_damage = 15
+	var/pillar_lifetime = 15 SECONDS
 	var/static/list/mode_labels = list(BOULDER_MODE_HEAVE = "HEAVE", BOULDER_MODE_DROP = "DROP")
 
 /datum/action/cooldown/spell/menhir/Grant(mob/grant_to)
@@ -95,6 +97,7 @@
 	B.damage = heave_damage
 	B.frag_count = frag_count
 	B.frag_damage = frag_damage
+	B.pillar_lifetime = pillar_lifetime
 	B.firer = H
 	B.preparePixelProjectile(aim, H)
 	B.fire()
@@ -125,6 +128,19 @@
 		for(var/mob/living/L in T)
 			strike_mob(H, L, drop_splash)
 	fragment_burst(target, H)
+	leave_pillar(target, H)
+
+/datum/action/cooldown/spell/menhir/proc/leave_pillar(turf/T, mob/living/carbon/human/H)
+	if(!T || T.density)
+		return
+	if(locate(/obj/structure/earthen_pillar) in T)
+		return
+	for(var/obj/structure/S in T)
+		if(S.density)
+			return
+	var/obj/structure/earthen_pillar/pillar = new(T)
+	pillar.caster_ref = WEAKREF(H)
+	QDEL_IN(pillar, pillar_lifetime)
 
 /datum/action/cooldown/spell/menhir/proc/strike_mob(mob/living/carbon/human/H, mob/living/L, dmg)
 	if(L == H || QDELETED(L))
@@ -173,6 +189,7 @@
 	hitsound = 'sound/combat/hits/onstone/stonedeath.ogg'
 	var/frag_count = 8
 	var/frag_damage = 15
+	var/pillar_lifetime = 0
 
 /obj/projectile/magic/boulder/on_hit(target)
 	. = ..()
@@ -192,6 +209,16 @@
 		var/angle = rand(0, 359)
 		frag.fire(angle)
 	playsound(impact, 'sound/combat/hits/onstone/stonedeath.ogg', 100, TRUE, 5)
+	if(pillar_lifetime > 0 && !impact.density && !(locate(/obj/structure/earthen_pillar) in impact))
+		var/blocked = FALSE
+		for(var/obj/structure/S in impact)
+			if(S.density)
+				blocked = TRUE
+				break
+		if(!blocked)
+			var/obj/structure/earthen_pillar/pillar = new(impact)
+			pillar.caster_ref = WEAKREF(firer)
+			QDEL_IN(pillar, pillar_lifetime)
 
 /obj/projectile/magic/boulder/Bump(atom/A)
 	if(ismob(A))
