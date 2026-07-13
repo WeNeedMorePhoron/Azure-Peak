@@ -85,7 +85,8 @@ export const DrowWrit = (props: {
           <ul style={indictmentList}>
             {crimes.map((c, i) => (
               <li key={i} style={indictmentItem}>
-                {capitalize(c)}{';'}
+                {capitalize(c)}
+                {';'}
               </li>
             ))}
           </ul>

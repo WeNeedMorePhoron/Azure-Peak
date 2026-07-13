@@ -783,23 +783,23 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	set category = "Admin.Special"
 	set name = "Force Speech"
 	set desc = ""
-	
+
 	if(!L)
 		to_chat(usr, span_warning("No mob selected."))
 		return
-	
+
 	if(!isliving(L))
 		to_chat(usr, span_warning("Target must be a living mob."))
 		return
-	
+
 	if(!L.loc)
 		to_chat(usr, span_warning("Target mob has no location."))
 		return
-	
+
 	var/message = input(usr, "What do you want them to say?", "Force Say") as text | null
 	if(!message)
 		return
-	
+
 	L.say(message)
 	log_admin("[key_name(usr)] forced [key_name(L)] at [AREACOORD(L)] to say \"[message]\"")
 	message_admins(span_adminnotice("[key_name_admin(usr)] forced [key_name_admin(L)] at [AREACOORD(L)] to say \"[message]\""))
@@ -962,7 +962,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			scom_announce("An unknown force has erased the bounty on [target_name]. The gods are displeased.")
 			message_admins("[ADMIN_LOOKUPFLW(src)] has removed the bounty on [ADMIN_LOOKUPFLW(target_name)]")
 			return
-	to_chat(src, "Error. Bounty no longer active.") 
+	to_chat(src, "Error. Bounty no longer active.")
 
 /client/proc/enable_browser_debug()
 	set category = "Debug"
@@ -971,5 +971,5 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		return
 
 	to_chat(src, "Browser tools are now enabled.")
-	winset(src, null, "browser-options=devtools,find,byondstorage")
+	winset(src, null, "browser-options=devtools,find,refresh")
 

@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useBackend } from 'tgui/backend';
+import { suspendStart } from 'tgui/events/handlers/suspense';
+import { Window } from 'tgui/layouts';
 import {
   Box,
   Button,
@@ -7,9 +10,6 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
-
-import { backendSuspendStart, globalStore, useBackend } from '../backend';
-import { Window } from '../layouts';
 
 type Project = {
   ref: string;
@@ -222,7 +222,7 @@ const setCrucibleWindowSize = (expanded: boolean) => {
 };
 
 const closeCrucibleWindow = () => {
-  globalStore.dispatch(backendSuspendStart());
+  suspendStart();
 };
 
 const shellStyle = {

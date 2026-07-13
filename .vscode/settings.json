@@ -25,5 +25,6 @@
 	"search.exclude": {
 		"**/node_modules": true
 	},
+	"js/ts.tsdk.path": "tgui/node_modules/typescript/lib",
 	"Lua.diagnostics.enable": false
 }
