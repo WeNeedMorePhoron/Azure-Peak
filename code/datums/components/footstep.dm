@@ -133,6 +133,10 @@
 	// this is fine without an explicit copy because it doesn't mutate the existing list
 	used_sound = pick(used_footsteps - last_sound) || last_sound
 	last_sound = used_sound
+
+	if(humshoes.muted_steps)	// Bit shoddy workaround, but this will still reveal all the footsteps to keen ears.
+		used_sound = 'sound/blank.ogg'
+
 	var/list/heard = playsound(step_location, used_sound,
 		volume * used_volume,
 		do_vary,
