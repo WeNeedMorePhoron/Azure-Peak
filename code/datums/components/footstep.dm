@@ -134,7 +134,7 @@
 	used_sound = pick(used_footsteps - last_sound) || last_sound
 	last_sound = used_sound
 
-	if(humshoes.muted_steps)	// Bit shoddy workaround, but this will still reveal all the footsteps to keen ears.
+	if(humshoes && humshoes.muted_steps)	// Bit shoddy workaround, but this will still reveal all the footsteps to keen ears.
 		used_sound = 'sound/blank.ogg'
 
 	var/list/heard = playsound(step_location, used_sound,
