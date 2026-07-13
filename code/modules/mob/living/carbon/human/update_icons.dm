@@ -1922,6 +1922,8 @@ generate/load female uniform sprites matching all previously decided variables
 		for(var/datum/bodypart_feature/feature as anything in BP.bodypart_features)
 			. += feature.get_cache_key()
 
+	for(var/obj/item/organ/organ as anything in visible_organs)
+		. += organ.get_cache_key()
 	. += "[obscured_flags]"
 	if(HAS_TRAIT(src, TRAIT_HUSK))
 		. += "husk"
