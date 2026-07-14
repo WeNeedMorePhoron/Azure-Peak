@@ -850,6 +850,7 @@
 		// Use a simple do_after for non-click charge spells
 		var/require_no_move = (spell_requirements & SPELL_REQUIRES_NO_MOVE)
 		on_start_charge()
+		apply_charge_intent()
 		var/success = TRUE
 		if(!do_after(owner, charge_time, needhand = FALSE, extra_checks = CALLBACK(src, PROC_REF(do_after_checks), owner, cast_on), no_interrupt = !require_no_move, allow_movement = !require_no_move))
 			success = FALSE
