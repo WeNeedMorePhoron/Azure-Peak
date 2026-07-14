@@ -130,9 +130,9 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/gravel_blast,
-		/datum/action/cooldown/spell/emergence,
-		/datum/action/cooldown/spell/projectile/boulder_strike,
-		/datum/action/cooldown/spell/ensnare,
+		/datum/action/cooldown/spell/tumult,
+		/datum/action/cooldown/spell/menhir,
+		/datum/action/cooldown/spell/geas,
 		/datum/action/cooldown/spell/magicians_stone,
 	)
 	variants = list(
@@ -236,9 +236,8 @@
 		/datum/action/cooldown/spell/ferramancy_strike/falling_crescent,
 		/datum/action/cooldown/spell/ferramancy_strike/sorcerers_lance,
 		/datum/action/cooldown/spell/ferramancy_strike/heavens_hammer,
-		/datum/action/cooldown/spell/projectile/stygian_efflorescence,
 		/datum/action/cooldown/spell/form_blade,
-		/datum/action/cooldown/spell/conjure_arcyne_ward/ironhide,
+		/datum/action/cooldown/spell/conjure_arcyne_ward/crystalhide,
 		/datum/action/cooldown/spell/bind_armament,
 		/datum/action/cooldown/spell/arcyne_forge,
 		/datum/action/cooldown/spell/mending,
@@ -321,7 +320,7 @@
 	choice_spells = list(
 		/datum/action/cooldown/spell/conjure_summon/primordial,
 		/datum/action/cooldown/spell/conjure_summon/champion,
-		/datum/action/cooldown/spell/conjure_summon/champion/goblin,
+		/datum/action/cooldown/spell/conjure_summon/attacker,
 		/datum/action/cooldown/spell/conjure_summon/hordes,
 	)
 	spell_order = list(
