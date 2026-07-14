@@ -68,6 +68,9 @@
 		if("spearman")
 			outfit_champion(new /datum/outfit/job/roguetown/conjured_champion/spearman)
 			def_intent_change(INTENT_PARRY)
+		if("maceman")
+			outfit_champion(new /datum/outfit/job/roguetown/conjured_champion/maceman)
+			def_intent_change(INTENT_PARRY)
 		else
 			outfit_champion(new /datum/outfit/job/roguetown/conjured_champion/greatswordman)
 			def_intent_change(INTENT_PARRY)
@@ -162,6 +165,12 @@
 	var/skill = champion_skill(H)
 	H.adjust_skillrank(/datum/skill/combat/polearms, skill, TRUE)
 	r_hand = /obj/item/rogueweapon/spear
+
+/datum/outfit/job/roguetown/conjured_champion/maceman/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/skill = champion_skill(H)
+	H.adjust_skillrank(/datum/skill/combat/maces, skill, TRUE)
+	r_hand = /obj/item/rogueweapon/mace/maul
 
 /datum/outfit/job/roguetown/conjured_champion/archer/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()

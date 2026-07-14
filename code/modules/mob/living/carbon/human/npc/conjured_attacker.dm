@@ -52,6 +52,8 @@
 			outfit_attacker(new /datum/outfit/job/roguetown/conjured_attacker/rapier)
 		if("dagger")
 			outfit_attacker(new /datum/outfit/job/roguetown/conjured_attacker/dagger)
+		if("hammer")
+			outfit_attacker(new /datum/outfit/job/roguetown/conjured_attacker/hammer)
 		else
 			outfit_attacker(new /datum/outfit/job/roguetown/conjured_attacker/sabre)
 	def_intent_change(INTENT_DODGE)
@@ -127,3 +129,10 @@
 	H.adjust_skillrank(/datum/skill/combat/axes, skill, TRUE)
 	r_hand = /obj/item/rogueweapon/stoneaxe/battle
 	l_hand = /obj/item/rogueweapon/stoneaxe/battle
+
+/datum/outfit/job/roguetown/conjured_attacker/hammer/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/skill = attacker_skill(H)
+	H.adjust_skillrank(/datum/skill/combat/maces, skill, TRUE)
+	r_hand = /obj/item/rogueweapon/mace/warhammer
+	l_hand = /obj/item/rogueweapon/mace/warhammer
