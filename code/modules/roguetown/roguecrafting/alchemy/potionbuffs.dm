@@ -4,10 +4,16 @@
 
 // A new system for statbuff, that increases the duration based on how much is consumed, capping it out
 // The long duration and trade off is meant to make it more viable to take as a PVE supplement, combined with the lower statweight
+#define STATBUFF_FILTER "statbuff_glow"
+
 /datum/status_effect/buff/alch/statbuff
 	duration = 1 MINUTES
 	var/max_duration = 27 MINUTES
 	// 27 drams in the small vial so this is what I am using for the neat number
+	// Outline shown on the buffed mob, mirroring the augmentation buffs. Each stat pot overrides its own colour.
+	var/outline_colour = "#008000"
+	// Compact effect text ballooned over the drinker on gain. Each pot sets its own.
+	var/buff_flavor
 
 /datum/status_effect/buff/alch/statbuff/on_creation(mob/living/new_owner, added_duration = 1 MINUTES)
 	duration = min(added_duration, max_duration)
@@ -32,11 +38,23 @@
 		to_clear += other
 	for(var/datum/status_effect/buff/alch/statbuff/loser in to_clear)
 		qdel(loser)
+	if(!owner.get_filter(STATBUFF_FILTER))
+		owner.add_filter(STATBUFF_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 50, "size" = 1))
+	if(buff_flavor)
+		owner.balloon_alert_to_viewers("<font color='[outline_colour]'>[buff_flavor]</font>")
+
+/datum/status_effect/buff/alch/statbuff/on_remove()
+	. = ..()
+	owner.remove_filter(STATBUFF_FILTER)
+
+#undef STATBUFF_FILTER
 
 /datum/status_effect/buff/alch/statbuff/strengthpot
 	id = "strpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/strengthpot
 	effectedstats = list(STATKEY_STR = 2, STATKEY_LCK = -1, STATKEY_INT = -1)
+	outline_colour = "#ff9000"
+	buff_flavor = "strength (str +2, for -1, int -1)!"
 
 /atom/movable/screen/alert/status_effect/buff/alch/strengthpot
 	name = STATKEY_STR
@@ -46,6 +64,8 @@
 	id = "perpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/perceptionpot
 	effectedstats = list(STATKEY_PER = 3, STATKEY_LCK = -1, STATKEY_SPD = -1)
+	outline_colour = "#45c8ff"
+	buff_flavor = "perception (per +3, for -1, spd -1)!"
 
 /atom/movable/screen/alert/status_effect/buff/alch/perceptionpot
 	name = STATKEY_PER
@@ -55,6 +75,8 @@
 	id = "intpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/intelligencepot
 	effectedstats = list(STATKEY_INT = 3, STATKEY_LCK = -1, STATKEY_STR = -1)
+	outline_colour = "#7b5cff"
+	buff_flavor = "intelligence (int +3, for -1, str -1)!"
 
 /atom/movable/screen/alert/status_effect/buff/alch/intelligencepot
 	name = STATKEY_INT
@@ -64,6 +86,8 @@
 	id = "conpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/constitutionpot
 	effectedstats = list(STATKEY_CON = 3, STATKEY_LCK = -1, STATKEY_STR = -1)
+	outline_colour = "#a0522d"
+	buff_flavor = "constitution (con +3, for -1, str -1)!"
 
 /atom/movable/screen/alert/status_effect/buff/alch/constitutionpot
 	name = STATKEY_CON
@@ -73,6 +97,8 @@
 	id = "endpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/endurancepot
 	effectedstats = list(STATKEY_WIL = 3, STATKEY_LCK = -1, STATKEY_SPD = -1)
+	outline_colour = "#d63384"
+	buff_flavor = "willpower (wil +3, for -1, spd -1)!"
 
 /atom/movable/screen/alert/status_effect/buff/alch/endurancepot
 	name = STATKEY_WIL
@@ -82,6 +108,8 @@
 	id = "spdpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/speedpot
 	effectedstats = list(STATKEY_SPD = 2, STATKEY_LCK = -1, STATKEY_WIL = -1)
+	outline_colour = "#00d9b5"
+	buff_flavor = "speed (spd +2, for -1, wil -1)!"
 
 /atom/movable/screen/alert/status_effect/buff/alch/speedpot
 	name = STATKEY_SPD
@@ -91,6 +119,8 @@
 	id = "forpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/fortunepot
 	effectedstats = list(STATKEY_LCK = 3)
+	outline_colour = "#ffd700"
+	buff_flavor = "fortune (for +3)!"
 
 /atom/movable/screen/alert/status_effect/buff/alch/fortunepot
 	name = STATKEY_LCK
@@ -101,6 +131,7 @@
 	id = "fortitudepot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/fortitude
 	max_duration = 3 MINUTES
+	buff_flavor = "fortitude (-15% stam)!"
 
 /datum/status_effect/buff/alch/statbuff/fortitude/on_apply()
 	. = ..()
