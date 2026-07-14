@@ -33,9 +33,6 @@
 	src.adjust_skillrank(/datum/skill/combat/unarmed, 3, TRUE)
 	. = ..()
 	AddComponent(/datum/component/ai_aggro_system)
-	var/datum/action/cooldown/mob_cooldown/primordial_ability/elemental = new(src)
-	elemental.Grant(src)
-	ai_controller?.set_blackboard_key(BB_TARGETED_ACTION, elemental)
 
 /datum/intent/simple/claw/primordial
 	name = "claw"
@@ -70,21 +67,6 @@
 
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/get_pilot_ability()
 	return /datum/action/cooldown/spell/primordial_special
-
-/datum/action/cooldown/mob_cooldown/primordial_ability
-	name = "Elemental Surge"
-	cooldown_time = 20 SECONDS
-
-/datum/action/cooldown/mob_cooldown/primordial_ability/Activate(atom/target_atom)
-	var/mob/living/simple_animal/hostile/retaliate/rogue/primordial/P = owner
-	if(!istype(P))
-		return FALSE
-	var/turf/T = get_turf(target_atom)
-	if(!T)
-		return FALSE
-	P.ability(T, P)
-	StartCooldown()
-	return TRUE
 
 /datum/action/cooldown/spell/primordial_special
 	button_icon = 'icons/mob/actions/mage_conjure.dmi'
@@ -149,7 +131,9 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	retreat_distance = 0
 	minimum_distance = 0
-	projectiletype = /obj/projectile/magic/spitfire	//if we ever get ranged toggling working
+	ranged = 1
+	ranged_cooldown_time = 4 SECONDS
+	projectiletype = /obj/projectile/magic/spitfire/primordial
 	projectilesound = 'sound/magic/whiteflame.ogg'
 	next_ability_use
 	STACON = 10
@@ -228,6 +212,10 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	retreat_distance = 0
 	minimum_distance = 0
+	ranged = 1
+	ranged_cooldown_time = 4 SECONDS
+	projectiletype = /obj/projectile/magic/frost_shard/primordial
+	projectilesound = 'sound/spellbooks/icicle.ogg'
 
 	STACON = 10
 	STASTR = 10
@@ -338,6 +326,10 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	retreat_distance = 0
 	minimum_distance = 0
+	ranged = 1
+	ranged_cooldown_time = 4 SECONDS
+	projectiletype = /obj/projectile/magic/greater_arcyne_bolt/primordial
+	projectilesound = 'sound/magic/vlightning.ogg'
 
 
 	STACON = 10
@@ -409,4 +401,32 @@
 	layer = ABOVE_MOB_LAYER
 	anchored = TRUE
 	duration = 8
+
+/obj/projectile/magic/spitfire/primordial
+	name = "primordial flame"
+	damage = 20
+	arcshot = TRUE
+
+/obj/projectile/magic/frost_shard/primordial
+	name = "primordial frost shard"
+	damage = 18
+	reduced_damage = 5
+	arcshot = TRUE
+
+/obj/projectile/magic/greater_arcyne_bolt/primordial
+	name = "primordial gale"
+	damage = 27
+	npc_simple_damage_mult = 1
+	arcshot = TRUE
+
+/obj/projectile/magic/greater_arcyne_bolt/primordial/on_hit(target)
+	. = ..()
+	if(. == BULLET_ACT_BLOCK || QDELETED(src) || !iscarbon(target))
+		return
+	var/mob/living/carbon/C = target
+	if(C.anti_magic_check())
+		return
+	C.apply_status_effect(/datum/status_effect/debuff/staggered, 3 SECONDS)
+	C.OffBalance(1 SECONDS)
+	C.visible_message(span_warning("The gale sends [C] reeling!"))
 
