@@ -43,7 +43,7 @@
 	var/geo_mode = TUMULT_MODE_ERUPT
 	var/static/list/mode_labels = list(TUMULT_MODE_ERUPT = "CAIRN", TUMULT_MODE_CHARGE = "RAMSTAM")
 	var/erupt_cooldown = 10 SECONDS
-	var/charge_cooldown = 18 SECONDS
+	var/charge_cooldown = 12 SECONDS
 
 	var/telegraph_delay = TELEGRAPH_SKILLSHOT
 	var/erupt_direct = 80
@@ -341,7 +341,7 @@
 		return
 	if(ishuman(L))
 		arcyne_strike(H, L, null, barrel_damage, H.zone_selected || BODY_ZONE_CHEST, BCLASS_BLUNT, \
-			spell_name = name, damage_type = BRUTE, npc_simple_damage_mult = 1.5, skip_animation = TRUE)
+			spell_name = "Ramstam", damage_type = BRUTE, npc_simple_damage_mult = 1.5, skip_animation = TRUE)
 	else
 		L.adjustBruteLoss(barrel_damage * (L.mind ? 1 : 1.5))
 	new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
@@ -374,10 +374,9 @@
 		frag.fire()
 
 /datum/action/cooldown/spell/tumult/proc/is_riposting(mob/living/L)
-	if(!ishuman(L))
+	if(!isliving(L))
 		return FALSE
-	var/mob/living/carbon/human/HL = L
-	return istype(HL.rmb_intent, /datum/rmb_intent/riposte)
+	return L.has_status_effect(/datum/status_effect/buff/clash)
 
 /datum/action/cooldown/spell/tumult/proc/riposte_counter(mob/living/carbon/human/H, mob/living/L)
 	H.apply_status_effect(/datum/status_effect/debuff/exposed, expose_duration)
