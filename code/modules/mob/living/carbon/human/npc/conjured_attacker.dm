@@ -96,9 +96,12 @@
 	H.adjust_skillrank(/datum/skill/misc/climbing, 3, TRUE)
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 	mask = /obj/item/clothing/mask/rogue/padded
-	pants = /obj/item/clothing/under/roguetown/tights
+	head = /obj/item/clothing/head/roguetown/helmet/leather
+	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	gloves = /obj/item/clothing/gloves/roguetown/leather
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	belt = /obj/item/storage/belt/rogue/leather
 	if(tier >= 2)
 		armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
 
