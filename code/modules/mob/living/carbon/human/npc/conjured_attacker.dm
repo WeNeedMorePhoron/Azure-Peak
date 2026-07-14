@@ -84,10 +84,10 @@
 	var/tier = attacker_tier(H)
 	var/skill = attacker_skill(H)
 	H.STASTR = 10
-	H.STASPD = 12 + tier
-	H.STACON = 9 + tier
-	H.STAWIL = 9 + tier
-	H.STAPER = 12 + tier
+	H.STASPD = 10 + tier
+	H.STACON = 10 + tier
+	H.STAWIL = 10 + tier
+	H.STAPER = 10 + tier
 	H.STAINT = 10
 	H.STALUC = 10
 	H.adjust_skillrank(/datum/skill/combat/unarmed, skill, TRUE)
