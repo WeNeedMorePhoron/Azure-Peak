@@ -1,6 +1,6 @@
 /datum/advclass/mercenary/desert_rider_sahir
 	name = "Desert Rider Sahir"
-	tutorial = "You're a Sahir - a wisened Magi from the desert of Raneshen. You have spent your lyfe studying the arcyne arts. Some of your rank knows the way of the sword- a necessity when one happens upon monstrsities that are resilient to magyck in the desert."
+	tutorial = "You're a Sahir - a wisened Magi from the desert of Raneshen. You have spent your lyfe studying the arcyne arts. Some of your rank knows the way of the sword- a necessity when one happens upon monstrsities that are resilient to magyck in the desert. Sahir are trained in the art of Armament Binding, which is granted as a spell upon picking your aspects."
 	allowed_sexes = list(MALE, FEMALE)
 
 	outfit = /datum/outfit/job/roguetown/mercenary/desert_rider_sahir
