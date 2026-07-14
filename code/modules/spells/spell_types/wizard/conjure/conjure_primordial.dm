@@ -1,15 +1,17 @@
 /datum/action/cooldown/spell/conjure_summon/primordial
 	name = "Conjure Primordial"
-	desc = "Conjure a pair of Primordials to fight at your side. Toggle their element with Shift+G while the spell is selected: Flame, Water, or Air. \
-	They grow mightier with your skill at Arcyne Armament - upgrading at Expert, and further at Master. You maintain two at a time - recast to replace the pair, or to raise a fallen one anew; use Dismiss Conjuration to release them safely. Losing one wracks you with exhaustion rather than the deeper backlash of your greater servants."
+	desc = "Conjure a Primordial to fight at your side, one that looses its elemental fury upon your foes of its own accord. Toggle its element with Shift+G while the spell is selected: Flame, Water, or Air. \
+	It grows mightier with your skill at Arcyne Armament - upgrading at Expert, and further at Master. You maintain one at a time - recast to raise a fallen one anew; use Dismiss Conjuration to release it safely. Losing it wracks you with exhaustion rather than the deeper backlash of your greater servants.\
+	You may summon three types of Primordial:\n\
+	- Flame - An elemental of moderate health and damage, able to breath out fire in a cone in front of them.\n\
+	- Water - A slow elemental with high health able to create a whirlpool around themselves\n\
+	- Air - A fast elemental with the highest melee damage, lowest health able to throw targets back"
 	button_icon_state = "primetriangle"
 	invocations = list("Exsurge, primordiale!")
 	summon_noun = "primordial"
 	recoil_energy_floor = 150
 	recoil_severity = CONJURE_RECOIL_PARTIAL
 	recoil_stamina_only = TRUE
-	max_summons = 2
-	summons_per_cast = 2
 	modes = list(
 		list("name" = "Flame", "tag" = "FIRE", "path" = /mob/living/simple_animal/hostile/retaliate/rogue/primordial/fire, "color" = GLOW_COLOR_FIRE, "invocation" = "Exsurge, ignis!"),
 		list("name" = "Water", "tag" = "WATER", "path" = /mob/living/simple_animal/hostile/retaliate/rogue/primordial/water, "color" = GLOW_COLOR_ICE, "invocation" = "Exsurge, unda!"),
@@ -17,15 +19,8 @@
 	)
 
 /datum/action/cooldown/spell/conjure_summon/primordial/spawn_summon(turf/T, mob/living/user)
-	var/turf/dest = T
-	var/list/open = list()
-	for(var/turf/open/candidate in range(1, T))
-		if(!candidate.is_blocked_turf())
-			open += candidate
-	if(length(open))
-		dest = pick(open)
 	var/mob_path = modes[current_mode]["path"]
-	var/mob/living/simple_animal/hostile/retaliate/rogue/primordial/conjured = new mob_path(dest, user)
+	var/mob/living/simple_animal/hostile/retaliate/rogue/primordial/conjured = new mob_path(T, user)
 	scale_primordial(conjured, user)
 	return conjured
 
