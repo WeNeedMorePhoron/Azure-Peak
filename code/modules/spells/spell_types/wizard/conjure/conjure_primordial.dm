@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/conjure_summon/primordial
 	name = "Conjure Primordial"
-	desc = "Conjure a Primordial to fight at your side, one that looses its elemental fury upon your foes of its own accord. Toggle its element with Shift+G while the spell is selected: Flame, Water, or Air. \
-	It grows mightier with your skill at Arcyne Armament - upgrading at Expert, and further at Master. You maintain one at a time - recast to raise a fallen one anew; use Dismiss Conjuration to release it safely. Losing it wracks you with exhaustion rather than the deeper backlash of your greater servants.\
+	desc = "Conjure a Primordial to fight at your side. Toggle its element with Shift+G while the spell is selected: Flame, Water, or Air. \
+	It grows mightier with your skill at Arcyne Armament - upgrading at Expert, and further at Master. Losing it wracks you with exhaustion rather than the deeper backlash of your greater servants.\
 	You may summon three types of Primordial:\n\
 	- Flame - An elemental of moderate health and damage, able to breath out fire in a cone in front of them.\n\
 	- Water - A slow elemental with high health able to create a whirlpool around themselves\n\

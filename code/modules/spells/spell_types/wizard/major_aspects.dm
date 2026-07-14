@@ -320,7 +320,7 @@
 	choice_spells = list(
 		/datum/action/cooldown/spell/conjure_summon/primordial,
 		/datum/action/cooldown/spell/conjure_summon/champion,
-		/datum/action/cooldown/spell/conjure_summon/champion/goblin,
+		/datum/action/cooldown/spell/conjure_summon/attacker,
 		/datum/action/cooldown/spell/conjure_summon/hordes,
 	)
 	spell_order = list(

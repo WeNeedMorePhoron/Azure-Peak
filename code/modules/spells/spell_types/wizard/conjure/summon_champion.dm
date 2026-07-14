@@ -24,27 +24,3 @@
 	champion.gear_tier = get_summon_tier(user)
 	champion.summoner_ref = WEAKREF(user)
 	return champion
-
-/datum/action/cooldown/spell/conjure_summon/champion/goblin
-	name = "Summon Goblin Champion"
-	desc = "Call forth a phantasmal rendition of an unusually large goblin - a lumbering brute that smashes through doors and shrugs off blows. Toggle its loadout with Shift+G while the spell is selected: Mace & Shield, Greataxe, Flail & Shield. \
-	Once you have mastered Arcyne Armament, you may also raise a Bomber. \
-	Its brawn and gear scale with your skill at Arcyne Armament. Cruder and slower than a true champion,. \
-	You can maintain only one at a time."
-	invocations = list("Exsurge, gobelinus!")
-	summon_noun = "goblin champion"
-	point_cost = 5
-	modes = list(
-		list("name" = "Mace & Shield", "tag" = "MCE", "loadout" = "brute", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurge, gobelinus!"),
-		list("name" = "Greataxe", "tag" = "GAX", "loadout" = "berserker", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurge, gobelinus!"),
-		list("name" = "Flail & Shield", "tag" = "FLL", "loadout" = "flailman", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurge, gobelinus!"),
-		list("name" = "Bomber (Mastery)", "tag" = "BMB", "loadout" = "bomber", "color" = "#ff9030", "invocation" = "Exsurge, gobelinus!", "tier_req" = 3),
-	)
-
-/datum/action/cooldown/spell/conjure_summon/champion/goblin/spawn_summon(turf/T, mob/living/user)
-	var/mob/living/carbon/human/species/goblin/npc/conjured/champion/gob = new(T)
-	gob.loadout = modes[current_mode]["loadout"]
-	gob.arcane_scale = clamp(user.get_skill_level(/datum/skill/combat/arcyne), 1, 6)
-	gob.gear_tier = get_summon_tier(user)
-	gob.summoner_ref = WEAKREF(user)
-	return gob

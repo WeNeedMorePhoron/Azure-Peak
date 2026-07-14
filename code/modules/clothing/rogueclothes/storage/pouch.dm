@@ -364,15 +364,6 @@
 	new /obj/item/bomb/noshard(src)
 	new /obj/item/bomb/noshard(src)
 
-/obj/item/storage/belt/rogue/pouch/bombs/conjured/PopulateContents()
-	for(var/i in 1 to 8)
-		new /obj/item/bomb/noshard(src)
-
-/obj/item/storage/belt/rogue/pouch/bombs/conjured/Destroy()
-	for(var/obj/item/held in contents)
-		qdel(held)
-	return ..()
-
 /obj/item/storage/belt/rogue/pouch/tailorscrap
 	name = "pouch of tailorscrap"
 	desc = "A pouch of iron scrap pieces, perfect for reinforcing leather equipment. Now, where'd you place that hammer.. ?"
