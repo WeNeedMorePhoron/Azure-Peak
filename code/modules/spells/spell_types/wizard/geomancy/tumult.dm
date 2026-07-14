@@ -4,9 +4,9 @@
 /datum/action/cooldown/spell/tumult
 	button_icon = 'icons/mob/actions/mage_geomancy.dmi'
 	name = "Tumult"
-	desc = "Two forms of one spell, switched with Shift-G.\n\
-	CAIRN erupts stone from a spot you choose, battering those caught, leaving them Vulnerable, spraying gravel, and heaving up a stone cairn. You are unharmed by the spell.\n\
-	RAMSTAM folds you into a rolling mass of stone that hurtles to a marked spot, battering aside anyone in the way. Slam a wall to burst gravel, crack it, and ricochet back, roll through a stone pillar to shatter it into a spray you are immune to. A Riposte stops you and leaves you Exposed. You cannot steer once begun."
+	desc = "Erupts stone from the ground, or become one yourself and bowls through your foes! switch mode with Shift-G.\n\
+	CAIRN erupts a cairn from a spot you choose, hitting those caught and leaving them Vulnerable, with more damage in the center. It sprays gravel around. You are unharmed by the spell.\n\
+	RAMSTAM turns you into a rolling boulders that hurtle to a marked destination, restricted to the cardinal and diagonal direction. You batter asides anyone in the way for a small amount of damage. If you hit a wall, you will burst out gravel around you, deals damage to it, and ricochet to the spot you came from. If you are riposted, it will halt and exposes you. If you rolls through a stone pillar, you will shatter it for gravel bursts that you are immune to. You cannot steer once begun."
 	button_icon_state = "cairn"
 	sound = 'sound/combat/hits/onstone/stonedeath.ogg'
 	spell_color = GLOW_COLOR_EARTHEN
