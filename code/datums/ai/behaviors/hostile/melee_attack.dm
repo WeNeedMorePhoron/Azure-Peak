@@ -119,7 +119,8 @@
 	action_cooldown = 0.4 SECONDS
 
 /datum/ai_behavior/opportunistic_ranged_attack/setup(datum/ai_controller/controller, target_key, targetting_datum_key, hiding_location_key)
-	return !QDELETED(controller.blackboard[target_key])
+	var/atom/target = controller.blackboard[target_key]
+	return !QDELETED(target)
 
 /datum/ai_behavior/opportunistic_ranged_attack/perform(delta_time, datum/ai_controller/controller, target_key, targetting_datum_key, hiding_location_key)
 	. = ..()
