@@ -60,7 +60,6 @@
 	var/roll_speed = 1
 	var/barrel_damage = 15
 	var/knock_dist = 1
-	var/expose_duration = 5 SECONDS
 	var/charge_frag_count = 8
 	var/charge_frag_damage = 12
 	var/crash_structure_damage = 100
@@ -278,7 +277,7 @@
 		for(var/mob/living/L in next)
 			if(L == H)
 				continue
-			if(is_riposting(L))
+			if(spell_guard_check(L, TRUE, H))
 				riposte_counter(H, L)
 				countered = TRUE
 				break
@@ -373,15 +372,8 @@
 		frag.preparePixelProjectile(ftarget, from)
 		frag.fire()
 
-/datum/action/cooldown/spell/tumult/proc/is_riposting(mob/living/L)
-	if(!isliving(L))
-		return FALSE
-	return L.has_status_effect(/datum/status_effect/buff/clash)
-
 /datum/action/cooldown/spell/tumult/proc/riposte_counter(mob/living/carbon/human/H, mob/living/L)
-	H.apply_status_effect(/datum/status_effect/debuff/exposed, expose_duration)
 	H.visible_message(span_warning("[L] braces and turns [H]'s charge aside - [H] sprawls, exposed!"), span_userdanger("[L] catches my charge - I am thrown off and left exposed!"))
-	playsound(get_turf(H), 'sound/combat/parry/parrygen.ogg', 70, TRUE)
 
 /obj/effect/ramstam_boulder
 	icon = 'icons/obj/magic_projectiles.dmi'
