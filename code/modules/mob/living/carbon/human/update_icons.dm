@@ -1927,6 +1927,10 @@ generate/load female uniform sprites matching all previously decided variables
 			. += "skeletonized"
 		for(var/datum/bodypart_feature/feature as anything in BP.bodypart_features)
 			. += feature.get_cache_key()
+		for(var/marking_name in BP.markings)
+			. += "mark[marking_name]-[BP.markings[marking_name]]"
+		for(var/marking_name in BP.aux_markings)
+			. += "auxmark[marking_name]-[BP.aux_markings[marking_name]]"
 
 	for(var/obj/item/organ/organ as anything in visible_organs)
 		. += organ.get_cache_key()
