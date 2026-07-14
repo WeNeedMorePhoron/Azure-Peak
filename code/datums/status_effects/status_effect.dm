@@ -188,6 +188,13 @@
 	if(desc)
 		inspec += "<br>[desc]"
 
+	for(var/S in attached_effect?.effectedstats)
+		if(attached_effect.effectedstats[S] > 0)
+			inspec += "<br><span class='purple'>[S]</span> \Roman [attached_effect.effectedstats[S]]"
+		if(attached_effect.effectedstats[S] < 0)
+			var/newnum = attached_effect.effectedstats[S] * -1
+			inspec += "<br><span class='danger'>[S]</span> \Roman [newnum]"
+
 	if(attached_effect && attached_effect.duration != -1 && attached_effect.duration > world.time)
 		var/remaining = attached_effect.duration - world.time
 		var/total_secs = round(remaining / (1 SECONDS))
@@ -198,14 +205,7 @@
 			timestring = "[mins]:[secs < 10 ? "0[secs]" : "[secs]"]"
 		else
 			timestring = "[total_secs]s"
-		inspec += "<br><span class='notice'>Time remaining: [timestring]</span>"
-
-	for(var/S in attached_effect?.effectedstats)
-		if(attached_effect.effectedstats[S] > 0)
-			inspec += "<br><span class='purple'>[S]</span> \Roman [attached_effect.effectedstats[S]]"
-		if(attached_effect.effectedstats[S] < 0)
-			var/newnum = attached_effect.effectedstats[S] * -1
-			inspec += "<br><span class='danger'>[S]</span> \Roman [newnum]"
+		inspec += "<br><span class='smallnotice'>Time remaining: [timestring]</span>"
 
 	inspec += "<br>----------------------"
 	to_chat(user, "[inspec.Join()]")
