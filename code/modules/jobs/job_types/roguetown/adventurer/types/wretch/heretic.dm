@@ -293,7 +293,7 @@
 	tutorial = "Nimble of dagger and foot both, you are the shadowy herald of the cabal. They will not see you coming."
 	outfit = /datum/outfit/job/roguetown/wretch/hereticspy
 	maximum_possible_slots = 2 //Ppl dont like rogue antags.
-	traits_applied = list(TRAIT_DODGEEXPERT)
+	traits_applied = list(TRAIT_RITUALIST, TRAIT_DODGEEXPERT)
 	subclass_stats = list(
 		STATKEY_PER = 2,
 		STATKEY_WIL = 2,
@@ -413,7 +413,6 @@
 			C.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_MINOR, devotion_limit = CLERIC_REQ_2)	//Capped to T2 miracles. Templar equivalent.
 		else
 			C.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_MINOR, start_maxed = TRUE)	//Minor regen, starts maxed out.
-		H.mind.AddSpell(new /datum/action/cooldown/spell/miracle/intervention)
 		wretch_select_bounty(H)
 
 	if (istype (H.patron, /datum/patron/inhumen/zizo))
