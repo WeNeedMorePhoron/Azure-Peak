@@ -419,14 +419,3 @@
 	npc_simple_damage_mult = 1
 	arcshot = TRUE
 
-/obj/projectile/magic/greater_arcyne_bolt/primordial/on_hit(target)
-	. = ..()
-	if(. == BULLET_ACT_BLOCK || QDELETED(src) || !iscarbon(target))
-		return
-	var/mob/living/carbon/C = target
-	if(C.anti_magic_check())
-		return
-	C.apply_status_effect(/datum/status_effect/debuff/staggered, 3 SECONDS)
-	C.OffBalance(1 SECONDS)
-	C.visible_message(span_warning("The gale sends [C] reeling!"))
-
