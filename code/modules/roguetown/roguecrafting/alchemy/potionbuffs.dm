@@ -36,7 +36,7 @@
 /datum/status_effect/buff/alch/statbuff/strengthpot
 	id = "strpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/strengthpot
-	effectedstats = list(STATKEY_STR = 3)
+	effectedstats = list(STATKEY_STR = 2, STATKEY_LCK = -1, STATKEY_INT = -1)
 
 /atom/movable/screen/alert/status_effect/buff/alch/strengthpot
 	name = STATKEY_STR
@@ -45,7 +45,7 @@
 /datum/status_effect/buff/alch/statbuff/perceptionpot
 	id = "perpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/perceptionpot
-	effectedstats = list(STATKEY_PER = 3)
+	effectedstats = list(STATKEY_PER = 3, STATKEY_LCK = -1, STATKEY_SPD = -1)
 
 /atom/movable/screen/alert/status_effect/buff/alch/perceptionpot
 	name = STATKEY_PER
@@ -54,7 +54,7 @@
 /datum/status_effect/buff/alch/statbuff/intelligencepot
 	id = "intpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/intelligencepot
-	effectedstats = list(STATKEY_INT = 3)
+	effectedstats = list(STATKEY_INT = 3, STATKEY_LCK = -1, STATKEY_STR = -1)
 
 /atom/movable/screen/alert/status_effect/buff/alch/intelligencepot
 	name = STATKEY_INT
@@ -63,7 +63,7 @@
 /datum/status_effect/buff/alch/statbuff/constitutionpot
 	id = "conpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/constitutionpot
-	effectedstats = list(STATKEY_CON = 3)
+	effectedstats = list(STATKEY_CON = 3, STATKEY_LCK = -1, STATKEY_STR = -1)
 
 /atom/movable/screen/alert/status_effect/buff/alch/constitutionpot
 	name = STATKEY_CON
@@ -72,7 +72,7 @@
 /datum/status_effect/buff/alch/statbuff/endurancepot
 	id = "endpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/endurancepot
-	effectedstats = list(STATKEY_WIL = 3)
+	effectedstats = list(STATKEY_WIL = 3, STATKEY_LCK = -1, STATKEY_SPD = -1)
 
 /atom/movable/screen/alert/status_effect/buff/alch/endurancepot
 	name = STATKEY_WIL
@@ -81,7 +81,7 @@
 /datum/status_effect/buff/alch/statbuff/speedpot
 	id = "spdpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/speedpot
-	effectedstats = list(STATKEY_SPD = 3)
+	effectedstats = list(STATKEY_SPD = 2, STATKEY_LCK = -1, STATKEY_WIL = -1)
 
 /atom/movable/screen/alert/status_effect/buff/alch/speedpot
 	name = STATKEY_SPD

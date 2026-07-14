@@ -164,7 +164,7 @@
 
 // Stamina potion no longer grant green bar directly which led to it being far too powerful when abused
 /datum/reagent/medicine/stampot
-	name = "Stamina Potion"
+	name = "Fortitude Potion"
 	description = "Hardens the humors against fatigue, granting Fortitude for a short while."
 	reagent_state = LIQUID
 	color = "#129c00"
@@ -182,7 +182,7 @@
 	return TRUE
 
 /datum/reagent/medicine/strongstam
-	name = "Strong Stamina Potion"
+	name = "Strong Fortitude Potion"
 	description = "Rapidly hardens the humors against fatigue, granting Fortitude for a short while."
 	color = "#13df00"
 	taste_description = "sparkly static"
