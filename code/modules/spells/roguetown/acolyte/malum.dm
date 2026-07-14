@@ -212,6 +212,7 @@
 	impact_delay = 4
 	detonate_sound = null
 	immobilize_on_hit = 2 SECONDS
+	stop_at_dense = FALSE
 	var/hammer_scale = 1.9
 
 	parent_type = /datum/action/cooldown/spell/telegraphed_strike
