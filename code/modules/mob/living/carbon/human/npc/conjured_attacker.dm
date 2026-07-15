@@ -59,8 +59,6 @@
 		else
 			outfit_attacker(new /datum/outfit/job/roguetown/conjured_attacker/sabre)
 	def_intent_change(INTENT_DODGE)
-	ADD_TRAIT(src, TRAIT_DUALWIELDER, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
 	random_voice_NPC()
 	random_hair_NPC()
 	random_eye_color_NPC()
@@ -105,8 +103,10 @@
 	gloves = /obj/item/clothing/gloves/roguetown/leather
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	belt = /obj/item/storage/belt/rogue/leather
+	armor = /obj/item/clothing/suit/roguetown/armor/leather
 	if(tier >= 2)
 		armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
+		head = /obj/item/clothing/head/roguetown/helmet/leather/advanced
 
 /datum/outfit/job/roguetown/conjured_attacker/sabre/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
