@@ -141,6 +141,7 @@
 #define BB_HELD_CONSUMABLE      "held_consumable"      // item we pulled out to use
 #define BB_THROW_WINDUP_UNTIL   "throw_windup_until"   // world.time the drawn throwable may be loosed (NPC holds it visibly until then)
 #define BB_TARGET_ZONE_OVERRIDE	"bb_target_override"
+#define BB_FORCED_ATTACK_ZONE	"bb_forced_attack_zone"
 #define BB_LOOT_TARGET "loot_target"
 #define BB_LOOT_BLACKLIST "loot_blacklist"
 #define BB_LOOT_NEXT_SCAN "loot_next_scan"

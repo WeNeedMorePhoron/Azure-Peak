@@ -289,6 +289,13 @@
 
 
 /datum/ai_behavior/basic_melee_attack/human_npc/proc/_choose_attack_zone(datum/ai_controller/controller, mob/living/carbon/human/pawn, mob/living/target)
+	var/forced_zone = controller.blackboard[BB_FORCED_ATTACK_ZONE]
+	if(forced_zone)
+		var/forced_aim = _zone_to_aimheight(forced_zone)
+		if(forced_aim)
+			pawn.aimheight_change(forced_aim)
+		pawn.zone_selected = forced_zone
+		return
 	var/list/wp = controller.blackboard[BB_HUMAN_NPC_WEAKPOINT]
 	if(wp && world.time < wp[2] && wp[3] == target)
 		var/aimheight = _zone_to_aimheight(wp[1])

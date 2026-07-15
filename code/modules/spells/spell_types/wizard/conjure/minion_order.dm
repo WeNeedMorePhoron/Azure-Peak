@@ -16,8 +16,7 @@
 /datum/action/cooldown/spell/minion_mark
 	button_icon = 'icons/mob/actions/mage_conjure.dmi'
 	name = "Conjurer's Mark"
-	desc = "Cast on someone to mark them friendly to your conjured servants, or strip an existing mark. \
-	Cast on a tile to focus any nearby primordials' elemental power there."
+	desc = "Cast on someone to mark them friendly to your conjured servants, or strip an existing mark."
 	button_icon_state = "primordial_mark"
 	sound = null
 	spell_color = GLOW_COLOR_ARCANE
@@ -68,13 +67,6 @@
 				target.faction |= faction_tag
 				user.say("Amicus declaratus es.", language = /datum/language/common)
 				target.notify_faction_change()
-		return TRUE
-	else if(isturf(cast_on))
-		var/turf/T = get_turf(cast_on)
-		for(var/mob/living/simple_animal/hostile/retaliate/rogue/primordial/primordial in oview(3, T))
-			if(faction_tag in primordial.faction)
-				to_chat(user, "[primordial.name] will focus their ability on the marked tile!")
-				primordial.ability(T, user)
 		return TRUE
 	return FALSE
 
