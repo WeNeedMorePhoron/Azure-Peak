@@ -290,6 +290,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			var/mob/living/carbon/M = loc
 			M.dropItemToGround(src, silent = TRUE)
 			M.mouth = new type_butt(M)
+			record_featured_stat(FEATURED_STATS_SMOKERS, M)
 		else
 			new type_butt(location)
 		qdel(src)
