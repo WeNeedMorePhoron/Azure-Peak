@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/conjure_summon/champion
 	name = "Summon Champion"
-	desc = "Call forth a bound humanoid champion to fight at your side. Toggle its loadout with Shift+G while the spell is selected: Sword & Shield, Bow, Crossbow, Greatsword, Greataxe, Axe & Shield, Spear, or Greatmace. \
+	desc = "Call forth a bound humanoid champion to fight at your side. Toggle its loadout with Shift+G while the spell is selected: Sword & Shield, Bow, Crossbow, Greatsword, Greataxe, Axe & Shield, Flail & Shield, Great Flail, Spear, or Greatmace. \
 	Its arms and prowess scale with your skill at Arcyne Armament - ordinary magi raise iron-clad soldiers, while Experts and Masters call forth steel-clad champions. \
 	You can maintain only one at a time - recast at capacity to re-summon, or use Dismiss Conjuration to release it safely."
 	button_icon_state = "primetriangle"
@@ -14,6 +14,8 @@
 		list("name" = "Greatsword", "tag" = "GSW", "loadout" = "greatswordman", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurge, miles!"),
 		list("name" = "Greataxe", "tag" = "GAX", "loadout" = "greataxeman", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurge, miles!"),
 		list("name" = "Axe & Shield", "tag" = "AXE", "loadout" = "axeman", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurge, miles!"),
+		list("name" = "Flail & Shield", "tag" = "FLL", "loadout" = "flailman", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurge, miles!"),
+		list("name" = "Great Flail", "tag" = "GFL", "loadout" = "greatflailman", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurge, miles!"),
 		list("name" = "Spear", "tag" = "SPR", "loadout" = "spearman", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurge, hastati!"),
 		list("name" = "Greatmace", "tag" = "GMC", "loadout" = "maceman", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurge, miles!"),
 	)

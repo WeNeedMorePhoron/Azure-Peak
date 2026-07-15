@@ -65,6 +65,12 @@
 		if("axeman")
 			outfit_champion(new /datum/outfit/job/roguetown/conjured_champion/axeman)
 			def_intent_change(INTENT_PARRY)
+		if("flailman")
+			outfit_champion(new /datum/outfit/job/roguetown/conjured_champion/flailman)
+			def_intent_change(INTENT_PARRY)
+		if("greatflailman")
+			outfit_champion(new /datum/outfit/job/roguetown/conjured_champion/greatflailman)
+			def_intent_change(INTENT_PARRY)
 		if("spearman")
 			outfit_champion(new /datum/outfit/job/roguetown/conjured_champion/spearman)
 			def_intent_change(INTENT_PARRY)
@@ -159,6 +165,21 @@
 	H.adjust_skillrank(/datum/skill/combat/shields, skill, TRUE)
 	r_hand = /obj/item/rogueweapon/stoneaxe/battle
 	l_hand = (tier >= 2) ? /obj/item/rogueweapon/shield/tower/metal : /obj/item/rogueweapon/shield/wood
+
+/datum/outfit/job/roguetown/conjured_champion/flailman/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/skill = champion_skill(H)
+	var/tier = champion_tier(H)
+	H.adjust_skillrank(/datum/skill/combat/whipsflails, skill, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/shields, skill, TRUE)
+	r_hand = /obj/item/rogueweapon/flail/sflail
+	l_hand = (tier >= 2) ? /obj/item/rogueweapon/shield/tower/metal : /obj/item/rogueweapon/shield/wood
+
+/datum/outfit/job/roguetown/conjured_champion/greatflailman/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/skill = champion_skill(H)
+	H.adjust_skillrank(/datum/skill/combat/whipsflails, skill, TRUE)
+	r_hand = /obj/item/rogueweapon/flail/peasantwarflail/iron
 
 /datum/outfit/job/roguetown/conjured_champion/spearman/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
