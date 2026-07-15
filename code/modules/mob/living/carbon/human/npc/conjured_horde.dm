@@ -64,4 +64,6 @@
 			r_hand = /obj/item/rogueweapon/flail/aflail
 			l_hand = /obj/item/rogueweapon/shield/wood
 		else
+			H.adjust_skillrank_up_to(/datum/skill/combat/shields, skill, TRUE)
 			r_hand = /obj/item/rogueweapon/sword/short/ashort
+			l_hand = /obj/item/rogueweapon/shield/wood
