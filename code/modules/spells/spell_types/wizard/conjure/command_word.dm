@@ -377,8 +377,8 @@
 	if(!istype(caster))
 		caster = null
 	var/zone = summon.zone_selected || BODY_ZONE_CHEST
-	var/damage = round(50 * scale)
-	var/curtain_life = (scale >= 1) ? 6 SECONDS : 2 SECONDS
+	var/damage = round(120 * scale)
+	var/curtain_life = (scale >= 1) ? 8 SECONDS : 3 SECONDS
 	new /obj/effect/temp_visual/explosion(epicenter)
 	new /obj/effect/temp_visual/fire_pillar(epicenter)
 	playsound(epicenter, pick('sound/misc/explode/explosionclose (1).ogg', 'sound/misc/explode/explosionclose (2).ogg', 'sound/misc/explode/explosionclose (3).ogg'), 100, TRUE)
