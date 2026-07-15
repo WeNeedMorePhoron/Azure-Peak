@@ -8,11 +8,8 @@
 
 /datum/status_effect/buff/alch/statbuff
 	duration = 1 MINUTES
-	var/max_duration = 27 MINUTES
-	// 27 drams in the small vial so this is what I am using for the neat number
-	// Outline shown on the buffed mob, mirroring the augmentation buffs. Each stat pot overrides its own colour.
+	var/max_duration = 10 MINUTES
 	var/outline_colour = "#008000"
-	// Compact effect text ballooned over the drinker on gain. Each pot sets its own.
 	var/buff_flavor
 
 /datum/status_effect/buff/alch/statbuff/on_creation(mob/living/new_owner, added_duration = 1 MINUTES)
@@ -52,9 +49,9 @@
 /datum/status_effect/buff/alch/statbuff/strengthpot
 	id = "strpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/strengthpot
-	effectedstats = list(STATKEY_STR = 2, STATKEY_LCK = -1, STATKEY_INT = -1)
+	effectedstats = list(STATKEY_STR = 2, STATKEY_LCK = -1, STATKEY_INT = -1, STATKEY_PER = -1)
 	outline_colour = "#ff9000"
-	buff_flavor = "strength (str +2, for -1, int -1)!"
+	buff_flavor = "strength (str +2, for -1, int -1, per -1)!"
 
 /atom/movable/screen/alert/status_effect/buff/alch/strengthpot
 	name = STATKEY_STR
@@ -63,9 +60,9 @@
 /datum/status_effect/buff/alch/statbuff/perceptionpot
 	id = "perpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/perceptionpot
-	effectedstats = list(STATKEY_PER = 3, STATKEY_LCK = -1, STATKEY_SPD = -1)
+	effectedstats = list(STATKEY_PER = 2, STATKEY_LCK = -1)
 	outline_colour = "#45c8ff"
-	buff_flavor = "perception (per +3, for -1, spd -1)!"
+	buff_flavor = "perception (per +2, for -1)!"
 
 /atom/movable/screen/alert/status_effect/buff/alch/perceptionpot
 	name = STATKEY_PER
@@ -74,9 +71,9 @@
 /datum/status_effect/buff/alch/statbuff/intelligencepot
 	id = "intpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/intelligencepot
-	effectedstats = list(STATKEY_INT = 3, STATKEY_LCK = -1, STATKEY_STR = -1)
+	effectedstats = list(STATKEY_INT = 2, STATKEY_LCK = -1)
 	outline_colour = "#7b5cff"
-	buff_flavor = "intelligence (int +3, for -1, str -1)!"
+	buff_flavor = "intelligence (int +2, for -1)!"
 
 /atom/movable/screen/alert/status_effect/buff/alch/intelligencepot
 	name = STATKEY_INT
@@ -85,9 +82,9 @@
 /datum/status_effect/buff/alch/statbuff/constitutionpot
 	id = "conpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/constitutionpot
-	effectedstats = list(STATKEY_CON = 3, STATKEY_LCK = -1, STATKEY_STR = -1)
+	effectedstats = list(STATKEY_CON = 2, STATKEY_LCK = -1)
 	outline_colour = "#a0522d"
-	buff_flavor = "constitution (con +3, for -1, str -1)!"
+	buff_flavor = "constitution (con +2, for -1)!"
 
 /atom/movable/screen/alert/status_effect/buff/alch/constitutionpot
 	name = STATKEY_CON
@@ -96,9 +93,9 @@
 /datum/status_effect/buff/alch/statbuff/endurancepot
 	id = "endpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/endurancepot
-	effectedstats = list(STATKEY_WIL = 3, STATKEY_LCK = -1, STATKEY_SPD = -1)
+	effectedstats = list(STATKEY_WIL = 2, STATKEY_LCK = -1)
 	outline_colour = "#d63384"
-	buff_flavor = "willpower (wil +3, for -1, spd -1)!"
+	buff_flavor = "willpower (wil +2, for -1)!"
 
 /atom/movable/screen/alert/status_effect/buff/alch/endurancepot
 	name = STATKEY_WIL
@@ -107,9 +104,9 @@
 /datum/status_effect/buff/alch/statbuff/speedpot
 	id = "spdpot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/speedpot
-	effectedstats = list(STATKEY_SPD = 2, STATKEY_LCK = -1, STATKEY_WIL = -1)
+	effectedstats = list(STATKEY_SPD = 2, STATKEY_LCK = -1, STATKEY_WIL = -1, STATKEY_CON = -1)
 	outline_colour = "#00d9b5"
-	buff_flavor = "speed (spd +2, for -1, wil -1)!"
+	buff_flavor = "speed (spd +2, for -1, wil -1, con -1)!"
 
 /atom/movable/screen/alert/status_effect/buff/alch/speedpot
 	name = STATKEY_SPD
@@ -126,11 +123,9 @@
 	name = STATKEY_LCK
 	icon_state = "buff"
 
-// Cap this out at 3 minutes, compete it with actual stat buffs, and with the attached buff nerfed to 15%.
 /datum/status_effect/buff/alch/statbuff/fortitude
 	id = "fortitudepot"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/alch/fortitude
-	max_duration = 3 MINUTES
 	buff_flavor = "fortitude (-15% stam)!"
 
 /datum/status_effect/buff/alch/statbuff/fortitude/on_apply()

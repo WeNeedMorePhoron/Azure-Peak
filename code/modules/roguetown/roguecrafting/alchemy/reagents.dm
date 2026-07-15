@@ -177,7 +177,7 @@
 
 /datum/reagent/medicine/stampot/on_mob_life(mob/living/carbon/M)
 	if(volume > 0)
-		M.apply_status_effect(/datum/status_effect/buff/alch/statbuff/fortitude, volume * (3 MINUTES / 50))
+		M.apply_status_effect(/datum/status_effect/buff/alch/statbuff/fortitude, volume * 20 SECONDS)
 		holder.remove_reagent(type, volume)
 	return TRUE
 
@@ -192,7 +192,7 @@
 
 /datum/reagent/medicine/strongstam/on_mob_life(mob/living/carbon/M)
 	if(volume > 0)
-		M.apply_status_effect(/datum/status_effect/buff/alch/statbuff/fortitude, volume * (3 MINUTES / 25))
+		M.apply_status_effect(/datum/status_effect/buff/alch/statbuff/fortitude, volume * 40 SECONDS)
 		holder.remove_reagent(type, volume)
 	return TRUE
 
