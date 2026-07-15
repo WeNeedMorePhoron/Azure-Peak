@@ -20,6 +20,10 @@ without going through the click pipeline, so spells can deliver weapon-style str
 			blade_class = BCLASS_BLUNT
 			attack_flag = "blunt"
 			armor_penetration = PEN_NONE // Blunt uses DR, not penetration
+		if(BCLASS_FORCE)
+			blade_class = BCLASS_BLUNT // Arcane impact with blunt wounds and feel but its own damage reduction
+			attack_flag = "force"
+			armor_penetration = PEN_NONE
 		if(BCLASS_STAB, BCLASS_PICK)
 			blade_class = BCLASS_STAB
 			attack_flag = "stab"

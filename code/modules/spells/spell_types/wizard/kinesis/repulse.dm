@@ -79,7 +79,7 @@
 				var/mob/living/M = AM
 				M.set_resting(TRUE, TRUE)
 				arcyne_strike(user, AM, null, floor_slam_damage, BODY_ZONE_CHEST, \
-				BCLASS_BLUNT, spell_name = "Repulse", \
+				BCLASS_FORCE, spell_name = "Repulse", \
 				damage_type = BRUTE, npc_simple_damage_mult = 1, \
 				skip_animation = TRUE)
 				to_chat(M, span_danger("You're slammed into the floor by [user]!"))

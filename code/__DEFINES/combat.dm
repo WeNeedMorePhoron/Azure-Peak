@@ -184,6 +184,7 @@
 #define BCLASS_EFFECT		"effect"
 #define BCLASS_SUNDER       "sunder"
 #define BCLASS_DISARM		"disarm"
+#define BCLASS_FORCE		"force"
 
 //Material class (what material is striking)
 #define MCLASS_GENERIC		1

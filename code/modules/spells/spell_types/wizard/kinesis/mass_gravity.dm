@@ -94,7 +94,7 @@
 				var/remaining = round((L.mob_timers[MT_GRAVITY_ADAPTATION] + GRAVITY_ADAPTATION_COOLDOWN - world.time) / 10)
 				L.balloon_alert_to_viewers("<font color='#7B68EE'>gravity adapted ([remaining]s)!</font>")
 			if(L.STASTR <= str_threshold)
-				arcyne_strike(owner, L, null, crush_damage, target_zone, BCLASS_BLUNT, \
+				arcyne_strike(owner, L, null, crush_damage, target_zone, BCLASS_FORCE, \
 					spell_name = "Mass Gravity", damage_type = BRUTE, \
 					npc_simple_damage_mult = simple_npc_damage_modifier, skip_animation = TRUE)
 				if(!adapted)
@@ -104,7 +104,7 @@
 				else
 					to_chat(L, span_userdanger("The gravity crushes me, but I keep my footing!"))
 			else
-				arcyne_strike(owner, L, null, resisted_damage, target_zone, BCLASS_BLUNT, \
+				arcyne_strike(owner, L, null, resisted_damage, target_zone, BCLASS_FORCE, \
 					spell_name = "Mass Gravity", damage_type = BRUTE, \
 					npc_simple_damage_mult = 1, skip_animation = TRUE)
 				if(!adapted)

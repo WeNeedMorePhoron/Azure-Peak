@@ -47,7 +47,7 @@
 	name = "lesser bolt of repelling"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "curseblob"
-	flag = "blunt"
+	flag = "force"
 	range = 15
 	cannot_cross_z = TRUE
 

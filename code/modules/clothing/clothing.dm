@@ -682,13 +682,13 @@ BLIND     // can't see anything
 	str += "[colorgrade_rating("🪓 SLASH", armor.slash, elaborate = TRUE)] | "
 	str += "[colorgrade_rating("🗡️ STAB", armor.stab, elaborate = TRUE)] | "
 	str += "[colorgrade_rating("🏹 PIERCE", armor.piercing, elaborate = TRUE)]"
-	if(armor.fire > NONE || armor.acid > NONE)
+	if(armor.fire > NONE || armor.force > NONE)
 		str += "<br><b>RESIST:</b> "
 		var/list/resists = list()
 		if(armor.fire > NONE)
 			resists += colorgrade_rating("🔥 FIRE", armor.fire, elaborate = TRUE)
-		if(armor.acid > NONE)
-			resists += colorgrade_rating("🧪 ACID", armor.acid, elaborate = TRUE)
+		if(armor.force > NONE)
+			resists += colorgrade_rating("🌀 FORCE", armor.force, elaborate = TRUE)
 		str += resists.Join(" | ")
 
 	if(examine_highlight_status)

@@ -44,7 +44,7 @@
 	guard_deflectable = TRUE
 	damage = 54
 	damage_type = BRUTE
-	flag = "blunt"
+	flag = "force"
 	woundclass = BCLASS_BLUNT
 	intdamfactor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
 	npc_simple_damage_mult = 1.5

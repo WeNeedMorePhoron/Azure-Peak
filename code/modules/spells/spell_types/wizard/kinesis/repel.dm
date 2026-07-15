@@ -53,7 +53,7 @@
 	name = "bolt of repeling"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "curseblob"
-	flag = "blunt"
+	flag = "force"
 	speed = MAGE_PROJ_FAST
 	range = 15
 	cannot_cross_z = TRUE
