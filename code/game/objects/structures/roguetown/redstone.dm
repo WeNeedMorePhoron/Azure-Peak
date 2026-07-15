@@ -210,12 +210,20 @@ GLOBAL_LIST_EMPTY(redstone_objs)
 	icon_state = "leverwall[toggled]"
 
 /obj/structure/lever/bookcase
-	name = "Bookcase"
-	desc = "Refuge for few, an irrelevance to most."
+	name = "bookcase"
+	desc = ""
 	icon_state = "booklever0"
 
+/obj/structure/lever/bookcase/examine(mob/user)
+	. = ..()
+	if(HAS_TRAIT(usr, TRAIT_INQUISITION))
+		desc = "Refuge for few, an irrelevance to most. Something about this bookcase stirs a faint memory from your training."
+	else
+		desc = "Refuge for few, an irrelevance to most."
+
 /obj/structure/lever/bookcase/get_mechanics_examine(mob/user)
-	return
+	. = ..()
+	. += span_info("Some structures can be used as hiding places. Toggle the 'SNEAK' button on your HUD, then click the structure to hide in it. You can stop hiding by clicking the structure again, or by moving out of it.")
 
 /obj/structure/lever/bookcase/attack_hand(mob/user)
 	if(isliving(user))
