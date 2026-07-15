@@ -124,7 +124,7 @@
 			actual_damage *= npc_simple_damage_mult
 		if(istype(caster) && ishuman(L))
 			arcyne_strike(caster, L, null, actual_damage, pick(random_zones), \
-				BCLASS_BLUNT, spell_name = "Meteor Strike", \
+				BCLASS_FORCE, spell_name = "Meteor Strike", \
 				damage_type = BRUTE, npc_simple_damage_mult = 1, \
 				skip_animation = TRUE)
 		else
@@ -147,7 +147,7 @@
 				actual_damage *= npc_simple_damage_mult
 			if(istype(caster) && ishuman(L))
 				arcyne_strike(caster, L, null, actual_damage, pick(random_zones), \
-					BCLASS_BLUNT, spell_name = "Meteor Strike", \
+					BCLASS_FORCE, spell_name = "Meteor Strike", \
 					damage_type = BRUTE, npc_simple_damage_mult = 1, \
 					skip_animation = TRUE)
 			else

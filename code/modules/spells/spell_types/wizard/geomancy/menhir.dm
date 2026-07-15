@@ -150,7 +150,7 @@
 	if(spell_guard_check(L, TRUE))
 		return
 	if(ishuman(L))
-		arcyne_strike(H, L, null, dmg, H.zone_selected || BODY_ZONE_CHEST, BCLASS_BLUNT, \
+		arcyne_strike(H, L, null, dmg, H.zone_selected || BODY_ZONE_CHEST, BCLASS_FORCE, \
 			spell_name = name, damage_type = BRUTE, npc_simple_damage_mult = 2, skip_animation = TRUE)
 	else
 		L.adjustBruteLoss(dmg * (L.mind ? 1 : 2))
@@ -175,11 +175,11 @@
 	name = "boulder"
 	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "boulder"
-	damage = 110
+	damage = 100
 	nodamage = FALSE
 	damage_type = BRUTE
 	woundclass = BCLASS_BLUNT
-	flag = "blunt"
+	flag = "force"
 	intdamfactor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
 	range = SPELL_RANGE_PROJECTILE
 	speed = 3.5

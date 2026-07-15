@@ -143,7 +143,7 @@
 		if(spell_guard_check(victim, TRUE))
 			victim.visible_message(span_warning("[victim] braces against the eruption!"))
 			continue
-		arcyne_strike(caster, victim, null, erupt_direct, target_zone, BCLASS_BLUNT, \
+		arcyne_strike(caster, victim, null, erupt_direct, target_zone, BCLASS_FORCE, \
 			spell_name = "Cairn", damage_type = BRUTE, npc_simple_damage_mult = erupt_npc_mult, skip_animation = TRUE)
 		victim.apply_status_effect(/datum/status_effect/debuff/vulnerable, vuln_duration)
 		to_chat(victim, span_userdanger("Stone erupts beneath me!"))
@@ -162,7 +162,7 @@
 				continue
 			if(spell_guard_check(victim, TRUE))
 				continue
-			arcyne_strike(caster, victim, null, erupt_aoe, target_zone, BCLASS_BLUNT, \
+			arcyne_strike(caster, victim, null, erupt_aoe, target_zone, BCLASS_FORCE, \
 				spell_name = "Cairn", damage_type = BRUTE, npc_simple_damage_mult = erupt_npc_mult, skip_animation = TRUE)
 			victim.apply_status_effect(/datum/status_effect/debuff/vulnerable, vuln_duration)
 			var/push_dir = get_dir(T, victim) || get_dir(caster, victim) || pick(GLOB.cardinals)
@@ -319,7 +319,7 @@
 	if(L.anti_magic_check())
 		return
 	if(ishuman(L))
-		arcyne_strike(H, L, null, barrel_damage, H.zone_selected || BODY_ZONE_CHEST, BCLASS_BLUNT, \
+		arcyne_strike(H, L, null, barrel_damage, H.zone_selected || BODY_ZONE_CHEST, BCLASS_FORCE, \
 			spell_name = "Ramstam", damage_type = BRUTE, npc_simple_damage_mult = 1.5, skip_animation = TRUE)
 	else
 		L.adjustBruteLoss(barrel_damage * (L.mind ? 1 : 1.5))

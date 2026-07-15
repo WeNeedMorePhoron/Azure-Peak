@@ -149,16 +149,16 @@
 /obj/projectile/magic/greater_arcyne_bolt/flurry
 	name = "arcyne bolt"
 	damage = 20
-	flag = "piercing"
-	woundclass = BCLASS_PIERCE
+	flag = "force"
+	woundclass = BCLASS_BLUNT
 	speed = MAGE_PROJ_MEDIUM
 	hitsound = 'sound/combat/hits/bladed/genthrust (1).ogg'
 	impact_sounds = list('sound/combat/hits/bladed/genthrust (1).ogg', 'sound/combat/hits/bladed/genthrust (2).ogg')
 
 /obj/projectile/magic/seeker_orb/greater
 	damage = 15
-	flag = "piercing"
-	woundclass = BCLASS_PIERCE
+	flag = "force"
+	woundclass = BCLASS_BLUNT
 	speed = 5
 	hitsound = 'sound/combat/hits/bladed/genthrust (1).ogg'
 	impact_sounds = list('sound/combat/hits/bladed/genthrust (1).ogg', 'sound/combat/hits/bladed/genthrust (2).ogg')
