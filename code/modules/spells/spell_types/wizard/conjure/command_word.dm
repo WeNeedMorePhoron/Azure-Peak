@@ -403,6 +403,10 @@
 	if(!isturf(dest) || !length(summons))
 		return FALSE
 	new /obj/effect/temp_visual/conjure_taunt(dest)
+	for(var/mob/living/summon in summons)
+		if(QDELETED(summon) || summon.stat == DEAD)
+			continue
+		summon.Beam(dest, "purple_lightning", time = CONJURE_TAUNT_TELEGRAPH)
 	playsound(dest, 'sound/magic/charging.ogg', 60, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(finish_taunt), summons.Copy(), dest), CONJURE_TAUNT_TELEGRAPH)
 	return TRUE
@@ -420,6 +424,7 @@
 			if(landing)
 				summon.forceMove(landing)
 		summon.balloon_alert_to_viewers("<font color='#e0a020'>taunt!</font>")
+		summon.emote("warcry")
 		if(summon.ai_controller)
 			var/mob/living/foe = find_nearest_enemy(summon)
 			if(foe)
