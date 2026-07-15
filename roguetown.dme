@@ -3315,6 +3315,7 @@
 #include "code\modules\spells\spell_types\wizard\telomancy\arcyne_volley.dm"
 #include "code\modules\spells\spell_types\wizard\telomancy\crossing_blast.dm"
 #include "code\modules\spells\spell_types\wizard\telomancy\energetic_blast.dm"
+#include "code\modules\spells\spell_types\wizard\telomancy\orbiting_draw.dm"
 #include "code\modules\spells\spell_types\wizard\telomancy\seeker_volley.dm"
 #include "code\modules\spells\spell_types\wizard\telomancy\void_beam.dm"
 #include "code\modules\spells\spell_types\wizard\utility\create_campfire.dm"

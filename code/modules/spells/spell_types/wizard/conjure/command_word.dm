@@ -209,10 +209,10 @@
 		summon_overload(bomb)
 		return TRUE
 	var/count = 0
-	var/label = modes[current_mode]["name"]
+	var/balloon = "<font color='[modes[current_mode]["color"]]'>[lowertext(modes[current_mode]["name"])]!</font>"
 	for(var/mob/living/summon in summons)
 		if(command_summon(summon, key, aim))
-			summon.balloon_alert_to_viewers(label)
+			summon.balloon_alert_to_viewers(balloon)
 			count++
 
 	if(!count)
@@ -326,7 +326,7 @@
 			continue
 		if(focusing)
 			summon.ai_controller.set_blackboard_key(BB_FORCED_ATTACK_ZONE, zone)
-			summon.balloon_alert_to_viewers("Focus")
+			summon.balloon_alert_to_viewers("<font color='[modes[current_mode]["color"]]'>focus!</font>")
 		else
 			summon.ai_controller.clear_blackboard_key(BB_FORCED_ATTACK_ZONE)
 		count++
@@ -363,7 +363,7 @@
 /datum/action/cooldown/spell/command_word/battle/proc/summon_overload(mob/living/summon)
 	summon.do_jitter_animation(1000)
 	summon.Slowdown(3)
-	summon.balloon_alert_to_viewers("DETONATING - -4 SPD!")
+	summon.balloon_alert_to_viewers("<font color='[GLOW_COLOR_FIRE]'>detonating! (-4 spd)</font>")
 	addtimer(CALLBACK(src, PROC_REF(do_overload), summon, overload_scale(summon)), CONJURE_OVERLOAD_WINDUP)
 	return TRUE
 
@@ -444,10 +444,10 @@
 	if(key == "taunt")
 		return do_taunt(summons, get_turf(cast_on))
 	var/count = 0
-	var/label = modes[current_mode]["name"]
+	var/balloon = "<font color='[modes[current_mode]["color"]]'>[lowertext(modes[current_mode]["name"])]!</font>"
 	for(var/mob/living/summon in summons)
 		if(empower_summon(summon, key, aim))
-			summon.balloon_alert_to_viewers(label)
+			summon.balloon_alert_to_viewers(balloon)
 			count++
 
 	if(!count)
@@ -490,7 +490,6 @@
 		C.stam_paralyzed = FALSE
 	summon.set_resting(FALSE)
 	summon.stamina_add(-10)
-	summon.balloon_alert_to_viewers("<font color='[spell_color]'>surge!</font>")
 	return TRUE
 
 /datum/action/cooldown/spell/command_word/empower/proc/do_taunt(list/summons, turf/dest)
@@ -510,6 +509,7 @@
 		if(QDELETED(summon) || summon.stat == DEAD)
 			continue
 		do_teleport(summon, dest, precision = 2, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE)
+		summon.balloon_alert_to_viewers("<font color='#e0a020'>taunt!</font>")
 		if(summon.ai_controller)
 			var/mob/living/foe = find_nearest_enemy(summon)
 			if(foe)
