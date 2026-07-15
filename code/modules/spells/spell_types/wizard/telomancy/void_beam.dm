@@ -54,7 +54,7 @@
 		return FALSE
 
 	H.add_movespeed_modifier(VOID_BEAM_SLOWDOWN_ID, update = TRUE, priority = 100, multiplicative_slowdown = beam_slowdown, movetypes = GROUND)
-	playsound(get_turf(H), 'sound/magic/charging.ogg', 60, TRUE)
+	playsound(H, 'sound/magic/charging.ogg', 60, TRUE, channel = CHANNEL_CHARGED_SPELL)
 	INVOKE_ASYNC(src, PROC_REF(windup_and_fire), H, cast_on)
 	return TRUE
 
@@ -131,6 +131,7 @@
 	warnings.Cut()
 	if(H && !QDELETED(H))
 		H.remove_movespeed_modifier(VOID_BEAM_SLOWDOWN_ID)
+		H.stop_sound_channel(CHANNEL_CHARGED_SPELL)
 
 /proc/void_beam_detonate(list/turf/line, mob/living/carbon/human/caster, turf/origin, beam_dir, damage = 35, push_dist = 1, expose_dur = 6 SECONDS, datum/action/cooldown/spell/guard_source, spell_name = "Void Beam")
 	if(caster)
@@ -139,7 +140,6 @@
 		return
 
 	playsound(origin, 'sound/magic/soulshot.ogg', 90, TRUE, 4)
-	var/static/list/random_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	var/index = 0
 	var/last_index = length(line)
 	var/list/struck = list()
@@ -153,6 +153,9 @@
 		else if(index == last_index)
 			seg.icon_state = "obeliskbeam_end"
 
+		for(var/obj/structure/S in T)
+			S.take_damage(damage, BRUTE, "blunt", FALSE)
+
 		for(var/mob/living/L in T.contents)
 			if(L in struck)
 				continue
@@ -165,12 +168,13 @@
 				L.visible_message(span_warning("[L] turns the beam aside!"))
 				continue
 			if(istype(caster) && !QDELETED(caster) && ishuman(L))
-				arcyne_strike(caster, L, null, damage, pick(random_zones), \
+				arcyne_strike(caster, L, null, damage, caster.zone_selected, \
 					BCLASS_BLUNT, spell_name = spell_name, \
 					damage_type = BRUTE, npc_simple_damage_mult = 1, \
 					skip_animation = TRUE)
 			else
 				L.adjustBruteLoss(damage)
+				SEND_SIGNAL(L, COMSIG_ATOM_WAS_ATTACKED, caster, damage)
 			L.apply_status_effect(/datum/status_effect/debuff/exposed, expose_dur)
 			var/push_dir = get_dir(origin, L) || beam_dir
 			L.safe_throw_at(get_ranged_target_turf(L, push_dir, push_dist), push_dist, 1, caster, force = MOVE_FORCE_STRONG)

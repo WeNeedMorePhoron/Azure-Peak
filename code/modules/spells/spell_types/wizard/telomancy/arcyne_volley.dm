@@ -41,7 +41,7 @@
 	var/flurry_spread = 10
 	var/list/modes = list(
 		list("name" = "Cascade", "tag" = "CASC", "fire" = "stream", "proj" = /obj/projectile/magic/greater_arcyne_bolt/flurry, "per_fire" = 1, "cost" = SPELLCOST_MINOR_PROJECTILE, "cooldown" = 5.5 SECONDS, "charge" = CHARGETIME_POKE, "slowdown" = CHARGING_SLOWDOWN_SMALL, "sound" = 'sound/magic/vlightning.ogg', "invocation" = "Telum Magistri!", "icon" = "arcyne_bolt"),
-		list("name" = "Seeker", "tag" = "SEEK", "fire" = "homing", "proj" = /obj/projectile/magic/seeker_orb/greater, "per_fire" = 3, "cost" = SPELLCOST_MINOR_PROJECTILE, "cooldown" = 5.5 SECONDS, "charge" = CHARGETIME_POKE, "slowdown" = CHARGING_SLOWDOWN_SMALL, "sound" = 'sound/magic/vlightning.ogg', "invocation" = "Sequere, Telum!", "icon" = "seeker"),
+		list("name" = "Seeker", "tag" = "SEEK", "fire" = "homing", "proj" = /obj/projectile/magic/seeker_orb/greater, "per_fire" = 5, "cost" = SPELLCOST_MINOR_PROJECTILE, "cooldown" = 5.5 SECONDS, "charge" = CHARGETIME_POKE, "slowdown" = CHARGING_SLOWDOWN_SMALL, "sound" = 'sound/magic/vlightning.ogg', "invocation" = "Sequere, Telum!", "icon" = "seeker"),
 		list("name" = "Soulshot", "tag" = "SOUL", "fire" = "single", "proj" = /obj/projectile/magic/soulshot, "per_fire" = 1, "cost" = SPELLCOST_MAJOR_PROJECTILE, "cooldown" = 10 SECONDS, "charge" = CHARGETIME_MAJOR, "slowdown" = CHARGING_SLOWDOWN_SMALL, "sound" = 'sound/magic/soulshot.ogg', "invocation" = "Animus Ictus!", "icon" = "soulshot"), // Soulshot mode is a bit cheaper than basic offensive magyck for their budget
 	)
 
@@ -150,16 +150,18 @@
 	name = "arcyne bolt"
 	damage = 20
 	flag = "piercing"
-	woundclass = null
-	intdamfactor = 1
+	woundclass = BCLASS_PIERCE
 	speed = MAGE_PROJ_MEDIUM
+	hitsound = 'sound/combat/hits/bladed/genthrust (1).ogg'
+	impact_sounds = list('sound/combat/hits/bladed/genthrust (1).ogg', 'sound/combat/hits/bladed/genthrust (2).ogg')
 
 /obj/projectile/magic/seeker_orb/greater
-	damage = 20
+	damage = 15
 	flag = "piercing"
-	woundclass = BCLASS_STAB
-	intdamfactor = 1
+	woundclass = BCLASS_PIERCE
 	speed = 5
+	hitsound = 'sound/combat/hits/bladed/genthrust (1).ogg'
+	impact_sounds = list('sound/combat/hits/bladed/genthrust (1).ogg', 'sound/combat/hits/bladed/genthrust (2).ogg')
 	var/list/volley
 
 /obj/projectile/magic/seeker_orb/greater/on_guard_deflect(mob/living/defender, silent = FALSE)

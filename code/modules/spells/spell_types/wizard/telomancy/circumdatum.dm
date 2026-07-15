@@ -29,10 +29,10 @@
 
 /datum/action/cooldown/spell/circumdatum/cast(atom/cast_on)
 	. = ..()
-	if(!isliving(cast_on))
-		to_chat(owner, span_warning("That is not a valid target!"))
+	if(!ishuman(cast_on))
+		to_chat(owner, span_warning("I can only ward another person!"))
 		return FALSE
-	var/mob/living/target = cast_on
+	var/mob/living/carbon/human/target = cast_on
 	target.apply_status_effect(/datum/status_effect/buff/circumdatum, orb_count)
 	return TRUE
 
@@ -47,6 +47,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/circumdatum
 	var/orbs = 5
 	var/list/orb_visuals
+	var/last_struck_time = 0
 
 /datum/status_effect/buff/circumdatum/on_creation(mob/living/new_owner, count = 5)
 	orbs = count
@@ -58,7 +59,7 @@
 		return
 	orb_visuals = list()
 	owner.apply_status_effect(/datum/status_effect/buff/iron_skin, duration)
-	RegisterSignals(owner, list(COMSIG_MOB_ITEM_BEING_ATTACKED, COMSIG_MOB_ATTACKED_BY_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY), PROC_REF(on_struck))
+	RegisterSignals(owner, list(COMSIG_MOB_ITEM_BEING_ATTACKED, COMSIG_MOB_ATTACKED_BY_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_WAS_ATTACKED), PROC_REF(on_struck))
 	for(var/i in 1 to orbs)
 		var/obj/effect/circumdatum_orb/orb = new()
 		orb_visuals += orb
@@ -81,6 +82,9 @@
 
 /datum/status_effect/buff/circumdatum/proc/on_struck(datum/source, mob/living/struck, mob/living/attacker, obj/item/weapon)
 	SIGNAL_HANDLER
+	if(world.time == last_struck_time)
+		return
+	last_struck_time = world.time
 	deplete_orb()
 
 /datum/status_effect/buff/circumdatum/proc/deplete_orb()
@@ -96,7 +100,7 @@
 		owner.remove_status_effect(/datum/status_effect/buff/circumdatum)
 
 /datum/status_effect/buff/circumdatum/on_remove()
-	UnregisterSignal(owner, list(COMSIG_MOB_ITEM_BEING_ATTACKED, COMSIG_MOB_ATTACKED_BY_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY))
+	UnregisterSignal(owner, list(COMSIG_MOB_ITEM_BEING_ATTACKED, COMSIG_MOB_ATTACKED_BY_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_WAS_ATTACKED))
 	owner.remove_status_effect(/datum/status_effect/buff/iron_skin)
 	for(var/obj/effect/orb in orb_visuals)
 		if(owner)

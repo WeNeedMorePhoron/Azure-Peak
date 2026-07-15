@@ -52,6 +52,7 @@
 	speed = MAGE_PROJ_FAST
 	max_range = MAGE_LONG_PROJ_RANGE
 	hitsound = 'sound/combat/hits/blunt/shovel_hit2.ogg'
+	var/list/impact_sounds = list('sound/combat/hits/blunt/shovel_hit.ogg', 'sound/combat/hits/blunt/shovel_hit2.ogg', 'sound/combat/hits/blunt/shovel_hit3.ogg')
 
 /obj/projectile/magic/greater_arcyne_bolt/arc
 	name = "arced greater arcyne bolt"
@@ -59,7 +60,8 @@
 	arcshot = TRUE
 
 /obj/projectile/magic/greater_arcyne_bolt/on_hit(target)
-	hitsound = pick('sound/combat/hits/blunt/shovel_hit.ogg', 'sound/combat/hits/blunt/shovel_hit2.ogg', 'sound/combat/hits/blunt/shovel_hit3.ogg')
+	if(length(impact_sounds))
+		hitsound = pick(impact_sounds)
 	if(ismob(target))
 		var/mob/M = target
 		if(M.anti_magic_check())
