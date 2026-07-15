@@ -227,6 +227,7 @@
 	item_state = "ilongsword"
 	sheathe_icon = "ilongsword"
 	max_integrity = 100
+	smeltresult = /obj/item/ingot/iron
 
 /obj/item/rogueweapon/sword/long/blacksteel
 	name = "blacksteel longsword"
