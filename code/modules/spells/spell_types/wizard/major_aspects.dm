@@ -307,13 +307,13 @@
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/minion_order/conjurer,
-		/datum/action/cooldown/spell/command_word/battle,
-		/datum/action/cooldown/spell/command_word/empower,
+		/datum/action/cooldown/spell/command_word/fray,
+		/datum/action/cooldown/spell/command_word/harry,
+		/datum/action/cooldown/spell/command_word/quicken,
+		/datum/action/cooldown/spell/command_word/beckon,
 		/datum/action/cooldown/spell/minion_mark,
 		/datum/action/cooldown/spell/conjure_recall,
 		/datum/action/cooldown/spell/conjure_dismiss,
-		/datum/action/cooldown/spell/augment_buff/grasp,
-		/datum/action/cooldown/spell/forcewall,
 		/datum/action/cooldown/spell/conjure_projection,
 	)
 	choice_spells = list(
@@ -324,8 +324,10 @@
 	)
 	spell_order = list(
 		/datum/action/cooldown/spell/minion_order/conjurer,
-		/datum/action/cooldown/spell/command_word/battle,
-		/datum/action/cooldown/spell/command_word/empower,
+		/datum/action/cooldown/spell/command_word/fray,
+		/datum/action/cooldown/spell/command_word/harry,
+		/datum/action/cooldown/spell/command_word/quicken,
+		/datum/action/cooldown/spell/command_word/beckon,
 		ASPECT_CHOICE,
 		/datum/action/cooldown/spell/minion_mark,
 		/datum/action/cooldown/spell/conjure_projection,

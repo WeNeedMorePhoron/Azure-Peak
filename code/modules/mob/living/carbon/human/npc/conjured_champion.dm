@@ -170,7 +170,7 @@
 	. = ..()
 	var/skill = champion_skill(H)
 	H.adjust_skillrank(/datum/skill/combat/maces, skill, TRUE)
-	r_hand = /obj/item/rogueweapon/mace/maul
+	r_hand = /obj/item/rogueweapon/mace/goden/steel
 
 /datum/outfit/job/roguetown/conjured_champion/archer/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()

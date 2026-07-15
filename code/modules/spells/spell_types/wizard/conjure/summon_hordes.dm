@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/conjure_summon/hordes
 	name = "Summon Horde"
-	desc = "Call forth a pack of three phantasmal goblins to swarm your foes. Toggle their loadout with Shift+G: Raiders, Shieldwall, or Slingers. Each one killed gives a partial recoil, but nowhere as much as a champion. Recast to reinforce the pack up to three, or replace it once full."
+	desc = "Call forth a pack of three phantasmal goblins to swarm your foes. Toggle their loadout with Shift+G: Raiders, Shieldwall, Slingers, or Flails. Each one killed gives a partial recoil, but nowhere as much as a champion. Recast to reinforce the pack up to three, or replace it once full."
 	button_icon_state = "primetriangle"
 	invocations = list("Exsurgite, cohors!")
 	summon_noun = "goblin"
@@ -12,6 +12,7 @@
 		list("name" = "Raiders", "tag" = "RAI", "loadout" = "raider", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurgite, cohors!"),
 		list("name" = "Shieldwall", "tag" = "SHW", "loadout" = "shieldwall", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurgite, cohors!"),
 		list("name" = "Slingers", "tag" = "SLG", "loadout" = "sling", "color" = "#cfe8ff", "invocation" = "Exsurgite, cohors!"),
+		list("name" = "Flails", "tag" = "FLL", "loadout" = "flail", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurgite, cohors!"),
 	)
 
 /datum/action/cooldown/spell/conjure_summon/hordes/spawn_summon(turf/T, mob/living/user)

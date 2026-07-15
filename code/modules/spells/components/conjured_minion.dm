@@ -67,8 +67,7 @@
 	var/mob/living/summoner = summoner_ref?.resolve()
 	if(!summoner || summoner.stat == DEAD)
 		return
-	var/shock = (recoil_severity == CONJURE_RECOIL_FULL)
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(apply_conjure_recoil), summoner, recoil_energy_floor, recoil_severity, 1, shock, recoil_stamina_only)
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(apply_conjure_recoil), summoner, recoil_energy_floor, recoil_severity, 1, TRUE, recoil_stamina_only)
 
 /datum/component/conjured_minion/proc/check_leash(atom/movable/source, atom/newloc)
 	SIGNAL_HANDLER

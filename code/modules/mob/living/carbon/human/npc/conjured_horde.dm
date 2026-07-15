@@ -58,5 +58,10 @@
 			wrists = /obj/item/gun/ballistic/revolver/grenadelauncher/sling
 			neck = /obj/item/quiver/sling/stone
 			H.upgrade_ai_controller(/datum/ai_controller/human_npc/archer)
+		if("flail")
+			H.adjust_skillrank_up_to(/datum/skill/combat/shields, skill, TRUE)
+			H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, skill, TRUE)
+			r_hand = /obj/item/rogueweapon/flail/aflail
+			l_hand = /obj/item/rogueweapon/shield/wood
 		else
 			r_hand = /obj/item/rogueweapon/sword/short/ashort
