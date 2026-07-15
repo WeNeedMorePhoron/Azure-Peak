@@ -216,8 +216,12 @@ GLOBAL_LIST_EMPTY(redstone_objs)
 
 /obj/structure/lever/bookcase/examine(mob/user)
 	. = ..()
-	if(HAS_TRAIT(usr, TRAIT_INQUISITION))
-		desc = "Refuge for few, an irrelevance to most. There may be more to this shelf than meets the eye."
+	if(isliving(user))
+		var/mob/living/L = user
+		if(HAS_TRAIT(L, TRAIT_INQUISITION) || L.STAPER >= 15)
+			desc = "Refuge for few, an irrelevance to most. There may be more to this shelf than meets the eye."
+		else
+			desc = "Refuge for few, an irrelevance to most."
 	else
 		desc = "Refuge for few, an irrelevance to most."
 
