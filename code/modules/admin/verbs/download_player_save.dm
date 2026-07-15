@@ -3,6 +3,9 @@
 	set desc = ""
 	set category = "Server"
 
+	if(!check_rights(R_SERVER))
+		return
+
 	var/input_key = input(src, "Enter a ckey (or partial) to search for.", "Download Player Save") as text|null
 	if(!input_key)
 		return
