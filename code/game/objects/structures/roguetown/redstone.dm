@@ -217,7 +217,7 @@ GLOBAL_LIST_EMPTY(redstone_objs)
 /obj/structure/lever/bookcase/examine(mob/user)
 	. = ..()
 	if(HAS_TRAIT(usr, TRAIT_INQUISITION))
-		desc = "Refuge for few, an irrelevance to most. Something about this bookcase stirs a faint memory from your training."
+		desc = "Refuge for few, an irrelevance to most. There may be more to this shelf than meets the eye."
 	else
 		desc = "Refuge for few, an irrelevance to most."
 
