@@ -333,8 +333,6 @@
 		/datum/action/cooldown/spell/conjure_projection,
 		/datum/action/cooldown/spell/conjure_recall,
 		/datum/action/cooldown/spell/conjure_dismiss,
-		/datum/action/cooldown/spell/augment_buff/grasp,
-		/datum/action/cooldown/spell/forcewall,
 	)
 
 /datum/magic_aspect/augmentation
