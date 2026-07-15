@@ -2,7 +2,7 @@
 	button_icon = 'icons/mob/actions/mage_telomancy.dmi'
 	name = "Arcyne Burst"
 	desc = "Mark a nearby area with arcyne force. It swells for a few seconds before bursting, striking everyone across the whole zone with a wave of kinetic force and hurling them outward."
-	button_icon_state = "seeker_volley"
+	button_icon_state = "arcyne_burst"
 	sound = 'sound/magic/vlightning.ogg'
 	spell_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_MEDIUM
@@ -71,6 +71,8 @@
 		if(!(T in get_hear(radius, epicenter)))
 			continue
 		new /obj/effect/temp_visual/kinetic_blast(T)
+		for(var/obj/structure/S in T)
+			S.take_damage(damage, BRUTE, "blunt", FALSE)
 		for(var/mob/living/L in T.contents)
 			if(L.anti_magic_check())
 				L.visible_message(span_warning("The arcyne force dissipates around [L]!"))

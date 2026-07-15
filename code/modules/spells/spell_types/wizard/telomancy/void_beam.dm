@@ -4,7 +4,7 @@
 	button_icon = 'icons/mob/actions/mage_telomancy.dmi'
 	name = "Void Beam"
 	desc = "Fire a lance of raw arcyne force that exposes your foe. It is well telegraphed and does a decent amount of damaage."
-	button_icon_state = "seeker_volley"
+	button_icon_state = "void_beam"
 	sound = 'sound/magic/soulshot.ogg'
 	spell_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_HIGH
@@ -50,16 +50,44 @@
 /datum/action/cooldown/spell/void_beam/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/H = owner
-	if(!istype(H))
+	if(!istype(H) || !get_turf(H))
 		return FALSE
 
+	H.add_movespeed_modifier(VOID_BEAM_SLOWDOWN_ID, update = TRUE, priority = 100, multiplicative_slowdown = beam_slowdown, movetypes = GROUND)
+	playsound(get_turf(H), 'sound/magic/charging.ogg', 60, TRUE)
+	INVOKE_ASYNC(src, PROC_REF(windup_and_fire), H, cast_on)
+	return TRUE
+
+/datum/action/cooldown/spell/void_beam/proc/windup_and_fire(mob/living/carbon/human/H, atom/target)
+	H.apply_status_effect(/datum/status_effect/swingdelay/penalty, beam_delay + 2)
+	var/list/warnings = list()
+	var/last_dir = null
+	var/turf/last_origin = null
+	var/list/turf/line = list()
+	var/elapsed = 0
+	while(elapsed < beam_delay)
+		if(QDELETED(H) || H.stat != CONSCIOUS)
+			finish_windup(H, warnings)
+			return
+		var/turf/origin = get_turf(H)
+		var/turf/tt = get_turf(target)
+		var/beam_dir = cardinal_toward(origin, tt) || nearest_cardinal(H.dir)
+		if(beam_dir != last_dir || origin != last_origin)
+			last_dir = beam_dir
+			last_origin = origin
+			line = build_beam_line(origin, beam_dir)
+			redraw_warnings(line, warnings)
+		sleep(2)
+		elapsed += 2
+
+	finish_windup(H, warnings)
+	if(QDELETED(H) || isnull(last_dir))
+		return
 	var/turf/origin = get_turf(H)
-	if(!origin)
-		return FALSE
+	line = build_beam_line(origin, last_dir)
+	void_beam_detonate(line, H, origin, last_dir, beam_damage, push_dist, expose_duration, src, name)
 
-	var/turf/clicked = get_turf(cast_on)
-	var/beam_dir = (clicked && clicked != origin) ? get_dir(origin, clicked) : H.dir
-
+/datum/action/cooldown/spell/void_beam/proc/build_beam_line(turf/origin, beam_dir)
 	var/list/turf/line = list()
 	var/turf/current = origin
 	for(var/i in 1 to beam_range)
@@ -67,17 +95,42 @@
 		if(!next || next.density)
 			break
 		line += next
-		new /obj/effect/temp_visual/pillar_warning/fadein(next, beam_delay)
 		current = next
+	return line
 
-	if(!length(line))
-		return FALSE
+/datum/action/cooldown/spell/void_beam/proc/cardinal_toward(turf/origin, turf/tt)
+	if(!origin || !tt || tt == origin)
+		return null
+	var/dx = tt.x - origin.x
+	var/dy = tt.y - origin.y
+	if(abs(dx) >= abs(dy))
+		return (dx > 0) ? EAST : WEST
+	return (dy > 0) ? NORTH : SOUTH
 
-	H.add_movespeed_modifier(VOID_BEAM_SLOWDOWN_ID, update = TRUE, priority = 100, multiplicative_slowdown = beam_slowdown, movetypes = GROUND)
-	playsound(origin, 'sound/magic/charging.ogg', 60, TRUE)
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(void_beam_detonate), line, H, origin, beam_dir, beam_damage, push_dist, expose_duration, src, name), beam_delay)
+/datum/action/cooldown/spell/void_beam/proc/nearest_cardinal(dir)
+	if(dir & NORTH)
+		return NORTH
+	if(dir & SOUTH)
+		return SOUTH
+	if(dir & EAST)
+		return EAST
+	if(dir & WEST)
+		return WEST
+	return SOUTH
 
-	return TRUE
+/datum/action/cooldown/spell/void_beam/proc/redraw_warnings(list/turf/line, list/warnings)
+	for(var/obj/effect/old in warnings)
+		qdel(old)
+	warnings.Cut()
+	for(var/turf/T in line)
+		warnings += new /obj/effect/temp_visual/trap/telomancy(T)
+
+/datum/action/cooldown/spell/void_beam/proc/finish_windup(mob/living/carbon/human/H, list/warnings)
+	for(var/obj/effect/old in warnings)
+		qdel(old)
+	warnings.Cut()
+	if(H && !QDELETED(H))
+		H.remove_movespeed_modifier(VOID_BEAM_SLOWDOWN_ID)
 
 /proc/void_beam_detonate(list/turf/line, mob/living/carbon/human/caster, turf/origin, beam_dir, damage = 35, push_dist = 1, expose_dur = 6 SECONDS, datum/action/cooldown/spell/guard_source, spell_name = "Void Beam")
 	if(caster)
@@ -89,6 +142,7 @@
 	var/static/list/random_zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 	var/index = 0
 	var/last_index = length(line)
+	var/list/struck = list()
 
 	for(var/turf/T in line)
 		index++
@@ -100,6 +154,9 @@
 			seg.icon_state = "obeliskbeam_end"
 
 		for(var/mob/living/L in T.contents)
+			if(L in struck)
+				continue
+			struck += L
 			if(L.anti_magic_check())
 				L.visible_message(span_warning("The beam splinters against [L]!"))
 				playsound(T, 'sound/magic/magic_nulled.ogg', 100)

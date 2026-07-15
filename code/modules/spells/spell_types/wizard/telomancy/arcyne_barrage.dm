@@ -24,6 +24,7 @@
 
 	charge_required = TRUE
 	weapon_cast_penalized = TRUE
+	charge_swingdelay_type = SWINGDELAY_PENALTY
 	charge_time = CHARGETIME_HEAVY
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM

@@ -4,7 +4,7 @@
 	desc = "Advanced Offensive Magyck, refined over millenium and turned into a true Telomancer's ultimate thesis! Toggle firing mode (Shift+G) while the spell is active: \
 	Cascade looses a rapid stream of bolts at a single foe, Seeker sends homing orbs that pass harmlessly through all but their mark, and Soulshot fires a piercing beam through several foes. \
 	Deals 50% increased damage to simple-minded creechurs."
-	button_icon_state = "greater_arcyne_bolt"
+	button_icon_state = "arcyne_bolt"
 	sound = 'sound/magic/vlightning.ogg'
 	spell_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_MEDIUM
@@ -40,8 +40,8 @@
 	var/flurry_shot_delay = 2
 	var/flurry_spread = 10
 	var/list/modes = list(
-		list("name" = "Cascade", "tag" = "CASC", "fire" = "stream", "proj" = /obj/projectile/magic/greater_arcyne_bolt/flurry, "per_fire" = 1, "cost" = SPELLCOST_MINOR_PROJECTILE, "cooldown" = 5.5 SECONDS, "charge" = CHARGETIME_POKE, "slowdown" = CHARGING_SLOWDOWN_SMALL, "sound" = 'sound/magic/vlightning.ogg', "invocation" = "Telum Magistri!", "icon" = "greater_arcyne_bolt"),
-		list("name" = "Seeker", "tag" = "SEEK", "fire" = "homing", "proj" = /obj/projectile/magic/seeker_orb/greater, "per_fire" = 3, "cost" = SPELLCOST_MINOR_PROJECTILE, "cooldown" = 5.5 SECONDS, "charge" = CHARGETIME_POKE, "slowdown" = CHARGING_SLOWDOWN_SMALL, "sound" = 'sound/magic/vlightning.ogg', "invocation" = "Sequere, Telum!", "icon" = "seeker_volley"),
+		list("name" = "Cascade", "tag" = "CASC", "fire" = "stream", "proj" = /obj/projectile/magic/greater_arcyne_bolt/flurry, "per_fire" = 1, "cost" = SPELLCOST_MINOR_PROJECTILE, "cooldown" = 5.5 SECONDS, "charge" = CHARGETIME_POKE, "slowdown" = CHARGING_SLOWDOWN_SMALL, "sound" = 'sound/magic/vlightning.ogg', "invocation" = "Telum Magistri!", "icon" = "arcyne_bolt"),
+		list("name" = "Seeker", "tag" = "SEEK", "fire" = "homing", "proj" = /obj/projectile/magic/seeker_orb/greater, "per_fire" = 3, "cost" = SPELLCOST_MINOR_PROJECTILE, "cooldown" = 5.5 SECONDS, "charge" = CHARGETIME_POKE, "slowdown" = CHARGING_SLOWDOWN_SMALL, "sound" = 'sound/magic/vlightning.ogg', "invocation" = "Sequere, Telum!", "icon" = "seeker"),
 		list("name" = "Soulshot", "tag" = "SOUL", "fire" = "single", "proj" = /obj/projectile/magic/soulshot, "per_fire" = 1, "cost" = SPELLCOST_MAJOR_PROJECTILE, "cooldown" = 10 SECONDS, "charge" = CHARGETIME_MAJOR, "slowdown" = CHARGING_SLOWDOWN_SMALL, "sound" = 'sound/magic/soulshot.ogg', "invocation" = "Animus Ictus!", "icon" = "soulshot"), // Soulshot mode is a bit cheaper than basic offensive magyck for their budget
 	)
 

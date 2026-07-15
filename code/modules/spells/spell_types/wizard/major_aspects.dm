@@ -198,11 +198,11 @@
 		"Telum, a me discedere!",
 	)
 	fixed_spells = list(
-		/datum/action/cooldown/spell/projectile/basic_offensive,
-		/datum/action/cooldown/spell/projectile/arcyne_salvo,
-		/datum/action/cooldown/spell/telegraphed_strike/crossing_blast,
+		/datum/action/cooldown/spell/projectile/arcyne_volley,
+		/datum/action/cooldown/spell/void_beam,
 		/datum/action/cooldown/spell/arcyne_burst,
-		/datum/action/cooldown/spell/greater_cleaning, // placeholder free utility - replace with Recall once implemented
+		/datum/action/cooldown/spell/circumdatum,
+		/datum/action/cooldown/spell/greater_cleaning,
 	)
 	variants = list(
 		"mastery" = list(
@@ -306,16 +306,14 @@
 		"Vocatio, a me discedere!",
 	)
 	fixed_spells = list(
-		/datum/action/cooldown/spell/projectile/basic_offensive, // If too op I will give them bolt instead
 		/datum/action/cooldown/spell/minion_order/conjurer,
+		/datum/action/cooldown/spell/command_word/battle,
+		/datum/action/cooldown/spell/command_word/empower,
 		/datum/action/cooldown/spell/minion_mark,
 		/datum/action/cooldown/spell/conjure_recall,
 		/datum/action/cooldown/spell/conjure_dismiss,
 		/datum/action/cooldown/spell/augment_buff/grasp,
 		/datum/action/cooldown/spell/forcewall,
-		/datum/action/cooldown/spell/augment_buff/surge,
-		/datum/action/cooldown/spell/augment_buff/guidance,
-		/datum/action/cooldown/spell/augment_buff/blood_rush,
 		/datum/action/cooldown/spell/conjure_projection,
 	)
 	choice_spells = list(
@@ -325,18 +323,16 @@
 		/datum/action/cooldown/spell/conjure_summon/hordes,
 	)
 	spell_order = list(
-		/datum/action/cooldown/spell/projectile/basic_offensive,
-		ASPECT_CHOICE,
 		/datum/action/cooldown/spell/minion_order/conjurer,
+		/datum/action/cooldown/spell/command_word/battle,
+		/datum/action/cooldown/spell/command_word/empower,
+		ASPECT_CHOICE,
 		/datum/action/cooldown/spell/minion_mark,
 		/datum/action/cooldown/spell/conjure_projection,
 		/datum/action/cooldown/spell/conjure_recall,
 		/datum/action/cooldown/spell/conjure_dismiss,
 		/datum/action/cooldown/spell/augment_buff/grasp,
 		/datum/action/cooldown/spell/forcewall,
-		/datum/action/cooldown/spell/augment_buff/surge,
-		/datum/action/cooldown/spell/augment_buff/guidance,
-		/datum/action/cooldown/spell/augment_buff/blood_rush,
 	)
 
 /datum/magic_aspect/augmentation
