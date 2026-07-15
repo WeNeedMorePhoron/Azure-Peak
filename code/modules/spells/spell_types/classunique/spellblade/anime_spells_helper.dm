@@ -81,9 +81,9 @@ without going through the click pipeline, so spells can deliver weapon-style str
 	if(npc_simple_damage_mult != 1 && istype(target, /mob/living/simple_animal))
 		damage = round(damage * npc_simple_damage_mult)
 
-	// Default intdamage factor: blunt gets 1.6x (same as melee blunt), others get 1.0
+	// Default intdamage factor: melee blunt gets 1.6x; force and everything else get 1.0
 	if(isnull(intdamage_factor))
-		intdamage_factor = (blade_class == BCLASS_BLUNT) ? BLUNT_DEFAULT_INT_DAMAGEFACTOR : 1
+		intdamage_factor = (blade_class == BCLASS_BLUNT && attack_flag != "force") ? BLUNT_DEFAULT_INT_DAMAGEFACTOR : 1
 	var/armor_block = target.run_armor_check(def_zone, attack_flag, blade_dulling = blade_class, armor_penetration = armor_penetration, damage = damage, intdamfactor = intdamage_factor, flat_integ = flat_integ)
 	var/damage_dealt = target.apply_damage(damage, damage_type, def_zone, armor_block)
 	SEND_SIGNAL(target, COMSIG_ATOM_WAS_ATTACKED, user, damage)

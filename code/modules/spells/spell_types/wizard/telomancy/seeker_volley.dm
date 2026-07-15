@@ -60,7 +60,7 @@
 	accuracy = 100
 	guard_deflectable = TRUE
 	npc_simple_damage_mult = 1.5
-	intdamfactor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
+	intdamfactor = 1
 	hitsound = 'sound/combat/hits/blunt/shovel_hit2.ogg'
 	homing_turn_speed = 35
 	homing_inaccuracy_max = 12

@@ -46,7 +46,7 @@
 	damage_type = BRUTE
 	flag = "force"
 	woundclass = BCLASS_BLUNT
-	intdamfactor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
+	intdamfactor = 1
 	npc_simple_damage_mult = 1.5
 	nodamage = FALSE
 	speed = MAGE_PROJ_FAST

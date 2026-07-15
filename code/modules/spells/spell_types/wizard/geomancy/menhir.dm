@@ -180,7 +180,7 @@
 	damage_type = BRUTE
 	woundclass = BCLASS_BLUNT
 	flag = "force"
-	intdamfactor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
+	intdamfactor = 1
 	range = SPELL_RANGE_PROJECTILE
 	speed = 3.5
 	accuracy = 30
