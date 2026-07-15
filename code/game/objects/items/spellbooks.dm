@@ -210,11 +210,9 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 		name = "\improper [design] tome"
 		return
 	if(!open)
-		slot_flags &= ~ITEM_SLOT_HIP
 		open = TRUE
 		playsound(loc, 'sound/items/book_open.ogg', 100, FALSE, -1)
 	else
-		slot_flags |= ITEM_SLOT_HIP
 		open = FALSE
 		playsound(loc, 'sound/items/book_close.ogg', 100, FALSE, -1)
 	curpage = 1
