@@ -693,6 +693,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			M.update_inv_mouth()
 			packeditem = 0
 			name = "empty [initial(name)]"
+			record_featured_stat(FEATURED_STATS_SMOKERS, M)
 		STOP_PROCESSING(SSobj, src)
 		return
 	open_flame()
