@@ -5,6 +5,7 @@ export type Spell = {
   fluff_desc: string;
   cost: number;
   exclusive_group?: string | null;
+  mastery_only?: boolean;
 };
 
 export type VariantSwap = {

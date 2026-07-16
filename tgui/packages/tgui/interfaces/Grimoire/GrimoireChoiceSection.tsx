@@ -9,6 +9,7 @@ export const GrimoireChoiceSection = ({
   act,
   readOnly = false,
   variantOverride,
+  userTier = 0,
 }: {
   aspect: Aspect;
   stagedChoices: Record<string, string>;
@@ -17,6 +18,7 @@ export const GrimoireChoiceSection = ({
   act: (action: string, params: Record<string, unknown>) => void;
   readOnly?: boolean;
   variantOverride?: string;
+  userTier?: number;
 }) => {
   const currentChoice = stagedChoices[aspect.path] || null;
   const hasChosen = currentChoice !== null;
@@ -48,6 +50,9 @@ export const GrimoireChoiceSection = ({
         </div>
       )}
       {aspect.choice_spells.map((spell) => {
+        if (spell.mastery_only && userTier < 4) {
+          return null;
+        }
         const display = swapMap[spell.path] || spell;
         const isSwapped = display !== spell;
         const isSelected = currentChoice === spell.path;
@@ -108,6 +113,18 @@ export const GrimoireChoiceSection = ({
                   }}
                 >
                   - tradition
+                </span>
+              )}
+              {spell.mastery_only && (
+                <span
+                  style={{
+                    fontSize: '10px',
+                    opacity: 0.7,
+                    fontStyle: 'italic',
+                    color: 'rgba(220,180,120,0.9)',
+                  }}
+                >
+                  - mastery
                 </span>
               )}
             </div>

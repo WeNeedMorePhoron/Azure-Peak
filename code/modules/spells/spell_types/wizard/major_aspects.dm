@@ -321,6 +321,10 @@
 		/datum/action/cooldown/spell/conjure_summon/champion,
 		/datum/action/cooldown/spell/conjure_summon/attacker,
 		/datum/action/cooldown/spell/conjure_summon/hordes,
+		/datum/action/cooldown/spell/conjure_summon/peasant_swarm,
+	)
+	mastery_choice_spells = list(
+		/datum/action/cooldown/spell/conjure_summon/peasant_swarm,
 	)
 	spell_order = list(
 		/datum/action/cooldown/spell/minion_order/conjurer,

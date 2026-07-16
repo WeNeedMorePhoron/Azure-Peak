@@ -9,6 +9,8 @@
 	var/list/fixed_spells = list()
 	/// Choice spells - pick exactly one. Granted FIRST (before fixed) so they appear first on the action bar.
 	var/list/choice_spells = list()
+	/// Subset of choice_spells only selectable at Mastery (T4). Still live in choice_spells for the grant/swap machinery.
+	var/list/mastery_choice_spells = list()
 	/// Pointbuy are optionals - for point buy aspect
 	var/list/pointbuy_spells = list()
 	var/pointbuy_budget = 0

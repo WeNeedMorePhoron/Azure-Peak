@@ -106,6 +106,7 @@ export const GrimoireAspectDetail = ({
             act={act}
             readOnly={readOnly}
             variantOverride={variantOverride}
+            userTier={userTier}
           />
         )}
 

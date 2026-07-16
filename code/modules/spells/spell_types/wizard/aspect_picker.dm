@@ -247,7 +247,10 @@
 
 		entry["choice_spells"] = list()
 		for(var/spell_path in A.choice_spells)
-			entry["choice_spells"] += list(build_spell_entry(spell_path))
+			var/list/choice_entry = build_spell_entry(spell_path)
+			if(spell_path in A.mastery_choice_spells)
+				choice_entry["mastery_only"] = TRUE
+			entry["choice_spells"] += list(choice_entry)
 
 		entry["fixed_spells"] = list()
 		for(var/spell_path in A.fixed_spells)
@@ -456,6 +459,16 @@
 			var/spell_path = params["spell_path"]
 			if(!aspect_path || !spell_path)
 				return
+			if(!mastery)
+				var/datum/magic_aspect/probe_type = text2path(aspect_path)
+				var/probe_spell = text2path(spell_path)
+				if(ispath(probe_type, /datum/magic_aspect) && probe_spell)
+					var/datum/magic_aspect/probe = new probe_type
+					var/gated = (probe_spell in probe.mastery_choice_spells)
+					qdel(probe)
+					if(gated)
+						to_chat(owner, span_warning("Only a Master of this aspect may call forth such a summon."))
+						return
 			// Exclusive toggle — selecting one deselects the previous
 			if(staged_choices[aspect_path] == spell_path)
 				staged_choices -= aspect_path

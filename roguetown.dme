@@ -2435,6 +2435,7 @@
 #include "code\modules\mob\living\carbon\human\npc\conjured_attacker.dm"
 #include "code\modules\mob\living\carbon\human\npc\conjured_champion.dm"
 #include "code\modules\mob\living\carbon\human\npc\conjured_horde.dm"
+#include "code\modules\mob\living\carbon\human\npc\conjured_peasant.dm"
 #include "code\modules\mob\living\carbon\human\npc\deadite.dm"
 #include "code\modules\mob\living\carbon\human\npc\deranged_knight.dm"
 #include "code\modules\mob\living\carbon\human\npc\drow.dm"
