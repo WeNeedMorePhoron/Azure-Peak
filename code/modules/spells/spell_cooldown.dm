@@ -643,6 +643,11 @@
 			owner.balloon_alert(owner, "Too exposed to focus!")
 		return FALSE
 
+	if(!(spell_requirements & SPELL_CASTABLE_WHILE_MOUNTED) && owner.client && owner.buckled && isliving(owner.buckled))
+		if(feedback)
+			owner.balloon_alert(owner, "Too distracted riding to cast!")
+		return FALSE
+
 	for(var/datum/action/cooldown/spell/spell in owner.actions)
 		if(spell == src)
 			continue
