@@ -3228,6 +3228,7 @@
 #include "code\modules\spells\spell_types\wizard\conjure\_conjure_summon.dm"
 #include "code\modules\spells\spell_types\wizard\conjure\arcyne_forge.dm"
 #include "code\modules\spells\spell_types\wizard\conjure\command_word.dm"
+#include "code\modules\spells\spell_types\wizard\conjure\conjure_aegis.dm"
 #include "code\modules\spells\spell_types\wizard\conjure\conjure_arcyne_ward.dm"
 #include "code\modules\spells\spell_types\wizard\conjure\conjure_crystalhide.dm"
 #include "code\modules\spells\spell_types\wizard\conjure\conjure_dismiss.dm"
