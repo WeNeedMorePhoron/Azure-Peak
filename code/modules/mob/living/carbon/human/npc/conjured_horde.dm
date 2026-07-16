@@ -57,6 +57,8 @@
 			r_hand = null
 			wrists = /obj/item/gun/ballistic/revolver/grenadelauncher/sling
 			neck = /obj/item/quiver/sling/stone
+			H.STACON -= 1
+			H.STAWIL -= 1
 			H.upgrade_ai_controller(/datum/ai_controller/human_npc/archer)
 		if("flail")
 			H.adjust_skillrank_up_to(/datum/skill/combat/shields, skill, TRUE)

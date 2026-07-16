@@ -57,7 +57,9 @@
 			AI_THINK(pawn, "BOW-STANCE: could not draw bow, active hand blocked by [blocker || "nothing"][blocker && HAS_TRAIT(blocker, TRAIT_NODROP) ? " (NODROP)" : ""]")
 			return FALSE
 
-	var/turf/retreat = _archer_retreat_turf(pawn, target)
+	var/turf/retreat
+	if(get_dist(pawn, target) <= ARCHER_NPC_KITE_RANGE)
+		retreat = _archer_retreat_turf(pawn, target)
 	set_movement_target(controller, retreat || get_turf(pawn))
 	SEND_SIGNAL(controller.pawn, COMSIG_COMBAT_TARGET_SET, TRUE)
 	if(istype(bow, /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow))
@@ -146,6 +148,8 @@
 		var/turf/next = get_step(probe, away)
 		if(!next || next.is_blocked_turf(exclude_mobs = TRUE))
 			break
+		if(get_dist(next, target) > ARCHER_NPC_KITE_RANGE + 2)
+			break
 		best = next
 		probe = next
 	if(best)
@@ -166,6 +170,7 @@
 	var/cur_dist = get_dist(pawn, target)
 	var/list/dirs = GLOB.alldirs.Copy()
 	dirs -= get_dir(pawn, target)
+	dirs -= get_dir(target, pawn)
 	shuffle_inplace(dirs)
 	for(var/dir in dirs)
 		var/turf/best = null
@@ -176,7 +181,7 @@
 				break
 			best = next
 			probe = next
-		if(best && get_dist(best, target) >= cur_dist)
+		if(best && get_dist(best, target) >= cur_dist && get_dist(best, target) <= ARCHER_NPC_SHOOT_RANGE)
 			return best
 	return null
 

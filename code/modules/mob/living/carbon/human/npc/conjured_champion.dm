@@ -210,6 +210,8 @@
 	. = ..()
 	var/ranged_skill = min(champion_skill(H), SKILL_LEVEL_EXPERT)
 	H.STAPER = 13 + champion_tier(H)
+	H.STACON -= 1
+	H.STAWIL -= 1
 	H.adjust_skillrank(/datum/skill/combat/bows, ranged_skill, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/swords, clamp(ranged_skill - 1, 2, 6), TRUE)
 	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/longbow
@@ -220,6 +222,8 @@
 	. = ..()
 	var/ranged_skill = min(champion_skill(H), SKILL_LEVEL_EXPERT)
 	H.STAPER = 13 + champion_tier(H)
+	H.STACON -= 1
+	H.STAWIL -= 1
 	H.adjust_skillrank(/datum/skill/combat/crossbows, ranged_skill, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/swords, clamp(ranged_skill - 1, 2, SKILL_LEVEL_EXPERT), TRUE)
 	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow

@@ -152,8 +152,8 @@
 #define ARCHER_NPC_EQUIPMENT_CACHE_TIME (40 SECONDS)
 #define ARCHER_NPC_MIN_RANGE            4 
 #define ARCHER_NPC_KITE_FLOOR           1   
-#define ARCHER_NPC_KITE_RANGE           5 
-#define ARCHER_NPC_SHOOT_RANGE          7
+#define ARCHER_NPC_KITE_RANGE           3
+#define ARCHER_NPC_SHOOT_RANGE          6
 #define ARCHER_NPC_ROF_PENALTY          1.3
 #define ARCHER_NPC_BASE_SPREAD          25 
 #define ARCHER_NPC_RETREAT_PROJECT      4
