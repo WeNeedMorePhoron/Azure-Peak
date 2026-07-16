@@ -171,7 +171,7 @@
 				continue
 			if(istype(caster) && !QDELETED(caster) && ishuman(L))
 				arcyne_strike(caster, L, null, damage, caster.zone_selected, \
-					BCLASS_FORCE, spell_name = spell_name, \
+					BCLASS_PIERCE, spell_name = spell_name, \
 					damage_type = BRUTE, npc_simple_damage_mult = 1, \
 					skip_animation = TRUE)
 			else
