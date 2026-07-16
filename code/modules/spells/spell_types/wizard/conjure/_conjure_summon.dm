@@ -20,7 +20,7 @@
 	attunement_school = ASPECT_NAME_CONJURATION
 
 	click_to_activate = TRUE
-	cast_range = SPELL_RANGE_ADJACENT
+	cast_range = 2
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_CONJURE
