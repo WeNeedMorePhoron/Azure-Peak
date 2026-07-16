@@ -52,8 +52,8 @@
 
 	if(pawn.get_active_held_item() != bow)
 		_enter_bow_stance(controller, pawn, bow)
-		if(pawn.get_active_held_item() != bow)
-			var/obj/item/blocker = pawn.get_active_held_item()
+		var/obj/item/blocker = pawn.get_active_held_item()
+		if(blocker != bow)
 			AI_THINK(pawn, "BOW-STANCE: could not draw bow, active hand blocked by [blocker || "nothing"][blocker && HAS_TRAIT(blocker, TRAIT_NODROP) ? " (NODROP)" : ""]")
 			return FALSE
 
