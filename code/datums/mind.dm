@@ -483,17 +483,22 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		return FALSE
 	if(aspect.chosen_spell == new_choice)
 		return FALSE
+	var/old_path = aspect.resolve_variant_spell(aspect.chosen_spell)
+	var/new_path = aspect.resolve_variant_spell(new_choice)
 	var/insert_index
 	if(aspect.chosen_spell)
-		var/datum/existing = get_spell(aspect.chosen_spell, specific = TRUE)
+		var/datum/existing = get_spell(old_path, specific = TRUE)
 		if(existing)
 			insert_index = spell_list.Find(existing)
 			RemoveSpell(existing)
 	aspect.chosen_spell = new_choice
-	if(has_spell(new_choice, specific = TRUE))
+	if(has_spell(new_path, specific = TRUE))
 		return TRUE
-	var/datum/new_spell = new new_choice
+	var/datum/new_spell = new new_path
 	aspect.mark_aspect_spell(new_spell)
+	if(new_path != new_choice && istype(new_spell, /datum/action/cooldown/spell))
+		var/datum/action/cooldown/spell/tagged = new_spell
+		tagged.desc = "[tagged.desc]\n<b>Variant:</b> [capitalize(aspect.applied_variant)]"
 	if(insert_index && insert_index <= length(spell_list) + 1)
 		spell_list.Insert(insert_index, new_spell)
 		if(istype(new_spell, /datum/action/cooldown/spell))

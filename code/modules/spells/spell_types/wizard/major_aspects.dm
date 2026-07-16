@@ -334,6 +334,11 @@
 		/datum/action/cooldown/spell/conjure_recall,
 		/datum/action/cooldown/spell/conjure_dismiss,
 	)
+	variants = list(
+		"gefechtsgelehrter" = list(
+			/datum/action/cooldown/spell/conjure_summon/champion = /datum/action/cooldown/spell/conjure_summon/doppelsoldner,
+		),
+	)
 
 /datum/magic_aspect/augmentation
 	name = "Augmentation"

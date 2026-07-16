@@ -18,6 +18,7 @@
 	/// "mastery" is automatically applied for T4 casters.
 	/// Other variants (e.g. "gefechtsgelehrter") are passed in via attune_aspect().
 	var/list/variants = list()
+	var/applied_variant
 	var/school_color
 	/// Major: Latin, English, Latin. Minor: Latin, English.
 	var/list/binding_chants = list()
@@ -82,6 +83,7 @@
 /datum/magic_aspect/proc/apply_variant(datum/mind/target, variant_name)
 	if(!variant_name || !length(variants) || !(variant_name in variants))
 		return
+	applied_variant = variant_name
 	var/list/swaps = variants[variant_name]
 	if(!length(swaps))
 		return
@@ -115,6 +117,13 @@
 					S.action.Grant(target.current)
 			else
 				target.AddSpell(upgraded)
+
+/// Resolve a base choice-spell path to the spell actually granted, accounting for the applied variant swap.
+/datum/magic_aspect/proc/resolve_variant_spell(base_path)
+	if(!base_path || !applied_variant || !(applied_variant in variants))
+		return base_path
+	var/list/swaps = variants[applied_variant]
+	return swaps[base_path] || base_path
 
 /// Revoke all spells granted by this aspect.
 /// skip_spells: flat list of spell paths that should NOT be removed (granted by another source).

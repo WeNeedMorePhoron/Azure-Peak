@@ -105,6 +105,7 @@ export const GrimoireAspectDetail = ({
             claimedGroups={claimedGroups}
             act={act}
             readOnly={readOnly}
+            variantOverride={variantOverride}
           />
         )}
 
@@ -121,6 +122,7 @@ export const GrimoireAspectDetail = ({
           <GrimoireVariantSection
             variants={aspect.variants}
             fixedSpells={aspect.fixed_spells}
+            choiceSpells={aspect.choice_spells}
             userTier={userTier}
             variantOverride={variantOverride}
           />

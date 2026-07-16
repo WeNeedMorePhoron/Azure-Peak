@@ -77,6 +77,18 @@
 		if("maceman")
 			outfit_champion(new /datum/outfit/job/roguetown/conjured_champion/maceman)
 			def_intent_change(INTENT_PARRY)
+		if("dopp_zwei")
+			outfit_champion(new /datum/outfit/job/roguetown/conjured_champion/doppelsoldner/zwei)
+			def_intent_change(INTENT_PARRY)
+		if("dopp_halberd")
+			outfit_champion(new /datum/outfit/job/roguetown/conjured_champion/doppelsoldner/halberd)
+			def_intent_change(INTENT_PARRY)
+		if("dopp_partizan")
+			outfit_champion(new /datum/outfit/job/roguetown/conjured_champion/doppelsoldner/partizan)
+			def_intent_change(INTENT_PARRY)
+		if("dopp_kmb")
+			outfit_champion(new /datum/outfit/job/roguetown/conjured_champion/doppelsoldner/kmb)
+			def_intent_change(INTENT_PARRY)
 		else
 			outfit_champion(new /datum/outfit/job/roguetown/conjured_champion/greatswordman)
 			def_intent_change(INTENT_PARRY)
@@ -212,3 +224,38 @@
 	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 	backl = /obj/item/quiver/bolt/conjured
 	beltr = /obj/item/rogueweapon/sword/short/iron
+
+/datum/outfit/job/roguetown/conjured_champion/doppelsoldner/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/grenzelhoft
+	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants
+	shoes = /obj/item/clothing/shoes/roguetown/grenzelhoft
+	gloves = /obj/item/clothing/gloves/roguetown/angle/grenzelgloves
+	head = /obj/item/clothing/head/roguetown/helmet/sallet/grenzelhoft
+
+/datum/outfit/job/roguetown/conjured_champion/doppelsoldner/zwei/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/skill = champion_skill(H)
+	H.adjust_skillrank(/datum/skill/combat/swords, skill, TRUE)
+	r_hand = /obj/item/rogueweapon/greatsword/grenz
+
+/datum/outfit/job/roguetown/conjured_champion/doppelsoldner/halberd/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/skill = champion_skill(H)
+	H.adjust_skillrank(/datum/skill/combat/polearms, skill, TRUE)
+	r_hand = /obj/item/rogueweapon/halberd
+
+/datum/outfit/job/roguetown/conjured_champion/doppelsoldner/partizan/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/skill = champion_skill(H)
+	H.adjust_skillrank(/datum/skill/combat/polearms, skill, TRUE)
+	r_hand = /obj/item/rogueweapon/spear/partizan
+
+/datum/outfit/job/roguetown/conjured_champion/doppelsoldner/kmb/pre_equip(mob/living/carbon/human/H, visualsOnly)
+	. = ..()
+	var/skill = champion_skill(H)
+	H.adjust_skillrank(/datum/skill/combat/swords, skill, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/shields, skill, TRUE)
+	r_hand = /obj/item/rogueweapon/sword/long/kriegmesser
+	l_hand = /obj/item/rogueweapon/shield/buckler

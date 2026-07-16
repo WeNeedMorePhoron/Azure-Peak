@@ -27,3 +27,24 @@
 	champion.gear_tier = get_summon_tier(user)
 	champion.summoner_ref = WEAKREF(user)
 	return champion
+
+/datum/action/cooldown/spell/conjure_summon/doppelsoldner
+	name = "Conjure Doppelsoldner"
+	desc = "Call forth a bound spirit into the body of a Doppelsoldner - an imitation of a fencer of Zenitstadt fencing guild, with the proper plumed beret. Toggle their arms with Shift+G: Zweihander, Halberd, Partizan, or Kriegmesser & Buckler."
+	button_icon_state = "primetriangle"
+	summon_noun = "doppelsoldner"
+	recoil_energy_floor = 200
+	modes = list(
+		list("name" = "Zweihander", "tag" = "ZWE", "loadout" = "dopp_zwei", "color" = GLOW_COLOR_ARCANE, "invocation" = "Erhebe dich, Doppelsoldner!"),
+		list("name" = "Halberd", "tag" = "HLB", "loadout" = "dopp_halberd", "color" = GLOW_COLOR_ARCANE, "invocation" = "Erhebe dich, Landsknecht!"),
+		list("name" = "Partizan", "tag" = "PTZ", "loadout" = "dopp_partizan", "color" = GLOW_COLOR_ARCANE, "invocation" = "Erhebe dich, Landsknecht!"),
+		list("name" = "Kriegmesser & Buckler", "tag" = "KMB", "loadout" = "dopp_kmb", "color" = GLOW_COLOR_ARCANE, "invocation" = "Erhebe dich, Doppelsoldner!"),
+	)
+
+/datum/action/cooldown/spell/conjure_summon/doppelsoldner/spawn_summon(turf/T, mob/living/user)
+	var/mob/living/carbon/human/species/human/northern/conjured_champion/champion = new(T)
+	champion.loadout = modes[current_mode]["loadout"]
+	champion.arcane_scale = clamp(user.get_skill_level(/datum/skill/combat/arcyne), 1, 6)
+	champion.gear_tier = get_summon_tier(user)
+	champion.summoner_ref = WEAKREF(user)
+	return champion

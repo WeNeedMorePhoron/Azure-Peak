@@ -198,6 +198,19 @@
 			pic2.color = get_altdetail_color()
 		add_overlay(pic2)
 
+/obj/item/clothing/head/roguetown/decoration/grenzelberet
+	name = "grenzelhoft plume beret"
+	desc = "A Grenzelhoftian plume beret, to be nestled atop a helmet as pure decoration or worn on its own."
+	icon = 'icons/roguetown/clothing/head.dmi'
+	icon_state = "grenzelhat"
+	item_state = "grenzelhat"
+	sleeved = 'icons/roguetown/clothing/onmob/helpers/stonekeep_merc.dmi'
+	slot_flags = ITEM_SLOT_HEAD
+	body_parts_covered = null
+	dynamic_hair_suffix = ""
+	resistance_flags = FIRE_PROOF
+	color = "#262927"
+
 //................ Briar Thorns ............... //	- Dendor Briar
 /obj/item/clothing/head/roguetown/briarthorns
 	name = "briar thorns"
