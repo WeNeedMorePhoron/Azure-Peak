@@ -28,7 +28,7 @@
 	self_cast_possible = TRUE
 
 	primary_resource_type = SPELL_COST_NONE
-	cooldown_time = 15 SECONDS
+	cooldown_time = 1 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 3
@@ -55,6 +55,7 @@
 			if(faction_tag in target.mind.current.faction)
 				target.mind.current.faction -= faction_tag
 				user.say("Hostis declaratus es.", language = /datum/language/common)
+				target.notify_faction_change()
 			else
 				target.mind.current.faction += faction_tag
 				user.say("Amicus declaratus es.", language = /datum/language/common)
@@ -63,6 +64,7 @@
 			if(faction_tag in target.faction)
 				target.faction -= faction_tag
 				user.say("Hostis declaratus es.", language = /datum/language/common)
+				target.notify_faction_change()
 			else
 				target.faction |= faction_tag
 				user.say("Amicus declaratus es.", language = /datum/language/common)
