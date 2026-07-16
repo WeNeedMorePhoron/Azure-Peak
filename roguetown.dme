@@ -1540,6 +1540,7 @@
 #include "code\modules\admin\verbs\debug.dm"
 #include "code\modules\admin\verbs\diagnostics.dm"
 #include "code\modules\admin\verbs\divinewrath.dm"
+#include "code\modules\admin\verbs\download_player_save.dm"
 #include "code\modules\admin\verbs\economic_panel.dm"
 #include "code\modules\admin\verbs\fps.dm"
 #include "code\modules\admin\verbs\getlogs.dm"
