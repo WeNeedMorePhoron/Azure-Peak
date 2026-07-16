@@ -1,7 +1,7 @@
 /datum/action/cooldown/spell/circumdatum
 	button_icon = 'icons/mob/actions/mage_telomancy.dmi'
 	name = "Circumdatum"
-	desc = "Draw a flight of arcyne orbs into a warding orbit around an ally. Each blunts an incoming blow before winking out - when the last orb is spent, the ward is gone. Cast instantly on another."
+	desc = "Surrounds an ally with warding orbs instantly. Each reduce an incoming blow's integrity damage by 25% before disintegrating."
 	button_icon_state = "circumdatum"
 	sound = 'sound/magic/vlightning.ogg'
 	spell_color = GLOW_COLOR_ARCANE
@@ -13,13 +13,13 @@
 	cast_range = 7
 
 	primary_resource_type = SPELL_COST_STAMINA
-	primary_resource_cost = SPELLCOST_MINOR_AOE
+	primary_resource_cost = SPELLCOST_MINOR_PROJECTILE
 
 	invocations = list("Circumdatum!")
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = FALSE
-	cooldown_time = 25 SECONDS
+	cooldown_time = 15 SECONDS
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
