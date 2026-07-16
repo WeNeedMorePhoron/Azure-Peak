@@ -913,7 +913,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/proc/spell_guard_check(mob/living/target, no_message = FALSE, mob/living/attacker)
 	if(!isliving(target))
 		return FALSE
-	if(target == owner)
+	if(target == (ranged_ability_user || action?.owner))
 		return FALSE
 	return target.guard_deflect_spell(name, no_message, attacker)
 
