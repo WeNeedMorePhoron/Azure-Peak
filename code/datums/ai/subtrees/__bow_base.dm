@@ -19,8 +19,8 @@
 		return FALSE
 
 	var/obj/item/quiver/quiver = _find_archer_quiver(living_pawn)
-	if(!quiver?.arrows.len)
-		AI_THINK(living_pawn, "BOW-VALIDATE: quiver [quiver ? "empty" : "missing"]")
+	if(!quiver)
+		AI_THINK(living_pawn, "BOW-VALIDATE: no quiver worn")
 		return FALSE
 
 	controller.set_blackboard_key(BB_ARCHER_NPC_BOW, bow)
