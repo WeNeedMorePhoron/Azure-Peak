@@ -494,5 +494,5 @@
 		list("name" = "Focus", "tag" = "FCS", "key" = "focus", "color" = "#66ff66", "invocation" = "Coniunge!", "cooldown" = 0, "desc" = ""),
 	)
 
-#undef CONJURE_TAUNT_TELEGRAPH (1.5 SECONDS)
-#undef CONJURE_OVERLOAD_WINDUP (3.5 SECONDS)
+#undef CONJURE_TAUNT_TELEGRAPH
+#undef CONJURE_OVERLOAD_WINDUP
