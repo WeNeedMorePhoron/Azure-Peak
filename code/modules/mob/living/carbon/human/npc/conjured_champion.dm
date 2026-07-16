@@ -233,6 +233,7 @@
 	shoes = /obj/item/clothing/shoes/roguetown/grenzelhoft
 	gloves = /obj/item/clothing/gloves/roguetown/angle/grenzelgloves
 	head = /obj/item/clothing/head/roguetown/helmet/sallet/grenzelhoft
+	mask = /obj/item/clothing/mask/rogue/facemask/steel
 
 /datum/outfit/job/roguetown/conjured_champion/doppelsoldner/zwei/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
