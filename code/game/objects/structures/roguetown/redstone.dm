@@ -211,19 +211,19 @@ GLOBAL_LIST_EMPTY(redstone_objs)
 
 /obj/structure/lever/bookcase
 	name = "bookcase"
-	desc = ""
+	desc = "Refuge for few, an irrelevance to most."
 	icon_state = "booklever0"
 
 /obj/structure/lever/bookcase/examine(mob/user)
 	. = ..()
-	if(isliving(user))
-		var/mob/living/L = user
-		if(HAS_TRAIT(L, TRAIT_INQUISITION) || L.STAPER >= 15)
-			desc = "Refuge for few, an irrelevance to most. There may be more to this shelf than meets the eye."
-		else
-			desc = "Refuge for few, an irrelevance to most."
-	else
-		desc = "Refuge for few, an irrelevance to most."
+	if(!isliving(user))
+		return
+	var/mob/living/L = user
+	if(HAS_TRAIT(L, TRAIT_INQUISITION))
+		. += span_notice("You recognize the subtle signs of a concealed mechanism, hidden in plain sight.")
+	else if(L.STAPER >= 15)
+		. += span_notice("There may be more to this shelf than meets the eye.")
+		L.emote("huh")
 
 /obj/structure/lever/bookcase/get_mechanics_examine(mob/user)
 	. = ..()
