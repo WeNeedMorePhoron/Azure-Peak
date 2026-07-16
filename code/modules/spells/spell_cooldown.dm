@@ -1680,6 +1680,8 @@
 /datum/action/cooldown/spell/proc/spell_guard_check(mob/living/target, no_message = FALSE, mob/living/attacker)
 	if(!isliving(target))
 		return FALSE
+	if(target == owner)
+		return FALSE
 	return target.guard_deflect_spell(name, no_message, attacker)
 
 /datum/action/cooldown/spell/proc/signal_cancel()
