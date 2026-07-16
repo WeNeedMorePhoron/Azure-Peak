@@ -9,9 +9,7 @@
 			continue
 		if(istype(held, /obj/item/rogueweapon) || istype(held, /obj/item/gun))
 			return TRUE
-	var/datum/ai_controller/controller = pawn.ai_controller
-	var/datum/component/ai_inventory_manager/inv = controller?.get_inventory()
-	if(inv?.get_item(AI_ITEM_GUN)) // a bow worn/stowed anywhere - this is an archer, leave the loot
+	if(_find_archer_bow(pawn)) // a bow in hand or worn - this is an archer, leave the loot
 		return TRUE
 	return FALSE
 
