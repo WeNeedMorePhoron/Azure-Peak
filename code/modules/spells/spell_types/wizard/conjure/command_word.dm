@@ -493,3 +493,6 @@
 		list("name" = "Overloaded", "tag" = "OVL", "key" = "overload", "color" = GLOW_COLOR_FIRE, "invocation" = "Displode!", "cooldown" = 0, "desc" = ""),
 		list("name" = "Focus", "tag" = "FCS", "key" = "focus", "color" = "#66ff66", "invocation" = "Coniunge!", "cooldown" = 0, "desc" = ""),
 	)
+
+#undef CONJURE_TAUNT_TELEGRAPH (1.5 SECONDS)
+#undef CONJURE_OVERLOAD_WINDUP (3.5 SECONDS)

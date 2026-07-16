@@ -103,7 +103,7 @@
 	gloves = /obj/item/clothing/gloves/roguetown/leather
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	belt = /obj/item/storage/belt/rogue/leather
-	armor = /obj/item/clothing/suit/roguetown/armor/leather
+	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy
 	if(tier >= 2)
 		armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
 		head = /obj/item/clothing/head/roguetown/helmet/leather/advanced
