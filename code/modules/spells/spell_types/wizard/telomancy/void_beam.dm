@@ -143,6 +143,7 @@
 	var/index = 0
 	var/last_index = length(line)
 	var/list/struck = list()
+	var/deflected = FALSE
 
 	for(var/turf/T in line)
 		index++
@@ -164,7 +165,8 @@
 				L.visible_message(span_warning("The beam splinters against [L]!"))
 				playsound(T, 'sound/magic/magic_nulled.ogg', 100)
 				continue
-			if(guard_source && !QDELETED(guard_source) && guard_source.spell_guard_check(L, TRUE))
+			if(guard_source && !QDELETED(guard_source) && guard_source.spell_guard_check(L, TRUE, deflected ? null : caster))
+				deflected = TRUE
 				L.visible_message(span_warning("[L] turns the beam aside!"))
 				continue
 			if(istype(caster) && !QDELETED(caster) && ishuman(L))
