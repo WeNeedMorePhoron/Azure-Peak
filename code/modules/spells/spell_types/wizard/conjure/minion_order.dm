@@ -114,11 +114,19 @@
 	var/turf/center = get_turf(user)
 	if(!center)
 		return FALSE
+	var/list/landing_turfs = list()
+	for(var/turf/T in range(2, center))
+		if(!isopenturf(T) || istype(T, /turf/open/transparent/openspace))
+			continue
+		if(T.is_transition_turf() || T.is_blocked_turf(exclude_mobs = TRUE))
+			continue
+		landing_turfs += T
 	var/count = 0
 	for(var/mob/living/M in user.summoned_minions.Copy())
 		if(QDELETED(M) || M.stat == DEAD || M == user)
 			continue
-		if(do_teleport(M, center, precision = 2, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE))
+		var/turf/landing = length(landing_turfs) ? pick(landing_turfs) : center
+		if(do_teleport(M, landing, precision = 0, channel = TELEPORT_CHANNEL_MAGIC, forced = TRUE))
 			count++
 	if(!count)
 		to_chat(user, span_warning("None of my servants answer the pull."))
