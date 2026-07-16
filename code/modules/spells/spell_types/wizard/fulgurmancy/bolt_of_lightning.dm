@@ -27,7 +27,7 @@
 	charge_time = CHARGETIME_MAJOR
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
-	charge_swingdelay_type = SWINGDELAY_PENALTY
+	charge_swingdelay_type = SWINGDELAY_CANCEL
 	charge_sound = 'sound/magic/charging.ogg'
 	cooldown_time = 15 SECONDS
 

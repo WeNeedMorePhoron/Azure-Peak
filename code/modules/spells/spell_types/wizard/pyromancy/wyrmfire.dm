@@ -37,6 +37,7 @@
 	charge_required = TRUE
 	weapon_cast_penalized = TRUE
 	charge_time = CHARGETIME_MAJOR
+	charge_swingdelay_type = SWINGDELAY_CANCEL
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/charging_fire.ogg'
 	cooldown_time = SPELL_COOLDOWN_BIG_WHOOPER
