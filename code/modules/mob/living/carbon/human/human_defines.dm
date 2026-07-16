@@ -12,6 +12,11 @@
 	buckle_lying = FALSE
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	var/taints_loot = FALSE
+	/// Whether this character has spent their one-time natural-claw appearance choice.
+	var/cosmetic_claws_configured = FALSE
+	/// Selected hit and miss sounds for the cosmetic claw-punch intent.
+	var/cosmetic_claw_hitsound = "bluntwooshmed"
+	var/cosmetic_claw_miss_sound = "bluntwooshmed"
 
 	ambushable = 1
 
