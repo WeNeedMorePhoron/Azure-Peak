@@ -222,6 +222,7 @@
 		to_chat(summoner, span_warning("A cold recoil ripples through me as I unbind my servant."))
 
 	summoner.apply_status_effect(/datum/status_effect/debuff/conjure_backlash, scale, base_stats, base_duration, block)
+	summoner.apply_status_effect(/datum/status_effect/debuff/exposed, 10 SECONDS)
 
 /datum/status_effect/debuff/conjure_backlash
 	id = "conjure_backlash"

@@ -52,6 +52,7 @@
 
 /obj/projectile/magic/frost_shard
 	name = "frost shard"
+	expose_caster_on_deflect = TRUE
 	icon_state = "ice_2"
 	damage = 35
 	npc_simple_damage_mult = 2
@@ -113,6 +114,7 @@
 
 /obj/projectile/magic/frostbolt
 	name = "frost bolt"
+	expose_caster_on_deflect = TRUE
 	icon_state = "ice_2"
 	damage = 30
 	npc_simple_damage_mult = 2
