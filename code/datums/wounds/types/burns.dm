@@ -33,11 +33,10 @@
 /datum/wound/dynamic/burn/upgrade(dam, armor, exposed)
 	whp += (dam * BURN_UPG_WHPRATE)
 	woundpain += (dam * BURN_UPG_PAINRATE)
-	if(!armor || exposed)
-		set_bleed_rate(bleed_rate + clamp((dam * BURN_UPG_BLEEDRATE), 0.1, BURN_UPG_CLAMP_RAW))
-		if(bleed_rate > BURN_MAX_BLEED)
-			set_bleed_rate(BURN_MAX_BLEED)
-	else
+	set_bleed_rate(bleed_rate + clamp((dam * BURN_UPG_BLEEDRATE), 0.1, BURN_UPG_CLAMP_RAW))
+	if(bleed_rate > BURN_MAX_BLEED)
+		set_bleed_rate(BURN_MAX_BLEED)
+	if(armor && !exposed)
 		armor_check(armor, BURN_ARMORED_BLEED_CLAMP)
 	if(whp >= BURN_CHAR_THRESHOLD && !disabling)
 		disabling = TRUE
