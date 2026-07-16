@@ -1357,8 +1357,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			log_combat(user, target, "got a stun punch with their previous punch")*/
 		if(!(target.mobility_flags & MOBILITY_STAND))
 			target.forcesay(GLOB.hit_appends)
-		if(!nodmg)
+		// Cosmetic claws use a woosh as their presentation sound. Keep it audible even when armor absorbs all damage;
+		// the armor system layers its own plate, chain, leather, or cloth impact over this movement sound. Wohjr
+		if(!nodmg || istype(user.used_intent, /datum/intent/unarmed/punch/cosmetic_claw))
 			playsound(target.loc, user.used_intent.hitsound, 100, FALSE)
+		if(!nodmg)
 			if(user.mind)
 				user.dodgetime = (clamp(user.dodgetime - 2, 0, CLICK_CD_DODGE))
 				user.changeMaxDodge(3)
