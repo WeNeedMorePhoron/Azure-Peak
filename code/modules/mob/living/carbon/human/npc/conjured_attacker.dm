@@ -59,6 +59,7 @@
 		else
 			outfit_attacker(new /datum/outfit/job/roguetown/conjured_attacker/sabre)
 	def_intent_change(INTENT_DODGE)
+	ADD_TRAIT(src, TRAIT_DUALWIELDER, TRAIT_GENERIC)
 	random_voice_NPC()
 	random_hair_NPC()
 	random_eye_color_NPC()
