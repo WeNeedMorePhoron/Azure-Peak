@@ -222,7 +222,7 @@
 
 /obj/item/rogueweapon/sword/long/iron
 	name = "bastard sword"
-	desc = "A lethal and perfectly balanced weapon, fit for being wielded in both one- or two hands; hence, 'bastard sword'."
+	desc = "A bastard sword that can chop with ease. It can be effectively wielded in both one- and two-handed grips, hence the name."
 	icon_state = "ilongsword"
 	item_state = "ilongsword"
 	sheathe_icon = "ilongsword"
