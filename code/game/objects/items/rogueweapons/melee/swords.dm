@@ -220,6 +220,15 @@
 	. = ..()
 	AddComponent(/datum/component/skill_blessed, TRAIT_LONGSWORDSMAN, /datum/skill/combat/swords, SKILL_LEVEL_MASTER)
 
+/obj/item/rogueweapon/sword/long/iron
+	name = "bastard sword"
+	desc = "A lethal and perfectly balanced weapon, fit for being wielded in both one- or two hands; hence, 'bastard sword'."
+	icon_state = "ilongsword"
+	item_state = "ilongsword"
+	sheathe_icon = "ilongsword"
+	max_integrity = 100
+	smeltresult = /obj/item/ingot/iron
+
 /obj/item/rogueweapon/sword/long/blacksteel
 	name = "blacksteel longsword"
 	desc = "A sleek blade of a dark, and burnished hue. \

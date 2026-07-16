@@ -949,11 +949,11 @@
 	created_item = /obj/item/clothing/head/roguetown/helmet/winged/iron
 	display_category = ITEM_CAT_ARMOR_HELMETS
 
-/datum/anvil_recipe/armor/iron/helmetbuc
-	name = "Bucket Helmet, Iron (+1 Iron)"
+/datum/anvil_recipe/armor/iron/helmetbucclassic
+	name = "Iron Bucket Helmet, Sugarloafed (+1 Iron)"
 	req_bar = /obj/item/ingot/iron
 	additional_items = list(/obj/item/ingot/iron)
-	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/bucket/iron
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/bucket/iron/classic
 	display_category = ITEM_CAT_ARMOR_HELMETS
 
 /datum/anvil_recipe/armor/iron/helmetpig
