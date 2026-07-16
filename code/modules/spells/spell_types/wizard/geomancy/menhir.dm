@@ -185,6 +185,7 @@
 	speed = 3.5
 	accuracy = 30
 	guard_deflectable = TRUE
+	expose_caster_on_deflect = TRUE
 	object_damage_multiplier = 2
 	hitsound = 'sound/combat/hits/onstone/stonedeath.ogg'
 	var/frag_count = 8

@@ -94,6 +94,7 @@
 	woundclass = BCLASS_BURN
 	nodamage = FALSE
 	guard_deflectable = TRUE
+	expose_caster_on_deflect = TRUE
 	speed = 0.3
 	flag = "fire"
 	light_outer_range = 5

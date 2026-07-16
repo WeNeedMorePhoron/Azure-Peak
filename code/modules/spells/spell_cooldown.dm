@@ -142,6 +142,8 @@
 	var/charge_swingdelay_type = SWINGDELAY_NORMAL
 	/// If nonzero, overrides the charge swingdelay penalty/disrupt duration (deciseconds) instead of charge_time + 20.
 	var/charge_swingdelay_duration = 0
+	/// If nonzero, overrides the post-cast recovery duration (deciseconds). 0 = tier default (PENALTY 3s / CANCEL 5s).
+	var/charge_recovery_duration = 0
 	/// Whether we're currently charging the spell.
 	var/currently_charging = FALSE
 	/// Whether the charge bar has completed and the spell is being held ready. While TRUE, hold_drain bleeds per process tick.
@@ -910,6 +912,8 @@
 
 	SEND_SIGNAL(owner, COMSIG_MOB_AFTER_SPELL_CAST, src, cast_on)
 
+	apply_cast_recovery()
+
 	// Casting while guarding breaks guard stance with a strain
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
@@ -1140,6 +1144,18 @@
 			SW = living_owner.has_status_effect(/datum/status_effect/swingdelay/disrupt)
 	if(SW && SW.duration != -1)
 		SW.duration = max(SW.duration, world.time + (charge_swingdelay_duration || 20))
+
+/// Successful cast of a charged PENALTY/CANCEL spell leaves the caster guard-broken for a lingering punish window.
+/datum/action/cooldown/spell/proc/apply_cast_recovery()
+	if(!charge_required || charge_swingdelay_type == SWINGDELAY_NORMAL)
+		return
+	var/mob/living/living_owner = owner
+	if(!istype(living_owner))
+		return
+	var/recovery_dur = charge_recovery_duration
+	if(!recovery_dur)
+		recovery_dur = (charge_swingdelay_type == SWINGDELAY_PENALTY) ? SWINGDELAY_RECOVERY_PENALTY : SWINGDELAY_RECOVERY_CANCEL
+	living_owner.apply_status_effect(/datum/status_effect/swingdelay/penalty/recovery, recovery_dur)
 
 /// Cancel casting and all its effects.
 /datum/action/cooldown/spell/proc/cancel_casting()
@@ -1682,6 +1698,8 @@
 		return FALSE
 	if(target == owner)
 		return FALSE
+	if(args.len < 3 && ispath(associated_skill, /datum/skill/magic/arcane))
+		attacker = owner
 	return target.guard_deflect_spell(name, no_message, attacker)
 
 /datum/action/cooldown/spell/proc/signal_cancel()

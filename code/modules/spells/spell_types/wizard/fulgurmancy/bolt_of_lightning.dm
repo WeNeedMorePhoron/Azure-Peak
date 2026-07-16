@@ -44,6 +44,7 @@
 	hitscan = TRUE
 	movement_type = UNSTOPPABLE
 	guard_deflectable = TRUE
+	expose_caster_on_deflect = TRUE
 	light_color = LIGHT_COLOR_WHITE
 	damage = 60
 	npc_simple_damage_mult = 2

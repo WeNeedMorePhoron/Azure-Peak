@@ -42,6 +42,7 @@
 	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "arcyne_bolt"
 	guard_deflectable = TRUE
+	expose_caster_on_deflect = TRUE
 	damage = 54
 	damage_type = BRUTE
 	flag = "force"

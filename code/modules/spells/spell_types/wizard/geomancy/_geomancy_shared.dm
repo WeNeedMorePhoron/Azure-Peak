@@ -31,6 +31,7 @@
 	speed = MAGE_PROJ_SLOW
 	accuracy = 50
 	guard_deflectable = TRUE
+	expose_caster_on_deflect = TRUE
 	npc_simple_damage_mult = 1.5
 	intdamfactor = 1
 	object_damage_multiplier = 2

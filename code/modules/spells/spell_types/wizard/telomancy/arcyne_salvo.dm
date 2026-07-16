@@ -61,6 +61,7 @@
 	speed = MAGE_PROJ_FAST
 	accuracy = 60
 	guard_deflectable = TRUE
+	expose_caster_on_deflect = TRUE
 	npc_simple_damage_mult = 1.5
 	intdamfactor = 1
 	hitsound = 'sound/combat/hits/blunt/shovel_hit2.ogg'
