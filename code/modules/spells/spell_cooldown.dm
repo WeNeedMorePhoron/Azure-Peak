@@ -1698,7 +1698,7 @@
 		return FALSE
 	if(target == owner)
 		return FALSE
-	if(args.len < 3 && ispath(associated_skill, /datum/skill/magic/arcane))
+	if(isnull(attacker) && ispath(associated_skill, /datum/skill/magic/arcane))
 		attacker = owner
 	return target.guard_deflect_spell(name, no_message, attacker)
 
