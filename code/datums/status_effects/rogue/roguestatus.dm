@@ -113,6 +113,14 @@
 		effectedstats = list(STATKEY_SPD = spd_mod)
 	. = ..()
 
+/datum/status_effect/swingdelay/penalty/recovery
+	alert_type = /atom/movable/screen/alert/status_effect/swingdelay/recovery
+
+/atom/movable/screen/alert/status_effect/swingdelay/recovery
+	name = "Vulnerable!"
+	desc = "I just loosed a spell and my guard hasn't recovered! Move or get punished!"
+	icon_state = "swingdelay_penalty"
+
 
 // This is used to make sure we cannot do stealth mechanics mid-combat.
 /datum/status_effect/stealth_revealed

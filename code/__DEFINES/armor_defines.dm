@@ -40,6 +40,8 @@
 #define ARMOR_DR_TYPES list("blunt", "fire", "force")
 // Resist DR types: worn real armor absorbs these even at a 0 rating (metal shows no fire pips but still
 #define ARMOR_DR_RESIST_TYPES list("fire")
+// DR types that land on a single armor layer instead of distributing across every worn layer. Blunt still distributes.
+#define ARMOR_DR_SINGLE_LAYER_TYPES list("fire", "force")
 #define ARMOR_DBLOCK_TYPES list("slash", "stab", "piercing")
 
 // Penetration passthrough fractions

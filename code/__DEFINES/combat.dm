@@ -117,6 +117,9 @@
 #define SWINGDELAY_CANCEL 3 //We have -no- defense during it, and it can be interrupted if we are hit.
 #define SWINGDELAY_CANCELSLOW 4	//Same as cancel but our speed is also hardset to 10 for the delay.
 
+#define SWINGDELAY_RECOVERY_PENALTY 30	// Post cast defense penalty in deciseconds
+#define SWINGDELAY_RECOVERY_CANCEL 50	// Ditto
+
 //Grab levels
 #define GRAB_PASSIVE				0
 #define GRAB_AGGRESSIVE				1
