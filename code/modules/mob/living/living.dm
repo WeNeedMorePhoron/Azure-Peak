@@ -1670,6 +1670,7 @@
 	var/datum/status_effect/fire_handler/fire_stacks/fire_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks)
 	var/datum/status_effect/fire_handler/fire_stacks/sunder/sunder_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder)
 	var/datum/status_effect/fire_handler/fire_stacks/divine/divine_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks/divine)
+	var/datum/status_effect/fire_handler/fire_stacks/vheslyn/vheslyn_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks/vheslyn)
 	var/datum/status_effect/fire_handler/fire_stacks/sunder/blessed/blessed_sunder = has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed)
 
 	if(HAS_TRAIT(src, TRAIT_NOFIRE) && prob(90)) // Nofire is described as nonflammable, not immune. 90% chance of avoiding ignite
@@ -1680,6 +1681,9 @@
 
 	if(!divine_status?.on_fire)
 		divine_status?.ignite(silent)
+
+	if(!vheslyn_status?.on_fire)
+		vheslyn_status?.ignite(silent)
 
 	if(!sunder_status?.on_fire)
 		sunder_status?.ignite(silent)
@@ -1704,6 +1708,9 @@
 	var/datum/status_effect/fire_handler/fire_stacks/divine/divine_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks/divine)
 	if(divine_status?.on_fire)
 		remove_status_effect(/datum/status_effect/fire_handler/fire_stacks/divine)
+	var/datum/status_effect/fire_handler/fire_stacks/divine/vheslyn_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks/vheslyn)
+	if(vheslyn_status?.on_fire)
+		remove_status_effect(/datum/status_effect/fire_handler/fire_stacks/vheslyn)
 	var/datum/status_effect/fire_handler/fire_stacks/sunder/blessed/blessed_sunder = has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed)
 	if(blessed_sunder?.on_fire)
 		remove_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed)
