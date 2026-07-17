@@ -25,15 +25,17 @@
 #define BURN_UPG_WHPRATE 1.2
 #define BURN_UPG_PAINRATE 0.25
 #define BURN_CHAR_THRESHOLD 120
-// flat like slash/puncture; the low 0.2 base keeps a burn hit under a stab
-#define BURN_UPG_BLEED_FLAT 1.3
+// flat floor + a capped damage term, so a fireball (90) bleeds more than a spitfire (40) without the old runaway clamp
+#define BURN_UPG_BLEED_FLAT 0.8
+#define BURN_UPG_BLEED_SCALE 0.02
+#define BURN_UPG_BLEED_SCALE_CAP 1.6
 #define BURN_ARMORED_BLEED_CLAMP (ARTERY_LIMB_BLEEDRATE * 0.33)
 #define BURN_MAX_BLEED (ARTERY_LIMB_BLEEDRATE * 0.75)
 
 /datum/wound/dynamic/burn/upgrade(dam, armor, exposed)
 	whp += (dam * BURN_UPG_WHPRATE)
 	woundpain += (dam * BURN_UPG_PAINRATE)
-	set_bleed_rate(bleed_rate + BURN_UPG_BLEED_FLAT)
+	set_bleed_rate(bleed_rate + BURN_UPG_BLEED_FLAT + clamp(dam * BURN_UPG_BLEED_SCALE, 0, BURN_UPG_BLEED_SCALE_CAP))
 	if(bleed_rate > BURN_MAX_BLEED)
 		set_bleed_rate(BURN_MAX_BLEED)
 	if(armor && !exposed)
@@ -51,6 +53,8 @@
 #undef BURN_UPG_PAINRATE
 #undef BURN_CHAR_THRESHOLD
 #undef BURN_UPG_BLEED_FLAT
+#undef BURN_UPG_BLEED_SCALE
+#undef BURN_UPG_BLEED_SCALE_CAP
 #undef BURN_ARMORED_BLEED_CLAMP
 #undef BURN_MAX_BLEED
 
