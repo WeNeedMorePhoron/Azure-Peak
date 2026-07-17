@@ -12,20 +12,20 @@
 	can_sew = TRUE
 	can_cauterize = FALSE
 	passive_healing = 0.1
-	severity_type = SEVERITY_TYPE_WHP
+	severity_type = SEVERITY_TYPE_BURN // name off the limb's actual burnt fraction, not the whp heal-pool
 	sound_effect = list('sound/combat/hits/burn (1).ogg', 'sound/combat/hits/burn (2).ogg')
-	severity_stages = list(
-		"reddened" = 10,
-		"blistering" = 35,
-		"scalded" = 70,
-		"charred" = 120,
-		"cindered" = 180,
+	severity_stages = list( // burn_dam as a percent of the limb's max_damage
+		"reddened" = 5,
+		"blistering" = 20,
+		"scalded" = 40,
+		"charred" = 60,
+		"cindered" = 80,
 	)
 
 #define BURN_UPG_WHPRATE 1.2
 #define BURN_UPG_PAINRATE 0.25
 #define BURN_CHAR_THRESHOLD 120
-// flat like puncture, kept below puncture's 1.3
+// flat like slash/puncture; the low 0.2 base keeps a burn hit under a stab
 #define BURN_UPG_BLEED_FLAT 1.3
 #define BURN_ARMORED_BLEED_CLAMP (ARTERY_LIMB_BLEEDRATE * 0.33)
 #define BURN_MAX_BLEED (ARTERY_LIMB_BLEEDRATE * 0.75)
