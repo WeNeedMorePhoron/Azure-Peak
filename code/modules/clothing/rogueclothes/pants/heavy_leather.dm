@@ -8,7 +8,7 @@
 	sewrepair = TRUE
 	armor = ARMOR_LEATHER
 	blocksound = SOFTHIT
-	max_integrity = ARMOR_INT_LEG_HARDLEATHER + 35
+	max_integrity = ARMOR_INT_LEG_HARDLEATHER
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	r_sleeve_status = SLEEVE_NOMOD
 	l_sleeve_status = SLEEVE_NOMOD
