@@ -10,7 +10,7 @@
 	var/next_leash_message = 0
 	var/base_alpha = 255
 	var/untether_strain = 0
-	var/untether_max = 5
+	var/untether_max = 10
 	var/tether_timer
 
 /datum/component/conjured_minion/Initialize(mob/living/summoner, energy_floor = 200, severity = CONJURE_RECOIL_FULL, stamina_only = FALSE)
@@ -67,6 +67,9 @@
 	var/mob/living/summoner = summoner_ref?.resolve()
 	if(!summoner || summoner.stat == DEAD)
 		return
+	if(untether_strain > 0 || summoner.z != source.z || get_dist(source, summoner) > leash_range)
+		to_chat(summoner, span_warning("A dull ache echoes down the leyline - [source] has perished beyond the tether's reach."))
+		return
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(apply_conjure_recoil), summoner, recoil_energy_floor, recoil_severity, 1, TRUE, recoil_stamina_only)
 
 /datum/component/conjured_minion/proc/check_leash(atom/movable/source, atom/newloc)
@@ -121,10 +124,15 @@
 
 /datum/component/conjured_minion/proc/strain_tether(mob/living/M)
 	untether_strain++
+	var/mob/living/summoner = summoner_ref?.resolve()
 	if(untether_strain == 1)
 		M.visible_message(span_warning("[M] flickers, its form straining against the distant leyline."))
-	M.alpha = max(50, M.alpha - 24)
-	M.add_movespeed_modifier(CONJURE_UNTETHER_ID, update = TRUE, override = TRUE, multiplicative_slowdown = min(untether_strain, untether_max) * 0.6)
+		if(summoner)
+			to_chat(summoner, span_warning("I feel the tether to [M] strain - my servant is beyond my reach."))
+	M.alpha = max(50, M.alpha - 12)
+	M.add_movespeed_modifier(CONJURE_UNTETHER_ID, update = TRUE, override = TRUE, multiplicative_slowdown = min(untether_strain, 2) * 0.6)
+	if(untether_strain == untether_max - 2 && summoner)
+		to_chat(summoner, span_userdanger("The tether to [M] is fraying - it will unravel unless I close the distance!"))
 	if(untether_strain < untether_max)
 		return
 	if(M.ckey)
