@@ -422,7 +422,6 @@
 		if(H.mind)
 			H.mind.AddSpell(new /datum/action/cooldown/spell/aetherknife)
 			H.mind.AddSpell(new /datum/action/cooldown/spell/lesser_knock)
-			H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/invisibility)
 	else
 		head = /obj/item/clothing/head/roguetown/witchhat/mageblue
 		wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
@@ -430,4 +429,6 @@
 		if(H.mind)
 			H.mind.AddSpell(new /datum/action/cooldown/spell/magicians_brick)
 			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/waterbolt)
-			H.mind.AddSpell(new /datum/action/cooldown/spell/phase)
+	if(H.mind)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/blink)
+
