@@ -29,16 +29,18 @@
 	return champion
 
 /datum/action/cooldown/spell/conjure_summon/doppelsoldner
-	name = "Conjure Doppelsoldner"
-	desc = "Call forth a bound spirit into the body of a Doppelsoldner - an imitation of a fencer of Zenitstadt fencing guild, with the proper plumed beret. Toggle their arms with Shift+G: Zweihander, Halberd, Partizan, or Kriegmesser & Buckler."
+	name = "Conjure Doppel Soldner"
+	desc = "Call forth a pair of bound spirits in the guise of Zenitstadt guild fencers, plumed berets and all. Two soldners for the pay of one - lightly armed, lightly drilled, and entirely expendable. Toggle their arms with Shift+G: Spear, Sword & Buckler, or Crossbow."
 	button_icon_state = "primetriangle"
-	summon_noun = "doppelsoldner"
+	summon_noun = "doppel soldner"
 	recoil_energy_floor = 200
+	recoil_severity = CONJURE_RECOIL_PARTIAL
+	max_summons = 2
+	summons_per_cast = 2
 	modes = list(
-		list("name" = "Zweihander", "tag" = "ZWE", "loadout" = "dopp_zwei", "color" = GLOW_COLOR_ARCANE, "invocation" = "Erhebe dich, Doppelsoldner!"),
-		list("name" = "Halberd", "tag" = "HLB", "loadout" = "dopp_halberd", "color" = GLOW_COLOR_ARCANE, "invocation" = "Erhebe dich, Landsknecht!"),
-		list("name" = "Partizan", "tag" = "PTZ", "loadout" = "dopp_partizan", "color" = GLOW_COLOR_ARCANE, "invocation" = "Erhebe dich, Landsknecht!"),
-		list("name" = "Kriegmesser & Buckler", "tag" = "KMB", "loadout" = "dopp_kmb", "color" = GLOW_COLOR_ARCANE, "invocation" = "Erhebe dich, Doppelsoldner!"),
+		list("name" = "Spear", "tag" = "SPR", "loadout" = "dopp_spear", "color" = GLOW_COLOR_ARCANE, "invocation" = "Erhebt euch, Doppel Soldner!"),
+		list("name" = "Sword & Buckler", "tag" = "SWB", "loadout" = "dopp_swb", "color" = GLOW_COLOR_ARCANE, "invocation" = "Erhebt euch, Doppel Soldner!"),
+		list("name" = "Crossbow", "tag" = "XBW", "loadout" = "dopp_xbow", "color" = "#cfe8ff", "invocation" = "Erhebt euch, Doppel Soldner!"),
 	)
 
 /datum/action/cooldown/spell/conjure_summon/doppelsoldner/spawn_summon(turf/T, mob/living/user)
