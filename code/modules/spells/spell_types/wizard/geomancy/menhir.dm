@@ -150,7 +150,7 @@
 	if(spell_guard_check(L, TRUE))
 		return
 	if(ishuman(L))
-		arcyne_strike(H, L, null, dmg, H.zone_selected || BODY_ZONE_CHEST, BCLASS_FORCE, \
+		arcyne_strike(H, L, null, dmg, H.zone_selected || BODY_ZONE_CHEST, BCLASS_BLUNT, \
 			spell_name = name, damage_type = BRUTE, npc_simple_damage_mult = 2, skip_animation = TRUE)
 	else
 		L.adjustBruteLoss(dmg * (L.mind ? 1 : 2))
@@ -179,8 +179,8 @@
 	nodamage = FALSE
 	damage_type = BRUTE
 	woundclass = BCLASS_BLUNT
-	flag = "force"
-	intdamfactor = 1
+	flag = "blunt"
+	intdamfactor = SPELL_BLUNT_INT_DAMAGEFACTOR
 	range = SPELL_RANGE_PROJECTILE
 	speed = 3.5
 	accuracy = 30

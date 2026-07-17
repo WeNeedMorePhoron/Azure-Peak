@@ -84,7 +84,7 @@
 				continue
 
 			var/target_zone = pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-			arcyne_strike(caster, L, null, crush_damage, target_zone, BCLASS_FORCE, \
+			arcyne_strike(caster, L, null, crush_damage, target_zone, BCLASS_BLUNT, \
 				spell_name = "Mass Crush", damage_type = BRUTE, \
 				npc_simple_damage_mult = npc_simple_damage_mult, skip_animation = TRUE, \
 				intdamage_factor = crush_intdamage_factor)

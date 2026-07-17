@@ -83,7 +83,7 @@
 				blocked = TRUE
 				continue
 			var/damage_dealt = arcyne_strike(H, victim, null, blast_damage, BODY_ZONE_CHEST, \
-				BCLASS_FORCE, spell_name = "Energetic Blast", \
+				BCLASS_BLUNT, spell_name = "Energetic Blast", \
 				allow_shield_check = TRUE, damage_type = BRUTE, \
 				skip_animation = TRUE)
 			if(!damage_dealt)

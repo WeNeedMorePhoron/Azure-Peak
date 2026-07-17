@@ -56,7 +56,7 @@
 	nodamage = FALSE
 	damage_type = BRUTE
 	woundclass = BCLASS_BLUNT
-	flag = "force"
+	flag = "blunt"
 	range = SPELL_RANGE_PROJECTILE
 	speed = MAGE_PROJ_FAST
 	accuracy = 60

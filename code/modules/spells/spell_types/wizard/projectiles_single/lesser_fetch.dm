@@ -32,7 +32,7 @@
 /obj/projectile/magic/lesser_fetch
 	name = "lesser bolt of fetching"
 	icon_state = "cursehand0"
-	flag = "force"
+	flag = "blunt"
 	range = 15
 	cannot_cross_z = TRUE
 

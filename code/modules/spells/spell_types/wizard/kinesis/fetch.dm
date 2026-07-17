@@ -38,7 +38,7 @@
 	name = "bolt of fetching"
 	expose_caster_on_deflect = TRUE
 	icon_state = "cursehand0"
-	flag = "force"
+	flag = "blunt"
 	speed = MAGE_PROJ_FAST
 	range = 15
 	cannot_cross_z = TRUE

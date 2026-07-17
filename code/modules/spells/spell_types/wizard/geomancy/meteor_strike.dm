@@ -81,7 +81,7 @@
 				L.visible_message(span_warning("[L] endures the meteor strike!"))
 				continue
 			if(istype(caster) && ishuman(L))
-				arcyne_strike(caster, L, null, head_damage, BODY_ZONE_HEAD, BCLASS_FORCE, spell_name = "Meteor Strike", damage_type = BRUTE, skip_animation = TRUE, exact_zone = TRUE)
+				arcyne_strike(caster, L, null, head_damage, BODY_ZONE_HEAD, BCLASS_BLUNT, spell_name = "Meteor Strike", damage_type = BRUTE, skip_animation = TRUE, exact_zone = TRUE)
 			else
 				L.adjustBruteLoss(head_damage)
 			L.Knockdown(3)

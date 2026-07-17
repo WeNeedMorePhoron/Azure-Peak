@@ -26,14 +26,14 @@
 	nodamage = FALSE
 	damage_type = BRUTE
 	woundclass = BCLASS_BLUNT
-	flag = "force"
+	flag = "blunt"
 	range = SPELL_RANGE_PROJECTILE
 	speed = MAGE_PROJ_SLOW
 	accuracy = 50
 	guard_deflectable = TRUE
 	expose_caster_on_deflect = TRUE
 	npc_simple_damage_mult = 1.5
-	intdamfactor = 1
+	intdamfactor = SPELL_BLUNT_INT_DAMAGEFACTOR
 	object_damage_multiplier = 2
 	hitsound = 'sound/combat/hits/onstone/wallhit.ogg'
 	ricochets_max = 2

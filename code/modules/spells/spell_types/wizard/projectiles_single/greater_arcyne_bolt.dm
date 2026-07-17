@@ -45,7 +45,7 @@
 	expose_caster_on_deflect = TRUE
 	damage = 54
 	damage_type = BRUTE
-	flag = "force"
+	flag = "blunt"
 	woundclass = BCLASS_BLUNT
 	intdamfactor = 1
 	npc_simple_damage_mult = 1.5
