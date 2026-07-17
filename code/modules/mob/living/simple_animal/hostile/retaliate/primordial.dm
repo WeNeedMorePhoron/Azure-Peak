@@ -172,6 +172,7 @@
 	food = 0
 	next_ability_use
 	ai_controller = /datum/ai_controller/flame_primordial
+	var/cone_damage = 60
 
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/fire/ability(turf/target_location, mob/living/user)
 	if(!target_location)
@@ -210,8 +211,26 @@
 	if(QDELETED(src) || stat == DEAD || !length(turfs))
 		return
 	visible_message(span_danger("[src] exhales a cone of searing fire!"))
+	playsound(src, 'sound/magic/fireball.ogg', 80, TRUE)
 	for(var/turf/T in turfs)
-		new /obj/effect/curtain_fire(T, 5 SECONDS)
+		if(T.density)
+			continue
+		new /obj/effect/temp_visual/dragonfire(T)
+		for(var/atom/movable/A in T)
+			if(isliving(A))
+				continue
+			A.fire_act()
+		for(var/mob/living/L in T)
+			if(L == src)
+				continue
+			scorch_target(L)
+
+/mob/living/simple_animal/hostile/retaliate/rogue/primordial/fire/proc/scorch_target(mob/living/L)
+	if(HAS_TRAIT(L, TRAIT_NOFIRE))
+		return
+	var/armor_block = L.run_armor_check(BODY_ZONE_CHEST, "fire", blade_dulling = BCLASS_BURN, damage = cone_damage, flat_integ = TRUE)
+	L.apply_damage(cone_damage, BURN, BODY_ZONE_CHEST, armor_block)
+	apply_scorch_stack(L, 1)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/water
 	name = "water primordial"
