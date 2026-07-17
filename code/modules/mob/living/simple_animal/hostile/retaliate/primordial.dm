@@ -66,6 +66,10 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/proc/ability(turf/target_location, mob/living/user)
 	return
 
+/mob/living/simple_animal/hostile/retaliate/rogue/primordial/proc/telegraph_turfs(list/turfs, telegraph_type = /obj/effect/temp_visual/trap/primordial, telegraph_time = 1 SECONDS)
+	for(var/turf/T in turfs)
+		new telegraph_type(T, telegraph_time)
+
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/get_pilot_ability()
 	return /datum/action/cooldown/spell/primordial_special
 
@@ -73,7 +77,7 @@
 	button_icon = 'icons/mob/actions/mage_conjure.dmi'
 	button_icon_state = "primordial_mark"
 	name = "Elemental Surge"
-	desc = "Unleash your elemental vessel's innate power at a spot within reach - a flame primordial breathes a searing cone, a water primordial churns a whirlpool, an air primordial hurls a gale."
+	desc = "Unleash your elemental vessel's innate power at a spot within reach - a flame primordial breathes a searing cone, a water primordial floods the ground, an air primordial hurls a gale."
 	sound = null
 	spell_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_MEDIUM
@@ -105,6 +109,30 @@
 		return FALSE
 	P.ability(T, P)
 	return TRUE
+
+// Ground warning that fades in over the wind-up so targets can read the danger zone and clear it.
+/obj/effect/temp_visual/trap/primordial
+	randomdir = FALSE
+	duration = 1 SECONDS
+	alpha = 0
+
+/obj/effect/temp_visual/trap/primordial/Initialize(mapload, telegraph_time)
+	if(telegraph_time)
+		duration = telegraph_time
+	. = ..()
+	animate(src, alpha = 255, time = duration)
+
+/obj/effect/temp_visual/trap/primordial/fire
+	color = GLOW_COLOR_FIRE
+	light_color = GLOW_COLOR_FIRE
+
+/obj/effect/temp_visual/trap/primordial/water
+	color = GLOW_COLOR_ICE
+	light_color = GLOW_COLOR_ICE
+
+/obj/effect/temp_visual/trap/primordial/air
+	color = "#c0e8ff"
+	light_color = "#c0e8ff"
 
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/fire
 	name = "flame primordial"
@@ -149,39 +177,41 @@
 	if(!target_location)
 		return FALSE
 	visible_message(span_danger("[src] inhales, heat gathering about its form!"))
-	addtimer(CALLBACK(src, PROC_REF(do_fire_cone), target_location), 1 SECONDS)
+	var/list/turfs = get_fire_cone_turfs(target_location)
+	telegraph_turfs(turfs, /obj/effect/temp_visual/trap/primordial/fire)
+	addtimer(CALLBACK(src, PROC_REF(do_fire_cone), turfs), 1 SECONDS)
 	return TRUE
 
-/mob/living/simple_animal/hostile/retaliate/rogue/primordial/fire/proc/do_fire_cone(turf/target_location)
-	if(QDELETED(src) || stat == DEAD || !target_location)
-		return
+// Locked at cast time so the telegraph and the fire land on exactly the same turfs.
+/mob/living/simple_animal/hostile/retaliate/rogue/primordial/fire/proc/get_fire_cone_turfs(turf/target_location)
+	var/list/turfs = list()
 	var/range = 3
 	var/angle = 60
-
 	var/dx = target_location.x - src.x
 	var/dy = target_location.y - src.y
-
 	var/dir_angle = ATAN2(dy, dx)
-
-	visible_message(span_danger("[src] exhales a cone of searing fire!"))
-
 	for(var/turf/T in view(range, src))
 		var/tx = T.x - src.x
 		var/ty = T.y - src.y
 		var/mag = sqrt(tx*tx + ty*ty)
 		if(mag == 0)
 			continue
-
 		tx /= mag
 		ty /= mag
-
 		var/angle_to_turf = ATAN2(ty, tx)
 		var/delta = abs(dir_angle - angle_to_turf)
 		if(delta > 180)
 			delta = 360 - delta
-
 		if(delta <= angle/2)
-			new /obj/effect/curtain_fire(T, 5 SECONDS)
+			turfs += T
+	return turfs
+
+/mob/living/simple_animal/hostile/retaliate/rogue/primordial/fire/proc/do_fire_cone(list/turfs)
+	if(QDELETED(src) || stat == DEAD || !length(turfs))
+		return
+	visible_message(span_danger("[src] exhales a cone of searing fire!"))
+	for(var/turf/T in turfs)
+		new /obj/effect/curtain_fire(T, 5 SECONDS)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/water
 	name = "water primordial"
@@ -227,71 +257,58 @@
 	ai_controller = /datum/ai_controller/water_primordial
 
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/water/ability(turf/target_location, mob/living/user)
-	if(!target_location)
+	var/turf/center = get_turf(src)
+	if(!center)
 		return FALSE
-	visible_message(span_danger("[src] gathers the waters into a churning knot!"))
-	addtimer(CALLBACK(src, PROC_REF(do_whirlpool), target_location), 1 SECONDS)
+	visible_message(span_danger("[src] draws the moisture of the land into a pool!"))
+	var/list/turfs = get_flood_turfs(center)
+	telegraph_turfs(turfs, /obj/effect/temp_visual/trap/primordial/water)
+	addtimer(CALLBACK(src, PROC_REF(do_deluge), turfs), 1 SECONDS)
 	return TRUE
 
-/mob/living/simple_animal/hostile/retaliate/rogue/primordial/water/proc/do_whirlpool(turf/target_location)
-	if(QDELETED(src) || stat == DEAD || !target_location)
-		return
-	visible_message(span_danger("[src] unleashes a spiralling wave of floodwaters!"))
-	new /obj/effect/whirlpool(target_location)
+// Self-centered square around the primordial itself, filtered to floodable ground.
+/mob/living/simple_animal/hostile/retaliate/rogue/primordial/water/proc/get_flood_turfs(turf/center)
+	var/list/turfs = list()
+	if(!center)
+		return turfs
+	for(var/turf/open/T in range(2, center))
+		if(istype(T, /turf/open/water) || T.density)
+			continue
+		turfs += T
+	return turfs
 
-/obj/effect/whirlpool
-	name = "floodwave"
-	desc = "A swirling wavepool churns violently."
-	icon_state = "blueshatter2"
+/mob/living/simple_animal/hostile/retaliate/rogue/primordial/water/proc/do_deluge(list/turfs)
+	if(QDELETED(src) || stat == DEAD || !length(turfs))
+		return
+	visible_message(span_danger("[src] releases a surging flood across the ground!"))
+	new /obj/effect/deluge(get_turf(src), turfs)
+
+/obj/effect/deluge
+	name = "floodwaters"
+	desc = "A surging flood churns across the ground."
+	icon = 'icons/turf/roguefloor.dmi'
+	icon_state = ""
 	anchored = TRUE
 	density = FALSE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/list/turf_data = list()
 	var/duration = 15 SECONDS
+	var/flood_turf = /turf/open/water
 
-/obj/effect/whirlpool/Initialize(mapload, turf/center)
+/obj/effect/deluge/Initialize(mapload, list/flood_turfs)
 	. = ..()
-	if(!center)
-		center = get_turf(src)
-	// Build a 3x3 block around the center
-	var/list/affected = block(
-		locate(center.x - 1, center.y - 1, center.z),
-		locate(center.x + 1, center.y + 1, center.z)
-	)
-	// Save original turfs
-	for(var/turf/T in affected)
+	for(var/turf/open/T in flood_turfs)
+		// Keep a clean non-water type to restore to, and never flood a wall shut.
+		if(istype(T, /turf/open/water) || T.density)
+			continue
 		turf_data[T] = T.type
-	// Apply whirlpool layout
-	for(var/turf/T in affected)
-		var/dx = T.x - center.x
-		var/dy = T.y - center.y
-		if(dx == 0 && dy == 0)
-			T.ChangeTurf(/turf/open/water/ocean/deep, flags = CHANGETURF_IGNORE_AIR)	//deep center
-		else if(dx == 0) // vertical (north/south)
-			if(dy > 0)
-				T.ChangeTurf(/turf/open/water/river/flow, flags = CHANGETURF_IGNORE_AIR)
-			else
-				T.ChangeTurf(/turf/open/water/river/flow/north, flags = CHANGETURF_IGNORE_AIR)
-		else if(dy == 0) // horizontal (east/west)
-			if(dx > 0)
-				T.ChangeTurf(/turf/open/water/river/flow/west, flags = CHANGETURF_IGNORE_AIR)
-			else
-				T.ChangeTurf(/turf/open/water/river/flow/east, flags = CHANGETURF_IGNORE_AIR)
-		else
-			if(dx < 0 && dy < 0) // SW corner
-				T.ChangeTurf(/turf/open/water/river/flow/east, flags = CHANGETURF_IGNORE_AIR)
-			else if(dx > 0 && dy < 0) // SE corner
-				T.ChangeTurf(/turf/open/water/river/flow/north, flags = CHANGETURF_IGNORE_AIR)
-			else if(dx > 0 && dy > 0) // NE corner
-				T.ChangeTurf(/turf/open/water/river/flow/west, flags = CHANGETURF_IGNORE_AIR)
-			else if(dx < 0 && dy > 0) // NW corner
-				T.ChangeTurf(/turf/open/water/river/flow, flags = CHANGETURF_IGNORE_AIR)
-	// Auto-remove after duration
-	spawn(duration)
-		qdel(src)
+		T.ChangeTurf(flood_turf, flags = CHANGETURF_IGNORE_AIR)
+	if(!length(turf_data))
+		return INITIALIZE_HINT_QDEL
+	QDEL_IN(src, duration)
 
-/obj/effect/whirlpool/Destroy()
-	// Restore saved turfs
-	for(var/turf/T in turf_data)
+/obj/effect/deluge/Destroy()
+	for(var/turf/T as anything in turf_data)
 		if(T)
 			T.ChangeTurf(turf_data[T], flags = CHANGETURF_IGNORE_AIR)
 	turf_data.Cut()
@@ -345,19 +362,19 @@
 	if(!target_location)
 		return FALSE
 	visible_message(span_danger("[src] draws a whirl of stormwinds about itself!"))
-	addtimer(CALLBACK(src, PROC_REF(do_gust), target_location), 1 SECONDS)
+	var/dir_to_target = get_dir(src, target_location)
+	var/list/wave_rows = get_gust_rows(dir_to_target)
+	var/list/telegraph = list()
+	for(var/list/row in wave_rows)
+		telegraph |= row
+	telegraph_turfs(telegraph, /obj/effect/temp_visual/trap/primordial/air)
+	addtimer(CALLBACK(src, PROC_REF(do_gust), wave_rows, dir_to_target), 1 SECONDS)
 	return TRUE
 
-/mob/living/simple_animal/hostile/retaliate/rogue/primordial/air/proc/do_gust(turf/target_location)
-	if(QDELETED(src) || stat == DEAD || !target_location)
-		return
-	var/dir_to_target = get_dir(src, target_location)
-
-	// Starting turf = just in front of the primordial
-	var/turf/current = get_step(get_turf(src), dir_to_target)
-
-	// Collect the 3-length line outward from source
+// A 3-deep, 3-wide fan stepping out from in front of the primordial, locked at cast time.
+/mob/living/simple_animal/hostile/retaliate/rogue/primordial/air/proc/get_gust_rows(dir_to_target)
 	var/list/wave_rows = list()
+	var/turf/current = get_step(get_turf(src), dir_to_target)
 	for(var/i = 1, i <= 3, i++)
 		if(!current)
 			break
@@ -365,12 +382,14 @@
 		row += current
 		row += get_step(current, turn(dir_to_target, 90))
 		row += get_step(current, turn(dir_to_target, -90))
-
-		wave_rows += list(row) // push row as sublist
+		wave_rows += list(row)
 		current = get_step(current, dir_to_target)
+	return wave_rows
 
-	// Now release rows one after another
-	var/delay = 3 // deciseconds = 0.3s between rows
+/mob/living/simple_animal/hostile/retaliate/rogue/primordial/air/proc/do_gust(list/wave_rows, dir_to_target)
+	if(QDELETED(src) || stat == DEAD || !length(wave_rows))
+		return
+	var/delay = 3 // deciseconds between rows
 	for(var/row_index = 1, row_index <= wave_rows.len, row_index++)
 		var/list/row = wave_rows[row_index]
 		spawn(delay * (row_index - 1))

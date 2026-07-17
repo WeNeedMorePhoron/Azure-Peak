@@ -4,7 +4,7 @@
 	It grows mightier with your skill at Arcyne Armament - upgrading at Expert, and further at Master.\
 	You may summon three types of Primordial:\n\
 	- Flame - An elemental of moderate health and damage, able to breath out fire in a cone in front of them.\n\
-	- Water - A slow elemental with high health able to create a whirlpool around themselves\n\
+	- Water - A slow elemental with high health able to flood the ground and bog down enemies\n\
 	- Air - A fast elemental with the highest melee damage, lowest health able to throw targets back"
 	button_icon_state = "primetriangle"
 	invocations = list("Exsurge, primordiale!")
