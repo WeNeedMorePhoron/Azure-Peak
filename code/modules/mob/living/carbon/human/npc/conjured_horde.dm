@@ -65,6 +65,8 @@
 			H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, skill, TRUE)
 			r_hand = /obj/item/rogueweapon/flail/aflail
 			l_hand = /obj/item/rogueweapon/shield/wood
+		if("spear")
+			r_hand = /obj/item/rogueweapon/spear/stone
 		else
 			H.adjust_skillrank_up_to(/datum/skill/combat/shields, skill, TRUE)
 			r_hand = /obj/item/rogueweapon/sword/short/ashort
