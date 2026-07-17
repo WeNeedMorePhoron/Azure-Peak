@@ -8,6 +8,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/Initialize(mapload, mob/user)
 	if(user)
+		summoner_ref = WEAKREF(user)
 		if(user.mind && user.mind.current)
 			summoner = user.mind.current.real_name
 		else
@@ -55,8 +56,10 @@
 	can_have_ai = FALSE
 	faction = list(FACTION_NEUTRAL)
 	var/next_ability_use
-	var/ability_cooldown = 30 SECONDS
+	var/ability_cooldown = 20 SECONDS
 	var/next_heal_time = 0
+	var/datum/weakref/summoner_ref
+	var/ability_ready_timer
 
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/death()
 	..()
@@ -70,6 +73,33 @@
 	for(var/turf/T in turfs)
 		new telegraph_type(T, telegraph_time)
 
+/mob/living/simple_animal/hostile/retaliate/rogue/primordial/proc/mark_ability_used()
+	next_ability_use = world.time + ability_cooldown
+	if(ability_ready_timer)
+		deltimer(ability_ready_timer)
+	ability_ready_timer = addtimer(CALLBACK(src, PROC_REF(announce_ability_ready)), ability_cooldown, TIMER_STOPPABLE)
+
+/mob/living/simple_animal/hostile/retaliate/rogue/primordial/proc/announce_ability_ready()
+	ability_ready_timer = null
+	if(stat == DEAD)
+		return
+	var/mob/living/caster = summoner_ref?.resolve()
+	if(QDELETED(caster))
+		return
+	balloon_alert(caster, "special ready!")
+	to_chat(caster, span_notice("[src]'s special is ready."))
+
+/mob/living/simple_animal/hostile/retaliate/rogue/primordial/proc/cardinal_to(turf/target)
+	if(!target)
+		return dir
+	var/dx = target.x - x
+	var/dy = target.y - y
+	if(!dx && !dy)
+		return dir
+	if(abs(dx) >= abs(dy))
+		return dx > 0 ? EAST : WEST
+	return dy > 0 ? NORTH : SOUTH
+
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/get_pilot_ability()
 	return /datum/action/cooldown/spell/primordial_special
 
@@ -77,7 +107,7 @@
 	button_icon = 'icons/mob/actions/mage_conjure.dmi'
 	button_icon_state = "primordial_mark"
 	name = "Elemental Surge"
-	desc = "Unleash your elemental vessel's innate power at a spot within reach - a flame primordial breathes a searing cone, a water primordial floods the ground, an air primordial hurls a gale."
+	desc = "Unleash your elemental vessel's innate power at a spot within reach - a flame primordial breathes a searing blast, a water primordial floods the ground, an air primordial hurls a gale."
 	sound = null
 	spell_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_MEDIUM
@@ -89,7 +119,7 @@
 
 	charge_required = FALSE
 	primary_resource_type = SPELL_COST_NONE
-	cooldown_time = 30 SECONDS
+	cooldown_time = 20 SECONDS
 	spell_tier = 3
 	point_cost = 0
 	spell_impact_intensity = SPELL_IMPACT_NONE
@@ -110,7 +140,6 @@
 	P.ability(T, P)
 	return TRUE
 
-// Ground warning that fades in over the wind-up so targets can read the danger zone and clear it.
 /obj/effect/temp_visual/trap/primordial
 	randomdir = FALSE
 	duration = 1 SECONDS
@@ -172,46 +201,27 @@
 	food = 0
 	next_ability_use
 	ai_controller = /datum/ai_controller/flame_primordial
-	var/cone_damage = 60
+	var/blast_damage = 60
+	var/blast_push = 2
+	var/blast_vulnerable_time = 3 SECONDS
+	var/blast_range = 4
 
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/fire/ability(turf/target_location, mob/living/user)
 	if(!target_location)
 		return FALSE
 	visible_message(span_danger("[src] inhales, heat gathering about its form!"))
-	var/list/turfs = get_fire_cone_turfs(target_location)
+	setDir(cardinal_to(target_location))
+	var/list/turfs = get_cone_turfs(src, dir, blast_range)
 	telegraph_turfs(turfs, /obj/effect/temp_visual/trap/primordial/fire)
-	addtimer(CALLBACK(src, PROC_REF(do_fire_cone), turfs), 1 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(do_fire_blast), turfs), 1 SECONDS)
 	return TRUE
 
-// Locked at cast time so the telegraph and the fire land on exactly the same turfs.
-/mob/living/simple_animal/hostile/retaliate/rogue/primordial/fire/proc/get_fire_cone_turfs(turf/target_location)
-	var/list/turfs = list()
-	var/range = 3
-	var/angle = 60
-	var/dx = target_location.x - src.x
-	var/dy = target_location.y - src.y
-	var/dir_angle = ATAN2(dy, dx)
-	for(var/turf/T in view(range, src))
-		var/tx = T.x - src.x
-		var/ty = T.y - src.y
-		var/mag = sqrt(tx*tx + ty*ty)
-		if(mag == 0)
-			continue
-		tx /= mag
-		ty /= mag
-		var/angle_to_turf = ATAN2(ty, tx)
-		var/delta = abs(dir_angle - angle_to_turf)
-		if(delta > 180)
-			delta = 360 - delta
-		if(delta <= angle/2)
-			turfs += T
-	return turfs
-
-/mob/living/simple_animal/hostile/retaliate/rogue/primordial/fire/proc/do_fire_cone(list/turfs)
+/mob/living/simple_animal/hostile/retaliate/rogue/primordial/fire/proc/do_fire_blast(list/turfs)
 	if(QDELETED(src) || stat == DEAD || !length(turfs))
 		return
-	visible_message(span_danger("[src] exhales a cone of searing fire!"))
+	visible_message(span_danger("[src] belches a searing blast of fire across the ground!"))
 	playsound(src, 'sound/magic/fireball.ogg', 80, TRUE)
+	var/list/hit = list(src)
 	for(var/turf/T in turfs)
 		if(T.density)
 			continue
@@ -221,16 +231,22 @@
 				continue
 			A.fire_act()
 		for(var/mob/living/L in T)
-			if(L == src)
+			if(L in hit)
 				continue
+			hit |= L
 			scorch_target(L)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/fire/proc/scorch_target(mob/living/L)
 	if(HAS_TRAIT(L, TRAIT_NOFIRE))
 		return
-	var/armor_block = L.run_armor_check(BODY_ZONE_CHEST, "fire", blade_dulling = BCLASS_BURN, damage = cone_damage, flat_integ = TRUE)
-	L.apply_damage(cone_damage, BURN, BODY_ZONE_CHEST, armor_block)
+	if(L.guard_deflect_spell("the searing blast", FALSE, src))
+		return
+	var/armor_block = L.run_armor_check(BODY_ZONE_CHEST, "fire", blade_dulling = BCLASS_BURN, damage = blast_damage, flat_integ = TRUE)
+	L.apply_damage(blast_damage, BURN, BODY_ZONE_CHEST, armor_block)
 	apply_scorch_stack(L, 1)
+	L.apply_status_effect(/datum/status_effect/debuff/vulnerable, blast_vulnerable_time)
+	if(dir)
+		L.safe_throw_at(get_ranged_target_turf(L, dir, blast_push), blast_push, 2, src, force = MOVE_FORCE_STRONG)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/water
 	name = "water primordial"
@@ -285,7 +301,6 @@
 	addtimer(CALLBACK(src, PROC_REF(do_deluge), turfs), 1 SECONDS)
 	return TRUE
 
-// Self-centered square around the primordial itself, filtered to floodable ground.
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/water/proc/get_flood_turfs(turf/center)
 	var/list/turfs = list()
 	if(!center)
@@ -317,7 +332,6 @@
 /obj/effect/deluge/Initialize(mapload, list/flood_turfs)
 	. = ..()
 	for(var/turf/open/T in flood_turfs)
-		// Keep a clean non-water type to restore to, and never flood a wall shut.
 		if(istype(T, /turf/open/water) || T.density)
 			continue
 		turf_data[T] = T.type
@@ -376,12 +390,14 @@
 	food = 0
 
 	ai_controller = /datum/ai_controller/air_primordial
+	var/gust_push = 3
 
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/air/ability(turf/target_location, mob/living/user)
 	if(!target_location)
 		return FALSE
 	visible_message(span_danger("[src] draws a whirl of stormwinds about itself!"))
-	var/dir_to_target = get_dir(src, target_location)
+	var/dir_to_target = cardinal_to(target_location)
+	setDir(dir_to_target)
 	var/list/wave_rows = get_gust_rows(dir_to_target)
 	var/list/telegraph = list()
 	for(var/list/row in wave_rows)
@@ -390,7 +406,6 @@
 	addtimer(CALLBACK(src, PROC_REF(do_gust), wave_rows, dir_to_target), 1 SECONDS)
 	return TRUE
 
-// A 3-deep, 3-wide fan stepping out from in front of the primordial, locked at cast time.
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/air/proc/get_gust_rows(dir_to_target)
 	var/list/wave_rows = list()
 	var/turf/current = get_step(get_turf(src), dir_to_target)
@@ -408,20 +423,27 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/air/proc/do_gust(list/wave_rows, dir_to_target)
 	if(QDELETED(src) || stat == DEAD || !length(wave_rows))
 		return
-	var/delay = 3 // deciseconds between rows
-	for(var/row_index = 1, row_index <= wave_rows.len, row_index++)
-		var/list/row = wave_rows[row_index]
-		spawn(delay * (row_index - 1))
-			for(var/turf/T in row)
-				if(!T)
-					continue
-				for(var/mob/living/L in T)
-					if(L == src)
-						continue
-					knockback(L, dir_to_target, 8)
-				new /obj/effect/temp_visual/gust(T, dir_to_target)
 	visible_message(span_danger("[src] exhales a violent gust of wind!"))
 	playsound(src, 'sound/weather/rain/wind_6.ogg', 100, TRUE)
+	var/list/hit = list(src)
+	for(var/list/row in wave_rows)
+		gust_row(row, dir_to_target, hit)
+
+/mob/living/simple_animal/hostile/retaliate/rogue/primordial/air/proc/gust_row(list/row, dir_to_target, list/hit)
+	if(QDELETED(src) || stat == DEAD)
+		return
+	for(var/turf/T in row)
+		if(!T)
+			continue
+		new /obj/effect/temp_visual/gust(T, dir_to_target)
+		for(var/mob/living/L in T)
+			if(L in hit)
+				continue
+			hit |= L
+			if(L.guard_deflect_spell("the gale", FALSE, src))
+				continue
+			knockback(L, dir_to_target, gust_push)
+			L.apply_status_effect(/datum/status_effect/buff/windswept)
 
 
 /mob/living/simple_animal/hostile/retaliate/rogue/primordial/air/proc/knockback(mob/living/L, dir, distance)
@@ -438,6 +460,25 @@
 	layer = ABOVE_MOB_LAYER
 	anchored = TRUE
 	duration = 8
+
+/datum/status_effect/buff/windswept
+	id = "windswept"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/windswept
+	duration = 4 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+
+/atom/movable/screen/alert/status_effect/buff/windswept
+	name = "Windswept"
+	desc = "Battering winds throw off my footing - I can't keep pace."
+	icon_state = "debuff"
+
+/datum/status_effect/buff/windswept/on_apply()
+	. = ..()
+	owner.add_movespeed_modifier(MOVESPEED_ID_WINDSWEPT, update = TRUE, priority = 100, multiplicative_slowdown = 1.5, movetypes = GROUND)
+
+/datum/status_effect/buff/windswept/on_remove()
+	owner.remove_movespeed_modifier(MOVESPEED_ID_WINDSWEPT, TRUE)
+	. = ..()
 
 /obj/projectile/magic/spitfire/primordial
 	name = "primordial flame"

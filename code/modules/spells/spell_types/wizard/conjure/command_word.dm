@@ -212,7 +212,7 @@
 			return FALSE
 		P.face_atom(target)
 		P.ability(get_turf(target), P)
-		P.next_ability_use = world.time + P.ability_cooldown
+		P.mark_ability_used()
 		return TRUE
 
 	if(summon.has_status_effect(/datum/status_effect/debuff/specialcd))
