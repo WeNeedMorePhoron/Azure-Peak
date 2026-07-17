@@ -8,7 +8,7 @@
 	sewrepair = TRUE
 	armor = ARMOR_LEATHER
 	blocksound = SOFTHIT
-	max_integrity = ARMOR_INT_LEG_HARDLEATHER
+	max_integrity = ARMOR_INT_LEG_HARDLEATHER + 35
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	r_sleeve_status = SLEEVE_NOMOD
 	l_sleeve_status = SLEEVE_NOMOD
@@ -49,7 +49,7 @@
 	color = "#FFFFFF"
 	detail_color = "#5E4440"
 	allowed_race = NON_DWARVEN_RACE_TYPES
-	max_integrity = ARMOR_INT_LEG_HARDLEATHER + 50
+	max_integrity = ARMOR_INT_LEG_HARDLEATHER + 35
 
 /obj/item/clothing/under/roguetown/heavy_leather_pants/otavan/generic/update_icon()
 	cut_overlays()

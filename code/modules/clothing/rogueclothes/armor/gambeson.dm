@@ -204,7 +204,7 @@
 	color = "#FFFFFF"
 	var/shiftable = FALSE
 	armor = ARMOR_PADDED
-	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 50
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 35
 	blocksound = SOFTUNDERHIT
 	break_sound = 'sound/foley/cloth_rip.ogg'
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
@@ -218,7 +218,7 @@
 /obj/item/clothing/suit/roguetown/shirt/freifechter/shepherd
 	name = "shepherd's shirt"
 	desc = "A strong loosely worn quilted shirt that places little weight on the arms."
-	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER - 25
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER - 35
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/chargah
 	name = "padded caftan"
