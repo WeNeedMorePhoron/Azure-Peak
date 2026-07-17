@@ -123,7 +123,7 @@ SUBSYSTEM_DEF(triumphs)
 	// This segments the payment part
 	var/triumph_amount = get_triumphs(C.ckey) - ref_datum.triumph_cost
 	if(triumph_amount >= 0)
-		triumph_adjust(ref_datum.triumph_cost*-1, C.ckey)
+		triumph_adjust(ref_datum.triumph_cost*-1, C.ckey, "triumph buy: [ref_datum.type]")
 
 		var/datum/triumph_buy/stick_it_in = new ref_datum.type
 
@@ -139,7 +139,7 @@ SUBSYSTEM_DEF(triumphs)
 						// Give the person who originally bought it a 50% refund
 						var/ckey_cur_owna = active_datum.ckey_of_buyer
 						var/refund_amount = round(active_datum.triumph_cost * current_refund_percentage)
-						triumph_adjust(refund_amount, ckey_cur_owna)
+						triumph_adjust(refund_amount, ckey_cur_owna, "conflict refund: [active_datum.type]")
 
 						if(GLOB.directory[ckey_cur_owna]) // If they are still logged into the game, inform them they got refunded
 							to_chat(GLOB.directory[ckey_cur_owna], span_redtext("You were refunded [refund_amount] triumphs due to CONFLICTS."))
@@ -157,12 +157,12 @@ SUBSYSTEM_DEF(triumphs)
 /datum/controller/subsystem/triumphs/proc/attempt_to_unbuy_triumph_condition(client/C, datum/triumph_buy/pull_it_out)
 	var/triumph_amount = get_triumphs(C.ckey) - pull_it_out.triumph_cost
 	if(triumph_amount >= 0)
-		triumph_adjust(pull_it_out.triumph_cost*-1, C.ckey)
+		triumph_adjust(pull_it_out.triumph_cost*-1, C.ckey, "triumph unbuy: [pull_it_out.type]")
 
 		// Give the person who originally bought it a 50% refund
 		var/ckey_prev_owna = pull_it_out.ckey_of_buyer
 		var/refund_amount = round(pull_it_out.triumph_cost * current_refund_percentage)
-		triumph_adjust(refund_amount, ckey_prev_owna)
+		triumph_adjust(refund_amount, ckey_prev_owna, "unbuy refund: [pull_it_out.type]")
 
 		if(GLOB.directory[ckey_prev_owna]) // If they are still logged into the game, inform them they got refunded
 			to_chat(GLOB.directory[ckey_prev_owna], span_redtext("You were refunded [refund_amount] triumphs due to a UNBUY."))
@@ -243,9 +243,11 @@ SUBSYSTEM_DEF(triumphs)
 
 
 // Adjust triumphs
-/datum/controller/subsystem/triumphs/proc/triumph_adjust(amt, target_ckey)
+/datum/controller/subsystem/triumphs/proc/triumph_adjust(amt, target_ckey, source)
 	if(target_ckey in triumph_amount_cache)
+		var/old_amount = triumph_amount_cache[target_ckey]
 		triumph_amount_cache[target_ckey] += amt
+		log_admin("TRIUMPH: [target_ckey] adjusted by [amt] ([old_amount] -> [triumph_amount_cache[target_ckey]]). Source: [source ? source : "unspecified"].")
 		var/list/saving_data = list()
 		var/target_file = file("data/player_saves/[target_ckey[1]]/[target_ckey]/triumphs.json")
 		var/backup_file = file("data/player_saves/[target_ckey[1]]/[target_ckey]/triumphs.backup.json")
@@ -267,6 +269,7 @@ SUBSYSTEM_DEF(triumphs)
 		if(!(target_ckey in triumph_amount_cache))
 			return
 		else
+			log_admin("TRIUMPH: [target_ckey]'s triumphs wiped ([triumph_amount_cache[target_ckey]] -> 0).[usr ? " Source: [key_name(usr)]." : ""]")
 			triumph_amount_cache[target_ckey] = 0
 
 // Wipe the entire list
@@ -274,6 +277,7 @@ SUBSYSTEM_DEF(triumphs)
 /datum/controller/subsystem/triumphs/proc/wipe_all_triumphs(target_ckey)
 	if(!target_ckey)
 		return
+	log_admin("TRIUMPH: [target_ckey] triggered a full triumph wipe of [triumph_amount_cache.len] player(s). Season is now [GLOB.triumph_wipe_season + 1].")
 	triumph_amount_cache = list()
 
 	var/target_file = file("data/triumph_wipe_season.json")
