@@ -414,8 +414,8 @@
 	backpack_contents = list(/obj/item/flashlight/flare/torch = 1, /obj/item/chalk = 1, /obj/item/rogueweapon/spellbook = 1)
 
 	// This just changes your starting cantrips and if you wear snazzy blue or edgy black.
-	var/origin = input(H, "Gifted Thief or a Magos Hooligan?", "ORIGIN") as anything in list("Gifted Thief (Aetherknife)", "Magos Hooligan (Magician's Brick)")
-	if(origin == "Thief (Aetherknife)")
+	var/origin = input(H, "Arcyne Thief or a Magos Hooligan?", "ORIGIN") as anything in list("Arcyne Thief (Aetherknife)", "Magos Hooligan (Magician's Brick)")
+	if(origin == "Arcyne Thief (Aetherknife)")
 		head = /obj/item/clothing/head/roguetown/headband/monk/barbarian
 		wrists = /obj/item/clothing/wrists/roguetown/bracers/cloth/gladiator
 		cloak = /obj/item/clothing/cloak/raincloak/mortus
