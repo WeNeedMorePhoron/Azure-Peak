@@ -1355,9 +1355,17 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			log_combat(user, target, "got a stun punch with their previous punch")*/
 		if(!(target.mobility_flags & MOBILITY_STAND))
 			target.forcesay(GLOB.hit_appends)
-		// Cosmetic claws use a woosh as their presentation sound. Keep it audible even when armor absorbs all damage;
-		// the armor system layers its own plate, chain, leather, or cloth impact over this movement sound. Wohjr
-		if(!nodmg || user.cosmetic_claw_intent)
+		if(user.cosmetic_claw_intent)
+			// The selected claw sound describes the motion, not the impact. Armor supplies its own material hit sound;
+			// an attack which reaches flesh still needs the ordinary unarmed flesh impact beneath the cosmetic woosh.
+			playsound(target.loc, user.used_intent.hitsound, 100, FALSE)
+			if(!nodmg)
+				playsound(target.loc, pick(
+					'sound/combat/hits/punch/punch_hard (1).ogg',
+					'sound/combat/hits/punch/punch_hard (2).ogg',
+					'sound/combat/hits/punch/punch_hard (3).ogg',
+				), 100, FALSE)
+		else if(!nodmg)
 			playsound(target.loc, user.used_intent.hitsound, 100, FALSE)
 		if(!nodmg)
 			if(user.mind)
