@@ -493,6 +493,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 			RemoveSpell(existing)
 	aspect.chosen_spell = new_choice
 	if(has_spell(new_path, specific = TRUE))
+		rebuild_action_order()
 		return TRUE
 	var/datum/new_spell = new new_path
 	aspect.mark_aspect_spell(new_spell)
@@ -509,6 +510,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 			S.action.Grant(current)
 	else
 		AddSpell(new_spell)
+	rebuild_action_order()
 	return TRUE
 
 /datum/mind/proc/set_death_time()
@@ -975,13 +977,10 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 				qdel(ward.conjured_ward)
 			RemoveSpell(ward)
 
-	// Prestidigitation - always last
-	var/datum/presto = get_spell(/datum/action/cooldown/spell/touch/prestidigitation)
-	if(!presto)
+	if(!get_spell(/datum/action/cooldown/spell/touch/prestidigitation))
 		AddSpell(new /datum/action/cooldown/spell/touch/prestidigitation)
-	else
-		RemoveSpell(presto)
-		AddSpell(new /datum/action/cooldown/spell/touch/prestidigitation)
+
+	rebuild_action_order()
 
 
 /datum/mind/proc/show_spell_tip()
@@ -1028,17 +1027,19 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 			has_remaining_util = (util_points_spent < max_util)
 		if(!has_remaining_slots && !has_remaining_util)
 			RemoveSpell(/datum/action/cooldown/spell/learnspell)
+			rebuild_action_order()
 			return
-		// Still has available slots/points — remove and re-add LearnSpell to bump it to end
-		RemoveSpell(/datum/action/cooldown/spell/learnspell)
-		AddSpell(new /datum/action/cooldown/spell/learnspell())
+		if(!has_spell(/datum/action/cooldown/spell/learnspell))
+			AddSpell(new /datum/action/cooldown/spell/learnspell())
+		rebuild_action_order()
 		return
 
 	// Arcyne casters without aspects still need learnspell to open the aspect picker
 	if(current)
 		if(HAS_TRAIT(current, TRAIT_ARCYNE) && !LAZYLEN(major_aspects))
-			RemoveSpell(/datum/action/cooldown/spell/learnspell)
-			AddSpell(new /datum/action/cooldown/spell/learnspell())
+			if(!has_spell(/datum/action/cooldown/spell/learnspell))
+				AddSpell(new /datum/action/cooldown/spell/learnspell())
+			rebuild_action_order()
 			return
 
 	return
@@ -1125,6 +1126,49 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		RemoveSpell(S)
 	for(var/datum/SP in current.actions)
 		RemoveSpell(SP)
+
+/datum/mind/proc/rebuild_action_order()
+	if(!current)
+		return
+	var/static/list/trailing_types = list(
+		/datum/action/cooldown/spell/touch/prestidigitation,
+		/datum/action/cooldown/spell/learnspell,
+	)
+	var/list/spells = list()
+	var/list/pins = list()
+	for(var/datum/action/cooldown/spell/S in spell_list)
+		if(!(S in current.actions))
+			continue
+		if(S.type in trailing_types)
+			pins += S
+		else
+			spells += S
+	for(var/X in spell_list)
+		if(!istype(X, /obj/effect/proc_holder/spell))
+			continue
+		var/obj/effect/proc_holder/spell/P = X
+		if(P.action && (P.action in current.actions))
+			spells += P.action
+	var/list/rest = list()
+	for(var/datum/action/A in current.actions)
+		if((A in spells) || (A in pins))
+			continue
+		rest += A
+	current.actions = spells + rest + pins
+	current.update_action_buttons()
+
+/datum/mind/proc/reorder_spell(datum/moving, datum/target)
+	if(!moving || !target || moving == target)
+		return FALSE
+	if(!(moving in spell_list) || !(target in spell_list))
+		return FALSE
+	spell_list -= moving
+	var/idx = spell_list.Find(target)
+	if(!idx)
+		return FALSE
+	spell_list.Insert(idx, moving)
+	rebuild_action_order()
+	return TRUE
 
 /datum/mind/proc/transfer_martial_arts(mob/living/new_character)
 	if(!ishuman(new_character))

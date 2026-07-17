@@ -19,12 +19,13 @@
 	locked = TRUE
 	/// A unique bitflag, combined with the name of our linked action this lets us persistently remember any user changes to our position
 	var/id
-	var/ordered = TRUE //If the button gets placed into the default bar
 	/// A weakref of the last thing we hovered over
 	var/datum/weakref/last_hovored_ref
 
 	/// AP: maptext holder for cooldown display on old proc_holder spells
 	var/atom/movable/screen/maptext_holder/maptext_holder
+
+	var/atom/movable/screen/hotkey_label_holder/hotkey_label_holder
 
 /atom/movable/screen/movable/action_button/Destroy()
 	if(our_hud)
@@ -35,6 +36,7 @@
 		our_hud = null
 	linked_action = null
 	QDEL_NULL(maptext_holder)
+	QDEL_NULL(hotkey_label_holder)
 	return ..()
 
 /atom/movable/screen/movable/action_button/proc/can_use(mob/user)
@@ -49,18 +51,23 @@
 /atom/movable/screen/movable/action_button/MouseDrop(over_object)
 	if(!can_use(usr))
 		return
-	if((istype(over_object, /atom/movable/screen/movable/action_button) && !istype(over_object, /atom/movable/screen/movable/action_button/hide_toggle)))
+	if(istype(over_object, /atom/movable/screen/movable/action_button))
 		if(locked)
 			to_chat(usr, span_warning("Action button \"[name]\" is locked, unlock it first."))
 			return
 		var/atom/movable/screen/movable/action_button/B = over_object
-		var/list/actions = usr.actions
-		actions.Swap(actions.Find(src.linked_action), actions.Find(B.linked_action))
+		if(B == src)
+			return
 		moved = FALSE
-		ordered = TRUE
 		B.moved = FALSE
-		B.ordered = TRUE
-		usr.update_action_buttons()
+		if(!usr.mind?.reorder_spell(src.linked_action, B.linked_action))
+			var/list/actions = usr.actions
+			actions -= src.linked_action
+			var/target_idx = actions.Find(B.linked_action)
+			if(!target_idx)
+				return
+			actions.Insert(target_idx, src.linked_action)
+			usr.update_action_buttons()
 	else
 		return ..()
 
@@ -79,8 +86,6 @@
 	if(modifiers["ctrl"])
 		locked = !locked
 		to_chat(usr, span_notice("Action button \"[name]\" [locked ? "" : "un"]locked."))
-		if(id && usr.client) //try to (un)remember position
-			usr.client.prefs.action_buttons_screen_locs["[name]_[id]"] = locked ? moved : null
 		return TRUE
 	if(modifiers["shift"])
 		var/datum/action/spell_action/SA = linked_action
@@ -101,109 +106,6 @@
 		M.playsound_local(M, 'sound/misc/click.ogg', 100)
 	linked_action.Trigger()
 	return TRUE
-
-//Hide/Show Action Buttons ... Button
-/atom/movable/screen/movable/action_button/hide_toggle
-	name = "Hide Buttons"
-	desc = ""
-	icon = 'icons/mob/actions.dmi'
-	icon_state = "bg_default"
-	locked = TRUE
-	var/hidden = 0
-	var/hide_icon = 'icons/mob/actions.dmi'
-	var/hide_state = "hide"
-	var/show_state = "show"
-	var/mutable_appearance/hide_appearance
-	var/mutable_appearance/show_appearance
-
-/atom/movable/screen/movable/action_button/hide_toggle/Initialize()
-	. = ..()
-	var/static/list/icon_cache = list()
-
-	var/cache_key = "[hide_icon][hide_state]"
-	hide_appearance = icon_cache[cache_key]
-	if(!hide_appearance)
-		hide_appearance = icon_cache[cache_key] = mutable_appearance(hide_icon, hide_state)
-
-	cache_key = "[hide_icon][show_state]"
-	show_appearance = icon_cache[cache_key]
-	if(!show_appearance)
-		show_appearance = icon_cache[cache_key] = mutable_appearance(hide_icon, show_state)
-
-
-/atom/movable/screen/movable/action_button/hide_toggle/Click(location,control,params)
-	if (!can_use(usr))
-		return
-
-	var/list/modifiers = params2list(params)
-	if(modifiers["shift"])
-		if(locked)
-			to_chat(usr, span_warning("Action button \"[name]\" is locked, unlock it first."))
-			return TRUE
-		moved = FALSE
-		usr.update_action_buttons(TRUE)
-		return TRUE
-	if(modifiers["ctrl"])
-		locked = !locked
-		to_chat(usr, span_notice("Action button \"[name]\" [locked ? "" : "un"]locked."))
-		if(id && usr.client) //try to (un)remember position
-			usr.client.prefs.action_buttons_screen_locs["[name]_[id]"] = locked ? moved : null
-		return TRUE
-	if(modifiers["alt"])
-		var/datum/hud/usr_hud = usr.hud_used
-		for(var/datum/action/A as anything in usr.actions)
-			var/atom/movable/screen/movable/action_button/B = A.viewers[usr_hud]
-			if(!B)
-				continue
-			B.moved = FALSE
-			if(B.id && usr.client)
-				usr.client.prefs.action_buttons_screen_locs["[B.name]_[B.id]"] = null
-			B.locked = usr.client.prefs.buttons_locked
-		locked = usr.client.prefs.buttons_locked
-		moved = FALSE
-		if(id && usr.client)
-			usr.client.prefs.action_buttons_screen_locs["[name]_[id]"] = null
-		usr.update_action_buttons(TRUE)
-		to_chat(usr, span_notice("Action button positions have been reset."))
-		return TRUE
-	usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
-
-	hidden = usr.hud_used.action_buttons_hidden
-	if(hidden)
-		name = "Show Buttons"
-	else
-		name = "Hide Buttons"
-	update_icon()
-	usr.update_action_buttons()
-
-/atom/movable/screen/movable/action_button/hide_toggle/AltClick(mob/user)
-	var/datum/hud/user_hud = user.hud_used
-	for(var/datum/action/A as anything in user.actions)
-		var/atom/movable/screen/movable/action_button/B = A.viewers[user_hud]
-		if(!B)
-			continue
-		B.moved = FALSE
-	if(moved)
-		moved = FALSE
-	user.update_action_buttons(TRUE)
-	to_chat(user, span_notice("Action button positions have been reset."))
-
-
-/atom/movable/screen/movable/action_button/hide_toggle/proc/InitialiseIcon(datum/hud/owner_hud)
-	var/settings = owner_hud.get_action_buttons_icons()
-	icon = settings["bg_icon"]
-	icon_state = settings["bg_state"]
-	hide_icon = settings["toggle_icon"]
-	hide_state = settings["toggle_hide"]
-	show_state = settings["toggle_show"]
-	update_icon()
-
-/atom/movable/screen/movable/action_button/hide_toggle/update_overlays()
-	. = ..()
-	if(hidden)
-		. += show_appearance
-	else
-		. += hide_appearance
 
 /atom/movable/screen/movable/action_button/MouseExited()
 	..()
@@ -242,6 +144,7 @@
 			if(!B)
 				continue
 			B.screen_loc = null
+			B.set_hotkey_label(null)
 			if(reload_screen)
 				client.screen += B
 	else
@@ -250,12 +153,13 @@
 			var/atom/movable/screen/movable/action_button/B = A.viewers[hud_used]
 			if(!B)
 				continue
-			if(B.ordered)
-				button_number++
 			if(B.moved)
 				B.screen_loc = B.moved
+				B.set_hotkey_label(null)
 			else
+				button_number++
 				B.screen_loc = hud_used.ButtonNumberToScreenCoords(button_number)
+				B.set_hotkey_label(button_number <= 9 ? button_number : null)
 			if(reload_screen)
 				client.screen += B
 
@@ -270,27 +174,40 @@
 
 	return "WEST[coord_col]:[coord_col_offset],SOUTH[coord_row]:3"
 
-/datum/hud/proc/SetButtonCoords(atom/movable/screen/button,number)
-	var/row = round((number-1)/AB_MAX_COLUMNS)
-	var/col = ((number - 1)%(AB_MAX_COLUMNS)) + 1
-	var/x_offset = 32*(col-1) + 4 + 2*col
-	var/y_offset = -32*(row+1) + 26
-
-	var/matrix/M = matrix()
-	M.Translate(x_offset,y_offset)
-	button.transform = M
-
 /atom/movable/screen/movable/action_button/proc/update_maptext(cd_time_deciseconds, color_cd = "#800000", color_neutral = "#ffffff")
 	if(!istype(maptext_holder))
-		maptext_holder = new(src)
+		maptext_holder = new /atom/movable/screen/maptext_holder/cooldown(src)
 		vis_contents.Add(maptext_holder)
 
 	maptext_holder.update_maptext(cd_time_deciseconds, color_cd, color_neutral)
+
+/atom/movable/screen/movable/action_button/proc/set_hotkey_label(number)
+	if(isnull(number))
+		if(hotkey_label_holder)
+			hotkey_label_holder.maptext = null
+		return
+	if(!istype(hotkey_label_holder))
+		hotkey_label_holder = new(src)
+		vis_contents.Add(hotkey_label_holder)
+	hotkey_label_holder.maptext = MAPTEXT("<span style='color: #ffe14d; -dm-text-outline: 1 #000000; font-weight: bold;'>[number]</span>")
+
+/atom/movable/screen/hotkey_label_holder
+	layer = ABOVE_HUD_LAYER
+	maptext_x = 1
+	maptext_y = 20
+	maptext_width = 12
+	maptext_height = 11
 
 /atom/movable/screen/maptext_holder
 	layer = ABOVE_HUD_LAYER
 	maptext_x = 8
 	maptext_y = 4
+
+/atom/movable/screen/maptext_holder/cooldown
+	maptext_x = 0
+	maptext_y = 0
+	maptext_width = 32
+	maptext_height = 32
 
 /atom/movable/screen/maptext_holder/proc/update_maptext(cd_time_deciseconds, color_cd = "#800000", color_neutral = "#ffffff")
 	if(cd_time_deciseconds <= 0)
@@ -298,12 +215,14 @@
 		color = color_neutral
 		return
 	var/seconds_left = round(cd_time_deciseconds / (1 SECONDS), 0.1)
+	var/cd_text
 	if(seconds_left >= 60)
 		var/mins = round(seconds_left / 60)
 		var/secs = round(seconds_left) % 60
-		maptext = MAPTEXT("[mins]:[secs < 10 ? "0[secs]" : "[secs]"]")
+		cd_text = "[mins]:[secs < 10 ? "0[secs]" : "[secs]"]"
 	else
-		maptext = MAPTEXT("[seconds_left]s")
+		cd_text = "[seconds_left]s"
+	maptext = "<div align='center' valign='middle' class='maptext'>[cd_text]</div>"
 	color = color_cd
 
 #undef AB_MAX_COLUMNS

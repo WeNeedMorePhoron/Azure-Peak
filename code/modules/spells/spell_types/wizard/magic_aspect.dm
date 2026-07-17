@@ -119,6 +119,7 @@
 					S.action.Grant(target.current)
 			else
 				target.AddSpell(upgraded)
+	target.rebuild_action_order()
 
 /// Resolve a base choice-spell path to the spell actually granted, accounting for the applied variant swap.
 /datum/magic_aspect/proc/resolve_variant_spell(base_path)
