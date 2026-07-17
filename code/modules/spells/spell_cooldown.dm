@@ -643,6 +643,11 @@
 			owner.balloon_alert(owner, "Too exposed to focus!")
 		return FALSE
 
+	if(!(spell_requirements & SPELL_CASTABLE_WHILE_MOUNTED) && owner.client && owner.buckled && isliving(owner.buckled))
+		if(feedback)
+			owner.balloon_alert(owner, "Too distracted riding to cast!")
+		return FALSE
+
 	for(var/datum/action/cooldown/spell/spell in owner.actions)
 		if(spell == src)
 			continue
@@ -1676,6 +1681,10 @@
 /datum/action/cooldown/spell/proc/spell_guard_check(mob/living/target, no_message = FALSE, mob/living/attacker)
 	if(!isliving(target))
 		return FALSE
+	if(target == owner)
+		return FALSE
+	if(isnull(attacker) && ispath(associated_skill, /datum/skill/magic/arcane))
+		attacker = owner
 	return target.guard_deflect_spell(name, no_message, attacker)
 
 /datum/action/cooldown/spell/proc/signal_cancel()

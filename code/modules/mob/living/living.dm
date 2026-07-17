@@ -783,6 +783,9 @@
 	if(pulledby)
 		to_chat(src, span_warning("I'm grabbed!"))
 		return
+	if(world.time < rest_locked_until)
+		to_chat(src, span_warning("I'm too charged with vigor to lie down!"))
+		return
 	if(!resting)
 		set_resting(TRUE, FALSE)
 
@@ -820,6 +823,9 @@
 		else
 			src.visible_message(span_warning("[src] struggles to stand up."))
 	else
+		if(world.time < rest_locked_until)
+			to_chat(src, span_warning("I'm too charged with vigor to lie down!"))
+			return
 		set_resting(TRUE, FALSE)
 
 /mob/living/proc/set_resting(rest, silent = TRUE)
