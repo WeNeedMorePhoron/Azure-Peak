@@ -112,6 +112,8 @@
 		return
 	if(attacker == victim)
 		return
+	if(victim.faction_check_mob(attacker))
+		return
 
 	var/list/aggro_table = victim.ai_controller.blackboard[BB_MOB_AGGRO_TABLE]
 	if(!aggro_table)
