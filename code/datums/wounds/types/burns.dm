@@ -2,7 +2,7 @@
 	name = "burn"
 	whp = 1 // 1 to 1 to puncture, as it is an AP type
 	sewn_whp = 0
-	bleed_rate = 1
+	bleed_rate = 0.2
 	sewn_bleed_rate = 0.04
 	clotting_rate = 0.01
 	sewn_clotting_rate = 0.01
@@ -24,16 +24,16 @@
 
 #define BURN_UPG_WHPRATE 1.2
 #define BURN_UPG_PAINRATE 0.25
-#define BURN_UPG_BLEEDRATE 0.12
 #define BURN_CHAR_THRESHOLD 120
-#define BURN_UPG_CLAMP_RAW (ARTERY_LIMB_BLEEDRATE * 0.2)
-#define BURN_ARMORED_BLEED_CLAMP (ARTERY_LIMB_BLEEDRATE * 0.5)
+// flat like puncture, kept below puncture's 1.3
+#define BURN_UPG_BLEED_FLAT 1.3
+#define BURN_ARMORED_BLEED_CLAMP (ARTERY_LIMB_BLEEDRATE * 0.33)
 #define BURN_MAX_BLEED (ARTERY_LIMB_BLEEDRATE * 0.75)
 
 /datum/wound/dynamic/burn/upgrade(dam, armor, exposed)
 	whp += (dam * BURN_UPG_WHPRATE)
 	woundpain += (dam * BURN_UPG_PAINRATE)
-	set_bleed_rate(bleed_rate + clamp((dam * BURN_UPG_BLEEDRATE), 0.1, BURN_UPG_CLAMP_RAW))
+	set_bleed_rate(bleed_rate + BURN_UPG_BLEED_FLAT)
 	if(bleed_rate > BURN_MAX_BLEED)
 		set_bleed_rate(BURN_MAX_BLEED)
 	if(armor && !exposed)
@@ -49,9 +49,8 @@
 
 #undef BURN_UPG_WHPRATE
 #undef BURN_UPG_PAINRATE
-#undef BURN_UPG_BLEEDRATE
 #undef BURN_CHAR_THRESHOLD
-#undef BURN_UPG_CLAMP_RAW
+#undef BURN_UPG_BLEED_FLAT
 #undef BURN_ARMORED_BLEED_CLAMP
 #undef BURN_MAX_BLEED
 
