@@ -228,6 +228,9 @@
 	backl = /obj/item/quiver/bolt/conjured
 	beltr = /obj/item/rogueweapon/sword/short/iron
 
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron/conjured
+	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
+
 /datum/outfit/job/roguetown/conjured_champion/doppelsoldner/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 	H.STASTR = 10
@@ -235,15 +238,16 @@
 	H.STAWIL = 10
 	H.adjust_skillrank_down_to(/datum/skill/combat/unarmed, SKILL_LEVEL_JOURNEYMAN, TRUE)
 	H.adjust_skillrank_down_to(/datum/skill/combat/wrestling, SKILL_LEVEL_JOURNEYMAN, TRUE)
-	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/freifechter
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/grenzelhoft
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants
 	shoes = /obj/item/clothing/shoes/roguetown/grenzelhoft
 	gloves = /obj/item/clothing/gloves/roguetown/angle/grenzelgloves
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
-	head = /obj/item/clothing/head/roguetown/grenzelhofthat
-	mask = /obj/item/clothing/mask/rogue/facemask
-	neck = null
+	head = /obj/item/clothing/head/roguetown/helmet/sallet/grenzelhoft
+	neck = /obj/item/clothing/neck/roguetown/bevor
+	belt = /obj/item/storage/belt/rogue/leather
+	backl = /obj/item/rogueweapon/scabbard/gwstrap
 
 /datum/outfit/job/roguetown/conjured_champion/doppelsoldner/spear/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
