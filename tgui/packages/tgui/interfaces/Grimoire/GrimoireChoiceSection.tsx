@@ -4,6 +4,11 @@ import { type Aspect, type Spell } from './types';
 export const GrimoireChoiceSection = ({
   aspect,
   stagedChoices,
+  liveChosen,
+  isPendingUnbind = false,
+  initialSetup = true,
+  resetBudget = 0,
+  swapCost = 2,
   allSelectedSpells,
   claimedGroups,
   act,
@@ -13,6 +18,11 @@ export const GrimoireChoiceSection = ({
 }: {
   aspect: Aspect;
   stagedChoices: Record<string, string>;
+  liveChosen?: string;
+  isPendingUnbind?: boolean;
+  initialSetup?: boolean;
+  resetBudget?: number;
+  swapCost?: number;
   allSelectedSpells: string[];
   claimedGroups: Record<string, string>;
   act: (action: string, params: Record<string, unknown>) => void;
@@ -22,6 +32,9 @@ export const GrimoireChoiceSection = ({
 }) => {
   const currentChoice = stagedChoices[aspect.path] || null;
   const hasChosen = currentChoice !== null;
+  const swapMode = !readOnly && !initialSetup && !!liveChosen && !isPendingUnbind;
+  const stagedSwap = swapMode && currentChoice !== liveChosen;
+  const swapAvailable = resetBudget + (stagedSwap ? swapCost : 0);
 
   const activeVariant = variantOverride
     ? aspect.variants?.find((v) => v.name === variantOverride)
@@ -49,6 +62,14 @@ export const GrimoireChoiceSection = ({
           </span>
         </div>
       )}
+      {hasChosen && swapMode && (
+        <div className="AspectPicker__section-label">
+          Choice
+          <span style={{ fontSize: '10px', marginLeft: '6px', opacity: 0.7 }}>
+            - swap the inscribed spell for {swapCost} reshaping
+          </span>
+        </div>
+      )}
       {aspect.choice_spells.map((spell) => {
         if (spell.mastery_only && userTier < 4) {
           return null;
@@ -56,8 +77,9 @@ export const GrimoireChoiceSection = ({
         const display = swapMap[spell.path] || spell;
         const isSwapped = display !== spell;
         const isSelected = currentChoice === spell.path;
+        const isLiveChosen = swapMode && spell.path === liveChosen;
         const selectedElsewhere =
-          !isSelected && allSelectedSpells.includes(spell.path);
+          !isSelected && !isLiveChosen && allSelectedSpells.includes(spell.path);
         const claimedBy = spell.exclusive_group
           ? claimedGroups[spell.exclusive_group]
           : undefined;
@@ -66,7 +88,10 @@ export const GrimoireChoiceSection = ({
           !selectedElsewhere &&
           claimedBy !== undefined &&
           claimedBy !== aspect.path;
-        const disabled = selectedElsewhere || conflictsElsewhere;
+        const wouldCostSwap = swapMode && !isSelected && !isLiveChosen;
+        const cantAffordSwap = wouldCostSwap && swapAvailable < swapCost;
+        const disabled =
+          selectedElsewhere || conflictsElsewhere || cantAffordSwap;
         return (
           <div
             key={spell.path}
@@ -127,6 +152,39 @@ export const GrimoireChoiceSection = ({
                   - mastery
                 </span>
               )}
+              {isLiveChosen && (
+                <span
+                  style={{
+                    fontSize: '10px',
+                    opacity: 0.7,
+                    fontStyle: 'italic',
+                  }}
+                >
+                  {stagedSwap ? '- inscribed, click to keep' : '- inscribed'}
+                </span>
+              )}
+              {isSelected && stagedSwap && (
+                <span
+                  style={{
+                    fontSize: '10px',
+                    fontStyle: 'italic',
+                    color: 'rgba(255,200,120,0.9)',
+                  }}
+                >
+                  - swap staged: {swapCost} reshaping
+                </span>
+              )}
+              {wouldCostSwap && !cantAffordSwap && (
+                <span
+                  style={{
+                    fontSize: '10px',
+                    opacity: 0.6,
+                    fontStyle: 'italic',
+                  }}
+                >
+                  - swap: {swapCost} reshaping
+                </span>
+              )}
             </div>
             {selectedElsewhere && (
               <span
@@ -142,6 +200,14 @@ export const GrimoireChoiceSection = ({
                 style={{ marginLeft: '18px' }}
               >
                 conflicts with a chosen spell
+              </span>
+            )}
+            {cantAffordSwap && (
+              <span
+                className="AspectPicker__spell-desc"
+                style={{ marginLeft: '18px' }}
+              >
+                needs {swapCost} reshaping
               </span>
             )}
             {display.desc && (

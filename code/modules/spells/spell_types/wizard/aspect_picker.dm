@@ -120,13 +120,16 @@
 		data["attuned_minors"] |= "[path]"
 
 	var/list/display_choices = staged_choices.Copy()
+	var/list/live_choices = list()
 	for(var/datum/magic_aspect/A in owner.mind.major_aspects + owner.mind.minor_aspects)
 		if(!length(A.choice_spells) || !A.chosen_spell)
 			continue
 		var/apath = "[A.type]"
+		live_choices[apath] = "[A.chosen_spell]"
 		if(!display_choices[apath])
 			display_choices[apath] = "[A.chosen_spell]"
 	data["staged_choices"] = display_choices
+	data["live_choices"] = live_choices
 	data["pointbuy_selections"] = pointbuy_selections
 	data["selected_utilities"] = staged_utilities
 	data["utility_points_spent"] = get_utility_points_spent()
@@ -147,6 +150,12 @@
 	data["reset_budget"] = owner.mind.get_aspect_reset_remaining() - staged_cost
 	data["reset_budget_max"] = ASPECT_RESET_BUDGET
 	data["resets_used"] = owner.mind.aspect_resets_used
+	data["reset_costs"] = list(
+		"major" = ASPECT_RESET_COST_MAJOR,
+		"minor" = ASPECT_RESET_COST_MINOR,
+		"utility" = ASPECT_RESET_COST_UTILITY,
+		"choice" = ASPECT_RESET_COST_CHOICE,
+	)
 
 	// Staged unbinds
 	var/list/unbind_aspect_paths = list()
