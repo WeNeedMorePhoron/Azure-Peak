@@ -303,7 +303,7 @@
 	return TRUE
 
 /datum/action/cooldown/spell/command_word/proc/overload_scale(mob/living/summon)
-	if(istype(summon, /mob/living/carbon/human/species/goblin/npc/conjured))
+	if(istype(summon, /mob/living/carbon/human/species/dwarf/gnome/conjured_horde))
 		return 1/3
 	if(istype(summon, /mob/living/simple_animal/hostile/retaliate/rogue/primordial))
 		return 0.5

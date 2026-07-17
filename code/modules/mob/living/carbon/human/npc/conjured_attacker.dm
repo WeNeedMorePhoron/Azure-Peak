@@ -12,6 +12,8 @@
 /mob/living/carbon/human/species/human/northern/conjured_attacker/Initialize()
 	. = ..()
 	set_species(/datum/species/human/northern)
+	gender = pick(MALE, FEMALE)
+	dna.species.random_character(src)
 	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 /mob/living/carbon/human/species/human/northern/conjured_attacker/proc/outfit_attacker(datum/outfit/outfit)
@@ -60,6 +62,7 @@
 			outfit_attacker(new /datum/outfit/job/roguetown/conjured_attacker/sabre)
 	def_intent_change(INTENT_DODGE)
 	ADD_TRAIT(src, TRAIT_DUALWIELDER, TRAIT_GENERIC)
+	dna.species.handle_body(src)
 	random_voice_NPC()
 	random_hair_NPC()
 	random_eye_color_NPC()
