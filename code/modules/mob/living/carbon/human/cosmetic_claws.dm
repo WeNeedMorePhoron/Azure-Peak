@@ -76,9 +76,17 @@
 
 /mob/living/carbon/human/apply_intent_customizations(datum/intent/intent)
 	. = ..()
-	if(istype(intent, /datum/intent/unarmed/punch/cosmetic_claw))
-		intent.hitsound = cosmetic_claw_hitsound
-		intent.miss_sound = cosmetic_claw_miss_sound
+	if(intent.type != INTENT_HARM || !cosmetic_claw_intent)
+		return
+	var/datum/intent/unarmed/punch/cosmetic_claw/claw_presentation = new cosmetic_claw_intent(src)
+	intent.name = claw_presentation.name
+	intent.desc = claw_presentation.desc
+	intent.attack_verb = claw_presentation.attack_verb.Copy()
+	intent.animname = claw_presentation.animname
+	intent.miss_text = claw_presentation.miss_text
+	intent.hitsound = cosmetic_claw_hitsound
+	intent.miss_sound = cosmetic_claw_miss_sound
+	qdel(claw_presentation)
 
 /mob/living/carbon/human/verb/choose_cosmetic_claws()
 	set name = "Choose Natural Attack Appearance"
@@ -120,7 +128,7 @@
 	cosmetic_claw_hitsound = sound_profile[1]
 	cosmetic_claw_miss_sound = sound_profile[2]
 
-	base_intents[harm_index] = claw_intent
+	cosmetic_claw_intent = claw_intent
 	update_a_intents()
 	to_chat(src, span_notice("I will now fight with [lowertext(claw_style)], accompanied by [lowertext(sound_profile_name)]. They are no stronger than my fists."))
 

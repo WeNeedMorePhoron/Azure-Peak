@@ -525,9 +525,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	remove_verb(C, /mob/living/carbon/human/verb/choose_cosmetic_claws)
-	for(var/intent_index in 1 to length(C.base_intents))
-		if(ispath(C.base_intents[intent_index], /datum/intent/unarmed/punch/cosmetic_claw))
-			C.base_intents[intent_index] = INTENT_HARM
+	C.cosmetic_claw_intent = null
 	if(C.dna.species.exotic_bloodtype)
 		C.dna.blood_type = random_blood_type()
 	if(DIGITIGRADE in species_traits)
@@ -1359,7 +1357,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			target.forcesay(GLOB.hit_appends)
 		// Cosmetic claws use a woosh as their presentation sound. Keep it audible even when armor absorbs all damage;
 		// the armor system layers its own plate, chain, leather, or cloth impact over this movement sound. Wohjr
-		if(!nodmg || istype(user.used_intent, /datum/intent/unarmed/punch/cosmetic_claw))
+		if(!nodmg || user.cosmetic_claw_intent)
 			playsound(target.loc, user.used_intent.hitsound, 100, FALSE)
 		if(!nodmg)
 			if(user.mind)
