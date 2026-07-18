@@ -296,7 +296,10 @@
 		fully_charged = TRUE
 		if(owner.client)
 			owner.client.mouse_pointer_icon = 'icons/effects/mousemice/swang/acharged.dmi'
-			playsound(owner, 'sound/magic/charged.ogg', 40, TRUE)
+			if(hide_charge_effect)
+				owner.playsound_local(owner, 'sound/magic/charged.ogg', 40, TRUE)
+			else
+				playsound(owner, 'sound/magic/charged.ogg', 40, TRUE)
 
 /datum/action/cooldown/spell/Grant(mob/grant_to)
 	// Spells are hard baked to pratically only work with living owners
