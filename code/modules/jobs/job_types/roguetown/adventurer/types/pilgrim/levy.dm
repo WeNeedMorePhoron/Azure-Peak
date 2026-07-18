@@ -3,7 +3,7 @@
 	tutorial = "When the Bailiff came knocking for you, it was the worst dae of your lyfe. Hastily pressed into the Crown's service with little more than a helmet, a household tool turned weapon and a bottle of beer for comfort, you joined the Levy squad.<br><br>As one of Azurea's so-called \"folk-heroes\", you are first to answer a peasant's reports of danger beyond the walls. Find the problem and solve it yourself or, if dire, send word for backup, and hold the line until the Armsmen or Wardens arrive to earn their keep."
 	allowed_sexes = list(MALE, FEMALE)
 	forbidden_races = list(RACES_DESPISED)
-	
+
 	outfit = /datum/outfit/job/roguetown/adventurer/levy
 	traits_applied = list(TRAIT_LEVY, TRAIT_HOMESTEAD_EXPERT)
 	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
@@ -55,28 +55,16 @@
 	to_chat(H, span_notice("<b>WHO YOU WERE BEFORE THE LEVY?</b>"))
 
 	to_chat(H, span_info("<b>AN AVERAGE JOE, SER!!</b><br>\
-	Traits: None.<br>\
-	Final Stats: No changes.<br>\
-	Skills: No extras.<br>\
-	Equipment: Rope, Signal Horn, 4x Beer.<br><br>"))
+	Final Stats: + 1 PER, +1 CON, +1 SPD, -1 INT.<br>\))
 
 	to_chat(H, span_info("<b>A TOUGH SOD, SER!!</b><br>\
-	Traits: Enduring, Steelhearted.<br>\
-	Final Stats: +3 CON, +2 STR, +2 WIL, -2 INT, -2 SPD, -1 LCK.<br>\
-	Skills: No extras.<br>\
-	Equipment: Rope, Signal Horn, 4x Beer.<br><br>"))
+	Final Stats: +1 CON, +1 STR, +1 WIL, -1 INT, -1 SPD.<br>\))
 
-	to_chat(H, span_info("<b>A SKINNY WIMP, SER!!</b><br>\
-	Traits: Dodge Expert.<br>\
-	Final Stats: -3 CON, +1 STR, +1 WIL, -1 INT, +3 SPD, -1 LCK.<br>\
-	Skills: No extras.<br>\
-	Equipment: Rope, Signal Horn, Coal, Iron Ore, Scissors.<br><br>"))
+	to_chat(H, span_info("<b>A SKINNY WIMP, SER!!</b><br>\))
+	Final Stats: -1 CON, -1 STR, +1 WIL, -1 SPD.<br>\))
 
-	to_chat(H, span_info("<b>A SMART COOKIE, SER!!</b><br>\
-	Traits: Jack of All Trades.<br>\
-	Final Stats: +3 INT, +1 SPD.<br>\
-	Skills: No extras.<br>\
-	Equipment: Rope, Signal Horn, Coal, Iron Ore, Bottlin' Kit, Healing Juice Recipe.<br><br>"))
+	to_chat(H, span_info("<b>A SMART COOKIE, SER!!</b><br>\))
+	Final Stats: +1 INT, +1 WIL, -1 SPD, -1 STR.<br>\))
 
 	if(H.mind)
 		var/list/specialties = list(
