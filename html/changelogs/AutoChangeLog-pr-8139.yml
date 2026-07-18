@@ -1,0 +1,4 @@
+author: "Dorodomki"
+delete-after: True
+changes:
+  - rscadd: "Added new weapons for unarmed, iron claws, iron grip bludgeon and iron knuckles + their recipes\n:cl:"
