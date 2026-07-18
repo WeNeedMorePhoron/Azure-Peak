@@ -183,6 +183,7 @@
 
 GLOBAL_LIST_INIT(magic_aspects_major, init_magic_aspects(ASPECT_MAJOR))
 GLOBAL_LIST_INIT(magic_aspects_minor, init_magic_aspects(ASPECT_MINOR))
+GLOBAL_LIST_INIT(magic_aspect_singletons, init_magic_aspect_singletons())
 
 /proc/init_magic_aspects(filter_type)
 	var/list/result = list()
@@ -190,4 +191,10 @@ GLOBAL_LIST_INIT(magic_aspects_minor, init_magic_aspects(ASPECT_MINOR))
 		var/datum/magic_aspect/A = path
 		if(initial(A.aspect_type) == filter_type)
 			result += path
+	return result
+
+/proc/init_magic_aspect_singletons()
+	var/list/result = list()
+	for(var/path in subtypesof(/datum/magic_aspect))
+		result[path] = new path
 	return result
