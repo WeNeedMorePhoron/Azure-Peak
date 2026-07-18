@@ -395,6 +395,24 @@
 	path = /obj/item/enchantingkit/dasfox_lance
 	ckeywhitelist = list("dasfox", "cre77") // on request by dasfox
 
+/datum/loadout_item/donator/dasfox/tyesca_brigandine
+	name = "Donator Item - fencer's brigandine"
+	path = /obj/item/enchantingkit/tyesca_brigandine
+	ckeywhitelist = list("dasfox")
+
+/datum/loadout_item/donator/dasfox/tyesca_montante
+	name = "Donator Item - Tyesca's montante"
+	path = /obj/item/enchantingkit/weapon/tyesca_sword
+	ckeywhitelist = list("dasfox")
+
+/datum/loadout_item/donator/dasfox/tyesca_cloak
+	name = "Donator Item - Tyesca's cloak"
+	path = /obj/item/enchantingkit/tyesca_cloak
+
+/datum/loadout_item/donator/dasfox/tyesca_scabbard
+	name = "Donator Item - Tyesca's scabbard"
+	path = /obj/item/rogueweapon/scabbard/sword/tyesca
+
 /datum/loadout_item/donator/ryan
 	name = "Donator Item - Western Estates Caparison"
 	path = /obj/item/caparison/ryan
