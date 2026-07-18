@@ -94,9 +94,8 @@
 			if(!first_idx || !second_idx)
 				return
 			actions.Swap(first_idx, second_idx)
+			usr.mind?.sync_spell_list_to_actions()
 			usr.update_action_buttons()
-	else
-		return ..()
 
 /atom/movable/screen/movable/action_button/Click(location,control,params)
 	if (!can_use(usr))
@@ -194,6 +193,7 @@
 /datum/hud/proc/toggle_rearrange_mode()
 	rearrange_mode = !rearrange_mode
 	if(rearrange_mode)
+		mymob?.mind?.sync_spell_list_to_actions()
 		mymob?.balloon_alert(mymob, "<span style='color:#ff6666'>rearrangement mode - spells disabled!</span>")
 	else
 		mymob?.balloon_alert(mymob, "<span style='color:#96ff96'>rearrangement mode off - spells enabled</span>")

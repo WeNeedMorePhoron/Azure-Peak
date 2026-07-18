@@ -1144,27 +1144,36 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 /datum/mind/proc/rebuild_action_order()
 	if(!current)
 		return
-	var/list/spells = list()
-	var/list/pins = list()
-	for(var/datum/action/cooldown/spell/S in spell_list)
-		if(!(S in current.actions))
+	var/list/ordered_spell_actions = list()
+	var/list/pin_actions = list()
+	for(var/datum/entry in spell_list)
+		var/datum/action/entry_action
+		if(istype(entry, /datum/action/cooldown/spell))
+			entry_action = entry
+		else if(istype(entry, /obj/effect/proc_holder/spell))
+			var/obj/effect/proc_holder/spell/P = entry
+			entry_action = P.action
+		if(!entry_action || !(entry_action in current.actions))
 			continue
-		if(is_pinned_spell(S))
-			pins += S
+		if(is_pinned_spell(entry))
+			pin_actions += entry_action
 		else
-			spells += S
-	for(var/X in spell_list)
-		if(!istype(X, /obj/effect/proc_holder/spell))
-			continue
-		var/obj/effect/proc_holder/spell/P = X
-		if(P.action && (P.action in current.actions))
-			spells += P.action
-	var/list/rest = list()
+			ordered_spell_actions += entry_action
+	var/list/result = list()
+	var/next_spell = 1
 	for(var/datum/action/A in current.actions)
-		if((A in spells) || (A in pins))
+		if(A in pin_actions)
 			continue
-		rest += A
-	current.actions = spells + rest + pins
+		if(A in ordered_spell_actions)
+			if(next_spell <= length(ordered_spell_actions))
+				result += ordered_spell_actions[next_spell]
+				next_spell++
+		else
+			result += A
+	while(next_spell <= length(ordered_spell_actions))
+		result += ordered_spell_actions[next_spell]
+		next_spell++
+	current.actions = result + pin_actions
 	current.update_action_buttons()
 
 /datum/mind/proc/spell_list_entry_for_action(datum/action/A)
@@ -1174,6 +1183,21 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		if(P.action == A)
 			return P
 	return null
+
+/// Adopt the visible action-bar order as the canonical spell_list order, so entering
+/// rearrangement mode can't snap a drifted bar to a stale order on the first swap.
+/datum/mind/proc/sync_spell_list_to_actions()
+	if(!current)
+		return
+	var/list/new_order = list()
+	for(var/datum/action/A in current.actions)
+		var/datum/entry = spell_list_entry_for_action(A)
+		if(entry && !(entry in new_order))
+			new_order += entry
+	for(var/datum/entry in spell_list)
+		if(!(entry in new_order))
+			new_order += entry
+	spell_list = new_order
 
 /datum/mind/proc/swap_spell_order(datum/action/a, datum/action/b)
 	if(!a || !b || a == b)
