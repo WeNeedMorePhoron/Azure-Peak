@@ -407,7 +407,7 @@
 
 /datum/loadout_item/donator/dasfox/tyesca_cloak
 	name = "Donator Item - Tyesca's cloak"
-	path = /obj/item/enchantingkit/tyesca_cloak
+	path = /obj/item/clothing/cloak/raincloak/tyesca
 
 /datum/loadout_item/donator/dasfox/tyesca_scabbard
 	name = "Donator Item - Tyesca's scabbard"

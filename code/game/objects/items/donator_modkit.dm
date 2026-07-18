@@ -880,14 +880,6 @@
 	)
 	result_item = null
 
-//DasFox - Tyesca Outfit
-/obj/item/enchantingkit/tyesca_cloak
-	name = "'Szöréndnížine banner-cloak' morphing elixir"
-	target_items = list(
-		/obj/item/clothing/cloak/raincloak
-	)
-	result_item = /obj/item/clothing/cloak/raincloak/tyesca
-
 /obj/item/enchantingkit/weapon/tyesca_sword
 	name = "'Szöréndnížine montante' morphing elixir"
 	target_items = list(
