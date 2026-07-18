@@ -57,6 +57,8 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	var/list/atom/movable/screen/plane_master/plane_masters = list() // see "appearance_flags" in the ref, assoc list of "[plane]" = object
 
 	var/action_buttons_hidden = FALSE
+	var/rearrange_mode = FALSE
+	var/next_rearrange_hint = 0
 
 	var/atom/movable/screen/healths
 	var/atom/movable/screen/bloods
