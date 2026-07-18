@@ -1,0 +1,6 @@
+author: "Quinalion"
+delete-after: True
+changes:
+  - balance: "Grenzelhoft Boots now count as positive armor for TRAIT_FENCERDEXTERITY."
+  - rscadd: "Freifechter mercenaries now start with a pouch of copper coins."
+  - bugfix: "Fixed Freifechter mercenary equipment."
