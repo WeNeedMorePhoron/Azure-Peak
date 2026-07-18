@@ -387,6 +387,7 @@
 				staged_majors -= path
 				staged_minors -= path
 				pointbuy_selections -= params["path"]
+				staged_choices -= params["path"]
 			else
 				// Edit mode — stage the unbind, check budget
 				var/is_live = owner.mind.has_aspect(path)
@@ -406,6 +407,7 @@
 					staged_majors -= path
 					staged_minors -= path
 					pointbuy_selections -= params["path"]
+					staged_choices -= params["path"]
 			. = TRUE
 
 		if("undo_unbind")
@@ -426,7 +428,10 @@
 					removable -= locked_aspects
 					if(!length(removable))
 						break
-					staged_majors -= removable[length(removable)]
+					var/removed = removable[length(removable)]
+					staged_majors -= removed
+					pointbuy_selections -= "[removed]"
+					staged_choices -= "[removed]"
 			else if(restored_type == ASPECT_MINOR)
 				var/max_min = isnull(override_max_minors) ? MAX_MINOR_ASPECTS : override_max_minors
 				var/current_count = length(owner.mind.minor_aspects) - length(staged_unbind_aspects & get_attuned_paths(ASPECT_MINOR))
@@ -435,7 +440,10 @@
 					removable -= locked_aspects
 					if(!length(removable))
 						break
-					staged_minors -= removable[length(removable)]
+					var/removed = removable[length(removable)]
+					staged_minors -= removed
+					pointbuy_selections -= "[removed]"
+					staged_choices -= "[removed]"
 			. = TRUE
 
 		if("unbind_utility")
@@ -581,7 +589,7 @@
 
 /// Async confirm handler - performs chants then applies all staged changes.
 /// Chanting only happens when there are unbinds (i.e. reshaping, not initial setup).
-/// If interrupted, staged data is preserved so the player can retry.
+/// If interrupted, already-applied changes stand; reopening the spellbook starts a fresh picker.
 /datum/aspect_picker/proc/perform_confirm(max_majors, max_minors_resolved)
 	var/major_unbinds = 0
 	for(var/unbind_path in staged_unbind_aspects)
@@ -681,6 +689,7 @@
 			if(!target.perform_chant(owner, binding = FALSE))
 				to_chat(owner, span_warning("The unbinding chant was interrupted. I can try again."))
 				chanting = FALSE
+				qdel(src)
 				return
 			if(!owner.mind.spend_aspect_reset(target))
 				to_chat(owner, span_warning("Not enough reset budget remaining."))
@@ -707,6 +716,7 @@
 				to_chat(owner, span_warning("The binding chant was interrupted. I can try again."))
 				qdel(aspect)
 				chanting = FALSE
+				qdel(src)
 				return
 		// Check for class variant override on this specific aspect, otherwise mastery
 		var/variant = LAZYLEN(variant_overrides) ? variant_overrides[path] : null
@@ -724,6 +734,7 @@
 				to_chat(owner, span_warning("The binding chant was interrupted. I can try again."))
 				qdel(aspect)
 				chanting = FALSE
+				qdel(src)
 				return
 		var/variant = LAZYLEN(variant_overrides) ? variant_overrides[path] : null
 		if(!variant && mastery)
@@ -800,19 +811,9 @@
 	// Check if there are remaining aspect slots
 	var/current_majors = LAZYLEN(owner.mind.major_aspects)
 	var/current_minors = LAZYLEN(owner.mind.minor_aspects)
-	var/has_remaining = (current_majors < max_majors) || (current_minors < max_minors_resolved)
-
-	if(has_remaining)
-		staged_majors.Cut()
-		staged_minors.Cut()
-		staged_utilities.Cut()
-		staged_unbind_aspects.Cut()
-		staged_unbind_utilities.Cut()
-		staged_choices = list()
-		pointbuy_selections = list()
+	if((current_majors < max_majors) || (current_minors < max_minors_resolved))
 		to_chat(owner, span_notice("Aspects applied. You have remaining slots - use your spellbook to continue selecting."))
-	else
-		qdel(src)
+	qdel(src)
 
 /// Check if a spell conflicts with one already selected in a different aspect's pointbuy,
 /// choice, or fixed spells - either the exact same spell, or one sharing its exclusive_group

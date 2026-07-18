@@ -912,10 +912,14 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		// check exclusivity
 		for(var/datum/action/cooldown/spell/S in spell_list)
 			if(S.exclusive_group && S.exclusive_group == new_spell.exclusive_group)
+				if(S != new_spell)
+					qdel(new_spell)
 				return // already have one of this group
 
 		for(var/datum/action/cooldown/spell/present in spell_list)
 			if(present.name == new_spell.name && present.type == new_spell.type)
+				if(present != new_spell)
+					qdel(new_spell)
 				return
 		spell_list += new_spell
 		new_spell.Grant(current)
@@ -927,6 +931,8 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	var/obj/effect/proc_holder/spell/S = spell_or_action
 	for(var/obj/effect/proc_holder/spell/present_spell in spell_list)
 		if(present_spell.name == S.name && present_spell.type == S.type)
+			if(present_spell != S)
+				qdel(S)
 			return
 	spell_list += S
 	S.action.Grant(current)
