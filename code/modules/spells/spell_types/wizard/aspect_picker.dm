@@ -187,8 +187,6 @@
 	// Include spells the owner already knows (pre-granted by class, etc.)
 	for(var/datum/action/cooldown/spell/S in owner.mind.spell_list)
 		all_selected_spells |= "[S.type]"
-	for(var/obj/effect/proc_holder/spell/S in owner.mind.spell_list)
-		all_selected_spells |= "[S.type]"
 	data["all_selected_spells"] = all_selected_spells
 	var/list/claimed_groups = list()
 	for(var/aspect_path_str in staged_choices)
@@ -287,21 +285,13 @@
 
 /datum/aspect_picker/proc/build_spell_entry(spell_path)
 	var/list/entry = list()
+	var/datum/action/cooldown/spell/S = spell_path
 	entry["path"] = "[spell_path]"
-	if(ispath(spell_path, /datum/action/cooldown/spell))
-		var/datum/action/cooldown/spell/S = spell_path
-		entry["name"] = initial(S.name)
-		entry["desc"] = initial(S.desc)
-		entry["fluff_desc"] = initial(S.fluff_desc)
-		entry["cost"] = initial(S.point_cost)
-		entry["exclusive_group"] = initial(S.exclusive_group)
-	else
-		var/obj/effect/proc_holder/spell/S = spell_path
-		entry["name"] = initial(S.name)
-		entry["desc"] = initial(S.desc)
-		entry["fluff_desc"] = ""
-		entry["cost"] = initial(S.cost)
-		entry["exclusive_group"] = null
+	entry["name"] = initial(S.name)
+	entry["desc"] = initial(S.desc)
+	entry["fluff_desc"] = initial(S.fluff_desc)
+	entry["cost"] = initial(S.point_cost)
+	entry["exclusive_group"] = initial(S.exclusive_group)
 	return entry
 
 /datum/aspect_picker/proc/build_utility_list()
@@ -765,10 +755,8 @@
 			continue
 		if(owner.mind.has_spell(spell_path))
 			continue
-		var/datum/new_spell = new spell_path
-		if(istype(new_spell, /datum/action/cooldown/spell))
-			var/datum/action/cooldown/spell/S = new_spell
-			S.utility_learned = TRUE
+		var/datum/action/cooldown/spell/new_spell = new spell_path
+		new_spell.utility_learned = TRUE
 		owner.mind.AddSpell(new_spell)
 
 	if(has_unbinds)
@@ -890,14 +878,6 @@
 			continue
 		total += initial(S.point_cost)
 		counted_paths |= "[S.type]"
-	for(var/obj/effect/proc_holder/spell/S in owner.mind.spell_list)
-		if(S.source_aspect != aspect_path)
-			continue
-		if(!(S.type in aspect.pointbuy_spells))
-			continue
-		if("[S.type]" in counted_paths)
-			continue
-		total += initial(S.cost)
 	return total
 
 /// Get total utility points spent — includes already-known utilities (minus pending unbinds) and staged selections

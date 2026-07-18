@@ -495,19 +495,13 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	if(has_spell(new_path, specific = TRUE))
 		rebuild_action_order()
 		return TRUE
-	var/datum/new_spell = new new_path
+	var/datum/action/cooldown/spell/new_spell = new new_path
 	aspect.mark_aspect_spell(new_spell)
-	if(new_path != new_choice && istype(new_spell, /datum/action/cooldown/spell))
-		var/datum/action/cooldown/spell/tagged = new_spell
-		tagged.desc = "[tagged.desc]\n<b>Variant:</b> [capitalize(aspect.applied_variant)]"
+	if(new_path != new_choice)
+		new_spell.desc = "[new_spell.desc]\n<b>Variant:</b> [capitalize(aspect.applied_variant)]"
 	if(insert_index && insert_index <= length(spell_list) + 1)
 		spell_list.Insert(insert_index, new_spell)
-		if(istype(new_spell, /datum/action/cooldown/spell))
-			var/datum/action/cooldown/spell/S = new_spell
-			S.Grant(current)
-		else if(istype(new_spell, /obj/effect/proc_holder/spell))
-			var/obj/effect/proc_holder/spell/S = new_spell
-			S.action.Grant(current)
+		new_spell.Grant(current)
 	else
 		AddSpell(new_spell)
 	rebuild_action_order()
@@ -1001,13 +995,10 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	check_learnspell()
 
 /datum/mind/proc/get_spell_point_cost(spell_path)
-	if(!spell_path)
+	if(!ispath(spell_path, /datum/action/cooldown/spell))
 		return 0
-	if(ispath(spell_path, /datum/action/cooldown/spell))
-		var/datum/action/cooldown/spell/S = spell_path
-		return initial(S.point_cost)
-	var/obj/effect/proc_holder/spell/S = spell_path
-	return initial(S.cost)
+	var/datum/action/cooldown/spell/S = spell_path
+	return initial(S.point_cost)
 
 /datum/mind/proc/is_utility_learned(spell_path)
 	for(var/datum/action/cooldown/spell/S in spell_list)

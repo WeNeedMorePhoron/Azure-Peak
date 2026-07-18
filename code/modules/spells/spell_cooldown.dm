@@ -198,6 +198,8 @@
 
 	/// If the spell creates visual effects.
 	var/has_visual_effects = TRUE
+	/// If TRUE, no overhead spell icon is shown while charging.
+	var/hide_charge_effect = FALSE
 	/// The color used for spell visual effects (rune, particles, wave). Each spell sets its own.
 	var/spell_color = "#FFFFFF"
 	/// Glow intensity while casting. Uses GLOW_INTENSITY defines. 0 = no glow.
@@ -216,7 +218,7 @@
 /datum/action/cooldown/spell/New(Target)
 	. = ..()
 	// Create overhead spell icon effect (matching old proc_holder system)
-	if(button_icon_state)
+	if(button_icon_state && !hide_charge_effect)
 		var/obj/effect/R = new /obj/effect/spell_rune
 		R.icon = button_icon
 		R.icon_state = button_icon_state
