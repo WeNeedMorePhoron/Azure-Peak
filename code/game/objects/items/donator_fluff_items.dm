@@ -2083,6 +2083,8 @@ As Excaliber."
 
 // RACOBIO
 /obj/item/rogueweapon/woodstaff/implement/grand/racobio
+
+	base_implement_name = "Obsidian Tower"
 	name = "Obsidian Tower"
 	desc = "An exceptionally long, smooth staff of polished black obsidian. It lacks the traditional gem-top of most casting implements. Careful observation would note that the flawless obelisk of stone does not reflect nearby lights, but light from some other place."
 	icon_state = "racobiostaff"
