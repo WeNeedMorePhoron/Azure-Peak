@@ -55,16 +55,27 @@
 	to_chat(H, span_notice("<b>WHO YOU WERE BEFORE THE LEVY?</b>"))
 
 	to_chat(H, span_info("<b>AN AVERAGE JOE, SER!!</b><br>\
-	Final Stats: + 1 PER, +1 CON, +1 SPD, -1 INT.<br>\))
+	Traits: None.<br>\
+	Final Stats: + 1 PER, +1 CON, +1 SPD, -1 INT.<br><br>\
+	Skills: No extras.<br>\
+	Equipment: None.<br><br>"))
 
 	to_chat(H, span_info("<b>A TOUGH SOD, SER!!</b><br>\
-	Final Stats: +1 CON, +1 STR, +1 WIL, -1 INT, -1 SPD.<br>\))
+	Traits: None.<br>\
+	Final Stats: +1 CON, +1 STR, +1 WIL, -1 INT, -1 SPD.<br>\
+	Skills: No extras.<br>\
+	Equipment: None.<br>"))
 
-	to_chat(H, span_info("<b>A SKINNY WIMP, SER!!</b><br>\))
-	Final Stats: -1 CON, -1 STR, +1 WIL, -1 SPD.<br>\))
+	to_chat(H, span_info("<b>A SKINNY WIMP, SER!!</b><br>\
+	Traits: None.<br>\
+	Final Stats: -1 CON, -1 STR, +1 WIL, +1 SPD.<br>\
+	Skills: No extras.<br>\
+	Equipment: None.<br><br>"))
 
-	to_chat(H, span_info("<b>A SMART COOKIE, SER!!</b><br>\))
-	Final Stats: +1 INT, +1 WIL, -1 SPD, -1 STR.<br>\))
+	to_chat(H, span_info("<b>A SMART COOKIE, SER!!</b><br>\
+	Traits: None.<br>\
+	Final Stats: +1 INT, +1 WIL, -1 SPD, -1 STR.<br>\
+	Equipment: None.<br><br>"))
 
 	if(H.mind)
 		var/list/specialties = list(
