@@ -151,6 +151,7 @@
 /// Dedicated maptext holder for the ARC indicator, separate from the cooldown maptext.
 /atom/movable/screen/arc_maptext_holder
 	layer = ABOVE_HUD_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	maptext_x = 2
 	maptext_y = 0
 	maptext_width = 64

@@ -935,7 +935,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	if(length(spell_list) == 1 && current)
 		addtimer(CALLBACK(src, PROC_REF(show_spell_tip)), 3 SECONDS)
 
-/// Ensure arcyne ward and prestidigitation are present and bumped to the end of the spell list.
+/// Ensure arcyne ward and prestidigitation are present.
 /// Arcyne Ward is skipped if a dragonhide/crystalhide variant is already present (those replace it).
 /datum/mind/proc/ensure_mage_basics()
 	if(!current || !HAS_TRAIT(current, TRAIT_ARCYNE))
@@ -1133,19 +1133,10 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	for(var/datum/SP in current.actions)
 		RemoveSpell(SP)
 
-/// Spells forced to the end of the bar regardless of spell_list order.
-/datum/mind/proc/is_pinned_spell(datum/S)
-	var/static/list/trailing_types = list(
-		/datum/action/cooldown/spell/touch/prestidigitation,
-		/datum/action/cooldown/spell/learnspell,
-	)
-	return S && (S.type in trailing_types)
-
 /datum/mind/proc/rebuild_action_order()
 	if(!current)
 		return
 	var/list/ordered_spell_actions = list()
-	var/list/pin_actions = list()
 	for(var/datum/entry in spell_list)
 		var/datum/action/entry_action
 		if(istype(entry, /datum/action/cooldown/spell))
@@ -1155,15 +1146,10 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 			entry_action = P.action
 		if(!entry_action || !(entry_action in current.actions))
 			continue
-		if(is_pinned_spell(entry))
-			pin_actions += entry_action
-		else
-			ordered_spell_actions += entry_action
+		ordered_spell_actions += entry_action
 	var/list/result = list()
 	var/next_spell = 1
 	for(var/datum/action/A in current.actions)
-		if(A in pin_actions)
-			continue
 		if(A in ordered_spell_actions)
 			if(next_spell <= length(ordered_spell_actions))
 				result += ordered_spell_actions[next_spell]
@@ -1173,7 +1159,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	while(next_spell <= length(ordered_spell_actions))
 		result += ordered_spell_actions[next_spell]
 		next_spell++
-	current.actions = result + pin_actions
+	current.actions = result
 	current.update_action_buttons()
 
 /datum/mind/proc/spell_list_entry_for_action(datum/action/A)

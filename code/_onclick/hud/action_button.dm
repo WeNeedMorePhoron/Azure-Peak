@@ -56,7 +56,6 @@
 		return
 	color = on ? AB_DROP_TINT : AB_REARRANGE_TINT
 
-// Entered/Exited don't fire while dragging, so track the hovered drop target by hand (Vanderlin pattern)
 /atom/movable/screen/movable/action_button/MouseDrag(atom/over_object, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!can_use(usr) || !our_hud?.rearrange_mode)
@@ -72,7 +71,7 @@
 		target.set_drag_highlight(TRUE)
 		last_hovored_ref = WEAKREF(target)
 
-/atom/movable/screen/movable/action_button/MouseDrop(over_object)
+/atom/movable/screen/movable/action_button/MouseDrop(atom/over_object)
 	var/atom/movable/screen/movable/action_button/hovered = last_hovored_ref?.resolve()
 	if(istype(hovered))
 		hovered.set_drag_highlight(FALSE)
@@ -81,21 +80,22 @@
 		return
 	if(!our_hud?.rearrange_mode)
 		return
-	if(istype(over_object, /atom/movable/screen/movable/action_button))
-		var/atom/movable/screen/movable/action_button/B = over_object
-		if(B == src)
+	if(!istype(over_object, /atom/movable/screen/movable/action_button))
+		return
+	var/atom/movable/screen/movable/action_button/B = over_object
+	if(B == src)
+		return
+	moved = FALSE
+	B.moved = FALSE
+	if(!usr.mind?.swap_spell_order(src.linked_action, B.linked_action))
+		var/list/actions = usr.actions
+		var/first_idx = actions.Find(src.linked_action)
+		var/second_idx = actions.Find(B.linked_action)
+		if(!first_idx || !second_idx)
 			return
-		moved = FALSE
-		B.moved = FALSE
-		if(!usr.mind?.swap_spell_order(src.linked_action, B.linked_action))
-			var/list/actions = usr.actions
-			var/first_idx = actions.Find(src.linked_action)
-			var/second_idx = actions.Find(B.linked_action)
-			if(!first_idx || !second_idx)
-				return
-			actions.Swap(first_idx, second_idx)
-			usr.mind?.sync_spell_list_to_actions()
-			usr.update_action_buttons()
+		actions.Swap(first_idx, second_idx)
+		usr.mind?.sync_spell_list_to_actions()
+		usr.update_action_buttons()
 
 /atom/movable/screen/movable/action_button/Click(location,control,params)
 	if (!can_use(usr))
@@ -180,13 +180,10 @@
 				continue
 			B.locked = !hud_used.rearrange_mode
 			B.color = hud_used.rearrange_mode ? AB_REARRANGE_TINT : null
-			if(B.moved)
-				B.screen_loc = B.moved
-				B.set_hotkey_label(null)
-			else
-				button_number++
-				B.screen_loc = hud_used.ButtonNumberToScreenCoords(button_number)
-				B.set_hotkey_label(button_number <= 9 ? button_number : null)
+			B.moved = FALSE
+			button_number++
+			B.screen_loc = hud_used.ButtonNumberToScreenCoords(button_number)
+			B.set_hotkey_label(button_number <= 9 ? button_number : null)
 			if(reload_screen)
 				client.screen += B
 
@@ -236,6 +233,7 @@
 
 /atom/movable/screen/hotkey_label_holder
 	layer = ABOVE_HUD_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	maptext_x = 1
 	maptext_y = 20
 	maptext_width = 12
@@ -243,6 +241,7 @@
 
 /atom/movable/screen/maptext_holder
 	layer = ABOVE_HUD_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	maptext_x = 8
 	maptext_y = 4
 
