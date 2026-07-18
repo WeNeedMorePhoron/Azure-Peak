@@ -1,0 +1,4 @@
+author: "Clem-The-Duck"
+delete-after: True
+changes:
+  - rscadd: "Makes it possible to layer a fluted cuirass with a hauberk"
