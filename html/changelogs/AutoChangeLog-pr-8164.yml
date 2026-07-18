@@ -1,0 +1,4 @@
+author: "SpadesNeil"
+delete-after: True
+changes:
+  - image: "structure.dmi now has a fallback image"
