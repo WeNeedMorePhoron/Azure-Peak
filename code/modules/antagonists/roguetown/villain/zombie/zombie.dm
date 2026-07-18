@@ -95,14 +95,14 @@
   That means we always have the stat change number as our buff/debuff to change your stats to this, its quite a fussy thing to work with
   But this means that we can keep applying this buff until you de-zombify, constantly changing your statline.
   Its janky and frankly I would much rather we re-factored buffs to modify an "effective" statline
-  
+
   As we can then change your "true" statline for antag roles properly currently our only "reasonable" method that we have is using buffs
   to inefficently do math to figure out our difference and pray it works, this...
-  
+
   isn't super effective as you can imagine and isn't without flaw. - A good example is debuff/buff before turning will...
   change our statline since this doesn't update, this is unfortnately an issue with buffs but this is the closet to fixing it..
 
-  Blame Blackstone era roguecode's statcaps for /not/ having a seperated /true/ statline vs buffed one. 
+  Blame Blackstone era roguecode's statcaps for /not/ having a seperated /true/ statline vs buffed one.
   */
 
 	effectedstats = list(
@@ -381,6 +381,7 @@
 	zombie.update_mobility()
 	zombie.update_sight()
 	zombie.reload_fullscreen()
+	zombie.handle_blood()
 	transform_zombie()
 	if(zombie.stat >= DEAD)
 		//could not revive
@@ -482,7 +483,7 @@
 	ADD_TRAIT(owner, TRAIT_IGNORESLOWDOWN, id)
 	ADD_TRAIT(owner, TRAIT_LONGSTRIDER, id)
 	ADD_TRAIT(owner, TRAIT_STRONG_GRABBER, id)
-	to_chat(owner, span_userdanger("I feel my body tense up immensely in response to this hunger, tendrils of darkness crawling under my skin.")) 
+	to_chat(owner, span_userdanger("I feel my body tense up immensely in response to this hunger, tendrils of darkness crawling under my skin."))
 
 /datum/status_effect/debuff/deadite_grace/on_remove()
 	. = ..()
