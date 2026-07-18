@@ -1000,38 +1000,47 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	ensure_mage_basics()
 	check_learnspell()
 
+/datum/mind/proc/get_spell_point_cost(spell_path)
+	if(!spell_path)
+		return 0
+	if(ispath(spell_path, /datum/action/cooldown/spell))
+		var/datum/action/cooldown/spell/S = spell_path
+		return initial(S.point_cost)
+	var/obj/effect/proc_holder/spell/S = spell_path
+	return initial(S.cost)
+
+/datum/mind/proc/is_utility_learned(spell_path)
+	for(var/datum/action/cooldown/spell/S in spell_list)
+		if(S.type == spell_path && S.utility_learned)
+			return TRUE
+	return FALSE
+
+/datum/mind/proc/get_utility_points_spent(list/exclude_path_strs)
+	var/total = 0
+	for(var/path in GLOB.utility_spells)
+		if(exclude_path_strs && ("[path]" in exclude_path_strs))
+			continue
+		if(!is_utility_learned(path))
+			continue
+		total += get_spell_point_cost(path)
+	return total
+
+/datum/mind/proc/has_remaining_aspect_picks()
+	if(!LAZYLEN(mage_aspect_config))
+		return FALSE
+	var/list/config = mage_aspect_config
+	if(LAZYLEN(major_aspects) < (config["major"] || 0))
+		return TRUE
+	if(LAZYLEN(minor_aspects) < (config["minor"] || 0))
+		return TRUE
+	var/max_util = config["utilities"] || 0
+	return (max_util > 0) && (get_utility_points_spent() < max_util)
+
 /datum/mind/proc/check_learnspell()
 	// Aspect config system — LearnSpell only appears until the first binding.
 	// After that, the spellbook handles edit mode.
 	if(LAZYLEN(mage_aspect_config))
-		var/list/config = mage_aspect_config
-		var/current_majors = LAZYLEN(major_aspects)
-		var/current_minors = LAZYLEN(minor_aspects)
-		var/max_maj = config["major"] || 0
-		var/max_min = config["minor"] || 0
-		var/max_util = config["utilities"] || 0
-		// Check if all slots and points are exhausted
-		var/has_remaining_slots = (current_majors < max_maj) || (current_minors < max_min)
-		var/has_remaining_util = FALSE
-		if(max_util > 0)
-			var/util_points_spent = 0
-			for(var/path in GLOB.utility_spells)
-				if(has_spell(path))
-					var/is_picked = FALSE
-					for(var/datum/action/cooldown/spell/S in spell_list)
-						if(S.type == path && S.utility_learned)
-							is_picked = TRUE
-							break
-					if(!is_picked)
-						continue
-					if(ispath(path, /datum/action/cooldown/spell))
-						var/datum/action/cooldown/spell/S = path
-						util_points_spent += initial(S.point_cost)
-					else
-						var/obj/effect/proc_holder/spell/S = path
-						util_points_spent += initial(S.cost)
-			has_remaining_util = (util_points_spent < max_util)
-		if(!has_remaining_slots && !has_remaining_util)
+		if(!has_remaining_aspect_picks())
 			RemoveSpell(/datum/action/cooldown/spell/learnspell)
 			rebuild_action_order()
 			return
