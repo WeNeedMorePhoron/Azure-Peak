@@ -64,6 +64,13 @@
 	cost = 35
 	contains = list(/obj/item/clothing/suit/roguetown/shirt/shadowshirt)
 
+/datum/supply_pack/rogue/underdark/glossweave_pants
+	name = "Glossweave Pants"
+	cost = 75 // this is armor
+	contains = list(/obj/item/clothing/under/roguetown/heavy_leather_pants/shadowpants)
+
+
+
 /datum/supply_pack/rogue/underdark/spidersilk_webbing
 	name = "Spidersilk Webbing (Pants)"
 	cost = 40
