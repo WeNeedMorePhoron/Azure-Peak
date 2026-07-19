@@ -74,6 +74,8 @@
 	else
 		button.update_maptext(time_left)
 
+	if(button.our_hud?.rearrange_mode)
+		return
 	if(!IsAvailable() || !is_action_active(button))
 		return
 	// If we don't change the icon state, or don't apply a special overlay,

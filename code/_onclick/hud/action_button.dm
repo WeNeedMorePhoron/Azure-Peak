@@ -52,7 +52,7 @@
 
 /atom/movable/screen/movable/action_button/proc/set_drag_highlight(on)
 	if(!our_hud?.rearrange_mode)
-		color = null
+		linked_action?.build_all_button_icons(UPDATE_BUTTON_STATUS)
 		return
 	color = on ? AB_DROP_TINT : AB_REARRANGE_TINT
 
@@ -179,7 +179,8 @@
 			if(!B)
 				continue
 			B.locked = !hud_used.rearrange_mode
-			B.color = hud_used.rearrange_mode ? AB_REARRANGE_TINT : null
+			if(hud_used.rearrange_mode)
+				B.color = AB_REARRANGE_TINT
 			B.moved = FALSE
 			button_number++
 			B.screen_loc = hud_used.ButtonNumberToScreenCoords(button_number)
