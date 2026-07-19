@@ -87,7 +87,6 @@
 	id = "spell_vampire_block"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/spell_vampire_block
 	duration = 60 SECONDS
-	needs_processing = FALSE
 	status_type = STATUS_EFFECT_REFRESH
 
 /datum/status_effect/debuff/spell_vampire_block/on_apply()
