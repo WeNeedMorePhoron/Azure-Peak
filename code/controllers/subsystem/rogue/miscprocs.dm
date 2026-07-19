@@ -107,7 +107,7 @@
 	if(patron)
 		if(length(patron.miracles))
 			for(var/spell_type in patron.miracles)
-				var/required_tier = patron.miracles[spell_type]			
+				var/required_tier = patron.miracles[spell_type]
 				if(required_tier <= level)
 					if(holder.mind.has_spell(spell_type))
 						continue
@@ -125,6 +125,11 @@
 						to_chat(holder, span_boldnotice("I have unlocked a new trait: [trait]"))
 					ADD_TRAIT(holder, trait, ROUNDSTART_TRAIT)
 
+/proc/get_caster_miracle_tier(mob/caster, miracle_type)
+	var/mob/living/living_caster = caster
+	if(!istype(living_caster) || !living_caster.patron || !islist(living_caster.patron.miracles))
+		return null
+	return living_caster.patron.miracles[miracle_type]
 
 //The main proc that distributes all the needed devotion tweaks to the given class.
 //cleric_tier 		- The cleric tier that the holder will get spells of immediately.
@@ -248,7 +253,7 @@
 	set category = "RoleUnique.Virtue"
 
 	if(HAS_TRAIT(src, TRAIT_COMBAT_AWARE))
-		REMOVE_TRAIT(src, TRAIT_COMBAT_AWARE, TRAIT_VIRTUE) 
+		REMOVE_TRAIT(src, TRAIT_COMBAT_AWARE, TRAIT_VIRTUE)
 	else
 		ADD_TRAIT(src, TRAIT_COMBAT_AWARE, TRAIT_VIRTUE)
 	to_chat(src, "I will see [HAS_TRAIT(src, TRAIT_COMBAT_AWARE) ? "more" : "less"] combat information now.")
@@ -270,7 +275,7 @@
 	set category = "RoleUnique.Virtue"
 
 	if(HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS))
-		REMOVE_TRAIT(src, TRAIT_DECEIVING_MEEKNESS, TRAIT_VIRTUE) 
+		REMOVE_TRAIT(src, TRAIT_DECEIVING_MEEKNESS, TRAIT_VIRTUE)
 	else
 		ADD_TRAIT(src, TRAIT_DECEIVING_MEEKNESS, TRAIT_VIRTUE)
 	to_chat(src, "I have [HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS) ? "raised" : "lowered"] my guard around others.")

@@ -83,6 +83,27 @@
 	desc = "I urgently need to drink something! Anything!"
 	icon_state = "thirst3"
 
+/datum/status_effect/debuff/spell_vampire_block
+	id = "spell_vampire_block"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/spell_vampire_block
+	duration = 60 SECONDS
+	needs_processing = FALSE
+	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/debuff/spell_vampire_block/on_apply()
+	. = ..()
+	if(.)
+		ADD_TRAIT(owner, TRAIT_SPELL_VAMPIRE_BLOCK, STATUS_EFFECT_TRAIT)
+
+/datum/status_effect/debuff/spell_vampire_block/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_SPELL_VAMPIRE_BLOCK, STATUS_EFFECT_TRAIT)
+	return ..()
+
+/atom/movable/screen/alert/status_effect/debuff/spell_vampire_block
+	name = "Vitae Surge"
+	desc = "My vampiric power blocks the flow of the arcyne in my vein - I cannot utilize conventional magick until it subsides."
+	icon_state = "debuff"
+
 
 
 /datum/status_effect/debuff/vthirstt1
@@ -1148,13 +1169,13 @@
 	if(!ishuman(owner))
 		return FALSE
 	var/mob/living/carbon/human/H = owner
-	var/datum/physiology/phy = H.physiology 
+	var/datum/physiology/phy = H.physiology
 	var/con_mod = H.STACON - 10
 	// con mod needs to be greater than 1 for scaling
 	if(con_mod > 0)
 		// ensure their gotten con mod does not go below 1 or exceed the bleedrate cap.
 		con_mod = clamp(con_mod, 1, CONSTITUTION_BLEEDRATE_CAP - 10)
-		// this ""equalizes"" high con ppl into bleeding more, but they SHOULD generally still 
+		// this ""equalizes"" high con ppl into bleeding more, but they SHOULD generally still
 		// bleed less than if they had just 10 con. remember: this numbers gets sent THRU their con score after.
 		phy.bleed_mod = 1.15 + (con_mod * 0.1) // at 15 con you'll bleed from a wound by .825
 	else
@@ -1166,7 +1187,7 @@
 	if(!ishuman(owner))
 		return FALSE
 	var/mob/living/carbon/human/H = owner
-	var/datum/physiology/phy = H.physiology 
+	var/datum/physiology/phy = H.physiology
 	phy.bleed_mod = initial(phy.bleed_mod) // con can lower from the bleeding so we want it to just directly be set back to the initial
 	H.visible_message(span_warning("[owner] has their wounds calm..."), span_warning("My wounds stop bleeding so heavily!"))
 
@@ -1185,7 +1206,7 @@
 	if(!ishuman(owner))
 		return FALSE
 	var/mob/living/carbon/human/H = owner
-	var/datum/physiology/phy = H.physiology 
+	var/datum/physiology/phy = H.physiology
 	var/pain_mod = phy.pain_mod
 	phy.pain_mod = pain_mod * 1.15 // this then gets reduced by wil, among other things. change as needed.
 	H.visible_message(span_warning("[owner] looks to be in great pain, their wounds BLACKENING!"), span_danger("EVERYTHING HURTS!! MY WOUNDS PAIN HAS INCREASED!!"))
@@ -1195,7 +1216,7 @@
 	if(!ishuman(owner))
 		return FALSE
 	var/mob/living/carbon/human/H = owner
-	var/datum/physiology/phy = H.physiology 
+	var/datum/physiology/phy = H.physiology
 	var/pain_mod = phy.pain_mod
 	phy.pain_mod = pain_mod / 1.15 // this should be a define fuuuck
 	H.visible_message(span_warning("[owner]'s wounds suddenly return to normal!"), span_warning("My magickally induced pain subsides!"))
