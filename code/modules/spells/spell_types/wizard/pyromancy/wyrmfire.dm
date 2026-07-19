@@ -14,8 +14,7 @@
 	abstract_type = /datum/action/cooldown/spell/projectile/fireball
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Fireball"
-	desc = "Shoot out a ball of fire that explodes on impact, scorching and slowing nearby targets. \
-	Toggle arc mode (Shift+G) while the spell is active to fire it over intervening mobs. Arced attacks deal 25% less damage."
+	desc = "Shoot out a ball of fire that explodes on impact, scorching and slowing nearby targets. \"
 	button_icon_state = "fireball"
 	sound = 'sound/magic/fireball.ogg'
 	spell_color = GLOW_COLOR_FIRE
