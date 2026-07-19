@@ -401,7 +401,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 				to_chat(H, span_warning("The arcyne rejects what I am!"))
 				return FALSE
 		if(H.mind?.has_antag_datum(/datum/antagonist/vampire))
-			var/vamp_miracle_tier = get_caster_miracle_tier(H, type)
+			var/vamp_miracle_tier = get_miracle_tier(type)
 			if(!isnull(vamp_miracle_tier) && vamp_miracle_tier > CLERIC_T1)
 				to_chat(H, span_warning("The gods deny me such power!"))
 				return FALSE

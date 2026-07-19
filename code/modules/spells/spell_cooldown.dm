@@ -654,7 +654,7 @@
 
 	// Vampires may only use T1 and lesser miracles, for self heal and disguise, more powerful miracles are denied - If you metacheck this I'll skrill you.
 	if(owner.mind?.has_antag_datum(/datum/antagonist/vampire))
-		var/vamp_miracle_tier = get_caster_miracle_tier(owner, type)
+		var/vamp_miracle_tier = get_miracle_tier(type)
 		if(!isnull(vamp_miracle_tier) && vamp_miracle_tier > CLERIC_T1)
 			if(feedback)
 				owner.balloon_alert(owner, "I cannot disguise my nature to use such powers!")
