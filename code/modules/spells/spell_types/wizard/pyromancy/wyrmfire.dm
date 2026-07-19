@@ -253,6 +253,9 @@
 	for(var/turf/T in range(radius, epicenter))
 		new /obj/effect/temp_visual/dragonfire(T)
 		new /obj/effect/curtain_fire(T, PILLAR_OF_FLAME_CURTAIN_LIFE, caster, aim_zone)
+		T.fire_act()
+		for(var/atom/A in T)
+			A.fire_act()
 		for(var/mob/living/L in T)
 			if(L.stat == DEAD)
 				continue
@@ -466,7 +469,7 @@
 			if(L.anti_magic_check())
 				continue
 			if(istype(caster) && !QDELETED(caster))
-				arcyne_strike(caster, L, null, blast_damage, BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Pyroclasm", damage_type = BURN, skip_animation = TRUE)
+				arcyne_strike(caster, L, null, blast_damage, BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Pyroclasm", damage_type = BURN, skip_animation = TRUE, npc_simple_damage_mult = 2)
 			else
 				L.adjustFireLoss(blast_damage)
 			apply_scorch_stack(L, 4)
