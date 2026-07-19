@@ -222,6 +222,7 @@
 /datum/outfit/job/roguetown/mercenary/blackoak_adept/pre_equip(mob/living/carbon/human/H)
 	..()
 	H.adjust_blindness(-3)
+	head = /obj/item/clothing/head/roguetown/helmet/heavy/elven_helm
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/elven_plate
 	shoes = /obj/item/clothing/shoes/roguetown/boots/elven_boots
 	cloak = /obj/item/clothing/cloak/forrestercloak
@@ -335,15 +336,5 @@
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_EXPERT, TRUE)
 			else
 				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_EXPERT, TRUE)
-
-	var/helmets = list("Woad Elven Barbute", "Elven Barbute", "Winged Elven Barbute")
-	var/helmet_choice = input(H, "Choose your HELMET.", "LEAVES OVER STEEL.") as anything in helmets
-	switch(helmet_choice)
-		if("Woad Elven Barbute")
-			H.equip_to_slot_or_del(new /obj/item/clothing/head/roguetown/helmet/heavy/elven_helm/light, SLOT_HEAD, TRUE)
-		if("Elven Barbute")
-			H.equip_to_slot_or_del(new /obj/item/clothing/head/roguetown/helmet/elvenbarbute/blackoak, SLOT_HEAD, TRUE)
-		if("Winged Elven Barbute")
-			H.equip_to_slot_or_del(new /obj/item/clothing/head/roguetown/helmet/elvenbarbute/winged/blackoak, SLOT_HEAD, TRUE)
 
 	H.merctype = 2
