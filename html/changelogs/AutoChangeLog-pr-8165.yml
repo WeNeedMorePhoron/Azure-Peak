@@ -1,4 +1,0 @@
-author: "WeNeedMorePhoron"
-delete-after: True
-changes:
-  - rscadd: "Optimized the floating function used by levitation to not eat up 0.25% of the server CPU. report any issue"
