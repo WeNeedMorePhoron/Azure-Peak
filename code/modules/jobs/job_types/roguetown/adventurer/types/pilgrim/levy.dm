@@ -3,13 +3,20 @@
 	tutorial = "When the Bailiff came knocking for you, it was the worst dae of your lyfe. Hastily pressed into the Crown's service with little more than a helmet, a household tool turned weapon and a bottle of beer for comfort, you joined the Levy squad.<br><br>As one of Azurea's so-called \"folk-heroes\", you are first to answer a peasant's reports of danger beyond the walls. Find the problem and solve it yourself or, if dire, send word for backup, and hold the line until the Armsmen or Wardens arrive to earn their keep."
 	allowed_sexes = list(MALE, FEMALE)
 	forbidden_races = list(RACES_DESPISED)
-
 	outfit = /datum/outfit/job/roguetown/adventurer/levy
 	traits_applied = list(TRAIT_LEVY, TRAIT_HOMESTEAD_EXPERT)
 	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
 	category_tags = list(CTAG_TOWNER)
 	townie_contract_gate_exempt = TRUE
 	maximum_possible_slots = 5 // They're still Towners who contribute to the econ, even when not fighting or bog-larping.
+
+	subclass_stats = list(
+		STATKEY_CON = 1,
+		STATKEY_STR = 1,
+		STATKEY_WIL = 1,
+		STATKEY_INT = -1,
+	)
+
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
@@ -49,68 +56,8 @@
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 		/obj/item/rogueweapon/huntingknife/throwingknife/triumph = 1,
 		/obj/item/signal_horn = 1,
+		/obj/item/paper/vinegar_healpot_recipe = 1,
 	)
-
-
-	to_chat(H, span_notice("<b>WHO YOU WERE BEFORE THE LEVY?</b>"))
-
-	to_chat(H, span_info("<b>AN AVERAGE JOE, SER!!</b><br>\
-	Traits: None.<br>\
-	Final Stats: + 1 PER, +1 CON, +1 SPD, -1 INT.<br><br>\
-	Skills: No extras.<br>\
-	Equipment: None.<br><br>"))
-
-	to_chat(H, span_info("<b>A TOUGH SOD, SER!!</b><br>\
-	Traits: None.<br>\
-	Final Stats: +1 CON, +1 STR, +1 WIL, -1 INT, -1 SPD.<br>\
-	Skills: No extras.<br>\
-	Equipment: None.<br>"))
-
-	to_chat(H, span_info("<b>A SKINNY WIMP, SER!!</b><br>\
-	Traits: None.<br>\
-	Final Stats: -1 CON, -1 STR, +1 WIL, +1 SPD.<br>\
-	Skills: No extras.<br>\
-	Equipment: None.<br><br>"))
-
-	to_chat(H, span_info("<b>A SMART COOKIE, SER!!</b><br>\
-	Traits: None.<br>\
-	Final Stats: +1 INT, +1 WIL, -1 SPD, -1 STR.<br>\
-	Equipment: None.<br><br>"))
-
-	if(H.mind)
-		var/list/specialties = list(
-			"AN AVERAGE JOE, SER!!",
-			"A TOUGH SOD, SER!!",
-			"A SKINNY WIMP, SER!!",
-			"A SMART COOKIE, SER!!",
-		)
-		var/specialty_choice = tgui_input_list(H, "What type of a Peasant were ya'?", "FIT BEFORE THE LEVY?", specialties)
-		switch(specialty_choice)
-
-			if("AN AVERAGE JOE, SER!!")
-				H.change_stat(STATKEY_PER, 1)
-				H.change_stat(STATKEY_CON, 1)
-				H.change_stat(STATKEY_SPD, 1)
-				H.change_stat(STATKEY_INT, -1)
-
-			if("A TOUGH SOD, SER!!")
-				H.change_stat(STATKEY_STR, 1)
-				H.change_stat(STATKEY_CON, 1)
-				H.change_stat(STATKEY_WIL, 1)
-				H.change_stat(STATKEY_INT, -1)
-				H.change_stat(STATKEY_SPD, -1)
-
-			if("A SKINNY WIMP, SER!!")
-				H.change_stat(STATKEY_CON, -1)
-				H.change_stat(STATKEY_STR, -1)
-				H.change_stat(STATKEY_SPD, 1)
-				H.change_stat(STATKEY_PER, 1)
-
-			if("A SMART COOKIE, SER!!")
-				H.change_stat(STATKEY_STR, -1)
-				H.change_stat(STATKEY_WIL, 1)
-				H.change_stat(STATKEY_INT, 1)
-				H.change_stat(STATKEY_SPD, -1)
 
 	to_chat(H, span_notice("<b>THE WEAPON I COULD SCROUNGE UP:</b>"))
 	to_chat(H, span_info("<b>THE FAMILY SWORD</b> - Journeyman Swords. Comes with a militia falchion."))
@@ -261,7 +208,7 @@
 		var/armor_options = list("Leather Armor.", "Gambeson Armor.")
 		var/armor_choice = input(H, "Put your clothes on!.", "TAKE UP ARMAMENTS!") as anything in armor_options
 
-		switch(armor_choice)
+		switch(armor_choice.)
 			if("Leather Armor.")
 				armor = /obj/item/clothing/suit/roguetown/armor/leather
 				pants = /obj/item/clothing/under/roguetown/tights/clothlegs
@@ -276,7 +223,7 @@
 //A note for the Doc!
 /obj/item/paper/vinegar_healpot_recipe
 	name = "Healing Juice Recipe"
-	desc = "One of your finest discoveries. The secret formula to make a healing potion that transcends all alchemy!"
+	desc = "One of our finest discoveries. The secret formula to make a healing potion that transcends all alchemy!"
 	info = {"
 		<font face='Times New Roman' color='#000000'>
 		- Get a barrel or a distiller.<br><br>
