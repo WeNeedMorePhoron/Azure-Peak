@@ -824,6 +824,8 @@
 			pic.color = get_detail_color()
 		add_overlay(pic)
 
+//Wraps
+
 /obj/item/clothing/shoes/roguetown/footwraps
 	name = "cloth footwraps"
 	desc = "Thickly-woven bandages that've been wrapped around the ankles to protect from any unwanted shattered teeth from sticking in your precious legs."
@@ -831,3 +833,17 @@
 	icon_state = "footwraps"
 	sewrepair = TRUE
 	salvage_result = /obj/item/natural/cloth
+
+/obj/item/clothing/shoes/roguetown/footwraps/padded
+	name = "padded cloth footwraps"
+	desc = "Thickly-woven padded bandages wrapped about one's ankles to maintain mobility for climbing and kicking."
+	armor = ARMOR_PADDED
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
+
+/obj/item/clothing/shoes/roguetown/footwraps/hleather
+	name = "hardened leather footwraps"
+	desc = "A cut down pair of boots maintaining most of the cover they'd normally offer with added comfort for those with inhumen anatomy."
+	icon_state = "footwraps_hleather"
+	salvage_result = /obj/item/natural/hide/cured
+	armor = ARMOR_LEATHER
+	max_integrity = ARMOR_INT_SIDE_HARDLEATHER
