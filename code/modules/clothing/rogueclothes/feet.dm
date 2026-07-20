@@ -410,7 +410,7 @@
 
 /obj/item/clothing/shoes/roguetown/boots/armor/gold
 	name = "golden greaves"
-	desc = "Resplendant sabatons of pure gold, adorned with angled greaves that proudly bare the holy sigil. Its besilked cuffs have remained surprisingly bereft of debris - not even a sprig of lint remains to be criticized."
+	desc = "Resplendant sabatons of pure gold, adorned with angled greaves that proudly bear the holy sigil. Its besilked cuffs have remained surprisingly bereft of debris - not even a sprig of lint remains to be criticized."
 	icon_state = "goldgreaves"
 	item_state = "goldgreaves"
 	body_parts_covered = FEET | LEGS

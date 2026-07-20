@@ -382,7 +382,7 @@
 /obj/item/rogueweapon/sword/long/cleric
 	name = "anointed longsword"
 	desc = "A crusader's longsword, adorned with a blade of cold iron and blessed to smite evil. Though this blessed alloy lacks the strength to \
-	sunder those who bare greater curses, it nevertheless channels enough power to dispell the lesser curses of mindless fiends-and-foes. </br>'Strike \
+	sunder those who bear greater curses, it nevertheless channels enough power to dispell the lesser curses of mindless fiends-and-foes. </br>'Strike \
 	true, my child, for thy blade is thine God..'"
 	icon_state = "crusaderlongsword"
 	sheathe_icon = "crusaderlongsword"
@@ -660,7 +660,7 @@
 /obj/item/rogueweapon/sword/long/judgement/vlord/examine(mob/user)
 	. = ..()
 	if(user.mind?.has_antag_datum(/datum/antagonist/vampire))
-		. += span_notice("You can feel the unholy blade's enchantment resonate with your cursed nature, anyone that does not bare your curse will be unable to touch it.")
+		. += span_notice("You can feel the unholy blade's enchantment resonate with your cursed nature, anyone that does not bear your curse will be unable to touch it.")
 
 /obj/item/rogueweapon/sword/long/judgement/vlord/Initialize()
   ..()
