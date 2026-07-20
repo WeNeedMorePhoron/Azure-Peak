@@ -278,10 +278,12 @@
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/addiction/nympho
 	effectedstats = list(STATKEY_WIL = -1, STATKEY_LCK = -1)
 
+
+// This bit is just an easter egg. Feel free to remove at your discretion.
 /datum/status_effect/debuff/addiction/nympho/on_apply()
 	. = ..()
 	if(owner)
-		if(ishuman(owner) && iself(owner))
+		if(ishuman(owner) && (iself(owner) || ishalfelf(owner) || istiefling(owner)))
 			var/mob/living/carbon/human/H = owner
 			H.emote("eflick", intentional = TRUE)
 
