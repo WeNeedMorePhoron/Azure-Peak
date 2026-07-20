@@ -414,11 +414,11 @@
 
 /obj/item/clothing/shoes/roguetown/boots/armor/gold
 	name = "golden greaves"
-	desc = "Resplendant sabatons of pure gold, adorned with angled greaves that proudly bare the holy sigil. Its besilked cuffs have remained surprisingly bereft of debris - not even a sprig of lint remains to be criticized."
+	desc = "Resplendant sabatons of pure gold, adorned with angled greaves that proudly bear the holy sigil. Its besilked cuffs have remained surprisingly bereft of debris - not even a sprig of lint remains to be criticized."
 	icon_state = "goldgreaves"
 	item_state = "goldgreaves"
 	body_parts_covered = FEET | LEGS
-	armor_class = ARMOR_CLASS_HEAVY //Ceremonial. Heavy is the head that bares the burden.
+	armor_class = ARMOR_CLASS_HEAVY //Ceremonial. Heavy is the head that bears the burden.
 	armor = ARMOR_INDESTRUCTIBLE //Renders its wearer completely invulnerable to damage. The caveat is, however..
 	max_integrity = ARMOR_INT_SIDE_GOLD // ..is that it's extraordinarily fragile. To note, this is lower than even Decrepit-tier armor.
 	anvilrepair = null
