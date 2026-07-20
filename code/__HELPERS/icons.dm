@@ -1076,7 +1076,8 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		body.update_inv_back()
 		body.update_inv_head()
 
-		humanoid_icon_cache[icon_id] = out_icon
+		if(icon_id)
+			humanoid_icon_cache[icon_id] = out_icon
 		dummy_key? unset_busy_human_dummy(dummy_key) : qdel(body)
 		return out_icon
 	else

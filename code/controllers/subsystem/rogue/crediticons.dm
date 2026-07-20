@@ -32,12 +32,8 @@ SUBSYSTEM_DEF(crediticons)
 	if(!target || !istype(target) || !target.mind || !target.client)
 		return null
 
+
 	var/credit_name = "[target.real_name]"
-	if(target.mind.assigned_role)
-		// We don't have their job refactor yet
-		var/datum/job/job = target.mind.assigned_role
-		if(job)
-			credit_name = "[credit_name]\nthe [job]"
 
 	if(!GLOB.credits_icons[credit_name]?["icon"])
 		return null
