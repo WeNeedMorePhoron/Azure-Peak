@@ -19,13 +19,13 @@
 
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/hunting = SKILL_LEVEL_NOVICE,
-		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
+		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/tanning = SKILL_LEVEL_NOVICE,
@@ -35,14 +35,14 @@
 		/datum/skill/craft/armorsmithing = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/weaponsmithing = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/lumberjacking = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/labor/mining = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/labor/mining = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/farming = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/butchering = SKILL_LEVEL_APPRENTICE,
 	)
 
 /datum/outfit/job/roguetown/adventurer/levy/pre_equip(mob/living/carbon/human/H)
 	..()
-	neck = /obj/item/clothing/neck/roguetown/coif/padded
+	neck = /obj/item/clothing/neck/roguetown/coif
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	pants = /obj/item/clothing/under/roguetown/trou/leather
@@ -223,7 +223,7 @@
 //A note for the Doc!
 /obj/item/paper/vinegar_healpot_recipe
 	name = "Healing Juice Recipe"
-	desc = "One of our finest discoveries. The secret formula to make a healing potion that transcends all alchemy!"
+	desc = "One of the Levy's finest discoveries. The secret formula to make a healing potion that transcends all alchemy!"
 	info = {"
 		<font face='Times New Roman' color='#000000'>
 		- Get a barrel or a distiller.<br><br>
