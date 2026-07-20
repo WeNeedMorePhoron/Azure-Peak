@@ -500,10 +500,12 @@
 			else if(H.zone_selected == BODY_ZONE_PRECISE_EARS)
 				message_param = "kisses %t on the ear."
 				var/mob/living/carbon/human/E = target
-				if(iself(E) || ishalfelf(E) || isdarkelf(E) || issunelf(E))
-					if(!E.cmode)
-						to_chat(target, span_love("It tickles..."))
-						E.emote("eflick", intentional = TRUE)
+				if(!HAS_TRAIT(target, TRAIT_DECEIVING_MEEKNESS) || !HAS_TRAIT(traget, TRAIT_NOMOOD))
+					var/mob/living/carbon/human/E = target
+					if(iself(E) || ishalfelf(E) || isdarkelf(E) || issunelf(E))
+						if(!E.cmode)
+							to_chat(target, span_love("It tickles..."))
+							E.emote("eflick", intentional = TRUE)
 			else if(H.zone_selected == BODY_ZONE_PRECISE_R_EYE || H.zone_selected == BODY_ZONE_PRECISE_L_EYE)
 				message_param = "kisses %t on the brow."
 			else if(H.zone_selected == BODY_ZONE_PRECISE_SKULL)
@@ -551,10 +553,12 @@
 				message_param = "licks %t lips."
 			else if(J.zone_selected == BODY_ZONE_PRECISE_EARS)
 				message_param = "licks the ear of %t."
-				var/mob/living/carbon/human/O = target
-				if(iself(O) || ishalfelf(O) || isdarkelf(O))
-					if(!O.cmode)
-						to_chat(target, span_love("It tickles..."))
+				if(!HAS_TRAIT(target, TRAIT_DECEIVING_MEEKNESS) || !HAS_TRAIT(traget, TRAIT_NOMOOD))
+					var/mob/living/carbon/human/O = target
+					if(iself(O) || ishalfelf(O) || isdarkelf(O) || issunelf(O))
+						if(!O.cmode)
+							to_chat(target, span_love("It tickles..."))
+							O.emote("eflick", intentional = TRUE)
 			else if(J.zone_selected == BODY_ZONE_PRECISE_GROIN)
 				message_param = "licks %t between the legs."
 				to_chat(target, span_love("That feels nice..."))
