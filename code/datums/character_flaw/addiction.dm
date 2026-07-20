@@ -282,7 +282,7 @@
 /datum/status_effect/debuff/addiction/nympho/on_creation(mob/living/new_owner, ...)
 	. = ..()
 	if(new_owner)
-		if(ishuman(new_owner) && (iself(new_owner) || ishalfelf(new_owner) || istiefling(new_owner)))
+		if(ishuman(new_owner) && (iself(new_owner) || ishalfelf(new_owner) || istiefling(new_owner) || isdarkelf(new_owner) || issunelf(new_owner)))
 			var/mob/living/carbon/human/H = new_owner
 			H.emote("eflick", intentional = TRUE)
 
