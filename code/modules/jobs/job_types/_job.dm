@@ -292,8 +292,8 @@
 			SStreasury.noble_incomes[H] = noble_income
 			SStreasury.grant_estate_income(H, noble_income, TRUE)
 
-	if(show_in_credits && isnull(SScrediticons.processing[H]))
-		SScrediticons.processing[H] = FALSE
+	if(show_in_credits && H.ckey && isnull(SScrediticons.processing[H.ckey]))
+		SScrediticons.processing[H.ckey] = FALSE
 
 	if(cmode_music)
 		H.cmode_music = cmode_music

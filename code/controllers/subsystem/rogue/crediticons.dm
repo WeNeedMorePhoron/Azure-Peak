@@ -1,8 +1,7 @@
-
 SUBSYSTEM_DEF(crediticons)
 	name = "crediticons"
 	wait = 6 SECONDS
-	flags = SS_NO_INIT
+	flags = SS_NO_INIT | SS_BACKGROUND
 	priority = 1
 	var/list/processing = list()
 	var/list/currentrun = list()
@@ -15,17 +14,16 @@ SUBSYSTEM_DEF(crediticons)
 	var/list/currentrun = src.currentrun
 
 	while (currentrun.len)
-		var/mob/living/carbon/human/thing = currentrun[currentrun.len]
+		var/queued_ckey = currentrun[currentrun.len]
 		currentrun.len--
-		if (!thing || QDELETED(thing))
-			processing -= thing
+		var/mob/living/carbon/human/actor = GLOB.directory[queued_ckey]?.mob
+		if(!istype(actor) || QDELETED(actor))
 			if (MC_TICK_CHECK)
 				return
 			continue
-		thing.add_credit(processing[thing])
-		STOP_PROCESSING(SScrediticons, thing)
-		if (MC_TICK_CHECK)
-			return
+		actor.add_credit(processing[queued_ckey])
+		processing -= queued_ckey
+		return
 
 /datum/controller/subsystem/crediticons/proc/get_credit_icon(mob/living/carbon/human/target, crop_to_upper_half = FALSE)
 	if(!target || !istype(target) || !target.mind || !target.client)

@@ -161,7 +161,8 @@
 		apply_character_post_equipment(H)
 
 /datum/advclass/proc/post_equip(mob/living/carbon/human/H)
-	SScrediticons.processing[H] = TRUE
+	if(H.ckey)
+		SScrediticons.processing[H.ckey] = TRUE
 	if(cmode_music)
 		H.cmode_music = cmode_music
 	if(class_tempo_faction)
