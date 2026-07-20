@@ -205,15 +205,15 @@
 			cloak = /obj/item/clothing/cloak/tabard/stabard/bog/levy/hood
 
 	if(H.mind)
-		var/armor_options = list("Leather Armor.", "Gambeson Armor.")
-		var/armor_choice = input(H, "Put your clothes on!.", "TAKE UP ARMAMENTS!") as anything in armor_options
+		var/armor_options = list("Leather Armor", "Gambeson Armor")
+		var/armor_choice = input(H, "Put your clothes on!", "TAKE UP ARMAMENTS!") as anything in armor_options
 
 		switch(armor_choice)
-			if("Leather Armor.")
+			if("Leather Armor")
 				armor = /obj/item/clothing/suit/roguetown/armor/leather
 				pants = /obj/item/clothing/under/roguetown/tights/clothlegs
 
-			if("Gambeson Armor.")
+			if("Gambeson Armor")
 				armor = /obj/item/clothing/suit/roguetown/armor/gambeson
 				pants = /obj/item/clothing/under/roguetown/trou/leather
 
