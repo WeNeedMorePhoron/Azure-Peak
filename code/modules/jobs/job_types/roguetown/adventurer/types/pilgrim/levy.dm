@@ -208,7 +208,7 @@
 		var/armor_options = list("Leather Armor.", "Gambeson Armor.")
 		var/armor_choice = input(H, "Put your clothes on!.", "TAKE UP ARMAMENTS!") as anything in armor_options
 
-		switch(armor_choice.)
+		switch(armor_choice)
 			if("Leather Armor.")
 				armor = /obj/item/clothing/suit/roguetown/armor/leather
 				pants = /obj/item/clothing/under/roguetown/tights/clothlegs
