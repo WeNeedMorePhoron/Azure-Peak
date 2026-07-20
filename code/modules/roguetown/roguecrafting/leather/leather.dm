@@ -134,7 +134,6 @@
 	reqs = list(/obj/item/natural/fur = 1, /obj/item/natural/fibers = 2)
 
 /obj/item/clothing/head/roguetown/papakha/crafted
-	sellprice = 10
 
 /datum/crafting_recipe/roguetown/leather/saddle
 	name = "saddle"
