@@ -1169,13 +1169,13 @@
 	var/total_sellprice = 0
 	if(isturf(A))
 		for(var/obj/item/I in A.contents)
-			total_sellprice += I.sellprice
+			total_sellprice += I.get_real_price()
 		to_chat(user, span_notice("Everything on the ground is worth [total_sellprice] mammons."))
 	else if(istype(A, /obj/item))
 		var/obj/item/I = A
-		total_sellprice += I.sellprice
+		total_sellprice += I.get_real_price()
 		for(var/obj/item/item in I.contents)
-			total_sellprice += item.sellprice
+			total_sellprice += item.get_real_price()
 		to_chat(user, span_notice("The item and its contents is worth [total_sellprice] mammons."))
 
 /obj/item/clothing/neck/roguetown/shalal
