@@ -278,6 +278,13 @@
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/addiction/nympho
 	effectedstats = list(STATKEY_WIL = -1, STATKEY_LCK = -1)
 
+/datum/status_effect/debuff/addiction/nympho/on_apply()
+	. = ..()
+	if(owner)
+		if(ishuman(owner) && iself(owner))
+			var/mob/living/carbon/human/H = owner
+			H.emote("eflick", intentional = TRUE)
+
 /atom/movable/screen/alert/status_effect/debuff/addiction/nympho
 	name = "Nymphomania"
 	desc = "I must make love. My loins burn with unsated desire."
@@ -311,7 +318,7 @@
 
 /datum/charflaw/addiction/paranoid/apply_post_equipment(mob/user)
 	assign_faction(user)
-	
+
 /datum/charflaw/addiction/paranoid/proc/assign_faction(mob/user)
 	var/datum/job/J = SSjob.GetJob(user.job)
 	if(!J)
