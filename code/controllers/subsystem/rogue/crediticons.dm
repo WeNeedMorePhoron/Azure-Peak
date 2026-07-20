@@ -1,12 +1,11 @@
 
 SUBSYSTEM_DEF(crediticons)
 	name = "crediticons"
-	wait = 20
+	wait = 6 SECONDS
 	flags = SS_NO_INIT
 	priority = 1
 	var/list/processing = list()
 	var/list/currentrun = list()
-	can_fire = FALSE
 
 /datum/controller/subsystem/crediticons/fire(resumed = 0)
 	if (!resumed)
@@ -23,7 +22,7 @@ SUBSYSTEM_DEF(crediticons)
 			if (MC_TICK_CHECK)
 				return
 			continue
-		thing.add_credit()
+		thing.add_credit(processing[thing])
 		STOP_PROCESSING(SScrediticons, thing)
 		if (MC_TICK_CHECK)
 			return
