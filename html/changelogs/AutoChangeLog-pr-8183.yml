@@ -1,4 +1,0 @@
-author: "radarseas"
-delete-after: True
-changes:
-  - bugfix: "TRAIT_SHATTER_KILL aka, shatterable form, is more accurate to how the trait works."
