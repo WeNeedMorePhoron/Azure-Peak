@@ -52,6 +52,8 @@
 		istype(A, /obj/item/natural/cloth) || \
 		istype(A, /obj/item/natural/fibers) || \
 		istype(A, /obj/item/natural/silk) || \
+		istype(A, /obj/item/natural/bone) || \
+		istype(A, /obj/item/natural/bundle) || \
 		istype(A, /obj/item/ammo_casing) || \
 		istype(A, /obj/item/rogueweapon/huntingknife/throwingknife)
 
