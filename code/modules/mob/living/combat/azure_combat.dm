@@ -370,7 +370,7 @@
 		if(C.armor_class > cached_body_ac)
 			cached_body_ac = C.armor_class
 	cached_worn_ac = cached_body_ac
-	for(var/obj/item/clothing/C in list(wear_wrists, gloves, shoes, wear_neck, wear_mask, wear_ring))
+	for(var/obj/item/clothing/C in list(wear_wrists, gloves, shoes, wear_neck, wear_mask, wear_ring, cloak))
 		if(C.armor_class > cached_worn_ac)
 			cached_worn_ac = C.armor_class
 	if(istype(head, /obj/item/clothing))
