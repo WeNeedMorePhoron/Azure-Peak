@@ -499,8 +499,7 @@
 				message_param = "kisses %t deeply."
 			else if(H.zone_selected == BODY_ZONE_PRECISE_EARS)
 				message_param = "kisses %t on the ear."
-				var/mob/living/carbon/human/E = target
-				if(!HAS_TRAIT(target, TRAIT_DECEIVING_MEEKNESS) || !HAS_TRAIT(traget, TRAIT_NOMOOD))
+				if(!HAS_TRAIT(target, TRAIT_DECEIVING_MEEKNESS) || !HAS_TRAIT(target, TRAIT_NOMOOD))
 					var/mob/living/carbon/human/E = target
 					if(iself(E) || ishalfelf(E) || isdarkelf(E) || issunelf(E))
 						if(!E.cmode)
@@ -553,7 +552,7 @@
 				message_param = "licks %t lips."
 			else if(J.zone_selected == BODY_ZONE_PRECISE_EARS)
 				message_param = "licks the ear of %t."
-				if(!HAS_TRAIT(target, TRAIT_DECEIVING_MEEKNESS) || !HAS_TRAIT(traget, TRAIT_NOMOOD))
+				if(!HAS_TRAIT(target, TRAIT_DECEIVING_MEEKNESS) || !HAS_TRAIT(target, TRAIT_NOMOOD))
 					var/mob/living/carbon/human/O = target
 					if(iself(O) || ishalfelf(O) || isdarkelf(O) || issunelf(O))
 						if(!O.cmode)
