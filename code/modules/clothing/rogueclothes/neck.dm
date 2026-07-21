@@ -1047,6 +1047,7 @@
 	desc = "In lyfe a smile is sharper than any blade."
 	icon_state = "xylix"
 	toggle_icon_state = FALSE
+	var/disguised_type = null
 
 /obj/item/clothing/neck/roguetown/psicross/xylix/wood
 	name = "wooden amulet of Xylix"
@@ -1075,6 +1076,26 @@
 	if(human.patron == GLOB.patronlist[/datum/patron/divine/xylix])
 		. += span_notice("This is an amulet of Xylix! By shift-right clicking it, I can alter its shape to whatever befits my whim.")
 
+
+/obj/item/clothing/neck/roguetown/psicross/xylix/get_examine_highlight_status()
+	// If the cross is not disguised, it's a regular Xylixian amulet. Not heretical, just silly.
+	if(!disguised_type)
+		return null
+
+	if(is_zizo_amulet(disguised_type))
+		return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_ZIZO_ICON)
+	if(is_graggar_amulet(disguised_type))
+		return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_GRAGGAR_ICON)
+	if(is_baotha_amulet(disguised_type))
+		return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_BAOTHA_ICON)
+	if(is_matthios_amulet(disguised_type))
+		return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_MATTHIOS_ICON)
+	if(is_gronn_amulet(disguised_type))
+		return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_GRONN)
+
+	// Otherwise, we assume it isn't disguised as anything heretical.
+	return null
+
 /obj/item/clothing/neck/roguetown/psicross/xylix/ShiftRightClick(mob/user, params)
 	if(!ishuman(user))
 		return
@@ -1093,7 +1114,8 @@
 	if(!selected_cross)
 		return
 
-	var/obj/item/clothing/neck/roguetown/psicross/cross_type = choices[selected_cross]
+	disguised_type = choices[selected_cross]
+	var/obj/item/clothing/neck/roguetown/psicross/cross_type = disguised_type
 
 	name = initial(cross_type.name)
 	desc = initial(cross_type.desc)
@@ -1522,7 +1544,7 @@
 	smeltresult = /obj/item/ingot/weeping
 	sellprice = 666
 	equip_delay_self = 3 SECONDS
-	unequip_delay_self = 7 SECONDS 
+	unequip_delay_self = 7 SECONDS
 	inv_storage_delay = 3 SECONDS
 	var/active_item
 
