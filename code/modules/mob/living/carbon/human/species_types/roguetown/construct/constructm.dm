@@ -267,7 +267,7 @@
 		if(M == user)
 			if(!do_after(user, 12 SECONDS, M))
 				return FALSE
-		power = 5 + I.sellprice * 1.5
+		power = 5 + I.get_real_price() * 1.5
 		M.apply_status_effect(/datum/status_effect/buff/ingotmuncher, power)
 		if(user == M)
 			M.visible_message(
@@ -289,7 +289,7 @@
 		if(M == user)
 			if(!do_after(user, 12 SECONDS, M))
 				return FALSE
-		power = I.sellprice * 2
+		power = I.get_real_price() * 2
 		M.apply_status_effect(/datum/status_effect/buff/gemmuncher, power)
 		if(user == M)
 			M.visible_message(
@@ -438,7 +438,7 @@
 
 	// === ORE === 
 	if(istype(I, /obj/item/rogueore))
-		power = 5 + I.sellprice * 1.25
+		power = 5 + I.get_real_price() * 1.25
 		M.apply_status_effect(/datum/status_effect/buff/oremuncher, power)
 		if(user == M)
 			M.visible_message(
