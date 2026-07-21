@@ -211,6 +211,55 @@
 	name = "Gift - Armor Cosmetic, Heelification Elixir"
 	path = /obj/item/heelkit
 
+// --- GRENZEL REGIONAL ---
+
+/datum/loadout_item/donator/universal/regional/grenzelhat
+	name = "Gift - Regional - Grenzel Hat"
+	path = /obj/item/clothing/head/roguetown/grenzelhofthat/loadout
+
+/datum/loadout_item/donator/universal/regional/grenzelpants
+	name = "Gift - Regional - Grenzel Pants"
+	path = /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants/loadout
+
+/datum/loadout_item/donator/universal/regional/grenzelshoes
+	name = "Gift - Regional - Grenzel Shoes"
+	path = /obj/item/clothing/shoes/roguetown/grenzelhoft/loadout
+
+/datum/loadout_item/donator/universal/regional/grenzelgloves
+	name = "Gift - Regional - Grenzel Gloves"
+	path = /obj/item/clothing/gloves/roguetown/angle/grenzelgloves/loadout
+
+// --- AAVNR REGIONAL (FENCING) ---
+
+/datum/loadout_item/donator/universal/regional/fencingjacket
+	name = "Gift - Regional - Fencing Jacket"
+	path = /obj/item/clothing/suit/roguetown/armor/leather/heavy/freifechter/loadout
+
+/datum/loadout_item/donator/universal/regional/fencingshirt
+	name = "Gift - Regional - Fencing Shirt"
+	path = /obj/item/clothing/suit/roguetown/shirt/freifechter/loadout
+
+/datum/loadout_item/donator/universal/regional/fencingshoes
+	name = "Gift - Regional - Fencing Shoes"
+	path = /obj/item/clothing/shoes/roguetown/grenzelhoft/freifechter/loadout
+
+/datum/loadout_item/donator/universal/regional/fencinggloves
+	name = "Gift - Regional - Fencing Gloves"
+	path = /obj/item/clothing/suit/roguetown/armor/leather/heavy/freifechter/loadout
+
+// --- EASTERN REGIONAL (KAZEN / LINGYUE) ---
+/datum/loadout_item/donator/universal/regional/easthat
+	name = "Gift - Regional - Worn Bamboo Hat"
+	path = /obj/item/clothing/head/roguetown/mentorhat/loadout
+
+/datum/loadout_item/donator/universal/regional/eastpants
+	name = "Gift - Regional - Cut-throat Pants"
+	path = /obj/item/clothing/under/roguetown/heavy_leather_pants/eastpants1/loadout
+
+/datum/loadout_item/donator/universal/regional/eastpants2
+	name = "Gift - Regional - Ripped Pants"
+	path = /obj/item/clothing/under/roguetown/heavy_leather_pants/eastpants2/loadout
+
 /////////////////////////////
 // ! Player / Donor Kits ! //
 /////////////////////////////
