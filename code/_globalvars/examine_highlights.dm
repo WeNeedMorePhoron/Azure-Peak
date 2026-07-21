@@ -9,8 +9,6 @@ GLOBAL_LIST_INIT(gronn_amulet_types, get_amulet_type_list_gronn())
 	// Therefore we search for zcrosses in a very dumb way.
 	var/inhumen_cross_types = typesof(/obj/item/clothing/neck/roguetown/psicross/inhumen)
 	for(var/type in inhumen_cross_types)
-		if(is_abstract(type))
-			continue
 		var/obj/item/clothing/neck/roguetown/psicross/inhumen/cross = type
 		// This is the very dumb way.
 		// The alternative is manually making a list of all zcrosses, which will be annoying to maintain.
@@ -30,8 +28,6 @@ GLOBAL_LIST_INIT(gronn_amulet_types, get_amulet_type_list_gronn())
 	// Therefore we search for talismans in a very dumb way.
 	var/inhumen_cross_types = typesof(/obj/item/clothing/neck/roguetown/psicross)
 	for(var/type in inhumen_cross_types)
-		if(is_abstract(type))
-			continue
 		var/obj/item/clothing/neck/roguetown/psicross/inhumen/cross = type
 		// This is the very dumb way.
 		// The alternative is manually making a list of all talismans, which will be annoying to maintain.
