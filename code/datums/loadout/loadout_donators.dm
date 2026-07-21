@@ -229,6 +229,10 @@
 	name = "Gift - Regional - Grenzel Gloves"
 	path = /obj/item/clothing/gloves/roguetown/angle/grenzelgloves/loadout
 
+/datum/loadout_item/donator/universal/regional/grenzelshirt
+	name = "Gift - Regional - Grenzel Shirt"
+	path = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/grenzelhoft/loadout
+
 // --- AAVNR REGIONAL (FENCING) ---
 
 /datum/loadout_item/donator/universal/regional/fencingjacket
