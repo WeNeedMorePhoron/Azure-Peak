@@ -41,6 +41,8 @@
 			used = 'sound/vo/salute.ogg'
 		if("crack")
 			used = 'sound/vo/knuckles.ogg'
+		if("facepalm")
+			used = list('sound/vo/facepalm1.ogg', 'sound/vo/facepalm2.ogg')
 	return used
 
 /datum/voicepack/zombie/f/get_sound(soundin, modifiers)
