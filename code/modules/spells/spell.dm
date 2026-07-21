@@ -188,8 +188,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/gesture_required = FALSE // Can it be cast while cuffed? Rule of thumb: Offensive spells + Mobility cannot be cast
 	var/spell_tier = 1 // Tier of the spell, used to determine whether you can learn it based on your spell. Starts at 1.
 	var/spell_impact_intensity = SPELL_IMPACT_NONE // Visual impact intensity for on-hit effects. See SPELL_IMPACT defines.
-	var/refundable = FALSE // If true, the spell can be refunded. This is modified at the point it is added to the user's mind by learnspell.
-	var/source_aspect // Aspect type path this spell was granted by, if any. Used by the aspect picker to attribute pointbuy spells back to their source aspect for budget accounting.
 	var/zizo_spell = FALSE // If this spell is fucked up & evil and can only be learned by heretics.
 
 	var/overlay = 0
@@ -913,6 +911,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/proc/spell_guard_check(mob/living/target, no_message = FALSE, mob/living/attacker)
 	if(!isliving(target))
 		return FALSE
+	if(target == (ranged_ability_user || action?.owner))
+		return FALSE
+	if(isnull(attacker) && ispath(associated_skill, /datum/skill/magic/arcane))
+		attacker = ranged_ability_user || action?.owner
 	return target.guard_deflect_spell(name, no_message, attacker)
 
 /obj/effect/proc_holder/spell/proc/generate_wiki_html(mob/user)

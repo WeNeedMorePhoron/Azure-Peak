@@ -9,13 +9,12 @@
 #define CATACLYSM_STRUCTURAL_DAMAGE 3000
 #define CATACLYSM_RADIUS 4
 
-// Abstract base for the Wyrmfire family (Wyrmfire, Cataclysm) - not grantable on its own.
+// Abstract base for the Wyrmfire family - not grantable on its own.
 /datum/action/cooldown/spell/projectile/fireball
 	abstract_type = /datum/action/cooldown/spell/projectile/fireball
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Fireball"
-	desc = "Shoot out a ball of fire that explodes on impact, scorching and slowing nearby targets. \
-	Toggle arc mode (Shift+G) while the spell is active to fire it over intervening mobs. Arced attacks deal 25% less damage."
+	desc = "Shoot out a ball of fire that explodes on impact, scorching and slowing nearby targets."
 	button_icon_state = "fireball"
 	sound = 'sound/magic/fireball.ogg'
 	spell_color = GLOW_COLOR_FIRE
@@ -37,6 +36,7 @@
 	charge_required = TRUE
 	weapon_cast_penalized = TRUE
 	charge_time = CHARGETIME_MAJOR
+	charge_swingdelay_type = SWINGDELAY_CANCEL
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/charging_fire.ogg'
 	cooldown_time = SPELL_COOLDOWN_BIG_WHOOPER
@@ -48,6 +48,7 @@
 
 /obj/projectile/magic/aoe/fireball/rogue
 	name = "fireball"
+	expose_caster_on_deflect = TRUE
 	speed = MAGE_PROJ_VERY_SLOW
 	exp_heavy = -1
 	exp_light = -1
@@ -111,6 +112,8 @@
 					continue
 				if(L.anti_magic_check())
 					continue
+				if(L.guard_deflect_spell("Fireball", TRUE, caster))
+					continue
 				arcyne_strike(caster, L, null, aoe_damage, BODY_ZONE_CHEST, \
 					BCLASS_BURN, spell_name = "Fireball (Blast)", \
 					allow_shield_check = TRUE, damage_type = BURN, \
@@ -157,12 +160,16 @@
 
 /datum/action/cooldown/spell/projectile/fireball/barrage/get_spell_statistics(mob/living/user)
 	var/list/stats = ..()
-	for(var/i in stats)
-		if(findtext(i, "Damage:"))
+	for(var/i in stats.Copy())
+		if(findtext(i, "Damage:") || findtext(i, "Arc Mode"))
 			stats -= i
-			break
 	stats += span_info("Damage: Fireball [FIREBALL_DAMAGE] (+[FIREBALL_AOE_DAMAGE] splash) / Artillery [ARTILLERY_FIREBALL_DAMAGE] (+[ARTILLERY_FIREBALL_AOE_DAMAGE] splash) / Pillar of Flame [pillar_damage] (3x3)")
+	stats += span_info("Firing mode (Shift+G): Fireball (direct) / Artillery Fireball (lobbed bombardment) / Pillar of Flame (ground-target eruption).")
 	return stats
+
+/datum/action/cooldown/spell/projectile/fireball/barrage/Grant(mob/grant_to)
+	. = ..()
+	apply_mode(current_mode)
 
 /datum/action/cooldown/spell/projectile/fireball/barrage/proc/apply_mode(index)
 	var/list/mode = modes[index]
@@ -207,7 +214,7 @@
 	for(var/turf/T in range(pillar_radius, epicenter))
 		new /obj/effect/temp_visual/pillar_warning/fadein(T, pillar_delay)
 	playsound(epicenter, 'sound/magic/charging_fire.ogg', 80, TRUE)
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(pillar_of_flame_erupt), epicenter, owner, pillar_radius, pillar_damage, 2), pillar_delay)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(pillar_of_flame_erupt), epicenter, owner, pillar_radius, pillar_damage, 2, owner.zone_selected), pillar_delay)
 	return TRUE
 
 /obj/effect/temp_visual/pillar_warning
@@ -236,7 +243,7 @@
 	duration = 1 SECONDS
 	layer = MASSIVE_OBJ_LAYER
 
-/proc/pillar_of_flame_erupt(turf/epicenter, mob/living/carbon/human/caster, radius, damage, npc_mult)
+/proc/pillar_of_flame_erupt(turf/epicenter, mob/living/carbon/human/caster, radius, damage, npc_mult, aim_zone)
 	if(!epicenter)
 		return
 	new /obj/effect/temp_visual/explosion(epicenter)
@@ -244,14 +251,19 @@
 	playsound(epicenter, pick('sound/misc/explode/incendiary (1).ogg', 'sound/misc/explode/incendiary (2).ogg'), 100, TRUE, 5)
 	for(var/turf/T in range(radius, epicenter))
 		new /obj/effect/temp_visual/dragonfire(T)
-		new /obj/effect/curtain_fire(T, PILLAR_OF_FLAME_CURTAIN_LIFE, caster)
+		new /obj/effect/curtain_fire(T, PILLAR_OF_FLAME_CURTAIN_LIFE, caster, aim_zone)
+		T.fire_act()
+		for(var/atom/A in T)
+			A.fire_act()
 		for(var/mob/living/L in T)
 			if(L.stat == DEAD)
 				continue
 			if(L.anti_magic_check())
 				continue
+			if(L.guard_deflect_spell("Pillar of Flame", TRUE, caster))
+				continue
 			if(istype(caster) && !QDELETED(caster))
-				arcyne_strike(caster, L, null, damage, BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Pillar of Flame", damage_type = BURN, npc_simple_damage_mult = npc_mult, skip_animation = TRUE)
+				arcyne_strike(caster, L, null, damage, aim_zone || BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Pillar of Flame", damage_type = BURN, npc_simple_damage_mult = npc_mult, skip_animation = TRUE, exact_zone = TRUE)
 			else
 				L.adjustFireLoss(damage)
 			apply_scorch_stack(L, 2)
@@ -456,7 +468,7 @@
 			if(L.anti_magic_check())
 				continue
 			if(istype(caster) && !QDELETED(caster))
-				arcyne_strike(caster, L, null, blast_damage, BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Pyroclasm", damage_type = BURN, skip_animation = TRUE)
+				arcyne_strike(caster, L, null, blast_damage, BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Pyroclasm", damage_type = BURN, skip_animation = TRUE, npc_simple_damage_mult = 2)
 			else
 				L.adjustFireLoss(blast_damage)
 			apply_scorch_stack(L, 4)
