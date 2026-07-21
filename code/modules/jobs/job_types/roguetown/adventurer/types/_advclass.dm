@@ -160,6 +160,9 @@
 	if(applies_post_equipment)
 		apply_character_post_equipment(H)
 
+	H.set_advsetup(FALSE)
+	H.mind?.refresh_spell_buttons()
+
 /datum/advclass/proc/post_equip(mob/living/carbon/human/H)
 	addtimer(CALLBACK(H,TYPE_PROC_REF(/mob/living/carbon/human, add_credit), TRUE), 20)
 	if(cmode_music)

@@ -1191,6 +1191,12 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	current.actions = result
 	current.update_action_buttons()
 
+/datum/mind/proc/refresh_spell_buttons()
+	if(!current?.client)
+		return
+	current.update_mob_action_buttons(ALL, TRUE)
+	current.update_action_buttons()
+
 /datum/mind/proc/spell_list_entry_for_action(datum/action/A)
 	if(A in spell_list)
 		return A
