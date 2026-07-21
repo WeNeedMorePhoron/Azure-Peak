@@ -153,11 +153,7 @@
 			target.RemoveSpell(existing)
 
 /proc/mark_spell_source_aspect(datum/spell_instance, aspect_path)
-	if(istype(spell_instance, /obj/effect/proc_holder/spell))
-		var/obj/effect/proc_holder/spell/S = spell_instance
-		S.refundable = FALSE
-		S.source_aspect = aspect_path
-	else if(istype(spell_instance, /datum/action/cooldown/spell))
+	if(istype(spell_instance, /datum/action/cooldown/spell))
 		var/datum/action/cooldown/spell/S = spell_instance
 		S.refundable = FALSE
 		S.source_aspect = aspect_path
