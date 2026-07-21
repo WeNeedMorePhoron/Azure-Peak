@@ -1428,6 +1428,74 @@
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	icon_state = "dasfox_lance"
 
+/obj/item/rogueweapon/sword/long/etruscan/freifechter/tyesca
+	name = "reliquary Reformist montante"
+	desc = "Once upon a time, such swords as these were the Etruscan Isles' specialty for two handed combat. This one has been forged shorter in an archaic \
+	pattern, utilized by old Fencers who wished to have a more defensively capable blade for use in the field. Transformed from simple sword to reliquary of \
+	the past, a time capsule decorated by bronze, red silk and black prayer beads. A simple engraving on the crossguard pleads; 'Draw Me Only At The End.'"
+	icon = 'icons/obj/items/donor_weapons_64.dmi'
+	icon_state = "tyesca_sword"
+
+/obj/item/rogueweapon/scabbard/sword/tyesca
+	name = "reliquary montante scabbard"
+	desc = "A scabbard designed in equal parts to match the sword it was crafted for. Catches and loops sit for prayer beads and drapes of silk to hang down \
+	the bronze-and-pewter decorated length. The throat and locket are forged to make the bottom of a Psycross when held upright, allowing the sword when \
+	sheathed to complete the piece as a mark of faith when placed away from the world. Down the length, it preaches; 'There Is No World To Lyve In Which A \
+	Sword Is The Answer.'"
+	icon_state = "reliquaryscabbard"
+	item_state = "reliquaryscabbard"
+	valid_blade = /obj/item/rogueweapon/sword/long/etruscan/freifechter
+	cant_strip = TRUE
+
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/tyesca
+	name = "fencing brigandine"
+	desc = "A lightweight set of Szöréndnížine brigandine, designed in part to match the archaic Etruscan sets that came over at the head of the Reformation. \
+	A sewn in surcoat bearing the City-State's colors is sewn in as the interior lining, showing the Elephantine heraldry on the interior."
+	icon_state = "fencerbrig"
+	item_state = "fencerbrig"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+
+/obj/item/clothing/suit/roguetown/armor/brigandine/light/tyesca
+	name = "fencing brigandine"
+	desc = "A lightweight set of Szöréndnížine brigandine, designed in part to match the archaic Etruscan sets that came over at the head of the Reformation. \
+	A sewn in surcoat bearing the City-State's colors is sewn in as the interior lining, showing the Elephantine heraldry on the interior."
+	icon_state = "fencerbrig"
+	item_state = "fencerbrig"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+
+/obj/item/clothing/cloak/raincloak/tyesca
+	name = "\improper Szöréndnížine banner-cloak"
+	desc = "A harsh reality that comes from yils of travel is the lack of protections one might have. This cloak is designed from the repurposed canvas \
+	of a Szöréndnížine banner that's often in the belongings of Freelancers so far from home. Both serving as a reminder of what they travel and fight \
+	for, and some protection from the elements."
+	icon_state = "fencercloak"
+	item_state = "fencercloak"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	boobed = FALSE
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+	sleevetype = "feather_cloak"
+	hoodtype = /obj/item/clothing/head/hooded/rainhood/tyesca
+
+/obj/item/clothing/head/hooded/rainhood/tyesca
+	name = "\improper Szöréndnížine banner-hood"
+	desc = "Coming from the depths of a repurposed banner for use as a cloak, this hood will serve well in its heavy canvas to keep the wind and light \
+	rain from the wearer's head and face. At least, for the most part."
+	icon_state = "fencerhood"
+	item_state = "fencerhood"
+	slot_flags = ITEM_SLOT_HEAD
+	dynamic_hair_suffix = ""
+	edelay_type = 1
+	body_parts_covered = HEAD
+	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDETAIL
+	block2add = FOV_BEHIND
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+
+
+
 //IamCrystalClear
 /obj/item/clothing/mask/rogue/iamcrystalclear
 	name = "porcelain mask"
@@ -2098,3 +2166,14 @@ As Excaliber."
 				return list("shrink" = 0.8,"sx" = -9,"sy" = 5,"nx" = 9,"ny" = 5,"wx" = -4,"wy" = 4,"ex" = 4,"ey" = 4,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = -38,"sturn" = 37,"wturn" = 32,"eturn" = -23,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
 			if("wielded")
 				return list("shrink" = 0.8,"sx" = 8,"sy" = 0,"nx" = -1,"ny" = 0,"wx" = -5,"wy" = -1,"ex" = 3,"ey" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 7,"sturn" = -7,"wturn" = 16,"eturn" = -22,"nflip" = 8,"sflip" = 0,"wflip" = 8,"eflip" = 0)
+
+//COBB ANTI-CHRIST
+/obj/item/rogueweapon/sword/long/cobb
+	name = "\improper Conviction"
+	desc = "This longsword appears at first glance to be a replica of the silver-alloyed Psydonic Longsword of the Orthodoxy's many soldiers, though it is clearly made of steel and by a foreign smith imitating the design. \
+	The cross-guard is gilded in gold, and etched with tiny, abstract emblems to resemble the Ten; what passes to resembling a sun, a flower, a moon and so on. \
+	The hilt, wrapped in a blackened leather strap, was fashioned out of chestnut and whittled for a central waistline. \
+	The pommel itself, a steel disc, was embedded with a large blue gem, faceted such that on a close look, one could be able to just see through it.<br><br>\
+	Perhaps most notably about this sword is that it was never bereft of the silver psycross that was wrapped around the base of the blade and hilt both, tightly woven like an imprisoning chain."
+	icon_state = "jehanpsysword"
+	icon = 'icons/obj/items/donor_weapons_64.dmi'

@@ -880,6 +880,21 @@
 	)
 	result_item = null
 
+/obj/item/enchantingkit/weapon/tyesca_sword
+	name = "'Szöréndnížine montante' morphing elixir"
+	target_items = list(
+		/obj/item/rogueweapon/sword/long/etruscan/freifechter
+	)
+	result_item = /obj/item/rogueweapon/sword/long/etruscan/freifechter/tyesca
+
+/obj/item/enchantingkit/tyesca_brigandine
+	name = "'fencer's brigandine' morphing elixir"
+	target_items = list(
+		/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer		= /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/tyesca,
+		/obj/item/clothing/suit/roguetown/armor/brigandine/light			= /obj/item/clothing/suit/roguetown/armor/brigandine/light/tyesca
+	)
+	result_item = null
+	exact_type = TRUE
 
 //Racobio - Obsidian Staff
 /obj/item/enchantingkit/racobio_staff
@@ -888,3 +903,11 @@
 		/obj/item/rogueweapon/woodstaff/implement/grand
 	)
 	result_item = /obj/item/rogueweapon/woodstaff/implement/grand/racobio
+
+//Cobb Anti-Christ - Conviction
+/obj/item/enchantingkit/weapon/cobb_conviction
+	name = "'Conviction' morphing elixir"
+	target_items = list(
+		/obj/item/rogueweapon/sword/long
+	)
+	result_item = /obj/item/rogueweapon/sword/long/cobb
