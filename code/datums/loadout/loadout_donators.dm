@@ -248,6 +248,7 @@
 	path = /obj/item/clothing/suit/roguetown/armor/leather/heavy/freifechter/loadout
 
 // --- EASTERN REGIONAL (KAZEN / LINGYUE) ---
+
 /datum/loadout_item/donator/universal/regional/easthat
 	name = "Gift - Regional - Worn Bamboo Hat"
 	path = /obj/item/clothing/head/roguetown/mentorhat/loadout
@@ -259,6 +260,51 @@
 /datum/loadout_item/donator/universal/regional/eastpants2
 	name = "Gift - Regional - Ripped Pants"
 	path = /obj/item/clothing/under/roguetown/heavy_leather_pants/eastpants2/loadout
+
+// --- NALEDI / RANESHEN ---
+
+/datum/loadout_item/donator/universal/regional/naledipontigambeson
+	name = "Gift - Regional - Pontifex Outerwear"
+	path = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/pontifex/loadout
+
+/datum/loadout_item/donator/universal/regional/naledipontishirt
+	name = "Gift - Regional - Pontifex Innerwear"
+	path = /obj/item/clothing/suit/roguetown/shirt/robe/pointfex/loadout
+
+/datum/loadout_item/donator/universal/regional/naledipontipants
+	name = "Gift - Regional - Pontifex Pants"
+	path = /obj/item/clothing/under/roguetown/trou/leather/pontifex/loadout
+
+/datum/loadout_item/donator/universal/regional/naledihierogambeson
+	name = "Gift - Regional - Hierophant Outerwear"
+	path = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/hierophant/loadout
+
+/datum/loadout_item/donator/universal/regional/naledihieroshirt
+	name = "Gift - Regional - Hierophant Innerwear"
+	path = /obj/item/clothing/suit/roguetown/shirt/robe/hierophant/loadout
+
+// --- ANTHRAXI / DROW (TALL HUMANOIDS ONLY) ---
+
+/datum/loadout_item/donator/universal/regional/anthraxishirt
+	name = "Gift - Regional - Shadowy Shirt (Tall Humanoid Only)"
+	path = /obj/item/clothing/suit/roguetown/shirt/shadowshirt/elflock/loadout
+
+/datum/loadout_item/donator/universal/regional/anthraxirobe
+	name = "Gift - Regional - Shadowy Robe (Tall Humanoid Only)"
+	path = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/shadowrobe/loadout
+
+/datum/loadout_item/donator/universal/regional/anthraxigloves
+	name = "Gift - Regional - Shadowy Gloves (Tall Humanoid Only)"
+	path = /obj/item/clothing/gloves/roguetown/fingerless/shadowgloves/elflock/loadout
+
+/datum/loadout_item/donator/universal/regional/anthraxicloak
+	name = "Gift - Regional - Shadowy Cloak"
+	path = /obj/item/clothing/cloak/half/shadowcloak
+
+/datum/loadout_item/donator/universal/regional/anthraxipants
+	name = "Gift - Regional - Shadowy Pants (Tall Humanoid Only)"
+	path = /obj/item/clothing/under/roguetown/heavy_leather_pants/shadowpants/loadout
+
 
 /////////////////////////////
 // ! Player / Donor Kits ! //
