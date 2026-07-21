@@ -23,7 +23,6 @@ SUBSYSTEM_DEF(crediticons)
 			continue
 		actor.add_credit(processing[queued_ckey])
 		processing -= queued_ckey
-		return
 
 /datum/controller/subsystem/crediticons/proc/get_credit_icon(mob/living/carbon/human/target, crop_to_upper_half = FALSE)
 	if(!target || !istype(target) || !target.mind || !target.client)
