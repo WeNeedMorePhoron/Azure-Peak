@@ -265,6 +265,18 @@
 	name = "Gift - Regional - Ripped Pants"
 	path = /obj/item/clothing/under/roguetown/heavy_leather_pants/eastpants2/loadout
 
+/datum/loadout_item/donator/universal/regional/eastdobo
+	name = "Gift - Regional - Simple Dobo Robe"
+	path = /obj/item/clothing/suit/roguetown/armor/basiceast/loadout
+
+/datum/loadout_item/donator/universal/regional/eastdobodecorated
+	name = "Gift - Regional - Decorated Dobo Robe"
+	path = /obj/item/clothing/suit/roguetown/armor/basiceast/crafteast/loadout
+
+/datum/loadout_item/donator/universal/regional/eastdoboold
+	name = "Gift - Regional - Old Dobo Robe"
+	path = /obj/item/clothing/suit/roguetown/armor/basiceast/mentorsuit/loadout
+
 // --- NALEDI / RANESHEN ---
 
 /datum/loadout_item/donator/universal/regional/naledipontigambeson
