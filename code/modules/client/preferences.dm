@@ -1054,6 +1054,9 @@ GLOBAL_LIST_EMPTY(chosen_names)
 					var/restrict_text = english_list(restricted_list)
 					HTML += "<font color='#a56161'>[used_name] (Disallowed by Vice: [restrict_text])</font></td> <td> </td></tr>"
 					continue
+			if(job.prefs_all_subclasses_restricted(user.client))
+				HTML += "<font color='#a561a5'>[used_name] (Disallowed by Subclass Virtues / Vice)</font></td> <td> </td></tr>"
+				continue
 			var/job_unavailable = JOB_AVAILABLE
 			if(isnewplayer(parent?.mob))
 				var/mob/dead/new_player/new_player = parent.mob
