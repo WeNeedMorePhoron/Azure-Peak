@@ -206,6 +206,7 @@
 /obj/projectile/magic/blade_storm
 	name = "shadow afterimage"
 	icon_state = "cursehand0"
+	expose_caster_on_deflect = TRUE
 	damage = 0
 	nodamage = TRUE
 	speed = 1.5
