@@ -782,6 +782,7 @@
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 
 /obj/item/reagent_containers/food/snacks/rogue/bun_raston
+	cuisine = CUISINE_OTAVAN
 	dish_type = DISH_BREAD
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	tastes = list("cheese" = 1, "bread" = 1)
@@ -880,6 +881,7 @@
 
 /*	.................   Griddle   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/griddle
+	cuisine = CUISINE_OTAVAN
 	name = "Griddles"
 	desc = "Fluffy griddlecakes fried to perfection, plain yet delicious. They take well to a topping of sliced butter, honey, or a slice of chocolate left to melt atop them."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_griddles.dmi'

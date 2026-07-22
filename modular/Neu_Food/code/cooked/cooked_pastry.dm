@@ -1,6 +1,7 @@
 // For definition - any non-bread premium product dough that is also not a cake.
 /*	.................   Pastry   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/pastry
+	cuisine = CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "pastry"
 	desc = "Crispy, buttery, and delightfully flaky. A favorite treat among children and sweetlovers."
@@ -15,6 +16,7 @@
 	eat_effect = /datum/status_effect/buff/snackbuff
 
 /obj/item/reagent_containers/food/snacks/rogue/biscuit
+	cuisine = CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "raisin biscuit"
 	desc = "A crispy buttery pastry with chewy raisins inside."
@@ -39,6 +41,7 @@
 	eat_effect = null
 
 /obj/item/reagent_containers/food/snacks/rogue/chocolatebiscuit
+	cuisine = CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "chocolate biscuit"
 	desc = "A crispy buttery pastry with gooey specklings of chocolate inside."
@@ -63,6 +66,7 @@
 	eat_effect = null
 
 /obj/item/reagent_containers/food/snacks/rogue/plumbiscuit
+	cuisine = CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "plum biscuit"
 	desc = "A crispy buttery pastry with streaked frosting and tender plums."
@@ -87,6 +91,7 @@
 	eat_effect = null
 
 /obj/item/reagent_containers/food/snacks/rogue/tangerinebiscuit
+	cuisine = CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "tangerine biscuit"
 	desc = "A crispy buttery pastry with caked frosting and ripe tangerines."
@@ -769,6 +774,7 @@
 
 /*	.................   Tarts  ................... */
 /obj/item/reagent_containers/food/snacks/rogue/dot_tart
+	cuisine = CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "dot tart"
 	desc = "A small pastry filled with jammed fruits, for when a whole pie would be inappropiate for canapes."

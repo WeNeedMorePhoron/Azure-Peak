@@ -277,6 +277,7 @@
 	color = "#552b4b"
 
 /datum/reagent/consumable/ethanol/whitewine
+	cuisine = CUISINE_OTAVAN
 	name = "White Wine"
 	boozepwr = 30
 	taste_description = "sweet white wine"
@@ -284,6 +285,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/redwine
+	cuisine = CUISINE_OTAVAN
 	name = "Red Wine"
 	boozepwr = 30
 	taste_description = "tannin-stricken wine"
@@ -291,6 +293,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/jackberrywine
+	cuisine = CUISINE_OTAVAN
 	name = "Jackberry Wine"
 	boozepwr = 15
 	taste_description = "sickly sweet young wine"
@@ -312,6 +315,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/plum_wine
+	cuisine = CUISINE_OTAVAN
 	name = "Umeshu"
 	boozepwr = 15
 	taste_description = "sickly sour young wine"
@@ -333,6 +337,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/tangerine
+	cuisine = CUISINE_OTAVAN
 	name = "Tangerine Wine"
 	boozepwr = 15
 	taste_description = "bittersweet, citrusy young wine"
@@ -354,6 +359,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/raspberry
+	cuisine = CUISINE_OTAVAN
 	name = "Raspberry Wine"
 	boozepwr = 15
 	taste_description = "tart sweet young wine"
@@ -375,6 +381,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/blackberry
+	cuisine = CUISINE_OTAVAN
 	name = "Blackberry Wine"
 	boozepwr = 15
 	taste_description = "bitter tart young wine"

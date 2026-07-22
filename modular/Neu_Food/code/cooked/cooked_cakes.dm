@@ -62,6 +62,7 @@
 
 //	.................   Cooked   .................
 /obj/item/reagent_containers/food/snacks/rogue/frostedcake
+	cuisine = CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "frosted cake"
 	desc = "Cake glazed with a sugary frosting, ready to be decorated or enjoyed."
@@ -100,7 +101,7 @@
 
 //	..................   Apple cake   ..................
 /obj/item/reagent_containers/food/snacks/rogue/applecake
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "apple cake"
 	desc = "Cake glazed with a sugary frosting and layered with juicy apples, sweetness and tart."
@@ -139,7 +140,7 @@
 
 //	..................   Applenut cake   ..................
 /obj/item/reagent_containers/food/snacks/rogue/applenutcake
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "applenut cake"
 	desc = "Frosted cake layered with apples and surrounded in nuts. A spectacle of flavors and textures, with mild stimulant properties."
@@ -178,7 +179,7 @@
 
 //	..................   Berry cake   ..................
 /obj/item/reagent_containers/food/snacks/rogue/berrycake
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "berry cake"
 	desc = "Cake with a spread of juicy berries dripping into its frosting. Often found paired with antidote."
@@ -224,7 +225,7 @@
 
 //	..................   Blackberry cake   ..................
 /obj/item/reagent_containers/food/snacks/rogue/blackberrycake
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "blackberry cake"
 	desc = "A dark frosted cake topped with blackberries. A fruity treat often paired with raspberry cake."
@@ -302,7 +303,7 @@
 
 //	..................   Lemon cake   ..................
 /obj/item/reagent_containers/food/snacks/rogue/lemoncake
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "lemon cake"
 	desc = "A frosted cake with a rich citrus taste. A thick layer of lemon filling give it a sweet, tangy and zesty flavour."
@@ -341,7 +342,7 @@
 
 //	..................   Lime cake   ..................
 /obj/item/reagent_containers/food/snacks/rogue/limecake
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "lime cake"
 	desc = "A frosted cake with a rich citrus taste. A thick layer of lime filling give it a sweet, tangy and zesty flavour."
@@ -510,7 +511,7 @@
 
 //	..................   Raspberry cake   ..................
 /obj/item/reagent_containers/food/snacks/rogue/raspberrycake
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "raspberry cake"
 	desc = "A frosted cake topped with beautiful raspberries. A fruity treat often paired with blackberry cake."
@@ -588,7 +589,7 @@
 
 //	..................   Strawberry cake   ..................
 /obj/item/reagent_containers/food/snacks/rogue/strawberrycake
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "strawberry cake"
 	desc = "Sweetened strawberries and strawberry filling over a tender frosted cake, simple and elegant."
@@ -627,7 +628,7 @@
 
 //	..................   Tangerine cake   ..................
 /obj/item/reagent_containers/food/snacks/rogue/tangerinecake
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_PASTRY
 	name = "tangerine cake"
 	desc = "A frosted cake with a rich citrus taste. A thick layer of tangerine filling give it a sweet, tangy and zesty flavour."
@@ -732,6 +733,7 @@
 
 //	.................   Cooked   .................
 /obj/item/reagent_containers/food/snacks/rogue/ccake
+	cuisine = CUISINE_OTAVAN
 	dish_type = DISH_PASTRY|DISH_DAIRY
 	name = "cheesecake"
 	desc = "Humenity's favored creation."

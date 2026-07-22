@@ -20,7 +20,7 @@
 
 /* salmon st dendor*/
 /obj/item/reagent_containers/food/snacks/rogue/dendorsalmon
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_SEAFOOD
 	name = "saint dendor's salmon"
 	desc = "A dish invented in Otava, of a green sauce of fat and herbs atop salmon."
@@ -56,7 +56,7 @@
 
 /* lobsta with the pepper all over it*/
 /obj/item/reagent_containers/food/snacks/rogue/pepperlobsta
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_SEAFOOD
 	name = "peppertail"
 	desc = "A sprinkle of pepper atop the tail of a cretinous beast, meant to make it palatable for more than peasantry."
@@ -74,7 +74,7 @@
 
 /*garlick seabass*/
 /obj/item/reagent_containers/food/snacks/rogue/garlickbass
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_SEAFOOD
 	name = "garlicked seabass"
 	desc = "Seabass, with cloves of garlick smothered onto it. Delicious."
@@ -92,7 +92,7 @@
 
 /*milk clam*/
 /obj/item/reagent_containers/food/snacks/rogue/milkclam
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_SEAFOOD
 	name = "milkclams"
 	desc = "Clams, simmered in milk... How queer."
@@ -146,7 +146,7 @@
 
 /*buttery soles*/
 /obj/item/reagent_containers/food/snacks/rogue/buttersole
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	dish_type = DISH_SEAFOOD
 	name = "buttered sole"
 	desc = "A slab of sole, buttered and crispy at the edges."
@@ -181,6 +181,7 @@
 
 /* ............ Shellfish ................... */
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/lobster/meal
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAN
 	name = "buttered lobster"
 	desc = "A lobster, covered in butter. Delicious!"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_seafood_meal.dmi'
