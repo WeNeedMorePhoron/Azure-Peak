@@ -1,4 +1,5 @@
 /obj/item/reagent_containers/food/snacks/rogue/cornbread
+	dish_type = DISH_BREAD
 	name = "cornbread"
 	desc = "A dense, golden loaf baked from cornmeal. With a crumbly texture and slightly savory flavor. A staple of the poor."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_corn.dmi'
@@ -52,6 +53,7 @@
 	tastes = list("cornbread" = 1, "honey" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/cornfrybread
+	dish_type = DISH_BREAD
 	name = "corn frybread"
 	desc = "Corn flatbread fried golden and crisp. Great on its own, or topped with salsa or guacamole."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_corn.dmi'
@@ -132,6 +134,7 @@
 	tastes = list("frybread" = 1, "herbs" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/corn_ball_cooked
+	dish_type = DISH_BREAD
 	name = "corn fritter"
 	desc = "A golden fritter of fried corn dough, crisp outside and fluffy inside."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_corn.dmi'

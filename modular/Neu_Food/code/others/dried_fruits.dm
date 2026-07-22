@@ -114,6 +114,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/raisins/sweetglass
+	dish_type = DISH_FRUIT|DISH_SWEET
 	name = "sweetglass"
 	desc = "A palmful of crystallized dried raisins, popular amongst the elders and children-of-nobility. Their tendancy to only \
 	spoil under very specific circumstances makes it a favored treat for those traveling afar; so long as they can afford it, of course."

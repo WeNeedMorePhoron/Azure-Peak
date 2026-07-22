@@ -2,6 +2,7 @@
 // Is the main ingredient.
 /*	..................   Pepper steak   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/peppersteak
+	dish_type = DISH_MEAT
 	list_reagents = list(/datum/reagent/consumable/nutriment = MEATSLAB_NUTRITION)
 	tastes = list("steak" = 1, "pepper" = 1)
 	name = "peppersteak"
@@ -27,6 +28,7 @@
 
 /*	..................   Onion steak   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/onionsteak
+	dish_type = DISH_MEAT|DISH_VEGETABLE
 	name = "onion steak"
 	desc = "Roasted meat garnished with fragrant fried onions, then slathered with the juices of both for a perfect mouth-watering sauce."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat_meal.dmi'
@@ -43,6 +45,7 @@
 
 /*	..................   Carrot Steak   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/carrotsteak
+	dish_type = DISH_MEAT|DISH_VEGETABLE
 	name = "carrot steak"
 	desc = "Roasted meat paired with a savory baked carrot, then slathered with the juices of both for a perfect mouth-watering sauce."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat_meal.dmi'
@@ -58,6 +61,7 @@
 
 /*	.................   Steak & carrot & onion   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/steakcarrotonion
+	dish_type = DISH_MEAT|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	tastes = list("steak" = 1, "onion" = 1, "carrots" = 1)
 	name = "steak meal"
@@ -72,6 +76,7 @@
 
 /*	.................   Wiener Cabbage   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wienercabbage
+	dish_type = DISH_MEAT|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
 	tastes = list("savory sausage" = 1, "cabbage" = 1)
 	name = "wiener on cabbage"
@@ -88,6 +93,7 @@
 
 /*	.................   Wiener & Fried potato   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wienerpotato
+	dish_type = DISH_MEAT|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
 	tastes = list("savory sausage" = 1, "potato" = 1)
 	name = "wiener on tato"
@@ -103,6 +109,7 @@
 
 /*	.................   Wiener & Fried onions   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wieneronions
+	dish_type = DISH_MEAT|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
 	tastes = list("savory sausage" = 1, "fried onions" = 1)
 	name = "wiener and onions"
@@ -118,6 +125,7 @@
 
 /*	.................   Wiener & potato & onions   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wienerpotatonions
+	dish_type = DISH_MEAT|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	tastes = list("savory sausage" = 1, "potato" = 1)
 	name = "wiener meal"
@@ -171,6 +179,7 @@
 
 /*	.................   Frybird & Tato   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/frybirdtato
+	dish_type = DISH_POULTRY|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
 	tastes = list("frybird" = 1, "tato" = 1)
 	name = "frybird with a tato"
@@ -186,6 +195,7 @@
 
 /*	.................   Frybird Bucket   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/frybirdbucket
+	dish_type = DISH_POULTRY
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER*3)
 	tastes = list("frybird" = 1)
 	name = "frybird bucket"

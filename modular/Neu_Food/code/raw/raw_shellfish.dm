@@ -121,6 +121,7 @@
 
 // Close enough crab cake is raw shellfish
 /obj/item/reagent_containers/food/snacks/rogue/foodbase/crabcakeraw
+	dish_type = DISH_SEAFOOD
 	name = "raw crab cake"
 	desc = "A variant of the handpie filled with buttery, savory shellfish meat and made with a buttered slice of dough."
 	icon = 'modular/Neu_Food/icons/raw/raw_fish.dmi' // I guess it is a raw fish meal

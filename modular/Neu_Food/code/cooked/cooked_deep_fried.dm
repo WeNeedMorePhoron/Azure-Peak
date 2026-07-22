@@ -1,6 +1,7 @@
 // Split this file into folder and individual food type
 
 /obj/item/reagent_containers/food/snacks/squiresdelight
+	dish_type = DISH_SWEET
 	name = "squire's delight"
 	desc = "A deep-fried butter stick. Beloved by squires, often stolen by knights."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_deep_fried.dmi'

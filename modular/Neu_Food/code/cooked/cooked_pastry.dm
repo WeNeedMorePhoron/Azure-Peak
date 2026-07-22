@@ -1,6 +1,7 @@
 // For definition - any non-bread premium product dough that is also not a cake.
 /*	.................   Pastry   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/pastry
+	dish_type = DISH_PASTRY
 	name = "pastry"
 	desc = "Crispy, buttery, and delightfully flaky. A favorite treat among children and sweetlovers."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -14,6 +15,7 @@
 	eat_effect = /datum/status_effect/buff/snackbuff
 
 /obj/item/reagent_containers/food/snacks/rogue/biscuit
+	dish_type = DISH_PASTRY
 	name = "raisin biscuit"
 	desc = "A crispy buttery pastry with chewy raisins inside."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -37,6 +39,7 @@
 	eat_effect = null
 
 /obj/item/reagent_containers/food/snacks/rogue/chocolatebiscuit
+	dish_type = DISH_PASTRY
 	name = "chocolate biscuit"
 	desc = "A crispy buttery pastry with gooey specklings of chocolate inside."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -60,6 +63,7 @@
 	eat_effect = null
 
 /obj/item/reagent_containers/food/snacks/rogue/plumbiscuit
+	dish_type = DISH_PASTRY
 	name = "plum biscuit"
 	desc = "A crispy buttery pastry with streaked frosting and tender plums."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -83,6 +87,7 @@
 	eat_effect = null
 
 /obj/item/reagent_containers/food/snacks/rogue/tangerinebiscuit
+	dish_type = DISH_PASTRY
 	name = "tangerine biscuit"
 	desc = "A crispy buttery pastry with caked frosting and ripe tangerines."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -128,6 +133,7 @@
 	foodtype = GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/rogue/cookie
+	dish_type = DISH_PASTRY
 	name = "baked slab of cookiedough"
 	desc = "The inverse to hardtack; both in reputation and taste. Just a passing whiff reminds you of home - though, perhaps it wouldn't hurt to bring out a knife and share that feeling with some friends."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -203,6 +209,7 @@
 	foodtype = GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/rogue/cookied
+	dish_type = DISH_PASTRY
 	name = "baked slab of dragéelidough"
 	desc = "The inverse to hardtack; both in reputation and taste. Just a passing whiff reminds you of your youth - though, perhaps it wouldn't hurt to bring out a knife and share that feeling with some friends."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -278,6 +285,7 @@
 	foodtype = GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/rogue/cookiec
+	dish_type = DISH_PASTRY
 	name = "baked slab of carameliedough"
 	desc = "The inverse to hardtack; both in reputation and taste. Just a passing whiff reminds you of times abroad - though, perhaps it wouldn't hurt to bring out a knife and share that feeling with some friends."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -353,6 +361,7 @@
 	foodtype = GRAIN | DAIRY | FRUIT
 
 /obj/item/reagent_containers/food/snacks/rogue/cookier
+	dish_type = DISH_PASTRY
 	name = "baked slab of raelseinidough"
 	desc = "The inverse to hardtack; both in reputation and taste. Just a passing whiff reminds you of warmer daes - though, perhaps it wouldn't hurt to bring out a knife and share that feeling with some friends."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -423,6 +432,7 @@
 	eat_effect = null
 
 /obj/item/reagent_containers/food/snacks/rogue/prezzel
+	dish_type = DISH_PASTRY
 	name = "prezzel"
 	desc = "The next best thing after sliced bread. The recipe is a closely guarded secret among the dwarves. So dire is their conviction that not even the Inquisition's most agonizing methods could force them to reveal it."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -447,6 +457,7 @@
 	eat_effect = null
 
 /obj/item/reagent_containers/food/snacks/rogue/pumpkinball
+	dish_type = DISH_PASTRY
 	name = "pumpkin balls"
 	desc = "Crispy and soft ball of dough mixed with pumpkin. A surprisingly nice snack."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -481,6 +492,7 @@
 	rotprocess = SHELFLIFE_DECENT
 
 /obj/item/reagent_containers/food/snacks/rogue/pumpkinloaf
+	dish_type = DISH_PASTRY
 	name = "pumpkin loaf"
 	desc = "A loaf of sweetbread baked into a shape worthy of its name. Pumpkin loaves are surprising desserts, easily shared."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -610,6 +622,7 @@
 	tastes = list("cabbage" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/handpie
+	dish_type = DISH_PASTRY
 	name = "handpie"
 	desc = "The dwarves call this 'pierogi' in their dialect. It'll stay fresh for a good long while until the crust is bitten."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -658,6 +671,7 @@
 
 /*	.................   Muffins   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/muffin
+	dish_type = DISH_PASTRY
 	name = "muffin"
 	desc = "Simple to prepare and enjoyed by everyone. Treat in a mushroom shaped package. Could do with something on top."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -704,6 +718,7 @@
 
 /*	.................   Strudel   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/strudel
+	dish_type = DISH_PASTRY
 	name = "strudel"
 	desc = "The peak of Grenzelhoftian peasant food - an elongated pastry filled with apple paste and nuts is sure to keep the hunger cramps away."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -754,6 +769,7 @@
 
 /*	.................   Tarts  ................... */
 /obj/item/reagent_containers/food/snacks/rogue/dot_tart
+	dish_type = DISH_PASTRY
 	name = "dot tart"
 	desc = "A small pastry filled with jammed fruits, for when a whole pie would be inappropiate for canapes."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -830,6 +846,7 @@
 
 /*	.................   Bookbread   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/bookbread
+	dish_type = DISH_PASTRY
 	name = "bookbread loaf"
 	desc = "On the days when Noc's reign lengthens to its apex, all proper Pantheon-fearing folk huddle by their warm hearths, exchanging both books and pastries such as this."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -915,6 +932,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/pearbookbread
+	dish_type = DISH_PASTRY
 	name = "pear bookbread"
 	desc = "Children on Nocsmas are traditionally granted both book and pastry without expectation of exchange, this variety is prefered by most little ones."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -970,6 +988,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/plumbookbread
+	dish_type = DISH_PASTRY
 	name = "plum bookbread"
 	desc = "The origin of Nocsmas are shrouded in mystery, perhaps intentionally so, though some theorize it may have had its origins as an originally Psydonian holidae."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1025,6 +1044,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/lemonbookbread
+	dish_type = DISH_PASTRY
 	name = "lemon bookbread"
 	desc = "Though many followers of Her find the holidae laughable, it's undeniably an important respite from the doom and gloom of the darkest month."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1080,6 +1100,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/tangerinebookbread
+	dish_type = DISH_PASTRY
 	name = "tangerine bookbread"
 	desc = "Even the coldest, darkest nites end eventually. Better to weather them with friends than to hide away."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1135,6 +1156,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/blackberrybookbread
+	dish_type = DISH_PASTRY
 	name = "blackberry bookbread"
 	desc = "Following Her ascension, the great exchanging of books has met steady decline, as neighbor suspects neighbor more and more. Yet, even such prejudices could never hope to fully smother the spirit of Nocmas."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1190,6 +1212,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/raspberrybookbread
+	dish_type = DISH_PASTRY
 	name = "raspberry bookbread"
 	desc = "Spending the long cold months in academic rather than intimate pursuit is preferable for most devout Noccians."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1245,6 +1268,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/jackberrybookbread
+	dish_type = DISH_PASTRY
 	name = "jacksberried bookbread"
 	desc = "As Nocsmas gained broader appeal, more and more commonfolk with poor access to books instead chose to simply forego their exchanging, focusing instead on the preparation of food."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1355,6 +1379,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/chocolatebookbread
+	dish_type = DISH_PASTRY
 	name = "chocolate bookbread"
 	desc = "Nocsmas is not only a holiday for children and commoners, for Noccians are found most concentrated in the upper echelons of society. For these academics, it provies a much needed opportunity to share their secrets."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'

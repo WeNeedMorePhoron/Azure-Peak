@@ -72,6 +72,7 @@
 		icon_state = "jerk1"
 
 /obj/item/reagent_containers/food/snacks/rogue/lemoncoppiette
+	dish_type = DISH_MEAT
 	eat_effect = null
 	name = "lemony stickets"
 	icon = 'modular/Neu_Food/icons/others/preserved_meat.dmi'
