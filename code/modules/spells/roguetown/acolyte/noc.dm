@@ -258,6 +258,7 @@
 	range = 8
 	hitsound = 'sound/magic/owlhoot.ogg'
 	guard_deflectable = TRUE
+	expose_caster_on_deflect = TRUE
 
 /obj/projectile/magic/noc_owl/on_hit(target)
 	if(ismob(target))

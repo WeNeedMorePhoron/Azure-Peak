@@ -259,6 +259,7 @@
 	speed = 1.6
 	hitsound = 'sound/magic/slimesquish.ogg'
 	guard_deflectable = TRUE
+	expose_caster_on_deflect = TRUE
 
 /obj/projectile/magic/unholy_grasp/on_hit(target)
 	. = ..()
