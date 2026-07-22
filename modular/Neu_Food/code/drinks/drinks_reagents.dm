@@ -1,6 +1,10 @@
-/datum/reagent/water/rosewater
+/datum/reagent/consumable/rosewater
 	name = "rosa tea"
 	description = "Steeped rosa petals with mild health regeneration and antidotal properties."
+	cuisine = CUISINE_SOUTH_IMPERIAL
+	drink_type = DRINKTYPE_CAFFEINE
+	quality = DRINK_VERYGOOD
+	hydration_factor = 5
 	reagent_state = LIQUID
 	color = "#f398b6"
 	taste_description = "floral sweetness"
@@ -8,7 +12,7 @@
 	metabolization_rate = REAGENTS_METABOLISM
 	alpha = 173
 
-/datum/reagent/water/rosewater/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/rosewater/on_mob_life(mob/living/carbon/M)
 	. = ..()
 	if (M.mob_biotypes & MOB_BEAST)
 		M.adjustFireLoss(0.5  * REAGENTS_EFFECT_MULTIPLIER)
@@ -23,9 +27,13 @@
 			if (upd)
 				M.update_damage_overlays()
 
-/datum/reagent/water/rosewater_spiced
+/datum/reagent/consumable/rosewater_spiced
 	name = "spiced rosa tea"
 	description = "Spiced rose petals that help to reinvigorate the body's humors, providing modest health regeneration and antidotal properties."
+	cuisine = CUISINE_SOUTH_IMPERIAL
+	drink_type = DRINKTYPE_CAFFEINE
+	quality = DRINK_FANTASTIC
+	hydration_factor = 5
 	reagent_state = LIQUID
 	color = "#F2638C"
 	taste_description = "floral spiciness"
@@ -33,7 +41,7 @@
 	metabolization_rate = REAGENTS_METABOLISM
 	alpha = 173
 
-/datum/reagent/water/rosewater_spiced/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/rosewater_spiced/on_mob_life(mob/living/carbon/M)
 	. = ..()
 	if (M.mob_biotypes & MOB_BEAST)
 		M.adjustFireLoss(0.8  * REAGENTS_EFFECT_MULTIPLIER)
