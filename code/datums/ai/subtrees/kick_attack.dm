@@ -157,6 +157,7 @@
 
 	controller.set_blackboard_key(BB_KICK_COOLDOWN, world.time + KICK_COOLDOWN)
 	controller.set_blackboard_key(BB_HUMAN_NPC_TECHNIQUE_CD, world.time + 3 SECONDS)
+	propagate_technique_cd(pawn, target, BB_KICK_COOLDOWN, world.time + KICK_COOLDOWN)
 	// Kick is a committed action; block the next melee swing briefly so they don't immediately
 	// combo into a full attack right after.
 	if(pawn.next_click < world.time + 1.2 SECONDS)

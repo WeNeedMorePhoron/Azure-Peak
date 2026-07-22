@@ -149,6 +149,7 @@
 			modifiers = list(RIGHT_CLICK = TRUE)
 			controller.set_blackboard_key(BB_HUMAN_NPC_FEINT_COOLDOWN, world.time + HUMAN_NPC_FEINT_COOLDOWN)
 			controller.set_blackboard_key(BB_HUMAN_NPC_TECHNIQUE_CD, world.time + 3 SECONDS)
+			propagate_technique_cd(pawn, target, BB_HUMAN_NPC_FEINT_COOLDOWN, world.time + HUMAN_NPC_FEINT_COOLDOWN)
 		#ifdef NPC_THINK_DEBUG
 		else if(istype(pawn.rmb_intent, /datum/rmb_intent/feint) && !feint_ready)
 			AI_THINK(pawn, "FEINT: on cooldown ([controller.blackboard[BB_HUMAN_NPC_FEINT_COOLDOWN] - world.time]ds remaining)")
@@ -399,6 +400,7 @@
 	// can't chain specials as tightly as a human player could. Override replaces the
 	// debuff applied inside deploy() with our extended version.
 	special.apply_cooldown(special.cooldown * HUMAN_NPC_SPECIAL_CD_PENALTY, override = TRUE)
+	propagate_technique_cd(pawn, target, specialcd_duration = special.cooldown * HUMAN_NPC_SPECIAL_CD_PENALTY)
 	// Recovery: block the next swing for longer than a normal attack so specials don't chain
 	if(pawn.next_click < world.time + pawn.used_intent?.clickcd * 1.8)
 		pawn.next_click = world.time + (pawn.used_intent?.clickcd * 1.8)
