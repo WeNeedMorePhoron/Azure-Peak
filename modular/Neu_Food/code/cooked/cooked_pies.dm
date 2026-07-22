@@ -79,6 +79,7 @@
 
 // -------------- MEAT PIE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/meat // bae item
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_PIE|DISH_MEAT
 	name = "meat pie"
 	desc = "A delicious, homemade pie made with minced meat. Still needs to be sliced."
@@ -110,6 +111,7 @@
 
 // -------------- POT PIE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/pot
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_PIE|DISH_MEAT
 	name = "pot pie"
 	desc = "A delicious, homemade pie. Still needs to be sliced."
@@ -121,6 +123,7 @@
 
 // -------------- BERRY PIE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/berry
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_PIE|DISH_FRUIT
 	name = "berry pie"
 	desc = "A delicious, homemade pie made with wild berries. Still needs to be sliced."
@@ -144,6 +147,7 @@
 
 // -------------- APPLE PIE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/apple
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_PIE|DISH_FRUIT
 	name = "apple pie"
 	desc = "A delicious, homemade pie made with the sliced apples. Still needs to be cut."
@@ -168,6 +172,7 @@
 
 // -------------- PUMPKIN PIE --------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/pumpkin
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_PIE|DISH_VEGETABLE
 	name = "pumpkin pie"
 	desc = "A delicious, homemade pie made with pumpkin and cheese. Still needs to be sliced."

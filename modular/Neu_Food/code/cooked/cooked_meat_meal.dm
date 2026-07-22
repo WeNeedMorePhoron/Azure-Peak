@@ -2,6 +2,7 @@
 // Is the main ingredient.
 /*	..................   Pepper steak   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/peppersteak
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_MEAT
 	list_reagents = list(/datum/reagent/consumable/nutriment = MEATSLAB_NUTRITION)
 	tastes = list("steak" = 1, "pepper" = 1)
@@ -28,6 +29,7 @@
 
 /*	..................   Onion steak   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/onionsteak
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_MEAT|DISH_VEGETABLE
 	name = "onion steak"
 	desc = "Roasted meat garnished with fragrant fried onions, then slathered with the juices of both for a perfect mouth-watering sauce."
@@ -45,6 +47,7 @@
 
 /*	..................   Carrot Steak   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/carrotsteak
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_MEAT|DISH_VEGETABLE
 	name = "carrot steak"
 	desc = "Roasted meat paired with a savory baked carrot, then slathered with the juices of both for a perfect mouth-watering sauce."
@@ -61,6 +64,7 @@
 
 /*	.................   Steak & carrot & onion   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/steakcarrotonion
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_MEAT|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	tastes = list("steak" = 1, "onion" = 1, "carrots" = 1)
@@ -76,6 +80,7 @@
 
 /*	.................   Wiener Cabbage   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wienercabbage
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_MEAT|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
 	tastes = list("savory sausage" = 1, "cabbage" = 1)
@@ -93,6 +98,7 @@
 
 /*	.................   Wiener & Fried potato   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wienerpotato
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_MEAT|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
 	tastes = list("savory sausage" = 1, "potato" = 1)
@@ -109,6 +115,7 @@
 
 /*	.................   Wiener & Fried onions   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wieneronions
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_MEAT|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
 	tastes = list("savory sausage" = 1, "fried onions" = 1)
@@ -125,6 +132,7 @@
 
 /*	.................   Wiener & potato & onions   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wienerpotatonions
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_MEAT|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	tastes = list("savory sausage" = 1, "potato" = 1)

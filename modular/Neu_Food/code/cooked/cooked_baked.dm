@@ -14,6 +14,7 @@
 
 /*	.................   Hardtack   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/crackerscooked
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_BREAD
 	name = "hardtack"
 	desc = "Brittle and hard, like chewing on a rock. These salted biscuits will never expire, however: and for those who travel across Psydonia, that fact alone earns it a space in their packs."
@@ -42,6 +43,7 @@
 
 /*	.................   Bread   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/bread
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_BREAD
 	name = "bread loaf"
 	desc = "One of Psydonia's staple foodstuffs, made from leavened dough. From the pauper to the papal, none can deny the simplistic beauty of a freshly-baked loaf."
@@ -80,6 +82,7 @@
 
 /*	.................   Breadslice & Toast   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/breadslice
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_BREAD
 	name = "sliced bread"
 	desc = "A bit of comfort to start your dae. The finest choice-of-vessel for a slice of saloumi, salo, cheese, bacon, or jam."
@@ -215,6 +218,7 @@
 
 /*	.................   Bread Buns   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/bun
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_BREAD
 	name = "bun"
 	desc = "Portable, quaint, and entirely consumable - for the discerning traveler. It yearns to be further dolled with a sausage, wedge of cheese, or some delicious jams."
@@ -228,6 +232,7 @@
 	rotprocess = SHELFLIFE_EXTREME
 
 /obj/item/reagent_containers/food/snacks/rogue/bun_jamtallow
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_BREAD
 	name = "jamtallowed bun"
 	desc = "A delicious treat to bring along for those long-and-lonesome hikes through the Naledian deserts; doubly-so, if you happen to be smuggling enough starsugar to buy out Astrata's throne."
@@ -242,6 +247,7 @@
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 
 /obj/item/reagent_containers/food/snacks/rogue/bun_marmalade
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_BREAD
 	name = "marmaladed bun"
 	desc = "A delicious treat to bring along for those long-and-lonesome hikes through the Azurian forests; doubly-so, if you happen to be a tallow-coated wildkin of the urisine variety."
@@ -274,6 +280,7 @@
 
 /* 	.................   Crossbuns   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/crossbun
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_BREAD
 	name = "crossbun"
 	desc = "Traditionally eaten for breakfast amongst Psydonia's abbeys. Astratans in particular have made it a \
@@ -432,6 +439,7 @@
 
 /*	.................   Apple Bread   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/applebread
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_BREAD
 	name = "apple loaf"
 	desc = "A fresher cousin of the oft-adored 'raisin loaf', bespeckled with baked apples that dare to melt upon an indulger's tongue. It holds a special place in the hearts of Valoria's people, for both the peasantry and nobility."
@@ -838,6 +846,7 @@
 
 /*	.................   Miscellanious Buns   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/frybread
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_BREAD
 	name = "frybread"
 	desc = "Flatbread fried with butter until crispy. A staple of the elven kitchen."
@@ -851,6 +860,7 @@
 	eat_effect = /datum/status_effect/buff/snackbuff
 
 /obj/item/reagent_containers/food/snacks/rogue/bun_grenz
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_BREAD
 	list_reagents = list(/datum/reagent/consumable/nutriment = SAUSAGE_NUTRITION+SMALLDOUGH_NUTRITION)
 	tastes = list("savory sausage" = 1, "bread" = 1)

@@ -34,6 +34,7 @@
 
 /* ............. Generic Steak ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak
+	cuisine = CUISINE_NORTH_IMPERIAL
 	ingredient_size = 2
 	name = "raw meat"
 	icon_state = "meatsteak"
@@ -50,6 +51,7 @@
 
 /* ............. Pork (Fatty Sprite) ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/fatty //pork
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "raw pigflesh"
 	icon_state = "pork"
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/fatty/roast
@@ -61,6 +63,7 @@
 
 /* ............. Pork Belly ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/pork_belly
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "pork belly"
 	icon_state = "pork_belly"
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL)
@@ -71,6 +74,7 @@
 
 /* ............. Bacon ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/bacon
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "raw bacon"
 	icon_state = "bacon"
 	slice_path = null
@@ -249,6 +253,7 @@
 	cooked_smell = /datum/pollutant/food/cooked_chicken
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/sausage
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "raw sausage"
 	icon_state = "raw_sausage"
 	ingredient_size = 1

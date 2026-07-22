@@ -1,4 +1,5 @@
 /obj/item/reagent_containers/food/snacks/rogue/friedegg
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_EGG
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	tastes = list("fried egg" = 1)

@@ -1,5 +1,6 @@
 // Just store all of the alcohol reagents that isn't base tg here
 /datum/reagent/consumable/ethanol/beer
+	cuisine = CUISINE_NORTH_IMPERIAL
 	drink_type = DRINKTYPE_ALE
 	name = "Beer"
 	description = "Civilization in a cup. Could you truly ask for anything more?"
@@ -45,6 +46,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/aqua_vitae
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "Aqua Vitae"
 	boozepwr = 150
 	taste_description = "death"
@@ -52,6 +54,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/brandy
+	cuisine = CUISINE_NORTH_IMPERIAL
 	drink_type = DRINKTYPE_SPIRIT
 	name = "Apple Brandy"
 	boozepwr = 60
@@ -98,6 +101,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/light
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "Light Beer"
 	description = "An alcoholic beverage brewed since ancient times on Old Earth. This variety has reduced calorie and alcohol content."
 	boozepwr = 5 //Space Europeans hate it
@@ -106,6 +110,7 @@
 	glass_desc = ""
 
 /datum/reagent/consumable/ethanol/green
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "Green Beer"
 	description = "An alcoholic beverage brewed since ancient times on Old Earth. This variety is dyed a festive green."
 	color = "#A8E61D"
@@ -123,6 +128,7 @@
 	M.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, color)
 
 /datum/reagent/consumable/ethanol/ale
+	cuisine = CUISINE_NORTH_IMPERIAL
 	drink_type = DRINKTYPE_ALE
 	name = "Ale"
 	description = "A dark alcoholic beverage made with malted barley and yeast."
@@ -139,12 +145,14 @@
 // Humen Production - Underwhelming, but cheap.
 
 /datum/reagent/consumable/ethanol/zagul
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "Zagul Brew"
 	boozepwr = 15
 	taste_description = "cheap pisswater"
 	color = "#DBD77F"
 
 /datum/reagent/consumable/ethanol/gin
+	cuisine = CUISINE_NORTH_IMPERIAL
 	drink_type = DRINKTYPE_SPIRIT
 	name = "Gin"
 	boozepwr = 65
@@ -153,12 +161,14 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/spottedhen
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "Spotted Hen"
 	boozepwr = 15
 	taste_description = "cheap pisswater"
 	color = "#DBD77F"
 
 /datum/reagent/consumable/ethanol/hagwoodbitter
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "Hagwood Bitter"
 	boozepwr = 25
 	taste_description = "dull crispness"
@@ -166,6 +176,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/blackgoat
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "Black Gote Kriek"
 	boozepwr = 25
 	taste_description = "overwhelming sourness"
@@ -257,6 +268,7 @@
 // Humen Production - Grape Based
 
 /datum/reagent/consumable/ethanol/sourwine // Peasant grade shit.
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "Sour Wine"
 	boozepwr = 20
 	taste_description = "sour wine"
@@ -466,6 +478,7 @@
 
 // Azure Drinks
 /datum/reagent/consumable/ethanol/jagdtrunk // JÄGERMEISTER!!!!
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "Jagdtrunk"
 	boozepwr = 55  // gotta be stronk
 	taste_description = "spicy herbal remedy"
@@ -473,6 +486,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/apfelweinheim
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "Appelheimer"
 	boozepwr = 45
 	taste_description = "tart crispness and mellow sweetness"
