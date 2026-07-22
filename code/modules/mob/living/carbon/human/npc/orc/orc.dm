@@ -21,6 +21,7 @@
 	faction = list(FACTION_ORCS, FACTION_STATION)
 	ai_controller = /datum/ai_controller/human_npc
 	cmode_music = FALSE
+	ambush_faction = "orcs"
 
 /mob/living/carbon/human/species/orc/npc/archer
 	threat_point = THREAT_HIGH

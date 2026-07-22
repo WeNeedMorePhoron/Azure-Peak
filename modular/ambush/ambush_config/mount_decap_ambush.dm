@@ -26,6 +26,14 @@
 	threat_point = 2 * THREAT_ELITE
 	faction_tag = "wildlife"
 
+/datum/ambush_config/road_knight_escort
+	mob_types = list(
+		/mob/living/carbon/human/species/human/northern/highwayman/road_knight = 1,
+		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 2
+	)
+	threat_point = THREAT_DEADLY + 2 * THREAT_HIGH
+	faction_tag = "bandits"
+
 /datum/ambush_config/medium_skeleton_party
 	mob_types = list(
 		/mob/living/carbon/human/species/skeleton/npc/medium = 3
