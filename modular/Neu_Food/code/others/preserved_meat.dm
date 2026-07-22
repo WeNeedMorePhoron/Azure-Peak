@@ -1,5 +1,6 @@
 // -------------- SALUMOI (dwarven smoked sausage) -----------------
 /obj/item/reagent_containers/food/snacks/rogue/meat/salami
+	cuisine = CUISINE_ETRUSCAN|CUISINE_NORTH_IMPERIAL
 	name = "salumoi"
 	desc = "A salted sausage, said to last for ten yils before spoiling. As the legend goes, dwarven caravans used this 'travel food' to create the first sandwich: a slice of bread, crowned with this sliceable meat."
 	icon = 'modular/Neu_Food/icons/others/preserved_meat.dmi'
@@ -47,6 +48,7 @@
 
 // -------------- COPPIETTE (dried meat) -----------------
 /obj/item/reagent_containers/food/snacks/rogue/meat/coppiette
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_ETRUSCAN
 	eat_effect = null
 	name = "coppiette"
 	icon = 'modular/Neu_Food/icons/others/preserved_meat.dmi'
@@ -72,7 +74,7 @@
 		icon_state = "jerk1"
 
 /obj/item/reagent_containers/food/snacks/rogue/lemoncoppiette
-	cuisine = CUISINE_NORTH_IMPERIAL
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_ETRUSCAN
 	dish_type = DISH_MEAT
 	eat_effect = null
 	name = "lemony stickets"

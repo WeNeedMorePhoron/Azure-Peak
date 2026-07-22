@@ -69,6 +69,7 @@
 
 /* .............   Eggplant   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/eggplantcarved
+	cuisine = CUISINE_ETRUSCAN
 	dish_type = DISH_VEGETABLE
 	name = "carved aubergine"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_veggies.dmi'
@@ -77,6 +78,7 @@
 	rotprocess = SHELFLIFE_LONG
 
 /obj/item/reagent_containers/food/snacks/rogue/eggplantmeat
+	cuisine = CUISINE_ETRUSCAN
 	dish_type = DISH_VEGETABLE|DISH_MEAT
 	name = "unfinished stuffed aubergine"
 	desc = "An eggplant stuffed with raw meat, ready to be topped with tomato."
@@ -93,6 +95,7 @@
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/preserved/eggplantstuffed
 
 /obj/item/reagent_containers/food/snacks/rogue/preserved/eggplantstuffed
+	cuisine = CUISINE_ETRUSCAN
 	dish_type = DISH_VEGETABLE|DISH_MEAT
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL)
 	name = "stuffed aubergine"
@@ -105,6 +108,7 @@
 	eat_effect = /datum/status_effect/buff/snackbuff
 
 /obj/item/reagent_containers/food/snacks/rogue/preserved/eggplantstuffedcheese
+	cuisine = CUISINE_ETRUSCAN
 	dish_type = DISH_VEGETABLE|DISH_DAIRY
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	name = "stuffed aubergine with cheese"

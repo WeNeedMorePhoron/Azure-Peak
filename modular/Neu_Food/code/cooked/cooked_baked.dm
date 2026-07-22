@@ -494,7 +494,7 @@
 
 /*	.................   Tomatoplate  ................... */
 /obj/item/reagent_containers/food/snacks/rogue/tomatoplate
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "tomatoplate"
 	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscan refugees from long ago. The \
 	richness of the flatbread's sauced tomatoes is perfectly complemented by its cheesey blanket; all it's missing is a cold pint of \
@@ -532,7 +532,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/meattomatoplate
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "sausaged tomatoplate"
 	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscan refugees from long ago. The \
 	richness of the flatbread's sauced tomatoes is perfectly complemented by its cheesey blanket and crispy sasuages; all it's missing \
@@ -570,7 +570,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/fishtomatoplate
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "fished tomatoplate"
 	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscan refugees from long ago. The \
 	richness of the flatbread's sauced tomatoes is perfectly complemented by its cheesey blanket and oily fishes; all it's missing \
@@ -798,6 +798,7 @@
 /*	.................   Lasagna   ................... */
 
 /obj/item/reagent_containers/food/snacks/rogue/lasagna
+	cuisine = CUISINE_ETRUSCAN
 	name = "lasagna"
 	desc = "Stacked pasta sheets layered with fresh marinara, made with limited ingredients. One might call this Navarno, but even there the Montecarinan style is the norm."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pasta.dmi'
@@ -811,6 +812,7 @@
 	rotprocess = SHELFLIFE_LONG
 
 /obj/item/reagent_containers/food/snacks/rogue/lasagna_white
+	cuisine = CUISINE_ETRUSCAN
 	name = "white lasagna"
 	desc = "Stacked pasta sheets layered with béchamel sauce and melted cheese. Lasagna was brought to Valoria by a Montecarinan royal chef, but the price of tomatoes made locals forgo it for a very Otavan white sauce."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pasta.dmi'
@@ -824,6 +826,7 @@
 	rotprocess = SHELFLIFE_LONG
 
 /obj/item/reagent_containers/food/snacks/rogue/lasagna_redwhite
+	cuisine = CUISINE_ETRUSCAN
 	name = "cheesy lasagna"
 	desc = "Pasta sheets decadently stacked with marinara and cheese, something so simple has no right to be so rich. The condottieri and captains of Montecarina's royal navy hate leaving port, not knowing when next they can gorge on this soldiery pasta loaf of cheese and sauce."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pasta.dmi'
@@ -1018,6 +1021,7 @@
 	tastes = list("soft and fluffy dough" = 1, "caramelized apple slices" = 1)
 /*	.................   Challah   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/challah
+	cuisine = CUISINE_RANESHENI
 	dish_type = DISH_BREAD
 	name = "challah loaf"
 	desc = "A Nshkormh loaf of bread, made from leavened dough and egg, the communities of Psydonites in the region continued it's usage even during the Sun Dominion's banning of it's creation for it's 'rejection of Astratan butterness'."

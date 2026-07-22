@@ -161,7 +161,7 @@
 
 // -------------- CRAB PIE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/crab
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	dish_type = DISH_PIE|DISH_SEAFOOD
 	name = "crab pie"
 	desc = "A delicious, homemade pie made with the inside of a crustacean. Still needs to be sliced."

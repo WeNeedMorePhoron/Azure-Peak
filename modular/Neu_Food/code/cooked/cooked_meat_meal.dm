@@ -221,6 +221,7 @@
 
 /* .............   Fried Cabbit w/ Garlick  ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit/fried/garlick
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "garlick cabbit"
 	desc = "A slab of cabbit, fried to a perfect crispy texture - coated over in glove of garlick."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat_meal.dmi'

@@ -97,6 +97,7 @@
 	faretype = FARE_NEUTRAL
 
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/shrimp
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "cooked shrimp"
 	desc = "A cooked shrimp. Firm and springy with a natural hint of saltiness."
 	icon_state = "shrimpcooked"

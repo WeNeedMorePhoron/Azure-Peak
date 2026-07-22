@@ -244,6 +244,7 @@
 	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/limoncello
+	cuisine = CUISINE_ETRUSCAN
 	drink_type = DRINKTYPE_SPIRIT
 	name = "Limoncello"
 	boozepwr = 45  // holy shit
@@ -318,7 +319,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/plum_wine
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAN|CUISINE_ETRUSCAN
 	name = "Umeshu"
 	boozepwr = 15
 	taste_description = "sickly sour young wine"
@@ -340,7 +341,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/tangerine
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAN|CUISINE_ETRUSCAN
 	name = "Tangerine Wine"
 	boozepwr = 15
 	taste_description = "bittersweet, citrusy young wine"
