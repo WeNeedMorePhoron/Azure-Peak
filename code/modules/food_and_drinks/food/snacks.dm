@@ -54,6 +54,8 @@ All foods are distributed among various categories. Use common sense.
 	var/cooked_type = null  //for overn cooking
 	/// How palatable is this food for a given social class? Also influences food quality
 	var/faretype = FARE_IMPOVERISHED
+	var/cuisine = NONE
+	var/dish_type = NONE
 	/// If false, this will inflict mood debuffs on nobles who eat it without being near a table.
 	var/portable = TRUE
 	var/fried_type = null	//instead of becoming
@@ -282,7 +284,7 @@ All foods are distributed among various categories. Use common sense.
 				else
 					eater.apply_status_effect(/datum/status_effect/buff/foodhealing, faretype, faretype)
 		
-		if(faretype >= FAVORITE_FOOD_MINFARE && ((food_cuisine(type) & human_eater.favorite_cuisine) || (food_dish(type) & human_eater.favorite_dish)))
+		if(faretype >= FAVORITE_FOOD_MINFARE && ((cuisine & human_eater.favorite_cuisine) || (dish_type & human_eater.favorite_dish)))
 			if(human_eater.add_stress(/datum/stressevent/favourite_food))
 				new /obj/effect/temp_visual/heart(get_turf(human_eater))
 				to_chat(human_eater, span_green("Delicious - just the way I like it!"))
@@ -531,10 +533,9 @@ All foods are distributed among various categories. Use common sense.
 	var/info = parts.Join(" | ")
 	lines += span_smallnotice("[info].")
 	var/list/tag_parts = list()
-	var/cuisine_flags = GLOB.cuisine_foods[type]
-	if(cuisine_flags)
-		tag_parts += "Cuisine: [english_list(culinary_flags_names(GLOB.culinary_cuisines, cuisine_flags))]"
-	var/list/dish_names = culinary_flags_names(GLOB.culinary_dishes, food_dish(type))
+	if(cuisine)
+		tag_parts += "Cuisine: [english_list(culinary_flags_names(GLOB.culinary_cuisines, cuisine))]"
+	var/list/dish_names = culinary_flags_names(GLOB.culinary_dishes, dish_type)
 	if(length(dish_names))
 		tag_parts += "Dish: [english_list(dish_names)]"
 	if(length(tag_parts))

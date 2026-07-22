@@ -300,10 +300,10 @@
 		if(FARE_LAVISH)
 			lines += "Quality: Lavish."
 
-	var/list/cuisine_names = culinary_flags_names(GLOB.culinary_cuisines, GLOB.cuisine_foods[result_path])
+	var/list/cuisine_names = culinary_flags_names(GLOB.culinary_cuisines, proto.cuisine)
 	if(length(cuisine_names))
 		lines += "Cuisine: [english_list(cuisine_names)]."
-	var/list/dish_names = culinary_flags_names(GLOB.culinary_dishes, food_dish(result_path))
+	var/list/dish_names = culinary_flags_names(GLOB.culinary_dishes, proto.dish_type)
 	if(length(dish_names))
 		lines += "Dish type: [english_list(dish_names)]."
 

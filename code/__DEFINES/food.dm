@@ -32,15 +32,14 @@
 
 // Originally, we had a system from Vanderlin with an individual specific Favorite Food and Drink, but it was at once, too broad and too narrow. Hated Food / Drink is a cherry on top and mechanically didn't matter, and favorite food / drink without quality gating is extremely narrow and leans you toward 1 or 3 powergaming options optimistically. The new one gate you to favorite cuisine, favorite dish type and favorite drinks - positive only.
 
-// Anything not registered to a foreign cuisine counts as Azurian
-// Southeast merges Lingyue + Kazengun, Northern merges Gronn + Avar/Aavnr.
-#define CUISINE_AZURIAN			(1<<0)
-#define CUISINE_ETRUSCAN		(1<<1)
-#define CUISINE_SOUTHEAST		(1<<2)
-#define CUISINE_GRENZELHOFTIAN	(1<<3)
-#define CUISINE_DWARVEN			(1<<4)
-#define CUISINE_ELVEN			(1<<5)
-#define CUISINE_NORTHERN		(1<<6)
+// Cuisines are designed to not be broad universal catch all, so North Imperial (Grenzelhoftian) has a lot of pies and bread and land food, whereas South Imperial exclude most pies but includes seafood and some foreign and elven fare. Northern is Hammerhold + Gronn. Southeastern is Kazengun / Gronn.
+#define CUISINE_NORTH_IMPERIAL	(1<<0)
+#define CUISINE_SOUTH_IMPERIAL	(1<<1)
+#define CUISINE_OTAVAN			(1<<2)
+#define CUISINE_NORTHERN		(1<<3)
+#define CUISINE_ETRUSCAN		(1<<4)
+#define CUISINE_SOUTHEASTERN	(1<<5)
+#define CUISINE_RANESHENI		(1<<6)
 
 // Dish type flags - food only.
 #define DISH_MEAT		(1<<0)

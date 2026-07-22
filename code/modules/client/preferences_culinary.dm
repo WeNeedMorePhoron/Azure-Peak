@@ -1,12 +1,12 @@
 
 GLOBAL_LIST_INIT(culinary_cuisines, list(
-	"Azurian" = CUISINE_AZURIAN,
-	"Etruscan" = CUISINE_ETRUSCAN,
-	"Grenzelhoftian" = CUISINE_GRENZELHOFTIAN,
-	"Southeast" = CUISINE_SOUTHEAST,
-	"Dwarven" = CUISINE_DWARVEN,
-	"Elven" = CUISINE_ELVEN,
+	"North Imperial" = CUISINE_NORTH_IMPERIAL,
+	"South Imperial" = CUISINE_SOUTH_IMPERIAL,
+	"Otavan" = CUISINE_OTAVAN,
 	"Northern" = CUISINE_NORTHERN,
+	"Etruscan" = CUISINE_ETRUSCAN,
+	"Southeastern" = CUISINE_SOUTHEASTERN,
+	"Ranesheni" = CUISINE_RANESHENI,
 ))
 
 GLOBAL_LIST_INIT(culinary_dishes, list(

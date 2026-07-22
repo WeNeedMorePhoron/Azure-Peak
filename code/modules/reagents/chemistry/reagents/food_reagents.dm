@@ -16,6 +16,7 @@
 	var/hydration_factor = 0
 	var/quality = 0	//affects mood, typically higher for mixed drinks with more complex recipes
 	var/drink_type = NONE
+	var/cuisine = NONE
 
 /datum/reagent/consumable/on_mob_life(mob/living/carbon/M)
 	if(ishuman(M))
@@ -28,7 +29,7 @@
 /datum/reagent/consumable/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if(method == INGEST && ishuman(M) && quality >= FAVORITE_DRINK_MINQUALITY)
 		var/mob/living/carbon/human/HM = M
-		if((drink_cuisine(type) & HM.favorite_cuisine) || (drink_type & HM.favorite_drink))
+		if((cuisine & HM.favorite_cuisine) || (drink_type & HM.favorite_drink))
 			if(HM.add_stress(/datum/stressevent/favourite_drink))
 				new /obj/effect/temp_visual/heart(get_turf(HM))
 				to_chat(HM, span_green("Delicious - just the way I like it!"))
