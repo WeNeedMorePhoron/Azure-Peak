@@ -1,5 +1,6 @@
 // Raw meat from land animals.
 /obj/item/reagent_containers/food/snacks/rogue/meat
+	dish_type = DISH_MEAT
 	eat_effect = /datum/status_effect/debuff/uncookedfood
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	name = "meat"
@@ -92,6 +93,7 @@
 
 /* ............. Whole Bird ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry
+	dish_type = DISH_POULTRY
 	name = "plucked bird"
 	icon_state = "halfchicken"
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet
@@ -115,6 +117,7 @@
 
 /* ............. Crab Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/crab
+	dish_type = DISH_SEAFOOD
 	name = "crab meat"
 	desc = "A chunk of raw crab meat, absolutely wonderful."
 	icon_state = "crabmeatraw"
@@ -182,6 +185,7 @@
 
 /* ............. fish chop ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/fish
+	dish_type = DISH_SEAFOOD
 	name = "fish filet"
 	desc = "A filet of fish. All of them are the same inside."
 	icon_state = "fish_filet"
@@ -194,6 +198,7 @@
 
 /* .........   Shellfish    ................. */
 /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish
+	dish_type = DISH_SEAFOOD
 	name = "shellfish meat"
 	desc = "Meat from a crustacean. Salty with a different texture than most fishmeat. Chop to create mince, bake or fry to make fried shellfish meat"
 	icon_state = "shellfish_meat"
@@ -226,6 +231,7 @@
 	name = "minced meat"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/mince/fish
+	dish_type = DISH_SEAFOOD
 	name = "minced fish"
 	icon_state = "fishmince"
 
@@ -269,6 +275,7 @@
 
 /* ............. fish chop ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/fish
+	dish_type = DISH_SEAFOOD
 	name = "fish filet"
 	desc = "A filet of fish. All of them are the same inside."
 	icon_state = "fish_filet"
@@ -280,6 +287,7 @@
 
 /* .........   Shellfish    ................. */
 /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish
+	dish_type = DISH_SEAFOOD
 	name = "shellfish meat"
 	desc = "Meat from a crustacean. Salty with a different texture than most fishmeat. Chop to create mince, bake or fry to make fried shellfish meat"
 	icon_state = "shellfish_meat"

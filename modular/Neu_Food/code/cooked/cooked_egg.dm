@@ -1,4 +1,5 @@
 /obj/item/reagent_containers/food/snacks/rogue/friedegg
+	dish_type = DISH_EGG
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	tastes = list("fried egg" = 1)
 	name = "base fried egg"
@@ -29,6 +30,7 @@
 
 /*	.............   Deviled Eggs   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/stuffedegg
+	dish_type = DISH_EGG
 	name = "raw stuffed egg"
 	desc = "Raw egg stuffed with a creamy cheese filling."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_egg.dmi'
@@ -167,6 +169,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/reagent_containers/food/snacks/rogue/omelette
+	dish_type = DISH_EGG
 	name = "omelette"
 	desc = "A fluffy omelette."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_omelette.dmi'

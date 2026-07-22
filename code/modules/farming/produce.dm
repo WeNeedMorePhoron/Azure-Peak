@@ -137,6 +137,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/grilledcorn
 
 /obj/item/reagent_containers/food/snacks/grown/apple
+	dish_type = DISH_FRUIT
 	seed = /obj/item/seeds/apple
 	name = "apple"
 	desc = "Deliciously crisp and fragrant. It's said that archers will sometimes \
@@ -210,6 +211,7 @@
 		)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit
+	dish_type = DISH_FRUIT
 	name = "generic fruit"
 	desc = "Uh oh, this shouldn't be here."
 	bitesize = 2
@@ -372,6 +374,7 @@
 
 
 /obj/item/reagent_containers/food/snacks/grown/berries/rogue
+	dish_type = DISH_FRUIT
 	seed = /obj/item/seeds/berryrogue
 	name = "jacksberries"
 	desc = ""
@@ -799,6 +802,7 @@
 	rotprocess = null
 
 /obj/item/reagent_containers/food/snacks/grown/carrot
+	dish_type = DISH_VEGETABLE
 	name = "carrot"
 	desc = "A long vegetable said to help with eyesight. Often baked"
 	icon_state = "carrot"
@@ -871,6 +875,7 @@
 
 /*	..................   Cucumber   ................... */
 /obj/item/reagent_containers/food/snacks/grown/cucumber
+	dish_type = DISH_VEGETABLE
 	name = "cucumber"
 	desc = "A long, green vegetable that is crunchy and refreshing. Can be sliced for easier consumption."
 	icon_state = "cucumber"
@@ -882,6 +887,7 @@
 	seed = /obj/item/seeds/cucumber
 
 /obj/item/reagent_containers/food/snacks/grown/eggplant
+	dish_type = DISH_VEGETABLE
 	name = "eggplant"
 	desc = "A large, purple vegetable with a mild taste. Can be carved to be filled up."
 	icon_state = "eggplant"
