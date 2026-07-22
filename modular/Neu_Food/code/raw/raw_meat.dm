@@ -121,6 +121,7 @@
 
 /* ............. Crab Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/crab
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_SEAFOOD
 	name = "crab meat"
 	desc = "A chunk of raw crab meat, absolutely wonderful."
@@ -134,6 +135,7 @@
 
 /* ............. Cabbit Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "raw cabbit meat"
 	icon_state = "cabbitcutlet"
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/rabbit
@@ -189,6 +191,7 @@
 
 /* ............. fish chop ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/fish
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_SEAFOOD
 	name = "fish filet"
 	desc = "A filet of fish. All of them are the same inside."
@@ -202,6 +205,7 @@
 
 /* .........   Shellfish    ................. */
 /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_SEAFOOD
 	name = "shellfish meat"
 	desc = "Meat from a crustacean. Salty with a different texture than most fishmeat. Chop to create mince, bake or fry to make fried shellfish meat"
@@ -235,6 +239,7 @@
 	name = "minced meat"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/mince/fish
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_SEAFOOD
 	name = "minced fish"
 	icon_state = "fishmince"
@@ -280,6 +285,7 @@
 
 /* ............. fish chop ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/fish
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_SEAFOOD
 	name = "fish filet"
 	desc = "A filet of fish. All of them are the same inside."
@@ -292,6 +298,7 @@
 
 /* .........   Shellfish    ................. */
 /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_SEAFOOD
 	name = "shellfish meat"
 	desc = "Meat from a crustacean. Salty with a different texture than most fishmeat. Chop to create mince, bake or fry to make fried shellfish meat"
@@ -313,6 +320,7 @@
 
 /* ............. Cabbit Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "raw cabbit meat"
 	icon_state = "cabbitcutlet"
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/rabbit

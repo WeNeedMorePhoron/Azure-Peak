@@ -846,6 +846,7 @@
 
 /*	.................   Bookbread   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/bookbread
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_PASTRY
 	name = "bookbread loaf"
 	desc = "On the days when Noc's reign lengthens to its apex, all proper Pantheon-fearing folk huddle by their warm hearths, exchanging both books and pastries such as this."
@@ -932,6 +933,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/pearbookbread
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_PASTRY
 	name = "pear bookbread"
 	desc = "Children on Nocsmas are traditionally granted both book and pastry without expectation of exchange, this variety is prefered by most little ones."
@@ -988,6 +990,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/plumbookbread
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_PASTRY
 	name = "plum bookbread"
 	desc = "The origin of Nocsmas are shrouded in mystery, perhaps intentionally so, though some theorize it may have had its origins as an originally Psydonian holidae."
@@ -1044,6 +1047,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/lemonbookbread
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_PASTRY
 	name = "lemon bookbread"
 	desc = "Though many followers of Her find the holidae laughable, it's undeniably an important respite from the doom and gloom of the darkest month."
@@ -1100,6 +1104,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/tangerinebookbread
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_PASTRY
 	name = "tangerine bookbread"
 	desc = "Even the coldest, darkest nites end eventually. Better to weather them with friends than to hide away."
@@ -1156,6 +1161,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/blackberrybookbread
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_PASTRY
 	name = "blackberry bookbread"
 	desc = "Following Her ascension, the great exchanging of books has met steady decline, as neighbor suspects neighbor more and more. Yet, even such prejudices could never hope to fully smother the spirit of Nocmas."
@@ -1212,6 +1218,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/raspberrybookbread
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_PASTRY
 	name = "raspberry bookbread"
 	desc = "Spending the long cold months in academic rather than intimate pursuit is preferable for most devout Noccians."
@@ -1268,6 +1275,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/jackberrybookbread
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_PASTRY
 	name = "jacksberried bookbread"
 	desc = "As Nocsmas gained broader appeal, more and more commonfolk with poor access to books instead chose to simply forego their exchanging, focusing instead on the preparation of food."
@@ -1379,6 +1387,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/chocolatebookbread
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_PASTRY
 	name = "chocolate bookbread"
 	desc = "Nocsmas is not only a holiday for children and commoners, for Noccians are found most concentrated in the upper echelons of society. For these academics, it provies a much needed opportunity to share their secrets."

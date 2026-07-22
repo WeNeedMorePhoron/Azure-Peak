@@ -41,6 +41,7 @@
 	rotprocess = SHELFLIFE_DECENT
 
 /obj/item/reagent_containers/food/snacks/rogue/spaghetti_pesto
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "pesto spaghetti"
 	desc = "Noodles mixed with a spiced refined sauce made from smoky rocknut and garlick. A cultural blend of Azurian improvisation and Navarno ingenuity."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pasta.dmi'

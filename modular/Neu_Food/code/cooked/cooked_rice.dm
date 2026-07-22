@@ -63,6 +63,7 @@
 
 /*	.................   Rice & shrimp ................... */
 /obj/item/reagent_containers/food/snacks/rogue/riceshrimp
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_SEAFOOD
 	name = "rice and shrimp"
 	tastes = list("rice" = 1, "shrimp" = 1)
@@ -76,6 +77,7 @@
 
 /*	.................   Rice & shrimp & carrots ................... */
 /obj/item/reagent_containers/food/snacks/rogue/riceshrimpcar
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_SEAFOOD|DISH_VEGETABLE
 	name = "rice and shrimp meal"
 	tastes = list("rice" = 1, "shrimp" = 1, "carrot" = 1)

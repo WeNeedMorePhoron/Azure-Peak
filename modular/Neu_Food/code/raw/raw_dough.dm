@@ -478,6 +478,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/reagent_containers/food/snacks/rogue/eggdoughsheetnoodles_pesto
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "uncooked pesto lasagna"
 	desc = "Flat sheets of sheet noodles spread with pesto, Azurian style, ready to be cooked in the oven."
 	icon = 'modular/Neu_Food/icons/raw/raw_dough.dmi'

@@ -193,6 +193,7 @@
 // Elf Production - LEAF-LOVERS MOTHERFUCKER
 
 /datum/reagent/consumable/ethanol/aurorian
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "Aurorian"
 	boozepwr = 5
 	taste_description = "subtle herbacious undertones"
@@ -200,6 +201,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/fireleaf // cabbbage
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "Fireleaf"
 	boozepwr = 2
 	taste_description = "awful liquor"
@@ -463,6 +465,7 @@
 // Elf Production - Berries & Herbal
 
 /datum/reagent/consumable/ethanol/elfred
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "Elven Red"
 	boozepwr = 15
 	taste_description = "delectable fruity notes"
@@ -470,6 +473,7 @@
 	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/elfblue
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "Valmora Blue"
 	boozepwr = 50
 	taste_description = "saintly sweetness"
@@ -604,6 +608,7 @@
 
 // Mead 
 /datum/reagent/consumable/ethanol/mead
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	drink_type = DRINKTYPE_MEAD
 	name = "Mead"
 	description = "A warriors drink, though a cheap one."
