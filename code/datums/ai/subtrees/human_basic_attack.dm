@@ -147,9 +147,10 @@
 		if(feint_ready && technique_ready && pawn.stamina < pawn.max_stamina * 0.7 && istype(pawn.rmb_intent, /datum/rmb_intent/feint))
 			AI_THINK(pawn, "FEINT: attempting feint on [target]!")
 			modifiers = list(RIGHT_CLICK = TRUE)
-			controller.set_blackboard_key(BB_HUMAN_NPC_FEINT_COOLDOWN, world.time + HUMAN_NPC_FEINT_COOLDOWN)
+			var/feint_cd = npc_technique_cd(pawn, HUMAN_NPC_FEINT_COOLDOWN)
+			controller.set_blackboard_key(BB_HUMAN_NPC_FEINT_COOLDOWN, world.time + feint_cd)
 			controller.set_blackboard_key(BB_HUMAN_NPC_TECHNIQUE_CD, world.time + 3 SECONDS)
-			propagate_technique_cd(pawn, target, BB_HUMAN_NPC_FEINT_COOLDOWN, world.time + HUMAN_NPC_FEINT_COOLDOWN)
+			propagate_technique_cd(pawn, target, BB_HUMAN_NPC_FEINT_COOLDOWN, world.time + feint_cd)
 		#ifdef NPC_THINK_DEBUG
 		else if(istype(pawn.rmb_intent, /datum/rmb_intent/feint) && !feint_ready)
 			AI_THINK(pawn, "FEINT: on cooldown ([controller.blackboard[BB_HUMAN_NPC_FEINT_COOLDOWN] - world.time]ds remaining)")
@@ -398,9 +399,11 @@
 	controller.set_blackboard_key(BB_HUMAN_NPC_TECHNIQUE_CD, world.time + 3 SECONDS)
 	// AI penalty: re-stamp the special cooldown longer than the player baseline so NPCs
 	// can't chain specials as tightly as a human player could. Override replaces the
-	// debuff applied inside deploy() with our extended version.
-	special.apply_cooldown(special.cooldown * HUMAN_NPC_SPECIAL_CD_PENALTY, override = TRUE)
-	propagate_technique_cd(pawn, target, specialcd_duration = special.cooldown * HUMAN_NPC_SPECIAL_CD_PENALTY)
+	// debuff applied inside deploy() with our extended version. Conjured summons keep
+	// the player-baseline cooldown via npc_technique_cd.
+	var/special_cd = npc_technique_cd(pawn, special.cooldown * HUMAN_NPC_SPECIAL_CD_PENALTY)
+	special.apply_cooldown(special_cd, override = TRUE)
+	propagate_technique_cd(pawn, target, specialcd_duration = special_cd)
 	// Recovery: block the next swing for longer than a normal attack so specials don't chain
 	if(pawn.next_click < world.time + pawn.used_intent?.clickcd * 1.8)
 		pawn.next_click = world.time + (pawn.used_intent?.clickcd * 1.8)

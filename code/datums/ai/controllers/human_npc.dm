@@ -148,6 +148,12 @@
 		/datum/ai_planning_subtree/loot,
 	)
 
+
+/proc/npc_technique_cd(mob/living/user, base_cd)
+	if(HAS_TRAIT(user, TRAIT_CONJURED_SUMMON))
+		return base_cd / 1.5
+	return base_cd
+
 // Make it so that every other human NPC in view attacking the same target inherits the cooldown, so that they cannot be chained.
 /proc/propagate_technique_cd(mob/living/user, atom/target, bb_key, cd_end, specialcd_duration = 0)
 	if(!target)
