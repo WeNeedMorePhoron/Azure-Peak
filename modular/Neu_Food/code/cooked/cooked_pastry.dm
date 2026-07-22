@@ -437,6 +437,7 @@
 	eat_effect = null
 
 /obj/item/reagent_containers/food/snacks/rogue/prezzel
+	cuisine = CUISINE_NORTHERN
 	dish_type = DISH_PASTRY
 	name = "prezzel"
 	desc = "The next best thing after sliced bread. The recipe is a closely guarded secret among the dwarves. So dire is their conviction that not even the Inquisition's most agonizing methods could force them to reveal it."
@@ -627,6 +628,7 @@
 	tastes = list("cabbage" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/handpie
+	cuisine = CUISINE_NORTHERN
 	dish_type = DISH_PASTRY
 	name = "handpie"
 	desc = "The dwarves call this 'pierogi' in their dialect. It'll stay fresh for a good long while until the crust is bitten."

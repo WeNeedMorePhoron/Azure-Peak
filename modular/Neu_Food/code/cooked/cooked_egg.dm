@@ -118,6 +118,7 @@
 	rotprocess = SHELFLIFE_DECENT
 
 /obj/item/reagent_containers/food/snacks/rogue/friedegg/hammerhold
+	cuisine = CUISINE_NORTHERN
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	tastes = list("fried egg" = 1, "sausage" = 1, "bacon" = 1, "toast" = 1)
 	name = "Hammerholdian breakfast"

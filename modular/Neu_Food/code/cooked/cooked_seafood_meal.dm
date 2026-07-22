@@ -110,7 +110,7 @@
 
 /*ale cod*/
 /obj/item/reagent_containers/food/snacks/rogue/alecod
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_NORTHERN
 	dish_type = DISH_SEAFOOD
 	name = "alecod"
 	desc = "Cod with ale poured over it right after cooking. A... choice pick."

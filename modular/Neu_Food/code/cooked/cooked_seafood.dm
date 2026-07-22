@@ -46,6 +46,7 @@
 	faretype = FARE_POOR
 
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/cod
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_NORTHERN
 	name = "cooked cod"
 	desc = "A cooked cod, with a mild flavor and flaky texture. Quite popular."
 	icon_state = "codcooked"
@@ -59,6 +60,7 @@
 	faretype = FARE_POOR
 
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/salmon
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_NORTHERN
 	name = "cooked salmon"
 	desc = "A cooked salmon. Less terrifying now that it is cooked. It has rich and oily flesh, making it quite popular once spiced."
 	icon_state = "salmoncooked"

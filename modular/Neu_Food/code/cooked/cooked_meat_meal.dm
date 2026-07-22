@@ -98,7 +98,7 @@
 
 /*	.................   Wiener & Fried potato   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wienerpotato
-	cuisine = CUISINE_NORTH_IMPERIAL
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_NORTHERN
 	dish_type = DISH_MEAT|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
 	tastes = list("savory sausage" = 1, "potato" = 1)
@@ -132,7 +132,7 @@
 
 /*	.................   Wiener & potato & onions   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wienerpotatonions
-	cuisine = CUISINE_NORTH_IMPERIAL
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_NORTHERN
 	dish_type = DISH_MEAT|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	tastes = list("savory sausage" = 1, "potato" = 1)
@@ -187,6 +187,7 @@
 
 /*	.................   Frybird & Tato   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/frybirdtato
+	cuisine = CUISINE_NORTHERN
 	dish_type = DISH_POULTRY|DISH_VEGETABLE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
 	tastes = list("frybird" = 1, "tato" = 1)
@@ -203,6 +204,7 @@
 
 /*	.................   Frybird Bucket   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/frybirdbucket
+	cuisine = CUISINE_NORTHERN
 	dish_type = DISH_POULTRY
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER*3)
 	tastes = list("frybird" = 1)

@@ -146,9 +146,10 @@
 
 /* ............. Volf Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/wolf
+	cuisine = CUISINE_NORTHERN
 	ingredient_size = 2
 	slices_num = 2
-	slice_bclass = BCLASS_CHOP	
+	slice_bclass = BCLASS_CHOP
 	name = "raw volf meat"
 	icon_state = "volfstrip"
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef		//Honestly, we don't need our own minced type on this one.
@@ -157,6 +158,7 @@
 
 /* ............. Rous Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/rat
+	cuisine = CUISINE_NORTHERN
 	ingredient_size = 2
 	slices_num = 2
 	slice_bclass = BCLASS_CHOP
@@ -169,6 +171,7 @@
 
 /* ............. Bear Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/bear
+	cuisine = CUISINE_NORTHERN
 	ingredient_size = 2
 	slices_num = 2
 	slice_bclass = BCLASS_CHOP
@@ -331,6 +334,7 @@
 
 /* ............. Volf Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/wolf
+	cuisine = CUISINE_NORTHERN
 	ingredient_size = 2
 	slices_num = 2
 	slice_bclass = BCLASS_CHOP

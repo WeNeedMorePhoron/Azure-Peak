@@ -15,6 +15,7 @@
 
 /*	.............   Baked potato   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/preserved/potato_baked
+	cuisine = CUISINE_NORTHERN
 	dish_type = DISH_VEGETABLE
 	name = "baked potatoes"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_veggies.dmi'
@@ -27,6 +28,7 @@
 
 /*	.............   Fried potato   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/preserved/potato_fried
+	cuisine = CUISINE_NORTHERN
 	dish_type = DISH_VEGETABLE
 	name = "fried potato"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_veggies.dmi'

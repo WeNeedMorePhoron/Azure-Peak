@@ -14,7 +14,7 @@
 
 /*	.................   Hardtack   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/crackerscooked
-	cuisine = CUISINE_NORTH_IMPERIAL
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_NORTHERN
 	dish_type = DISH_BREAD
 	name = "hardtack"
 	desc = "Brittle and hard, like chewing on a rock. These salted biscuits will never expire, however: and for those who travel across Psydonia, that fact alone earns it a space in their packs."
@@ -767,9 +767,10 @@
 	foodtype = GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/rogue/cheesebun
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_OTAVAN|CUISINE_NORTHERN
 	dish_type = DISH_BREAD|DISH_DAIRY
 	name = "fresh cheese bun"
-	desc = "A quaint treat from the Grenzelhoftian kitchens."
+	desc = "A quaint treat with fresh cheese topped on top of a bun. A delicious, decadent, yet inexpensive."
 	faretype = FARE_FINE
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
 	icon_state = "cheesebun"

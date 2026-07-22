@@ -211,6 +211,7 @@
 // Dwarven Production - Best in the Realms!
 
 /datum/reagent/consumable/ethanol/butterhairs
+	cuisine = CUISINE_NORTHERN
 	drink_type = DRINKTYPE_ALE
 	name = "Butterhairs"
 	boozepwr = 30
@@ -219,6 +220,7 @@
 	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/stonebeards
+	cuisine = CUISINE_NORTHERN
 	drink_type = DRINKTYPE_ALE
 	name = "Stonebeard Reserve"
 	boozepwr = 40
@@ -226,19 +228,20 @@
 	color = "#5D8A8A"
 	quality = DRINK_GOOD
 
-/datum/reagent/consumable/ethanol/voddena // Definitely Actually Just Vodka Now. 
+/datum/reagent/consumable/ethanol/voddena // Definitely Actually Just Vodka Now.
+	cuisine = CUISINE_NORTHERN
 	name = "Voddena"
 	boozepwr = 40  // now it's just vodka
 	taste_description = "clean liquor"
 	color = "#a1a1a1"
 	quality = DRINK_NICE
 
-/datum/reagent/consumable/ethanol/sazdistal // Definitely Not Vodka. 
+/datum/reagent/consumable/ethanol/sazdistal // Definitely Not Vodka.
 	name = "Saz Distal"
 	boozepwr = 55  // holy shit
 	taste_description = "spicy chilis, ginger, and dirt"
 	color = "#2D1D1D"
-	quality = DRINK_GOOD	
+	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/limoncello
 	drink_type = DRINKTYPE_SPIRIT
@@ -519,6 +522,7 @@
 	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/gronnmead
+	cuisine = CUISINE_NORTHERN
 	name = "Ragnar's Brew"
 	boozepwr = 35
 	taste_description = "notes of honey and red berries" //I love red mead ok...
@@ -613,7 +617,7 @@
 	color = "#C49A6C"
 	quality = DRINK_VERYGOOD
 
-// Mead 
+// Mead
 /datum/reagent/consumable/ethanol/mead
 	cuisine = CUISINE_SOUTH_IMPERIAL
 	drink_type = DRINKTYPE_MEAD
@@ -677,7 +681,7 @@
 /datum/reagent/consumable/ethanol/luxwine // oh no.
 	name = "Luxintenebre" // lux left w/ sugar in a darkened place for quite some time... U could say... Light in Darkness.....
 	description = "A fermented form of vitae, highly alcoholic, and with a particularly grim taste. Often sought out by the daring, foolhardy, and heretical..."
-	boozepwr = 80 // THE END OF THE FUCKING WORLD.  
+	boozepwr = 80 // THE END OF THE FUCKING WORLD.
 	taste_description = "a green numbness, then a burning vigor in the heart" // heartburn (healing)
 	color = "#86cca3"
 	quality = DRINK_VERYGOOD // good stuff!
@@ -689,7 +693,7 @@
 	..()
 
 /datum/reagent/consumable/ethanol/whipwine // dont ask
-	name = "Magickal Whip Wine" 
+	name = "Magickal Whip Wine"
 	description = "A recipe recently floated into the Peaks. Magickal Whip Wine is said to increase one's potence and stamina sevenfold."
 	boozepwr = 10 // it's a whip. it's an actual whip.
 	taste_description = "leather, bitter herbs, and regret" // what did you expect
