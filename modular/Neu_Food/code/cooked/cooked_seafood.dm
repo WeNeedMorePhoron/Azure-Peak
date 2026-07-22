@@ -15,6 +15,7 @@
 	dropshrink = 0.6
 
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/carp
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_SOUTHEASTERN
 	name = "cooked carp"
 	desc = "A charred and crisped carp. With a mild flavor and firm texture. Fit for the poor."
 	icon_state = "carpcooked"
@@ -60,7 +61,7 @@
 	faretype = FARE_POOR
 
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/salmon
-	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_NORTHERN
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_NORTHERN|CUISINE_SOUTHEASTERN
 	name = "cooked salmon"
 	desc = "A cooked salmon. Less terrifying now that it is cooked. It has rich and oily flesh, making it quite popular once spiced."
 	icon_state = "salmoncooked"
@@ -73,6 +74,7 @@
 	faretype = FARE_NEUTRAL
 
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/mudskipper
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_SOUTHEASTERN
 	name = "cooked mudskipper"
 	desc = "A cooked mudskipper. With a fishy and earthy flavor. Popular amongst vagrants."
 	icon_state = "mudskippercooked"
@@ -149,6 +151,7 @@
 	faretype = FARE_NEUTRAL
 
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/mackerel
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_SOUTHEASTERN
 	name = "mackerel"
 	icon_state = "mackerel"
 	faretype = FARE_NEUTRAL

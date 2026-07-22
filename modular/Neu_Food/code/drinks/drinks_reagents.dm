@@ -112,6 +112,7 @@
 				M.update_damage_overlays()
 
 /datum/reagent/consumable/caffeine/tea
+	cuisine = CUISINE_SOUTHEASTERN
 	name = "tea"
 	description = "Tea leaves brewed into a hot drink. Slight hint of bitterness. Smooth."
 	reagent_state = LIQUID
@@ -122,6 +123,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/caffeine/tea_spiced
+	cuisine = CUISINE_SOUTHEASTERN
 	name = "spiced tea"
 	description = "Spiced tea leaves brewed into a hot drink. Slight hint of bitterness. Smoothly rejuvinating."
 	reagent_state = LIQUID

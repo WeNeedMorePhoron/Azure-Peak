@@ -254,6 +254,7 @@
 
 // Generic Rice
 /datum/reagent/consumable/ethanol/ricewine
+	cuisine = CUISINE_SOUTHEASTERN
 	drink_type = DRINKTYPE_RICEWINE
 	name = "Rice Wine"
 	taste_description = "floral sweetness with a subtle umami taste."
@@ -262,6 +263,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/ricespirit
+	cuisine = CUISINE_SOUTHEASTERN
 	drink_type = DRINKTYPE_RICEWINE
 	name = "Rice Spirit"
 	taste_description = "clean heat and dry finish."
@@ -556,6 +558,8 @@
 //Kazengun boozes
 
 /datum/reagent/consumable/ethanol/kgunlager
+	cuisine = CUISINE_SOUTHEASTERN
+	drink_type = DRINKTYPE_ALE
 	name = "Yamaguchi Pale"
 	boozepwr = 10 //A PALE imitation actual beer...
 	taste_description = "mellow bitterness and a hint of green tea"
@@ -563,6 +567,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/kgunsake
+	cuisine = CUISINE_SOUTHEASTERN
 	drink_type = DRINKTYPE_RICEWINE
 	name = "Junmai-ginjo"
 	boozepwr = 50
@@ -571,6 +576,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/kgunshochu
+	cuisine = CUISINE_SOUTHEASTERN
 	drink_type = DRINKTYPE_RICEWINE
 	name = "Shochu"
 	boozepwr = 60
@@ -587,6 +593,7 @@
 
 // Lingyuese
 /datum/reagent/consumable/ethanol/huangjiu
+	cuisine = CUISINE_SOUTHEASTERN
 	drink_type = DRINKTYPE_RICEWINE
 	name = "Huangjiu"
 	boozepwr = 30
@@ -595,6 +602,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/baijiu
+	cuisine = CUISINE_SOUTHEASTERN
 	drink_type = DRINKTYPE_RICEWINE
 	name = "Baijiu"
 	boozepwr = 60
@@ -603,6 +611,7 @@
 	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/yaojiu
+	cuisine = CUISINE_SOUTHEASTERN
 	drink_type = DRINKTYPE_RICEWINE
 	name = "Yaojiu"
 	boozepwr = 50
@@ -611,6 +620,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/shejiu
+	cuisine = CUISINE_SOUTHEASTERN
 	drink_type = DRINKTYPE_RICEWINE
 	name = "Shejiu"
 	boozepwr = 50
@@ -701,6 +711,7 @@
 	color = "#3a1d18"
 
 /datum/reagent/consumable/ethanol/truewhipwine
+	cuisine = CUISINE_SOUTHEASTERN
 	drink_type = DRINKTYPE_RICEWINE
 	name = "Divine Snake Wine"
 	description = "The True Form of the Whipwine. A medicinal rice wine from the Lingyuese highlands, steeped for years with a coiled venomous serpent and a secret cocktail of mountain herbs. Said to restore the vigor of even the most spent of men."
