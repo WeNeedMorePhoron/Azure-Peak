@@ -237,6 +237,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/sazdistal // Definitely Not Vodka.
+	cuisine = CUISINE_RANESHENI
 	name = "Saz Distal"
 	boozepwr = 55  // holy shit
 	taste_description = "spicy chilis, ginger, and dirt"
@@ -411,6 +412,7 @@
 // Special Production - Spice, Spice, Baby!
 
 /datum/reagent/consumable/ethanol/spicedwine
+	cuisine = CUISINE_RANESHENI
 	drink_type = DRINKTYPE_WINE
 	name = "Spiced Wine"
 	boozepwr = 10

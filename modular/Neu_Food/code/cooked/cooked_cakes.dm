@@ -681,6 +681,7 @@
 
 //	.................   Cooked   .................
 /obj/item/reagent_containers/food/snacks/rogue/hcake
+	cuisine = CUISINE_RANESHENI
 	dish_type = DISH_PASTRY|DISH_SWEET
 	name = "honey cake"
 	desc = "Cake glazed with honey in the famous Raneshi fashion for a delicious sweet treat."

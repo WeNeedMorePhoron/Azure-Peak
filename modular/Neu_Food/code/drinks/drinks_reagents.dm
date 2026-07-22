@@ -78,6 +78,7 @@
 		M.heart_attack()
 	
 /datum/reagent/consumable/caffeine/coffee
+	cuisine = CUISINE_RANESHENI
 	name = "coffee"
 	description = "Coffee beans brewed into a hot drink. With a hint of bitterness. Rejuvenating."
 	reagent_state = LIQUID
@@ -88,6 +89,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/caffeine/coffee_spiced
+	cuisine = CUISINE_RANESHENI
 	name = "spiced coffee"
 	description = "Spiced offee beans brewed into a hot drink, with a hint of bitterness. Modestly rejuvenating."
 	reagent_state = LIQUID
@@ -218,6 +220,7 @@
 	..()
 
 /datum/reagent/consumable/spiced_chocolate
+	cuisine = CUISINE_RANESHENI
 	name = "spiced chocolate"
 	description = "Impossibly smooth, velvety, and rich. Provides a generous portion of health regeneration, and minor stamina regeneration."
 	color = "#6D472F"

@@ -2,7 +2,7 @@
 
 /*........... Pepperfilet */
 /obj/item/reagent_containers/food/snacks/rogue/pepperfish
-	cuisine = CUISINE_SOUTH_IMPERIAL
+	cuisine = CUISINE_RANESHENI
 	dish_type = DISH_SEAFOOD
 	name = "pepperfilet"
 	desc = "Roasted fish flipped against itself and coated in pepper."

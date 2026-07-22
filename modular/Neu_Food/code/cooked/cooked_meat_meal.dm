@@ -2,7 +2,7 @@
 // Is the main ingredient.
 /*	..................   Pepper steak   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/peppersteak
-	cuisine = CUISINE_NORTH_IMPERIAL
+	cuisine = CUISINE_OTAVAN
 	dish_type = DISH_MEAT
 	list_reagents = list(/datum/reagent/consumable/nutriment = MEATSLAB_NUTRITION)
 	tastes = list("steak" = 1, "pepper" = 1)
@@ -20,6 +20,7 @@
 
 /*	..................   Ducal steak   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/peppersteak/ducal
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	tastes = list("steak" = 1, "pepper" = 1, "garlick" = 1)
 	name = "ducal steak"
 	desc = "Roasted meat flanked with a generous coating of ground pepper for intense flavor and scribbled in with garlick. Said to have been favorite meal of the Mad Duke."
@@ -149,6 +150,7 @@
 
 /*	.................  Spiced Baked Poultry  ................... */
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked/spiced
+	cuisine = CUISINE_RANESHENI
 	name = "spiced bird-roast"
 	desc = "A plump bird, roasted perfection, spiced to taste divine."
 	faretype = FARE_LAVISH
@@ -159,6 +161,7 @@
 
 /*	.................  Ducal Spiced Baked Poultry  ................... */
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked/spiced/ducal
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "ducal bird-roast"
 	desc = "A plump bird, roasted perfection, spiced to taste divine with touch of garlick to top it all off. Perfect to feast on while your son is dying in battle..."
 	faretype = FARE_LAVISH
