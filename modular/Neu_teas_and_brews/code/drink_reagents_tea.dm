@@ -2,6 +2,7 @@
 // basic tea, utilises adjusted soup code
 // PORT TO AZURE COMMENT: When I originally added this to vanderlin, I had to axe existing teas, In good conciousness I refuse to touch it here because it doest conflict and I refuse to refactor entire thing. Goodluck to whoever does tho.
 /datum/reagent/consumable/tea/
+	drink_type = DRINKTYPE_CAFFEINE
 	name = "Generic tea"
 	description = "A common concept of a generic tea made from whatever, by whoever."
 	reagent_state = LIQUID
@@ -12,7 +13,7 @@
 	taste_mult = 3
 	nutriment_factor = 1
 	hydration_factor = 1
-	quality = 1
+	quality = DRINK_VERYGOOD
 	alpha = 153
 
 /datum/reagent/consumable/tea/on_mob_life(mob/living/carbon/M)

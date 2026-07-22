@@ -50,6 +50,7 @@
 
 // Reagents system don't have the idea of solute and solvent so we need a type for each
 /datum/reagent/consumable/caffeine/
+	drink_type = DRINKTYPE_CAFFEINE
 	name = "caffeine"
 	description = "Why are you seeing this?"
 	hydration_factor = 5
@@ -76,7 +77,7 @@
 	taste_description = "caramelized bitterness" // coffee has so many flavors I am going for one
 	metabolization_rate = REAGENTS_METABOLISM
 	alpha = 200
-	quality = DRINK_NICE
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/caffeine/coffee_spiced
 	name = "spiced coffee"
@@ -110,7 +111,7 @@
 	taste_description = "smooth grassiness" // Yeah, uh.
 	metabolization_rate = REAGENTS_METABOLISM
 	alpha = 173
-	quality = DRINK_NICE
+	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/caffeine/tea_spiced
 	name = "spiced tea"

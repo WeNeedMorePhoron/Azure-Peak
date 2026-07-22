@@ -282,42 +282,10 @@ All foods are distributed among various categories. Use common sense.
 				else
 					eater.apply_status_effect(/datum/status_effect/buff/foodhealing, faretype, faretype)
 		
-		if(human_eater.culinary_preferences)
-			if(HAS_TRAIT(human_eater, TRAIT_ROTMAN) || HAS_TRAIT(human_eater, TRAIT_IRONMAN))
-				return
-			var/favorite_food_type = human_eater.culinary_preferences[CULINARY_FAVOURITE_FOOD]
-			if(favorite_food_type == type)
-				if(human_eater.add_stress(/datum/stressevent/favourite_food))
-					to_chat(human_eater, span_green("Yum! My favorite food!"))
-			else if(ispath(type, favorite_food_type))
-				var/obj/item/reagent_containers/food/snacks/favorite_food_instance = favorite_food_type
-				var/favorite_food_name = initial(favorite_food_instance.name)
-				if(favorite_food_name == name)
-					if(human_eater.add_stress(/datum/stressevent/favourite_food))
-						to_chat(human_eater, span_green("Yum! My favorite food!"))
-			else
-				var/obj/item/reagent_containers/food/snacks/favorite_food_instance = favorite_food_type
-				var/slice_path = initial(favorite_food_instance.slice_path)
-				if(slice_path && type == slice_path)
-					if(human_eater.add_stress(/datum/stressevent/favourite_food))
-						to_chat(human_eater, span_green("Yum! My favorite food!"))
-
-			var/hated_food_type = human_eater.culinary_preferences[CULINARY_HATED_FOOD]
-			if(hated_food_type == type)
-				if(human_eater.add_stress(/datum/stressevent/hated_food))
-					to_chat(human_eater, span_red("Yuck! My hated food!"))
-			else if(ispath(type, hated_food_type))
-				var/obj/item/reagent_containers/food/snacks/hated_food_instance = hated_food_type
-				var/hated_food_name = initial(hated_food_instance.name)
-				if(hated_food_name == name)
-					if(human_eater.add_stress(/datum/stressevent/hated_food))
-						to_chat(human_eater, span_red("Yuck! My hated food!"))
-			else
-				var/obj/item/reagent_containers/food/snacks/hated_food_instance = hated_food_type
-				var/slice_path = initial(hated_food_instance.slice_path)
-				if(slice_path && type == slice_path)
-					if(human_eater.add_stress(/datum/stressevent/hated_food))
-						to_chat(human_eater, span_red("Yuck! My hated food!"))
+		if(faretype >= FAVORITE_FOOD_MINFARE && ((food_cuisine(type) & human_eater.favorite_cuisine) || (food_dish(type) & human_eater.favorite_dish)))
+			if(human_eater.add_stress(/datum/stressevent/favourite_food))
+				new /obj/effect/temp_visual/heart(get_turf(human_eater))
+				to_chat(human_eater, span_green("Delicious - just the way I like it!"))
 
 		if (!HAS_TRAIT(human_eater, TRAIT_NASTY_EATER) && !HAS_TRAIT(human_eater, TRAIT_ORGAN_EATER))
 			if (human_eater.is_noble())
@@ -562,6 +530,15 @@ All foods are distributed among various categories. Use common sense.
 	var/list/lines = list()
 	var/info = parts.Join(" | ")
 	lines += span_smallnotice("[info].")
+	var/list/tag_parts = list()
+	var/cuisine_flags = GLOB.cuisine_foods[type]
+	if(cuisine_flags)
+		tag_parts += "Cuisine: [english_list(culinary_flags_names(GLOB.culinary_cuisines, cuisine_flags))]"
+	var/list/dish_names = culinary_flags_names(GLOB.culinary_dishes, food_dish(type))
+	if(length(dish_names))
+		tag_parts += "Dish: [english_list(dish_names)]"
+	if(length(tag_parts))
+		lines += span_smallnotice("[tag_parts.Join(" | ")].")
 	switch(eat_effect)
 		if(/datum/status_effect/debuff/uncookedfood)
 			lines += span_smallred("It is raw!")

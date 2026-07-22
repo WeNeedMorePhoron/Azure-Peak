@@ -226,8 +226,9 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/taur_type = null
 	var/taur_color = "ffffff"
 
-	/// Assoc list of culinary preferences, where the key is the type of the culinary preference, and value is food/drink typepath
-	var/list/culinary_preferences = list()
+	var/favorite_cuisine = NONE
+	var/favorite_dish = NONE
+	var/favorite_drink = NONE
 
 
 	var/tgui_pref = TRUE
@@ -255,7 +256,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/examine_theme
 
 	/// Whether we can see the feint HUD bar.
-	var/feint_hud = FALSE 
+	var/feint_hud = FALSE
 
 	// Vocal bark prefs
 	var/bark_id = "mutedc3"
@@ -492,7 +493,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 				dat += "<b>Race Bonus:</b> <a href='?_src_=prefs;preference=race_bonus_select;task=input'>[race_bonus_display ? "[race_bonus_display]" : "None"]</a><BR>"
 			else
 				race_bonus = null
-			
+
 			var/datum/language/selected_lang
 			var/lang_output = "None"
 			if(ispath(extra_language, /datum/language))
@@ -622,7 +623,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 				if(istype(cf, /datum/charflaw/averse))
 					has_averse = TRUE
 					break
-			
+
 			if(has_averse)
 				if(!averse_chosen_faction)
 					averse_chosen_faction = "Inquisition"
@@ -1706,7 +1707,6 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 			return
 		if("change_culinary_preferences")
 			handle_culinary_topic(user, href_list)
-			show_culinary_ui(user)
 			return
 		if("random")
 			switch(href_list["preference"])
@@ -1774,7 +1774,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						else
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ', . and ,.</font>")
 
-	
+
 				if("nickname")
 					var/new_name = tgui_input_text(user, "Choose your character's nickname (For Highlighting):", "NICKNAME",  encode = FALSE)
 					if(new_name)
@@ -3182,7 +3182,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 	character.ooc_notes = ooc_notes
 	character.nsfwflavortext = nsfwflavortext
 	character.erpprefs = erpprefs
-	
+
 	// Copy the cached version
 	character.flavortext_cached = flavortext_cached
 	character.ooc_notes_cached = ooc_notes_cached
@@ -3240,8 +3240,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 	// Customizers are already applied inside set_species() (both the species-change path via
 	// on_species_gain, and the same-species short-circuit). Re-applying here doubled the work.
 
-	if(culinary_preferences)
-		apply_culinary_preferences(character)
+	apply_culinary_preferences(character)
 
 /datum/preferences/proc/get_default_name(name_id)
 	switch(name_id)

@@ -1,5 +1,6 @@
 // Just store all of the alcohol reagents that isn't base tg here
 /datum/reagent/consumable/ethanol/beer
+	drink_type = DRINKTYPE_ALE
 	name = "Beer"
 	description = "Civilization in a cup. Could you truly ask for anything more?"
 	color = "#a17c10" // rgb: 102, 67, 0
@@ -10,13 +11,16 @@
 	glass_desc = ""
 
 /datum/reagent/consumable/ethanol/rum
+	drink_type = DRINKTYPE_SPIRIT
 	name = "Rum"
 	description = "Where has the rum gone?"
 	color = "#5f3b23" // rgb: 102, 67, 0
 	boozepwr = 40
 	taste_description = "tingling sweetness with hints of caramel and vanilla"
+	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/cider
+	drink_type = DRINKTYPE_CIDER
 	name = "Apple Cider"
 	boozepwr = 40
 	taste_description = "crisp freshness of apple"
@@ -48,6 +52,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/brandy
+	drink_type = DRINKTYPE_SPIRIT
 	name = "Apple Brandy"
 	boozepwr = 60
 	taste_description = "caramel oak brandy"
@@ -84,6 +89,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/wine
+	drink_type = DRINKTYPE_WINE
 	name = "Wine"
 	boozepwr = 30
 	taste_description = "aromatic bitterness with notes of sweetly-fermented jackberries"
@@ -117,6 +123,7 @@
 	M.remove_atom_colour(TEMPORARY_COLOUR_PRIORITY, color)
 
 /datum/reagent/consumable/ethanol/ale
+	drink_type = DRINKTYPE_ALE
 	name = "Ale"
 	description = "A dark alcoholic beverage made with malted barley and yeast."
 	color = "#664300" // rgb: 102, 67, 0
@@ -136,9 +143,9 @@
 	boozepwr = 15
 	taste_description = "cheap pisswater"
 	color = "#DBD77F"
-	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/gin
+	drink_type = DRINKTYPE_SPIRIT
 	name = "Gin"
 	boozepwr = 65
 	taste_description = "strong, piney flavor"
@@ -150,7 +157,6 @@
 	boozepwr = 15
 	taste_description = "cheap pisswater"
 	color = "#DBD77F"
-	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/hagwoodbitter
 	name = "Hagwood Bitter"
@@ -192,6 +198,7 @@
 // Dwarven Production - Best in the Realms!
 
 /datum/reagent/consumable/ethanol/butterhairs
+	drink_type = DRINKTYPE_ALE
 	name = "Butterhairs"
 	boozepwr = 30
 	taste_description = "buttery richness"
@@ -199,6 +206,7 @@
 	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/stonebeards
+	drink_type = DRINKTYPE_ALE
 	name = "Stonebeard Reserve"
 	boozepwr = 40
 	taste_description = "potent oatlike liquor"
@@ -220,6 +228,7 @@
 	quality = DRINK_GOOD	
 
 /datum/reagent/consumable/ethanol/limoncello
+	drink_type = DRINKTYPE_SPIRIT
 	name = "Limoncello"
 	boozepwr = 45  // holy shit
 	taste_description = "burning and lemony"
@@ -228,12 +237,15 @@
 
 // Generic Rice
 /datum/reagent/consumable/ethanol/ricewine
+	drink_type = DRINKTYPE_RICEWINE
 	name = "Rice Wine"
 	taste_description = "floral sweetness with a subtle umami taste."
 	color = "#F5E6C4" // rgb: 210, 218, 99
 	boozepwr = 30
+	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/ricespirit
+	drink_type = DRINKTYPE_RICEWINE
 	name = "Rice Spirit"
 	taste_description = "clean heat and dry finish."
 	color = "#F8FDFC" // rgb: 210, 218, 99
@@ -372,6 +384,7 @@
 // Special Production - Spice, Spice, Baby!
 
 /datum/reagent/consumable/ethanol/spicedwine
+	drink_type = DRINKTYPE_WINE
 	name = "Spiced Wine"
 	boozepwr = 10
 	taste_description = "overpoweringly aromatic, sweetening the tongue and numbing the lips"
@@ -508,6 +521,7 @@
 	boozepwr = 15
 	taste_description = "bubbly saltiness with a sour aftertaste"
 	color = "#dddddd"
+	quality = DRINK_NICE
 
 //Kazengun boozes
 
@@ -516,8 +530,10 @@
 	boozepwr = 10 //A PALE imitation actual beer...
 	taste_description = "mellow bitterness and a hint of green tea"
 	color = "#d7dbbc"
+	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/kgunsake
+	drink_type = DRINKTYPE_RICEWINE
 	name = "Junmai-ginjo"
 	boozepwr = 50
 	taste_description = "dry sweetness"
@@ -525,6 +541,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/kgunshochu
+	drink_type = DRINKTYPE_RICEWINE
 	name = "Shochu"
 	boozepwr = 60
 	taste_description = "dry, clean finish"
@@ -540,12 +557,15 @@
 
 // Lingyuese
 /datum/reagent/consumable/ethanol/huangjiu
+	drink_type = DRINKTYPE_RICEWINE
 	name = "Huangjiu"
 	boozepwr = 30
 	taste_description = "a mix of sweet and sour"
 	color = "#d8b84c"
+	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/baijiu
+	drink_type = DRINKTYPE_RICEWINE
 	name = "Baijiu"
 	boozepwr = 60
 	taste_description = "fiery and pungent alcohol with a hint of sweetness"
@@ -553,6 +573,7 @@
 	quality = DRINK_GOOD
 
 /datum/reagent/consumable/ethanol/yaojiu
+	drink_type = DRINKTYPE_RICEWINE
 	name = "Yaojiu"
 	boozepwr = 50
 	taste_description = "bittersweet alcohol with deep herbal notes"
@@ -560,6 +581,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/shejiu
+	drink_type = DRINKTYPE_RICEWINE
 	name = "Shejiu"
 	boozepwr = 50
 	taste_description = "musky and strong alcohol with a hint of gameiness"
@@ -568,6 +590,7 @@
 
 // Mead 
 /datum/reagent/consumable/ethanol/mead
+	drink_type = DRINKTYPE_MEAD
 	name = "Mead"
 	description = "A warriors drink, though a cheap one."
 	color = "#664300" // rgb: 102, 67, 0
@@ -647,11 +670,13 @@
 	color = "#3a1d18"
 
 /datum/reagent/consumable/ethanol/truewhipwine
+	drink_type = DRINKTYPE_RICEWINE
 	name = "Divine Snake Wine"
 	description = "The True Form of the Whipwine. A medicinal rice wine from the Lingyuese highlands, steeped for years with a coiled venomous serpent and a secret cocktail of mountain herbs. Said to restore the vigor of even the most spent of men."
 	boozepwr = 60
 	taste_description = "deep herbal warmth, iron, and a slow-burning fire that climbs the spine"
 	color = "#553837"
+	quality = DRINK_FANTASTIC
 
 /datum/reagent/consumable/ethanol/truewhipwine/on_mob_metabolize(mob/living/M)
 	. = ..()
