@@ -117,6 +117,7 @@
 /mob/living/proc/simple_woundcritroll(bclass = BCLASS_BLUNT, dam, mob/living/user, zone_precise = BODY_ZONE_CHEST, silent = FALSE, crit_message = FALSE, no_crit = FALSE)
 	if(!bclass || !dam || (status_flags & GODMODE) || !HAS_TRAIT(src, TRAIT_SIMPLE_WOUNDS))
 		return FALSE
+	register_part_damage(zone_precise, dam, user)
 	var/do_crit = !no_crit
 	if(user)
 		if(user.goodluck(2))
