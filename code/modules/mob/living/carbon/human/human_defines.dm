@@ -52,7 +52,7 @@
 	var/accessory = "None"
 	var/detail = "None"
 	var/marking = "None"
-	
+
 	var/shavelevel = 0
 	var/breathe_tick = 0 // Used for gas mask delays.
 	var/socks = "Nude" //Which socks the player wants
@@ -140,7 +140,7 @@
 	var/examine_theme
 	var/list/img_gallery = list()
 	var/list/nsfw_img_gallery = list()
-	
+
 
 	possible_rmb_intents = list(/datum/rmb_intent/feint,\
 	/datum/rmb_intent/aimed,\
@@ -179,7 +179,6 @@
 	/// Ref to orison-like sunder object
 	var/sunder_light_obj = null
 
-	/// Culinary preferences: the cuisine, dish type, and drink type this character loves (single flag each, NONE if unset).
 	var/favorite_cuisine = NONE
 	var/favorite_dish = NONE
 	var/favorite_drink = NONE

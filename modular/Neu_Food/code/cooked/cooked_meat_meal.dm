@@ -2,7 +2,7 @@
 // Is the main ingredient.
 /*	..................   Pepper steak   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/peppersteak
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAIS
 	dish_type = DISH_MEAT
 	list_reagents = list(/datum/reagent/consumable/nutriment = MEATSLAB_NUTRITION)
 	tastes = list("steak" = 1, "pepper" = 1)

@@ -1,7 +1,7 @@
 // For definition - any non-bread premium product dough that is also not a cake.
 /*	.................   Pastry   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/pastry
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAIS
 	dish_type = DISH_PASTRY
 	name = "pastry"
 	desc = "Crispy, buttery, and delightfully flaky. A favorite treat among children and sweetlovers."
@@ -16,7 +16,7 @@
 	eat_effect = /datum/status_effect/buff/snackbuff
 
 /obj/item/reagent_containers/food/snacks/rogue/biscuit
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAIS
 	dish_type = DISH_PASTRY
 	name = "raisin biscuit"
 	desc = "A crispy buttery pastry with chewy raisins inside."
@@ -41,7 +41,7 @@
 	eat_effect = null
 
 /obj/item/reagent_containers/food/snacks/rogue/chocolatebiscuit
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAIS
 	dish_type = DISH_PASTRY
 	name = "chocolate biscuit"
 	desc = "A crispy buttery pastry with gooey specklings of chocolate inside."
@@ -66,7 +66,7 @@
 	eat_effect = null
 
 /obj/item/reagent_containers/food/snacks/rogue/plumbiscuit
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAIS
 	dish_type = DISH_PASTRY
 	name = "plum biscuit"
 	desc = "A crispy buttery pastry with streaked frosting and tender plums."
@@ -91,7 +91,7 @@
 	eat_effect = null
 
 /obj/item/reagent_containers/food/snacks/rogue/tangerinebiscuit
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAIS
 	dish_type = DISH_PASTRY
 	name = "tangerine biscuit"
 	desc = "A crispy buttery pastry with caked frosting and ripe tangerines."
@@ -463,6 +463,7 @@
 	eat_effect = null
 
 /obj/item/reagent_containers/food/snacks/rogue/pumpkinball
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_PASTRY
 	name = "pumpkin balls"
 	desc = "Crispy and soft ball of dough mixed with pumpkin. A surprisingly nice snack."
@@ -498,6 +499,7 @@
 	rotprocess = SHELFLIFE_DECENT
 
 /obj/item/reagent_containers/food/snacks/rogue/pumpkinloaf
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_PASTRY
 	name = "pumpkin loaf"
 	desc = "A loaf of sweetbread baked into a shape worthy of its name. Pumpkin loaves are surprising desserts, easily shared."
@@ -725,6 +727,7 @@
 
 /*	.................   Strudel   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/strudel
+	cuisine = CUISINE_NORTH_IMPERIAL
 	dish_type = DISH_PASTRY
 	name = "strudel"
 	desc = "The peak of Grenzelhoftian peasant food - an elongated pastry filled with apple paste and nuts is sure to keep the hunger cramps away."
@@ -744,6 +747,7 @@
 	slice_sound = TRUE
 
 /obj/item/reagent_containers/food/snacks/rogue/strudelslice
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "strudel slice"
 	desc = "A slice of tasty apple goodness - just looking at it makes your mouth wet."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -776,7 +780,7 @@
 
 /*	.................   Tarts  ................... */
 /obj/item/reagent_containers/food/snacks/rogue/dot_tart
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAIS
 	dish_type = DISH_PASTRY
 	name = "dot tart"
 	desc = "A small pastry filled with jammed fruits, for when a whole pie would be inappropiate for canapes."
@@ -909,6 +913,7 @@
 	foodtype = GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/rogue/bookbread_slice_jamtallowed
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "slice of jamtallowed bookbread"
 	desc = "'Don't think that I'd forget, or I'd regret, the special love I had for you - my baby blue!'"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -924,6 +929,7 @@
 	foodtype = GRAIN | DAIRY | FRUIT
 
 /obj/item/reagent_containers/food/snacks/rogue/bookbread_slice_marmaladed
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "slice of marmaladed bookbread"
 	desc = "'I always keep a marmalade sandwich under my sallet, just in case!'"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -981,6 +987,7 @@
 			changefood(slice_path, eater)
 
 /obj/item/reagent_containers/food/snacks/rogue/pearbookbread_slice
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "sliced pear bookbread"
 	desc = "Evokes the sweetness of younger, simpler times, and simpler books."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1038,6 +1045,7 @@
 			changefood(slice_path, eater)
 
 /obj/item/reagent_containers/food/snacks/rogue/plumbookbread_slice
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "sliced plum bookbread"
 	desc = "A subtle flavor, best for enjoying subtler books. Mysteries prefered."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1095,6 +1103,7 @@
 			changefood(slice_path, eater)
 
 /obj/item/reagent_containers/food/snacks/rogue/lemonbookbread_slice
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "sliced lemon bookbread"
 	desc = "Sweet but a little sour, like a good Xylixian comedy."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1152,6 +1161,7 @@
 			changefood(slice_path, eater)
 
 /obj/item/reagent_containers/food/snacks/rogue/tangerinebookbread_slice
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "sliced tangerine bookbread"
 	desc = "Fills one with heroic vigor and hopeful enthusiasm, similar to historic-fantasies of old."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1209,6 +1219,7 @@
 			changefood(slice_path, eater)
 
 /obj/item/reagent_containers/food/snacks/rogue/blackberrybookbread_slice
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "sliced blackberry bookbread"
 	desc = "It evokes a feeling of contrasting fascination and dread, not unlike novels that may foretell a doom similar to what befell this very berry."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1266,6 +1277,7 @@
 			changefood(slice_path, eater)
 
 /obj/item/reagent_containers/food/snacks/rogue/raspberrybookbread_slice
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "sliced raspberry bookbread"
 	desc = "Has a taste that puts one in the mood for a good romance novel. For obvious reasons, this flavor isnt very popular with mages."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1323,6 +1335,7 @@
 			changefood(slice_path, eater)
 
 /obj/item/reagent_containers/food/snacks/rogue/jackberrybookbread_slice
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "sliced jacksberried bookbread"
 	desc = "Has an earthy taste that reminds the eater of growth cycles and rainfall percentages. Like a delicious almanac."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1340,6 +1353,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/poisonberrybookbread
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "jacksberried bookbread"
 	desc = "As Nocsmas gained broader appeal, more and more commonfolk with poor access to books instead chose to simply forego their exchanging, focusing instead on the preparation of food."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1378,6 +1392,7 @@
 			changefood(slice_path, eater)
 
 /obj/item/reagent_containers/food/snacks/rogue/poisonberrybookbread_slice
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "sliced jacksberried bookbread"
 	desc = "Has an earthy taste that reminds the eater of growth cycles and rainfall percentages. Like a delicious almanac."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
@@ -1435,6 +1450,7 @@
 			changefood(slice_path, eater)
 
 /obj/item/reagent_containers/food/snacks/rogue/chocolatebookbread_slice
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "sliced chocolate bookbread"
 	desc = "As thick and rich as a child's bedtyme story."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'

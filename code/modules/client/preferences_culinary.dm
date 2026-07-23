@@ -2,7 +2,7 @@
 GLOBAL_LIST_INIT(culinary_cuisines, list(
 	"North Imperial" = CUISINE_NORTH_IMPERIAL,
 	"South Imperial" = CUISINE_SOUTH_IMPERIAL,
-	"Otavan" = CUISINE_OTAVAN,
+	"Otavais" = CUISINE_OTAVAIS,
 	"Northern" = CUISINE_NORTHERN,
 	"Etruscan" = CUISINE_ETRUSCAN,
 	"Southeastern" = CUISINE_SOUTHEASTERN,
@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(culinary_drinks, list(
 	"Mead" = DRINKTYPE_MEAD,
 	"Cider" = DRINKTYPE_CIDER,
 	"Caffeine" = DRINKTYPE_CAFFEINE,
-	"Cordial" = DRINKTYPE_CORDIAL,
+	"Juices" = DRINKTYPE_JUICE,
 ))
 
 /proc/culinary_flag_name(list/options, flag)

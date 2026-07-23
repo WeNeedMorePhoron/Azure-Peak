@@ -148,7 +148,7 @@
 	..()
 
 /obj/item/reagent_containers/food/snacks/rogue/foodbase/cheesewheel
-	cuisine = CUISINE_OTAVAN|CUISINE_NORTHERN|CUISINE_ETRUSCAN
+	cuisine = CUISINE_OTAVAIS|CUISINE_NORTHERN|CUISINE_ETRUSCAN
 	dish_type = DISH_DAIRY
 	name = "unfinished cheese wheel"
 	desc = "Clotted and salted milk, eager to be cocooned in cloth so that it may realize its fullest potential. You'll need three more servings of fresh cheese to finish it."
@@ -196,7 +196,7 @@
 
 // -------------- CHEESE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/cheese
-	cuisine = CUISINE_OTAVAN|CUISINE_NORTHERN|CUISINE_ETRUSCAN
+	cuisine = CUISINE_OTAVAIS|CUISINE_NORTHERN|CUISINE_ETRUSCAN
 	dish_type = DISH_DAIRY
 	name = "fresh cheese"
 	desc = "Clotted and salted milk, eager to be cocooned in cloth so that it may realize its fullest potential."
@@ -219,7 +219,7 @@
 	. += span_info("Repeating this process until four clumps of fresh cheese are used will result in a tied-together package. This package will eventually blossom into a cheese wheel, once enough time has passed.")
 
 /obj/item/reagent_containers/food/snacks/rogue/cheddar
-	cuisine = CUISINE_OTAVAN|CUISINE_NORTHERN|CUISINE_ETRUSCAN
+	cuisine = CUISINE_OTAVAIS|CUISINE_NORTHERN|CUISINE_ETRUSCAN
 	dish_type = DISH_DAIRY
 	name = "wheel of cheese"
 	desc = "A hunk of burning love, aching to age."
@@ -253,7 +253,7 @@
 	rotprocess = null
 
 /obj/item/reagent_containers/food/snacks/rogue/cheddarwedge
-	cuisine = CUISINE_OTAVAN|CUISINE_NORTHERN|CUISINE_ETRUSCAN
+	cuisine = CUISINE_OTAVAIS|CUISINE_NORTHERN|CUISINE_ETRUSCAN
 	dish_type = DISH_DAIRY
 	name = "wedge of cheese"
 	desc = "Talk about a chunk of cheddar!"
@@ -282,7 +282,7 @@
 	rotprocess = null
 
 /obj/item/reagent_containers/food/snacks/rogue/cheddarslice
-	cuisine = CUISINE_OTAVAN|CUISINE_NORTHERN|CUISINE_ETRUSCAN
+	cuisine = CUISINE_OTAVAIS|CUISINE_NORTHERN|CUISINE_ETRUSCAN
 	dish_type = DISH_DAIRY
 	name = "slice of cheese"
 	desc = "A sliver of savoriness."

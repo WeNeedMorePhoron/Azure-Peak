@@ -21,6 +21,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/cider
+	cuisine = CUISINE_OTAVAIS|CUISINE_ETRUSCAN
 	drink_type = DRINKTYPE_CIDER
 	name = "Apple Cider"
 	boozepwr = 40
@@ -284,7 +285,7 @@
 	color = "#552b4b"
 
 /datum/reagent/consumable/ethanol/whitewine
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAIS
 	name = "White Wine"
 	boozepwr = 30
 	taste_description = "sweet white wine"
@@ -292,7 +293,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/redwine
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAIS
 	name = "Red Wine"
 	boozepwr = 30
 	taste_description = "tannin-stricken wine"
@@ -300,7 +301,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/jackberrywine
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAIS
 	name = "Jackberry Wine"
 	boozepwr = 15
 	taste_description = "sickly sweet young wine"
@@ -322,7 +323,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/plum_wine
-	cuisine = CUISINE_OTAVAN|CUISINE_ETRUSCAN
+	cuisine = CUISINE_OTAVAIS|CUISINE_ETRUSCAN
 	name = "Umeshu"
 	boozepwr = 15
 	taste_description = "sickly sour young wine"
@@ -344,7 +345,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/tangerine
-	cuisine = CUISINE_OTAVAN|CUISINE_ETRUSCAN
+	cuisine = CUISINE_OTAVAIS|CUISINE_ETRUSCAN
 	name = "Tangerine Wine"
 	boozepwr = 15
 	taste_description = "bittersweet, citrusy young wine"
@@ -366,7 +367,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/raspberry
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAIS
 	name = "Raspberry Wine"
 	boozepwr = 15
 	taste_description = "tart sweet young wine"
@@ -388,7 +389,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/blackberry
-	cuisine = CUISINE_OTAVAN
+	cuisine = CUISINE_OTAVAIS
 	name = "Blackberry Wine"
 	boozepwr = 15
 	taste_description = "bitter tart young wine"
@@ -453,6 +454,7 @@
 	..()
 
 /datum/reagent/consumable/ethanol/cider/ambrosia
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "Ambrosia"
 	boozepwr = 100 //Strong Lifeblood, in essence, that'll also leave you completely sloshed. In jubilation, of course!
 	taste_description = "divine bliss with hints of appled crispness, followed by what feels like a greatmaul to the forehead"
@@ -476,6 +478,7 @@
 	..()
 
 /datum/reagent/consumable/ethanol/cider/ambrosia
+	cuisine = CUISINE_SOUTH_IMPERIAL
 
 // Elf Production - Berries & Herbal
 
@@ -520,6 +523,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/ethanol/nred
+	cuisine = CUISINE_NORTHERN
 	name = "Norwardine Red"
 	boozepwr = 30
 	taste_description = "heavy caramel note and slight bitterness"
@@ -587,6 +591,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/kgunplum
+	cuisine = CUISINE_SOUTHEASTERN
 	name = "Umeshu"
 	boozepwr = 30
 	taste_description = "a mix of sweet and sour"

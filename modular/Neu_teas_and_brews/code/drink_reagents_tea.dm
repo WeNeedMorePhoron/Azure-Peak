@@ -22,6 +22,7 @@
 	..()
 
 /datum/reagent/consumable/tea/taraxamint
+	cuisine = CUISINE_SOUTHEASTERN
 	name = "Taraxacum-Mentha tea"
 	description = "Soothing herbal green tea, rumored to help ease burns, liver issues and help with head traumas"
 	color = "#acaf01"
@@ -44,6 +45,7 @@
 	..()
 
 /datum/reagent/consumable/tea/utricasalvia
+	cuisine = CUISINE_SOUTHEASTERN
 	name = "Urtica-Salvia tea"
 	description = "Deep, velvet tea. Taste of tingling sour fruits. Used by a traditional remedy by common folk to recover from bruises and burns. Some even say it can heal wounds."
 	color = "#451853"
@@ -129,6 +131,7 @@
 	. = 1
 
 /datum/reagent/consumable/tea/compot
+	cuisine = CUISINE_NORTHERN
 	name = "Compot"
 	description = "Drink of Gronnic origin, dried fruit is made into nutritious sweet delicacy they partake regardless of status."
 	color = "#cca358"
@@ -145,6 +148,7 @@
 	..()
 
 /datum/reagent/consumable/tea/sbiten
+	cuisine = CUISINE_NORTHERN
 	name = "Sbiten" //not a typo
 	description = "Marvel of Gronnic cuisine, rivals even well aged liquors in how enjoyable it is. Honey is infused with spices and then diluted in hot water. Highly luxurious item in the North."
 	reagent_state = LIQUID

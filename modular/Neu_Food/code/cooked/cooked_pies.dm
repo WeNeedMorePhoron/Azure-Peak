@@ -191,6 +191,7 @@
 	dropshrink = 0.85
 
 /obj/item/reagent_containers/food/snacks/rogue/pieslice/pumpkin
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "pumpkin pie slice"
 	desc = "A delicious slice of homemade pie, made with pumpkin and cheese."
 	icon_state = "pumpkinslice"

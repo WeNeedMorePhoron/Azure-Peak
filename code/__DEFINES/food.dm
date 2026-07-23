@@ -35,7 +35,7 @@
 // Cuisines are designed to not be broad universal catch all, so North Imperial (Grenzelhoftian) has a lot of pies and bread and land food, whereas South Imperial exclude most pies but includes seafood and some foreign and elven fare. Northern is Hammerhold + Gronn. Southeastern is Kazengun / Gronn.
 #define CUISINE_NORTH_IMPERIAL	(1<<0)
 #define CUISINE_SOUTH_IMPERIAL	(1<<1)
-#define CUISINE_OTAVAN			(1<<2)
+#define CUISINE_OTAVAIS			(1<<2)
 #define CUISINE_NORTHERN		(1<<3)
 #define CUISINE_ETRUSCAN		(1<<4)
 #define CUISINE_SOUTHEASTERN	(1<<5)
@@ -61,5 +61,5 @@
 #define DRINKTYPE_MEAD		(1<<3)
 #define DRINKTYPE_CIDER		(1<<4)
 #define DRINKTYPE_CAFFEINE	(1<<5)
-#define DRINKTYPE_CORDIAL	(1<<6)
+#define DRINKTYPE_JUICE	(1<<6)
 #define DRINKTYPE_RICEWINE	(1<<7)

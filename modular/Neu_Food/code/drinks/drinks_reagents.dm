@@ -172,6 +172,7 @@
 
 // Tea ported from Vanderlin from Misc Fixes PR #862
 /datum/reagent/consumable/golden_calendula_tea
+	cuisine = CUISINE_SOUTHEASTERN
 	name = "Golden Calendula Tea"
 	description = "A refreshing tea, great to soothe wounds and relieve fatigue."
 	color = "#b38e17"
@@ -196,6 +197,7 @@
 	..()
 
 /datum/reagent/consumable/chocolate
+	cuisine = CUISINE_OTAVAIS
 	name = "hot chocolate"
 	description = "Lovingly smooth, velvety, and rich. Provides a modest portion of health regeneration, and minor stamina regeneration."
 	color = "#3F291C"
@@ -245,6 +247,7 @@
 	..()
 
 /datum/reagent/consumable/soothing_valerian_tea
+	cuisine = CUISINE_SOUTHEASTERN
 	name = "Soothing Valerian Tea"
 	description = "A refreshing tea, great to ease fatigue and relieve stress."
 	color = "#3b9146"
