@@ -387,6 +387,7 @@
 	cooked_smell = /datum/pollutant/food/raisin_bread
 
 /obj/item/reagent_containers/food/snacks/rogue/raisinbread
+	cuisine = CUISINE_RANESHENI
 	dish_type = DISH_BREAD
 	name = "raisin loaf"
 	desc = "A popular dessert amongst the peasantry, this loaf of sweetbread's speckled with fruity surprises. In recent years, it has more palettes amongst the papacy: t'was Rockhill's abbey that christened a variant, glazed with a sugary veneer."
@@ -425,6 +426,7 @@
 			changefood(slice_path, eater)
 
 /obj/item/reagent_containers/food/snacks/rogue/raisinbreadslice
+	cuisine = CUISINE_RANESHENI
 	name = "raisin loaf slice"
 	desc = "Soft and chewy. Nourishing and filling. Simple and decent."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'

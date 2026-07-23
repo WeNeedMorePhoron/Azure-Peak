@@ -132,6 +132,7 @@
 
 /datum/reagent/consumable/tea/compot
 	cuisine = CUISINE_NORTHERN
+	drink_type = DRINKTYPE_JUICE
 	name = "Compot"
 	description = "Drink of Gronnic origin, dried fruit is made into nutritious sweet delicacy they partake regardless of status."
 	color = "#cca358"

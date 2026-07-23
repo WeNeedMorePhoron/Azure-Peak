@@ -172,6 +172,7 @@
 
 // Tea ported from Vanderlin from Misc Fixes PR #862
 /datum/reagent/consumable/golden_calendula_tea
+	drink_type = DRINKTYPE_CAFFEINE
 	cuisine = CUISINE_SOUTHEASTERN
 	name = "Golden Calendula Tea"
 	description = "A refreshing tea, great to soothe wounds and relieve fatigue."
@@ -247,6 +248,7 @@
 	..()
 
 /datum/reagent/consumable/soothing_valerian_tea
+	drink_type = DRINKTYPE_CAFFEINE
 	cuisine = CUISINE_SOUTHEASTERN
 	name = "Soothing Valerian Tea"
 	description = "A refreshing tea, great to ease fatigue and relieve stress."

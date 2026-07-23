@@ -40,7 +40,7 @@
 
 /*	.................   Rice & beef ................... */
 /obj/item/reagent_containers/food/snacks/rogue/ricebeef
-	cuisine = CUISINE_SOUTHEASTERN
+	cuisine = CUISINE_SOUTHEASTERN|CUISINE_RANESHENI
 	dish_type = DISH_MEAT
 	name = "rice and beef"
 	tastes = list("rice" = 1, "steak" = 1)
@@ -54,7 +54,7 @@
 
 /*	.................   Rice & beef & carrots ................... */
 /obj/item/reagent_containers/food/snacks/rogue/ricebeefcar
-	cuisine = CUISINE_SOUTHEASTERN
+	cuisine = CUISINE_SOUTHEASTERN|CUISINE_RANESHENI
 	dish_type = DISH_MEAT|DISH_VEGETABLE
 	name = "rice and beef meal"
 	tastes = list("rice" = 1, "steak" = 1, "carrot" = 1)
@@ -96,7 +96,7 @@
 
 /*	.................   Rice & bird ................... */
 /obj/item/reagent_containers/food/snacks/rogue/ricebird
-	cuisine = CUISINE_SOUTHEASTERN
+	cuisine = CUISINE_SOUTHEASTERN|CUISINE_RANESHENI
 	dish_type = DISH_POULTRY
 	name = "rice and frybird"
 	tastes = list("rice" = 1, "tasty birdmeat" = 1)
@@ -110,7 +110,7 @@
 
 /*	.................   Rice & bird & carrots ................... */
 /obj/item/reagent_containers/food/snacks/rogue/ricebirdcar
-	cuisine = CUISINE_SOUTHEASTERN
+	cuisine = CUISINE_SOUTHEASTERN|CUISINE_RANESHENI
 	dish_type = DISH_POULTRY|DISH_VEGETABLE
 	name = "rice and frybird meal"
 	tastes = list("rice" = 1, "tasty birdmeat" = 1, "carrot" = 1)

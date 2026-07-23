@@ -163,7 +163,7 @@
 	else
 		html += "<p>No drink of note.</p>"
 
-	html += "<p><i>Bold dishes are lavish fare. Only fine fare or better, and nice drinks or better, can delight a lover of this cuisine. Humbler foods may still belong to it in spirit.</i></p>"
+	html += "<p><i>Only fine fare or better, and nice drinks or better, can delight a lover of this cuisine. Humbler foods may still belong to it in spirit.</i></p>"
 	html += "</div>"
 	return html
 

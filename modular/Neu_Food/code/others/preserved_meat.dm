@@ -48,7 +48,7 @@
 
 // -------------- COPPIETTE (dried meat) -----------------
 /obj/item/reagent_containers/food/snacks/rogue/meat/coppiette
-	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_ETRUSCAN
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_ETRUSCAN|CUISINE_RANESHENI
 	eat_effect = null
 	name = "coppiette"
 	icon = 'modular/Neu_Food/icons/others/preserved_meat.dmi'
@@ -74,7 +74,7 @@
 		icon_state = "jerk1"
 
 /obj/item/reagent_containers/food/snacks/rogue/lemoncoppiette
-	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_ETRUSCAN
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_ETRUSCAN|CUISINE_RANESHENI
 	dish_type = DISH_MEAT
 	eat_effect = null
 	name = "lemony stickets"

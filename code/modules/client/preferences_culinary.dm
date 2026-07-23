@@ -101,11 +101,11 @@ GLOBAL_LIST_INIT(culinary_drinks, list(
 /datum/preferences/proc/show_culinary_ui(mob/user)
 	var/list/dat = list()
 	dat += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">"
-	dat += "Pick the flavours your character loves. Only Fine or Luxurious food, and Nice-or-better drink, will ever count - eating or drinking something that matches one of these lifts their spirits.<hr>"
+	dat += "Pick the food, cuisine and drinks your character loves. Only fine or lavish food, nice drink or better counts for the mood boost.<hr>"
 	dat += "<b>Cuisine:</b> <a href='byond://?_src_=prefs;preference=culinary_axis;axis=cuisine;task=change_culinary_preferences'>[culinary_flag_name(GLOB.culinary_cuisines, favorite_cuisine)]</a><br>"
 	dat += "<b>Favourite Dish:</b> <a href='byond://?_src_=prefs;preference=culinary_axis;axis=dish;task=change_culinary_preferences'>[culinary_flag_name(GLOB.culinary_dishes, favorite_dish)]</a><br>"
 	dat += "<b>Favourite Drink:</b> <a href='byond://?_src_=prefs;preference=culinary_axis;axis=drink;task=change_culinary_preferences'>[culinary_flag_name(GLOB.culinary_drinks, favorite_drink)]</a><br>"
-	var/datum/browser/popup = new(user, "culinary_customization", "<div align='center'>Culinary Preferences</div>", 320, 220)
+	var/datum/browser/popup = new(user, "culinary_customization", "<div align='center'>Culinary Preferences</div>", 420, 280)
 	popup.set_content(dat.Join())
 	popup.open(FALSE)
 
@@ -126,7 +126,7 @@ GLOBAL_LIST_INIT(culinary_drinks, list(
 	dat += "<a href='byond://?_src_=prefs;preference=culinary_set;axis=[axis];flag=0;task=change_culinary_preferences'>None</a><br>"
 	for(var/label in options)
 		dat += "<a href='byond://?_src_=prefs;preference=culinary_set;axis=[axis];flag=[options[label]];task=change_culinary_preferences'>[label]</a><br>"
-	var/datum/browser/popup = new(user, "culinary_selection", "<div align='center'>[title]</div>", 250, 400)
+	var/datum/browser/popup = new(user, "culinary_selection", "<div align='center'>[title]</div>", 280, 480)
 	popup.set_content(dat.Join())
 	popup.open(FALSE)
 

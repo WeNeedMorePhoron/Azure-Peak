@@ -36,6 +36,7 @@
 	alpha = 200
 
 /datum/reagent/consumable/soup/porridge/pudding
+	cuisine = CUISINE_RANESHENI
 	name = "berried porridge-pudding"
 	description = "Fitting for a nobleman."
 	taste_description = "spongey-sweet doughiness with caramelized berries"
@@ -46,6 +47,7 @@
 	quality = DRINK_GOOD
 
 /datum/reagent/consumable/soup/porridge/thickpudding
+	cuisine = CUISINE_RANESHENI
 	name = "thick berried porridge-pudding"
 	description = "Fitting for a king."
 	taste_description = "spongey-sweet doughiness, caramelized berries, and a hint of fragrance"
@@ -762,7 +764,7 @@
 	taste_description = "tasty eggplant"
 
 /datum/reagent/consumable/soup/stew/aubergine_soup
-	cuisine = CUISINE_ETRUSCAN
+	cuisine = CUISINE_ETRUSCAN|CUISINE_RANESHENI
 	name = "aubergine stew"
 	color = "#D9E4E3"
 	taste_description = "tender eggplant with nibblings of roasted mince"
@@ -771,7 +773,7 @@
 	quality = DRINK_NICE
 
 /datum/reagent/consumable/soup/stew/lavishaubergine_soup
-	cuisine = CUISINE_ETRUSCAN
+	cuisine = CUISINE_ETRUSCAN|CUISINE_RANESHENI
 	name = "lavish aubergine stew"
 	color = "#D9C6E3"
 	taste_description = "sumptuously tender eggplant, nibblings of roasted mince, and a creamy broth"

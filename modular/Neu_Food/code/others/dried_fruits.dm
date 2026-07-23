@@ -1,6 +1,7 @@
 
 // -------------- RAISINS, SWEETGLASS ------------------
 /obj/item/reagent_containers/food/snacks/rogue/raisins
+	cuisine = CUISINE_RANESHENI
 	dish_type = DISH_FRUIT
 	name = "raisins"
 	desc = "Jackberries that've been pruned of their juiciness, and turned into flavorful nuggets. Like the humble hardtack, so \
@@ -114,6 +115,7 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/raisins/sweetglass
+	cuisine = NONE
 	dish_type = DISH_FRUIT|DISH_SWEET
 	name = "sweetglass"
 	desc = "A palmful of crystallized dried raisins, popular amongst the elders and children-of-nobility. Their tendancy to only \
