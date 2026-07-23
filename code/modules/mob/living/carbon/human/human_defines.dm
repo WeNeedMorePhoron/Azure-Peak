@@ -12,6 +12,13 @@
 	buckle_lying = FALSE
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	var/taints_loot = FALSE
+	/// Whether this character has spent their one-time natural-claw appearance choice.
+	var/cosmetic_claws_configured = FALSE
+	/// Cosmetic claw presentation copied onto an ordinary punch intent. Keeping INTENT_HARM's exact type to safekeep every hand interaction.
+	var/cosmetic_claw_intent
+	/// Selected hit and miss sounds for the cosmetic claw-punch intent.
+	var/cosmetic_claw_hitsound = "bluntwooshmed"
+	var/cosmetic_claw_miss_sound = "bluntwooshmed"
 
 	ambushable = 1
 
@@ -73,6 +80,12 @@
 	var/obj/item/s_store = null
 	var/obj/item/cloak = null
 	var/obj/item/clothing/wear_shirt = null
+
+	var/cached_worn_ac = ARMOR_CLASS_NONE
+	var/cached_head_ac = ARMOR_CLASS_NONE
+	var/cached_hands_ac = ARMOR_CLASS_NONE
+	var/cached_body_ac = ARMOR_CLASS_NONE
+	var/worn_ac_dirty = TRUE
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.
 
