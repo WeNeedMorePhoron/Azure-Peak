@@ -12,6 +12,7 @@
 	glass_desc = ""
 
 /datum/reagent/consumable/ethanol/rum
+	cuisine = CUISINE_RANESHENI
 	drink_type = DRINKTYPE_SPIRIT
 	name = "Rum"
 	description = "Where has the rum gone?"
@@ -93,6 +94,7 @@
 	quality = DRINK_VERYGOOD
 
 /datum/reagent/consumable/ethanol/wine
+	cuisine = CUISINE_ETRUSCAN
 	drink_type = DRINKTYPE_WINE
 	name = "Wine"
 	boozepwr = 30

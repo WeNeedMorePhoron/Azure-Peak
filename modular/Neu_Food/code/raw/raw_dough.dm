@@ -426,6 +426,7 @@
 
 /*	.................   Noodle Dough   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/eggdoughnoodles
+	dish_type = DISH_NOODLES
 	cuisine = CUISINE_ETRUSCAN
 	name = "uncooked noodles"
 	desc = "A bundle of soft and wobbly uncooked noodles, ready to make dreams come true."
@@ -438,6 +439,7 @@
 
 /*	.................   Sheet Noodle Dough   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/eggdoughsheetnoodles
+	dish_type = DISH_NOODLES
 	cuisine = CUISINE_ETRUSCAN
 	name = "uncooked sheet noodles"
 	desc = "Flat sheets of sheet noodles, ready to be mixed with sauce and/or cheese."
@@ -450,6 +452,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/reagent_containers/food/snacks/rogue/eggdoughsheetnoodles_red
+	dish_type = DISH_NOODLES
 	cuisine = CUISINE_ETRUSCAN
 	name = "uncooked red lasagna"
 	desc = "Flat sheets of sheet noodles smothered in tomato sauce, ready to be cooked in the oven or have cheese added."
@@ -461,6 +464,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/reagent_containers/food/snacks/rogue/eggdoughsheetnoodles_white
+	dish_type = DISH_NOODLES
 	cuisine = CUISINE_ETRUSCAN
 	name = "uncooked white lasagna"
 	desc = "Flat sheets of sheet noodles smothered in cheese, Valorian style, ready to be cooked in the oven or have sauce added."
@@ -472,6 +476,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/reagent_containers/food/snacks/rogue/eggdoughsheetnoodles_redwhite
+	dish_type = DISH_NOODLES
 	cuisine = CUISINE_ETRUSCAN
 	name = "uncooked red and white lasagna"
 	desc = "Flat sheets of sheet noodles smothered in cheese and sauce, Montecarinan style, ready to be cooked in the oven."
@@ -483,6 +488,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/reagent_containers/food/snacks/rogue/eggdoughsheetnoodles_pesto
+	dish_type = DISH_NOODLES
 	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "uncooked pesto lasagna"
 	desc = "Flat sheets of sheet noodles spread with pesto, Azurian style, ready to be cooked in the oven."

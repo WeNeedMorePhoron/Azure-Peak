@@ -267,6 +267,7 @@
 	splat_color = "#FFA500"
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/tangerine_sugared
+	cuisine = CUISINE_RANESHENI
 	dish_type = DISH_FRUIT|DISH_SWEET
 	name = "smothered tangerine"
 	desc = "Sugared tangerines, smothered in sweetness and awaiting to be baptized in a pot of boiling fat."
@@ -325,6 +326,7 @@
 		)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/blackberry_sugared
+	cuisine = CUISINE_RANESHENI
 	dish_type = DISH_FRUIT|DISH_SWEET
 	name = "smothered blackberry"
 	desc = "Sugared blackberries, smothered in sweetness and awaiting to be baptized in a pot of boiling fat."
@@ -467,6 +469,7 @@
 	mill_result = /obj/item/reagent_containers/powder/rocknut
 
 /obj/item/reagent_containers/food/snacks/grown/nut_sugared
+	cuisine = CUISINE_RANESHENI
 	dish_type = DISH_SWEET
 	name = "smothered rocknut"
 	desc = "Sugary rocknuts, smothered in herbal sweetness and awaiting a baptism in boiling fat."

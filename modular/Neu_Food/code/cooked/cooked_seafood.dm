@@ -34,6 +34,7 @@
 	faretype = FARE_NEUTRAL
 
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/eel
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_SOUTHEASTERN
 	name = "cooked eel"
 	desc = "A cooked eel. With its rich flavor and flaky texture, it's a delicacy."
 	icon_state = "eelcooked"

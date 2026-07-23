@@ -203,6 +203,7 @@
 	tastes = list("egg" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/omelette_veggie
+	cuisine = CUISINE_OTAVAIS|CUISINE_SOUTHEASTERN
 	dish_type = DISH_EGG|DISH_VEGETABLE
 	name = "vegetable omelette"
 	desc = "An omelette packed with onion and greens."
@@ -220,6 +221,7 @@
 	tastes = list("egg" = 1, "vegetables" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/omelette_veggie_slice
+	cuisine = CUISINE_OTAVAIS|CUISINE_SOUTHEASTERN
 	name = "vegetable omelette slice"
 	desc = "A hearty wedge of vegetable omelette."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_omelette.dmi'
@@ -231,6 +233,7 @@
 	tastes = list("egg" = 1, "vegetables" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/omelette_meat
+	cuisine = CUISINE_OTAVAIS|CUISINE_SOUTHEASTERN
 	dish_type = DISH_EGG|DISH_MEAT
 	name = "meat omelette"
 	desc = "An omelette rich with meat."
@@ -248,6 +251,7 @@
 	tastes = list("egg" = 1, "minced meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/omelette_meat_slice
+	cuisine = CUISINE_OTAVAIS|CUISINE_SOUTHEASTERN
 	name = "meat omelette slice"
 	desc = "A savory wedge of minced meat omelette."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_omelette.dmi'

@@ -53,6 +53,7 @@
 #define DISH_PIE		(1<<8)
 #define DISH_SWEET		(1<<9)
 #define DISH_EGG		(1<<10)
+#define DISH_NOODLES	(1<<11)
 
 // Drink type flags - drink only.
 #define DRINKTYPE_WINE		(1<<0)

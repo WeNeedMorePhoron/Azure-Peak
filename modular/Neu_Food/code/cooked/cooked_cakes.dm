@@ -841,6 +841,7 @@
 	tastes = list("corn cake" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/corncake_lemon
+	cuisine = CUISINE_ETRUSCAN
 	dish_type = DISH_PASTRY
 	name = "lemon corn cake"
 	desc = "A corn cake zested with lemon - tart and sweet at once."
@@ -858,6 +859,7 @@
 	tastes = list("corn cake" = 1, "lemon" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/corncake_lemon_slice
+	cuisine = CUISINE_ETRUSCAN
 	name = "lemon corn cake slice"
 	desc = "A tart, sweet slice of lemon corn cake."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_cakes.dmi'
@@ -869,6 +871,7 @@
 	tastes = list("corn cake" = 1, "lemon" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/corncake_lime
+	cuisine = CUISINE_ETRUSCAN
 	dish_type = DISH_PASTRY
 	name = "lime corn cake"
 	desc = "A corn cake zested with lime - tart and sweet at once."
@@ -886,6 +889,7 @@
 	tastes = list("corn cake" = 1, "lime" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/corncake_lime_slice
+	cuisine = CUISINE_ETRUSCAN
 	name = "lime corn cake slice"
 	desc = "A tart, sweet slice of lime corn cake."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_cakes.dmi'

@@ -4,18 +4,8 @@
 	var/cuisine_flag = NONE
 	var/blurb
 
-/datum/book_entry/cuisine/proc/fare_label(fare)
-	switch(fare)
-		if(FARE_FINE)
-			return "Fine"
-		if(FARE_LAVISH)
-			return "Lavish"
-	return null
-
-/datum/book_entry/cuisine/proc/quality_label(quality)
+/datum/book_entry/cuisine/proc/drink_quality_label(quality)
 	switch(quality)
-		if(DRINK_NICE)
-			return "Nice"
 		if(DRINK_GOOD)
 			return "Good"
 		if(DRINK_VERYGOOD)
@@ -24,60 +14,156 @@
 			return "Fantastic"
 	return null
 
+/datum/book_entry/cuisine/proc/collected_ancestor(tkey, list/collected)
+	var/best
+	var/k = tkey
+	while(TRUE)
+		var/pos = findlasttext(k, "/")
+		if(pos <= 1)
+			break
+		k = copytext(k, 1, pos)
+		if(collected[k])
+			best = k
+	return best
+
+/datum/book_entry/cuisine/proc/render_sections(list/buckets, list/section_order, tail_label)
+	var/html = ""
+	var/list/order = section_order.Copy()
+	order[tail_label] = NONE
+	for(var/label in order)
+		var/list/bucket = buckets[label]
+		if(!length(bucket))
+			continue
+		sortTim(bucket, GLOBAL_PROC_REF(cmp_text_asc))
+		var/list/parts = list()
+		for(var/entry_name in bucket)
+			parts += bucket[entry_name]
+		html += "<p><b>[label]:</b> [parts.Join(", ")]</p>"
+	return html
+
 /datum/book_entry/cuisine/inner_book_html(mob/user)
+	var/static/list/slice_types
+	if(isnull(slice_types))
+		slice_types = list()
+		for(var/obj/item/reagent_containers/food/snacks/S as anything in subtypesof(/obj/item/reagent_containers/food/snacks))
+			var/slice = initial(S.slice_path)
+			if(slice)
+				slice_types["[slice]"] = TRUE
+	var/static/list/dish_sections = list(
+		"Pies" = DISH_PIE,
+		"Pastries" = DISH_PASTRY,
+		"Breads" = DISH_BREAD,
+		"Noodles" = DISH_NOODLES,
+		"Sweets" = DISH_SWEET,
+		"Seafood" = DISH_SEAFOOD,
+		"Poultry" = DISH_POULTRY,
+		"Meats" = DISH_MEAT,
+		"Eggs" = DISH_EGG,
+		"Dairy" = DISH_DAIRY,
+		"Vegetables" = DISH_VEGETABLE,
+		"Fruits" = DISH_FRUIT,
+	)
+	var/static/list/drink_sections = list(
+		"Wines" = DRINKTYPE_WINE,
+		"Ales & Beers" = DRINKTYPE_ALE,
+		"Spirits" = DRINKTYPE_SPIRIT,
+		"Meads" = DRINKTYPE_MEAD,
+		"Ciders" = DRINKTYPE_CIDER,
+		"Rice Wines" = DRINKTYPE_RICEWINE,
+		"Teas & Coffee" = DRINKTYPE_CAFFEINE,
+		"Juices" = DRINKTYPE_JUICE,
+	)
+
 	var/html = "<div>"
 	if(blurb)
 		html += "<p><i>[blurb]</i></p>"
 
-	var/list/dishes = list()
+	var/list/collected = list()
+	var/list/names_seen = list()
 	for(var/obj/item/reagent_containers/food/snacks/S as anything in subtypesof(/obj/item/reagent_containers/food/snacks))
 		if(!(initial(S.cuisine) & cuisine_flag))
 			continue
 		if(initial(S.faretype) < FAVORITE_FOOD_MINFARE)
 			continue
-		var/dname = initial(S.name)
-		if(!dname || dishes[dname])
+		if(slice_types["[S]"])
 			continue
-		dishes[dname] = S
-	sortTim(dishes, GLOBAL_PROC_REF(cmp_text_asc))
+		var/dname = initial(S.name)
+		if(!dname || names_seen[dname])
+			continue
+		names_seen[dname] = TRUE
+		collected["[S]"] = S
+
+	var/list/fold_extra = list()
+	var/list/shown = list()
+	for(var/tkey in collected)
+		var/anc = collected_ancestor(tkey, collected)
+		if(anc)
+			fold_extra[anc] += 1
+		else
+			shown[tkey] = collected[tkey]
+
+	var/list/buckets = list()
+	for(var/tkey in shown)
+		var/obj/item/reagent_containers/food/snacks/S = shown[tkey]
+		var/section = "Other"
+		var/dtype = initial(S.dish_type)
+		for(var/label in dish_sections)
+			if(dtype & dish_sections[label])
+				section = label
+				break
+		var/dname = initial(S.name)
+		var/key = SScooking?.get_producer_key(S)
+		var/entry = key ? "<a href='byond://?src=[REF(get_recipe_wiki())];view_recipe=[key]'>[dname]</a>" : dname
+		if(initial(S.faretype) >= FARE_LAVISH)
+			entry = "<b>[entry]</b>"
+		var/extra = fold_extra[tkey]
+		if(extra)
+			entry += " ([extra + 1] kinds)"
+		if(!buckets[section])
+			buckets[section] = list()
+		var/list/bucket = buckets[section]
+		bucket[dname] = entry
 
 	html += "<h3>Dishes</h3>"
-	if(length(dishes))
-		html += "<ul>"
-		for(var/dname in dishes)
-			var/obj/item/reagent_containers/food/snacks/S = dishes[dname]
-			var/key = SScooking?.get_producer_key(S)
-			var/label = key ? "<a href='byond://?src=[REF(get_recipe_wiki())];view_recipe=[key]'>[dname]</a>" : dname
-			var/fare = fare_label(initial(S.faretype))
-			html += "<li>[label][fare ? " ([fare])" : ""]</li>"
-		html += "</ul>"
+	if(length(buckets))
+		html += render_sections(buckets, dish_sections, "Other")
 	else
 		html += "<p>No dish of note.</p>"
 
-	var/list/drinks = list()
+	var/list/dbuckets = list()
+	var/list/dnames_seen = list()
 	for(var/datum/reagent/consumable/R as anything in subtypesof(/datum/reagent/consumable))
 		if(!(initial(R.cuisine) & cuisine_flag))
 			continue
-		if(initial(R.quality) < FAVORITE_DRINK_MINQUALITY)
+		var/quality = initial(R.quality)
+		if(quality < FAVORITE_DRINK_MINQUALITY)
 			continue
 		var/rname = initial(R.name)
-		if(!rname || drinks[rname])
+		if(!rname || dnames_seen[rname])
 			continue
-		drinks[rname] = R
-	sortTim(drinks, GLOBAL_PROC_REF(cmp_text_asc))
+		dnames_seen[rname] = TRUE
+		var/section = "Stews & Others"
+		var/dtype = initial(R.drink_type)
+		for(var/label in drink_sections)
+			if(dtype & drink_sections[label])
+				section = label
+				break
+		var/entry = rname
+		var/qlabel = drink_quality_label(quality)
+		if(qlabel)
+			entry += " ([qlabel])"
+		if(!dbuckets[section])
+			dbuckets[section] = list()
+		var/list/bucket = dbuckets[section]
+		bucket[rname] = entry
 
 	html += "<h3>Drinks</h3>"
-	if(length(drinks))
-		html += "<ul>"
-		for(var/rname in drinks)
-			var/datum/reagent/consumable/R = drinks[rname]
-			var/quality = quality_label(initial(R.quality))
-			html += "<li>[rname][quality ? " ([quality])" : ""]</li>"
-		html += "</ul>"
+	if(length(dbuckets))
+		html += render_sections(dbuckets, drink_sections, "Stews & Others")
 	else
 		html += "<p>No drink of note.</p>"
 
-	html += "<p><i>Only fine fare or better, and nice drinks or better, can delight a lover of this cuisine. Humbler foods may still belong to it in spirit.</i></p>"
+	html += "<p><i>Bold dishes are lavish fare. Only fine fare or better, and nice drinks or better, can delight a lover of this cuisine. Humbler foods may still belong to it in spirit.</i></p>"
 	html += "</div>"
 	return html
 

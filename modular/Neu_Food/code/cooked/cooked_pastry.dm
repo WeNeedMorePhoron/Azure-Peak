@@ -701,6 +701,7 @@
 	cooked_smell = /datum/pollutant/food/muffin
 
 /obj/item/reagent_containers/food/snacks/rogue/muffin/cheese/baked
+	cuisine = CUISINE_NORTHERN
 	name = "cheese muffin"
 	desc = "A mushroom shaped treat for whole topped off with cheese. Fit for a yeoman."
 	icon_state = "muffin_cheese"
@@ -717,6 +718,7 @@
 	cooked_smell = /datum/pollutant/food/muffin
 
 /obj/item/reagent_containers/food/snacks/rogue/muffin/honey/baked
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "honey muffin"
 	desc = "A mushroom shaped treat for whole topped off with honey. Fit for a burgher."
 	icon_state = "muffin_honey"

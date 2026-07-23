@@ -807,6 +807,7 @@
 /*	.................   Lasagna   ................... */
 
 /obj/item/reagent_containers/food/snacks/rogue/lasagna
+	dish_type = DISH_NOODLES
 	cuisine = CUISINE_ETRUSCAN
 	name = "lasagna"
 	desc = "Stacked pasta sheets layered with fresh marinara, made with limited ingredients. One might call this Navarno, but even there the Montecarinan style is the norm."
@@ -821,6 +822,7 @@
 	rotprocess = SHELFLIFE_LONG
 
 /obj/item/reagent_containers/food/snacks/rogue/lasagna_white
+	dish_type = DISH_NOODLES
 	cuisine = CUISINE_ETRUSCAN
 	name = "white lasagna"
 	desc = "Stacked pasta sheets layered with béchamel sauce and melted cheese. Lasagna was brought to Valoria by a Montecarinan royal chef, but the price of tomatoes made locals forgo it for a very Otavan white sauce."
@@ -835,6 +837,7 @@
 	rotprocess = SHELFLIFE_LONG
 
 /obj/item/reagent_containers/food/snacks/rogue/lasagna_redwhite
+	dish_type = DISH_NOODLES
 	cuisine = CUISINE_ETRUSCAN
 	name = "cheesy lasagna"
 	desc = "Pasta sheets decadently stacked with marinara and cheese, something so simple has no right to be so rich. The condottieri and captains of Montecarina's royal navy hate leaving port, not knowing when next they can gorge on this soldiery pasta loaf of cheese and sauce."
@@ -849,6 +852,7 @@
 	rotprocess = SHELFLIFE_LONG
 
 /obj/item/reagent_containers/food/snacks/rogue/lasagna_pesto
+	dish_type = DISH_NOODLES
 	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "pesto lasagna"
 	desc = "Pasta sheets elegantly stacked with pesto neatly spread between. It's taste can only be described as 'zig-like', the rocknut in the pesto seeming to boil from the heat. This version is even more loved by Azurian nobles, though visiting Montecarinan signoria-bloods are known occasionally to be offended at the taste."

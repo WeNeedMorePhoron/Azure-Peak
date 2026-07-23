@@ -1,5 +1,6 @@
 // -------------- CHOCOLATE -----------------
 /obj/item/reagent_containers/food/snacks/chocolate
+	cuisine = CUISINE_OTAVAIS
 	dish_type = DISH_SWEET
 	name = "chocolate ingot"
 	desc = "An unbelievably decadant slab of fudge, made with Etrusca's cocoa beans and Aavnr's saiga milk. A \
@@ -145,6 +146,7 @@
 	eat_effect = /datum/status_effect/buff/sweet
 
 /obj/item/reagent_containers/food/snacks/caramel
+	cuisine = CUISINE_RANESHENI
 	dish_type = DISH_SWEET
 	name = "caramel"
 	icon = 'modular/Neu_Food/icons/others/sweet.dmi'
@@ -169,6 +171,7 @@
 		icon_state = "caramel1"
 
 /obj/item/reagent_containers/food/snacks/dragee
+	cuisine = CUISINE_OTAVAIS
 	dish_type = DISH_SWEET
 	name = "dragée"
 	icon = 'modular/Neu_Food/icons/others/sweet.dmi'

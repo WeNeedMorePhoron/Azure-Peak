@@ -171,6 +171,7 @@
 
 /*	.................  Baked Butter Poultry  ................... */
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked/butter
+	cuisine = CUISINE_OTAVAIS
 	name = "butter bird-roast"
 	desc = "A plump bird, roasted perfection, overflowing with butter from the inside."
 	faretype = FARE_LAVISH

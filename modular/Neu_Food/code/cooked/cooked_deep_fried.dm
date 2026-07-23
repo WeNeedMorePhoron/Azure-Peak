@@ -39,6 +39,7 @@
 	tastes = list("crunchy toastcrumbs" = 1, "tender spidermeat" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/chickentender
+	cuisine = CUISINE_NORTHERN|CUISINE_SOUTHEASTERN
 	name = "tender frybird"
 	desc = "A deep-fried frybird, coated in toastcrumbs and ready to eat."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_deep_fried.dmi'
