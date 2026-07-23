@@ -70,7 +70,7 @@
 		"Meads" = DRINKTYPE_MEAD,
 		"Ciders" = DRINKTYPE_CIDER,
 		"Rice Wines" = DRINKTYPE_RICEWINE,
-		"Teas & Coffee" = DRINKTYPE_CAFFEINE,
+		"Tea & Coffee" = DRINKTYPE_CAFFEINE,
 		"Juices" = DRINKTYPE_JUICE,
 	)
 

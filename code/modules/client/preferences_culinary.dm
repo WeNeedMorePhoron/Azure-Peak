@@ -31,7 +31,7 @@ GLOBAL_LIST_INIT(culinary_drinks, list(
 	"Spirits" = DRINKTYPE_SPIRIT,
 	"Mead" = DRINKTYPE_MEAD,
 	"Cider" = DRINKTYPE_CIDER,
-	"Caffeine" = DRINKTYPE_CAFFEINE,
+	"Tea & Coffee" = DRINKTYPE_CAFFEINE,
 	"Juices" = DRINKTYPE_JUICE,
 ))
 
