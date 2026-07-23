@@ -1,7 +1,6 @@
 /datum/book_entry/cooking_basics
 	name = "How to Cook"
 	category = "Instructions"
-	book_priority = 10
 
 /datum/book_entry/cooking_basics/inner_book_html(mob/user)
 	return {"

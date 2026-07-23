@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(culinary_drinks, list(
 	dat += "<b>Cuisine:</b> <a href='byond://?_src_=prefs;preference=culinary_axis;axis=cuisine;task=change_culinary_preferences'>[culinary_flag_name(GLOB.culinary_cuisines, favorite_cuisine)]</a><br>"
 	dat += "<b>Favourite Dish:</b> <a href='byond://?_src_=prefs;preference=culinary_axis;axis=dish;task=change_culinary_preferences'>[culinary_flag_name(GLOB.culinary_dishes, favorite_dish)]</a><br>"
 	dat += "<b>Favourite Drink:</b> <a href='byond://?_src_=prefs;preference=culinary_axis;axis=drink;task=change_culinary_preferences'>[culinary_flag_name(GLOB.culinary_drinks, favorite_drink)]</a><br>"
-	var/datum/browser/popup = new(user, "culinary_customization", "<div align='center'>Culinary Preferences</div>", 420, 280)
+	var/datum/browser/popup = new(user, "culinary_customization", "<div align='center'>Culinary Preferences</div>", 400, 400)
 	popup.set_content(dat.Join())
 	popup.open(FALSE)
 
