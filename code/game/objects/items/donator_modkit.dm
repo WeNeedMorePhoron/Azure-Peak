@@ -903,3 +903,19 @@
 		/obj/item/rogueweapon/woodstaff/implement/grand
 	)
 	result_item = /obj/item/rogueweapon/woodstaff/implement/grand/racobio
+
+//Cobb Anti-Christ - Conviction
+/obj/item/enchantingkit/weapon/cobb_conviction
+	name = "'Conviction' morphing elixir"
+	target_items = list(
+		/obj/item/rogueweapon/sword/long
+	)
+	result_item = /obj/item/rogueweapon/sword/long/cobb
+
+//Athena14 - Solace
+/obj/item/enchantingkit/weapon/athena_solace
+	name = "'Solace' morphing elixir"
+	target_items = list(
+		/obj/item/rogueweapon/sword/rapier
+	)
+	result_item = /obj/item/rogueweapon/sword/rapier/athena
