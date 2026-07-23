@@ -191,6 +191,9 @@
 
 	if(out_of_effective_range())
 		return
+	if(blocked >= 100)
+		qdel(src)
+		return
 	try_embed_target(L)
 	qdel(src)
 

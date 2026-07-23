@@ -87,7 +87,7 @@
 	/// How many frost stacks to apply on hit
 	var/frost_stacks = 1
 
-/obj/projectile/magic/azurean_pilum/on_hit(target)
+/obj/projectile/magic/azurean_pilum/on_hit(target, blocked = FALSE)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
@@ -96,6 +96,8 @@
 			playsound(get_turf(L), 'sound/magic/magic_nulled.ogg', 100)
 			return BULLET_ACT_BLOCK
 		if(out_of_effective_range())
+			return
+		if(blocked >= 100)
 			return
 		apply_frost_stack(L, frost_stacks)
 		to_chat(L, span_danger("An icy pilum strikes true - the cold seeps into my bones!"))

@@ -51,7 +51,9 @@
 	. = ..()
 
 
-/obj/projectile/energy/unholyblast/on_hit(target)
+/obj/projectile/energy/unholyblast/on_hit(target, blocked = FALSE)
+	if(blocked >= 100)
+		return
 	if(isliving(target))
 		var/mob/living/H = target
 		if(out_of_effective_range())
