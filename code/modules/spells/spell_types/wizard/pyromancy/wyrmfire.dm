@@ -77,7 +77,7 @@
 	name = "arced fireball"
 	arcshot = TRUE
 
-/obj/projectile/magic/aoe/fireball/rogue/on_hit(target)
+/obj/projectile/magic/aoe/fireball/rogue/on_hit(target, blocked = FALSE)
 	..()
 	var/mob/living/M = ismob(target) ? target : null
 
@@ -90,7 +90,7 @@
 	if(out_of_effective_range())
 		return
 
-	if(M)
+	if(M && blocked < 100)
 		apply_scorch_stack(M, 2, def_zone)
 		M.apply_status_effect(/datum/status_effect/debuff/vulnerable, WYRMFIRE_VULNERABLE_DURATION)
 

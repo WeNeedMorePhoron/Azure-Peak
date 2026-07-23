@@ -56,7 +56,7 @@
 	damage = 27
 	arcshot = TRUE
 
-/obj/projectile/magic/spitfire/on_hit(target)
+/obj/projectile/magic/spitfire/on_hit(target, blocked = FALSE)
 	..()
 	var/turf/epicenter = get_turf(target)
 	if(epicenter)
@@ -71,6 +71,8 @@
 			qdel(src)
 			return BULLET_ACT_BLOCK
 		if(out_of_effective_range())
+			return
+		if(blocked >= 100)
 			return
 		if(has_frost_stacks(M))
 			remove_frost_stack(M)
