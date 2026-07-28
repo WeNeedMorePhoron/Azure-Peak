@@ -456,9 +456,8 @@
 	sheathe_icon = "elongsword"
 	icon = 'icons/roguetown/weapons/special/freifechter.dmi'
 	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust/long, /datum/intent/effect/daze/longsword/clinch)
-	gripped_intents = list(/datum/intent/sword/cut/master, /datum/intent/sword/thrust/long/master)
-	alt_grips = list( /datum/alt_grip/roof_guard, /datum/alt_grip/halfsword/frei)
-	//wlength = WLENGTH_NORMAL //they're all about exploiting weaknesses, given their damage nerfs i think feet are okay
+	gripped_intents = list(/datum/intent/sword/cut/master, /datum/intent/sword/thrust/long/master, /datum/intent/sword/chop/long/master, /datum/intent/sword/thrust/long/deep/master)
+	alt_grips = list(/datum/alt_grip/mordhau/sword/frei, /datum/alt_grip/halfsword/frei)
 	wdefense = 5
 	wdefense_wbonus = 3
 	max_blade_int = 300
