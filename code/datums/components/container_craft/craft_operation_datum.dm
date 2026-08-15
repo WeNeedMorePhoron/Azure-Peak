@@ -59,18 +59,19 @@
 
 	// Determine which requirements are wildcards
 	var/list/wildcard_paths = list()
-	if(recipe.wildcard_requirements)
-		wildcard_paths |= recipe.wildcard_requirements
-	if(recipe.optional_wildcard_requirements)
-		wildcard_paths |= recipe.optional_wildcard_requirements
+	for(var/path in recipe.wildcard_requirements)
+		wildcard_paths[path] = recipe.wildcard_requirements[path]
+	for(var/path in recipe.optional_wildcard_requirements)
+		wildcard_paths[path] = recipe.optional_wildcard_requirements[path]
 
 	// Build list of all requirements
 	var/list/all_requirements = list()
-	if(length(recipe.requirements))
-		all_requirements += recipe.requirements
-	if(length(recipe.optional_requirements))
-		all_requirements += recipe.optional_requirements
-	all_requirements += wildcard_paths
+	for(var/path in recipe.requirements)
+		all_requirements[path] = recipe.requirements[path]
+	for(var/path in recipe.optional_requirements)
+		all_requirements[path] = recipe.optional_requirements[path]
+	for(var/path in wildcard_paths)
+		all_requirements[path] = wildcard_paths[path]
 
 	// Reserve actual items from the container
 	for(var/requirement_path in all_requirements)

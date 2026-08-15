@@ -182,10 +182,20 @@ GLOBAL_LIST_INIT(container_craft_to_singleton, init_container_crafts())
 	return TRUE
 
 /datum/container_craft/proc/create_start_callback(crafter, initiator, highest_multiplier)
-	return CALLBACK(crafter, TYPE_PROC_REF(/atom, visible_message), "The [lowertext(name)] starts to cook.")
+	return CALLBACK(src, PROC_REF(announce_start))
 
 /datum/container_craft/proc/create_fail_callback(crafter, initiator, highest_multiplier)
-	return CALLBACK(crafter, TYPE_PROC_REF(/atom, visible_message), "The [lowertext(name)] stops cooking.")
+	return CALLBACK(src, PROC_REF(announce_fail))
+
+/datum/container_craft/proc/announce_start(atom/crafter, mob/initiator, estimated_multiplier)
+	if(QDELETED(crafter))
+		return
+	crafter.visible_message(span_notice("The [lowertext(name)] starts to cook."))
+
+/datum/container_craft/proc/announce_fail(atom/crafter, mob/initiator)
+	if(QDELETED(crafter))
+		return
+	crafter.visible_message(span_warning("The [lowertext(name)] stops cooking."))
 
 /**
  * Handles the final execution of the craft after processing is complete

@@ -10,8 +10,6 @@
 	var/list/tracked_foods = list()
 	/// Whether smoke should be created when burning food
 	var/create_smoke = TRUE
-	/// Tracks already processed items to avoid burning them again
-	var/list/processed_items = list()
 	///this is a callback for if we continue processing a burn
 	var/datum/callback/can_burn
 
@@ -38,7 +36,6 @@
 	STOP_PROCESSING(SSprocessing, src)
 	can_burn = null
 	tracked_foods.Cut()
-	processed_items.Cut()
 	return ..()
 
 /**
@@ -73,23 +70,22 @@
 		return
 
 	var/obj/item/container = parent
-	var/current_time = world.time
-	var/foods_to_burn = list()
+	var/list/foods_to_burn = list()
+	var/list/stale_foods = list()
 
 	// Check all tracked foods to update burn progress
 	for(var/obj/item/reagent_containers/food/snacks/food in tracked_foods)
 		if(QDELETED(food) || !(food in container.contents))
-			tracked_foods -= food
+			stale_foods += food
 			continue
 
 		var/list/food_data = tracked_foods[food]
-		var/insertion_time = food_data["time"]
 
-		// Calculate how long it's been since insertion
-		var/elapsed_time = current_time - insertion_time
+		// Only accrue time on ticks where the heat source is actually going
+		food_data["elapsed"] += SSprocessing.wait
 
 		// Calculate burn progress (0.0 to 1.0)
-		var/burn_progress = min(elapsed_time / burn_time, 1.0)
+		var/burn_progress = min(food_data["elapsed"] / burn_time, 1.0)
 
 		// Update burn progress
 		food_data["progress"] = burn_progress
@@ -103,8 +99,11 @@
 			show_burning_effects(food, BURN_STAGE_CRITICAL)
 
 		// Check if fully burned
-		if(burn_progress >= 1.0 && !(food in processed_items))
+		if(burn_progress >= 1.0)
 			foods_to_burn += food
+
+	for(var/obj/item/stale in stale_foods)
+		tracked_foods -= stale
 
 	// Burn any foods that have completed their progress
 	for(var/obj/item/reagent_containers/food/snacks/food in foods_to_burn)
@@ -153,7 +152,7 @@
  */
 /datum/component/food_burner/proc/on_craft_complete(datum/source, obj/item/crafted_item)
 	if(is_food_item(crafted_item) && !(crafted_item in tracked_foods))
-		tracked_foods[crafted_item] = list("time" = world.time, "progress" = 0)
+		tracked_foods[crafted_item] = list("elapsed" = 0, "progress" = 0)
 
 /**
  * Turn a food item into a burned food
@@ -180,8 +179,6 @@
 	var/obj/item/reagent_containers/food/snacks/badrecipe/burned = new(get_turf(container))
 	SEND_SIGNAL(container, COMSIG_TRY_STORAGE_INSERT, burned, null, TRUE, TRUE)
 
-	// Mark the original as processed and remove from tracking
-	processed_items += food
 	tracked_foods -= food
 
 	// Delete the original food
@@ -200,7 +197,7 @@
 /datum/component/food_burner/proc/register_food(obj/item/reagent_containers/food/snacks/food)
 	var/obj/item/container = parent
 	if(!QDELETED(food) && (food in container.contents) && !(food in tracked_foods))
-		tracked_foods[food] = list("time" = world.time, "progress" = 0)
+		tracked_foods[food] = list("elapsed" = 0, "progress" = 0)
 
 #undef BURN_STAGE_WARNING
 #undef BURN_STAGE_SMOKING

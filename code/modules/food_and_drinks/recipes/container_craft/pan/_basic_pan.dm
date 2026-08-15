@@ -50,18 +50,17 @@
 	requirements = list(/obj/item/reagent_containers/food/snacks/rogue/egg = 1)
 	output = /obj/item/reagent_containers/food/snacks/rogue/friedegg/fried
 
-/datum/container_craft/pan/egg/create_start_callback(crafter, initiator, highest_multiplier)
-	return CALLBACK(src, PROC_REF(on_start_recipe), crafter, initiator, highest_multiplier)
-
-/datum/container_craft/pan/egg/proc/on_start_recipe(atom/crafter, initiator, highest_multiplier)
-	var/list/stored_items = crafter.contents
+/datum/container_craft/pan/egg/announce_start(atom/crafter, mob/initiator, estimated_multiplier)
+	. = ..()
+	if(QDELETED(crafter))
+		return
 	playsound(crafter, 'modular/Neu_Food/sound/eggbreak.ogg', 100, TRUE, -1)
-	crafter.visible_message("The [lowertext(name)] starts to cook.")
 	var/count = 0
-	for(var/obj/item/reagent_containers/food/snacks/rogue/egg/egg in stored_items)
-		if(count >= highest_multiplier)
+	for(var/obj/item/reagent_containers/food/snacks/rogue/egg/egg in crafter.contents)
+		if(count >= estimated_multiplier)
 			break
 		egg.icon_state = "rawegg"
+		count++
 	crafter.update_icon()
 
 /datum/container_craft/pan/roastseeds
