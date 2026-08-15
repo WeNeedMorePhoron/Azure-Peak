@@ -46,7 +46,7 @@
 		target_time = recipe.get_real_time(crafter, initiator, estimated_multiplier)
 		src.requires_proximity = TRUE
 	else
-		target_time = recipe.crafting_time
+		target_time = recipe.get_real_time(crafter, initiator, 1)
 
 	stored_items = list()
 

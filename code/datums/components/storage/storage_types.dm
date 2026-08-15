@@ -289,3 +289,23 @@
 	max_w_class = WEIGHT_CLASS_HUGE
 	screen_max_rows = 8
 	screen_max_columns = 4
+
+/datum/component/storage/concrete/grid/food/cooking
+	grid = TRUE
+	max_w_class = WEIGHT_CLASS_HUGE
+
+/datum/component/storage/concrete/grid/food/cooking/New(datum/P, ...)
+	. = ..()
+	set_holdable(list(
+		/obj/item/reagent_containers/food,
+		/obj/item/natural,
+		/obj/item/alch,
+		/obj/item/reagent_containers/powder,
+		/obj/item/organ,
+		/obj/item/seeds,
+		))
+
+/datum/component/storage/concrete/grid/food/cooking/pan
+	screen_max_rows = 2
+	screen_max_columns = 2
+	insert_preposition = "on"

@@ -436,8 +436,6 @@
 	cookonme = TRUE
 	soundloop = /datum/looping_sound/fireloop
 	var/obj/item/attachment = null
-	var/obj/item/food = null
-	var/mob/living/carbon/human/lastuser
 	var/datum/looping_sound/boilloop/boilloop
 
 /obj/machinery/light/rogue/hearth/get_mechanics_examine(mob/user)
@@ -448,6 +446,12 @@
 /obj/machinery/light/rogue/hearth/Initialize()
 	boilloop = new(src, FALSE)
 	. = ..()
+
+/obj/machinery/light/rogue/hearth/seton(s)
+	var/was_on = on
+	. = ..()
+	if(on && !was_on && attachment)
+		SEND_SIGNAL(attachment, COMSIG_STORAGE_CLOSED)
 
 /obj/machinery/light/rogue/hearth/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && (mover.pass_flags & PASSTABLE))
@@ -463,10 +467,7 @@
 	. = ..()
 	if(attachment)
 		if(istype(attachment, /obj/item/cooking/pan))
-			if(food)
-				. += "There's \a [attachment.name] on it with \a [food.name] in it."
-			else
-				. += "There's \a [attachment.name] on it."
+			. += "There's \a [attachment.name] on it."
 		else if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
 			var/isboiling = attachment.reagents.chem_temp > MIN_STEW_TEMPERATURE
 			if(isboiling)
@@ -487,11 +488,10 @@
 			to_chat(user, span_notice("[src] is no longer lit."))
 			return
 		to_chat(user, span_info("I fan the flame on [src].")) // Until line combine is on by default gotta do this to avoid spam
-		try_cook(cooktime_divisor)
+		try_cook()
 
 /obj/machinery/light/rogue/hearth/attackby(obj/item/W, mob/living/user, params)
-	lastuser = user // For processing food
-	var/datum/skill/craft/cooking/cs = lastuser?.get_skill_level(/datum/skill/craft/cooking)
+	var/datum/skill/craft/cooking/cs = user?.get_skill_level(/datum/skill/craft/cooking)
 	var/cooktime_divisor = get_cooktime_divisor(cs)
 
 	if(!attachment)
@@ -507,27 +507,9 @@
 			to_chat(user, "<span class='notice'>Remove the pot from the hearth first.</span>")
 			return
 		if(istype(attachment, /obj/item/cooking/pan))
-			if(W.type in subtypesof(/obj/item/reagent_containers/food/snacks))
-				var/obj/item/reagent_containers/food/snacks/S = W
-				if(istype(W, /obj/item/reagent_containers/food/snacks/rogue/egg)) // added
-					if(W.icon_state != "rawegg")
-						playsound(get_turf(user), 'modular/Neu_Food/sound/eggbreak.ogg', 100, TRUE, -1)
-						sleep(25) // to get egg crack before frying hiss
-						W.icon_state = "rawegg" // added
-				if(!food)
-					S.forceMove(src)
-					food = S
-					update_icon()
-					playsound(src.loc, 'sound/misc/frying.ogg', 80, FALSE, extrarange = 5)
-					return
-			if(W.type in subtypesof(/obj/item/seeds))
-				var/obj/item/seeds/S = W
-				if(!food)
-					S.forceMove(src)
-					food = S
-					update_icon()
-					playsound(src.loc, 'sound/misc/frying.ogg', 80, FALSE, extrarange = 5)
-					return
+			if(SEND_SIGNAL(attachment, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE, FALSE, params))
+				update_icon()
+				return TRUE
 // Stew + Deep Frying code - refactored!!
 // Now with 100% more boiling!
 		else if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
@@ -598,11 +580,14 @@
 			I.pixel_x = 0
 			I.pixel_y = 0
 			add_overlay(new /mutable_appearance(I))
-			if(food)
-				I = food
-				I.pixel_x = 0
-				I.pixel_y = 0
-				add_overlay(new /mutable_appearance(I))
+
+/obj/machinery/light/rogue/hearth/MouseDrop(mob/over, src_location, over_location, src_control, over_control, params)
+	. = ..()
+	if(!istype(over))
+		return
+
+	if(attachment && over == usr && over.CanReach(src))
+		SEND_SIGNAL(attachment, COMSIG_TRY_STORAGE_SHOW, over, TRUE)
 
 /obj/machinery/light/rogue/hearth/attack_hand(mob/user)
 	. = ..()
@@ -611,16 +596,10 @@
 
 	if(attachment)
 		if(istype(attachment, /obj/item/cooking/pan))
-			if(food)
-				if(!user.put_in_active_hand(food))
-					food.forceMove(user.loc)
-				food = null
-				update_icon()
-			else
-				if(!user.put_in_active_hand(attachment))
-					attachment.forceMove(user.loc)
-				attachment = null
-				update_icon()
+			if(!user.put_in_active_hand(attachment))
+				attachment.forceMove(user.loc)
+			attachment = null
+			update_icon()
 		if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
 			if(!user.put_in_active_hand(attachment))
 				attachment.forceMove(user.loc)
@@ -640,30 +619,20 @@
 			return TRUE
 
 /obj/machinery/light/rogue/hearth/process()
-	// Edge case is that this depends on the last person to put the pan on the hearth and not the last person to put the food on the pan
-	var/datum/skill/craft/cooking/cs = lastuser?.get_skill_level(/datum/skill/craft/cooking)
-	var/cooktime_divisor = get_cooktime_divisor(cs)
-
 	if(isopenturf(loc))
 		var/turf/open/O = loc
 		if(IS_WET_OPEN_TURF(O))
 			extinguish()
 	if(on)
-		try_cook(cooktime_divisor)
+		try_cook()
 
-/obj/machinery/light/rogue/hearth/proc/try_cook(var/cooktime_divisor)
+/obj/machinery/light/rogue/hearth/proc/try_cook()
 	if(initial(fueluse) > 0)
 		if(fueluse > 0)
 			fueluse = max(fueluse - 10, 0)
 		if(fueluse == 0)
 			burn_out()
 	if(attachment)
-		if(istype(attachment, /obj/item/cooking/pan))
-			if(food && on)
-				var/obj/item/C = food.cooking(20 * cooktime_divisor, 20, src)
-				if(C)
-					qdel(food)
-					food = C
 		if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
 			if(attachment.reagents)
 				attachment.reagents.expose_temperature(400, 0.033)
@@ -707,15 +676,9 @@
 
 	if(attachment)
 		if(istype(attachment, /obj/item/cooking/pan))
-			if(!food)
-				if(!user.put_in_active_hand(attachment))
-					attachment.forceMove(user.loc)
-				attachment = null
-				update_icon()
-				return
-			if(!user.put_in_active_hand(food))
-				food.forceMove(user.loc)
-			food = null
+			if(!user.put_in_active_hand(attachment))
+				attachment.forceMove(user.loc)
+			attachment = null
 			update_icon()
 			return
 		if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
