@@ -83,7 +83,8 @@
 
 /obj/item/cooking/pan/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_info("Frying pans can be placed atop a hearth by left-clicking it. Left-click the placed pan with an ingredient to put it on, or drag the hearth onto yourself to see everything the container holds.")
+	. += span_info("Frying pans can be placed atop a hearth by left-clicking it. Left-click the placed pan with an ingredient to put it on.")
+	. += span_info("Left-click a loaded pan with an empty hand to see everything it holds. Middle-click takes the pan off the hearth.")
 	. += span_info("As long as the hearth is lit, everything in the pan will cook at once. Take it off the pan to stop the cooking.")
 	. += span_info("Meats, cackleberries, and sliced vegetables are the ideal choices for frying. Other ingredients and recipes might require the gentle caress of an oven, instead.")
 	. += span_info("Leaving a fully fried item on a lit hearth for too long will cause it to burn away.")

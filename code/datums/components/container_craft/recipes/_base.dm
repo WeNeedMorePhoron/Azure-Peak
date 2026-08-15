@@ -1,6 +1,7 @@
 // Global tracking lists
 GLOBAL_LIST_EMPTY(active_container_crafts)
 GLOBAL_LIST_INIT(container_craft_to_singleton, init_container_crafts())
+GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 
 /proc/init_container_crafts()
 	var/list/recipes = list()
@@ -10,6 +11,34 @@ GLOBAL_LIST_INIT(container_craft_to_singleton, init_container_crafts())
 		recipes |= craft
 		recipes[craft] = new craft
 	return recipes
+
+/proc/init_container_craft_method_index()
+	var/list/index = list()
+	for(var/recipe_type in GLOB.container_craft_to_singleton)
+		var/datum/container_craft/recipe = GLOB.container_craft_to_singleton[recipe_type]
+		if(!recipe.cook_method)
+			continue
+		var/input = recipe.get_single_input()
+		if(!input)
+			continue
+		var/list/by_input = index[recipe.cook_method]
+		if(!by_input)
+			by_input = list()
+			index[recipe.cook_method] = by_input
+		if(by_input[input])
+			continue
+		by_input[input] = recipe
+	return index
+
+/proc/get_cook_recipe(input_type, cook_method)
+	var/list/by_input = GLOB.container_craft_by_method[cook_method]
+	if(!by_input)
+		return null
+	return by_input[input_type]
+
+/proc/get_cook_result(input_type, cook_method)
+	var/datum/container_craft/recipe = get_cook_recipe(input_type, cook_method)
+	return recipe?.output
 
 /datum/container_craft
 	var/name = "GENERIC RECIPE CHANGE THIS"
@@ -43,6 +72,9 @@ GLOBAL_LIST_INIT(container_craft_to_singleton, init_container_crafts())
 	var/crafting_time = 0
 	var/craft_priority = TRUE
 
+	///COOK_FRY, COOK_BAKE, COOK_BOIL or COOK_DEEPFRY. Lets non-container heat sources ask what this ingredient turns into.
+	var/cook_method
+
 	///this is literally just for html
 	var/atom/movable/required_container
 	var/craft_verb
@@ -53,6 +85,16 @@ GLOBAL_LIST_INIT(container_craft_to_singleton, init_container_crafts())
 	var/datum/skill/used_skill = /datum/skill/craft/cooking
 	///Path of looping_sound to use while cooking
 	var/datum/looping_sound/cooking_sound
+
+/datum/container_craft/proc/get_single_input()
+	if(length(wildcard_requirements) || length(reagent_requirements))
+		return null
+	if(length(requirements) != 1)
+		return null
+	var/input = requirements[1]
+	if(requirements[input] != 1)
+		return null
+	return input
 
 /datum/container_craft/proc/find_required_reagent(datum/reagents/holder, reagent_type, amount)
 	if(!holder)

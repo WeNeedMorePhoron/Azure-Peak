@@ -3,6 +3,7 @@
 	required_container = /obj/item/cooking/pan
 	crafting_time = 30 SECONDS
 	category = "Pan"
+	cook_method = COOK_FRY
 
 	var/datum/pollutant/cooked_smell
 	cooking_sound = /datum/looping_sound/frying

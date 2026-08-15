@@ -442,6 +442,7 @@
 	. = ..()
 	. += span_info("Hearths must be fuelled occasionally to continue burning. They can be dowsed with a container of liquid \
 	on <b>SPLASH</b> intent to save fuel.")
+	. += span_info("A pan or pot can be set on top. Left-click a loaded pan to see inside it; middle-click removes it.")
 
 /obj/machinery/light/rogue/hearth/Initialize()
 	boilloop = new(src, FALSE)
@@ -589,23 +590,35 @@
 	if(attachment && over == usr && over.CanReach(src))
 		SEND_SIGNAL(attachment, COMSIG_TRY_STORAGE_SHOW, over, TRUE)
 
+/obj/machinery/light/rogue/hearth/proc/take_attachment(mob/user)
+	if(!attachment)
+		return FALSE
+	if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
+		boilloop.stop()
+	if(!user.put_in_active_hand(attachment))
+		attachment.forceMove(user.loc)
+	attachment = null
+	update_icon()
+	return TRUE
+
+/obj/machinery/light/rogue/hearth/MiddleClick(mob/user, params)
+	. = ..()
+	if(.)
+		return
+	if(!user.CanReach(src))
+		return
+	return take_attachment(user)
+
 /obj/machinery/light/rogue/hearth/attack_hand(mob/user)
 	. = ..()
 	if(.)
 		return
 
 	if(attachment)
-		if(istype(attachment, /obj/item/cooking/pan))
-			if(!user.put_in_active_hand(attachment))
-				attachment.forceMove(user.loc)
-			attachment = null
-			update_icon()
-		if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
-			if(!user.put_in_active_hand(attachment))
-				attachment.forceMove(user.loc)
-			attachment = null
-			update_icon()
-			boilloop.stop()
+		if(istype(attachment, /obj/item/cooking/pan) && length(attachment.contents))
+			SEND_SIGNAL(attachment, COMSIG_TRY_STORAGE_SHOW, user, TRUE)
+			return TRUE
+		return take_attachment(user)
 	else
 		if(on)
 			var/mob/living/carbon/human/H = user
@@ -674,20 +687,7 @@
 	if(.)
 		return
 
-	if(attachment)
-		if(istype(attachment, /obj/item/cooking/pan))
-			if(!user.put_in_active_hand(attachment))
-				attachment.forceMove(user.loc)
-			attachment = null
-			update_icon()
-			return
-		if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
-			if(!user.put_in_active_hand(attachment))
-				attachment.forceMove(user.loc)
-			attachment = null
-			update_icon()
-			boilloop.stop()
-	else
+	if(!attachment)
 		if(!on)
 			user.visible_message(span_notice("[user] begins packing up \the [src]."))
 			if(!do_after(user, 2 SECONDS, TRUE, src))
