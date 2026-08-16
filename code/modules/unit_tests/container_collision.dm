@@ -38,15 +38,8 @@
 		long_req = r2
 		short_req = r1
 	else
-		// Same length, check optional requirements to break tie
-		var/r1_optionals = (r1.optional_requirements?.len || 0) + (r1.optional_wildcard_requirements?.len || 0) + (r1.optional_reagent_requirements?.len || 0)
-		var/r2_optionals = (r2.optional_requirements?.len || 0) + (r2.optional_wildcard_requirements?.len || 0) + (r2.optional_reagent_requirements?.len || 0)
-		if(r1_optionals >= r2_optionals)
-			long_req = r1
-			short_req = r2
-		else
-			long_req = r2
-			short_req = r1
+		long_req = r1
+		short_req = r2
 
 	// Check if shorter recipe's requirements are a subset of the longer recipe's requirements
 

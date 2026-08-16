@@ -336,30 +336,4 @@
 	if(!has_space())
 		to_chat(user, span_warning("[src] is already full."))
 		return TRUE
-	var/list/obj/item/in_oven = list()
-	for(var/obj/item/I in oven.contents)
-		in_oven += I
-	if(!length(in_oven))
-		to_chat(user, span_warning("[oven] is empty."))
-		return TRUE
-	var/free_space = storage_space_left()
-	var/count = 0
-	for(var/i = length(in_oven), i >= 1, i--)
-		if(count >= free_space)
-			break
-		var/obj/item/I = in_oven[i]
-		if(!can_load_item(I))
-			continue
-		SEND_SIGNAL(oven, COMSIG_TRY_STORAGE_TAKE, I, get_turf(oven))
-		if(load_item(I))
-			count++
-	if(!count)
-		to_chat(user, span_warning("Nothing in [oven] fits on [src]."))
-		return TRUE
-	var/mob/living/carbon/human/H = user
-	if(istype(H))
-		oven.lastuser = H
-	oven.update_icon()
-	user.visible_message(span_info("[user] draws [count] item[count == 1 ? "" : "s"] from [oven] onto [src]."), span_info("I draw [count] item[count == 1 ? "" : "s"] from [oven] onto [src]."))
-	playsound(get_turf(oven), 'sound/items/wood_sharpen.ogg', 50)
-	return TRUE
+	return oven.unload_into(src, user)

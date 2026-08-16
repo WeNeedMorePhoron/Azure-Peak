@@ -342,3 +342,40 @@ GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 
 /datum/container_craft/proc/extra_html()
 	return
+
+/datum/container_craft/proc/ingredient_html(mob/user, path, amount, subtypes_allowed = FALSE)
+	var/atom/ingredient = path
+	var/mutable_appearance/preview = mutable_appearance(initial(ingredient.icon), initial(ingredient.icon_state))
+	var/line = "<li>[icon2html(preview, user)] [initial(ingredient.name)]"
+	if(amount > 1)
+		line += " &times; [amount]"
+	if(subtypes_allowed)
+		line += " <i>(or anything of the kind)</i>"
+	return line + "</li>"
+
+/datum/container_craft/proc/generate_html(mob/user)
+	var/atom/vessel = required_container
+	var/html = "<h2>[name]</h2>"
+
+	if(vessel)
+		html += "<p>Prepared in a [lowertext(initial(vessel.name))].</p>"
+
+	if(length(requirements) || length(wildcard_requirements) || length(reagent_requirements))
+		html += "<p>Needs:</p><ul>"
+		for(var/path in requirements)
+			html += ingredient_html(user, path, requirements[path])
+		for(var/path in wildcard_requirements)
+			html += ingredient_html(user, path, wildcard_requirements[path], TRUE)
+		for(var/datum/reagent/path as anything in reagent_requirements)
+			html += "<li>[reagent_requirements[path]]dr of [initial(path.name)]</li>"
+		html += "</ul>"
+
+	var/extra = extra_html()
+	if(extra)
+		html += "<p>Yields:</p><p>[extra]</p>"
+	else if(output)
+		var/atom/result = output
+		html += "<p>Yields [output_amount > 1 ? "[output_amount] &times; " : ""][initial(result.name)].</p>"
+
+	html += "<p>Takes about [crafting_time / 10] seconds, faster the more skilled you are.</p>"
+	return html

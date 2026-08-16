@@ -32,6 +32,7 @@
 	. += span_info("Anything inside bakes on its own so long as the oven is lit, and several of the same ingredient bake together in one batch. Letting the fire die stops the baking.")
 	. += span_info("Once an item is fully baked, it will visibly change and emit a good smell. This includes fireable crafts, such as clay vases and jugs. Don't think too much about the implications.")
 	. += span_info("Leaving a fully baked item inside of the oven for too long will cause it to burn away.")
+	. += span_info("Left-clicking the <b>top</b> with a tray removes everything it can carries at once.")
 
 /obj/machinery/light/rogue/oven/attackby(obj/item/W, mob/living/user, params)
 	lastuser = user
@@ -41,6 +42,8 @@
 		clicked_top = TRUE
 
 	if(clicked_top)
+		if(istype(W, /obj/item/storage/bag/tray))
+			return unload_into(W, user)
 		if((W.item_flags & ABSTRACT) || HAS_TRAIT(W, TRAIT_NODROP))
 			return ..()
 		if(W.wlength > WLENGTH_NORMAL)
@@ -50,6 +53,44 @@
 			update_icon()
 			return TRUE
 	return ..()
+
+/obj/machinery/light/rogue/oven/proc/can_unload_item(obj/item/I, datum/component/storage/destination)
+	if(QDELETED(I) || I.anchored)
+		return FALSE
+	if(I.wlength > WLENGTH_NORMAL)
+		return FALSE
+	return destination.can_be_inserted(I, TRUE)
+
+/obj/machinery/light/rogue/oven/proc/unload_into(atom/receptacle, mob/user)
+	var/datum/component/storage/destination = receptacle.GetComponent(/datum/component/storage)
+	if(!destination)
+		return FALSE
+	var/list/obj/item/in_oven = list()
+	for(var/obj/item/I in contents)
+		in_oven += I
+	if(!length(in_oven))
+		to_chat(user, span_warning("[src] is empty."))
+		return TRUE
+	var/count = 0
+	for(var/i = length(in_oven), i >= 1, i--)
+		var/obj/item/I = in_oven[i]
+		if(!can_unload_item(I, destination))
+			continue
+		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, I, get_turf(src))
+		if(destination.handle_item_insertion(I, TRUE))
+			count++
+		else
+			SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, I, null, TRUE, TRUE)
+	if(!count)
+		to_chat(user, span_warning("Nothing in [src] fits on [receptacle]."))
+		return TRUE
+	var/mob/living/carbon/human/H = user
+	if(istype(H))
+		lastuser = H
+	update_icon()
+	user.visible_message(span_info("[user] removes [count] item[count == 1 ? "" : "s"] from [src] onto [receptacle]."), span_info("I removes [count] item[count == 1 ? "" : "s"] from [src] onto [receptacle]."))
+	playsound(get_turf(src), 'sound/items/wood_sharpen.ogg', 50)
+	return TRUE
 
 /obj/machinery/light/rogue/oven/process()
 	..()

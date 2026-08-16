@@ -21,6 +21,10 @@
 /obj/item/storage/bag/tray/check_spill()
 	return
 
+/obj/item/storage/bag/tray/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Left-click the top of an oven to pull out everything on the tray. Left-click a table to empty the tray onto it.")
+
 /obj/item/storage/bag/tray/psy
 	name = "tray"
 	icon = 'icons/obj/food/containers.dmi'
@@ -74,7 +78,7 @@
 		qdel(dummy)
 	tray_display_dummies = list()
 	vis_contents = list()
-	
+
 	if (contents.len > 0)
 		for(var/obj/item/thing_in_tray in contents)
 			var/obj/dummy = new()
@@ -84,7 +88,7 @@
 			dummy.pixel_x = rand(-8, 8)
 			dummy.pixel_y = rand(-8, 8)
 			dummy.vis_flags = VIS_INHERIT_ID | VIS_INHERIT_LAYER | VIS_INHERIT_PLANE
-			
+
 			tray_display_dummies += dummy
 			vis_contents += dummy
 

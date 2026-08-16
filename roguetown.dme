@@ -1866,6 +1866,7 @@
 #include "code\modules\crafting\recipe_books\book_entries\combat\combat_chapters.dm"
 #include "code\modules\crafting\recipe_books\book_entries\cooking\book_entry_basics.dm"
 #include "code\modules\crafting\recipe_books\book_entries\cooking\book_entry_brewing.dm"
+#include "code\modules\crafting\recipe_books\book_entries\cooking\book_entry_container_craft.dm"
 #include "code\modules\crafting\recipe_books\book_entries\cooking\book_entry_cooking.dm"
 #include "code\modules\crafting\recipe_books\book_entries\cooking\book_entry_deepfry.dm"
 #include "code\modules\crafting\recipe_books\book_entries\cooking\book_entry_doughs.dm"

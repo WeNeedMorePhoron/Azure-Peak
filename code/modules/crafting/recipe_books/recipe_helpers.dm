@@ -43,6 +43,9 @@
 		category = initial(path:book_category)
 	else if(ispath(path, /datum/stew_recipe))
 		category = FOOD_CAT_STEW
+	else if(ispath(path, /datum/container_craft))
+		var/datum/container_craft/r = GLOB.container_craft_to_singleton[path]
+		category = r?.category
 	else if(ispath(path, /datum/runeritual))
 		temp_recipe = new path()
 		var/datum/runeritual/r = temp_recipe
@@ -90,6 +93,10 @@
 	if(ispath(path, /datum/food_recipe))
 		var/datum/food_recipe/recipe = path
 		if(initial(recipe.hidden))
+			return TRUE
+	if(ispath(path, /datum/container_craft))
+		var/datum/container_craft/recipe = path
+		if(initial(recipe.hides_from_books))
 			return TRUE
 	return FALSE
 
@@ -184,6 +191,11 @@
 		var/datum/stew_recipe/r = temp_recipe
 		recipe_name = r.name
 		recipe_html = r.generate_html(user)
+	else if(ispath(path, /datum/container_craft))
+		var/datum/container_craft/r = GLOB.container_craft_to_singleton[path]
+		if(r)
+			recipe_name = r.name
+			recipe_html = r.generate_html(user)
 	else if(ispath(path, /datum/runeritual))
 		temp_recipe = new path()
 		var/datum/runeritual/r = temp_recipe
