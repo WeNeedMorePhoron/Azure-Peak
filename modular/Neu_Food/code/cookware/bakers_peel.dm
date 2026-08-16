@@ -1,4 +1,5 @@
 /datum/component/storage/concrete/bakers_peel
+	insert_verb = "slide"
 	insert_preposition = "on"
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_items = 5
