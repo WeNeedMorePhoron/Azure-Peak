@@ -1555,6 +1555,7 @@
 /area/rogue/indoors/town/manor)
 "OQ" = (
 /obj/structure/table/cooling,
+/obj/item/flint,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors)
 "Pc" = (
