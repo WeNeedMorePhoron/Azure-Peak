@@ -308,4 +308,11 @@
 /datum/component/storage/concrete/grid/food/cooking/pan
 	screen_max_rows = 2
 	screen_max_columns = 2
+	insert_verb = "place"
 	insert_preposition = "on"
+
+/datum/component/storage/concrete/grid/food/cooking/oven
+	screen_max_rows = 2
+	screen_max_columns = 5
+	insert_verb = "slide"
+	insert_preposition = "in"

@@ -306,28 +306,23 @@
 	if(!stored_item_count())
 		to_chat(user, span_warning("[src] is empty."))
 		return TRUE
-	var/free_space = oven.maxfood - oven.food.len
-	if(free_space <= 0)
-		to_chat(user, span_warning("[oven] is already full."))
-		return TRUE
 	var/datum/component/storage/STR = storage_component()
 	if(!STR)
 		return FALSE
 	var/count = 0
 	for(var/obj/item/I as anything in stored_items())
-		if(count >= free_space)
+		if(!STR.remove_from_storage(I, get_turf(oven)))
+			continue
+		if(!SEND_SIGNAL(oven, COMSIG_TRY_STORAGE_INSERT, I, user, TRUE, FALSE, FALSE, null))
+			STR.handle_item_insertion(I, TRUE)
 			break
-		if(STR.remove_from_storage(I, oven))
-			oven.food += I
-			count++
+		count++
 	if(!count)
 		to_chat(user, span_warning("Nothing on [src] fits in [oven]."))
 		return TRUE
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
 		oven.lastuser = H
-	oven.donefoods = FALSE
-	oven.need_underlay_update = TRUE
 	oven.update_icon()
 	user.visible_message(span_info("[user] slides [count] item[count == 1 ? "" : "s"] from [src] into [oven]."), span_info("I slide [count] item[count == 1 ? "" : "s"] from [src] into [oven]."))
 	playsound(get_turf(oven), 'sound/items/wood_sharpen.ogg', 50)
@@ -339,19 +334,22 @@
 	if(!has_space())
 		to_chat(user, span_warning("[src] is already full."))
 		return TRUE
-	if(!oven.food.len)
+	var/list/obj/item/in_oven = list()
+	for(var/obj/item/I in oven.contents)
+		in_oven += I
+	if(!length(in_oven))
 		to_chat(user, span_warning("[oven] is empty."))
 		return TRUE
 	var/free_space = storage_space_left()
 	var/count = 0
-	for(var/i = oven.food.len, i >= 1, i--)
+	for(var/i = length(in_oven), i >= 1, i--)
 		if(count >= free_space)
 			break
-		var/obj/item/I = oven.food[i]
+		var/obj/item/I = in_oven[i]
 		if(!can_load_item(I))
 			continue
+		SEND_SIGNAL(oven, COMSIG_TRY_STORAGE_TAKE, I, get_turf(oven))
 		if(load_item(I))
-			oven.food -= I
 			count++
 	if(!count)
 		to_chat(user, span_warning("Nothing in [oven] fits on [src]."))
@@ -359,8 +357,6 @@
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
 		oven.lastuser = H
-	oven.donefoods = FALSE
-	oven.need_underlay_update = TRUE
 	oven.update_icon()
 	user.visible_message(span_info("[user] draws [count] item[count == 1 ? "" : "s"] from [oven] onto [src]."), span_info("I draw [count] item[count == 1 ? "" : "s"] from [oven] onto [src]."))
 	playsound(get_turf(oven), 'sound/items/wood_sharpen.ogg', 50)

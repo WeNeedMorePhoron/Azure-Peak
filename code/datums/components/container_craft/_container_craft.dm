@@ -53,7 +53,7 @@
  */
 /datum/component/container_craft/proc/attempt_crafts(datum/source, mob/user)
 	var/list/stored_items = list()
-	var/obj/item/host = parent
+	var/atom/host = parent
 	if(!length(host.contents))
 		return
 
