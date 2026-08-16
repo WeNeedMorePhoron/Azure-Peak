@@ -406,7 +406,7 @@
 	update_total()
 
 /// Anti-stacking: if a reagent and one of its declared conflicts are both
-/// present, they neutralize 1:1 into /datum/reagent/ruined_potion. 
+/// present, they neutralize 1:1 into /datum/reagent/ruined_potion.
 ///
 /// Self never conflicts with itself (matters when a conflict entry is a parent
 /// type, e.g. /datum/reagent/buff).
@@ -685,7 +685,7 @@
 
 /datum/reagents/proc/adjust_thermal_energy(J, min_temp = 2.7, max_temp = 1000)
 	var/S = specific_heat()
-	chem_temp = CLAMP(chem_temp + (J / (S * total_volume)), 2.7, 1000)
+	set_temperature(CLAMP(chem_temp + (J / (S * total_volume)), 2.7, 1000))
 
 /datum/reagents/proc/add_reagent(reagent, amount, list/data=null, reagtemp = 300, no_react = 0)
 	if(!isnum(amount) || !amount)
@@ -718,7 +718,7 @@
 		thermal_energy += R.specific_heat * R.volume * cached_temp
 	specific_heat += D.specific_heat * (amount / new_total)
 	thermal_energy += D.specific_heat * amount * reagtemp
-	chem_temp = thermal_energy / (specific_heat * new_total)
+	set_temperature(thermal_energy / (specific_heat * new_total))
 	////
 
 	//add the reagent to the existing if it exists
@@ -967,6 +967,21 @@
 
 	return english_list(out, "something")
 
+/** Sets the temperature of this reagent container to a new value.
+ *
+ * Handles setter signals.
+ *
+ * Arguments:
+ * - _temperature: The new temperature value.
+ */
+/datum/reagents/proc/set_temperature(_temperature)
+	if(_temperature == chem_temp)
+		return
+
+	. = chem_temp
+	chem_temp = clamp(_temperature, 0, CHEMICAL_MAXIMUM_TEMPERATURE)
+	SEND_SIGNAL(src, COMSIG_REAGENTS_TEMP_CHANGE, _temperature, .)
+
 /datum/reagents/proc/expose_temperature(temperature, coeff=0.02)
 	if(istype(my_atom,/obj/item/reagent_containers))
 		var/obj/item/reagent_containers/RCs = my_atom
@@ -977,7 +992,7 @@
 		chem_temp = min(chem_temp + max(temp_delta, 1), temperature)
 	else
 		chem_temp = max(chem_temp + min(temp_delta, -1), temperature)
-	chem_temp = round(chem_temp)
+	set_temperature(round(chem_temp))
 	for(var/i in reagent_list)
 		var/datum/reagent/R = i
 		R.on_temp_change()

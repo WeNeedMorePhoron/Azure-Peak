@@ -1,6 +1,4 @@
 #define MIN_STEW_TEMPERATURE 374 // For cooking
-#define VOLUME_PER_STEW_COOK 29 // Volume to cook per ingredient
-#define VOLUME_PER_STEW_COOK_AFTER 1 // Volume to deduct after the sleep is over
 #define DEEP_FRY_TIME 5 SECONDS // Default deep fry time
 #define OIL_CONSUMED 5 // Amount of oil consumed per deep fry (1 fat = 4 fry)
 #define BOILING_TIME 5 SECONDS // Default boiling time
@@ -548,26 +546,9 @@
 						qdel(S)
 						pot.reagents.remove_reagent(/datum/reagent/water, WATER_CONSUMED)
 						return
-			for(var/datum/stew_recipe/R in GLOB.stew_recipes)
-				for(var/I in R.inputs)
-					if(istype(W, I))
-						if(!pot.reagents.has_reagent(/datum/reagent/water, VOLUME_PER_STEW_COOK + VOLUME_PER_STEW_COOK_AFTER))
-							to_chat(user, span_notice("Not enough water."))
-							return
-						if(pot.reagents.chem_temp < MIN_STEW_TEMPERATURE)
-							to_chat(user, span_notice("[pot] isn't boiling!</span>"))
-							return
-						if(do_after(user, 2 SECONDS / cooktime_divisor, target = src))
-							user.visible_message(span_info("[user] places [W] into the pot.</span>"))
-							add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-							qdel(W)
-							playsound(src.loc, 'sound/items/Fish_out.ogg', 20, TRUE)
-							pot.reagents.remove_reagent(/datum/reagent/water, VOLUME_PER_STEW_COOK)
-							sleep(R.cooktime / cooktime_divisor)
-							playsound(src, "bubbles", 30, TRUE)
-							pot.reagents.remove_reagent(/datum/reagent/water, VOLUME_PER_STEW_COOK_AFTER) // Remove water first prevent overfill
-							pot.reagents.add_reagent(R.output, VOLUME_PER_STEW_COOK + VOLUME_PER_STEW_COOK_AFTER)
-							return
+			if(SEND_SIGNAL(pot, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE, FALSE, params))
+				playsound(src.loc, 'sound/items/Fish_out.ogg', 20, TRUE)
+				return TRUE
 	..()
 
 //////////////////////////////////
@@ -870,8 +851,6 @@
 	fueluse = 180 MINUTES
 
 #undef MIN_STEW_TEMPERATURE
-#undef VOLUME_PER_STEW_COOK
-#undef VOLUME_PER_STEW_COOK_AFTER
 
 #undef DEEP_FRY_TIME
 #undef OIL_CONSUMED

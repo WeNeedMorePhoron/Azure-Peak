@@ -17,6 +17,11 @@
 	dropshrink = 1 // Override for bucket
 	volume = 240
 
+/obj/item/reagent_containers/glass/bucket/pot/Initialize()
+	. = ..()
+	AddComponent(/datum/component/storage/concrete/grid/food/cooking/pot)
+	AddComponent(/datum/component/container_craft, subtypesof(/datum/container_craft/cooking), TRUE)
+
 /obj/item/reagent_containers/glass/bucket/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_notice("Freshwater can be collected by leaving out buckets, pots, washbins, and any other uncovered containers on an uncovered tile while it's raining.")

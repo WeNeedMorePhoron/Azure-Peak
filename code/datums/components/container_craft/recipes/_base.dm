@@ -75,6 +75,8 @@ GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 	///COOK_FRY, COOK_BAKE, COOK_BOIL or COOK_DEEPFRY. Lets non-container heat sources ask what this ingredient turns into.
 	var/cook_method
 
+	var/cached_specificity
+
 	///this is literally just for html
 	var/atom/movable/required_container
 	var/craft_verb
@@ -85,6 +87,21 @@ GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 	var/datum/skill/used_skill = /datum/skill/craft/cooking
 	///Path of looping_sound to use while cooking
 	var/datum/looping_sound/cooking_sound
+
+/datum/container_craft/proc/get_specificity()
+	if(!isnull(cached_specificity))
+		return cached_specificity
+	cached_specificity = 0
+	for(var/path in requirements)
+		cached_specificity = max(cached_specificity, (length(splittext("[path]", "/")) * 2) + 1)
+	for(var/path in wildcard_requirements)
+		cached_specificity = max(cached_specificity, length(splittext("[path]", "/")) * 2)
+	return cached_specificity
+
+/proc/cmp_container_craft_specificity(a, b)
+	var/datum/container_craft/recipe_a = GLOB.container_craft_to_singleton[a]
+	var/datum/container_craft/recipe_b = GLOB.container_craft_to_singleton[b]
+	return (recipe_b ? recipe_b.get_specificity() : 0) - (recipe_a ? recipe_a.get_specificity() : 0)
 
 /datum/container_craft/proc/get_single_input()
 	if(length(wildcard_requirements) || length(reagent_requirements))

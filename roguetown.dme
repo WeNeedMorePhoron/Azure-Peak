@@ -1998,6 +1998,8 @@
 #include "code\modules\food_and_drinks\recipes\container_craft\oven\oven.dm"
 #include "code\modules\food_and_drinks\recipes\container_craft\pan\_basic_pan.dm"
 #include "code\modules\food_and_drinks\recipes\container_craft\pan\pan.dm"
+#include "code\modules\food_and_drinks\recipes\container_craft\pot\_basic_pot.dm"
+#include "code\modules\food_and_drinks\recipes\container_craft\pot\pot.dm"
 #include "code\modules\food_and_drinks\recipes\food_mixtures.dm"
 #include "code\modules\holiday\holidays.dm"
 #include "code\modules\hotspring\falling_leaves.dm"
