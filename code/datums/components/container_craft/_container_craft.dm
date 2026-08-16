@@ -42,7 +42,7 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(async_start))
 	if(temperature_listener && isatom(parent))
 		var/atom/parent_atom = parent
-		RegisterSignal(parent_atom.reagents, COMSIG_REAGENTS_TEMP_CHANGE, PROC_REF(async_start))
+		RegisterSignal(parent_atom.reagents, COMSIG_REAGENTS_TEMP_CHANGE, PROC_REF(on_temperature_change))
 
 /**
  * Asynchronously start crafting
@@ -50,6 +50,10 @@
 /datum/component/container_craft/proc/async_start(datum/source, mob/user)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(attempt_crafts), source, user)
+
+/datum/component/container_craft/proc/on_temperature_change(datum/source, new_temp, old_temp)
+	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(attempt_crafts), source, null)
 
 /**
  * Attempt to craft all possible recipes - try normal priority first, then fallbacks

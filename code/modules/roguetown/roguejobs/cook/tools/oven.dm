@@ -45,7 +45,7 @@
 			return ..()
 		if(W.wlength > WLENGTH_NORMAL)
 			return ..()
-		if(SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE, FALSE, params))
+		if(SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE))
 			playsound(get_turf(src.loc), 'sound/items/wood_sharpen.ogg', 50) // neu cooking
 			update_icon()
 			return TRUE

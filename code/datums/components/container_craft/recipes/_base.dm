@@ -59,15 +59,7 @@ GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 	///this needs a comment, basically if this is set we check for any of these in the path say /obj/item/sword, it will use /obj/item/sword/wooden
 	var/list/wildcard_requirements
 
-	//this is basically do we have any of these things in it on successful craft. Its up to the recipe to decide what to do with this information
-	var/list/optional_requirements
-	var/list/optional_wildcard_requirements
-	var/list/optional_reagent_requirements
-
 	var/subtype_reagents_allowed = FALSE
-
-	///Maximum number of optional ingredients to use per craft, set to 0 for unlimited
-	var/max_optionals = 0
 
 	var/crafting_time = 0
 	var/craft_priority = TRUE
@@ -273,11 +265,6 @@ GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 		var/list/obj/item/items_to_delete = list()
 
 		var/list/passed_reagents = list()
-		var/list/passed_wildcards = list()
-		var/list/passed_requirements = list()
-		var/list/found_optional_requirements = list()
-		var/list/found_optional_wildcards = list()
-		var/list/found_optional_reagents = list()
 
 		if(length(reagent_requirements))
 			for(var/reagent as anything in reagent_requirements)
@@ -290,27 +277,17 @@ GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 			for(var/item_type in requirements)
 				if(stored_items[item_type] < requirements[item_type])
 					return FALSE
-				passed_requirements |= item_type
-				passed_requirements[item_type] = requirements[item_type]
 				items_to_remove[item_type] = requirements[item_type]
 
 		if(length(wildcard_requirements))
-			var/list/wildcarded_types = list()
 			for(var/wildcard in wildcard_requirements)
 				var/items_found = 0
 				var/amount_needed = wildcard_requirements[wildcard]
 
 				for(var/obj/item/candidate_item in crafter.contents)
 					if(ispath(candidate_item.type, wildcard) && !(candidate_item in items_to_delete))
-						if(!wildcarded_types[candidate_item.type])
-							wildcarded_types[candidate_item.type] = 0
-
-						var/can_take = min(amount_needed - items_found, 1) // Take one at a time
-						items_found += can_take
-						wildcarded_types[candidate_item.type] += can_take
-
-						if(can_take > 0)
-							items_to_delete += candidate_item
+						items_found++
+						items_to_delete += candidate_item
 
 						if(items_found >= amount_needed)
 							break
@@ -318,92 +295,9 @@ GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 				if(items_found < amount_needed)
 					return FALSE
 
-				passed_wildcards[wildcard] = wildcarded_types
-
-		// Process optionals with respect to max_optionals
-
-		// Build a list of all available optional items to consider
-		var/list/potential_optionals = list()
-
-		// Check optional requirements
-		if(length(optional_requirements))
-			for(var/opt_req in optional_requirements)
-				if(stored_items[opt_req] >= optional_requirements[opt_req])
-					potential_optionals += list(list(
-						"type" = "requirement",
-						"path" = opt_req,
-						"amount" = optional_requirements[opt_req]
-					))
-
-		// Check optional wildcards
-		if(length(optional_wildcard_requirements))
-			for(var/opt_wildcard in optional_wildcard_requirements)
-				var/remaining_wildcards = optional_wildcard_requirements[opt_wildcard]
-
-				// Group candidate items by wildcard type
-				var/list/wildcard_candidates = list()
-				for(var/obj/item/candidate_item in crafter.contents)
-					if(ispath(candidate_item.type, opt_wildcard) && !(candidate_item in items_to_delete))
-						wildcard_candidates += candidate_item
-
-				// Add each item as a potential optional
-				for(var/obj/item/candidate_item in wildcard_candidates)
-					if(remaining_wildcards > 0)
-						potential_optionals += list(list(
-							"type" = "wildcard",
-							"wildcard_type" = opt_wildcard,
-							"item" = candidate_item
-						))
-						remaining_wildcards--
-
-		// Check optional reagents
-		if(length(optional_reagent_requirements))
-			for(var/opt_reagent in optional_reagent_requirements)
-				if(find_required_reagent(crafter.reagents, opt_reagent, optional_reagent_requirements[opt_reagent]))
-					potential_optionals += list(list(
-						"type" = "reagent",
-						"reagent" = opt_reagent,
-						"amount" = optional_reagent_requirements[opt_reagent]
-					))
-
-		// Apply the cap and process the optionals
-		var/optionals_used = 0
-		for(var/list/optional in potential_optionals)
-			if(max_optionals > 0 && optionals_used >= max_optionals)
-				break
-
-			if(optional["type"] == "requirement")
-				var/opt_req = optional["path"]
-				found_optional_requirements[opt_req] = optional["amount"]
-				if(!items_to_remove[opt_req])
-					items_to_remove[opt_req] = 0
-				items_to_remove[opt_req] += optional["amount"]
-				optionals_used++
-
-			else if(optional["type"] == "wildcard")
-				var/opt_wildcard = optional["wildcard_type"]
-				var/obj/item/candidate_item = optional["item"]
-
-				// Make sure we have a list for this wildcard type
-				if(!islist(found_optional_wildcards[opt_wildcard]))
-					found_optional_wildcards[opt_wildcard] = list()
-
-				// Add the item to the list for this wildcard type
-				found_optional_wildcards[opt_wildcard] += candidate_item
-				items_to_delete += candidate_item
-				optionals_used++
-
-			else if(optional["type"] == "reagent")
-				var/opt_reagent = optional["reagent"]
-				found_optional_reagents[opt_reagent] = optional["amount"]
-				optionals_used++
-
 		// Remove reagents first
 		for(var/reagent in passed_reagents)
 			crafter.reagents.remove_reagent(reagent, passed_reagents[reagent])
-
-		for(var/opt_reagent in found_optional_reagents)
-			crafter.reagents.remove_reagent(opt_reagent, found_optional_reagents[opt_reagent])
 
 		// Remove items by type
 		for(var/item_type in items_to_remove)
@@ -418,9 +312,9 @@ GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 		for(var/obj/item/item_to_delete in items_to_delete)
 			SEND_SIGNAL(crafter, COMSIG_TRY_STORAGE_TAKE, item_to_delete, get_turf(crafter))
 
-		create_item(crafter, initiator, found_optional_requirements, found_optional_wildcards, found_optional_reagents, items_to_delete)
+		create_item(crafter, initiator, items_to_delete)
 
-		if(initiator)
+		if(isliving(initiator) && initiator.mind)
 			add_sleep_experience(initiator, used_skill, initiator.STAINT * 0.5)
 		// Remove all tracked items
 		for(var/obj/item/item_to_delete in items_to_delete)
@@ -429,16 +323,15 @@ GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 	var/turf/turf = get_turf(crafter)
 	turf.visible_message(span_green(complete_message))
 
-/datum/container_craft/proc/create_item(obj/item/crafter, mob/living/initiator, list/found_optional_requirements, list/found_optional_wildcards, list/found_optional_reagents, list/removing_items)
+/datum/container_craft/proc/create_item(obj/item/crafter, mob/living/initiator, list/removing_items)
 	for(var/j = 1 to output_amount)
 		var/atom/created_output = new output(get_turf(crafter))
 		SEND_SIGNAL(crafter, COMSIG_TRY_STORAGE_INSERT, created_output, null, TRUE, TRUE)
-		after_craft(created_output, crafter, initiator, found_optional_requirements, found_optional_wildcards, found_optional_reagents, removing_items)
+		after_craft(created_output, crafter, initiator, removing_items)
 		SEND_SIGNAL(crafter, COMSIG_CONTAINER_CRAFT_COMPLETE, created_output)
 
-/datum/container_craft/proc/after_craft(atom/created_output, obj/item/crafter, mob/initiator, list/found_optional_requirements, list/found_optional_wildcards, list/found_optional_reagents, list/removing_items)
+/datum/container_craft/proc/after_craft(atom/created_output, obj/item/crafter, mob/initiator, list/removing_items)
 	// This is an extension point for specific crafting types to do additional processing
-	// basically used exclusively for optional requirements
 	return
 
 /datum/container_craft/proc/get_real_time(atom/host, mob/user, estimated_multiplier)

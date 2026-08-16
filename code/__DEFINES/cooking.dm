@@ -25,3 +25,6 @@
 #define COOK_FRY "fry"
 #define COOK_DEEPFRY "deepfry"
 #define COOK_BOIL "boil"
+
+#define STEW_WATER_REQUIRED 30
+#define STEW_TEMPERATURE 374

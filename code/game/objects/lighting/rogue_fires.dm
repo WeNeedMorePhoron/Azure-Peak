@@ -1,4 +1,3 @@
-#define MIN_STEW_TEMPERATURE 374 // For cooking
 #define DEEP_FRY_TIME 5 SECONDS // Default deep fry time
 #define OIL_CONSUMED 5 // Amount of oil consumed per deep fry (1 fat = 4 fry)
 #define BOILING_TIME 5 SECONDS // Default boiling time
@@ -468,7 +467,7 @@
 		if(istype(attachment, /obj/item/cooking/pan))
 			. += "There's \a [attachment.name] on it."
 		else if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
-			var/isboiling = attachment.reagents.chem_temp > MIN_STEW_TEMPERATURE
+			var/isboiling = attachment.reagents.chem_temp > STEW_TEMPERATURE
 			if(isboiling)
 				. += "There's \a [attachment.name] on it, it is boiling." // This is common shorthand for the contents don't nitpick
 			else
@@ -506,7 +505,7 @@
 			to_chat(user, "<span class='notice'>Remove the pot from the hearth first.</span>")
 			return
 		if(istype(attachment, /obj/item/cooking/pan))
-			if(SEND_SIGNAL(attachment, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE, FALSE, params))
+			if(SEND_SIGNAL(attachment, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE))
 				update_icon()
 				return TRUE
 // Stew + Deep Frying code - refactored!!
@@ -546,8 +545,12 @@
 						qdel(S)
 						pot.reagents.remove_reagent(/datum/reagent/water, WATER_CONSUMED)
 						return
-			if(SEND_SIGNAL(pot, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE, FALSE, params))
+			if(SEND_SIGNAL(pot, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE))
 				playsound(src.loc, 'sound/items/Fish_out.ogg', 20, TRUE)
+				if(!pot.reagents.has_reagent(/datum/reagent/water, STEW_WATER_REQUIRED))
+					to_chat(user, span_warning("[pot] needs more water before anything will cook."))
+				else if(pot.reagents.chem_temp < STEW_TEMPERATURE)
+					to_chat(user, span_warning("[pot] isn't boiling yet."))
 				return TRUE
 	..()
 
@@ -630,7 +633,7 @@
 		if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
 			if(attachment.reagents)
 				attachment.reagents.expose_temperature(400, 0.033)
-				if(attachment.reagents.chem_temp > MIN_STEW_TEMPERATURE)
+				if(attachment.reagents.chem_temp > STEW_TEMPERATURE)
 					boilloop.start()
 				else
 					boilloop.stop()
@@ -850,7 +853,6 @@
 /obj/machinery/light/rogue/campfire/longlived
 	fueluse = 180 MINUTES
 
-#undef MIN_STEW_TEMPERATURE
 
 #undef DEEP_FRY_TIME
 #undef OIL_CONSUMED

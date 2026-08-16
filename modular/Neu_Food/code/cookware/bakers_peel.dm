@@ -314,13 +314,14 @@
 	for(var/obj/item/I as anything in stored_items())
 		if(!STR.remove_from_storage(I, get_turf(oven)))
 			continue
-		if(!SEND_SIGNAL(oven, COMSIG_TRY_STORAGE_INSERT, I, user, TRUE, FALSE, FALSE, null))
+		if(!SEND_SIGNAL(oven, COMSIG_TRY_STORAGE_INSERT, I, user, TRUE, FALSE))
 			STR.handle_item_insertion(I, TRUE)
 			break
 		count++
 	if(!count)
 		to_chat(user, span_warning("Nothing on [src] fits in [oven]."))
 		return TRUE
+	SEND_SIGNAL(oven, COMSIG_STORAGE_CLOSED, user)
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
 		oven.lastuser = H

@@ -975,12 +975,13 @@
  * - _temperature: The new temperature value.
  */
 /datum/reagents/proc/set_temperature(_temperature)
-	if(_temperature == chem_temp)
+	var/new_temperature = clamp(_temperature, 0, CHEMICAL_MAXIMUM_TEMPERATURE)
+	if(new_temperature == chem_temp)
 		return
 
 	. = chem_temp
-	chem_temp = clamp(_temperature, 0, CHEMICAL_MAXIMUM_TEMPERATURE)
-	SEND_SIGNAL(src, COMSIG_REAGENTS_TEMP_CHANGE, _temperature, .)
+	chem_temp = new_temperature
+	SEND_SIGNAL(src, COMSIG_REAGENTS_TEMP_CHANGE, new_temperature, .)
 
 /datum/reagents/proc/expose_temperature(temperature, coeff=0.02)
 	if(istype(my_atom,/obj/item/reagent_containers))
@@ -988,11 +989,12 @@
 		if(RCs.reagent_flags & NO_REACT) //stasis holders IE cryobeaker
 			return
 	var/temp_delta = (temperature - chem_temp) * coeff
+	var/new_temperature
 	if(temp_delta > 0)
-		chem_temp = min(chem_temp + max(temp_delta, 1), temperature)
+		new_temperature = min(chem_temp + max(temp_delta, 1), temperature)
 	else
-		chem_temp = max(chem_temp + min(temp_delta, -1), temperature)
-	set_temperature(round(chem_temp))
+		new_temperature = max(chem_temp + min(temp_delta, -1), temperature)
+	set_temperature(round(new_temperature))
 	for(var/i in reagent_list)
 		var/datum/reagent/R = i
 		R.on_temp_change()

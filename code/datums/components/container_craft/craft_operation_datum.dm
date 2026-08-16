@@ -61,15 +61,11 @@
 	var/list/wildcard_paths = list()
 	for(var/path in recipe.wildcard_requirements)
 		wildcard_paths[path] = recipe.wildcard_requirements[path]
-	for(var/path in recipe.optional_wildcard_requirements)
-		wildcard_paths[path] = recipe.optional_wildcard_requirements[path]
 
 	// Build list of all requirements
 	var/list/all_requirements = list()
 	for(var/path in recipe.requirements)
 		all_requirements[path] = recipe.requirements[path]
-	for(var/path in recipe.optional_requirements)
-		all_requirements[path] = recipe.optional_requirements[path]
 	for(var/path in wildcard_paths)
 		all_requirements[path] = wildcard_paths[path]
 
