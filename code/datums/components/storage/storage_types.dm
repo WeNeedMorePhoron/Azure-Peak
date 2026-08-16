@@ -75,6 +75,7 @@
 	allow_dump_out = TRUE
 	click_gather = TRUE
 	attack_hand_interact = FALSE
+	insert_verb = "slide"
 	insert_preposition = "on"
 	rustle_sound = 'sound/items/gems (1).ogg'
 
@@ -183,6 +184,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /datum/component/storage/concrete/tray
+	insert_verb = "place"
 	insert_preposition = "on"
 	max_w_class = WEIGHT_CLASS_NORMAL
 	screen_max_rows = 3
