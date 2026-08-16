@@ -1351,6 +1351,10 @@
 /obj/item/rogueweapon/eaglebeak/lucerne,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/indoors)
+"IF" = (
+/obj/structure/bakers_trough,
+/turf/open/floor/rogue/blocks/stonered/tiny,
+/area/rogue/indoors)
 "IJ" = (
 /obj/structure/table/vtable,
 /turf/open/floor/carpet/royalblack,
@@ -1556,6 +1560,7 @@
 "OQ" = (
 /obj/structure/table/cooling,
 /obj/item/flint,
+/obj/item/rogueweapon/bakers_peel,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors)
 "Pc" = (
@@ -2522,7 +2527,7 @@ dB
 AO
 zo
 Ut
-lb
+IF
 lY
 OQ
 xf
