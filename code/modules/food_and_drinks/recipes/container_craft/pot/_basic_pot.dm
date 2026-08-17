@@ -15,7 +15,19 @@
 	var/pollute_amount = 600
 	///our required boiling temperature
 	var/required_chem_temp = STEW_TEMPERATURE
+	///only used by subtypes that make an item rather than a reagent
+	var/datum/pollutant/cooked_smell
 	cooking_sound = /datum/looping_sound/boilloop
+
+/datum/container_craft/cooking/after_craft(atom/created_output, obj/item/crafter, mob/initiator, list/removing_items)
+	. = ..()
+	if(!created_output)
+		return
+	if(cooked_smell)
+		created_output.AddComponent(/datum/component/temporary_pollution_emission, cooked_smell, 20, 5 MINUTES)
+
+	for(var/obj/item/reagent_containers/food/snacks/item in removing_items)
+		item.initialize_cooked_food(created_output, 1)
 
 /datum/container_craft/cooking/try_craft(obj/item/crafter, list/pathed_items, mob/initiator, datum/callback/on_craft_start, datum/callback/on_craft_failed)
 	if(!crafter.reagents || crafter.reagents.chem_temp < required_chem_temp)

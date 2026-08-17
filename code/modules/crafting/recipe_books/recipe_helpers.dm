@@ -303,10 +303,6 @@
 		var/atom/s = sliced
 		var/count = initial(proto.slices_num) || 1
 		parts += "slices into [count] x [initial(s.name)]"
-	var/dfried = initial(proto.deep_fried_type)
-	if(dfried && dfried != path)
-		var/atom/d = dfried
-		parts += "deep fries into [initial(d.name)]"
 	if(!length(parts))
 		return ""
 	return "<br>Becomes: [parts.Join("; ")]."

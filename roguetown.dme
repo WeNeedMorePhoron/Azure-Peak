@@ -2001,6 +2001,7 @@
 #include "code\modules\food_and_drinks\recipes\container_craft\pan\pan.dm"
 #include "code\modules\food_and_drinks\recipes\container_craft\pot\_basic_pot.dm"
 #include "code\modules\food_and_drinks\recipes\container_craft\pot\boiled.dm"
+#include "code\modules\food_and_drinks\recipes\container_craft\pot\deepfried.dm"
 #include "code\modules\food_and_drinks\recipes\container_craft\pot\pot.dm"
 #include "code\modules\food_and_drinks\recipes\food_mixtures.dm"
 #include "code\modules\holiday\holidays.dm"
