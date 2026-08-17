@@ -2,7 +2,7 @@
 	abstract_type = /datum/container_craft/pan
 	required_container = /obj/item/cooking/pan
 	crafting_time = 30 SECONDS
-	category = "Pan"
+	category = FOOD_CAT_PAN
 	cook_method = COOK_FRY
 
 	var/datum/pollutant/cooked_smell

@@ -6,7 +6,7 @@
 #define FOOD_CAT_EGGS "Eggs"
 #define FOOD_CAT_SEAFOOD "Seafood"
 #define FOOD_CAT_DRYING "Drying Rack"
-#define FOOD_CAT_STEW "Stews"
+#define FOOD_CAT_STEW "Stew"
 #define FOOD_CAT_DEEPFRIED "Deep Fried"
 #define FOOD_CAT_BOILED "Boiled"
 #define FOOD_CAT_PIES "Pies"

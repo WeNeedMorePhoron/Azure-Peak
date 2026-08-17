@@ -41,8 +41,6 @@
 		category = r.category
 	else if(ispath(path, /datum/food_recipe))
 		category = initial(path:book_category)
-	else if(ispath(path, /datum/stew_recipe))
-		category = FOOD_CAT_STEW
 	else if(ispath(path, /datum/container_craft))
 		var/datum/container_craft/r = GLOB.container_craft_to_singleton[path]
 		category = r?.category
@@ -185,11 +183,6 @@
 		temp_recipe = new path()
 		var/datum/food_recipe/r = temp_recipe
 		recipe_name = initial(r.name)
-		recipe_html = r.generate_html(user)
-	else if(ispath(path, /datum/stew_recipe))
-		temp_recipe = new path()
-		var/datum/stew_recipe/r = temp_recipe
-		recipe_name = r.name
 		recipe_html = r.generate_html(user)
 	else if(ispath(path, /datum/container_craft))
 		var/datum/container_craft/r = GLOB.container_craft_to_singleton[path]

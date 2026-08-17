@@ -1,6 +1,6 @@
 /datum/container_craft/cooking
 	abstract_type = /datum/container_craft/cooking
-	category = "Pot"
+	category = FOOD_CAT_STEW
 	crafting_time = 60 SECONDS
 	reagent_requirements = list(
 		/datum/reagent/water = STEW_WATER_REQUIRED

@@ -2,7 +2,7 @@
 	abstract_type = /datum/container_craft/oven
 	required_container = /obj/machinery/light/rogue/oven
 	crafting_time = 60 SECONDS
-	category = "Oven"
+	category = FOOD_CAT_OVEN
 	cook_method = COOK_BAKE
 
 	var/datum/pollutant/cooked_smell
