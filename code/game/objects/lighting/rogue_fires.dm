@@ -1,7 +1,5 @@
 #define DEEP_FRY_TIME 5 SECONDS // Default deep fry time
 #define OIL_CONSUMED 5 // Amount of oil consumed per deep fry (1 fat = 4 fry)
-#define BOILING_TIME 5 SECONDS // Default boiling time
-#define WATER_CONSUMED 5
 
 /obj/machinery/light/rogue/firebowl
 	name = "brazier"
@@ -527,7 +525,7 @@
 					if(!pot.reagents.has_reagent(/datum/reagent/consumable/oil/tallow, OIL_CONSUMED))
 						to_chat(user, span_notice("Not enough tallow."))
 						return
-					if(pot.reagents.has_reagent(/datum/reagent/water) && S.deep_fried_type && !S.boiled_type)
+					if(pot.reagents.has_reagent(/datum/reagent/water))
 						to_chat(user, span_warning("You can't deep fry in a pot with water!"))
 						return
 					if(do_after(user, DEEP_FRY_TIME / cooktime_divisor, target = src))
@@ -536,14 +534,6 @@
 						new S.deep_fried_type(src.loc)
 						qdel(S)
 						pot.reagents.remove_reagent(/datum/reagent/consumable/oil/tallow, OIL_CONSUMED)
-						return
-				if(pot.reagents.has_reagent(/datum/reagent/water) && S.boiled_type)
-					if(do_after(user, BOILING_TIME / cooktime_divisor, target = src))
-						user.visible_message(span_info("[user] boils [S] in the pot.</span>"))
-						add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-						new S.boiled_type(src.loc)
-						qdel(S)
-						pot.reagents.remove_reagent(/datum/reagent/water, WATER_CONSUMED)
 						return
 			if(SEND_SIGNAL(pot, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE))
 				playsound(src.loc, 'sound/items/Fish_out.ogg', 20, TRUE)
@@ -856,5 +846,3 @@
 
 #undef DEEP_FRY_TIME
 #undef OIL_CONSUMED
-#undef BOILING_TIME
-#undef WATER_CONSUMED

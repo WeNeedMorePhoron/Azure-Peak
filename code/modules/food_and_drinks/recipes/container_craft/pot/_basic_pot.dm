@@ -59,6 +59,8 @@
 	crafter.visible_message(span_warning("[crafter] goes off the boil."))
 
 /datum/container_craft/cooking/extra_html()
+	if(!created_reagent)
+		return
 	var/html
 	var/datum/reagent/first = reagent_requirements[1]
 	var/result_amount = reagent_requirements[first]
