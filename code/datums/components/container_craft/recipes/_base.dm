@@ -2,6 +2,7 @@
 GLOBAL_LIST_EMPTY(active_container_crafts)
 GLOBAL_LIST_INIT(container_craft_to_singleton, init_container_crafts())
 GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
+GLOBAL_LIST_INIT(container_craft_book_groups, init_container_craft_book_groups())
 
 /proc/init_container_crafts()
 	var/list/recipes = list()
@@ -29,6 +30,20 @@ GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 			continue
 		by_input[input] = recipe
 	return index
+
+/proc/init_container_craft_book_groups()
+	var/list/groups = list()
+	for(var/recipe_type in GLOB.container_craft_to_singleton)
+		var/datum/container_craft/recipe = GLOB.container_craft_to_singleton[recipe_type]
+		if(recipe.hides_from_books)
+			continue
+		var/key = recipe.book_group_key()
+		var/list/members = groups[key]
+		if(!members)
+			members = list()
+			groups[key] = members
+		members += recipe_type
+	return groups
 
 /proc/get_cook_recipe(input_type, cook_method)
 	var/list/by_input = GLOB.container_craft_by_method[cook_method]
@@ -353,6 +368,18 @@ GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 		line += " <i>(or anything of the kind)</i>"
 	return line + "</li>"
 
+/// Group recipes that makes the same products together
+/datum/container_craft/proc/book_group_key()
+	return "[required_container]|[name]"
+
+/datum/container_craft/proc/book_group()
+	var/list/members = GLOB.container_craft_book_groups[book_group_key()]
+	return length(members) ? members : list(type)
+
+/datum/container_craft/proc/is_book_canonical()
+	var/list/members = book_group()
+	return members[1] == type
+
 /datum/container_craft/proc/generate_html(mob/user)
 	var/atom/vessel = required_container
 	var/html = "<h2>[name]</h2>"
@@ -360,19 +387,31 @@ GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 	if(vessel)
 		html += "<p>Prepared in a [lowertext(initial(vessel.name))].</p>"
 
-	if(length(requirements) || length(wildcard_requirements) || length(reagent_requirements))
-		html += "<p>Needs:</p><ul>"
-		for(var/path in requirements)
-			html += ingredient_html(user, path, requirements[path])
-		for(var/path in wildcard_requirements)
-			html += ingredient_html(user, path, wildcard_requirements[path], TRUE)
+	var/list/members = book_group()
+	var/list/alternatives = list()
+	for(var/member_type as anything in members)
+		var/datum/container_craft/member = GLOB.container_craft_to_singleton[member_type]
+		if(!member)
+			continue
+		for(var/path in member.requirements)
+			alternatives |= ingredient_html(user, path, member.requirements[path])
+		for(var/path in member.wildcard_requirements)
+			alternatives |= ingredient_html(user, path, member.wildcard_requirements[path], TRUE)
+
+	if(length(alternatives))
+		html += length(alternatives) > 1 ? "<p>Needs any one of:</p><ul>" : "<p>Needs:</p><ul>"
+		html += alternatives.Join("")
+		html += "</ul>"
+
+	if(length(reagent_requirements))
+		html += "<p>Plus:</p><ul>"
 		for(var/datum/reagent/path as anything in reagent_requirements)
 			html += "<li>[reagent_requirements[path]]dr of [initial(path.name)]</li>"
 		html += "</ul>"
 
 	var/extra = extra_html()
 	if(extra)
-		html += "<p>Yields:</p><p>[extra]</p>"
+		html += "<p>Yields [extra]</p>"
 	else if(output)
 		var/atom/result = output
 		html += "<p>Yields [output_amount > 1 ? "[output_amount] &times; " : ""][initial(result.name)].</p>"

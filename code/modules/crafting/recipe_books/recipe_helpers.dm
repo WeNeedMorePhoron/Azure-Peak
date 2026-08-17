@@ -96,6 +96,9 @@
 		var/datum/container_craft/recipe = path
 		if(initial(recipe.hides_from_books))
 			return TRUE
+		var/datum/container_craft/singleton = GLOB.container_craft_to_singleton[path]
+		if(singleton && !singleton.is_book_canonical())
+			return TRUE
 	return FALSE
 
 /proc/gather_recipe_categories(list/types)

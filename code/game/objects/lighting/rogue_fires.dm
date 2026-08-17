@@ -528,6 +528,9 @@
 					if(pot.reagents.has_reagent(/datum/reagent/water))
 						to_chat(user, span_warning("You can't deep fry in a pot with water!"))
 						return
+					if(pot.reagents.chem_temp < STEW_TEMPERATURE)
+						to_chat(user, span_warning("[pot] isn't hot enough to fry anything."))
+						return
 					if(do_after(user, DEEP_FRY_TIME / cooktime_divisor, target = src))
 						user.visible_message(span_info("[user] deep fries [S] in the pot.</span>"))
 						add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
