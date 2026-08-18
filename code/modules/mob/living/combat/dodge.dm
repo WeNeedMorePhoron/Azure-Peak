@@ -235,7 +235,7 @@
 			prob2defend -= 40
 			ignore_DE_bonus = TRUE
 
-		if(has_status_effect(user, /datum/status_effect/debuff/hamstring))
+		if(UH.has_status_effect(/datum/status_effect/debuff/hamstring))
 			prob2defend -= 20
 			ignore_DE_bonus = TRUE
 
