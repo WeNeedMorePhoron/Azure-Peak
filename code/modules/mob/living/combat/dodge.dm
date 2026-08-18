@@ -235,6 +235,10 @@
 			prob2defend -= 40
 			ignore_DE_bonus = TRUE
 
+		if(has_status_effect(user, /datum/status_effect/debuff/hamstring))
+			prob2defend -= 20
+			ignore_DE_bonus = TRUE
+
 		// dodging while knocked down sucks ass
 		if(!(L.mobility_flags & MOBILITY_STAND))
 			prob2defend *= 0.25
