@@ -52,9 +52,12 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 			if(!result || result == snack)
 				continue
 
+			var/list/synth_requirements = list()
+			synth_requirements[snack] = 1
+
 			var/datum/container_craft/synth = new base
 			synth.name = initial(result.name)
-			synth.requirements = list(snack = 1)
+			synth.requirements = synth_requirements
 			synth.output = result
 			synth.cooked_smell = initial(snack.cooked_smell)
 			var/item_cooktime = initial(snack.cooktime)

@@ -1,3 +1,4 @@
+#define FAN_PROGRESS_BONUS 2 SECONDS // Flat craft progress granted per fan
 #define DEEP_FRY_TIME 5 SECONDS // Default deep fry time
 #define OIL_CONSUMED 5 // Amount of oil consumed per deep fry (1 fat = 4 fry)
 
@@ -476,15 +477,17 @@
 /obj/machinery/light/rogue/hearth/attack_right(mob/user)
 	var/datum/skill/craft/cooking/cs = user?.get_skill_level(/datum/skill/craft/cooking)
 	var/cooktime_divisor = get_cooktime_divisor(cs)
+	var/fan_time = 2 SECONDS / cooktime_divisor
 	if(!on)
 		to_chat(user, span_notice("[src] is not lit."))
 		return
-	while(do_after(user, 2 SECONDS / cooktime_divisor, target = src))
+	while(do_after(user, fan_time, target = src))
 		if(!on)
 			to_chat(user, span_notice("[src] is no longer lit."))
 			return
 		to_chat(user, span_info("I fan the flame on [src].")) // Until line combine is on by default gotta do this to avoid spam
 		try_cook()
+		fan_crafts(FAN_PROGRESS_BONUS)
 
 /obj/machinery/light/rogue/hearth/attackby(obj/item/W, mob/living/user, params)
 	var/datum/skill/craft/cooking/cs = user?.get_skill_level(/datum/skill/craft/cooking)
@@ -631,6 +634,14 @@
 				else
 					boilloop.stop()
 	update_icon()
+
+/obj/machinery/light/rogue/hearth/proc/fan_crafts(amount)
+	if(!attachment || amount <= 0)
+		return
+	for(var/datum/container_craft_operation/operation in GLOB.active_container_crafts.Copy())
+		if(QDELETED(operation) || operation.crafter != attachment)
+			continue
+		operation.add_progress(amount)
 
 /obj/machinery/light/rogue/hearth/onkick(mob/user)
 	if(isliving(user) && on)
@@ -847,5 +858,6 @@
 	fueluse = 180 MINUTES
 
 
+#undef FAN_PROGRESS_BONUS
 #undef DEEP_FRY_TIME
 #undef OIL_CONSUMED
