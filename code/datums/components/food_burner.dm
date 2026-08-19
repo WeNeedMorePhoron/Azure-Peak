@@ -65,6 +65,9 @@
  * Process tick for checking if foods need to progress burning
  */
 /datum/component/food_burner/process()
+	if(!length(tracked_foods))
+		return
+
 	// Skip processing if the can_burn callback returns false
 	if(can_burn && !can_burn.Invoke())
 		return

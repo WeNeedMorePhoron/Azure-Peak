@@ -85,6 +85,7 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 		var/datum/container_craft/recipe = GLOB.container_craft_to_singleton[key]
 		if(ispath(recipe.type, root))
 			members += key
+	members = sortList(members, GLOBAL_PROC_REF(cmp_container_craft_specificity))
 	GLOB.container_craft_family_cache[root] = members
 	return members
 

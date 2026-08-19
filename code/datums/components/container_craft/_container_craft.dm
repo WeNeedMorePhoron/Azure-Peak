@@ -32,9 +32,6 @@
 		else
 			fallback_recipe_types += recipe
 
-	viable_recipe_types = sortList(viable_recipe_types, GLOBAL_PROC_REF(cmp_container_craft_specificity))
-	fallback_recipe_types = sortList(fallback_recipe_types, GLOBAL_PROC_REF(cmp_container_craft_specificity))
-
 	on_craft_start = start
 	on_craft_failed = fail
 	on_craft_finished = success
