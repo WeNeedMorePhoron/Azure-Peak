@@ -32,7 +32,7 @@
 	. += span_info("Anything inside bakes on its own so long as the oven is lit, and several of the same ingredient bake together in one batch. Letting the fire die stops the baking.")
 	. += span_info("Once an item is fully baked, it will visibly change and emit a good smell. This includes fireable crafts, such as clay vases and jugs. Don't think too much about the implications.")
 	. += span_info("Leaving a fully baked item inside of the oven for too long will cause it to burn away.")
-	. += span_info("Left-clicking the <b>top</b> with a tray removes everything it can carries at once.")
+	. += span_info("Left-clicking the <b>top</b> with a loaded tray slides everything bakeable inside. An empty tray gathers everything at once.")
 
 /obj/machinery/light/rogue/oven/attackby(obj/item/W, mob/living/user, params)
 	lastuser = user
@@ -43,6 +43,8 @@
 
 	if(clicked_top)
 		if(istype(W, /obj/item/storage/bag/tray))
+			if(length(W.contents))
+				return load_from(W, user)
 			return unload_into(W, user)
 		if((W.item_flags & ABSTRACT) || HAS_TRAIT(W, TRAIT_NODROP))
 			return ..()
@@ -53,6 +55,38 @@
 			update_icon()
 			return TRUE
 	return ..()
+
+/obj/machinery/light/rogue/oven/proc/load_from(atom/receptacle, mob/user)
+	var/datum/component/storage/origin = receptacle.GetComponent(/datum/component/storage)
+	if(!origin)
+		return FALSE
+	var/list/obj/item/to_load = list()
+	for(var/obj/item/I in receptacle.contents)
+		to_load += I
+	if(!length(to_load))
+		to_chat(user, span_warning("[receptacle] is empty."))
+		return TRUE
+	var/count = 0
+	for(var/obj/item/I as anything in to_load)
+		if(I.wlength > WLENGTH_NORMAL)
+			continue
+		if(!origin.remove_from_storage(I, get_turf(src)))
+			continue
+		if(!SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, I, user, TRUE, FALSE))
+			origin.handle_item_insertion(I, TRUE)
+			continue
+		count++
+	if(!count)
+		to_chat(user, span_warning("Nothing on [receptacle] fits in [src]."))
+		return TRUE
+	SEND_SIGNAL(src, COMSIG_STORAGE_CLOSED, user)
+	var/mob/living/carbon/human/H = user
+	if(istype(H))
+		lastuser = H
+	update_icon()
+	user.visible_message(span_info("[user] slides [count] item[count == 1 ? "" : "s"] from [receptacle] into [src]."), span_info("I slide [count] item[count == 1 ? "" : "s"] from [receptacle] into [src]."))
+	playsound(get_turf(src), 'sound/items/wood_sharpen.ogg', 50)
+	return TRUE
 
 /obj/machinery/light/rogue/oven/proc/can_unload_item(obj/item/I, datum/component/storage/destination)
 	if(QDELETED(I) || I.anchored)
@@ -184,16 +218,3 @@
 	else
 		return ..()
 
-/obj/machinery/light/rogue/oven/attack_right(mob/user)
-	var/obj/item/held = user.get_active_held_item()
-	var/obj/item/rogueweapon/bakers_peel/peel
-	if(istype(held, /obj/item/rogueweapon/bakers_peel))
-		peel = held
-		if(peel.insert_into_oven(src, user))
-			return TRUE
-	held = user.get_inactive_held_item()
-	if(istype(held, /obj/item/rogueweapon/bakers_peel))
-		peel = held
-		if(peel.insert_into_oven(src, user))
-			return TRUE
-	return ..()

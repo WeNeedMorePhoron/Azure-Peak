@@ -193,6 +193,7 @@
 	allow_quick_empty = TRUE
 	allow_dump_out = TRUE
 	dump_time = 40
+	click_gather = TRUE
 	collection_mode = COLLECT_SAME
 
 /datum/component/storage/concrete/tray/spill_contents(obj/A)

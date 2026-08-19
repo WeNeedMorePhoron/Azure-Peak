@@ -23,7 +23,8 @@
 
 /obj/item/storage/bag/tray/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_info("Left-click the top of an oven to pull out everything on the tray. Left-click a table to empty the tray onto it.")
+	. += span_info("Left-click a food item or utensils with a tray to sweep every valid items onto the tray at once.")
+	. += span_info("Left-click the top of an oven with a loaded tray to slide everything bakeable inside; an empty tray gathers everything out. Left-click a table to empty the tray onto it.")
 
 /obj/item/storage/bag/tray/psy
 	name = "tray"
