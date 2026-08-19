@@ -1560,7 +1560,7 @@
 "OQ" = (
 /obj/structure/table/cooling,
 /obj/item/flint,
-/obj/item/rogueweapon/bakers_peel,
+/obj/item/storage/bag/tray,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors)
 "Pc" = (
