@@ -72,13 +72,14 @@
 	if(!target_turf || target_turf.density || !user.CanReach(target_turf))
 		to_chat(user, span_warning("I need some room to to flip the content of [src] onto."))
 		return
+	var/obj/item/storage/bag/tray/tray = locate() in target_turf
 	var/obj/structure/table/table = locate() in target_turf
 	var/count = flip_onto(target_turf)
 	if(!count)
 		return
 	update_icon()
 	user.update_inv_hands()
-	user.visible_message(span_info("[user] flips [src], sending [count] item[count == 1 ? "" : "s"] tumbling onto [table || target_turf]."), span_info("I flip [src], sending [count] item[count == 1 ? "" : "s"] tumbling onto [table || target_turf]."))
+	user.visible_message(span_info("[user] flips [src], sending [count] item[count == 1 ? "" : "s"] tumbling onto [tray || table || target_turf]."), span_info("I flip [src], sending [count] item[count == 1 ? "" : "s"] tumbling onto [tray || table || target_turf]."))
 	playsound(user, 'sound/foley/dropsound/shovel_drop.ogg', 40, TRUE, -1)
 
 /obj/item/cooking/pan/proc/flip_onto(turf/target_turf)
@@ -86,24 +87,33 @@
 	if(!length(tumbling))
 		return 0
 	var/turf/source_turf = get_turf(src)
+	var/obj/item/storage/bag/tray/tray = locate() in target_turf
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_QUICK_EMPTY, target_turf)
 	var/count = 0
 	for(var/obj/item/item as anything in tumbling)
 		if(item.loc != target_turf)
 			continue
 		count++
-		animate_tumble(item, source_turf, target_turf, count)
+		animate_tumble(item, source_turf, target_turf)
+		if(tray)
+			addtimer(CALLBACK(src, PROC_REF(land_on_tray), item, tray), 0.4 SECONDS)
 	return count
 
-/obj/item/cooking/pan/proc/animate_tumble(obj/item/item, turf/source_turf, turf/target_turf, delay)
+/obj/item/cooking/pan/proc/land_on_tray(obj/item/item, obj/item/storage/bag/tray/tray)
+	if(QDELETED(item) || QDELETED(tray))
+		return
+	if(item.loc != tray.loc)
+		return
+	SEND_SIGNAL(tray, COMSIG_TRY_STORAGE_INSERT, item, null, TRUE, FALSE)
+
+/obj/item/cooking/pan/proc/animate_tumble(obj/item/item, turf/source_turf, turf/target_turf)
 	var/final_x = initial(item.pixel_x) + rand(-8, 8)
 	var/final_y = initial(item.pixel_y) + rand(-8, 8)
 	var/start_x = final_x + ((source_turf.x - target_turf.x) * world.icon_size)
 	var/start_y = final_y + ((source_turf.y - target_turf.y) * world.icon_size)
 	item.pixel_x = start_x
 	item.pixel_y = start_y
-	animate(item, time = delay, flags = ANIMATION_PARALLEL)
-	animate(pixel_x = final_x + ((start_x - final_x) * 0.5), pixel_y = max(start_y, final_y) + 14, time = 0.2 SECONDS, easing = SINE_EASING | EASE_OUT)
+	animate(item, pixel_x = final_x + ((start_x - final_x) * 0.5), pixel_y = max(start_y, final_y) + 14, time = 0.2 SECONDS, easing = SINE_EASING | EASE_OUT, flags = ANIMATION_PARALLEL)
 	animate(pixel_x = final_x, pixel_y = final_y, time = 0.2 SECONDS, easing = SINE_EASING | EASE_IN)
 
 /obj/item/cooking/pan/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
@@ -139,7 +149,7 @@
 	. += span_info("As long as the hearth is lit, everything in the pan will cook at once. Take it off the pan to stop the cooking.")
 	. += span_info("Meats, cackleberries, and sliced vegetables are the ideal choices for frying. Other ingredients and recipes might require the gentle caress of an oven, instead.")
 	. += span_info("Leaving a fully fried item on a lit hearth for too long will cause it to burn away.")
-	. += span_info("Use a loaded pan in your hand outside of combat mode to flip it, throwing everything on it onto the table or tile you're facing. You need Journeyman skill in cooking or above.")
+	. += span_info("Use a loaded pan in your hand outside of combat mode to flip it, throwing everything on it onto the table or tile you're facing. If a tray is there, the food lands on the tray instead. You need Journeyman skill in Cooking or above.")
 	. += span_info("You can twirl [src] by right-clicking it in your hand while in combat mode. Doing so safely requires Expert skill; anything less risks harming yourself.")
 
 /datum/intent/mace/strike/pan
