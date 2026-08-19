@@ -51,12 +51,15 @@
 		if(length(recipe_links))
 			prep += "This could be used to prepare: [recipe_links.Join(", ")]."
 
-	if(cooked_type)
-		var/obj/item/CT = cooked_type
-		prep += "Ready to be <b>cooked</b> into [initial(CT.name)]."
-	if(fried_type)
-		var/obj/item/FT = fried_type
-		prep += "Ready to be <b>fried</b> into [initial(FT.name)]."
+	var/obj/item/baked_target = (cooked_type != type) ? cooked_type : null
+	var/obj/item/fried_target = (fried_type != type) ? fried_type : null
+	if(baked_target && baked_target == fried_target)
+		prep += "Ready to be <b>cooked</b> into [initial(baked_target.name)] in an oven or pan."
+	else
+		if(baked_target)
+			prep += "Ready to be <b>baked</b> into [initial(baked_target.name)] in an oven."
+		if(fried_target)
+			prep += "Ready to be <b>fried</b> into [initial(fried_target.name)] in a pan."
 	if(slice_path)
 		var/obj/item/ST = slice_path
 		prep += "Ready to be <b>sliced</b> into [initial(ST.name)]."
