@@ -142,6 +142,14 @@
 	if(progress >= target_time)
 		complete_craft()
 
+/datum/container_craft_operation/proc/add_progress(amount)
+	if(aborted || amount <= 0)
+		return
+	progress += amount
+	last_progress_time = world.time
+	if(progress >= target_time)
+		complete_craft()
+
 /**
  * Completes the crafting operation successfully
  */
