@@ -20,7 +20,7 @@
 /obj/item/reagent_containers/glass/bucket/pot/Initialize()
 	. = ..()
 	AddComponent(/datum/component/storage/concrete/grid/food/cooking/pot)
-	AddComponent(/datum/component/container_craft, subtypesof(/datum/container_craft/cooking), TRUE)
+	AddComponent(/datum/component/container_craft, get_container_craft_family(/datum/container_craft/cooking), TRUE)
 
 /obj/item/reagent_containers/glass/bucket/get_mechanics_examine(mob/user)
 	. = ..()

@@ -4,8 +4,9 @@
 	crafting_time = 30 SECONDS
 	category = FOOD_CAT_PAN
 	cook_method = COOK_FRY
+	hides_from_books = TRUE
+	synthesize_recipes = TRUE
 
-	var/datum/pollutant/cooked_smell
 	cooking_sound = /datum/looping_sound/frying
 
 /datum/container_craft/pan/get_real_time(atom/host, mob/user, estimated_multiplier)

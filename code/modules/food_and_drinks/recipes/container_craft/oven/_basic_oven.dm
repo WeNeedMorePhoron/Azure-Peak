@@ -4,8 +4,9 @@
 	crafting_time = 60 SECONDS
 	category = FOOD_CAT_OVEN
 	cook_method = COOK_BAKE
+	hides_from_books = TRUE
+	synthesize_recipes = TRUE
 
-	var/datum/pollutant/cooked_smell
 
 /datum/container_craft/oven/proc/lit_oven(atom/crafter)
 	var/obj/machinery/light/rogue/oven/oven = crafter

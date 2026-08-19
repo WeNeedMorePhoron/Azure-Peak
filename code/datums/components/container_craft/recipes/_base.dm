@@ -3,6 +3,7 @@ GLOBAL_LIST_EMPTY(active_container_crafts)
 GLOBAL_LIST_INIT(container_craft_to_singleton, init_container_crafts())
 GLOBAL_LIST_INIT(container_craft_by_method, init_container_craft_method_index())
 GLOBAL_LIST_INIT(container_craft_book_groups, init_container_craft_book_groups())
+GLOBAL_LIST_EMPTY(container_craft_family_cache)
 
 /proc/init_container_crafts()
 	var/list/recipes = list()
@@ -11,7 +12,56 @@ GLOBAL_LIST_INIT(container_craft_book_groups, init_container_craft_book_groups()
 			continue
 		recipes |= craft
 		recipes[craft] = new craft
+	synthesize_container_crafts(recipes)
 	return recipes
+
+/// What an item becomes under a given cook method. Mirrors set_cook_handoff.
+/proc/get_item_cook_result(snack_type, method)
+	var/obj/item/reagent_containers/food/snacks/proto = snack_type
+	switch(method)
+		if(COOK_BAKE)
+			return initial(proto.cooked_type)
+		if(COOK_FRY)
+			return initial(proto.fried_type)
+		if(COOK_DEEPFRY)
+			return initial(proto.deep_fried_type)
+	return null
+
+/proc/synthesize_container_crafts(list/recipes)
+	for(var/datum/container_craft/base as anything in subtypesof(/datum/container_craft))
+		if(initial(base.abstract_type) != base || !initial(base.synthesize_recipes))
+			continue
+
+		var/method = initial(base.cook_method)
+		if(!method)
+			continue
+
+		var/list/covered = list()
+		for(var/declared as anything in subtypesof(base))
+			var/datum/container_craft/recipe = recipes[declared]
+			if(!recipe)
+				continue
+			for(var/path in recipe.requirements)
+				covered[path] = TRUE
+			for(var/path in recipe.wildcard_requirements)
+				covered[path] = TRUE
+
+		for(var/obj/item/reagent_containers/food/snacks/snack as anything in subtypesof(/obj/item/reagent_containers/food/snacks))
+			if(is_abstract(snack) || covered[snack])
+				continue
+			var/atom/result = get_item_cook_result(snack, method)
+			if(!result || result == snack)
+				continue
+
+			var/datum/container_craft/synth = new base
+			synth.name = initial(result.name)
+			synth.requirements = list(snack = 1)
+			synth.output = result
+			synth.cooked_smell = initial(snack.cooked_smell)
+			var/item_cooktime = initial(snack.cooktime)
+			if(item_cooktime)
+				synth.crafting_time = item_cooktime
+			recipes[synth] = synth
 
 /proc/init_container_craft_method_index()
 	var/list/index = list()
@@ -44,6 +94,18 @@ GLOBAL_LIST_INIT(container_craft_book_groups, init_container_craft_book_groups()
 			groups[key] = members
 		members += recipe_type
 	return groups
+
+/proc/get_container_craft_family(root)
+	var/list/cached = GLOB.container_craft_family_cache[root]
+	if(cached)
+		return cached
+	var/list/members = list()
+	for(var/key in GLOB.container_craft_to_singleton)
+		var/datum/container_craft/recipe = GLOB.container_craft_to_singleton[key]
+		if(ispath(recipe.type, root))
+			members += key
+	GLOB.container_craft_family_cache[root] = members
+	return members
 
 /proc/get_cook_recipe(input_type, cook_method)
 	var/list/by_input = GLOB.container_craft_by_method[cook_method]
@@ -81,6 +143,10 @@ GLOBAL_LIST_INIT(container_craft_book_groups, init_container_craft_book_groups()
 
 	///COOK_FRY, COOK_BAKE, COOK_BOIL or COOK_DEEPFRY. Lets non-container heat sources ask what this ingredient turns into.
 	var/cook_method
+	///families where a one-to-one transform is described by the item instead of a recipe datum
+	var/synthesize_recipes = FALSE
+	///set on the output when the recipe makes an item
+	var/datum/pollutant/cooked_smell
 
 	var/cached_specificity
 

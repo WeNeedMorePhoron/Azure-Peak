@@ -29,7 +29,7 @@
 /obj/item/cooking/pan/Initialize()
 	. = ..()
 	AddComponent(/datum/component/storage/concrete/grid/food/cooking/pan)
-	AddComponent(/datum/component/container_craft, subtypesof(/datum/container_craft/pan))
+	AddComponent(/datum/component/container_craft, get_container_craft_family(/datum/container_craft/pan))
 	AddComponent(/datum/component/food_burner, 2 MINUTES, TRUE, CALLBACK(src, PROC_REF(can_burn)))
 
 /obj/item/cooking/pan/proc/can_burn()

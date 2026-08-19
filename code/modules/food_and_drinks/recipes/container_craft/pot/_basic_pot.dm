@@ -15,8 +15,6 @@
 	var/pollute_amount = 600
 	///our required boiling temperature
 	var/required_chem_temp = STEW_TEMPERATURE
-	///only used by subtypes that make an item rather than a reagent
-	var/datum/pollutant/cooked_smell
 	cooking_sound = /datum/looping_sound/boilloop
 
 /datum/container_craft/cooking/after_craft(atom/created_output, obj/item/crafter, mob/initiator, list/removing_items)
