@@ -1,124 +1,66 @@
 /datum/unit_test/container_craft_recipe_collisions
 /datum/unit_test/container_craft_recipe_collisions/Run()
 	var/list/recipes = list()
-	for(var/datum/container_craft/craft as anything in subtypesof(/datum/container_craft))
-		if(IS_ABSTRACT(craft))
-			continue
-		recipes += new craft
+	for(var/key in GLOB.container_craft_to_singleton)
+		recipes += GLOB.container_craft_to_singleton[key]
 
 	for(var/i in 1 to (recipes.len-1))
 		for(var/i2 in (i+1) to recipes.len)
 			var/datum/container_craft/r1 = recipes[i]
 			var/datum/container_craft/r2 = recipes[i2]
 			if(container_craft_recipes_do_conflict(r1, r2))
-				TEST_FAIL("Container craft recipe conflict between [r1.type] and [r2.type]")
+				TEST_FAIL("Container craft recipe conflict between [r1.type] ([r1.name]) and [r2.type] ([r2.name])")
 
+/**
+ * Two recipes conflict when one would fire on the other's ingredient set and the runtime
+ * would try it first. Families are sorted by get_specificity() descending, so a broader
+ * recipe only shadows a narrower one if it sorts at or before it.
+ */
 /proc/container_craft_recipes_do_conflict(datum/container_craft/r1, datum/container_craft/r2)
-	// Check if they require different containers - no conflict if so
 	if(r1.required_container != r2.required_container)
 		return FALSE
-
-	// Check isolation craft requirements - if both are isolation crafts, they could conflict
 	if(r1.isolation_craft != r2.isolation_craft)
 		return FALSE
-
 	if(r1.craft_priority != r2.craft_priority)
 		return FALSE
-
-	// Find the recipe with shorter and longer requirements lists
-	var/datum/container_craft/long_req
-	var/datum/container_craft/short_req
-	var/long_total_reqs = (r1.requirements?.len || 0) + (r1.wildcard_requirements?.len || 0) + (r1.reagent_requirements?.len || 0)
-	var/short_total_reqs = (r2.requirements?.len || 0) + (r2.wildcard_requirements?.len || 0) + (r2.reagent_requirements?.len || 0)
-
-	if(long_total_reqs > short_total_reqs)
-		long_req = r1
-		short_req = r2
-	else if(long_total_reqs < short_total_reqs)
-		long_req = r2
-		short_req = r1
-	else
-		long_req = r1
-		short_req = r2
-
-	// Check if shorter recipe's requirements are a subset of the longer recipe's requirements
-
-	// Check regular requirements
-	if(short_req.requirements && long_req.requirements)
-		for(var/req_type in short_req.requirements)
-			if(!(req_type in long_req.requirements))
-				return FALSE
-			if(long_req.requirements[req_type] < short_req.requirements[req_type])
-				return FALSE
-	else if(short_req.requirements?.len && !long_req.requirements?.len)
+	if(r1.handoff_craft != r2.handoff_craft)
 		return FALSE
 
-	// Check reagent requirements
-	if(short_req.reagent_requirements && long_req.reagent_requirements)
-		for(var/reagent_type in short_req.reagent_requirements)
-			var/found_reagent = FALSE
-			for(var/long_reagent_type in long_req.reagent_requirements)
-				if(reagent_type == long_reagent_type || (short_req.subtype_reagents_allowed && long_req.subtype_reagents_allowed && ispath(reagent_type, long_reagent_type)))
-					if(long_req.reagent_requirements[long_reagent_type] >= short_req.reagent_requirements[reagent_type])
-						found_reagent = TRUE
-						break
-			if(!found_reagent)
-				return FALSE
-	else if(short_req.reagent_requirements?.len && !long_req.reagent_requirements?.len)
-		return FALSE
-
-	// Check wildcard requirements - this needs to properly handle the wildcard matching
-	if(short_req.wildcard_requirements)
-		for(var/short_wildcard in short_req.wildcard_requirements)
-			var/short_amount = short_req.wildcard_requirements[short_wildcard]
-			var/satisfied_amount = 0
-
-			// Check if long_req has exact requirements that could satisfy this wildcard
-			if(long_req.requirements)
-				for(var/long_req_type in long_req.requirements)
-					if(ispath(long_req_type, short_wildcard))
-						satisfied_amount += long_req.requirements[long_req_type]
-
-			// Check if long_req has wildcards that could compete with this wildcard
-			if(long_req.wildcard_requirements)
-				for(var/long_wildcard in long_req.wildcard_requirements)
-					if(wildcards_could_compete(short_wildcard, long_wildcard))
-						satisfied_amount += long_req.wildcard_requirements[long_wildcard]
-
-			if(satisfied_amount < short_amount)
-				return FALSE
-	else if(short_req.wildcard_requirements?.len && !long_req.wildcard_requirements?.len && !long_req.requirements?.len)
-		return FALSE
-
-	// Check if both are isolation crafts with identical requirements - this would be a definite conflict
-	if(short_req.isolation_craft && long_req.isolation_craft)
-		// If we got this far, the shorter recipe's requirements are a subset of the longer one's
-		// For isolation crafts, this means they would conflict
+	var/spec1 = r1.get_specificity()
+	var/spec2 = r2.get_specificity()
+	if(spec1 >= spec2 && container_craft_shadows(r1, r2))
 		return TRUE
-
-	// If we got this far, the shorter recipe's requirements are a subset of the longer recipe's requirements
-	// This means the shorter recipe could trigger when trying to make the longer recipe
-	return TRUE
-
-// Helper proc to determine if two wildcard paths could compete for the same items
-/proc/wildcards_could_compete(wildcard1, wildcard2)
-	// If they're identical, they definitely compete
-	if(wildcard1 == wildcard2)
+	if(spec2 >= spec1 && container_craft_shadows(r2, r1))
 		return TRUE
-
-	// If one is a subtype of the other, they could compete
-	if(ispath(wildcard1, wildcard2) || ispath(wildcard2, wildcard1))
-		return TRUE
-
-	// Check if they have any common subtypes by examining the type hierarchy
-	// This is a simplified check - in practice, you might need more sophisticated logic
-	// depending on your specific type hierarchy
-	var/list/subtypes1 = subtypesof(wildcard1)
-	var/list/subtypes2 = subtypesof(wildcard2)
-
-	// Check if any subtypes overlap
-	for(var/type1 in subtypes1)
-		if(type1 in subtypes2)
-			return TRUE
-
 	return FALSE
+
+
+/proc/container_craft_shadows(datum/container_craft/broad, datum/container_craft/narrow)
+	for(var/req_type in broad.requirements)
+		if(!narrow.requirements || !(req_type in narrow.requirements))
+			return FALSE
+		if(narrow.requirements[req_type] < broad.requirements[req_type])
+			return FALSE
+
+	for(var/reagent_type in broad.reagent_requirements)
+		var/found_reagent = FALSE
+		for(var/narrow_reagent_type in narrow.reagent_requirements)
+			if(reagent_type == narrow_reagent_type || (broad.subtype_reagents_allowed && ispath(narrow_reagent_type, reagent_type)))
+				if(narrow.reagent_requirements[narrow_reagent_type] >= broad.reagent_requirements[reagent_type])
+					found_reagent = TRUE
+					break
+		if(!found_reagent)
+			return FALSE
+
+	for(var/broad_wildcard in broad.wildcard_requirements)
+		var/satisfied_amount = 0
+		for(var/narrow_req_type in narrow.requirements)
+			if(ispath(narrow_req_type, broad_wildcard))
+				satisfied_amount += narrow.requirements[narrow_req_type]
+		for(var/narrow_wildcard in narrow.wildcard_requirements)
+			if(ispath(narrow_wildcard, broad_wildcard))
+				satisfied_amount += narrow.wildcard_requirements[narrow_wildcard]
+		if(satisfied_amount < broad.wildcard_requirements[broad_wildcard])
+			return FALSE
+
+	return TRUE
