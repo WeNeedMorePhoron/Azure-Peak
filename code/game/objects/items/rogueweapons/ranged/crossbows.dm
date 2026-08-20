@@ -26,7 +26,7 @@
 	spread = 0
 	can_parry = TRUE
 	associated_skill = /datum/skill/combat/crossbows
-	var/ranged_skill = /datum/skill/combat/crossbows
+	ranged_skill = /datum/skill/combat/crossbows
 	wdefense = 3
 	max_integrity = 100
 	var/chargingspeed = 40
@@ -227,13 +227,7 @@
 		return FALSE
 
 	// Spread calculation
-	if(user.client)
-		if(user.client.chargedprog >= 100)
-			spread = 0
-		else
-			spread = 150 - (150 * (user.client.chargedprog / 100))
-	else
-		spread = 0
+	spread = get_ranged_spread(user)
 
 	// Projectile stat modification
 	for(var/obj/item/ammo_casing/CB in get_ammo_list(FALSE, TRUE))
@@ -241,9 +235,7 @@
 		if(!BB)
 			continue
 
-		BB.accuracy += accfactor * (user.STAPER - 8) * 3 // 8+ PER gives +3 per level. Exponential.
-		BB.bonus_accuracy += (user.STAPER - 8) // 8+ PER gives +1 per level. Does not decrease over range.
-		BB.bonus_accuracy += (user.get_skill_level(ranged_skill) * 5) // +5 per skill level.
+		apply_ranged_accuracy(BB, user)
 		BB.armor_penetration = max(PEN_NONE, BB.armor_penetration + penfactor)
 		BB.damage *= damfactor
 

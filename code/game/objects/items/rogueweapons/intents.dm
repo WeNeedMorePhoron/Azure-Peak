@@ -546,7 +546,6 @@
 	noaa = TRUE
 	charging_slowdown = 3
 	warnoffset = 20
-	var/strength_check = FALSE //used when we fire HEAVY bows
 
 /datum/intent/shoot/prewarning()
 	if(masteritem && mastermob)
@@ -565,7 +564,6 @@
 	noaa = TRUE
 	charging_slowdown = 3
 	warnoffset = 20
-	var/strength_check = FALSE //used when we fire HEAVY bows
 
 /datum/intent/proc/arc_check()
 	return FALSE

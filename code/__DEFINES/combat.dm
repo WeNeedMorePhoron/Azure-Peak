@@ -66,10 +66,49 @@
 #define STRENGTH_SOFTCAP 14	//STR value past which we get diminishing returns in our damage calculations.
 #define STRENGTH_MULT 0.1	//STR multiplier per STR point up to the softcap. Works as a %-age. 0.1 = 10% per point.
 #define STRENGTH_CAPPEDMULT 0.03	//STR multiplier per STR point past the softcap
+//RANGED DEFINES
+
+#define RANGED_DRAW_STR_BASELINE 10
+#define RANGED_ARC_DRAW_EXTRA 3
+#define RANGED_ARC_DRAW_FLOOR_EXTRA 2
+
+#define BOW_DRAW_BASE 20
+#define BOW_DRAW_FLOOR 8
+#define BOW_DRAW_PER_SKILL 2
+#define SHORTBOW_DRAW_BASE 17
+#define SHORTBOW_DRAW_FLOOR 7
+#define LONGBOW_DRAW_BASE 26
+#define LONGBOW_DRAW_FLOOR 10
+#define LONGBOW_DRAW_PER_STR 0.5
+#define SLING_DRAW_BASE 18
+#define SLING_DRAW_FLOOR 8
+#define SLING_DRAW_PER_SKILL 1.5
+#define SLING_DRAW_PER_STR 0.2
+
+#define RANGED_PER_ACC_THRESHOLD 8
+#define RANGED_PER_ACC_MULT 3
+#define RANGED_PER_BONUS_ACC_THRESHOLD 8
+#define RANGED_PER_BONUS_ACC_MULT 1
+#define RANGED_SKILL_ACC_MULT 5
+#define BOW_PER_ACC_THRESHOLD 9
+#define BOW_PER_ACC_MULT 4
+#define BOW_PER_BONUS_ACC_MULT 3
+#define BOW_SKILL_ACC_MULT 6
+#define SLING_SKILL_ACC_MULT 6
+
+#define RANGED_PER_DAMAGE_BASELINE 10
 #define RANGED_STAT_SOFTCAP 15	//PER value past which ranged damage scaling has diminishing returns.
 #define RANGED_STAT_MULT 0.1	//PER multiplier per point up to the softcap. 0.1 = 10% per point.
 #define RANGED_STAT_CAPPEDMULT 0.03	//PER multiplier per point past the softcap. 0.03 = 3% per point.
 #define RANGED_SPREAD_JITTER 1.4 // Add jitter to a shot's spread to get the final angle
+#define RANGED_PER_DAMAGE_FLOOR 0
+
+#define RANGED_UNCHARGED_SPREAD 150
+#define RANGED_EARLY_RELEASE_ACC_PENALTY 0
+#define RANGED_EARLY_RELEASE_EMBED_MULT 1
+#define BOW_EARLY_RELEASE_ACC_PENALTY 15
+#define BOW_EARLY_RELEASE_EMBED_MULT 0.5
+
 //Actual combat defines
 
 //click cooldowns, in tenths of a second, used for various combat actions
