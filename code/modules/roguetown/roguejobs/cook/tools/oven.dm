@@ -173,7 +173,7 @@
 
 /obj/machinery/light/rogue/oven/center
 
-/obj/machinery/light/rogue/oven/Initialize()
+/obj/machinery/light/rogue/oven/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/storage/concrete/grid/food/cooking/oven)
 	AddComponent(/datum/component/container_craft, get_container_craft_family(/datum/container_craft/oven))
