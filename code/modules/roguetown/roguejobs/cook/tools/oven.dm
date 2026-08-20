@@ -17,7 +17,10 @@
 	var/was_on = on
 	. = ..()
 	if(on && !was_on)
-		SEND_SIGNAL(src, COMSIG_STORAGE_CLOSED)
+		on_ignited()
+
+/obj/machinery/light/rogue/oven/on_ignited()
+	SEND_SIGNAL(src, COMSIG_STORAGE_CLOSED)
 
 /obj/machinery/light/rogue/oven/OnCrafted(dirin, user)
 	dirin = turn(dirin, 180)
@@ -33,6 +36,7 @@
 	. += span_info("Once an item is fully baked, it will visibly change and emit a good smell. This includes fireable crafts, such as clay vases and jugs. Don't think too much about the implications.")
 	. += span_info("Leaving a fully baked item inside of the oven for too long will cause it to burn away.")
 	. += span_info("Left-clicking the <b>top</b> with a loaded tray slides everything bakeable inside. An empty tray gathers everything at once.")
+	. += span_info("Middle-clicking the oven will take the first item out of it.")
 
 /obj/machinery/light/rogue/oven/attackby(obj/item/W, mob/living/user, params)
 	lastuser = user
@@ -218,3 +222,24 @@
 	else
 		return ..()
 
+/obj/machinery/light/rogue/oven/MiddleClick(mob/user, params)
+	. = ..()
+	if(.)
+		return
+	if(!user.CanReach(src))
+		return
+	return take_first_item(user)
+
+/obj/machinery/light/rogue/oven/proc/take_first_item(mob/user)
+	var/obj/item/taken = locate(/obj/item) in contents
+	if(!taken)
+		to_chat(user, span_warning("[src] is empty."))
+		return TRUE
+	lastuser = user
+	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_TAKE, taken, get_turf(src), TRUE)
+	if(!user.put_in_active_hand(taken))
+		taken.forceMove(get_turf(src))
+	update_icon()
+	playsound(get_turf(src), 'sound/items/wood_sharpen.ogg', 50)
+	user.visible_message(span_info("[user] takes [taken] out of [src]."), span_info("I take [taken] out of [src]."))
+	return TRUE

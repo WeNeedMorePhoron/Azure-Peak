@@ -447,7 +447,11 @@
 /obj/machinery/light/rogue/hearth/seton(s)
 	var/was_on = on
 	. = ..()
-	if(on && !was_on && attachment)
+	if(on && !was_on)
+		on_ignited()
+
+/obj/machinery/light/rogue/hearth/on_ignited()
+	if(attachment)
 		SEND_SIGNAL(attachment, COMSIG_STORAGE_CLOSED)
 
 /obj/machinery/light/rogue/hearth/CanPass(atom/movable/mover, turf/target)
