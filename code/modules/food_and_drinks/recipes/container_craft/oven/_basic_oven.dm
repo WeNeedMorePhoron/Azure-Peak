@@ -39,3 +39,8 @@
 	if(!lit_oven(crafter))
 		return TRUE
 	return FALSE
+
+/datum/container_craft/oven/handoff
+	abstract_type = /datum/container_craft/oven/handoff
+	synthesize_recipes = FALSE
+	handoff_craft = TRUE

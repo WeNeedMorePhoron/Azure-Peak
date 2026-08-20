@@ -93,3 +93,8 @@
 	requirements = list(/obj/item/seeds/berryrogue/poison = 1)
 	output = /obj/item/reagent_containers/food/snacks/grown/pepperseed
 	cooked_smell = /datum/pollutant/food/roasted_seeds
+
+/datum/container_craft/pan/handoff
+	abstract_type = /datum/container_craft/pan/handoff
+	synthesize_recipes = FALSE
+	handoff_craft = TRUE

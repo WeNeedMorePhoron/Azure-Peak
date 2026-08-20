@@ -12,6 +12,7 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 		recipes |= craft
 		recipes[craft] = new craft
 	synthesize_container_crafts(recipes)
+	synthesize_container_handoffs(recipes)
 	return recipes
 
 /// What an item becomes under a given cook method. Mirrors set_cook_handoff.
@@ -65,6 +66,42 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 				synth.crafting_time = item_cooktime
 			recipes[synth] = synth
 
+
+/proc/get_cook_handoff_bases(method)
+	var/list/bases = list()
+	for(var/datum/food_recipe/recipe as anything in subtypesof(/datum/food_recipe))
+		if(IS_ABSTRACT(recipe))
+			continue
+		var/base_item = initial(recipe.base_item)
+		if(!base_item)
+			continue
+		if(initial(recipe.cook_method) == method)
+			bases[base_item] = TRUE
+		else if(initial(recipe.needs_cooking) && (method == COOK_BAKE || method == COOK_FRY))
+			bases[base_item] = TRUE
+	return bases
+
+/proc/synthesize_container_handoffs(list/recipes)
+	for(var/datum/container_craft/base as anything in subtypesof(/datum/container_craft))
+		if(initial(base.abstract_type) != base || !initial(base.handoff_craft))
+			continue
+
+		var/method = initial(base.cook_method)
+		if(!method)
+			continue
+
+		for(var/obj/item/reagent_containers/food/snacks/snack as anything in get_cook_handoff_bases(method))
+			var/list/synth_requirements = list()
+			synth_requirements[snack] = 1
+
+			var/datum/container_craft/synth = new base
+			synth.name = initial(snack.name)
+			synth.requirements = synth_requirements
+			var/item_cooktime = initial(snack.cooktime)
+			if(item_cooktime)
+				synth.crafting_time = item_cooktime
+			recipes[synth] = synth
+
 /proc/init_container_craft_book_groups()
 	var/list/groups = list()
 	for(var/recipe_type in GLOB.container_craft_to_singleton)
@@ -101,6 +138,8 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 	var/output_amount = 1
 	/// If set, item outputs are dropped on the turf
 	var/eject_output = FALSE
+	/// If set, the output comes off the consumed instance's stamped cook field instead of `output`
+	var/handoff_craft = FALSE
 	var/category
 
 	var/user_craft = FALSE
@@ -146,7 +185,25 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 		cached_specificity = max(cached_specificity, (length(splittext("[path]", "/")) * 2) + 1)
 	for(var/path in wildcard_requirements)
 		cached_specificity = max(cached_specificity, length(splittext("[path]", "/")) * 2)
+	if(handoff_craft)
+		cached_specificity++
 	return cached_specificity
+
+/datum/container_craft/proc/handoff_output(obj/item/reagent_containers/food/snacks/source)
+	switch(cook_method)
+		if(COOK_BAKE)
+			return source.cooked_type
+		if(COOK_FRY)
+			return source.fried_type
+		if(COOK_DEEPFRY)
+			return source.deep_fried_type
+	return null
+
+/datum/container_craft/proc/is_handoff_stamped(obj/item/reagent_containers/food/snacks/source)
+	var/result = handoff_output(source)
+	if(!result)
+		return FALSE
+	return result != get_item_cook_result(source.type, cook_method)
 
 /proc/cmp_container_craft_specificity(a, b)
 	var/datum/container_craft/recipe_a = GLOB.container_craft_to_singleton[a]
@@ -186,6 +243,17 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 
 /datum/container_craft/proc/try_craft(obj/item/crafter, list/pathed_items, mob/initiator, datum/callback/on_craft_start, datum/callback/on_craft_failed)
 	var/highest_multiplier = 0
+
+	if(handoff_craft)
+		var/list/stamped_items = list()
+		for(var/obj/item/reagent_containers/food/snacks/candidate in crafter.contents)
+			if(!pathed_items[candidate.type] || !is_handoff_stamped(candidate))
+				continue
+			stamped_items |= candidate.type
+			stamped_items[candidate.type]++
+		if(!length(stamped_items))
+			return FALSE
+		pathed_items = stamped_items
 
 	// Check reagent requirements
 	if(length(reagent_requirements))
@@ -372,11 +440,29 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 	turf.visible_message(span_green(complete_message))
 
 /datum/container_craft/proc/create_item(obj/item/crafter, mob/living/initiator, list/removing_items)
+	if(handoff_craft)
+		create_handoff_items(crafter, initiator, removing_items)
+		return
 	for(var/j = 1 to output_amount)
 		var/atom/created_output = new output(get_turf(crafter))
 		if(!eject_output)
 			SEND_SIGNAL(crafter, COMSIG_TRY_STORAGE_INSERT, created_output, null, TRUE, TRUE)
 		after_craft(created_output, crafter, initiator, removing_items)
+		SEND_SIGNAL(crafter, COMSIG_CONTAINER_CRAFT_COMPLETE, created_output)
+
+/datum/container_craft/proc/create_handoff_items(obj/item/crafter, mob/living/initiator, list/removing_items)
+	for(var/obj/item/reagent_containers/food/snacks/source as anything in removing_items.Copy())
+		var/atom/result = handoff_output(source)
+		if(!result || !is_handoff_stamped(source))
+			removing_items -= source
+			SEND_SIGNAL(crafter, COMSIG_TRY_STORAGE_INSERT, source, null, TRUE, TRUE)
+			continue
+		var/atom/created_output = new result(get_turf(crafter))
+		if(!eject_output)
+			SEND_SIGNAL(crafter, COMSIG_TRY_STORAGE_INSERT, created_output, null, TRUE, TRUE)
+		if(source.cooked_smell)
+			created_output.AddComponent(/datum/component/temporary_pollution_emission, source.cooked_smell, 20, 5 MINUTES)
+		after_craft(created_output, crafter, initiator, list(source))
 		SEND_SIGNAL(crafter, COMSIG_CONTAINER_CRAFT_COMPLETE, created_output)
 
 /datum/container_craft/proc/after_craft(atom/created_output, obj/item/crafter, mob/initiator, list/removing_items)
