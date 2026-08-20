@@ -154,7 +154,8 @@
  * Hook for tracking newly crafted food items
  */
 /datum/component/food_burner/proc/on_craft_complete(datum/source, obj/item/crafted_item)
-	if(is_food_item(crafted_item) && !(crafted_item in tracked_foods))
+	var/obj/item/container = parent
+	if(is_food_item(crafted_item) && (crafted_item in container.contents) && !(crafted_item in tracked_foods))
 		tracked_foods[crafted_item] = list("elapsed" = 0, "progress" = 0)
 
 /**

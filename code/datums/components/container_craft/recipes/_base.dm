@@ -99,6 +99,8 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 	var/atom/output
 	/// How many times the output is made. Preferrably for item outputs.
 	var/output_amount = 1
+	/// If set, item outputs are dropped on the turf
+	var/eject_output = FALSE
 	var/category
 
 	var/user_craft = FALSE
@@ -372,7 +374,8 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 /datum/container_craft/proc/create_item(obj/item/crafter, mob/living/initiator, list/removing_items)
 	for(var/j = 1 to output_amount)
 		var/atom/created_output = new output(get_turf(crafter))
-		SEND_SIGNAL(crafter, COMSIG_TRY_STORAGE_INSERT, created_output, null, TRUE, TRUE)
+		if(!eject_output)
+			SEND_SIGNAL(crafter, COMSIG_TRY_STORAGE_INSERT, created_output, null, TRUE, TRUE)
 		after_craft(created_output, crafter, initiator, removing_items)
 		SEND_SIGNAL(crafter, COMSIG_CONTAINER_CRAFT_COMPLETE, created_output)
 

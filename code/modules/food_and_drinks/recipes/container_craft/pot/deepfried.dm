@@ -1,6 +1,7 @@
 /datum/container_craft/cooking/deepfry
 	abstract_type = /datum/container_craft/cooking/deepfry
 	category = FOOD_CAT_DEEPFRIED
+	eject_output = TRUE
 	crafting_time = 5 SECONDS
 	cook_method = COOK_DEEPFRY
 	reagent_requirements = list(
