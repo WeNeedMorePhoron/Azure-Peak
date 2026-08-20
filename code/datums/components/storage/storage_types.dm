@@ -40,6 +40,7 @@
 	screen_max_columns = 3
 	max_w_class = WEIGHT_CLASS_HUGE
 	not_while_equipped = TRUE
+	allow_big_nesting = TRUE
 
 /datum/component/storage/concrete/roguetown/messkit/New(datum/P, ...)
 	. = ..()
