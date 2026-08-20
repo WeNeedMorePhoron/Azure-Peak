@@ -289,12 +289,12 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 /datum/container_craft/proc/announce_start(atom/crafter, mob/initiator, estimated_multiplier)
 	if(QDELETED(crafter))
 		return
-	crafter.visible_message(span_notice("The [lowertext(name)] starts to cook."))
+	crafter.visible_message(span_notice("The [LOWER_TEXT(name)] starts to cook."))
 
 /datum/container_craft/proc/announce_fail(atom/crafter, mob/initiator)
 	if(QDELETED(crafter))
 		return
-	crafter.visible_message(span_warning("The [lowertext(name)] stops cooking."))
+	crafter.visible_message(span_warning("The [LOWER_TEXT(name)] stops cooking."))
 
 /**
  * Handles the final execution of the craft after processing is complete
@@ -419,7 +419,7 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 	var/html = "<h2>[name]</h2>"
 
 	if(vessel)
-		html += "<p>Prepared in a [lowertext(initial(vessel.name))].</p>"
+		html += "<p>Prepared in a [LOWER_TEXT(initial(vessel.name))].</p>"
 
 	var/list/members = book_group()
 	var/list/alternatives = list()
