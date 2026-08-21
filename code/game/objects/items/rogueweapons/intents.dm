@@ -380,7 +380,7 @@
 		return
 	var/obj/item/gun/ballistic/revolver/grenadelauncher/launcher = masteritem
 	if(istype(launcher))
-		launcher.pay_letdown_drain(mastermob)
+		INVOKE_ASYNC(launcher, TYPE_PROC_REF(/obj/item/gun/ballistic/revolver/grenadelauncher, pay_letdown_drain), mastermob)
 
 /datum/intent/proc/on_mouse_up()
 	if(chargedloop)
