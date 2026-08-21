@@ -67,7 +67,7 @@
 				H.change_stat(STATKEY_CON, 2)
 				H.change_stat(STATKEY_PER, -2)
 			if("Calculating Tactician - Crossbow + Shortsword") 
-				H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, SKILL_LEVEL_EXPERT, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, SKILL_LEVEL_MASTER, TRUE)
 				beltr = /obj/item/quiver/bolt/standard
 				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 				beltl = /obj/item/rogueweapon/scabbard/sword
