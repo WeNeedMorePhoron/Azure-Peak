@@ -105,11 +105,11 @@
 		<ul>
 			<li><b>STR</b>: Improves the damage you deal on your weapon, and the effectiveness of your penetrative attacks on strength scaling weapon. Softcaps at [STRENGTH_SOFTCAP] - every point up to it is worth [round(STRENGTH_MULT * 100)]% damage, every point past it only [round(STRENGTH_CAPPEDMULT * 100)]%.</li>
 			<li><b>PER</b>: Improves the damage you deal with scaling ranged weapon like Bow or Slings. It also raises your chance of hitting a precise bodypart in melee, and sets the accuracy of your spells outright. Like STR, its damage pays well up to its softcap at [RANGED_PER_DAMAGE_SOFTCAP] and much less after.</li>
-			<li><b>INT</b>: Improves the chance of your FEINTING or not being FEINTED. Also useful for Mages in particular for reducing the cooldown and stamina cost of their spells - [round(COOLDOWN_REDUCTION_PER_INT * 100)]% off each per point above [SPELL_SCALING_THRESHOLD], no longer improving past [SPELL_POSITIVE_SCALING_THRESHOLD]. Below [SPELL_SCALING_THRESHOLD], it scales into the negative.</li>
+			<li><b>INT</b>: Improves the chance of your FEINTING or not being FEINTED. Also useful for Mages in particular for reducing the cooldown and stamina cost of their spells - [round(COOLDOWN_REDUCTION_PER_INT * 100)]% off the cooldown and [round(FATIGUE_REDUCTION_PER_INT * 100)]% off the cost per point above [SPELL_SCALING_THRESHOLD], no longer improving past [SPELL_POSITIVE_SCALING_THRESHOLD]. Below [SPELL_SCALING_THRESHOLD], it scales into the negative.</li>
 			<li><b>CON</b>: Increases the effective HP of your limbs and makes them harder to disable or score a critical wound on.</li>
 			<li><b>WIL</b>: Increases your Energy and Stamina pool, and also increases your pain tolerance. Every point above or below average widens or narrows those pools appreciably.</li>
 			<li><b>SPD</b>: Increases your Movement speed, and also makes SWIFT balance weapon more effective.</li>
-			<li><b>FOR</b>: Increases your chance of scoring critical wounds once the limb is sufficiently damaged. Positive effects are small, but it has a devastating effect when in the negative and causes you to miss a large proportion of your attack.</li>
+			<li><b>FOR</b>: Tips contested rolls your way - disarms, dodges, parries and the like - and helps you avoid mishaps outside of combat. Its upside is small, but below 10 it turns devastating, making you outright fumble a growing share of your attacks.</li>
 		</ul>
 		</div>
 	"}
@@ -608,7 +608,7 @@
 			<li>Other resources may exist or be added to at some point.</li>
 		</ul>
 
-		<p>Intelligence improves	arcyne casting. Every point above 10 takes [round(COOLDOWN_REDUCTION_PER_INT * 100)]% off both the cooldown and the stamina cost of a spell, up to [SPELL_POSITIVE_SCALING_THRESHOLD], and every point below 10 adds the same back on. Miracles are the exception - they do not scale with any stat, so a low INT cleric is not punished for it.</p>
+		<p>Intelligence improves	arcyne casting. Every point above 10 takes [round(COOLDOWN_REDUCTION_PER_INT * 100)]% off the cooldown and [round(FATIGUE_REDUCTION_PER_INT * 100)]% off the stamina cost of a spell, up to [SPELL_POSITIVE_SCALING_THRESHOLD], and every point below 10 adds the same back on. Miracles are the exception - they do not scale with any stat, so a low INT cleric is not punished for it.</p>
 
 		<h3>Mages</h3>
 		<p>Mages in AP operate under a Major-Minor-Utilities aspect system. They use their spellbook to pick what kind of Major Aspect they specialize in, which determines their offensive potential and some utilities.</p>
