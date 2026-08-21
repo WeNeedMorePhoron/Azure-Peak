@@ -138,6 +138,14 @@
 #define SLING_RELEASEDRAIN 8
 #define RANGED_HOLD_SPREAD_MAX 60
 
+#define QUIVER_CAPACITY_SHEAF 24 // Quiver used to hold 30, was nerfed to 20, and that made their logistics kinda rough. So instead as a halfway compromise we'll go for 24 - a Sheaf, which is also a historical amount of arrow measurement.
+#define QUIVER_CAPACITY_BOLT 16
+#define QUIVER_CAPACITY_SIEGE 8
+#define QUIVER_CAPACITY_SLING 40
+#define QUIVER_CAPACITY_JAVELIN 20
+#define ARROW_SMITH_BATCH 12
+#define BOLT_SMITH_BATCH 16 // CBA to make you smith 8 bolts at once and I guess they can have an economic advantage
+
 //Actual combat defines
 
 //click cooldowns, in tenths of a second, used for various combat actions

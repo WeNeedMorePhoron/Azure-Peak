@@ -558,14 +558,14 @@
 
 		<p>Crossbow Bolts pierce nearly all armor by default.</p>
 
-		<p>Bolts are carried in quivers. Unlike bows, they cannot be quick-loaded by clicking the quiver, you must manually RMB the quiver to take the bolt out then load it into the crossbow.</p>
+		<p>Bolts are carried in bolt pouches, which hold [QUIVER_CAPACITY_BOLT].</p>
 
-		<p>Variants include Slurbows, which are underpowered Crossbows that can be reloaded on the move, and Siegebows, which are devastating bows that are extremely awkward to load and use. Only certain classes start with one, but anyone can craft or buy them.</p>
+		<p>Variants include Slurbows, which are underpowered Crossbows that can be reloaded on the move and with one hand, and Siegebows, which are devastating bows that are extremely awkward to load and use. Only certain classes start with one, but anyone can craft or buy them.</p>
 
 		<h3>Slings</h3>
 		<p>Slings are a fast, cheap alternative to bow. Their projectiles inflict blunt damage, making them great against metallic armor but not so great against light armor.</p>
 
-		<p>Slings are compact, and can be used one handed unlike a bow - they load straight from the pouch even with your offhand full. Their sling bullet pouch carries 40 bullets as opposed to a quiver carrying 20 arrows. Their ammo is generally cheaper to come by, too.</p>
+		<p>Slings are compact, and can be used one handed unlike a bow - they load straight from the pouch even with your offhand full. Their sling bullet pouch carries [QUIVER_CAPACITY_SLING] bullets as opposed to a quiver carrying [QUIVER_CAPACITY_SHEAF] arrows. Their ammo is generally cheaper to come by, too.</p>
 		</div>
 	"}
 
