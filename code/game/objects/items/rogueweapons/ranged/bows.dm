@@ -13,7 +13,7 @@
 
 /datum/intent/shoot/bow
 	chargetime = 1 //used for edge cases only, the bow's get_draw_time() handles the actual number
-	chargedrain = 2
+	chargedrain = BOW_CHARGEDRAIN
 	charging_slowdown = 3
 
 /datum/intent/shoot/bow/can_charge(atom/clicked_object)
@@ -41,7 +41,7 @@
 
 /datum/intent/arc/bow
 	chargetime = 1
-	chargedrain = 2
+	chargedrain = BOW_CHARGEDRAIN
 	charging_slowdown = 3
 
 /datum/intent/arc/bow/can_charge(atom/clicked_object)
@@ -105,6 +105,7 @@
 	cartridge_articles = "an"
 	var/spill_ammo_on_drop = TRUE
 	ranged_skill = /datum/skill/combat/bows
+	release_drain = BOW_RELEASEDRAIN
 	draw_base = BOW_DRAW_BASE
 	draw_floor = BOW_DRAW_FLOOR
 	draw_per_skill = BOW_DRAW_PER_SKILL
@@ -234,7 +235,9 @@
 		apply_ranged_accuracy(BB, user)
 		apply_early_release_penalty(BB, user)
 		BB.damage *= damfactor * get_per_damage_scaling(user)
-	return ..()
+	. = ..()
+	if(.)
+		pay_release_drain(user)
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow/update_icon()
 	..()
@@ -264,6 +267,7 @@
 	desc = "A medium length composite bow of glued horn, wood, and sinew with good shooting \
 	characteristics."
 	icon_state = "recurve_bow"
+	release_drain = RECURVE_RELEASEDRAIN
 	force = 9
 	pixel_y = -16
 	pixel_x = -16
@@ -362,6 +366,7 @@
 	bigboy = TRUE
 	dropshrink = 0.8
 	heavy_bow = TRUE
+	release_drain = LONGBOW_RELEASEDRAIN
 	draw_base = LONGBOW_DRAW_BASE
 	draw_floor = LONGBOW_DRAW_FLOOR
 	draw_per_str = LONGBOW_DRAW_PER_STR
@@ -426,6 +431,7 @@
 	accfactor = 1.15 //A fairly mild alternative to the Crude Selfbow, themed to be more like a proper ranged weapon. Same general stats, but with an increased bonus to accuracy.
 	icon_state = "classicbow0"
 	item_state = "classicbow"
+	release_drain = CLASSICBOW_RELEASEDRAIN
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow/classic/update_icon()
 	. = ..()
@@ -490,15 +496,16 @@
 	spread = 1
 	force = 9
 	damfactor = 0.9
+	release_drain = SHORTBOW_RELEASEDRAIN
 	draw_base = SHORTBOW_DRAW_BASE
 	draw_floor = SHORTBOW_DRAW_FLOOR
 
 /datum/intent/shoot/bow/short
-	chargedrain = 1.5
+	chargedrain = SHORTBOW_CHARGEDRAIN
 	charging_slowdown = 2.5
 
 /datum/intent/arc/bow/short
-	chargedrain = 1.5
+	chargedrain = SHORTBOW_CHARGEDRAIN
 	charging_slowdown = 2.5
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow/short/paint

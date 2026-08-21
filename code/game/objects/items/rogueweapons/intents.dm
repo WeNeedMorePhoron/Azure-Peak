@@ -19,6 +19,9 @@
 	var/chargetime = 0
 	/// Amount of fatigue removed per tick of full charge.
 	var/chargedrain = 0
+	var/hold_grace = 0
+	var/hold_ramp = 0
+	var/hold_ramp_window = RANGED_HOLD_RAMP_WINDOW
 	/// Fatigue removed on release.
 	var/releasedrain = 1
 	/// Extra fatigue removed on missing the target, or if the enemy dodges.
@@ -168,6 +171,8 @@
 		inspec += "\n<b>No Early Release</b>"
 	if(chargedrain)
 		inspec += "\n<b>Drain While Charged:</b> [chargedrain]"
+		if(hold_grace)
+			inspec += "\n<b>Free Hold:</b> [DisplayTimeText(get_hold_grace())]"
 	if(releasedrain)
 		inspec += "\n<b>Drain On Release:</b> [releasedrain]"
 	if(misscost)
@@ -266,11 +271,23 @@
 	else
 		return 0
 
-/datum/intent/proc/get_chargedrain()
-	if(chargedrain)
-		return chargedrain
-	else
+/datum/intent/proc/get_hold_grace()
+	if(!hold_grace)
 		return 0
+	. = hold_grace
+	if(mastermob)
+		. += (mastermob.STAPER - RANGED_HOLD_GRACE_PER_BASELINE) * RANGED_HOLD_GRACE_PER_BONUS
+	return max(0, .)
+
+/datum/intent/proc/get_hold_instability(held_for)
+	if(!hold_ramp || hold_ramp_window <= 0)
+		return 0
+	return clamp((held_for - get_hold_grace()) / hold_ramp_window, 0, 1)
+
+/datum/intent/proc/get_chargedrain(held_for = 0)
+	if(!chargedrain)
+		return 0
+	return chargedrain * (1 + (get_hold_instability(held_for) * hold_ramp))
 
 /datum/intent/proc/get_releasedrain()
 	if(releasedrain)
@@ -353,6 +370,17 @@
 		mob_light = mastermob.mob_light(glow_color, glow_intensity, FLASH_LIGHT_SPELLGLOW)
 	if(mob_charge_effect)
 		mastermob.vis_contents += mob_charge_effect
+
+/datum/intent/proc/on_charge_cancel()
+	if(!tranged || !mastermob?.client)
+		return
+	if(mastermob.client.chargedprog < 100)
+		return
+	if(mastermob.stamina >= mastermob.max_stamina)
+		return
+	var/obj/item/gun/ballistic/revolver/grenadelauncher/launcher = masteritem
+	if(istype(launcher))
+		launcher.pay_letdown_drain(mastermob)
 
 /datum/intent/proc/on_mouse_up()
 	if(chargedloop)
@@ -546,6 +574,8 @@
 	noaa = TRUE
 	charging_slowdown = 3
 	warnoffset = 20
+	hold_grace = RANGED_HOLD_GRACE
+	hold_ramp = RANGED_HOLD_RAMP
 
 /datum/intent/shoot/prewarning()
 	if(masteritem && mastermob)
@@ -564,6 +594,8 @@
 	noaa = TRUE
 	charging_slowdown = 3
 	warnoffset = 20
+	hold_grace = RANGED_HOLD_GRACE
+	hold_ramp = RANGED_HOLD_RAMP
 
 /datum/intent/proc/arc_check()
 	return FALSE
@@ -587,6 +619,8 @@
 	noaa = TRUE
 	charging_slowdown = 3
 	warnoffset = 20
+	hold_grace = RANGED_HOLD_GRACE
+	hold_ramp = RANGED_HOLD_RAMP
 
 /datum/intent/swing/prewarning()
 	if(masteritem && mastermob)

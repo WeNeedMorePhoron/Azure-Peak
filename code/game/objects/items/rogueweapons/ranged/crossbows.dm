@@ -244,6 +244,7 @@
 	. = ..()
 	if(!.)
 		return
+	pay_release_drain(user)
 	if(!onehanded)
 		return
 

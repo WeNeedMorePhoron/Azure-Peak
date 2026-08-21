@@ -39,6 +39,7 @@
 	var/npc_spread_per_point = 0
 	var/early_release_acc_penalty = RANGED_EARLY_RELEASE_ACC_PENALTY
 	var/early_release_embed_mult = RANGED_EARLY_RELEASE_EMBED_MULT
+	var/release_drain = 0
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/proc/get_draw_time(mob/living/user, arcing = FALSE)
 	if(!user || !draw_base)
@@ -68,6 +69,23 @@
 /obj/item/gun/ballistic/revolver/grenadelauncher/proc/get_npc_drawtime(mob/living/user)
 	return max(0, get_npc_chargetime(user) - ARCHER_NPC_NOCK_TIME)
 
+/obj/item/gun/ballistic/revolver/grenadelauncher/proc/get_shot_drain(mob/living/user, drain)
+	if(!drain || !user)
+		return 0
+	if(!user.client)
+		drain *= RANGED_NPC_DRAIN_MULT
+	return drain
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/proc/pay_release_drain(mob/living/user)
+	var/cost = get_shot_drain(user, release_drain)
+	if(cost)
+		user.stamina_add(cost)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/proc/pay_letdown_drain(mob/living/user)
+	var/cost = get_shot_drain(user, release_drain)
+	if(cost)
+		user.stamina_add(cost)
+
 /obj/item/gun/ballistic/revolver/grenadelauncher/proc/get_per_damage_scaling(mob/living/user)
 	if(!user || !per_scales_damage)
 		return 1
@@ -79,7 +97,7 @@
 	if(!user.client)
 		return max(0, (npc_spread_baseline_per - user.STAPER) * npc_spread_per_point)
 	if(user.client.chargedprog >= 100)
-		return 0
+		return user.client.charge_hold_instability * RANGED_HOLD_SPREAD_MAX
 	return uncharged_spread - (uncharged_spread * (user.client.chargedprog / 100))
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/proc/apply_ranged_accuracy(obj/projectile/BB, mob/living/user)

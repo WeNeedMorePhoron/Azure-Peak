@@ -270,15 +270,6 @@
 			return slow
 	return 0
 
-/proc/_bow_draw_stamina(obj/item/gun/ballistic/revolver/grenadelauncher/bow)
-	for(var/datum/intent/intent_type as anything in bow.possible_item_intents)
-		if(!ispath(intent_type, /datum/intent))
-			continue
-		var/drain = initial(intent_type.chargedrain)
-		if(drain)
-			return drain
-	return 0
-
 /proc/_find_archer_bow(mob/living/carbon/human/pawn)
 	var/obj/item/active = pawn.get_active_held_item()
 	if(istype(active, /obj/item/gun/ballistic/revolver/grenadelauncher))
@@ -400,9 +391,6 @@
 	var/atom/aim_at = target
 	if(locked_turf)
 		aim_at = pawn.get_ranged_lead_turf(target, locked_turf, bow.chambered?.BB?.speed) || target
-	var/draw_drain = _bow_draw_stamina(bow)
-	if(draw_drain)
-		pawn.stamina_add(draw_drain * (bow.get_npc_drawtime(pawn) / (1 SECONDS)))
 	var/should_arc = FALSE
 	var/turf/pt = get_turf(pawn)
 	var/turf/tt = get_turf(aim_at)

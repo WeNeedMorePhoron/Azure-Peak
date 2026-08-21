@@ -66,6 +66,9 @@
 	var/show_lobby_ooc = TRUE // Admin preference: see lobby OOC even when not in lobby
 	var/charge_start_time = 0
 	var/charge_start_timeofday = 0
+	var/charge_done_time = 0
+	var/charge_hold_instability = 0
+	var/charge_strain_warned = FALSE
 	var/last_cooldown_warn = 0
 	var/charge_was_blocked_by_cooldown = FALSE
 	var/blocked_lmb = FALSE
@@ -339,6 +342,16 @@
 		L.update_charging_movespeed()
 		return PROCESS_KILL
 
+/client/proc/handle_charge_strain(mob/living/L, instability)
+	charge_hold_instability = instability
+	var/new_icon = SSmousecharge.access(100 - (instability * 100))
+	if(mouse_pointer_icon != new_icon)
+		mouse_pointer_icon = new_icon
+	if(!charge_strain_warned)
+		charge_strain_warned = TRUE
+		to_chat(L, span_warning("My arm begins to tremble."))
+		L.emote("strain", forced = TRUE)
+
 /client/proc/update_to_mob(mob/living/L, seconds_per_tick)
 	if(charging)
 		progress = min(max(world.time - charge_start_time, REALTIMEOFDAY - charge_start_timeofday), goal)
@@ -350,6 +363,9 @@
 		else //Fully charged
 			if(!doneset)
 				doneset = 1
+				charge_done_time = world.time
+				charge_hold_instability = 0
+				charge_strain_warned = FALSE
 				if(L.used_intent?.warnie == "aimwarn")
 					L.stop_sound_channel(CHANNEL_WEAPON_DRAW)
 				if(L.used_intent?.ready_sound)
@@ -361,8 +377,14 @@
 				if(mouse_pointer_icon != new_icon)
 					mouse_pointer_icon = new_icon
 			else
-				if(!L.stamina_add(L.used_intent.chargedrain))
-					L.stop_attack()
+				var/datum/intent/held = L.used_intent
+				if(held)
+					var/held_for = world.time - charge_done_time
+					if(held_for >= held.get_hold_grace())
+						if(held.hold_ramp)
+							handle_charge_strain(L, held.get_hold_instability(held_for))
+						if(!L.stamina_add(held.get_chargedrain(held_for)))
+							L.stop_attack()
 		return TRUE
 	else
 		return FALSE

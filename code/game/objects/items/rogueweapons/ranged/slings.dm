@@ -9,7 +9,7 @@
 
 /datum/intent/swing/sling
 	chargetime = 1 //used for edge cases only, the sling's get_draw_time() handles the actual number
-	chargedrain = 1.5
+	chargedrain = SLING_CHARGEDRAIN
 	charging_slowdown = 3
 
 /datum/intent/swing/sling/can_charge(atom/clicked_object)
@@ -34,7 +34,7 @@
 
 /datum/intent/arc/sling
 	chargetime = 1
-	chargedrain = 1.5
+	chargedrain = SLING_CHARGEDRAIN
 	charging_slowdown = 3
 	ready_sound = 'sound/foley/slingload.ogg'
 
@@ -90,6 +90,7 @@
 	ranged_skill = /datum/skill/combat/slings
 	skill_bonus_acc_mult = SLING_SKILL_ACC_MULT
 	per_scales_damage = TRUE
+	release_drain = SLING_RELEASEDRAIN
 	draw_base = SLING_DRAW_BASE
 	draw_floor = SLING_DRAW_FLOOR
 	draw_per_skill = SLING_DRAW_PER_SKILL
@@ -191,6 +192,8 @@
 			bonus_stone_force = 0 //stone is thrown, so the bonus is lost
 			temp_stone = null //stone is gone, forever.
 	. = ..()
+	if(.)
+		pay_release_drain(user)
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/sling/update_icon()
 	. = ..()
