@@ -186,7 +186,7 @@
 /mob/living/proc/apply_spell_accuracy(obj/projectile/P)
 	if(!P)
 		return
-	P.aim_peak = ACC_RANGED_BASE + ((STAPER - ACC_RANGED_STAT_BASELINE) * ACC_RANGED_PER_STAT)
+	P.aim_peak = ACC_RANGED_BASE + ((STAPER - ACC_SPELL_PER_BASELINE) * ACC_SPELL_PER_STEP)
 
 /// aim_stat defaults to Perception, the archery case. Spells pass Intelligence.
 /mob/living/proc/get_ranged_lead_error(moved, aim_stat)

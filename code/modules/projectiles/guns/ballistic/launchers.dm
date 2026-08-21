@@ -24,9 +24,9 @@
 	var/arc_draw_floor_extra = RANGED_ARC_DRAW_FLOOR_EXTRA
 	var/per_scales_damage = FALSE
 	var/per_damage_baseline = RANGED_PER_DAMAGE_BASELINE
-	var/per_damage_softcap = RANGED_STAT_SOFTCAP
-	var/per_damage_mult = RANGED_STAT_MULT
-	var/per_damage_cappedmult = RANGED_STAT_CAPPEDMULT
+	var/per_damage_softcap = RANGED_PER_DAMAGE_SOFTCAP
+	var/per_damage_mult = RANGED_PER_DAMAGE_MULT
+	var/per_damage_cappedmult = RANGED_PER_DAMAGE_CAPPEDMULT
 	var/per_damage_floor = RANGED_PER_DAMAGE_FLOOR
 	var/draw_str_baseline = RANGED_DRAW_STR_BASELINE
 	var/uncharged_spread = RANGED_UNCHARGED_SPREAD
@@ -49,7 +49,7 @@
 	if(ranged_skill)
 		newtime -= user.get_skill_level(ranged_skill) * draw_per_skill
 	if(draw_per_str)
-		newtime -= (user.STASTR - draw_str_baseline) * draw_per_str
+		newtime += max(0, draw_str_baseline - user.STASTR) * draw_per_str
 	newtime = max(newtime, floortime)
 	if(chambered)
 		newtime *= chambered.charge_time_mult

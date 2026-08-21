@@ -100,11 +100,11 @@
 		<div>
 		<p>Your character has different stats, based on your role, your race, and your chosen Statpack, if any.</p>
 
-		<p>STR and PER have a softcap, at [STRENGTH_SOFTCAP] and [RANGED_STAT_SOFTCAP] respectively, beyond which their effect scales less aggressively. The rest have no softcap and scale flat all the way up.</p>
+		<p>STR and PER have a softcap on the damage they add, at [STRENGTH_SOFTCAP] and [RANGED_PER_DAMAGE_SOFTCAP] respectively, beyond which they scale less aggressively. The rest have no softcap and scale flat all the way up.</p>
 
 		<ul>
 			<li><b>STR</b>: Improves the damage you deal on your weapon, and the effectiveness of your penetrative attacks on strength scaling weapon. Softcaps at [STRENGTH_SOFTCAP] - every point up to it is worth [round(STRENGTH_MULT * 100)]% damage, every point past it only [round(STRENGTH_CAPPEDMULT * 100)]%.</li>
-			<li><b>PER</b>: Improves the damage you deal with scaling ranged weapon like Bow or Slings, improves your ROF with these weapons. And increases your chance of hitting a precise bodypart significantly. Like STR, it pays well up to its softcap at [RANGED_STAT_SOFTCAP] and much less after.</li>
+			<li><b>PER</b>: Improves the damage you deal with scaling ranged weapon like Bow or Slings. It also raises your chance of hitting a precise bodypart in melee, and sets the accuracy of your spells outright. Like STR, its damage pays well up to its softcap at [RANGED_PER_DAMAGE_SOFTCAP] and much less after.</li>
 			<li><b>INT</b>: Improves the chance of your FEINTING or not being FEINTED. Also useful for Mages in particular for reducing the cooldown and stamina cost of their spells - [round(COOLDOWN_REDUCTION_PER_INT * 100)]% off each per point above [SPELL_SCALING_THRESHOLD], no longer improving past [SPELL_POSITIVE_SCALING_THRESHOLD]. Below [SPELL_SCALING_THRESHOLD], it scales into the negative.</li>
 			<li><b>CON</b>: Increases the effective HP of your limbs and makes them harder to disable or score a critical wound on.</li>
 			<li><b>WIL</b>: Increases your Energy and Stamina pool, and also increases your pain tolerance. Every point above or below average widens or narrows those pools appreciably.</li>
@@ -234,7 +234,7 @@
 		<p>A target you have Exposed, made Vulnerable, or held in an aggressive grab is far easier to strike precisely. Someone off their feet is easier to aim at, too. SHORT weapons also aim better, at +[ACC_SHORT_WEAPON_BONUS].</p>
 
 		<h3>Ranged and Spells</h3>
-		<p>Ranged accuracy is simpler than melee. Your weapon skill sets the ceiling, at [ACC_RANGED_BASE] plus [ACC_RANGED_PER_SKILL] per level. Spells read Perception in place of any skill, each point above [ACC_RANGED_STAT_BASELINE] worth as much as a level of training - and each point below it costing the same. Some weapons multiply the result.</p>
+		<p>Ranged accuracy is simpler than melee. Your weapon skill sets the ceiling, at [ACC_RANGED_BASE] plus [ACC_RANGED_PER_SKILL] per level. Spells read Perception in place of any skill, each point above [ACC_SPELL_PER_BASELINE] worth as much as a level of training - and each point below it costing the same. Some weapons multiply the result.</p>
 
 		<p>Shoot closer than a projectile's minimum range, or past its maximum, and the shot can only land on the chest. Past [ACC_RANGED_VISUAL_REACH] tiles, about as far as you can see, accuracy falls by [ACC_RANGED_FARSIGHT_PENALTY] for every further tile, so only a practiced shot keeps any of it at that distance. Loosing at a floor above or below costs another [ACC_RANGED_ZCROSS_PENALTY].</p>
 
@@ -545,7 +545,7 @@
 /datum/book_entry/combat/ranged/inner_book_html(mob/user)
 	return {"
 		<div>
-		<p>Ranged Weapons are split into three main families. Both bows and slings lean on Perception, which raises their damage at [round(RANGED_STAT_MULT * 100)]% per point up to [RANGED_STAT_SOFTCAP], and [round(RANGED_STAT_CAPPEDMULT * 100)]% per point beyond it.</p>
+		<p>Ranged Weapons are split into three main families. Both bows and slings lean on Perception, which raises their damage at [round(RANGED_PER_DAMAGE_MULT * 100)]% per point up to [RANGED_PER_DAMAGE_SOFTCAP], and [round(RANGED_PER_DAMAGE_CAPPEDMULT * 100)]% per point beyond it.</p>
 
 		<p>How precisely a shot lands on the body, and how range, floors and your skill or Perception change it, is covered in <i>Where to Aim</i>.</p>
 
@@ -553,7 +553,7 @@
 		<p>Bows are rapid-firing, exhausting weapons that deal PIERCING damage. Bows are split into:</p>
 		<ul>
 			<li><b>Yew Hunting Bow and Recurve Bow</b>, fast and the default bows.</li>
-			<li><b>Longbow</b>, scaling slightly with STR, each arrow dealing a significantly higher amount of damage in exchange for a lower ROF.</li>
+			<li><b>Longbow</b>, slower to draw if your strength is below 10, each arrow dealing a significantly higher amount of damage in exchange for a lower ROF.</li>
 		</ul>
 
 		<p>The most common arrows are Broadhead Arrows, which deal a large amount of integrity and normal damage but cannot pierce most armor. Bodkin Arrows pierce through armor and can bleed an opponent out or inflict critical wounds through armor, but have a much lower base damage.</p>

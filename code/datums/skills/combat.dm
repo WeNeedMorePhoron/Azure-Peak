@@ -72,7 +72,7 @@
 
 /datum/skill/combat/bows
 	name = "Archery"
-	desc = "Increases the maximum accuracy of your shots, and increases the speed you draw back a bow. Bows with a heavy draw also lean on strength. Does not influence damage."
+	desc = "Increases the maximum accuracy of your shots, and increases the speed you draw back a bow. Bows with a heavy draw are slower to pull if your strength is below 10. Does not influence damage."
 	dreams = list(
 	"...the cold wind on the balcony bristles against your left so you adjust your aim towards it. Your fingers relax and your bow exhales a quiet sigh. Moments later, your mark drops to the cobblestone streets below. Dead...",
 	"...your fingers sting as you let loose another arrow and it glances off the pale knight's breastplate. You aim at their visor and pray to whatever gods you hold dear that this one will make it through...",
@@ -118,7 +118,7 @@
 
 /datum/skill/combat/slings
 	name = "Slings"
-	desc = "Increases the maximum accuracy of your shots, and alongside strength, increases the speed you ready and swing a sling. Does not influence damage."
+	desc = "Increases the maximum accuracy of your shots, and increases the speed you ready and swing a sling. Does not influence damage."
 	dreams = list(
 	"...you recall an old maxim you read in a dusty tome within the archives: if you can throw, you can sling...",
 	"...the perched archers ruthlessly repel the peasant rebellion. Hope for fairness is almost forlorn, until with a soft crack, a hailing of iron bullets clatter against the foe's helmets...",

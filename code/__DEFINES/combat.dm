@@ -79,11 +79,10 @@
 #define SHORTBOW_DRAW_FLOOR 7
 #define LONGBOW_DRAW_BASE 26
 #define LONGBOW_DRAW_FLOOR 10
-#define LONGBOW_DRAW_PER_STR 0.5
+#define LONGBOW_DRAW_PER_STR 1.5
 #define SLING_DRAW_BASE 16 // Used to be faster shooting than recurve due to perception counting twice. Let it keep its speed advantage but not too much.
 #define SLING_DRAW_FLOOR 8
 #define SLING_DRAW_PER_SKILL 1.5
-#define SLING_DRAW_PER_STR 0.2
 
 
 #define CROSSBOW_DRAW_BASE 16
@@ -102,8 +101,8 @@
 #define ACC_RANGED_BASE 15
 #define ACC_RANGED_PER_SKILL 15
 // While for Mage, where I have made Arcyne Armament a pseudo melee skills, and INT their primary CDR and Cost scalar, we uses PER so that their build need more than one stat to function well, in place of skills. The accuracy is 10 as a baseline (15 - 10 = 5 * 15 = +75 + 15 = 90% accuracy at 15 perception, i.e. capping out vs limb)
-#define ACC_RANGED_STAT_BASELINE 10
-#define ACC_RANGED_PER_STAT 15
+#define ACC_SPELL_PER_BASELINE 10
+#define ACC_SPELL_PER_STEP 15
 #define ACC_RANGED_FLOOR 0
 #define ACC_RANGED_VISUAL_REACH 7
 #define ACC_RANGED_FARSIGHT_PENALTY 10
@@ -116,9 +115,9 @@
 #define RANGED_PRECISE_HIT_PENALTY -10
 
 #define RANGED_PER_DAMAGE_BASELINE 10
-#define RANGED_STAT_SOFTCAP 15	//PER value past which ranged damage scaling has diminishing returns.
-#define RANGED_STAT_MULT 0.1	//PER multiplier per point up to the softcap. 0.1 = 10% per point.
-#define RANGED_STAT_CAPPEDMULT 0.03	//PER multiplier per point past the softcap. 0.03 = 3% per point.
+#define RANGED_PER_DAMAGE_SOFTCAP 15	//PER value past which ranged damage scaling has diminishing returns.
+#define RANGED_PER_DAMAGE_MULT 0.1	//PER multiplier per point up to the softcap. 0.1 = 10% per point.
+#define RANGED_PER_DAMAGE_CAPPEDMULT 0.03	//PER multiplier per point past the softcap. 0.03 = 3% per point.
 #define RANGED_SPREAD_JITTER 1.4 // Add jitter to a shot's spread to get the final angle
 #define RANGED_PER_DAMAGE_FLOOR 0
 
