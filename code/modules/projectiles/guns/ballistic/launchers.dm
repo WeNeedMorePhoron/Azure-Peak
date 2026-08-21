@@ -40,6 +40,8 @@
 	var/early_release_acc_penalty = RANGED_EARLY_RELEASE_ACC_PENALTY
 	var/early_release_embed_mult = RANGED_EARLY_RELEASE_EMBED_MULT
 	var/release_drain = 0
+	var/onehanded_draw_mult = 1
+	var/onehanded_arc_draw_mult = 1
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/proc/get_draw_time(mob/living/user, arcing = FALSE)
 	if(!user || !draw_base)
