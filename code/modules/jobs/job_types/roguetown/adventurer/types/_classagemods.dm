@@ -111,8 +111,8 @@
 	// This is probably worse than just having legendary in one, as people rarely swap weapons mid-combat.
 	skill_mods = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_MASTER,
-		/datum/skill/combat/bows = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/crossbows = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/bows = SKILL_LEVEL_MASTER,
+		/datum/skill/combat/crossbows = SKILL_LEVEL_MASTER,
 		/datum/skill/combat/maces = SKILL_LEVEL_MASTER,
 		/datum/skill/combat/axes = SKILL_LEVEL_MASTER,
 		/datum/skill/combat/whipsflails = SKILL_LEVEL_MASTER,
@@ -127,7 +127,7 @@
 
 /datum/class_age_mod/veteran/scout
 	skill_mods = list(
-		/datum/skill/combat/bows = SKILL_LEVEL_MASTER,
+		/datum/skill/combat/bows = SKILL_LEVEL_LEGENDARY,
 		/datum/skill/combat/axes = SKILL_LEVEL_LEGENDARY,
 		/datum/skill/misc/tracking = SKILL_LEVEL_LEGENDARY,
 		/datum/skill/combat/swords = SKILL_LEVEL_MASTER,
@@ -139,7 +139,7 @@
 		/datum/skill/misc/sneaking = SKILL_LEVEL_LEGENDARY,
 		/datum/skill/combat/whipsflails = SKILL_LEVEL_LEGENDARY,
 		/datum/skill/combat/knives = SKILL_LEVEL_MASTER,
-		/datum/skill/combat/bows = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/bows = SKILL_LEVEL_MASTER,
 		/datum/skill/misc/climbing = SKILL_LEVEL_MASTER,
 		/datum/skill/misc/stealing = SKILL_LEVEL_MASTER,
 		/datum/skill/combat/swords = SKILL_LEVEL_EXPERT
