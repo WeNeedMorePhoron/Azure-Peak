@@ -88,7 +88,6 @@
 	grid_width = 32
 	grid_height = 64
 	ranged_skill = /datum/skill/combat/slings
-	skill_bonus_acc_mult = SLING_SKILL_ACC_MULT
 	per_scales_damage = TRUE
 	release_drain = SLING_RELEASEDRAIN
 	draw_base = SLING_DRAW_BASE

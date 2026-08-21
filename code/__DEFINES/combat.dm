@@ -102,12 +102,10 @@
 #define RANGED_PER_ACC_MULT 3
 #define RANGED_PER_BONUS_ACC_THRESHOLD 8
 #define RANGED_PER_BONUS_ACC_MULT 1
-#define RANGED_SKILL_ACC_MULT 5
+#define RANGED_SKILL_ACC_MULT 6
 #define BOW_PER_ACC_THRESHOLD 9
 #define BOW_PER_ACC_MULT 4
 #define BOW_PER_BONUS_ACC_MULT 3
-#define BOW_SKILL_ACC_MULT 6
-#define SLING_SKILL_ACC_MULT 6
 
 #define RANGED_PER_DAMAGE_BASELINE 10
 #define RANGED_STAT_SOFTCAP 15	//PER value past which ranged damage scaling has diminishing returns.

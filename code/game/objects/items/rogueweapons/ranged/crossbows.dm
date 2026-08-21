@@ -41,7 +41,6 @@
 	onehanded_arc_draw_mult = CROSSBOW_ONEHANDED_ARC_DRAW_MULT
 	wdefense = 3
 	max_integrity = 100
-	var/chargingspeed = 40
 	var/reloadtime = 40
 	var/movingreload = FALSE
 	var/onehanded = FALSE
@@ -317,7 +316,6 @@
 	item_state = "slurbow"
 	possible_item_intents = list(/datum/intent/shoot/crossbow/slurbow, /datum/intent/arc/crossbow/slurbow, /datum/intent/buttstroke)
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/slurbow
-	chargingspeed = 20
 	draw_base = SLURBOW_DRAW_BASE
 	draw_floor = SLURBOW_DRAW_FLOOR
 	draw_per_skill = SLURBOW_DRAW_PER_SKILL
@@ -356,7 +354,6 @@
 	force = 20
 	wdefense = 4
 	max_integrity = 150
-	chargingspeed = 60 //+20, or a little over +50% the standard charging speed.
 	draw_base = HEAVY_CROSSBOW_DRAW_BASE
 	draw_floor = HEAVY_CROSSBOW_DRAW_FLOOR
 	draw_per_skill = HEAVY_CROSSBOW_DRAW_PER_SKILL
@@ -415,7 +412,6 @@
 	to destroy those who'd seek to sacrifice His greatest works. May thy aim be true, childe o' God - and thy judgement, unfettered."
 	minstr = 10 //X STR. Intended for use by the Inquisitor, or as a purchased alternative.
 	max_integrity = 200
-	chargingspeed = 50 //Halfway between the standard crossbow and siegebow.
 	reloadtime = 120 //Halfway between the standard crossbow and siegebow.
 	icon_state = "relicpsyheavybow0"
 	item_state = "relicpsyheavybow"
@@ -435,7 +431,6 @@
 	item_state = "lesserstaker"
 	possible_item_intents = list(/datum/intent/shoot/crossbow/slurbow, /datum/intent/arc/crossbow/slurbow, /datum/intent/buttstroke)
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/staker
-	chargingspeed = 20
 	draw_base = SLURBOW_DRAW_BASE
 	draw_floor = SLURBOW_DRAW_FLOOR
 	draw_per_skill = SLURBOW_DRAW_PER_SKILL

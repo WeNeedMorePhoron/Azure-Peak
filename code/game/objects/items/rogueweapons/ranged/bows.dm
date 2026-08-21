@@ -112,7 +112,6 @@
 	per_acc_threshold = BOW_PER_ACC_THRESHOLD
 	per_acc_mult = BOW_PER_ACC_MULT
 	per_bonus_acc_mult = BOW_PER_BONUS_ACC_MULT
-	skill_bonus_acc_mult = BOW_SKILL_ACC_MULT
 	per_scales_damage = TRUE
 	early_release_acc_penalty = BOW_EARLY_RELEASE_ACC_PENALTY
 	early_release_embed_mult = BOW_EARLY_RELEASE_EMBED_MULT
