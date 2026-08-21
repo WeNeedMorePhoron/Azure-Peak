@@ -904,9 +904,11 @@ GLOBAL_LIST_EMPTY(reach_dummy_pool)
 /atom/proc/face_atom(atom/A, location, control, params)
 	if(!A)
 		return FALSE
-	if(!A.xyoverride && (!x || !y || !A.x || !A.y))
+	if(!x || !y)
 		return
 	var/atom/holder = A.face_me(location, control, params)
+	if(holder && !holder.xyoverride && (!holder.x || !holder.y))
+		holder = get_turf(holder)
 	if(!holder)
 		return FALSE
 	var/dx = holder.x - x
