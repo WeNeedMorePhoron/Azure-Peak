@@ -115,19 +115,12 @@
 
 	var/delay = mob.CanMobAutoclick(object, location, params)
 
-	var/was_charging = charging
-
-	if(was_charging && mob.used_intent)
-		mob.used_intent.on_mouse_up()
+	if(charging)
+		mob.stop_attack()
+		return
 
 	mob.atkswinging = null
-	charging = 0
 	chargedprog = 0
-
-	if(was_charging)
-		STOP_PROCESSING(SSmousecharge, src)
-		mouse_pointer_icon = 'icons/effects/mousemice/human.dmi'
-		return
 
 	if(!mob.fixedeye)
 		mob.tempfixeye = TRUE

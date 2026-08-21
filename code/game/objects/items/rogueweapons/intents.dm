@@ -374,8 +374,6 @@
 /datum/intent/proc/on_charge_cancel()
 	if(!tranged || !mastermob?.client)
 		return
-	if(mastermob.client.chargedprog < 100)
-		return
 	if(mastermob.stamina >= mastermob.max_stamina)
 		return
 	var/obj/item/gun/ballistic/revolver/grenadelauncher/launcher = masteritem
