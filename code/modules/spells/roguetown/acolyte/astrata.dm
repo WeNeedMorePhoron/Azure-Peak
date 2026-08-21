@@ -180,7 +180,7 @@
 	light_color = "#a98107"
 	damage = 50
 	damage_type = BURN
-	accuracy = 50 //Astrata show me true or something?
+	aim_mod = -15
 	nodamage = FALSE
 	speed = 0.3
 	flag = "fire"

@@ -29,7 +29,7 @@
 	flag = "blunt"
 	range = SPELL_RANGE_PROJECTILE
 	speed = MAGE_PROJ_SLOW
-	accuracy = 50
+	aim_mod = -15
 	guard_deflectable = TRUE
 	expose_caster_on_deflect = TRUE
 	intdamfactor = SPELL_BLUNT_INT_DAMAGEFACTOR

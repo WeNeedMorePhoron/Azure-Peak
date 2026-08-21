@@ -109,9 +109,6 @@
 	draw_base = BOW_DRAW_BASE
 	draw_floor = BOW_DRAW_FLOOR
 	draw_per_skill = BOW_DRAW_PER_SKILL
-	per_acc_threshold = BOW_PER_ACC_THRESHOLD
-	per_acc_mult = BOW_PER_ACC_MULT
-	per_bonus_acc_mult = BOW_PER_BONUS_ACC_MULT
 	per_scales_damage = TRUE
 	early_release_acc_penalty = BOW_EARLY_RELEASE_ACC_PENALTY
 	early_release_embed_mult = BOW_EARLY_RELEASE_EMBED_MULT
@@ -124,8 +121,9 @@
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_info("Bows draw faster the higher your <b>ARCHERY</b>.")
-	. += span_info("Bows increase in damage and accuracy the higher your <b>PERCEPTION</b>.")
+	. += span_info("My <b>ARCHERY</b> skill defines how precise my shots are and how fast I can draw.")
+	. += span_info("Bows increase in damage the higher your <b>PERCEPTION</b>.")
+	. += span_info("When I shoot a target too close or too far away, I will only hit the chest.")
 	. += span_info("Bows with a heavy draw, such as longbows, have an increased draw time for characters with low <b>STRENGTH</b>.")
 	. += span_info("Nocking straight from a quiver requires my other hand to be free.")
 

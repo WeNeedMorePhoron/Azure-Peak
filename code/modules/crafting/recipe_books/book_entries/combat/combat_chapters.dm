@@ -540,6 +540,12 @@
 		<div>
 		<p>Ranged Weapons are split into three main families. Both bows and slings lean on Perception, which raises their damage at [round(RANGED_STAT_MULT * 100)]% per point up to [RANGED_STAT_SOFTCAP], and [round(RANGED_STAT_CAPPEDMULT * 100)]% per point beyond it. Perception also cuts their draw time, though that is a flat reduction with no softcap on it.</p>
 
+		<p>Ranged Accuracy formula are very simple - Your weapon skills (Or Perception above 10) for Mage set the maximum accuracy of your projectiles. Below minimum and above maximum range, it will always miss and hit Chest. Certain weapons or projectile will multiply your accuracy.
+		</p>
+
+		<p>Projectiles that cross a Z level or cross visual range will start declining in accuracy, increasing the chance they hit chest. The chance to hit the face is very low regardless, and very precise zone like hands or feet is low. Major limb hitting chance is decent. You can never miss chest.`
+		</p>
+
 		<h3>Bow</h3>
 		<p>Bows are rapid-firing, exhausting weapons that deal PIERCING damage. Bows are split into:</p>
 		<ul>
@@ -554,7 +560,7 @@
 		<p>Bows must be charged after nocking an arrow. You can nock an arrow quickly by left clicking a quiver. Charging for too long and not releasing will deplete your stamina rapidly.</p>
 
 		<h3>Crossbow</h3>
-		<p>Crossbows can be kept loaded on your back and then shot rapidly, and aim can be held indefinitely without issue. However, reloading a crossbow immobilizes you. Crossbows do not scale their damage to perception, unlike the other two weapons. Perception does however improve their accuracy and reload speed.</p>
+		<p>Crossbows can be kept loaded on your back and then shot rapidly, and aim can be held indefinitely without issue. However, reloading a crossbow immobilizes you. Crossbows do not scale their damage to perception, unlike the other two weapons. Perception does however extend the range over which they aim cleanly.</p>
 
 		<p>Crossbow Bolts pierce nearly all armor by default.</p>
 

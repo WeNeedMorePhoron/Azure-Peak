@@ -60,8 +60,9 @@
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_info("Crossbows increase in accuracy with a higher <b>PERCEPTION</b>, but deal a static amount of damage \
-	regardless of character stats.")
+	. += span_info("Crossbows deal a static amount of damage regardless of character stats.")
+	. += span_info("My <b>CROSSBOWS</b> skill defines how precise my shots are and how fast I can draw.")
+	. += span_info("When I shoot a target too close or too far away, I will only hit the chest.")
 	. += span_info("Crossbows must be cocked before a bolt can be nocked, but once cocked I can nock straight from a pouch by left-clicking it.")
 	if(damfactor < 1)
 		. += span_info("This weapon <b>reduces</b> bolt damage by <b>[round((1 - damfactor) * 100, 1)]%</b>.")

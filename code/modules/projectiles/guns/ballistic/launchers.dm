@@ -22,11 +22,8 @@
 	var/draw_per_str = 0
 	var/arc_draw_extra = RANGED_ARC_DRAW_EXTRA
 	var/arc_draw_floor_extra = RANGED_ARC_DRAW_FLOOR_EXTRA
-	var/per_acc_threshold = RANGED_PER_ACC_THRESHOLD
-	var/per_acc_mult = RANGED_PER_ACC_MULT
-	var/per_bonus_acc_threshold = RANGED_PER_BONUS_ACC_THRESHOLD
-	var/per_bonus_acc_mult = RANGED_PER_BONUS_ACC_MULT
-	var/skill_bonus_acc_mult = RANGED_SKILL_ACC_MULT
+	var/acc_base = ACC_RANGED_BASE
+	var/acc_per_skill = ACC_RANGED_PER_SKILL
 	var/per_scales_damage = FALSE
 	var/per_damage_baseline = RANGED_PER_DAMAGE_BASELINE
 	var/per_damage_softcap = RANGED_STAT_SOFTCAP
@@ -105,17 +102,15 @@
 /obj/item/gun/ballistic/revolver/grenadelauncher/proc/apply_ranged_accuracy(obj/projectile/BB, mob/living/user)
 	if(!BB || !user)
 		return
-	BB.accuracy += accfactor * (user.STAPER - per_acc_threshold) * per_acc_mult
-	BB.bonus_accuracy += (user.STAPER - per_bonus_acc_threshold) * per_bonus_acc_mult
-	if(ranged_skill)
-		BB.bonus_accuracy += user.get_skill_level(ranged_skill) * skill_bonus_acc_mult
+	var/level = ranged_skill ? user.get_skill_level(ranged_skill) : 0
+	BB.aim_peak = (acc_base + (level * acc_per_skill) + BB.aim_mod) * accfactor
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/proc/apply_early_release_penalty(obj/projectile/BB, mob/living/user)
 	if(!BB || !user?.client || user.client.chargedprog >= 100)
 		return
 	BB.damage *= (user.client.chargedprog / 100)
 	BB.embedchance *= early_release_embed_mult
-	BB.accuracy -= early_release_acc_penalty
+	BB.aim_peak -= early_release_acc_penalty
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/get_mechanics_examine(mob/user)
 	. = ..()

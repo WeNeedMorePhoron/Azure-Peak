@@ -99,8 +99,9 @@
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/sling/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_info("Slings swing faster the higher your <b>SLINGS</b> skill.")
-	. += span_info("Slings increase in damage and accuracy the higher your <b>PERCEPTION</b> and <b>STRENGTH</b>.")
+	. += span_info("My <b>SLINGS</b> skill defines how precise my shots are and how fast I can swing.")
+	. += span_info("Slings increase in damage the higher your <b>PERCEPTION</b>.")
+	. += span_info("When I shoot a target too close or too far away, I will only hit the chest.")
 	. += span_info("Slings can be loaded directly from a pouch while your offhand is occupied by another item.")
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/sling/getonmobprop(tag)

@@ -118,10 +118,7 @@
 	bolt.fired_from = get_turf(H)
 	bolt.def_zone = BODY_ZONE_CHEST
 	bolt.spell_impact_intensity = SPELL_IMPACT_MEDIUM
-	bolt.accuracy += (H.STAPER - 9) * 4
-	bolt.bonus_accuracy += (H.STAPER - 8) * 3
-	if(H.mind)
-		bolt.bonus_accuracy += (H.get_skill_level(associated_skill) * 5)
+	H.apply_ranged_accuracy(bolt, associated_skill)
 	bolt.setAngle(angle)
 	bolt.fire()
 
@@ -136,7 +133,7 @@
 	flag = "blunt"
 	range = 30
 	speed = 3
-	accuracy = 60
+	aim_mod = -5
 	guard_deflectable = TRUE
 	expose_caster_on_deflect = TRUE
 	intdamfactor = 1
