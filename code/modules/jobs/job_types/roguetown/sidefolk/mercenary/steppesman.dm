@@ -131,7 +131,7 @@
 				beltl = /obj/item/quiver/arrows
 				backl = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve/steppesman
 				neck = /obj/item/clothing/neck/roguetown/leather
-				H.adjust_skillrank(/datum/skill/combat/bows, 5, TRUE)
+				H.adjust_skillrank(/datum/skill/combat/bows, 4, TRUE)
 				H.adjust_skillrank(/datum/skill/combat/knives, 4, TRUE)
 				H.adjust_skillrank(/datum/skill/combat/slings, 4, TRUE)
 				H.adjust_skillrank(/datum/skill/combat/swords, 3, TRUE)

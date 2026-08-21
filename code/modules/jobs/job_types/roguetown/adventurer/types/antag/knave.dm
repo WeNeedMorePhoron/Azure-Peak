@@ -90,6 +90,6 @@
 							/obj/item/restraints/legcuffs/beartrap = 2,
 							/obj/item/flashlight/flare/torch = 1,
 							) //poacher gets mantraps
-				H.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_LEGENDARY, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_MASTER, TRUE)
 				H.change_stat(STATKEY_PER, 2)
 				H.change_stat(STATKEY_SPD, -1)

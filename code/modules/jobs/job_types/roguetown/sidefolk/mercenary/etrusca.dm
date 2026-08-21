@@ -67,7 +67,7 @@
 				H.change_stat(STATKEY_CON, 2)
 				H.change_stat(STATKEY_PER, -2)
 			if("Calculating Tactician - Crossbow + Shortsword") 
-				H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, SKILL_LEVEL_MASTER, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, SKILL_LEVEL_EXPERT, TRUE)
 				beltr = /obj/item/quiver/bolt/standard
 				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 				beltl = /obj/item/rogueweapon/scabbard/sword
@@ -91,7 +91,7 @@
 		STATKEY_SPD = 2
 	)
 	subclass_skills = list(
-		/datum/skill/combat/crossbows = SKILL_LEVEL_MASTER, //Possibly too high, no idea.
+		/datum/skill/combat/crossbows = SKILL_LEVEL_EXPERT, //Possibly too high, no idea.
 		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/knives = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
