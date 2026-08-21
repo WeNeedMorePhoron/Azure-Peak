@@ -508,6 +508,8 @@
 #define COMSIG_STORAGE_REMOVED "storage_item_removed"
 
 #define COMSIG_CONTAINER_CRAFT_COMPLETE "container_craft_complete"
+///from [/datum/container_craft_operation/proc/abort_craft]: (datum/container_craft_operation/operation, reason)
+#define COMSIG_CONTAINER_CRAFT_ABORTED "container_craft_aborted"
 
 ///from base of [/datum/reagents/proc/set_temperature]: (new_temp, old_temp)
 #define COMSIG_REAGENTS_TEMP_CHANGE "reagents_temp_change"

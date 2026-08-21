@@ -37,7 +37,10 @@
 	on_craft_finished = success
 	RegisterSignal(parent, COMSIG_STORAGE_CLOSED, PROC_REF(async_start))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(async_start))
+	RegisterSignal(parent, COMSIG_ATOM_ENTERED, PROC_REF(on_item_entered))
+	RegisterSignal(parent, COMSIG_ATOM_EXITED, PROC_REF(on_item_exited))
 	RegisterSignal(parent, COMSIG_CONTAINER_CRAFT_COMPLETE, PROC_REF(on_craft_complete))
+	RegisterSignal(parent, COMSIG_CONTAINER_CRAFT_ABORTED, PROC_REF(on_craft_aborted))
 	if(temperature_listener && isatom(parent))
 		var/atom/parent_atom = parent
 		RegisterSignal(parent_atom.reagents, COMSIG_REAGENTS_TEMP_CHANGE, PROC_REF(on_temperature_change))
@@ -49,13 +52,28 @@
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(attempt_crafts), source, user)
 
+/datum/component/container_craft/proc/queue_attempt()
+	addtimer(CALLBACK(src, PROC_REF(attempt_crafts), parent, null), 0, TIMER_UNIQUE|TIMER_OVERRIDE)
+
+/datum/component/container_craft/proc/on_item_entered(datum/source, atom/movable/entered, atom/old_loc)
+	SIGNAL_HANDLER
+	queue_attempt()
+
+/datum/component/container_craft/proc/on_item_exited(datum/source, atom/movable/exited, atom/new_loc)
+	SIGNAL_HANDLER
+	queue_attempt()
+
+/datum/component/container_craft/proc/on_craft_aborted(datum/source, datum/container_craft_operation/operation, reason)
+	SIGNAL_HANDLER
+	queue_attempt()
+
 /datum/component/container_craft/proc/on_temperature_change(datum/source, new_temp, old_temp)
 	SIGNAL_HANDLER
 	INVOKE_ASYNC(src, PROC_REF(attempt_crafts), source, null)
 
 /datum/component/container_craft/proc/on_craft_complete(datum/source, atom/created_output)
 	SIGNAL_HANDLER
-	addtimer(CALLBACK(src, PROC_REF(attempt_crafts), parent, null), 0, TIMER_UNIQUE|TIMER_OVERRIDE)
+	queue_attempt()
 
 /**
  * Attempt to craft all possible recipes - try normal priority first, then fallbacks

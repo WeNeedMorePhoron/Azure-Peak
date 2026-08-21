@@ -183,6 +183,9 @@
 	if(on_craft_failed)
 		on_craft_failed.InvokeAsync(crafter, initiator)
 
+	if(!QDELETED(crafter))
+		SEND_SIGNAL(crafter, COMSIG_CONTAINER_CRAFT_ABORTED, src, reason)
+
 	qdel(src)
 
 /**
