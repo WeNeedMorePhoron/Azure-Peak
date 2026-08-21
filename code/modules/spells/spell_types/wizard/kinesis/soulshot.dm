@@ -49,7 +49,6 @@
 	damage = SOULSHOT_BASE_DAMAGE
 	damage_type = BRUTE
 	woundclass = BCLASS_STAB
-	aim_mod = -25
 	nodamage = FALSE
 	speed = 0.3
 	flag = "piercing"

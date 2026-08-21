@@ -159,7 +159,6 @@
 	var/poisonamount
 	var/poisonfeel
 
-	var/aim_mod = 0
 	var/aim_peak = 0
 
 	/// Min tile distance for full damage.
@@ -181,7 +180,7 @@
 	. = ..()
 	permutated = list()
 	decayedRange = range
-	aim_peak = ACC_RANGED_NPC_BASE + aim_mod
+	aim_peak = ACC_RANGED_NPC_BASE
 
 /obj/projectile/proc/Range()
 	range--

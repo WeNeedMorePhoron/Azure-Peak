@@ -98,8 +98,12 @@
 #define CROSSBOW_ONEHANDED_DRAW_MULT 1.5
 #define CROSSBOW_ONEHANDED_ARC_DRAW_MULT 2
 
+// For archer, whose damage scales massively with PER, we make skill their main determinator of accuracy and ROF, while decoupling PER from accuracy and making it scale damage.
 #define ACC_RANGED_BASE 15
 #define ACC_RANGED_PER_SKILL 15
+// While for Mage, where I have made Arcyne Armament a pseudo melee skills, and INT their primary CDR and Cost scalar, we uses PER so that their build need more than one stat to function well, in place of skills. The accuracy is 10 as a baseline (15 - 10 = 5 * 15 = +75 + 15 = 90% accuracy at 15 perception, i.e. capping out vs limb)
+#define ACC_RANGED_STAT_BASELINE 10
+#define ACC_RANGED_PER_STAT 15
 #define ACC_RANGED_FLOOR 0
 #define ACC_RANGED_VISUAL_REACH 7
 #define ACC_RANGED_FARSIGHT_PENALTY 10

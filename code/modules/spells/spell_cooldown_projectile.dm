@@ -97,7 +97,7 @@
 	// Accuracy from PER and skill, matching the old proc_holder system
 	if(isliving(user))
 		var/mob/living/L = user
-		L.apply_ranged_accuracy(to_fire, associated_skill)
+		L.apply_spell_accuracy(to_fire)
 
 	// Apply attunement glow if the caster is holding a spell implement
 	if(attunement_school && ishuman(user))

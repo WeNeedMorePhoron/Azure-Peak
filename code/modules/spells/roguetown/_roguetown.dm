@@ -112,7 +112,7 @@
 			var/obj/projectile/magic/M = P
 			M.spell_impact_intensity = spell_impact_intensity
 		P.def_zone = user.zone_selected
-		user.apply_ranged_accuracy(P, associated_skill)
+		user.apply_spell_accuracy(P)
 		P.firer = user
 		P.preparePixelProjectile(target, user)
 		for(var/V in projectile_var_overrides)

@@ -22,8 +22,6 @@
 	var/draw_per_str = 0
 	var/arc_draw_extra = RANGED_ARC_DRAW_EXTRA
 	var/arc_draw_floor_extra = RANGED_ARC_DRAW_FLOOR_EXTRA
-	var/acc_base = ACC_RANGED_BASE
-	var/acc_per_skill = ACC_RANGED_PER_SKILL
 	var/per_scales_damage = FALSE
 	var/per_damage_baseline = RANGED_PER_DAMAGE_BASELINE
 	var/per_damage_softcap = RANGED_STAT_SOFTCAP
@@ -103,7 +101,7 @@
 	if(!BB || !user)
 		return
 	var/level = ranged_skill ? user.get_skill_level(ranged_skill) : 0
-	BB.aim_peak = (acc_base + (level * acc_per_skill) + BB.aim_mod) * accfactor
+	BB.aim_peak = (ACC_RANGED_BASE + (level * ACC_RANGED_PER_SKILL)) * accfactor
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/proc/apply_early_release_penalty(obj/projectile/BB, mob/living/user)
 	if(!BB || !user?.client || user.client.chargedprog >= 100)

@@ -178,13 +178,15 @@
 	var/shift = round((STAPER - ARCHER_NPC_AIM_BASELINE) / ARCHER_NPC_AIM_PER_STAT_POINT, 1)
 	return max(ARCHER_NPC_AIM_WINDOW_MIN, ARCHER_NPC_AIM_WINDOW_BASE - shift)
 
-/mob/living/proc/apply_ranged_accuracy(obj/projectile/P, skill)
+/mob/living/proc/apply_ranged_accuracy(obj/projectile/P)
 	if(!P)
 		return
-	var/peak = ACC_RANGED_NPC_BASE
-	if(!isnull(skill))
-		peak = ACC_RANGED_BASE + (get_skill_level(skill) * ACC_RANGED_PER_SKILL)
-	P.aim_peak = peak + P.aim_mod
+	P.aim_peak = ACC_RANGED_NPC_BASE
+
+/mob/living/proc/apply_spell_accuracy(obj/projectile/P)
+	if(!P)
+		return
+	P.aim_peak = ACC_RANGED_BASE + ((STAPER - ACC_RANGED_STAT_BASELINE) * ACC_RANGED_PER_STAT)
 
 /// aim_stat defaults to Perception, the archery case. Spells pass Intelligence.
 /mob/living/proc/get_ranged_lead_error(moved, aim_stat)

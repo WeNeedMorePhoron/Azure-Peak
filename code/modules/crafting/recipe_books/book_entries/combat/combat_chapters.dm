@@ -225,13 +225,20 @@
 		</ul>
 
 		<h3>Accuracy</h3>
-		<p>Attacks aimed at the chest always hit the chest. Attacks aimed elsewhere must roll for accuracy. A Stab has the most accuracy, a Cut is slightly less reliable, and Blunt attacks do not benefit at all. Skill increases accuracy at +[ACC_SKILL_BONUS_PER_LEVEL] per level, and Perception above 10 matters as much as skills until it goes past [RANGED_STAT_SOFTCAP]. Perception below 10 will lower your hit rate significantly.</p>
+		<p>Attacks aimed at the chest always hit the chest. Attacks aimed elsewhere must roll for accuracy. A Stab has the most accuracy, a Cut is slightly less reliable, and Blunt attacks do not benefit at all. Skill increases accuracy at +[ACC_SKILL_BONUS_PER_LEVEL] per level. Perception above 10 adds +[ACC_PER_BONUS_PER_POINT] a point up to +[ACC_PER_BONUS_CAP], while Perception below 10 costs [ACC_PER_PENALTY_PER_POINT] a point - deliberately harsher than the bonus.</p>
 
 		<p>The zone matters as much as the blow. Aiming for a whole limb, like a head or leg or arm, will always be easier to hit the subzone. Picking out parts of someone's face is the hardest target of all.</p>
 
-		<p>No matter how good or bad your aim is, its effects are clamped</p>
+		<p>No matter how good or bad your aim is, the final chance is clamped between [ACC_MIN]% and [ACC_MAX]%.</p>
 
 		<p>A target you have Exposed, made Vulnerable, or held in an aggressive grab is far easier to strike precisely. Someone off their feet is easier to aim at, too. SHORT weapons also aim better, at +[ACC_SHORT_WEAPON_BONUS].</p>
+
+		<h3>Ranged and Spells</h3>
+		<p>Ranged accuracy is simpler than melee. Your weapon skill sets the ceiling, at [ACC_RANGED_BASE] plus [ACC_RANGED_PER_SKILL] per level. Spells read Perception in place of any skill, each point above [ACC_RANGED_STAT_BASELINE] worth as much as a level of training - and each point below it costing the same. Some weapons multiply the result.</p>
+
+		<p>Shoot closer than a projectile's minimum range, or past its maximum, and the shot can only land on the chest. Past [ACC_RANGED_VISUAL_REACH] tiles, about as far as you can see, accuracy falls by [ACC_RANGED_FARSIGHT_PENALTY] for every further tile, so only a practiced shot keeps any of it at that distance. Loosing at a floor above or below costs another [ACC_RANGED_ZCROSS_PENALTY].</p>
+
+		<p>The same zones apply, but the ceilings are harsher than in melee. A limb or the head can never exceed [RANGED_MAX_PRECISE_HIT_CHANCE]%, hands and feet [RANGED_MAX_ULTRA_PRECISE_HIT_CHANCE]%, and a face zone [RANGED_MAX_FACE_HIT_CHANCE]%. As in melee, a shot aimed at the chest always lands there.</p>
 		</div>
 	"}
 
@@ -538,18 +545,14 @@
 /datum/book_entry/combat/ranged/inner_book_html(mob/user)
 	return {"
 		<div>
-		<p>Ranged Weapons are split into three main families. Both bows and slings lean on Perception, which raises their damage at [round(RANGED_STAT_MULT * 100)]% per point up to [RANGED_STAT_SOFTCAP], and [round(RANGED_STAT_CAPPEDMULT * 100)]% per point beyond it. Perception also cuts their draw time, though that is a flat reduction with no softcap on it.</p>
+		<p>Ranged Weapons are split into three main families. Both bows and slings lean on Perception, which raises their damage at [round(RANGED_STAT_MULT * 100)]% per point up to [RANGED_STAT_SOFTCAP], and [round(RANGED_STAT_CAPPEDMULT * 100)]% per point beyond it.</p>
 
-		<p>Ranged Accuracy formula are very simple - Your weapon skills (Or Perception above 10) for Mage set the maximum accuracy of your projectiles. Below minimum and above maximum range, it will always miss and hit Chest. Certain weapons or projectile will multiply your accuracy.
-		</p>
-
-		<p>Projectiles that cross a Z level or cross visual range will start declining in accuracy, increasing the chance they hit chest. The chance to hit the face is very low regardless, and very precise zone like hands or feet is low. Major limb hitting chance is decent. You can never miss chest.`
-		</p>
+		<p>How precisely a shot lands on the body, and how range, floors and your skill or Perception change it, is covered in <i>Where to Aim</i>.</p>
 
 		<h3>Bow</h3>
 		<p>Bows are rapid-firing, exhausting weapons that deal PIERCING damage. Bows are split into:</p>
 		<ul>
-			<li><b>Crude Selfbow and Recurve Bow</b>, fast and the default bow. They shoot exactly the same.</li>
+			<li><b>Yew Hunting Bow and Recurve Bow</b>, fast and the default bows.</li>
 			<li><b>Longbow</b>, scaling slightly with STR, each arrow dealing a significantly higher amount of damage in exchange for a lower ROF.</li>
 		</ul>
 
@@ -560,7 +563,7 @@
 		<p>Bows must be charged after nocking an arrow. You can nock an arrow quickly by left clicking a quiver. Charging for too long and not releasing will deplete your stamina rapidly.</p>
 
 		<h3>Crossbow</h3>
-		<p>Crossbows can be kept loaded on your back and then shot rapidly, and aim can be held indefinitely without issue. However, reloading a crossbow immobilizes you. Crossbows do not scale their damage to perception, unlike the other two weapons. Perception does however extend the range over which they aim cleanly.</p>
+		<p>Crossbows can be kept loaded on your back and then shot rapidly, and holding aim costs no stamina. However, reloading a crossbow immobilizes you. Crossbows do not scale their damage to perception, unlike the other two weapons.</p>
 
 		<p>Crossbow Bolts pierce nearly all armor by default.</p>
 
