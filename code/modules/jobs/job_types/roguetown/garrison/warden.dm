@@ -115,7 +115,7 @@
 			if("Bowhunter - Blackhorn Bow + 20 Broadheads")
 				beltr = /obj/item/quiver/arrows
 				backl = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve/warden
-				H.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_EXPERT, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_MASTER, TRUE)
 			if("Spearhunter - Spear + Sling, +I STR / -I SPD")
 				beltr = /obj/item/quiver/sling/iron
 				r_hand = /obj/item/rogueweapon/spear
