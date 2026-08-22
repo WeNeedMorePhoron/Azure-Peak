@@ -438,7 +438,7 @@
 	. = ..()
 	. += span_info("Hearths must be fuelled occasionally to continue burning. They can be dowsed with a container of liquid \
 	on <b>SPLASH</b> intent to save fuel.")
-	. += span_info("A pan or pot can be set on top. Left-click a loaded pan to see inside it; middle-click removes it.")
+	. += span_info("A pan or pot can be set on top. <b>Left-Click</b> a loaded pan to see inside it; <b>Middle-Click</b> removes it.")
 
 /obj/machinery/light/rogue/hearth/Initialize(mapload)
 	boilloop = new(src, FALSE)
