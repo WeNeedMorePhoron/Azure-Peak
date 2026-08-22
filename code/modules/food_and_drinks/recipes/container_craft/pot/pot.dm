@@ -2,7 +2,7 @@
 	name = "Azurosa Tea"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/grown/rogue/rosa_petals_dried/azure = 1)
 	created_reagent = /datum/reagent/consumable/azurosa_tea
-	crafting_time = 15 SECONDS
+	crafting_time = 30 SECONDS
 
 /datum/container_craft/cooking/humanoid_whole_meat
 	name = "Long Pig Stew"
@@ -327,7 +327,7 @@
 	name = "Pure Butter"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/squiresdelight = 1)
 	created_reagent = /datum/reagent/consumable/soup/purebutter
-	crafting_time = 20 SECONDS
+	crafting_time = 30 SECONDS
 
 /datum/container_craft/cooking/potato
 	name = "Potato Soup"
@@ -1171,37 +1171,37 @@
 	name = "Rosa Tea"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/grown/rogue/rosa_petals_dried = 1)
 	created_reagent = /datum/reagent/consumable/rosewater
-	crafting_time = 15 SECONDS
+	crafting_time = 30 SECONDS
 
 /datum/container_craft/cooking/rose_tea_spiced
 	name = "Spiced Rosa Tea"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/grown/rogue/rosa_petals_spiced = 1)
 	created_reagent = /datum/reagent/consumable/rosewater_spiced
-	crafting_time = 20 SECONDS
+	crafting_time = 40 SECONDS
 
 /datum/container_craft/cooking/coffee
 	name = "Coffee"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/grown/coffeebeansroasted = 1)
 	created_reagent = /datum/reagent/consumable/caffeine/coffee
-	crafting_time = 15 SECONDS
+	crafting_time = 30 SECONDS
 
 /datum/container_craft/cooking/coffee_spiced
 	name = "Spiced Coffee"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/grown/coffeebeans_spiced = 1)
 	created_reagent = /datum/reagent/consumable/caffeine/coffee_spiced
-	crafting_time = 20 SECONDS
+	crafting_time = 40 SECONDS
 
 /datum/container_craft/cooking/tea
 	name = "Tea"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/grown/rogue/tealeaves_ground = 1)
 	created_reagent = /datum/reagent/consumable/caffeine/tea
-	crafting_time = 15 SECONDS
+	crafting_time = 30 SECONDS
 
 /datum/container_craft/cooking/tea_spiced
 	name = "Spiced Tea"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/grown/rogue/tealeaves_spiced = 1)
 	created_reagent = /datum/reagent/consumable/caffeine/tea_spiced
-	crafting_time = 20 SECONDS
+	crafting_time = 40 SECONDS
 
 /datum/container_craft/cooking/chocolate_spiced
 	name = "Spiced Chocolate"
@@ -1234,34 +1234,34 @@
 	name = "Urtica-Salvia Tea"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/mix_utricasalvia = 1)
 	created_reagent = /datum/reagent/consumable/tea/utricasalvia
-	crafting_time = 9 SECONDS
+	crafting_time = 30 SECONDS
 
 /datum/container_craft/cooking/badidea
 	name = "Westleach Tar Tea"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/grown/rogue/pipeweeddry = 1)
 	created_reagent = /datum/reagent/consumable/tea/badidea
-	crafting_time = 12 SECONDS
+	crafting_time = 30 SECONDS
 
 /datum/container_craft/cooking/swampbrew
 	name = "Swampweed Brew"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/grown/rogue/swampweeddry = 1)
 	created_reagent = /datum/reagent/consumable/tea/fourtwenty
-	crafting_time = 10 SECONDS
+	crafting_time = 30 SECONDS
 
 /datum/container_craft/cooking/manabloomtea
 	name = "Manabloom Tea"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/grown/manabloom = 1)
 	created_reagent = /datum/reagent/consumable/tea/manabloom
-	crafting_time = 10 SECONDS
+	crafting_time = 30 SECONDS
 
 /datum/container_craft/cooking/compot
 	name = "Compot"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/rogue/raisins = 1)
 	created_reagent = /datum/reagent/consumable/tea/compot
-	crafting_time = 10 SECONDS
+	crafting_time = 30 SECONDS
 
 /datum/container_craft/cooking/sbiten
 	name = "Sbiten"
 	wildcard_requirements = list(/obj/item/reagent_containers/food/snacks/mix_sbiten = 1)
 	created_reagent = /datum/reagent/consumable/tea/sbiten
-	crafting_time = 6 SECONDS
+	crafting_time = 30 SECONDS
