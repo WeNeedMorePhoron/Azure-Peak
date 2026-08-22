@@ -992,7 +992,7 @@
 "yZ" = (
 /obj/structure/table/cooling,
 /obj/item/flint,
-/obj/item/storage/bag/tray,
+/obj/item/storage/bag/tray/peel,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors)
 "zb" = (
