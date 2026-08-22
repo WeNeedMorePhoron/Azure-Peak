@@ -29,7 +29,7 @@
 	///do we need the initator near us
 	var/requires_proximity = FALSE
 	///Path of looping_sound to use while cooking
-	var/datum/looping_sound/cooking_sound
+	var/cooking_sound_type
 
 /**
  * Initialize a new crafting operation
@@ -105,7 +105,9 @@
 		on_craft_start.InvokeAsync(crafter, initiator, estimated_multiplier)
 
 	if(cooking_sound)
-		src.cooking_sound = new cooking_sound(get_turf(crafter), TRUE)
+		var/datum/component/container_craft/craft_component = crafter.GetComponent(/datum/component/container_craft)
+		if(craft_component?.acquire_cooking_sound(cooking_sound))
+			cooking_sound_type = cooking_sound
 
 /**
  * Process tick for crafting progress
@@ -197,6 +199,9 @@
 	on_craft_start = null
 	on_craft_failed = null
 	stored_items = null
-	if(cooking_sound)
-		QDEL_NULL(cooking_sound)
+	if(cooking_sound_type)
+		var/datum/component/container_craft/craft_component = crafter?.GetComponent(/datum/component/container_craft)
+		craft_component?.release_cooking_sound(cooking_sound_type)
+		cooking_sound_type = null
+	crafter = null
 	return ..()

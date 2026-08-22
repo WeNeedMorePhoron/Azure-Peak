@@ -10,6 +10,8 @@
 	var/datum/callback/on_craft_failed
 	/// Callback when craft is successful
 	var/datum/callback/on_craft_finished
+	var/list/cooking_sounds
+	var/list/cooking_sound_users
 
 /**
  * Initialize the component
@@ -44,6 +46,37 @@
 	if(temperature_listener && isatom(parent))
 		var/atom/parent_atom = parent
 		RegisterSignal(parent_atom.reagents, COMSIG_REAGENTS_TEMP_CHANGE, PROC_REF(on_temperature_change))
+
+/datum/component/container_craft/Destroy()
+	if(cooking_sounds)
+		for(var/sound_type in cooking_sounds)
+			var/datum/looping_sound/loop = cooking_sounds[sound_type]
+			qdel(loop)
+		cooking_sounds = null
+	cooking_sound_users = null
+	return ..()
+
+/datum/component/container_craft/proc/acquire_cooking_sound(sound_type)
+	if(!ispath(sound_type, /datum/looping_sound))
+		return FALSE
+	LAZYINITLIST(cooking_sounds)
+	LAZYINITLIST(cooking_sound_users)
+	cooking_sound_users[sound_type] += 1
+	if(!cooking_sounds[sound_type])
+		cooking_sounds[sound_type] = new sound_type(parent, TRUE)
+	return TRUE
+
+/datum/component/container_craft/proc/release_cooking_sound(sound_type)
+	if(!cooking_sound_users?[sound_type])
+		return
+	cooking_sound_users[sound_type] -= 1
+	if(cooking_sound_users[sound_type] > 0)
+		return
+	cooking_sound_users -= sound_type
+	var/datum/looping_sound/loop = cooking_sounds?[sound_type]
+	cooking_sounds -= sound_type
+	if(loop)
+		qdel(loop)
 
 /**
  * Asynchronously start crafting

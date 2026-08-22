@@ -40,7 +40,7 @@
 
 /datum/looping_sound/frying
 	mid_sounds = list('sound/misc/frying.ogg')
-	mid_length = 30
+	mid_length = 69
 	volume = 50
 	extra_range = 2
 	vary = TRUE
