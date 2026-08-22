@@ -1,6 +1,4 @@
 #define FAN_PROGRESS_BONUS 2 SECONDS // Flat craft progress granted per fan
-#define DEEP_FRY_TIME 5 SECONDS // Default deep fry time
-#define OIL_CONSUMED 5 // Amount of oil consumed per deep fry (1 fat = 4 fry)
 
 /obj/machinery/light/rogue/firebowl
 	name = "brazier"
@@ -494,9 +492,6 @@
 		fan_crafts(FAN_PROGRESS_BONUS)
 
 /obj/machinery/light/rogue/hearth/attackby(obj/item/W, mob/living/user, params)
-	var/datum/skill/craft/cooking/cs = user?.get_skill_level(/datum/skill/craft/cooking)
-	var/cooktime_divisor = get_cooktime_divisor(cs)
-
 	if(!attachment)
 		if(istype(W, /obj/item/cooking/pan) || istype(W, /obj/item/reagent_containers/glass/bucket/pot))
 			playsound(get_turf(user), 'sound/foley/dropsound/shovel_drop.ogg', 40, TRUE, -1)
@@ -513,44 +508,16 @@
 			if(SEND_SIGNAL(attachment, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE))
 				update_icon()
 				return TRUE
-// Stew + Deep Frying code - refactored!!
-// Now with 100% more boiling!
 		else if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
 			var/obj/item/reagent_containers/glass/bucket/pot = attachment
-			if(istype(W, /obj/item/reagent_containers/food/snacks))
-				var/obj/item/reagent_containers/food/snacks/S = W
-				if(S.fat_yield)
-					if(pot.reagents.has_reagent(/datum/reagent/water))
-						to_chat(user, span_warning("You can't render fat in a pot with water!"))
-						return
-					if(do_after(user, 2 SECONDS / cooktime_divisor, target = src))
-						user.visible_message(span_info("[user] melts [S] in the pot.</span>"))
-						qdel(S)
-						pot.reagents.add_reagent(/datum/reagent/consumable/oil/tallow, S.fat_yield)
-						return
-				if(pot.reagents.has_reagent(/datum/reagent/consumable/oil/tallow) && S.deep_fried_type)
-					if(!pot.reagents.has_reagent(/datum/reagent/consumable/oil/tallow, OIL_CONSUMED))
-						to_chat(user, span_notice("Not enough tallow."))
-						return
-					if(pot.reagents.has_reagent(/datum/reagent/water))
-						to_chat(user, span_warning("You can't deep fry in a pot with water!"))
-						return
-					if(pot.reagents.chem_temp < STEW_TEMPERATURE)
-						to_chat(user, span_warning("[pot] isn't hot enough to fry anything."))
-						return
-					if(do_after(user, DEEP_FRY_TIME / cooktime_divisor, target = src))
-						user.visible_message(span_info("[user] deep fries [S] in the pot.</span>"))
-						add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-						new S.deep_fried_type(src.loc)
-						qdel(S)
-						pot.reagents.remove_reagent(/datum/reagent/consumable/oil/tallow, OIL_CONSUMED)
-						return
 			if(SEND_SIGNAL(pot, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE))
 				playsound(src.loc, 'sound/items/Fish_out.ogg', 20, TRUE)
-				if(!pot.reagents.has_reagent(/datum/reagent/water, STEW_WATER_REQUIRED))
+				var/obj/item/reagent_containers/food/snacks/snack = W
+				var/oily = pot.reagents.has_reagent(/datum/reagent/consumable/oil/tallow) || (istype(snack) && snack.fat_yield)
+				if(pot.reagents.chem_temp < STEW_TEMPERATURE)
+					to_chat(user, span_warning("[pot] isn't hot enough yet."))
+				else if(!oily && !pot.reagents.has_reagent(/datum/reagent/water, STEW_WATER_REQUIRED))
 					to_chat(user, span_warning("[pot] needs more water before anything will cook."))
-				else if(pot.reagents.chem_temp < STEW_TEMPERATURE)
-					to_chat(user, span_warning("[pot] isn't boiling yet."))
 				return TRUE
 	..()
 
@@ -863,5 +830,3 @@
 
 
 #undef FAN_PROGRESS_BONUS
-#undef DEEP_FRY_TIME
-#undef OIL_CONSUMED

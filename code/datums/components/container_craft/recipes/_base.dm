@@ -58,6 +58,7 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 
 			var/datum/container_craft/synth = new base
 			synth.name = initial(result.name)
+			synth.hides_from_books = TRUE
 			synth.requirements = synth_requirements
 			synth.output = result
 			synth.cooked_smell = initial(snack.cooked_smell)
@@ -96,6 +97,7 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 
 			var/datum/container_craft/synth = new base
 			synth.name = initial(snack.name)
+			synth.hides_from_books = TRUE
 			synth.requirements = synth_requirements
 			var/item_cooktime = initial(snack.cooktime)
 			if(item_cooktime)

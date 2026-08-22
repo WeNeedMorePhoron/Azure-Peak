@@ -112321,7 +112321,7 @@
 /obj/structure/bakers_trough{
 	pixel_y = 17
 	},
-/obj/item/storage/bag/tray{
+/obj/item/storage/bag/tray/peel{
 	pixel_y = -19;
 	pixel_x = -18
 	},

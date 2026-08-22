@@ -4,6 +4,7 @@
 	eject_output = TRUE
 	crafting_time = 5 SECONDS
 	cook_method = COOK_DEEPFRY
+	synthesize_recipes = TRUE
 	reagent_requirements = list(
 		/datum/reagent/consumable/oil/tallow = 5
 	)
@@ -17,6 +18,11 @@
 	if(crafter.reagents?.has_reagent(/datum/reagent/water))
 		return TRUE
 	return ..()
+
+/datum/container_craft/cooking/deepfry/handoff
+	abstract_type = /datum/container_craft/cooking/deepfry/handoff
+	synthesize_recipes = FALSE
+	handoff_craft = TRUE
 
 /datum/container_craft/cooking/deepfry/marmalade
 	name = "Marmalade"
