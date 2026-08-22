@@ -18,6 +18,7 @@
 	chargetime = 3 SECONDS
 	no_early_release = TRUE
 	charging_slowdown = 5
+	needs_loaded_launcher = FALSE
 
 /obj/item/ammo_casing/caseless/rogue/arrow/iron/ferramancy
 	name = "arcyne broadhead"

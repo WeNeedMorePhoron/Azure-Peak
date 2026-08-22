@@ -22,6 +22,9 @@
 		return FALSE
 	if(istype(clicked_object, /obj/item/quiver) && istype(mastermob?.get_active_held_item(), /obj/item/gun/ballistic))
 		return FALSE
+	if(needs_loaded_launcher && !launcher_is_loaded())
+		to_chat(mastermob, span_warning("I have nothing nocked!"))
+		return FALSE
 
 	return TRUE
 
@@ -49,6 +52,9 @@
 		to_chat(mastermob, span_warning("I need a free hand to draw [masteritem]!"))
 		return FALSE
 	if(istype(clicked_object, /obj/item/quiver) && istype(mastermob?.get_active_held_item(), /obj/item/gun/ballistic))
+		return FALSE
+	if(needs_loaded_launcher && !launcher_is_loaded())
+		to_chat(mastermob, span_warning("I have nothing nocked!"))
 		return FALSE
 
 	return TRUE

@@ -11,9 +11,13 @@
 	chargetime = 1 //used for edge cases only, the sling's get_draw_time() handles the actual number
 	chargedrain = SLING_CHARGEDRAIN
 	charging_slowdown = 3
+	needs_loaded_launcher = TRUE
 
 /datum/intent/swing/sling/can_charge(atom/clicked_object)
 	if(istype(clicked_object, /obj/item/quiver) && istype(mastermob?.get_active_held_item(), /obj/item/gun/ballistic))
+		return FALSE
+	if(needs_loaded_launcher && !launcher_is_loaded())
+		to_chat(mastermob, span_warning("I have nothing loaded!"))
 		return FALSE
 
 	return TRUE
@@ -40,6 +44,9 @@
 
 /datum/intent/arc/sling/can_charge(atom/clicked_object)
 	if(istype(clicked_object, /obj/item/quiver) && istype(mastermob?.get_active_held_item(), /obj/item/gun/ballistic))
+		return FALSE
+	if(needs_loaded_launcher && !launcher_is_loaded())
+		to_chat(mastermob, span_warning("I have nothing loaded!"))
 		return FALSE
 
 	return TRUE
@@ -213,13 +220,6 @@
 	start_empty = TRUE
 
 // RESKINS GO BELOW. THIS IS MOSTLY FOR FLAVOR/SOVL. P L E A S E DON'T MAKE THIS ANY DIFFERENT FROM YOUR NORMAL SLING, THANK YOU.
-
-/datum/intent/swing/sling/can_charge(atom/clicked_object)
-	var/obj/item/gun/ballistic/revolver/grenadelauncher/sling/S = masteritem
-	if(!S?.chambered)
-		return FALSE
-
-	return ..()
 
 /datum/intent/swing/sling/wood/prewarning()
 	if(mastermob)

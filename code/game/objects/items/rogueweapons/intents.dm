@@ -29,6 +29,7 @@
 	var/tranged = 0
 	/// Sound played to the charger when a charge/draw reaches full. Null = no sound.
 	var/ready_sound
+	var/needs_loaded_launcher = FALSE
 	/// Turns of auto-aim as well as the attack anim.
 	var/noaa = FALSE
 	/// Restores turf-click auto-aim on a noaa intent silently (so without the attack anim).
@@ -295,6 +296,17 @@
 	else
 		return 0
 
+/datum/intent/proc/launcher_is_loaded()
+	var/obj/item/gun/launcher = masteritem
+	if(!istype(launcher))
+		return TRUE
+	return launcher.can_shoot()
+
+/datum/intent/proc/get_ready_sound()
+	if(needs_loaded_launcher && !launcher_is_loaded())
+		return null
+	return ready_sound
+
 /datum/intent/proc/parrytime()
 	return 0
 
@@ -374,11 +386,13 @@
 /datum/intent/proc/on_charge_cancel()
 	if(!tranged || !mastermob?.client)
 		return
+	if(!mastermob.client.charging)
+		return
 	if(mastermob.stamina >= mastermob.max_stamina)
 		return
 	var/obj/item/gun/ballistic/revolver/grenadelauncher/launcher = masteritem
 	if(istype(launcher))
-		INVOKE_ASYNC(launcher, TYPE_PROC_REF(/obj/item/gun/ballistic/revolver/grenadelauncher, pay_letdown_drain), mastermob)
+		INVOKE_ASYNC(launcher, TYPE_PROC_REF(/obj/item/gun/ballistic/revolver/grenadelauncher, pay_letdown_drain), mastermob, mastermob.client.chargedprog / 100)
 
 /datum/intent/proc/on_mouse_up()
 	if(chargedloop)
@@ -565,7 +579,6 @@
 	icon_state = "inshoot"
 	tranged = 1
 	warnie = "aimwarn"
-	ready_sound = 'sound/foley/nockarrow.ogg'
 	item_d_type = "stab"
 	chargetime = 0.1
 	no_early_release = FALSE
@@ -574,6 +587,7 @@
 	warnoffset = 20
 	hold_grace = RANGED_HOLD_GRACE
 	hold_ramp = RANGED_HOLD_RAMP
+	needs_loaded_launcher = TRUE
 
 /datum/intent/shoot/prewarning()
 	if(masteritem && mastermob)
@@ -585,7 +599,6 @@
 	icon_state = "inarc"
 	tranged = 1
 	warnie = "aimwarn"
-	ready_sound = 'sound/foley/nockarrow.ogg'
 	item_d_type = "blunt"
 	chargetime = 0
 	no_early_release = FALSE
@@ -594,6 +607,7 @@
 	warnoffset = 20
 	hold_grace = RANGED_HOLD_GRACE
 	hold_ramp = RANGED_HOLD_RAMP
+	needs_loaded_launcher = TRUE
 
 /datum/intent/proc/arc_check()
 	return FALSE
