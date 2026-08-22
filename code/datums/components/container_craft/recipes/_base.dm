@@ -256,10 +256,15 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 		pathed_items = stamped_items
 
 	// Check reagent requirements
+	var/reagent_multiplier = 0
 	if(length(reagent_requirements))
 		for(var/reagent_type in reagent_requirements)
-			if(!find_required_reagent(crafter.reagents, reagent_type, reagent_requirements[reagent_type]))
+			var/datum/reagent/found_reagent = find_required_reagent(crafter.reagents, reagent_type, reagent_requirements[reagent_type])
+			if(!found_reagent)
 				return FALSE
+			var/possible_multiplier = FLOOR(found_reagent.volume / reagent_requirements[reagent_type], 1)
+			if(!reagent_multiplier || possible_multiplier < reagent_multiplier)
+				reagent_multiplier = possible_multiplier
 		// var/list/fake_reagents = reagent_requirements.Copy()
 		// var/list/available_reagents = list()
 		// for(var/datum/reagent/listed_reagent as anything in crafter.reagents.reagent_list)
@@ -329,6 +334,9 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 				highest_multiplier = potential_multiplier
 			else if(potential_multiplier < highest_multiplier)
 				highest_multiplier = potential_multiplier
+
+	if(reagent_multiplier && reagent_multiplier < highest_multiplier)
+		highest_multiplier = reagent_multiplier
 
 	if(isolation_craft && length(available_items))
 		return FALSE
@@ -474,6 +482,15 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 
 /datum/container_craft/proc/check_failure(obj/item/crafter, mob/user)
 	return FALSE
+
+/datum/container_craft/proc/can_progress(obj/item/crafter, mob/user)
+	return TRUE
+
+/datum/container_craft/proc/announce_stall(atom/crafter, mob/initiator)
+	return
+
+/datum/container_craft/proc/announce_resume(atom/crafter, mob/initiator)
+	return
 
 /datum/container_craft/proc/extra_html()
 	return

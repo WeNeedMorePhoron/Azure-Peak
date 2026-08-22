@@ -18,6 +18,7 @@
 	var/last_progress_time = 0
 	/// If the craft has been aborted
 	var/aborted = FALSE
+	var/stalled = FALSE
 	/// List of actual item references reserved for this craft
 	var/list/obj/item/stored_items
 	/// Callback for when craft is started
@@ -128,6 +129,17 @@
 			abort_craft("Requirements no longer met")
 			return
 
+	if(!recipe.can_progress(crafter, initiator))
+		last_progress_time = world.time
+		if(!stalled)
+			stalled = TRUE
+			recipe.announce_stall(crafter, initiator)
+		return
+
+	if(stalled)
+		stalled = FALSE
+		recipe.announce_resume(crafter, initiator)
+
 	// Check for timeout (no progress in a while)
 	if((world.time - last_progress_time) > timeout_period)
 		abort_craft("Craft timed out")
@@ -146,6 +158,8 @@
 
 /datum/container_craft_operation/proc/add_progress(amount)
 	if(aborted || amount <= 0)
+		return
+	if(!recipe.can_progress(crafter, initiator))
 		return
 	progress += amount
 	last_progress_time = world.time

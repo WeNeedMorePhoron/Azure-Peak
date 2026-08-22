@@ -34,6 +34,20 @@
 	. += span_info("After the first ingredient is placed in, the pot will begin turning it - and any other subsequent ingredients - into a brew, over the course of a minute.")
 	. += span_info("Specific ingredients can create specific brews; dried rosa petals for a refreshing tea, coffee beans for a revitalizing drink, and more..")
 
+/obj/item/reagent_containers/glass/bucket/pot/examine(mob/user)
+	. = ..()
+	if(reagents?.total_volume)
+		. += span_notice("It holds [reagents.total_volume] [UNIT_FORM_STRING(reagents.total_volume)] of liquid.")
+		. += reagents.chem_temp >= STEW_TEMPERATURE ? span_notice("It is boiling.") : span_notice("It is not boiling.")
+	var/list/solids = list()
+	for(var/obj/item/thing in contents)
+		solids[thing.name] += 1
+	if(length(solids))
+		var/list/listed = list()
+		for(var/thing_name in solids)
+			listed += solids[thing_name] > 1 ? "[solids[thing_name]] [thing_name]" : thing_name
+		. += span_notice("Inside it: [english_list(listed)].")
+
 /obj/item/reagent_containers/glass/bucket/pot/update_icon()
 	cut_overlays()
 	if(reagents.total_volume > 0)

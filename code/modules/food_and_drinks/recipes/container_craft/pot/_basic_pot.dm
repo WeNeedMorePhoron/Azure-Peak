@@ -15,7 +15,6 @@
 	var/pollute_amount = 600
 	///our required boiling temperature
 	var/required_chem_temp = STEW_TEMPERATURE
-	cooking_sound = /datum/looping_sound/boilloop
 
 /datum/container_craft/cooking/after_craft(atom/created_output, obj/item/crafter, mob/initiator, list/removing_items)
 	. = ..()
@@ -37,6 +36,21 @@
 		return TRUE
 	return FALSE
 
+/datum/container_craft/cooking/can_progress(obj/item/crafter, mob/user)
+	if(!crafter.reagents || crafter.reagents.chem_temp < required_chem_temp)
+		return FALSE
+	return TRUE
+
+/datum/container_craft/cooking/announce_stall(atom/crafter, mob/initiator)
+	if(QDELETED(crafter))
+		return
+	crafter.visible_message(span_warning("[crafter] goes off the boil."))
+
+/datum/container_craft/cooking/announce_resume(atom/crafter, mob/initiator)
+	if(QDELETED(crafter))
+		return
+	crafter.visible_message(span_notice("[crafter] comes back to a boil."))
+
 /datum/container_craft/cooking/get_real_time(atom/host, mob/user, estimated_multiplier)
 	var/real_cooking_time = crafting_time * estimated_multiplier
 	return round(real_cooking_time / get_cooktime_divisor(user?.get_skill_level(used_skill)))
@@ -46,9 +60,10 @@
 		var/turf/pot_turf = get_turf(crafter)
 		var/datum/reagent/first = reagent_requirements[1]
 		var/reagent_amount = reagent_requirements[first]
+		var/pot_temperature = crafter.reagents.chem_temp
 
 		for(var/j = 1 to output_amount)
-			crafter.reagents.add_reagent(created_reagent, reagent_amount * water_conversion)
+			crafter.reagents.add_reagent(created_reagent, reagent_amount * water_conversion, null, pot_temperature)
 
 			after_craft(null, crafter, initiator, removing_items)
 			if(finished_smell)
@@ -66,7 +81,7 @@
 /datum/container_craft/cooking/announce_fail(atom/crafter, mob/initiator)
 	if(QDELETED(crafter))
 		return
-	crafter.visible_message(span_warning("[crafter] goes off the boil."))
+	crafter.visible_message(span_warning("[crafter] stops cooking."))
 
 /datum/container_craft/cooking/extra_html()
 	if(!created_reagent)
