@@ -1,6 +1,0 @@
-author: "WeNeedMorePhoron"
-delete-after: True
-changes:
-  - balance: "Made NPC archers slower shooting and less accurate, again. Excluding Conjured summons"
-  - balance: "Made a certain boss no longer spawn archers"
-  - balance: "Fixed an issue where broadhead and bodkin (baseline) arrows do not have any damage falloff as intended."
