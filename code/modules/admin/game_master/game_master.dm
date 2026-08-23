@@ -225,7 +225,7 @@ GLOBAL_LIST_EMPTY(game_masters)
 			for(var/mob/living/cycled_mob in GLOB.mob_living_list)
 				if(!(cycled_mob.flags_1 & ADMIN_SPAWNED_1))
 					continue
-				if(cycled_mob.client || cycled_mob.mind)
+				if(cycled_mob.client || cycled_mob.mind || cycled_mob.ckey)
 					continue
 				qdel(cycled_mob)
 				deleted++
@@ -242,7 +242,7 @@ GLOBAL_LIST_EMPTY(game_masters)
 			for(var/mob/living/cycled_mob in view(ui.user.client?.view || world.view, ui.user))
 				if(cycled_mob == ui.user)
 					continue
-				if(cycled_mob.client || cycled_mob.mind)
+				if(cycled_mob.client || cycled_mob.mind || cycled_mob.ckey)
 					continue
 				qdel(cycled_mob)
 				deleted++
@@ -275,16 +275,29 @@ GLOBAL_LIST_EMPTY(game_masters)
 /datum/game_master/proc/InterceptClickOn(mob/user, params, atom/object)
 	var/list/modifiers = params2list(params)
 
+	if(LAZYACCESS(modifiers, SHIFT_CLICKED) || LAZYACCESS(modifiers, CTRL_CLICKED) || LAZYACCESS(modifiers, ALT_CLICKED))
+		return FALSE
+
 	switch(current_click_intercept_action)
 		if(SPAWN_CLICK_INTERCEPT_ACTION)
 			if(LAZYACCESS(modifiers, MIDDLE_CLICK))
-				if(isliving(object))
-					var/mob/living/clicked_mob = object
-					if(clicked_mob.client || clicked_mob.mind)
-						return TRUE
-					log_admin("[key_name(user)] deleted [clicked_mob] via the game master panel")
-					qdel(clicked_mob)
+				if(!isliving(object))
+					return FALSE
+				var/mob/living/clicked_mob = object
+				if(clicked_mob == user)
+					return TRUE
+				if(clicked_mob.client || clicked_mob.mind || clicked_mob.ckey)
+					to_chat(user, span_warning("[clicked_mob] is or was player controlled - refusing to delete."))
+					return TRUE
+				var/turf/clicked_turf = get_turf(clicked_mob)
+				var/admin_spawned = (clicked_mob.flags_1 & ADMIN_SPAWNED_1)
+				log_admin("[key_name(user)] deleted [clicked_mob] ([clicked_mob.type], [admin_spawned ? "admin-spawned" : "PRE-EXISTING"]) at [AREACOORD(clicked_turf)] via the game master panel")
+				message_admins("[key_name_admin(user)] deleted [clicked_mob] ([admin_spawned ? "admin-spawned" : "PRE-EXISTING"]) at [ADMIN_VERBOSEJMP(clicked_turf)] via the game master panel")
+				qdel(clicked_mob)
 				return TRUE
+
+			if(!LAZYACCESS(modifiers, LEFT_CLICK))
+				return FALSE
 
 			if(selected_view == GM_VIEW_WARBAND)
 				to_chat(user, span_warning("Warband spawning is not built yet."))
