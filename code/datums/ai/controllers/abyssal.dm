@@ -137,21 +137,17 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/kick/perform(delta_time, datum/ai_controller/controller, target_key, targetting_datum_key, hiding_location_key)
-	. = ..()
-
 	var/mob/living/user = controller.pawn
 	var/mob/living/mob = controller.blackboard[target_key]
 	var/datum/targetting_datum/targetting_datum = controller.blackboard[targetting_datum_key]
 
 	if(!istype(mob, /mob/living/carbon/human))
-		finish_action(controller, TRUE, target_key)
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 	
 	var/mob/living/carbon/human/target = mob
 
 	if(!targetting_datum.can_attack(user, target))
-		finish_action(controller, FALSE, target_key)
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 	playsound(target, 'sound/combat/hits/kick/kick.ogg', 100, TRUE, -1)
@@ -238,8 +234,7 @@
 	user.stamina_add(15)
 	target.forcesay(GLOB.hit_appends)
 
-	finish_action(controller, TRUE, target_key)
-	return
+	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/kick/finish_action(datum/ai_controller/controller, succeeded, target_key, targetting_datum_key, hiding_location_key)
 	. = ..()

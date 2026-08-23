@@ -132,17 +132,14 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/npc_kick_attack/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
-	. = ..()
 	var/mob/living/pawn = controller.pawn
 	var/mob/living/target = controller.blackboard[target_key]
 
 	if(!target || QDELETED(target) || !pawn.Adjacent(target))
-		finish_action(controller, FALSE, target_key)
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	if(!pawn.can_kick(target, do_message = FALSE))
-		finish_action(controller, FALSE, target_key)
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	// Aim low when prone - kick at feet/legs
 	if(!(pawn.mobility_flags & MOBILITY_STAND))
@@ -164,7 +161,7 @@
 	if(pawn.next_click < world.time + 1.2 SECONDS)
 		pawn.next_click = world.time + 1.2 SECONDS
 	AI_THINK(pawn, "KICK: kicked [target]!")
-	finish_action(controller, TRUE, target_key)
+	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/npc_kick_attack/finish_action(datum/ai_controller/controller, succeeded, target_key)
 	. = ..()
