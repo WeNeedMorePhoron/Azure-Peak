@@ -624,7 +624,6 @@
 #include "code\datums\ai\behaviors\perform_emote.dm"
 #include "code\datums\ai\behaviors\perform_speech.dm"
 #include "code\datums\ai\behaviors\recuperate.dm"
-#include "code\datums\ai\behaviors\resist.dm"
 #include "code\datums\ai\behaviors\run_from_target.dm"
 #include "code\datums\ai\behaviors\travel_towards.dm"
 #include "code\datums\ai\behaviors\use_in_hand.dm"
