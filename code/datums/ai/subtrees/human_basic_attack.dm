@@ -78,7 +78,6 @@
 		_scan_for_weakpoint(controller, pawn, target)
 
 /datum/ai_behavior/basic_melee_attack/human_npc/perform(delta_time, datum/ai_controller/controller, target_key, targetting_datum_key, hiding_location_key)
-	controller.behavior_cooldowns[src] = world.time + get_cooldown(controller)
 	var/mob/living/carbon/human/pawn = controller.pawn
 	var/atom/target = controller.blackboard[target_key]
 	var/datum/targetting_datum/td = controller.blackboard[targetting_datum_key]
@@ -94,12 +93,10 @@
 
 	if(!td.can_attack(pawn, target))
 		AI_THINK(pawn, "ATTACK: can't attack [target] - td rejected")
-		finish_action(controller, FALSE, target_key)
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	if(ismob(target) && target:stat == DEAD)
 		AI_THINK(pawn, "ATTACK: target [target] is dead")
-		finish_action(controller, FALSE, target_key)
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	SEND_SIGNAL(pawn, COMSIG_MOB_TRY_BARK)
 	var/hiding_target = td.find_hidden_mobs(pawn, target)
@@ -110,14 +107,13 @@
 
 	if(!pawn.CanReach(target, pawn.get_active_held_item()))
 		AI_THINK(pawn, "ATTACK: can't reach [target]")
-		finish_action(controller, FALSE, target_key)
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	if(pawn.STAINT >= HUMAN_NPC_MIN_INT_FOR_TACTICS)
 		// Don't open with a special — need a few normal swings first
 		var/attacks_done = controller.blackboard[BB_HUMAN_NPC_SWINGS_TAKEN]
 		if(attacks_done >= 2 && _try_weapon_special(controller))
-			return
+			return AI_BEHAVIOR_DELAY
 
 	_update_combat_intent(controller, pawn, target)
 	var/list/modifiers = list()
@@ -143,7 +139,7 @@
 
 	var/atom/swing_at = resolve_swing_target(controller, pawn, target, target_key, hiding_target)
 	if(!swing_at)
-		return
+		return AI_BEHAVIOR_DELAY
 
 	controller.ai_interact(swing_at, TRUE, TRUE, modifiers)
 
@@ -163,6 +159,7 @@
 
 	if(sidesteps_after && !pawn.mind?.has_antag_datum(/datum/antagonist/zombie) && prob(sidestep_chance))
 		pawn.combat_sidestep(target, sidestep_offsets, sidestep_seeks_flank)
+	return AI_BEHAVIOR_DELAY
 
 /datum/ai_behavior/basic_melee_attack/human_npc/finish_action(datum/ai_controller/controller, succeeded, target_key, targetting_datum_key, hiding_location_key)
 	. = ..()

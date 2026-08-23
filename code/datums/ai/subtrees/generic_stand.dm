@@ -8,4 +8,4 @@
 /datum/ai_behavior/stand/perform(seconds_per_tick, datum/ai_controller/controller)
 	var/mob/living/carbon/human/living_pawn = controller.pawn
 	living_pawn.stand_up()
-	finish_action(controller, TRUE)
+	return AI_BEHAVIOR_INSTANT | AI_BEHAVIOR_SUCCEEDED

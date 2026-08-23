@@ -106,12 +106,12 @@
 	var/mob/living/simple_animal/hostile/rogue/mirespider_lurker/target_target = target.ai_controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
 
 	if (target_target)
-		return	// Stop following if the target has a target
+		return AI_BEHAVIOR_DELAY	// Stop following if the target has a target
 
 	if (QDELETED(target))
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
-	return
+	return AI_BEHAVIOR_DELAY
 
 /datum/ai_planning_subtree/basic_ranged_attack_subtree/mirespider_lurker
 	ranged_attack_behavior = /datum/ai_behavior/basic_ranged_attack
