@@ -69,20 +69,19 @@
 //RANGED DEFINES
 
 #define RANGED_DRAW_STR_BASELINE 10
+GLOBAL_LIST_INIT(ranged_draw_curve, list(1, 0.79, 0.58, 0.33, 0.17, 0.08, 0))
 #define RANGED_ARC_DRAW_EXTRA 3
 #define RANGED_ARC_DRAW_FLOOR_EXTRA 2
 
 #define BOW_DRAW_BASE 20
 #define BOW_DRAW_FLOOR 8
-#define BOW_DRAW_PER_SKILL 2
 #define SHORTBOW_DRAW_BASE 17
-#define SHORTBOW_DRAW_FLOOR 7
+#define SHORTBOW_DRAW_FLOOR 7.5
 #define LONGBOW_DRAW_BASE 26
-#define LONGBOW_DRAW_FLOOR 10
+#define LONGBOW_DRAW_FLOOR 13
 #define LONGBOW_DRAW_PER_STR 1.5
-#define SLING_DRAW_BASE 16 // Used to be faster shooting than recurve due to perception counting twice. Let it keep its speed advantage but not too much.
+#define SLING_DRAW_BASE 18 // Used to be faster shooting than recurve due to perception counting twice. Let it keep its speed advantage but not too much.
 #define SLING_DRAW_FLOOR 8
-#define SLING_DRAW_PER_SKILL 1.5
 
 
 #define CROSSBOW_DRAW_BASE 16

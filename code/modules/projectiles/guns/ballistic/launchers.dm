@@ -14,6 +14,7 @@
 	var/accfactor = 1 // Multiplier for projectile accuracy. Used by bows and crossbows.
 	var/penfactor = 0 // Additive modifier for projectile PEN tier. Slurbow uses -1 to reduce bolt pen by one tier.
 	var/npc_force_arc = FALSE // Set by AI to force arc shot over allies
+	var/uses_draw_curve = FALSE
 	var/quickloading = FALSE
 	var/ranged_skill = null
 	var/draw_base = 0
@@ -47,7 +48,12 @@
 		newtime += arc_draw_extra
 		floortime += arc_draw_floor_extra
 	if(ranged_skill)
-		newtime -= user.get_skill_level(ranged_skill) * draw_per_skill
+		if(uses_draw_curve)
+			var/list/curve = GLOB.ranged_draw_curve
+			var/level = clamp(user.get_skill_level(ranged_skill), 0, length(curve) - 1)
+			newtime = floortime + ((newtime - floortime) * curve[level + 1])
+		else
+			newtime -= user.get_skill_level(ranged_skill) * draw_per_skill
 	if(draw_per_str)
 		newtime += max(0, draw_str_baseline - user.STASTR) * draw_per_str
 	newtime = max(newtime, floortime)

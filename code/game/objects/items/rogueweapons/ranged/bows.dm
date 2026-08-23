@@ -114,7 +114,7 @@
 	release_drain = BOW_RELEASEDRAIN
 	draw_base = BOW_DRAW_BASE
 	draw_floor = BOW_DRAW_FLOOR
-	draw_per_skill = BOW_DRAW_PER_SKILL
+	uses_draw_curve = TRUE
 	per_scales_damage = TRUE
 	early_release_acc_penalty = BOW_EARLY_RELEASE_ACC_PENALTY
 	early_release_embed_mult = BOW_EARLY_RELEASE_EMBED_MULT
