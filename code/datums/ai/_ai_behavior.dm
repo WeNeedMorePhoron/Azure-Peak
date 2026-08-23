@@ -18,6 +18,7 @@
 	return action_cooldown
 
 ///Called by the AI controller when this action is performed
+///Returns a set of flags defined in [code/__DEFINES/ai/_ai.dm]
 /datum/ai_behavior/proc/perform(delta_time, datum/ai_controller/controller, ...)
 	controller.behavior_cooldowns[src] = world.time + get_cooldown(controller)
 	return

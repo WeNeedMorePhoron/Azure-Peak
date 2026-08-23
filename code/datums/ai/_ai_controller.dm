@@ -644,12 +644,13 @@ have ways of interacting with a specific atom and control it. They posses a blac
 	paused_until = world.time + time
 
 /datum/ai_controller/proc/modify_cooldown(datum/ai_behavior/behavior, new_cooldown)
-	behavior_cooldowns[behavior.type] = new_cooldown
+	behavior_cooldowns[behavior] = new_cooldown
 
 /datum/ai_controller/proc/nudge_target_scan()
 	// Kick the cooldown on target-acquisition behaviors so they fire on the next tick.
-	for(var/behavior_type in list(/datum/ai_behavior/find_potential_targets, /datum/ai_behavior/find_aggro_targets))
-		behavior_cooldowns[behavior_type] = world.time
+	for(var/datum/ai_behavior/behavior as anything in behavior_cooldowns)
+		if(istype(behavior, /datum/ai_behavior/find_potential_targets) || istype(behavior, /datum/ai_behavior/find_aggro_targets))
+			behavior_cooldowns[behavior] = world.time
 
 /proc/alert_ai_visibility_change(atom/source, range = 7)
 	for(var/mob/living/L in view(range, source))
@@ -696,7 +697,18 @@ have ways of interacting with a specific atom and control it. They posses a blac
 	var/list/stored_arguments = behavior_args[behavior.type]
 	if(stored_arguments)
 		arguments += stored_arguments
-	behavior.perform(arglist(arguments))
+
+	var/process_flags = behavior.perform(arglist(arguments))
+	if(process_flags & AI_BEHAVIOR_DELAY)
+		behavior_cooldowns[behavior] = world.time + behavior.get_cooldown(src)
+	if(process_flags & AI_BEHAVIOR_FAILED)
+		arguments[1] = src
+		arguments[2] = FALSE
+		behavior.finish_action(arglist(arguments))
+	else if(process_flags & AI_BEHAVIOR_SUCCEEDED)
+		arguments[1] = src
+		arguments[2] = TRUE
+		behavior.finish_action(arglist(arguments))
 
 /datum/ai_controller/proc/CancelActions()
 	if(!LAZYLEN(current_behaviors))

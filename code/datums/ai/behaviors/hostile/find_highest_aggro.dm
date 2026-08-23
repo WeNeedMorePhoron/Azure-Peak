@@ -188,7 +188,7 @@
 		if(pawn)
 			pawn.cmode = TRUE
 		controller.CancelActions()
-		controller.modify_cooldown(controller, world.time + get_cooldown(controller))
+		controller.modify_cooldown(src, world.time + get_cooldown(controller))
 
 /datum/ai_behavior/find_aggro_targets/bum/finish_action(datum/ai_controller/controller, succeeded, ...)
 	. = ..()

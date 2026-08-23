@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(/mob)))
 	. = ..()
 	if (succeeded)
 		controller.CancelActions()
-		controller.modify_cooldown(controller, world.time + get_cooldown(controller))
+		controller.modify_cooldown(src, world.time + get_cooldown(controller))
 
 /// Returns the desired final target from the filtered list of targets
 /datum/ai_behavior/find_potential_targets/proc/pick_final_target(datum/ai_controller/controller, list/filtered_targets)

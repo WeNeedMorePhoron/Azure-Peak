@@ -9,4 +9,3 @@
 	var/mob/living/carbon/human/living_pawn = controller.pawn
 	living_pawn.stand_up()
 	finish_action(controller, TRUE)
-	return TRUE
