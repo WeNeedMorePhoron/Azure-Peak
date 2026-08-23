@@ -13,7 +13,7 @@
 	var/next_shot = board[BB_ARCHER_NPC_NEXT_SHOT]
 	return next_shot && world.time < next_shot
 
-/mob/living/proc/checkdefense(datum/intent/intenty, mob/living/user)
+/mob/living/proc/checkdefense(datum/intent/attack_intent, mob/living/user)
 
 	// We check for a disruptable swingdelay first.
 	var/datum/status_effect/swingdelay/disrupt/SW = has_status_effect(/datum/status_effect/swingdelay/disrupt)
@@ -65,9 +65,9 @@
 
 	switch(d_intent)
 		if(INTENT_PARRY)
-			return attempt_parry(intenty, user)
+			return attempt_parry(attack_intent, user)
 		if(INTENT_DODGE)
-			return attempt_dodge(intenty, user)
+			return attempt_dodge(attack_intent, user)
 
 /mob/living/proc/start_climb()
 	if(doing || mid_climb)
