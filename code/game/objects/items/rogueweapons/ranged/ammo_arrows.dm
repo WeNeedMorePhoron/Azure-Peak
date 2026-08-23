@@ -1,5 +1,5 @@
 //arrows ฅ^•ﻌ•^ฅ
-#define MIN_ARROW_RANGE		3
+#define MIN_ARROW_RANGE		2
 #define MAX_ARROW_RANGE		14
 #define DAM_FALLOFF_ARROW	0.5
 #define MIN_SPLINTER_RANGE	1
