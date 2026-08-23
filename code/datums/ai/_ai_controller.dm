@@ -96,7 +96,7 @@ have ways of interacting with a specific atom and control it. They posses a blac
 ///Sets the current movement target, with an optional param to override the movement behavior
 /datum/ai_controller/proc/set_movement_target(source, atom/target, datum/ai_movement/new_movement)
 	if(current_movement_target)
-		UnregisterSignal(current_movement_target, list(COMSIG_PARENT_PREQDELETED))
+		UnregisterSignal(current_movement_target, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_PREQDELETED))
 	if(!isnull(target) && !isatom(target))
 		stack_trace("[pawn]'s current movement target is not an atom, rather a [target.type]! Did you accidentally set it to a weakref?")
 		CancelActions()
@@ -104,6 +104,7 @@ have ways of interacting with a specific atom and control it. They posses a blac
 	movement_target_source = source
 	current_movement_target = target
 	if(!isnull(current_movement_target))
+		RegisterSignal(current_movement_target, COMSIG_MOVABLE_MOVED, PROC_REF(on_movement_target_move))
 		RegisterSignal(current_movement_target, COMSIG_PARENT_PREQDELETED, PROC_REF(on_movement_target_delete))
 	if(new_movement)
 		change_ai_movement_type(new_movement)
@@ -268,6 +269,22 @@ have ways of interacting with a specific atom and control it. They posses a blac
 /datum/ai_controller/proc/update_grid(datum/source, datum/spatial_grid_cell/new_cell)
 	SIGNAL_HANDLER
 	set_new_cells()
+	if(current_movement_target)
+		check_target_max_distance()
+
+/datum/ai_controller/proc/on_movement_target_move(atom/source)
+	SIGNAL_HANDLER
+	check_target_max_distance()
+
+/datum/ai_controller/proc/check_target_max_distance()
+	if(get_dist_3d(pawn, current_movement_target) <= max_target_distance)
+		return
+	var/last_hit = blackboard["bb_last_ranged_hit_time"] || 0
+	var/mob/last_shooter = blackboard["bb_last_ranged_attacker"]
+	var/commanded_travel = (current_movement_target == blackboard[BB_TRAVEL_DESTINATION])
+	if(commanded_travel || (last_shooter == current_movement_target && (world.time - last_hit < 15 SECONDS)))
+		return
+	CancelActions()
 
 /datum/ai_controller/proc/on_movement_target_delete(atom/source)
 	SIGNAL_HANDLER
@@ -493,22 +510,6 @@ have ways of interacting with a specific atom and control it. They posses a blac
 		idle_behavior.perform_idle_behavior(delta_time, src) //Do some stupid shit while we have nothing to do
 		return
 
-	if(current_movement_target)
-		if(!isatom(current_movement_target))
-			stack_trace("[pawn]'s current movement target is not an atom, rather a [current_movement_target.type]! Did you accidentally set it to a weakref?")
-			CancelActions()
-			return
-
-		if(get_dist_3d(pawn, current_movement_target) > max_target_distance) //The distance is out of range
-			// Hot-pursuit grace: recently ranged-hit by this exact target - allow chasing past
-			// the normal movement leash so snipers don't get free damage from offscreen.
-			var/last_hit = blackboard["bb_last_ranged_hit_time"] || 0
-			var/mob/last_shooter = blackboard["bb_last_ranged_attacker"]
-			var/commanded_travel = (current_movement_target == blackboard[BB_TRAVEL_DESTINATION])
-			if(!commanded_travel && !(last_shooter == current_movement_target && (world.time - last_hit < 15 SECONDS)))
-				CancelActions()
-				return
-
 	SEND_SIGNAL(src, COMSIG_AI_CONTROLLER_PICKED_BEHAVIORS, current_behaviors, planned_behaviors)
 
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
@@ -520,8 +521,8 @@ have ways of interacting with a specific atom and control it. They posses a blac
 
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
 		if(current_behavior.behavior_flags & AI_BEHAVIOR_REQUIRE_MOVEMENT) //Might need to move closer
-			if(!current_movement_target)
-				current_behavior.finish_action(src, FALSE)
+			if(isnull(current_movement_target))
+				fail_behavior(current_behavior)
 				return //This can cause issues, so don't let these slide.
 
 			///Stops pawns from performing such actions that should require the target to be adjacent.
@@ -714,11 +715,14 @@ have ways of interacting with a specific atom and control it. They posses a blac
 	if(!LAZYLEN(current_behaviors))
 		return
 	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
-		var/list/arguments = list(src, FALSE)
-		var/list/stored_arguments = behavior_args[current_behavior.type]
-		if(stored_arguments)
-			arguments += stored_arguments
-		current_behavior.finish_action(arglist(arguments))
+		fail_behavior(current_behavior)
+
+/datum/ai_controller/proc/fail_behavior(datum/ai_behavior/current_behavior)
+	var/list/arguments = list(src, FALSE)
+	var/list/stored_arguments = behavior_args[current_behavior.type]
+	if(stored_arguments)
+		arguments += stored_arguments
+	current_behavior.finish_action(arglist(arguments))
 
 /datum/ai_controller/proc/on_sentience_gained()
 	UnregisterSignal(pawn, COMSIG_MOB_LOGIN)
