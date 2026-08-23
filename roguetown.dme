@@ -664,7 +664,6 @@
 #include "code\datums\ai\controllers\mole.dm"
 #include "code\datums\ai\controllers\mossback.dm"
 #include "code\datums\ai\controllers\mudcrab.dm"
-#include "code\datums\ai\controllers\orc.dm"
 #include "code\datums\ai\controllers\primordial.dm"
 #include "code\datums\ai\controllers\rat_undead.dm"
 #include "code\datums\ai\controllers\rous.dm"
