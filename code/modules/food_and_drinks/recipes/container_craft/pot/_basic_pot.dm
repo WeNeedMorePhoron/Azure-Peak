@@ -44,7 +44,7 @@
 /datum/container_craft/cooking/announce_stall(atom/crafter, mob/initiator)
 	if(QDELETED(crafter))
 		return
-	crafter.visible_message(span_warning("[crafter] goes off the boil."))
+	crafter.visible_message(span_warning("[crafter] stops boiling."))
 
 /datum/container_craft/cooking/announce_resume(atom/crafter, mob/initiator)
 	if(QDELETED(crafter))
