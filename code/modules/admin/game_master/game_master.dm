@@ -81,12 +81,10 @@ GLOBAL_LIST_EMPTY(game_masters)
 	if(!selected_type)
 		return null
 
-	var/datum/ai_controller/controller = initial(selected_type.ai_controller)
 	return list(
 		"name" = selected_mob_name,
 		"category" = GLOB.gm_spawn_roster_factions[selected_mob_name],
 		"threat" = initial(selected_type.threat_point),
-		"ai" = controller ? "[controller]" : null,
 		"path" = "[selected_type]",
 	)
 

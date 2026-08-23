@@ -13,6 +13,15 @@ GLOBAL_LIST_INIT(gm_roster_abstract_types, list(
 	/mob/living/simple_animal/hostile/retaliate,
 	/mob/living/simple_animal/hostile/retaliate/rogue,
 	/mob/living/simple_animal/hostile/rogue,
+	/mob/living/simple_animal/hostile/boss,
+))
+
+// Filter out any display names to avoid cluttering it with placeholders
+GLOBAL_LIST_INIT(gm_roster_name_blocklist, list(
+	"placeholder",
+	"template",
+	"unfinished",
+	"unused",
 ))
 
 GLOBAL_LIST_INIT(gm_roster_path_stopwords, list(
@@ -27,6 +36,7 @@ GLOBAL_LIST_INIT(gm_roster_path_stopwords, list(
 	"species",
 	"northern",
 	"ambush",
+	"npc",
 ))
 
 
@@ -40,9 +50,6 @@ GLOBAL_LIST_INIT(gm_roster_path_stopwords, list(
 	var/list/words = list()
 	for(var/word in splittext(replacetext(replacetext("[input]", "-", " "), "_", " "), " "))
 		if(!word)
-			continue
-		if(LOWER_TEXT(word) == "npc")
-			words += "NPC"
 			continue
 		words += capitalize(word)
 	return jointext(words, " ")
@@ -62,6 +69,13 @@ GLOBAL_LIST_INIT(gm_roster_path_stopwords, list(
 
 	return gm_roster_titlecase(jointext(kept, " "))
 
+/proc/is_blocklisted_roster_name(display_name)
+	var/lowered = LOWER_TEXT(display_name)
+	for(var/blocked in GLOB.gm_roster_name_blocklist)
+		if(findtext(lowered, blocked))
+			return TRUE
+	return FALSE
+
 /proc/gm_roster_declares_own_name(mob/living/mob_type)
 	var/mob/living/parent_type = type2parent(mob_type)
 	if(!parent_type)
@@ -76,6 +90,9 @@ GLOBAL_LIST_INIT(gm_roster_path_stopwords, list(
 		if(mob_type in GLOB.gm_roster_abstract_types)
 			continue
 		if(findtext("[mob_type]", "_test") || findtext("[mob_type]", "/dummy"))
+			continue
+
+		if(initial(mob_type.gm_hidden))
 			continue
 
 		var/override_name = initial(mob_type.gm_name)
@@ -132,6 +149,11 @@ GLOBAL_LIST_INIT(gm_roster_path_stopwords, list(
 
 	GLOB.gm_spawn_filter_counts[GM_FILTER_ALL] = length(GLOB.gm_spawn_roster)
 	GLOB.gm_spawn_filters = list(GM_FILTER_ALL) + sortList(filters)
+
+/proc/gm_category_for_mob(mob/living/checked_mob)
+	if(!checked_mob)
+		return null
+	return checked_mob.gm_category || gm_category_for_type(checked_mob.type) || checked_mob.ambush_faction || GM_CATEGORY_UNAFFILIATED
 
 /proc/get_gm_spawn_roster()
 	if(!length(GLOB.gm_spawn_roster))

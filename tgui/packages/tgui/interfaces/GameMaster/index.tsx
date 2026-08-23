@@ -3,7 +3,6 @@ import { Stack } from 'tgui-core/components';
 
 import { Window } from '../../layouts';
 import { ActionStrip } from './ActionStrip';
-import { CommandBand } from './CommandBand';
 import { CreaturePane } from './CreaturePane';
 import { DetailStrip } from './DetailStrip';
 import { FactionRail } from './FactionRail';
@@ -34,9 +33,6 @@ export function GameMaster(props) {
           </Stack.Item>
           <Stack.Item>
             <ActionStrip />
-          </Stack.Item>
-          <Stack.Item>
-            <CommandBand />
           </Stack.Item>
         </Stack>
       </Window.Content>

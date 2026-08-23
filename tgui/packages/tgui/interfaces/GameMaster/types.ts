@@ -2,7 +2,6 @@ export type SpawnDetail = {
   name: string;
   category: string;
   threat: number;
-  ai: string | null;
   path: string;
 };
 

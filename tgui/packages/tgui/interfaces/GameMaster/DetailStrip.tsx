@@ -20,11 +20,10 @@ export function DetailStrip(props) {
     );
   }
 
-  const { name, category, threat, ai, path } = selected_detail;
+  const { name, category, threat, path } = selected_detail;
   const facts = [
     toTitle(category),
     threat > 0 ? `tp ${threat}` : 'no tp',
-    ai ? ai.replace('/datum/ai_controller/', '') : 'no ai',
   ];
 
   return (

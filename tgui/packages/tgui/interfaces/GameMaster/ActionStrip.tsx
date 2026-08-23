@@ -73,6 +73,44 @@ export function ActionStrip(props) {
                 Taint loot
               </Button.Checkbox>
             </Stack.Item>
+            <Stack.Item>
+              <Button.Checkbox
+                compact
+                checked={spawn_dust}
+                tooltip="Turns to dust on death"
+                onClick={() => {
+                  act('toggle_spawn_dust');
+                }}
+              >
+                Dust
+              </Button.Checkbox>
+            </Stack.Item>
+            {!!spawn_dust && (
+              <>
+                <Stack.Item>
+                  <Button.Checkbox
+                    compact
+                    checked={spawn_dust_leave_head}
+                    onClick={() => {
+                      act('toggle_spawn_dust_leave_head');
+                    }}
+                  >
+                    Head
+                  </Button.Checkbox>
+                </Stack.Item>
+                <Stack.Item>
+                  <Button.Checkbox
+                    compact
+                    checked={spawn_dust_delete_gear}
+                    onClick={() => {
+                      act('toggle_spawn_dust_delete_gear');
+                    }}
+                  >
+                    Gear
+                  </Button.Checkbox>
+                </Stack.Item>
+              </>
+            )}
             <Stack.Item grow>
               <Dropdown
                 width="100%"
@@ -89,44 +127,6 @@ export function ActionStrip(props) {
                   act('set_selected_faction', { new_faction });
                 }}
               />
-            </Stack.Item>
-          </Stack>
-        </Stack.Item>
-        <Stack.Item>
-          <Stack align="center">
-            <Stack.Item>
-              <Button.Checkbox
-                compact
-                checked={spawn_dust}
-                tooltip="Turns to dust on death"
-                onClick={() => {
-                  act('toggle_spawn_dust');
-                }}
-              >
-                Dust
-              </Button.Checkbox>
-            </Stack.Item>
-            <Stack.Item>
-              <Button.Checkbox
-                compact
-                checked={spawn_dust_leave_head}
-                onClick={() => {
-                  act('toggle_spawn_dust_leave_head');
-                }}
-              >
-                Leave head
-              </Button.Checkbox>
-            </Stack.Item>
-            <Stack.Item>
-              <Button.Checkbox
-                compact
-                checked={spawn_dust_delete_gear}
-                onClick={() => {
-                  act('toggle_spawn_dust_delete_gear');
-                }}
-              >
-                Delete gear
-              </Button.Checkbox>
             </Stack.Item>
           </Stack>
         </Stack.Item>

@@ -36,10 +36,12 @@ export function CreaturePane(props: Props) {
   return (
     <Section
       fill
+      className="GameMaster__pane"
       title={warband ? 'Warbands' : 'Creatures'}
       buttons={
         <>
           <Button
+            compact
             selected={!warband}
             onClick={() => {
               act('set_selected_view', { new_view: VIEW_INDIVIDUAL });
@@ -48,6 +50,7 @@ export function CreaturePane(props: Props) {
             Individual
           </Button>
           <Button
+            compact
             selected={warband}
             tooltip="Not built yet - reserved for the ambush config rework."
             onClick={() => {

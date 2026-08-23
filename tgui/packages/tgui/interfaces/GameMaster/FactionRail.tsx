@@ -1,4 +1,4 @@
-import { Box, Button, Input, Section, Stack } from 'tgui-core/components';
+import { Box, Button, Icon, Input, Section, Stack } from 'tgui-core/components';
 
 import { useBackend } from '../../backend';
 import {
@@ -40,6 +40,25 @@ export function FactionRail(props: Props) {
 
     return (
       <Stack key={value} align="center" mb={0.2}>
+        <Stack.Item shrink={0}>
+          {pinnable ? (
+            <Icon
+              name={isPinned ? 'star' : 'star-o'}
+              mr={0.5}
+              style={{
+                cursor: atCap ? 'default' : 'pointer',
+                opacity: isPinned ? 1 : atCap ? 0.15 : 0.35,
+              }}
+              onClick={() => {
+                if (!atCap) {
+                  act('toggle_pin_faction', { faction: value });
+                }
+              }}
+            />
+          ) : (
+            <Box inline mr={0.5} width="1em" />
+          )}
+        </Stack.Item>
         <Stack.Item grow style={{ minWidth: 0 }}>
           <Button
             fluid
@@ -55,33 +74,12 @@ export function FactionRail(props: Props) {
             </Box>
           </Button>
         </Stack.Item>
-        {!!pinnable && (
-          <Stack.Item shrink={0}>
-            <Button
-              compact
-              icon="thumbtack"
-              color="transparent"
-              selected={isPinned}
-              disabled={atCap}
-              tooltip={
-                isPinned
-                  ? 'Unpin'
-                  : atCap
-                    ? `Already pinned ${max_pinned}`
-                    : 'Pin to top'
-              }
-              onClick={() => {
-                act('toggle_pin_faction', { faction: value });
-              }}
-            />
-          </Stack.Item>
-        )}
       </Stack>
     );
   }
 
   return (
-    <Section fill title="Factions">
+    <Section fill className="GameMaster__pane" title="Factions">
       <Stack fill vertical>
         <Stack.Item>
           <Input
@@ -98,13 +96,8 @@ export function FactionRail(props: Props) {
         >
           {pinned.length > 0 && (
             <>
-              <Box color="label" fontSize="0.8rem">
-                Pinned
-              </Box>
               {pinned.map(renderRow)}
-              <Box color="label" fontSize="0.8rem" mt={0.5}>
-                All
-              </Box>
+              <Box mt={0.5} mb={0.5} style={{ borderTop: '1px solid rgba(122, 86, 22, 0.35)' }} />
             </>
           )}
           {rest.map(renderRow)}
