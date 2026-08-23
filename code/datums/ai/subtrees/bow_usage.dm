@@ -157,9 +157,9 @@
 		set_movement_target(controller, retreat)
 	else if(dist <= ARCHER_NPC_KITE_FLOOR)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED // boxed in with the foe adjacent - draw steel
-	return AI_BEHAVIOR_DELAY
 	else
 		controller.ai_movement.stop_moving_towards(controller) // boxed in but they're not adjacent - stand and shoot
+	return AI_BEHAVIOR_DELAY
 
 /datum/ai_behavior/ranged_attack_bow/finish_action(datum/ai_controller/controller, succeeded, target_key)
 	. = ..()
