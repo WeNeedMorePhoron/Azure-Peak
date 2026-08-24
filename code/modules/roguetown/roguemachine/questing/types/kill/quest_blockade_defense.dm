@@ -7,15 +7,15 @@
 
 	var/current_wave = 0
 	var/wave_timer_id
+	var/wave_warn_7m30s_id
+	var/wave_warn_5m_id
 	var/wave_warn_2m_id
-	var/wave_warn_30s_id
 	var/datum/weakref/wave_landmark_ref
 	var/datum/weakref/blockade_ref
 	var/armed = FALSE
 	var/max_defenders_seen = 0
 	var/current_archetype = BLOCKADE_ARCHETYPE_WARBAND
 	var/wave_boss_name
-	var/arm_timer_id
 	var/issued_at = 0
 	var/datum/fund/funding_fund
 	var/funding_cost = 0
@@ -69,18 +69,10 @@
 	data["blockade_failed"] = failed ? TRUE : FALSE
 
 /datum/quest/kill/blockade_defense/populate_scroll_ui_data(list/data)
-	var/active_timer_id
-	var/label
-	if(armed && arm_timer_id)
-		active_timer_id = arm_timer_id
-		label = "Arrive within"
-	else if(current_wave > 0 && wave_timer_id)
-		active_timer_id = wave_timer_id
-		label = "Wave [current_wave] ends in"
-	if(active_timer_id)
-		var/left = timeleft(active_timer_id)
+	if(current_wave > 0 && wave_timer_id)
+		var/left = timeleft(wave_timer_id)
 		if(left > 0)
-			data["blockade_timer_label"] = label
+			data["blockade_timer_label"] = "Wave [current_wave] ends in"
 			data["blockade_timer_seconds"] = round(left / 10)
 
 /datum/quest/kill/blockade_defense/get_target_location()
@@ -99,13 +91,7 @@
 		return FALSE
 	wave_landmark_ref = WEAKREF(landmark)
 	armed = TRUE
-	arm_timer_id = addtimer(CALLBACK(src, PROC_REF(on_arm_timeout)), BLOCKADE_ARM_TIMEOUT_DS, TIMER_STOPPABLE)
 	return TRUE
-
-/datum/quest/kill/blockade_defense/proc/on_arm_timeout()
-	if(failed || complete || !armed)
-		return
-	fail_quest("arm_timeout")
 
 /datum/quest/kill/blockade_defense/proc/check_arrival(mob/bearer)
 	if(!armed || failed || complete)
@@ -124,9 +110,6 @@
 	if(get_dist(bearer_turf, landmark_turf) > 7)
 		return
 	armed = FALSE
-	if(arm_timer_id)
-		deltimer(arm_timer_id)
-		arm_timer_id = null
 	announce_to_bearer("<b>You have reached the blockade.</b> Ready yourselves.")
 	spawn_wave(1)
 
@@ -238,11 +221,13 @@
 		return
 	clear_wave_timers()
 	wave_timer_id = addtimer(CALLBACK(src, PROC_REF(on_wave_timeout), wave_num), BLOCKADE_WAVE_TIMER_DS, TIMER_STOPPABLE)
-	// Chat pings at 2 min and 30 s left. Skipped if the wave timer is shorter than the threshold.
+	// Chat pings at 7.5 min, 5 min and 2 min left. Skipped if the wave timer is shorter than the threshold.
+	if(BLOCKADE_WAVE_TIMER_DS > (7.5 MINUTES))
+		wave_warn_7m30s_id = addtimer(CALLBACK(src, PROC_REF(warn_time_left), wave_num, "seven and a half minutes"), BLOCKADE_WAVE_TIMER_DS - (7.5 MINUTES), TIMER_STOPPABLE)
+	if(BLOCKADE_WAVE_TIMER_DS > (5 MINUTES))
+		wave_warn_5m_id = addtimer(CALLBACK(src, PROC_REF(warn_time_left), wave_num, "five minutes"), BLOCKADE_WAVE_TIMER_DS - (5 MINUTES), TIMER_STOPPABLE)
 	if(BLOCKADE_WAVE_TIMER_DS > (2 MINUTES))
 		wave_warn_2m_id = addtimer(CALLBACK(src, PROC_REF(warn_time_left), wave_num, "two minutes"), BLOCKADE_WAVE_TIMER_DS - (2 MINUTES), TIMER_STOPPABLE)
-	if(BLOCKADE_WAVE_TIMER_DS > (30 SECONDS))
-		wave_warn_30s_id = addtimer(CALLBACK(src, PROC_REF(warn_time_left), wave_num, "thirty seconds"), BLOCKADE_WAVE_TIMER_DS - (30 SECONDS), TIMER_STOPPABLE)
 	announce_to_bearer("<b>Wave [wave_num]/[BLOCKADE_TOTAL_WAVES]</b> [wave_flavor()] You have [BLOCKADE_WAVE_TIMER_DS / 600] minutes.")
 	quest_scroll?.update_quest_text()
 
@@ -268,12 +253,15 @@
 	if(wave_timer_id)
 		deltimer(wave_timer_id)
 		wave_timer_id = null
+	if(wave_warn_7m30s_id)
+		deltimer(wave_warn_7m30s_id)
+		wave_warn_7m30s_id = null
+	if(wave_warn_5m_id)
+		deltimer(wave_warn_5m_id)
+		wave_warn_5m_id = null
 	if(wave_warn_2m_id)
 		deltimer(wave_warn_2m_id)
 		wave_warn_2m_id = null
-	if(wave_warn_30s_id)
-		deltimer(wave_warn_30s_id)
-		wave_warn_30s_id = null
 
 /datum/quest/kill/blockade_defense/on_progress_update()
 	if(failed || complete)
@@ -299,9 +287,6 @@
 		return
 	failed = TRUE
 	clear_wave_timers()
-	if(arm_timer_id)
-		deltimer(arm_timer_id)
-		arm_timer_id = null
 	announce_to_bearer("<b>The blockade holds.</b> The scroll smolders and crumbles in your grip.")
 	record_round_statistic(STATS_BLOCKADE_CONTRACTS_FAILED, 1)
 	var/datum/blockade/B = blockade_ref?.resolve()
@@ -336,9 +321,6 @@
 /datum/quest/kill/blockade_defense/proc/recall(mob/recaller, reason = "recalled")
 	if(!can_recall())
 		return FALSE
-	if(arm_timer_id)
-		deltimer(arm_timer_id)
-		arm_timer_id = null
 	armed = FALSE
 	var/datum/blockade/B = blockade_ref?.resolve()
 	if(B)
@@ -371,9 +353,6 @@
 /datum/quest/kill/blockade_defense/mark_complete()
 	..()
 	clear_wave_timers()
-	if(arm_timer_id)
-		deltimer(arm_timer_id)
-		arm_timer_id = null
 	var/datum/blockade/B = blockade_ref?.resolve()
 	if(B)
 		B.active_scroll_ref = null

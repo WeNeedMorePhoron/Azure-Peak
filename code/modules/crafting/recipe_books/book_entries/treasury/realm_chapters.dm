@@ -68,7 +68,7 @@
 
 		<p>Multiple blockades may exist at once. One writ per blockade at a time. Blockades are rolled at roundstart only; there is no mid-round scheduled spawn.</p>
 
-		<p>The Steward may recall an unanswered Blockade Writ after 15 minutes. An accepted writ has a 30-minute completion timer before it is automatically forfeit. Each wave adds 10 minutes. Wave timers are independent of the recall timer - once a Writ is taken, the bearer must finish it promptly.</p>
+		<p>The Steward may recall an unanswered Blockade Writ after [BLOCKADE_RECALL_WINDOW_DS / 600] minutes. The waves begin when the bearer arrives, which must be broken within [BLOCKADE_RECALL_WINDOW_DS / 600] minutes of the wave spawning. There'll be a warning at the 5 minutes, 2 minutes and 1 minute mark.</p>
 		</div>
 	"}
 
