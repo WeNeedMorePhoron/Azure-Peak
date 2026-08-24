@@ -159,7 +159,12 @@
 	reward_amount += NOTORIOUS_BOUNTY_PLAYER_BONUS
 	quest_scroll?.update_quest_text()
 	announce_to_bearer("<b>Your quarry's eyes sharpen with cunning.</b> The bounty on [boss_name] grows by [NOTORIOUS_BOUNTY_PLAYER_BONUS] mammons.")
-	to_chat(boss, span_boldnotice("You are [boss_name], a notorious outlaw. A hunting party is closing in on you. Stand your ground and make them earn their mammons. Do not round-remove any of your targets, but you are free to kill them and fight as hard as you need to within reason. Make them earn their bounty. You cannot flee them, and if the hunters never come, the pact releases you in [NOTORIOUS_BOUNTY_CONTROL_TIME / (1 MINUTES)] minutes."))
+	to_chat(boss, span_boldnotice("You are [boss_name], a notorious outlaw. A hunting party is closing in on you. Stand your ground and make them earn their mammons. Do not round-remove any of your targets, but you are free to kill them and fight as hard as you need to within reason. Make them earn their bounty. You can join in attacking anyone your NPCs are already attacking. But outside of your hunting party, you are expected to escalate properly before attacking. Try to stick to fighting your hunting party unless you have good reasons to do so otherwise. You cannot flee them, and if the hunters never come, the pact releases you in [NOTORIOUS_BOUNTY_CONTROL_TIME / (1 MINUTES)] minutes."))
+	var/turf/boss_turf = get_turf(boss)
+	var/mob/living/bearer = quest_receiver_reference?.resolve()
+	var/datum/fellowship/F = bearer?.current_fellowship
+	var/mob/living/party_leader = F?.get_leader()
+	message_admins("[key_name_admin(boss)] has taken over notorious bounty '[boss_name]' at [ADMIN_COORDJMP(boss_turf)] ([region]), fighting a fellowship led by [party_leader ? key_name_admin(party_leader) : "an unknown party"].")
 	addtimer(CALLBACK(src, PROC_REF(release_boss)), NOTORIOUS_BOUNTY_CONTROL_TIME)
 	leash_boss()
 
