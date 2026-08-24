@@ -4,6 +4,8 @@
 
 /datum/ai_behavior/use_in_hand/perform(delta_time, datum/ai_controller/controller)
 	var/mob/living/pawn = controller.pawn
+	if(pawn.incapacitated())
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	var/obj/item/held = pawn.get_active_held_item()
 	if(!held)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED

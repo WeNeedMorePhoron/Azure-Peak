@@ -23,6 +23,8 @@
 
 
 
+	if(living_pawn.incapacitated())
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	if(QDELETED(living_pawn) || QDELETED(target) || !isnull(target.ckey)) //We don't want to eat anything with a ckey
 		return AI_BEHAVIOR_DELAY
 	//nor do we want to eat anything with a mind

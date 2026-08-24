@@ -138,6 +138,9 @@
 	if(!target || QDELETED(target) || !pawn.Adjacent(target))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
+	if(pawn.incapacitated(ignore_restraints = TRUE))
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+
 	if(!pawn.can_kick(target, do_message = FALSE))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 

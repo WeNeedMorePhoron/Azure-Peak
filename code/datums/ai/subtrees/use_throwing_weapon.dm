@@ -46,6 +46,8 @@
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	var/mob/living/pawn = controller.pawn
+	if(pawn.incapacitated())
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	var/dist = get_dist(pawn, target)
 
 	if(dist > throwingknife.throw_range || dist < 2)

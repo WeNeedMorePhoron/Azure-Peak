@@ -50,6 +50,9 @@
 	var/mob/living/carbon/human/pawn = controller.pawn
 	var/atom/target = controller.blackboard[target_key]
 
+	if(pawn.incapacitated())
+		return FALSE
+
 	var/obj/item/held_item = pawn.get_active_held_item()
 	if(istype(held_item, /obj/item/rogueweapon/shield))
 		var/obj/item/offhand = pawn.get_inactive_held_item()
@@ -81,6 +84,9 @@
 	var/mob/living/carbon/human/pawn = controller.pawn
 	var/atom/target = controller.blackboard[target_key]
 	var/datum/targetting_datum/td = controller.blackboard[targetting_datum_key]
+
+	if(pawn.incapacitated())
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	var/obj/item/held_weapon = pawn.get_active_held_item()
 	if(!istype(held_weapon, /obj/item/rogueweapon) && !istype(held_weapon, /obj/item/gun))

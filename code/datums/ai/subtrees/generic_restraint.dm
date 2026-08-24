@@ -16,6 +16,8 @@
 
 /datum/ai_behavior/break_restraints/perform(seconds_per_tick, datum/ai_controller/controller)
 	var/mob/living/carbon/living_pawn = controller.pawn
+	if(living_pawn.incapacitated(ignore_restraints = TRUE))
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	if(!living_pawn.handcuffed && !living_pawn.legcuffed)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 

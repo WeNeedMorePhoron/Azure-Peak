@@ -45,6 +45,8 @@
 	var/mob/living/target = controller.blackboard[target_key]
 	if(!isliving(target))
 		return FALSE
+	if(pawn.incapacitated())
+		return FALSE
 
 	var/obj/item/gun/ballistic/revolver/grenadelauncher/bow = _find_archer_bow(pawn)
 	if(!bow)
@@ -75,6 +77,9 @@
 /datum/ai_behavior/ranged_attack_bow/perform(delta_time, datum/ai_controller/controller, target_key)
 	var/mob/living/carbon/human/pawn = controller.pawn
 	var/mob/living/target = controller.blackboard[target_key]
+
+	if(pawn.incapacitated())
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	if(!isliving(target) || target.stat == DEAD)
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
