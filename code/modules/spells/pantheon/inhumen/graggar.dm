@@ -233,6 +233,7 @@
 
 	associated_stat = null
 	associated_skill = /datum/skill/magic/holy
+	spell_flags = SPELL_PSYDON
 	spell_requirements = SPELL_REQUIRES_HUMAN
 
 	ignore_armor_penalty = TRUE
