@@ -660,6 +660,7 @@
 	desc = "A poleaxe, fitted with a reinforced shaft and a beaked axhead of steel. It is the ultimate weapon for a well-seasoned knight, capable of \
 	humbling any foe that may assail their presence. </br>'Away with you, vile beggar!'"
 	icon_state = "steelpoleaxe"
+	special = /datum/special_intent/side_sweep
 	max_blade_int = 300
 
 /obj/item/rogueweapon/greataxe/steel/knight/attackby(obj/item/W, mob/living/user, params)

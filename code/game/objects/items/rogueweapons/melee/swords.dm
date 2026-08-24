@@ -283,8 +283,8 @@
 	late fourteenth century, this noble sidearm - born from Grenzelhoftian imitations of the Otavan estoc - is proudly displayed on Azuria's official coat-of-arms."
 	icon_state = "aplongsword"
 	sheathe_icon = "aplongsword"
-	force = 18
-	force_wielded = 22
+	force = 20
+	force_wielded = 25
 	possible_item_intents = list(
 		/datum/intent/sword/thrust,
 		/datum/intent/sword/strike,
