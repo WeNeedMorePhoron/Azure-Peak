@@ -82,10 +82,10 @@
 /obj/effect/quest_spawn/ex_act()
 	return
 
-/obj/effect/quest_spawn/pvp
+/obj/effect/quest_spawn/notorious
 	prox_range = NOTORIOUS_BOUNTY_PROX_RANGE
 
-/obj/effect/quest_spawn/pvp/reveal_contained()
+/obj/effect/quest_spawn/notorious/reveal_contained()
 	if(!contained_atom || revealing)
 		return
 	if(isliving(contained_atom))

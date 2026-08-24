@@ -461,7 +461,7 @@ SUBSYSTEM_DEF(questpool)
 		if(QUEST_RAID, QUEST_BOUNTY)
 			return QUEST_DIFFICULTY_HARD
 		if(QUEST_NOTORIOUS_BOUNTY)
-			return QUEST_DIFFICULTY_PLAYER_VS_PLAYER
+			return QUEST_DIFFICULTY_NOTORIOUS
 	return QUEST_DIFFICULTY_EASY
 
 /datum/controller/subsystem/questpool/proc/instantiate_quest_of_type(type)

@@ -1,7 +1,7 @@
 #define QUEST_DIFFICULTY_EASY "Easy"
 #define QUEST_DIFFICULTY_MEDIUM "Medium"
 #define QUEST_DIFFICULTY_HARD "Hard"
-#define QUEST_DIFFICULTY_PLAYER_VS_PLAYER "PvP"
+#define QUEST_DIFFICULTY_NOTORIOUS "Notorious"
 
 #define QUEST_RETRIEVAL "Retrieval"
 #define QUEST_COURIER "Courier"
@@ -80,7 +80,8 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 #define QUEST_TP_BUDGET_CLEAR_OUT 80
 #define QUEST_TP_BUDGET_RAID 150
 #define QUEST_TP_BUDGET_BOUNTY_GOONS 120
-#define QUEST_TP_BUDGET_PLAYER_VS_PLAYER 100
+// Small starting escort so the boss isn't alone against ambient mobs and full parties.
+#define QUEST_TP_BUDGET_NOTORIOUS_GOONS 50
 #define QUEST_TP_BUDGET_RECOVERY 80
 
 // TP budget variance
@@ -89,7 +90,7 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 // Bands of threat cleared on completion
 #define QUEST_BANDS_KILL_EASY 1
 #define QUEST_BANDS_CLEAR_OUT 2
-#define QUEST_BANDS_PLAYER_VS_PLAYER 3
+#define QUEST_BANDS_NOTORIOUS 3
 #define QUEST_BANDS_RAID 4
 #define QUEST_BANDS_BOUNTY 4
 #define QUEST_BANDS_RECOVERY 2
@@ -106,12 +107,12 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 #define QUEST_DIFFICULTY_BONUS_EASY 0
 #define QUEST_DIFFICULTY_BONUS_MEDIUM 0
 #define QUEST_DIFFICULTY_BONUS_HARD 25
-#define QUEST_DIFFICULTY_BONUS_PLAYER_VS_PLAYER 75
+#define QUEST_DIFFICULTY_BONUS_NOTORIOUS 75
 
 #define QUEST_DEPOSIT_EASY 5
 #define QUEST_DEPOSIT_MEDIUM 10
 #define QUEST_DEPOSIT_HARD 20
-#define QUEST_DEPOSIT_PLAYER_VS_PLAYER 40
+#define QUEST_DEPOSIT_NOTORIOUS 40
 
 
 // Jobs may override via /datum/job.max_active_quests.
@@ -164,6 +165,12 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 #define NOTORIOUS_BOUNTY_CONTROL_TIME (25 MINUTES)
 #define NOTORIOUS_BOUNTY_LEASH_RANGE 40
 #define NOTORIOUS_BOUNTY_LEASH_INTERVAL (10 SECONDS)
+#define NOTORIOUS_BOUNTY_GOON_CAP 3
+// Extra goons compensate when no ghost answers the poll and the boss stays an NPC.
+#define NOTORIOUS_BOUNTY_REINFORCE_TP 70
+#define NOTORIOUS_BOUNTY_REINFORCE_CAP 4
+// Flat mammon bump when a player assumes the boss - the hunt got harder, the pay follows.
+#define NOTORIOUS_BOUNTY_PLAYER_BONUS 50
 
 
 #define QUEST_EVERGREEN_TYPE_WEIGHTS list(\

@@ -72,7 +72,7 @@ type ContractLedgerData = {
 const ALL_REGIONS = 'All';
 const ALL_DIFFICULTIES = 'All';
 const STANDING_FILTER = 'Standing';
-const DIFFICULTIES = ['Easy', 'Medium', 'Hard', 'PvP'];
+const DIFFICULTIES = ['Easy', 'Medium', 'Hard', 'Notorious'];
 const FILTER_BUTTONS = [ALL_DIFFICULTIES, STANDING_FILTER, ...DIFFICULTIES];
 
 type LedgerMode = { kind: 'contracts' } | { kind: 'dynamic'; role: string };
@@ -104,8 +104,8 @@ const difficultyPinClass = (difficulty: string) => {
       return 'ContractLedger__Pin ContractLedger__Pin--medium';
     case 'Hard':
       return 'ContractLedger__Pin ContractLedger__Pin--hard';
-    case 'PvP':
-      return 'ContractLedger__Pin ContractLedger__Pin--pvp';
+    case 'Notorious':
+      return 'ContractLedger__Pin ContractLedger__Pin--notorious';
     default:
       return 'ContractLedger__Pin';
   }

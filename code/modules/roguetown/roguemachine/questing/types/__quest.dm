@@ -180,8 +180,8 @@
 			return QUEST_DIFFICULTY_BONUS_MEDIUM
 		if(QUEST_DIFFICULTY_HARD)
 			return QUEST_DIFFICULTY_BONUS_HARD
-		if(QUEST_DIFFICULTY_PLAYER_VS_PLAYER)
-			return QUEST_DIFFICULTY_BONUS_PLAYER_VS_PLAYER
+		if(QUEST_DIFFICULTY_NOTORIOUS)
+			return QUEST_DIFFICULTY_BONUS_NOTORIOUS
 	return QUEST_DIFFICULTY_BONUS_EASY
 
 /datum/quest/proc/calculate_deposit()
@@ -192,8 +192,8 @@
 			return QUEST_DEPOSIT_MEDIUM
 		if(QUEST_DIFFICULTY_HARD)
 			return QUEST_DEPOSIT_HARD
-		if(QUEST_DIFFICULTY_PLAYER_VS_PLAYER)
-			return QUEST_DEPOSIT_PLAYER_VS_PLAYER
+		if(QUEST_DIFFICULTY_NOTORIOUS)
+			return QUEST_DEPOSIT_NOTORIOUS
 	return 0
 
 /datum/quest/proc/get_scroll_type()
@@ -207,8 +207,8 @@
 			return "scroll_quest_mid"
 		if(QUEST_DIFFICULTY_HARD)
 			return "scroll_quest_high"
-		if(QUEST_DIFFICULTY_PLAYER_VS_PLAYER)
-			return "scroll_quest_pvp"
+		if(QUEST_DIFFICULTY_NOTORIOUS)
+			return "scroll_quest_notorious"
 	return quest_icon
 
 /datum/quest/proc/get_target_location()

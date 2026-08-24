@@ -1,8 +1,8 @@
 /datum/quest/kill/notorious_bounty
 	quest_type = QUEST_NOTORIOUS_BOUNTY
-	quest_difficulty = QUEST_DIFFICULTY_PLAYER_VS_PLAYER
-	tp_budget = QUEST_TP_BUDGET_PLAYER_VS_PLAYER
-	threat_bands_cleared = QUEST_BANDS_PLAYER_VS_PLAYER
+	quest_difficulty = QUEST_DIFFICULTY_NOTORIOUS
+	tp_budget = QUEST_TP_BUDGET_NOTORIOUS_GOONS
+	threat_bands_cleared = QUEST_BANDS_NOTORIOUS
 	required_fellowship_size = 2
 	var/boss_name
 	var/datum/weakref/boss_ref
@@ -47,7 +47,8 @@
 	if(!target_mob_type)
 		return 0
 	var/boss_threat = initial(target_mob_type.threat_point) || 0
-	return boss_threat * QUEST_NOTORIOUS_BOUNTY_THREAT_MULT
+	var/goon_threat = (total_spawned_tp > 0) ? total_spawned_tp : tp_budget
+	return (boss_threat * QUEST_NOTORIOUS_BOUNTY_THREAT_MULT) + (goon_threat * QUEST_KILL_THREAT_MULT)
 
 /datum/quest/kill/notorious_bounty/estimate_mob_count()
 	return 1
@@ -58,6 +59,7 @@
 	if(!faction)
 		return FALSE
 	spawn_boss(landmark)
+	spawn_goons(landmark, tp_budget, NOTORIOUS_BOUNTY_GOON_CAP)
 	progress_required = 1
 	// Rename after a delay so subtype after_creation() timers don't clobber it.
 	addtimer(CALLBACK(src, PROC_REF(apply_boss_name)), 2 SECONDS)
@@ -67,7 +69,7 @@
 	var/turf/spawn_turf = landmark.get_safe_spawn_turf()
 	if(!spawn_turf)
 		return
-	var/obj/effect/quest_spawn/pvp/spawn_effect = new /obj/effect/quest_spawn/pvp(spawn_turf)
+	var/obj/effect/quest_spawn/notorious/spawn_effect = new /obj/effect/quest_spawn/notorious(spawn_turf)
 	var/mob/living/boss = new target_mob_type(spawn_effect)
 	boss.faction |= "quest"
 	if(faction?.faction_tag)
@@ -81,6 +83,41 @@
 	register_spawner(spawn_effect)
 	add_tracked_atom(boss)
 	boss_ref = WEAKREF(boss)
+
+/datum/quest/kill/notorious_bounty/proc/spawn_goons(obj/effect/landmark/quest_spawner/landmark, budget, cap, immediate = FALSE)
+	var/saved_budget = tp_budget
+	tp_budget = budget
+	var/list/to_spawn = compose_warband()
+	tp_budget = saved_budget
+	if(length(to_spawn) > cap)
+		to_spawn.Cut(cap + 1)
+	for(var/goon_type in to_spawn)
+		var/turf/spawn_turf = landmark.get_safe_spawn_turf()
+		if(!spawn_turf)
+			continue
+		var/mob/living/goon
+		if(immediate)
+			goon = new goon_type(spawn_turf)
+		else
+			var/obj/effect/quest_spawn/spawn_effect = new /obj/effect/quest_spawn(spawn_turf)
+			goon = new goon_type(spawn_effect)
+			spawn_effect.contained_atom = goon
+			spawn_effect.AddComponent(/datum/component/quest_object/mob_spawner, src)
+			register_spawner(spawn_effect)
+		goon.faction |= "quest"
+		if(faction?.faction_tag)
+			goon.faction |= faction.faction_tag
+		goon.mark_contract_spawned()
+		ADD_TRAIT(goon, TRAIT_FRESHSPAWN, "[type]")
+		addtimer(TRAIT_CALLBACK_REMOVE(goon, TRAIT_FRESHSPAWN, "[type]"), 60 SECONDS)
+		total_spawned_tp += initial(goon.threat_point) || 0
+
+/datum/quest/kill/notorious_bounty/proc/spawn_reinforcements()
+	var/obj/effect/landmark/quest_spawner/landmark = pending_landmark_ref?.resolve()
+	if(QDELETED(landmark))
+		return
+	spawn_goons(landmark, NOTORIOUS_BOUNTY_REINFORCE_TP, NOTORIOUS_BOUNTY_REINFORCE_CAP, immediate = TRUE)
+	announce_to_bearer("<b>The outlaw's gang closes ranks.</b>.")
 
 /datum/quest/kill/notorious_bounty/proc/apply_boss_name()
 	var/mob/living/M = boss_ref?.resolve()
@@ -101,12 +138,15 @@
 		if(M.key)
 			eligible += M
 	if(!length(eligible))
+		spawn_reinforcements()
 		return
 	var/mob/dead/chosen = pick(eligible)
 	if(istype(chosen, /mob/dead/new_player))
 		var/mob/dead/new_player/N = chosen
 		N.close_spawn_windows()
 	boss.key = chosen.key
+	// Prevent the mob from getting instaambushed
+	boss.ambushable = FALSE
 	REMOVE_TRAIT(boss, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 	ADD_TRAIT(boss, TRAIT_TEMPO, TRAIT_GENERIC)
 	boss.adjust_skillrank(/datum/skill/misc/tracking, 6, TRUE) //You should be able to hunt your hunters back!
@@ -116,6 +156,9 @@
 	// Signals to hunters that a player has taken the reins.
 	boss.add_filter("notorious_bounty_outline", 1, list("type" = "drop_shadow", "color" = "#ffee00", "size" = 0.1))
 	leash_origin = get_turf(boss)
+	reward_amount += NOTORIOUS_BOUNTY_PLAYER_BONUS
+	quest_scroll?.update_quest_text()
+	announce_to_bearer("<b>Your quarry's eyes sharpen with cunning.</b> The bounty on [boss_name] grows by [NOTORIOUS_BOUNTY_PLAYER_BONUS] mammons.")
 	to_chat(boss, span_boldnotice("You are [boss_name], a notorious outlaw. A hunting party is closing in on you. Stand your ground and make them earn their mammons. Do not round-remove any of your targets, but you are free to kill them and fight as hard as you need to within reason. Make them earn their bounty. You cannot flee them, and if the hunters never come, the pact releases you in [NOTORIOUS_BOUNTY_CONTROL_TIME / (1 MINUTES)] minutes."))
 	addtimer(CALLBACK(src, PROC_REF(release_boss)), NOTORIOUS_BOUNTY_CONTROL_TIME)
 	leash_boss()
