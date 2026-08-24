@@ -233,6 +233,10 @@
 			prob2defend -= 40
 			ignore_DE_bonus = TRUE
 
+		if(defender.has_status_effect(/datum/status_effect/debuff/hamstring))
+			prob2defend -= 20
+			ignore_DE_bonus = TRUE
+
 		// dodging while knocked down sucks ass
 		if(!(defender.mobility_flags & MOBILITY_STAND))
 			prob2defend *= 0.25
@@ -292,10 +296,6 @@
 
 		if(defender.has_status_effect(/datum/status_effect/swingdelay/penalty))
 			prob2defend = clamp(prob2defend - 50, 5, 90)
-
-		if(defender.has_status_effect(/datum/status_effect/debuff/hamstring))
-			prob2defend -= 20
-			ignore_DE_bonus = TRUE
 
 		if(!prob(prob2defend))
 			return FALSE
