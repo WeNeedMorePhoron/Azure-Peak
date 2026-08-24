@@ -655,7 +655,7 @@
 
 /obj/item/rogueweapon/greataxe/steel/knight
 	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/mace/strike)
-	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/mace/strike, /datum/intent/axe/rangedthrust)
+	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/mace/strike/poleaxe, /datum/intent/spear/thrust/militia)
 	name = "poleaxe"
 	desc = "A poleaxe, fitted with a reinforced shaft and a beaked axhead of steel. It is the ultimate weapon for a well-seasoned knight, capable of \
 	humbling any foe that may assail their presence. </br>'Away with you, vile beggar!'"

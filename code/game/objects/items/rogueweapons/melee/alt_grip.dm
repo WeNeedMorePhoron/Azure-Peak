@@ -462,7 +462,7 @@
 	)
 	var_overrides = list(
 		"wlength" = WLENGTH_SHORT,
-		"wdefense" = -2
+		"wdefense" = 2
 	)
 
 /datum/alt_grip/mordhau/sword/frei

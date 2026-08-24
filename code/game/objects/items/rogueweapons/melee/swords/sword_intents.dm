@@ -460,9 +460,7 @@
 /datum/intent/sword/thrust/estoc
 	name = "thrust"
 	penfactor = PEN_HEAVY	// Penetrates mail/plate at same-tier 20%. Estoc's purpose — point blank, telegraphed.
-	swingdelay_type = SWINGDELAY_PENALTY
-	damfactor = 1.3
-	swingdelay = 0.6 SECONDS
+	damfactor = 1.1
 
 /datum/intent/sword/thrust/estoc/lunge
 	name = "lunge"

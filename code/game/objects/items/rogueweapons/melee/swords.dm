@@ -283,8 +283,8 @@
 	late fourteenth century, this noble sidearm - born from Grenzelhoftian imitations of the Otavan estoc - is proudly displayed on Azuria's official coat-of-arms."
 	icon_state = "aplongsword"
 	sheathe_icon = "aplongsword"
-	force = 20
-	force_wielded = 25
+	force = 18
+	force_wielded = 22
 	possible_item_intents = list(
 		/datum/intent/sword/thrust,
 		/datum/intent/sword/strike,
@@ -674,8 +674,9 @@
 	Psydonian longswords, but it's notably lighter."
 	force = 26
 	force_wielded = 31
-	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/strike)
-	gripped_intents = list(/datum/intent/sword/cut, /datum/intent/sword/strike, /datum/intent/sword/chop)
+	possible_item_intents = list(/datum/intent/sword/cut/arming, /datum/intent/sword/strike)
+	gripped_intents = list(/datum/intent/sword/cut/long, /datum/intent/sword/strike, /datum/intent/sword/chop)
+	alt_grips = list()
 	icon_state = "marlin"
 	item_state = "marlin"
 	parrysound = list('sound/combat/parry/bladed/bladedthin (1).ogg', 'sound/combat/parry/bladed/bladedthin (2).ogg', 'sound/combat/parry/bladed/bladedthin (3).ogg')

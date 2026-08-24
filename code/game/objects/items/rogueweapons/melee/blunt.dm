@@ -149,6 +149,19 @@
 	desc = "A titanic blow that delivers Strength-scaling knockback and slowdown to the target. The amount of inflicted knockback scales off your Strength, ranging from X (1 tile) to XV (5 tiles). </br>Actively drains stamina while being charged up. </br>Cannot inflict any knockback or slowdown if your Strength is below X. </br>Cannot be used consecutively more than every 5 seconds on the same target. </br>Prone targets halve the knockback distance. </br>Not fully charging the attack limits knockback to 1 tile."
 	maxrange = 5
 
+/datum/intent/mace/strike/poleaxe
+	name = "strike"
+	blade_class = BCLASS_BLUNT
+	attack_verb = list("strikes", "hits")
+	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
+	chargetime = 0
+	damfactor = 1.2
+	penfactor = PEN_NONE
+	swingdelay = 0
+	icon_state = "instrike"
+	item_d_type = "blunt"
+	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
+
 //blunt objs ฅ^•ﻌ•^ฅ
 
 /obj/item/rogueweapon/mace
