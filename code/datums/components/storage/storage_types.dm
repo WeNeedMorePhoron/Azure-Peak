@@ -57,6 +57,10 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	not_while_equipped = FALSE
 
+/datum/component/storage/concrete/roguetown/coin_pouch/New(list/raw_args)
+	. = ..()
+	cant_hold = typecacheof(list(/obj/item/smallDelivery))
+
 /datum/component/storage/concrete/roguetown/coin_pouch/cloth
 	screen_max_rows = 2
 	screen_max_columns = 1
@@ -196,6 +200,7 @@
 	dump_time = 40
 	click_gather = TRUE
 	collection_mode = COLLECT_SAME
+	does_not_spill = TRUE
 
 /datum/component/storage/concrete/tray/spill_contents(obj/A)
 	if (A.throwing)
