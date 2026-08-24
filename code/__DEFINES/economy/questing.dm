@@ -11,6 +11,7 @@
 #define QUEST_BOUNTY "Bounty"
 #define QUEST_RECOVERY "Recovery"
 #define QUEST_BLOCKADE_DEFENSE "Blockade Defense"
+#define QUEST_HOARD_RECOVERY "Hoard Recovery"
 #define QUEST_TOWNER_SMITH_CARAVAN "Smith Caravan"
 #define QUEST_TOWNER_MINER_OREVEIN "Ore Vein"
 #define QUEST_NOTORIOUS_BOUNTY "Notorious Bounty"
@@ -59,6 +60,7 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 	QUEST_BOUNTY = BURGHER_PLEDGE_COST_MAJOR,
 	QUEST_RAID = BURGHER_PLEDGE_COST_MAJOR,
 	QUEST_BLOCKADE_DEFENSE = BLOCKADE_SCROLL_PLEDGE_COST,
+	QUEST_HOARD_RECOVERY = BLOCKADE_SCROLL_PLEDGE_COST,
 ))
 
 // Multipliers applied to the base TP for kill request rewards
@@ -196,6 +198,10 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 
 #define BLOCKADE_FELLOWSHIP_REQUIREMENT 3
 #define BLOCKADE_WAVE_TIMER_DS (15 MINUTES)
+
+// Minimum Pledge to call a hoard recovery writ from a fellowship without being the Steward.
+#define HOARD_RECOVERY_PLEDGE 200
+#define HOARD_RECOVERY_HOARD_MINIMUM 200
 
 #define BLOCKADE_RECALL_WINDOW_DS (15 MINUTES)
 

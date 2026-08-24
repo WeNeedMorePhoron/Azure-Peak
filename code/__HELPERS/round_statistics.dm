@@ -98,6 +98,7 @@
 #define STATS_REVENUE_HEADEATER_LEVY "revenue_headeater_levy"
 #define STATS_REVENUE_IMPORT_TARIFF "revenue_import_tariff"
 #define STATS_REVENUE_EXPORT_DUTY "revenue_export_duty"
+#define STATS_REVENUE_RECOVERED_BOOTY "revenue_recovered_booty"
 // Tax revenue forgone due to exemption (Charter, patronage, levy-exempt stamp). Per category.
 #define STATS_EXEMPTED_CONTRACT_LEVY "exempted_contract_levy"
 #define STATS_EXEMPTED_HEADEATER_LEVY "exempted_headeater_levy"

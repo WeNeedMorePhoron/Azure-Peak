@@ -31,9 +31,10 @@
 	target_spawn_area = get_area_name(get_turf(landmark))
 	region = landmark.region
 	var/datum/blockade/B = blockade_ref?.resolve()
-	if(!B)
-		return FALSE
-	faction = B.get_faction()
+	if(B)
+		faction = B.get_faction()
+	else if(faction_id)
+		faction = get_quest_faction(faction_id)
 	if(!faction || !length(faction.mob_types))
 		return FALSE
 	faction_id = faction.id
@@ -51,6 +52,8 @@
 	var/datum/economic_region/ER = B?.get_region()
 	if(ER)
 		return "Break the blockade of [ER.name]"
+	if(region)
+		return "Blockade Defense: [region]"
 	return "Break a trade blockade"
 
 /datum/quest/kill/blockade_defense/get_objective_text()
@@ -377,6 +380,45 @@
 			announce_to_bearer("The final wave breaks. The Crown holds your share - return to the Nerve Master to collect.")
 	else
 		announce_to_bearer("The final wave breaks. This was a Request - no reward is due.")
+	var/datum/threat_region/TR = SSregionthreat.get_region(region)
+	if(TR && TR.banditry_hoard > 0)
+		var/booty = TR.banditry_hoard
+		TR.banditry_hoard = 0
+		if(lead && SStreasury.has_account(lead))
+			var/datum/fund/booty_account = SStreasury.get_account(lead)
+			SStreasury.mint(booty_account, booty, "Recovered Booty ([region])")
+			var/booty_tax = SStreasury.apply_tax(booty_account, booty, TAX_CATEGORY_RECOVERED_BOOTY, region)
+			if(booty_tax > 0)
+				record_featured_stat(FEATURED_STATS_TAX_PAYERS, lead, booty_tax)
+				record_round_statistic(STATS_TAXES_COLLECTED, booty_tax)
+			announce_to_bearer("The bandits' hoard is seized - [booty] mammons of stolen coin. The Crown claims [booty_tax] as Recovered Booty. Net: [booty - booty_tax] mammons.")
+		else
+			SStreasury.mint(SStreasury.discretionary_fund, booty, "Recovered Booty (unbanked bearer, [region])")
+			announce_to_bearer("The bandits' hoard of [booty] mammons is seized in the Crown's name.")
+		GLOB.azure_round_stats[STATS_BANDITRY_HOARD_OUTSTANDING] = SSeconomy.total_banditry_hoard()
 	var/obj/item/quest_writ/S = quest_scroll
 	if(S && !QDELETED(S))
 		qdel(S)
+
+// The on-request Hoard Recovery: a writ raised at the Grand Contract Ledger (by a
+// Fellowship's own pledge, or commissioned by the Steward) once a region's banditry hoard
+// reaches HOARD_RECOVERY_HOARD_MINIMUM. Wave mechanics, recall, and payout are inherited
+// from blockade_defense; no /datum/blockade is involved, the writ binds to the threat
+// region alone and never blocks trade.
+/datum/quest/kill/blockade_defense/hoard_recovery
+	quest_type = QUEST_HOARD_RECOVERY
+
+/datum/quest/kill/blockade_defense/hoard_recovery/get_title()
+	if(title)
+		return title
+	// TODO: flavor - plain placeholder, rewrite
+	if(region)
+		return "Hoard Recovery: [region]"
+	return "Hoard Recovery"
+
+/datum/quest/kill/blockade_defense/hoard_recovery/get_objective_text()
+	var/wave_label = current_wave > 0 ? "Wave [current_wave]/[BLOCKADE_TOTAL_WAVES]" : "Three waves await"
+	// TODO: flavor - plain placeholder, rewrite
+	if(!faction)
+		return "[wave_label]. Clear the brigands and reclaim the hoard."
+	return "[wave_label]. Clear the [faction.name_plural] and reclaim the hoard."

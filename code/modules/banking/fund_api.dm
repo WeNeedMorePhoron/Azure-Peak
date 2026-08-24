@@ -252,6 +252,8 @@
 			record_round_statistic(STATS_REVENUE_IMPORT_TARIFF, due)
 		if(TAX_CATEGORY_EXPORT_DUTY)
 			record_round_statistic(STATS_REVENUE_EXPORT_DUTY, due)
+		if(TAX_CATEGORY_RECOVERED_BOOTY)
+			record_round_statistic(STATS_REVENUE_RECOVERED_BOOTY, due)
 	return due
 
 /datum/controller/subsystem/treasury/proc/apply_concordat_tithe(base_amount, tax_category, reason)

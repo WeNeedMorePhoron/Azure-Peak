@@ -67,7 +67,7 @@
 			body += "<i>Treasury could not absorb the full hit. <font color='#c44'>[banditry_debt_accrued]m</font> accrued as banditry debt: future inflow shall be skimmed against it until paid. ([banditry_burned]m drawn from purse, [banditry_debt_accrued]m owed.)</i><br>"
 		body += "<br>"
 	if(banditry_hoard > 0)
-		body += "<b>Brigand Hoard:</b> <font color='#c44'>[banditry_hoard]m</font> across their hoards. A blockade clearing will reclaim it, with part of it taxed by the Crown as Recovered Booty.<br><br>"
+		body += "<b>Brigand Hoard:</b> <font color='#c44'>[banditry_hoard]m</font> across their hoards. A hoard recovery (or breaking a blockade there) will reclaim it, with part of it taxed by the Crown as Recovered Booty.<br><br>"
 	if(orders_rolled)
 		body += "<b>Standing orders posted this morning:</b> [orders_rolled]"
 		if(urgent_rolled)
