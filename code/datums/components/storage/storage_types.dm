@@ -322,7 +322,7 @@
 
 /datum/component/storage/concrete/grid/food/cooking/oven
 	screen_max_rows = 2
-	screen_max_columns = 5
+	screen_max_columns = 3
 	insert_verb = "slide"
 	insert_preposition = "in"
 
