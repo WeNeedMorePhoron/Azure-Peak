@@ -144,6 +144,7 @@
 #define STATS_TAXES_COLLECTED "taxes_collected"
 #define STATS_BANDITRY_LOSSES "banditry_losses"
 #define STATS_BANDITRY_DEBT_OUTSTANDING "banditry_debt_outstanding"
+#define STATS_BANDITRY_HOARD_OUTSTANDING "banditry_hoard_outstanding"
 #define STATS_TREASURY_DEBT_OUTSTANDING "treasury_debt_outstanding"
 #define STATS_TREASURY_DEBT_REPAID "treasury_debt_repaid"
 #define STATS_BANKRUPTCY_DECLARED "bankruptcy_declared"

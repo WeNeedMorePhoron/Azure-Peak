@@ -109,6 +109,7 @@
 	out += chronicle_kv("Wages paid", "[GLOB.azure_round_stats[STATS_WAGES_PAID]]")
 	out += chronicle_kv("Fines income", "[GLOB.azure_round_stats[STATS_FINES_INCOME]]")
 	out += chronicle_kv("Banditry losses", "[GLOB.azure_round_stats[STATS_BANDITRY_LOSSES]]")
+	out += chronicle_kv("Banditry hoard outstanding", "[GLOB.azure_round_stats[STATS_BANDITRY_HOARD_OUTSTANDING]]")
 	out += chronicle_kv("Direct treasury transfers", "[GLOB.azure_round_stats[STATS_DIRECT_TREASURY_TRANSFERS]]")
 	out += "\n"
 	return jointext(out, "")
