@@ -468,7 +468,7 @@
 	icon_state = "inlance"
 	attack_verb = list("lunges")
 	penfactor = PEN_LIGHT	// Fast attrition thrust — light pen, no swingdelay, quick clickcd.
-	damfactor = 1.2
+	damfactor = 1.1
 	swingdelay = 0
 	clickcd = CLICK_CD_QUICK
 	reach = 2
