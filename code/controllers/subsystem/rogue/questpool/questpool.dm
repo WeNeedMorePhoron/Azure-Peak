@@ -117,7 +117,7 @@ SUBSYSTEM_DEF(questpool)
 	return evergreen_count_by_region[region_name] || 0
 
 /proc/is_kill_type(quest_type)
-	return quest_type == QUEST_KILL_EASY || quest_type == QUEST_CLEAR_OUT || quest_type == QUEST_RAID || quest_type == QUEST_BOUNTY || quest_type == QUEST_RECOVERY
+	return quest_type == QUEST_KILL_EASY || quest_type == QUEST_CLEAR_OUT || quest_type == QUEST_RAID || quest_type == QUEST_BOUNTY || quest_type == QUEST_RECOVERY || quest_type == QUEST_NOTORIOUS_BOUNTY
 
 /proc/is_evergreen_type(quest_type)
 	return quest_type == QUEST_COURIER || quest_type == QUEST_RETRIEVAL
@@ -460,6 +460,8 @@ SUBSYSTEM_DEF(questpool)
 			return QUEST_DIFFICULTY_MEDIUM
 		if(QUEST_RAID, QUEST_BOUNTY)
 			return QUEST_DIFFICULTY_HARD
+		if(QUEST_NOTORIOUS_BOUNTY)
+			return QUEST_DIFFICULTY_PLAYER_VS_PLAYER
 	return QUEST_DIFFICULTY_EASY
 
 /datum/controller/subsystem/questpool/proc/instantiate_quest_of_type(type)
@@ -476,6 +478,8 @@ SUBSYSTEM_DEF(questpool)
 			return new /datum/quest/kill/raid()
 		if(QUEST_BOUNTY)
 			return new /datum/quest/kill/bounty()
+		if(QUEST_NOTORIOUS_BOUNTY)
+			return new /datum/quest/kill/notorious_bounty()
 		if(QUEST_RECOVERY)
 			return new /datum/quest/kill/recovery()
 		if(QUEST_BLOCKADE_DEFENSE)

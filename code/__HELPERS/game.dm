@@ -422,6 +422,7 @@
 				continue
 
 		showCandidatePollWindow(M, poll_time, Question, result, ignore_category, time_passed, flashwindow)
+		SEND_SOUND(M, 'sound/misc/updatebook.ogg')
 	sleep(poll_time)
 
 	//Check all our candidates, to make sure they didn't log off or get deleted during the wait period.
