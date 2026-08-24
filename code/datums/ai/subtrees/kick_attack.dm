@@ -148,13 +148,6 @@
 	if(!(pawn.mobility_flags & MOBILITY_STAND))
 		pawn.aimheight_change(rand(1, 4))
 
-	// Set up kick intent
-	var/old_mmb = pawn.mmb_intent
-	pawn.mmb_intent = new INTENT_KICK(pawn)
-	pawn.try_kick(target)
-	QDEL_NULL(pawn.mmb_intent)
-	pawn.mmb_intent = old_mmb
-
 	var/kick_cd = npc_technique_cd(pawn, KICK_COOLDOWN)
 	controller.set_blackboard_key(BB_KICK_COOLDOWN, world.time + kick_cd)
 	controller.set_blackboard_key(BB_HUMAN_NPC_TECHNIQUE_CD, world.time + 3 SECONDS)
@@ -163,6 +156,14 @@
 	// combo into a full attack right after.
 	if(pawn.next_click < world.time + 1.2 SECONDS)
 		pawn.next_click = world.time + 1.2 SECONDS
+
+	// Set up kick intent
+	var/old_mmb = pawn.mmb_intent
+	pawn.mmb_intent = new INTENT_KICK(pawn)
+	pawn.try_kick(target)
+	QDEL_NULL(pawn.mmb_intent)
+	pawn.mmb_intent = old_mmb
+
 	AI_THINK(pawn, "KICK: kicked [target]!")
 	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 

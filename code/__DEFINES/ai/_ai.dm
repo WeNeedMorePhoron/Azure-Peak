@@ -32,6 +32,9 @@
 
 #define AI_BEHAVIOR_INSTANT (NONE)
 
+///How long a behavior stuck inside perform() blocks re-entry before we assume it died to a runtime
+#define AI_BEHAVIOR_REENTRY_TIMEOUT (30 SECONDS)
+
 ///Does this task require movement from the AI before it can be performed?
 #define AI_BEHAVIOR_REQUIRE_MOVEMENT (1<<0)
 ///Does this require the current_movement_target to be adjacent and in reach?

@@ -22,6 +22,8 @@ have ways of interacting with a specific atom and control it. They posses a blac
 	var/list/current_behaviors
 	///Current actions and their respective last time ran as an assoc list.
 	var/list/behavior_cooldowns = list()
+	///Behaviors that are inside a sleeping perform() right now, so we don't re-enter them.
+	var/list/running_behaviors = list()
 	///The idle behavior this AI performs when it has no actions.
 	var/datum/idle_behavior/idle_behavior = null
 	///our current cell grid
@@ -699,7 +701,16 @@ have ways of interacting with a specific atom and control it. They posses a blac
 	if(stored_arguments)
 		arguments += stored_arguments
 
+	// Plenty of our behaviors sleep inside perform() - swingdelay, try_kick, npc reaction time.
+	// Cooldowns are only applied once perform returns, so without this a sleeping behavior gets
+	// re-entered on every tick of the sleep and the pawn stacks several swings at once.
+	var/entered_at = running_behaviors[behavior]
+	if(entered_at && world.time - entered_at < AI_BEHAVIOR_REENTRY_TIMEOUT)
+		return
+	running_behaviors[behavior] = world.time
 	var/process_flags = behavior.perform(arglist(arguments))
+	running_behaviors -= behavior
+
 	if(process_flags & AI_BEHAVIOR_DELAY)
 		behavior_cooldowns[behavior] = world.time + behavior.get_cooldown(src)
 	if(process_flags & AI_BEHAVIOR_FAILED)
