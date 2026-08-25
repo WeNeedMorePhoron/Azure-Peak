@@ -29,6 +29,8 @@
 	var/mob/living/carbon/human/living_pawn = pawn
 	if(!living_pawn?.ai_controller)
 		return FALSE
+	if(living_pawn.incapacitated())
+		return FALSE
 	if(ai_npc_has_weapon(living_pawn))
 		return FALSE
 	var/datum/ai_controller/controller = living_pawn.ai_controller

@@ -30,6 +30,9 @@
 
 /// Decides when to call reinforcements, can be overridden for alternate behavior
 /datum/ai_planning_subtree/call_reinforcements/proc/decide_to_call(datum/ai_controller/controller)
+	var/mob/living/living_pawn = controller.pawn
+	if(isliving(living_pawn) && living_pawn.stat != CONSCIOUS)
+		return FALSE
 	return controller.blackboard_key_exists(BB_BASIC_MOB_CURRENT_TARGET) && istype(controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET], /mob)
 
 /// Call out to all mobs in the specified range for help

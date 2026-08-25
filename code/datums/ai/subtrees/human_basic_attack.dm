@@ -129,7 +129,7 @@
 		#endif
 		var/feint_ready = world.time >= (controller.blackboard[BB_HUMAN_NPC_FEINT_COOLDOWN] || 0)
 		var/technique_ready = world.time >= (controller.blackboard[BB_HUMAN_NPC_TECHNIQUE_CD] || 0)
-		if(feint_ready && technique_ready && pawn.stamina < pawn.max_stamina * 0.7 && istype(pawn.rmb_intent, /datum/rmb_intent/feint))
+		if(feint_ready && technique_ready && !pawn.is_carried() && pawn.stamina < pawn.max_stamina * 0.7 && istype(pawn.rmb_intent, /datum/rmb_intent/feint))
 			AI_THINK(pawn, "FEINT: attempting feint on [target]!")
 			modifiers = list(RIGHT_CLICK = TRUE)
 			var/feint_cd = npc_technique_cd(pawn, HUMAN_NPC_FEINT_COOLDOWN)

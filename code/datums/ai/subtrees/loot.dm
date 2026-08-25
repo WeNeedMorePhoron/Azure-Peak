@@ -14,6 +14,8 @@
 		return
 
 	var/mob/living/pawn = controller.pawn
+	if(pawn.incapacitated())
+		return
 	var/datum/component/ai_inventory_manager/inv = controller.get_inventory()
 	if(!inv)
 		return
@@ -76,6 +78,8 @@
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	var/mob/living/carbon/human/pawn = controller.pawn
+	if(pawn.incapacitated())
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	if(!pawn.Adjacent(target))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 

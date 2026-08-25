@@ -23,6 +23,8 @@
 	var/mob/living/pawn = controller.pawn
 	if(!pawn.Adjacent(target))
 		return
+	if(pawn.incapacitated(ignore_restraints = TRUE) || pawn.is_carried() || pawn.is_legbound())
+		return
 	if(pawn.IsOffBalanced())
 		return
 	if(pawn.get_num_legs() < 2)
@@ -138,7 +140,7 @@
 	if(!target || QDELETED(target) || !pawn.Adjacent(target))
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
-	if(pawn.incapacitated(ignore_restraints = TRUE))
+	if(pawn.incapacitated(ignore_restraints = TRUE) || pawn.is_carried() || pawn.is_legbound())
 		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	if(!pawn.can_kick(target, do_message = FALSE))
