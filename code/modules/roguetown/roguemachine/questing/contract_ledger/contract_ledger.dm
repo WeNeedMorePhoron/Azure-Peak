@@ -42,6 +42,7 @@
 	. += span_info("Your <b>fellowship</b> may turn in contracts you hold on your behalf, should you fall in battle. The reward and levy is credited to the one who turns it in, using their tax exempt status, if any.")
 	// TODO: flavor - plain placeholder, rewrite
 	. += span_info("A <b>Fellowship of [BLOCKADE_FELLOWSHIP_REQUIREMENT] or more</b> may call for a <b>Hoard Recovery</b> in a region whose banditry hoard has reached <b>[HOARD_RECOVERY_HOARD_MINIMUM] mammons</b>, after pledging <b>[HOARD_RECOVERY_PLEDGE] mammons</b>. It pays the standard blockade reward, and the reclaimed hoard is taxed by the Crown as <b>Recovered Spoils</b>. The Steward may also commission a hoard recovery writ like any other defense commission.")
+	. += span_info("A <b>Notorious Bounty</b> may be taken up by a ghost, who then plays the outlaw fighting against you. Its reward rises by <b>[NOTORIOUS_BOUNTY_PLAYER_BONUS] mammons</b> when that happens, or by <b>[NOTORIOUS_BOUNTY_NPC_BONUS]</b> when none answers.")
 	. += span_info("The <b>[english_list(GLOB.contract_proxy_officials)]</b> may turn in any completed contract on the holder's behalf, crediting the reward to the holder's own account. They take no cut.")
 
 /obj/structure/roguemachine/contractledger/attackby(obj/item/P, mob/living/carbon/human/user, params)

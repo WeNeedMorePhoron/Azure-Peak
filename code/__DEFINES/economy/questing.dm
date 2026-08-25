@@ -114,7 +114,7 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 #define QUEST_DEPOSIT_EASY 5
 #define QUEST_DEPOSIT_MEDIUM 10
 #define QUEST_DEPOSIT_HARD 20
-#define QUEST_DEPOSIT_NOTORIOUS 40
+#define QUEST_DEPOSIT_NOTORIOUS 20
 
 
 // Jobs may override via /datum/job.max_active_quests.
@@ -164,15 +164,20 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 
 #define NOTORIOUS_BOUNTY_POLL_TIME (15 SECONDS)
 #define NOTORIOUS_BOUNTY_PROX_RANGE 35
-#define NOTORIOUS_BOUNTY_CONTROL_TIME (25 MINUTES)
+
+#define NOTORIOUS_BOUNTY_CONTROL_TIME (15 MINUTES)
 #define NOTORIOUS_BOUNTY_LEASH_RANGE 40
 #define NOTORIOUS_BOUNTY_LEASH_INTERVAL (10 SECONDS)
 #define NOTORIOUS_BOUNTY_GOON_CAP 3
 // Extra goons compensate when no ghost answers the poll and the boss stays an NPC.
-#define NOTORIOUS_BOUNTY_REINFORCE_TP 70
-#define NOTORIOUS_BOUNTY_REINFORCE_CAP 4
+#define NOTORIOUS_BOUNTY_REINFORCE_TP 140
+#define NOTORIOUS_BOUNTY_REINFORCE_CAP 7
 // Flat mammon bump when a player assumes the boss - the hunt got harder, the pay follows.
-#define NOTORIOUS_BOUNTY_PLAYER_BONUS 50
+#define NOTORIOUS_BOUNTY_PLAYER_BONUS 125
+#define NOTORIOUS_BOUNTY_NPC_BONUS 60
+
+#define NOTORIOUS_BOUNTY_SURVIVAL_TRIUMPH 1
+#define NOTORIOUS_BOUNTY_ENGAGE_RANGE 10
 
 
 #define QUEST_EVERGREEN_TYPE_WEIGHTS list(\

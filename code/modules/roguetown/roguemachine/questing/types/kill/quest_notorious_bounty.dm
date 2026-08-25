@@ -7,6 +7,37 @@
 	var/boss_name
 	var/datum/weakref/boss_ref
 	var/turf/leash_origin
+	var/datum/weakref/fellowship_ref
+	var/list/goon_refs = list()
+	var/list/marked_hunters = list()
+	var/hunter_mark_key
+	var/hunter_marks_seeded = FALSE
+	var/hunt_engaged = FALSE
+	var/boss_paid = FALSE
+
+/datum/quest/kill/notorious_bounty/Destroy()
+	clear_hunter_marks()
+	clear_boss_marker()
+	return ..()
+
+/datum/quest/kill/notorious_bounty/mark_complete()
+	..()
+	clear_hunter_marks()
+	clear_boss_marker()
+
+/datum/quest/kill/notorious_bounty/on_hunt_timeout()
+	if(complete)
+		return ..()
+	pay_out_boss(boss_ref?.resolve())
+	succour_fallen_hunters()
+	despawn_gang()
+	return ..()
+
+/datum/quest/kill/notorious_bounty/on_claim(mob/user)
+	. = ..()
+	var/mob/living/claimant = user
+	if(istype(claimant) && claimant.current_fellowship)
+		fellowship_ref = WEAKREF(claimant.current_fellowship)
 
 /datum/quest/kill/notorious_bounty/preview(obj/effect/landmark/quest_spawner/landmark)
 	if(!landmark)
@@ -75,6 +106,7 @@
 	if(faction?.faction_tag)
 		boss.faction |= faction.faction_tag
 	boss.mark_contract_spawned()
+	grant_darkvision(boss)
 	boss.AddComponent(/datum/component/quest_object/kill, src)
 	ADD_TRAIT(boss, TRAIT_FRESHSPAWN, "[type]")
 	addtimer(TRAIT_CALLBACK_REMOVE(boss, TRAIT_FRESHSPAWN, "[type]"), 60 SECONDS)
@@ -108,8 +140,10 @@
 		if(faction?.faction_tag)
 			goon.faction |= faction.faction_tag
 		goon.mark_contract_spawned()
+		grant_darkvision(goon)
 		ADD_TRAIT(goon, TRAIT_FRESHSPAWN, "[type]")
 		addtimer(TRAIT_CALLBACK_REMOVE(goon, TRAIT_FRESHSPAWN, "[type]"), 60 SECONDS)
+		goon_refs += WEAKREF(goon)
 		total_spawned_tp += initial(goon.threat_point) || 0
 
 /datum/quest/kill/notorious_bounty/proc/spawn_reinforcements()
@@ -117,7 +151,9 @@
 	if(QDELETED(landmark))
 		return
 	spawn_goons(landmark, NOTORIOUS_BOUNTY_REINFORCE_TP, NOTORIOUS_BOUNTY_REINFORCE_CAP, immediate = TRUE)
-	announce_to_bearer("<b>The outlaw's gang closes ranks.</b>.")
+	reward_amount += NOTORIOUS_BOUNTY_NPC_BONUS
+	quest_scroll?.update_quest_text()
+	announce_to_bearer("<b>The outlaw's gang closes ranks.</b> The bounty on [boss_name] grows by [NOTORIOUS_BOUNTY_NPC_BONUS] mammons.")
 
 /datum/quest/kill/notorious_bounty/proc/apply_boss_name()
 	var/mob/living/M = boss_ref?.resolve()
@@ -156,10 +192,15 @@
 	// Signals to hunters that a player has taken the reins.
 	boss.add_filter("notorious_bounty_outline", 1, list("type" = "drop_shadow", "color" = "#ffee00", "size" = 0.1))
 	leash_origin = get_turf(boss)
+	unlock_boss_gear(boss)
+	boss.update_sight()
+	refresh_hunter_marks()
 	reward_amount += NOTORIOUS_BOUNTY_PLAYER_BONUS
 	quest_scroll?.update_quest_text()
 	announce_to_bearer("<b>Your quarry's eyes glows with unusual intelligence.</b> The bounty on [boss_name] grows by [NOTORIOUS_BOUNTY_PLAYER_BONUS] mammons.")
-	to_chat(boss, span_boldnotice("You are [boss_name], a notorious outlaw. A hunting party is closing in on you. Stand your ground and make them earn their mammons. Do not round-remove any of your targets, but you are free to kill them and fight as hard as you need to within reason. You can join in attacking anyone your NPCs are already attacking. Follow our escalation rules. You cannot flee them, and if the hunters never come, the pact releases you in [NOTORIOUS_BOUNTY_CONTROL_TIME / (1 MINUTES)] minutes."))
+	to_chat(boss, span_danger("You are [boss_name], a notorious outlaw. A hunting party is closing in on you. Stand your ground and make them earn their mammons. Do not round-remove any of your targets, but you are free to kill them and fight as hard as you need to within reason. You can join in attacking anyone your NPCs are already attacking. Follow our escalation rules. You cannot flee them, and if the hunters never come, the pact releases you in [NOTORIOUS_BOUNTY_CONTROL_TIME / (1 MINUTES)] minutes."))
+	to_chat(boss, span_boldnotice("The hunters are marked to you. [describe_hunting_party()]"))
+	to_chat(boss, span_danger("Let them find you and outlast them. You will be paid a TRIUMPH when the pact is complete. Hiding from them will not allow you such a victory."))
 	var/turf/boss_turf = get_turf(boss)
 	var/mob/living/bearer = quest_receiver_reference?.resolve()
 	var/datum/fellowship/F = bearer?.current_fellowship
@@ -177,6 +218,8 @@
 	if(T && leash_origin && (T.z != leash_origin.z || get_dist(T, leash_origin) > NOTORIOUS_BOUNTY_LEASH_RANGE))
 		boss.forceMove(leash_origin)
 		to_chat(boss, span_userdanger("Mammon's pact drags you back to your hunting grounds!"))
+	check_hunt_engaged(boss)
+	refresh_hunter_marks()
 	addtimer(CALLBACK(src, PROC_REF(leash_boss)), NOTORIOUS_BOUNTY_LEASH_INTERVAL)
 
 /// Control timer expiry: the hunters never finished the job, so the ghost is released and AI resumes.
@@ -184,7 +227,150 @@
 	var/mob/living/boss = boss_ref?.resolve()
 	if(QDELETED(boss) || boss.stat == DEAD || !boss.client)
 		return
+	if(!pay_out_boss(boss))
+		to_chat(boss, span_warning("The hunters never closed on you. The pact wanes with nothing owed."))
+	succour_fallen_hunters()
 	to_chat(boss, span_warning("The pact wanes. The borrowed flesh returns to instinct, and your spirit slips free."))
+	clear_hunter_marks()
+	clear_boss_marker()
 	boss.ghostize(FALSE)
-	boss.remove_filter("notorious_bounty_outline")
 	ADD_TRAIT(boss, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
+
+/datum/quest/kill/notorious_bounty/proc/get_hunting_party()
+	var/list/party = list()
+	var/mob/living/bearer = quest_receiver_reference?.resolve()
+	if(!QDELETED(bearer))
+		party |= bearer
+	var/datum/fellowship/F = fellowship_ref?.resolve()
+	if(!F && bearer?.current_fellowship)
+		F = bearer.current_fellowship
+		fellowship_ref = WEAKREF(F)
+	if(F)
+		for(var/mob/living/M as anything in F.get_members())
+			if(!QDELETED(M))
+				party |= M
+	return party
+
+/datum/quest/kill/notorious_bounty/proc/describe_hunting_party()
+	var/mob/living/bearer = quest_receiver_reference?.resolve()
+	var/list/names = list()
+	for(var/mob/living/M as anything in get_hunting_party())
+		names += (M == bearer) ? "[M.real_name] (writ-bearer)" : M.real_name
+	if(!length(names))
+		return "None of them have shown themselves yet."
+	return "They are [english_list(names)]."
+
+/datum/quest/kill/notorious_bounty/proc/refresh_hunter_marks()
+	var/mob/living/boss = boss_ref?.resolve()
+	if(QDELETED(boss) || !boss.client || complete || failed)
+		clear_hunter_marks()
+		return
+	if(!hunter_mark_key)
+		hunter_mark_key = "notorious_hunter_[REF(src)]"
+	var/list/party = get_hunting_party()
+	var/list/kept = list()
+	for(var/datum/weakref/W as anything in marked_hunters)
+		var/mob/living/M = W.resolve()
+		if(QDELETED(M))
+			continue
+		if(M in party)
+			kept += W
+			continue
+		M.remove_alt_appearance(hunter_mark_key)
+	marked_hunters = kept
+	for(var/mob/living/M as anything in party)
+		if(LAZYACCESS(M.alternate_appearances, hunter_mark_key))
+			continue
+		var/image/mark = image('icons/mob/hud.dmi', M, "fugitive_hunter")
+		mark.appearance_flags = RESET_COLOR|RESET_TRANSFORM
+		M.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/onePerson, hunter_mark_key, mark, boss)
+		marked_hunters += WEAKREF(M)
+		if(hunter_marks_seeded)
+			to_chat(boss, span_boldnotice("[M.real_name] has joined the hunt for you."))
+	hunter_marks_seeded = TRUE
+
+/datum/quest/kill/notorious_bounty/proc/clear_hunter_marks()
+	if(!hunter_mark_key)
+		return
+	for(var/datum/weakref/W as anything in marked_hunters)
+		var/mob/living/M = W.resolve()
+		if(!QDELETED(M))
+			M.remove_alt_appearance(hunter_mark_key)
+	marked_hunters.Cut()
+
+/datum/quest/kill/notorious_bounty/proc/despawn_gang()
+	for(var/datum/weakref/W as anything in goon_refs)
+		var/mob/living/M = W.resolve()
+		if(QDELETED(M) || M.stat == DEAD)
+			continue
+		if(M.client)
+			M.ghostize(FALSE)
+		qdel(M)
+	goon_refs.Cut()
+
+/datum/quest/kill/notorious_bounty/proc/check_hunt_engaged(mob/living/boss)
+	if(hunt_engaged || QDELETED(boss))
+		return
+	var/turf/boss_turf = get_turf(boss)
+	if(!boss_turf)
+		return
+	for(var/mob/living/M as anything in get_hunting_party())
+		var/turf/hunter_turf = get_turf(M)
+		if(!hunter_turf || hunter_turf.z != boss_turf.z)
+			continue
+		if(get_dist(hunter_turf, boss_turf) > NOTORIOUS_BOUNTY_ENGAGE_RANGE)
+			continue
+		hunt_engaged = TRUE
+		return
+
+/datum/quest/kill/notorious_bounty/proc/succour_fallen_hunters()
+	if(!hunt_engaged || !leash_origin)
+		return
+	for(var/mob/living/M as anything in get_hunting_party())
+		if(QDELETED(M) || M.stat == CONSCIOUS)
+			continue
+		var/turf/hunter_turf = get_turf(M)
+		if(!hunter_turf || hunter_turf.z != leash_origin.z)
+			continue
+		if(get_dist(hunter_turf, leash_origin) > NOTORIOUS_BOUNTY_LEASH_RANGE)
+			continue
+		if(M.stat == DEAD)
+			M.revive(full_heal = TRUE, admin_revive = TRUE)
+			to_chat(M, span_boldnotice("The writ spends the last of its magicka dragging you back from Necra's door. You draw breath again."))
+			continue
+		M.fully_heal()
+		to_chat(M, span_boldnotice("The writ spends the last of its magicka keeping you breathing. You come to."))
+
+/datum/quest/kill/notorious_bounty/proc/grant_darkvision(mob/living/M)
+	if(QDELETED(M))
+		return
+	ADD_TRAIT(M, TRAIT_DARKVISION, "[type]")
+	M.update_sight()
+
+/datum/quest/kill/notorious_bounty/proc/clear_boss_marker()
+	var/mob/living/boss = boss_ref?.resolve()
+	if(QDELETED(boss))
+		return
+	boss.remove_filter("notorious_bounty_outline")
+
+/datum/quest/kill/notorious_bounty/proc/unlock_boss_gear(mob/living/carbon/human/boss)
+	if(!istype(boss))
+		return
+	for(var/obj/item/gear in boss.get_equipped_items() + boss.held_items)
+		var/datum/component/item_on_drop/unlock/lock = gear.GetComponent(/datum/component/item_on_drop/unlock)
+		if(!lock)
+			continue
+		REMOVE_TRAIT(gear, TRAIT_NODROP, lock.lock_source)
+		qdel(lock)
+
+/datum/quest/kill/notorious_bounty/proc/pay_out_boss(mob/living/boss)
+	if(boss_paid || !hunt_engaged)
+		return FALSE
+	if(QDELETED(boss) || !boss.client || boss.stat == DEAD)
+		return FALSE
+	boss_paid = TRUE
+	var/turf/boss_turf = get_turf(boss)
+	to_chat(boss, span_danger("<b>The hunting party came for you and could not finish you. The pact is paid - [NOTORIOUS_BOUNTY_SURVIVAL_TRIUMPH] TRIUMPH is yours.</b>"))
+	boss.adjust_triumphs(NOTORIOUS_BOUNTY_SURVIVAL_TRIUMPH, TRUE, "notorious bounty: outlasted the hunt")
+	message_admins("[key_name_admin(boss)] outlasted notorious bounty '[boss_name]' at [ADMIN_COORDJMP(boss_turf)] ([region]).")
+	return TRUE
