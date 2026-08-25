@@ -150,17 +150,7 @@
 	maxrange = 5
 
 /datum/intent/mace/strike/poleaxe
-	name = "strike"
-	blade_class = BCLASS_BLUNT
-	attack_verb = list("strikes", "hits")
-	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
-	chargetime = 0
 	damfactor = 1.2
-	penfactor = PEN_NONE
-	swingdelay = 0
-	icon_state = "instrike"
-	item_d_type = "blunt"
-	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR
 
 //blunt objs ฅ^•ﻌ•^ฅ
 
