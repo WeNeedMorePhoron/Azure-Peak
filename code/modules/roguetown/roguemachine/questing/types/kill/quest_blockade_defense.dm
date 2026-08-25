@@ -382,19 +382,19 @@
 		announce_to_bearer("The final wave breaks. This was a Request - no reward is due.")
 	var/datum/threat_region/TR = SSregionthreat.get_region(region)
 	if(TR && TR.banditry_hoard > 0)
-		var/booty = TR.banditry_hoard
+		var/spoils = TR.banditry_hoard
 		TR.banditry_hoard = 0
 		if(lead && SStreasury.has_account(lead))
-			var/datum/fund/booty_account = SStreasury.get_account(lead)
-			SStreasury.mint(booty_account, booty, "Recovered Booty ([region])")
-			var/booty_tax = SStreasury.apply_tax(booty_account, booty, TAX_CATEGORY_RECOVERED_BOOTY, region)
-			if(booty_tax > 0)
-				record_featured_stat(FEATURED_STATS_TAX_PAYERS, lead, booty_tax)
-				record_round_statistic(STATS_TAXES_COLLECTED, booty_tax)
-			announce_to_bearer("The bandits' hoard is seized - [booty] mammons of stolen coin. The Crown claims [booty_tax] as Recovered Booty. Net: [booty - booty_tax] mammons.")
+			var/datum/fund/spoils_account = SStreasury.get_account(lead)
+			SStreasury.mint(spoils_account, spoils, "Recovered Spoils ([region])")
+			var/spoils_tax = SStreasury.apply_tax(spoils_account, spoils, TAX_CATEGORY_RECOVERED_SPOILS, region)
+			if(spoils_tax > 0)
+				record_featured_stat(FEATURED_STATS_TAX_PAYERS, lead, spoils_tax)
+				record_round_statistic(STATS_TAXES_COLLECTED, spoils_tax)
+			announce_to_bearer("The bandits' hoard is seized - [spoils] mammons of stolen coin. The Crown claims [spoils_tax] as Recovered Spoils. Net: [spoils - spoils_tax] mammons.")
 		else
-			SStreasury.mint(SStreasury.discretionary_fund, booty, "Recovered Booty (unbanked bearer, [region])")
-			announce_to_bearer("The bandits' hoard of [booty] mammons is seized in the Crown's name.")
+			SStreasury.mint(SStreasury.discretionary_fund, spoils, "Recovered Spoils (unbanked bearer, [region])")
+			announce_to_bearer("The bandits' hoard of [spoils] mammons is seized in the Crown's name.")
 		GLOB.azure_round_stats[STATS_BANDITRY_HOARD_OUTSTANDING] = SSeconomy.total_banditry_hoard()
 	var/obj/item/quest_writ/S = quest_scroll
 	if(S && !QDELETED(S))

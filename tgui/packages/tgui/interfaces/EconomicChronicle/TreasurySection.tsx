@@ -56,7 +56,7 @@ const TaxationColumn = (props: { t: TreasurySnapshot }) => {
           { label: 'Headeater Levy', value: t.royal.headeater_levy },
           { label: 'Import Tariff', value: t.royal.import_tariff },
           { label: 'Export Duty', value: t.royal.export_duty },
-          { label: 'Recovered Booty', value: t.royal.recovered_booty },
+          { label: 'Recovered Spoils', value: t.royal.recovered_spoils },
           { label: 'Other', value: t.royal.other_fees },
         ]}
       />

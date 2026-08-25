@@ -82,7 +82,7 @@ type ContractLedgerData = {
   hoard_recovery_fellowship_min: number;
   hoard_recovery_hoard_min: number;
   scout_regions: ScoutRegion[];
-  booty_tax_rate: number;
+  spoils_tax_rate: number;
   tax_rate: number;
   guild_cut_rate: number;
   can_proxy_turnin: BooleanLike;
@@ -311,7 +311,7 @@ const HoardRecoveryCallStrip = () => {
   const fellowshipShort = (data.user_fellowship_size || 0) < minFellows;
   const noAccount = !data.has_account;
   const cantAfford = data.balance < pledge;
-  const taxPct = formatRatioPct(data.booty_tax_rate || 0);
+  const taxPct = formatRatioPct(data.spoils_tax_rate || 0);
   const blockReason = noAccount
     ? 'No bank account. Register with a Meister first.'
     : fellowshipShort
@@ -332,7 +332,7 @@ const HoardRecoveryCallStrip = () => {
       <div style={{ fontWeight: 'bold', marginBottom: '3px' }}>
         Hoard Recovery - a Fellowship of {minFellows}+ may call a recovery writ
         after pledging {pledge}m on any region whose banditry hoard has reached {hoardMin}m. Pays the standard blockade reward; the reclaimed
-        hoard is taxed {taxPct} as Recovered Booty.
+        hoard is taxed {taxPct} as Recovered Spoils.
       </div>
       {regions.map((r) => (
         <div

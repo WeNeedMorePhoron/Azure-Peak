@@ -13,7 +13,7 @@
 	of raiders - each wave must fall within fifteen minutes, and the Steward may recall the \
 	writ should the bearer takes too long before  before reaching the blockade. Hand this writ over to a person] and they may initiate the contract; pin it to the Grand Contract Ledger and \
 	it will demand a Fellowship of three before it can be taken. Every additional person at the blockade, until the sixth, will attracts more enemies and rewards. \
-	If brigands are sitting on stolen Crown coins, breaking the blockade will seizes the hoard and have it taxed by the Crown as Recovered Booty."
+	If brigands are sitting on stolen Crown coins, breaking the blockade will seizes the hoard and have it taxed by the Crown as Recovered Spoils."
 	icon_state = "scroll_quest_info"
 	base_icon_state = "scroll_quest"
 	var/last_arrival_check = 0

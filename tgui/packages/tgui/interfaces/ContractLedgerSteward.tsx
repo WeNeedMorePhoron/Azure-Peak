@@ -578,7 +578,7 @@ const ComposeView = () => {
           blockade writs: pin to the Grand Contract Ledger to require a
           Fellowship of three, or hand to a trusted party directly. On top of
           the standard blockade reward, the bearer seizes the region&apos;s
-          banditry hoard, taxed as Recovered Booty. No trade route is blocked
+          banditry hoard, taxed as Recovered Spoils. No trade route is blocked
           by the writ.
         </div>
       )}

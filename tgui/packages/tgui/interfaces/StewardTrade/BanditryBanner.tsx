@@ -24,7 +24,7 @@ export const BanditryBanner = (props: { projection: BanditryProjection }) => {
       )}
       {hasHoard && (
         <div>
-          Bandit hoards hold {p.hoard_total}m, taxed as Recovered Booty
+          Bandit hoards hold {p.hoard_total}m, taxed as Recovered Spoils
         </div>
       )}
       {(p.lines || []).map((line) => (
