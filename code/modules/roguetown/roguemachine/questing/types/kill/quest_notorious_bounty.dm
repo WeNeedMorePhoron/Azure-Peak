@@ -159,7 +159,7 @@
 	reward_amount += NOTORIOUS_BOUNTY_PLAYER_BONUS
 	quest_scroll?.update_quest_text()
 	announce_to_bearer("<b>Your quarry's eyes glows with unusual intelligence.</b> The bounty on [boss_name] grows by [NOTORIOUS_BOUNTY_PLAYER_BONUS] mammons.")
-	to_chat(boss, span_boldnotice("You are [boss_name], a notorious outlaw. A hunting party is closing in on you. Stand your ground and make them earn their mammons. Do not round-remove any of your targets, but you are free to kill them and fight as hard as you need to within reason. Make them earn their bounty. You can join in attacking anyone your NPCs are already attacking. But outside of your hunting party, you are expected to escalate properly before attacking. Try to stick to fighting your hunting party unless you have good reasons to do so otherwise. You cannot flee them, and if the hunters never come, the pact releases you in [NOTORIOUS_BOUNTY_CONTROL_TIME / (1 MINUTES)] minutes."))
+	to_chat(boss, span_boldnotice("You are [boss_name], a notorious outlaw. A hunting party is closing in on you. Stand your ground and make them earn their mammons. Do not round-remove any of your targets, but you are free to kill them and fight as hard as you need to within reason. Make them earn their bounty. You can join in attacking anyone your NPCs are already attacking. Follow our escalation rules. You cannot flee them, and if the hunters never come, the pact releases you in [NOTORIOUS_BOUNTY_CONTROL_TIME / (1 MINUTES)] minutes."))
 	var/turf/boss_turf = get_turf(boss)
 	var/mob/living/bearer = quest_receiver_reference?.resolve()
 	var/datum/fellowship/F = bearer?.current_fellowship
