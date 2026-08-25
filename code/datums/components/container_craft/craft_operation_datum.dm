@@ -140,6 +140,10 @@
 		stalled = FALSE
 		recipe.announce_resume(crafter, initiator)
 
+	if(recipe.check_failure(crafter, initiator))
+		abort_craft("Craft conditions no longer met")
+		return
+
 	// Check for timeout (no progress in a while)
 	if((world.time - last_progress_time) > timeout_period)
 		abort_craft("Craft timed out")
@@ -172,6 +176,7 @@
 /datum/container_craft_operation/proc/complete_craft()
 	STOP_PROCESSING(SSprocessing, src)
 	GLOB.active_container_crafts -= src
+	release_sound()
 
 	// Check for failure one last time
 	if(recipe.check_failure(crafter, initiator))
@@ -195,6 +200,7 @@
 	aborted = TRUE
 	STOP_PROCESSING(SSprocessing, src)
 	GLOB.active_container_crafts -= src
+	release_sound()
 
 	if(on_craft_failed)
 		on_craft_failed.InvokeAsync(crafter, initiator)
@@ -203,6 +209,13 @@
 		SEND_SIGNAL(crafter, COMSIG_CONTAINER_CRAFT_ABORTED, src, reason)
 
 	qdel(src)
+
+/datum/container_craft_operation/proc/release_sound()
+	if(!cooking_sound_type)
+		return
+	var/datum/component/container_craft/craft_component = crafter?.GetComponent(/datum/component/container_craft)
+	craft_component?.release_cooking_sound(cooking_sound_type)
+	cooking_sound_type = null
 
 /**
  * Clean up when the datum is destroyed
@@ -213,9 +226,6 @@
 	on_craft_start = null
 	on_craft_failed = null
 	stored_items = null
-	if(cooking_sound_type)
-		var/datum/component/container_craft/craft_component = crafter?.GetComponent(/datum/component/container_craft)
-		craft_component?.release_cooking_sound(cooking_sound_type)
-		cooking_sound_type = null
+	release_sound()
 	crafter = null
 	return ..()
