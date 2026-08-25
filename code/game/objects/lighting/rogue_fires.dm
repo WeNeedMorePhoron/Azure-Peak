@@ -508,6 +508,9 @@
 			if(SEND_SIGNAL(attachment, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE))
 				update_icon()
 				return TRUE
+			if(!user.cmode && cookware_accepts_ingredient(attachment, W))
+				to_chat(user, span_warning("There's no room left on [attachment]."))
+				return TRUE
 		else if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
 			var/obj/item/reagent_containers/glass/bucket/pot = attachment
 			if(SEND_SIGNAL(pot, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE))
@@ -518,6 +521,9 @@
 					to_chat(user, span_warning("[pot] isn't hot enough yet."))
 				else if(!oily && !pot.reagents.has_reagent(/datum/reagent/water, STEW_WATER_REQUIRED))
 					to_chat(user, span_warning("[pot] needs more water before anything will cook."))
+				return TRUE
+			if(!user.cmode && cookware_accepts_ingredient(pot, W))
+				to_chat(user, span_warning("There's no room left in [pot]."))
 				return TRUE
 	..()
 

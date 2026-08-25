@@ -153,6 +153,7 @@
 		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, result, null, TRUE, TRUE)
 		fired_any = TRUE
 	if(fired_any)
+		visible_message(span_green("Something smells good!"))
 		update_icon()
 
 

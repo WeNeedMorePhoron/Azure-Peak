@@ -55,6 +55,21 @@
 	for(var/obj/item/I as anything in contents)
 		. += get_item_overlay(I)
 
+/proc/cookware_accepts_ingredient(atom/cookware, obj/item/candidate)
+	if(!cookware || !istype(candidate) || (candidate.item_flags & ABSTRACT) || candidate.obj_flags_ignore)
+		return FALSE
+	var/datum/component/storage/cookware_storage = cookware.GetComponent(/datum/component/storage)
+	if(!cookware_storage || !LAZYLEN(cookware_storage.can_hold))
+		return FALSE
+	return is_type_in_typecache(candidate, cookware_storage.can_hold)
+
+/obj/item/cooking/pan/attackby(obj/item/I, mob/living/user, params)
+	if(!user.cmode && cookware_accepts_ingredient(src, I))
+		if(!SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, I, user, FALSE, FALSE))
+			to_chat(user, span_warning("There's no room left on [src]."))
+		return TRUE
+	return ..()
+
 /obj/item/cooking/pan/attack_self(mob/user)
 	if(!user.cmode && length(contents))
 		flip_contents(user)
@@ -64,9 +79,6 @@
 /obj/item/cooking/pan/proc/flip_contents(mob/user)
 	if(!length(contents))
 		to_chat(user, span_warning("[src] is empty."))
-		return
-	if(user.get_skill_level(/datum/skill/craft/cooking) < SKILL_LEVEL_JOURNEYMAN)
-		to_chat(user, span_warning("I'm not deft enough with [src] to flip it."))
 		return
 	var/turf/target_turf = get_step(user, user.dir)
 	if(!target_turf || target_turf.density || !user.CanReach(target_turf))
@@ -149,7 +161,7 @@
 	. += span_info("As long as the hearth is lit, everything in the pan will cook at once. Take it off the pan to stop the cooking.")
 	. += span_info("Meats, cackleberries, and sliced vegetables are the ideal choices for frying. Other ingredients and recipes might require the gentle caress of an oven, instead.")
 	. += span_info("Leaving a fully fried item on a lit hearth for too long will cause it to burn away.")
-	. += span_info("Use a loaded pan in your hand outside of combat mode to flip it, throwing everything on it onto the table or tile you're facing. If a tray is there, the food lands on the tray instead. You need Journeyman skill in Cooking or above.")
+	. += span_info("Use a loaded pan in your hand outside of combat mode to flip it, throwing everything on it onto the table or tile you're facing. If a tray is there, the food lands on the tray instead.")
 	. += span_info("You can twirl [src] by right-clicking it in your hand while in combat mode. Doing so safely requires Expert skill; anything less risks harming yourself.")
 
 /datum/intent/mace/strike/pan

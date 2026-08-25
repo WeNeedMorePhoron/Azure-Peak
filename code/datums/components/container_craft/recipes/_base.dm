@@ -378,6 +378,7 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
  * Handles the final execution of the craft after processing is complete
  */
 /datum/container_craft/proc/execute_craft_completion(obj/item/crafter, mob/living/initiator, estimated_multiplier)
+	var/crafted_any = FALSE
 	for(var/i = 1 to estimated_multiplier)
 		// First validate that all requirements are still present
 		var/list/stored_items = list()
@@ -391,21 +392,24 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 		var/list/obj/item/items_to_delete = list()
 
 		var/list/passed_reagents = list()
+		var/batch_exhausted = FALSE
 
 		if(length(reagent_requirements))
 			for(var/reagent as anything in reagent_requirements)
 				var/datum/reagent/reagent_found = find_required_reagent(crafter.reagents, reagent, reagent_requirements[reagent])
 				if(!reagent_found)
-					return FALSE
+					batch_exhausted = TRUE
+					break
 				passed_reagents[reagent_found.type] = reagent_requirements[reagent]
 
-		if(length(requirements))
+		if(!batch_exhausted && length(requirements))
 			for(var/item_type in requirements)
 				if(stored_items[item_type] < requirements[item_type])
-					return FALSE
+					batch_exhausted = TRUE
+					break
 				items_to_remove[item_type] = requirements[item_type]
 
-		if(length(wildcard_requirements))
+		if(!batch_exhausted && length(wildcard_requirements))
 			for(var/wildcard in wildcard_requirements)
 				var/items_found = 0
 				var/amount_needed = wildcard_requirements[wildcard]
@@ -419,7 +423,11 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 							break
 
 				if(items_found < amount_needed)
-					return FALSE
+					batch_exhausted = TRUE
+					break
+
+		if(batch_exhausted)
+			break
 
 		// Remove reagents first
 		for(var/reagent in passed_reagents)
@@ -446,8 +454,12 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 		for(var/obj/item/item_to_delete in items_to_delete)
 			qdel(item_to_delete)
 
-	var/turf/turf = get_turf(crafter)
-	turf.visible_message(span_green(complete_message))
+		crafted_any = TRUE
+
+	if(!crafted_any || QDELETED(crafter))
+		return FALSE
+	crafter.visible_message(span_green(complete_message))
+	return TRUE
 
 /datum/container_craft/proc/create_item(obj/item/crafter, mob/living/initiator, list/removing_items)
 	if(handoff_craft)
