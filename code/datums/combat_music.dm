@@ -561,7 +561,7 @@ GLOBAL_LIST_INIT(cmode_tracks_by_type, build_cmode_tracks())
 
 /datum/combat_music/aavshepherd
 	name = "Aavnic Shepherd"
-	desc = "\"No saber in hand, they crush bones with their fokos!\""
+	desc = "\"No sabre in hand, they crush bones with their fokos!\""
 	shortname = "Shepherd"
 	credits = "MusicImaginary - Yendrek"
 	musicpath = list('sound/music/frei_shepherd.ogg')

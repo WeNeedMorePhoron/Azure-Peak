@@ -3631,7 +3631,7 @@ As Excaliber."
 	threatening it may be, it won't make your ears longer."
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	icon_state = "stalkerino_drowsword"
-	sheathe_icon = "nscabbard_spidersaber"
+	sheathe_icon = "nscabbard_spidersabre"
 	bigboy = TRUE
 	smeltresult = /obj/item/ingot/drow
 
