@@ -73,7 +73,7 @@
 
 
 /datum/quest/kill/notorious_bounty/get_objective_text()
-	r a truly formidable opponent!"
+	return "Slay the target, but be warned! They are rumored to be a truly formidable opponent!"
 
 /datum/quest/kill/notorious_bounty/get_additional_reward(turf/origin_turf, turf/target_turf)
 	if(!target_mob_type)
