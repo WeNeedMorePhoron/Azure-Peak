@@ -3,7 +3,7 @@
 	quest_difficulty = QUEST_DIFFICULTY_NOTORIOUS
 	tp_budget = QUEST_TP_BUDGET_NOTORIOUS_GOONS
 	threat_bands_cleared = QUEST_BANDS_NOTORIOUS
-	required_fellowship_size = NOTORIOUS_FELLOWSHIP_REQUIREMENT
+	required_fellowship_size = 2
 	var/boss_name
 	var/datum/weakref/boss_ref
 	var/turf/leash_origin
@@ -172,32 +172,21 @@
 	M.real_name = boss_name
 	M.name = boss_name
 
-/datum/quest/kill/notorious_bounty/proc/boss_takeover_open(mob/living/carbon/human/boss)
-	return !(QDELETED(boss) || boss.stat == DEAD || boss.client || complete || failed)
-
 /datum/quest/kill/notorious_bounty/proc/offer_boss_control(mob/living/carbon/human/boss)
-	var/mob/dead/chosen
-	for(var/attempt in 1 to NOTORIOUS_BOUNTY_POLL_ATTEMPTS)
-		if(!boss_takeover_open(boss))
-			return
-		var/list/candidates = pollGhostCandidates("A hunting party stalks [boss_name || "a notorious bounty"]! Will you take up the mantle of the hunted and defend yourself?", ROLE_NOTORIOUS_BOUNTY, null, null, NOTORIOUS_BOUNTY_POLL_TIME, POLL_IGNORE_NOTORIOUS_BOUNTY, poll_width = NOTORIOUS_BOUNTY_POLL_WIDTH, poll_height = NOTORIOUS_BOUNTY_POLL_HEIGHT)
-		if(!boss_takeover_open(boss))
-			return
-		// Only true dead mobs (observers, lobby) - a spirit's key belongs to a body elsewhere.
-		var/list/eligible = list()
-		for(var/mob/dead/M in candidates)
-			if(M.key)
-				eligible += M
-		if(length(eligible))
-			chosen = pick(eligible)
-			break
-		// Re-ask, so anyone who ghosted after the first call still gets the offer.
-		if(attempt < NOTORIOUS_BOUNTY_POLL_ATTEMPTS)
-			sleep(NOTORIOUS_BOUNTY_POLL_RETRY)
-	if(!chosen)
-		if(boss_takeover_open(boss))
-			spawn_reinforcements()
+	if(QDELETED(boss) || boss.stat == DEAD || boss.client || complete || failed)
 		return
+	var/list/candidates = pollGhostCandidates("A hunting party stalks [boss_name || "a notorious bounty"]! Will you take up the mantle of the hunted and defend yourself?", ROLE_NOTORIOUS_BOUNTY, null, null, NOTORIOUS_BOUNTY_POLL_TIME, POLL_IGNORE_NOTORIOUS_BOUNTY, poll_width = NOTORIOUS_BOUNTY_POLL_WIDTH, poll_height = NOTORIOUS_BOUNTY_POLL_HEIGHT)
+	if(QDELETED(boss) || boss.stat == DEAD || boss.client || complete || failed)
+		return
+	// Only true dead mobs (observers, lobby) - a spirit's key belongs to a body elsewhere.
+	var/list/eligible = list()
+	for(var/mob/dead/M in candidates)
+		if(M.key)
+			eligible += M
+	if(!length(eligible))
+		spawn_reinforcements()
+		return
+	var/mob/dead/chosen = pick(eligible)
 	if(istype(chosen, /mob/dead/new_player))
 		var/mob/dead/new_player/N = chosen
 		N.close_spawn_windows()
