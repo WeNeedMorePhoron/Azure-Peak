@@ -71,13 +71,13 @@ GLOBAL_LIST_INIT(large_goblin_aggro, list(
 	switch(loadout)
 		if(1) // mace brute
 			r_hand = /obj/item/rogueweapon/mace/steel
-			l_hand = /obj/item/rogueweapon/shield/wood
+			l_hand = /obj/item/rogueweapon/shield/heater
 		if(2) // greataxe berserker
 			r_hand = /obj/item/rogueweapon/greataxe
 			backl = /obj/item/rogueweapon/scabbard/gwstrap
 		if(3) // flail and shield
 			r_hand = /obj/item/rogueweapon/flail
-			l_hand = /obj/item/rogueweapon/shield/wood
+			l_hand = /obj/item/rogueweapon/shield/heater
 		if(4) // bottle bomber
 			r_hand = /obj/item/rogueweapon/mace/steel
 			neck = /obj/item/storage/belt/rogue/pouch/bombs
