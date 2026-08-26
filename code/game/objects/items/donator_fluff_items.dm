@@ -169,8 +169,6 @@
 	verbage_simple = "arranged"
 	verbage = "arranges"
 
-//
-
 /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/donator
 	name = "maillekini"
 	desc = "A curious - and particularly revealing - variant of a common maille-aketon. It's said that the intentionally provocative design \
