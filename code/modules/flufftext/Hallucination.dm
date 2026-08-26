@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 				else
 					image_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 				target.playsound_local(H, 'sound/blank.ogg',35,1)
-				A = image(image_file,H,"dualsaberred1", layer=ABOVE_MOB_LAYER)
+				A = image(image_file,H,"dualsabrered1", layer=ABOVE_MOB_LAYER)
 			if("taser")
 				if(side == "right")
 					image_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
