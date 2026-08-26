@@ -186,7 +186,7 @@
 		return
 
 	// Execute the craft
-	recipe.execute_craft_completion(crafter, initiator, estimated_multiplier)
+	recipe.execute_craft_completion(crafter, initiator, estimated_multiplier, stored_items)
 	qdel(src)
 
 /**

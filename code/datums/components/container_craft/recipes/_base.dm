@@ -374,15 +374,34 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 		return
 	crafter.visible_message(span_warning("The [LOWER_TEXT(name)] stops cooking."))
 
+/datum/container_craft/proc/get_craft_candidates(obj/item/crafter, list/obj/item/reserved_items)
+	var/list/obj/item/off_limits = list()
+	for(var/datum/container_craft_operation/other_craft in GLOB.active_container_crafts)
+		if(other_craft.crafter != crafter)
+			continue
+		off_limits |= other_craft.stored_items
+
+	var/list/obj/item/candidates = list()
+	for(var/obj/item/item in reserved_items)
+		if(QDELETED(item) || item.loc != crafter)
+			continue
+		candidates |= item
+	for(var/obj/item/item in crafter.contents)
+		if(item in off_limits)
+			continue
+		candidates |= item
+	return candidates
+
 /**
  * Handles the final execution of the craft after processing is complete
  */
-/datum/container_craft/proc/execute_craft_completion(obj/item/crafter, mob/living/initiator, estimated_multiplier)
+/datum/container_craft/proc/execute_craft_completion(obj/item/crafter, mob/living/initiator, estimated_multiplier, list/obj/item/reserved_items)
 	var/crafted_any = FALSE
 	for(var/i = 1 to estimated_multiplier)
 		// First validate that all requirements are still present
+		var/list/obj/item/candidates = get_craft_candidates(crafter, reserved_items)
 		var/list/stored_items = list()
-		for(var/obj/item/item in crafter.contents)
+		for(var/obj/item/item as anything in candidates)
 			stored_items |= item.type
 			stored_items[item.type]++
 
@@ -414,7 +433,7 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 				var/items_found = 0
 				var/amount_needed = wildcard_requirements[wildcard]
 
-				for(var/obj/item/candidate_item in crafter.contents)
+				for(var/obj/item/candidate_item as anything in candidates)
 					if(ispath(candidate_item.type, wildcard) && !(candidate_item in items_to_delete))
 						items_found++
 						items_to_delete += candidate_item
@@ -436,7 +455,7 @@ GLOBAL_LIST_EMPTY(container_craft_family_cache)
 		// Remove items by type
 		for(var/item_type in items_to_remove)
 			var/amount_to_remove = items_to_remove[item_type]
-			for(var/obj/item/candidate_item in crafter.contents)
+			for(var/obj/item/candidate_item as anything in candidates)
 				if(amount_to_remove <= 0)
 					break
 				if(candidate_item.type == item_type && !(candidate_item in items_to_delete))

@@ -504,6 +504,8 @@
 		if(istype(W, /obj/item/reagent_containers/glass/bowl))
 			to_chat(user, "<span class='notice'>Remove the pot from the hearth first.</span>")
 			return
+		if(W.firefuel && !no_refuel)
+			return ..()
 		if(istype(attachment, /obj/item/cooking/pan))
 			if(SEND_SIGNAL(attachment, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE))
 				update_icon()
@@ -790,6 +792,8 @@
 		if(istype(W, /obj/item/reagent_containers/glass/bowl))
 			to_chat(user, span_notice("Remove the kettle from the campfire first."))
 			return
+		if(W.firefuel && !no_refuel)
+			return ..()
 		var/obj/item/reagent_containers/glass/bucket/pot/kettle/kettle = attachment
 		if(SEND_SIGNAL(kettle, COMSIG_TRY_STORAGE_INSERT, W, user, FALSE, FALSE))
 			playsound(src.loc, 'sound/items/Fish_out.ogg', 20, TRUE)
