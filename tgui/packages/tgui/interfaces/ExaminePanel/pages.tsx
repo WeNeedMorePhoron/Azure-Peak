@@ -137,11 +137,9 @@ export const FlavorTextPage = (props) => {
             <>
               <Box dangerouslySetInnerHTML={flavorHTML} />
               {ooc_extra_image && (
-                <Image
-                  mt={1}
-                  maxWidth="100%"
-                  src={resolveAsset(ooc_extra_image)}
-                />
+                <Box mt={1} textAlign="center">
+                  <Image maxWidth="100%" src={resolveAsset(ooc_extra_image)} />
+                </Box>
               )}
             </>
           )}
@@ -149,11 +147,12 @@ export const FlavorTextPage = (props) => {
             <>
               <Box dangerouslySetInnerHTML={nsfwHTML} />
               {canViewNsfwFlavorText && nsfw_ooc_extra_image && (
-                <Image
-                  mt={1}
-                  maxWidth="100%"
-                  src={resolveAsset(nsfw_ooc_extra_image)}
-                />
+                <Box mt={1} textAlign="center">
+                  <Image
+                    maxWidth="100%"
+                    src={resolveAsset(nsfw_ooc_extra_image)}
+                  />
+                </Box>
               )}
             </>
           )}
