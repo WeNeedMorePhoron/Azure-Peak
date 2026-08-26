@@ -163,6 +163,11 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 )
 
 #define NOTORIOUS_BOUNTY_POLL_TIME (15 SECONDS)
+// The poll is re-run a few times so someone who ghosts after the first call still gets asked.
+#define NOTORIOUS_BOUNTY_POLL_ATTEMPTS 3
+#define NOTORIOUS_BOUNTY_POLL_RETRY (15 SECONDS)
+#define NOTORIOUS_BOUNTY_POLL_WIDTH 520
+#define NOTORIOUS_BOUNTY_POLL_HEIGHT 260
 #define NOTORIOUS_BOUNTY_PROX_RANGE 35
 
 #define NOTORIOUS_BOUNTY_CONTROL_TIME (15 MINUTES)
@@ -178,6 +183,8 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 
 #define NOTORIOUS_BOUNTY_SURVIVAL_TRIUMPH 1
 #define NOTORIOUS_BOUNTY_ENGAGE_RANGE 10
+// Grace period between the boss dying and the player being released to a ghost.
+#define NOTORIOUS_BOUNTY_DEATH_RELEASE (5 SECONDS)
 
 
 #define QUEST_EVERGREEN_TYPE_WEIGHTS list(\
@@ -202,6 +209,9 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 #define QUEST_DELIVERY_THREAT_BONUS 20
 
 #define BLOCKADE_FELLOWSHIP_REQUIREMENT 3
+// 0 disables the Fellowship gate entirely so a lone hunter can sign a notorious writ.
+// Raise to 2 to force a party again - anything above 0 also requires a Fellowship to exist.
+#define NOTORIOUS_FELLOWSHIP_REQUIREMENT 0
 #define BLOCKADE_WAVE_TIMER_DS (15 MINUTES)
 
 // Minimum Pledge to call a hoard recovery writ from a fellowship without being the Steward.

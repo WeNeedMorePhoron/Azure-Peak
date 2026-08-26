@@ -3,7 +3,7 @@
 	quest_difficulty = QUEST_DIFFICULTY_NOTORIOUS
 	tp_budget = QUEST_TP_BUDGET_NOTORIOUS_GOONS
 	threat_bands_cleared = QUEST_BANDS_NOTORIOUS
-	required_fellowship_size = 2
+	required_fellowship_size = NOTORIOUS_FELLOWSHIP_REQUIREMENT
 	var/boss_name
 	var/datum/weakref/boss_ref
 	var/turf/leash_origin
@@ -71,8 +71,9 @@
 		return "Bring down a notorious outlaw"
 	return "Bring down [boss_name]"
 
+
 /datum/quest/kill/notorious_bounty/get_objective_text()
-	return "Slay the target, but be warned! They are rumored to be a truly formidable opponent!"
+	r a truly formidable opponent!"
 
 /datum/quest/kill/notorious_bounty/get_additional_reward(turf/origin_turf, turf/target_turf)
 	if(!target_mob_type)
@@ -94,6 +95,7 @@
 	progress_required = 1
 	// Rename after a delay so subtype after_creation() timers don't clobber it.
 	addtimer(CALLBACK(src, PROC_REF(apply_boss_name)), 2 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(preserve_boss_corpse)), 2 SECONDS)
 	return TRUE
 
 /datum/quest/kill/notorious_bounty/proc/spawn_boss(obj/effect/landmark/quest_spawner/landmark)
@@ -105,7 +107,7 @@
 	boss.faction |= "quest"
 	if(faction?.faction_tag)
 		boss.faction |= faction.faction_tag
-	boss.mark_contract_spawned()
+	boss.mark_contract_spawned(dust_corpse = FALSE)
 	grant_darkvision(boss)
 	boss.AddComponent(/datum/component/quest_object/kill, src)
 	ADD_TRAIT(boss, TRAIT_FRESHSPAWN, "[type]")
@@ -153,7 +155,15 @@
 	spawn_goons(landmark, NOTORIOUS_BOUNTY_REINFORCE_TP, NOTORIOUS_BOUNTY_REINFORCE_CAP, immediate = TRUE)
 	reward_amount += NOTORIOUS_BOUNTY_NPC_BONUS
 	quest_scroll?.update_quest_text()
-	announce_to_bearer("<b>The outlaw's gang closes ranks.</b> The bounty on [boss_name] grows by [NOTORIOUS_BOUNTY_NPC_BONUS] mammons.")
+	announce_to_bearer("<b>The outlaw's gang arrives.</b> The bounty on [boss_name] grows by [NOTORIOUS_BOUNTY_NPC_BONUS] mammons.")
+
+/datum/quest/kill/notorious_bounty/proc/preserve_boss_corpse()
+	var/mob/living/M = boss_ref?.resolve()
+	if(QDELETED(M))
+		return
+	REMOVE_TRAIT(M, TRAIT_DUSTABLE, TRAIT_GENERIC)
+	REMOVE_TRAIT(M, TRAIT_DUST_DELETE_GEAR, TRAIT_GENERIC)
+	REMOVE_TRAIT(M, TRAIT_DUST_LEAVE_HEAD, TRAIT_GENERIC)
 
 /datum/quest/kill/notorious_bounty/proc/apply_boss_name()
 	var/mob/living/M = boss_ref?.resolve()
@@ -162,25 +172,37 @@
 	M.real_name = boss_name
 	M.name = boss_name
 
+/datum/quest/kill/notorious_bounty/proc/boss_takeover_open(mob/living/carbon/human/boss)
+	return !(QDELETED(boss) || boss.stat == DEAD || boss.client || complete || failed)
+
 /datum/quest/kill/notorious_bounty/proc/offer_boss_control(mob/living/carbon/human/boss)
-	if(QDELETED(boss) || boss.stat == DEAD || boss.client || complete || failed)
+	var/mob/dead/chosen
+	for(var/attempt in 1 to NOTORIOUS_BOUNTY_POLL_ATTEMPTS)
+		if(!boss_takeover_open(boss))
+			return
+		var/list/candidates = pollGhostCandidates("A hunting party stalks [boss_name || "a notorious bounty"]! Will you take up the mantle of the hunted and defend yourself?", ROLE_NOTORIOUS_BOUNTY, null, null, NOTORIOUS_BOUNTY_POLL_TIME, POLL_IGNORE_NOTORIOUS_BOUNTY, poll_width = NOTORIOUS_BOUNTY_POLL_WIDTH, poll_height = NOTORIOUS_BOUNTY_POLL_HEIGHT)
+		if(!boss_takeover_open(boss))
+			return
+		// Only true dead mobs (observers, lobby) - a spirit's key belongs to a body elsewhere.
+		var/list/eligible = list()
+		for(var/mob/dead/M in candidates)
+			if(M.key)
+				eligible += M
+		if(length(eligible))
+			chosen = pick(eligible)
+			break
+		// Re-ask, so anyone who ghosted after the first call still gets the offer.
+		if(attempt < NOTORIOUS_BOUNTY_POLL_ATTEMPTS)
+			sleep(NOTORIOUS_BOUNTY_POLL_RETRY)
+	if(!chosen)
+		if(boss_takeover_open(boss))
+			spawn_reinforcements()
 		return
-	var/list/candidates = pollGhostCandidates("A hunting party stalks [boss_name || "a notorious bounty"]! Will you take up the mantle of the hunted and defend yourself?", ROLE_NOTORIOUS_BOUNTY, null, null, NOTORIOUS_BOUNTY_POLL_TIME, POLL_IGNORE_NOTORIOUS_BOUNTY)
-	if(QDELETED(boss) || boss.stat == DEAD || boss.client || complete || failed)
-		return
-	// Only true dead mobs (observers, lobby) - a spirit's key belongs to a body elsewhere.
-	var/list/eligible = list()
-	for(var/mob/dead/M in candidates)
-		if(M.key)
-			eligible += M
-	if(!length(eligible))
-		spawn_reinforcements()
-		return
-	var/mob/dead/chosen = pick(eligible)
 	if(istype(chosen, /mob/dead/new_player))
 		var/mob/dead/new_player/N = chosen
 		N.close_spawn_windows()
 	boss.key = chosen.key
+	RegisterSignal(boss, COMSIG_LIVING_DEATH, PROC_REF(on_player_boss_death))
 	// Prevent the mob from getting instaambushed
 	boss.ambushable = FALSE
 	REMOVE_TRAIT(boss, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
@@ -197,10 +219,11 @@
 	refresh_hunter_marks()
 	reward_amount += NOTORIOUS_BOUNTY_PLAYER_BONUS
 	quest_scroll?.update_quest_text()
-	announce_to_bearer("<b>Your quarry's eyes glows with unusual intelligence.</b> The bounty on [boss_name] grows by [NOTORIOUS_BOUNTY_PLAYER_BONUS] mammons.")
-	to_chat(boss, span_danger("You are [boss_name], a notorious outlaw. A hunting party is closing in on you. Stand your ground and make them earn their mammons. Do not round-remove any of your targets, but you are free to kill them and fight as hard as you need to within reason. You can join in attacking anyone your NPCs are already attacking. Follow our escalation rules. You cannot flee them, and if the hunters never come, the pact releases you in [NOTORIOUS_BOUNTY_CONTROL_TIME / (1 MINUTES)] minutes."))
-	to_chat(boss, span_boldnotice("The hunters are marked to you. [describe_hunting_party()]"))
-	to_chat(boss, span_danger("Let them find you and outlast them. You will be paid a TRIUMPH when the pact is complete. Hiding from them will not allow you such a victory."))
+	announce_to_bearer("<b>[boss_name] has been warned of you.</b> The bounty rises by [NOTORIOUS_BOUNTY_PLAYER_BONUS] mammons.")
+	to_chat(boss, span_danger("You are [boss_name]. Someone signed a writ for your head and the hunting party is on its way."))
+	to_chat(boss, span_danger("You cannot leave this ground. Hold out [NOTORIOUS_BOUNTY_CONTROL_TIME / (1 MINUTES)] minutes, or break them, and you are paid [NOTORIOUS_BOUNTY_SURVIVAL_TRIUMPH] TRIUMPH. Hiding pays nothing - they have to come at you and fail."))
+	to_chat(boss, span_boldnotice("Kill them if you must, but do not round-remove them. Follow escalation rules. You may join any fight your gang has already started."))
+	to_chat(boss, span_boldnotice("Your hunters are marked. [describe_hunting_party()]"))
 	var/turf/boss_turf = get_turf(boss)
 	var/mob/living/bearer = quest_receiver_reference?.resolve()
 	var/datum/fellowship/F = bearer?.current_fellowship
@@ -209,30 +232,55 @@
 	addtimer(CALLBACK(src, PROC_REF(release_boss)), NOTORIOUS_BOUNTY_CONTROL_TIME)
 	leash_boss()
 
-/// Drags a straying boss back to its spawn point, then reschedules itself while the boss lives.
 /datum/quest/kill/notorious_bounty/proc/leash_boss()
 	var/mob/living/boss = boss_ref?.resolve()
-	if(QDELETED(boss) || boss.stat == DEAD)
+	if(QDELETED(boss))
+		return
+	if(boss.stat == DEAD)
+		release_dead_boss(boss)
 		return
 	var/turf/T = get_turf(boss)
 	if(T && leash_origin && (T.z != leash_origin.z || get_dist(T, leash_origin) > NOTORIOUS_BOUNTY_LEASH_RANGE))
 		boss.forceMove(leash_origin)
-		to_chat(boss, span_userdanger("Mammon's pact drags you back to your hunting grounds!"))
+		to_chat(boss, span_userdanger("An unknown force drags you back. Stand and fight."))
 	check_hunt_engaged(boss)
 	refresh_hunter_marks()
 	addtimer(CALLBACK(src, PROC_REF(leash_boss)), NOTORIOUS_BOUNTY_LEASH_INTERVAL)
 
-/// Control timer expiry: the hunters never finished the job, so the ghost is released and AI resumes.
 /datum/quest/kill/notorious_bounty/proc/release_boss()
 	var/mob/living/boss = boss_ref?.resolve()
 	if(QDELETED(boss) || boss.stat == DEAD || !boss.client)
 		return
 	if(!pay_out_boss(boss))
-		to_chat(boss, span_warning("The hunters never closed on you. The pact wanes with nothing owed."))
+		to_chat(boss, span_warning("The hunters never came for you."))
 	succour_fallen_hunters()
-	to_chat(boss, span_warning("The pact wanes. The borrowed flesh returns to instinct, and your spirit slips free."))
+	to_chat(boss, span_warning("The writ is over. You escapes back to safety."))
 	clear_hunter_marks()
 	clear_boss_marker()
+	boss.ghostize(FALSE)
+	ADD_TRAIT(boss, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
+
+/datum/quest/kill/notorious_bounty/proc/on_player_boss_death(datum/source, gibbed)
+	SIGNAL_HANDLER
+	var/mob/living/boss = source
+	if(QDELETED(boss) || !boss.client)
+		return
+	if(gibbed)
+		INVOKE_ASYNC(src, PROC_REF(release_dead_boss), boss)
+		return
+	to_chat(boss, span_userdanger("Your lyfe and notoriety ends here. Your spirit wists away..."))
+	addtimer(CALLBACK(src, PROC_REF(release_dead_boss), boss), NOTORIOUS_BOUNTY_DEATH_RELEASE)
+
+/datum/quest/kill/notorious_bounty/proc/release_dead_boss(mob/living/boss)
+	if(QDELETED(boss))
+		boss = boss_ref?.resolve()
+	if(QDELETED(boss) || !boss.client || boss.stat != DEAD)
+		return
+	UnregisterSignal(boss, COMSIG_LIVING_DEATH)
+	clear_hunter_marks()
+	clear_boss_marker()
+	to_chat(boss, span_warning("You spirit slips free. Watch the last of the hunt, or move to Necra's embrace and dream of a new lyfe."))
+	message_admins("[key_name_admin(boss)] was released from notorious bounty '[boss_name]' after dying to the hunting party")
 	boss.ghostize(FALSE)
 	ADD_TRAIT(boss, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 
@@ -363,6 +411,7 @@
 		REMOVE_TRAIT(gear, TRAIT_NODROP, lock.lock_source)
 		qdel(lock)
 
+//TODO(flavor): Boss outlasted the hunt and is paid. Should land as a win.
 /datum/quest/kill/notorious_bounty/proc/pay_out_boss(mob/living/boss)
 	if(boss_paid || !hunt_engaged)
 		return FALSE
@@ -370,7 +419,7 @@
 		return FALSE
 	boss_paid = TRUE
 	var/turf/boss_turf = get_turf(boss)
-	to_chat(boss, span_danger("<b>The hunting party came for you and could not finish you. The pact is paid - [NOTORIOUS_BOUNTY_SURVIVAL_TRIUMPH] TRIUMPH is yours.</b>"))
+	to_chat(boss, span_danger("<b>The hunting party came for you and could not finish you. You escape to safety - [NOTORIOUS_BOUNTY_SURVIVAL_TRIUMPH] TRIUMPH is yours.</b>"))
 	boss.adjust_triumphs(NOTORIOUS_BOUNTY_SURVIVAL_TRIUMPH, TRUE, "notorious bounty: outlasted the hunt")
 	message_admins("[key_name_admin(boss)] outlasted notorious bounty '[boss_name]' at [ADMIN_COORDJMP(boss_turf)] ([region]).")
 	return TRUE
