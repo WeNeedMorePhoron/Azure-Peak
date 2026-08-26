@@ -409,8 +409,8 @@
 	name = "'Low Cut Padded Gambeson' morphing elixr"
 	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Padded Gambeson or Gambeson."
 	target_items = list(
-		/obj/item/clothing/suit/roguetown/armor/gambeson/heavy = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/donator_cropped,
-		/obj/item/clothing/suit/roguetown/armor/gambeson = /obj/item/clothing/suit/roguetown/armor/gambeson/donator_cropped
+		/obj/item/clothing/suit/roguetown/armor/gambeson/heavy			= /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/donator_cropped,
+		/obj/item/clothing/suit/roguetown/armor/gambeson				= /obj/item/clothing/suit/roguetown/armor/gambeson/donator_cropped
 	)
 	result_item = null
 
@@ -442,8 +442,8 @@
 	name = "'Short Jacketed Gambeson' morphing elixr"
 	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Padded Gambeson or Gambeson."
 	target_items = list(
-		/obj/item/clothing/suit/roguetown/armor/gambeson/heavy = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/donator_arming,
-		/obj/item/clothing/suit/roguetown/armor/gambeson = /obj/item/clothing/suit/roguetown/armor/gambeson/donator_arming
+		/obj/item/clothing/suit/roguetown/armor/gambeson/heavy				= /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/donator_arming,
+		/obj/item/clothing/suit/roguetown/armor/gambeson					= /obj/item/clothing/suit/roguetown/armor/gambeson/donator_arming
 	)
 	result_item = null
 
@@ -451,8 +451,8 @@
 	name = "'Long Jacketed Gambeson' morphing elixr"
 	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Padded Gambeson or Gambeson."
 	target_items = list(
-		/obj/item/clothing/suit/roguetown/armor/gambeson/heavy = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/donator_jacket,
-		/obj/item/clothing/suit/roguetown/armor/gambeson = /obj/item/clothing/suit/roguetown/armor/gambeson/donator_jacket
+		/obj/item/clothing/suit/roguetown/armor/gambeson/heavy				= /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/donator_jacket,
+		/obj/item/clothing/suit/roguetown/armor/gambeson					= /obj/item/clothing/suit/roguetown/armor/gambeson/donator_jacket
 	)
 	result_item = null
 

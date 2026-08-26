@@ -3457,6 +3457,7 @@ As Excaliber."
 /obj/item/clothing/suit/roguetown/armor/gambeson/donator_arming
 	name = "jacketed gambeson"
 	icon_state = "darming"
+	item_state = "darming"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
@@ -3492,6 +3493,7 @@ As Excaliber."
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/donator_arming
 	name = "heavy jacketed gambeson"
 	icon_state = "darming"
+	item_state = "darming"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
@@ -3527,6 +3529,7 @@ As Excaliber."
 /obj/item/clothing/suit/roguetown/armor/gambeson/donator_jacket
 	name = "jacketed gambeson"
 	icon_state = "djacket"
+	item_state = "djacket"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
@@ -3562,6 +3565,7 @@ As Excaliber."
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/donator_jacket
 	name = "heavy jacketed gambeson"
 	icon_state = "djacket"
+	item_state = "djacket"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
