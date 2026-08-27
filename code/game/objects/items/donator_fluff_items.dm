@@ -169,8 +169,6 @@
 	verbage_simple = "arranged"
 	verbage = "arranges"
 
-//
-
 /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/donator
 	name = "maillekini"
 	desc = "A curious - and particularly revealing - variant of a common maille-aketon. It's said that the intentionally provocative design \
@@ -611,7 +609,7 @@
 	icon_state = "gcuirass"
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/donator_cropped
-	name = "Low Cut Padded Gambeson"
+	name = "low cut padded gambeson"
 	desc = "A gambeson that's padded in the areas that matter, and trimmed down at the top and below by design to be more revealing and fitted to the body for more comfort."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
@@ -620,7 +618,7 @@
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/donator_cropped
-	name = "Low Cut Gambeson"
+	name = "low cut gambeson"
 	desc = "An ordinary gambeson, trimmed down at the top and below by design to be more revealing and fitted to the body for more comfort."
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	icon = 'icons/clothing/donor_clothes.dmi'
@@ -2402,6 +2400,20 @@ As Excaliber."
 	grid_height = 64
 	grid_width = 64
 
+/obj/item/rogueweapon/example/kadeguandao
+	name = "Dawn Cometh"
+	desc = "A polearm of fashioned after those in lingyue. How it ended up here is a wonder. It bears only one true cutting edge, though the false edge is sometimes used for hooking blades away. \
+	The blade is curved and bears some sort of yari-cross guard to catch blades. Wrapped around the wood handle is red string, taut and tight. \
+	On one strand, a bell like that of a xylixian's lies dormant. It might've rung once, but now it is silent.\
+	</br>‎<font color='ab6141'>	Still morning comes, and you can't outrun</br></font>‎<font color='e0b172'> 	the warm glow of the sun.</font>"
+	icon_state = "kadedao"
+	icon = 'icons/obj/items/donor_weapons_64.dmi'
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
+	grid_height = 64
+	grid_width = 64
+	bigboy = TRUE
+
 // MORTOSASYE
 /obj/item/rogueweapon/woodstaff/implement/grand/morto
 	base_implement_name = null
@@ -3459,6 +3471,7 @@ As Excaliber."
 /obj/item/clothing/suit/roguetown/armor/gambeson/donator_arming
 	name = "jacketed gambeson"
 	icon_state = "darming"
+	item_state = "darming"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
@@ -3494,6 +3507,7 @@ As Excaliber."
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/donator_arming
 	name = "heavy jacketed gambeson"
 	icon_state = "darming"
+	item_state = "darming"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
@@ -3529,6 +3543,7 @@ As Excaliber."
 /obj/item/clothing/suit/roguetown/armor/gambeson/donator_jacket
 	name = "jacketed gambeson"
 	icon_state = "djacket"
+	item_state = "djacket"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
@@ -3564,6 +3579,7 @@ As Excaliber."
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/donator_jacket
 	name = "heavy jacketed gambeson"
 	icon_state = "djacket"
+	item_state = "djacket"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
@@ -3629,7 +3645,7 @@ As Excaliber."
 	threatening it may be, it won't make your ears longer."
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	icon_state = "stalkerino_drowsword"
-	sheathe_icon = "nscabbard_spidersaber"
+	sheathe_icon = "nscabbard_spidersabre"
 	bigboy = TRUE
 	smeltresult = /obj/item/ingot/drow
 
