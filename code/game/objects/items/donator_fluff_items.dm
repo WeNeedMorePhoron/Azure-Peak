@@ -2371,6 +2371,20 @@ As Excaliber."
 	grid_height = 64
 	grid_width = 64
 
+/obj/item/rogueweapon/example/kadeguandao
+	name = "Dawn Cometh"
+	desc = "A polearm of fashioned after those in lingyue. How it ended up here is a wonder. It bears only one true cutting edge, though the false edge is sometimes used for hooking blades away. \
+	The blade is curved and bears some sort of yari-cross guard to catch blades. Wrapped around the wood handle is red string, taut and tight. \
+	On one strand, a bell like that of a xylixian's lies dormant. It might've rung once, but now it is silent.\
+	</br>‎<font color='ab6141'>	Still morning comes, and you can't outrun</br></font>‎<font color='e0b172'> 	the warm glow of the sun.</font>"
+	icon_state = "kadedao"
+	icon = 'icons/obj/items/donor_weapons_64.dmi'
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
+	grid_height = 64
+	grid_width = 64
+	bigboy = TRUE
+
 // MORTOSASYE
 /obj/item/rogueweapon/woodstaff/implement/grand/morto
 	base_implement_name = null
