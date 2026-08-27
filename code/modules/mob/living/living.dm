@@ -2770,6 +2770,7 @@ GLOBAL_LIST_INIT(sight_trait_signals, build_sight_trait_signals())
 /mob/living/proc/mark_contract_spawned(dust_corpse = TRUE)
 	no_head_bounty = TRUE
 	contract_spawned = TRUE
+	ADD_TRAIT(src, TRAIT_ZOMBIE_IMMUNE, CONTRACT_SPAWN_TRAIT)
 	if(dust_corpse)
 		RegisterSignal(src, COMSIG_LIVING_DEATH, PROC_REF(on_contract_death))
 
