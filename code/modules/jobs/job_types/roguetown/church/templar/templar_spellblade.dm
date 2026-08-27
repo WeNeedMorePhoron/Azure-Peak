@@ -62,7 +62,7 @@
 	backr = /obj/item/rogueweapon/shield/heater
 	backl = /obj/item/storage/backpack/rogue/satchel
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/mid
-	id = /obj/item/clothing/ring/silver
+	id = /obj/item/clothing/ring/silver/cleric
 	backpack_contents = list(
 		/obj/item/ritechalk = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,

@@ -44,7 +44,7 @@
 	belt = /obj/item/storage/belt/rogue/leather/steel/tasset
 	pants = /obj/item/clothing/under/roguetown/platelegs/iron
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/iron
-	id = /obj/item/clothing/ring/silver
+	id = /obj/item/clothing/ring/silver/cleric
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backr = /obj/item/rogueweapon/shield/tower/holysee
 	backpack_contents = list(

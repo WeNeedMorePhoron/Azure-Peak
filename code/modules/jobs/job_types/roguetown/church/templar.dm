@@ -79,10 +79,10 @@
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/holysee
 	wrists = /obj/item/clothing/neck/roguetown/psicross/astrata
 	gloves = /obj/item/clothing/gloves/roguetown/chain
-	belt = /obj/item/storage/belt/rogue/leather/black
+	belt = /obj/item/storage/belt/rogue/leather/steel
 	pants = /obj/item/clothing/under/roguetown/chainlegs
 	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/iron
-	id = /obj/item/clothing/ring/silver
+	id = /obj/item/clothing/ring/silver/cleric
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backr = /obj/item/rogueweapon/shield/tower/holysee
 	backpack_contents = list(
