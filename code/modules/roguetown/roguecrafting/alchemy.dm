@@ -338,7 +338,7 @@
 	name = "reanimation elixir (leechtick)"
 	category = "Table"
 	result = list(
-		/obj/item/reagent_containers/glass/bottle/frankenbrew/full
+		/obj/item/reagent_containers/glass/bottle/frankenbrew/full,
 		/obj/item/heart_blood_vial
 	)
 	reqs = list(
