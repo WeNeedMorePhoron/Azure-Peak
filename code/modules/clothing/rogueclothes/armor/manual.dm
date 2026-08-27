@@ -341,7 +341,6 @@
 	</br>To give into despair and hopelessness, however, is to rob all meaning from His sacrifice. \
 	</br>Heaven's gate closed to us long ago, yet His children persist; as as long as they do, so must I. \
 	</br>Happiness must be fought for."
-	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER //a leather armor.
 
 /*
  * EMOTE ARMOUR
