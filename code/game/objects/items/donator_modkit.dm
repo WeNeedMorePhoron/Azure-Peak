@@ -1323,6 +1323,16 @@
 	)
 	result_item = /obj/item/rogueweapon/example/dussack/moonlight
 
+/obj/item/enchantingkit/weapon/kadeguandao
+	name = "'Dawn Cometh' morphing elixir"
+	desc = "A small container of special morphing dust, perfect to make a specific item."
+	target_items = list(
+		/obj/item/rogueweapon/halberd,
+		/obj/item/rogueweapon/spear/naginata,
+		/obj/item/rogueweapon/greataxe
+	)
+	result_item = /obj/item/rogueweapon/example/kadeguandao
+
 // Lagomorphica + Stalkerino
 /obj/item/enchantingkit/weapon/donator_lagomorphica_obligatoire
 	name = "'Obligatoire' morphing elixir"
