@@ -74046,6 +74046,19 @@
 	pixel_y = 40
 	},
 /obj/item/heart_blood_vial{
+	pixel_x = -2;
+	pixel_y = 40
+	},
+/obj/item/heart_blood_vial{
+	pixel_x = 6;
+	pixel_y = 40
+	},
+/obj/item/storage/roguebag/leechbait,
+/obj/item/heart_blood_vial{
+	pixel_x = 10;
+	pixel_y = 40
+	},
+/obj/item/heart_blood_vial{
 	pixel_x = -6;
 	pixel_y = 40
 	},
@@ -74053,7 +74066,6 @@
 	pixel_x = 2;
 	pixel_y = 40
 	},
-/obj/item/storage/roguebag/leechbait,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/physician)
 "nQw" = (
