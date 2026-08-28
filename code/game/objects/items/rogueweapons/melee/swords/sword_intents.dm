@@ -202,8 +202,8 @@
 	icon_state = "incutmaster"
 	desc = "Strike the opponent with the true edge of the sword and penetrate the lightest armors. Poor at damaging armor."
 	attack_verb = list("masterfully cuts", "artfully slits", "adroitly slashes")
-	 // You do more damage to exposed areas than stabbing, but your damage to armor is slightly less effective than a normal longsword.
-	 // This effectively means you do 1.2x damage to flesh, but 0.9x damage to armor.
+	// You do more damage to exposed areas than stabbing, but your damage to armor is slightly less effective than a normal longsword.
+	// This effectively means you do 1.2x damage to flesh, but 0.9x damage to armor.
 	damfactor = 1.2
 	penfactor = PEN_LIGHT
 	intent_intdamage_factor = 0.75
