@@ -427,6 +427,7 @@
 
 /datum/alt_grip/mordhau
 	name = "mordhau"
+	two_handed = TRUE
 
 /datum/alt_grip/mordhau/sword
 	grip_intents = list(
@@ -461,6 +462,7 @@
 	)
 	var_overrides = list(
 		"wlength" = WLENGTH_SHORT,
+		"wdefense" = -2
 	)
 
 /datum/alt_grip/mordhau/sword/frei
