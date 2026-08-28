@@ -182,7 +182,7 @@ const Sidebar = (props) => {
           <Button
             fluid
             icon="venus-mars"
-            tooltip="Preview what your character looks like at rest, half-aroused, and fully aroused. This is a preview only setting and isn't saved."
+            tooltip="Preview how your character looks at rest, half-aroused, and fully aroused. This is a preview only setting and isn't saved."
             onClick={() => act('cycle_boner_preview')}
           >
             {preview_boner_state}
