@@ -684,7 +684,7 @@
 
 /datum/reagent/drug/jacksberries
 	name = "jacksberries"
-	description = "Extract from the jacksberries. Produces a causes sore throat and mild relaxation."
+	description = "Extract from the jacksberries. Produces a sore throat as well as mild relaxation."
 	reagent_state = LIQUID
 	color = "#57628C"
 	addiction_threshold = 999
