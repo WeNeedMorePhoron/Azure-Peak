@@ -349,6 +349,20 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		user.visible_message(span_notice("[user] pinches out [src] with [user.p_their()] fingers."), \
 				span_notice("I pinch out [src] with my fingers."))
 		extinguish()
+		smoketime -= 60 // takes half off
+		if(smoketime <= 0)
+			var/turf/location = get_turf(src)
+			if(iscarbon(loc))
+				var/mob/living/carbon/M = loc
+				M.dropItemToGround(src, silent = TRUE)
+				M.mouth = new type_butt(M)
+				M.dropItemToGround(M.mouth, silent = FALSE)
+				to_chat(user, span_notice("[src] didn\'t have enough in it to withstand my pinch!"))
+			else
+				new type_butt(location)
+				user.visible_message(span_notice("[user] pinches [src], the last of it's contents shriveling to naught!"))
+			qdel(src)
+
 		return 1
 	return ..()
 
@@ -746,6 +760,27 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			return ..()
 
 /obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user)
+	var/turf/location = get_turf(user)
+	if(lit)
+		name = copytext(name,5,length(name)+1)
+		user.visible_message(span_notice("[user] puts out [src]."), span_notice("I put out [src]."))
+		lit = 0
+		set_light_on(FALSE)
+		update_icon_state()
+		STOP_PROCESSING(SSobj, src)
+		return
+	if(!lit && smoketime > 0)
+		smoketime = 0
+		to_chat(user, span_notice("I empty [src] onto [location]."))
+		new /obj/item/ash(location)
+		packeditem = 0
+		reagents.clear_reagents()
+//		name = "empty [initial(name)]"
+	return
+
+// pipes should NOT inherit the being-destroyed part of zigarette behavior so we do this instead.
+// its a little dumb but should work, just copied the attack_self. DO NOT CALL PARENT!!!!
+/obj/item/clothing/mask/cigarette/pipe/attack_right(mob/user)
 	var/turf/location = get_turf(user)
 	if(lit)
 		name = copytext(name,5,length(name)+1)
