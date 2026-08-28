@@ -558,6 +558,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	smoketime = 240
 	list_reagents = list(/datum/reagent/drug/westleach = 45, /datum/reagent/drug/jacksberries = 12, /datum/reagent/berrypoison = 3)
 
+// Abyss cheroots are produced with salt water and fish. They aren't dupes, as much as they may seem it... apparently.
 /obj/item/clothing/mask/cigarette/rollie/abyss
 	name = "jacksberries zig"
 	desc = "Dried westleach and jackberries carefully wrapped in fine paper. It has a particularly smooth taste with a burns and scratches effect."
