@@ -307,49 +307,6 @@
 	..()
 	. = 1
 
-/datum/reagent/drug/pumpup
-	name = "Pump-Up"
-	description = "Take on the world! A fast acting, hard hitting drug that pushes the limit on what you can handle."
-	reagent_state = LIQUID
-	color = "#e38e44"
-	metabolization_rate = 2 * REAGENTS_METABOLISM
-	overdose_threshold = 30
-
-/datum/reagent/drug/pumpup/on_mob_metabolize(mob/living/L)
-	..()
-	ADD_TRAIT(L, TRAIT_STUNRESISTANCE, type)
-
-/datum/reagent/drug/pumpup/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(L, TRAIT_STUNRESISTANCE, type)
-	..()
-
-/datum/reagent/drug/pumpup/on_mob_life(mob/living/carbon/M)
-	M.Jitter(5)
-
-	if(prob(5))
-		to_chat(M, "<span class='notice'>[pick("Go! Go! GO!", "You feel ready...", "You feel invincible...")]</span>")
-	if(prob(15))
-		M.losebreath++
-		M.adjustToxLoss(2, 0)
-	..()
-	. = 1
-
-/datum/reagent/drug/pumpup/overdose_start(mob/living/M)
-	to_chat(M, "<span class='danger'>I can't stop shaking, my heart beats faster and faster...</span>")
-
-/datum/reagent/drug/pumpup/overdose_process(mob/living/M)
-	M.Jitter(5)
-	if(prob(5))
-		M.drop_all_held_items()
-	if(prob(15))
-		M.emote(pick("twitch","drool"))
-	if(prob(20))
-		M.losebreath++
-		M.adjustStaminaLoss(4, 0)
-	if(prob(15))
-		M.adjustToxLoss(2, 0)
-	..()
-
 /datum/reagent/drug/mentha // distinct from SS13 menthol, for the mentha zigs
 	name = "Mentha"
 	description = "Extract from the mentha herb. Produces a cooling sensation."
