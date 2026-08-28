@@ -461,7 +461,9 @@
 		),
 	)
 	var_overrides = list(
-		"wlength" = WLENGTH_SHORT,
+		"wlength" = WLENGTH_SHORT
+	)
+	additive_var_overrides = list(
 		"wdefense" = -2
 	)
 
@@ -673,8 +675,7 @@
 	name = "abrazare"
 	two_handed = TRUE
 	additive_var_overrides = list(
-		wdefense = -4,
-		wlength = WLENGTH_SHORT
+		"wdefense" = -4
 	)
 	trait_applied = list(TRAIT_LONGSWORDSMAN)
 	grip_intents = list(
