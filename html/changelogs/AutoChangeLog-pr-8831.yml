@@ -1,0 +1,4 @@
+author: "TankTheBirb"
+delete-after: True
+changes:
+  - bugfix: "Fixed a bug preventing void drakeling familiars from spawning. Double check your familiar preferences if you have issues!"
