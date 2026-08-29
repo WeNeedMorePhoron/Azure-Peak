@@ -28,7 +28,11 @@
 		if ("Open")
 			src << run(file(path))
 		if ("Download")
-			src << ftp(file(path))
+			var/round_prefix = GLOB.rogue_round_id || GLOB.round_id
+			var/list/path_parts = splittext(path, "/")
+			var/file_name = path_parts[length(path_parts)]
+			var/suggested_name = round_prefix ? "[round_prefix]-[file_name]" : file_name
+			src << ftp(file(path), suggested_name)
 		else
 			return
 	to_chat(src, "Attempting to send [path], this may take a fair few minutes if the file is very large.")
