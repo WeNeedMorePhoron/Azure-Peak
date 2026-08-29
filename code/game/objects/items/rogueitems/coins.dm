@@ -280,6 +280,10 @@
 	. = ..()
 	set_quantity(4) // 20 mammons combine with starting pouch to buy something
 
+/obj/item/roguecoin/silver/pile/wretchpile/Initialize(mapload)
+	. = ..()
+	set_quantity(20) // 100 mammons, perfect for bribing officials and funding gimmicks
+
 /obj/item/roguecoin/gold/pile/Initialize(mapload)
 	. = ..()
 	set_quantity(rand(4,19))
