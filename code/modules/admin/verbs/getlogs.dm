@@ -28,10 +28,8 @@
 		if ("Open")
 			src << run(file(path))
 		if ("Download")
-			var/round_prefix = GLOB.rogue_round_id || GLOB.round_id
-			var/list/path_parts = splittext(path, "/")
-			var/file_name = path_parts[length(path_parts)]
-			var/suggested_name = round_prefix ? "[round_prefix]-[file_name]" : file_name
+			var/regex/R = regex(@"round-[^-]+-(.+)/([^/]+)")
+			var/suggested_name = R.Find(path) ? "[R.group[1]]-[R.group[2]]" : path
 			src << ftp(file(path), suggested_name)
 		else
 			return
