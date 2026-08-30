@@ -184,6 +184,25 @@
 /obj/item/rogueweapon/sword/avantyne/get_examine_highlight_status()
 	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_WEAPON)
 
+/obj/item/rogueweapon/sword/church
+	name = "see arming sword"
+	desc = "A blessed arming sword, wielded by the Holy See's templars in their stalwart defense against evil. Originating in the wake of the Celestial Empire's \
+	collapse, legends say that it is the grandfather to longswords all across Psydonia: the triumph of an ancient Malumite priest, stricken with divine \
+	inspiration in humenity's darkest hour. Centuries later, it still remains the ideal choice for skewering infidels and monsters alike. </br>'I am the \
+	holder of light, in the dark abyss..' </br>'..I am the holder of order and ward against vileness..' </br>'..let the Gods guide my hand, and let the Inhumen cower before me.'"
+	icon_state = "see_sword"
+	max_integrity = 180
+
+/obj/item/rogueweapon/sword/undivided
+	name = "decaritterschwerte"
+	desc = "A blessed arming sword, held by the Holy See's templars in their stalwart defense against evil. The golden crossguard bears the winged motif of an angel, and \
+	psalms from the Pantheon's holy tome have been meticulously carved along the blade's edge. </br>'With a drop of holy Eclipsum, doth the blade rise..' </br>'..gilded, \
+	gleaming, radiant heat, warm my soul, immolate my enemies..' </br>'..and let me vanquish all those who would dare to Divide us, once more.'"
+	icon_state = "deca_sword"
+	max_integrity = 180
+	force = 25
+	force_wielded = 28
+
 /obj/item/rogueweapon/sword/long
 	name = "longsword"
 	desc = "A lethal and perfectly balanced weapon. The longsword is the protagonist of endless tales and myths \
