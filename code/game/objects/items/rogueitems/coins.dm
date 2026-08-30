@@ -282,7 +282,7 @@
 
 /obj/item/roguecoin/silver/pile/wretchpile/Initialize(mapload)
 	. = ..()
-	set_quantity(20) // 100 mammons, perfect for bribing officials and funding gimmicks
+	set_quantity(10) // 50 mammons, to avoid being dead broke when latejoining
 
 /obj/item/roguecoin/gold/pile/Initialize(mapload)
 	. = ..()
