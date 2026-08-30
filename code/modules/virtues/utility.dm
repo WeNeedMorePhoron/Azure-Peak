@@ -74,7 +74,7 @@
 				else
 					if(!SStreasury.has_account(recipient))
 						SStreasury.create_bank_account(recipient)
-					if(SStreasury.generate_money_account(rand(80, 120), H))
+					if(SStreasury.generate_money_account(rand(80, 120), recipient))
 						record_round_statistic(STATS_MAMMONS_DEPOSITED, rand(80, 120))
 			if(NOTABLE_RESIDENCY)
 				ADD_TRAIT(recipient, TRAIT_RESIDENT, TRAIT_VIRTUE)
