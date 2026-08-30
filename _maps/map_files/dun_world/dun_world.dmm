@@ -410,6 +410,10 @@
 /obj/structure/stairs/stone,
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/physician)
+"aer" = (
+/obj/machinery/light/rogue/smoker,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/exposed/town/keep)
 "aes" = (
 /obj/structure/rack/rogue/shelf/biggest,
 /obj/item/ammo_casing/caseless/rogue/sling_bullet/scattershot{
@@ -1333,10 +1337,6 @@
 /obj/structure/fluff/railing/border/east,
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/tavern)
-"anz" = (
-/obj/machinery/light/rogue/smoker/wheeled,
-/turf/open/floor/rogue/cobblerock,
-/area/rogue/outdoors/town)
 "anB" = (
 /obj/structure/fluff/railing/corner/north_east,
 /turf/open/floor/rogue/rooftop/green,
@@ -3773,10 +3773,6 @@
 /obj/effect/decal/cleanable/debris/glassy,
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/town)
-"aLM" = (
-/obj/machinery/light/rogue/smoker,
-/turf/open/floor/rogue/dirt/road,
-/area/rogue/outdoors/exposed/town/keep)
 "aLN" = (
 /obj/effect/decal/cobbleedge{
 	icon_state = "cobbleedge-sread"
@@ -13047,11 +13043,6 @@
 /obj/structure/closet/crate/chest/neu,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/physician)
-"cyw" = (
-/obj/structure/flora/roguegrass,
-/obj/machinery/light/rogue/smoker,
-/turf/open/floor/rogue/grass,
-/area/rogue/outdoors/town)
 "cyy" = (
 /obj/structure/closet/crate/coffin,
 /turf/open/floor/rogue/cobble/mossy,
@@ -74799,6 +74790,10 @@
 /obj/effect/spawner/lootdrop/cheap_jewelry_spawner,
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/under/cave/scarymaze)
+"nUq" = (
+/obj/machinery/light/rogue/smoker/wheeled,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/outdoors/town)
 "nUs" = (
 /obj/structure/fluff/railing/border/east,
 /turf/open/floor/rogue/cobble/mossy,
@@ -81707,18 +81702,6 @@
 "peO" = (
 /turf/open/floor/rogue/wood,
 /area/rogue/outdoors/beach/central)
-"peV" = (
-/obj/structure/closet/crate/chest/crate,
-/obj/item/grown/log/tree/small,
-/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
-/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
-/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
-/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
-/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
-/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
-/obj/item/flint,
-/turf/open/floor/rogue/ruinedwood/turned,
-/area/rogue/under/underdark)
 "peW" = (
 /obj/effect/spawner/lootdrop/roguetown/dungeon/clothing,
 /obj/structure/bed/rogue/shit,
@@ -93145,6 +93128,18 @@
 /obj/machinery/tanningrack,
 /turf/open/floor/rogue/church,
 /area/rogue/under/cave/scarymaze)
+"rlq" = (
+/obj/structure/closet/crate/chest/crate,
+/obj/item/grown/log/tree/small,
+/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+/obj/item/flint,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/under/underdark)
 "rlr" = (
 /obj/structure/rack/rogue/shelf/biggest,
 /obj/item/burial_shroud{
@@ -94915,6 +94910,11 @@
 	},
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors/shelter/woods)
+"rCw" = (
+/obj/structure/flora/roguegrass,
+/obj/machinery/light/rogue/smoker,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/town)
 "rCx" = (
 /obj/structure/fluff/walldeco/church/line{
 	dir = 8
@@ -123850,7 +123850,7 @@
 /obj/effect/decal/mossy{
 	dir = 4
 	},
-/obj/structure/flora/ausbushes/lavendergrass,
+/obj/machinery/light/rogue/smoker,
 /turf/open/floor/rogue/grassred,
 /area/rogue/outdoors/town)
 "wXs" = (
@@ -270876,7 +270876,7 @@ pMG
 njB
 mQr
 slz
-cyw
+rCw
 sns
 uZQ
 trN
@@ -278750,7 +278750,7 @@ gHj
 sPj
 qmZ
 sPj
-peV
+rlq
 weG
 sPj
 sPj
@@ -315548,7 +315548,7 @@ exD
 exD
 njB
 lkt
-anz
+nUq
 wdl
 jZR
 pxc
@@ -315596,7 +315596,7 @@ gfZ
 sPm
 vAw
 vAw
-aLM
+aer
 hrE
 hrE
 jWw
