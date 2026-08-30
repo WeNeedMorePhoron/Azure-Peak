@@ -1333,6 +1333,10 @@
 /obj/structure/fluff/railing/border/east,
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/tavern)
+"anz" = (
+/obj/machinery/light/rogue/smoker/wheeled,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/outdoors/town)
 "anB" = (
 /obj/structure/fluff/railing/corner/north_east,
 /turf/open/floor/rogue/rooftop/green,
@@ -3769,6 +3773,10 @@
 /obj/effect/decal/cleanable/debris/glassy,
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/town)
+"aLM" = (
+/obj/machinery/light/rogue/smoker,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/exposed/town/keep)
 "aLN" = (
 /obj/effect/decal/cobbleedge{
 	icon_state = "cobbleedge-sread"
@@ -13039,6 +13047,11 @@
 /obj/structure/closet/crate/chest/neu,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/physician)
+"cyw" = (
+/obj/structure/flora/roguegrass,
+/obj/machinery/light/rogue/smoker,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/town)
 "cyy" = (
 /obj/structure/closet/crate/coffin,
 /turf/open/floor/rogue/cobble/mossy,
@@ -73004,6 +73017,7 @@
 	info = "The Inquisition will hardly come search for me here - yet the drow have started to notice my presence in the area. I fear everyday upon which I take breath, risking death by their hand or the Otavans."
 	},
 /obj/structure/table/wood/poor,
+/obj/item/reagent_containers/food/snacks/rogue/meat/steak/smoked_z,
 /turf/open/floor/rogue/ruinedwood/turned,
 /area/rogue/under/underdark)
 "nDi" = (
@@ -81693,6 +81707,18 @@
 "peO" = (
 /turf/open/floor/rogue/wood,
 /area/rogue/outdoors/beach/central)
+"peV" = (
+/obj/structure/closet/crate/chest/crate,
+/obj/item/grown/log/tree/small,
+/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+/obj/item/reagent_containers/food/snacks/rogue/meat/steak,
+/obj/item/flint,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/under/underdark)
 "peW" = (
 /obj/effect/spawner/lootdrop/roguetown/dungeon/clothing,
 /obj/structure/bed/rogue/shit,
@@ -124624,7 +124650,7 @@
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/indoors/cave)
 "xfI" = (
-/obj/structure/spider/stickyweb,
+/obj/machinery/light/rogue/smoker,
 /turf/open/floor/rogue/dirt,
 /area/rogue/under/underdark)
 "xfO" = (
@@ -270850,7 +270876,7 @@ pMG
 njB
 mQr
 slz
-njB
+cyw
 sns
 uZQ
 trN
@@ -278724,7 +278750,7 @@ gHj
 sPj
 qmZ
 sPj
-qmZ
+peV
 weG
 sPj
 sPj
@@ -315522,7 +315548,7 @@ exD
 exD
 njB
 lkt
-exD
+anz
 wdl
 jZR
 pxc
@@ -315570,7 +315596,7 @@ gfZ
 sPm
 vAw
 vAw
-vAw
+aLM
 hrE
 hrE
 jWw
