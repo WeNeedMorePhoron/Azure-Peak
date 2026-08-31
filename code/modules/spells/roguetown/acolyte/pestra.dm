@@ -168,8 +168,8 @@
 
 	for(var/datum/reagent/R in human_target.reagents.reagent_list)
 		if(R.volume > 0 && R.type != /datum/reagent/water && R.type != /datum/reagent/consumable/nutriment)
-			names += lowertext(R.name)
-			names_with_amounts += "[lowertext(R.name)] ([round(R.volume, 0.1)]u)"
+			names += LOWER_TEXT(R.name)
+			names_with_amounts += "[LOWER_TEXT(R.name)] ([round(R.volume, 0.1)]u)"
 			if(R.volume > top_volume)
 				top_volume = R.volume
 				top_reagent = R
@@ -192,10 +192,10 @@
 			to_chat(user, span_boldwarning("<i>Studying the blood drawn upon the instrument, I easily discern [english_list(names)] within.</i>"))
 
 		else if(is_mid_tier && has_hemostat && more_than_one && !miracle)
-			to_chat(user, span_boldwarning("<i>Studying the blood drawn upon the instrument, I can only see heavy traces of [lowertext(top_reagent.name)], though other substances may be present.</i>"))
+			to_chat(user, span_boldwarning("<i>Studying the blood drawn upon the instrument, I can only see heavy traces of [LOWER_TEXT(top_reagent.name)], though other substances may be present.</i>"))
 
 		else if(is_mid_tier && has_hemostat && top_reagent && !miracle)
-			to_chat(user, span_boldwarning("<i>Studying the blood drawn upon the instrument, I can only see heavy traces of [lowertext(top_reagent.name)] within.</i>"))
+			to_chat(user, span_boldwarning("<i>Studying the blood drawn upon the instrument, I can only see heavy traces of [LOWER_TEXT(top_reagent.name)] within.</i>"))
 
 	else
 		if(miracle && has_incision)
