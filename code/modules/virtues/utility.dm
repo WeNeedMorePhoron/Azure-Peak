@@ -159,7 +159,7 @@
 	for(var/choice in picked_choices)
 		if(choice == "Nutcracker")
 			ADD_TRAIT(recipient, TRAIT_NUTCRACKER, TRAIT_VIRTUE)
-		else if(choice == "Massage")
+		else if(choice == "Massage Ability")
 			if(recipient.mind)
 				recipient.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/massage)
 		else
