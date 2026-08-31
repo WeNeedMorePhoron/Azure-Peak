@@ -38,7 +38,7 @@
 
 	for(var/item_name as anything in GLOB.loadout_items_by_name)
 		var/datum/loadout_item/LI = GLOB.loadout_items_by_name[item_name]
-		if(LI.donoritem && !LI.donator_ckey_check(user.ckey))
+		if(LI.donoritem && !LI.donator_ckey_check(user.ckey, user?.client))
 			continue
 
 		var/cat = LI.sort_category
