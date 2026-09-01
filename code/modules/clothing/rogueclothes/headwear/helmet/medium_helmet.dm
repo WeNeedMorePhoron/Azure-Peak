@@ -518,7 +518,7 @@
 	desc = "A bascinet with a conical visor, favored by those with snouts and whiskers. Nestle a feather or length of cloth onto the rim to display your allegiance."
 	icon_state = "hounskull"
 	item_state = "hounskull"
-
+a
 /obj/item/clothing/head/roguetown/helmet/bascinet/pigface/hounskull/ComponentInitialize()
 	..()
 	AddComponent(/datum/component/adjustable_clothing, (HEAD|EARS|HAIR), (HIDEEARS|HIDEHAIR), null, 'sound/items/visor.ogg', null, UPD_HEAD)	//Standard helmet
