@@ -3670,6 +3670,7 @@
 #include "modular\Neu_Food\code\cookware\bowl.dm"
 #include "modular\Neu_Food\code\cookware\cup.dm"
 #include "modular\Neu_Food\code\cookware\fork.dm"
+#include "modular\Neu_Food\code\cookware\innkeep_lootbox.dm"
 #include "modular\Neu_Food\code\cookware\misc_cookware.dm"
 #include "modular\Neu_Food\code\cookware\pan.dm"
 #include "modular\Neu_Food\code\cookware\peppermill.dm"
