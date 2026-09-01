@@ -34,14 +34,14 @@
 			/obj/item/reagent_containers/food/snacks/rogue/fruit/pumpkin_sliced,
 			/obj/item/reagent_containers/food/snacks/rogue/preserved/pumpkin_mashed,
 			/obj/item/reagent_containers/food/snacks/grown/rice,
-			/obj/item/reagent_containers/food/snacks/rogue/fryfish/sole,
-			/obj/item/reagent_containers/food/snacks/rogue/fryfish/cod,
-			/obj/item/reagent_containers/food/snacks/rogue/fryfish/lobster,
-			/obj/item/reagent_containers/food/snacks/rogue/fryfish/salmon,
-			/obj/item/reagent_containers/food/snacks/rogue/fryfish/plaice,
-			/obj/item/reagent_containers/food/snacks/rogue/fryfish/bass,
-			/obj/item/reagent_containers/food/snacks/rogue/fryfish/clam,
-			/obj/item/reagent_containers/food/snacks/rogue/fryfish/shrimp,
+			/obj/item/reagent_containers/food/snacks/fish/sole,
+			/obj/item/reagent_containers/food/snacks/fish/cod,
+			/obj/item/reagent_containers/food/snacks/fish/lobster,
+			/obj/item/reagent_containers/food/snacks/fish/salmon,
+			/obj/item/reagent_containers/food/snacks/fish/plaice,
+			/obj/item/reagent_containers/food/snacks/fish/bass,
+			/obj/item/reagent_containers/food/snacks/fish/clam,
+			/obj/item/reagent_containers/food/snacks/fish/shrimp,
 			/obj/item/reagent_containers/food/snacks/grown/tea,
 			/obj/item/reagent_containers/food/snacks/grown/coffeebeansroasted,
 			/obj/item/reagent_containers/food/snacks/pumpkinspice,
@@ -65,9 +65,10 @@
 			/obj/item/reagent_containers/food/snacks/rogue/meat/saiga_ribs_z
 		)
 
-		var/num_items = rand(1, 12)
+		var/num_items = rand(9, 15)
+		var/loot_turf = get_turf(src)
 		for(var/i in 1 to num_items)
 			var/item_type = pick(loot_table)
-			new item_type(get_turf(src))
+			new item_type(loot_turf)
 
 		qdel(src)
