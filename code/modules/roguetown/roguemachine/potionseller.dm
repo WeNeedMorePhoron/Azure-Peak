@@ -131,10 +131,6 @@
 	if(reagents.maximum_volume < B.reagents.total_volume + reagents.total_volume)
 		return FALSE
 
-	if(istype(B, /obj/item/reagent_containers/glass/bottle/alchemical))
-		vials_held++
-	else
-		bottles_held++
 	for(var/datum/reagent/to_add in B.reagents.reagent_list)
 		var/already_exists = FALSE
 		if(length(reagents.reagent_list))
@@ -147,7 +143,12 @@
 			held_items[to_add.type]["NAME"] = to_add.name
 			held_items[to_add.type]["PRICE"] = 0
 	B.reagents.trans_to(src, B.reagents.total_volume, transfered_by = user)
-	qdel(B)
+	if(istype(B, /obj/item/reagent_containers/glass/bottle/alchemical))
+		vials_held++
+		qdel(B)
+	else if(istype(B, /obj/item/reagent_containers/glass/bottle))
+		bottles_held++
+		qdel(B)
 	return TRUE
 
 /obj/structure/roguemachine/potionseller/attackby(obj/item/P, mob/user, params)
@@ -203,7 +204,8 @@
 	for(var/obj/item/I in get_turf(src))
 		if(bulk_insert(I, user))
 			count++
-	for(var/turf/T in orange(1, src))
+	for(var/direction in list(NORTH, SOUTH))
+		var/turf/T = get_step(src, direction)
 		for(var/obj/item/I in T)
 			if(bulk_insert(I, user))
 				count++
