@@ -146,7 +146,8 @@ GLOBAL_LIST_INIT(skeleton_aggro, list(
 			if(W.resolve() == src)
 				active_crystal.active_skeletons -= W
 	active_crystal = null
-	gib(no_brain = TRUE, no_organs = TRUE)
+	playsound(src, pick('sound/vo/mobs/skel/skeleton_death (1).ogg','sound/vo/mobs/skel/skeleton_death (2).ogg','sound/vo/mobs/skel/skeleton_death (3).ogg','sound/vo/mobs/skel/skeleton_death (4).ogg','sound/vo/mobs/skel/skeleton_death (5).ogg'), 60, TRUE)
+	gib(no_brain = TRUE, no_organs = TRUE, no_sound = TRUE)
 
 ////////////////////////////////
 ////////////////////////////////
