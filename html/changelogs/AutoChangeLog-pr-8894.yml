@@ -1,4 +1,0 @@
-author: "KatTheFox"
-delete-after: True
-changes:
-  - bugfix: "Revenants no longer become able to see from their body when moving through z-levels or other specific circumstances."
