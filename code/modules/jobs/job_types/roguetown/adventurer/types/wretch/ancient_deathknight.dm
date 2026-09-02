@@ -54,6 +54,7 @@
 	shoes = /obj/item/clothing/shoes/roguetown/boots/paalloy
 	gloves = /obj/item/clothing/gloves/roguetown/plate/paalloy
 	neck = /obj/item/clothing/neck/roguetown/gorget/paalloy
+	mask = /obj/item/clothing/head/roguetown/armingcap/padded //a little bit extra protection as stage 2 skullcrack is death.
 	backr = /obj/item/storage/backpack/rogue/satchel/black
 
 	H.taints_loot = TRUE //For that shitty-ass reanimated corpse gear look.
