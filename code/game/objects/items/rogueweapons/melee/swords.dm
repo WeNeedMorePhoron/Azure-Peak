@@ -332,7 +332,7 @@
 	name = "ancient longsword"
 	desc = "A lethal and perfectly balanced weapon. An artificed recreation of the traditional blades of this era created with \
 	reborn purpose; this blade of polished Gilbranze stands as a reborn testament of Progress against the rot that would claim the old, \
-	it menaces with a slightly-more durable and defensive lightness against traditional steel longswords."
+	it menaces with a slightly-more durable and defensive design over that of traditional steel longswords."
 	icon_state = "ancientlongsword"
 	sheathe_icon = "longsword" //FOR NOW, UNTIL THE REFACTOR IS IN// YELL AT ME, SHADOWS OF ERAS PAST IN THE DISC IF MY DUMBASS FORGOT TO ADD ONE POST-MERGE AND YOUR CODEBASE /IS/ AZURE PEAK
 	max_integrity = 130 //uniquely, slightly more durable as its a unique-weapon for unbound DK.
