@@ -83,7 +83,7 @@
 			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/paalloy/heavy
 			wrists = /obj/item/clothing/wrists/roguetown/bracers/paalloy/chain
 
-	var/weapon_choice = input(H, "Choose your WEAPON.", "RAGE AGAINST THE LYVING.") as anything in list("Longsword + Shield", "Ancient Greatsword", "Ancient Axe + Shield", "Ancient Mace + Shield", "Ancient Flail + Shield", "Ancient Warhammer + Shield", "Bardiche", "Grand Mace")
+	var/weapon_choice = input(H, "Choose your WEAPON.", "RAGE AGAINST THE LYVING.") as anything in list("Ancient Longsword + Shield", "Ancient Greatsword", "Ancient Axe + Shield", "Ancient Mace + Shield", "Ancient Flail + Shield", "Ancient Warhammer + Shield", "Bardiche", "Grand Mace")
 	switch(weapon_choice)
 		if("Ancient Longsword + Shield")
 			beltl = /obj/item/rogueweapon/scabbard/sword
