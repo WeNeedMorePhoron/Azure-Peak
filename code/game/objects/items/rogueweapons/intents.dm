@@ -719,6 +719,7 @@
 	releasedrain = 1	//More than punch cus pen factor.
 	swingdelay = 0
 	penfactor = PEN_NONE
+	rmb_ranged = TRUE
 	candodge = TRUE
 	canparry = TRUE
 	blade_class = BCLASS_CUT
