@@ -335,7 +335,7 @@
 	it menaces with a slightly-more durable and defensive lightness against traditional steel longswords."
 	icon_state = "ancientlongsword"
 	sheathe_icon = "longsword" //FOR NOW, UNTIL THE REFACTOR IS IN// YELL AT ME, SHADOWS OF ERAS PAST IN THE DISC IF MY DUMBASS FORGOT TO ADD ONE POST-MERGE AND YOUR CODEBASE /IS/ AZURE PEAK
-	max_integrity = 140 //uniquely, slightly more durable as its a unique-weapon for unbound DK.
+	max_integrity = 130 //uniquely, slightly more durable as its a unique-weapon for unbound DK.
 	force = 25
 	force_wielded = 28
 	wdefense_wbonus = 5 //Uniquely, higher defense + lower force slightly, its a side-grade under decablade's unique aspect of durability-alone for a mixture of more durable, less force and more defense.
