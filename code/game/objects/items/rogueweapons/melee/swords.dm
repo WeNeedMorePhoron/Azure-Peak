@@ -334,7 +334,7 @@
 	reborn purpose; this blade of polished Gilbranze stands as a reborn testament against the rot that would claim the old, \
 	its edge menaces with spiked ribbed-blade indents with seemingly no purpose beyond spite and anger towards the still lyving."
 	icon_state = "ancientlongsword"
-	sheathe_icon = "ancientlongsword"
+	sheathe_icon = "longsword" //FOR NOW, UNTIL THE REFACTOR IS IN// YELL AT ME, SHADOWS OF ERAS PAST IN THE DISC IF MY DUMBASS FORGOT TO ADD ONE POST-MERGE AND YOUR CODEBASE /IS/ AZURE PEAK
 	max_integrity = 140 //uniquely, slightly more durable as its a unique-weapon for unbound DK.
 	force = 25
 	force_wielded = 28
