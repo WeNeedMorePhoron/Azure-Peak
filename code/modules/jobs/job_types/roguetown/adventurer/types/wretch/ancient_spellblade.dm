@@ -138,8 +138,8 @@
 			switch(weapon_choice)
 				if("Ancient Khopesh")
 					beltr = /obj/item/rogueweapon/sword/sabre/palloy
-				if("Sabre")
-					beltr = /obj/item/rogueweapon/sword/sabre
+				if("Ancient Longsword")
+					beltr = /obj/item/rogueweapon/sword/long/palloy //role unique
 				if("Ancient Dagger")
 					beltr = /obj/item/rogueweapon/huntingknife/idagger/steel/padagger
 			if(weapon_choice == "Ancient Dagger")

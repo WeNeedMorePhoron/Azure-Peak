@@ -364,7 +364,7 @@
 
 //Dusting/Respawn related
 #define TRAIT_DUSTABLE "Dustable"
-#define TRAIT_GIB_ON_DEATH "Gibbable" //non-player facing in traits, intended.
+#define TRAIT_GIB_ON_DEATH "Skeletal Unravelling" //non-player facing in traits, intended for siege + unbound skeles for consistancy w/ necromancer/lich ones
 #define TRAIT_DUST_LEAVE_HEAD "Dust Leave Head"
 #define TRAIT_DUST_DELETE_GEAR "Dust Delete Gear"
 #define TRAIT_SECONDLIFE "Second Life"
