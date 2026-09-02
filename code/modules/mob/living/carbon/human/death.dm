@@ -47,6 +47,9 @@
 		SSdroning.kill_loop(client)
 		SSdroning.kill_rain(client)
 
+	if(!gibbed && HAS_TRAIT(src, TRAIT_GIB_ON_DEATH))
+		gib()
+
 	if(!gibbed && HAS_TRAIT(src, TRAIT_DUSTABLE))
 		if(HAS_TRAIT(src, TRAIT_DUST_LEAVE_HEAD))
 			var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
