@@ -1,19 +1,19 @@
 /datum/advclass/wretch/ancient_deathknight
 	name = "Unbound Ancient Death Knight"
-	tutorial = "You were once a Death Knight - a warrior risen from death to serve a master. How long you have been dead - you do not remember anymore. And you find yourself severed from any master's command. Why do you fight? Does it matter? All that you know is to move forward. The world sees you as an abomination. Seek your own path."
+	tutorial = "You were once a Death Knight - a once-champion risen from death through unknown means, without a purpose, nor master to serve. How long you have been dead - you do not remember anymore. Why do you fight? Does it matter? All that you know is to move forward, the ancient mantra of battle woven into your mynd, swerve, parry, riposte and cleave. The world sees you as an abomination. Seek your own path."
 	allowed_sexes = list(MALE, FEMALE)
 
 	outfit = /datum/outfit/job/roguetown/wretch/ancient_deathknight
 	class_select_category = CLASS_CAT_ACCURSED
 	category_tags = list(CTAG_WRETCH)
-	maximum_possible_slots = 2 // Two so that the gimmick isn't overdone
+	maximum_possible_slots = 2 // Two, keep in mind battleready /w this gear + skillset and a decent amount of str make them very strong.
 	applies_post_equipment = TRUE
 	traits_applied = list(TRAIT_HEAVYARMOR, TRAIT_SHATTER_KILL, TRAIT_BLOODLOSS_IMMUNE, TRAIT_SKELETAL_GIB_ON_DEATH)
 	subclass_stats = list(
-		STATKEY_STR = 2,
+		STATKEY_STR = 3,
 		STATKEY_WIL = 1,
 		STATKEY_SPD = -1,
-		STATKEY_INT = -2, // Weighted 1. 0 CON for limb reattachment tradeoff.
+		STATKEY_INT = -2, // Weighted 3. 0 CON for limb reattachment tradeoff.
 	)
 	subclass_skills = list(
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN, //Ability to break out of being boxed in, for parity w/ unbound spellblade.
@@ -38,6 +38,14 @@
 
 	H.become_skeleton()
 	H.can_do_sex = FALSE
+
+	//no swift intent
+	H.possible_rmb_intents = list(/datum/rmb_intent/feint,\
+	/datum/rmb_intent/aimed,\
+	/datum/rmb_intent/riposte,\
+	/datum/rmb_intent/strong,\
+	/datum/rmb_intent/weak)
+	H.swap_rmb_intent(num=1)
 
 	// Skeleton antag datum + patron (matching greater_skeleton setup)
 	H.set_patron(/datum/patron/inhumen/zizo)

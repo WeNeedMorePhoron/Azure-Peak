@@ -134,7 +134,7 @@
 	H.change_stat(STATKEY_SPD, -3)
 
 	H.ambushable = FALSE
-
+	//we allow swift intent, solo full antag undead
 	H.adjust_blindness(-3)
 
 	var/helmets = list(
