@@ -745,7 +745,7 @@
 				custom_offset = 24
 				taunt_message = "[user] berates [M] disapprovingly!"
 
-			else if(!HAS_TRAIT(M, TRAIT_DEATHLESS)) //RAGE AGAINST THE LYVING
+			else if(!HAS_TRAIT(M, TRAIT_DEATHLESS) && HAS_TRAIT(L, TRAIT_DEATHLESS)) //RAGE AGAINST THE LYVING
 				taunticon = "midfinger"
 				custom_offset = 23
 				taunt_message = "[user] flips [M] off with extreme prejudice!"
