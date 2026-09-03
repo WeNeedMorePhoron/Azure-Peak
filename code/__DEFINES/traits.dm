@@ -364,6 +364,7 @@
 
 //Dusting/Respawn related
 #define TRAIT_DUSTABLE "Dustable"
+#define TRAIT_SKELETAL_GIB_ON_DEATH "Skeletal Unraveling" //non-player facing in traits, intended for skeletons in odd places
 #define TRAIT_DUST_LEAVE_HEAD "Dust Leave Head"
 #define TRAIT_DUST_DELETE_GEAR "Dust Delete Gear"
 #define TRAIT_SECONDLIFE "Second Life"
