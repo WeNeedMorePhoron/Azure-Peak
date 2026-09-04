@@ -21,7 +21,8 @@
 		rendered += source.fat_yield
 	if(!rendered)
 		return
-	crafter.reagents.add_reagent(/datum/reagent/consumable/oil/tallow, rendered)
+	var/pot_temperature = crafter.reagents.chem_temp
+	crafter.reagents.add_reagent(/datum/reagent/consumable/oil/tallow, rendered, null, pot_temperature)
 	playsound(get_turf(crafter), 'sound/items/Fish_out.ogg', 20, TRUE)
 	SEND_SIGNAL(crafter, COMSIG_CONTAINER_CRAFT_COMPLETE, null)
 
