@@ -26,7 +26,7 @@ enum Subtab {
   VILLAIN = 4,
 }
 
-export const CharacterCreator = (props) => {
+export const CharacterCreator = () => {
   const [subtab, setSubtab] = useSharedState(
     'charactercreatorsubtab',
     Subtab.IDENTITY,
@@ -85,7 +85,7 @@ export const CharacterCreator = (props) => {
   );
 };
 
-const Sidebar = (props) => {
+const Sidebar = () => {
   const [constantData] = useConstantPrefs();
   const { act, data } = useBackendStrict<AllPagesData>();
   const {
