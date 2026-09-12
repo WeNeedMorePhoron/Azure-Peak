@@ -2554,6 +2554,8 @@
 #include "code\modules\mob\living\carbon\human\npc\test_dummy.dm"
 #include "code\modules\mob\living\carbon\human\npc\thief.dm"
 #include "code\modules\mob\living\carbon\human\npc\zizoconstruct.dm"
+#include "code\modules\mob\living\carbon\human\npc\loadout\_loadout.dm"
+#include "code\modules\mob\living\carbon\human\npc\loadout\npc_outfit.dm"
 #include "code\modules\mob\living\carbon\human\npc\mini_boss\drow_scourge.dm"
 #include "code\modules\mob\living\carbon\human\npc\mini_boss\large_goblin.dm"
 #include "code\modules\mob\living\carbon\human\npc\mini_boss\outlaw_duelist.dm"
