@@ -133,3 +133,12 @@ GLOBAL_LIST_INIT(npc_loadouts, build_npc_loadouts())
 		return
 	for(var/skill in skills)
 		H.adjust_skillrank_up_to(skill, skills[skill], TRUE)
+
+/datum/npc_loadout/armor
+	abstract_type = /datum/npc_loadout/armor
+
+/datum/npc_loadout/weapon
+	abstract_type = /datum/npc_loadout/weapon
+
+/datum/npc_loadout/kit
+	abstract_type = /datum/npc_loadout/kit

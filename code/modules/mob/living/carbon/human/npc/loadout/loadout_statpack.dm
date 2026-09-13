@@ -26,7 +26,6 @@ GLOBAL_LIST_INIT(npc_statpacks, build_npc_statpacks())
 	var/willpower
 	var/perception
 	var/luck
-	var/list/skills
 
 /datum/npc_statpack/proc/apply(mob/living/carbon/human/H)
 	if(!H)
@@ -38,7 +37,6 @@ GLOBAL_LIST_INIT(npc_statpacks, build_npc_statpacks())
 	H.STAWIL = resolve_stat(willpower, H.STAWIL)
 	H.STAPER = resolve_stat(perception, H.STAPER)
 	H.STALUC = resolve_stat(luck, H.STALUC)
-	apply_skills(H)
 
 /datum/npc_statpack/proc/resolve_stat(entry, current)
 	if(isnull(entry))
@@ -49,7 +47,3 @@ GLOBAL_LIST_INIT(npc_statpacks, build_npc_statpacks())
 	if(length(range) < 2)
 		return length(range) ? range[1] : current
 	return rand(range[1], range[2])
-
-/datum/npc_statpack/proc/apply_skills(mob/living/carbon/human/H)
-	for(var/skill in skills)
-		H.adjust_skillrank_up_to(skill, skills[skill], TRUE)

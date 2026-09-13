@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(npc_archetypes, build_npc_archetypes())
 	if(npc_body)
 		npc_body.apply_setup(H)
 	for(var/trait in traits)
-		var/trait_source = traits[trait] || TRAIT_GENERIC
+		var/trait_source = traits[trait] || INNATE_TRAIT
 		ADD_TRAIT(H, trait, trait_source)
 	if(npc_statpack)
 		npc_statpack.apply(H)

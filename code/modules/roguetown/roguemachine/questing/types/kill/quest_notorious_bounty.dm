@@ -196,7 +196,7 @@
 	RegisterSignal(boss, COMSIG_LIVING_DEATH, PROC_REF(on_player_boss_death))
 	// Prevent the mob from getting instaambushed
 	boss.ambushable = FALSE
-	REMOVE_TRAIT(boss, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
+	REMOVE_TRAIT(boss, TRAIT_NPC_EXAMINE, list(TRAIT_GENERIC, INNATE_TRAIT))
 	ADD_TRAIT(boss, TRAIT_TEMPO, TRAIT_GENERIC)
 	boss.adjust_skillrank(/datum/skill/misc/tracking, 6, TRUE) //You should be able to hunt your hunters back!
 	boss.adjust_skillrank(/datum/skill/misc/climbing, 4, TRUE)

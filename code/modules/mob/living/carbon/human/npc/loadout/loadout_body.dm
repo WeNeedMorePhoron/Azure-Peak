@@ -51,10 +51,8 @@ GLOBAL_LIST_INIT(npc_bodies, build_npc_bodies())
 		TRAIT_NOHUNGER,
 		TRAIT_BREADY,
 		TRAIT_NPC_EXAMINE,
-		TRAIT_LEECHIMMUNE = INNATE_TRAIT,
+		TRAIT_LEECHIMMUNE,
 	)
-
-//** APPLICATION **//
 
 /datum/npc_body/proc/apply_early(mob/living/carbon/human/H)
 	if(!H)
@@ -79,7 +77,7 @@ GLOBAL_LIST_INIT(npc_bodies, build_npc_bodies())
 	if(death_line_chance > 0)
 		H.AddComponent(/datum/component/npc_death_line, death_lines, death_line_chance)
 	for(var/trait in traits)
-		var/trait_source = traits[trait] || TRAIT_GENERIC
+		var/trait_source = traits[trait] || INNATE_TRAIT
 		ADD_TRAIT(H, trait, trait_source)
 	if(patron)
 		H.set_patron(patron)
