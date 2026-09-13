@@ -205,7 +205,7 @@
 // Heavily armored orc with complete iron protection, heavy armor, and a two hander. Is able to do special attacks.
 /datum/outfit/job/roguetown/orc/npc/warlord/pre_equip(mob/living/carbon/human/H)
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/iron/banded //Tough upgrade for ironclad, pretty average for anyone else who can't use heavy armor 
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/iron/banded //Tough upgrade for ironclad, pretty average for anyone else who can't use heavy armor
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail
 	pants = /obj/item/clothing/under/roguetown/chainlegs/iron
 	head = /obj/item/clothing/head/roguetown/helmet/sallet/iron/banded
@@ -279,13 +279,6 @@
 	var/obj/item/bodypart/head/jug_head = get_bodypart(BODY_ZONE_HEAD)
 	if(jug_head)
 		jug_head.sellprice = HEAD_BOUNTY_BIG_GUY
-	for(var/obj/item/gear in get_equipped_items() + held_items)
-		lock_gear_piece(gear, "orc_juggernaut_gear")
-
-/mob/living/carbon/human/species/orc/npc/juggernaut/death(gibbed, nocutscene = FALSE)
-	. = ..()
-	for(var/obj/item/gear in get_equipped_items() + held_items)
-		REMOVE_TRAIT(gear, TRAIT_NODROP, "orc_juggernaut_gear")
 
 /datum/outfit/job/roguetown/orc/npc/warlord/juggernaut/pre_equip(mob/living/carbon/human/H)
 	..()

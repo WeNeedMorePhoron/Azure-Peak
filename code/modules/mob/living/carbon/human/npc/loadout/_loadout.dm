@@ -1,5 +1,3 @@
-#define NPC_LOADOUT_TRAIT "npc_loadout"
-
 GLOBAL_LIST_INIT(npc_loadout_slots, list(
 	"head",
 	"mask",
@@ -40,6 +38,16 @@ GLOBAL_LIST_INIT(npc_loadouts, build_npc_loadouts())
 		if(IS_ABSTRACT(loadout_type))
 			continue
 		.[loadout_type] = new loadout_type()
+
+/proc/resolve_npc_pick(entry)
+	if(!islist(entry))
+		return entry
+	var/list/options = entry
+	if(!length(options))
+		return null
+	if(isnull(options[options[1]]))
+		return pick(options)
+	return pickweight(options.Copy())
 
 /proc/get_npc_loadout(datum/npc_loadout/loadout)
 	if(istype(loadout))
@@ -110,14 +118,7 @@ GLOBAL_LIST_INIT(npc_loadouts, build_npc_loadouts())
 		apply_skills(H)
 
 /datum/npc_loadout/proc/resolve_entry(entry)
-	if(!islist(entry))
-		return entry
-	var/list/options = entry
-	if(!length(options))
-		return null
-	if(isnull(options[options[1]]))
-		return pick(options)
-	return pickweight(options.Copy())
+	return resolve_npc_pick(entry)
 
 /datum/npc_loadout/proc/apply_backpack(datum/outfit/npc/outfit)
 	for(var/path in backpack_contents)

@@ -524,13 +524,6 @@
 	var/obj/item/bodypart/head/marshal_head = get_bodypart(BODY_ZONE_HEAD)
 	if(marshal_head)
 		marshal_head.sellprice = HEAD_BOUNTY_BIG_GUY
-	for(var/obj/item/gear in get_equipped_items() + held_items)
-		lock_gear_piece(gear, "bog_marshal_gear")
-
-/mob/living/carbon/human/species/human/northern/bog_deserters/marshal/death(gibbed, nocutscene = FALSE)
-	. = ..()
-	for(var/obj/item/gear in get_equipped_items() + held_items)
-		REMOVE_TRAIT(gear, TRAIT_NODROP, "bog_marshal_gear")
 
 /datum/outfit/job/roguetown/human/northern/bog_deserters/better_gear/marshal/pre_equip(mob/living/carbon/human/H)
 	..()

@@ -213,13 +213,6 @@ GLOBAL_LIST_INIT(searaider_aggro, world.file2list("strings/rt/searaideraggroline
 	job = "Sea Raider Huscarl"
 	ADD_TRAIT(src, TRAIT_BADTRAINER, TRAIT_GENERIC)
 	regenerate_icons()
-	for(var/obj/item/gear in get_equipped_items() + held_items)
-		lock_gear_piece(gear, "searaider_huscarl_gear")
-
-/mob/living/carbon/human/species/human/northern/searaider/huscarl/death(gibbed, nocutscene = FALSE)
-	. = ..()
-	for(var/obj/item/gear in get_equipped_items() + held_items)
-		REMOVE_TRAIT(gear, TRAIT_NODROP, "searaider_huscarl_gear")
 
 /datum/outfit/job/roguetown/human/species/human/northern/searaider/huscarl/pre_equip(mob/living/carbon/human/H)
 	..()

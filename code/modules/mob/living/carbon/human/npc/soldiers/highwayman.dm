@@ -275,13 +275,6 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 	ADD_TRAIT(src, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_BADTRAINER, TRAIT_GENERIC)
 	regenerate_icons()
-	for(var/obj/item/gear in get_equipped_items() + held_items)
-		lock_gear_piece(gear, "road_knight_gear")
-
-/mob/living/carbon/human/species/human/northern/highwayman/road_knight/death(gibbed, nocutscene = FALSE)
-	. = ..()
-	for(var/obj/item/gear in get_equipped_items() + held_items)
-		REMOVE_TRAIT(gear, TRAIT_NODROP, "road_knight_gear")
 
 /datum/outfit/job/roguetown/human/species/human/northern/highwayman/road_knight/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -320,15 +313,6 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 	ADD_TRAIT(src, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_BADTRAINER, TRAIT_GENERIC)
 	regenerate_icons()
-	for(var/obj/item/gear in get_equipped_items())
-		if(gear == backr || gear == backl)
-			continue
-		lock_gear_piece(gear, "sharpshooter_gear")
-
-/mob/living/carbon/human/species/human/northern/highwayman/sharpshooter/death(gibbed, nocutscene = FALSE)
-	. = ..()
-	for(var/obj/item/gear in get_equipped_items())
-		REMOVE_TRAIT(gear, TRAIT_NODROP, "sharpshooter_gear")
 
 /datum/outfit/job/roguetown/human/species/human/northern/highwayman/sharpshooter/pre_equip(mob/living/carbon/human/H)
 	..()
