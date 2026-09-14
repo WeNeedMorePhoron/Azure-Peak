@@ -12,7 +12,7 @@
 		/datum/npc_skillpack/survival/journeyman,
 	)
 	loadouts = list(
-		/datum/npc_loadout/armor/light/gambeson,
+		/datum/npc_loadout/armor/light/gambeson/helmeted,
 		/datum/npc_loadout/kit/militia_flavor,
 		/datum/npc_loadout/weapon/militia_melee,
 	)
@@ -41,10 +41,6 @@
 	name = "militia clothing"
 	armor_training = ARMOR_CLASS_MEDIUM
 	cloak = /obj/item/clothing/cloak/tabard/stabard/guard
-	armor = list(
-		/obj/item/clothing/suit/roguetown/armor/leather = 1,
-		NPC_NOTHING = 3,
-	)
 	pants = list(
 		/obj/item/clothing/under/roguetown/trou/leather,
 		/obj/item/clothing/under/roguetown/trou,
@@ -52,13 +48,6 @@
 	belt = list(
 		/obj/item/storage/belt/rogue/leather = 90,
 		/obj/item/storage/belt/rogue/leather/knifebelt/iron = 10,
-	)
-	head = list(
-		/obj/item/clothing/head/roguetown/helmet/kettle/iron = 2,
-		/obj/item/clothing/head/roguetown/helmet/sallet/iron = 1,
-		/obj/item/clothing/head/roguetown/helmet/skullcap = 2,
-		/obj/item/clothing/head/roguetown/armingcap = 1,
-		NPC_NOTHING = 1,
 	)
 	neck = list(
 		/obj/item/clothing/neck/roguetown/leather = 19,

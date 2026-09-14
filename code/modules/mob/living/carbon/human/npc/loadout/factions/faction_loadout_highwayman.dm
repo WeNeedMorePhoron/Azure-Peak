@@ -32,7 +32,7 @@
 		/datum/npc_skillpack/climbing/journeyman,
 	)
 	loadouts = list(
-		/datum/npc_loadout/armor/light/leather,
+		/datum/npc_loadout/armor/light/leather/iron_bracers,
 		/datum/npc_loadout/kit/bandit_flavor/mount_reaver,
 		/datum/npc_loadout/weapon/bandit_melee,
 	)
@@ -50,7 +50,7 @@
 	loadouts = list(
 		/datum/npc_loadout/armor/light/leather,
 		/datum/npc_loadout/kit/bandit_flavor,
-		/datum/npc_loadout/kit/bandit_shooter,
+		/datum/npc_loadout/kit/archer_clothing,
 		/datum/npc_loadout/weapon/bandit_bow,
 	)
 	ai_controller = /datum/ai_controller/human_npc/archer
@@ -68,7 +68,7 @@
 	loadouts = list(
 		/datum/npc_loadout/armor/light/leather,
 		/datum/npc_loadout/kit/bandit_flavor,
-		/datum/npc_loadout/kit/bandit_shooter,
+		/datum/npc_loadout/kit/archer_clothing,
 		/datum/npc_loadout/weapon/bandit_crossbow,
 	)
 	ai_controller = /datum/ai_controller/human_npc/archer
@@ -89,8 +89,8 @@
 	)
 	loadouts = list(
 		/datum/npc_loadout/armor/light/leather,
-		/datum/npc_loadout/kit/bandit_flavor,
-		/datum/npc_loadout/armor/heavy/iron_chain/iron_plate/road_knight,
+		/datum/npc_loadout/kit/bandit_flavor/road_knight,
+		/datum/npc_loadout/armor/heavy/iron_chain/iron_plate,
 		/datum/npc_loadout/weapon/road_knight,
 	)
 
@@ -110,8 +110,9 @@
 	)
 	loadouts = list(
 		/datum/npc_loadout/armor/light/leather,
-		/datum/npc_loadout/kit/bandit_flavor,
-		/datum/npc_loadout/armor/heavy/iron_chain/cuirass/sharpshooter,
+		/datum/npc_loadout/kit/bandit_flavor/sharpshooter,
+		/datum/npc_loadout/armor/heavy/iron_chain/cuirass,
+		/datum/npc_loadout/weapon/sharpshooter_bow,
 	)
 	ai_controller = /datum/ai_controller/human_npc/archer
 
@@ -169,32 +170,19 @@
 
 /datum/npc_loadout/kit/bandit_flavor/mount_reaver
 	name = "mount reaver clothing"
-	wrists = /obj/item/clothing/wrists/roguetown/bracers/iron
 	mask = /obj/item/clothing/mask/rogue/ragmask/black
 	belt = list(
 		/obj/item/storage/belt/rogue/leather/rope = 77,
 		/obj/item/storage/belt/rogue/leather/knifebelt/iron = 23,
 	)
 
-//** ROLE KITS **//
-
-/datum/npc_loadout/kit/bandit_shooter
-	name = "bandit archer clothing"
-	clear_slots = list("head", "mask", "neck")
-	armor = /obj/item/clothing/suit/roguetown/shirt/rags
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant
-	gloves = /obj/item/clothing/gloves/roguetown/leather
-	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
-
-/datum/npc_loadout/armor/heavy/iron_chain/iron_plate/road_knight
+/datum/npc_loadout/kit/bandit_flavor/road_knight
+	name = "road knight clothing"
 	cloak = /obj/item/clothing/cloak/raincloak/furcloak/brown
 
-/datum/npc_loadout/armor/heavy/iron_chain/cuirass/sharpshooter
-	name = "iron chain with cuirass and bow"
+/datum/npc_loadout/kit/bandit_flavor/sharpshooter
+	name = "sharpshooter clothing"
 	cloak = /obj/item/clothing/cloak/raincloak/green
-	beltr = /obj/item/rogueweapon/sword/short/iron
-	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow
-	backl = /obj/item/quiver/randomfill/reaver
 
 //** WEAPONS **//
 
@@ -223,3 +211,8 @@
 /datum/npc_loadout/weapon/road_knight
 	r_hand = /obj/item/rogueweapon/sword/iron
 	l_hand = /obj/item/rogueweapon/shield/heater
+
+/datum/npc_loadout/weapon/sharpshooter_bow
+	beltr = /obj/item/rogueweapon/sword/short/iron
+	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow
+	backl = /obj/item/quiver/randomfill/reaver

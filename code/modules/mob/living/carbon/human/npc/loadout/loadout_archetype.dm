@@ -29,6 +29,7 @@ GLOBAL_LIST_INIT(npc_archetypes, build_npc_archetypes())
 	var/outfit_type = /datum/outfit/npc
 	var/list/loadouts
 	var/list/loadout_pools
+	var/list/variants
 	var/ai_controller
 	var/list/traits
 
@@ -66,6 +67,19 @@ GLOBAL_LIST_INIT(npc_archetypes, build_npc_archetypes())
 		if(skillpack)
 			skillpack.apply(H)
 
+/datum/npc_archetype/proc/resolve_variant()
+	var/datum/npc_archetype/archetype = src
+	for(var/depth in 1 to 5)
+		if(!length(archetype.variants))
+			return archetype
+		var/datum/npc_archetype/next = get_npc_archetype(resolve_npc_pick(archetype.variants))
+		if(!next)
+			stack_trace("npc archetype [archetype.type] rolled an unregistered variant")
+			return archetype
+		archetype = next
+	stack_trace("npc archetype [type] variants nest too deep")
+	return archetype
+
 /datum/npc_archetype/proc/build_outfit()
 	var/datum/outfit/npc/outfit = new outfit_type
 	outfit.loadouts = resolve_loadouts()
@@ -84,6 +98,8 @@ GLOBAL_LIST_INIT(npc_archetypes, build_npc_archetypes())
 	var/datum/npc_archetype/archetype = get_npc_archetype(npc_archetype)
 	if(!archetype)
 		return
+	archetype = archetype.resolve_variant()
+	npc_archetype = archetype.type
 	archetype.apply_early(src)
 	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 

@@ -16,8 +16,7 @@
 		/datum/npc_skillpack/athletics/apprentice,
 	)
 	loadouts = list(
-		/datum/npc_loadout/kit/reiver_lowgear,
-		/datum/npc_loadout/kit/reiver_flavor,
+		/datum/npc_loadout/kit/reiver_flavor/lowgear,
 		/datum/npc_loadout/weapon/reiver_lowgear,
 	)
 
@@ -31,8 +30,8 @@
 		/datum/npc_skillpack/riding/journeyman,
 	)
 	loadouts = list(
-		/datum/npc_loadout/kit/reiver_midgear,
-		/datum/npc_loadout/kit/reiver_flavor,
+		/datum/npc_loadout/kit/reiver_flavor/mounted,
+		/datum/npc_loadout/armor/medium/steel_mixed,
 		/datum/npc_loadout/weapon/reiver_midgear,
 	)
 
@@ -46,8 +45,8 @@
 		/datum/npc_skillpack/riding/journeyman,
 	)
 	loadouts = list(
-		/datum/npc_loadout/kit/reiver_midgear/highgear,
-		/datum/npc_loadout/kit/reiver_flavor,
+		/datum/npc_loadout/kit/reiver_flavor/mounted,
+		/datum/npc_loadout/armor/heavy/steel_chain,
 		/datum/npc_loadout/weapon/reiver_highgear,
 	)
 
@@ -60,56 +59,10 @@
 	aggro_lines_file = "strings/rt/highwaymanaggrolines.txt"
 	head_sellprice = HEAD_BOUNTY_REIVER
 
-//** GEAR **//
-
-/datum/npc_loadout/kit/reiver_lowgear
-	name = "reiver low gear"
-	armor_training = ARMOR_CLASS_MEDIUM
-	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/lord/light
-	neck = /obj/item/clothing/neck/roguetown/leather
-	head = list(
-		/obj/item/clothing/head/roguetown/helmet,
-		/obj/item/clothing/head/roguetown/knitcap,
-		/obj/item/clothing/head/roguetown/brimmed,
-		/obj/item/clothing/head/roguetown/roguehood/mageblue,
-	)
-	pants = /obj/item/clothing/under/roguetown/tights
-	shoes = /obj/item/clothing/shoes/roguetown/boots
-
-/datum/npc_loadout/kit/reiver_midgear
-	name = "reiver mid gear"
-	armor_training = ARMOR_CLASS_MEDIUM
-	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/lord
-	armor = list(
-		/obj/item/clothing/suit/roguetown/armor/brigandine/light,
-		/obj/item/clothing/suit/roguetown/armor/chainmail/hauberk,
-		/obj/item/clothing/suit/roguetown/armor/plate/cuirass,
-		/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted,
-	)
-	neck = /obj/item/clothing/neck/roguetown/leather
-	mask = /obj/item/clothing/head/roguetown/armingcap/padded
-	head = list(
-		/obj/item/clothing/head/roguetown/helmet,
-		/obj/item/clothing/head/roguetown/helmet/skullcap,
-		/obj/item/clothing/head/roguetown/helmet/sallet,
-	)
-	gloves = /obj/item/clothing/gloves/roguetown/angle
-	wrists = /obj/item/clothing/wrists/roguetown/bracers/jackchain
-	pants = /obj/item/clothing/under/roguetown/brigandinelegs
-	shoes = /obj/item/clothing/shoes/roguetown/ridingboots
-
-/datum/npc_loadout/kit/reiver_midgear/highgear
-	name = "reiver high gear"
-	armor_training = ARMOR_CLASS_HEAVY
-	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/heavy
-	neck = /obj/item/clothing/neck/roguetown/chaincoif
-	head = /obj/item/clothing/head/roguetown/helmet
-	wrists = /obj/item/clothing/wrists/roguetown/bracers
-
 //** FLAVOR **//
 
 /datum/npc_loadout/kit/reiver_flavor
-	name = "reiver clothing"
+	abstract_type = /datum/npc_loadout/kit/reiver_flavor
 	cloak = list(
 		/obj/item/clothing/cloak/raincloak/mageblue,
 		/obj/item/clothing/cloak/thief_cloak/mageblue,
@@ -139,6 +92,28 @@
 		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot,
 		/obj/item/rogueweapon/stoneaxe/handaxe,
 	)
+
+/datum/npc_loadout/kit/reiver_flavor/lowgear
+	name = "reiver foot clothing"
+	armor_training = ARMOR_CLASS_MEDIUM
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/lord/light
+	neck = /obj/item/clothing/neck/roguetown/leather
+	head = list(
+		/obj/item/clothing/head/roguetown/helmet,
+		/obj/item/clothing/head/roguetown/knitcap,
+		/obj/item/clothing/head/roguetown/brimmed,
+		/obj/item/clothing/head/roguetown/roguehood/mageblue,
+	)
+	pants = /obj/item/clothing/under/roguetown/tights
+	shoes = /obj/item/clothing/shoes/roguetown/boots
+
+/datum/npc_loadout/kit/reiver_flavor/mounted
+	name = "reiver mounted clothing"
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/lord
+	neck = /obj/item/clothing/neck/roguetown/leather
+	mask = /obj/item/clothing/head/roguetown/armingcap/padded
+	gloves = /obj/item/clothing/gloves/roguetown/angle
+	shoes = /obj/item/clothing/shoes/roguetown/ridingboots
 
 //** WEAPONS **//
 

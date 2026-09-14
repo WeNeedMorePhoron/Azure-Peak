@@ -11,6 +11,20 @@
 	pants = /obj/item/clothing/under/roguetown/trou/leather
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 
+/datum/npc_loadout/armor/light/gambeson/helmeted
+	name = "gambeson with helmet"
+	armor = list(
+		/obj/item/clothing/suit/roguetown/armor/leather = 1,
+		NPC_NOTHING = 3,
+	)
+	head = list(
+		/obj/item/clothing/head/roguetown/helmet/kettle/iron = 2,
+		/obj/item/clothing/head/roguetown/helmet/sallet/iron = 1,
+		/obj/item/clothing/head/roguetown/helmet/skullcap = 2,
+		/obj/item/clothing/head/roguetown/armingcap = 1,
+		NPC_NOTHING = 1,
+	)
+
 //** LEATHER **//
 
 /datum/npc_loadout/armor/light/leather
@@ -20,6 +34,10 @@
 	pants = /obj/item/clothing/under/roguetown/trou/leather
 	gloves = /obj/item/clothing/gloves/roguetown/leather
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
+
+/datum/npc_loadout/armor/light/leather/iron_bracers
+	name = "leather armor with iron bracers"
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/iron
 
 //** STUDDED **//
 

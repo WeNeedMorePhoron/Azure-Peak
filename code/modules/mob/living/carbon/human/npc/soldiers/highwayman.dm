@@ -1,5 +1,3 @@
-GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggrolines.txt"))
-
 /mob/living/carbon/human/species/human/northern/highwayman
 	npc_archetype = /datum/npc_archetype/highwayman
 	ai_controller = /datum/ai_controller/human_npc
