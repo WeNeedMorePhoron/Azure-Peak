@@ -30,14 +30,23 @@ GLOBAL_LIST_INIT(npc_loadout_slots, list(
 	"r_hand",
 ))
 
-GLOBAL_LIST_INIT(npc_loadouts, build_npc_loadouts())
+GLOBAL_LIST_INIT(npc_parts, build_npc_parts())
 
-/proc/build_npc_loadouts()
+/proc/build_npc_parts()
 	. = list()
-	for(var/datum/npc_loadout/loadout_type as anything in subtypesof(/datum/npc_loadout))
-		if(IS_ABSTRACT(loadout_type))
+	for(var/datum/npc_part/part_type as anything in subtypesof(/datum/npc_part))
+		if(IS_ABSTRACT(part_type))
 			continue
-		.[loadout_type] = new loadout_type()
+		.[part_type] = new part_type()
+
+/proc/get_npc_part(datum/npc_part/part)
+	if(istype(part))
+		return part
+	if(!ispath(part, /datum/npc_part))
+		return null
+	. = GLOB.npc_parts[part]
+	if(!.)
+		stack_trace("get_npc_part called with unregistered part type [part]")
 
 /proc/resolve_npc_pick(entry)
 	if(!islist(entry))
@@ -49,19 +58,12 @@ GLOBAL_LIST_INIT(npc_loadouts, build_npc_loadouts())
 		return pick(options)
 	return pickweight(options.Copy())
 
-/proc/get_npc_loadout(datum/npc_loadout/loadout)
-	if(istype(loadout))
-		return loadout
-	if(!ispath(loadout, /datum/npc_loadout))
-		return null
-	. = GLOB.npc_loadouts[loadout]
-	if(!.)
-		stack_trace("get_npc_loadout called with unregistered loadout type [loadout]")
+/datum/npc_part
+	abstract_type = /datum/npc_part
 
 /datum/npc_loadout
+	parent_type = /datum/npc_part
 	abstract_type = /datum/npc_loadout
-	var/name = "loadout"
-	var/armor_training = ARMOR_CLASS_NONE
 	var/list/skills
 	var/list/traits
 	var/list/weapons
@@ -110,7 +112,7 @@ GLOBAL_LIST_INIT(npc_loadouts, build_npc_loadouts())
 		var/entry = vars[slot]
 		if(isnull(entry))
 			continue
-		var/resolved = resolve_entry(entry)
+		var/resolved = resolve_npc_pick(entry)
 		if(resolved == NPC_NOTHING)
 			continue
 		outfit.vars[slot] = resolved
@@ -119,9 +121,6 @@ GLOBAL_LIST_INIT(npc_loadouts, build_npc_loadouts())
 	if(!visualsOnly)
 		apply_skills(H)
 		apply_traits(H)
-
-/datum/npc_loadout/proc/resolve_entry(entry)
-	return resolve_npc_pick(entry)
 
 /datum/npc_loadout/proc/apply_weapons(datum/outfit/npc/outfit)
 	if(!length(weapons))

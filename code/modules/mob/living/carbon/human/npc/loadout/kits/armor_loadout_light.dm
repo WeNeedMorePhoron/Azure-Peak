@@ -2,17 +2,14 @@
 
 /datum/npc_loadout/armor/light
 	abstract_type = /datum/npc_loadout/armor/light
-	armor_training = ARMOR_CLASS_LIGHT
 
 /datum/npc_loadout/armor/light/gambeson
-	name = "gambeson with leather"
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	pants = /obj/item/clothing/under/roguetown/trou/leather
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 
 /datum/npc_loadout/armor/light/gambeson/helmeted
-	name = "gambeson with helmet"
 	armor = list(
 		/obj/item/clothing/suit/roguetown/armor/leather = 1,
 		NPC_NOTHING = 3,
@@ -28,7 +25,6 @@
 //** LEATHER **//
 
 /datum/npc_loadout/armor/light/leather
-	name = "leather armor"
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	armor = /obj/item/clothing/suit/roguetown/armor/leather
 	pants = /obj/item/clothing/under/roguetown/trou/leather
@@ -36,13 +32,41 @@
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 
 /datum/npc_loadout/armor/light/leather/iron_bracers
-	name = "leather armor with iron bracers"
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/iron
+
+//** HIDE **//
+
+/datum/npc_loadout/armor/light/hide
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	armor = /obj/item/clothing/suit/roguetown/armor/leather/hide
+	head = /obj/item/clothing/head/roguetown/helmet/leather
+
+/datum/npc_loadout/armor/light/hide/mixed
+	armor = list(
+		/obj/item/clothing/suit/roguetown/armor/leather/hide,
+		/obj/item/clothing/suit/roguetown/armor/leather,
+	)
+	head = list(
+		/obj/item/clothing/head/roguetown/helmet/horned = 1, //SOVL
+		/obj/item/clothing/head/roguetown/helmet/leather/volfhelm = 1,
+		/obj/item/clothing/head/roguetown/helmet/leather = 1,
+		NPC_NOTHING = 3,
+	)
+
+/datum/npc_loadout/armor/light/hide/gambeson
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/light
+	pants = /obj/item/clothing/under/roguetown/trou/leather
+	neck = /obj/item/clothing/neck/roguetown/coif
+	mask = /obj/item/clothing/mask/rogue/facemask
+	shoes = /obj/item/clothing/shoes/roguetown/boots
+	head = list(
+		/obj/item/clothing/head/roguetown/helmet/skullcap,
+		/obj/item/clothing/head/roguetown/helmet/horned,
+	)
 
 //** STUDDED **//
 
 /datum/npc_loadout/armor/light/studded
-	name = "studded leather armor"
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
@@ -52,7 +76,6 @@
 //** BRIGANDINE **//
 
 /datum/npc_loadout/armor/light/brigandine
-	name = "light brigandine armor"
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/brigandine
 	armor = /obj/item/clothing/suit/roguetown/armor/brigandine/light
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson

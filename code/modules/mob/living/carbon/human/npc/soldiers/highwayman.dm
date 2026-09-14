@@ -19,13 +19,11 @@
 
 /mob/living/carbon/human/species/human/northern/highwayman/archer
 	npc_archetype = /datum/npc_archetype/highwayman/archer
-	ai_controller = /datum/ai_controller/human_npc/archer
 	threat_point = THREAT_HIGH
 	ambush_faction = "bandits"
 
 /mob/living/carbon/human/species/human/northern/highwayman/crossbowman
 	npc_archetype = /datum/npc_archetype/highwayman/crossbowman
-	ai_controller = /datum/ai_controller/human_npc/archer
 	threat_point = THREAT_HIGH
 	ambush_faction = "bandits"
 
@@ -36,6 +34,5 @@
 
 /mob/living/carbon/human/species/human/northern/highwayman/sharpshooter
 	npc_archetype = /datum/npc_archetype/highwayman/sharpshooter
-	ai_controller = /datum/ai_controller/human_npc/archer
 	threat_point = THREAT_DEADLY
 	ambush_faction = "bandits"

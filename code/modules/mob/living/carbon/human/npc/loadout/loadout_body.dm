@@ -1,21 +1,4 @@
 GLOBAL_LIST_EMPTY(npc_aggro_lines)
-GLOBAL_LIST_INIT(npc_bodies, build_npc_bodies())
-
-/proc/build_npc_bodies()
-	. = list()
-	for(var/datum/npc_body/body_type as anything in subtypesof(/datum/npc_body))
-		if(IS_ABSTRACT(body_type))
-			continue
-		.[body_type] = new body_type()
-
-/proc/get_npc_body(datum/npc_body/body)
-	if(istype(body))
-		return body
-	if(!ispath(body, /datum/npc_body))
-		return null
-	. = GLOB.npc_bodies[body]
-	if(!.)
-		stack_trace("get_npc_body called with unregistered body type [body]")
 
 /proc/get_npc_aggro_lines(file)
 	if(!file)
@@ -26,8 +9,8 @@ GLOBAL_LIST_INIT(npc_bodies, build_npc_bodies())
 		GLOB.npc_aggro_lines[file] = .
 
 /datum/npc_body
+	parent_type = /datum/npc_part
 	abstract_type = /datum/npc_body
-	var/name = "body"
 	var/species
 	var/list/species_pool
 	var/body_gender

@@ -2,10 +2,8 @@
 
 /datum/npc_loadout/armor/medium
 	abstract_type = /datum/npc_loadout/armor/medium
-	armor_training = ARMOR_CLASS_MEDIUM
 
 /datum/npc_loadout/armor/medium/iron_hauberk
-	name = "iron hauberk"
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/iron
 	neck = /obj/item/clothing/neck/roguetown/coif/heavypadding
@@ -18,7 +16,6 @@
 //** STEEL **//
 
 /datum/npc_loadout/armor/medium/steel_mixed
-	name = "mixed steel armor"
 	armor = list(
 		/obj/item/clothing/suit/roguetown/armor/brigandine/light,
 		/obj/item/clothing/suit/roguetown/armor/chainmail/hauberk,
@@ -33,10 +30,24 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/jackchain
 	pants = /obj/item/clothing/under/roguetown/brigandinelegs
 
+//** CHAINMAIL **//
+
+/datum/npc_loadout/armor/medium/chainmail
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/light
+	armor = /obj/item/clothing/suit/roguetown/armor/chainmail
+	pants = /obj/item/clothing/under/roguetown/chainlegs/iron
+	neck = /obj/item/clothing/neck/roguetown/coif
+	mask = /obj/item/clothing/mask/rogue/facemask
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	shoes = /obj/item/clothing/shoes/roguetown/boots
+	head = list(
+		/obj/item/clothing/head/roguetown/helmet/leather/volfhelm,
+		/obj/item/clothing/head/roguetown/helmet/leather,
+	)
+
 //** SCAVENGED **//
 
 /datum/npc_loadout/armor/medium/scavenged
-	name = "scavenged armor"
 	armor = list(
 		/obj/item/clothing/suit/roguetown/armor/chainmail/iron,
 		/obj/item/clothing/suit/roguetown/armor/leather/hide,
@@ -70,7 +81,6 @@
 	)
 
 /datum/npc_loadout/armor/medium/scavenged/archer
-	name = "scavenged armor with leather helm"
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/iron
 	head = /obj/item/clothing/head/roguetown/helmet/leather

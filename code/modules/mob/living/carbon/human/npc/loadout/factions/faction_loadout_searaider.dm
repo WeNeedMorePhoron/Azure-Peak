@@ -8,35 +8,28 @@
 	threat_point = THREAT_TOUGH
 	body = /datum/npc_body/northern_commoner/searaider
 	statpack = /datum/npc_statpack/searaider
-	skillpacks = list(
-		/datum/npc_skillpack/melee/journeyman,
-		/datum/npc_skillpack/brawl/journeyman,
-		/datum/npc_skillpack/survival/apprentice,
-	)
+	armor_training = ARMOR_CLASS_HEAVY
+	melee = SKILL_LEVEL_JOURNEYMAN
+	brawl = SKILL_LEVEL_JOURNEYMAN
+	survival = SKILL_LEVEL_APPRENTICE
 	loadouts = list(
 		/datum/npc_loadout/armor/medium/scavenged,
 		/datum/npc_loadout/kit/searaider_flavor,
+		list(
+			/datum/npc_loadout/weapon/searaider_melee = 5,
+			/datum/npc_loadout/weapon/searaider_dual_axes = 1,
+		),
 	)
-	loadout_pools = list(list(
-		/datum/npc_loadout/weapon/searaider_melee = 5,
-		/datum/npc_loadout/weapon/searaider_dual_axes = 1,
-	))
 
 /datum/npc_archetype/searaider/archer
 	name = "Sea Raider Archer"
 	statpack = /datum/npc_statpack/searaider/archer
-	skillpacks = list(
-		/datum/npc_skillpack/melee/journeyman,
-		/datum/npc_skillpack/brawl/journeyman,
-		/datum/npc_skillpack/survival/apprentice,
-		/datum/npc_skillpack/bows/journeyman,
-	)
+	skills = list(/datum/skill/combat/bows = SKILL_LEVEL_JOURNEYMAN)
 	loadouts = list(
 		/datum/npc_loadout/armor/medium/scavenged/archer,
 		/datum/npc_loadout/kit/searaider_flavor/archer,
 		/datum/npc_loadout/weapon/searaider_bow,
 	)
-	loadout_pools = null
 	ai_controller = /datum/ai_controller/human_npc/archer
 
 /datum/npc_archetype/searaider/archer/scarce
@@ -61,24 +54,20 @@
 	threat_point = THREAT_DEADLY
 	statpack = /datum/npc_statpack/searaider/huscarl
 	traits = list(TRAIT_BADTRAINER)
-	skillpacks = list(
-		/datum/npc_skillpack/melee/journeyman,
-		/datum/npc_skillpack/brawl/expert,
-		/datum/npc_skillpack/swords/master,
-		/datum/npc_skillpack/axes/expert,
-		/datum/npc_skillpack/survival/apprentice,
+	brawl = SKILL_LEVEL_EXPERT
+	skills = list(
+		/datum/skill/combat/swords = SKILL_LEVEL_MASTER,
+		/datum/skill/combat/axes = SKILL_LEVEL_EXPERT,
 	)
 	loadouts = list(
 		/datum/npc_loadout/kit/searaider_flavor/huscarl,
 		/datum/npc_loadout/armor/heavy/iron_chain/scale,
 		/datum/npc_loadout/weapon/searaider_greatsword,
 	)
-	loadout_pools = null
 
 //** BODY **//
 
 /datum/npc_body/northern_commoner/searaider
-	name = "sea raider"
 	male_name_file = "strings/rt/names/human/vikingm.txt"
 	female_name_file = "strings/rt/names/human/vikingf.txt"
 	aggro_lines_file = "strings/rt/searaideraggrolines.txt"
@@ -91,7 +80,6 @@
 //** STATS **//
 
 /datum/npc_statpack/searaider
-	name = "sea raider"
 	strength = 14
 	speed = 9
 	constitution = 7
@@ -100,13 +88,11 @@
 	intelligence = 8 //Minimal req to use specials
 
 /datum/npc_statpack/searaider/archer
-	name = "sea raider archer"
 	strength = 12
 	willpower = 7
 	perception = 11
 
 /datum/npc_statpack/searaider/huscarl
-	name = "sea raider huscarl"
 	strength = 15
 	constitution = 10
 	willpower = 9
@@ -115,8 +101,6 @@
 //** FLAVOR **//
 
 /datum/npc_loadout/kit/searaider_flavor
-	name = "sea raider clothing"
-	armor_training = ARMOR_CLASS_HEAVY
 	belt = /obj/item/storage/belt/rogue/leather //Cosmetic + Holding repair kits for looting mostly.
 	beltl = list(
 		/obj/item/repair_kit/bad = 15, //So you can get repair kits easier from looting them
@@ -142,19 +126,16 @@
 	)
 
 /datum/npc_loadout/kit/searaider_flavor/archer
-	name = "sea raider archer clothing"
 	shirt = /obj/item/clothing/suit/roguetown/shirt/tunic
 	pants = /obj/item/clothing/under/roguetown/tights
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 
 /datum/npc_loadout/kit/searaider_flavor/huscarl
-	name = "sea raider huscarl clothing"
 	cloak = /obj/item/clothing/cloak/raincloak/furcloak/brown
 
 //** WEAPONS **//
 
 /datum/npc_loadout/weapon/searaider_melee
-	name = "sea raider melee weapons"
 	weapons = list(
 		list(/obj/item/rogueweapon/sword/iron, /obj/item/rogueweapon/shield/wood),
 		list(/obj/item/rogueweapon/stoneaxe/handaxe, /obj/item/rogueweapon/shield/wood),
@@ -164,7 +145,6 @@
 	)
 
 /datum/npc_loadout/weapon/searaider_dual_axes
-	name = "sea raider dual axes"
 	r_hand = /obj/item/rogueweapon/stoneaxe/handaxe/copper
 	l_hand = /obj/item/rogueweapon/stoneaxe/handaxe/copper
 	traits = list(TRAIT_DUALWIELDER)

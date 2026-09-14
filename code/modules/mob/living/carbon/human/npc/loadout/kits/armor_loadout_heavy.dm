@@ -2,7 +2,6 @@
 
 /datum/npc_loadout/armor/heavy
 	abstract_type = /datum/npc_loadout/armor/heavy
-	armor_training = ARMOR_CLASS_HEAVY
 
 /datum/npc_loadout/armor/heavy/iron_chain
 	abstract_type = /datum/npc_loadout/armor/heavy/iron_chain
@@ -16,20 +15,19 @@
 	belt = /obj/item/storage/belt/rogue/leather
 
 /datum/npc_loadout/armor/heavy/iron_chain/iron_plate
-	name = "iron chain with iron plate"
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/iron
 
 /datum/npc_loadout/armor/heavy/iron_chain/cuirass
-	name = "iron chain with cuirass"
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron
 
 /datum/npc_loadout/armor/heavy/iron_chain/full_plate
-	name = "iron chain with full plate"
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/full/iron
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/full
 
+/datum/npc_loadout/armor/heavy/iron_chain/full_plate/iron_coif
+	neck = /obj/item/clothing/neck/roguetown/chaincoif/iron
+
 /datum/npc_loadout/armor/heavy/iron_chain/mixed_plate
-	name = "iron chain with mixed plate"
 	armor = list(
 		/obj/item/clothing/suit/roguetown/armor/brigandine/light,
 		/obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron,
@@ -39,14 +37,27 @@
 	head = /obj/item/clothing/head/roguetown/helmet/heavy/knight/skettle
 
 /datum/npc_loadout/armor/heavy/iron_chain/scale
-	name = "iron chain with scale"
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/scale/iron
 	head = /obj/item/clothing/head/roguetown/helmet/heavy/knight/old/iron
+
+//** BANDED IRON **//
+
+/datum/npc_loadout/armor/heavy/banded_iron
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/iron/banded
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail
+	head = /obj/item/clothing/head/roguetown/helmet/sallet/iron/banded
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
+	pants = /obj/item/clothing/under/roguetown/chainlegs/iron
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced //Stays cause this is slightly-higher-ended
+	neck = list(
+		/obj/item/clothing/neck/roguetown/gorget, //SOVL
+		/obj/item/clothing/neck/roguetown/chaincoif/iron,
+		/obj/item/clothing/neck/roguetown/bevor/iron,
+	)
 
 //** STEEL CHAIN **//
 
 /datum/npc_loadout/armor/heavy/steel_chain
-	name = "steel chain"
 	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/heavy
 	neck = /obj/item/clothing/neck/roguetown/chaincoif
 	head = /obj/item/clothing/head/roguetown/helmet

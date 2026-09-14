@@ -1,7 +1,6 @@
 //** ARCHER **//
 
 /datum/npc_loadout/kit/archer_clothing
-	name = "archer clothing"
 	clear_slots = list("head", "mask", "neck")
 	armor = /obj/item/clothing/suit/roguetown/shirt/rags
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant
@@ -11,6 +10,5 @@
 //** THROWING KNIVES **//
 
 /datum/npc_loadout/kit/throwing_knives
-	name = "throwing knives"
 	belt = /obj/item/storage/belt/rogue/leather/knifebelt/iron
 	skills = list(/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN)

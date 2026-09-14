@@ -6,11 +6,10 @@
 	category = FACTION_STATION
 	body = /datum/npc_body/northern_commoner/soldier/militia
 	statpack = /datum/npc_statpack/rabble
-	skillpacks = list(
-		/datum/npc_skillpack/melee/apprentice,
-		/datum/npc_skillpack/brawl/apprentice,
-		/datum/npc_skillpack/survival/journeyman,
-	)
+	armor_training = ARMOR_CLASS_MEDIUM
+	melee = SKILL_LEVEL_APPRENTICE
+	brawl = SKILL_LEVEL_APPRENTICE
+	survival = SKILL_LEVEL_JOURNEYMAN
 	loadouts = list(
 		/datum/npc_loadout/armor/light/gambeson/helmeted,
 		/datum/npc_loadout/kit/militia_flavor,
@@ -27,19 +26,15 @@
 //** BODY **//
 
 /datum/npc_body/northern_commoner/soldier/militia
-	name = "militia"
 	aggro_lines_file = "strings/rt/highwaymanaggrolines.txt"
 	death_line_chance = 25
 
 /datum/npc_body/northern_commoner/soldier/militia/deserter
-	name = "militia deserter"
 	head_sellprice = HEAD_BOUNTY_GOBLIN
 
 //** FLAVOR **//
 
 /datum/npc_loadout/kit/militia_flavor
-	name = "militia clothing"
-	armor_training = ARMOR_CLASS_MEDIUM
 	cloak = /obj/item/clothing/cloak/tabard/stabard/guard
 	pants = list(
 		/obj/item/clothing/under/roguetown/trou/leather,
@@ -62,7 +57,6 @@
 //** WEAPONS **//
 
 /datum/npc_loadout/weapon/militia_melee
-	name = "militia melee weapons"
 	weapons = list(
 		list(/obj/item/rogueweapon/woodstaff/militia),
 		list(/obj/item/rogueweapon/greataxe/militia),

@@ -5,16 +5,15 @@
 	job = "Border Reiver"
 	category = FACTION_REIVER
 	body = /datum/npc_body/border_reiver
+	armor_training = ARMOR_CLASS_MEDIUM
 	traits = list(TRAIT_STEELHEARTED)
 
 /datum/npc_archetype/border_reiver/lowgear
 	name = "Border Reiver (Low Gear)"
 	statpack = /datum/npc_statpack/skirmisher/soldier
-	skillpacks = list(
-		/datum/npc_skillpack/melee/journeyman,
-		/datum/npc_skillpack/brawl/journeyman,
-		/datum/npc_skillpack/athletics/apprentice,
-	)
+	melee = SKILL_LEVEL_JOURNEYMAN
+	brawl = SKILL_LEVEL_JOURNEYMAN
+	athletics = SKILL_LEVEL_APPRENTICE
 	loadouts = list(
 		/datum/npc_loadout/kit/reiver_flavor/lowgear,
 		/datum/npc_loadout/weapon/reiver_lowgear,
@@ -23,12 +22,10 @@
 /datum/npc_archetype/border_reiver/midgear
 	name = "Border Reiver (Mid Gear)"
 	statpack = /datum/npc_statpack/skirmisher/veteran
-	skillpacks = list(
-		/datum/npc_skillpack/melee/expert,
-		/datum/npc_skillpack/brawl/expert,
-		/datum/npc_skillpack/athletics/journeyman,
-		/datum/npc_skillpack/riding/journeyman,
-	)
+	melee = SKILL_LEVEL_EXPERT
+	brawl = SKILL_LEVEL_EXPERT
+	athletics = SKILL_LEVEL_JOURNEYMAN
+	skills = list(/datum/skill/misc/riding = SKILL_LEVEL_JOURNEYMAN)
 	loadouts = list(
 		/datum/npc_loadout/kit/reiver_flavor/mounted,
 		/datum/npc_loadout/armor/medium/steel_mixed,
@@ -38,12 +35,11 @@
 /datum/npc_archetype/border_reiver/highgear
 	name = "Border Reiver (High Gear)"
 	statpack = /datum/npc_statpack/skirmisher/champion
-	skillpacks = list(
-		/datum/npc_skillpack/melee/expert,
-		/datum/npc_skillpack/brawl/expert,
-		/datum/npc_skillpack/athletics/journeyman,
-		/datum/npc_skillpack/riding/journeyman,
-	)
+	armor_training = ARMOR_CLASS_HEAVY
+	melee = SKILL_LEVEL_EXPERT
+	brawl = SKILL_LEVEL_EXPERT
+	athletics = SKILL_LEVEL_JOURNEYMAN
+	skills = list(/datum/skill/misc/riding = SKILL_LEVEL_JOURNEYMAN)
 	loadouts = list(
 		/datum/npc_loadout/kit/reiver_flavor/mounted,
 		/datum/npc_loadout/armor/heavy/steel_chain,
@@ -53,7 +49,6 @@
 //** BODY **//
 
 /datum/npc_body/border_reiver
-	name = "border reiver"
 	species_pool = NPC_RACES_TYPES
 	beards = FALSE
 	aggro_lines_file = "strings/rt/highwaymanaggrolines.txt"
@@ -94,8 +89,6 @@
 	)
 
 /datum/npc_loadout/kit/reiver_flavor/lowgear
-	name = "reiver foot clothing"
-	armor_training = ARMOR_CLASS_MEDIUM
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/lord/light
 	neck = /obj/item/clothing/neck/roguetown/leather
 	head = list(
@@ -108,7 +101,6 @@
 	shoes = /obj/item/clothing/shoes/roguetown/boots
 
 /datum/npc_loadout/kit/reiver_flavor/mounted
-	name = "reiver mounted clothing"
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/lord
 	neck = /obj/item/clothing/neck/roguetown/leather
 	mask = /obj/item/clothing/head/roguetown/armingcap/padded
@@ -118,7 +110,6 @@
 //** WEAPONS **//
 
 /datum/npc_loadout/weapon/reiver_lowgear
-	name = "reiver low gear weapons"
 	weapons = list(
 		list(/obj/item/rogueweapon/pick/militia),
 		list(/obj/item/rogueweapon/greataxe/militia),
@@ -129,7 +120,6 @@
 	)
 
 /datum/npc_loadout/weapon/reiver_midgear
-	name = "reiver mid gear weapons"
 	weapons = list(
 		list(/obj/item/rogueweapon/spear/short, /obj/item/rogueweapon/shield/wood),
 		list(/obj/item/rogueweapon/sword/short, /obj/item/rogueweapon/shield/buckler),
@@ -139,7 +129,6 @@
 	)
 
 /datum/npc_loadout/weapon/reiver_highgear
-	name = "reiver high gear weapons"
 	weapons = list(
 		list(/obj/item/rogueweapon/spear/short, /obj/item/rogueweapon/shield/iron),
 		list(/obj/item/rogueweapon/sword/rapier, /obj/item/rogueweapon/shield/buckler),

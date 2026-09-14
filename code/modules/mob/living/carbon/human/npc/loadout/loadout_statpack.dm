@@ -1,24 +1,6 @@
-GLOBAL_LIST_INIT(npc_statpacks, build_npc_statpacks())
-
-/proc/build_npc_statpacks()
-	. = list()
-	for(var/datum/npc_statpack/statpack_type as anything in subtypesof(/datum/npc_statpack))
-		if(IS_ABSTRACT(statpack_type))
-			continue
-		.[statpack_type] = new statpack_type()
-
-/proc/get_npc_statpack(datum/npc_statpack/statpack)
-	if(istype(statpack))
-		return statpack
-	if(!ispath(statpack, /datum/npc_statpack))
-		return null
-	. = GLOB.npc_statpacks[statpack]
-	if(!.)
-		stack_trace("get_npc_statpack called with unregistered statpack type [statpack]")
-
 /datum/npc_statpack
+	parent_type = /datum/npc_part
 	abstract_type = /datum/npc_statpack
-	var/name = "statpack"
 	var/strength
 	var/speed
 	var/constitution

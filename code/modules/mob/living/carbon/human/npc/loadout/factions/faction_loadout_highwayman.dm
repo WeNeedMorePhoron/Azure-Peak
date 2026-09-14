@@ -8,11 +8,10 @@
 	threat_point = THREAT_HIGH
 	body = /datum/npc_body/northern_commoner/soldier/highwayman
 	statpack = /datum/npc_statpack/soldier
-	skillpacks = list(
-		/datum/npc_skillpack/melee/apprentice,
-		/datum/npc_skillpack/brawl/apprentice,
-		/datum/npc_skillpack/survival/apprentice,
-	)
+	armor_training = ARMOR_CLASS_MEDIUM
+	melee = SKILL_LEVEL_APPRENTICE
+	brawl = SKILL_LEVEL_APPRENTICE
+	survival = SKILL_LEVEL_APPRENTICE
 	loadouts = list(
 		/datum/npc_loadout/armor/light/leather,
 		/datum/npc_loadout/kit/bandit_flavor,
@@ -24,12 +23,11 @@
 	job = "Mount Reaver"
 	threat_point = THREAT_TOUGH
 	statpack = /datum/npc_statpack/veteran
-	skillpacks = list(
-		/datum/npc_skillpack/melee/journeyman,
-		/datum/npc_skillpack/brawl/journeyman,
-		/datum/npc_skillpack/wrestling/expert,
-		/datum/npc_skillpack/survival/apprentice,
-		/datum/npc_skillpack/climbing/journeyman,
+	melee = SKILL_LEVEL_JOURNEYMAN
+	brawl = SKILL_LEVEL_JOURNEYMAN
+	skills = list(
+		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 	)
 	loadouts = list(
 		/datum/npc_loadout/armor/light/leather/iron_bracers,
@@ -41,12 +39,7 @@
 	name = "Highwayman Archer"
 	job = "Highwayman Archer"
 	statpack = /datum/npc_statpack/soldier/marksman
-	skillpacks = list(
-		/datum/npc_skillpack/melee/apprentice,
-		/datum/npc_skillpack/brawl/apprentice,
-		/datum/npc_skillpack/survival/apprentice,
-		/datum/npc_skillpack/bows/expert,
-	)
+	skills = list(/datum/skill/combat/bows = SKILL_LEVEL_EXPERT)
 	loadouts = list(
 		/datum/npc_loadout/armor/light/leather,
 		/datum/npc_loadout/kit/bandit_flavor,
@@ -59,12 +52,7 @@
 	name = "Highwayman Crossbowman"
 	job = "Highwayman Crossbowman"
 	statpack = /datum/npc_statpack/soldier/marksman
-	skillpacks = list(
-		/datum/npc_skillpack/melee/apprentice,
-		/datum/npc_skillpack/brawl/apprentice,
-		/datum/npc_skillpack/survival/apprentice,
-		/datum/npc_skillpack/crossbows/expert,
-	)
+	skills = list(/datum/skill/combat/crossbows = SKILL_LEVEL_EXPERT)
 	loadouts = list(
 		/datum/npc_loadout/armor/light/leather,
 		/datum/npc_loadout/kit/bandit_flavor,
@@ -78,17 +66,15 @@
 	job = "Road Knight"
 	threat_point = THREAT_DEADLY
 	statpack = /datum/npc_statpack/champion
+	armor_training = ARMOR_CLASS_HEAVY
 	traits = list(TRAIT_BADTRAINER)
-	skillpacks = list(
-		/datum/npc_skillpack/melee/apprentice,
-		/datum/npc_skillpack/brawl/journeyman,
-		/datum/npc_skillpack/wrestling/expert,
-		/datum/npc_skillpack/swords/master,
-		/datum/npc_skillpack/shields/expert,
-		/datum/npc_skillpack/survival/apprentice,
+	brawl = SKILL_LEVEL_JOURNEYMAN
+	skills = list(
+		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/swords = SKILL_LEVEL_MASTER,
+		/datum/skill/combat/shields = SKILL_LEVEL_EXPERT,
 	)
 	loadouts = list(
-		/datum/npc_loadout/armor/light/leather,
 		/datum/npc_loadout/kit/bandit_flavor/road_knight,
 		/datum/npc_loadout/armor/heavy/iron_chain/iron_plate,
 		/datum/npc_loadout/weapon/road_knight,
@@ -99,17 +85,14 @@
 	job = "Highwayman Sharpshooter"
 	threat_point = THREAT_DEADLY
 	statpack = /datum/npc_statpack/champion/marksman
+	armor_training = ARMOR_CLASS_HEAVY
 	traits = list(TRAIT_BADTRAINER)
-	skillpacks = list(
-		/datum/npc_skillpack/melee/apprentice,
-		/datum/npc_skillpack/brawl/apprentice,
-		/datum/npc_skillpack/wrestling/journeyman,
-		/datum/npc_skillpack/swords/journeyman,
-		/datum/npc_skillpack/bows/master,
-		/datum/npc_skillpack/survival/apprentice,
+	skills = list(
+		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/bows = SKILL_LEVEL_MASTER,
 	)
 	loadouts = list(
-		/datum/npc_loadout/armor/light/leather,
 		/datum/npc_loadout/kit/bandit_flavor/sharpshooter,
 		/datum/npc_loadout/armor/heavy/iron_chain/cuirass,
 		/datum/npc_loadout/weapon/sharpshooter_bow,
@@ -119,15 +102,12 @@
 //** BODY **//
 
 /datum/npc_body/northern_commoner/soldier/highwayman
-	name = "highwayman"
 	aggro_lines_file = "strings/rt/highwaymanaggrolines.txt"
 	head_sellprice = HEAD_BOUNTY_HIGHWAYMAN
 
 //** FLAVOR **//
 
 /datum/npc_loadout/kit/bandit_flavor
-	name = "bandit clothing"
-	armor_training = ARMOR_CLASS_MEDIUM
 	shoes = list(
 		/obj/item/clothing/shoes/roguetown/boots/leather,
 		/obj/item/clothing/shoes/roguetown/boots,
@@ -169,7 +149,6 @@
 	)
 
 /datum/npc_loadout/kit/bandit_flavor/mount_reaver
-	name = "mount reaver clothing"
 	mask = /obj/item/clothing/mask/rogue/ragmask/black
 	belt = list(
 		/obj/item/storage/belt/rogue/leather/rope = 77,
@@ -177,17 +156,14 @@
 	)
 
 /datum/npc_loadout/kit/bandit_flavor/road_knight
-	name = "road knight clothing"
 	cloak = /obj/item/clothing/cloak/raincloak/furcloak/brown
 
 /datum/npc_loadout/kit/bandit_flavor/sharpshooter
-	name = "sharpshooter clothing"
 	cloak = /obj/item/clothing/cloak/raincloak/green
 
 //** WEAPONS **//
 
 /datum/npc_loadout/weapon/bandit_melee
-	name = "bandit melee weapons"
 	weapons = list(
 		list(/obj/item/rogueweapon/sword/short/iron, /obj/item/rogueweapon/shield/wood, 45),
 		list(/obj/item/rogueweapon/mace/cudgel, /obj/item/rogueweapon/shield/wood, 25),

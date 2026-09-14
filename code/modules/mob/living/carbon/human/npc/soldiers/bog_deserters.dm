@@ -23,7 +23,6 @@
 
 /mob/living/carbon/human/species/human/northern/bog_deserters/tosser
 	npc_archetype = /datum/npc_archetype/bog_deserter/tosser
-	ai_controller = /datum/ai_controller/human_npc/archer
 
 /mob/living/carbon/human/species/human/northern/bog_deserters/tosser/ambush
 	threat_point = THREAT_DANGEROUS
@@ -37,7 +36,6 @@
 
 /mob/living/carbon/human/species/human/northern/bog_deserters/archer
 	npc_archetype = /datum/npc_archetype/bog_deserter/archer
-	ai_controller = /datum/ai_controller/human_npc/archer
 
 /mob/living/carbon/human/species/human/northern/bog_deserters/archer/ambush
 	threat_point = THREAT_DANGEROUS
@@ -45,7 +43,6 @@
 
 /mob/living/carbon/human/species/human/northern/bog_deserters/crossbowman
 	npc_archetype = /datum/npc_archetype/bog_deserter/crossbowman
-	ai_controller = /datum/ai_controller/human_npc/archer
 
 /mob/living/carbon/human/species/human/northern/bog_deserters/crossbowman/ambush
 	threat_point = THREAT_DANGEROUS

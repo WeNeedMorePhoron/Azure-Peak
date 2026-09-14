@@ -13,7 +13,6 @@
 
 /mob/living/carbon/human/species/human/northern/searaider/archer
 	npc_archetype = /datum/npc_archetype/searaider/archer
-	ai_controller = /datum/ai_controller/human_npc/archer
 
 /mob/living/carbon/human/species/human/northern/searaider/archer/scarce
 	npc_archetype = /datum/npc_archetype/searaider/archer/scarce
