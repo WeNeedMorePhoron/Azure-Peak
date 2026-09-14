@@ -2566,6 +2566,7 @@
 #include "code\modules\mob\living\carbon\human\npc\loadout\factions\faction_loadout_border_reiver.dm"
 #include "code\modules\mob\living\carbon\human\npc\loadout\factions\faction_loadout_highwayman.dm"
 #include "code\modules\mob\living\carbon\human\npc\loadout\factions\faction_loadout_militia.dm"
+#include "code\modules\mob\living\carbon\human\npc\loadout\factions\faction_loadout_searaider.dm"
 #include "code\modules\mob\living\carbon\human\npc\loadout\kits\armor_loadout_heavy.dm"
 #include "code\modules\mob\living\carbon\human\npc\loadout\kits\armor_loadout_light.dm"
 #include "code\modules\mob\living\carbon\human\npc\loadout\kits\armor_loadout_medium.dm"

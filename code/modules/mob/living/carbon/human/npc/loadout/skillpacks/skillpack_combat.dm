@@ -153,3 +153,12 @@
 /datum/npc_skillpack/knives/expert
 	name = "expert knife"
 	skills = list(/datum/skill/combat/knives = SKILL_LEVEL_EXPERT)
+
+//** AXES **//
+
+/datum/npc_skillpack/axes
+	abstract_type = /datum/npc_skillpack/axes
+
+/datum/npc_skillpack/axes/expert
+	name = "expert axe"
+	skills = list(/datum/skill/combat/axes = SKILL_LEVEL_EXPERT)

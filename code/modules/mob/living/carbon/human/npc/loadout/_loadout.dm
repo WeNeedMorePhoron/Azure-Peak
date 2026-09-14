@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(npc_loadouts, build_npc_loadouts())
 	var/name = "loadout"
 	var/armor_training = ARMOR_CLASS_NONE
 	var/list/skills
+	var/list/traits
 	var/list/weapons
 	var/list/clear_slots
 	var/list/backpack_contents
@@ -117,6 +118,7 @@ GLOBAL_LIST_INIT(npc_loadouts, build_npc_loadouts())
 	apply_backpack(outfit)
 	if(!visualsOnly)
 		apply_skills(H)
+		apply_traits(H)
 
 /datum/npc_loadout/proc/resolve_entry(entry)
 	return resolve_npc_pick(entry)
@@ -146,6 +148,13 @@ GLOBAL_LIST_INIT(npc_loadouts, build_npc_loadouts())
 		return
 	for(var/skill in skills)
 		H.adjust_skillrank_up_to(skill, skills[skill], TRUE)
+
+/datum/npc_loadout/proc/apply_traits(mob/living/carbon/human/H)
+	if(!H)
+		return
+	for(var/trait in traits)
+		var/trait_source = traits[trait] || INNATE_TRAIT
+		ADD_TRAIT(H, trait, trait_source)
 
 /datum/npc_loadout/armor
 	abstract_type = /datum/npc_loadout/armor

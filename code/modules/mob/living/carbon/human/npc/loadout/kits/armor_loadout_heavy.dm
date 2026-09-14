@@ -38,6 +38,11 @@
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/full
 	head = /obj/item/clothing/head/roguetown/helmet/heavy/knight/skettle
 
+/datum/npc_loadout/armor/heavy/iron_chain/scale
+	name = "iron chain with scale"
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/scale/iron
+	head = /obj/item/clothing/head/roguetown/helmet/heavy/knight/old/iron
+
 //** STEEL CHAIN **//
 
 /datum/npc_loadout/armor/heavy/steel_chain
