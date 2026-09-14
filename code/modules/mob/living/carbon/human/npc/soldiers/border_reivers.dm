@@ -1,4 +1,5 @@
 /mob/living/carbon/human/species/human/northern/border_reiver/
+	gm_hidden = TRUE
 	ai_controller = /datum/ai_controller/human_npc
 	faction = list(FACTION_REIVER)
 	ambushable = FALSE
@@ -122,6 +123,7 @@
 			armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted
 
 /mob/living/carbon/human/species/human/northern/border_reiver/midgear
+	gm_hidden = FALSE
 	ai_controller = /datum/ai_controller/human_npc
 	faction = list(FACTION_REIVER)
 	ambushable = FALSE
@@ -223,6 +225,7 @@
 			r_hand = /obj/item/rogueweapon/spear/short
 
 /mob/living/carbon/human/species/human/northern/border_reiver/lowgear
+	gm_hidden = FALSE
 	ai_controller = /datum/ai_controller/human_npc
 	faction = list(FACTION_REIVER)
 	ambushable = FALSE
@@ -309,6 +312,7 @@
 			l_hand = /obj/item/flashlight/flare/torch/prelit
 
 /mob/living/carbon/human/species/human/northern/border_reiver/highgear
+	gm_hidden = FALSE
 	ai_controller = /datum/ai_controller/human_npc
 	faction = list(FACTION_REIVER)
 	ambushable = FALSE

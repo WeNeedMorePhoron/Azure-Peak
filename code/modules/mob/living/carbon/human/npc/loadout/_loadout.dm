@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(npc_loadouts, build_npc_loadouts())
 	var/name = "loadout"
 	var/armor_training = ARMOR_CLASS_NONE
 	var/list/skills
-	var/list/slot_chance
+	var/list/weapons
 	var/list/clear_slots
 	var/list/backpack_contents
 
@@ -109,16 +109,29 @@ GLOBAL_LIST_INIT(npc_loadouts, build_npc_loadouts())
 		var/entry = vars[slot]
 		if(isnull(entry))
 			continue
-		var/chance = LAZYACCESS(slot_chance, slot)
-		if(!isnull(chance) && !prob(chance))
+		var/resolved = resolve_entry(entry)
+		if(resolved == NPC_NOTHING)
 			continue
-		outfit.vars[slot] = resolve_entry(entry)
+		outfit.vars[slot] = resolved
+	apply_weapons(outfit)
 	apply_backpack(outfit)
 	if(!visualsOnly)
 		apply_skills(H)
 
 /datum/npc_loadout/proc/resolve_entry(entry)
 	return resolve_npc_pick(entry)
+
+/datum/npc_loadout/proc/apply_weapons(datum/outfit/npc/outfit)
+	if(!length(weapons))
+		return
+	var/list/row = pick(weapons)
+	if(row[1] == NPC_NOTHING)
+		return
+	outfit.r_hand = row[1]
+	if(length(row) < 2)
+		return
+	if(prob(length(row) > 2 ? row[3] : 100))
+		outfit.l_hand = row[2]
 
 /datum/npc_loadout/proc/apply_backpack(datum/outfit/npc/outfit)
 	for(var/path in backpack_contents)

@@ -1,8 +1,17 @@
-//** LEATHER **//
+//** GAMBESON **//
 
 /datum/npc_loadout/armor/light
 	abstract_type = /datum/npc_loadout/armor/light
 	armor_training = ARMOR_CLASS_LIGHT
+
+/datum/npc_loadout/armor/light/gambeson
+	name = "gambeson with leather"
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	pants = /obj/item/clothing/under/roguetown/trou/leather
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
+
+//** LEATHER **//
 
 /datum/npc_loadout/armor/light/leather
 	name = "leather armor"

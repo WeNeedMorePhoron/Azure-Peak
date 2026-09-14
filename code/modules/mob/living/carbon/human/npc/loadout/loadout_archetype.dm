@@ -77,7 +77,7 @@ GLOBAL_LIST_INIT(npc_archetypes, build_npc_archetypes())
 		. += loadouts
 	for(var/pool in loadout_pools)
 		var/picked = resolve_npc_pick(pool)
-		if(picked)
+		if(picked && picked != NPC_NOTHING)
 			. += picked
 
 /mob/living/carbon/human/proc/init_npc_archetype()
