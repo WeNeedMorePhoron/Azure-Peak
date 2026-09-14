@@ -1,3 +1,5 @@
+//** INFANTRY **//
+
 /datum/npc_statpack/rabble
 	name = "rabble"
 	strength = list(10, 11)
@@ -46,3 +48,35 @@
 	constitution = 7
 	willpower = 8
 	perception = 13
+
+//** SKIRMISHERS **//
+
+/datum/npc_statpack/skirmisher
+	abstract_type = /datum/npc_statpack/skirmisher
+
+/datum/npc_statpack/skirmisher/soldier
+	name = "skirmisher soldier"
+	strength = list(12, 13)
+	speed = list(12, 13)
+	constitution = 8
+	willpower = 8
+	perception = list(9, 10)
+	intelligence = list(8, 9)
+
+/datum/npc_statpack/skirmisher/veteran
+	name = "skirmisher veteran"
+	strength = list(12, 14)
+	speed = list(12, 14)
+	constitution = 8
+	willpower = 8
+	perception = list(10, 11)
+	intelligence = list(9, 10)
+
+/datum/npc_statpack/skirmisher/champion
+	name = "skirmisher champion"
+	strength = list(13, 14)
+	speed = list(13, 14)
+	constitution = 10
+	willpower = 10
+	perception = list(11, 12)
+	intelligence = list(10, 11)

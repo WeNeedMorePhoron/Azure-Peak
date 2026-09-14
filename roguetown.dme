@@ -2562,6 +2562,7 @@
 #include "code\modules\mob\living\carbon\human\npc\loadout\loadout_skillpack.dm"
 #include "code\modules\mob\living\carbon\human\npc\loadout\loadout_statpack.dm"
 #include "code\modules\mob\living\carbon\human\npc\loadout\bodies\body_human.dm"
+#include "code\modules\mob\living\carbon\human\npc\loadout\factions\faction_loadout_border_reiver.dm"
 #include "code\modules\mob\living\carbon\human\npc\loadout\factions\faction_loadout_highwayman.dm"
 #include "code\modules\mob\living\carbon\human\npc\loadout\factions\faction_loadout_militia.dm"
 #include "code\modules\mob\living\carbon\human\npc\loadout\kits\armor_loadout_heavy.dm"

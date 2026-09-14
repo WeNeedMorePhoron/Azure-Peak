@@ -31,6 +31,19 @@
 /datum/npc_skillpack/athletics
 	abstract_type = /datum/npc_skillpack/athletics
 
+/datum/npc_skillpack/athletics/apprentice
+	name = "apprentice athletics"
+	skills = list(/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE)
+
 /datum/npc_skillpack/athletics/journeyman
 	name = "journeyman athletics"
 	skills = list(/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN)
+
+//** RIDING **//
+
+/datum/npc_skillpack/riding
+	abstract_type = /datum/npc_skillpack/riding
+
+/datum/npc_skillpack/riding/journeyman
+	name = "journeyman riding"
+	skills = list(/datum/skill/misc/riding = SKILL_LEVEL_JOURNEYMAN)
