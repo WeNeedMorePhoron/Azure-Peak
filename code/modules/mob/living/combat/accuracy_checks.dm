@@ -138,7 +138,7 @@
 /mob/living/proc/show_ranged_accuracy_fail(mob/living/user, aimed_zone, landed_zone, list/roll_out)
 	if(aimed_zone == landed_zone || !isliving(user) || !user.client?.prefs.showrolls)
 		return
-	to_chat(user, span_warning("Accuracy fail! [roll_out?["chance"]]% - hit the [hit_zone_name(landed_zone)] instead."))
+	to_chat(user, span_warning("[roll_out?["double_fail"] ? "Double accuracy fail!" : "Accuracy fail!"] [roll_out?["chance"]]% - hit the [hit_zone_name(landed_zone)] instead."))
 
 // Based on the remaining accuracy of the projectile and the aimed zone, return the zone, precise zone or chest
 /mob/living/proc/bullet_hit_accuracy_check(final_accuracy, def_zone = BODY_ZONE_CHEST, list/roll_out)
@@ -170,8 +170,11 @@
 	if(prob(chance2hit))
 		return def_zone
 	var/parent_zone = check_zone(def_zone)
-	if(parent_zone != def_zone && prob(chance2hit))
-		return parent_zone
+	if(parent_zone != def_zone)
+		if(prob(chance2hit))
+			return parent_zone
+		if(roll_out && parent_zone != BODY_ZONE_CHEST)
+			roll_out["double_fail"] = TRUE
 	return BODY_ZONE_CHEST
 
 /mob/living/proc/get_ranged_aim_window()
