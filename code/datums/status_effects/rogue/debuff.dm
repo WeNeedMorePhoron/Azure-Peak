@@ -536,7 +536,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/rotted
 	effectedstats = list(STATKEY_STR = -2, STATKEY_PER = -2, STATKEY_INT = -2, STATKEY_WIL = -2, STATKEY_CON = -2, STATKEY_SPD = -2, STATKEY_LCK = -2)
 	duration = 30 MINUTES	// Back to a temporary 30 minute duration. It hurts.
-	examine_text = "<font color='#2c8b00'>SUBJECTPRONOUN looks frail and unnaturally pale, moving with the hesitant stiffness of one whose body has only recently remembered how to live.</font>"
+	examine_text = "<font color='#008b56'>SUBJECTPRONOUN looks frail and unnaturally pale, as if they recently got brought back from death.</font>"
 
 /atom/movable/screen/alert/status_effect/debuff/rotted
 	name = "Atrophia"
@@ -558,7 +558,7 @@
 	id = "permadeath"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/permadeath
 	duration = PERMADEATH_DURATION //Effectively determines how long a character is threatened with permadeath. Kicks into gear once the initial deathmark-imposed grace period completes. Timed to match Revival Sickness.
-	examine_text = "<font color='#b40000'>SUBJECTPRONOUN appears haunted by an unseen burden. It feels as though their spirit hangs by the thinnest of threads. Another death may well be their last.</font>"
+	examine_text = "<font color='#b40000'>SUBJECTPRONOUN seems mentally and spiritually unstable. Another death could well be their last.</font>"
 
 /atom/movable/screen/alert/status_effect/debuff/permadeath
 	name = "Death's Door"
