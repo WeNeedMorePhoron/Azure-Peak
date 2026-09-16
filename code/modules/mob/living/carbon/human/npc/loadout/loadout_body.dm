@@ -21,7 +21,6 @@ GLOBAL_LIST_EMPTY(npc_aggro_lines)
 	var/random_voice = TRUE
 	var/male_name_file
 	var/female_name_file
-	var/head_sellprice
 	var/aggro_system = TRUE
 	var/aggro_lines_file
 	var/death_line_chance = 0
@@ -35,6 +34,9 @@ GLOBAL_LIST_EMPTY(npc_aggro_lines)
 		TRAIT_NPC_EXAMINE,
 		TRAIT_LEECHIMMUNE,
 	)
+
+/datum/npc_body/proc/get_head_sellprice()
+	return null
 
 /datum/npc_body/proc/apply_early(mob/living/carbon/human/H)
 	if(!H)
@@ -66,10 +68,11 @@ GLOBAL_LIST_EMPTY(npc_aggro_lines)
 	if(!H)
 		return
 	H.dna.species.handle_body(H)
-	if(!isnull(head_sellprice))
+	var/sellprice = get_head_sellprice()
+	if(!isnull(sellprice))
 		var/obj/item/bodypart/head/head = H.get_bodypart(BODY_ZONE_HEAD)
 		if(head)
-			head.sellprice = head_sellprice
+			head.sellprice = sellprice
 	if(random_voice)
 		H.random_voice_NPC()
 	if(random_hair)

@@ -71,11 +71,13 @@
 	male_name_file = "strings/rt/names/human/vikingm.txt"
 	female_name_file = "strings/rt/names/human/vikingf.txt"
 	aggro_lines_file = "strings/rt/searaideraggrolines.txt"
-	head_sellprice = HEAD_BOUNTY_SEARAIDER
 	voicepack_chance = 100
 	voicepacks = list(
 		list(/datum/voicepack/male/warrior, /datum/voicepack/female/warrior),
 	)
+
+/datum/npc_body/northern_commoner/searaider/get_head_sellprice()
+	return HEAD_BOUNTY_SEARAIDER
 
 //** STATS **//
 

@@ -52,7 +52,9 @@
 	species_pool = NPC_RACES_TYPES
 	beards = FALSE
 	aggro_lines_file = "strings/rt/highwaymanaggrolines.txt"
-	head_sellprice = HEAD_BOUNTY_REIVER
+
+/datum/npc_body/border_reiver/get_head_sellprice()
+	return HEAD_BOUNTY_REIVER
 
 //** FLAVOR **//
 

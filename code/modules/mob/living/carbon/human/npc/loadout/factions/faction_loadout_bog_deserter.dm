@@ -126,11 +126,13 @@
 
 /datum/npc_body/northern_commoner/soldier/bog_deserter
 	aggro_lines_file = "strings/rt/highwaymanaggrolines.txt"
-	head_sellprice = HEAD_BOUNTY_DESERTER
 	death_line_chance = 25
 
-/datum/npc_body/northern_commoner/soldier/bog_deserter/marshal
-	head_sellprice = HEAD_BOUNTY_BIG_GUY
+/datum/npc_body/northern_commoner/soldier/bog_deserter/get_head_sellprice()
+	return HEAD_BOUNTY_DESERTER
+
+/datum/npc_body/northern_commoner/soldier/bog_deserter/marshal/get_head_sellprice()
+	return HEAD_BOUNTY_BIG_GUY
 
 //** STATS **//
 

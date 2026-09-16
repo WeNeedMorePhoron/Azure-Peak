@@ -5,7 +5,6 @@
 	random_eyes = FALSE
 	male_name_file = "strings/rt/names/other/halforcm.txt"
 	female_name_file = "strings/rt/names/other/halforcf.txt"
-	head_sellprice = HEAD_BOUNTY_ORC
 	var/skin_color = "50715C"
 	var/eye_color = "#FF0000"
 	var/hair_color = "#31302E"
@@ -22,6 +21,9 @@
 		/datum/sprite_accessory/hair/facial/manly,
 		/datum/sprite_accessory/hair/facial/longbeard,
 	)
+
+/datum/npc_body/orc/get_head_sellprice()
+	return HEAD_BOUNTY_ORC
 
 /datum/npc_body/orc/apply_appearance(mob/living/carbon/human/H)
 	if(!H)

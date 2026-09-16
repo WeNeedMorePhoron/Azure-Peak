@@ -111,8 +111,8 @@
 
 //** BODY **//
 
-/datum/npc_body/orc/juggernaut
-	head_sellprice = HEAD_BOUNTY_BIG_GUY
+/datum/npc_body/orc/juggernaut/get_head_sellprice()
+	return HEAD_BOUNTY_BIG_GUY
 
 //** STATS **//
 

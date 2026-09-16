@@ -103,7 +103,9 @@
 
 /datum/npc_body/northern_commoner/soldier/highwayman
 	aggro_lines_file = "strings/rt/highwaymanaggrolines.txt"
-	head_sellprice = HEAD_BOUNTY_HIGHWAYMAN
+
+/datum/npc_body/northern_commoner/soldier/highwayman/get_head_sellprice()
+	return HEAD_BOUNTY_HIGHWAYMAN
 
 //** FLAVOR **//
 
