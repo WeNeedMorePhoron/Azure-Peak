@@ -6,6 +6,7 @@
 	category = FACTION_ORCS
 	faction_tag = "orcs"
 	body = /datum/npc_body/orc
+	patron = /datum/patron/inhumen/graggar
 	athletics = SKILL_LEVEL_EXPERT
 	survival = SKILL_LEVEL_APPRENTICE
 

@@ -45,6 +45,45 @@
 		/obj/item/clothing/head/roguetown/helmet/leather,
 	)
 
+//** DECREPIT ALLOY - SKELETONS **//
+
+/datum/npc_loadout/armor/medium/aalloy
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/aalloy
+	pants = /obj/item/clothing/under/roguetown/chainlegs/kilt/aalloy
+	shoes = /obj/item/clothing/shoes/roguetown/sandals/aalloy //Legionnaire look
+
+/datum/npc_loadout/armor/medium/aalloy_helm
+	head = /obj/item/clothing/head/roguetown/helmet/kettle/aalloy
+	neck = /obj/item/clothing/neck/roguetown/chaincoif/iron/aalloy
+
+/datum/npc_loadout/armor/medium/aalloy_soldier
+	head = /obj/item/clothing/head/roguetown/helmet/heavy/aalloy
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/aalloy
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/aalloy
+	pants = /obj/item/clothing/under/roguetown/chainlegs/kilt/aalloy
+	neck = /obj/item/clothing/neck/roguetown/chaincoif/iron/aalloy
+	gloves = /obj/item/clothing/gloves/roguetown/chain/aalloy
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy
+
+/datum/npc_loadout/armor/medium/aalloy_archer
+	head = /obj/item/clothing/head/roguetown/helmet/kettle/aalloy
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/aalloy
+	pants = /obj/item/clothing/under/roguetown/chainlegs/kilt/aalloy
+	neck = /obj/item/clothing/neck/roguetown/chaincoif/iron/aalloy
+	gloves = /obj/item/clothing/gloves/roguetown/chain/aalloy
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy
+	shoes = /obj/item/clothing/shoes/roguetown/boots/aalloy
+
+//** IRON CHAIN **//
+
+/datum/npc_loadout/armor/medium/iron_chain
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/iron
+	neck = /obj/item/clothing/neck/roguetown/chaincoif/iron
+	pants = /obj/item/clothing/under/roguetown/chainlegs/iron/kilt
+	head = /obj/item/clothing/head/roguetown/helmet/leather
+	shoes = /obj/item/clothing/shoes/roguetown/boots
+
 //** SCAVENGED **//
 
 /datum/npc_loadout/armor/medium/scavenged

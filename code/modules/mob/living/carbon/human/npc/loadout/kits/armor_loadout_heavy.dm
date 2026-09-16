@@ -55,6 +55,48 @@
 		/obj/item/clothing/neck/roguetown/bevor/iron,
 	)
 
+//** DeCREPIT ALLOY - SKELETONS **//
+
+/datum/npc_loadout/armor/heavy/aalloy
+	pants = /obj/item/clothing/under/roguetown/platelegs/aalloy
+	shoes = /obj/item/clothing/shoes/roguetown/boots/aalloy
+	neck = /obj/item/clothing/neck/roguetown/gorget/aalloy
+	gloves = /obj/item/clothing/gloves/roguetown/chain/aalloy
+
+/datum/npc_loadout/armor/heavy/aalloy/plated
+	gloves = /obj/item/clothing/gloves/roguetown/plate/aalloy
+	head = list(
+		/obj/item/clothing/head/roguetown/helmet/heavy/guard/aalloy = 60,
+		/obj/item/clothing/head/roguetown/helmet/heavy/knight/aalloy = 40,
+	)
+
+/datum/npc_loadout/armor/heavy/aalloy_cuirass
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/aalloy
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/aalloy
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy
+
+/datum/npc_loadout/armor/heavy/aalloy_hauberk
+	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/aalloy/heavy
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/light
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy/chain
+
+/datum/npc_loadout/armor/heavy/aalloy_plate
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/aalloy
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/aalloy
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/aalloy
+
+//** BLACK KNIGHT **//
+
+/datum/npc_loadout/armor/heavy/black_knight
+	wrists = /obj/item/clothing/wrists/roguetown/bracers
+	gloves = /obj/item/clothing/gloves/roguetown/plate/blkknight/death
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/blkknight/death
+	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/blkknight/death
+	pants = /obj/item/clothing/under/roguetown/platelegs/blkknight/death
+	neck = /obj/item/clothing/neck/roguetown/bevor
+	head = /obj/item/clothing/head/roguetown/helmet/heavy/knight/black
+	belt = /obj/item/storage/belt/rogue/leather/black
+
 //** STEEL CHAIN **//
 
 /datum/npc_loadout/armor/heavy/steel_chain

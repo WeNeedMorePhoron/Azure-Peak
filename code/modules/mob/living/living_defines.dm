@@ -150,6 +150,7 @@
 	var/gm_category // Filter category in the game master panel. Unset uses the primary faction.
 	var/gm_hidden = FALSE // Keep this type out of the game master panel entirely.
 	var/datum/npc_archetype/npc_archetype // NPC Archetype that is composed from multiple components to make them more reusable
+	var/npc_archetype_deferred = FALSE // Skips the automatic apply after creation. The type must call apply_npc_archetype() itself once its body is ready.
 
 	var/datum/fellowship/current_fellowship
 	var/list/incoming_fellowship_invites = list() // list of /datum/weakref to /datum/fellowship; kept in sync with fellowship.pending_invites

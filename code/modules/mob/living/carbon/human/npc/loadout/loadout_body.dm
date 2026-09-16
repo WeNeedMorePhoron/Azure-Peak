@@ -22,7 +22,6 @@ GLOBAL_LIST_EMPTY(npc_aggro_lines)
 	var/male_name_file
 	var/female_name_file
 	var/head_sellprice
-	var/patron
 	var/aggro_system = TRUE
 	var/aggro_lines_file
 	var/death_line_chance = 0
@@ -62,8 +61,6 @@ GLOBAL_LIST_EMPTY(npc_aggro_lines)
 	for(var/trait in traits)
 		var/trait_source = traits[trait] || INNATE_TRAIT
 		ADD_TRAIT(H, trait, trait_source)
-	if(patron)
-		H.set_patron(patron)
 
 /datum/npc_body/proc/apply_appearance(mob/living/carbon/human/H)
 	if(!H)

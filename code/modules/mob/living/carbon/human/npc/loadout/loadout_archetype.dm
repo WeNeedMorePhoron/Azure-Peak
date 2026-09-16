@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(npc_crafting_skills, list(
 	var/threat_point = 0
 	var/body
 	var/statpack
+	var/patron
 	var/armor_training = ARMOR_CLASS_NONE
 	var/melee
 	var/brawl
@@ -70,6 +71,8 @@ GLOBAL_LIST_INIT(npc_crafting_skills, list(
 	for(var/trait in traits)
 		var/trait_source = traits[trait] || INNATE_TRAIT
 		ADD_TRAIT(H, trait, trait_source)
+	if(patron)
+		H.set_patron(patron)
 	if(npc_statpack)
 		npc_statpack.apply(H)
 	apply_skills(H)
@@ -136,6 +139,8 @@ GLOBAL_LIST_INIT(npc_crafting_skills, list(
 	archetype = archetype.resolve_variant()
 	npc_archetype = archetype.type
 	archetype.apply_early(src)
+	if(npc_archetype_deferred)
+		return
 	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 /mob/living/carbon/human/proc/apply_npc_archetype()

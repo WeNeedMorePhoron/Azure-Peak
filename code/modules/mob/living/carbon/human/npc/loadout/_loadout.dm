@@ -34,15 +34,16 @@ GLOBAL_LIST_INIT(npc_parts, build_npc_parts())
 
 /proc/build_npc_parts()
 	. = list()
-	for(var/datum/npc_part/part_type as anything in subtypesof(/datum/npc_part))
-		if(IS_ABSTRACT(part_type))
-			continue
-		.[part_type] = new part_type()
+	for(var/root in list(/datum/npc_archetype, /datum/npc_body, /datum/npc_loadout, /datum/npc_statpack))
+		for(var/datum/npc_part/part_type as anything in subtypesof(root))
+			if(IS_ABSTRACT(part_type))
+				continue
+			.[part_type] = new part_type()
 
 /proc/get_npc_part(datum/npc_part/part)
 	if(istype(part))
 		return part
-	if(!ispath(part, /datum/npc_part))
+	if(!ispath(part))
 		return null
 	. = GLOB.npc_parts[part]
 	if(!.)

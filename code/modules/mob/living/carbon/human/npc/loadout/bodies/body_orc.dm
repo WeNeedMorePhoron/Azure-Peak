@@ -6,7 +6,6 @@
 	male_name_file = "strings/rt/names/other/halforcm.txt"
 	female_name_file = "strings/rt/names/other/halforcf.txt"
 	head_sellprice = HEAD_BOUNTY_ORC
-	patron = /datum/patron/inhumen/graggar
 	var/skin_color = "50715C"
 	var/eye_color = "#FF0000"
 	var/hair_color = "#31302E"
