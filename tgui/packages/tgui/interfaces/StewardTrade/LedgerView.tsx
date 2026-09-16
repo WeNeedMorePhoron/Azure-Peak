@@ -51,6 +51,9 @@ const LedgerRow = (props: { entry: LedgerEntry }) => {
       <div style={{ ...ellipsisCellStyle, flex: 2, color: INK_SOFT }}>
         {entry.reason}
         {entry.count > 1 && ` (x${entry.count})`}
+        {entry.kind === 'grant' && !!entry.actor && (
+          <span style={{ color: INK_FAINT }}>{` · by ${entry.actor}`}</span>
+        )}
       </div>
       <div
         style={{

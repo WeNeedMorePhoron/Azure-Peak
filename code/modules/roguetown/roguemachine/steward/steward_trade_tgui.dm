@@ -124,6 +124,7 @@
 			"amount" = E.amount,
 			"reason" = E.reason || "",
 			"count" = E.count || 1,
+			"actor" = E.actor_name || "",
 		))
 	return list(
 		"entries" = entries,

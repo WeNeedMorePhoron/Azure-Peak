@@ -7,7 +7,7 @@
 	if(length(ledger))
 		last = ledger[length(ledger)]
 
-	if(last)
+	if(last && entry.kind != "grant")
 		if(last.kind == entry.kind \
 			&& last.from_name == entry.from_name \
 			&& last.to_name == entry.to_name \
@@ -171,7 +171,7 @@
 	log_fund_entry(new /datum/treasury_entry("burn", from_fund, null, amount, reason))
 	return TRUE
 
-/datum/controller/subsystem/treasury/proc/transfer(datum/fund/from_fund, datum/fund/to_fund, amount, reason)
+/datum/controller/subsystem/treasury/proc/transfer(datum/fund/from_fund, datum/fund/to_fund, amount, reason, entry_kind = "transfer", mob/actor)
 	if(!from_fund || !to_fund || amount <= 0)
 		return FALSE
 	if(from_fund.currency != to_fund.currency)
@@ -187,7 +187,7 @@
 	to_fund.balance += credited
 	if(to_fund == discretionary_fund)
 		record_purse_inflow(credited)
-	log_fund_entry(new /datum/treasury_entry("transfer", from_fund, to_fund, amount, reason))
+	log_fund_entry(new /datum/treasury_entry(entry_kind, from_fund, to_fund, amount, reason, null, actor))
 	return TRUE
 
 /datum/controller/subsystem/treasury/proc/get_tax_rate(tax_category)

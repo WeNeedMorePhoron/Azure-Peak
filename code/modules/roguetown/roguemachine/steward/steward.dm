@@ -67,14 +67,22 @@
 		if(isnull(daily_payments[job]))
 			daily_payments[job] = SStreasury.get_wage_floor(job)
 
-/proc/has_fiscal_authority(mob/user)
+/proc/fiscal_rank(mob/user)
 	if(!user)
-		return FALSE
-	if(user.job == "Steward" || user.job == "Clerk" || user.job == "Grand Duke")
-		return TRUE
+		return FISCAL_RANK_NONE
 	if(SSticker.regentmob && user == SSticker.regentmob)
-		return TRUE
-	return FALSE
+		return FISCAL_RANK_RULER
+	switch(user.job)
+		if("Grand Duke")
+			return FISCAL_RANK_RULER
+		if("Steward")
+			return FISCAL_RANK_STEWARD
+		if("Clerk")
+			return FISCAL_RANK_CLERK
+	return FISCAL_RANK_NONE
+
+/proc/has_fiscal_authority(mob/user)
+	return fiscal_rank(user) > FISCAL_RANK_NONE
 
 
 
@@ -162,7 +170,7 @@
 					return
 				if(newtax < 1)
 					return
-				SStreasury.give_money_account(newtax, A, "NERVE MASTER")
+				SStreasury.crown_grant(newtax, A, usr, "NERVE MASTER")
 				break
 	if(href_list["fineaccount"])
 		var/X = locate(href_list["fineaccount"])

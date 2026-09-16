@@ -14,12 +14,13 @@ export type RegionCatalogEntry = {
 };
 
 export type LedgerEntry = {
-  kind: string; // mint | burn | transfer | micro | ...
+  kind: string; // mint | burn | transfer | grant | micro | ...
   from: string;
   to: string;
   amount: number;
   reason: string;
   count: number;
+  actor: string;
 };
 
 export type LedgerPage = {

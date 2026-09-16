@@ -380,6 +380,21 @@ SUBSYSTEM_DEF(treasury)
 
 	return TRUE
 
+/datum/controller/subsystem/treasury/proc/crown_grant(amt, mob/living/target, mob/actor, source)
+	if(!amt || amt < 1 || !target)
+		return FALSE
+	var/datum/fund/account = get_account(target)
+	if(!account)
+		return FALSE
+	if(!transfer(discretionary_fund, account, amt, source, "grant", actor))
+		return FALSE
+	record_round_statistic(STATS_DIRECT_TREASURY_TRANSFERS, amt)
+	record_treasury_payout(actor, target, amt)
+	var/target_name = target.real_name
+	send_ooc_note(source ? "<b>MEISTER:</b> You received [amt]m. ([source])" : "<b>MEISTER:</b> You received [amt]m.", name = target_name)
+	log_game("CROWN GRANT: [actor ? key_name(actor) : "system"] granted [amt]m to [key_name(target)] via [source || "unknown"]")
+	return TRUE
+
 /datum/controller/subsystem/treasury/proc/generate_money_account(amt, mob/living/carbon/human/character)
 	if(!amt)
 		return FALSE
