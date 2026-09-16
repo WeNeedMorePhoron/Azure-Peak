@@ -94,6 +94,10 @@ GLOBAL_LIST_INIT(skeleton_aggro, list(
 	threat_point = THREAT_TOUGH
 	npc_archetype = /datum/npc_archetype/skeleton/hardspread
 
+/mob/living/carbon/human/species/skeleton/npc/fallenduke
+	threat_point = THREAT_ELITE
+	npc_archetype = /datum/npc_archetype/skeleton/fallenduke
+
 /mob/living/carbon/human/species/skeleton/Initialize(mapload)
 	. = ..()
 	cut_overlays()

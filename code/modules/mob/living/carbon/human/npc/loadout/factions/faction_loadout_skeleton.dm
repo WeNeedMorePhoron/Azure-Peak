@@ -224,6 +224,21 @@
 		/datum/npc_loadout/weapon/bog_skeleton_master,
 	)
 
+/datum/npc_archetype/skeleton/fallenduke
+	name = "The Fallen 'Duke'"
+	threat_point = THREAT_ELITE
+	statpack = /datum/npc_statpack/skeleton/fallenduke
+	melee = SKILL_LEVEL_MASTER
+	brawl = SKILL_LEVEL_MASTER
+	survival = SKILL_LEVEL_APPRENTICE
+	skills = list(/datum/skill/misc/climbing = SKILL_LEVEL_EXPERT)
+	loadouts = list(
+		/datum/npc_loadout/armor/heavy/aalloy/plated/guard,
+		/datum/npc_loadout/armor/heavy/aalloy_plate,
+		/datum/npc_loadout/kit/fallen_duke,
+		/datum/npc_loadout/weapon/fallen_duke,
+	)
+
 /datum/npc_archetype/skeleton/lich
 	name = "Lich Knight"
 	threat_point = THREAT_ELITE
@@ -334,6 +349,13 @@
 	constitution = 8
 	willpower = 12
 	intelligence = 1
+
+/datum/npc_statpack/skeleton/fallenduke
+	strength = 15
+	speed = 12
+	constitution = 15
+	willpower = 13
+	intelligence = 5
 
 /datum/npc_statpack/skeleton/lich
 	strength = 20
@@ -527,6 +549,26 @@
 		/obj/item/clothing/cloak/half/lich,
 	)
 
+/datum/npc_loadout/kit/fallen_duke
+	belt = /obj/item/storage/belt/rogue/leather/black
+	backl = /obj/item/storage/backpack/rogue/satchel/short/black
+	backpack_contents = list(
+		/obj/item/clothing/head/roguetown/crown/fakecrown = 1,
+		/obj/item/roguegem/diamond = 1,
+	)
+	mask = list(
+		/obj/item/clothing/mask/rogue/facemask/aalloy = 25,
+		NPC_NOTHING = 75,
+	)
+	beltl = list(
+		/obj/item/repair_kit/bad = 20,
+		NPC_NOTHING = 80,
+	)
+	beltr = list(
+		/obj/item/storage/belt/rogue/pouch/coins/aalloy = 15,
+		NPC_NOTHING = 85,
+	)
+
 //** WEAPONS **//
 
 /datum/npc_loadout/weapon/skeleton_scavenged
@@ -600,6 +642,10 @@
 
 /datum/npc_loadout/weapon/bog_skeleton_master
 	r_hand = /obj/item/rogueweapon/halberd
+
+/datum/npc_loadout/weapon/fallen_duke
+	r_hand = /obj/item/rogueweapon/sword/rapier/lord
+	l_hand = /obj/item/rogueweapon/shield/tower/metal/alloy
 
 /datum/npc_loadout/weapon/lich_knight
 	weapons = list(

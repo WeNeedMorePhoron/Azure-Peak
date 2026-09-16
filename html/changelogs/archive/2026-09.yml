@@ -476,3 +476,219 @@
   - rscadd: Ports a hat and cape sprite from vanderlin
   voidwytch:
   - rscadd: Added TEN new sets of clothes, acquirable at the Tailor only
+2026-09-13:
+  1393F:
+  - spellcheck: A misspell in the description of the psydonic chestplate has been
+      fixed
+  Athena148:
+  - rscdel: Strength affecting voice pitch
+  BurpleBineapple:
+  - bugfix: Boak woad plate armor is ARMOR_CLASS_MEDIUM
+  - balance: All normal half-plate objects are ARMOR_CLASS_HEAVY
+  Dorodomki:
+  - bugfix: 'fixed a donator ckey
+
+      :cl:'
+  Fi:
+  - spellcheck: Corrected typos of the word "obfuscated" in the code.
+  - balance: Revised the examination titles of the Lich and the Vampire Lord. The
+      Lich's true title is always revealed unless masked, and the Vampire Lord's title
+      is always obfuscated but is now "Ancient Lord" when revealed by the throat or
+      regency ("Ancient Lord Regent").
+  Juubo:
+  - rscadd: masquerade lite
+  - rscadd: werewolf lite
+  - rscadd: vote reset on sub-40 round starts
+  - code_imp: added STORYTELLER_ANTAG_MEDIUM for coders to use in other antag weeks
+  - code_imp: added DEFAULT_ANTAG_BLACKLISTED_COMBAT_ROLES to exclude combat roles
+  - code_imp: added /datum/antagonist/werewolf/noinfect if admins want to give werewolf
+      without an infection chance
+  Ketrai:
+  - rscadd: Heartbeast hoarder withdrawal messages changed.
+  Lamasmaster:
+  - qol: Iron Bars can now be attacked by both Cutting/Striking intents.
+  - balance: Reduced wall integrity.
+  Moku-Mok:
+  - rscadd: Non-Frei Punchdaggers can be worn on beltr or beltr, so your hip slots.
+  - bugfix: 'Berserker spawns with Punchdagger if chosen.
+
+      fix:Munitioneer spawns with ammo for crossbow if chosen.'
+  Ollanius:
+  - bugfix: Most non-unique reagents now have their capitalization standardized (like
+      Water -> water, Blackberry -> extract of blackberry, etc.) for a neater presentation.
+      Note that uniquely-named reagents - chiefly imported liqours - remain capitalized,
+      as they're proper names.
+  - bugfix: Certain reagents have been given a more historically appropriate name.
+      Most notably, the series of fruity reagents extractable from flavored zigarettes
+      are now named "extract of [FRUITNAME]", and fire resistance juices are now named
+      "elixir of fire resistance."
+  - rscadd: Minor descriptions to most remaining reagents that lacked one. I don't
+      actually know if these're visible in-game, but it's good to have just in case.
+  Ryan180602:
+  - balance: lowers profane shard projectile speed and gives it a 0.5s cast.
+  - rscadd: donor items for a player
+  - bugfix: reza donor item
+  - rscadd: confrontation zpellblade naginata gets the regular hauberk like everyone
+      else.
+  - balance: lowers range and firestack on ignition. gives it a 0.5s chargeup. increases
+      CD to 15s.
+  - bugfix: conjured glued-on items no longer stay glued and ash appropriately
+  SaundMinah:
+  - bugfix: changed code to be able to transform the right helmet.
+  WeNeedMorePhoron:
+  - rscadd: Duration of Sahir's phase has been doubled.
+  crunchypretzels:
+  - rscadd: two new combat mode tracks
+  kilozombie:
+  - rscadd: Wretchbase, Bandit base, and Vampire Lord manor all get Mercenary stones
+      now. Godspeed and commission a merc to be evyl
+  - rscadd: Vampire Lord manor has HERMES spots now
+  - bugfix: Wretchbase Zizo chapel benches no longer block you wrongly
+  radarseas:
+  - balance: munitioneer has a full toolset for masonary + carpentry + smithing starting
+      off like sapper skeletons.
+  - balance: munitioneer has sewing/skincrafting raised to journeyman.
+  - balance: munitioneer has 80 vs 50 starting funds, they no longer recieve a mid-range
+      pouch of coin on top of their starting funds for an obscene amount of mammon.
+      Go licker Astrocrat if you want to drown in coin.
+  - balance: munitioneer has armor on their hood, no more easily skullcracking them,
+      rejoice!
+  - code_imp: muntioneer hood has some new flavor on examine.
+  voidwytch:
+  - bugfix: high society cloak issue
+  - bugfix: velvet dress two electric boogaloo rename
+2026-09-14:
+  KatTheFox:
+  - bugfix: Roundstart known characters will no longer have their role title show
+      up as "unknown".
+  - rscadd: Clicking the name of a known character in the known menu will now trigger
+      their headshot/flavortext/ooc notes window. You can do this from anywhere, allowing
+      you to read the OOC notes of all the people that are supposed to, icly, know
+      and work with you. If they have rumors/gossip, a ? will show up next to their
+      name that you can click to view that as well.
+  OrbisAnima:
+  - bugfix: Makes it so the Ride with backdoor action uses the same logic as the regular
+      riding action in the ERP panel
+  Ryan180602:
+  - bugfix: dual wield proccing instant red intents
+  - bugfix: Advance spell works diagonally now.
+  anything86:
+  - qol: Players no longer drop on the floor paralyzed when trying to extinguish themselves
+      if their combat mode is on
+  borneblood:
+  - image: Changed Divine/Profane Blast's spell icon.
+  - spellcheck: Changed Profane Blast's chant.
+  radarseas:
+  - rscadd: Necrans now flip off deadites with taunting, sovl. This does not include
+      vampires, so no metagaming.
+2026-09-15:
+  Juubo:
+  - qol: reduced the skill level needed to make a repair kit.
+  - qol: any can use repair kits now, as was intended, instead of requiring they get
+      one skill level
+  - code_imp: changed to makke repaired doors and bars more consistent with opacity
+  - qol: small mechanics examine update for the wrench.
+  - bugfix: fixes rollers to be more consistent when setup and takke a single power
+      source per axis
+  - bugfix: removed sound loop from grinders
+  - rscadd: Adds porthole doors as a recipe
+  MortoSasye:
+  - image: Updated the underwear sprites for briefs, panties, leotards, and bikini's.
+  OrbisAnima:
+  - bugfix: Removes the ability from Bats and Zads (crows) to go through bars, while
+      leaving their ability to go thrrough people and windows unnafected. Rous (rats)
+      forms are unnafected, and can still go through bars as usual, as they dont have
+      a flying ability like the aforementioned forms do.
+  mumblemancer:
+  - balance: all assassin classes have received a passover. ranger (now headhunter)
+      is less stupidly powerful, hitman (now snickersnacker) is now more glass-cannon
+      melee. poisoner is now able to actually fake being a doctor better. please check
+      out their adv-class previews for more info.
+  - bugfix: corroded dagger sheathe icon is fixed
+  - code_imp: moved main assassin.dm into the assassin folder.
+  radarseas:
+  - rscadd: Added proper mechanics to show who you listen to in chat for vampire converts
+  - balance: Vampire lord pre-emptively has stage 1 ascension benefits (grab immunity
+      + 1000 vitae -> 4000 vitae extra over regular vampires +4 to all stats vs +2
+      beforehand. to make them feel less compelled to rush power. + can buy champions
+      w/out grind for rituals.)
+  - balance: regular vampire servants cost less now.
+  - balance: Vampire lord is now Godless instead of a Zizo worshipper. Making the
+      first and only exception currently to a true godless antag role.
+  - balance: Vampire lord only has to do 3 rites to ascend instead of 4. Less grind,
+      more roleplaying leeway.
+  - balance: turning into a vampire via conversion stuns you for 15 less seconds,
+      but knocks you out instead.
+  - qol: vamp has a lot of tuneups over-the-board
+  - balance: other clan trait adjustments that aren't mentioned here.
+  - balance: Dying gasps can only be heard if you're close enough to reasonably see
+      it happen.
+  - bugfix: Dying gasps bypassing walls/z levels an entire screen away. They're only
+      audiable up close/with LOS.
+  - balance: vamp clans can ALL burn under sunlight without disguise. They use different
+      levels of vitae drains + damages in turn.
+  - balance: vamp clans have recieved a shift-around in traits, Thronleer is no longer
+      bad mood cursed but instead sunlight scorned, its only the only clan w/ fae
+      potency now nosferato lost it ages ago.
+  - image: added re-palettes of pre-existing sprites for vamp hud stuff
+  - refactor: made it clearer on sun hater component that the values are set on init
+      instead of lying above.
+  - refactor: vagabond thrall now uses its generation instead of making Stray as a
+      job. Masquerade/vlord bypass this by generation checks.
+  - admin: Vlord RRing punishment is logged correctly.
+  - admin: vagabonds/wretches at Neonate or Lower in vampire generation, will be forced
+      to cattiff clans. Code-Related Restriction unfortunately for now.
+  zRainbowcat:
+  - bugfix: fixed hag having ability to become roundstart ww
+  - bugfix: athletics skill description is no longer psyop
+  - bugfix: fixed nodrop items from conjured summons
+2026-09-16:
+  DmitriyPershukov:
+  - rscadd: added bulk pure moondust recipe
+  - balance: lowered pure moondust recipe difficulty to expert from master
+  - balance: changed recipes for pure moondust, starsugar and herozium
+  Draganfrukts:
+  - rscadd: Added new hunting swords that can thrust but have no axe chop. They are
+      sidegrades to messers, with the difference that they can also butcher animals.
+  - rscadd: Added two towner-exclusive bows. The hunting flatbow has a 1.1x accuracy
+      modifier, and the hunting longbow has half the damage multiplier (.15x) while
+      retaining its 1x accuracy multiplier.
+  - bugfix: Made the Steppesman and Warden bows use the correct colors again.
+  - image: Changed the appearance of the noble hunting sword.
+  - balance: Towner hunters get JOURNEYMAN atthletics. Towner bow-hunters get JOURNEYMAN
+      swords and an unique hunting sword. Towner hunters get NOVICE LUMBERJACKING
+      (And bow-hunter loses its redundant novice axe skill)
+  - balance: Spear-Hunter towners spawn with a boar spear.
+  Fi:
+  - rscadd: Added a button (located left of the action buttons on the Castlevania
+      pillar), keybind, and verb for toggling the action buttons' visibility.
+  Juubo:
+  - rscadd: engineer launcher can now fire sling bullets
+  - rscadd: quiver now ejects when the launcher is destroyed.
+  - balance: increased integrity
+  KatTheFox:
+  - bugfix: Swampweed no longer needs to be maid into tea to sate junkie for whatever
+      reason; the normal swampweed reagent does as well.
+  - rscadd: Vamp solution now sates junkie.
+  Moku-Mok:
+  - rscadd: Added helmet choice (2 helmets instead of 1) to Undivided Guardians.
+  Ollanius:
+  - rscadd: Visored sallets can now be combined with a regular Grenzelhoftian beret.
+  - rscdel: Crafting recipes involving the Triumph-specific Grenzelhoftian beret have
+      been removed, as it can already be worn on the cosmetic slot of most helmets
+      as-is.
+  - rscadd: Rhynn's unique jacketed brigandine and longcloak sprite.
+  - rscadd: Lizzy's unique apron, pants, boots, gloves, and blouse.
+  - rscadd: Universal goggles and scarfs for donators.
+  - rscadd: Avantyne-threaded barbute as a cosmetic option, courtesy of Dakken.
+  - rscadd: Unique maille and armet reskin, available through Triumph-purchased reskin
+      kits as well.
+  - bugfix: Undestroys the recent Donor PR's item access point.
+  - rscadd: Iron variants of the new maille-and-armets.
+  WeNeedMorePhoron:
+  - rscadd: You can no longer fine yourself
+  mumblemancer:
+  - balance: non-unbound skeletons get swift back
+  - balance: unbound skeletons also got swift back for consistency
+  tmyqlfpir:
+  - bugfix: Ice slipping letting mobs clip through solid objects

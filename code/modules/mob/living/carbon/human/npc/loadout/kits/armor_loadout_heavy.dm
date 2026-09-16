@@ -70,6 +70,9 @@
 		/obj/item/clothing/head/roguetown/helmet/heavy/knight/aalloy = 40,
 	)
 
+/datum/npc_loadout/armor/heavy/aalloy/plated/guard
+	head = /obj/item/clothing/head/roguetown/helmet/heavy/guard/aalloy
+
 /datum/npc_loadout/armor/heavy/aalloy_cuirass
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/aalloy
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/aalloy
