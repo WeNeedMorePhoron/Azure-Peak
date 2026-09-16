@@ -139,8 +139,6 @@ GLOBAL_LIST_INIT(npc_crafting_skills, list(
 	archetype = archetype.resolve_variant()
 	npc_archetype = archetype.type
 	archetype.apply_early(src)
-	if(npc_archetype_deferred)
-		return
 	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 /mob/living/carbon/human/proc/apply_npc_archetype()

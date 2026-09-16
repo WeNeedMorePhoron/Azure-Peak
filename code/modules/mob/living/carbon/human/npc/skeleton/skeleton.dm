@@ -17,7 +17,6 @@ GLOBAL_LIST_INIT(skeleton_aggro, list(
 	bodyparts = list(/obj/item/bodypart/chest, /obj/item/bodypart/head, /obj/item/bodypart/l_arm,
 						/obj/item/bodypart/r_arm, /obj/item/bodypart/r_leg, /obj/item/bodypart/l_leg)
 	faction = list(FACTION_UNDEAD)
-	npc_archetype_deferred = TRUE
 	var/skel_fragile = FALSE
 	var/skel_untamable = FALSE
 	ambushable = FALSE
@@ -98,10 +97,12 @@ GLOBAL_LIST_INIT(skeleton_aggro, list(
 /mob/living/carbon/human/species/skeleton/Initialize(mapload)
 	. = ..()
 	cut_overlays()
-	spawn(10)
-		after_creation()
+	if(!npc_archetype)
+		spawn(10) // To prevent dropping weapons
+			after_creation()
 
 /mob/living/carbon/human/species/skeleton/after_creation()
+	skeletonize()
 	..()
 	if(ai_controller)
 		AddComponent(/datum/component/ai_aggro_system)
@@ -137,9 +138,6 @@ GLOBAL_LIST_INIT(skeleton_aggro, list(
 	else
 		ADD_TRAIT(src, TRAIT_SELF_SUSTENANCE, TRAIT_GENERIC) // If not fragile, then you're summoned by a real antag
 		// Therefore you get the trait to grind up to Jman.
-	skeletonize()
-	if(npc_archetype)
-		apply_npc_archetype()
 
 /mob/living/carbon/human/species/skeleton/fully_heal(admin_revive = FALSE, break_restraints = FALSE)
 	. = ..()
