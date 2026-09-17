@@ -634,8 +634,8 @@
 			if (!owner.has_status_effect(/datum/status_effect/buff/drunk) && !owner.has_status_effect(/datum/status_effect/buff/ozium))
 				owner.emote("embed")
 		if(crit_message)
-			var/embeds = pick("impales", "impales", "lodges", "lodges", "embeds", "buries", "pierces", "kisses")
-			owner.next_attack_msg += " <span class='userdanger'>[embedder] [embeds] into [owner]'s [src]!</span>"
+			var/embeds = pick("impales", "impales", "impales", "impales", "impales", "lodges in", "runs through", "buries inside", "sinks into", "drives into", "embeds in", "jams into", "gets stuck in", "lodges in", "burrows into", "penetrates into", "wedges into", "pierces into", "buries deep into")
+			owner.next_attack_msg += " <span class='userdanger'>[embedder] [embeds] [owner]'s [src]!</span>"
 			if(ranged)
 				playsound(owner, 'sound/combat/brutal_impalement.ogg', 100, vary = TRUE)
 		update_disabled()
