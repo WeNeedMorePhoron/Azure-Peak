@@ -763,7 +763,7 @@
 	force = 20
 	force_wielded = 40
 	wbalance = WBALANCE_HEAVY //Synergy with Graggar miracles
-	wdefense_wbonus = 5 //8 wdef wielded, considerably less than other ritual weapons, glass cannon specially vs. swift/master skill.
+	wdefense_wbonus = 4 //7 wdef wielded, considerably less than other ritual weapons, glass cannon specially vs. swift/master skill.
 	max_blade_int = 300 //100 less than zizo longsword
 	gripped_intents = list(/datum/intent/axe/cut/long/vicious, /datum/intent/axe/chop/long, /datum/intent/axe/sweep)
 	smeltresult = /obj/item/ingot/component/graggar
