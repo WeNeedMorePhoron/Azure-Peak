@@ -851,3 +851,57 @@
   - bugfix: removed second_chance virtue from mistwalker
   racobio:
   - rscadd: Added three new dark elf skin tones
+2026-09-21:
+  KatTheFox:
+  - bugfix: Ochre arils are now functional.
+  - bugfix: Ashen and ochre arils' downsides can no longer be entirely ignored if
+      you're wearing plate, and they properly kill revenants now.
+  - bugfix: Gilbranze is still not bronze.
+  Ketrai:
+  - rscadd: New deep one variant.
+  - balance: Catching abyssal fish in abyssal waters is now 20% more likely.
+  - balance: Mobs that are fished up now spawn in with a small delay.
+  - bugfix: Aquatic compulsion no longer gravitates towards one type of fish per pool
+      permanently.
+  Kevak:
+  - rscadd: Bedhead (Longest) is now an available hairstyle.
+  Lamasmaster:
+  - rscadd: Zardmen can now pick bodytypes like non anthro races.
+  - rscadd: Bodytypes to Axians, Lupians and Venards
+  - rscadd: The random colours of zards (baseline) are no longer TG eyesore green
+      only.
+  - bugfix: Masc no longer default to elven instead of human bodytype (whoops) - still
+      have options to switch around.
+  - admin: Admin ban panel is no longer missing Inquisition as an option and all are
+      now within the longform list to be easier to read in fullscreen window.
+  MortoSasye:
+  - bugfix: fixed naledi light skin color characters from ending up whitewashed.
+  - rscadd: Added support for custom sprites for the azure crown.
+  Quinalion:
+  - rscadd: Added Inquisitorial Heels for Inquisitors with SHE_HER pronouns.
+  Ryan180602:
+  - bugfix: allow special characters in custom descriptors
+  - admin: add attack logs for charging
+  - bugfix: chat auto-scroll should work fine during heavy combat/chatspam
+  VanWinkler:
+  - rscadd: Minion Order and Gravemark to Zizo Excommunicated Vagabonds
+  - rscadd: Minion Order and Gravemark to Zizo Shamans
+  - rscadd: Minion Order and Gravemark to Zizo Godsblood Witches
+  - rscadd: Minion Order and Gravemark to Zizo Devotion Cantors
+  WeNeedMorePhoron:
+  - rscadd: An "issued" tabs show quests you have issued. You can cancel / take back
+      any quests that has not been taken up. Once it is taken up but not started (i.e.
+      they didn't  arrive at the point), you can revoke it after 30 minutes.
+  - rscadd: You can "top up" Burgher's Pledge with Crown's Purse as the Steward if
+      you are short on issuing say, a blockade quest. For example if you have 600
+      pledge and 750 cost you can top up the remaining 150 from the purse.
+  - rscadd: Lapsed quests will refund to the pool. Canceled quests also refund to
+      the pool. I.e. canceling a 500 pledge quests should refund properly.
+  - rscadd: Blockade Writs now goes into the "Issued" tab for recalling purpose and
+      no longer have a 15 minutes timer but the same 30 minutes rules as everyone
+      else.
+  mumblemancer:
+  - rscadd: zuns & zyns
+  nauticall:
+  - image: (Donor) Greatcoats now layer on top of most articles of clothing, similarly
+      to the longcoat.
