@@ -200,7 +200,7 @@
 		/datum/skill/misc/tracking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/hunting = SKILL_LEVEL_APPRENTICE,
 	)
-	extra_context = "Choose an iron melee weapon, then a bow, crossbow, sling, or no ranged weapon (+1 CON). Your Wits relies on iron javelins, tossblades, a net, padded wrappings, and iron knuckles; it grants Journeyman wrestling, unarmed, polearms, and knives plus Expert Pugilist. Light armor grants Dodge Expert and +1 SPD; medium armor grants Maille Training and +1 STR. Each armor tier has two equipment sets."
+	extra_context = "Choose an iron melee weapon, then a bow, crossbow, sling, or no ranged weapon (+1 CON). Your Wits relies on iron javelins, tossblades, a net, padded wrappings, and iron knuckles; it grants Journeyman wrestling and unarmed, Apprentice polearms and knives, plus Expert Pugilist. Light armor grants Dodge Expert and +1 SPD; medium armor grants Maille Training and +1 STR. Each armor tier has two equipment sets."
 
 /datum/outfit/job/roguetown/adventurer/bwanderer/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -228,39 +228,21 @@
 		)
 	H.set_blindness(0)
 	if(H.mind)
-		var/weapons = list("Iron Axe", "Iron Messer", "Iron Hunting Sword", "Iron Arming Sword", "Iron Bastard Sword", "Iron Mace", "Iron Warhammer", "Iron Flail", "Iron Dagger", "Iron Short Spear", "Iron Quarterstaff", "Your Wits - javelins, tossblades, net & knuckles (Expert Pugilist)")
-		var/weapon_choice = input(H, "Choose your weapon.\nYour Wits: iron javelins, a tossblade belt, a net, padded wrappings, and iron knuckles. Grants Journeyman Wrestling, Unarmed, apprentince Polearms and Knives plus Expert Pugilist. This kit replaces the separate ranged weapon choice.", "TAKE UP ARMS") as anything in weapons
+		var/weapons = list("Iron Axe", "Iron Hunting Sword", "Iron Bastard Sword", "Iron Short Spear", "Iron Quarterstaff", "Your Wits - javelins, tossblades, net & knuckles (Expert Pugilist)")
+		var/weapon_choice = input(H, "Choose your weapon.\nYour Wits: iron javelins, a tossblade belt, a net, padded wrappings, and iron knuckles. Grants Journeyman Wrestling and Unarmed, Apprentice Polearms and Knives, plus Expert Pugilist. This kit replaces the separate ranged weapon choice.", "TAKE UP ARMS") as anything in weapons
 		var/uses_wits = (weapon_choice == "Your Wits - javelins, tossblades, net & knuckles (Expert Pugilist)")
 		var/long_weapon = FALSE
 		switch(weapon_choice)
 			if("Iron Axe")
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				beltr = /obj/item/rogueweapon/stoneaxe/woodcut
-			if("Iron Messer")
-				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				beltr = /obj/item/rogueweapon/sword/short/messer/iron
 			if("Iron Hunting Sword")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				beltr = /obj/item/rogueweapon/sword/short/messer/hunting
-			if("Iron Arming Sword")
-				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				beltr = /obj/item/rogueweapon/sword/iron
 			if("Iron Bastard Sword")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/sword/long/iron
 				long_weapon = TRUE
-			if("Iron Mace")
-				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				beltr = /obj/item/rogueweapon/mace
-			if("Iron Warhammer")
-				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				beltr = /obj/item/rogueweapon/mace/warhammer
-			if("Iron Flail")
-				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				beltr = /obj/item/rogueweapon/flail
-			if("Iron Dagger")
-				H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				beltr = /obj/item/rogueweapon/huntingknife/idagger
 			if("Iron Short Spear")
 				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/spear/short
