@@ -229,7 +229,7 @@
 	H.set_blindness(0)
 	if(H.mind)
 		var/weapons = list("Iron Axe", "Iron Messer", "Iron Hunting Sword", "Iron Arming Sword", "Iron Bastard Sword", "Iron Mace", "Iron Warhammer", "Iron Flail", "Iron Dagger", "Iron Short Spear", "Iron Quarterstaff", "Your Wits - javelins, tossblades, net & knuckles (Expert Pugilist)")
-		var/weapon_choice = input(H, "Choose your weapon.\nYour Wits: iron javelins, a tossblade belt, a net, padded wrappings, and iron knuckles. Grants Journeyman Wrestling, Unarmed, Polearms, and Knives plus Expert Pugilist. This kit replaces the separate ranged weapon choice.", "TAKE UP ARMS") as anything in weapons
+		var/weapon_choice = input(H, "Choose your weapon.\nYour Wits: iron javelins, a tossblade belt, a net, padded wrappings, and iron knuckles. Grants Journeyman Wrestling, Unarmed, apprentince Polearms and Knives plus Expert Pugilist. This kit replaces the separate ranged weapon choice.", "TAKE UP ARMS") as anything in weapons
 		var/uses_wits = (weapon_choice == "Your Wits - javelins, tossblades, net & knuckles (Expert Pugilist)")
 		var/long_weapon = FALSE
 		switch(weapon_choice)
