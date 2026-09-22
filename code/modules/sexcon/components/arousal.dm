@@ -71,11 +71,6 @@
 	if(amount > arousal)
 		last_arousal_increase_time = world.time
 	var/clamp_max = MAX_AROUSAL
-	var/mob/user = parent
-	if(user.has_flaw(/datum/charflaw/addiction/thrillseeker))
-		clamp_max = THRILLSEEKER_THRESHOLD
-		if(forced)
-			clamp_max = 50
 	var/new_arousal = clamp(amount, 0, clamp_max)
 	if(!new_arousal && !arousal)
 		return arousal
