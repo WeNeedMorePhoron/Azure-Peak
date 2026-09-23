@@ -23,17 +23,19 @@ Each role is its tier row with a trade in stats, using the conventional statweig
 | Role     | Trade                               |
 | -------- | ----------------------------------- |
 | line     | none, baseline                      |
-| light    | 1 STR -> 2 PER, then 1 STR -> 1 SPD |
-| marksman | 2 STR -> 4 PER                      |
+| light    | 2 STR -> 2 SPD, and 2 Con -> 2 INT  |
+| marksman | 1 STR -> 2 PER                      |
 | heavy    | 2 SPD, 2 PER -> 1 STR, 2 Con, 2 Wil |
 | undead   | Con -> Wil                          |
 
 Archetype:
 
-- Light trade 1 STR for 2 Perception, and then 1 STR for 1 SPD
-- Marksman trade 2 STR for 4 Perception, and then 1 STR for 1 SPD.
-- Heavy trades 2 SPD, 2 PER, 2 INT for 2 STR, 12 Con, 2 Wil
+- Light trade 2 STR for 2 SPD, and 2 CON for 2 INT, so they are harder to feint but more likely to use Special. One more STR for one more SPD at T3.
+- Marksman trade 1 STR for 2 PER, then 2 STR for 3 PER and 1 INT at T3.
+- Heavy trades 2 SPD, 2 PER for 1 STR, 2 Con, 2 Wil.
 - Undead trade 2 CON for 2 WIL for better stamina and to make them easier to kill than human counterpart due to their durability.
+
+PER is capped at 15. INT 8 is the minimum for NPC specials and tactics, INT 10 is max special frequency, above that is feint resistance only at 10% per point of difference.
 
 ## Armor & Weapons
 
@@ -43,7 +45,7 @@ In general, for armor:
 - Line can be whatever, as appropriate for their faction, but should have competent coverage.
 - Bulwark should have full if not nearly full coverage, especially at T2 or above.
 - Marksmen should possesses an open faced helmet and or non-armored mask, and never a close faced helmet or mask no matter what.
-- With very few exceptions, do not get Steel ARMOR on players.
+- With very few exceptions, do not put Steel ARMOR on NPCs.
 - Steel weapons are occasionally allowed for appropriate factions, leaning toward Azurian one.
 - Desirable player weapons of low cost like Longbow can make occasional appearances, but should not be too common
 
@@ -52,5 +54,5 @@ In general, for armor:
 - Goblins: Shit sucks and their weapons and armor are overwhelmingly disastrous.
 - Azurian / Native Bandits (Highwayman, Mount Reavers etc.): Being of native origin means access to better steel weapons but iron armor. "Line" or "Medium" should starts with common, late renaissance ish gears i.e. Gambeson and Cuirass and open-faced helmets. Full iron coverage can be seen
 - Bogman: Higher quality gears implying direct desertion from the military, full iron gears for all but their light classes should be expected, with occasional steel and high quality (Brigandine) coverage.
-- Sea Raiders: Being of Gronnic origin means steel weapons should be excessively rare and armor should be light. No presence of full face coverage helmet or the combination of Open Face + Mask instead of a full helmet, since that doesn't match their technological level. Mail or Fabric / Leather should be the primary armor and their thematic Banded Iron.
+- Sea Raiders: Being of Gronnic origin means steel weapons should be excessively rare and armor should be light. No presence of full face coverage helmet or the combination of Open Face + Mask instead of a full helmet, since that doesn't match their technological level. Mail or Fabric / Leather should be the primary armor, with their thematic banded iron appearing as helmet and gauntlet pieces.
 - Orcs: Should overwhelmingly have light armor with iron being rare and full coverage in iron being rare, due to primitiveness, with full iron armor recovered for Warlord. Should trade INT for more STR / CON / WIL
