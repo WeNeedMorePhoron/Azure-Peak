@@ -105,7 +105,7 @@
 
 /datum/npc_loadout/armor/heavy/steel_chain
 	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/heavy
-	gloves = /obj/item/clothing/gloves/roguetown/chain
+	gloves = /obj/item/clothing/gloves/roguetown/chain/iron
 	neck = /obj/item/clothing/neck/roguetown/chaincoif
 	head = /obj/item/clothing/head/roguetown/helmet
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
