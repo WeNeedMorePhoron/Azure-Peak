@@ -152,6 +152,7 @@
 
 /datum/npc_loadout/kit/bandit_flavor/mount_reaver
 	mask = /obj/item/clothing/mask/rogue/ragmask/black
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 	belt = list(
 		/obj/item/storage/belt/rogue/leather/rope = 77,
 		/obj/item/storage/belt/rogue/leather/knifebelt/iron = 23,

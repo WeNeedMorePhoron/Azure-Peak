@@ -34,6 +34,7 @@
 
 /datum/npc_loadout/armor/medium/chainmail
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/light
+	gloves = /obj/item/clothing/gloves/roguetown/leather
 	armor = /obj/item/clothing/suit/roguetown/armor/chainmail
 	pants = /obj/item/clothing/under/roguetown/chainlegs/iron
 	neck = /obj/item/clothing/neck/roguetown/coif
@@ -78,6 +79,7 @@
 
 /datum/npc_loadout/armor/medium/iron_chain
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	gloves = /obj/item/clothing/gloves/roguetown/leather
 	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/iron
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/iron
 	pants = /obj/item/clothing/under/roguetown/chainlegs/iron/kilt

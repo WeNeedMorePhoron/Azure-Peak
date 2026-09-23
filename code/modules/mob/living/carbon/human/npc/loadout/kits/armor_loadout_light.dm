@@ -55,6 +55,7 @@
 
 /datum/npc_loadout/armor/light/hide/gambeson
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/light
+	gloves = /obj/item/clothing/gloves/roguetown/leather
 	pants = /obj/item/clothing/under/roguetown/trou/leather
 	neck = /obj/item/clothing/neck/roguetown/coif
 	mask = /obj/item/clothing/mask/rogue/facemask

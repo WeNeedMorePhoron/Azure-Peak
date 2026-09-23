@@ -123,16 +123,17 @@
 		/obj/item/clothing/cloak/volfmantle,
 	)
 	shoes = list(
-		/obj/item/clothing/shoes/roguetown/boots/furlinedboots = 70,
-		/obj/item/clothing/shoes/roguetown/boots/leather = 30,
+		/obj/item/clothing/shoes/roguetown/boots/leather/reinforced = 70,
+		/obj/item/clothing/shoes/roguetown/boots/furlinedboots = 30,
 	)
 
 /datum/npc_loadout/kit/searaider_flavor/archer
 	shirt = /obj/item/clothing/suit/roguetown/shirt/tunic
 	pants = /obj/item/clothing/under/roguetown/tights
-	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 
 /datum/npc_loadout/kit/searaider_flavor/huscarl
+	shoes = /obj/item/clothing/shoes/roguetown/boots/maille/iron
 	cloak = /obj/item/clothing/cloak/raincloak/furcloak/brown
 
 //** WEAPONS **//

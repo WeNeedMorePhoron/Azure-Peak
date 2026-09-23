@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 			if(3)
 				cloak = /obj/item/clothing/cloak/half
 
-	shoes = /obj/item/clothing/shoes/roguetown/boots
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/shadowpants/drowraider
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/shadowvest/drowraider
 	shirt = /obj/item/clothing/suit/roguetown/shirt/shadowshirt/elflock/drowraider
@@ -170,6 +170,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	switch(neck_choice)
 		if(1)
 			neck = /obj/item/clothing/neck/roguetown/coif/heavypadding //SOVL
+			head = /obj/item/clothing/head/roguetown/helmet/leather/volfhelm
 		if(2)
 			neck = /obj/item/clothing/neck/roguetown/leather
 			head = /obj/item/clothing/head/roguetown/helmet/kettle/iron //So they have head armor
@@ -227,7 +228,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 
 /datum/outfit/job/roguetown/human/species/elf/dark/drowraider/archer/pre_equip(mob/living/carbon/human/H)
 	..()
-	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/shadowpants/drowraider
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/shadowvest/drowraider
 	shirt = /obj/item/clothing/suit/roguetown/shirt/shadowshirt/elflock/drowraider
@@ -235,7 +236,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
 	mask = /obj/item/clothing/mask/rogue/facemask
 	neck = /obj/item/clothing/neck/roguetown/coif/heavypadding
-	head = null
+	head = /obj/item/clothing/head/roguetown/helmet/leather
 	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
 	backl = /obj/item/quiver/npc
 	r_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/stalker

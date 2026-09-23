@@ -39,7 +39,7 @@
 	skills = list(/datum/skill/combat/bows = SKILL_LEVEL_JOURNEYMAN)
 	loadouts = list(
 		/datum/npc_loadout/armor/light/leather,
-		/datum/npc_loadout/kit/deserter_flavor,
+		/datum/npc_loadout/kit/deserter_flavor/ranged,
 		/datum/npc_loadout/kit/archer_clothing,
 		/datum/npc_loadout/weapon/deserter_bow,
 	)
@@ -103,7 +103,7 @@
 	skills = list(/datum/skill/combat/bows = SKILL_LEVEL_EXPERT)
 	loadouts = list(
 		/datum/npc_loadout/armor/light/leather,
-		/datum/npc_loadout/kit/deserter_flavor,
+		/datum/npc_loadout/kit/deserter_flavor/ranged,
 		/datum/npc_loadout/kit/archer_clothing,
 		/datum/npc_loadout/weapon/deserter_bow,
 	)
@@ -116,7 +116,7 @@
 	skills = list(/datum/skill/combat/crossbows = SKILL_LEVEL_EXPERT)
 	loadouts = list(
 		/datum/npc_loadout/armor/light/leather,
-		/datum/npc_loadout/kit/deserter_flavor,
+		/datum/npc_loadout/kit/deserter_flavor/ranged,
 		/datum/npc_loadout/kit/archer_clothing,
 		/datum/npc_loadout/weapon/deserter_crossbow,
 	)
@@ -192,6 +192,9 @@
 		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot,
 		/obj/item/rogueweapon/scabbard/sword,
 	)
+
+/datum/npc_loadout/kit/deserter_flavor/ranged
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 
 //** WEAPONS **//
 

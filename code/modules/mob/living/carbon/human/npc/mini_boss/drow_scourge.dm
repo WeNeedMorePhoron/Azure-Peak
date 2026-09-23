@@ -14,6 +14,7 @@
 	..()
 	head = /obj/item/clothing/head/roguetown/helmet/kettle/iron
 	neck = /obj/item/clothing/neck/roguetown/gorget
+	shoes = /obj/item/clothing/shoes/roguetown/boots/maille/iron
 	mask = /obj/item/clothing/mask/rogue/shepherd/shadowmask/delf
 	belt = /obj/item/storage/belt/rogue/leather/black
 	r_hand = /obj/item/rogueweapon/whip/spiderwhip
