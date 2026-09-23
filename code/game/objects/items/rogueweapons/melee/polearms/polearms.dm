@@ -819,6 +819,7 @@
 	name = "ji"
 	desc = "A Lingyuese dagger-axe. A spearhead crowns the shaft, while a crescent side-blade hooks outwards - equally suited to thrusting, hooking a mounted foe out of his saddle, or shearing through a footman's guard."
 	icon_state = "ji"
+	gripped_intents = list(SPEAR_THRUST, SPEAR_CUT, /datum/intent/axe/chop/halberd, /datum/intent/spear/cut/dismount)
 
 /obj/item/rogueweapon/halberd/ji/iron
 	name = "iron ji"
@@ -871,7 +872,7 @@
 	force_wielded = 35
 	max_blade_int = 400
 	wdefense = 5
-	wdefense_wbonus = 3 //+3 over the traditional spear, once wielded.
+	wdefense_wbonus = 6 //+3 over the traditional spear, once wielded.
 	var/used = FALSE
 	var/list/selection = list(
 		/datum/special_intent/polearm_backstep,
@@ -1035,7 +1036,7 @@
 	icon_state = "capglaive"
 	smeltresult = /obj/item/ingot/blacksteel
 	max_integrity = 300 //blacksteel, so its gotta be more durable
-	max_blade_int = 200
+	max_blade_int = 250
 	sellprice = 250
 
 /obj/item/rogueweapon/halberd/pestran
@@ -1096,7 +1097,7 @@
 	smeltresult = /obj/item/ingot/blacksteel
 	force = 20
 	force_wielded = 35
-	wdefense_wbonus = 3 //+3 over the traditional spear, once wielded.
+	wdefense_wbonus = 6 //+3 over the traditional spear, once wielded.
 	max_integrity = 350 //Basic idea - blacksteel blunt weapons get more integrity, blacksteel edged weapons get more sharpness. Minimal overlap?
 	var/used = FALSE
 	var/list/selection = list(
@@ -1294,7 +1295,7 @@
 	icon_state = "naginata"
 	icon = 'icons/roguetown/weapons/polearms64.dmi'
 	minstr = 7
-	max_blade_int = 150 //Nippon suteeru (dogshit)
+	max_blade_int = 230 //Glaive/Greatsword side-grade. Worse blade integrity and versatility than a greatsword, 20% extra damage on the cut.
 	wdefense = 5
 	throwforce = 12	//Not a throwing weapon.
 	icon_angle_wielded = 50
@@ -1335,7 +1336,7 @@
 	desc = "An elven weapon that combines the elegant sweeping blade typical of Elven design with a lengthy handle. The true \
 	guardian of the forest realm."
 	icon_state = "elfglaive"
-	max_blade_int = 180 //Elven design makes it sharper
+	max_blade_int = 230 //Elven design makes it sharper
 	sellprice = 60
 
 /obj/item/rogueweapon/halberd/glaive/elvish/getonmobprop(tag)
