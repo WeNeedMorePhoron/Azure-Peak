@@ -22,7 +22,10 @@
 				/mob/living/carbon/human/species/goblin/npc/archer = 7,
 				/mob/living/carbon/human/species/human/northern/militia/deserter = 20,
 				/mob/living/carbon/human/species/hobgoblin/npc/ambush = 15,
-				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 10)
+				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 5,
+				/mob/living/carbon/human/species/human/northern/highwayman/light = 2,
+				/mob/living/carbon/human/species/human/northern/highwayman/archer = 2,
+				/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 1)
 	first_time_text = "THE AZURE GROVE"
 	converted_type = /area/rogue/indoors/shelter/woods
 	deathsight_message = "somewhere in the wilds"
@@ -50,7 +53,10 @@
 		/mob/living/carbon/human/species/goblin/npc/ambush = 30,
 		/mob/living/carbon/human/species/goblin/npc/archer = 7,
 		/mob/living/carbon/human/species/hobgoblin/npc/ambush = 15,
-		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 30)
+		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 13,
+		/mob/living/carbon/human/species/human/northern/highwayman/light = 7,
+		/mob/living/carbon/human/species/human/northern/highwayman/archer = 7,
+		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 3)
 	threat_region = THREAT_REGION_AZURE_GROVE
 
 /area/rogue/outdoors/woods/northeast
@@ -65,7 +71,10 @@
 			/mob/living/carbon/human/species/goblin/npc/archer = 5,
 			/mob/living/carbon/human/species/goblin/npc/sea = 10,
 			/mob/living/carbon/human/species/hobgoblin/npc/ambush = 12,
-			/mob/living/carbon/human/species/human/northern/highwayman/ambush = 30)
+			/mob/living/carbon/human/species/human/northern/highwayman/ambush = 13,
+			/mob/living/carbon/human/species/human/northern/highwayman/light = 7,
+			/mob/living/carbon/human/species/human/northern/highwayman/archer = 7,
+			/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 3)
 	threat_region = THREAT_REGION_AZURE_GROVE
 
 /area/rogue/outdoors/woods/southeast
@@ -80,7 +89,10 @@
 		/mob/living/carbon/human/species/goblin/npc/archer = 5,
 		/mob/living/carbon/human/species/goblin/npc/sea = 10,
 		/mob/living/carbon/human/species/hobgoblin/npc/ambush = 12,
-		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 30)
+		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 13,
+		/mob/living/carbon/human/species/human/northern/highwayman/light = 7,
+		/mob/living/carbon/human/species/human/northern/highwayman/archer = 7,
+		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 3)
 
 /area/rogue/outdoors/woods/south
 	name = "Azure Grove - South"
@@ -93,7 +105,10 @@
 		/mob/living/carbon/human/species/goblin/npc/ambush = 30,
 		/mob/living/carbon/human/species/goblin/npc/archer = 7,
 		/mob/living/carbon/human/species/hobgoblin/npc/ambush = 18,
-		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 20)
+		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 10,
+		/mob/living/carbon/human/species/human/northern/highwayman/light = 4,
+		/mob/living/carbon/human/species/human/northern/highwayman/archer = 4,
+		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 2)
 
 /area/rogue/outdoors/woods/southwest
 	name = "Azure Grove - Southwest"
@@ -106,7 +121,10 @@
 		/mob/living/carbon/human/species/goblin/npc/ambush = 30,
 		/mob/living/carbon/human/species/goblin/npc/archer = 7,
 		/mob/living/carbon/human/species/hobgoblin/npc/ambush = 18,
-		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 20)
+		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 10,
+		/mob/living/carbon/human/species/human/northern/highwayman/light = 4,
+		/mob/living/carbon/human/species/human/northern/highwayman/archer = 4,
+		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 2)
 
 /area/rogue/outdoors/woods/northwest
 	name = "Azure Grove - Northwest"
@@ -119,7 +137,10 @@
 		/mob/living/carbon/human/species/goblin/npc/ambush = 30,
 		/mob/living/carbon/human/species/goblin/npc/archer = 7,
 		/mob/living/carbon/human/species/hobgoblin/npc/ambush = 18,
-		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 20)
+		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 10,
+		/mob/living/carbon/human/species/human/northern/highwayman/light = 4,
+		/mob/living/carbon/human/species/human/northern/highwayman/archer = 4,
+		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 2)
 
 /area/rogue/outdoors/woods/vampire_lair
 	warden_area = FALSE
@@ -157,7 +178,10 @@
 				/mob/living/carbon/human/species/goblin/npc/archer = 7,
 				/mob/living/carbon/human/species/human/northern/militia/deserter = 20,
 				/mob/living/carbon/human/species/hobgoblin/npc/ambush = 15,
-				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 10)
+				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 5,
+				/mob/living/carbon/human/species/human/northern/highwayman/light = 2,
+				/mob/living/carbon/human/species/human/northern/highwayman/archer = 2,
+				/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 1)
 	first_time_text = "JAGGEDJAW GROVE"
 	converted_type = /area/rogue/indoors/shelter/woods/grim
 	deathsight_message = "somewhere in the wilds of jaggedjaw grove"
@@ -184,7 +208,10 @@
 		/mob/living/carbon/human/species/goblin/npc/ambush = 30,
 		/mob/living/carbon/human/species/goblin/npc/archer = 7,
 		/mob/living/carbon/human/species/hobgoblin/npc/ambush = 15,
-		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 30)
+		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 13,
+		/mob/living/carbon/human/species/human/northern/highwayman/light = 7,
+		/mob/living/carbon/human/species/human/northern/highwayman/archer = 7,
+		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 3)
 	threat_region = THREAT_REGION_AZURE_GROVE
 	droning_sound = list(, 'sound/music/area/grimtwilight.ogg', 'sound/music/area/grimdrama.ogg')
 	droning_sound_dusk = 'sound/music/area/grimdusk.ogg'
@@ -204,7 +231,10 @@
 			/mob/living/carbon/human/species/goblin/npc/archer = 5,
 			/mob/living/carbon/human/species/goblin/npc/sea = 10,
 			/mob/living/carbon/human/species/hobgoblin/npc/ambush = 12,
-			/mob/living/carbon/human/species/human/northern/highwayman/ambush = 30)
+			/mob/living/carbon/human/species/human/northern/highwayman/ambush = 13,
+			/mob/living/carbon/human/species/human/northern/highwayman/light = 7,
+			/mob/living/carbon/human/species/human/northern/highwayman/archer = 7,
+			/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 3)
 	threat_region = THREAT_REGION_AZURE_GROVE
 	droning_sound = list(, 'sound/music/area/grimtwilight.ogg', 'sound/music/area/grimdrama.ogg')
 	droning_sound_dusk = 'sound/music/area/grimdusk.ogg'
@@ -237,7 +267,10 @@
 		/mob/living/carbon/human/species/goblin/npc/archer = 5,
 		/mob/living/carbon/human/species/goblin/npc/sea = 10,
 		/mob/living/carbon/human/species/hobgoblin/npc/ambush = 12,
-		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 30)
+		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 13,
+		/mob/living/carbon/human/species/human/northern/highwayman/light = 7,
+		/mob/living/carbon/human/species/human/northern/highwayman/archer = 7,
+		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 3)
 	droning_sound = list(, 'sound/music/area/grimtwilight.ogg', 'sound/music/area/grimdrama.ogg')
 	droning_sound_dusk = 'sound/music/area/grimdusk.ogg'
 	droning_sound_night = 'sound/music/area/grimforest.ogg'
@@ -254,7 +287,10 @@
 		/mob/living/carbon/human/species/goblin/npc/ambush = 30,
 		/mob/living/carbon/human/species/goblin/npc/archer = 7,
 		/mob/living/carbon/human/species/hobgoblin/npc/ambush = 18,
-		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 20)
+		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 10,
+		/mob/living/carbon/human/species/human/northern/highwayman/light = 4,
+		/mob/living/carbon/human/species/human/northern/highwayman/archer = 4,
+		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 2)
 	droning_sound = list(, 'sound/music/area/grimdrama.ogg', 'sound/music/area/grimtwilight.ogg')
 	droning_sound_dusk = 'sound/music/area/grimdusk.ogg'
 	droning_sound_night = 'sound/music/area/grimforest.ogg'
@@ -271,7 +307,10 @@
 		/mob/living/carbon/human/species/goblin/npc/ambush = 30,
 		/mob/living/carbon/human/species/goblin/npc/archer = 7,
 		/mob/living/carbon/human/species/hobgoblin/npc/ambush = 18,
-		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 20)
+		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 10,
+		/mob/living/carbon/human/species/human/northern/highwayman/light = 4,
+		/mob/living/carbon/human/species/human/northern/highwayman/archer = 4,
+		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 2)
 	droning_sound = list(, 'sound/music/area/grimtwilight.ogg', 'sound/music/area/grimdrama.ogg')
 	droning_sound_dusk = 'sound/music/area/grimdusk.ogg'
 	droning_sound_night = 'sound/music/area/grimforest.ogg'
@@ -288,7 +327,10 @@
 		/mob/living/carbon/human/species/goblin/npc/ambush = 30,
 		/mob/living/carbon/human/species/goblin/npc/archer = 7,
 		/mob/living/carbon/human/species/hobgoblin/npc/ambush = 18,
-		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 20)
+		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 10,
+		/mob/living/carbon/human/species/human/northern/highwayman/light = 4,
+		/mob/living/carbon/human/species/human/northern/highwayman/archer = 4,
+		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 2)
 	droning_sound = list(, 'sound/music/area/grimtwilight.ogg', 'sound/music/area/grimdrama.ogg')
 	droning_sound_dusk = 'sound/music/area/grimdusk.ogg'
 	droning_sound_night = 'sound/music/area/grimforest.ogg'

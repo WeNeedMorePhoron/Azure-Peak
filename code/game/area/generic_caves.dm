@@ -17,7 +17,10 @@
 				/mob/living/carbon/human/species/goblin/npc/ambush/cave = 20,
 				/mob/living/carbon/human/species/goblin/npc/archer/cave = 5,
 				/mob/living/carbon/human/species/skeleton/npc/ambush = 10,
-				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 5,
+				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 2,
+				/mob/living/carbon/human/species/human/northern/highwayman/light = 1,
+				/mob/living/carbon/human/species/human/northern/highwayman/archer = 1,
+				/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 1,
 				/mob/living/simple_animal/hostile/retaliate/rogue/direbear = 5,
 				/mob/living/simple_animal/hostile/retaliate/rogue/minotaur = 5,
 				/mob/living/simple_animal/hostile/retaliate/rogue/ooze_blob = 10)
@@ -105,7 +108,10 @@
 				/mob/living/carbon/human/species/goblin/npc/ambush/cave = 20,
 				/mob/living/carbon/human/species/goblin/npc/archer/cave = 5,
 				/mob/living/carbon/human/species/skeleton/npc/ambush = 10,
-				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 5,
+				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 2,
+				/mob/living/carbon/human/species/human/northern/highwayman/light = 1,
+				/mob/living/carbon/human/species/human/northern/highwayman/archer = 1,
+				/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 1,
 				/mob/living/simple_animal/hostile/retaliate/rogue/direbear = 5,
 				/mob/living/simple_animal/hostile/retaliate/rogue/minotaur = 5,
 				/mob/living/simple_animal/hostile/retaliate/rogue/ooze_blob = 10)

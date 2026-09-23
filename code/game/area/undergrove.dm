@@ -17,7 +17,10 @@
 				/mob/living/carbon/human/species/skeleton/npc/easy = 10,
 				/mob/living/simple_animal/hostile/retaliate/rogue/bigrat = 30,
 				/mob/living/carbon/human/species/goblin/npc/sea = 20,
-				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 20,
+				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 10,
+				/mob/living/carbon/human/species/human/northern/highwayman/light = 4,
+				/mob/living/carbon/human/species/human/northern/highwayman/archer = 4,
+				/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 2,
 				/mob/living/simple_animal/hostile/retaliate/rogue/troll = 15)
 	converted_type = /area/rogue/outdoors/caves
 	deathsight_message = "root-bound caverns"
