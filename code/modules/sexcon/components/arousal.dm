@@ -257,6 +257,9 @@
 			climaxer.add_stress(/datum/stressevent/thrillsex)
 		if(prob(10))
 			climaxer.emote("groan", forced = TRUE)
+		if(!HAS_TRAIT(climaxer, TRAIT_UNSATISFIED))
+			climaxer.sate_addiction(/datum/charflaw/addiction/lovefiend)
+			partner.sate_addiction(/datum/charflaw/addiction/lovefiend)
 		return
 
 	climaxer.emote("moan", forced = TRUE)
