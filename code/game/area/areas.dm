@@ -105,7 +105,6 @@
 	var/list/canSmoothWithAreas
 
 	var/list/ambush_mobs
-	var/list/ambush_times
 
 	var/converted_type
 

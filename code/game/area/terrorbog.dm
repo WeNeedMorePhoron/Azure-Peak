@@ -9,7 +9,6 @@
 	droning_sound = 'sound/music/area/bog.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
-	ambush_times = list("night","dawn","dusk","day")
 	//Minotaurs too strong for the lazy amount of places this area covers
 	ambush_mobs = list(
 				// Singles — budget filler across all factions present in the bog

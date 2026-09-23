@@ -2,7 +2,6 @@
 	name = "Azure Basin"
 	icon_state = "rtfield"
 	soundenv = 19
-	ambush_times = list("night")
 	ambush_mobs = list(
 				/mob/living/simple_animal/hostile/retaliate/rogue/bobcat = 20,
 				/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 30,

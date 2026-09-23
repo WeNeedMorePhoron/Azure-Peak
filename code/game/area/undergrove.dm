@@ -12,7 +12,6 @@
 	droning_sound = 'sound/music/area/caves.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
-	ambush_times = list("night","dawn","dusk","day")
 	ambush_mobs = list(
 				/mob/living/carbon/human/species/skeleton/npc/easy = 10,
 				/mob/living/simple_animal/hostile/retaliate/rogue/bigrat = 30,

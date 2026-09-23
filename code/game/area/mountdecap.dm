@@ -37,7 +37,6 @@
 	droning_sound_dusk = null
 	droning_sound_night = null
 	first_time_text = "MOUNT DECAPITATION"
-	ambush_times = list("night","dawn","dusk","day")
 	converted_type = /area/rogue/indoors/shelter/mountains/decap
 	deathsight_message = "a twisted tangle of soaring peaks"
 	threat_region = THREAT_REGION_MOUNT_DECAP
@@ -88,7 +87,6 @@
 	droning_sound_dusk = null
 	droning_sound_night = null
 	first_time_text = "TARICHEA, VALLEY OF LOSS"
-	ambush_times = list("night","dawn","dusk","day")
 	converted_type = /area/rogue/indoors/shelter/mountains/decap
 	threat_region = THREAT_REGION_MOUNT_DECAP
 	detail_text = DETAIL_TEXT_DECAP_TARICHEA
@@ -107,7 +105,6 @@
 	droning_sound_dusk = null
 	droning_sound_night = null
 	first_time_text = "RUINS OF GUNDU-ZIRAK"
-	ambush_times = list("night","dawn","dusk","day")
 	converted_type = /area/rogue/indoors/shelter/mountains/decap
 	ceiling_protected = TRUE
 	threat_region = THREAT_REGION_MOUNT_DECAP
@@ -176,7 +173,6 @@
 	droning_sound_dusk = null
 	droning_sound_night = null
 	first_time_text = "ANCIENT DWARVEN FORGE"
-	ambush_times = list("night","dawn","dusk","day")
 	converted_type = /area/rogue/indoors/shelter/mountains/decap
 	ceiling_protected = TRUE
 	threat_region = THREAT_REGION_MOUNT_DECAP
@@ -195,7 +191,6 @@
 	droning_sound_dusk = null
 	droning_sound_night = null
 	first_time_text = "BANDIT CAMP"
-	ambush_times = list("night","dawn","dusk","day")
 	converted_type = /area/rogue/indoors/shelter/mountains/decap
 	ceiling_protected = TRUE
 	threat_region = THREAT_REGION_MOUNT_DECAP
@@ -210,7 +205,6 @@
 	droning_sound_dusk = null
 	droning_sound_night = null
 	first_time_text = "BANDIT CAMP"
-	ambush_times = list("night","dawn","dusk","day")
 	converted_type = /area/rogue/indoors/shelter/mountains/decap
 	ceiling_protected = TRUE
 	threat_region = DETAIL_TEXT_DECAP
@@ -282,7 +276,6 @@
 	droning_sound_night = 'sound/music/area/grimspyre.ogg'
 	droning_sound_dawn = 'sound/music/area/grimdawn.ogg'
 	first_time_text = "MOUNT GRYMSPYRE"
-	ambush_times = list("night","dawn","dusk","day")
 	converted_type = /area/rogue/indoors/shelter/mountains/decap/grim
 	deathsight_message = "a spyre of jagged rock and winding crevices, surrounded by snow"
 	threat_region = THREAT_REGION_MOUNT_DECAP

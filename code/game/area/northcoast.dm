@@ -13,7 +13,6 @@
 	droning_sound_dusk = 'sound/music/area/septimus.ogg'
 	droning_sound_night = 'sound/music/area/sleeping.ogg'
 	soundenv = 15
-	ambush_times = list("night","dusk")
 	ambush_mobs = list(
 				/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 30,
 				/mob/living/simple_animal/hostile/retaliate/rogue/mole = 10,
@@ -87,7 +86,6 @@
 	droning_sound_night = 'sound/music/area/grimforest.ogg'
 	droning_sound_dawn = 'sound/music/area/grimdawn.ogg'
 	soundenv = 15
-	ambush_times = list("night","dusk")
 	ambush_mobs = list(
 				/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 30,
 				/mob/living/simple_animal/hostile/retaliate/rogue/mole = 10,

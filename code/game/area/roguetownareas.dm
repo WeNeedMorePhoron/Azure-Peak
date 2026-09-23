@@ -177,7 +177,6 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(list(/area/rogue/indoors
 	name = "Azure Basin"
 	icon_state = "rtfield"
 	soundenv = 19
-	ambush_times = list("night")
 	ambush_mobs = list(
 				/mob/living/simple_animal/hostile/retaliate/rogue/badger = 10,
 				/mob/living/simple_animal/hostile/retaliate/rogue/raccoon = 25,
@@ -238,7 +237,6 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(list(/area/rogue/indoors
 	ambientnight = AMB_CAVELAVA
 	spookysounds = SPOOKY_CAVE
 	spookynight = SPOOKY_CAVE
-	ambush_times = list("night","dawn","dusk","day")
 	ambush_mobs = list(
 				/mob/living/simple_animal/hostile/retaliate/rogue/bigrat = 10,
 				/mob/living/carbon/human/species/skeleton/npc/ambush = 20,
@@ -404,7 +402,6 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(list(/area/rogue/indoors
 	name = "Jaggedjaw Basin"
 	icon_state = "rtfield"
 	soundenv = 19
-	ambush_times = list("night")
 	ambush_mobs = list(
 				/mob/living/simple_animal/hostile/retaliate/rogue/badger = 10,
 				/mob/living/simple_animal/hostile/retaliate/rogue/raccoon = 25,
@@ -426,7 +423,6 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(list(/area/rogue/indoors
 	name = "Jaggedjaw Basin South"
 	icon_state = "rtfield"
 	soundenv = 19
-	ambush_times = list("night")
 	ambush_mobs = list(
 				/mob/living/simple_animal/hostile/retaliate/rogue/badger = 10,
 				/mob/living/simple_animal/hostile/retaliate/rogue/raccoon = 25,
