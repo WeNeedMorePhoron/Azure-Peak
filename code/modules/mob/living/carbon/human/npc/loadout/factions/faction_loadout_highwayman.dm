@@ -76,6 +76,17 @@
 	)
 	ai_controller = /datum/ai_controller/human_npc/archer
 
+/datum/npc_archetype/highwayman/bulwark
+	name = "Highwayman Bulwark"
+	job = "Highwayman Bulwark"
+	threat_point = THREAT_TOUGH
+	loadouts = list(
+		/datum/npc_loadout/armor/medium/bandit_line,
+		/datum/npc_loadout/kit/bandit_flavor,
+		/datum/npc_loadout/weapon/bandit_melee,
+		/datum/npc_loadout/kit/bandit_bulwark,
+	)
+
 /datum/npc_archetype/highwayman/road_knight
 	name = "Road Knight"
 	job = "Road Knight"

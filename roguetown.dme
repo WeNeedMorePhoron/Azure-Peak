@@ -3654,6 +3654,7 @@
 #include "interface\menu.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
+#include "modular\ambush\warbands\bandit_warbands.dm"
 #include "modular\ambush\warbands\bog_deserters_warbands.dm"
 #include "modular\ambush\warbands\mirespiders_warbands.dm"
 #include "modular\ambush\warbands\mount_decap_warbands.dm"
