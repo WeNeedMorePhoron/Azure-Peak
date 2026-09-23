@@ -1039,6 +1039,9 @@
 	salvage_amount = 1
 	var/flipped = FALSE
 
+/obj/item/clothing/cloak/donator_greatcoat/MiddleClick(mob/user)
+	return
+
 /obj/item/clothing/cloak/donator_greatcoat/attack_right(mob/user)
 	if(!flipped)
 		icon_state += "alt"
