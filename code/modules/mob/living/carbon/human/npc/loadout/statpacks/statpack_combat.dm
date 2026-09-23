@@ -33,6 +33,14 @@
 /datum/npc_statpack/light
 	abstract_type = /datum/npc_statpack/light
 
+/datum/npc_statpack/light/t1
+	strength = 8
+	speed = 12
+	constitution = 4
+	willpower = 6
+	perception = 10
+	intelligence = 10
+
 /datum/npc_statpack/light/t2
 	strength = 10
 	speed = 12

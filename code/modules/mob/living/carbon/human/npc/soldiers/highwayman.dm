@@ -36,3 +36,8 @@
 	npc_archetype = /datum/npc_archetype/highwayman/sharpshooter
 	threat_point = THREAT_DEADLY
 	ambush_faction = "bandits"
+
+/mob/living/carbon/human/species/human/northern/highwayman/light
+	npc_archetype = /datum/npc_archetype/highwayman/light
+	threat_point = THREAT_HIGH
+	ambush_faction = "bandits"

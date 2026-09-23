@@ -13,7 +13,7 @@
 	brawl = SKILL_LEVEL_APPRENTICE
 	survival = SKILL_LEVEL_APPRENTICE
 	loadouts = list(
-		/datum/npc_loadout/armor/light/leather,
+		/datum/npc_loadout/armor/medium/bandit_line,
 		/datum/npc_loadout/kit/bandit_flavor,
 		/datum/npc_loadout/weapon/bandit_melee,
 		list(NPC_NOTHING = 70, /datum/npc_loadout/kit/bandit_bulwark = 30),
@@ -42,22 +42,36 @@
 	statpack = /datum/npc_statpack/marksman/t1
 	skills = list(/datum/skill/combat/bows = SKILL_LEVEL_EXPERT)
 	loadouts = list(
-		/datum/npc_loadout/armor/light/leather,
 		/datum/npc_loadout/kit/bandit_flavor,
-		/datum/npc_loadout/kit/archer_clothing,
+		/datum/npc_loadout/armor/light/bandit/archer,
 		/datum/npc_loadout/weapon/bandit_bow,
 	)
 	ai_controller = /datum/ai_controller/human_npc/archer
 
+/datum/npc_archetype/highwayman/light
+	name = "Highwayman Cutpurse"
+	job = "Highwayman Cutpurse"
+	statpack = /datum/npc_statpack/light/t1
+	armor_training = ARMOR_CLASS_LIGHT
+	melee = SKILL_LEVEL_JOURNEYMAN
+	skills = list(
+		/datum/skill/combat/knives = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/sneaking = SKILL_LEVEL_JOURNEYMAN,
+	)
+	loadouts = list(
+		/datum/npc_loadout/kit/bandit_flavor,
+		/datum/npc_loadout/armor/light/bandit,
+		/datum/npc_loadout/weapon/bandit_swift,
+	)
+
 /datum/npc_archetype/highwayman/crossbowman
 	name = "Highwayman Crossbowman"
 	job = "Highwayman Crossbowman"
-	statpack = /datum/npc_statpack/marksman/t1
+	statpack = /datum/npc_statpack/line/t1
 	skills = list(/datum/skill/combat/crossbows = SKILL_LEVEL_EXPERT)
 	loadouts = list(
-		/datum/npc_loadout/armor/light/leather,
 		/datum/npc_loadout/kit/bandit_flavor,
-		/datum/npc_loadout/kit/archer_clothing,
+		/datum/npc_loadout/armor/medium/bandit_line/crossbowman,
 		/datum/npc_loadout/weapon/bandit_crossbow,
 	)
 	ai_controller = /datum/ai_controller/human_npc/archer
@@ -119,10 +133,6 @@
 		/obj/item/storage/belt/rogue/leather/rope = 90,
 		/obj/item/storage/belt/rogue/leather/knifebelt/iron = 10,
 	)
-	shirt = list(
-		/obj/item/clothing/suit/roguetown/shirt/undershirt/vagrant,
-		/obj/item/clothing/suit/roguetown/armor/gambeson/light,
-	)
 	neck = list(
 		/obj/item/clothing/neck/roguetown/coif = 49,
 		/obj/item/clothing/neck/roguetown/leather = 49,
@@ -143,12 +153,14 @@
 		NPC_NOTHING = 3,
 	)
 	head = list(
-		/obj/item/clothing/head/roguetown/helmet/leather = 1,
-		/obj/item/clothing/head/roguetown/helmet/leather/volfhelm = 1,
-		/obj/item/clothing/head/roguetown/helmet/tricorn = 1,
-		/obj/item/clothing/head/roguetown/armingcap = 1,
-		/obj/item/clothing/head/roguetown/menacing/bandit = 1,
-		NPC_NOTHING = 5,
+		/obj/item/clothing/head/roguetown/helmet/leather = 20,
+		/obj/item/clothing/head/roguetown/helmet/leather/volfhelm = 15,
+		/obj/item/clothing/head/roguetown/helmet/kettle/iron = 15,
+		/obj/item/clothing/head/roguetown/helmet/skullcap = 15,
+		/obj/item/clothing/head/roguetown/helmet/sallet/iron = 10,
+		/obj/item/clothing/head/roguetown/menacing/bandit = 5,
+		/obj/item/clothing/head/roguetown/armingcap = 5,
+		NPC_NOTHING = 15,
 	)
 
 /datum/npc_loadout/kit/bandit_flavor/mount_reaver
@@ -172,10 +184,9 @@
 		/obj/item/clothing/suit/roguetown/armor/chainmail/iron = 40,
 	)
 	head = list(
-		/obj/item/clothing/head/roguetown/helmet/kettle/iron = 35,
-		/obj/item/clothing/head/roguetown/helmet/skullcap = 25,
-		/obj/item/clothing/head/roguetown/helmet/sallet/iron = 25,
-		/obj/item/clothing/head/roguetown/helmet/bascinet/iron = 15,
+		/obj/item/clothing/head/roguetown/helmet/sallet/visored/iron = 40,
+		/obj/item/clothing/head/roguetown/helmet/bascinet/iron/aventail = 35,
+		/obj/item/clothing/head/roguetown/helmet/heavy/knight/iron = 25,
 	)
 	neck = list(
 		/obj/item/clothing/neck/roguetown/chaincoif/iron = 50,
@@ -194,10 +205,10 @@
 		NPC_NOTHING = 15,
 	)
 	weapons = list(
-		list(/obj/item/rogueweapon/sword/short/iron, /obj/item/rogueweapon/shield/wood, 85),
-		list(/obj/item/rogueweapon/mace/cudgel, /obj/item/rogueweapon/shield/wood, 85),
-		list(/obj/item/rogueweapon/pick/militia, /obj/item/rogueweapon/shield/buckler/palloy, 80),
-		list(/obj/item/rogueweapon/sword/falchion/militia, /obj/item/rogueweapon/shield/wood, 75),
+		list(/obj/item/rogueweapon/mace, /obj/item/rogueweapon/shield/tower, 90),
+		list(/obj/item/rogueweapon/mace/warhammer, /obj/item/rogueweapon/shield/tower, 85),
+		list(/obj/item/rogueweapon/mace/cudgel, /obj/item/rogueweapon/shield/tower, 90),
+		list(/obj/item/rogueweapon/flail, /obj/item/rogueweapon/shield/wood, 80),
 	)
 
 /datum/npc_loadout/kit/bandit_flavor/road_knight
@@ -211,12 +222,21 @@
 /datum/npc_loadout/weapon/bandit_melee
 	weapons = list(
 		list(/obj/item/rogueweapon/sword/short/iron, /obj/item/rogueweapon/shield/wood, 45),
+		list(/obj/item/rogueweapon/sword/short, /obj/item/rogueweapon/shield/wood, 45),
 		list(/obj/item/rogueweapon/mace/cudgel, /obj/item/rogueweapon/shield/wood, 25),
 		list(/obj/item/rogueweapon/sword/falchion/militia, /obj/item/rogueweapon/shield/wood, 20),
-		list(/obj/item/rogueweapon/pick/militia, /obj/item/rogueweapon/shield/buckler/palloy, 35),
+		list(/obj/item/rogueweapon/pick/militia, /obj/item/rogueweapon/shield/buckler, 35),
 		list(/obj/item/rogueweapon/greataxe/militia),
 		list(/obj/item/rogueweapon/woodstaff/militia),
-		list(/obj/item/rogueweapon/huntingknife/idagger, /obj/item/rogueweapon/shield/buckler/palloy, 65),
+		list(/obj/item/rogueweapon/huntingknife/idagger, /obj/item/rogueweapon/shield/buckler, 65),
+	)
+
+/datum/npc_loadout/weapon/bandit_swift
+	weapons = list(
+		list(/obj/item/rogueweapon/huntingknife/idagger, /obj/item/rogueweapon/huntingknife/idagger, 60),
+		list(/obj/item/rogueweapon/sword/sabre/iron, /obj/item/rogueweapon/huntingknife/idagger, 45),
+		list(/obj/item/rogueweapon/sword/short/iron, /obj/item/rogueweapon/shield/buckler, 50),
+		list(/obj/item/rogueweapon/sword/short/iron, /obj/item/rogueweapon/huntingknife/idagger, 55),
 	)
 
 /datum/npc_loadout/weapon/bandit_bow

@@ -51,8 +51,34 @@ In general, for armor:
 
 ## Faction Archetypes
 
-- Goblins: Shit sucks and their weapons and armor are overwhelmingly disastrous.
-- Azurian / Native Bandits (Highwayman, Mount Reavers etc.): Being of native origin means access to better steel weapons but iron armor. "Line" or "Medium" should starts with common, late renaissance ish gears i.e. Gambeson and Cuirass and open-faced helmets. Full iron coverage can be seen
+### Goblins
+
+- Shit sucks and their weapons and armor are overwhelmingly disastrous.
+- Shitty archers and slingers. Should have LOWER speed to prevent action economy from overwhelming players easily. But also low TP
+- Hoblins are their "elites"
+
+### Azurian / Native Bandits
+
+Includes Highwaymen / Mount Reavers.
+
+These are the typical trash mobs our adventurers will face. Access to better steel weapons, iron armor.
+
+"Line" or "Medium" should starts with common, late renaissance ish gears i.e. Gambeson and Cuirass and open-faced helmets. Full iron coverage can be seen. Mixture of leather and iron helmets.
+
+T1s should occasionally miss the second layers of their armor in the chest slot.
+
+Crossbowmen belongs to LINE and is tougher than usual, open faced helmet and metallic armor.
+
+Archers should always be in full light armor and a mixture of leather helmets and iron helmets.
+
+Lights should be in full light armor including helmets, and can be wielding one or two dagger and iron version of swift weapons.
+
+Occasional heavy shows in the form of Bulwark. T1 Bulwark will have the wooden tower shield and some sort of blunt weapons and a close faced helmet but lacks full body armor. T3 can be fully ironed up. Bulwarks should favors blunt weapons for thematic purpose.
+
+Non-forest bandit factions like Bleakisle Reavers and Mount Reavers will follow the same rules but trade numbers for higher quality and tier bandits.
+
+### Other Archetypes
+
 - Bogman: Higher quality gears implying direct desertion from the military, full iron gears for all but their light classes should be expected, with occasional steel and high quality (Brigandine) coverage.
 - Sea Raiders: Being of Gronnic origin means steel weapons should be excessively rare and armor should be light. No presence of full face coverage helmet or the combination of Open Face + Mask instead of a full helmet, since that doesn't match their technological level. Mail or Fabric / Leather should be the primary armor, with their thematic banded iron appearing as helmet and gauntlet pieces.
 - Orcs: Should overwhelmingly have light armor with iron being rare and full coverage in iron being rare, due to primitiveness, with full iron armor recovered for Warlord. Should trade INT for more STR / CON / WIL

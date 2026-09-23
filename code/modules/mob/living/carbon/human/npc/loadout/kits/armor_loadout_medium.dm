@@ -126,3 +126,30 @@
 	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/iron
 	head = /obj/item/clothing/head/roguetown/helmet/leather
 	gloves = /obj/item/clothing/gloves/roguetown/leather
+
+//** BANDIT LINE **//
+
+/datum/npc_loadout/armor/medium/bandit_line
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	gloves = /obj/item/clothing/gloves/roguetown/leather
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
+	armor = list(
+		/obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron = 40,
+		/obj/item/clothing/suit/roguetown/armor/chainmail/iron = 25,
+		/obj/item/clothing/suit/roguetown/armor/leather/studded = 20,
+		/obj/item/clothing/suit/roguetown/armor/leather = 15,
+		NPC_NOTHING = 100,
+	)
+	pants = list(
+		/obj/item/clothing/under/roguetown/trou/leather = 50,
+		/obj/item/clothing/under/roguetown/chainlegs/iron/kilt = 30,
+		/obj/item/clothing/under/roguetown/splintlegs = 20,
+	)
+
+/datum/npc_loadout/armor/medium/bandit_line/crossbowman
+	armor = list(
+		/obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron = 55,
+		/obj/item/clothing/suit/roguetown/armor/chainmail/iron = 45,
+	)
+	pants = /obj/item/clothing/under/roguetown/chainlegs/iron/kilt
