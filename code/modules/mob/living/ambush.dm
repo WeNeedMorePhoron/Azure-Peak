@@ -48,11 +48,27 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 /proc/get_faction_tag(entry)
 	if(ispath(entry, /mob/living))
 		var/mob/living/M = entry
-		return initial(M.ambush_faction)
+		var/tag = initial(M.ambush_faction)
+		if(tag)
+			return tag
+		// Ensure Archetype have a faction tag, otherwise fallback to the mob's faction list
+		var/datum/npc_archetype/archetype = get_npc_part(initial(M.npc_archetype))
+		return archetype ? archetype.faction_tag : ""
 	var/datum/npc_warband/warband = get_npc_part(entry)
 	if(warband)
 		return warband.faction_tag
 	return ""
+
+/// Cheapest entry in a candidate list. Used when the budget cannot afford anything at all.
+/proc/cheapest_ambush_entry(list/candidates)
+	var/best
+	var/best_tp = INFINITY
+	for(var/entry in candidates)
+		var/tp = get_threat_point(entry)
+		if(tp < best_tp)
+			best_tp = tp
+			best = entry
+	return best
 
 // Instead of setting it on area and hoping no one forgets it on area we're just doing this
 
@@ -156,8 +172,15 @@ GLOBAL_LIST_INIT(melee_combat_skills, list( \
 	for(var/entry in AR.ambush_mobs)
 		all_candidates[entry] = AR.ambush_mobs[entry]
 
-	// First purchase — sets the anchor faction
-	var/first_pick = pickweight(all_candidates)
+	// First purchase — sets the anchor faction. Restricted to what the budget can affords: this pick is
+	// unconditional, so without the filter a minimum-budget player can still roll a full warband.
+	var/list/affordable = list()
+	for(var/entry in all_candidates)
+		if(get_threat_point(entry) <= budget)
+			affordable[entry] = all_candidates[entry]
+	var/first_pick = length(affordable) ? pickweight(affordable) : cheapest_ambush_entry(all_candidates)
+	if(!first_pick)
+		return FALSE
 	var/first_tp = max(get_threat_point(first_pick), 1) // Floor 1 TP to prevent infinite loops
 	anchor_faction = get_faction_tag(first_pick)
 	add_ambush_purchase(first_pick, mobs_to_spawn)
