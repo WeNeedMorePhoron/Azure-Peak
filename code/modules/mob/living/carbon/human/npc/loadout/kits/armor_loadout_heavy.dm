@@ -38,7 +38,8 @@
 
 /datum/npc_loadout/armor/heavy/iron_chain/scale
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/scale/iron
-	head = /obj/item/clothing/head/roguetown/helmet/heavy/knight/old/iron
+	head = /obj/item/clothing/head/roguetown/helmet/sallet/iron/banded
+	gloves = /obj/item/clothing/gloves/roguetown/plate/iron/banded
 
 //** BANDED IRON **//
 

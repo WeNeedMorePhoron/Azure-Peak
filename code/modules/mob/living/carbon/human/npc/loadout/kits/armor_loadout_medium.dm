@@ -114,7 +114,6 @@
 	neck = list(
 		/obj/item/clothing/neck/roguetown/gorget, //SOVL
 		/obj/item/clothing/neck/roguetown/chaincoif/iron,
-		/obj/item/clothing/neck/roguetown/bevor/iron,
 	)
 	gloves = list(
 		/obj/item/clothing/gloves/roguetown/leather = 60,

@@ -2,6 +2,7 @@
 
 /datum/npc_archetype/orc
 	abstract_type = /datum/npc_archetype/orc
+	stat_modifiers = list("intelligence" = -2, "strength" = 1)
 	job = "Savage Orc"
 	category = FACTION_ORCS
 	faction_tag = "orcs"
