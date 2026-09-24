@@ -26,16 +26,25 @@ Each role is its tier row with a trade in stats, using the conventional statweig
 | light    | 2 STR -> 2 SPD, and 2 Con -> 2 INT  |
 | marksman | 1 STR -> 2 PER                      |
 | heavy    | 2 SPD, 2 PER -> 1 STR, 2 Con, 2 Wil |
-| undead   | Con -> Wil                          |
 
 Archetype:
 
 - Light trade 2 STR for 2 SPD, and 2 CON for 2 INT, so they are harder to feint but more likely to use Special. One more STR for one more SPD at T3.
 - Marksman trade 1 STR for 2 PER, then 2 STR for 3 PER and 1 INT at T3.
 - Heavy trades 2 SPD, 2 PER for 1 STR, 2 Con, 2 Wil.
-- Undead trade 2 CON for 2 WIL for better stamina and to make them easier to kill than human counterpart due to their durability.
 
 PER is capped at 15. INT 8 is the minimum for NPC specials and tactics, INT 10 is max special frequency, above that is feint resistance only at 10% per point of difference.
+
+## Faction Modifier
+
+Modifiers applied on top of whatever statpacks they have for factional flavor
+
+| Faction  | Modifier        | Why                                                                                         |
+| -------- | --------------- | ------------------------------------------------------------------------------------------- |
+| gronnman | 2 PER -> 1 STR  | GRAGGAR!!!! DO NOT AIM                                                                      |
+| orc      | 2 INT -> 1 STR  | ALSO GRAGGAR but dumber                                                                     |
+| goblin   | 2 SPD, net loss | Keeps their action economy from overwhelming players.                                       |
+| undead   | 2 CON -> 2 WIL  | Makes them more fragile to being attacked and delimbed since they are pain and bleed immune |
 
 ## Armor & Weapons
 
