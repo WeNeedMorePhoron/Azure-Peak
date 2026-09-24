@@ -540,6 +540,7 @@
 	name = "billhook"
 	desc = "A neat hook. Used to pull riders from horses, as well as defend against said horses when used in a proper formation. The \
 	reinforcements along its shaft grant it higher durability against attacks."
+	gripped_intents = list(SPEAR_THRUST, SPEAR_CUT, SPEAR_BASH, /datum/intent/spear/dismount)
 	icon_state = "billhook"
 	smeltresult = /obj/item/ingot/steel
 	max_blade_int = 230
@@ -569,6 +570,7 @@
 	force_wielded = 25
 	name = "improvised billhook"
 	desc = "Looks hastily made, even a little flimsy."
+	gripped_intents = list(SPEAR_THRUST, SPEAR_CUT, SPEAR_BASH, /datum/intent/spear/dismount)
 	icon_state = "billhook"
 	smeltresult = /obj/item/ingot/iron
 	max_blade_int = 100
@@ -815,11 +817,43 @@
 	max_blade_int = 225
 	smeltresult = /obj/item/ingot/steel
 
+/datum/intent/spear/dismount
+	name = "dismounting hook"
+	blade_class = BCLASS_STAB
+	attack_verb = list("hooks")
+	damfactor = 0.6
+	animname = "stab"
+	icon_state = "inlunge"
+	reach = 2
+	desc = "Hook an opponent with your polearm, forcefully dismounting them should they be on horseback. Must strike the rider themselves and not their mount and does not work on horseback."
+	clickcd = CLICK_CD_GLACIAL //Don't miss it
+	swingdelay = 1 //Mostly cosmetic, this is here so there's a tiny wind-up.
+	warnie = "mobwarning"
+	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
+	penfactor = PEN_LIGHT //Bad for anything but its intended purpose
+	item_d_type = "stab"
+	effective_range = 2
+	effective_range_type = EFF_RANGE_EXACT
+
+/datum/intent/spear/dismount/spec_on_apply_effect(mob/living/H, mob/living/user, params)
+	var/target_buckled = H.buckled ? TRUE : FALSE
+	if(!target_buckled)
+		return
+	H.buckled.unbuckle_mob(H)
+	H.Knockdown(50)
+	H.Paralyze(10)
+	var/turf/edge_target_turf = get_edge_target_turf(H, get_dir(H, user))
+	if(istype(edge_target_turf))
+		H.safe_throw_at(edge_target_turf, 1, 1, user, spin = TRUE)
+	user.visible_message(span_danger("[user] digs the hook of their weapon into [H] and brings them crashing down!"))
+	playsound(H.loc, 'sound/foley/zfall.ogg', 100, FALSE)
+	H.visible_message(span_danger("[H] falls off their mount!"))
+
 /obj/item/rogueweapon/halberd/ji
 	name = "ji"
 	desc = "A Lingyuese dagger-axe. A spearhead crowns the shaft, while a crescent side-blade hooks outwards - equally suited to thrusting, hooking a mounted foe out of his saddle, or shearing through a footman's guard."
 	icon_state = "ji"
-	gripped_intents = list(SPEAR_THRUST, SPEAR_CUT, /datum/intent/axe/chop/halberd, /datum/intent/spear/cut/dismount)
+	gripped_intents = list(SPEAR_THRUST, SPEAR_CUT, /datum/intent/axe/chop/halberd, /datum/intent/spear/dismount)
 
 /obj/item/rogueweapon/halberd/ji/iron
 	name = "iron ji"
@@ -1295,7 +1329,7 @@
 	icon_state = "naginata"
 	icon = 'icons/roguetown/weapons/polearms64.dmi'
 	minstr = 7
-	max_blade_int = 230 //Glaive/Greatsword side-grade. Worse blade integrity and versatility than a greatsword, 20% extra damage on the cut.
+	max_blade_int = 220 //Glaive/Greatsword side-grade. Worse blade integrity and versatility than a greatsword, 20% extra damage on the cut.
 	wdefense = 5
 	throwforce = 12	//Not a throwing weapon.
 	icon_angle_wielded = 50
