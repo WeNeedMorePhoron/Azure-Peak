@@ -4,6 +4,14 @@
 /datum/npc_statpack/line
 	abstract_type = /datum/npc_statpack/line
 
+/datum/npc_statpack/line/t0
+	strength = 8
+	speed = 10
+	constitution = 4
+	willpower = 4
+	perception = 9
+	intelligence = 7
+
 /datum/npc_statpack/line/t1
 	strength = 10
 	speed = 10
@@ -69,6 +77,14 @@
 
 /datum/npc_statpack/marksman
 	abstract_type = /datum/npc_statpack/marksman
+
+/datum/npc_statpack/marksman/t0
+	strength = 7
+	speed = 10
+	constitution = 4
+	willpower = 4
+	perception = 11
+	intelligence = 7
 
 /datum/npc_statpack/marksman/t1
 	strength = 9
