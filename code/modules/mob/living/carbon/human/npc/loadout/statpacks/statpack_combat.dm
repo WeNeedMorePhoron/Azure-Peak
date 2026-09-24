@@ -122,3 +122,11 @@
 	willpower = 12
 	perception = 10
 	intelligence = 10
+
+/datum/npc_statpack/heavy/t4
+	strength = 14
+	speed = 8
+	constitution = 14
+	willpower = 14
+	perception = 11
+	intelligence = 11
