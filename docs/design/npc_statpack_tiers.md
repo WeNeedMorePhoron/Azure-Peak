@@ -14,7 +14,7 @@ NPC statpacks are sorted by Archetypes and then separated into tiers. Set 10 as 
 
 SPD does not scale with Tier. STR, PER and INT do.
 
-STR is capped at 14 within the tier and role grid. Faction modifiers may push past it, at the softcap rate of 3 percent per point instead of 10.
+STR is capped at 14 within the tier and role grid. Faction modifiers may push past it.
 
 ## Archetype Modifier
 
