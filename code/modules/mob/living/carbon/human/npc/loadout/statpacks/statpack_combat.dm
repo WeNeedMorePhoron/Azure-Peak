@@ -28,6 +28,14 @@
 	perception = 12
 	intelligence = 10
 
+/datum/npc_statpack/line/t4
+	strength = 14
+	speed = 10
+	constitution = 12
+	willpower = 12
+	perception = 13
+	intelligence = 11
+
 //** LIGHT **//
 
 /datum/npc_statpack/light
@@ -69,6 +77,14 @@
 	willpower = 6
 	perception = 12
 	intelligence = 8
+
+/datum/npc_statpack/marksman/t2
+	strength = 11
+	speed = 10
+	constitution = 8
+	willpower = 8
+	perception = 13
+	intelligence = 9
 
 /datum/npc_statpack/marksman/t3
 	strength = 12

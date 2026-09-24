@@ -102,3 +102,14 @@
 /datum/npc_loadout/armor/light/bandit/archer
 	armor = /obj/item/clothing/suit/roguetown/armor/leather
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+
+//** BOG DESERTER **//
+
+/datum/npc_loadout/armor/light/brigandine/deserter
+	neck = /obj/item/clothing/neck/roguetown/coif
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
+	head = list(
+		/obj/item/clothing/head/roguetown/helmet/kettle/iron = 40,
+		/obj/item/clothing/head/roguetown/helmet/skullcap = 30,
+		/obj/item/clothing/head/roguetown/helmet/sallet/iron = 30,
+	)
