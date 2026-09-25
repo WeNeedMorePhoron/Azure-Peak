@@ -20,7 +20,7 @@ STR is capped at 14 within the tier and role grid. Faction modifiers may push pa
 
 ## Archetype Modifier
 
-Each role is its tier row with a trade in stats, using the conventional statweight of STR / SPD = 2. And the rest = 1.
+Each roles trade stats for specialization, using the conventional statweight of STR / SPD = 2. And the rest = 1.
 
 | Role     | Trade                               |
 | -------- | ----------------------------------- |
@@ -35,7 +35,7 @@ Archetype:
 - Marksman trade 1 STR for 2 PER, then 2 STR for 3 PER and 1 INT at T3.
 - Heavy trades 2 SPD, 2 PER for 1 STR, 2 Con, 2 Wil.
 
-PER is capped at 15. INT 8 is the minimum for NPC specials and tactics, INT 10 is max special frequency, above that is feint resistance only at 10% per point of difference.
+PER is capped at 15. INT 8 is the minimum for NPC specials and tactics, INT 10 or above gives feint resistance only and should be present on Light usually.
 
 ## Faction Modifier
 
