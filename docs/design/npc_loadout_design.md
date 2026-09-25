@@ -1,8 +1,10 @@
-# NPC STATPACK TIERS
+# NPC LOADOUT DESIGN
 
-This is for documentation on standardization of NPC stats / statpacks for future maintainence and design purpose.
+This is for documentation on standardization of NPC stats and loadouts with the new system for future documentation purpose.
 
-NPC statpacks are sorted by Archetypes and then separated into tiers. Set 10 as the baseline stats for SPD / STR 10.
+NPC statpacks are sorted by Archetypes and then separated into tiers. 10 is set as the baseline stat for STR / SPD.
+
+Then, based on their faction they get differing loadouts and then a faction modifier is applied on top.
 
 | Tier | Archetype                           | Con / Wil | STR | SPD | PER | INT | TP                        |
 | ---- | ----------------------------------- | --------- | --- | --- | --- | --- | ------------------------- |
