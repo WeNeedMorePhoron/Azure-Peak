@@ -93,9 +93,11 @@ GLOBAL_LIST_INIT(goblin_pyromancer_aggro, list(
 	race = /datum/species/goblin/hell
 
 /mob/living/carbon/human/species/goblin/npc/hell
+	npc_archetype = /datum/npc_archetype/goblin/warrior/hell
 	race = /datum/species/goblin/hell
 
 /mob/living/carbon/human/species/goblin/npc/ambush/hell
+	npc_archetype = /datum/npc_archetype/goblin/warrior/hell
 	race = /datum/species/goblin/hell
 
 /datum/species/goblin/hell
@@ -108,6 +110,7 @@ GLOBAL_LIST_INIT(goblin_pyromancer_aggro, list(
 	H.visible_message("<span class='blue'>Infernal dust falls from [H]!</span>")
 
 /mob/living/carbon/human/species/goblin/cave
+	npc_archetype = null // Player goblin job spawns into this type, it brings its own stats and gear
 	name = "cave goblin"
 	race = /datum/species/goblin/cave
 
@@ -141,8 +144,10 @@ GLOBAL_LIST_INIT(goblin_pyromancer_aggro, list(
 	name = "moon goblin"
 	race = /datum/species/goblin/moon
 /mob/living/carbon/human/species/goblin/npc/moon
+	npc_archetype = /datum/npc_archetype/goblin/warrior/moon
 	race = /datum/species/goblin/moon
 /mob/living/carbon/human/species/goblin/npc/ambush/moon
+	npc_archetype = /datum/npc_archetype/goblin/warrior/moon
 	threat_point = THREAT_TRASH
 	race = /datum/species/goblin/moon
 /datum/species/goblin/moon
@@ -271,7 +276,8 @@ GLOBAL_LIST_INIT(goblin_pyromancer_aggro, list(
 
 /mob/living/carbon/human/species/goblin/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
+	if(!npc_archetype)
+		addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 
 

@@ -39,12 +39,13 @@ PER is capped at 15. INT 8 is the minimum for NPC specials and tactics, INT 10 i
 
 Modifiers applied on top of whatever statpacks they have for factional flavor. These may exceed the STR and PER caps.
 
-| Faction  | Modifier                  | Why                                                                                                                                           |
-| -------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| gronnman | 2 PER -> 1 STR            | GRAGGAR!!!! DO NOT AIM                                                                                                                        |
-| orc      | 2 INT -> 1 STR            | ALSO GRAGGAR but dumber                                                                                                                       |
-| goblin   | 2 SPD, net loss           | Keeps their action economy from overwhelming players.                                                                                         |
-| undead   | 2 CON -> 2 WIL, and 6 INT | Makes them more fragile to being attacked and delimbed since they are pain and bleed immune. Int Loss is to make sure they do not use special |
+| Faction  | Modifier                      | Why                                                                                                                                           |
+| -------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| gronnman | 2 PER -> 1 STR                | GRAGGAR!!!! DO NOT AIM                                                                                                                        |
+| orc      | 2 INT -> 1 STR                | ALSO GRAGGAR but dumber                                                                                                                       |
+| goblin   | 2 SPD, net loss               | Keeps their action economy from overwhelming players.                                                                                         |
+| undead   | 2 CON -> 2 WIL, and 6 INT     | Makes them more fragile to being attacked and delimbed since they are pain and bleed immune. Int Loss is to make sure they do not use special |
+| madmen   | 2 STR, 2 SPD, 2 CON, net gain |                                                                                                                                               |
 
 Bosses with bespoke packs will have no archetypes.
 
@@ -94,3 +95,4 @@ Non-forest bandit factions like Bleakisle Reavers and Mount Reavers will follow 
 - Bogman: Higher quality gears implying direct desertion from the military, full iron gears for all but their light classes should be expected, with occasional steel and high quality (Brigandine) coverage.
 - Sea Raiders: Being of Gronnic origin means steel weapons should be excessively rare and armor should be light. No presence of full face coverage helmet or the combination of Open Face + Mask instead of a full helmet, since that doesn't match their technological level. Mail or Fabric / Leather should be the primary armor, with their thematic banded iron appearing as helmet and gauntlet pieces.
 - Orcs: Should overwhelmingly have light armor with iron being rare and full coverage in iron being rare, due to primitiveness, with full iron armor recovered for Warlord. Should trade INT for more STR / CON / WIL
+- Mad-touched: They are super boss mob and is allowed to sit above tier

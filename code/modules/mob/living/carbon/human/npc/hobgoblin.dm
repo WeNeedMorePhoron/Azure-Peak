@@ -86,7 +86,8 @@
 
 /mob/living/carbon/human/species/hobgoblin/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
+	if(!npc_archetype)
+		addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 /obj/item/bodypart/head/hobgoblin/skeletonize()
 	. = ..()
