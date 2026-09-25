@@ -906,7 +906,6 @@
 	force_wielded = 35
 	max_blade_int = 400
 	wdefense = 5
-	wdefense_wbonus = 6 //+3 over the traditional spear, once wielded.
 	var/used = FALSE
 	var/list/selection = list(
 		/datum/special_intent/polearm_backstep,
@@ -1131,7 +1130,7 @@
 	smeltresult = /obj/item/ingot/blacksteel
 	force = 20
 	force_wielded = 35
-	wdefense_wbonus = 6 //+3 over the traditional spear, once wielded.
+	wdefense_wbonus = 4 //+1 over the eagle beak, once wielded.
 	max_integrity = 350 //Basic idea - blacksteel blunt weapons get more integrity, blacksteel edged weapons get more sharpness. Minimal overlap?
 	var/used = FALSE
 	var/list/selection = list(
