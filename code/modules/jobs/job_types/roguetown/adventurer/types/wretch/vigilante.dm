@@ -68,7 +68,7 @@
 	cloak = /obj/item/clothing/cloak/thief_cloak
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
 	H.change_stat(STATKEY_STR, 2)
-	H.change_stat(STATKEY_CON, 2)
+	H.change_stat(STATKEY_CON, 1)
 	H.change_stat(STATKEY_WIL, 3)
 	ADD_TRAIT(H, TRAIT_NOPAINSTUN, TRAIT_GENERIC)
 	ADD_TRAIT(H, TRAIT_BLOOD_RESISTANCE, TRAIT_GENERIC)
