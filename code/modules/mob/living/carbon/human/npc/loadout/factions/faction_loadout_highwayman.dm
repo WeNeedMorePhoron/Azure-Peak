@@ -84,7 +84,7 @@
 		/datum/npc_loadout/armor/medium/bandit_line,
 		/datum/npc_loadout/kit/bandit_flavor,
 		/datum/npc_loadout/weapon/bandit_melee,
-		/datum/npc_loadout/kit/bandit_bulwark,
+		/datum/npc_loadout/kit/bandit_bulwark/tough,
 	)
 
 /datum/npc_archetype/highwayman/road_knight
@@ -221,6 +221,10 @@
 		list(/obj/item/rogueweapon/mace/cudgel, /obj/item/rogueweapon/shield/tower, 90),
 		list(/obj/item/rogueweapon/flail, /obj/item/rogueweapon/shield/wood, 80),
 	)
+
+// The dedicated bulwark is priced a tier above the sprinkle the base highwayman rolls.
+/datum/npc_loadout/kit/bandit_bulwark/tough
+	statpack = /datum/npc_statpack/heavy/t2
 
 /datum/npc_loadout/kit/bandit_flavor/road_knight
 	cloak = /obj/item/clothing/cloak/raincloak/furcloak/brown

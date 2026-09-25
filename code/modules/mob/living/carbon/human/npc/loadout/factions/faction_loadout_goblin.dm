@@ -32,6 +32,7 @@
 
 /datum/npc_archetype/goblin/archer
 	name = "Goblin Archer"
+	statpack = /datum/npc_statpack/marksman/t0
 	skills = list(/datum/skill/combat/bows = SKILL_LEVEL_APPRENTICE)
 	loadouts = list(/datum/npc_loadout/kit/goblin_bow)
 	ai_controller = /datum/ai_controller/human_npc/archer
@@ -44,6 +45,7 @@
 
 /datum/npc_archetype/goblin/slinger
 	name = "Goblin Slinger"
+	statpack = /datum/npc_statpack/marksman/t0
 	skills = list(/datum/skill/combat/slings = SKILL_LEVEL_APPRENTICE)
 	loadouts = list(/datum/npc_loadout/kit/goblin_sling)
 	ai_controller = /datum/ai_controller/human_npc/archer
