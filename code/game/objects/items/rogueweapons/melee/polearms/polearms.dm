@@ -826,8 +826,9 @@
 	icon_state = "inlunge"
 	reach = 2
 	desc = "Hook an opponent with your polearm, forcefully dismounting them should they be on horseback. Must strike the rider themselves and not their mount and does not work on horseback."
-	clickcd = CLICK_CD_GLACIAL //Don't miss it
-	swingdelay = 1 //Mostly cosmetic, this is here so there's a tiny wind-up.
+	clickcd = CLICK_CD_CHARGED
+	swingdelay_type = SWINGDELAY_CANCEL
+	swingdelay = 10 //1 second for the horse to pull out of range, pretty hard to land.
 	warnie = "mobwarning"
 	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
 	penfactor = PEN_LIGHT //Bad for anything but its intended purpose
@@ -838,6 +839,8 @@
 /datum/intent/spear/dismount/spec_on_apply_effect(mob/living/H, mob/living/user, params)
 	var/target_buckled = H.buckled ? TRUE : FALSE
 	if(!target_buckled)
+		return
+	if(istype(H.buckled, /obj/structure/flora/roguegrass/maneater)) //We don't want this being used on people stuck in maneaters, as funny as that sounds.
 		return
 	H.buckled.unbuckle_mob(H)
 	H.Knockdown(50)
