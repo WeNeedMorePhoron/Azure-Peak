@@ -475,7 +475,7 @@
 /datum/virtue/utility/preperation
 	name = "Handily Prepared"
 	desc = "I've dabbled in the basics of many skills and trades, and make sure to always keep some improvised tools at hand."
-	ui_fa_icon = "trowel"
+	ui_fa_icon = "hammer"
 	added_stashed_items = list(
 		"Whetstone" = /obj/item/natural/whetstone,
 		"Thorn Needle" = /obj/item/needle/thorn,
@@ -490,10 +490,14 @@
 						list(/datum/skill/craft/carpentry, 1, 1),
 						list(/datum/skill/craft/masonry, 1, 1),
 						list(/datum/skill/craft/sewing, 1, 1),
-						list(/datum/skill/labor/butchering, 1, 1),
+						list(/datum/skill/craft/tanning, 1, 1),
 						list(/datum/skill/craft/blacksmithing, 1, 1),
 						list(/datum/skill/craft/weaponsmithing, 1, 1),
 						list(/datum/skill/craft/armorsmithing, 1, 1),
+						list(/datum/skill/craft/cooking, 1, 1),
+						list(/datum/skill/labor/butchering, 1, 1),
 						list(/datum/skill/misc/medicine, 1, 1),
-						list(/datum/skill/craft/cooking, 1, 1)
+						list(/datum/skill/misc/athletics, 1, 1),
+						list(/datum/skill/misc/climbing, 1, 1),
+						list(/datum/skill/misc/swimming, 1, 1)
 	)
