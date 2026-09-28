@@ -40,6 +40,8 @@
 		var/datum/job/J = SSjob.GetJob(antag_mind.current?.job)
 		J?.current_positions = max(J?.current_positions-1, 0)
 		antag_mind.current.unequip_everything()
+		antag_mind.current.RemoveAllSpells() //no spellblade VL, please.
+		antag_mind.current.devotion = null //no cleric VL, please.
 		var/datum/antagonist/vampire/lord/lorde = new /datum/antagonist/vampire/lord()
 		antag_mind.add_antag_datum(lorde)
 		leader = TRUE
