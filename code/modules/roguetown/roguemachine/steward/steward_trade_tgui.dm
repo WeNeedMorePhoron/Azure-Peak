@@ -80,11 +80,25 @@
 	var/list/petition_categories = list()
 	for(var/cat_id in GLOB.petition_categories)
 		var/list/cat = GLOB.petition_categories[cat_id]
+		var/list/cat_templates = cat["templates"]
+		var/list/templates = list()
+		for(var/template in cat_templates)
+			var/list/region_ids = list()
+			for(var/region_id in GLOB.economic_regions)
+				var/datum/economic_region/region = GLOB.economic_regions[region_id]
+				if(template in region.possible_standing_order_types)
+					region_ids += region_id
+			templates += list(list(
+				"id" = "[template]",
+				"label" = cat_templates[template],
+				"region_ids" = region_ids,
+			))
 		petition_categories += list(list(
 			"id" = cat_id,
 			"label" = cat["label"],
 			"description" = cat["description"],
 			"cost" = cat["cost"],
+			"templates" = templates,
 		))
 	data["petition_categories"] = petition_categories
 	data["petition_tax_pct"] = round((1 - PETITION_TAX_MULT) * 100)
@@ -293,49 +307,19 @@
 	petition_state["petitions_remaining"] = petitions_remaining
 	petition_state["is_steward_role"] = (user.job in GLOB.crown_authority_roles) ? TRUE : FALSE
 	petition_state["is_alderman_acting"] = SScity_assembly?.is_alderman(user) ? TRUE : FALSE
-	var/list/eligibility = list()
-	var/pool_full = (GLOB.standing_order_pool.len >= STANDING_ORDERS_POOL_CAP)
-	var/pledge_balance = SStreasury.burgher_pledge_fund?.balance || 0
-	var/pledge_missing = !SStreasury.burgher_pledge_fund
-	var/list/orders_by_region = list()
-	for(var/datum/standing_order/O as anything in GLOB.standing_order_pool)
-		orders_by_region[O.region_id] = (orders_by_region[O.region_id] || 0) + 1
-	for(var/cat_id in GLOB.petition_categories)
-		var/list/cat = GLOB.petition_categories[cat_id]
-		var/cost = cat["cost"]
-		var/list/templates = cat["templates"]
-		var/list/per_region = list()
-		eligibility[cat_id] = per_region
+	var/selected_template = petition_view[user.ckey]
+	var/list/offers = list()
+	if(selected_template && SSeconomy.petition_category_of(selected_template))
 		for(var/region_id in GLOB.economic_regions)
 			var/datum/economic_region/region = GLOB.economic_regions[region_id]
-			var/blocker = ""
-			if(petitions_remaining <= 0)
-				blocker = "the trade hall has already heard a petition today"
-			else if(!region)
-				blocker = "unknown region"
-			else if(region.is_region_blockaded)
-				blocker = "[region.name] is blockaded - the road is closed to envoys"
-			else if(region.day_last_cleared >= 0 && (GLOB.dayspassed - region.day_last_cleared) < PETITION_BLOCKADE_RECOVERY_DAYS)
-				var/wait_days = PETITION_BLOCKADE_RECOVERY_DAYS - (GLOB.dayspassed - region.day_last_cleared)
-				blocker = "[region.name]'s contacts are still scattered - wait [wait_days]d more"
-			else if(pool_full)
-				blocker = "the warehouse manifest is full - fulfill orders first"
-			else if((orders_by_region[region_id] || 0) >= STANDING_ORDERS_MAX_PER_REGION)
-				blocker = "[region.name] already has [orders_by_region[region_id]] active orders"
-			else if(pledge_missing)
-				blocker = "the Burgher Pledge is not yet established"
-			else if(pledge_balance < cost)
-				blocker = "the Burgher Pledge cannot cover [cost]m"
-			else
-				var/has_template = FALSE
-				for(var/template_path in templates)
-					if(template_path in region.possible_standing_order_types)
-						has_template = TRUE
-						break
-				if(!has_template)
-					blocker = "[region.name]'s trade hall does not deal in [cat["label"]]"
-			per_region[region_id] = blocker
-	petition_state["eligibility"] = eligibility
+			if(!(selected_template in region.possible_standing_order_types))
+				continue
+			offers += list(list(
+				"region_id" = region_id,
+				"blocker" = SSeconomy.petition_blocker(region_id, selected_template) || "",
+			))
+	petition_state["selected_template"] = selected_template ? "[selected_template]" : null
+	petition_state["offers"] = offers
 	data["petition"] = petition_state
 
 	data["sequestration"] = list(
@@ -1067,6 +1051,14 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			playsound(src, 'sound/misc/coindispense.ogg', 60, FALSE, -1)
 			SStgui.update_uis(src)
 			return TRUE
+		if("petition_select")
+			var/template = text2path(params["template"])
+			if(template && SSeconomy.petition_category_of(template))
+				petition_view[usr.ckey] = template
+			else
+				petition_view -= usr.ckey
+			SStgui.update_uis(src)
+			return TRUE
 		if("petition_for_order")
 			if(SScity_assembly?.is_alderman(usr))
 				to_chat(usr, span_warning("The Alderman's writ does not extend to petitioning the trade hall."))
@@ -1075,8 +1067,8 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 				to_chat(usr, span_warning("Only the Steward's office may petition the trade hall."))
 				return TRUE
 			var/region_id = params["region_id"]
-			var/category_id = params["category_id"]
-			if(SSeconomy.petition_for_order(usr, region_id, category_id))
+			var/template = text2path(params["template"])
+			if(SSeconomy.petition_for_order(usr, region_id, template))
 				var/datum/economic_region/region = GLOB.economic_regions[region_id]
 				playsound(src, 'sound/items/inqslip_sealed.ogg', 70, FALSE, -1)
 				visible_message(span_notice("[src] stamps a freshly sealed writ. The wax bears the mark of the [region?.name] trade hall."))

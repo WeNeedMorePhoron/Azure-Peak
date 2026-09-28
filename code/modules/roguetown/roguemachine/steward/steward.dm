@@ -23,14 +23,11 @@
 	var/compact = TRUE
 	var/total_deposit = 0
 	var/list/excluded_jobs = list("Wretch","Vagabond","Adventurer")
-	var/list/daily_payments = list() // Associative list: job name -> payment amount
+	var/list/daily_payments = list()
 	var/residency_print_cooldown = 0
-	// Last trade-modal quote keyed by ckey. Read by ui_data to round-trip per-user.
 	var/list/last_trade_quote = list()
-	// Per-user ledger view state keyed by ckey: list("open", "page", "filter"). Only populated
-	// into ui_static_data while a user has the Ledger tab open, so the full ledger never rides
-	// the per-tick Market Scroll payload.
 	var/list/ledger_view = list()
+	var/list/petition_view = list()
 	COOLDOWN_DECLARE(fulfill_retry_cooldown)
 
 /obj/structure/roguemachine/steward/Initialize(mapload)

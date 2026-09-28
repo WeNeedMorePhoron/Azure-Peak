@@ -189,11 +189,23 @@ export type TradeQuote = {
   stockpile_after: number;
 };
 
+export type PetitionTemplate = {
+  id: string;
+  label: string;
+  region_ids: string[];
+};
+
 export type PetitionCategory = {
   id: string;
   label: string;
   description: string;
   cost: number;
+  templates: PetitionTemplate[];
+};
+
+export type PetitionOffer = {
+  region_id: string;
+  blocker: string;
 };
 
 export type PetitionState = {
@@ -201,8 +213,8 @@ export type PetitionState = {
   petitions_remaining: number;
   is_steward_role: BooleanLike;
   is_alderman_acting: BooleanLike;
-  // category_id -> region_id -> blocker reason (empty string = eligible)
-  eligibility: Record<string, Record<string, string>>;
+  selected_template: string | null;
+  offers: PetitionOffer[];
 };
 
 export type SequestrationState = {
