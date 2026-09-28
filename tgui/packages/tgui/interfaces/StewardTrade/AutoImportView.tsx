@@ -36,7 +36,7 @@ export const AutoImportView = (props: { data: Data }) => {
   } = auto_import;
   const aldermanActing = !!props.data.is_alderman_acting;
   const aldermanBlockTitle =
-    "Reserved to the Steward's office - the Alderman has no say in the Crown's stockpile.";
+    "Reserved to the Steward's office.";
 
   const [floorDraft, setFloorDraft] = useState<string>(String(purse_floor));
 
@@ -54,7 +54,7 @@ export const AutoImportView = (props: { data: Data }) => {
 
   return (
     <div>
-      <div style={sectionHeaderStyle}>Standing Imports</div>
+      <div style={sectionHeaderStyle}>Autoimport</div>
 
       <div style={cardStyle}>
         <div
@@ -72,7 +72,7 @@ export const AutoImportView = (props: { data: Data }) => {
               <span style={{ color: SEAL_AMBER, fontWeight: 'bold' }}>
                 {today_spent}m
               </span>{' '}
-              &middot; Goods on standing import:{' '}
+              &middot; Goods on autoimport:{' '}
               <span style={{ fontWeight: 'bold' }}>{activeCount}</span>
             </div>
             <div style={{ fontSize: FONT_BODY, color: INK_SOFT }}>
@@ -83,7 +83,7 @@ export const AutoImportView = (props: { data: Data }) => {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <span style={{ color: INK_FAINT, fontSize: FONT_BODY }}>
-              Purse floor:
+              Treasury floor:
             </span>
             <input
               type="number"
@@ -131,7 +131,7 @@ export const AutoImportView = (props: { data: Data }) => {
               title={
                 aldermanActing
                   ? aldermanBlockTitle
-                  : 'Strike every standing import from the ledger at once.'
+                  : 'Remove every good from autoimport at once.'
               }
             >
               Strike All
@@ -166,7 +166,7 @@ export const AutoImportView = (props: { data: Data }) => {
         <div
           style={{ textAlign: 'center', fontStyle: 'italic', color: INK_SOFT }}
         >
-          No other goods may be placed on standing import at present.
+          No other goods may be placed on autoimport at present.
         </div>
       ) : (
         <>
@@ -209,7 +209,7 @@ export const AutoImportView = (props: { data: Data }) => {
         <div
           style={{ textAlign: 'center', fontStyle: 'italic', color: INK_SOFT }}
         >
-          No auto-import history yet. First tick will record here.
+          No autoimport history yet. Wait for the first tick.
         </div>
       ) : (
         [...history].reverse().map((entry, idx) => (
@@ -234,7 +234,7 @@ export const AutoImportView = (props: { data: Data }) => {
                   fontStyle: 'italic',
                 }}
               >
-                No auto-import activity.
+                No autoimport activity.
               </div>
             ) : (
               <div style={{ fontSize: FONT_BODY, color: INK_SOFT }}>

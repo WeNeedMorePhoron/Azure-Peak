@@ -270,7 +270,7 @@ export const TradeModal = (props: TradeModalProps) => {
       ? 'No capacity left today.'
       : !canFill
         ? isImport
-          ? 'The purse cannot cover a single unit.'
+          ? 'The Treasury cannot cover a single unit.'
           : 'Nothing in the stockpile to sell.'
         : atFill
           ? `Already set to ${fillTarget} - the last unit before saturation.`
@@ -289,7 +289,7 @@ export const TradeModal = (props: TradeModalProps) => {
       : shortStock
         ? `Stockpile holds only ${stockpile} unit${stockpile === 1 ? '' : 's'}.`
         : isImport && !quote.can_afford
-          ? 'Treasury cannot cover this trade.'
+          ? 'The Treasury cannot cover this trade.'
           : !quote.warrant_ok
             ? 'Warrant cannot cover this trade.'
             : '';
@@ -455,7 +455,7 @@ export const TradeModal = (props: TradeModalProps) => {
         <div style={{ marginTop: '6px' }}>
           <div style={lineStyle}>
             <span style={lineLabelStyle}>
-              {isImport ? 'Region output today' : 'Region appetite today'}
+              {isImport ? 'Region output today' : 'Region demand today'}
             </span>
             <span style={lineValueStyle}>
               {quote
@@ -532,7 +532,7 @@ export const TradeModal = (props: TradeModalProps) => {
             </span>
           </div>
           <div style={lineStyle}>
-            <span style={lineLabelStyle}>Crown's Purse after</span>
+            <span style={lineLabelStyle}>Treasury after</span>
             <span
               style={{
                 ...lineValueStyle,

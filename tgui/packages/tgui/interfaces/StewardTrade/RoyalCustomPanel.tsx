@@ -102,7 +102,7 @@ export const RoyalCustomPanel = () => {
         }}
       >
         Invoked once the volume threshold is reached; Import surcharges flow
-        into the Crown&apos;s purse thereafter.
+        into the Treasury thereafter.
       </div>
     </div>
   );

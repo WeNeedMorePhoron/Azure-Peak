@@ -37,16 +37,16 @@ export const PetitionView = (props: { data: Data }) => {
   const cannotAct = !petition.is_steward_role || !!petition.is_alderman_acting;
 
   const cannotActReason = petition.is_alderman_acting
-    ? "The Alderman's writ does not extend to petitioning the trade hall."
+    ? "The Alderman's writ does not extend to petitioning regions."
     : !petition.is_steward_role
-      ? 'Only the Steward, Clerk, or Grand Duke may petition the trade hall.'
+      ? 'Only the Steward, Clerk, or Grand Duke may petition regions.'
       : '';
 
   const select = (template: string) => act('petition_select', { template });
 
   return (
     <div>
-      <div style={sectionHeaderStyle}>Petition the Trade Hall</div>
+      <div style={sectionHeaderStyle}>Petition a Region</div>
 
       <div
         style={{
@@ -56,10 +56,10 @@ export const PetitionView = (props: { data: Data }) => {
           lineHeight: '1.5em',
         }}
       >
-        Send envoys to a regional trade hall to commission a Standing Order of
-        your choosing. Costs Burgher Pledge. The hall takes a {petition_tax_pct}
-        % margin on petitioned orders &mdash; the price of certainty. The exact
-        item mix is still set by the hall.
+        Petition a region for a Standing Order of your choice. Costs Burgher
+        Pledge. The order yields {petition_tax_pct}% less margin to cover the
+        cost of searching for such demands. The exact item mix is still set by
+        the region.
       </div>
 
       <PetitionStatusStrip data={props.data} />
@@ -252,7 +252,7 @@ const RegionTable = (props: {
                   title={
                     disabled
                       ? offer.blocker
-                      : `petition the ${regionName} hall for a ${label} order`
+                      : `petition ${regionName} for a ${label} order`
                   }
                   onClick={() => onPetition(offer.region_id)}
                   style={inkButtonStyle({ color: PETITION_PURPLE, disabled })}
