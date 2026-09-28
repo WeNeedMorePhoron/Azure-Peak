@@ -102,8 +102,9 @@ export const RoyalCustomPanel = () => {
           marginTop: '4px',
         }}
       >
-        Unlocks once trade volume reaches the threshold. Import surcharges then
-        go to the Treasury.
+        Unlocks once the realm has done enough trade. You can then set the
+        markup on goods ordered from abroad through the stockpile, and it goes
+        to the Treasury.
       </div>
     </div>
   );

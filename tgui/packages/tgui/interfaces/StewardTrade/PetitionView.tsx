@@ -35,9 +35,9 @@ export const PetitionView = (props: { data: Data }) => {
   const cannotAct = !petition.is_steward_role || !!petition.is_alderman_acting;
 
   const cannotActReason = petition.is_alderman_acting
-    ? "Reserved to the Steward's office."
+    ? "As Alderman, you can't petition regions."
     : !petition.is_steward_role
-      ? 'Only the Steward, Clerk, or Grand Duke may petition regions.'
+      ? "Only Crown officials can petition regions."
       : '';
 
   const select = (template: string) => act('petition_select', { template });

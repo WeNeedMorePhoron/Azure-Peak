@@ -52,7 +52,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
   const { onTrade } = props;
   const aldermanActing = !!props.data.is_alderman_acting;
   const aldermanBlockTitle =
-    "Reserved to the Steward's office.";
+    "As Alderman, you can't change this.";
 
   const groups = groupByCategory(market_rows, good_catalog);
   const [activeCategory, setActiveCategory] = useState<string>(
@@ -101,7 +101,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
             disabled={aldermanActing}
             onClick={() => {
               const raw = window.prompt(
-                "Surplus threshold (0-100%). Stock above limit × threshold is surplus. The daily autoexport and the Export Surplus button ship it to the best paying region, up to that region's daily demand. A lower threshold exports more.",
+                "Surplus threshold (0-100%). Anything above this share of a good's limit is surplus. It is sold abroad each dawn, or when you press Export Surplus, up to what the best paying region still wants. Lower means more gets sold.",
                 String(autoexport_percentage),
               );
               if (raw === null) return;
@@ -124,7 +124,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
             title={
               aldermanActing
                 ? aldermanBlockTitle
-                : "Export every autopriced entry's stock above the threshold to its best paying region, capped at remaining daily demand. Manually priced entries are skipped."
+                : "Sell the surplus of every autopriced good to whichever region pays most, up to what it still wants today. Goods you priced by hand are skipped."
             }
           >
             Export Surplus
@@ -137,7 +137,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
             title={
               aldermanActing
                 ? aldermanBlockTitle
-                : 'Reset every stockpile entry to automatic pricing.'
+                : 'Put every good back on automatic pricing.'
             }
           >
             Autoprice All
@@ -150,7 +150,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
             title={
               aldermanActing
                 ? aldermanBlockTitle
-                : 'Recompute every stockpile limit from 2 days of total demand, scaled by population.'
+                : 'Recompute every stockpile limit from 2 days of total demand.'
             }
           >
             Autolimit All
@@ -171,7 +171,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
             title={
               aldermanActing
                 ? aldermanBlockTitle
-                : "Bulk multiply all buy prices. Flips affected entries to manual."
+                : "Multiply all buy prices. Sets each entry to manual."
             }
           >
             Buy ×
@@ -192,7 +192,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
             title={
               aldermanActing
                 ? aldermanBlockTitle
-                : "Bulk multiply every sell price. Flips affected entries to manual."
+                : "Multiply all sell prices. Sets each entry to manual."
             }
           >
             Sell ×
@@ -201,7 +201,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
       </div>
       {market_rows.length === 0 ? (
         <div style={{ textAlign: 'center', color: INK_SOFT }}>
-          No goods accepted at present.
+          The stockpile isn&apos;t taking any goods right now.
         </div>
       ) : (
         <>
@@ -246,7 +246,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                   title={
                     aldermanActing
                       ? aldermanBlockTitle
-                      : `Export ${activeGroup.label} surplus to best paying regions.`
+                      : `Sell ${activeGroup.label} surplus to whichever regions pay most.`
                   }
                 >
                   Export Surplus
@@ -266,7 +266,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                   title={
                     aldermanActing
                       ? aldermanBlockTitle
-                      : `Reset all ${activeGroup.label} entries to automatic pricing.`
+                      : `Put all ${activeGroup.label} back on automatic pricing.`
                   }
                 >
                   Autoprice
@@ -286,7 +286,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                   title={
                     aldermanActing
                       ? aldermanBlockTitle
-                      : `Recompute all ${activeGroup.label} stockpile limits from demand.`
+                      : `Set all ${activeGroup.label} limits back to automatic.`
                   }
                 >
                   Autolimit
@@ -311,7 +311,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                   title={
                     aldermanActing
                       ? aldermanBlockTitle
-                      : `Bulk multiply ${activeGroup.label} buy prices. Flips affected entries to manual.`
+                      : `Multiply ${activeGroup.label} buy prices. Sets each to manual.`
                   }
                 >
                   Buy ×
@@ -336,7 +336,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                   title={
                     aldermanActing
                       ? aldermanBlockTitle
-                      : `Bulk multiply ${activeGroup.label} sell prices. Flips affected entries to manual.`
+                      : `Multiply ${activeGroup.label} sell prices. Sets each to manual.`
                   }
                 >
                   Sell ×
@@ -684,7 +684,7 @@ const RegionRow = (props: {
               : 'No demand left today. Further sales pay less.'
           }
         >
-          SATURATED
+          {side === 'import' ? 'NO SUPPLY' : 'NO DEMAND'}
         </span>
       )}
       <button
@@ -782,7 +782,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
   const margin = row.margin_per_unit;
   const potential = row.arbitrage_potential;
   const blockTitle =
-    "Reserved to the Steward's office.";
+    "As Alderman, you can't change this.";
   const stripStyleEffective: React.CSSProperties = aldermanActing
     ? { ...stripStyle, opacity: 0.55, textDecoration: 'line-through' }
     : stripStyle;
@@ -833,7 +833,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
             aldermanActing
               ? blockTitle
               : isAuto
-                ? 'Automatic. Follows the market reference price.'
+                ? 'Automatic: follows the going rate.'
                 : undefined
           }
         >
@@ -870,7 +870,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
             aldermanActing
               ? blockTitle
               : limitAuto
-                ? 'Automatic. 2 days of total demand, scaled by population.'
+                ? 'Automatic: 2 days of demand, more when the town is livelier.'
                 : undefined
           }
         >
@@ -888,7 +888,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
         style={flagPillStyle(accepting)}
         disabled={aldermanActing}
         onClick={() => act('toggle_stockpile_accept', { good_id: goodId })}
-        title={aldermanActing ? blockTitle : 'Accept player deposits.'}
+        title={aldermanActing ? blockTitle : 'Let people deposit this good.'}
       >
         {accepting ? 'Accept' : 'Reject'}
       </button>
@@ -897,7 +897,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
         style={flagPillStyle(!withdrawDisabled)}
         disabled={aldermanActing}
         onClick={() => act('toggle_withdraw_disabled', { good_id: goodId })}
-        title={aldermanActing ? blockTitle : 'Allow player withdrawals.'}
+        title={aldermanActing ? blockTitle : 'Let people withdraw this good.'}
       >
         {withdrawDisabled ? 'No-W' : 'W-OK'}
       </button>

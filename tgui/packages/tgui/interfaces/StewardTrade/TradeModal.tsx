@@ -267,10 +267,10 @@ export const TradeModal = (props: TradeModalProps) => {
   const fillTooltip = !quote
     ? 'Calculating...'
     : batchCapacity < 1
-      ? 'No capacity left today.'
+      ? (isImport ? 'No supply left today.' : 'No demand left today.')
       : !canFill
         ? isImport
-          ? 'The Treasury cannot cover a single unit.'
+          ? "The Treasury can't afford even one."
           : 'Nothing in the stockpile to sell.'
         : atFill
           ? `Already at ${fillTarget}, the most at base price.`
@@ -289,9 +289,9 @@ export const TradeModal = (props: TradeModalProps) => {
       : shortStock
         ? `Stockpile holds only ${stockpile} unit${stockpile === 1 ? '' : 's'}.`
         : isImport && !quote.can_afford
-          ? 'The Treasury cannot cover this trade.'
+          ? "The Treasury can't afford this trade."
           : !quote.warrant_ok
-            ? 'Warrant cannot cover this trade.'
+            ? "Your warrant can't cover this trade."
             : '';
 
   const change = (delta: number) => {

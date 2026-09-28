@@ -24,8 +24,8 @@ export const BanditryBanner = (props: { projection: BanditryProjection }) => {
       )}
       {hasHoard && (
         <div>
-          Bandit hoards hold {p.hoard_total}m. The Crown taxes a share of any
-          recovered hoard.
+          Bandits are sitting on {p.hoard_total}m. When a hoard is recovered,
+          the Crown taxes a share of it.
         </div>
       )}
       {(p.lines || []).map((line) => (

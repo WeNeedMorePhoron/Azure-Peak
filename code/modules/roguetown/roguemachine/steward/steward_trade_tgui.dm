@@ -26,7 +26,7 @@
 
 /obj/structure/roguemachine/steward/proc/open_trade_tgui(mob/user)
 	if(locked && !alderman_has_access(user))
-		to_chat(user, span_warning("It's locked. Of course."))
+		to_chat(user, span_warning("It's locked."))
 		return
 	var/datum/tgui/ui = SStgui.try_update_ui(user, src, null)
 	if(!ui)
@@ -590,14 +590,14 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 	if(locked && !alderman_has_access(usr))
 		return TRUE
 	if(SStreasury.is_in_receivership() && (action in GLOB.steward_trade_sequestration_locked_actions))
-		to_chat(usr, span_warning("The ATC holds the Crown's commerce in sequestration. Petitions, taxes and fines still work."))
+		to_chat(usr, span_warning("Trade controls are locked under sequestration. Petitions, taxes and fines still work."))
 		return TRUE
 	if(action == "fulfill_order" || (action in GLOB.steward_trade_sequestration_locked_actions))
 		SStreasury.dirty_market_view()
 	switch(action)
 		if("fulfill_order")
 			if(!COOLDOWN_FINISHED(src, fulfill_retry_cooldown))
-				to_chat(usr, span_warning("The clerks are still tallying the last attempt. Try again in a moment."))
+				to_chat(usr, span_warning("You just tried to fulfill an order. Wait a moment and try again."))
 				return TRUE
 			var/datum/standing_order/O = locate(params["ref"]) in GLOB.standing_order_pool
 			if(O)
@@ -608,8 +608,8 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 					var/coverage_pct = preview["coverage_pct"]
 					var/preview_payout = preview["payout"]
 					var/missing_text = preview["missing_text"]
-					var/confirm = alert(usr, "Partially fulfill [O.name]? Coverage: [coverage_pct]%. Payout: [preview_payout]m at [round(STANDING_ORDER_PARTIAL_PAYOUT_MULT * 100)]% of the delivered share. Missing: [missing_text].", "Partial Fulfillment", "Yes", "No")
-					if(confirm == "Yes")
+					var/confirm = alert(usr, "You have [coverage_pct]% of the goods for [O.name]. Send them now for [preview_payout]m, [round(STANDING_ORDER_PARTIAL_PAYOUT_MULT * 100)]% of their value? Still missing: [missing_text].", "Partial Delivery", "Send", "Wait")
+					if(confirm == "Send")
 						var/list/partial_result = SSeconomy.fulfill_order(usr, O, TRUE)
 						if(islist(partial_result) && partial_result["status"] == "partial")
 							var/pq_delta = partial_result["quality_delta"]
@@ -618,7 +618,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 								pq_suffix = " (quality bonus: +[pq_delta]m)"
 							else if(pq_delta < 0)
 								pq_suffix = " (quality penalty: [pq_delta]m)"
-							scom_announce("Standing Order partially fulfilled:[O.name] (+[partial_result["payout"]]m)[pq_suffix].")
+							scom_announce("Standing Order partially fulfilled: [O.name] (+[partial_result["payout"]]m)[pq_suffix].")
 							playsound(src, 'sound/misc/coindispense.ogg', 60, FALSE, -1)
 						else
 							COOLDOWN_START(src, fulfill_retry_cooldown, STANDING_ORDER_FULFILL_RETRY_COOLDOWN)
@@ -992,9 +992,9 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			var/units = result["units"]
 			var/revenue = result["revenue"]
 			if(units <= 0)
-				to_chat(usr, span_warning("No surplus to export. Either no entry is over its threshold, or no region has demand left today."))
+				to_chat(usr, span_warning("No surplus to export. No entries are over their threshold or no regions have remaining demand."))
 				return TRUE
-			scom_announce("Crown clears surplus stockpile: [units] units exported for [revenue] mammon.")
+			scom_announce("The Crown sold [units] units of surplus stock abroad for [revenue] mammon.")
 			for(var/line in result["lines"])
 				to_chat(usr, span_notice(line))
 			to_chat(usr, span_notice("<b>Total: [units] units exported for [revenue]m.</b>"))
@@ -1044,7 +1044,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			if(total_units <= 0)
 				to_chat(usr, span_warning("No [category] surplus to export."))
 				return TRUE
-			scom_announce("Crown clears [category] surplus: [total_units] units exported for [total_revenue] mammon.")
+			scom_announce("The Crown sold [total_units] units of surplus [category] abroad for [total_revenue] mammon.")
 			for(var/line in lines)
 				to_chat(usr, span_notice(line))
 			to_chat(usr, span_notice("<b>Total: [total_units] units exported for [total_revenue]m.</b>"))
@@ -1061,32 +1061,32 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			return TRUE
 		if("petition_for_order")
 			if(SScity_assembly?.is_alderman(usr))
-				to_chat(usr, span_warning("Reserved to the Steward's office."))
+				to_chat(usr, span_warning("As Alderman, you can't petition regions."))
 				return TRUE
 			if(!(usr.job in GLOB.crown_authority_roles))
-				to_chat(usr, span_warning("Only the Steward's office may petition regions."))
+				to_chat(usr, span_warning("Only Crown officials can petition regions."))
 				return TRUE
 			var/region_id = params["region_id"]
 			var/template = text2path(params["template"])
 			if(SSeconomy.petition_for_order(usr, region_id, template))
 				var/datum/economic_region/region = GLOB.economic_regions[region_id]
 				playsound(src, 'sound/items/inqslip_sealed.ogg', 70, FALSE, -1)
-				visible_message(span_notice("[src] stamps a freshly sealed writ. The wax bears the mark of [region?.name]."))
+				visible_message(span_notice("[src] stamps the petition and seals it for [region?.name]."))
 			SStgui.update_uis(src)
 			return TRUE
 		if("take_atc_loan")
 			if(SScity_assembly?.is_alderman(usr))
-				to_chat(usr, span_warning("Reserved to the Steward's office."))
+				to_chat(usr, span_warning("As Alderman, you can't take loans for the Crown."))
 				return TRUE
 			if(!(usr.job in GLOB.crown_authority_roles))
-				to_chat(usr, span_warning("Only the Crown's office may approach the ATC clerk."))
+				to_chat(usr, span_warning("Only Crown officials can take loans from the ATC."))
 				return TRUE
 			var/amount = text2num("[params["amount"]]")
 			if(!isnum(amount))
 				return TRUE
 			if(SStreasury.take_atc_loan(amount, usr))
 				playsound(src, 'sound/items/inqslip_sealed.ogg', 70, FALSE, -1)
-				visible_message(span_notice("[src] stamps a sealed writ. The wax bears the mark of the ATC."))
+				visible_message(span_notice("[src] stamps the loan papers with the ATC seal."))
 			SStgui.update_uis(src)
 			return TRUE
 		if("set_royal_custom_margin")

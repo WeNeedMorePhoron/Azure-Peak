@@ -65,7 +65,7 @@ export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
             {atc_loan.closed_day}.
           </>
         ) : (
-          atc_loan.blocker || 'The clerk is unavailable.'
+          atc_loan.blocker || 'No loan available right now.'
         )}
       </div>
       {!!atc_loan.arrears_consumed && (
@@ -76,10 +76,9 @@ export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
             marginBottom: '6px',
           }}
         >
-          Outstanding loan to the ATC: <b>{atc_loan.outstanding}m</b>. All
-          inflow into the Treasury is skimmed until it is settled. Until it is
-          repaid, a missed payroll skips arrears and goes straight to
-          sequestration.
+          Outstanding loan from the ATC: <b>{atc_loan.outstanding}m</b>. All
+          inflow into the Treasury is skimmed until it is repaid, and a missed
+          payroll skips arrears and goes straight to sequestration.
         </div>
       )}
       {atc_loan.loans_drawn > 0 && (
@@ -100,7 +99,7 @@ export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
           }}
           title={
             aldermanActing
-              ? "Reserved to the Steward's office."
+              ? "As Alderman, you can't take loans for the Crown."
               : undefined
           }
         >

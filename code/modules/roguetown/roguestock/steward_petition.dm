@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(petition_categories, build_petition_categories())
 			/datum/standing_order/demand_armaments = "Armament Requisition",
 			/datum/standing_order/demand_equipment_armaments = "Arms Order",
 			/datum/standing_order/demand_equipment_armor_heavy = "Harness Order",
-			/datum/standing_order/demand_equipment_armor_light = "Company Tunics",
+			/datum/standing_order/demand_equipment_armor_light = "Levy Tunics",
 			/datum/standing_order/demand_frontier_gear = "Frontier Garrison Kit",
 		),
 	)
@@ -119,10 +119,10 @@ GLOBAL_LIST_INIT(petition_categories, build_petition_categories())
 	if(active_in_region >= STANDING_ORDERS_MAX_PER_REGION)
 		return "[region.name] already has [active_in_region] active orders"
 	if(!SStreasury.burgher_pledge_fund)
-		return "the Burgher Pledge is not yet established"
+		return "the Burghers have not made their pledge yet"
 	var/cost = cat["cost"]
 	if(SStreasury.burgher_pledge_fund.balance < cost)
-		return "the Burgher Pledge cannot cover [cost]p"
+		return "not enough Burgher Pledge (need [cost]p)"
 	return null
 
 /datum/controller/subsystem/economy/proc/petition_for_order(mob/user, region_id, template)
@@ -135,9 +135,9 @@ GLOBAL_LIST_INIT(petition_categories, build_petition_categories())
 	var/label = cat["templates"][template]
 	var/cost = cat["cost"]
 	var/datum/economic_region/region = GLOB.economic_regions[region_id]
-	if(!SStreasury.burn(SStreasury.burgher_pledge_fund, cost, "Steward petition - [label] in [region_id]"))
+	if(!SStreasury.burn(SStreasury.burgher_pledge_fund, cost, "Steward petition - [label] in [region.name]"))
 		if(user)
-			to_chat(user, span_warning("Petition refused: pledge could not be drawn."))
+			to_chat(user, span_warning("Petition refused: the Burgher Pledge could not cover the cost."))
 		return FALSE
 	record_round_statistic(STATS_PLEDGE_CONSUMED, cost)
 	record_round_statistic(STATS_PETITION_PLEDGE_SPENT, cost)
@@ -153,7 +153,7 @@ GLOBAL_LIST_INIT(petition_categories, build_petition_categories())
 	else
 		O = instantiate_standing_order(template, region, order_size_mult, petitioned = TRUE)
 	if(!O)
-		SStreasury.mint(SStreasury.burgher_pledge_fund, cost, "Steward petition refund - empty roll")
+		SStreasury.mint(SStreasury.burgher_pledge_fund, cost, "Steward petition refund - no order found")
 		record_round_statistic(STATS_PLEDGE_CONSUMED, -cost)
 		record_round_statistic(STATS_PETITION_PLEDGE_SPENT, -cost)
 		petitions_today--
