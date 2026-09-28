@@ -61,6 +61,9 @@
 	return 3
 
 /datum/antagonist/lich/on_gain()
+	owner.unknow_all_people() //ancient lich, nobody knows them
+	for(var/datum/mind/MF in get_minds())
+		owner.become_unknown_to(MF)
 	SSmapping.retainer.liches |= owner
 	. = ..()
 	owner.special_role = name
