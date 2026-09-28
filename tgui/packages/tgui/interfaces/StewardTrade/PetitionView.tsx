@@ -31,13 +31,11 @@ export const PetitionView = (props: { data: Data }) => {
   const selectedCat = petition_categories.find((c) =>
     c.templates.some((t) => t.id === selectedId),
   );
-  const selectedLabel =
-    selectedCat?.templates.find((t) => t.id === selectedId)?.label ?? '';
 
   const cannotAct = !petition.is_steward_role || !!petition.is_alderman_acting;
 
   const cannotActReason = petition.is_alderman_acting
-    ? "The Alderman's writ does not extend to petitioning regions."
+    ? "Reserved to the Steward's office."
     : !petition.is_steward_role
       ? 'Only the Steward, Clerk, or Grand Duke may petition regions.'
       : '';
@@ -57,8 +55,8 @@ export const PetitionView = (props: { data: Data }) => {
         }}
       >
         Petition a region for a Standing Order of your choice. Costs Burgher
-        Pledge. The order yields {petition_tax_pct}% less margin to cover the
-        cost of searching for such demands. The exact item mix is still set by
+        Pledge. The order pays {petition_tax_pct}% less to cover the cost of
+        searching for such demands. The exact item mix is still set by
         the region.
       </div>
 
@@ -113,7 +111,6 @@ export const PetitionView = (props: { data: Data }) => {
               })}
             </div>
             <RegionTable
-              label={selectedLabel}
               offers={petition.offers}
               regionNames={region_catalog}
               cannotAct={cannotAct}
@@ -140,9 +137,7 @@ export const PetitionView = (props: { data: Data }) => {
         }}
       >
         Limit: {petitions_per_day} petition{petitions_per_day === 1 ? '' : 's'}{' '}
-        per day &middot; Regions freshly cleared of blockade need a recovery
-        window before envoys return &middot; Petitioned orders are visibly
-        tagged on the noticeboard and in the orders panel.
+        per day.
       </div>
     </div>
   );
@@ -183,13 +178,12 @@ const PetitionStatusStrip = (props: { data: Data }) => {
 };
 
 const RegionTable = (props: {
-  label: string;
   offers: PetitionOffer[];
   regionNames: Record<string, { name: string; description: string }>;
   cannotAct: boolean;
   onPetition: (region_id: string) => void;
 }) => {
-  const { label, offers, regionNames, cannotAct, onPetition } = props;
+  const { offers, regionNames, cannotAct, onPetition } = props;
 
   if (offers.length === 0) {
     return (
@@ -249,11 +243,7 @@ const RegionTable = (props: {
                 <button
                   type="button"
                   disabled={disabled}
-                  title={
-                    disabled
-                      ? offer.blocker
-                      : `petition ${regionName} for a ${label} order`
-                  }
+                  title={disabled ? offer.blocker : undefined}
                   onClick={() => onPetition(offer.region_id)}
                   style={inkButtonStyle({ color: PETITION_PURPLE, disabled })}
                 >

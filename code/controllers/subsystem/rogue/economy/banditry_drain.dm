@@ -16,7 +16,7 @@
 		var/per_player = (level == DANGER_LEVEL_BLEAK) ? BANDITRY_DRAIN_BLEAK_PER_PLAYER : BANDITRY_DRAIN_DANGEROUS_PER_PLAYER
 		result["total"] += cost
 		result["by_region"][TR.region_name] = cost
-		result["lines"] += "[TR.region_name] ([level]) -[cost]m ([base_cost] base + [per_player]m/head x [pop])"
+		result["lines"] += "[TR.region_name] ([level]) -[cost]m ([base_cost]m base, plus [per_player]m per head for a population of [pop])"
 	return result
 
 /datum/controller/subsystem/economy/proc/total_banditry_hoard()

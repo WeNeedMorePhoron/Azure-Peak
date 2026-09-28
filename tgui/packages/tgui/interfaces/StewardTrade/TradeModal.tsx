@@ -273,8 +273,8 @@ export const TradeModal = (props: TradeModalProps) => {
           ? 'The Treasury cannot cover a single unit.'
           : 'Nothing in the stockpile to sell.'
         : atFill
-          ? `Already set to ${fillTarget} - the last unit before saturation.`
-          : `Set quantity to ${fillTarget} - the most you can ${isImport ? 'buy' : 'sell'} before saturation.`;
+          ? `Already at ${fillTarget}, the most at base price.`
+          : `Set quantity to ${fillTarget}, the most at base price.`;
 
   const shortStock = !isImport && !!quote && quantity > stockpile;
   const submitDisabled =
@@ -339,9 +339,7 @@ export const TradeModal = (props: TradeModalProps) => {
           <span style={{ color: INK, fontWeight: 'bold', marginLeft: '4px' }}>
             {quote ? `${quote.stockpile_amount}` : '...'}
           </span>
-          <span style={{ color: INK_FAINT, marginLeft: '4px' }}>
-            units on hand
-          </span>
+          <span style={{ color: INK_FAINT, marginLeft: '4px' }}>units</span>
         </div>
 
         <div style={stepperRowStyle}>
@@ -418,7 +416,7 @@ export const TradeModal = (props: TradeModalProps) => {
           }}
         >
           (max {maxUnits} units per trade
-          {!isImport && stockpile < bulkMax ? ' - limited by stockpile' : ''})
+          {!isImport && stockpile < bulkMax ? ', limited by stockpile' : ''})
         </div>
 
         <div
@@ -437,14 +435,14 @@ export const TradeModal = (props: TradeModalProps) => {
                 {batchCapacity} unit{batchCapacity === 1 ? '' : 's'} available
                 at base price in one shipment.
                 <br />
-                Buying past that drives the price up the more you take.
+                More than that costs extra per unit.
               </>
             ) : (
               <>
                 {batchCapacity} unit{batchCapacity === 1 ? '' : 's'} of demand
                 left in one shipment.
                 <br />
-                Selling past that floods the market and the price drops.
+                More than that pays less per unit.
               </>
             )
           ) : (
@@ -472,7 +470,7 @@ export const TradeModal = (props: TradeModalProps) => {
             </span>
           </div>
           <div style={lineStyle}>
-            <span style={lineLabelStyle}>Units past saturation</span>
+            <span style={lineLabelStyle}>Units above base</span>
             <span
               style={{
                 ...lineValueStyle,
@@ -507,7 +505,7 @@ export const TradeModal = (props: TradeModalProps) => {
                 fontWeight: 'bold',
               }}
             >
-              {isImport ? 'Escalation surcharge' : 'Revenue lost to oversupply'}
+              {isImport ? 'Surcharge' : 'Oversupply loss'}
             </span>
             <span style={{ ...lineValueStyle, color: escalationColor }}>
               {isImport ? '+' : '-'}

@@ -21,7 +21,7 @@
 	discretionary_fund.balance += loan_amount
 	log_fund_entry(new /datum/treasury_entry("mint", null, discretionary_fund, loan_amount, "Arrears advance from the Azurian Trading Company"))
 	priority_announce(
-		"The Crown's coffers ran dry at payroll. The Burghers of Azuria, by their standing pledge, advance [loan_amount]m at no interest to cover the day's wages. Should the Crown fail again on the morrow, the realm enters sequestration.",
+		"The Crown's coffers ran dry at payroll. The Burghers of Azuria, advance [loan_amount]m at no interest to cover the day's wages. If the next payroll is also missed, the realm enters sequestration.",
 		"THE BURGHERS LEND",
 		'sound/misc/royal_decree2.ogg',
 		"Captain",
@@ -39,11 +39,11 @@
 	if(discretionary_fund.balance > BANKRUPTCY_OPERATING_FLOOR)
 		var/excess = discretionary_fund.balance - BANKRUPTCY_OPERATING_FLOOR
 		discretionary_fund.balance = BANKRUPTCY_OPERATING_FLOOR
-		log_fund_entry(new /datum/treasury_entry("burn", discretionary_fund, null, excess, "Sequestration: residual purse forfeit"))
+		log_fund_entry(new /datum/treasury_entry("burn", discretionary_fund, null, excess, "Sequestration: residual Treasury forfeit"))
 	else if(discretionary_fund.balance < BANKRUPTCY_OPERATING_FLOOR)
 		var/topup = BANKRUPTCY_OPERATING_FLOOR - discretionary_fund.balance
 		discretionary_fund.balance = BANKRUPTCY_OPERATING_FLOOR
-		log_fund_entry(new /datum/treasury_entry("mint", null, discretionary_fund, topup, "Sequestration: operating reserve from the Azurian Trading Company"))
+		log_fund_entry(new /datum/treasury_entry("mint", null, discretionary_fund, topup, "Sequestration: operating reserve from the ATC"))
 
 	// Existing arrears debt is rolled into the new sequestration debt rather than dropped,
 	// so the Crown doesn't escape the smaller obligation by failing harder.
@@ -57,7 +57,7 @@
 	suspend_wages_for_bankruptcy()
 
 	priority_announce(
-		"Following seizure of [atc_seizure_blurb()] against the Crown's outstanding obligations, the Azurian Trading Company - most blessed, most devout servant of Malum the Worker and Abyssor the Dreamer - has graciously advanced an interest-free reserve of [BANKRUPTCY_OPERATING_FLOOR]m in exchange for a debt of [new_debt]m to the Company. Until the debt is repaid in full, the Company holds the sequestered revenues of the realm and farms the customs and salt tolls in perpetuity; the stockpile and trade-engine pass to its hand, that the orderly operation of commerce may be assured for the common weal. Salaries stand suspended; all Charters but the Golden Bull are dissolved.",
+		"Following seizure of [atc_seizure_blurb()] against the Crown's outstanding obligations, the ATC - most blessed, most devout servant of Malum the Worker and Abyssor the Dreamer - has graciously advanced an interest-free reserve of [BANKRUPTCY_OPERATING_FLOOR]m in exchange for a debt of [new_debt]m to the ATC. Until the debt is repaid in full, the ATC holds the sequestered revenues of the realm and farms the customs and salt tolls in perpetuity; the stockpile and trade pass to its hand, that the orderly operation of commerce may be assured for the common weal. Salaries stand suspended; all Charters but the Golden Bull are dissolved.",
 		"SEQUESTRATION DECLARED",
 		'sound/misc/royal_decree.ogg',
 		"Captain",
@@ -95,7 +95,7 @@
 			if(atc_loan_arrears_consumed)
 				atc_loan_arrears_consumed = FALSE
 				priority_announce(
-					"The Crown's debt to the Azurian Trading Company is settled. The Burghers' grace stands restored.",
+					"The Crown's debt to the ATC is settled. The Burghers' grace stands restored.",
 					"ATC LOAN SETTLED",
 					'sound/misc/royal_decree2.ogg',
 					"Captain",
@@ -136,7 +136,7 @@
 	GLOB.azure_round_stats[STATS_TREASURY_DEBT_OUTSTANDING] = 0
 
 	priority_announce(
-		"The Azurian Trading Company releases the Crown's commerce. Wages resume on the morrow. The Lord may, by ancient prerogative, restore up to [BANKRUPTCY_CONCESSION_PICKS] of the suspended Charters at once; all others must wait the customary span between proclamations.",
+		"The ATC releases the Crown's commerce. Wages resume on the morrow. The Lord may, by ancient prerogative, restore up to [BANKRUPTCY_CONCESSION_PICKS] of the suspended Charters at once; all others must wait the customary span between proclamations.",
 		"SEQUESTRATION LIFTED",
 		'sound/misc/royal_decree.ogg',
 		"Captain",
@@ -214,7 +214,7 @@
 	return "Unknown"
 
 /// Properties the Azurian Trading Company "seizes" against the Crown's debts on bankruptcy entry.
-/// Two or three are picked at random for the sequestration announcement. 
+/// Two or three are picked at random for the sequestration announcement.
 GLOBAL_LIST_INIT(atc_seizure_inventory, list(
 	"the Lord's gilded bathing-tub",
 	"a brace of falcons from the royal mews",
@@ -282,11 +282,11 @@ GLOBAL_LIST_INIT(atc_seizure_inventory, list(
 
 /datum/controller/subsystem/treasury/proc/atc_loan_blocker_reason()
 	if(treasury_state == TREASURY_BANKRUPTCY)
-		return "The Company administers commerce. No further loans until sequestration lifts."
+		return "Commerce is under ATC administration. No further loans until sequestration lifts."
 	if(GLOB.dayspassed >= ATC_LOAN_CLOSED_DAY)
-		return "The Guilds clerk is out of office. The loan window has closed for the week."
+		return "The ATC clerk is out of office. The loan window has closed for the week."
 	if(atc_loan_arrears_consumed)
-		return "A prior advance stands unpaid. The Company refuses a second loan until the first is settled."
+		return "A prior loan is unpaid. The ATC will not lend again until it is settled."
 	return null
 
 /datum/controller/subsystem/treasury/proc/take_atc_loan(amount, mob/applicant)
@@ -305,7 +305,7 @@ GLOBAL_LIST_INIT(atc_seizure_inventory, list(
 	discretionary_fund.balance += amount
 	log_fund_entry(new /datum/treasury_entry("mint", null, discretionary_fund, amount, "ATC emergency loan (principal)"))
 	priority_announce(
-		"The Crown takes an advance of [amount]m from the Azurian Trading Company at the customary one-quarter interest, registering a debt of [debt_owed]m. The arrears grace stands forfeit; should the Crown miss its next payroll, the realm enters sequestration without warning.",
+		"The Crown takes a loan of [amount]m from the ATC at [round(ATC_LOAN_INTEREST_RATE * 100)]% interest. Debt: [debt_owed]m. Until it is repaid, a missed payroll skips arrears and goes straight to sequestration.",
 		"THE CROWN BORROWS",
 		'sound/misc/royal_decree.ogg',
 		"Captain",

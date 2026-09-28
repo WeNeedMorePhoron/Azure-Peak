@@ -111,7 +111,7 @@
 	record_round_statistic(STATS_TREASURY_DEBT_REPAID, skim)
 	var/reason
 	if(treasury_state == TREASURY_BANKRUPTCY)
-		reason = "Sequestration debt - Azurian Trading Company"
+		reason = "Sequestration debt - ATC"
 	else if(treasury_state == TREASURY_IN_ARREARS)
 		reason = "Arrears repayment - Burghers of Azuria"
 	else

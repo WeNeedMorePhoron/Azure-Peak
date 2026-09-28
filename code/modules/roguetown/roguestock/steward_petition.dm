@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(petition_categories, build_petition_categories())
 
 /datum/controller/subsystem/economy/proc/petition_blocker(region_id, template)
 	if(petitions_remaining_today() <= 0)
-		return "the trade hall has already heard a petition today"
+		return "no petitions left today"
 	var/list/cat = GLOB.petition_categories[petition_category_of(template)]
 	if(!cat)
 		return "unknown petition category"
@@ -96,16 +96,16 @@ GLOBAL_LIST_INIT(petition_categories, build_petition_categories())
 	if(!region)
 		return "unknown region"
 	if(!(template in region.possible_standing_order_types))
-		return "[region.name]'s trade hall does not deal in [cat["templates"][template]]"
+		return "[region.name] does not deal in [cat["templates"][template]]"
 	if(region.is_region_blockaded)
-		return "[region.name] is blockaded - the road is closed to envoys"
+		return "[region.name] is blockaded"
 	if(region.day_last_cleared >= 0)
 		var/since = GLOB.dayspassed - region.day_last_cleared
 		if(since < PETITION_BLOCKADE_RECOVERY_DAYS)
 			var/wait_days = PETITION_BLOCKADE_RECOVERY_DAYS - since
-			return "[region.name]'s contacts are still scattered - wait [wait_days]d more"
+			return "[region.name] is recovering from blockade, [wait_days] more days"
 	if(GLOB.standing_order_pool.len >= STANDING_ORDERS_POOL_CAP)
-		return "the warehouse manifest is full - fulfill orders first"
+		return "warehouse manifest full, fulfill orders first"
 	var/active_in_region = 0
 	var/list/seen_pairs = list()
 	for(var/datum/standing_order/O as anything in GLOB.standing_order_pool)
@@ -158,7 +158,7 @@ GLOBAL_LIST_INIT(petition_categories, build_petition_categories())
 		record_round_statistic(STATS_PETITION_PLEDGE_SPENT, -cost)
 		petitions_today--
 		if(user)
-			to_chat(user, span_warning("Petition rolled empty - the trade hall returns your pledge."))
+			to_chat(user, span_warning("Unable to find the appropriate petition. Pledge returned."))
 		return FALSE
 	record_round_statistic(STATS_STANDING_ORDERS_PETITIONED, 1)
 	log_game("PETITION: [user ? key_name(user) : "system"] petitioned [label] in [region.name]: rolled [O.name] (+[O.total_payout]m, -[cost]p)")

@@ -1,6 +1,6 @@
 /obj/item/paper/steward_report
 	name = "steward's morning report"
-	desc = "A crisply-stamped sheet summarising yesternight's dispatches to the Nerve Master. Meant for the Steward's eyes on rising."
+	desc = "A stamped sheet summarising yesterday's dispatches, for the Steward."
 	icon = 'icons/roguetown/items/misc.dmi'
 	icon_state = "scroll"
 	info = ""
@@ -64,10 +64,10 @@
 		for(var/line in banditry_lines)
 			body += "&nbsp;&nbsp;- [line]<br>"
 		if(banditry_debt_accrued > 0)
-			body += "<i>Treasury could not absorb the full hit. <font color='#c44'>[banditry_debt_accrued]m</font> accrued as banditry debt: future inflow shall be skimmed against it until paid. ([banditry_burned]m drawn from purse, [banditry_debt_accrued]m owed.)</i><br>"
+			body += "<i>The Treasury cannot cover the full loss. <font color='#c44'>[banditry_debt_accrued]m</font> is added to banditry debt, which future income repays until settled. ([banditry_burned]m paid from the Treasury, [banditry_debt_accrued]m owed.)</i><br>"
 		body += "<br>"
 	if(banditry_hoard > 0)
-		body += "<b>Brigand Hoard:</b> <font color='#c44'>[banditry_hoard]m</font> across their hoards. A hoard recovery (or breaking a blockade there) will reclaim it, with part of it taxed by the Crown as Recovered Spoils.<br><br>"
+		body += "<b>Brigand Hoard:</b> <font color='#c44'>[banditry_hoard]m</font> across their hoards. Recovering a hoard or breaking a blockade reclaims it; the Crown taxes a share as Recovered Spoils.<br><br>"
 	if(orders_rolled)
 		body += "<b>Standing orders posted this morning:</b> [orders_rolled]"
 		if(urgent_rolled)

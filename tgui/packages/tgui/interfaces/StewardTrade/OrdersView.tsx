@@ -20,16 +20,17 @@ import type { Data, Order } from './types';
 const PAIR_ACCENT = '#7a5a2f';
 
 const QUALITY_TIER_TOOLTIP = [
-  'Quality multipliers vs. canonical price:',
-  '  scavenged 25%',
+  'Payout by quality:',
+  '  worn 5%',
   '  ruined 20%',
+  '  scavenged 25%',
   '  awful 35%',
   '  crude 65%',
   '  rough 85%',
   '  (standard) 100%',
-  '  fine 110%',
-  '  flawless 120%',
-  '  masterwork 135%',
+  '  fine 115%',
+  '  flawless 130%',
+  '  masterwork 150%',
 ].join('\n');
 
 export const OrdersView = (props: { data: Data }) => {
@@ -195,7 +196,7 @@ const OrderCard = (props: CardProps) => {
           }}
           title={QUALITY_TIER_TOOLTIP}
         >
-          Warehouse goods pay -80% to +35% based on the quality of submitted
+          Warehouse goods pay -95% to +50% based on the quality of submitted
           items.
         </div>
       )}
@@ -257,7 +258,7 @@ const FulfillButton = (props: { order: Order; onFulfill: () => void }) => {
         disabled
         style={inkButtonStyle({ color: SEAL_RED, disabled: true })}
       >
-        Fulfill &mdash; road blockaded
+        Fulfill - road blockaded
       </button>
     );
   }
@@ -290,10 +291,10 @@ const FulfillButton = (props: { order: Order; onFulfill: () => void }) => {
       <button
         type="button"
         onClick={props.onFulfill}
-        title={`Settle short - ${o.partial_pct}% of value covered, paid at 85% of the delivered share. Missing: ${o.shortfall_text}`}
+        title={`Covers ${o.partial_pct}% of the order's value, paid at 85% of that share. Missing: ${o.shortfall_text}`}
         style={inkButtonStyle({ color: SEAL_AMBER })}
       >
-        Fulfill Partial &mdash; {o.partial_pct}% ({o.partial_payout_preview}m)
+        Fulfill Partial - {o.partial_pct}% ({o.partial_payout_preview}m)
       </button>
     );
   }
@@ -304,7 +305,7 @@ const FulfillButton = (props: { order: Order; onFulfill: () => void }) => {
       title={o.shortfall_text}
       style={inkButtonStyle({ disabled: true })}
     >
-      Fulfill &mdash; {o.shortfall_text || 'insufficient stock'}
+      Fulfill - {o.shortfall_text || 'insufficient stock'}
     </button>
   );
 };

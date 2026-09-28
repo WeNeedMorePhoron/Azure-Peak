@@ -222,7 +222,7 @@
 		<h3>The Emergency Loan</h3>
 		<p>Before Day [ATC_LOAN_CLOSED_DAY], the Crown may draw a one-time loan at the Guilds clerk for <b>[ATC_LOAN_MIN_AMOUNT]m to [ATC_LOAN_MAX_AMOUNT]m</b>. The principal is paid into the Crown's Purse immediately. Interest is <b>[round(ATC_LOAN_INTEREST_RATE * 100)]%</b>: a [ATC_LOAN_MAX_AMOUNT]m draw registers as [round(ATC_LOAN_MAX_AMOUNT * (1 + ATC_LOAN_INTEREST_RATE))]m of debt, repaid silently from skimmed inflow. No second loan may be drawn until the first is settled.</p>
 
-		<p>Drawing the loan is announced and <b>forfeits the arrears grace</b>: missing payroll while the loan is outstanding - by even one mammon - sends the Crown directly to sequestration without the arrears step.</p>
+		<p>Taking the loan is announced. <b>Until it is repaid, a missed payroll skips arrears and goes straight to sequestration</b>, even if the payroll is short by one mammon.</p>
 
 		<p>From Day [ATC_LOAN_CLOSED_DAY] onward, no further loans may be drawn.</p>
 

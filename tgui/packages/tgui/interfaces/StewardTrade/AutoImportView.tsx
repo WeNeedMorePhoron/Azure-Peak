@@ -76,8 +76,8 @@ export const AutoImportView = (props: { data: Data }) => {
               <span style={{ fontWeight: 'bold' }}>{activeCount}</span>
             </div>
             <div style={{ fontSize: FONT_BODY, color: INK_SOFT }}>
-              Tops up each good by {batch_size} units every 6 minutes when stock
-              is below {floor_target}, skipping when a unit would cost more than{' '}
+              Tops up each good by {batch_size} units each dawn when stock is
+              below {floor_target}, skipping when a unit would cost more than{' '}
               {max_price_mult}x its base price.
             </div>
           </div>
@@ -166,7 +166,7 @@ export const AutoImportView = (props: { data: Data }) => {
         <div
           style={{ textAlign: 'center', fontStyle: 'italic', color: INK_SOFT }}
         >
-          No other goods may be placed on autoimport at present.
+          No other importable goods.
         </div>
       ) : (
         <>
@@ -209,7 +209,7 @@ export const AutoImportView = (props: { data: Data }) => {
         <div
           style={{ textAlign: 'center', fontStyle: 'italic', color: INK_SOFT }}
         >
-          No autoimport history yet. Wait for the first tick.
+          No autoimport history yet. Records begin at the next dawn.
         </div>
       ) : (
         [...history].reverse().map((entry, idx) => (

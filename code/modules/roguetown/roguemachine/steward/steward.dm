@@ -162,7 +162,7 @@
 		if(!X)
 			return
 		if(!has_fiscal_authority(usr))
-			say("Only the Steward, Clerk, or Ruler may levy fines.")
+			say("Only the Steward, Clerk, or Grand Duke may levy fines.")
 			playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
 			return
 		if(X == usr)
@@ -187,7 +187,7 @@
 					return
 				if(newtax > max_fine)
 					newtax = max_fine
-					say("The ledger will accept no more than [max_fine]m from [A]. Amount adjusted.")
+					say("The fine on [A] cannot exceed [max_fine]m. Amount adjusted.")
 				SStreasury.give_money_account(-newtax, A, "NERVE MASTER")
 				break
 	if(href_list["printresidency"])
@@ -208,14 +208,14 @@
 		if(!usr.canUseTopic(src, BE_CLOSE) || locked)
 			return
 		var/current_floor = SStreasury.stockpile_purchase_floor
-		var/new_floor = input(usr, "Set the Crown's Purchase Floor. Below this balance the stockpile refuses purchases - goods stay with the seller. (0-10000m)", src, current_floor) as null|num
+		var/new_floor = input(usr, "Set the Treasury purchase floor. Below this balance, the stockpile stops buying. (0-10000m)", src, current_floor) as null|num
 		if(isnull(new_floor))
 			return
 		if(!usr.canUseTopic(src, BE_CLOSE) || locked)
 			return
 		new_floor = CLAMP(round(new_floor), 0, 10000)
 		SStreasury.stockpile_purchase_floor = new_floor
-		say("Crown's Purchase Floor set to [new_floor]m.")
+		say("Treasury purchase floor set to [new_floor]m.")
 		log_game("PURCHASE FLOOR: [key_name(usr)] set stockpile purchase floor to [new_floor]m")
 	if(href_list["clearloandebtor"])
 		if(!usr.canUseTopic(src, BE_CLOSE) || locked)
@@ -268,7 +268,7 @@
 		SStreasury.clear_poll_tax_debt(target)
 		say("[target.real_name]'s poll tax arrears have been cleared.")
 		log_game("POLL TAX CLEARED: [key_name(usr)] cleared [was_owed]m poll tax arrears on [key_name(target)] ([was_overdue] day\s overdue)")
-		to_chat(target, span_notice("The Stewardry has cleared my poll tax arrears. The Crown's ledger on my head is wiped clean."))
+		to_chat(target, span_notice("The Stewardry has cleared my poll tax arrears."))
 	if(href_list["payroll"])
 		var/list/L = list(GLOB.noble_positions) + list(GLOB.retinue_positions) + list(GLOB.garrison_positions) + list(GLOB.courtier_positions) + list(GLOB.church_positions) + list(GLOB.burgher_positions) + list(GLOB.atc_positions) + list(GLOB.peasant_positions) + list(GLOB.sidefolk_positions) + list(GLOB.inquisition_positions)
 		var/list/things = list()
@@ -337,7 +337,7 @@
 		if(!istype(A))
 			return
 		if(!has_fiscal_authority(usr))
-			say("Only the Steward, Clerk, or Ruler may suspend wages.")
+			say("Only the Steward, Clerk, or Grand Duke may suspend wages.")
 			playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
 			return
 		var/datum/fund/account = SStreasury.bank_accounts[A]
@@ -754,13 +754,13 @@
 			contents += "<a href='?src=\ref[src];switchtab=[TAB_MAIN]'>\[Return\]</a><BR>"
 			var/list/snap = SStreasury.compute_fiscal_snapshot()
 			var/list/charters = SStreasury.compute_charter_states()
-			contents += "<center><b>Fiscal Ledger &mdash; Day [GLOB.dayspassed]</b></center>"
+			contents += "<center><b>Fiscal Ledger, Day [GLOB.dayspassed]</b></center>"
 			contents += "<hr>"
 
 			// Balances (two-column)
 			contents += "<b><font color='#e6b327'>BALANCES</font></b>"
 			contents += "<table width='100%' cellspacing='0' cellpadding='2'>"
-			contents += "<tr><td>Crown's Purse</td><td align='right'><font color='#e6b327'>[snap["discretionary"]]m</font></td>"
+			contents += "<tr><td>Treasury</td><td align='right'><font color='#e6b327'>[snap["discretionary"]]m</font></td>"
 			contents += "<td>Burgher Pledge</td><td align='right'><font color='#e6b327'>[snap["burgher_pledge"]]m</font></td></tr>"
 			contents += "<tr><td>Total Bank Coin</td><td align='right'>[snap["total_bank"]]m</td>"
 			contents += "<td>Held Accounts</td><td align='right'>[snap["held_accounts"]]</td></tr>"
@@ -802,7 +802,7 @@
 			contents += "<tr><td><b>Total Forgone</b></td><td align='right'><b><font color='#8f7a5a'>[exempt_total]m</font></b></td>"
 			contents += "<td></td><td></td></tr>"
 			contents += "</table>"
-			contents += "<font size='1'><i>Charter exemptions, levy-exempt stamps, and rate-cap gaps. Mammon the Crown would have collected had no exemption applied.</i></font><br><br>"
+			contents += "<font size='1'><i>Mammon the Crown would have collected but for charter exemptions, tax exempt stamps and rate limits.</i></font><br><br>"
 
 			// Trade (two-column, mixed)
 			contents += "<b><font color='#c0b283'>TRADE</font></b>"

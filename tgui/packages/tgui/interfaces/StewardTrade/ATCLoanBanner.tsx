@@ -59,9 +59,9 @@ export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
             <b>
               {atc_loan.min}m to {atc_loan.max}m
             </b>
-            , at <b>{atc_loan.interest_pct}% interest</b>. Taking a loan forfeits
-            the arrears grace. Should the Crown miss its next payroll, the realm
-            enters sequestration without warning. Loans close on Day{' '}
+            , at <b>{atc_loan.interest_pct}% interest</b>. Until it is repaid, a
+            missed payroll skips arrears and goes straight to sequestration.
+            Loans close on Day{' '}
             {atc_loan.closed_day}.
           </>
         ) : (
@@ -77,8 +77,8 @@ export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
           }}
         >
           Outstanding loan to the ATC: <b>{atc_loan.outstanding}m</b>. All
-          inflow into the Treasury is skimmed until it is settled. The arrears
-          grace is forfeit; the next missed payroll goes straight to
+          inflow into the Treasury is skimmed until it is settled. Until it is
+          repaid, a missed payroll skips arrears and goes straight to
           sequestration.
         </div>
       )}
@@ -86,7 +86,7 @@ export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
         <div
           style={{ color: INK_FAINT, fontSize: FONT_BODY, marginBottom: '6px' }}
         >
-          Loans drawn this week: {atc_loan.loans_drawn}.
+          Loans taken this week: {atc_loan.loans_drawn}.
         </div>
       )}
       {!!atc_loan.available && (
@@ -100,11 +100,11 @@ export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
           }}
           title={
             aldermanActing
-              ? "The Alderman's authority does not extend to loans in the Crown's name."
+              ? "Reserved to the Steward's office."
               : undefined
           }
         >
-          <span>Draw:</span>
+          <span>Amount:</span>
           <NumberInput
             value={amount}
             minValue={atc_loan.min}
@@ -123,7 +123,7 @@ export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
             disabled={aldermanActing}
             onClick={() => act('take_atc_loan', { amount })}
           >
-            Approach the Clerk
+            Take Loan
           </Button.Confirm>
         </div>
       )}

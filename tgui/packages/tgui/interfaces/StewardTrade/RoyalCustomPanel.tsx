@@ -41,18 +41,19 @@ export const RoyalCustomPanel = () => {
             fontWeight: 'bold',
           }}
         >
-          Royal Custom Charter
+          Royal Custom
         </span>
         {!unlocked ? (
           <span style={{ color: INK_SOFT }}>
-            Locked - volume{' '}
+            Locked:{' '}
             <b style={{ color: INK }}>{data.royal_custom_volume}m</b> of{' '}
-            <b style={{ color: INK }}>{data.royal_custom_threshold}m</b>
+            <b style={{ color: INK }}>{data.royal_custom_threshold}m</b> trade
+            volume
           </span>
         ) : (
           <>
             <span style={{ color: SEAL_GREEN, fontWeight: 'bold' }}>
-              INVOKED
+              UNLOCKED
             </span>
             <span style={{ color: INK_SOFT }}>
               Import margin{' '}
@@ -101,8 +102,8 @@ export const RoyalCustomPanel = () => {
           marginTop: '4px',
         }}
       >
-        Invoked once the volume threshold is reached; Import surcharges flow
-        into the Treasury thereafter.
+        Unlocks once trade volume reaches the threshold. Import surcharges then
+        go to the Treasury.
       </div>
     </div>
   );

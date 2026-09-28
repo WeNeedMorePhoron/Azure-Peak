@@ -33,8 +33,8 @@ export const ArrearsBanner = (props: { sequestration: SequestrationState }) => {
       </div>
       <div style={{ fontVariant: 'normal', color: INK }}>
         The Crown owes <b>{sequestration.debt}m</b> in arrears to the Burghers.
-        All inflow into the Treasury is skimmed until it is settled. Should the
-        Crown miss the next dawn's payroll, the realm enters sequestration.
+        All inflow into the Treasury is skimmed until it is settled. If the next
+        dawn's payroll is also missed, the realm enters sequestration.
       </div>
     </div>
   );
