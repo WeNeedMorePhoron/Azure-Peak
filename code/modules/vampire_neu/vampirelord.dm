@@ -59,6 +59,7 @@
 	ADD_TRAIT(H, TRAIT_GRABIMMUNE, TRAIT_GENERIC) //Melee-orientated antagonist, can only use vamp potencies and vitae magicka.
 	ADD_TRAIT(H, TRAIT_SELF_SUSTENANCE, TRAIT_GENERIC) //Heavy-Antag Role, lets you repair your armor with tools + level to journeyman.
 	ADD_TRAIT(H, TRAIT_NOMOOD, TRAIT_GENERIC) //Stops you getting moodnuked and dropping your weapon non-stop. I didn't want to have to give them this off-the-bat but after seeing this happen, yeaaaah.
+	ADD_TRAIT(H, TRAIT_BADTRAINER, TRAIT_GENERIC) //legendary skill antag, we don't want our skill level to backfire
 	H.update_move_intent_slowdown()
 
 /datum/antagonist/vampire/lord/greet()
@@ -72,6 +73,8 @@
 
 /datum/outfit/job/vamplord/pre_equip(mob/living/carbon/human/H)
 	..()
+	H.unequip_everything() //ensure we get the "fit"
+
 	H.adjust_skillrank_up_to(/datum/skill/magic/blood, 6, TRUE)
 	H.adjust_skillrank_up_to(/datum/skill/combat/swords, 6, TRUE) //Returned to Legendary-tier, but its the only weapon you get at this level, since Halford's new Blood Magic system compensates a lot for this.
 	H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, 5, TRUE) //Equalized all combat skills to be Master-tier, otherwise. Unless you somehow get legendary via-other means. You used to just get legendary in everything cause this added to your class, not skill upto'd.
@@ -106,7 +109,7 @@
 		/obj/item/storage/belt/rogue/pouch/coins/veryrich = 1, //Intended they have two now, its a bad solution but it means they don't become poorer than an adv/miner towner midgame as easily as before.
 		/obj/item/rope/chain = 1, //Needed so you can actually sire people, beforehand you had to get rope every round. This speeds things up.
 		/obj/item/rogueweapon/huntingknife/idagger/steel = 1,
-		/obj/item/roguekey/vampire = 1 //Softlock protection, otherwise I'd have removed it. You still spawn in a room with keys anyway soo...
+		/obj/item/storage/keyring/vampire = 1 //Gets a whole keyring, lorde of the manor
 		)
 /*------VERBS-----*/
 
