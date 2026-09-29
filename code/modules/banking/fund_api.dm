@@ -157,7 +157,7 @@
 	to_fund.pending_micro = list()
 	if(remainder > 0)
 		to_fund.pending_micro += list(list("amount" = remainder, "source" = null, "reason" = "carryover"))
-	mint(to_fund, whole, "Fractional remit ([whole]m from [contributors] pending entries)")
+	mint(to_fund, whole, "Small payments combined ([whole]m from [contributors] payments)")
 	return whole
 
 /datum/controller/subsystem/treasury/proc/burn(datum/fund/from_fund, amount, reason)

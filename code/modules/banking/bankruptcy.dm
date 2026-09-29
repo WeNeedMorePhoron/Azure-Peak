@@ -19,9 +19,9 @@
 	record_round_statistic(STATS_ARREARS_DECLARED, 1)
 	// Direct credit so the loan itself isn't immediately skimmed against the debt we just registered.
 	discretionary_fund.balance += loan_amount
-	log_fund_entry(new /datum/treasury_entry("mint", null, discretionary_fund, loan_amount, "Arrears advance from the Azurian Trading Company"))
+	log_fund_entry(new /datum/treasury_entry("mint", null, discretionary_fund, loan_amount, "Arrears advance from the Burghers of Azuria"))
 	priority_announce(
-		"The Crown's coffers ran dry at payroll. The Burghers of Azuria, advance [loan_amount]m at no interest to cover the day's wages. If the next payroll is also missed, the realm enters sequestration.",
+		"The Treasury ran dry at payroll. The Burghers of Azuria have advanced [loan_amount]m at no interest to cover the day's wages.",
 		"THE BURGHERS LEND",
 		'sound/misc/royal_decree2.ogg',
 		"Captain",
@@ -57,7 +57,7 @@
 	suspend_wages_for_bankruptcy()
 
 	priority_announce(
-		"Following seizure of [atc_seizure_blurb()] against the Crown's outstanding obligations, the ATC - most blessed, most devout servant of Malum the Worker and Abyssor the Dreamer - has graciously advanced an interest-free reserve of [BANKRUPTCY_OPERATING_FLOOR]m in exchange for a debt of [new_debt]m to the ATC. Until the debt is repaid in full, the ATC holds the sequestered revenues of the realm and farms the customs and salt tolls in perpetuity; the stockpile and trade pass to its hand, that the orderly operation of commerce may be assured for the common weal. Salaries stand suspended; all Charters but the Golden Bull are dissolved.",
+		"The ATC, most blessed and most devout servant of Malum the Worker and Abyssor the Dreamer, has seized [atc_seizure_blurb()] against the Crown's debts. It has advanced [BANKRUPTCY_OPERATING_FLOOR]m to keep the Treasury running, and the Crown now owes it [new_debt]m. Until that is repaid, the ATC collects the realm's revenues and runs its trade and stockpile. Wages are suspended, and every Charter but the Golden Bull is suspended.",
 		"SEQUESTRATION DECLARED",
 		'sound/misc/royal_decree.ogg',
 		"Captain",
@@ -75,7 +75,7 @@
 		if(!account || account.wages_suspended)
 			continue
 		account.wages_suspended = TRUE
-		to_chat(owner, span_danger("My wages have been suspended after the Crown's sequestration. They will resume when the realm recovers."))
+		to_chat(owner, span_danger("My wages are stopped until the Crown pays off the ATC."))
 
 /datum/controller/subsystem/treasury/proc/resume_wages_after_bankruptcy()
 	var/list/payments = steward_machine?.daily_payments
@@ -95,7 +95,7 @@
 			if(atc_loan_arrears_consumed)
 				atc_loan_arrears_consumed = FALSE
 				priority_announce(
-					"The Crown's debt to the ATC is settled. The Burghers' grace stands restored.",
+					"The Crown has repaid its loan from the ATC.",
 					"ATC LOAN SETTLED",
 					'sound/misc/royal_decree2.ogg',
 					"Captain",
@@ -111,7 +111,7 @@
 	treasury_state = TREASURY_NORMAL
 	atc_loan_arrears_consumed = FALSE
 	priority_announce(
-		"The Crown has settled its arrears with the Burghers. The realm is solvent once more.",
+		"The Crown has repaid the Burghers' advance.",
 		"THE BURGHERS PAID",
 		'sound/misc/royal_decree2.ogg',
 		"Captain",
@@ -136,7 +136,7 @@
 	GLOB.azure_round_stats[STATS_TREASURY_DEBT_OUTSTANDING] = 0
 
 	priority_announce(
-		"The ATC releases the Crown's commerce. Wages resume on the morrow. The Lord may, by ancient prerogative, restore up to [BANKRUPTCY_CONCESSION_PICKS] of the suspended Charters at once; all others must wait the customary span between proclamations.",
+		"The ATC releases the Crown's trade. Wages resume at the next payroll.",
 		"SEQUESTRATION LIFTED",
 		'sound/misc/royal_decree.ogg',
 		"Captain",
@@ -216,7 +216,7 @@
 /// Properties the Azurian Trading Company "seizes" against the Crown's debts on bankruptcy entry.
 /// Two or three are picked at random for the sequestration announcement.
 GLOBAL_LIST_INIT(atc_seizure_inventory, list(
-	"the Lord's gilded bathing-tub",
+	"the Lord's gilded bathtub",
 	"a brace of falcons from the royal mews",
 	"an illuminated psyalter bound in shagreen",
 	"the great Otavan tapestry depicting the Hunt of the Boar",
@@ -225,16 +225,16 @@ GLOBAL_LIST_INIT(atc_seizure_inventory, list(
 	"the household reliquary (less the relic)",
 	"a Naledian astrolabe with three missing pins",
 	"the Steward's reserve of saffron and cinnamon",
-	"an ivory chess-set, six pieces short",
+	"an ivory chess set, six pieces short",
 	"a brocaded canopy bed, taken down with great difficulty",
 	"the chapel's spare gilt candelabrum",
-	"the last Marshal's silver-mounted hunting-horn",
-	"a portrait of a long-forgotten ancestor, slashed by a disgruntled debtor",
+	"the last Marshal's silver hunting horn",
+	"a portrait of a forgotten ancestor, slashed by a disgruntled debtor",
 	"the Court Cupbearer's pewter inventory and the keys to it",
-	"a Lirvanic jewel-encrusted bathtub of indecent proportion",
+	"a jeweled Lirvanic bathtub of indecent proportion",
 	"twelve casks of Bleakcoast firewine, marked for the Midwinter feast",
 	"a Kazengun lacquered wardrobe of indeterminate vintage",
-	"an Etruscan illuminated bestiary, water-damaged",
+	"an Etruscan illuminated bestiary, warped by damp",
 	"a clutch of Heartfelt clockwork toys, ticking faintly",
 	"the menagerie's pet civet, of doubtful temperament",
 	"the great clock of the Crown, dismantled in three carts",
@@ -282,18 +282,18 @@ GLOBAL_LIST_INIT(atc_seizure_inventory, list(
 
 /datum/controller/subsystem/treasury/proc/atc_loan_blocker_reason()
 	if(treasury_state == TREASURY_BANKRUPTCY)
-		return "Commerce is under ATC administration. No further loans until sequestration lifts."
+		return "The ATC won't lend during sequestration."
 	if(GLOB.dayspassed >= ATC_LOAN_CLOSED_DAY)
-		return "The ATC clerk is out of office. The loan window has closed for the week."
+		return "The ATC stops lending this late in the week."
 	if(atc_loan_arrears_consumed)
-		return "A prior loan is unpaid. The ATC will not lend again until it is settled."
+		return "The ATC won't lend again until the last loan is repaid."
 	return null
 
 /datum/controller/subsystem/treasury/proc/take_atc_loan(amount, mob/applicant)
 	var/blocker = atc_loan_blocker_reason()
 	if(blocker)
 		if(applicant)
-			to_chat(applicant, span_warning("Loan refused: [blocker]."))
+			to_chat(applicant, span_warning("Loan refused. [blocker]"))
 		return FALSE
 	amount = clamp(round(amount), ATC_LOAN_MIN_AMOUNT, ATC_LOAN_MAX_AMOUNT)
 	var/debt_owed = round(amount * (1 + ATC_LOAN_INTEREST_RATE))
@@ -305,7 +305,7 @@ GLOBAL_LIST_INIT(atc_seizure_inventory, list(
 	discretionary_fund.balance += amount
 	log_fund_entry(new /datum/treasury_entry("mint", null, discretionary_fund, amount, "ATC emergency loan (principal)"))
 	priority_announce(
-		"The Crown takes a loan of [amount]m from the ATC at [round(ATC_LOAN_INTEREST_RATE * 100)]% interest. Debt: [debt_owed]m. Until it is repaid, a missed payroll skips arrears and goes straight to sequestration.",
+		"The Crown has taken a loan of [amount]m from the ATC at [round(ATC_LOAN_INTEREST_RATE * 100)]% interest, and now owes [debt_owed]m.",
 		"THE CROWN BORROWS",
 		'sound/misc/royal_decree.ogg',
 		"Captain",

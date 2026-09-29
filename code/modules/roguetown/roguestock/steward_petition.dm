@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(petition_categories, build_petition_categories())
 	)
 	cats[PETITION_CATEGORY_LUXURIES] = list(
 		"label" = "Luxuries",
-		"description" = "Court finery, jewelry, name-day tributes, and great feasts.",
+		"description" = "Court finery, jewelry, name day tributes, and great feasts.",
 		"cost" = PETITION_COST_LUXURIES,
 		"templates" = list(
 			/datum/standing_order/demand_court_finery = "Court Finery",

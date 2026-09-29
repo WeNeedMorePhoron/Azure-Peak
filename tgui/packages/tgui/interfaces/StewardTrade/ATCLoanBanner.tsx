@@ -59,9 +59,9 @@ export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
             <b>
               {atc_loan.min}m to {atc_loan.max}m
             </b>
-            , at <b>{atc_loan.interest_pct}% interest</b>. Until it is repaid, a
-            missed payroll skips arrears and goes straight to sequestration.
-            Loans close on Day{' '}
+            , at <b>{atc_loan.interest_pct}% interest</b>. While you owe the ATC,
+            the Burghers won&apos;t cover a missed payroll. Miss one and the
+            realm is sequestered. Loans close on Day{' '}
             {atc_loan.closed_day}.
           </>
         ) : (
@@ -76,9 +76,9 @@ export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
             marginBottom: '6px',
           }}
         >
-          Outstanding loan from the ATC: <b>{atc_loan.outstanding}m</b>. All
-          inflow into the Treasury is skimmed until it is repaid, and a missed
-          payroll skips arrears and goes straight to sequestration.
+          You owe the ATC <b>{atc_loan.outstanding}m</b>. Everything paid into
+          the Treasury goes to them until it&apos;s repaid, and the Burghers
+          won&apos;t cover a missed payroll.
         </div>
       )}
       {atc_loan.loans_drawn > 0 && (

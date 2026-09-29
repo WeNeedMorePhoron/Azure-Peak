@@ -295,7 +295,7 @@ SUBSYSTEM_DEF(economy)
 	if(length(dawn_parts))
 		scom_announce("[jointext(dawn_parts, " - ")].")
 	if(length(relieved_today))
-		scom_announce("<font color='#5cb85c'>RELIEF eases [jointext(relieved_today, ", ")]. Prices return to normal.</font>")
+		scom_announce("<font color='#5cb85c'>RELIEF: [jointext(relieved_today, ", ")] ended. Prices are back to normal.</font>")
 
 	print_steward_report(daily_report_diff)
 	daily_report_diff = null
@@ -565,7 +565,7 @@ SUBSYSTEM_DEF(economy)
 	var/datum/economic_region/ER = GLOB.economic_regions[order.region_id]
 	if(ER?.is_region_blockaded)
 		if(user)
-			to_chat(user, span_warning("[ER.name] is blockaded — the order cannot be delivered until the road is cleared."))
+			to_chat(user, span_warning("[ER.name] is blockaded. You can't deliver this order until the road is cleared."))
 		return FALSE
 
 	var/list/equip_goods = list()
@@ -582,7 +582,7 @@ SUBSYSTEM_DEF(economy)
 
 	if((length(equip_goods) || length(potion_goods)) && !length(GLOB.steward_export_machines))
 		if(user)
-			to_chat(user, span_warning("No warehouse dock manifest is registered. Cannot fulfill warehouse orders."))
+			to_chat(user, span_warning("There's no warehouse dock manifest, so you can't fulfill warehouse orders."))
 		return FALSE
 
 	var/list/equip_avail = length(equip_goods) ? scan_equipment_availability(order, equip_goods) : list()
@@ -627,9 +627,9 @@ SUBSYSTEM_DEF(economy)
 		order.is_fulfilled = TRUE
 		GLOB.standing_order_pool -= order
 		if(user)
-			to_chat(user, span_notice("Order Fulfilled: [full_payout]m paid to the Crown's Purse."))
+			to_chat(user, span_notice("Order fulfilled: [full_payout]m paid to the Treasury."))
 			if(quality_delta > 0)
-				to_chat(user, span_green("Quality bonus: +[quality_delta]m for above-standard goods."))
+				to_chat(user, span_green("Quality bonus: +[quality_delta]m for quality goods."))
 			else if(quality_delta < 0)
 				to_chat(user, span_warning("Quality penalty: [quality_delta]m for shoddy goods."))
 			log_game("STANDING ORDER FULFILLED by [user.ckey]: [order.name] (+[full_payout]m, quality_delta=[quality_delta]m)")
@@ -641,7 +641,7 @@ SUBSYSTEM_DEF(economy)
 
 	if(coverage < STANDING_ORDER_PARTIAL_THRESHOLD)
 		if(user)
-			to_chat(user, span_warning("Coverage [round(coverage * 100)]% - below the [round(STANDING_ORDER_PARTIAL_THRESHOLD * 100)]% partial threshold. Short on: [english_list(missing_labels)]."))
+			to_chat(user, span_warning("You only have [round(coverage * 100)]% of the goods. You need at least [round(STANDING_ORDER_PARTIAL_THRESHOLD * 100)]% to send part of an order. Missing: [english_list(missing_labels)]."))
 		return FALSE
 
 	if(!partial)
@@ -665,7 +665,7 @@ SUBSYSTEM_DEF(economy)
 	order.is_fulfilled = TRUE
 	GLOB.standing_order_pool -= order
 	if(user)
-		to_chat(user, span_notice("Order Settled (Partial): [round(coverage * 100)]% coverage, [payout]m paid to the Crown's Purse ([round(STANDING_ORDER_PARTIAL_PAYOUT_MULT * 100)]% of the delivered share)."))
+		to_chat(user, span_notice("Order partially fulfilled: you sent [round(coverage * 100)]% of the goods and [payout]m went to the Treasury ([round(STANDING_ORDER_PARTIAL_PAYOUT_MULT * 100)]% of their value)."))
 		if(quality_delta_partial > 0)
 			to_chat(user, span_green("Quality bonus: +[quality_delta_partial]m for above-standard goods."))
 		else if(quality_delta_partial < 0)
@@ -867,7 +867,7 @@ SUBSYSTEM_DEF(economy)
 	var/datum/trade_good/tg = GLOB.trade_goods[good_id]
 	if(!tg || !tg.importable)
 		if(user)
-			to_chat(user, span_warning("[good_id] is not importable."))
+			to_chat(user, span_warning("That good can't be imported."))
 		return 0
 	if(quantity <= 0)
 		return 0
@@ -887,7 +887,7 @@ SUBSYSTEM_DEF(economy)
 
 	if(SStreasury.discretionary_fund.balance < total_cost)
 		if(user)
-			to_chat(user, span_warning("Crown's Purse insufficient: [SStreasury.discretionary_fund.balance]m < [total_cost]m."))
+			to_chat(user, span_warning("The Treasury can't afford this import. It has [SStreasury.discretionary_fund.balance]m and needs [total_cost]m."))
 		return 0
 
 	var/actor_suffix = user ? " by [user.real_name]" : ""
@@ -895,7 +895,7 @@ SUBSYSTEM_DEF(economy)
 	if(stipend)
 		import_label = "Subsidy Import"
 	else
-		import_label = user ? "Manual Import" : "Auto Import"
+		import_label = user ? "Manual Import" : "Autoimport"
 
 	if(quantity > 1)
 		SStreasury.burn(SStreasury.discretionary_fund, total_cost, "[import_label]: [quantity] [tg.name] from [region.name][actor_suffix]")
@@ -923,7 +923,7 @@ SUBSYSTEM_DEF(economy)
 	var/datum/trade_good/tg = GLOB.trade_goods[good_id]
 	if(!tg)
 		if(user)
-			to_chat(user, span_warning("[good_id] is not a known trade good."))
+			to_chat(user, span_warning("That isn't a known trade good."))
 		return 0
 	if(quantity <= 0)
 		return 0
@@ -937,7 +937,7 @@ SUBSYSTEM_DEF(economy)
 	var/datum/roguestock/stockpile_entry = find_stockpile_by_trade_good(good_id)
 	if(!stockpile_entry || stockpile_entry.stockpile_amount < quantity)
 		if(user)
-			to_chat(user, span_warning("Insufficient [tg.name] in stockpile: have [stockpile_entry?.stockpile_amount || 0], need [quantity]."))
+			to_chat(user, span_warning("Not enough [tg.name] in the stockpile: you have [stockpile_entry?.stockpile_amount || 0] and need [quantity]."))
 		return 0
 
 	var/demands_today = region.demands_today[good_id] || 0
@@ -950,7 +950,7 @@ SUBSYSTEM_DEF(economy)
 	stockpile_entry.stockpile_amount -= quantity
 	region.demands_today[good_id] = demands_today - quantity
 	var/actor_suffix = user ? " by [user.real_name]" : ""
-	var/export_label = user ? "Manual Export" : "Auto Export"
+	var/export_label = user ? "Manual Export" : "Autoexport"
 	SStreasury.dirty_market_view()
 	SStreasury.mint(SStreasury.discretionary_fund, total_revenue, "[export_label]: [quantity] [tg.name] to [region.name][actor_suffix]")
 	SStreasury.total_export += total_revenue

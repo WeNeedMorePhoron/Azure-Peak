@@ -110,11 +110,11 @@
 
 	var/price_cap = tg.base_price * AUTO_IMPORT_MAX_PRICE_MULT
 	if(max_unit_price > price_cap)
-		today_lines += "[tg.name]: skipped (unit price [max_unit_price]m > [AUTO_IMPORT_MAX_PRICE_MULT]x base price [tg.base_price]m)."
+		today_lines += "[tg.name]: skipped, [max_unit_price]m each is more than [AUTO_IMPORT_MAX_PRICE_MULT]x its usual price of [tg.base_price]m."
 		return
 
 	if(discretionary_fund.balance - total_cost < auto_import_purse_floor)
-		today_lines += "[tg.name]: skipped (Treasury floor [auto_import_purse_floor]m would be breached)."
+		today_lines += "[tg.name]: skipped, buying it would take the Treasury below [auto_import_purse_floor]m."
 		return
 
 	var/spent = SSeconomy.manual_import(null, region_id, good_id, AUTO_IMPORT_BATCH)
