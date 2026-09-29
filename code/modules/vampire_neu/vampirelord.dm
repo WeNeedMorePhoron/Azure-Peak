@@ -120,7 +120,7 @@
 	l_hand = /obj/item/rogueweapon/sword/long/judgement/vlord
 	H.ambushable = FALSE
 	backpack_contents = list(
-		/obj/item/storage/belt/rogue/pouch/coins/bigandfat = 1, //800 mammons on top of RNG on the hip. Sway power to make up for RP VL who isn't going full gigawar
+		/obj/item/storage/belt/rogue/pouch/coins/veryrich = 1, //800 mammons on top of RNG on the hip. Sway power to make up for RP VL who isn't going full gigawar
 		/obj/item/rope/chain = 1, //Needed so you can actually sire people, beforehand you had to get rope every round. This speeds things up.
 		/obj/item/rogueweapon/huntingknife/idagger/steel/decorated = 1,
 		/obj/item/storage/keyring/vampire = 1 //Gets a whole keyring, lorde of the manor
