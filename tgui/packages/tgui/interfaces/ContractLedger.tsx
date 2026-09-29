@@ -334,7 +334,7 @@ const HoardRecoveryCallStrip = () => {
     >
       <div style={{ fontWeight: 'bold', marginBottom: '3px' }}>
         Hoard Recovery: a fellowship of {minFellows} or more can put up a{' '}
-        {pledge}m stake to call a recovery writ on any region whose brigand
+        {pledge}m stake to call for a recovery scroll on any region whose brigand
         hoard has reached {hoardMin}m. It pays the usual blockade reward. The
         Crown taxes {taxPct} of the recovered hoard as Recovered Spoils.
       </div>
@@ -353,7 +353,7 @@ const HoardRecoveryCallStrip = () => {
           </span>
           {r.active ? (
             <span style={{ fontStyle: 'italic', color: '#7a6a4a' }}>
-              writ already in circulation
+              scroll already in circulation
             </span>
           ) : (
             <Button
@@ -443,7 +443,7 @@ const ScoutsPanel = () => {
                       </div>
                     )}
                     <div style={{ color: '#a06000' }}>
-                      {r.blockade_writ_out ? 'Writ out' : 'Awaiting writ'}
+                      {r.blockade_writ_out ? 'Scroll out' : 'Awaiting scroll'}
                     </div>
                   </>
                 ) : (

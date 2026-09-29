@@ -272,19 +272,19 @@
 		to_chat(steward, span_warning("That region is not currently blockaded."))
 		return
 	if(chosen.has_active_scroll())
-		to_chat(steward, span_warning("A writ is already in circulation for that blockade."))
+		to_chat(steward, span_warning("A scroll is already in circulation for that blockade."))
 		return
-	if(!draw_commission_funds(draws, "Blockade defense writ ([region_name])"))
+	if(!draw_commission_funds(draws, "Blockade defense scroll ([region_name])"))
 		to_chat(steward, span_warning("The payment didn't go through."))
 		return
 	var/datum/quest/kill/blockade_defense/Q = SSquestpool.issue_blockade_defense_quest(chosen, steward)
 	if(!Q)
-		refund_commission_draws(draws, "Blockade defense writ refund (issue failure)")
+		refund_commission_draws(draws, "Blockade defense scroll refund (issue failure)")
 		SSquestpool.log_event("defense_refund", "landmark failure blockade [region_name] refunded [cost]m")
-		to_chat(steward, span_warning("No landmark could take that writ. Your funds are refunded."))
+		to_chat(steward, span_warning("No landmark could take that scroll. Your funds are refunded."))
 		return
 	attach_commission_draws(Q, draws)
-	if(is_alderman_acting && cost > 0 && SScity_assembly.consume_defense(cost, steward, "blockade defense writ ([region_name])"))
+	if(is_alderman_acting && cost > 0 && SScity_assembly.consume_defense(cost, steward, "blockade defense scroll ([region_name])"))
 		Q.warrant_consumed = cost
 	var/bonus_mult = get_commission_bonus_pay_mult(bonus_pay_level)
 	if(bonus_mult != 1.0)
@@ -311,35 +311,35 @@
 	SStreasury.defense_log += list(log_entry)
 	Q.issue_log_entry = log_entry
 	SSquestpool.log_event("defense_issue", "[steward.real_name] commissioned blockade defense on [region_name] (faction [Q.faction_id]) for [cost]m ([funding])[levy_exempt ? " (levy-exempt)" : ""][bonus_label_text ? " ([bonus_label_text])" : ""]")
-	scom_announce("A blockade defense writ has been issued for [region_name][bonus_label_text ? ". It carries [bonus_label_text]" : ""].")
+	scom_announce("A blockade defense scroll has been issued for [region_name][bonus_label_text ? ". It carries [bonus_label_text]" : ""].")
 	playsound(src, 'sound/misc/coindispense.ogg', 60, FALSE, -1)
 	var/source_label = commission_source_label(is_directive, draws)
-	to_chat(steward, span_notice("Blockade writ issued [source_label] and placed in your hand: <b>[Q.get_title()]</b>[levy_exempt ? " - <i>levy exempt</i>" : ""][bonus_label_text ? " - <i>[bonus_label_text]</i>" : ""]."))
+	to_chat(steward, span_notice("Blockade scroll issued [source_label] and placed in your hand: <b>[Q.get_title()]</b>[levy_exempt ? " - <i>levy exempt</i>" : ""][bonus_label_text ? " - <i>[bonus_label_text]</i>" : ""]."))
 
 /obj/structure/roguemachine/contractledger/proc/commission_hoard_recovery(mob/living/carbon/human/steward, list/params, cost, list/draws, funding, is_directive,bonus_pay_level = COMMISSION_BONUS_PAY_NONE, is_alderman_acting = FALSE)
 	var/region_name = params["region"]
 	var/datum/threat_region/TR = SSregionthreat.get_region(region_name)
 	if(!TR || TR.banditry_hoard < HOARD_RECOVERY_HOARD_MINIMUM)
-		to_chat(steward, span_warning("The hoard in that region is under [HOARD_RECOVERY_HOARD_MINIMUM] mammon. You can't issue a recovery writ for it yet."))
+		to_chat(steward, span_warning("The hoard in that region is under [HOARD_RECOVERY_HOARD_MINIMUM] mammon. You can't issue a recovery scroll for it yet."))
 		return
 	if(TR.has_active_blockade())
-		to_chat(steward, span_warning("[TR.region_name] is under blockade. Issue a blockade defense writ instead."))
+		to_chat(steward, span_warning("[TR.region_name] is under blockade. Issue a blockade defense scroll instead."))
 		return
 	var/datum/quest/kill/blockade_defense/existing = TR.active_hoard_recovery_ref?.resolve()
 	if(existing && !QDELETED(existing) && !existing.failed && !existing.complete)
-		to_chat(steward, span_warning("A recovery writ is already in circulation for that region."))
+		to_chat(steward, span_warning("A recovery scroll is already in circulation for that region."))
 		return
-	if(!draw_commission_funds(draws, "Hoard recovery writ ([region_name])"))
+	if(!draw_commission_funds(draws, "Hoard recovery scroll ([region_name])"))
 		to_chat(steward, span_warning("The payment didn't go through."))
 		return
 	var/datum/quest/kill/blockade_defense/Q = SSquestpool.issue_hoard_recovery_request(TR, steward, TRUE)
 	if(!Q)
-		refund_commission_draws(draws, "Hoard recovery writ refund (issue failure)")
+		refund_commission_draws(draws, "Hoard recovery scroll refund (issue failure)")
 		SSquestpool.log_event("defense_refund", "landmark failure hoard recovery [region_name] refunded [cost]m")
-		to_chat(steward, span_warning("No landmark could take that writ. Your funds are refunded."))
+		to_chat(steward, span_warning("No landmark could take that scroll. Your funds are refunded."))
 		return
 	attach_commission_draws(Q, draws)
-	if(is_alderman_acting && cost > 0 && SScity_assembly.consume_defense(cost, steward, "hoard recovery writ ([region_name])"))
+	if(is_alderman_acting && cost > 0 && SScity_assembly.consume_defense(cost, steward, "hoard recovery scroll ([region_name])"))
 		Q.warrant_consumed = cost
 	var/bonus_mult = get_commission_bonus_pay_mult(bonus_pay_level)
 	if(bonus_mult != 1.0)
@@ -366,7 +366,7 @@
 	SStreasury.defense_log += list(log_entry)
 	Q.issue_log_entry = log_entry
 	SSquestpool.log_event("defense_issue", "[steward.real_name] commissioned hoard recovery on [region_name] (faction [Q.faction_id], hoard [TR.banditry_hoard]) for [cost]m ([funding])[levy_exempt ? " (levy-exempt)" : ""][bonus_label_text ? " ([bonus_label_text])" : ""]")
-	scom_announce("A hoard recovery writ has been issued for [region_name][bonus_label_text ? ". It carries [bonus_label_text]" : ""].")
+	scom_announce("A hoard recovery scroll has been issued for [region_name][bonus_label_text ? ". It carries [bonus_label_text]" : ""].")
 	playsound(src, 'sound/misc/coindispense.ogg', 60, FALSE, -1)
 	var/source_label = commission_source_label(is_directive, draws)
-	to_chat(steward, span_notice("Hoard recovery writ issued [source_label] and placed in your hand: <b>[Q.get_title()]</b>[levy_exempt ? " - <i>levy exempt</i>" : ""][bonus_label_text ? " - <i>[bonus_label_text]</i>" : ""]."))
+	to_chat(steward, span_notice("Hoard recovery scroll issued [source_label] and placed in your hand: <b>[Q.get_title()]</b>[levy_exempt ? " - <i>levy exempt</i>" : ""][bonus_label_text ? " - <i>[bonus_label_text]</i>" : ""]."))

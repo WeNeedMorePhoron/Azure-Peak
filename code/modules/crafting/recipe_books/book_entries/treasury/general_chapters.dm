@@ -262,7 +262,7 @@
 		(for Recovery rumors) picks a shipment destination. The rumor may be:</p>
 		<ul>
 			<li><b>Posted to the Ledger</b> - any qualifying party may take it, like any
-			other contract.</li> <li><b>Placed in hands</b> - a writ the Innkeeper hands
+			other contract.</li> <li><b>Placed in hands</b> - a scroll the Innkeeper hands
 			to a chosen holder directly.</li> <li><b>Lucrative</b> - a
 			[round((RUMOR_LUCRATIVE_MULT - 1) * 100)]% premium on both point cost and
 			holder payout. It costs [RUMOR_LUCRATIVE_MULT]x the base points and pays
@@ -367,14 +367,14 @@
 			<li><b>Steward contracts, Innkeeper rumors and Towner postings</b> -
 			[QUEST_PLAYER_STALE_THRESHOLD / 600] minutes. Paid postings get a longer
 			window to be taken. A posting that lapses refunds its full cost to whoever
-			paid for it.</li> <li><b>Writs handed directly to a holder</b> - do not
-			expire on the Ledger timer. Kill writs still carry a hunt timer once active.
+			paid for it.</li> <li><b>Scrolls handed directly to a holder</b> - do not
+			expire on the Ledger timer. Kill scrolls still carry a hunt timer once active.
 			Other types stay valid until completed or abandoned.</li>
 		</ul>
 
 		<h3>Withdrawal</h3>
 		<p>Tavern staff may withdraw a rumor from the Issued tab of the Ledger. Anyone
-		who can issue defense contracts may withdraw those and blockade writs there. A
+		who can issue defense contracts may withdraw those and blockade scrolls there. A
 		contract can be withdrawn at once while no one has taken it up. Once it is
 		taken, its holder has [QUEST_ISSUER_CANCEL_WINDOW / 600] minutes before it can
 		be withdrawn. It cannot be withdrawn once the contract has begun. The full
@@ -407,7 +407,7 @@
 		<p>A held contract may be abandoned at the Ledger. You lose the deposit.</p>
 
 		<h3>Handing In and the Guild Cut</h3> <p>Completed contracts are turned in by
-		clicking the Ledger while holding the writ. Retrieval items must be dropped on
+		clicking the Ledger while holding the scroll. Retrieval items must be dropped on
 		the marked tile in front of the Ledger. On payout:</p>
 		<ul>
 			<li>The Crown's <b>Contract Levy</b> takes its tax cut (Levy Exempt contracts
@@ -422,8 +422,8 @@
 		[QUEST_KILL_HUNT_TIMER / 600] minutes, with warnings at
 		[DisplayTimeText(QUEST_KILL_HUNT_TIMER - QUEST_KILL_HUNT_WARN_2M)] and
 		[DisplayTimeText(QUEST_KILL_HUNT_TIMER - QUEST_KILL_HUNT_WARN_30S)] left. If
-		the timer runs out, the writ crumbles and any live wave mobs despawn. This
-		starts when the mobs in question spawn at the target location. Blockade Writs
+		the timer runs out, the scroll crumbles and any live wave mobs despawn. This
+		starts when the mobs in question spawn at the target location. Blockade Scrolls
 		use a longer timer for each wave. See <i>Defense and Blockades</i>.</p>
 		</div>
 	"}
@@ -519,7 +519,7 @@
 			warrant caps them each day. The Alderman accesses the Trade Scroll through
 			the Assembly noticeboard's <i>Alderman - Trade</i> button without standing at
 			the Nerve Master.</li> <li><b>Defense</b> - defense contracts and blockade
-			writs use the Burgher Pledge at the Contract Ledger. The defense warrant caps
+			scrolls use the Burgher Pledge at the Contract Ledger. The defense warrant caps
 			them each day. The Alderman can't spend the Treasury on defense and may not
 			issue Requests.</li>
 		</ul>

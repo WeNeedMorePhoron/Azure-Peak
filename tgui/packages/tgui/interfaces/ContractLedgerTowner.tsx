@@ -178,9 +178,9 @@ const ActivePostingCard = (props: {
           selected={delivery === 'hand'}
           onClick={() => setDelivery('hand')}
           style={toggleStyle(delivery === 'hand')}
-          tooltip="Take the writ in hand and give it to someone yourself."
+          tooltip="Take the scroll in hand and give it to someone yourself."
         >
-          Writ in hand
+          Scroll in hand
         </Button>
         <Button
           selected={delivery === 'board'}

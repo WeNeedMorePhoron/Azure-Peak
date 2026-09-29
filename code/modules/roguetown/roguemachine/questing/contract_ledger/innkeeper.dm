@@ -98,7 +98,7 @@
 	playsound(src, 'sound/misc/coindispense.ogg', 60, FALSE, -1)
 	var/lucrative_tail = lucrative ? " - <i>lucrative</i>" : ""
 	if(in_hands)
-		to_chat(innkeeper, span_notice("The rumor's writ is placed in your hands: <b>[dispatched.title || dispatched.quest_type]</b>[lucrative_tail]. Give it to whoever you choose."))
+		to_chat(innkeeper, span_notice("The rumor's scroll is placed in your hands: <b>[dispatched.title || dispatched.quest_type]</b>[lucrative_tail]. Give it to whoever you choose."))
 	else
 		say("A new rumor is on the Ledger.")
 		to_chat(innkeeper, span_notice("Rumor posted to the Ledger: <b>[dispatched.title || dispatched.quest_type]</b>[lucrative_tail]."))

@@ -7,7 +7,7 @@
 	return "[minutes]:[seconds < 10 ? "0[seconds]" : "[seconds]"]"
 
 /obj/item/quest_writ/blockade
-	name = "blockade defense writ"
+	name = "blockade defense scroll"
 	desc = "A writ calling for a blockade to be cleared blockade\
 	The bearer is enjoined to travel to the blockaded region and break three successive waves \
 	of raiders - each wave must fall within fifteen minutes, and the Steward may recall the \

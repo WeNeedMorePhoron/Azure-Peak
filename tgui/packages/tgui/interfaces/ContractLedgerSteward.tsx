@@ -338,7 +338,7 @@ const ComposeView = () => {
             ? 'No hoard is large enough.'
             : 'Pick a region.'
         : isWrit && regionHasActiveWrit
-          ? 'A writ is already in circulation for this region.'
+          ? 'A scroll is already in circulation for this region.'
           : needsDestination && !destination
             ? 'Pick the shipment destination.'
             : fundingDisabledReason;
@@ -534,7 +534,7 @@ const ComposeView = () => {
       {funding === 'directive' && (
         <div className="ContractLedger__InnkeeperFlavor">
           A Request asks someone to do the work out of duty. No coin changes
-          hands. The writ goes to your hand for you to give to whoever will take
+          hands. The scroll goes to your hand for you to give to whoever will take
           it on.
         </div>
       )}
@@ -592,7 +592,7 @@ const ComposeView = () => {
       )}
       {isBlockade && funding !== 'directive' && (
         <div className="ContractLedger__InnkeeperFlavor">
-          Blockade writs always go to your hand. Pin one to the Ledger and it
+          Blockade scrolls always go to your hand. Pin one to the Ledger and it
           needs a fellowship of {data.hoard_recovery_fellowship_min} to sign.
           You can also give it to a fellowship you trust. Each defender at the
           blockade beyond the first {data.blockade_defender_min} adds{' '}
@@ -604,18 +604,18 @@ const ComposeView = () => {
       {isHoardRecovery && funding !== 'directive' && (
         // TODO: flavor - plain placeholder, rewrite
         <div className="ContractLedger__InnkeeperFlavor">
-          Hoard recovery writs always go to your hand and work like blockade
-          writs: pin one to the Ledger and it needs a fellowship of{' '}
+          Hoard recovery scrolls always go to your hand and work like blockade
+          scrolls: pin one to the Ledger and it needs a fellowship of{' '}
           {data.hoard_recovery_fellowship_min} to sign. You can also give it to
           a fellowship you trust. On top of the usual blockade reward, the
           holder seizes the region&apos;s brigand hoard. The hoard is taxed as
-          Recovered Spoils. The writ doesn&apos;t block any trade route.
+          Recovered Spoils. The scroll doesn&apos;t block any trade route.
         </div>
       )}
 
       {regionHasActiveWrit && (
         <div className="ContractLedger__InnkeeperFlavor">
-          A writ is already in circulation for {region}. It can be withdrawn
+          A scroll is already in circulation for {region}. It can be withdrawn
           from the Issued tab.
         </div>
       )}
@@ -631,7 +631,7 @@ const ComposeView = () => {
           {funding === 'directive'
             ? 'Submit Request'
             : isWrit
-              ? `Print Writ (${costLabel})`
+              ? `Print Scroll (${costLabel})`
               : `Commission (${costLabel})`}
         </button>
       </div>

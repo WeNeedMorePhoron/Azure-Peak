@@ -34,7 +34,7 @@
 
 		<h3>Crown Authority</h3> <p>The following titles share full Crown authority.
 		They may petition regions, take a loan from the ATC, commission defense and
-		blockade writs, and stamp contracts levy exempt with the signet:</p>
+		blockade scrolls, and stamp contracts levy exempt with the signet:</p>
 		<ul>
 			<li>Steward, Clerk, Grand Duke, Hand, Marshal, Councillor, Prince/Princess.</li>
 		</ul>
@@ -55,7 +55,7 @@
 
 		<ul>
 			<li><b>Defense contracts</b> - paid from the Pledge or the Treasury. They are
-			posted to the Ledger or handed to a holder.</li> <li><b>Blockade Writs</b> -
+			posted to the Ledger or handed to a holder.</li> <li><b>Blockade Scrolls</b> -
 			given to a fellowship of at least [BLOCKADE_FELLOWSHIP_REQUIREMENT]. It may
 			be withdrawn from the Issued tab like any defense contract.</li>
 			<li><b>Requests</b> - the Steward alone may post up to
@@ -68,12 +68,12 @@
 		<h3>Direct Contract vs Ledger:</h3> <p>A contract can be posted to the
 		Contract Ledger, or given directly to a holder. Handing it directly to a
 		holder is faster and more certain. It risks being ignored or wasted on someone
-		who can't complete it. The Steward may not take and claim a writ they have
+		who can't complete it. The Steward may not take and claim a scroll they have
 		issued themselves. See <i>The Contract Ledger</i> for shared mechanics
 		including expiry windows, the take cooldown, and losing the deposit on
 		abandonment.</p>
 
-		<h3>Bonus Pay</h3> <p>Either a defense contract or a Blockade Writ may be
+		<h3>Bonus Pay</h3> <p>Either a defense contract or a Blockade Scroll may be
 		issued with <b>Bonus Pay</b> at one of three levels: <b>None</b> (x1.0),
 		<b>Light</b> (x[COMMISSION_BONUS_PAY_LIGHT_MULT]), or <b>Full</b>
 		(x[COMMISSION_BONUS_PAY_MULT]). The chosen multiplier applies to both the
@@ -98,8 +98,8 @@
 		Steward can use this to steer adventurers toward regions the realm most needs
 		cleared.</p>
 
-		<p><b>Blockade Writs</b> draw the same flat [BLOCKADE_SCROLL_PLEDGE_COST]m
-		draft regardless of region. The writ pays a base of [BLOCKADE_SCROLL_REWARD]m
+		<p><b>Blockade Scrolls</b> draw the same flat [BLOCKADE_SCROLL_PLEDGE_COST]m
+		draft regardless of region. The scroll pays a base of [BLOCKADE_SCROLL_REWARD]m
 		plus a flat travel stipend based on distance. The waves are the same strength
 		everywhere. The actual threat varies with regional faction composition. Each
 		person in range of the blockade beyond the first
@@ -107,10 +107,10 @@
 		increases the wave's strength and the payout.</p>
 
 
-		<p>Multiple blockades may exist at once. One writ per blockade at a time.
+		<p>Multiple blockades may exist at once. One scroll per blockade at a time.
 		Blockades are rolled only at roundstart and never spawn during the round.</p>
 
-		<p>A Blockade Writ may be withdrawn from the Issued tab until the first wave
+		<p>A Blockade Scroll may be withdrawn from the Issued tab until the first wave
 		begins. The waves begin when the holder arrives. Each wave must be broken
 		within [BLOCKADE_WAVE_TIMER_DS / 600] minutes of spawning. There are warnings
 		at 7.5, 5 and 2 minutes left.</p>
@@ -389,7 +389,7 @@
 			limits burghers.</li> <li><b>Fine authority</b>: subject to the usual rule of
 			one fine per day and the Golden Bull cap on burghers.</li> <li><b>Burgher
 			Pledge</b>: still refills daily since the Bull stands. Defense contracts and
-			blockade writs may still be issued.</li> <li><b>Petitions for standing
+			blockade scrolls may still be issued.</li> <li><b>Petitions for standing
 			orders</b>: still available. Fulfillment coin flows through the skim.</li>
 			<li><b>Standing orders and warehouse rolls</b>: continue as before. Payouts
 			above the operating floor are skimmed against the debt.</li>
@@ -442,10 +442,10 @@
 		much.
 		</p>
 
-		<p>A Hoard Recovery writ recovers the hoard. The Steward can issue one. A
-		fellowship can also stake one themselves. A Blockade writ already targeting
+		<p>A Hoard Recovery scroll recovers the hoard. The Steward can issue one. A
+		fellowship can also stake one themselves. A Blockade scroll already targeting
 		the region also recovers it. The Crown then taxes it. A region must reach a
-		minimum of [HOARD_RECOVERY_HOARD_MINIMUM]m before a recovery writ can be
+		minimum of [HOARD_RECOVERY_HOARD_MINIMUM]m before a recovery scroll can be
 		issued by a fellowship of [BLOCKADE_FELLOWSHIP_REQUIREMENT] or more.</p>
 
 		<h3>The Floor and Banditry Debt</h3> <p>Banditry alone won't take the Treasury
@@ -453,11 +453,11 @@
 		debt</b>, which skims everything paid into the Treasury (stockpile earnings,
 		taxes, levies, fines, loan repayments) until paid.</p>
 
-		<h3>What You Can Do</h3> <p>Issue defense contracts and Blockade Writs against
+		<h3>What You Can Do</h3> <p>Issue defense contracts and Blockade Scrolls against
 		Dangerous and Bleak regions. Use levy exemption as bait. The retinue and
 		garrison can also clear regions directly. As regional threat falls, so does
 		the dawn drain. Banditry debt only shrinks as new income is earned and
 		skimmed. The hoards can be reclaimed by clearing a Blockade or with a Hoard
-		Recovery writ.</p>
+		Recovery scroll.</p>
 		</div>
 	"}
