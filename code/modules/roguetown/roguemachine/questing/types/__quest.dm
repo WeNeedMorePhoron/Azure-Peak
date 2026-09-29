@@ -268,9 +268,9 @@
 	if(required_fellowship_size > 0)
 		var/datum/fellowship/F = user?.current_fellowship
 		if(!F)
-			return "This contract requires a Fellowship of [required_fellowship_size]."
+			return "This contract needs a fellowship of [required_fellowship_size]."
 		if(length(F.get_members()) < required_fellowship_size)
-			return "Your Fellowship is too small - requires [required_fellowship_size] members."
+			return "Your fellowship is too small. It needs [required_fellowship_size] members."
 	return "You cannot sign that contract."
 
 /datum/quest/proc/on_claim(mob/user)
@@ -298,7 +298,7 @@
 		return null
 	var/remaining = last_claimed_at + QUEST_ISSUER_CANCEL_WINDOW - world.time
 	if(remaining > 0)
-		return "its bearer has [max(1, round(remaining / (1 MINUTES)))] more minute(s) before it can be withdrawn"
+		return "its holder has [max(1, round(remaining / (1 MINUTES)))] more minute(s) before it can be withdrawn"
 	return null
 
 /datum/quest/proc/add_funding(datum/fund/fund, amount, datum/fund/escrow)

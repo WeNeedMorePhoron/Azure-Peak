@@ -54,7 +54,7 @@
 	return "Break a trade blockade"
 
 /datum/quest/kill/blockade_defense/get_objective_text()
-	var/wave_label = current_wave > 0 ? "Wave [current_wave]/[BLOCKADE_TOTAL_WAVES]" : "Three waves await"
+	var/wave_label = current_wave > 0 ? "Wave [current_wave]/[BLOCKADE_TOTAL_WAVES]" : "[BLOCKADE_TOTAL_WAVES] waves await"
 	if(!faction)
 		return "[wave_label]. Hold the line."
 	return "[wave_label]. Rout the [faction.name_plural]."
@@ -308,7 +308,7 @@
 	if(B)
 		B.active_scroll_ref = null
 		B.active_quest_ref = null
-	scom_announce("The [B ? "blockade" : "hoard recovery"] writ for [ER ? ER.name : region] has been withdrawn.")
+	scom_announce("The [B ? "blockade" : "hoard recovery"] scroll for [ER ? ER.name : region] has been withdrawn.")
 
 /datum/quest/kill/blockade_defense/proc/despawn_live_wave_mobs()
 	for(var/datum/weakref/W in tracked_atoms)
@@ -340,12 +340,12 @@
 					record_featured_stat(FEATURED_STATS_TAX_PAYERS, lead, tax_amt)
 					record_round_statistic(STATS_TAXES_COLLECTED, tax_amt)
 			record_round_statistic(STATS_BLOCKADE_REWARDS_PAID, payout)
-			announce_to_bearer("The final wave breaks. The rewards have been transferred to your account. Gross: [payout] mammons. Tax: [tax_amt] mammons. Net: [payout - tax_amt] mammons.")
+			announce_to_bearer("The final wave breaks. Your reward has been paid to your account. Gross: [payout]m. Tax: [tax_amt]m. Net: [payout - tax_amt]m.")
 		else
 			SStreasury.mint(SStreasury.discretionary_fund, payout, "Blockade defense reward (unbanked bearer)")
-			announce_to_bearer("The final wave breaks. The Crown holds your share - return to the Nerve Master to collect.")
+			announce_to_bearer("The final wave breaks. You have no bank account. Your share went to the Treasury.")
 	else
-		announce_to_bearer("The final wave breaks. This was a Request - no reward is due.")
+		announce_to_bearer("The final wave breaks. A Request carries no reward.")
 	var/datum/threat_region/TR = SSregionthreat.get_region(region)
 	if(TR && TR.banditry_hoard > 0)
 		var/spoils = TR.banditry_hoard
@@ -357,10 +357,10 @@
 			if(spoils_tax > 0)
 				record_featured_stat(FEATURED_STATS_TAX_PAYERS, lead, spoils_tax)
 				record_round_statistic(STATS_TAXES_COLLECTED, spoils_tax)
-			announce_to_bearer("The bandits' hoard is seized - [spoils] mammons of stolen coin. The Crown claims [spoils_tax] as Recovered Spoils. Net: [spoils - spoils_tax] mammons.")
+			announce_to_bearer("You seize the brigands' hoard of [spoils] mammon. The Crown takes [spoils_tax] as Recovered Spoils. You keep [spoils - spoils_tax] mammon.")
 		else
 			SStreasury.mint(SStreasury.discretionary_fund, spoils, "Recovered Spoils (unbanked bearer, [region])")
-			announce_to_bearer("The bandits' hoard of [spoils] mammons is seized in the Crown's name.")
+			announce_to_bearer("You have no bank account. The brigands' hoard of [spoils] mammon went to the Treasury.")
 		GLOB.azure_round_stats[STATS_BANDITRY_HOARD_OUTSTANDING] = SSeconomy.total_banditry_hoard()
 	var/obj/item/quest_writ/S = quest_scroll
 	if(S && !QDELETED(S))
@@ -387,7 +387,7 @@
 	return "Hoard Recovery"
 
 /datum/quest/kill/blockade_defense/hoard_recovery/get_objective_text()
-	var/wave_label = current_wave > 0 ? "Wave [current_wave]/[BLOCKADE_TOTAL_WAVES]" : "Three waves await"
+	var/wave_label = current_wave > 0 ? "Wave [current_wave]/[BLOCKADE_TOTAL_WAVES]" : "[BLOCKADE_TOTAL_WAVES] waves await"
 	// TODO: flavor - plain placeholder, rewrite
 	if(!faction)
 		return "[wave_label]. Clear the brigands and reclaim the hoard."
