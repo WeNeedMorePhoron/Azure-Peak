@@ -39,7 +39,7 @@ const SECTIONS: SectionMeta[] = [
     key: 'charters',
     label: 'Charters',
     blurb:
-      'The Crown's standing edicts and whether each is in force.',
+      "The Crown's standing edicts and whether each is in force.",
   },
   {
     key: 'trade_orders',
