@@ -68,15 +68,21 @@
 	ADD_TRAIT(H, TRAIT_NOMOOD, TRAIT_GENERIC) //Stops you getting moodnuked and dropping your weapon non-stop. I didn't want to have to give them this off-the-bat but after seeing this happen, yeaaaah.
 	ADD_TRAIT(H, TRAIT_BADTRAINER, TRAIT_GENERIC) //legendary skill antag, we don't want our skill level to backfire or end up training allies into master swordsmen
 	//remove problematic traits
+	//yes this is pretty shitcoded but nessessary
 	REMOVE_TRAIT(H, TRAIT_LONGSWORDSMAN, TRAIT_GENERIC) //lets not
 	REMOVE_TRAIT(H, TRAIT_SABRIST, TRAIT_GENERIC)
-	REMOVE_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC) //20 spd, infinite stamina VL. Do you want this? I don't think you do.
-	REMOVE_TRAIT(H, TRAIT_FENCERDEXTERITY, TRAIT_GENERIC) //plate user
+	if(HAS_TRAIT(H, TRAIT_DODGEEXPERT)) //20 spd, infinite stamina VL. Do you want this? I don't think you do.
+		REMOVE_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
+		REMOVE_TRAIT(H, TRAIT_DODGEEXPERT, JOB_TRAIT) //some jobs get it as a job trait, not generic, so we've got to do a check. suffering.
+	REMOVE_TRAIT(H, TRAIT_FENCERDEXTERITY, TRAIT_GENERIC) //fullplate user
 	REMOVE_TRAIT(H, TRAIT_HONORBOUND, TRAIT_GENERIC)
 	REMOVE_TRAIT(H, TRAIT_SHIRTLESS, TRAIT_GENERIC)
-	REMOVE_TRAIT(H, TRAIT_NUDIST, TRAIT_GENERIC) //IDK why but if you somehow get this, it removes it
 	REMOVE_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 	REMOVE_TRAIT(H, TRAIT_LEYLINE_ATTUNEMENT, TRAIT_GENERIC)
+	//axe garrison buffs. mercs don't matter as we can't roll subclass. Innkeeper VL is just silly, IDC at that point lmao.
+	REMOVE_TRAIT(H, TRAIT_GUARDSMAN, JOB_TRAIT)
+	REMOVE_TRAIT(H, TRAIT_WOODSMAN, TRAIT_GENERIC)
+	REMOVE_TRAIT(H, TRAIT_ANTHRAXI, TRAIT_GENERIC)
 	H.update_move_intent_slowdown()
 
 /datum/antagonist/vampire/lord/greet()
