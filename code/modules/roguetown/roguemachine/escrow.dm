@@ -108,8 +108,8 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 	var/budget = 0
 	var/list/material_prices
 	var/list/derived_material_prices
-	var/percent_margin = 70
-	var/flat_margin = 5
+	var/percent_margin = ESCROW_DEFAULT_PERCENT_MARGIN
+	var/flat_margin = ESCROW_DEFAULT_FLAT_MARGIN
 	var/item_cap_per_order = 3
 	var/list/orders = list()
 	var/list/manifests = list()

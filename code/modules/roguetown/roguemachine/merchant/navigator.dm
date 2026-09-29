@@ -52,7 +52,7 @@
 	name = "battered navigator"
 	desc = "A crudely repaired navigator bolted to the hull of a leaky boat. It stinks of brine and contraband."
 	motto = "NAVIGA??R - - ████ ██████ █████████ - FREEDOM OF TRANSACTION.."
-	fixed_tax = 0.5
+	fixed_tax = NAVIGATOR_SMUGGLER_FEE
 	pay_taxes = FALSE
 	pay_merchant_share = FALSE
 	grants_passive_favor = FALSE
@@ -80,12 +80,12 @@
 		return TRUE
 	if(world.time > next_airlift)
 		var/bath_nearby = FALSE
-		for(var/mob/living/carbon/human/H in range(7, src))
+		for(var/mob/living/carbon/human/H in range(NAVIGATOR_SMUGGLER_FACILITATOR_RANGE, src))
 			var/is_bath_person = (H.job in GLOB.bathhouse_positions) || HAS_TRAIT(H, TRAIT_AGENT_BATHHOUSE)
 			if(H.stat != DEAD && is_bath_person)
 				bath_nearby = TRUE
 				break
-		fixed_tax = bath_nearby ? 0.0 : 0.5
+		fixed_tax = bath_nearby ? 0.0 : NAVIGATOR_SMUGGLER_FEE
 	return ..()
 
 /obj/item/roguemachine/navigator/proc/get_market_saturation(category)
@@ -271,7 +271,7 @@
 		open_economy_guidebook(H, "Merchant", /datum/book_entry/treasury_merchant/navigator)
 		return TRUE
 	if(action == "refresh_market")
-		if(world.time < last_market_refresh + 5 SECONDS)
+		if(world.time < last_market_refresh + MARKET_REFRESH_COOLDOWN)
 			to_chat(H, span_warning("The factors haven't tallied fresh numbers yet. Wait a moment."))
 			return TRUE
 		last_market_refresh = world.time

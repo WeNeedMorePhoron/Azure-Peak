@@ -101,6 +101,9 @@
 	var/list/data = list()
 	data["realm_name"] = SSticker.realm_name
 	data["market_data"] = build_market_data()
+	data["market_refresh_cooldown"] = MARKET_REFRESH_COOLDOWN / (1 SECONDS)
+	data["partial_threshold_pct"] = round(STANDING_ORDER_PARTIAL_THRESHOLD * 100)
+	data["partial_payout_pct"] = round(STANDING_ORDER_PARTIAL_PAYOUT_MULT * 100)
 	return data
 
 /obj/structure/roguemachine/noticeboard/ui_data(mob/user)
@@ -295,6 +298,9 @@
 		"categories" = list(),
 		"pop_snapshot" = 0,
 		"category_count" = 0,
+		"no_ship_pct" = round(MARKET_DEMAND_NO_SHIP_FLOOR * 100),
+		"bm_daily_clear_pct" = round(MARKET_BM_DAILY_SATURATION_REGEN * 100),
+		"bm_pool_pct" = round(MARKET_BM_POOL_FRACTION * 100),
 	)
 	if(!SSmerchant_trade)
 		return data
@@ -368,7 +374,7 @@
 		return TRUE
 	switch(action)
 		if("refresh_market")
-			if(world.time < last_market_refresh + 5 SECONDS)
+			if(world.time < last_market_refresh + MARKET_REFRESH_COOLDOWN)
 				to_chat(H, span_warning("The factors haven't tallied fresh numbers yet. Wait a moment."))
 				return TRUE
 			last_market_refresh = world.time

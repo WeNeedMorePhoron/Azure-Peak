@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(treasury)
 		TAX_CATEGORY_FINE = 1.0,
 	)
 	var/trade_spread = 0.10
-	var/autoexport_percentage = 0.6
+	var/autoexport_percentage = AUTOEXPORT_DEFAULT_PERCENTAGE
 	var/list/bank_accounts = list()
 	var/datum/fund/discretionary_fund
 	var/datum/fund/burgher_pledge_fund

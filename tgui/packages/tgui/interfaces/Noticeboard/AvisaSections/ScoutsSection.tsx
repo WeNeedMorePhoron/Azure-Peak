@@ -67,7 +67,7 @@ export const ScoutsSection = ({ data }: { data: NoticeboardData }) => {
       </div>
 
       {regions.length === 0 ? (
-        <EmptyMessage text="The wardens have sent no word from the wilds." />
+        <EmptyMessage text="No scout reports yet." />
       ) : (
         <table style={tableStyle}>
           <thead>
@@ -196,21 +196,21 @@ const HelpPanel = () => (
       <b>Moderate</b> to <b>Dangerous</b> to <b>Bleak</b>.
     </p>
     <p style={{ margin: '0 0 6px 0' }}>
-      A safe region is unlikely to spawn ambushes from common creechurs and
-      brigands. A low-threat region may yield lone foes. Only Azure Basin, Azure
-      Grove, and the Terrorbog can be rendered fully safe; regions not listed
-      are beyond the wardens' charge and remain dangerous.
+      Ambushes from common creechurs and brigands are unlikely in a safe region.
+      A region with low threat may yield lone foes. Only Azure Basin, Azure
+      Grove, and the Terrorbog can be made fully safe. Regions not listed are
+      outside the wardens' charge and stay dangerous.
     </p>
     <p style={{ margin: '0 0 6px 0' }}>
-      Danger is reduced by luring villains and creechurs and killing them when
-      they ambush. Traveling in groups draws larger ambushes; each additional
-      companion contributes less per head than a lone traveler would.
+      You lower a region's danger by drawing out villains and creechurs and
+      killing them when they ambush. Groups draw larger ambushes. Each extra
+      companion counts for less than a lone traveler.
     </p>
     <p style={{ margin: 0 }}>
       A warden's signal horn provokes a sizeable fight matched to the region's
-      danger - the surest way to tame it. Bandits and creechurs trickle back in
-      over time, generally overnight. Take care with the horn, and bring
-      friends.
+      danger. It is the fastest way to make a region safer. Brigands and
+      creechurs return over time, mostly overnight. Bring friends when you use
+      the horn.
     </p>
   </div>
 );

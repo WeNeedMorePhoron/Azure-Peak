@@ -274,8 +274,6 @@ SUBSYSTEM_DEF(economy)
 			else
 				instantiate_standing_order(template, region, order_size_mult)
 
-	var/list/fired_shortages = daily_report_diff["fired_shortage_names"]
-	var/list/fired_gluts = daily_report_diff["fired_glut_names"]
 	var/list/relieved_today = daily_report_diff["events_relieved"]
 	var/list/by_region = daily_report_diff["regular_orders_by_region"]
 	var/list/urgents_today = daily_report_diff["urgent_orders_today"]
@@ -288,10 +286,6 @@ SUBSYSTEM_DEF(economy)
 		if(length(urgents_today))
 			order_line += " ([length(urgents_today)] URGENT)"
 		dawn_parts += order_line
-	if(length(fired_shortages))
-		dawn_parts += "<font color='#c44'>Shortages: [jointext(fired_shortages, ", ")]</font>"
-	if(length(fired_gluts))
-		dawn_parts += "<font color='#5cb85c'>Gluts: [jointext(fired_gluts, ", ")]</font>"
 	if(length(dawn_parts))
 		scom_announce("[jointext(dawn_parts, " - ")].")
 	if(length(relieved_today))

@@ -397,7 +397,7 @@
 /obj/structure/roguemachine/scrapper/smith
 	name = "smith's scrapper"
 	desc = "A brass-trimmed contraption with a hopper above and an iron strongbox beneath. Takes whatever a smith can smelt back into ingots."
-	seed_budget = 50
+	seed_budget = SCRAPPER_SEED_BUDGET
 
 /obj/structure/roguemachine/scrapper/smith/populate_defaults()
 	material_prices = list(
@@ -425,7 +425,7 @@
 /obj/structure/roguemachine/scrapper/tailor
 	name = "rag-picker"
 	desc = "A brass-trimmed contraption with a hopper above and an iron strongbox beneath. Takes whatever a tailor can rework into fabrics."
-	seed_budget = 50
+	seed_budget = SCRAPPER_SEED_BUDGET
 	recycle_sound = 'sound/foley/cloth_rip.ogg'
 
 /obj/structure/roguemachine/scrapper/tailor/populate_defaults()

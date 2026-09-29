@@ -119,6 +119,9 @@ export type MarketData = {
   categories: MarketCategory[];
   pop_snapshot: number;
   category_count: number;
+  no_ship_pct: number;
+  bm_daily_clear_pct: number;
+  bm_pool_pct: number;
   theme_dispatch?: string;
   realm_demand_matrix?: RealmDemandRow[];
   all_buckets?: string[];
@@ -143,6 +146,9 @@ export type NoticeboardData = {
   economic_events: EconomicEvent[];
   mercenary_roster: MercenaryRoster;
   market_data: MarketData;
+  market_refresh_cooldown: number;
+  partial_threshold_pct: number;
+  partial_payout_pct: number;
   can_post_listing: boolean;
   can_authority_remove: boolean;
   user_real_name: string;
