@@ -40,14 +40,20 @@
 		H.charflaws.Remove(cf)
 		QDEL_NULL(cf)
 
+	//pre-set to 14s, twice banneret's statline starting off
+	H.STASTR = 14
+	H.STASPD = 14
+	H.STACON = 14
+	H.STAWIL = 14
+	H.STAINT = 14
+	H.STAPER = 14
+
 	H.equipOutfit(/datum/outfit/job/vamplord)
 	H.set_patron(/datum/patron/godless) //FORESAKEN BY GODS, MYNE OWN DIVINITY CARVED BY MYNE OWN HANDS.
 	//Progress dominion has an undead check anyway, so don't worry about them not worshipping Zizo. She'd do it out of spite anyway.
 	add_verb(H, /mob/living/carbon/human/proc/demand_submission)
 	H.maxbloodpool += 4000
 	H.adjust_bloodpool(4000)
-	for(var/S in MOBSTATS)
-		H.change_stat(S, 4)
 	H.forceMove(pick(GLOB.vlord_starts))
 	ADD_TRAIT(H, TRAIT_DUSTABLE, TRAIT_GENERIC) //They are ancient walking calamities, no take backs.
 	ADD_TRAIT(H, TRAIT_HEAVYARMOR, TRAIT_GENERIC) //Brute-forced method to ensure that Vampire Lords, no matter what, receive their most important traits.
@@ -68,6 +74,7 @@
 	REMOVE_TRAIT(H, TRAIT_FENCERDEXTERITY, TRAIT_GENERIC) //plate user
 	REMOVE_TRAIT(H, TRAIT_HONORBOUND, TRAIT_GENERIC)
 	REMOVE_TRAIT(H, TRAIT_SHIRTLESS, TRAIT_GENERIC)
+	REMOVE_TRAIT(H, TRAIT_NUDIST, TRAIT_GENERIC) //IDK why but if you somehow get this, it removes it
 	REMOVE_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 	REMOVE_TRAIT(H, TRAIT_LEYLINE_ATTUNEMENT, TRAIT_GENERIC)
 	H.update_move_intent_slowdown()
@@ -84,7 +91,7 @@
 
 /datum/outfit/job/vamplord/pre_equip(mob/living/carbon/human/H)
 	..()
-	H.unequip_everything() //ensure we get the "fit", always
+	H.unequip_everything_delete() //ensure we get the "fit", always
 
 	H.adjust_skillrank_up_to(/datum/skill/magic/blood, 6, TRUE)
 	H.adjust_skillrank_up_to(/datum/skill/combat/swords, 6, TRUE) //Returned to Legendary-tier, but its the only weapon you get at this level, since Halford's port of the Blood Magic system from vanderlin compensates a lot for this.

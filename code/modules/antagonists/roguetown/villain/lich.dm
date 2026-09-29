@@ -259,7 +259,7 @@
 ///Called post death to equip new body with armour and stats. Order of equipment matters
 /datum/antagonist/lich/proc/equip_and_traits()
 	var/mob/living/carbon/human/body = owner.current
-	body.unequip_everything() //ensure we get the "fit" by stripping first
+	body.unequip_everything_delete() //ensure we get the "fit" by stripping first
 	var/list/equipment_slots = list(
 		SLOT_HEAD,
 		SLOT_PANTS,
