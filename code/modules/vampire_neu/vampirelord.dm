@@ -40,14 +40,16 @@
 		H.charflaws.Remove(cf)
 		QDEL_NULL(cf)
 
-	//pre-set to 14s, twice banneret's statline starting off
-	H.STASTR = 14
-	H.STASPD = 14
-	H.STACON = 14
-	H.STAWIL = 14
-	H.STAINT = 14
-	H.STAPER = 14
+	//pre-set to baseline 10, then up fron there. Cause IDK what fortune is to preset.
+	H.STASTR = 10
+	H.STASPD = 10
+	H.STACON = 10
+	H.STAWIL = 10
+	H.STAINT = 10
+	H.STAPER = 10
 
+	for(var/S in MOBSTATS)
+		H.change_stat(S, 4)
 	H.equipOutfit(/datum/outfit/job/vamplord)
 	H.set_patron(/datum/patron/godless) //FORESAKEN BY GODS, MYNE OWN DIVINITY CARVED BY MYNE OWN HANDS.
 	//Progress dominion has an undead check anyway, so don't worry about them not worshipping Zizo. She'd do it out of spite anyway.
@@ -67,22 +69,10 @@
 	ADD_TRAIT(H, TRAIT_SELF_SUSTENANCE, TRAIT_GENERIC) //Heavy-Antag Role, lets you repair your armor with tools + level to journeyman.
 	ADD_TRAIT(H, TRAIT_NOMOOD, TRAIT_GENERIC) //Stops you getting moodnuked and dropping your weapon non-stop. I didn't want to have to give them this off-the-bat but after seeing this happen, yeaaaah.
 	ADD_TRAIT(H, TRAIT_BADTRAINER, TRAIT_GENERIC) //legendary skill antag, we don't want our skill level to backfire or end up training allies into master swordsmen
-	//remove problematic traits
-	//yes this is pretty shitcoded but nessessary
-	REMOVE_TRAIT(H, TRAIT_LONGSWORDSMAN, TRAIT_GENERIC) //lets not
-	REMOVE_TRAIT(H, TRAIT_SABRIST, TRAIT_GENERIC)
-	if(HAS_TRAIT(H, TRAIT_DODGEEXPERT)) //20 spd, infinite stamina VL. Do you want this? I don't think you do.
-		REMOVE_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
-		REMOVE_TRAIT(H, TRAIT_DODGEEXPERT, JOB_TRAIT) //some jobs get it as a job trait, not generic, so we've got to do a check. suffering.
-	REMOVE_TRAIT(H, TRAIT_FENCERDEXTERITY, TRAIT_GENERIC) //fullplate user
-	REMOVE_TRAIT(H, TRAIT_HONORBOUND, TRAIT_GENERIC)
+	//remove problematic traits we can somehow roundstart with
 	REMOVE_TRAIT(H, TRAIT_SHIRTLESS, TRAIT_GENERIC)
-	REMOVE_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
+	REMOVE_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC) //no mage stuff
 	REMOVE_TRAIT(H, TRAIT_LEYLINE_ATTUNEMENT, TRAIT_GENERIC)
-	//axe garrison buffs. mercs don't matter as we can't roll subclass. Innkeeper VL is just silly, IDC at that point lmao.
-	REMOVE_TRAIT(H, TRAIT_GUARDSMAN, JOB_TRAIT)
-	REMOVE_TRAIT(H, TRAIT_WOODSMAN, TRAIT_GENERIC)
-	REMOVE_TRAIT(H, TRAIT_ANTHRAXI, TRAIT_GENERIC)
 	H.update_move_intent_slowdown()
 
 /datum/antagonist/vampire/lord/greet()

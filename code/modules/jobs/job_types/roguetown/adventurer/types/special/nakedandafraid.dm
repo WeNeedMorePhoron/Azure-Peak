@@ -41,7 +41,6 @@
 	name = "No Outfit"
 	tutorial = "You shouldn't be seeing this"
 	allowed_sexes = list(MALE, FEMALE)
-	subclass_stats = list(STATKEY_LCK = 4) //hacky way to ensure you don't have to worry about fortune)
 	outfit = /datum/outfit/job/roguetown/adventurer/nothing
 	category_tags = list(CTAG_NO_OUTFIT)
 
