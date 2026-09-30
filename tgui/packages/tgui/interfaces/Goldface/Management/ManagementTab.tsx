@@ -116,7 +116,7 @@ const GnomeMarginControl = (props: { current: number; act: ActFn }) => {
       <div style={{ ...noteStyle, marginBottom: '8px' }}>
         The Company Gnomes price every Silverface stall at base cost plus this
         margin. The margin flows to the Merchant Fund. Higher rates earn more
-        per sale but drive customers off; lower rates win volume.
+        per sale and drive customers off. Lower rates win volume.
       </div>
       <div
         style={{
@@ -391,10 +391,11 @@ const FavorCard = (props: {
     <div style={{ ...cardStyle, marginTop: '8px' }}>
       <div style={sectionHeaderStyle}>Standing with the Company</div>
       <div style={{ ...noteStyle, marginBottom: '8px' }}>
-        Earned by sending ships off satisfied or passive trades through
-        Silverface, Goldface and Navigator (At 0.5x value). Spent on Company
-        favors. Volume hit also determines the Merchant and Shopshands end of
-        round triumph bonus - spending favor does not subtract from it.
+        Earned by sending ships off satisfied and from trades through
+        Silverface, Goldface and the Navigator at {favor.passive_pct}% of their
+        value. Spend it on the ATC favors below. Your highest favor this week
+        sets the end of round triumph bonus for the Merchant and Shophands.
+        Spending favor doesn't lower it.
       </div>
       <div
         style={{
@@ -485,7 +486,7 @@ const FavorCard = (props: {
           fontSize: FONT_BODY,
         }}
       >
-        Recent send-offs
+        Recent sendoffs
       </div>
       {favor.ledger.length === 0 ? (
         <div style={{ ...noteStyle, padding: '4px 0' }}>
@@ -507,7 +508,7 @@ const FavorCard = (props: {
       </div>
       <SinkButton
         label="Rent the fishermen's pier"
-        flavor="Use your influence to rent an additional pier at the dock for this week, letting more ships dock. It is not like the fishermen are using it, anyway."
+        flavor="Use your influence to rent an additional pier at the dock for this week so more ships can dock. It is not like the fishermen are using it, anyway."
         cost={favor.pier_cost}
         current={favor.current}
         done={!!favor.pier_rented}
@@ -517,7 +518,7 @@ const FavorCard = (props: {
       />
       <SinkButton
         label="Call in the Company Gnomes"
-        flavor="Invoke the contract with the Azurean Guild of Gnomes Porters, letting them handle Silverface sales and recovering the margins for yourself. For some odd reasons no one have ever spotted these gnomes. Do not let this deter you, you shall profit greatly without lifting a finger for the rest of the week."
+        flavor="Invoke the contract with the Azurian Guild of Porters and Stevedores. They handle Silverface sales and you recover the margins for yourself. For some odd reason, no one has ever spotted these gnomes. Do not let this deter you. You will profit greatly without lifting a finger for the rest of the week."
         cost={favor.gnome_cost}
         current={favor.current}
         done={!!favor.gnome_unlocked}
@@ -528,7 +529,7 @@ const FavorCard = (props: {
       {!favor.auto_hailer_unlocked ? (
         <SinkButton
           label="Retain the Harbor Crew"
-          flavor="Put the Captain of Stevedores on a permanent retainer. Once paid up, you may set them at the docks at any time, hailing ships randomly and dismissing those that have lingered too long. Useful when the wharf must run without you - but beware: Ships that fail to meet their trade obligations will still drag your favor down with the Company, even into the red."
+          flavor="Put the Captain of Stevedores on a permanent retainer. Once paid, you can set the crew to work at the docks at any time. They hail ships at random and send off those that have stayed too long. That is useful when you are away from the wharf. Ships that leave short of their target still cost you favor. Your favor can drop below zero."
           cost={favor.auto_hailer_cost}
           current={favor.current}
           done={false}
@@ -537,7 +538,11 @@ const FavorCard = (props: {
           act={act}
         />
       ) : (
-        <AutoHailerToggle on={!!favor.auto_hailer_on} act={act} />
+        <AutoHailerToggle
+          on={!!favor.auto_hailer_on}
+          favor={favor}
+          act={act}
+        />
       )}
       {/* TODO: flavor - charter button label + flavor (catalog.desc from DM, origin note inline) */}
       {catalogs.map((catalog) => (
@@ -547,7 +552,7 @@ const FavorCard = (props: {
           flavor={
             catalog.desc +
             (catalog.origin_access
-              ? ` Your ${catalog.home_label} already opens it to you at ${catalog.discount_pct}% off; pay to extend the charter to the whole company.`
+              ? ` Your ${catalog.home_label} already opens it to you at ${catalog.discount_pct}% off. Pay to open it to everyone who trades at your Goldface.`
               : '')
           }
           cost={catalog.favor_cost}
@@ -563,8 +568,12 @@ const FavorCard = (props: {
   );
 };
 
-const AutoHailerToggle = (props: { on: boolean; act: ActFn }) => {
-  const { on, act } = props;
+const AutoHailerToggle = (props: {
+  on: boolean;
+  favor: FavorData;
+  act: ActFn;
+}) => {
+  const { on, favor, act } = props;
   return (
     <div
       style={{
@@ -595,10 +604,10 @@ const AutoHailerToggle = (props: { on: boolean; act: ActFn }) => {
         </span>
       </div>
       <div style={{ ...noteStyle, marginBottom: '6px' }}>
-        While the crew works, ships are hailed up to the daily cap and dismissed
-        once they have honored their tonnage or sat in port a full day.{' '}
-        <b>Dishonored dismissals will sink your favor into the red</b> - leave
-        it on, and you may return to a debt.
+        While the crew works, they spend your daily hails and send each ship off
+        once she meets her target or has sat in port a full day.{' '}
+        <b>A ship sent off below {favor.sendoff_partial_pct}% of her target
+        costs you favor. Your favor can go below zero.</b>
       </div>
       <button
         type="button"

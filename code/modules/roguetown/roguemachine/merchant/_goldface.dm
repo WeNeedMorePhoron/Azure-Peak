@@ -385,6 +385,13 @@
 			"ship_type" = ship.ship_type,
 			"tonnage" = ship.tonnage,
 			"tonnage_mult" = ship.tonnage_scale_mult(),
+			"base_tonnage" = TRADE_SHIP_DEFAULT_TONNAGE,
+			"cap_tonnage" = TRADE_SHIP_DEFAULT_TONNAGE + TRADE_SHIP_TONNAGE_SCALE_SPAN * (TRADE_SHIP_TONNAGE_SCALE_CAP - 1),
+			"cap_mult" = TRADE_SHIP_TONNAGE_SCALE_CAP,
+			"honored_pct" = FAVOR_SEND_CLEAN_THRESHOLD * 100,
+			"partial_pct" = FAVOR_SEND_PARTIAL_THRESHOLD * 100,
+			"partial_share_pct" = FAVOR_SEND_PARTIAL_MULT * 100,
+			"dishonor_penalty" = round(FAVOR_SEND_FAILURE_PENALTY * ship.tonnage_scale_mult()),
 			"expected_favor" = ship.expected_favor,
 			"favor_earned" = ship.favor_earned,
 			"auto_hailed" = ship.auto_hailed ? TRUE : FALSE,
@@ -515,6 +522,7 @@
 		"gnome_margin_collected" = SSmerchant_trade.gnome_margin_collected,
 		"silverface_margin_percent" = SSmerchant_trade.silverface_margin_percent,
 		"fund_log" = fund_log,
+		"fund_log_max" = MERCHANT_FUND_LOG_MAX,
 	)
 
 /obj/structure/roguemachine/goldface/proc/build_favor_data()
@@ -542,6 +550,8 @@
 		"from_goldface" = SSmerchant_trade.favor_from_goldface,
 		"from_silverface" = SSmerchant_trade.favor_from_silverface,
 		"penalties" = SSmerchant_trade.favor_penalties,
+		"passive_pct" = FAVOR_PASSIVE_TRADE_FRACTION * 100,
+		"sendoff_partial_pct" = FAVOR_SEND_PARTIAL_THRESHOLD * 100,
 	)
 
 /obj/structure/roguemachine/goldface/proc/cultural_pack_names(list/pack_paths)

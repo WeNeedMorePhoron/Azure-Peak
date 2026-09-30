@@ -105,8 +105,7 @@ export const HarborTab = (props: {
       </span>
       <span style={{ color: INK_SOFT }}>
         As an agent of the Azurian Trading Company, you are allowed to access,
-        view, and purchase the Cultural Stock of any docked ships, and view and
-        hail ships on behalf of the Factor.
+        buy the Cultural Stock of any docked ship and hail ships for the Factor.
       </span>
     </div>
   ) : null;

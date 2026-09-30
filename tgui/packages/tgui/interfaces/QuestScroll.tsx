@@ -116,7 +116,7 @@ const MarginaliaSection = (props: MarginaliaSectionProps) => {
         <div style={marginaliaLine}>
           <i>
             Only {data.issued_by || 'the poster'} can open what you recover -
-            carry it back to them.
+            Carry it back to them.
           </i>
         </div>
       )}
@@ -387,7 +387,7 @@ export const QuestScroll = () => {
               <hr style={divider} />
               <div style={completionStamp}>THIS WORK IS DONE</div>
               <div style={{ textAlign: 'center', marginTop: '6px' }}>
-                Return this writ to the Contract Ledger to claim the bounty.
+                Return this scroll to the Contract Ledger to claim your reward.
               </div>
               <div
                 style={{
@@ -404,7 +404,7 @@ export const QuestScroll = () => {
             <>
               <hr style={divider} />
               <div style={failedStamp}>
-                THE BLOCKADE HELD, THIS WRIT HAS LAPSED
+                THE BLOCKADE HELD. THIS WRIT HAS LAPSED
               </div>
             </>
           ) : null}
@@ -420,8 +420,8 @@ export const QuestScroll = () => {
                   fontSize: '0.92em',
                 }}
               >
-                By Royal Seal and Ducal Prerogative, the bearer of this writ is
-                held exempt from the Crown&apos;s Levy upon its reward.
+                By seal of the {rulerTitle}, the holder of this writ is exempt
+                from the Crown&apos;s Levy on its reward.
               </div>
             </>
           )}

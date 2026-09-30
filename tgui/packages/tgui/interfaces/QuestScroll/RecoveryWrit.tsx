@@ -46,8 +46,8 @@ export const RecoveryWrit = (props: {
       </p>
       {circumstance && <p style={writParagraph}>{circumstance}</p>}
       <p style={writParagraph}>
-        Whosoever shall recover {itemLabel} from {region} and bring them unto
-        the Contract Ledger shall be paid the bounty of{' '}
+        Whosoever shall recover {itemLabel} from {region} and bring the same
+        unto the Contract Ledger shall be paid the sum of{' '}
         <RewardClause
           reward={reward}
           levyRate={levyRate}
@@ -57,7 +57,7 @@ export const RecoveryWrit = (props: {
         .
       </p>
       <p style={writParagraph}>
-        The writ knows the goods and shall mark itself when the deed is done.
+        This writ shall mark itself when the goods are recovered.
       </p>
       <SealLine
         rulerTitle={rulerTitle}

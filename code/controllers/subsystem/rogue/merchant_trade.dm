@@ -68,8 +68,8 @@ SUBSYSTEM_DEF(merchant_trade)
 		"source" = source,
 		"amount" = amount,
 	)))
-	if(length(merchant_fund_log) > 12)
-		merchant_fund_log.Cut(13)
+	if(length(merchant_fund_log) > MERCHANT_FUND_LOG_MAX)
+		merchant_fund_log.Cut(MERCHANT_FUND_LOG_MAX + 1)
 
 /datum/controller/subsystem/merchant_trade/Initialize(mapload)
 	for(var/path in subtypesof(/datum/foreign_realm))
