@@ -463,7 +463,6 @@
 			back to the original sender through an ephemeral response ID.</li>
 		</ul>
 
-		CUT
 		</div>
 	"}
 

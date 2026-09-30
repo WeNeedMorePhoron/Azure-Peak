@@ -402,7 +402,6 @@
 		<p>The Grand Duke or Regent can then restore the suspended Charters at the
 		throne by speaking <b>revise charter</b>, one per day.</p>
 
-		CUT
 
 		<p>Trade configuration does <b>not</b> reset on recovery: the Autoimport list
 		and the surplus threshold stay where sequestration left them. Retune them by
