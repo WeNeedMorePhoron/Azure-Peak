@@ -47,7 +47,7 @@
 /datum/book_entry/treasury_general/levies/inner_book_html(mob/user)
 	return {"
 		<div>
-		<p>Rates on Taxation and Levies are set by the Steward using the "Adjust Taxes" verb. This can be done even with a Grand Duke or Regent in place. Any conflict from both parties trying to set rates is an IC issue to resolve. The Grand Duke or Regent may also adjust tax rates at the throne by saying "Set Taxes". Poll taxes / subsidies and Levies have an independent one-day cooldown - whoever sets first locks the other out until the next day.</p>
+		<p>Rates on Taxation and Levies are set by the Steward using the "Adjust Taxes" verb. This can be done even with a Grand Duke or Regent in place. Any conflict from both parties trying to set rates is an IC issue to resolve. The Grand Duke or Regent may also adjust tax rates at the throne by saying "Set Taxes". The poll tax and the levies can each be changed once per day. Whoever sets them first locks the other out until the next day.</p>
 		</div>
 
 		<h3>Transaction Levies</h3>
@@ -141,7 +141,7 @@
 			exemption as the Church while the Concordat is in force. The Bishop may
 			revoke at will.</li> <li><b>Steward</b> - The Steward may print Letters of
 			Citizenry at the Nerve Master. The holder gains Golden Bull protections while
-			the Charter is in force. One can be printed every [DisplayTimeText(RESIDENCY_PRINT_COOLDOWN)].</li>
+			the Charter is in force. After printing one, the Steward must wait [DisplayTimeText(RESIDENCY_PRINT_COOLDOWN)] to print another.</li>
 		</ul>
 
 		<p>Protection lapses if the backing Charter is suspended. The status persists
@@ -314,8 +314,7 @@
 		additional rewards they wish to split or not.</p>
 
 		<h3>Posting a Towner Contract</h3>
-		<p>The eligible towner may post at the Grand Contract Ledger's "Postings" tab,
-		they can choose to issue an Easy or a Hard version of their contract. Once posted, it is always posted onto the board instead of in hand. Worry not, the fellowship must includes you before someone can sign up for said contract.</p>
+		<p>The eligible towner may post at the Contract Ledger's "Postings" tab. They can choose to issue an Easy or a Hard version of their contract. Once posted, it always goes onto the Ledger instead of into their hand. Worry not, the fellowship must include you before someone can sign up for said contract.</p>
 
 		<p>Towner contracts are exempt from both the Contract Levy and the Guild's referral cut.</p>
 

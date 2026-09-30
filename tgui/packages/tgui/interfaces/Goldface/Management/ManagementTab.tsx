@@ -217,7 +217,7 @@ const TriumphLever = (props: { favor: FavorData }) => {
           return (
             <div
               key={idx}
-              title={`+${idx + 1} Triumph at ${threshold}m volume`}
+              title={`+${idx + 1} Triumph at ${threshold} favor`}
               style={{
                 position: 'relative',
                 height: '12px',
@@ -248,11 +248,11 @@ const TriumphLever = (props: { favor: FavorData }) => {
           fontStyle: 'normal',
         }}
       >
-        <span>{high_water}m volume earned</span>
+        <span>{high_water} favor earned</span>
         <span>
           {atCap
             ? 'Bonus maxed out'
-            : `Next +${triumph_bonus + 1} at ${bracket_next}m`}
+            : `Next +${triumph_bonus + 1} at ${bracket_next} favor`}
         </span>
       </div>
     </div>
@@ -300,7 +300,7 @@ const LedgerRow = (props: { entry: FavorLedgerEntry }) => {
         }}
       >
         {sign}
-        {entry.awarded}m
+        {entry.awarded}
       </span>
     </div>
   );
@@ -347,7 +347,7 @@ const SinkButton = (props: {
             <span style={{ color: SEAL_GREEN }}>{doneLabel}</span>
           ) : (
             <>
-              {cost}m
+              {cost} favor
               <span
                 style={{
                   color: canAfford ? INK_SOFT : SEAL_RED,
@@ -355,7 +355,7 @@ const SinkButton = (props: {
                 }}
               >
                 {' '}
-                ({current}m on hand)
+                ({current} on hand)
               </span>
             </>
           )}
@@ -407,7 +407,7 @@ const FavorCard = (props: {
       >
         <span style={labelStyle}>Favor on hand</span>
         <span style={{ ...valueStyle, fontWeight: 'bold', fontSize: '16px' }}>
-          {favor.current}m
+          {favor.current}
         </span>
       </div>
       <TriumphLever favor={favor} />
@@ -436,25 +436,25 @@ const FavorCard = (props: {
         <span
           style={{ color: SEAL_GREEN, fontWeight: 'bold', textAlign: 'right' }}
         >
-          +{favor.from_sendoffs}m
+          +{favor.from_sendoffs}
         </span>
         <span style={{ color: INK }}>Navigator trade</span>
         <span
           style={{ color: SEAL_GREEN, fontWeight: 'bold', textAlign: 'right' }}
         >
-          +{favor.from_navigator}m
+          +{favor.from_navigator}
         </span>
         <span style={{ color: INK }}>Goldface imports</span>
         <span
           style={{ color: SEAL_GREEN, fontWeight: 'bold', textAlign: 'right' }}
         >
-          +{favor.from_goldface}m
+          +{favor.from_goldface}
         </span>
         <span style={{ color: INK }}>Silverface imports</span>
         <span
           style={{ color: SEAL_GREEN, fontWeight: 'bold', textAlign: 'right' }}
         >
-          +{favor.from_silverface}m
+          +{favor.from_silverface}
         </span>
         {favor.penalties > 0 && (
           <>
@@ -466,7 +466,7 @@ const FavorCard = (props: {
                 textAlign: 'right',
               }}
             >
-              -{favor.penalties}m
+              -{favor.penalties}
             </span>
           </>
         )}
@@ -474,7 +474,7 @@ const FavorCard = (props: {
         <span
           style={{ color: SEAL_AMBER, fontWeight: 'bold', textAlign: 'right' }}
         >
-          {favor.high_water}m
+          {favor.high_water}
         </span>
       </div>
       <div

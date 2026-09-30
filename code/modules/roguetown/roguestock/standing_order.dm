@@ -1009,7 +1009,7 @@ GLOBAL_LIST_EMPTY(standing_order_pool)
 /datum/standing_order/demand_artificed_panoply
 	roll_weight = 1
 	var/list/project_by_region = list(
-		TRADE_REGION_KINGSFIELD = list("the duke's master of arms", "an artificer's patron", "a champion riding in the tournament"),
+		TRADE_REGION_KINGSFIELD = list("the Grand Duke's master of arms", "an artificer's patron", "a champion riding in the tournament"),
 		TRADE_REGION_DAFTSMARCH = list("a smith's showpiece", "a forgemaster's masterpiece", "a guild exhibition"),
 		TRADE_REGION_HEARTFELT = list("the count's champion", "a knight's investiture", "a warden captain"),
 	)

@@ -362,7 +362,7 @@ export const ShipRow = (props: Props) => {
           }}
         >
           <div
-            title={`Bigger ships carry more goods and expect more favor. A ${ship.base_tonnage}t ship is the baseline (1.00x), and a ${ship.cap_tonnage}t galleon gets the most (${ship.cap_mult.toFixed(2)}x). This ship: ${ship.tonnage_mult.toFixed(2)}x.`}
+            title={`Bigger ships carry more goods and expect more favor. A ${ship.base_tonnage}t ship is the baseline (1.00x), and a galleon of ${ship.cap_tonnage}t gets the most (${ship.cap_mult.toFixed(2)}x). This ship: ${ship.tonnage_mult.toFixed(2)}x.`}
             style={{ position: 'relative' }}
           >
             {realm ? (
@@ -463,7 +463,7 @@ export const ShipRow = (props: Props) => {
           {ship.expected_favor > 0 && (
             <div
               style={{ color: SEAL_AMBER }}
-              title={`When you send this ship off at ${ship.honored_pct}% of her target (Honored), you gain her full delivered value as favor and get a spent hail back. At ${ship.partial_pct}% or more (Partial) you gain ${ship.partial_share_pct}% of it. Below ${ship.partial_pct}% (Dishonored) you lose ${ship.dishonor_penalty}m favor.`}
+              title={`When you send this ship off at ${ship.honored_pct}% of her target (Honored), you gain her full delivered value as favor and get a spent hail back. At ${ship.partial_pct}% or more (Partial) you gain ${ship.partial_share_pct}% of it. Below ${ship.partial_pct}% (Dishonored) you lose ${ship.dishonor_penalty} favor.`}
             >
               {!!ship.is_kin && (
                 <span
@@ -483,7 +483,7 @@ export const ShipRow = (props: Props) => {
                   KIN
                 </span>
               )}
-              Favor: {ship.favor_earned}m / {ship.expected_favor}m
+              Favor: {ship.favor_earned} / {ship.expected_favor}
             </div>
           )}
         </div>

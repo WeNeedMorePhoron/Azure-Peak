@@ -51,6 +51,7 @@ type Data = {
   pollTaxRates: PollTaxRate[];
   pollTaxMax: number;
   pollTaxMin: number;
+  concordatFloor: number;
   levyCooldown: boolean;
   pollCooldown: boolean;
   pollProjection: PollProjection;
@@ -129,8 +130,8 @@ const PollProjectionPanel = (props: { projection: PollProjection }) => {
           color: INK_SOFT,
         }}
       >
-        Each rate times the number of people in that class. It does not count
-        what they can actually pay.
+        This multiplies each rate by the number of people in that class. It does
+        not count what they can actually pay.
       </div>
     </div>
   );
@@ -232,8 +233,10 @@ export const TaxSetter = (props: any, context: any) => {
                   marginBottom: '8px',
                 }}
               >
-                The Crown&apos;s share of each kind of income: contract rewards,
-                head bounties, imports, exports and recovered spoils.
+                The Crown takes this share of contract rewards, head bounties,
+                imports, exports and recovered spoils. While the Concordat of
+                Zenitstadt is in force, no levy can go below{' '}
+                {data.concordatFloor}%.
               </div>
               {data.categoryRates?.map((c) => (
                 <div key={c.category} style={rowStyle}>

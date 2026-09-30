@@ -20,18 +20,17 @@
 	return {"
 		<div>
 		<p><b>NAVIGATOR:</b> The heart of commerce of Azuria. This ancient machine lifts goods up by balloons to ships at the dock and the ATC's warehouse. The mechanisms are a trade secret of
-		Azurian Trading Company. There's three variants: Public Navigator, Navigator and Smuggler's Navigator</p>
+		Azurian Trading Company. There are three variants: Public Navigator, Navigator and Smuggler's Navigator.</p>
 
 		<h3>How it works</h3>
 		<ul>
-			<li>Drop sellable items on the eight tiles surrounding the machine. A balloon
-			arrives every [DisplayTimeText(NAVIGATOR_EXPORT_TIME)] and lifts them into the air.</li> <li>Anchored items,
+			<li>Drop sellable items on the eight tiles surrounding the machine. Balloons
+			arrive [DisplayTimeText(NAVIGATOR_EXPORT_TIME)] apart and lift them into the
+			air.</li> <li>Anchored items,
 			coins, handcarts, items with the ATC seal, and items flagged unmintable
 			(items that spawned in town at mapstart) are skipped.</li> <li>Each item's
 			payout is its base price multiplied by category demand (current ship demand
-			boost). It is then reduced by the navigator's handler fees - including export
-			duty, merchant's levy,
-			and any handler fees imposed by say, smugglers.</li>
+			boost). It is then reduced by the navigator's handler fees: export duty, the merchant's levy, and any fee a smuggler charges.</li>
 			<li>Items priced below 1m of net payout are refused outright with a "the market is choked" message.</li>
 			<li>Clicking on the Navigator reveals the current state of the warehouses.</li>
 		</ul>
@@ -168,7 +167,7 @@
 			with a market shortage or local shortfall.</li> <li><b>Bulk demands:</b>
 			Docked ships purchase a large amount of goods at a decent markup. They
 			usually want more than the town can reasonably produce.</li>
-			<li><b>Victualling demands:</b> Docked ships demands delicious readied meals
+			<li><b>Victualling demands:</b> Docked ships demand delicious readied meals
 			and preserved foods at a significant markup. This is an opportunity for
 			profit for the Merchant and Innkeeper,
 			Soilson or Cooks that can fulfill these orders.</li>
@@ -243,7 +242,7 @@
 			banked as Favor and the hail is refunded.</li> <li><b>PARTIAL</b>
 			(>=[FAVOR_SEND_PARTIAL_THRESHOLD * 100]%): [FAVOR_SEND_PARTIAL_MULT * 100]%
 			of delivered value banked as Favor. No hail refund.</li>
-			<li><b>DISHONORED</b> (<50%): Flat Favor penalty, scaled by tonnage.</li>
+			<li><b>DISHONORED</b> (below [FAVOR_SEND_PARTIAL_THRESHOLD * 100]%): Flat favor penalty, scaled by tonnage.</li>
 		</ul>
 
 		<h3>What the Merchant has to decide</h3>
@@ -347,7 +346,7 @@
 
 		<h3>What it shows</h3>
 		<p>
-			Honestly, just click on it in the noticeboard. It will shows you multiple relevant information about the markets. Several producer places have a mini wall mounted noticeboard for this purpose.
+			Honestly, just click on it in the noticeboard. It will show you a lot of useful information about the markets. Several producer places have a mini wall mounted noticeboard for this purpose.
 		</p>
 		</div>
 	"}

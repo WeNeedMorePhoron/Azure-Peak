@@ -8,7 +8,10 @@
 /datum/book_entry/treasury_underground/black_market/inner_book_html(mob/user)
 	return {"
 		<div>
-		<p><b>BLACK MARKET:</b> Merchant letting you down? Stolen 100 cutleries from the Keep and have nothing to do with it but sneed? The Black Market is your friend! Just walk all the way across Azuria's famously safe Grove and Coast to a little island in the northeast, and dump your goods. The Bathmatron and </p>
+		<p><b>BLACK MARKET:</b> Merchant letting you down? Stolen 100 cutleries from
+		the Keep and have nothing to do with it but sneed? The Black Market is your
+		friend! Just walk all the way across Azuria's famously safe Grove and Coast to
+		a little island in the northeast, and dump your goods.</p>
 
 		<h3>Brassface & Contraband Vendor</h3>
 		<ul>

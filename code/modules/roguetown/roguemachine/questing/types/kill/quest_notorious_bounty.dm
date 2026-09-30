@@ -293,7 +293,7 @@
 	var/mob/living/bearer = quest_receiver_reference?.resolve()
 	var/list/names = list()
 	for(var/mob/living/M as anything in get_hunting_party())
-		names += (M == bearer) ? "[M.real_name] (writ-bearer)" : M.real_name
+		names += (M == bearer) ? "[M.real_name] (contract holder)" : M.real_name
 	if(!length(names))
 		return "None of them have shown themselves yet."
 	return "They are [english_list(names)]."

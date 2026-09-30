@@ -83,7 +83,7 @@ const SummaryBlock = (props: { bearer?: string; poster?: string }) => {
     >
       {props.bearer && (
         <div>
-          <b>To bearer:</b> {props.bearer}.
+          <b>To holder:</b> {props.bearer}.
         </div>
       )}
       {props.poster && (

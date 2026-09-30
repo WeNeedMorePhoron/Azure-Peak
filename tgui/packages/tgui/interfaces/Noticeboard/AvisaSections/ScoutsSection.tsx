@@ -140,7 +140,7 @@ const RegionRow = ({ region }: { region: ScoutRegion }) => {
             )}
             {region.blockade_writ_out ? (
               <div style={{ marginTop: 3 }}>
-                <span style={badgeStyle(SEAL_AMBER)}>WRIT OUT</span>
+                <span style={badgeStyle(SEAL_AMBER)}>SCROLL OUT</span>
               </div>
             ) : (
               <div
@@ -150,7 +150,7 @@ const RegionRow = ({ region }: { region: ScoutRegion }) => {
                   fontSize: FONT_BODY,
                 }}
               >
-                Awaiting writ
+                Awaiting scroll
               </div>
             )}
           </>

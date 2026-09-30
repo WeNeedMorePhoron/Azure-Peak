@@ -28,7 +28,7 @@
 
 /obj/structure/roguemachine/stockpile/examine(mob/user)
 	. = ..()
-	. += span_info("Right click to sell everything in front of the stockpile.")
+	. += span_info("Right-click to sell everything in front of the stockpile.")
 	if(SStreasury.royal_custom_unlocked)
 		. += span_info(SStreasury.royal_custom_active ? "Royal Custom is in force. The markup on imports goes to the Treasury." : "Royal Custom is suspended. The markup on imports pays for shipping.")
 	else

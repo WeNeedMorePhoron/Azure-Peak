@@ -71,7 +71,7 @@
 /datum/realm_condition/etrusca_gronnic_raid
 	id = "etrusca_gronnic_raid"
 	name = "Punitive Gronnic Raid"
-	description = "Ceaseless raiding has grown intolerable for the people of Etrusca. Its legendary fleet has been sent to raid the coastal cities of Gronn and burn them down. Food and fruits grow scarce while demand for wood, hide and iron spike as the war effort ramps up."
+	description = "Ceaseless raiding has grown intolerable for the people of Etrusca. Its legendary fleet has been sent to raid the coastal cities of Gronn and burn them down. Fish and fruit grow scarce while demand for wood, iron and cured leather spikes as the war effort ramps up."
 	weight = 8
 	affected_realms = list(REALM_ETRUSCA)
 	supply_modifiers = list(
@@ -168,7 +168,7 @@
 /datum/realm_condition/gronn_long_winter
 	id = "gronn_long_winter"
 	name = "Long Winter"
-	description = "The Fjall is three months under snow and the straits froze early. Hide is hoarded against the cold, the holds hunger for grain at any price, and coal trades for its weight in silver."
+	description = "The Fjall is three months under snow and the straits froze early. Hide is hoarded against the cold. Grain sells at any price and coal trades for its weight in silver."
 	weight = 8
 	affected_realms = list(REALM_GRONN)
 	supply_modifiers = list(

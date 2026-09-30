@@ -103,9 +103,9 @@
 		/datum/supply_pack/rogue/alcohol/onin,
 	)
 	hail_lines = list(
-		"Finest arms and armors from Grenzelhoft! Enough to make the Celestial Empire trembles! Forged in the great forge of Zenidstadt!",
+		"Finest arms and armors from Grenzelhoft! Enough to make the Celestial Empire trembles! Forged in the great forge of Zenitstadt!",
 		"I carry an envoy from the Holy See who wishes to meet with the local bishop. Please see to it that he is received with the proper respect.",
-		"The 'Azurfest' is coming up in a few weeks. The student of the Celestial Academy will be dining on Azurian delicacies such as gigantic fish pies with heads out, jellied eels, and crab cakes. Sell me some of your finest live crabs, eels, and jelly to go with the eels? Oh? The jelly is made from the eels themselves? Interesting.",
+		"The 'Azurfest' is coming up in a few weeks. The students of the Celestial Academy will be dining on Azurian delicacies such as gigantic fish pies with heads out, jellied eels, and crab cakes. Sell me some of your finest live crabs, eels, and jelly to go with the eels? Oh? The jelly is made from the eels themselves? Interesting.",
 		"I heard the knights of this land are particularly fond of Grenzelhoftian Zweihanders. I have a batch of twenty-four that I can sell you at a reasonable price, from the forge of Master Heinrich, who supplies no less than four companies of mercenaries.",
 		"Know any venues with large-hipped venardine women around? My crew would like to know of the local cultures."
 	)

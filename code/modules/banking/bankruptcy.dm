@@ -216,7 +216,7 @@
 /// Properties the Azurian Trading Company "seizes" against the Crown's debts on bankruptcy entry.
 /// Two or three are picked at random for the sequestration announcement.
 GLOBAL_LIST_INIT(atc_seizure_inventory, list(
-	"the Lord's gilded bathtub",
+	"the Grand Duke's gilded bathtub",
 	"a brace of falcons from the royal mews",
 	"an illuminated psyalter bound in shagreen",
 	"the great Otavan tapestry depicting the Hunt of the Boar",

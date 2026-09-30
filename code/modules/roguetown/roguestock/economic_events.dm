@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(active_economic_events)
 
 /datum/economic_event/cloth_smuggler_purge
 	name = "Cloth Smuggler Purge"
-	description = "A crown crackdown on black market cloth has choked the legitimate supply as well."
+	description = "A Crown crackdown on black market cloth has choked the legitimate supply as well."
 	announcement = "<font color='#c44'>CLOTH SMUGGLER PURGE: Cloth and fibers are being seized from wagons. Tailors despair.</font>"
 	affected_goods = list(TRADE_GOOD_CLOTH, TRADE_GOOD_FIBERS)
 	price_mod = ECON_SHORTAGE_MAJOR
@@ -263,7 +263,7 @@ GLOBAL_LIST_EMPTY(active_economic_events)
 /datum/economic_event/glass_furnace_failure
 	name = "Glass Furnace Failure"
 	description = "The Daftsmarch Glass Furnace has inexplicably imploded. Glass production has halted until it is rebuilt."
-	announcement = "<font color='#c44'>GLASS FURNACE FAILURE: The Glass Furnace of Daftsmarch has collapsed. Glass batch grows dear</font>"
+	announcement = "<font color='#c44'>GLASS FURNACE FAILURE: The Glass Furnace of Daftsmarch has collapsed. Glass batch grows dear.</font>"
 	affected_goods = list(TRADE_GOOD_GLASS_BATCH)
 	price_mod = ECON_SHORTAGE_SEVERE
 	event_type = ECON_EVENT_SHORTAGE
@@ -271,7 +271,7 @@ GLOBAL_LIST_EMPTY(active_economic_events)
 /datum/economic_event/orchard_locusts
 	name = "Orchard Locusts"
 	description = "A swarm has stripped the Rockhill orchards bare."
-	announcement = "<font color='#c44'>ORCHARD LOCUSTS: The Rockhill orchards are stripped bare. Woe for enjoyer of fruits and good wines!.</font>"
+	announcement = "<font color='#c44'>ORCHARD LOCUSTS: The Rockhill orchards are stripped bare. Woe for enjoyers of fruits and good wines!</font>"
 	affected_goods = list(TRADE_GOOD_APPLE, TRADE_GOOD_PEAR, TRADE_GOOD_JACKSBERRY)
 	price_mod = ECON_SHORTAGE_MAJOR
 	event_type = ECON_EVENT_SHORTAGE
@@ -287,7 +287,7 @@ GLOBAL_LIST_EMPTY(active_economic_events)
 /datum/economic_event/clay_pit_collapse
 	name = "Clay Pit Collapse"
 	description = "The Blackholt clay pits have caved in from groundwater infiltration. Clay grows dear."
-	announcement = "<font color='#c44'>CLAY PIT COLLAPSE: Blackholt's clay pits cave in. Clay supply are disrupted and expensive.</font>"
+	announcement = "<font color='#c44'>CLAY PIT COLLAPSE: Blackholt's clay pits cave in. Clay supply is disrupted and expensive.</font>"
 	affected_goods = list(TRADE_GOOD_CLAY)
 	price_mod = ECON_SHORTAGE_MINOR
 	event_type = ECON_EVENT_SHORTAGE
@@ -340,7 +340,7 @@ GLOBAL_LIST_EMPTY(active_economic_events)
 /datum/economic_event/cidering_season
 	name = "Cidering Season"
 	description = "The Rockhill Orchards report an unusually rich harvest, with fruit rotting on the ground. Fruits are dumped at any price - transportation not included."
-	announcement = "<font color='#5cb85c'>CIDERING SEASON: Fruits piles up in the orchards of Rockhill. Tis fruits and wine season, m'lord!</font>"
+	announcement = "<font color='#5cb85c'>CIDERING SEASON: Fruits pile up in the orchards of Rockhill. 'Tis fruits and wine season, m'lord!</font>"
 	affected_goods = list(TRADE_GOOD_APPLE, TRADE_GOOD_PEAR, TRADE_GOOD_JACKSBERRY)
 	price_mod = ECON_OVERSUPPLY_SEVERE
 	event_type = ECON_EVENT_OVERSUPPLY

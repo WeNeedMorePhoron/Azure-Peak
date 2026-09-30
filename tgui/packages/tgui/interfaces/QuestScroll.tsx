@@ -398,7 +398,7 @@ export const QuestScroll = () => {
                   color: 'hsl(30, 35%, 40%)',
                 }}
               >
-                Place it on the marked area or put it on the ledger.
+                Place it on the marked area or put it on the Ledger.
               </div>
             </>
           ) : data.blockade_failed ? (

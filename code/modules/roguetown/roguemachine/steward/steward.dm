@@ -242,9 +242,9 @@
 			SStreasury.loans -= forgiven
 			qdel(forgiven)
 		SStreasury.clear_poll_tax_debt(target)
-		say("[target.real_name]'s debtor mark has been cleared and all crown loans have been forgiven.")
+		say("[target.real_name]'s debtor mark has been cleared and all Crown loans have been forgiven.")
 		log_game("DEBT FORGIVEN: [key_name(usr)] cleared debtor mark on [key_name(target)][loan_amt ? " (wrote off [loan_amt]m loan)" : ""]")
-		to_chat(target, span_notice("The Stewardry has cleared the defaulter mark from my name. My crown debts are forgiven."))
+		to_chat(target, span_notice("The Stewardry has cleared the defaulter mark from my name. My Crown debts are forgiven."))
 	if(href_list["clearpolltax"])
 		if(!usr.canUseTopic(src, BE_CLOSE) || locked)
 			return

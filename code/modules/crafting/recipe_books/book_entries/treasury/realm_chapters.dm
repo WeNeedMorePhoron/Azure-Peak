@@ -127,7 +127,7 @@
 /datum/book_entry/treasury_realm/trade/inner_book_html(mob/user)
 	return {"
 		<div>
-		<p>The Crown trades with ten regions: Kingsfield, Rosawood, Rockhill, Daftsmarch, Blackholt, Saltwick, Hagenwald, Bleakcoast, Northfort, Heartfelt. Trade and Stockpile interface are accessed through the Nerve Master's "Trade and Stockpile" interface.
+		<p>The Crown trades with ten regions: Kingsfield, Rosawood, Rockhill, Daftsmarch, Blackholt, Saltwick, Hagenwald, Bleakcoast, Northfort, Heartfelt. Trade and stockpile both work through the Nerve Master's "Trade and Stockpile" interface.</p>
 
 		<h3>Trade Pricing</h3>
 		<ul>
@@ -169,7 +169,7 @@
 			<b>Manual</b>. Manual entries hold whatever the Steward set until they are
 			set back to Autoprice, which resets both prices at once.</li> <li>Autoexport
 			skips goods priced by hand.</li>
-			<li>The Market Scroll surfaces a per-good <b>arbitrage margin</b> column (sell - buy, times current stock) and an aggregate "Arbitrage potential" total at the top.</li>
+			<li>The Market Scroll shows an <b>arbitrage margin</b> column for each good (sell - buy, times current stock) and an aggregate "Arbitrage potential" total at the top.</li>
 		</ul>
 
 		<h3>Stockpile Limit - Auto and Manual</h3> <p>Each stockpile entry has a daily
@@ -213,7 +213,7 @@
 
 
 /datum/book_entry/treasury_realm/auto_import
-	name = "04. Standing (Auto) Imports"
+	name = "04. Autoimport"
 
 /datum/book_entry/treasury_realm/auto_import/inner_book_html(mob/user)
 	return {"

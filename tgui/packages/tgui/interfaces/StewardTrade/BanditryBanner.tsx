@@ -17,14 +17,14 @@ export const BanditryBanner = (props: { projection: BanditryProjection }) => {
   return (
     <div style={bannerStyle(SEAL_RED_SOFT, true)}>
       {hasDebt && (
-        <div>Banditry Debt: {p.debt}m, skimmed from all inflow</div>
+        <div>Brigand Debt: {p.debt}m, skimmed from all inflow</div>
       )}
       {hasProjection && (
-        <div>Projected Banditry Losses: -{p.total}m next dawn</div>
+        <div>Projected Losses to Brigands: -{p.total}m next dawn</div>
       )}
       {hasHoard && (
         <div>
-          Bandits are sitting on {p.hoard_total}m. When a hoard is recovered,
+          Brigands are sitting on {p.hoard_total}m. When a hoard is recovered,
           the Crown taxes a share of it.
         </div>
       )}

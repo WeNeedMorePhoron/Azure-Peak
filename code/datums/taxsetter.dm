@@ -59,6 +59,7 @@
 		"pollTaxRates" = poll_tax_rates_out,
 		"pollTaxMax" = POLL_TAX_MAX_RATE,
 		"pollTaxMin" = -POLL_TAX_MAX_SUBSIDY,
+		"concordatFloor" = round(CONCORDAT_TITHE_RATE * 100),
 	)
 
 /datum/taxsetter/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)

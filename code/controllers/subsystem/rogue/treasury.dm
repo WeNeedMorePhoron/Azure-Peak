@@ -658,7 +658,7 @@ SUBSYSTEM_DEF(treasury)
 
 /datum/controller/subsystem/treasury/proc/apply_poll_rate_adjustments(list/adjustments, good_announcement_text, bad_announcement_text)
 	if(GLOB.dayspassed <= poll_rates_changed_day)
-		to_chat(usr, span_warning("Poll tax rates have already been adjusted today - come back tomorrow."))
+		to_chat(usr, span_warning("Poll tax rates have already been adjusted today. Come back tomorrow."))
 		return
 	if(!islist(adjustments))
 		return

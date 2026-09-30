@@ -289,7 +289,7 @@ const FulfillButton = (props: { order: Order; onFulfill: () => void }) => {
       <button
         type="button"
         onClick={props.onFulfill}
-        title={`You have ${o.partial_pct}% of the goods. Sending them now pays 85% of their value. Missing: ${o.shortfall_text}`}
+        title={`You have ${o.partial_pct}% of the goods. Sending them now pays ${o.partial_payout_pct}% of their value. Missing: ${o.shortfall_text}`}
         style={inkButtonStyle({ color: SEAL_AMBER })}
       >
         Fulfill Partial - {o.partial_pct}% ({o.partial_payout_preview}m)

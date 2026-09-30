@@ -650,7 +650,7 @@
 
 /obj/structure/roguemachine/vaultbank/church
 	name = "\improper CHURCH JAWBANK"
-	desc = "A biomechanical obelisk that holds the alms and tithe of Ten's faithful. Throttle it with a strike to spill that which is rightfully yours."
+	desc = "A biomechanical obelisk that holds the alms and tithe of the Ten's faithful. Throttle it with a strike to spill that which is rightfully yours."
 	alert_jobs = list("Bishop", "Martyr", "Acolyte")
 	alert_location = "the Church"
 	bash_floor = 500
@@ -738,7 +738,7 @@
 	return PATRON_CAP_MERCHANT
 
 /obj/structure/roguemachine/vaultbank/merchant/get_patron_explanation()
-	return "Granting a person the status of Agent of the ATC confers Burgher standing upon them. It lowers their tax class and shields them from the worst abuses of the Crown's taxmen. They may also read the names of those who owe debt to the ATC. It enables them to call upon their kin in their home realms for benefits. They can also hail ships and manage purchase on your behalf. Go forth, in Malum's name, and let them collect what is rightfully owed. - Ser Yohan d'Azur"
+	return "Granting a person the status of Agent of the ATC confers Burgher standing upon them. It lowers their tax class and shields them from the worst abuses of the Crown's taxmen. They may also read the names of those who owe debt to the ATC. It enables them to call upon their kin in their home realms for benefits. They can also hail ships and manage purchases on your behalf. Go forth, in Malum's name, and let them collect what is rightfully owed. - Ser Yohan d'Azur"
 
 /obj/structure/roguemachine/vaultbank/merchant/enforce_placement()
 	return

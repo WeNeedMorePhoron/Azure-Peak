@@ -180,5 +180,5 @@ GLOBAL_LIST_EMPTY(quest_circumstances_recovery_bandits)
 /datum/writ_circumstance/recovery_bandits/ambush_dropped
 	phrasings = list(
 		"In the chaos of the ambush the parcel was dropped, and the brigands keep watch over the spot in case of return.",
-		"The carrier escaped with their life. The brigands now guards the parcel.",
+		"The carrier escaped with their life. The brigands now guard the parcel.",
 	)

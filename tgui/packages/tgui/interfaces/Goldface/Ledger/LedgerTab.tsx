@@ -196,8 +196,8 @@ export const LedgerTab = (props: { harbor?: HarborData }) => {
         )}
         {ledger.fund_log.length > 0 && (
           <div style={{ ...noteStyle, marginTop: '6px' }}>
-            Most recent first. Older entries roll off after{' '}
-            {ledger.fund_log_max}.
+            Most recent first. Only the last {ledger.fund_log_max} movements are
+            kept.
           </div>
         )}
       </div>
