@@ -42,7 +42,7 @@
 			is also taxed at the same export duty rates to prevent tax base shrinking
 			because of the Merchant's cut.</li> <li>Seller net drops on the navigator's
 			tile. The Merchant's levy share and taxes go directly to the factional
-			fund.</li> <li>Merchants and Shophands can right click and toggle two
+			fund.</li> <li>Merchants and Shophands can right-click and toggle two
 			switches: Crown duty PAYING/DODGING and Merchant's levy COLLECTING/WAIVED.
 			Dodged duty is tallied and shown in the panel.</li> <li>Per machine tallies
 			(duty collected, duty evaded, levy collected) are visible to
@@ -88,8 +88,8 @@
 		<h3>How it works</h3>
 		<ul>
 			<li>You need a MEISTER account. The crate refuses goods from anyone without
-			one.</li> <li><b>Left click with an item:</b> deposit that one item.</li>
-			<li><b>Right click the crate:</b> dump everything on your tile into it at
+			one.</li> <li><b>Left-click with an item:</b> deposit that one item.</li>
+			<li><b>Right-click the crate:</b> dump everything on your tile into it at
 			once.</li> <li>Handcarts and bins on your tile are unpacked automatically.
 			The crate matches their contents one item at a time.</li> <li>Each accepted
 			item is matched against an open demand line on a docked ship and you are paid

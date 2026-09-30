@@ -101,7 +101,7 @@ export const BathhouseOrdinanceSection = ({
               </li>
               <li style={{ marginBottom: 4 }}>
                 {
-                  'To give no shelter to thieves nor fugitives, neither within the stews nor beneath them. Violation shall be fined a zenny, and the ill-gotten goods rendered unto the Church for remedy.'
+                  'To give no shelter to thieves nor fugitives, neither within the stews nor beneath them. Violation shall be fined a zenny, and the stolen goods rendered unto the Church for remedy.'
                 }
               </li>
               <li style={{ marginBottom: 4 }}>
@@ -127,7 +127,7 @@ export const BathhouseOrdinanceSection = ({
             </p>
             <p style={{ margin: 0, color: INK_FAINT }}>
               {
-                'The Bishop and the Bathmaster each hold the seal. Either may break or restore the Ordinance; neither may do so twice in quick succession.'
+                `The Bishop and the Bathmaster each hold the seal. Either can break or restore the Ordinance. After that, it can't be changed again for ${data.bathhouse_ordinance_cooldown_minutes} minutes.`
               }
             </p>
           </div>

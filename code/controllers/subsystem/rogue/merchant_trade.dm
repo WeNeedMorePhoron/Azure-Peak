@@ -573,7 +573,7 @@ SUBSYSTEM_DEF(merchant_trade)
 	picked.dock()
 	auto_hail_used_day = GLOB.dayspassed
 	hails_by_realm[picked.realm_id] = (hails_by_realm[picked.realm_id] || 0) + 1
-	scom_announce("The [picked.ship_type] [picked.ship_name] has sailed into the Azurian Docks unbidden, hoping to find a buyer.")
+	scom_announce("The [picked.ship_type] [picked.ship_name] has sailed into the Azurian Docks unbidden to look for a buyer.")
 	broadcast_market_change()
 	return "ok"
 
@@ -601,7 +601,7 @@ SUBSYSTEM_DEF(merchant_trade)
 	picked.dock()
 	auto_hail_used_day = GLOB.dayspassed
 	hails_by_realm[picked.realm_id] = (hails_by_realm[picked.realm_id] || 0) + 1
-	scom_announce("The [picked.ship_type] [picked.ship_name] has sailed into the Azurian Docks unbidden, hoping to find a buyer.")
+	scom_announce("The [picked.ship_type] [picked.ship_name] has sailed into the Azurian Docks unbidden to look for a buyer.")
 	broadcast_market_change()
 	schedule_auto_hail_tick()
 

@@ -93,7 +93,7 @@ const PollProjectionPanel = (props: { projection: PollProjection }) => {
         }}
       >
         <span style={{ color: INK_SOFT, letterSpacing: '1px' }}>
-          Projected per tick
+          Expected each dawn
         </span>
         <span style={{ color: netColor, fontWeight: 'bold' }}>{netLabel}</span>
       </div>
@@ -187,7 +187,7 @@ export const TaxSetter = (props: any, context: any) => {
               marginBottom: '10px',
             }}
           >
-            Tax rates may only be changed once per day - choose wisely.
+            You can change the levies and the poll tax once per day each.
           </div>
 
           {onCooldown && (
@@ -203,7 +203,7 @@ export const TaxSetter = (props: any, context: any) => {
                 marginBottom: '10px',
               }}
             >
-              Rates adjusted today - locked until tomorrow.
+              You changed the rates today. Try again tomorrow.
             </div>
           )}
 
@@ -243,7 +243,7 @@ export const TaxSetter = (props: any, context: any) => {
                     !onCooldown && act('set_rates', { categoryRates: payload })
                   }
                 >
-                  Make It So
+                  Set Levies
                 </button>
               </div>
             </div>
@@ -258,9 +258,10 @@ export const TaxSetter = (props: any, context: any) => {
                   marginBottom: '8px',
                 }}
               >
-                Per category, per tick. Negative values pay the subject from the
-                Crown&apos;s Purse each tick (subsidy); positive values collect.
-                Subsidies reach charter-protected classes; taxes do not.
+                Each class pays this rate every dawn, up to {pollMax}m. A
+                negative rate, down to {pollMin}m, is a subsidy the Treasury
+                pays them instead. A Charter that exempts a class from the poll
+                tax does not block a subsidy.
               </div>
               {projection && <PollProjectionPanel projection={projection} />}
               {data.pollTaxRates?.map((c) => (

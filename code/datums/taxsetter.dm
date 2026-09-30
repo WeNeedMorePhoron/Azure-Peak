@@ -1,6 +1,6 @@
 /datum/taxsetter
-	var/good_announcement_text = "The Generous Lord Decrees"
-	var/bad_announcement_text = "The Tyrannical Lord Dictates"
+	var/good_announcement_text = "The Generous Grand Duke Decrees"
+	var/bad_announcement_text = "The Tyrannical Grand Duke Dictates"
 
 /datum/taxsetter/New(good_announcement_text = null, bad_announcement_text = null)
 	. = ..()

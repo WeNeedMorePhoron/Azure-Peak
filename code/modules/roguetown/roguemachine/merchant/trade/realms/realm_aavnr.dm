@@ -102,6 +102,6 @@
 		"A saiga priest of Dalainkhair is in my hold blessing the cargo. He will not come out. He has been there three days. The cargo seems content.",
 		"The saiga milk is for selling, not for drinking on duty. Tell your stevedores. I have already told mine.",
 		"The Potentate weighs heavy on the keel and heavier on my purse. Lighten one and the other follows.",
-		"A saiga-binder of the Astrava-line rides with me, last of his teaching. For two zennies he will lay hands on a fogbeast and the creature will know your name without it ever being told. He sails because his sons cannot learn what he knows, and the line will end with him on this voyage or the next. Pay him while you can.",
+		"A binder of saigas rides with me, last of his teaching. For two zennies he will lay hands on a fogbeast and the creature will know your name without it ever being told. He sails because his sons cannot learn what he knows, and the line will end with him on this voyage or the next. Pay him while you can.",
 		"Pickled herrings for the sons and daughters of the steppes. Mare's milk and saiga sausage are great, but our warriors do like to have something foreign to chew on on their march."
 	)

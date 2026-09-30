@@ -31,7 +31,7 @@
 
 /obj/structure/roguemachine/contractledger/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_info("<b>Left click</b> to open the Contract Ledger, where you can sign new contracts and abandon ones you hold.")
+	. += span_info("<b>Left-click</b> to open the Contract Ledger, where you can sign new contracts and abandon ones you hold.")
 	. += span_info("To <b>turn in</b> a completed contract, click the Ledger while holding its scroll.")
 	. += span_info("Items for retrieval contracts should be <b>dropped onto the marked tile</b> in front of the Ledger.")
 	. += span_info("Abandoning a contract forfeits its deposit. If you sign as many contracts as you can hold within [QUEST_TAKE_COOLDOWN / (1 MINUTES)] minutes, you must wait before signing another.")

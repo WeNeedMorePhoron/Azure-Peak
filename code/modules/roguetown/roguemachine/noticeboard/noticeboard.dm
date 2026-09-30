@@ -1,6 +1,6 @@
 /obj/structure/roguemachine/noticeboard
 	name = "Notice Board"
-	desc = "A large wooden notice board, carrying postings from all across Azuria. A ZAD perch sits atop it."
+	desc = "A large wooden notice board with postings from all across Azuria. A zad perch sits atop it."
 	icon = 'icons/roguetown/structure/noticeboard64.dmi'
 	icon_state = "noticeboard0"
 	density = TRUE
@@ -33,7 +33,7 @@
 
 /obj/structure/roguemachine/noticeboard/wall/bulletinboard
 	name = "Bulletin Board"
-	desc = "A rough wooden bulletin board, various worn parchments dotting the face"
+	desc = "A rough wooden bulletin board dotted with worn parchments."
 	icon = 'icons/roguetown/structure/bulletinboard32.dmi'
 	icon_state = "bulletinboard0"
 
@@ -375,7 +375,7 @@
 	switch(action)
 		if("refresh_market")
 			if(world.time < last_market_refresh + MARKET_REFRESH_COOLDOWN)
-				to_chat(H, span_warning("The factors haven't tallied fresh numbers yet. Wait a moment."))
+				to_chat(H, span_warning("You just refreshed the market. Wait a moment."))
 				return TRUE
 			last_market_refresh = world.time
 			update_static_data(H)
@@ -406,14 +406,14 @@
 		to_chat(H, span_warning("Unknown posting kind."))
 		return
 	if(tier == POSTING_TIER_LISTING && !(H.job in NOTICEBOARD_LISTING_ROLES))
-		to_chat(H, span_warning("Only certain offices may pin a Standing Listing."))
+		to_chat(H, span_warning("Your role can't pin a Standing Listing."))
 		return
 	var/title = sanitize_input("[params["title"]]", NOTICEBOARD_TITLE_MAX_LENGTH)
 	var/body = sanitize_input("[params["body"]]", NOTICEBOARD_BODY_MAX_LENGTH, multiline = TRUE)
 	var/poster_name = sanitize_input("[params["poster_name"]]", NOTICEBOARD_NAME_MAX_LENGTH)
 	var/poster_title = sanitize_input("[params["poster_title"]]", NOTICEBOARD_ROLE_MAX_LENGTH)
 	if(!title || !body || !poster_name)
-		to_chat(H, span_warning("The posting must bear a title, a body, and a name."))
+		to_chat(H, span_warning("Add a title, a message, and your name."))
 		return
 	noticeboard_add_posting(tier, title, body, poster_name, poster_title, H)
 	message_admins("[ADMIN_LOOKUPFLW(H)] has made a [tier] noticeboard post. The message was: [body]")
@@ -433,14 +433,14 @@
 
 /obj/structure/roguemachine/noticeboard/proc/handle_authority_remove_post(mob/living/carbon/human/H, list/params)
 	if(!(H.job in NOTICEBOARD_AUTHORITY_ROLES))
-		to_chat(H, span_warning("You hold no authority to take down another's posting."))
+		to_chat(H, span_warning("You can't take down other people's postings."))
 		return
 	var/posting_id = "[params["posting_id"]]"
 	var/datum/noticeboard_posting/P = noticeboard_find_post_by_id(posting_id)
 	if(!P)
 		return
 	if(P.tier == POSTING_TIER_LISTING)
-		to_chat(H, span_warning("A Standing Listing may not be taken down by authority while its issuer lives."))
+		to_chat(H, span_warning("You can't take down a Standing Listing. Only the person who pinned it can."))
 		return
 	playsound(loc, 'sound/foley/dropsound/paper_drop.ogg', 50, FALSE, -1)
 	loc.visible_message(span_smallred("[H] tears down a posting!"))

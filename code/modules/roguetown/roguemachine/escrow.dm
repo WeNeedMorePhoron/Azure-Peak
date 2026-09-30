@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 
 /obj/structure/roguemachine/escrow
 	name = "COMMISSIONER"
-	desc = "A brass-plated contraption with a coin slot above and an iron strongbox beneath. The guild posts and fulfills smithing or engineering work here, coin held in escrow until the job is done."
+	desc = "A contraption plated in brass with a coin slot above and an iron strongbox beneath. The guild posts and fulfills smithing or engineering work here. Coin is held in escrow until the job is done."
 	icon = 'icons/roguetown/misc/machines.dmi'
 	icon_state = "streetvendor1"
 	density = TRUE
@@ -511,7 +511,7 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 			continue
 		var/result = O.try_accept_item(I)
 		if(result == "damaged")
-			to_chat(user, span_warning("[src] refuses [I] - the work is too damaged to deliver. Mend it first."))
+			to_chat(user, span_warning("[src] refuses [I]. Mend it before you deliver it."))
 			return
 		if(result)
 			I.forceMove(src)
@@ -603,7 +603,7 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 			O.status = "open"
 			O.smith_name = null
 			O.day_claimed = 0
-			notify_commissioner(O, "The claim on your commission at [src] has expired; the order is open again for new smiths.")
+			notify_commissioner(O, "The claim on your commission at [src] has expired. The order is open again for other smiths.")
 
 /obj/structure/roguemachine/escrow/ui_static_data(mob/user)
 	var/list/data = list()
@@ -896,15 +896,15 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 	if(!length(cart))
 		return
 	if(has_active_order(key))
-		to_chat(user, span_warning("You already have an active commission here - finish or cancel it before posting another."))
+		to_chat(user, span_warning("You already have an active commission here. Finish or cancel it before posting another."))
 		return
 	if(manifest_item_count(key) > item_cap_per_order)
-		to_chat(user, span_warning("This commission asks for more than [item_cap_per_order] item\s - trim the manifest or raise the cap."))
+		to_chat(user, span_warning("This commission asks for more than [item_cap_per_order] item\s. Trim the manifest, or ask a guild member to raise the limit."))
 		return
 	var/total = manifest_total(user)
 	var/deposit = manifest_deposits[key] || 0
 	if(deposit < total)
-		to_chat(user, span_warning("Not enough deposited. Need [total]mm, have [deposit]mm."))
+		to_chat(user, span_warning("Not enough deposited. You need [total]m and have [deposit]m."))
 		return
 	var/datum/escrow_order/O = new()
 	O.commissioner_name = key
@@ -1015,8 +1015,8 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 	if(commissioner_refund > 0 && O.commissioner_name)
 		manifest_deposits[O.commissioner_name] = (manifest_deposits[O.commissioner_name] || 0) + commissioner_refund
 	playsound(loc, 'sound/misc/coindispense.ogg', 100, FALSE, -1)
-	to_chat(user, span_notice("Settled partial commission: you collect [smith_payout]m. [commissioner_refund]m has been returned to [O.commissioner_name]'s deposit."))
-	notify_commissioner(O, "Your commission at [src] was partially fulfilled ([done_count]/[needed_count]). Items have been left at the docks; [commissioner_refund]m has been returned to your deposit.")
+	to_chat(user, span_notice("You settle the commission early and collect [smith_payout]m. [commissioner_refund]m has been returned to [O.commissioner_name]'s deposit."))
+	notify_commissioner(O, "Your commission at [src] was partly fulfilled ([done_count]/[needed_count]). The finished items were left at [src], and [commissioner_refund]m has been returned to your deposit.")
 	update_icon()
 
 /obj/structure/roguemachine/escrow/proc/complete_order(datum/escrow_order/O, mob/user)
@@ -1082,7 +1082,7 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 
 /obj/structure/roguemachine/escrow/tailor
 	name = "TAILORING COMMISSIONER"
-	desc = "A brass-plated commission board for the weavers' and tailors' guild. Coin held in escrow until the work is delivered."
+	desc = "A commission board plated in brass for the weavers' and tailors' guild. Coin held in escrow until the work is delivered."
 	keycontrol = list("tailor", "crafterguild", "craftermaster")
 	allowed_categories = list(
 		ITEM_CAT_GARMENT_COMMON,

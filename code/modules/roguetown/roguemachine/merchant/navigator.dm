@@ -33,19 +33,19 @@
 	#ifdef LOCALTEST
 	export_time = EXPORT_TIME_TESTING
 	#endif
-	. += span_notice("This machine attracts trading balloons every [DisplayTimeText(export_time)]. Goods are sucked into the air and mammons are dropped after tax has been collected.")
+	. += span_notice("This machine attracts trading balloons every [DisplayTimeText(export_time)]. Goods are sucked into the air, and mammon is dropped once tax is taken.")
 
 /obj/item/roguemachine/navigator/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_info("Drop items on the tiles around the navigator. Trading balloons arrive periodically and lift the goods away, leaving mammon in change on this tile.")
+	. += span_info("Drop items on the tiles around the navigator. Trading balloons arrive periodically and lift the goods away. They leave mammon in change on this tile.")
 	if(fixed_tax > 0)
-		. += span_info("This navigator charges a fixed handler's fee of [fixed_tax * 100]% before any Crown duty. Smuggler-grade.")
+		. += span_info("This navigator takes a fixed handler's fee of [fixed_tax * 100]% before any export duty.")
 	else
 		. += span_info("The Crown's export duty is applied to the payout at the prevailing rate.")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.job in profit_id)
-			. += span_info("Crown duty: <b>[pay_taxes ? "PAYING" : "DODGING"]</b>. Merchant's levy: <b>[pay_merchant_share ? "COLLECTING" : "WAIVED"]</b>.")
+			. += span_info("Export duty: <b>[pay_taxes ? "PAYING" : "DODGING"]</b>. Merchant's levy: <b>[pay_merchant_share ? "COLLECTING" : "WAIVED"]</b>.")
 
 // 70% taxation and rip off to encourage people to risk it with merchant / others
 /obj/item/roguemachine/navigator/smuggler
@@ -68,7 +68,7 @@
 
 /obj/item/roguemachine/navigator/smuggler/examine(mob/user)
 	. = ..()
-	. += span_notice("The rates here are disastrous. Having a facilitator from the bathhouse nearby might improve them to 100%.")
+	. += span_notice("The rates here are disastrous. A facilitator from the bathhouse nearby brings them up to 100%.")
 	. += span_notice("The handler asks no questions about provenance. Goods the legitimate market refuses to mint move through here all the same.")
 	if(fixed_tax <= 0)
 		. += span_notice("A facilitator is present. Current handler's fee: [fixed_tax * 100]%.")
@@ -272,18 +272,18 @@
 		return TRUE
 	if(action == "refresh_market")
 		if(world.time < last_market_refresh + MARKET_REFRESH_COOLDOWN)
-			to_chat(H, span_warning("The factors haven't tallied fresh numbers yet. Wait a moment."))
+			to_chat(H, span_warning("You just refreshed. Wait a moment."))
 			return TRUE
 		last_market_refresh = world.time
 		update_static_data(H)
 		return TRUE
 	if(!(H.job in profit_id))
-		to_chat(H, span_warning("Only a Merchant may tamper with the Navigator's toll."))
+		to_chat(H, span_warning("Only the Merchant or Shophand can change the Navigator's toll."))
 		return TRUE
 	switch(action)
 		if("toggle_duty")
 			pay_taxes = !pay_taxes
-			to_chat(H, span_notice("The Navigator's toll clasp clicks. Crown duty: <b>[pay_taxes ? "PAYING" : "DODGING"]</b>."))
+			to_chat(H, span_notice("The Navigator's toll clasp clicks. Export duty: <b>[pay_taxes ? "PAYING" : "DODGING"]</b>."))
 			playsound(loc, 'sound/misc/gold_misc.ogg', 80, FALSE, -1)
 			update_static_data_for_all_viewers()
 			return TRUE
@@ -364,7 +364,7 @@
 					if(GLOB.bulk_trade_item_types && GLOB.bulk_trade_item_types[I.type])
 						if(!refused_announced)
 							refused_announced = TRUE
-							I.visible_message(span_warning("The balloon refuses [I] - bulk goods belong in the ship hold, not the navigator."))
+							I.visible_message(span_warning("The balloon refuses [I]. Sell bulk goods to the ships at the fulfillment crate."))
 						continue
 					log_admin("[src] (navigator) exported [I] ([I.type]) categorized as Miscellaneous at [AREACOORD(src)] for [base_price] base price.")
 				var/refusal_msg = get_navigator_refusal_message(bucket)
@@ -399,7 +399,7 @@
 				else if(base_price > 0)
 					if(!refused_announced)
 						refused_announced = TRUE
-						I.visible_message(span_warning("[I] is refused by the balloon - the market is choked."))
+						I.visible_message(span_warning("The balloon refuses [I]. That warehouse is full."))
 			budgie = round(budgie)
 			record_round_statistic(is_bm_export ? STATS_TRADE_VALUE_EXPORTED_BM : STATS_TRADE_VALUE_EXPORTED, budgie)
 			if(budgie > 0)
@@ -408,9 +408,9 @@
 		if(play_sound)
 			playsound(src.loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)
 		if(length(penalty_categories))
-			visible_message(span_warning("The balloon reports a glut - prices on [english_list(penalty_categories)] have been cut short."))
+			visible_message(span_warning("The balloon brings word of a glut. Prices on [english_list(penalty_categories)] are down."))
 		if(length(boost_categories))
-			visible_message(span_notice("The balloon reports eager buyers - prices on [english_list(boost_categories)] were lifted higher."))
+			visible_message(span_notice("The balloon brings word of eager buyers. Prices on [english_list(boost_categories)] are up."))
 
 /obj/item/roguemachine/navigator/proc/settle_export(gross, turf/payout_turf, payout_dir)
 	var/duty_rate = SStreasury.get_tax_rate(TAX_CATEGORY_EXPORT_DUTY)
