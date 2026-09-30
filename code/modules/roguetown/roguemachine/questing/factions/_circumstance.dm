@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(quest_circumstances_recovery_bandits)
 /datum/writ_circumstance/carriage/physician_urgent
 	phrasings = list(
 		"The matter is pressing. The physician hath need of these goods within the day.",
-		"The holder is enjoined to make haste; the recipient hath particular need.",
+		"The recipient hath urgent need of this parcel. Make haste.",
 	)
 
 /datum/writ_circumstance/carriage/regular_runner_indisposed
@@ -106,8 +106,8 @@ GLOBAL_LIST_EMPTY(quest_circumstances_recovery_bandits)
 
 /datum/writ_circumstance/carriage/courier_robbed
 	phrasings = list(
-		"A previous attempt at this carriage was undone by brigandage; the parcel has been packed again and waits upon a new holder.",
-		"The first courier was set upon by highwaymen and the parcel returned to issuer; a hardier holder is sought for the second attempt.",
+		"Since brigands broke the last attempt at this carriage, the parcel has been packed again for a new holder.",
+		"Highwaymen turned back the first courier. A hardier holder is sought for the second attempt.",
 	)
 
 /datum/writ_circumstance/carriage/contracted_shipment
@@ -118,19 +118,19 @@ GLOBAL_LIST_EMPTY(quest_circumstances_recovery_bandits)
 
 /datum/writ_circumstance/carriage/private_gift
 	phrasings = list(
-		"The parcel is a private gift between parties; its contents are no concern of the holder.",
+		"The parcel is a private gift. Its contents are no concern of the holder.",
 		"The sender says it is a gift and asks that the seal stay unbroken.",
 	)
 
 /datum/writ_circumstance/carriage/sealed_confidential
 	phrasings = list(
 		"The seal is set fast, and the holder is not to know the contents.",
-		"What lies within the parcel is a matter of the recipient alone; let the holder not pry.",
+		"Let the holder not pry. What lies within is for the recipient alone.",
 	)
 
 /datum/writ_circumstance/carriage/replacement_for_spoilage
 	phrasings = list(
-		"The first parcel was lost to spoilage upon the road; this second one bears freshly prepared goods of the same kind.",
+		"When the first parcel spoiled on the road, the goods were prepared again. Deliver this one before it turns.",
 		"The last parcel never arrived, and no one knows why. These goods replace it.",
 	)
 
@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(quest_circumstances_recovery_bandits)
 
 /datum/writ_circumstance/recovery_bandits/raided_tithe
 	phrasings = list(
-		"A tithe wagon was waylaid and its goods carried into the brigand camp; the parcel must be wrested back.",
+		"Brigands waylaid a tithe wagon and carried its goods to their camp. The parcel must be taken back.",
 		"The Crown's tithe bearer was robbed, and the goods sit now in the keeping of the very volves who took them.",
 	)
 
@@ -167,13 +167,13 @@ GLOBAL_LIST_EMPTY(quest_circumstances_recovery_bandits)
 
 /datum/writ_circumstance/recovery_bandits/looted_shipment
 	phrasings = list(
-		"Shipment seized on the road; carrier unhurt; goods held by the band.",
+		"Reported to the Steward: a shipment seized on the road. The carrier is unhurt, and the band holds the goods.",
 		"The carrier says the band took the goods at knifepoint and kept them.",
 	)
 
 /datum/writ_circumstance/recovery_bandits/cached_loot
 	phrasings = list(
-		"The brigands cache their plunder near their lair; among it sits a parcel that belongs to the realm.",
+		"Among the plunder the brigands keep near their lair is a parcel that belongs to the realm. It must be recovered.",
 		"Stolen goods of the Crown have been seen among the band's hoard and must be returned.",
 	)
 
