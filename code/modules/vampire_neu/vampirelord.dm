@@ -40,16 +40,15 @@
 		H.charflaws.Remove(cf)
 		QDEL_NULL(cf)
 
-	//pre-set to baseline 10, then up fron there. Cause IDK what fortune is to preset.
-	H.STASTR = 10
-	H.STASPD = 10
-	H.STACON = 10
-	H.STAWIL = 10
-	H.STAINT = 10
-	H.STAPER = 10
+	//pre-set to baseline 14
+	H.STASTR = 14
+	H.STASPD = 14
+	H.STACON = 14
+	H.STAWIL = 14
+	H.STAINT = 14
+	H.STAPER = 14
+	H.STALUC = 14
 
-	for(var/S in MOBSTATS)
-		H.change_stat(S, 4)
 	H.equipOutfit(/datum/outfit/job/vamplord)
 	H.set_patron(/datum/patron/godless) //FORESAKEN BY GODS, MYNE OWN DIVINITY CARVED BY MYNE OWN HANDS.
 	//Progress dominion has an undead check anyway, so don't worry about them not worshipping Zizo. She'd do it out of spite anyway.
