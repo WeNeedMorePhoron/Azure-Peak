@@ -201,7 +201,7 @@
 		var/obj/item/citizenry_letter/letter = new(get_turf(src))
 		letter.issuer_name = H.real_name
 		letter.issuer_year = CALENDAR_EPOCH_YEAR
-		residency_print_cooldown = world.time + 1 MINUTES
+		residency_print_cooldown = world.time + RESIDENCY_PRINT_COOLDOWN
 		playsound(src, 'sound/misc/coindispense.ogg', 60, FALSE, -1)
 		say("Letter of Citizenry issued, signed by [H.real_name].")
 	if(href_list["setpurchasefloor"])

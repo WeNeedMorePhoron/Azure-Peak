@@ -1,6 +1,3 @@
-#define EXPORT_TIME 1 MINUTES
-#define EXPORT_TIME_TESTING 5 SECONDS
-
 /obj/item/roguemachine/navigator
 	name = "navigator"
 	desc = "A machine that attracts the attention of trading balloons."
@@ -29,9 +26,9 @@
 
 /obj/item/roguemachine/navigator/examine()
 	. = ..()
-	var/export_time = EXPORT_TIME
+	var/export_time = NAVIGATOR_EXPORT_TIME
 	#ifdef LOCALTEST
-	export_time = EXPORT_TIME_TESTING
+	export_time = NAVIGATOR_EXPORT_TIME_TESTING
 	#endif
 	. += span_notice("This machine attracts trading balloons every [DisplayTimeText(export_time)]. Goods are sucked into the air, and mammon is dropped once tax is taken.")
 
@@ -47,7 +44,6 @@
 		if(H.job in profit_id)
 			. += span_info("Export duty: <b>[pay_taxes ? "PAYING" : "DODGING"]</b>. Merchant's levy: <b>[pay_merchant_share ? "COLLECTING" : "WAIVED"]</b>.")
 
-// 70% taxation and rip off to encourage people to risk it with merchant / others
 /obj/item/roguemachine/navigator/smuggler
 	name = "battered navigator"
 	desc = "A crudely repaired navigator bolted to the hull of a leaky boat. It stinks of brine and contraband."
@@ -325,9 +321,9 @@
 /obj/item/roguemachine/navigator/process()
 	if(!anchored)
 		return TRUE
-	var/export_time = EXPORT_TIME
+	var/export_time = NAVIGATOR_EXPORT_TIME
 	#ifdef LOCALTEST
-		export_time = EXPORT_TIME_TESTING
+		export_time = NAVIGATOR_EXPORT_TIME_TESTING
 	#endif
 	if(world.time > next_airlift)
 		next_airlift = world.time + export_time
@@ -465,6 +461,3 @@
 	parts += "[producer_net] net"
 	var/tile_label = payout_dir ? "[dir2text(payout_dir)] - " : ""
 	visible_message(span_info("[src] chimes: \"[tile_label][parts.Join(", ")].\""))
-
-#undef EXPORT_TIME
-#undef EXPORT_TIME_TESTING

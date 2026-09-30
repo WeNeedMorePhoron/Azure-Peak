@@ -85,7 +85,7 @@ const MarginaliaSection = (props: MarginaliaSectionProps) => {
             done={data.progress_current ?? 0}
             total={data.progress_required ?? 1}
             noun={
-              data.fetch_item ? `${data.fetch_item}s` : 'goods of the realm'
+              data.fetch_item_plural || data.fetch_item || 'goods of the realm'
             }
           />
         ) : (
@@ -181,6 +181,7 @@ const WritBody = (props: WritBodyProps) => {
         circumstance={data.circumstance}
         pickupRegion={data.pickup_region}
         fetchItem={data.fetch_item}
+        fetchItemPlural={data.fetch_item_plural}
         fetchCount={data.fetch_count}
         {...rewardProps}
         {...sealProps}

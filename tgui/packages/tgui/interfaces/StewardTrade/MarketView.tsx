@@ -150,7 +150,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
             title={
               aldermanActing
                 ? aldermanBlockTitle
-                : 'Recompute every stockpile limit from 2 days of total demand.'
+                : `Recompute every stockpile limit from ${props.data.auto_limit_days} days of total demand.`
             }
           >
             Autolimit All
@@ -870,7 +870,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
             aldermanActing
               ? blockTitle
               : limitAuto
-                ? 'Automatic: 2 days of demand, more when the town is livelier.'
+                ? `Automatic: ${data.auto_limit_days} days of demand, more when the town is livelier.`
                 : undefined
           }
         >

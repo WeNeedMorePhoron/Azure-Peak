@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(quest_scrolls)
 /obj/item/quest_writ
 	name = "enchanted contract scroll"
 	desc = "A scroll often called a \"whispering scroll\". It whispers the target's location to its holder while the target lives. When they die, it marks itself.\n\
-	The magical protections make it resistant to damage and tampering. It will only whisper when carried on the person of the contract bearer."
+	The magical protections make it resistant to damage and tampering. It will only whisper when carried on the person of the contract holder."
 	icon = 'code/modules/roguetown/roguemachine/questing/questing.dmi'
 	icon_state = "scroll_quest_closed"
 	w_class = WEIGHT_CLASS_TINY
@@ -214,6 +214,7 @@ GLOBAL_LIST_EMPTY(quest_scrolls)
 	data["delivery_destination"] = Q.target_delivery_location ? initial(Q.target_delivery_location.name) : null
 	data["delivery_item"] = Q.target_delivery_item ? initial(Q.target_delivery_item.name) : null
 	data["fetch_item"] = Q.target_item_type ? initial(Q.target_item_type.name) : null
+	data["fetch_item_plural"] = Q.target_item_plural
 	data["fetch_count"] = Q.progress_required
 	data["recovery_shipment"] = Q.get_recovery_shipment_name()
 	data["levy_rate"] = SStreasury.get_tax_rate(TAX_CATEGORY_CONTRACT_LEVY)

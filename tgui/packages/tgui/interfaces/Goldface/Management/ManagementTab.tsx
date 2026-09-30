@@ -593,7 +593,7 @@ const AutoHailerToggle = (props: {
         }}
       >
         <span style={{ ...labelStyle, color: INK, fontSize: FONT_BODY }}>
-          Auto-Hailer (Harbor Crew)
+          Harbor Crew
         </span>
         <span style={{ ...valueStyle, fontWeight: 'bold' }}>
           {on ? (

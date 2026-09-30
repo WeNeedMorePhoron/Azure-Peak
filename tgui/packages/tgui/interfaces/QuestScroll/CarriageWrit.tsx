@@ -41,7 +41,7 @@ export const CarriageWrit = (props: {
         <i>Be it known by writ of the {rulerTitle}:</i>
       </p>
       <p style={writParagraph}>
-        {what} awaits carriage from {pickup} to <b>{dest}</b>. The bearer of
+        {what} awaits carriage from {pickup} to <b>{dest}</b>. The holder of
         this writ has safe conduct upon the Duke&apos;s Road until the parcel is
         delivered.
       </p>

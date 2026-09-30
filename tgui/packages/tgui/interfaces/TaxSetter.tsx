@@ -51,7 +51,8 @@ type Data = {
   pollTaxRates: PollTaxRate[];
   pollTaxMax: number;
   pollTaxMin: number;
-  onCooldown: boolean;
+  levyCooldown: boolean;
+  pollCooldown: boolean;
   pollProjection: PollProjection;
 };
 
@@ -74,7 +75,7 @@ const PollProjectionPanel = (props: { projection: PollProjection }) => {
   const net = projection.net;
   const netColor = net > 0 ? SEAL_GREEN : net < 0 ? SEAL_RED : INK_SOFT;
   const netLabel =
-    net > 0 ? `+${net}m / tick` : net < 0 ? `${net}m / tick` : '0m / tick';
+    net > 0 ? `+${net}m / dawn` : net < 0 ? `${net}m / dawn` : '0m / dawn';
   return (
     <div
       style={{
@@ -128,8 +129,8 @@ const PollProjectionPanel = (props: { projection: PollProjection }) => {
           color: INK_SOFT,
         }}
       >
-        Gross projection from rate × eligible heads. Ignores balance, advance,
-        arrears.
+        Each rate times the number of people in that class. It does not count
+        what they can actually pay.
       </div>
     </div>
   );
@@ -137,7 +138,14 @@ const PollProjectionPanel = (props: { projection: PollProjection }) => {
 
 export const TaxSetter = (props: any, context: any) => {
   const { act, data } = useBackend<Data>();
-  const onCooldown = !!data.onCooldown;
+  const levyCooldown = !!data.levyCooldown;
+  const pollCooldown = !!data.pollCooldown;
+  const cooldownText =
+    levyCooldown && pollCooldown
+      ? 'You changed the levies and the poll tax today. Try again tomorrow.'
+      : levyCooldown
+        ? 'You changed the levies today. Try again tomorrow.'
+        : 'You changed the poll tax today. Try again tomorrow.';
 
   const [rates, setRates] = useState<Record<string, number>>(() => {
     if (!data.categoryRates) return {};
@@ -190,7 +198,7 @@ export const TaxSetter = (props: any, context: any) => {
             You can change the levies and the poll tax once per day each.
           </div>
 
-          {onCooldown && (
+          {(levyCooldown || pollCooldown) && (
             <div
               style={{
                 background: 'rgba(140,60,30,0.12)',
@@ -203,7 +211,7 @@ export const TaxSetter = (props: any, context: any) => {
                 marginBottom: '10px',
               }}
             >
-              You changed the rates today. Try again tomorrow.
+              {cooldownText}
             </div>
           )}
 
@@ -217,6 +225,16 @@ export const TaxSetter = (props: any, context: any) => {
             {/* Left column: Crown Levies */}
             <div style={{ flex: '0 0 300px' }}>
               <div style={sectionHeaderStyle}>Crown Levies</div>
+              <div
+                style={{
+                  fontSize: FONT_BODY,
+                  color: INK_SOFT,
+                  marginBottom: '8px',
+                }}
+              >
+                The Crown&apos;s share of each kind of income: contract rewards,
+                head bounties, imports, exports and recovered spoils.
+              </div>
               {data.categoryRates?.map((c) => (
                 <div key={c.category} style={rowStyle}>
                   <span style={labelStyle}>{c.category}</span>
@@ -233,14 +251,15 @@ export const TaxSetter = (props: any, context: any) => {
               <hr style={rulerStyle} />
               <div style={{ textAlign: 'center' }}>
                 <button
-                  disabled={onCooldown}
+                  disabled={levyCooldown}
                   style={{
-                    ...inkButtonStyle({ disabled: onCooldown }),
+                    ...inkButtonStyle({ disabled: levyCooldown }),
                     padding: '5px 24px',
                     fontSize: FONT_BODY,
                   }}
                   onClick={() =>
-                    !onCooldown && act('set_rates', { categoryRates: payload })
+                    !levyCooldown &&
+                    act('set_rates', { categoryRates: payload })
                   }
                 >
                   Set Levies
@@ -280,14 +299,14 @@ export const TaxSetter = (props: any, context: any) => {
               <hr style={rulerStyle} />
               <div style={{ textAlign: 'center' }}>
                 <button
-                  disabled={onCooldown}
+                  disabled={pollCooldown}
                   style={{
-                    ...inkButtonStyle({ disabled: onCooldown }),
+                    ...inkButtonStyle({ disabled: pollCooldown }),
                     padding: '5px 24px',
                     fontSize: FONT_BODY,
                   }}
                   onClick={() =>
-                    !onCooldown &&
+                    !pollCooldown &&
                     act('set_poll_rates', { pollTaxRates: pollPayload })
                   }
                 >

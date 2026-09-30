@@ -55,6 +55,19 @@
 /obj/structure/roguemachine/steward/ui_static_data(mob/user)
 	var/list/data = list()
 	data["order_pool_cap"] = STANDING_ORDERS_POOL_CAP
+	data["auto_limit_days"] = STOCKPILE_AUTO_LIMIT_DAYS
+	data["quality_payouts"] = list(
+		list("label" = "worn", "pct" = round(ITEM_QUALITY_MULT_WORN * 100)),
+		list("label" = "ruined", "pct" = round(ITEM_QUALITY_MULT_RUINED * 100)),
+		list("label" = "scavenged", "pct" = round(ITEM_QUALITY_MULT_LOOTED * 100)),
+		list("label" = "awful", "pct" = round(ITEM_QUALITY_MULT_AWFUL * 100)),
+		list("label" = "crude", "pct" = round(ITEM_QUALITY_MULT_CRUDE * 100)),
+		list("label" = "rough", "pct" = round(ITEM_QUALITY_MULT_ROUGH * 100)),
+		list("label" = "(standard)", "pct" = round(ITEM_QUALITY_MULT_STANDARD * 100)),
+		list("label" = "fine", "pct" = round(ITEM_QUALITY_MULT_FINE * 100)),
+		list("label" = "flawless", "pct" = round(ITEM_QUALITY_MULT_FLAWLESS * 100)),
+		list("label" = "masterwork", "pct" = round(ITEM_QUALITY_MULT_MASTERWORK * 100)),
+	)
 
 	var/list/good_catalog = list()
 	for(var/good_id in GLOB.trade_goods)

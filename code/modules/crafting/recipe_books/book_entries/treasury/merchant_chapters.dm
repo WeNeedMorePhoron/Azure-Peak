@@ -25,7 +25,7 @@
 		<h3>How it works</h3>
 		<ul>
 			<li>Drop sellable items on the eight tiles surrounding the machine. A balloon
-			arrives every minute and lifts them into the air.</li> <li>Anchored items,
+			arrives every [DisplayTimeText(NAVIGATOR_EXPORT_TIME)] and lifts them into the air.</li> <li>Anchored items,
 			coins, handcarts, items with the ATC seal, and items flagged unmintable
 			(items that spawned in town at mapstart) are skipped.</li> <li>Each item's
 			payout is its base price multiplied by category demand (current ship demand
@@ -398,9 +398,9 @@
 		<h3>Guild member controls</h3>
 		<ul>
 			<li>A guild member sees a panel to edit the price of each material, set the
-			percent margin (clamped 0-500) and flat margin, and force the release of
+			percent margin (0 to [ESCROW_PERCENT_MARGIN_MAX]%) and flat margin, and force the release of
 			stalled claimed orders.</li> <li>A guild member may also reject any open or
-			claimed order with a stated reason (200 char limit). Delivered items dump to
+			claimed order with a stated reason ([ESCROW_NOTE_MAX_LENGTH] char limit). Delivered items dump to
 			the floor and escrowed coin returns to the commissioner's deposit.</li>
 		</ul>
 

@@ -141,7 +141,7 @@
 			exemption as the Church while the Concordat is in force. The Bishop may
 			revoke at will.</li> <li><b>Steward</b> - The Steward may print Letters of
 			Citizenry at the Nerve Master. The holder gains Golden Bull protections while
-			the Charter is in force. One can be printed every minute.</li>
+			the Charter is in force. One can be printed every [DisplayTimeText(RESIDENCY_PRINT_COOLDOWN)].</li>
 		</ul>
 
 		<p>Protection lapses if the backing Charter is suspended. The status persists
@@ -454,7 +454,7 @@
 		<ul>
 			<li>The wretch tab is visible only to wretches (to set themselves) and to
 			bathhouse staff (to reach them). Other roles see nothing about it in the
-			UI.</li> <li>Wretches may adopt a <b>nom de guerre</b> (max 60 chars) which
+			UI.</li> <li>Wretches may adopt a <b>nom de guerre</b> (max [NOM_DE_GUERRE_MAX_LENGTH] chars) which
 			replaces their real name on the picker bathhouse staff see. Empty clears it
 			back to real name.</li> <li>Wretches cycle the same Available / Contracted /
 			Do not Disturb status as mercenaries.</li> <li>Bathhouse staff (Bathmaster,

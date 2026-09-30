@@ -221,13 +221,12 @@
 		return
 	clear_wave_timers()
 	wave_timer_id = addtimer(CALLBACK(src, PROC_REF(on_wave_timeout), wave_num), BLOCKADE_WAVE_TIMER_DS, TIMER_STOPPABLE)
-	// Chat pings at 7.5 min, 5 min and 2 min left. Skipped if the wave timer is shorter than the threshold.
-	if(BLOCKADE_WAVE_TIMER_DS > (7.5 MINUTES))
-		wave_warn_7m30s_id = addtimer(CALLBACK(src, PROC_REF(warn_time_left), wave_num, "seven and a half minutes"), BLOCKADE_WAVE_TIMER_DS - (7.5 MINUTES), TIMER_STOPPABLE)
-	if(BLOCKADE_WAVE_TIMER_DS > (5 MINUTES))
-		wave_warn_5m_id = addtimer(CALLBACK(src, PROC_REF(warn_time_left), wave_num, "five minutes"), BLOCKADE_WAVE_TIMER_DS - (5 MINUTES), TIMER_STOPPABLE)
-	if(BLOCKADE_WAVE_TIMER_DS > (2 MINUTES))
-		wave_warn_2m_id = addtimer(CALLBACK(src, PROC_REF(warn_time_left), wave_num, "two minutes"), BLOCKADE_WAVE_TIMER_DS - (2 MINUTES), TIMER_STOPPABLE)
+	if(BLOCKADE_WAVE_TIMER_DS > BLOCKADE_WAVE_WARN_FIRST)
+		wave_warn_7m30s_id = addtimer(CALLBACK(src, PROC_REF(warn_time_left), wave_num, DisplayTimeText(BLOCKADE_WAVE_WARN_FIRST)), BLOCKADE_WAVE_TIMER_DS - BLOCKADE_WAVE_WARN_FIRST, TIMER_STOPPABLE)
+	if(BLOCKADE_WAVE_TIMER_DS > BLOCKADE_WAVE_WARN_SECOND)
+		wave_warn_5m_id = addtimer(CALLBACK(src, PROC_REF(warn_time_left), wave_num, DisplayTimeText(BLOCKADE_WAVE_WARN_SECOND)), BLOCKADE_WAVE_TIMER_DS - BLOCKADE_WAVE_WARN_SECOND, TIMER_STOPPABLE)
+	if(BLOCKADE_WAVE_TIMER_DS > BLOCKADE_WAVE_WARN_THIRD)
+		wave_warn_2m_id = addtimer(CALLBACK(src, PROC_REF(warn_time_left), wave_num, DisplayTimeText(BLOCKADE_WAVE_WARN_THIRD)), BLOCKADE_WAVE_TIMER_DS - BLOCKADE_WAVE_WARN_THIRD, TIMER_STOPPABLE)
 	announce_to_bearer("<b>Wave [wave_num]/[BLOCKADE_TOTAL_WAVES]</b> [wave_flavor()] You have [BLOCKADE_WAVE_TIMER_DS / 600] minutes.")
 	quest_scroll?.update_quest_text()
 

@@ -573,7 +573,7 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 	if(payout > 0 && O.commissioner_name)
 		manifest_deposits[O.commissioner_name] = (manifest_deposits[O.commissioner_name] || 0) + payout
 	playsound(loc, 'sound/misc/beep.ogg', 100, FALSE, -1)
-	var/clean_reason = reason ? copytext(sanitize(reason), 1, 200) : ""
+	var/clean_reason = reason ? copytext(sanitize(reason), 1, ESCROW_NOTE_MAX_LENGTH + 1) : ""
 	var/say_msg = "[user.real_name] rejects [O.commissioner_name]'s commission ([O.label()])"
 	if(clean_reason)
 		say_msg += ": \"[clean_reason]\""
@@ -747,7 +747,7 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 			if("set_percent_margin")
 				var/n = text2num(params["value"])
 				if(isnum(n))
-					percent_margin = clamp(round(n), 0, 500)
+					percent_margin = clamp(round(n), 0, ESCROW_PERCENT_MARGIN_MAX)
 					dirty_catalog_view()
 				return FALSE
 			if("set_flat_margin")
@@ -911,7 +911,7 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 	O.commissioner_ref = WEAKREF(user)
 	O.day_posted = GLOB.dayspassed
 	if(note)
-		O.commissioner_note = copytext(sanitize(note), 1, 200)
+		O.commissioner_note = copytext(sanitize(note), 1, ESCROW_NOTE_MAX_LENGTH + 1)
 	for(var/k in cart)
 		O.recipe_quantities[k] = cart[k]
 	O.deposited = total

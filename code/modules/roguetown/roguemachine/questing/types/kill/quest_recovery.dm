@@ -59,6 +59,8 @@ GLOBAL_LIST_INIT(quest_recovery_shipments, list(
 	return QUEST_REWARD_BASE_RECOVERY
 
 /datum/quest/kill/recovery/roll_circumstance()
+	if(faction?.category in list(FACTION_CAT_UNDEAD, FACTION_CAT_BEAST, FACTION_CAT_ELEMENTAL))
+		return pick_recovery_circumstance()
 	return pick_recovery_bandits_circumstance()
 
 /datum/quest/kill/recovery/get_recovery_shipment_name()

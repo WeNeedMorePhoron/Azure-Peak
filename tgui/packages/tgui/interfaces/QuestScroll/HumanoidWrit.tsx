@@ -66,7 +66,6 @@ export const IndictmentList = (props: { crimes: string[] }) => {
         {props.crimes.map((c, i) => (
           <li key={i} style={indictmentItem}>
             {capitalize(c)}
-            {';'}
           </li>
         ))}
       </ul>
@@ -112,9 +111,9 @@ const CondemnationCaputLupinum = (props: CondemnationProps) => {
     <p style={writParagraph}>
       By writ of the {rulerTitle}, and by counsel of the estates, {subject}{' '}
       {plural ? 'are' : 'is'} declared{' '}
-      <span style={caputLupinum}>CAPUT LUPINUM</span>, volf
-      {plural ? "'s heads" : "'s head"}, for that a volf is a beast hated of all
-      folk.
+      <span style={caputLupinum}>CAPUT LUPINUM</span>,{' '}
+      {plural ? "volves' heads" : "volf's head"}, for that a volf is a beast
+      hated of all folk.
     </p>
   );
 };
@@ -267,13 +266,13 @@ export const HumanoidWrit = (props: {
       groupWord={props.groupWord}
       rulerTitle={props.rulerTitle}
     />
+    {props.oathBreach && <CorruptionOfBloodClause />}
     <LicenceToSlay
       reward={props.reward}
       levyRate={props.levyRate}
       levyExempt={props.levyExempt}
       guildCutRate={props.guildCutRate}
     />
-    {props.oathBreach && <CorruptionOfBloodClause />}
     {props.hasRecoveryAddendum && (
       <RecoveryAddendum
         shipment={props.recoveryShipment}

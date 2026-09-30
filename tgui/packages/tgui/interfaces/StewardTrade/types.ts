@@ -33,6 +33,8 @@ export type LedgerPage = {
 
 export type StaticData = {
   order_pool_cap: number;
+  auto_limit_days: number;
+  quality_payouts: { label: string; pct: number }[];
   good_catalog: Record<string, GoodCatalogEntry>;
   region_catalog: Record<string, RegionCatalogEntry>;
   // Only present while the user has the Ledger tab open (server gates it on ledger_view).

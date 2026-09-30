@@ -18,6 +18,7 @@
 	var/progress_required = 1
 
 	var/obj/item/target_item_type
+	var/target_item_plural
 	var/obj/item/target_delivery_item
 	var/mob/living/target_mob_type
 	var/area/rogue/indoors/town/target_delivery_location

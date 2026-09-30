@@ -7,6 +7,7 @@ export const RecoveryWrit = (props: {
   circumstance?: string;
   pickupRegion?: string | null;
   fetchItem?: string | null;
+  fetchItemPlural?: string | null;
   fetchCount?: number;
   reward: number;
   levyRate: number;
@@ -22,6 +23,7 @@ export const RecoveryWrit = (props: {
     circumstance,
     pickupRegion,
     fetchItem,
+    fetchItemPlural,
     fetchCount,
     reward,
     levyRate,
@@ -35,7 +37,7 @@ export const RecoveryWrit = (props: {
   const region = pickupRegion || realm;
   const itemLabel =
     fetchItem && fetchCount && fetchCount > 1
-      ? `${fetchCount} ${fetchItem}s`
+      ? `${fetchCount} ${fetchItemPlural || fetchItem}`
       : fetchItem
         ? `a ${fetchItem}`
         : 'goods of the realm';

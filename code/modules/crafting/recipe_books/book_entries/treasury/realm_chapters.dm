@@ -49,6 +49,9 @@
 	name = "02. Defense and Blockades"
 
 /datum/book_entry/treasury_realm/defense/inner_book_html(mob/user)
+	var/list/region_mults = list()
+	for(var/datum/threat_region/TR as anything in SSregionthreat.threat_regions)
+		region_mults += "[TR.region_name] at x[TR.tp_budget_multiplier][TR.payout_multiplier != 1 ? " (and x[TR.payout_multiplier] on the reward)" : ""]"
 	return {"
 		<div>
 		<p>Issued from the Contract Ledger:</p>
@@ -91,10 +94,9 @@
 
 		<h3>Region and Reward</h3> <p>Defense contracts pay out in proportion to the
 		threat they spawn. Each threat region carries a <b>reward multiplier</b>
-		(shown beside the region name when you issue one): Azure Basin at x0.75, Azure
-		Grove at x1.0, Azurean Coast at x1.2, Terrorbog / Mount Decapitation /
-		Underdark at x1.5. A Bounty in Terrorbog costs the same draft as a Bounty in
-		Azure Basin. The Terrorbog contract pays the holder roughly twice as much. The
+		(shown beside the region name when you issue one): [english_list(region_mults)].
+		A Bounty in Terrorbog costs the same draft as a Bounty in Azure Basin. The
+		Terrorbog contract pays the holder far more. The
 		Steward can use this to steer adventurers toward regions the realm most needs
 		cleared.</p>
 
@@ -113,7 +115,8 @@
 		<p>A Blockade Scroll may be withdrawn from the Issued tab until the first wave
 		begins. The waves begin when the holder arrives. Each wave must be broken
 		within [BLOCKADE_WAVE_TIMER_DS / 600] minutes of spawning. There are warnings
-		at 7.5, 5 and 2 minutes left.</p>
+		at [DisplayTimeText(BLOCKADE_WAVE_WARN_FIRST)], [DisplayTimeText(BLOCKADE_WAVE_WARN_SECOND)] and
+		[DisplayTimeText(BLOCKADE_WAVE_WARN_THIRD)] left.</p>
 		</div>
 	"}
 
