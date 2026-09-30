@@ -358,25 +358,20 @@
 /datum/book_entry/treasury_merchant/escrow/inner_book_html(mob/user)
 	return {"
 		<div>
-		<p><b>COMMISSIONER:</b>The COMMISSIONER lets anyone post a smithing or
-		tailoring order with coin held in trust until a guildmember delivers the
-		finished items. Posted orders can be partially settled or rejected.</p>
+		<p><b>COMMISSIONER:</b>The COMMISSIONER allows anyone with a MEISTER account to post a smithing or tailoring order. There must be sufficient funds in the account when it is posted, and if it becomes unfunded, it will be sorted last.</p>
 
 		<h3>Posting an order (commissioner side)</h3>
 		<ul>
-			<li>Deposit coin into the machine. It is held under your name.</li>
 			<li>Browse the catalogue.</li> <li>Each recipe has a unit price: material
 			cost plus a percent margin and a flat margin. Defaults are
 			[ESCROW_DEFAULT_PERCENT_MARGIN]% and [ESCROW_DEFAULT_FLAT_MARGIN]m.</li>
-			<li>You can refund your unposted deposit at any time. Posted but unclaimed
-			orders can be cancelled (full refund).</li> <li>Unclaimed open orders expire
-			after [ESCROW_OPEN_EXPIRY_DAYS] days. The deposit returns to your reservation
-			and can be withdrawn.</li>
+			<li>Should the MEISTER account's balance fall below the order total, it will be marked as unfunded and sorted last. It cannot be claimed.</li>
+			<li>Unclaimed open orders expire after [ESCROW_OPEN_EXPIRY_DAYS] days. They can be canceled</li>
 		</ul>
 
 		<h3>Claiming and fulfilling (smith side)</h3>
 		<ul>
-			<li>Only guild keyholders may claim.</li> <li>Once claimed, the commissioner
+			<li>Only guild keyholders may claim.</li> <li>The smith needs a bank account to claim any order. Claiming will move the mammons from the account into the COMMISSIONER temporarily <li>Once claimed, the commissioner
 			cannot cancel.</li> <li>Deliver finished items by striking the machine with
 			them. Items must be at least [ESCROW_DURABILITY_FLOOR * 100]% integrity, the
 			correct type (exact), and within the wanted quantity.</li> <li>Smith may
@@ -390,8 +385,7 @@
 		<ul>
 			<li>If the smith has delivered some but not all of the required items, they
 			may settle partially.</li> <li>A partial settlement pays
-			[ESCROW_PARTIAL_HAIRCUT_PERCENT]% less.</li> <li>The unspent escrow is
-			returned to the commissioner's deposit reservation.</li>
+			[ESCROW_PARTIAL_HAIRCUT_PERCENT]% less.</li> <li>Any unspent mammons move back to the commissioner's account</li>
 		</ul>
 
 		<h3>Guild member controls</h3>
@@ -400,14 +394,13 @@
 			percent margin (0 to [ESCROW_PERCENT_MARGIN_MAX]%) and flat margin, and force the release of
 			stalled claimed orders.</li> <li>A guild member may also reject any open or
 			claimed order with a stated reason ([ESCROW_NOTE_MAX_LENGTH] char limit). Delivered items dump to
-			the floor and escrowed coin returns to the commissioner's deposit.</li>
+			the floor. If the order is rejected, any held mammons will be returned</li>
 		</ul>
 
 		<h3>Other notes</h3>
 		<ul>
-			<li>Breaking the machine spills budget + all deposits to the floor and dumps
-			every delivered item.</li> <li>A damaged item is rejected with a message
-			telling the smith to mend it before delivering.</li> <li>Commissioners get
+			<li>Breaking the machine will return all held currency and dumps delivered items</li><li>A damaged item is rejected with a message
+			telling the smith to repair it before delivering.</li> <li>Commissioners get
 			notifications on claim, rejection, partial settle, completion, and
 			expiry.</li>
 		</ul>
