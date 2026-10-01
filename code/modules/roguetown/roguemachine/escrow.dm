@@ -942,9 +942,6 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 /obj/structure/roguemachine/escrow/proc/pay_smith(mob/user, amount)
 	if(amount <= 0)
 		return
-	var/datum/fund/smith_fund = SStreasury.get_account(user)
-	if(smith_fund && SStreasury.transfer(escrow_fund, smith_fund, amount, "Commission payout"))
-		return
 	if(SStreasury.burn(escrow_fund, amount, "Commission payout"))
 		budget2change(amount, user)
 
@@ -956,9 +953,6 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 		return
 	if(escrow_key(user) == O.commissioner_name)
 		to_chat(user, span_warning("I cannot fulfill my own commission."))
-		return
-	if(!SStreasury.get_account(user))
-		to_chat(user, span_warning("You need a MEISTER account to be paid."))
 		return
 	var/datum/fund/commissioner_fund = O.get_commissioner_fund()
 	if(!commissioner_fund || !SStreasury.transfer(commissioner_fund, escrow_fund, O.price, "Commission hold"))

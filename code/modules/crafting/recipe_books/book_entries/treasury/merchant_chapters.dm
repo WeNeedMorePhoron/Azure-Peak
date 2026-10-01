@@ -373,7 +373,7 @@
 
 		<h3>Claiming and fulfilling (smith side)</h3>
 		<ul>
-			<li>Only guild keyholders may claim.</li> <li>The smith needs a bank account to claim any order. Claiming will move the mammons from the account into the COMMISSIONER temporarily <li>Once claimed, the commissioner
+			<li>Only guild keyholders may claim.</li> <li>Claiming will move the mammons from the commissioner's account into the COMMISSIONER temporarily.</li> <li>On completion, the payment will be paid out as coins to the smith.</li> <li>Once claimed, the commissioner
 			cannot cancel.</li> <li>Deliver finished items by striking the machine with
 			them. Items must be at least [ESCROW_DURABILITY_FLOOR * 100]% integrity, the
 			correct type (exact), and within the wanted quantity.</li> <li>Smith may
