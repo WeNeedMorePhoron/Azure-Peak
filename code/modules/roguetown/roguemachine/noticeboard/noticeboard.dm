@@ -187,7 +187,7 @@
 	if(!SSmerchant_trade)
 		return rows
 	for(var/datum/trade_ship/ship in SSmerchant_trade.all_ships)
-		if(ship.dock_state != TRADE_SHIP_STATE_DOCKED)
+		if(!ship.accepts_deliveries())
 			continue
 		var/datum/foreign_realm/realm = SSmerchant_trade.realms[ship.realm_id]
 		var/realm_name = realm ? realm.name : ship.realm_id
@@ -204,9 +204,10 @@
 				"qty_remaining" = remaining,
 				"offered_price" = line["offered_price"],
 			))
+		var/departing = ship.dock_state == TRADE_SHIP_STATE_DEPARTING
 		var/list/cultural = list()
 		for(var/list/entry in ship.cultural_stock)
-			if(entry["qty"] <= 0)
+			if(departing || entry["qty"] <= 0)
 				continue
 			var/discounted = round(entry["base_cost"] * (100 - TRADE_CULTURAL_SHIP_DISCOUNT_PERCENT) / 100)
 			cultural += list(list(
@@ -223,6 +224,7 @@
 			"realm_name" = realm_name,
 			"realm_id" = ship.realm_id,
 			"seconds_until_departure" = seconds_left,
+			"departing" = departing,
 			"lines" = lines,
 			"cultural_stock" = cultural,
 		))

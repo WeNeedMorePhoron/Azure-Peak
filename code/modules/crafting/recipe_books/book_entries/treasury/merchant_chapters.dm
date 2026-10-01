@@ -208,7 +208,9 @@
 			it can carry. It scales nonlinearly from [TRADE_SHIP_DEFAULT_TONNAGE]t to
 			[TRADE_SHIP_DEFAULT_TONNAGE + TRADE_SHIP_TONNAGE_SCALE_SPAN * (TRADE_SHIP_TONNAGE_SCALE_CAP - 1)]t.</li> <li>Docked ships can be sent away
 			after [TRADE_SHIP_SEND_AWAY_GRACE / 600] minutes. Honored ships can be sent
-			away at once.</li>
+			away at once.</li> <li>A ship sent away with unfilled demands will wait until her posted
+			departure time. The pier slot will be freed and she will no longer sell
+			anything. The favor count will be settled when she finally departs.</li>
 		</ul>
 
 		<h3>Demand multipliers</h3>

@@ -331,6 +331,24 @@ export const ShipRow = (props: Props) => {
                 DRIFTED IN
               </span>
             )}
+            {!!ship.departing && (
+              <span
+                title="The vessel will no longer sell but will take deliveries from Fulfillment Crates. The favor will be settled when she departs."
+                style={{
+                  marginRight: '6px',
+                  padding: '0 4px',
+                  border: `1px solid ${INK_SOFT}`,
+                  borderRadius: '6px',
+                  color: INK_SOFT,
+                  fontSize: FONT_BODY,
+                  fontWeight: 'bold',
+                  letterSpacing: '0.5px',
+                  verticalAlign: 'middle',
+                }}
+              >
+                DEPARTING
+              </span>
+            )}
             {ship.ship_name}
           </div>
           {ship.captain_name && (
@@ -348,7 +366,8 @@ export const ShipRow = (props: Props) => {
           )}
           {ship.seconds_until_departure !== undefined && (
             <div style={{ color: SEAL_AMBER, fontSize: FONT_LEAD }}>
-              Departs in {formatDuration(ship.seconds_until_departure)}
+              {ship.departing ? 'Leaves in' : 'Departs in'}{' '}
+              {formatDuration(ship.seconds_until_departure)}
             </div>
           )}
         </div>
@@ -463,7 +482,7 @@ export const ShipRow = (props: Props) => {
           {ship.expected_favor > 0 && (
             <div
               style={{ color: SEAL_AMBER }}
-              title={`When you send this ship off at ${ship.honored_pct}% of her target (Honored), you gain her full delivered value as favor and get a spent hail back. At ${ship.partial_pct}% or more (Partial) you gain ${ship.partial_share_pct}% of it. Below ${ship.partial_pct}% (Dishonored) you lose ${ship.dishonor_penalty} favor.`}
+              title={`When the ship departs at ${ship.honored_pct}% of her target (Honored), you gain her full delivered value as favor and get a spent hail back. At ${ship.partial_pct}% or more (Partial) you gain ${ship.partial_share_pct}% of it. Below ${ship.partial_pct}% (Dishonored) you lose ${ship.dishonor_penalty} favor.`}
             >
               {!!ship.is_kin && (
                 <span
@@ -615,7 +634,7 @@ export const ShipRow = (props: Props) => {
                   fontStyle: 'italic',
                 }}
               >
-                Nothing on offer.
+                {ship.departing ? 'Departing. No longer selling.' : 'Nothing on offer.'}
               </div>
             )}
           </div>

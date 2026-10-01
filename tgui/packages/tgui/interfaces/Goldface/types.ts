@@ -34,6 +34,7 @@ export type HarborShip = {
   auto_hailed?: BooleanLike;
   seconds_until_departure?: number;
   can_send_away?: BooleanLike;
+  departing?: BooleanLike;
   bulk_demands?: BulkLine[];
   bulk_supplies?: BulkLine[];
 };
@@ -119,6 +120,7 @@ export type KinshipData = {
 
 export type HarborData = {
   ships_docked: HarborShip[];
+  ships_departing: HarborShip[];
   ships_pool: HarborShip[];
   realms: HarborRealm[];
   hails_remaining: number;

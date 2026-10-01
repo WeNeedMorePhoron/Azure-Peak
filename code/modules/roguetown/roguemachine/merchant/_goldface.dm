@@ -367,18 +367,20 @@
 
 /obj/structure/roguemachine/goldface/proc/build_harbor_data(mob/living/carbon/human/viewer)
 	var/list/docked = list()
+	var/list/departing = list()
 	var/list/pool = list()
 	var/kin_realm = SSmerchant_trade.current_kinship_realm
 	var/agent_kin_realm = SSmerchant_trade.get_agent_personal_kinship_realm(viewer)
 	for(var/datum/trade_ship/ship in SSmerchant_trade.all_ships)
 		var/is_docked = ship.dock_state == TRADE_SHIP_STATE_DOCKED
+		var/is_departing = ship.dock_state == TRADE_SHIP_STATE_DEPARTING
 		var/global_kin = (kin_realm && ship.realm_id == kin_realm) ? TRUE : FALSE
 		var/agent_kin = (!global_kin && agent_kin_realm && ship.realm_id == agent_kin_realm) ? TRUE : FALSE
 		var/any_kin = global_kin || agent_kin
 		var/list/row = list(
 			"ship_id" = ship.ship_id,
 			"ship_name" = ship.ship_name,
-			"captain_name" = is_docked ? ship.captain_name : null,
+			"captain_name" = (is_docked || is_departing) ? ship.captain_name : null,
 			"port_of_origin" = ship.port_of_origin,
 			"realm_id" = ship.realm_id,
 			"is_kin" = any_kin ? TRUE : FALSE,
@@ -396,11 +398,11 @@
 			"favor_earned" = ship.favor_earned,
 			"auto_hailed" = ship.auto_hailed ? TRUE : FALSE,
 		)
-		if(is_docked)
+		if(is_docked || is_departing)
 			var/seconds_left = max(0, round((ship.dock_expires_at - world.time) / 10))
 			row["seconds_until_departure"] = seconds_left
-			var/honored = ship.expected_favor > 0 && ship.favor_earned >= ship.expected_favor
-			row["can_send_away"] = (ship.auto_hailed || honored || world.time >= ship.docked_at + TRADE_SHIP_SEND_AWAY_GRACE) ? TRUE : FALSE
+			row["departing"] = is_departing
+			row["can_send_away"] = (is_docked && (ship.auto_hailed || ship.is_honored() || world.time >= ship.docked_at + TRADE_SHIP_SEND_AWAY_GRACE)) ? TRUE : FALSE
 			if(any_kin)
 				var/list/kin_supplies = list()
 				for(var/list/L in ship.bulk_supplies)
@@ -420,7 +422,11 @@
 			else
 				row["bulk_supplies"] = ship.bulk_supplies.Copy()
 				row["bulk_demands"] = ship.bulk_demands.Copy()
-			docked += list(row)
+			if(is_departing)
+				row["bulk_supplies"] = list()
+				departing += list(row)
+			else
+				docked += list(row)
 		else
 			pool += list(row)
 	var/kinship_realm_id = SSmerchant_trade.current_kinship_realm
@@ -452,6 +458,7 @@
 	var/datum/foreign_realm/agent_kin_datum = agent_kin_realm ? SSmerchant_trade.realms[agent_kin_realm] : null
 	return list(
 		"ships_docked" = docked,
+		"ships_departing" = departing,
 		"ships_pool" = pool,
 		"realms" = realms,
 		"hails_remaining" = SSmerchant_trade.hails_remaining,
@@ -787,8 +794,10 @@
 			if(!is_command_center || !can_view_harbor(H) || !SSmerchant_trade)
 				return TRUE
 			var/ship_id = "[params["ship_id"]]"
+			var/datum/trade_ship/target = SSmerchant_trade.find_ship_by_id(ship_id)
+			var/target_name = target?.ship_name
 			var/result = SSmerchant_trade.send_away_ship(ship_id, usr)
-			handle_send_away_result(result, usr)
+			handle_send_away_result(result, usr, target_name)
 			return TRUE
 		if("cultural_buy")
 			if(!is_command_center || !SSmerchant_trade)
@@ -1074,10 +1083,10 @@
 		return
 	say("Captain [ship.captain_name] sends their greeting: \"[line]\"")
 
-/obj/structure/roguemachine/goldface/proc/handle_send_away_result(result, mob/user)
+/obj/structure/roguemachine/goldface/proc/handle_send_away_result(result, mob/user, ship_name)
 	switch(result)
-		if("ok")
-			to_chat(user, span_notice("You signal the vessel to cast off. The pier is yours again."))
+		if("ok", "departing")
+			to_chat(user, span_notice("You signal [ship_name] to depart. The pier is free again."))
 		if("early")
 			to_chat(user, span_warning("She has only just tied up. Give the captain a few moments to settle their business."))
 		if("ship_gone")

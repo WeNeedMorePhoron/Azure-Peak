@@ -39,7 +39,7 @@
 		return
 	var/n_ships = 0
 	for(var/datum/trade_ship/ship in SSmerchant_trade.all_ships)
-		if(ship.dock_state != TRADE_SHIP_STATE_DOCKED)
+		if(!ship.accepts_deliveries())
 			continue
 		for(var/list/line in ship.bulk_demands)
 			if(line["qty_fulfilled"] < line["qty_target"])
@@ -98,7 +98,7 @@
 	var/kin_sell_mult = SSmerchant_trade ? SSmerchant_trade.get_kinship_sell_mult(kin_realm) : 1
 	if(SSmerchant_trade)
 		for(var/datum/trade_ship/ship in SSmerchant_trade.all_ships)
-			if(ship.dock_state != TRADE_SHIP_STATE_DOCKED)
+			if(!ship.accepts_deliveries())
 				continue
 			var/is_kin = (kin_realm && ship.realm_id == kin_realm) ? TRUE : FALSE
 			var/list/lines = list()
@@ -400,6 +400,8 @@
 		producer_payout = 0
 	record_round_statistic(STATS_TRADE_VALUE_EXPORTED, gross)
 	ship.favor_earned += gross
+	SSmerchant_trade?.refund_hail_if_honored(ship)
+	ship.depart_if_filled()
 	if(sound)
 		playsound(loc, 'sound/misc/hiss.ogg', 70, TRUE, -1)
 	if(tally)
@@ -445,7 +447,7 @@
 		return null
 	var/type_str = "[item_type]"
 	for(var/datum/trade_ship/ship in SSmerchant_trade.all_ships)
-		if(ship.dock_state != TRADE_SHIP_STATE_DOCKED)
+		if(!ship.accepts_deliveries())
 			continue
 		for(var/list/line in ship.bulk_demands)
 			if(line["typepath"] != type_str)
@@ -457,7 +459,7 @@
 
 /obj/structure/roguemachine/ship_fulfillment/proc/find_demand_match(good_id)
 	for(var/datum/trade_ship/ship in SSmerchant_trade.all_ships)
-		if(ship.dock_state != TRADE_SHIP_STATE_DOCKED)
+		if(!ship.accepts_deliveries())
 			continue
 		for(var/list/line in ship.bulk_demands)
 			if(line["good"] != good_id)

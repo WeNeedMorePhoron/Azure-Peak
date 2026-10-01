@@ -74,6 +74,7 @@ export type HarborDemand = {
   realm_name: string;
   realm_id: string;
   seconds_until_departure: number;
+  departing: boolean;
   lines: HarborDemandLine[];
   cultural_stock: HarborCulturalEntry[];
 };

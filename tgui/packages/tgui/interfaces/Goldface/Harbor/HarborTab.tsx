@@ -215,6 +215,7 @@ export const HarborTab = (props: {
       {tab === 'ships' && (
         <ShipsView
           docked={harbor.ships_docked}
+          departing={harbor.ships_departing}
           pool={harbor.ships_pool}
           dockSpotsUsed={harbor.dock_spots_used}
           dockSpotsMax={harbor.dock_spots_max}

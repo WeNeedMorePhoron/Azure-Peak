@@ -401,12 +401,36 @@ SUBSYSTEM_DEF(merchant_trade)
 		return "ship_gone"
 	if(ship.dock_state != TRADE_SHIP_STATE_DOCKED)
 		return "ship_gone"
-	var/honored = ship.expected_favor > 0 && ship.favor_earned >= ship.expected_favor
-	if(!ship.auto_hailed && !honored && world.time < ship.docked_at + TRADE_SHIP_SEND_AWAY_GRACE)
+	if(!ship.auto_hailed && !ship.is_honored() && world.time < ship.docked_at + TRADE_SHIP_SEND_AWAY_GRACE)
 		return "early"
-	finalize_ship_departure(ship, auto = FALSE)
+	var/departing = cast_off_ship(ship, auto = FALSE)
 	broadcast_market_change()
-	return "ok"
+	return departing ? "departing" : "ok"
+
+/datum/controller/subsystem/merchant_trade/proc/cast_off_ship(datum/trade_ship/ship, auto = FALSE)
+	if(!ship || ship.dock_state != TRADE_SHIP_STATE_DOCKED)
+		return FALSE
+	ship.departure_auto = auto
+	if(!ship.has_open_demand())
+		finalize_ship_departure(ship, auto = auto)
+		return FALSE
+	ship.dock_state = TRADE_SHIP_STATE_DEPARTING
+	refund_hail_if_honored(ship)
+	announce_cast_off(ship)
+	return TRUE
+
+/datum/controller/subsystem/merchant_trade/proc/refund_hail_if_honored(datum/trade_ship/ship)
+	if(ship.dock_state != TRADE_SHIP_STATE_DEPARTING || ship.auto_hailed || !ship.is_honored())
+		return
+	if(refund_hail(ship))
+		broadcast_market_change()
+
+/datum/controller/subsystem/merchant_trade/proc/refund_hail(datum/trade_ship/ship)
+	if(ship.hail_refunded || hails_remaining >= TRADE_SHIPS_HAIL_PER_DAY)
+		return FALSE
+	hails_remaining++
+	ship.hail_refunded = TRUE
+	return TRUE
 
 /datum/controller/subsystem/merchant_trade/proc/finalize_ship_departure(datum/trade_ship/ship, auto = FALSE)
 	if(!ship)
@@ -430,15 +454,12 @@ SUBSYSTEM_DEF(merchant_trade)
 	var/ratio = ship.favor_earned / expected
 	var/outcome
 	var/awarded = 0
-	var/refunded = FALSE
 	if(ship.auto_hailed)
 		outcome = FAVOR_OUTCOME_PARTIAL
 	else if(ratio >= FAVOR_SEND_CLEAN_THRESHOLD)
 		outcome = FAVOR_OUTCOME_HONORED
 		awarded = round(ship.favor_earned * FAVOR_SEND_CLEAN_MULT)
-		if(hails_remaining < TRADE_SHIPS_HAIL_PER_DAY)
-			hails_remaining++
-			refunded = TRUE
+		refund_hail(ship)
 	else if(ratio >= FAVOR_SEND_PARTIAL_THRESHOLD)
 		outcome = FAVOR_OUTCOME_PARTIAL
 		awarded = round(ship.favor_earned * FAVOR_SEND_PARTIAL_MULT)
@@ -457,7 +478,7 @@ SUBSYSTEM_DEF(merchant_trade)
 		"earned" = ship.favor_earned,
 		"expected" = ship.expected_favor,
 		"awarded" = awarded,
-		"refunded_hail" = refunded,
+		"refunded_hail" = ship.hail_refunded,
 		"auto" = auto,
 	)))
 	if(length(favor_ledger) > 8)
@@ -525,12 +546,11 @@ SUBSYSTEM_DEF(merchant_trade)
 	for(var/datum/trade_ship/ship in all_ships)
 		if(ship.dock_state != TRADE_SHIP_STATE_DOCKED)
 			continue
-		var/honored = ship.expected_favor > 0 && ship.favor_earned >= ship.expected_favor
 		var/timed_out = world.time >= ship.docked_at + AUTO_HAILER_DOCK_TIMEOUT
-		if(honored || timed_out)
+		if(ship.is_honored() || timed_out)
 			to_dismiss += ship
 	for(var/datum/trade_ship/ship as anything in to_dismiss)
-		auto_dismiss_ship(ship)
+		cast_off_ship(ship, auto = TRUE)
 	var/spots_free = get_dock_spots_max() - length(get_docked_ships())
 	while(spots_free > 0 && hails_remaining > 0)
 		var/datum/trade_ship/picked = pick_available_ship_weighted()
@@ -556,9 +576,10 @@ SUBSYSTEM_DEF(merchant_trade)
 	return pickweight(weighted)
 
 /datum/controller/subsystem/merchant_trade/proc/auto_dismiss_ship(datum/trade_ship/ship)
-	if(!ship || ship.dock_state != TRADE_SHIP_STATE_DOCKED)
+	if(!ship || !ship.accepts_deliveries())
 		return
-	finalize_ship_departure(ship, auto = TRUE)
+	finalize_ship_departure(ship, auto = ship.departure_auto)
+	broadcast_market_change()
 
 /datum/controller/subsystem/merchant_trade/proc/touch_merchant_activity()
 	last_merchant_activity = world.time
@@ -657,3 +678,6 @@ SUBSYSTEM_DEF(merchant_trade)
 	var/datum/foreign_realm/realm = realms[ship.realm_id]
 	var/realm_name = realm ? realm.name : ship.realm_id
 	scom_announce("The [ship.ship_type] [ship.ship_name], flying the colors of [realm_name], has made port at the Azurian Docks.")
+
+/datum/controller/subsystem/merchant_trade/proc/announce_cast_off(datum/trade_ship/ship)
+	scom_announce("The [ship.ship_type] [ship.ship_name] has been sent away. She will no longer sell any goods but will take on cargoes from the Fulfillment Crate until she departs.")
