@@ -1,8 +1,0 @@
-author: "Ollanius"
-delete-after: True
-changes:
-  - bugfix: "Visored sallets and sallets should now properly render with plumes."
-  - bugfix: "Sallets and their derivates should now be able to wear both orles and plumes at the same time."
-  - bugfix: "Sweetglass no longer prints a visible error overlay when created through natural means."
-  - bugfix: "Sconces are no longer mysteriously offset when detorchified."
-  - bugfix: "Courtesy of RadiantFlash, snouted armets now properly merge with head decorations."

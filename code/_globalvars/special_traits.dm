@@ -39,7 +39,7 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 	apply_prefs_race_bonus(character, player)
 	if(!HAS_TRAIT(character, TRAIT_NO_VOICEPACK_OVERRIDE)) //Only roundstart roles that jobload in, should use this. Prevents prefloaded voicepacks overriding yours.
 		apply_voicepacks(character, player)
-	if(player.prefs.dnr_pref)
+	if(player.prefs.char_toggles & CHAR_TOGGLE_DNR)
 		apply_dnr_trait(character, player, TRAIT_GENERIC)
 	if(SSgamemode?.dnr_round)
 		apply_dnr_trait(character, player, MERCILESS_ROUND)
