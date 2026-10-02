@@ -10,10 +10,10 @@
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/arcane
 	stat_allowed = TRUE
-	var/exp_heavy = 3 //Fucks people up, a LOT
-	var/exp_light = 5
-	var/exp_flash = 5
-	var/exp_fire = 4
+	var/exp_heavy = 4 //Fucks people up, a LOT
+	var/exp_light = 6
+	var/exp_flash = 6
+	var/exp_fire = 5
 
 /obj/effect/proc_holder/spell/self/suicidebomb/cast(list/targets, mob/living/user = usr)
 	..()
@@ -56,7 +56,7 @@
 	if(lich_antag && user.stat != DEAD && lich_antag.consume_phylactery(0) && user == target) // Use phylactery at 0 timer. Die if none.
 		return TRUE
 
-	target.gib()
+	target.gib(no_brain = TRUE, no_organs = TRUE)
 	return TRUE
 
 /obj/effect/proc_holder/spell/self/suicidebomb/lesser
@@ -103,15 +103,15 @@
 		span_danger("[user] begins to shake and convulse violently, slowly beginning to glow in a violently blinding light that emanates from them!")
 	)
 
-	addtimer(CALLBACK(src, PROC_REF(sapper_explode), user), 7 SECONDS) //A bit of reaction time, this explosion is absolutely horrifying to be inside of and will fuck you up.
+	addtimer(CALLBACK(src, PROC_REF(sapper_explode), user), 7 SECONDS) //A bit of reaction time, this explosion IS absolutely horrifying to be inside of and will fuck you up.
 	return TRUE
 
 /obj/effect/proc_holder/spell/proc/sapper_explode(mob/living/user)
 
-	explosion(get_turf(user), 3, 3, 4, 4, flame_range = 2, soundin = 'sound/misc/explode/incendiary (1).ogg') //This will destroy walls and absolutely FUCK UP people nearby.
+	explosion(get_turf(user), 4, 4, 5, 5, flame_range = 3, soundin = 'sound/misc/explode/incendiary (1).ogg') //This will destroy walls and absolutely FUCK UP people nearby.
 	playsound(get_turf(user), 'sound/magic/soulshot.ogg', 100) //Extra AURA
 
-	user.gib()
+	user.gib(no_brain = TRUE, no_organs = TRUE)
 	return TRUE
 
 /obj/effect/proc_holder/spell/invoked/remotebomb
