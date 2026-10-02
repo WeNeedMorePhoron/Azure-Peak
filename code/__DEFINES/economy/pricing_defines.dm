@@ -60,6 +60,7 @@
 
 #define MARKUP_GARMENT_COMMON 2.5
 #define MARKUP_GARMENT_FINE 3.5
+#define MARKUP_TAILOR_MISC 1.5 // Bags, scabbards, belts, bedding - utility leatherwork, not garment labor
 
 #define MARKUP_FOODSTUFF_FRESH 1.5
 #define MARKUP_FOODSTUFF_PRESERVED 1.7
