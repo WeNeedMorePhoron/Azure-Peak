@@ -1,0 +1,383 @@
+<title>NERVE MASTER TGUI Port</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap">
+<style>
+/* Layout: one reading column; each step is a ledger block with a progress tally in its margin. */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --ink: #1d2433;
+  --ink-soft: #4a5468;
+  --ink-faint: #7b8496;
+  --rule: #dde1e8;
+  --seal: #a35d12;
+  --seal-wash: #f6ead9;
+  --good: #2f7a47;
+  --good-wash: #e3f1e7;
+  --warn: #a5560f;
+  --bad: #b23a3a;
+  --bad-wash: #f7e3e3;
+  --code-bg: #eef0f4;
+  --f-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12161e; --surface: #1a2029; --ink: #e4e8ef; --ink-soft: #b2bac8; --ink-faint: #828b9b;
+    --rule: #2c3442; --seal: #e09a4a; --seal-wash: #33281b; --good: #6cc48a; --good-wash: #1b2d22;
+    --warn: #e0a05a; --bad: #e57b7b; --bad-wash: #3a2224; --code-bg: #232a35; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12161e; --surface: #1a2029; --ink: #e4e8ef; --ink-soft: #b2bac8; --ink-faint: #828b9b;
+  --rule: #2c3442; --seal: #e09a4a; --seal-wash: #33281b; --good: #6cc48a; --good-wash: #1b2d22;
+  --warn: #e0a05a; --bad: #e57b7b; --bad-wash: #3a2224; --code-bg: #232a35; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.6 var(--f-body); padding-inline: 16px; padding-block: 32px 64px; }
+.wrap { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1rem; font-family: var(--f-body); font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+code { font-family: var(--f-mono); font-size: 0.86em; background: var(--code-bg); padding: 1px 5px; border-radius: 3px; overflow-wrap: anywhere; }
+a { color: var(--seal); }
+.eyebrow { font: 500 0.72rem/1 var(--f-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); }
+.muted { color: var(--ink-soft); }
+
+header { display: flex; flex-direction: column; gap: 12px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 0.85rem; color: var(--ink-soft); }
+.meta b { color: var(--ink); font-weight: 500; }
+.overall { display: flex; flex-direction: column; gap: 6px; }
+.bar { height: 8px; background: var(--rule); border-radius: 4px; overflow: hidden; }
+.bar > span { display: block; height: 100%; width: 0; background: var(--good); transition: width .3s; }
+.overall-label { display: flex; justify-content: space-between; font: 500 0.8rem var(--f-mono); color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.syncnote { font-size: 0.8rem; color: var(--ink-faint); }
+.syncnote.err { color: var(--bad); }
+
+section { display: flex; flex-direction: column; gap: 12px; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.88rem; min-width: 560px; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font: 500 0.72rem var(--f-mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+tr:last-child td { border-bottom: 0; }
+.pill { display: inline-block; font: 500 0.7rem/1.6 var(--f-mono); padding: 0 7px; border-radius: 10px; white-space: nowrap; }
+.pill.ro { background: var(--good-wash); color: var(--good); }
+.pill.money { background: var(--bad-wash); color: var(--bad); }
+.pill.cfg { background: var(--seal-wash); color: var(--seal); }
+
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.rule { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.rule p { font-size: 0.88rem; color: var(--ink-soft); }
+
+.step { background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; }
+.step.complete { border-color: var(--good); }
+.step-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.step-head > div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.tally { font: 500 0.8rem var(--f-mono); color: var(--ink-faint); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.step.complete .tally { color: var(--good); }
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; font-size: 0.86rem; }
+.facts dt { color: var(--ink-faint); font: 500 0.72rem/1.9 var(--f-mono); text-transform: uppercase; letter-spacing: 0.06em; }
+.facts dd { margin: 0; min-width: 0; color: var(--ink-soft); }
+@media (max-width: 520px) { .facts { grid-template-columns: 1fr; } .facts dd { margin-bottom: 6px; } }
+
+ul.checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+ul.checks li { display: flex; flex-direction: column; gap: 2px; padding: 6px 8px; border-radius: 4px; }
+ul.checks li:hover { background: var(--bg); }
+ul.checks label { display: grid; grid-template-columns: 20px 1fr; gap: 8px; align-items: start; cursor: pointer; }
+ul.checks input { width: 16px; height: 16px; margin: 3px 0 0; accent-color: var(--good); cursor: pointer; }
+ul.checks input:disabled { cursor: default; }
+ul.checks input:focus-visible { outline: 2px solid var(--seal); outline-offset: 2px; }
+ul.checks li.done label > span { color: var(--ink-faint); text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.note { margin-left: 28px; font-size: 0.8rem; color: var(--seal); font-family: var(--f-mono); overflow-wrap: anywhere; }
+.note:empty { display: none; }
+.review { font-size: 0.85rem; color: var(--ink-soft); border-left: 2px solid var(--seal); padding-left: 10px; }
+.review b { color: var(--ink); font-weight: 600; }
+
+.decision label > span b { font-weight: 600; }
+footer { font-size: 0.8rem; color: var(--ink-faint); }
+@media (prefers-reduced-motion: reduce) { .bar > span { transition: none; } }
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Azure-Peak / Stewardry</span>
+  <h1>NERVE MASTER TGUI Port</h1>
+  <p class="muted">Move the five legacy href tabs of the Nerve Master (Bank, Debts, Fiscal, Daily Payments, Imports) plus the main-menu actions into the existing StewardTrade TGUI window, one reviewable step at a time. Each step leaves the game playable: tabs not yet ported keep their old links.</p>
+  <div class="meta">
+    <span>Legacy UI <b>steward.dm</b> lines 117-363 (Topic) and 608-967 (HTML)</span>
+    <span>TGUI host <b>steward_trade_tgui.dm</b></span>
+    <span>Client <b>tgui/interfaces/StewardTrade/</b></span>
+  </div>
+  <div class="overall">
+    <div class="overall-label"><span>Overall progress</span><span id="overall-count">0 / 0</span></div>
+    <div class="bar"><span id="overall-bar"></span></div>
+    <span class="syncnote" id="syncnote">Connecting to saved progress...</span>
+  </div>
+</header>
+
+<section>
+  <h2>What is being replaced</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Legacy tab</th><th>Kind</th><th>Hrefs</th><th>Lands in</th></tr></thead>
+    <tbody>
+      <tr><td>Fiscal Ledger</td><td><span class="pill ro">read-only</span></td><td>none</td><td>Step 2</td></tr>
+      <tr><td>Daily Payments</td><td><span class="pill cfg">settings</span></td><td><code>setdailypay</code> <code>removedailypay</code></td><td>Step 3</td></tr>
+      <tr><td>Debts &amp; Arrears</td><td><span class="pill money">writes</span></td><td><code>clearloandebtor</code> <code>clearpolltax</code></td><td>Step 4</td></tr>
+      <tr><td>Bank (list, suspend)</td><td><span class="pill cfg">settings</span></td><td><code>togglewages</code> <code>compact</code></td><td>Step 5</td></tr>
+      <tr><td>Bank (money)</td><td><span class="pill money">money moves</span></td><td><code>givemoney</code> <code>fineaccount</code> <code>payroll</code></td><td>Step 6</td></tr>
+      <tr><td>Main menu</td><td><span class="pill cfg">settings</span></td><td><code>printresidency</code> <code>setpurchasefloor</code></td><td>Step 7</td></tr>
+      <tr><td>Import</td><td><span class="pill money">money moves</span></td><td><code>import</code> (25 <code>/datum/crown_import</code>)</td><td>Step 7, or retired</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Rules every step follows</h2>
+  <div class="rules">
+    <div class="rule"><h3>Alderman never reaches treasury actions</h3><p>The shared <code>ui_act</code> admits the Alderman remotely through <code>alderman_has_access()</code>, even when the machine is locked. Treasury actions go through their own gate, checked before anything else.</p></div>
+    <div class="rule"><h3>Ship only the open tab's data</h3><p><code>ui_data</code> already builds the market view on every tick. Treasury payloads are built only for the tab the viewer has open, using the per-ckey pattern of <code>ledger_view</code>.</p></div>
+    <div class="rule"><h3>Validation stays on the server</h3><p>Every <code>input()</code> becomes an inline control, but the whole-number check, fine cap, wage floor clamp and self-fine refusal stay in DM.</p></div>
+    <div class="rule"><h3>Mobs by ref, re-verified</h3><p>Rows send <code>REF(mob)</code>. The server locates it and confirms it is still in <code>SStreasury.bank_accounts</code> (or still a debtor) before acting.</p></div>
+    <div class="rule"><h3>Keep logs and messages</h3><p>Every <code>log_game</code>, <code>say()</code> and <code>to_chat</code> to the subject from the old Topic branch moves with the action.</p></div>
+    <div class="rule"><h3>Delete as you go</h3><p>Each step removes its legacy tab branch and hrefs in the same commit, so the diff shows old and new side by side.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Decisions to settle</h2>
+  <div class="step" data-step="decisions">
+    <div class="step-head"><div><span class="eyebrow">Before or during step 1</span><h3>Open questions</h3></div><span class="tally"></span></div>
+    <ul class="checks">
+      <li class="decision" data-id="d-import"><label><input type="checkbox" id="cb-d-import"><span><b>Legacy Import tab:</b> port it as a tab, or retire it now that Trade has regional import and autoimport?</span></label><div class="note"></div></li>
+      <li class="decision" data-id="d-literacy"><label><input type="checkbox" id="cb-d-literacy"><span><b>Literacy:</b> the old UI runs <code>stars()</code> for readers who can't read. StewardTrade and MeisterPanel ignore literacy. Accept that, or add an overlay?</span></label><div class="note"></div></li>
+      <li class="decision" data-id="d-debt-auth"><label><input type="checkbox" id="cb-d-debt-auth"><span><b>Debt clearing authority:</b> legacy lets anyone at an unlocked machine clear debtor marks and poll tax. Gate it behind <code>has_fiscal_authority</code>?</span></label><div class="note"></div></li>
+      <li class="decision" data-id="d-receivership"><label><input type="checkbox" id="cb-d-receivership"><span><b>Sequestration:</b> legacy treasury actions ignore receivership. Keep parity, or lock Pay and Pay by Class while sequestered?</span></label><div class="note"></div></li>
+      <li class="decision" data-id="d-name"><label><input type="checkbox" id="cb-d-name"><span><b>Name:</b> the window is titled "Market Scroll" and the interface is <code>StewardTrade</code>. Pick the new window title and whether to rename the interface (typepath rule applies).</span></label><div class="note"></div></li>
+      <li class="decision" data-id="d-pr"><label><input type="checkbox" id="cb-d-pr"><span><b>Packaging:</b> one PR with a commit per step, or steps 1-4 first (no money moves) and 5-8 second?</span></label><div class="note"></div></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>Steps</h2>
+
+  <div class="step" data-step="s0">
+    <div class="step-head"><div><span class="eyebrow">Step 0</span><h3>Prepare the branch</h3></div><span class="tally"></span></div>
+    <ul class="checks">
+      <li data-id="s0-branch"><label><input type="checkbox" id="cb-s0-branch"><span>Branch off current <code>main</code>. <code>restitution-and-ui</code> is about 800 commits behind; recreate it or rebase it.</span></label><div class="note"></div></li>
+      <li data-id="s0-baseline"><label><input type="checkbox" id="cb-s0-baseline"><span>Screenshot every legacy tab in a test round to compare against after porting.</span></label><div class="note"></div></li>
+    </ul>
+  </div>
+
+  <div class="step" data-step="s1">
+    <div class="step-head"><div><span class="eyebrow">Step 1</span><h3>Scaffolding: gate, tab-scoped data, grouped tabs</h3></div><span class="tally"></span></div>
+    <dl class="facts">
+      <dt>Files</dt><dd>new <code>steward_treasury_tgui.dm</code>, <code>steward_trade_tgui.dm</code>, <code>StewardTrade.tsx</code>, <code>TabBar.tsx</code>, <code>types.ts</code></dd>
+      <dt>Size</dt><dd>about 150 lines, no features visible yet</dd>
+    </dl>
+    <ul class="checks">
+      <li data-id="s1-gate"><label><input type="checkbox" id="cb-s1-gate"><span>Add <code>treasury_can_act(user)</code>: <code>canUseTopic(src, BE_CLOSE)</code>, not <code>locked</code>, not acting as Alderman.</span></label><div class="note"></div></li>
+      <li data-id="s1-dispatch"><label><input type="checkbox" id="cb-s1-dispatch"><span>In <code>ui_act</code>, route treasury actions to <code>handle_treasury_act()</code> before the Alderman/locked check, and reject them there if the gate fails.</span></label><div class="note"></div></li>
+      <li data-id="s1-view"><label><input type="checkbox" id="cb-s1-view"><span>Per-ckey <code>treasury_view</code> with acts <code>treasury_tab_open</code> / <code>treasury_tab_close</code>; <code>ui_data</code> builds only that tab's payload.</span></label><div class="note"></div></li>
+      <li data-id="s1-tabbar"><label><input type="checkbox" id="cb-s1-tabbar"><span>TabBar split into Treasury and Trade groups; Treasury hidden when <code>is_alderman_acting</code>.</span></label><div class="note"></div></li>
+      <li data-id="s1-opentab"><label><input type="checkbox" id="cb-s1-opentab"><span><code>open_steward_tgui(user, tab)</code> plus a per-ckey <code>requested_tab</code> the client reads once, so legacy main-menu links can land on a ported tab.</span></label><div class="note"></div></li>
+      <li data-id="s1-test"><label><input type="checkbox" id="cb-s1-test"><span>Test: Alderman via the Assembly Floor sees only Trade tabs; a locked machine refuses a hand-crafted treasury act.</span></label><div class="note"></div></li>
+    </ul>
+    <p class="review"><b>Review focus:</b> the gate ordering in <code>ui_act</code>. This is the only place the Alderman bypass could leak into money actions.</p>
+  </div>
+
+  <div class="step" data-step="s2">
+    <div class="step-head"><div><span class="eyebrow">Step 2</span><h3>Fiscal Ledger</h3></div><span class="tally"></span></div>
+    <dl class="facts">
+      <dt>Files</dt><dd><code>steward_treasury_tgui.dm</code>, new <code>StewardTrade/FiscalView.tsx</code>, <code>steward.dm</code> (delete <code>TAB_FISCAL</code>)</dd>
+      <dt>Risk</dt><dd>lowest: no actions, proves the tab-scoped data pattern</dd>
+    </dl>
+    <ul class="checks">
+      <li data-id="s2-data"><label><input type="checkbox" id="cb-s2-data"><span>Payload from <code>compute_fiscal_snapshot()</code>, <code>compute_charter_states()</code>, revenue, forgone revenue, trade, expenses, tax rates, poll rates with decree caps, contracts.</span></label><div class="note"></div></li>
+      <li data-id="s2-reuse"><label><input type="checkbox" id="cb-s2-reuse"><span>Check the admin <code>EconomicPanel</code> dashboard and charter components for parts to reuse.</span></label><div class="note"></div></li>
+      <li data-id="s2-tsx"><label><input type="checkbox" id="cb-s2-tsx"><span><code>FiscalView.tsx</code> with the same sections and semantic colors as legacy.</span></label><div class="note"></div></li>
+      <li data-id="s2-remove"><label><input type="checkbox" id="cb-s2-remove"><span>Delete the <code>TAB_FISCAL</code> branch; main-menu link opens the TGUI on Fiscal.</span></label><div class="note"></div></li>
+      <li data-id="s2-test"><label><input type="checkbox" id="cb-s2-test"><span>Test: numbers match the step 0 screenshots, including Golden Bull and Covenant caps.</span></label><div class="note"></div></li>
+    </ul>
+  </div>
+
+  <div class="step" data-step="s3">
+    <div class="step-head"><div><span class="eyebrow">Step 3</span><h3>Daily Payments</h3></div><span class="tally"></span></div>
+    <dl class="facts">
+      <dt>Files</dt><dd><code>steward_treasury_tgui.dm</code>, new <code>PayrollView.tsx</code>, <code>steward.dm</code></dd>
+      <dt>Note</dt><dd><code>daily_payments</code> stays on the machine; <code>SStreasury</code>, <code>bankruptcy.dm</code> and the decrees read it there.</dd>
+    </dl>
+    <ul class="checks">
+      <li data-id="s3-static"><label><input type="checkbox" id="cb-s3-static"><span>Job list grouped by department in <code>ui_static_data</code>, replacing the <code>input()</code> picker. Shared with Pay by Class in step 6.</span></label><div class="note"></div></li>
+      <li data-id="s3-acts"><label><input type="checkbox" id="cb-s3-acts"><span>Acts <code>set_daily_pay(job, amount)</code> (whole number, clamp 0-999, raise to wage floor) and <code>remove_daily_pay(job)</code> (falls back to floor).</span></label><div class="note"></div></li>
+      <li data-id="s3-tsx"><label><input type="checkbox" id="cb-s3-tsx"><span><code>PayrollView.tsx</code>: rows with amount, charter floor badge, headcount, daily total; projected payroll in the header.</span></label><div class="note"></div></li>
+      <li data-id="s3-remove"><label><input type="checkbox" id="cb-s3-remove"><span>Delete <code>TAB_PAYDAY</code> and the <code>setdailypay</code> / <code>removedailypay</code> hrefs.</span></label><div class="note"></div></li>
+      <li data-id="s3-test"><label><input type="checkbox" id="cb-s3-test"><span>Test: toggling a charter decree updates floors live via <code>enforce_wage_floors()</code>; dawn payout uses the new values.</span></label><div class="note"></div></li>
+    </ul>
+  </div>
+
+  <div class="step" data-step="s4">
+    <div class="step-head"><div><span class="eyebrow">Step 4</span><h3>Debts &amp; Arrears</h3></div><span class="tally"></span></div>
+    <dl class="facts">
+      <dt>Files</dt><dd><code>steward_treasury_tgui.dm</code>, new <code>DebtsView.tsx</code>, <code>steward.dm</code></dd>
+    </dl>
+    <ul class="checks">
+      <li data-id="s4-data"><label><input type="checkbox" id="cb-s4-data"><span>Crown loans as structured fields instead of <code>L.format()</code> strings; debtor and arrears rows with balance and overdue days.</span></label><div class="note"></div></li>
+      <li data-id="s4-acts"><label><input type="checkbox" id="cb-s4-acts"><span>Per-row acts <code>clear_debtor(ref)</code> and <code>clear_poll_tax(ref)</code>, re-checking the trait or arrears on the server. Apply the authority decision.</span></label><div class="note"></div></li>
+      <li data-id="s4-fix"><label><input type="checkbox" id="cb-s4-fix"><span>Fix the trait mismatch: rows selected by <code>TRAIT_DEBTOR</code> but labelled by <code>TRAIT_DEBTOR_CROWN</code>.</span></label><div class="note"></div></li>
+      <li data-id="s4-remove"><label><input type="checkbox" id="cb-s4-remove"><span>Delete <code>TAB_DEBT</code> and the <code>clearloandebtor</code> / <code>clearpolltax</code> hrefs.</span></label><div class="note"></div></li>
+      <li data-id="s4-test"><label><input type="checkbox" id="cb-s4-test"><span>Test: clearing a defaulter forgives the loan, clears arrears, logs, and messages the subject.</span></label><div class="note"></div></li>
+    </ul>
+    <p class="review"><b>Natural PR cut:</b> steps 1-4 contain no actions that move mammon.</p>
+  </div>
+
+  <div class="step" data-step="s5">
+    <div class="step-head"><div><span class="eyebrow">Step 5</span><h3>Accounts, part one: list and wage suspension</h3></div><span class="tally"></span></div>
+    <dl class="facts">
+      <dt>Files</dt><dd><code>steward_treasury_tgui.dm</code>, new <code>AccountsView.tsx</code></dd>
+    </dl>
+    <ul class="checks">
+      <li data-id="s5-data"><label><input type="checkbox" id="cb-s5-data"><span>Row payload: ref, name, job (via <code>job_filter</code>), balance, max fine, suspended, poll owed, overdue days, debtor.</span></label><div class="note"></div></li>
+      <li data-id="s5-tsx"><label><input type="checkbox" id="cb-s5-tsx"><span><code>AccountsView.tsx</code>: debtors and arrears first, name search, filter chips (debtors, arrears, suspended). Replaces the compact toggle.</span></label><div class="note"></div></li>
+      <li data-id="s5-suspend"><label><input type="checkbox" id="cb-s5-suspend"><span>Act <code>toggle_wages(ref)</code> gated by <code>has_fiscal_authority</code>; controls hidden for others.</span></label><div class="note"></div></li>
+      <li data-id="s5-perf"><label><input type="checkbox" id="cb-s5-perf"><span>Check payload cost with a full server's accounts; confirm nothing is sent while the tab is closed.</span></label><div class="note"></div></li>
+    </ul>
+  </div>
+
+  <div class="step" data-step="s6">
+    <div class="step-head"><div><span class="eyebrow">Step 6</span><h3>Accounts, part two: Pay, Fine, Pay by Class</h3></div><span class="tally"></span></div>
+    <dl class="facts">
+      <dt>Files</dt><dd><code>steward_treasury_tgui.dm</code>, <code>AccountsView.tsx</code>, <code>steward.dm</code> (delete <code>TAB_BANK</code>)</dd>
+      <dt>Risk</dt><dd>highest: these move mammon. Kept apart for a focused review.</dd>
+    </dl>
+    <ul class="checks">
+      <li data-id="s6-pay"><label><input type="checkbox" id="cb-s6-pay"><span><code>pay_account(ref, amount)</code>: whole number, at least 1. No authority gate, matching legacy (deliberate).</span></label><div class="note"></div></li>
+      <li data-id="s6-fine"><label><input type="checkbox" id="cb-s6-fine"><span><code>fine_account(ref, amount)</code>: authority, self-fine refused, clamped to <code>get_max_fine_for()</code>, exempt rows disabled.</span></label><div class="note"></div></li>
+      <li data-id="s6-payclass"><label><input type="checkbox" id="cb-s6-payclass"><span><code>pay_by_job(job, amount)</code> with <code>is_salary = TRUE</code> and <code>STATS_WAGES_PAID</code>; UI shows headcount times amount before confirming.</span></label><div class="note"></div></li>
+      <li data-id="s6-confirm"><label><input type="checkbox" id="cb-s6-confirm"><span>Inline confirm for Pay and Fine showing name, amount and resulting balance.</span></label><div class="note"></div></li>
+      <li data-id="s6-remove"><label><input type="checkbox" id="cb-s6-remove"><span>Delete <code>TAB_BANK</code> and the <code>givemoney</code>, <code>fineaccount</code>, <code>togglewages</code>, <code>payroll</code>, <code>compact</code> hrefs.</span></label><div class="note"></div></li>
+      <li data-id="s6-test"><label><input type="checkbox" id="cb-s6-test"><span>Test: a non-officer cannot fine or suspend; a Clerk cannot fine themselves; fine cap and Golden Bull hold.</span></label><div class="note"></div></li>
+    </ul>
+  </div>
+
+  <div class="step" data-step="s7">
+    <div class="step-head"><div><span class="eyebrow">Step 7</span><h3>Leftovers: letter, purchase floor, imports</h3></div><span class="tally"></span></div>
+    <ul class="checks">
+      <li data-id="s7-letter"><label><input type="checkbox" id="cb-s7-letter"><span><code>print_residency</code> act with the existing cooldown, in the window header.</span></label><div class="note"></div></li>
+      <li data-id="s7-floor"><label><input type="checkbox" id="cb-s7-floor"><span><code>set_purchase_floor</code> act (clamp 0-10000, <code>log_game</code>), in Advanced or the header.</span></label><div class="note"></div></li>
+      <li data-id="s7-import"><label><input type="checkbox" id="cb-s7-import"><span>Port the crown imports tab, or remove <code>/datum/crown_import</code> usage from the machine, per the decision.</span></label><div class="note"></div></li>
+    </ul>
+  </div>
+
+  <div class="step" data-step="s8">
+    <div class="step-head"><div><span class="eyebrow">Step 8</span><h3>Cutover: deletion only</h3></div><span class="tally"></span></div>
+    <ul class="checks">
+      <li data-id="s8-attack"><label><input type="checkbox" id="cb-s8-attack"><span><code>attack_hand</code> opens the TGUI directly.</span></label><div class="note"></div></li>
+      <li data-id="s8-delete"><label><input type="checkbox" id="cb-s8-delete"><span>Delete <code>Topic()</code>, the HTML builder, <code>TAB_*</code> defines, <code>current_tab</code>, <code>compact</code>, and <code>job_filter</code> / <code>excluded_jobs</code> if moved.</span></label><div class="note"></div></li>
+      <li data-id="s8-grep"><label><input type="checkbox" id="cb-s8-grep"><span>Grep for leftover <code>switchtab</code>, <code>trade_tgui=1</code> and <code>href_list</code> callers, including <code>assembly_floor.dm</code>.</span></label><div class="note"></div></li>
+      <li data-id="s8-rename"><label><input type="checkbox" id="cb-s8-rename"><span>Window title and interface rename, as its own commit so the rename diff stays separate.</span></label><div class="note"></div></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2>After this plan</h2>
+  <p class="muted">The Restitution follow-up builds on the Accounts tab from steps 5 and 6: an actor field on <code>/datum/treasury_entry</code>, a grant entry kind that does not coalesce, and rank-gated reversal of Crown grants. It is not part of this checklist.</p>
+</section>
+
+<footer>Ticks and notes are saved with the page and shared with Claude, which can update them for you.</footer>
+</div>
+
+<script>
+(function () {
+  var items = Array.prototype.slice.call(document.querySelectorAll('ul.checks li[data-id]'));
+  var state = {};
+  var db = null;
+  var readOnly = false;
+  var syncnote = document.getElementById('syncnote');
+
+  function setNote(text, isErr) {
+    syncnote.textContent = text;
+    syncnote.classList.toggle('err', !!isErr);
+  }
+
+  function render() {
+    var total = 0, done = 0;
+    items.forEach(function (li) {
+      var id = li.getAttribute('data-id');
+      var s = state[id] || {};
+      var cb = li.querySelector('input');
+      cb.checked = !!s.done;
+      cb.disabled = !db || readOnly;
+      li.classList.toggle('done', !!s.done);
+      li.querySelector('.note').textContent = typeof s.note === 'string' ? s.note : '';
+      total++; if (s.done) done++;
+    });
+    document.querySelectorAll('.step[data-step]').forEach(function (step) {
+      var lis = step.querySelectorAll('ul.checks li[data-id]');
+      var d = 0;
+      lis.forEach(function (li) { if ((state[li.getAttribute('data-id')] || {}).done) d++; });
+      step.querySelector('.tally').textContent = d + ' / ' + lis.length;
+      step.classList.toggle('complete', lis.length > 0 && d === lis.length);
+    });
+    document.getElementById('overall-count').textContent = done + ' / ' + total;
+    document.getElementById('overall-bar').style.width = (total ? (done / total) * 100 : 0) + '%';
+  }
+
+  items.forEach(function (li) {
+    var id = li.getAttribute('data-id');
+    var cb = li.querySelector('input');
+    cb.addEventListener('change', function () {
+      if (!db || readOnly) return;
+      var prev = state[id] || {};
+      var next = { done: cb.checked, note: typeof prev.note === 'string' ? prev.note : '', updated: new Date().toISOString() };
+      state[id] = next;
+      render();
+      db.collection('progress').doc(id).set(next).catch(function (e) {
+        state[id] = prev;
+        if (e && (e.code === 'invalid_argument' || e.code === 'not_granted')) {
+          readOnly = true;
+          setNote('You can view progress but not change it.', false);
+        } else {
+          setNote('That change was not saved. Try again in a moment.', true);
+        }
+        render();
+      });
+    });
+  });
+
+  render();
+
+  if (!window.claude || !window.claude.use) {
+    setNote('Progress saving is only available when this page is opened on claude.ai.', false);
+    return;
+  }
+  window.claude.use('db').then(function (handle) {
+    if (!handle) {
+      setNote('Progress saving is unavailable in this view. Sign in to claude.ai to tick items.', false);
+      return;
+    }
+    db = handle;
+    window.claude.use('user').then(function (u) {
+      if (u && u.can && u.can('data.write') === false) {
+        readOnly = true;
+        setNote('You can view progress but not change it.', false);
+        render();
+      }
+    });
+    db.collection('progress').onSnapshot(function (snap) {
+      var next = {};
+      snap.docs.forEach(function (d) { if (d.exists) next[d.id] = d.data(); });
+      state = next;
+      if (!readOnly) setNote('Progress is saved and shared.', false);
+      render();
+    }, function () {
+      setNote('Lost connection to saved progress. Reload the page to reconnect.', true);
+    });
+    render();
+  });
+})();
+</script>

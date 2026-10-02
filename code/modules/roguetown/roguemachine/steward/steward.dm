@@ -359,6 +359,9 @@
 	if(href_list["trade_tgui"])
 		open_trade_tgui(usr)
 		return
+	if(href_list["treasury_tgui"])
+		open_steward_tgui(usr, href_list["treasury_tgui"])
+		return
 
 	return attack_hand(usr)
 

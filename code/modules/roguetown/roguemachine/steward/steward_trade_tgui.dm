@@ -116,6 +116,7 @@
 	data["petition_categories"] = petition_categories
 	data["petition_tax_pct"] = round((1 - PETITION_TAX_MULT) * 100)
 	data["petitions_per_day"] = PETITIONS_PER_DAY
+	data["treasury_tabs"] = GLOB.steward_treasury_tabs
 
 	var/list/lview = ledger_view[user.ckey]
 	if(lview && lview["open"])
@@ -359,6 +360,8 @@
 		"outstanding" = SStreasury.atc_loan_arrears_consumed ? SStreasury.treasury_debt : 0,
 	)
 
+	append_treasury_data(data, user)
+
 	return data
 
 /// Rebuild SStreasury's cached_market_rows + cached_region_rows + cached_total_arbitrage_potential
@@ -601,6 +604,8 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 	. = ..()
 	if(.)
 		return
+	if(action in GLOB.steward_treasury_actions)
+		return handle_treasury_act(action, params, usr)
 	if(!user_can_act(usr))
 		return TRUE
 	if(locked && !alderman_has_access(usr))

@@ -39,6 +39,7 @@ export type StaticData = {
   region_catalog: Record<string, RegionCatalogEntry>;
   // Only present while the user has the Ledger tab open (server gates it on ledger_view).
   ledger_page?: LedgerPage;
+  treasury_tabs: TreasuryTabKey[];
 };
 
 // --- Dynamic state (re-shipped on each ui_data) ----------------------------
@@ -272,9 +273,20 @@ export type Data = StaticData & {
   royal_custom_margin: number;
   royal_custom_threshold: number;
   royal_custom_volume: number;
+  treasury_access: BooleanLike;
+  requested_tab: TreasuryTabKey | null;
+  treasury_tab_data: TreasuryTabData | null;
 };
 
-export type TabKey =
+export type TreasuryTabKey = 'fiscal' | 'payroll' | 'debts' | 'accounts';
+
+export type TreasuryTabData = {
+  key: TreasuryTabKey;
+};
+
+export type TabKey = TradeTabKey | TreasuryTabKey;
+
+export type TradeTabKey =
   | 'orders'
   | 'market'
   | 'regions'

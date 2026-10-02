@@ -27,7 +27,7 @@ import { RegionsView } from './StewardTrade/RegionsView';
 import { RoyalCustomPanel } from './StewardTrade/RoyalCustomPanel';
 import { SequesteredOverlay } from './StewardTrade/SequesteredOverlay';
 import { SequestrationBanner } from './StewardTrade/SequestrationBanner';
-import { TabBar } from './StewardTrade/TabBar';
+import { isTreasuryTab, TabBar } from './StewardTrade/TabBar';
 import { TradeModal, type TradeModalRequest } from './StewardTrade/TradeModal';
 import type { Data, TabKey } from './StewardTrade/types';
 
@@ -44,6 +44,27 @@ export const StewardTrade = () => {
       return () => act('ledger_close');
     }
   }, [tab, act]);
+
+  useEffect(() => {
+    if (isTreasuryTab(tab)) {
+      act('treasury_tab_open', { tab });
+      return () => act('treasury_tab_close', { tab });
+    }
+  }, [tab, act]);
+
+  useEffect(() => {
+    if (data.requested_tab) {
+      setTab(data.requested_tab);
+    }
+  }, [data.requested_tab]);
+
+  const treasuryTabs = data.treasury_access ? data.treasury_tabs || [] : [];
+
+  useEffect(() => {
+    if (isTreasuryTab(tab) && !treasuryTabs.includes(tab)) {
+      setTab('orders');
+    }
+  }, [tab, treasuryTabs.join(',')]);
 
   const aldermanActing = !!data.is_alderman_acting;
   const warrant = data.alderman_warrant;
@@ -135,7 +156,7 @@ export const StewardTrade = () => {
             goodCatalog={data.good_catalog}
           />
 
-          <TabBar tab={tab} onSwitch={setTab} />
+          <TabBar tab={tab} onSwitch={setTab} treasuryTabs={treasuryTabs} />
           <hr style={rulerStyle} />
 
           {tab === 'orders' && <OrdersView data={data} />}
