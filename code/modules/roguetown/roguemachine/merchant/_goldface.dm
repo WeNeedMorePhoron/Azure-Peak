@@ -849,7 +849,7 @@
 				record_material_flow(MATERIAL_FLOW_IN, MATERIAL_SOURCE_MERCHANT_IMPORT, pathi, 1)
 				if(istype(spawned))
 					spawned.atc_sealed = TRUE
-			source_ship.favor_earned += discounted_base
+			source_ship.add_favor(discounted_base)
 			var/tariff_active_cultural = !is_tax_exempt(H)
 			to_chat(H, span_notice("You buy [PA.name] from [source_ship.ship_name] for [total_cost]m[tariff_active_cultural && tax_amt > 0 ? " (incl. [tax_amt]m import tariff)" : ""][kin_saving > 0 ? " (Kinship saved [kin_saving]m)" : ""]."))
 			playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
@@ -975,7 +975,7 @@
 				var/obj/item/spawned = new TG.item_type(T)
 				if(istype(spawned))
 					spawned.atc_sealed = TRUE
-			source_ship.favor_earned += gross
+			source_ship.add_favor(gross)
 			playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
 			to_chat(H, span_notice("You buy [qty] [TG.name] from [source_ship.ship_name] for [total_cost]m[tariff_active && tariff_float > 0 ? " (incl. [round(tariff_float)]m import tariff)" : ""][kin_saving > 0 ? " (Kinship saved [kin_saving]m)" : ""]."))
 			return TRUE

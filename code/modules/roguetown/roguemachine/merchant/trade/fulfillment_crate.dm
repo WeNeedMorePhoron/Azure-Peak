@@ -399,7 +399,7 @@
 	if(producer_payout < 0)
 		producer_payout = 0
 	record_round_statistic(STATS_TRADE_VALUE_EXPORTED, gross)
-	ship.favor_earned += gross
+	ship.add_favor(gross)
 	SSmerchant_trade?.refund_hail_if_honored(ship)
 	ship.depart_if_filled()
 	if(sound)

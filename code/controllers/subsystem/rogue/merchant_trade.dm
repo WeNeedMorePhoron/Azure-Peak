@@ -416,6 +416,7 @@ SUBSYSTEM_DEF(merchant_trade)
 		return FALSE
 	ship.dock_state = TRADE_SHIP_STATE_DEPARTING
 	refund_hail_if_honored(ship)
+	bank_ship_favor(ship)
 	announce_cast_off(ship)
 	return TRUE
 
@@ -450,27 +451,16 @@ SUBSYSTEM_DEF(merchant_trade)
 	if(!ship)
 		return
 	favor_earned_by_realm[ship.realm_id] = (favor_earned_by_realm[ship.realm_id] || 0) + ship.favor_earned
-	var/expected = max(1, ship.expected_favor)
-	var/ratio = ship.favor_earned / expected
-	var/outcome
-	var/awarded = 0
-	if(ship.auto_hailed)
-		outcome = FAVOR_OUTCOME_PARTIAL
-	else if(ratio >= FAVOR_SEND_CLEAN_THRESHOLD)
-		outcome = FAVOR_OUTCOME_HONORED
-		awarded = round(ship.favor_earned * FAVOR_SEND_CLEAN_MULT)
+	var/outcome = ship_favor_outcome(ship)
+	var/awarded = ship_favor_award(ship, outcome)
+	if(outcome == FAVOR_OUTCOME_HONORED)
 		refund_hail(ship)
-	else if(ratio >= FAVOR_SEND_PARTIAL_THRESHOLD)
-		outcome = FAVOR_OUTCOME_PARTIAL
-		awarded = round(ship.favor_earned * FAVOR_SEND_PARTIAL_MULT)
+	var/owed = awarded - ship.favor_banked
+	adjust_merchant_favor(owed, allow_negative = auto)
+	if(owed >= 0)
+		favor_from_sendoffs += owed
 	else
-		outcome = FAVOR_OUTCOME_DISHONORED
-		awarded = -round(FAVOR_SEND_FAILURE_PENALTY * ship.tonnage_scale_mult())
-	adjust_merchant_favor(awarded, allow_negative = auto)
-	if(awarded >= 0)
-		favor_from_sendoffs += awarded
-	else
-		favor_penalties += -awarded
+		favor_penalties += -owed
 	favor_ledger.Insert(1, list(list(
 		"realm_label" = realm ? realm.name : ship.realm_id,
 		"ship_name" = ship.ship_name,
@@ -483,6 +473,37 @@ SUBSYSTEM_DEF(merchant_trade)
 	)))
 	if(length(favor_ledger) > 8)
 		favor_ledger.Cut(9)
+
+/datum/controller/subsystem/merchant_trade/proc/ship_favor_outcome(datum/trade_ship/ship)
+	if(ship.auto_hailed)
+		return FAVOR_OUTCOME_PARTIAL
+	var/ratio = ship.favor_earned / max(1, ship.expected_favor)
+	if(ratio >= FAVOR_SEND_CLEAN_THRESHOLD)
+		return FAVOR_OUTCOME_HONORED
+	if(ratio >= FAVOR_SEND_PARTIAL_THRESHOLD)
+		return FAVOR_OUTCOME_PARTIAL
+	return FAVOR_OUTCOME_DISHONORED
+
+/datum/controller/subsystem/merchant_trade/proc/ship_favor_award(datum/trade_ship/ship, outcome)
+	if(ship.auto_hailed)
+		return 0
+	switch(outcome)
+		if(FAVOR_OUTCOME_HONORED)
+			return round(ship.favor_earned * FAVOR_SEND_CLEAN_MULT)
+		if(FAVOR_OUTCOME_PARTIAL)
+			return round(ship.favor_earned * FAVOR_SEND_PARTIAL_MULT)
+	return -round(FAVOR_SEND_FAILURE_PENALTY * ship.tonnage_scale_mult())
+
+/datum/controller/subsystem/merchant_trade/proc/bank_ship_favor(datum/trade_ship/ship)
+	if(!ship || ship.dock_state != TRADE_SHIP_STATE_DEPARTING)
+		return
+	var/award = ship_favor_award(ship, ship_favor_outcome(ship))
+	if(award <= ship.favor_banked)
+		return
+	var/delta = award - ship.favor_banked
+	ship.favor_banked = award
+	adjust_merchant_favor(delta)
+	favor_from_sendoffs += delta
 
 /datum/controller/subsystem/merchant_trade/proc/adjust_merchant_favor(amt, allow_negative = FALSE)
 	merchant_favor = merchant_favor + amt

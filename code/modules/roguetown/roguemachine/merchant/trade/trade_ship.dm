@@ -37,6 +37,7 @@ GLOBAL_LIST_EMPTY(brewing_recipe_by_reagent)
 	var/dock_expires_at = 0
 	var/dock_expiry_timer_id
 	var/favor_earned = 0
+	var/favor_banked = 0
 	var/auto_hailed = FALSE
 	var/hail_refunded = FALSE
 	var/departure_auto = TRUE
@@ -240,6 +241,10 @@ GLOBAL_LIST_EMPTY(brewing_recipe_by_reagent)
 
 /datum/trade_ship/proc/is_honored()
 	return expected_favor > 0 && favor_earned >= expected_favor
+
+/datum/trade_ship/proc/add_favor(amt)
+	favor_earned += amt
+	SSmerchant_trade?.bank_ship_favor(src)
 
 /datum/trade_ship/proc/has_open_demand()
 	for(var/list/line in bulk_demands)
