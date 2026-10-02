@@ -185,6 +185,20 @@
 			return MARKET_THEME_ENGINEERING
 	return MARKET_THEME_MISC
 
+// Ensure that crafted valuables and seafood / pottery is not overly ship dependent for profit
+/proc/is_floor_exempt_bucket(bucket)
+	switch(bucket)
+		if(NAVIGATOR_BUCKET_VALUABLES_CRAFTED, NAVIGATOR_BUCKET_VALUABLES_LOOTED, NAVIGATOR_BUCKET_SEAFOOD, NAVIGATOR_BUCKET_POTTERY)
+			return TRUE
+	return FALSE
+
+// Allows for Seafood and Pottery to drain passively without a ship
+/proc/is_passive_drain_bucket(bucket)
+	switch(bucket)
+		if(NAVIGATOR_BUCKET_SEAFOOD, NAVIGATOR_BUCKET_POTTERY)
+			return TRUE
+	return FALSE
+
 /proc/get_navigator_bucket_pop_scale(bucket)
 	switch(bucket)
 		if(NAVIGATOR_BUCKET_VALUABLES_LOOTED)

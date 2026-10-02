@@ -22,6 +22,7 @@ SUBSYSTEM_DEF(merchant_trade)
 	var/list/pool_theme_jitters = list()
 	var/pool_pop_snapshot = 0
 	var/resnapshot_timer_id
+	var/passive_drain_timer_id
 	var/merchant_favor = 0
 	var/merchant_favor_high = 0
 	var/favor_from_sendoffs = 0
@@ -122,6 +123,7 @@ SUBSYSTEM_DEF(merchant_trade)
 		bm_pool_consumed[bucket] = 0
 		lifetime_bm_pool_credited[bucket] = 0
 	schedule_pool_resnapshot()
+	schedule_passive_pool_drain()
 
 /datum/controller/subsystem/merchant_trade/proc/schedule_pool_resnapshot()
 	if(resnapshot_timer_id)
@@ -145,6 +147,30 @@ SUBSYSTEM_DEF(merchant_trade)
 	schedule_pool_resnapshot()
 	if(changed)
 		broadcast_market_change()
+
+/datum/controller/subsystem/merchant_trade/proc/schedule_passive_pool_drain()
+	if(passive_drain_timer_id)
+		deltimer(passive_drain_timer_id)
+	passive_drain_timer_id = addtimer(CALLBACK(src, PROC_REF(passive_pool_drain_tick)), MARKET_POOL_PASSIVE_DRAIN_INTERVAL, TIMER_STOPPABLE)
+
+/datum/controller/subsystem/merchant_trade/proc/passive_pool_drain_tick()
+	if(apply_passive_pool_drain())
+		broadcast_market_change()
+	schedule_passive_pool_drain()
+
+/datum/controller/subsystem/merchant_trade/proc/apply_passive_pool_drain()
+	var/changed = FALSE
+	for(var/bucket in pool_capacity)
+		if(!is_passive_drain_bucket(bucket))
+			continue
+		var/before = pool_consumed[bucket] || 0
+		if(before <= 0)
+			continue
+		var/after = max(0, before - round(pool_capacity[bucket] * MARKET_POOL_PASSIVE_DRAIN))
+		pool_consumed[bucket] = after
+		lifetime_pool_relieved[bucket] = (lifetime_pool_relieved[bucket] || 0) + (before - after)
+		changed = TRUE
+	return changed
 
 /datum/controller/subsystem/merchant_trade/proc/regen_bm_saturation_daily()
 	for(var/cat in bm_pool_capacity)
@@ -243,10 +269,7 @@ SUBSYSTEM_DEF(merchant_trade)
 		return 1.0
 	var/demand = pending_ship_demand[category] || 0
 	if(demand <= 0)
-		// Buckets exempt from the no-ship dampener. Valuables are precious by nature
-		// and Seafood is the fishermen's baseline livelihood - neither should crash
-		// just because no foreign ship is in port.
-		if(category == NAVIGATOR_BUCKET_VALUABLES_CRAFTED || category == NAVIGATOR_BUCKET_VALUABLES_LOOTED || category == NAVIGATOR_BUCKET_SEAFOOD)
+		if(is_floor_exempt_bucket(category))
 			return 1.0
 		return MARKET_DEMAND_NO_SHIP_FLOOR
 	var/ratio = demand / cap

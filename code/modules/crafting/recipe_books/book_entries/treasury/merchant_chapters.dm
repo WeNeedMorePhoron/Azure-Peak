@@ -220,7 +220,7 @@
 			<li>Capped at [MARKET_DEMAND_PAYOUT_MAX_MULT]x payout. Two ships wanting the
 			same category stack up to the cap and no further.</li> <li>Demand evaporates
 			when the ship leaves. With no ship wanting it, a category pays
-			[MARKET_DEMAND_NO_SHIP_FLOOR]x (valuables and seafood stay at 1.0x).</li>
+			[MARKET_DEMAND_NO_SHIP_FLOOR]x (valuables, seafood and pottery stay at 1.0x).</li>
 		</ul>
 
 		<h3>Saturation</h3>
@@ -231,6 +231,8 @@
 			[MARKET_POOL_POP_REFERENCE].</li> <li>A ship docking for a category clears
 			[MARKET_DEMAND_SHIP_SATURATION_DRAIN * 100]% of that category's capacity.
 			This opens room for more sales while it's in port.</li>
+			<li>Seafood and pottery also clear [MARKET_POOL_PASSIVE_DRAIN * 100]% of their capacity every
+			[DisplayTimeText(MARKET_POOL_PASSIVE_DRAIN_INTERVAL)], ensuring towners can still make some profit even without ships.</li>
 			<li>A full warehouse refuses further intake. The Navigator sends the goods back with a \"market is choked\" message.</li>
 			<li>The Black Market runs in parallel. It has [MARKET_BM_POOL_FRACTION * 100]% of the capacity, flat prices (no demand mechanic), and clears
 			[MARKET_BM_DAILY_SATURATION_REGEN * 100]% of its capacity each day.</li>
