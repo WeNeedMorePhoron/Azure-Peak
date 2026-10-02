@@ -100,7 +100,7 @@
 	user.emote("scream")
 
 	playsound(get_turf(user), 'sound/magic/charging_lightning.ogg', 100) //Unique que a sapper has popped off
-	user.apply_status_effect(/datum/status_effect/buff/sapper_exploding)
+	user.apply_status_effect(/datum/status_effect/buff/sapper_exploding) //We want this fucker to glow because holy shit this is strong now, it also does -2 con, so from 5 -> 3. Hit them or BOLT IT.
 	user.visible_message(
 		span_danger("[user] begins to shake and convulse violently, slowly beginning to glow in a violently blinding light that emanates from them!")
 	)
@@ -110,7 +110,7 @@
 
 /obj/effect/proc_holder/spell/proc/sapper_explode(mob/living/user)
 
-	explosion(get_turf(user), devastation_range = 3, heavy_impact_range = 3, light_impact_range = 5, flash_range = 5, flame_range = 3, smoke = TRUE, soundin = 'sound/misc/explode/incendiary (1).ogg') //This will destroy walls and absolutely FUCK UP people nearby.
+	explosion(get_turf(user), devastation_range = 3, heavy_impact_range = 4, light_impact_range = 5, flash_range = 5, flame_range = 3, smoke = TRUE, soundin = 'sound/misc/explode/incendiary (1).ogg') //This will destroy walls and absolutely FUCK UP people nearby.
 	playsound(get_turf(user), 'sound/magic/soulshot.ogg', 100) //Extra AURA
 
 	user.gib(no_brain = TRUE, no_organs = TRUE)
