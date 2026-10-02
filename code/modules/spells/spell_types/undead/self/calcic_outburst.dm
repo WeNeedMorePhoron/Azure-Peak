@@ -108,7 +108,7 @@
 
 /obj/effect/proc_holder/spell/proc/sapper_explode(mob/living/user)
 
-	explosion(get_turf(user), 4, 4, 5, 5, flame_range = 3, soundin = 'sound/misc/explode/incendiary (1).ogg') //This will destroy walls and absolutely FUCK UP people nearby.
+	explosion(get_turf(user), 4, 4, 4, 4, flame_range = 3, soundin = 'sound/misc/explode/incendiary (1).ogg') //This will destroy walls and absolutely FUCK UP people nearby.
 	playsound(get_turf(user), 'sound/magic/soulshot.ogg', 100) //Extra AURA
 
 	user.gib(no_brain = TRUE, no_organs = TRUE)
