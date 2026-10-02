@@ -79,8 +79,6 @@
 #define MARKUP_LIVESTOCK 1.0
 #define MARKUP_MISCELLANEOUS 1.0
 
-#define INGOT_BRONZE_FROM_COPPER 1.0
-#define INGOT_BRONZE_FROM_TIN 0.5
 #define INGOT_SILVERBLESSED_MULT 1.1
 #define INGOT_STEELHOLY_MULT 1.1
 #define INGOT_BLACKSTEEL_FROM_STEEL 3
@@ -90,8 +88,8 @@
 #define INGOT_AALLOY_MULT 0.25
 #define INGOT_DROW_MULT 1.0
 
-#define MATERIAL_PLANK_FROM_WOOD 1.5
-#define MATERIAL_ROGUEGEAR_FROM_STEEL 1.0
+#define MATERIAL_PLANK_FROM_WOOD 0.5
+#define MATERIAL_ROGUEGEAR_FROM_BRONZE 0.6
 
 // ----- ATC WAREHOUSE MARKET POOLS -----
 // Pool capacity in mammon per category. Capacity scales sublinearly with player population.
