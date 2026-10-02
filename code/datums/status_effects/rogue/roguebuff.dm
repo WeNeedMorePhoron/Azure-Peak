@@ -2961,12 +2961,12 @@
 		return
 	var/filter = owner.get_filter(SAPPERGLOW_FILTER)
 	if (!filter)
-		owner.add_filter(SAPPERGLOW_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 60, "size" = 1))
+		owner.add_filter(SAPPERGLOW_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 60, "size" = 2))
 
 	if(!mob_light_obj || QDELETED(mob_light_obj))
-		mob_light_obj = owner.mob_light("#ff0000", 5, 3)
+		mob_light_obj = owner.mob_light("#ff0000", 5, 2)
 	else
-		mob_light_obj.set_light(5, null, 3, l_color = "#ff0000")
+		mob_light_obj.set_light(5, null, 2, l_color = "#ff0000")
 
 	return TRUE
 
