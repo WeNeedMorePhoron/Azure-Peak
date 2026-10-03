@@ -110,7 +110,7 @@
 		var/hit_broke = FALSE
 		var/hit_full = FALSE
 		var/list/payout = list(0)
-		for(var/obj/item/SI in P.contents.Copy())
+		for(var/obj/item/SI in P.held_contents())
 			switch(try_recycle(SI, user, TRUE, payout))
 				if(SCRAPPER_RECYCLE_OK)
 					processed++

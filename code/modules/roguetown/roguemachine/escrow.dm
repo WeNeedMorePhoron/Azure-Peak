@@ -92,17 +92,15 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 	return TRUE
 
 /datum/escrow_order/proc/try_accept_item(obj/item/I)
+	var/list/needed = required_result_counts()
+	var/wanted = needed[I.type]
+	if(!wanted || (delivered_counts[I.type] || 0) >= wanted)
+		return FALSE
 	if(I.max_integrity > 0 && I.obj_integrity < I.max_integrity * ESCROW_DURABILITY_FLOOR)
 		return "damaged"
-	var/list/needed = required_result_counts()
-	for(var/path in needed)
-		if(I.type != path)
-			continue
-		if((delivered_counts[path] || 0) < needed[path])
-			delivered_counts[path] = (delivered_counts[path] || 0) + 1
-			delivered_items += I
-			return TRUE
-	return FALSE
+	delivered_counts[I.type] = (delivered_counts[I.type] || 0) + 1
+	delivered_items += I
+	return TRUE
 
 /obj/structure/roguemachine/escrow
 	name = "COMMISSIONER"
@@ -263,6 +261,7 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 	. = ..()
 	. += span_info("A posting will draw its deposit from the commissioner's bank account, with fund transferred once it is claimed by a smith or tailor.")
 	. += span_info("A smith can claim an open order, deliver the finished items back into the machine, and collect the escrowed pay once every item has been delivered. An order that has been claimed cannot be cancelled by the commissioner.")
+	. += span_info("Click on it with a container to empty items inside into any orders that match.")
 	. += span_info("A guild member may adjust material prices and margins through the machine's panel.")
 
 /obj/structure/roguemachine/escrow/proc/rebuild_catalog()
@@ -507,20 +506,57 @@ GLOBAL_LIST_EMPTY(escrow_machines)
 	var/key = escrow_key(user)
 	if(!key)
 		return
+	var/result = deliver_item(I, key)
+	if(result == "damaged")
+		to_chat(user, span_warning("[src] refuses [I]. Mend it before you deliver it."))
+		return
+	if(result)
+		playsound(loc, 'sound/misc/machinevomit.ogg', 100, TRUE, -1)
+		to_chat(user, span_notice("[src] accepts [I]."))
+		SStgui.update_uis(src)
+		return
+	var/list/held = I.held_contents()
+	if(length(held))
+		bulk_deliver(I, held, user, key)
+		return
+	to_chat(user, span_warning("[src] has no order waiting for [I]."))
+
+/obj/structure/roguemachine/escrow/proc/deliver_item(obj/item/I, key, obj/item/container)
+	var/damaged = FALSE
 	for(var/datum/escrow_order/O in orders)
 		if(O.status != "claimed" || O.smith_name != key)
 			continue
 		var/result = O.try_accept_item(I)
 		if(result == "damaged")
-			to_chat(user, span_warning("[src] refuses [I]. Mend it before you deliver it."))
-			return
+			damaged = TRUE
+			continue
 		if(result)
-			I.forceMove(src)
-			playsound(loc, 'sound/misc/machinevomit.ogg', 100, TRUE, -1)
-			to_chat(user, span_notice("[src] accepts [I]."))
-			SStgui.update_uis(src)
-			return
-	to_chat(user, span_warning("[src] has no order waiting for [I]."))
+			if(container)
+				container.release_held(I, src)
+			else
+				I.forceMove(src)
+			return TRUE
+	return damaged ? "damaged" : FALSE
+
+/obj/structure/roguemachine/escrow/proc/bulk_deliver(obj/item/container, list/held, mob/user, key)
+	var/accepted = 0
+	var/damaged = 0
+	for(var/obj/item/I in held)
+		var/result = deliver_item(I, key, container)
+		if(result == "damaged")
+			damaged++
+		else if(result)
+			accepted++
+	var/tail = damaged ? " Mend [damaged] item\s first." : ""
+	if(accepted)
+		playsound(loc, 'sound/misc/machinevomit.ogg', 100, TRUE, -1)
+		to_chat(user, span_notice("[src] takes [accepted] item\s from [container].[tail]"))
+		SStgui.update_uis(src)
+		return
+	if(damaged)
+		to_chat(user, span_warning("[src] refuses everything in [container].[tail]"))
+		return
+	to_chat(user, span_warning("[src] has no order waiting for anything in [container]."))
 
 /obj/structure/roguemachine/escrow/ui_state(mob/user)
 	return GLOB.human_adjacent_state
