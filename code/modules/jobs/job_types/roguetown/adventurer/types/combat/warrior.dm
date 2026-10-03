@@ -743,9 +743,9 @@
 	var/weapons = list("Broken Blade","Ghastly Club")
 	var/weapon_choice = input(H, "Choose your..... WEAPON.", "TAKE UP ARMS.") as anything in weapons
 	switch(weapon_choice)
-			if("Broken Blade")
-				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				r_hand = /obj/item/rogueweapon/sword/broken
-			if("Ghastly Club")
-				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				r_hand = /obj/item/rogueweapon/mace/woodclub/deprived
+		if("Broken Blade")
+			H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
+			r_hand = /obj/item/rogueweapon/sword/broken
+		if("Ghastly Club")
+			H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
+			r_hand = /obj/item/rogueweapon/mace/woodclub/deprived
