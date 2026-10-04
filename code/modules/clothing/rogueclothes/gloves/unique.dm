@@ -105,7 +105,7 @@
 /obj/item/clothing/gloves/roguetown/knuckles/psydon/ComponentInitialize()
 	AddComponent(\
 		/datum/component/silverbless,\
-		pre_blessed = BLESSING_PSYDONIAN,\
+		pre_blessed = BLESSING_NONE,\
 		silver_type = SILVER_PSYDONIAN\
 	)
 
@@ -120,17 +120,16 @@
 /obj/item/clothing/gloves/roguetown/knuckles/silver/ComponentInitialize()
 	AddComponent(\
 		/datum/component/silverbless,\
-		pre_blessed = BLESSING_TENNITE,\
+		pre_blessed = BLESSING_NONE,\
 		silver_type = SILVER_TENNITE\
 	)
 
 /obj/item/clothing/gloves/roguetown/knuckles/psydon/old
 	name = "enduring knuckles"
 	desc = "A simple piece of harm molded in a holy mixture of steel and silver, its holy blessing long since faded. You are HIS weapon, you needn't fear Aeon."
-	icon_state = "psyknuckle"
+	icon_state = "opsyknuckle"
 	is_silver = FALSE
 	smeltresult = /obj/item/ingot/steel
-	color = COLOR_FLOORTILE_GRAY
 
 /obj/item/clothing/gloves/roguetown/knuckles/psydon/old/ComponentInitialize()
 	return

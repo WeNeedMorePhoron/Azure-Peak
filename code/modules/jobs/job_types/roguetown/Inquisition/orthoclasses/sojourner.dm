@@ -79,7 +79,7 @@
 		if("katar")
 			H.put_in_hands(new /obj/item/rogueweapon/katar/psydon(H))
 		if("knuckledusters")
-			H.put_in_hands(new /obj/item/rogueweapon/knuckledusters/psy(H))
+			H.put_in_hands(new /obj/item/clothing/gloves/roguetown/knuckles/psydon(H))
 
 	head = /obj/item/clothing/head/roguetown/headband/naledi
 	mask = /obj/item/clothing/mask/rogue/lordmask/naledi/sojourner

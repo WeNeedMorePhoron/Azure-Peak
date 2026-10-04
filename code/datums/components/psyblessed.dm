@@ -48,37 +48,6 @@
 		return CURSEITEM_INT_DAMAGE_TEN_MULTIPLIER
 	return TRUE
 
-/datum/component/silverbless/proc/copy_blessing_from(datum/component/silverbless/other)
-	if(!istype(other))
-		return
-	if(is_blessed == other.is_blessed)
-		return
-	if(is_blessed)
-		revert_bless()
-	if(other.is_blessed)
-		apply_bless(other.is_blessed)
-
-/datum/component/silverbless/proc/revert_bless()
-	if(!is_blessed)
-		return
-	if(isitem(parent))
-		var/obj/item/I = parent
-		var/blessing_divisor = (is_blessed == BLESSING_TENNITE) ? TENNITE_BLESSING_DIVISOR : 1
-		I.force -= added_force
-		if(I.force_wielded)
-			I.force_wielded -= added_force
-		if(I.max_blade_int)
-			I.max_blade_int -= round(added_blade_int * blessing_divisor)
-			I.blade_int = min(I.blade_int, I.max_blade_int)
-		I.max_integrity -= round(added_int * blessing_divisor)
-		I.obj_integrity = min(I.obj_integrity, I.max_integrity)
-		I.wdefense -= round(added_def * blessing_divisor)
-		I.update_wdefense_dynamic()
-		I.name = initial(I.name)
-		qdel(I.GetComponent(/datum/component/metal_glint))
-	is_blessed = BLESSING_NONE
-	cursed_item_intdamage = null
-
 /datum/component/silverbless/proc/try_bless(blessing_type)
 	if(!is_blessed)
 		apply_bless(blessing_type)
