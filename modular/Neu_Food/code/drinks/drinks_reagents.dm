@@ -123,7 +123,7 @@
 /datum/reagent/consumable/caffeine/coffee/cheese // cheese is milk right?
 	cuisine = CUISINE_ETRUSCAN
 	name = "lumpy etrusso"
-	description = "A thing of coffee with... with cheese in it. What. who thought cheese was milk?"
+	description = "A thing of coffee with... with cheese in it. What. Who thought cheese was milk?"
 	reagent_state = LIQUID
 	color = "#aa894c"
 	taste_description = "savory... lumpy caramelization- is that cheese?"
