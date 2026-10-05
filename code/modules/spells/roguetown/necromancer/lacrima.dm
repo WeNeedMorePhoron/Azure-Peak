@@ -157,7 +157,7 @@
 		target.gib()
 
 /datum/stressevent/torn_lux
-	desc = span_boldred("MY LUX IS TORN ASUNDER!! My heartbeats feel erradic and hollow, as if my body wills to rot from inside out.")
+	desc = span_boldred("MY LUX IS TORN ASUNDER!! My heartbeats feel erratic and hollow, as if my body wills to rot from inside out.")
 	stressadd = 10
 	timer = 5 MINUTES
 
@@ -167,17 +167,17 @@
 	timer = 15 MINUTES
 
 /datum/stressevent/torn_lux_psydonite
-	desc = span_boldred("MY LUX IS TORN ASUNDER!! My heartbeats feel erradic and hollow, as if my body wills to rot from inside out. I must endure... I must...")
+	desc = span_boldred("MY LUX IS TORN ASUNDER!! My heartbeats feel erratic and hollow, as if my body wills to rot from inside out. I must endure... I must...")
 	stressadd = 10
 	timer = 5 MINUTES
 
 /datum/stressevent/torn_lux_devout
-	desc = span_boldred("MY LUX IS TORN ASUNDER!! My heartbeats feel erradic and hollow, as if my body wills to rot from inside out. My connection to the Pantheon feels faint... Am I forsaken?")
+	desc = span_boldred("MY LUX IS TORN ASUNDER!! My heartbeats feel erratic and hollow, as if my body wills to rot from inside out. My connection to the Pantheon feels faint... Am I forsaken?")
 	stressadd = 10
 	timer = 5 MINUTES
 
 /datum/stressevent/torn_lux_heretic
-	desc = span_boldred("MY LUX IS TORN ASUNDER!! My heartbeats feel erradic and hollow, as if my body wills to rot from inside out. But if this sacrifice serves the greater good, then it was worth it!")
+	desc = span_boldred("MY LUX IS TORN ASUNDER!! My heartbeats feel erratic and hollow, as if my body wills to rot from inside out. But if this sacrifice serves the greater good, then it was worth it!")
 	stressadd = 1
 	timer = 5 MINUTES
 
