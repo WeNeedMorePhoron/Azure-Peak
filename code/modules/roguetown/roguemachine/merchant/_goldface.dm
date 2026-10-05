@@ -39,6 +39,7 @@
 	var/value_record_key = STATS_GOLDFACE_VALUE_SPENT
 	// True to make sure it bypass all taxes no matter what
 	var/bypass_tax = FALSE
+	var/blockade_surcharge = TRUE
 	var/list/categories = list(
 		"Alcohols",
 		"Apparel",
@@ -148,6 +149,7 @@
 	icon_state = "vheslie"
 	lockid = "Vheslie"
 	profit_id = list("Bathmaster") //Hilarious (not you can unlock this)
+	blockade_surcharge = FALSE
 	categories = list(
 		"Apparel (Ascendant Amulets)", //Wretch Exclusive Supplies
 		"Illicit Medical Supplies",
@@ -197,12 +199,17 @@
 /obj/structure/roguemachine/goldface/proc/compute_pack_tax(datum/supply_pack/PA)
 	return round(SStreasury.get_tax_rate(TAX_CATEGORY_IMPORT_TARIFF) * PA.cost)
 
+/obj/structure/roguemachine/goldface/proc/get_pack_blockade_pct(datum/supply_pack/PA)
+	if(!blockade_surcharge)
+		return 0
+	return get_blockade_goldface_surcharge_pct(PA.group)
+
 /obj/structure/roguemachine/goldface/proc/compute_pack_surcharge(datum/supply_pack/PA)
-	return round(PA.cost * get_blockade_goldface_surcharge_pct(PA.group) / 100)
+	return round(PA.cost * get_pack_blockade_pct(PA) / 100)
 
 /obj/structure/roguemachine/goldface/proc/serialize_pack(datum/supply_pack/PA, tariff_active)
 	var/base = round(PA.cost + PA.cost * get_effective_fee())
-	var/blockade_pct = get_blockade_goldface_surcharge_pct(PA.group)
+	var/blockade_pct = get_pack_blockade_pct(PA)
 	var/surcharge = round(PA.cost * blockade_pct / 100)
 	var/tariff = tariff_active ? compute_pack_tax(PA) : 0
 	return list(
@@ -319,8 +326,8 @@
 	data["tariff_paid"] = tariff_collected_here
 	data["tariff_evaded"] = tariff_evaded_here
 	data["dodging"] = dodging ? TRUE : FALSE
-	data["active_blockades"] = build_blockade_goldface_rows()
-	data["blockade_gear_pct"] = get_blockade_gear_surcharge_pct()
+	data["active_blockades"] = blockade_surcharge ? build_blockade_goldface_rows() : list()
+	data["blockade_gear_pct"] = blockade_surcharge ? get_blockade_gear_surcharge_pct() : 0
 	if(is_public)
 		var/effective_pct = round(get_effective_fee() * 100)
 		data["public_margin_pct"] = effective_pct
