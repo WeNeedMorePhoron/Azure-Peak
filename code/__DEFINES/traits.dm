@@ -940,6 +940,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LEGENDARY_ALCHEMIST		"Expert Herb Finder"
 /// Used to track if a player has rejected vampire convert
 #define TRAIT_REFUSED_VAMP_CONVERT "refused_vampire_conversion"
+/// applied when you're bitten by any vamp. makes you more likely to have a false positive on the INDEXER
+#define TRAIT_VAMP_BITTEN "vamp_bitten_ever"
 /// makes your footsteps completely silent
 #define TRAIT_SILENT_FOOTSTEPS "silent_footsteps"
 /// reduces sharply the noise of failed lockpicking attempts
