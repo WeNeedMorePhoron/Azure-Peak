@@ -718,6 +718,8 @@ Inquisitorial armory down here
 	. += span_info("It takes several cycles to fill the INDEXER with blood - at which point, it will automatically retract the blade and seal itself. This may prove dangerous if used on someone who's already suffering from blood loss.")
 	. += span_info("Once filled, left-clicking the INDEXER on a signed ACCUSATION or CONFESSION will combine them into a foldable package. This package can be then folded, stamped, and mailed back to Otava through the HERMES.")
 	. += span_info("Mailing an INDEXER reveals the worshipped pantheon of whoever's blood was gathered. More MARQUES are rewarded if the INDEXER was filled with the blood of an ASCENDANT, NITEBEASTE, or CURSEBOUND.")
+	. += span_info("This has a significant false-positive chance. Anything from the effects of inhumen miracles to ambient rot in the air can cause someone's patron to be read as inhumen.")
+	. += span_info("Certain conditions can also cause a false-positive for cursed blood.")
 
 /obj/item/inqarticles/indexer/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
@@ -1714,6 +1716,10 @@ GLOBAL_LIST_INIT(inquisition_used_ids, list())
 	var/mob/living/carbon/human/subject
 	var/report_html = ""
 	var/report_id
+
+/obj/item/paper/inquisition_report/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("A report on taint present in an INDEXED subject's blood. It is known to have a high rate of false-positives, attributed to anything from nitebeaste bites to inhumen miracle aftereffects to ambient rot in the air. Despite this, the Otavan Inquisition evidently considers it useful enough to keep around.")
 
 /obj/item/paper/inquisition_report/update_icon_state()
 	icon_state = "confession_signed"
