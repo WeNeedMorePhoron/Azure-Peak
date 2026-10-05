@@ -3,7 +3,7 @@
 
 /obj/item/clothing/head/roguetown/crown/fakecrown
 	name = "Old crown"
-	desc = "A ancient crown, now seemingly lacking any greater purpose other than it's collector's value."
+	desc = "A crown, now seemingly lacking any greater purpose other than it's collectors value."
 	icon_state = "serpcrown"
 	no_loot_taint = TRUE
 
