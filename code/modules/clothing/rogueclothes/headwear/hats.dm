@@ -786,3 +786,4 @@
 	icon_state = "fur_headband"
 	item_state = "fur_headband"
 	body_parts_covered = HEAD|HAIR|EARS
+	salvage_result = /obj/item/natural/hide/cured
