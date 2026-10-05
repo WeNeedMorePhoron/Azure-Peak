@@ -26,21 +26,6 @@
 		.+= span_info("This footwear can hold a tossblade or laborer's knife. Left click it with one to sheathe it.")
 		.+= span_info("Right click to draw a sheathed weapon.")
 
-/datum/component/holster/boot
-	use_icons = FALSE
-
-/datum/component/holster/boot/weapon_check(mob/living/user, obj/A)
-	if(sheathed)
-		to_chat(user, span_warning("There's already something in there!"))
-		return FALSE
-	if(istype(A, /obj/item/rogueweapon/huntingknife/throwingknife) || istype(A, /obj/item/rogueweapon/huntingknife/idagger/steel/rotfang) || istype(A, /obj/item/rogueweapon/huntingknife/idagger/steel/profane))
-		return TRUE
-	return FALSE
-
-/datum/component/holster/boot/examine_check(datum/source, mob/user, list/examine_list)
-	if(sheathed)
-		examine_list += span_notice("There is [sheathed] slipped into the footwear. Right-click to pull it out.")
-
 /obj/item/clothing/shoes/roguetown/boots
 	name = "dark boots"
 	desc = "A pair of dark, well-cobbled boots. You have a feeling they're in your size."
