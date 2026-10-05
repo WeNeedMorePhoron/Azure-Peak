@@ -126,10 +126,12 @@
 	else if(HAS_TRAIT(target, TRAIT_CABAL) || HAS_TRAIT(target, TRAIT_HORDE) || HAS_TRAIT(target, TRAIT_FREEMAN) || HAS_TRAIT(target, TRAIT_DEPRAVED))
 		to_chat(user, span_purple("Part of the Lux's energy wanes into a restorative aura upon them. A debt owed to another of the Four, perhaps?"))
 		to_chat(target, span_purple("The pain gives way to clarity, as your wounds close, and become nothing but a memory."))
+		chest.remove_wound(/datum/wound/fracture/chest)
 		if(!user.has_stress_event(/datum/stressevent/dame_frown))
 			user.add_stress(/datum/stressevent/dame_frown)
 		user.remove_stress(/datum/stressevent/dame_favor)
 		target.add_stress(/datum/stressevent/torn_lux_heretic)
+		user.playsound_local(user, 'sound/misc/lava_death.ogg', 40, TRUE)
 
 	else if(isaasimar(target))
 		target.add_stress(/datum/stressevent/torn_lux_aasimar)
