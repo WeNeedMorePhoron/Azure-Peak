@@ -1850,7 +1850,10 @@ GLOBAL_LIST_INIT(inquisition_used_ids, list())
 		patron_type = 2
 	else if(H.patron?.type in OLD_GOD_PATRON)
 		patron_type = 3
-	if(prob(mistake)) // decent chance of fucking up and calling someone a heretic anyway
+	var/actualmistake = mistake
+	if(!HAS_TRAIT(H, TRAIT_ASCENDENT_MIRACLED))
+		actualmistake /= 2 // if you've never been ascendentmiracled you're less likely to get false-flagged
+	if(prob(actualmistake)) // decent chance of fucking up and calling someone a heretic anyway
 		patron_type = 2
 		second_fp_chance = FALSE // don't double-dip the false positive
 	report_html += "<b>LYFEBLOOD-LUX RESONATOR RESULTS</b><br><br>"
