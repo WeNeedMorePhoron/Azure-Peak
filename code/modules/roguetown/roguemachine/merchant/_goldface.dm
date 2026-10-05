@@ -189,7 +189,7 @@
 	return extra_fee
 
 /obj/structure/roguemachine/goldface/proc/compute_pack_price(datum/supply_pack/PA, mob/living/carbon/human/H)
-	var/cost = PA.cost + PA.cost * get_effective_fee()
+	var/cost = PA.cost + PA.cost * get_effective_fee() + compute_pack_surcharge(PA)
 	if(!is_tax_exempt(H))
 		cost += compute_pack_tax(PA)
 	return round(cost)
@@ -197,8 +197,12 @@
 /obj/structure/roguemachine/goldface/proc/compute_pack_tax(datum/supply_pack/PA)
 	return round(SStreasury.get_tax_rate(TAX_CATEGORY_IMPORT_TARIFF) * PA.cost)
 
+/obj/structure/roguemachine/goldface/proc/compute_pack_surcharge(datum/supply_pack/PA)
+	return round(PA.cost * get_blockade_goldface_surcharge_pct(PA.group) / 100)
+
 /obj/structure/roguemachine/goldface/proc/serialize_pack(datum/supply_pack/PA, tariff_active)
 	var/base = round(PA.cost + PA.cost * get_effective_fee())
+	var/surcharge = compute_pack_surcharge(PA)
 	var/tariff = tariff_active ? compute_pack_tax(PA) : 0
 	return list(
 		"ref" = "[PA.type]",
@@ -206,8 +210,9 @@
 		"category" = PA.group,
 		"qty" = PA.no_name_quantity ? 1 : PA.contains.len,
 		"price_base" = base,
+		"price_blockade" = surcharge,
 		"price_tariff" = tariff,
-		"price" = base + tariff,
+		"price" = base + surcharge + tariff,
 	)
 
 /obj/structure/roguemachine/goldface/update_icon()
@@ -312,6 +317,7 @@
 	data["tariff_paid"] = tariff_collected_here
 	data["tariff_evaded"] = tariff_evaded_here
 	data["dodging"] = dodging ? TRUE : FALSE
+	data["active_blockades"] = build_blockade_goldface_rows()
 	if(is_public)
 		var/effective_pct = round(get_effective_fee() * 100)
 		data["public_margin_pct"] = effective_pct
