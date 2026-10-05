@@ -447,6 +447,10 @@
 	return TRUE
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/profane/proc/attempt_to_break(atom/target, mob/user, case_number = 1)
+	if(!target)
+		return
+	if(!user)
+		return
 	switch(case_number)
 		if(1) // astrata, default
 			src.priestly_destruction(target, user)
