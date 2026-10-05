@@ -1723,6 +1723,32 @@ GLOBAL_LIST_INIT(inquisition_used_ids, list())
 /obj/item/paper/inquisition_report/attack_right(mob/user)
 	return
 
+/obj/item/paper/inquisition_report/read(mob/user)
+	if(!report_html || !length(report_html))
+		to_chat(user, span_warning("The certificate appears to be... blank? Report this in an A-HELP or file a Bug Report, please!"))
+		return
+
+	var/html = {"
+	<html>
+	<head>
+		<title>Haemological Report</title>
+	</head>
+	<body bgcolor='#E8DFC4'>
+		<div style='
+			font-family: Georgia, Times New Roman, serif;
+			padding: 16px;
+			max-width: 800px;
+			margin: auto;
+			color: black;
+		'>
+			[report_html]
+		</div>
+	</body>
+	</html>
+	"}
+
+	user << browse(html, "window=inquisition_report;size=750x850;can_resize=1")
+
 /obj/item/paper/inquisition_report/attack_self(mob/user)
 	if(!report_html || !length(report_html))
 		to_chat(user, span_warning("The certificate appears to be... blank? Report this in an A-HELP or file a Bug Report, please!"))
