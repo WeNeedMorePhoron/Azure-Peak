@@ -11,8 +11,32 @@ GLOBAL_LIST_INIT(blockade_goldface_surcharges, list(
 	TRADE_REGION_HEARTFELT = list("pct" = BLOCKADE_SURCHARGE_DEMAND_PCT, "reason" = "from higher demand"),
 ))
 
+GLOBAL_LIST_INIT(blockade_gear_categories, list(
+	"Armor (Light)",
+	"Armor (Iron)",
+	"Armor (Steel)",
+	"Armor (Exotic)",
+	"Weapons (Ranged)",
+	"Weapons (Iron and Shields)",
+	"Weapons (Bronze)",
+	"Weapons (Steel)",
+	"Weapons (Foreign)",
+))
+
+/proc/count_roundstart_blockades()
+	var/count = 0
+	for(var/datum/blockade/B as anything in GLOB.active_blockades)
+		if(B.roundstart)
+			count++
+	return count
+
+/proc/get_blockade_gear_surcharge_pct()
+	return count_roundstart_blockades() * BLOCKADE_SURCHARGE_GEAR_PCT
+
 /proc/get_blockade_goldface_surcharge_pct(category)
 	var/total = 0
+	if(category in GLOB.blockade_gear_categories)
+		total += get_blockade_gear_surcharge_pct()
 	for(var/datum/blockade/B as anything in GLOB.active_blockades)
 		if(!B.roundstart)
 			continue

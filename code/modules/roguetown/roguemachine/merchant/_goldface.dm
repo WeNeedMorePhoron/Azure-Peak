@@ -202,7 +202,8 @@
 
 /obj/structure/roguemachine/goldface/proc/serialize_pack(datum/supply_pack/PA, tariff_active)
 	var/base = round(PA.cost + PA.cost * get_effective_fee())
-	var/surcharge = compute_pack_surcharge(PA)
+	var/blockade_pct = get_blockade_goldface_surcharge_pct(PA.group)
+	var/surcharge = round(PA.cost * blockade_pct / 100)
 	var/tariff = tariff_active ? compute_pack_tax(PA) : 0
 	return list(
 		"ref" = "[PA.type]",
@@ -211,6 +212,7 @@
 		"qty" = PA.no_name_quantity ? 1 : PA.contains.len,
 		"price_base" = base,
 		"price_blockade" = surcharge,
+		"blockade_pct" = blockade_pct,
 		"price_tariff" = tariff,
 		"price" = base + surcharge + tariff,
 	)
@@ -318,6 +320,7 @@
 	data["tariff_evaded"] = tariff_evaded_here
 	data["dodging"] = dodging ? TRUE : FALSE
 	data["active_blockades"] = build_blockade_goldface_rows()
+	data["blockade_gear_pct"] = get_blockade_gear_surcharge_pct()
 	if(is_public)
 		var/effective_pct = round(get_effective_fee() * 100)
 		data["public_margin_pct"] = effective_pct
