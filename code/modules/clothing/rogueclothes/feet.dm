@@ -179,7 +179,7 @@
 
 /obj/item/clothing/shoes/roguetown/gladiator
 	name = "leather sandals"
-	desc = ""
+	desc = "A pair of sturdy sandal-boots with extra straps on the shins."
 	gender = PLURAL
 	icon_state = "gladiator"
 	item_state = "gladiator"
@@ -675,7 +675,6 @@
 	sewrepair = TRUE
 	is_barefoot = TRUE
 	armor = ARMOR_CLOTHING
-	is_barefoot = TRUE
 	salvage_amount = 1
 	salvage_result = /obj/item/natural/fur
 
