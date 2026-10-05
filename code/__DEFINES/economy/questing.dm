@@ -215,6 +215,10 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 #define BLOCKADE_INTERMISSION_DS (3 MINUTES)
 #define BLOCKADE_INTERMISSION_BELL_DS (15 SECONDS)
 #define BLOCKADE_HORN_EXTRARANGE 10
+#define BLOCKADE_WAVE_WARN_FIRST (7.5 MINUTES)
+#define BLOCKADE_WAVE_WARN_SECOND (5 MINUTES)
+#define BLOCKADE_WAVE_WARN_THIRD (2 MINUTES)
+#define NOM_DE_GUERRE_MAX_LENGTH 60
 
 // Minimum Pledge to call a hoard recovery writ from a fellowship without being the Steward.
 #define HOARD_RECOVERY_PLEDGE 200
