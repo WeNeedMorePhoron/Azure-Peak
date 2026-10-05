@@ -667,7 +667,7 @@
 /obj/item/clothing/mask/rogue/lordmask/naledi/get_mechanics_examine()
 	. = ..()
 	if(!has_inlaid_spectacles)
-		. += span_blue("This mask can have a set of spectacles embedded into it, for Naledians with poor eyesight, at the cost of some of its durability. Place the mask on a table and use a pair of spectacles to set them in. Spectacles that have been summoned via magicks or those that are generaully too unusual cannot be inlaid.")
+		. += span_smallracialstatinfo("This mask can have a set of spectacles embedded into it, for Naledians with poor eyesight, at the cost of some of its durability. Place the mask on a table and use a pair of spectacles to set them in. Spectacles that have been summoned via magicks or those that are generally too unusual cannot be inlaid.")
 
 /obj/item/clothing/mask/rogue/lordmask/naledi/inlaid_spectacles
 	has_inlaid_spectacles = TRUE
