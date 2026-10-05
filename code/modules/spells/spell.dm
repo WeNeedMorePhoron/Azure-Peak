@@ -642,8 +642,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			if(!ignore_combat_tag)
 				L.changeNext_inCombat(IN_COMBAT_DELAY)
 			if(miracle && istype(L.patron, /datum/patron/inhumen))
-				for(var/mob/living/L in targets)
-					ADD_TRAIT(L, TRAIT_ASCENDENT_MIRACLED, TRAIT_GENERIC)
+				for(var/mob/living/LT in targets)
+					ADD_TRAIT(LT, TRAIT_ASCENDENT_MIRACLED, TRAIT_GENERIC)
 		if(action)
 			action.build_all_button_icons()
 		return TRUE
