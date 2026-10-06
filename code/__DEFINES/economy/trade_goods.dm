@@ -119,6 +119,8 @@
 #define TRADE_GOOD_LIME "LIME"
 #define TRADE_GOOD_TANGERINE "TANGERINE"
 #define TRADE_GOOD_PLUM "PLUM"
+#define TRADE_GOOD_BEANS "BEANS"
+#define TRADE_GOOD_LENTILS "LENTILS"
 
 // Equipment (finished goods, fulfilled via warehouse, never stockpiled)
 #define TRADE_GOOD_STEEL_ARMING_SWORD "STEEL_ARMING_SWORD"
