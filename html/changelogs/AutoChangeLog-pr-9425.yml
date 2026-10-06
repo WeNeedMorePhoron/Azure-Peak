@@ -1,0 +1,4 @@
+author: "borneblood"
+delete-after: True
+changes:
+  - bugfix: "Fixed Haemo-Reports from the Inquisition not being able to be read through Examine"
