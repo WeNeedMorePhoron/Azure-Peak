@@ -151,12 +151,12 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE
 	var/obj/effect/dummy/lighting_obj/moblight/light
 
-/datum/component/bioluminescence/Initialize(color ="#f5edda", power = 1)
+/datum/component/bioluminescence/Initialize(color ="#f5edda", range = 1, power = 1)
 	. = ..()
 	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
 	var/mob/living/L = parent
-	light = L.mob_light(1, power, _color =color)
+	light = L.mob_light(range, power, _color =color)
 
 /datum/component/bioluminescence/Destroy(force, silent)
 	QDEL_NULL(light)
