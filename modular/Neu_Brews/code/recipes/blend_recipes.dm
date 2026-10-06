@@ -1,5 +1,6 @@
 /datum/crafting_recipe/roguetown/cooking/blend
 	abstract_type = /datum/crafting_recipe/roguetown/cooking/blend
+	category = FOOD_CAT_BLENDS
 	display_category = ITEM_CAT_FOODSTUFF_PRESERVED
 	verbage_simple = "blend"
 	verbage = "blends"
