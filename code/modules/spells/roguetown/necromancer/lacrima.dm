@@ -13,8 +13,6 @@
 	secondary_resource_type = SPELL_COST_STAMINA
 	secondary_resource_cost = 100
 	cooldown_time = 5 MINUTES
-	invocation_type = INVOCATION_SHOUT
-	invocations = ",w Cede, et pars Magni Operis Eius eris!"
 	associated_skill = /datum/skill/magic/arcane
 	zizo_spell = TRUE
 
@@ -75,7 +73,7 @@
 	if(!chest.has_wound(/datum/wound/fracture/chest))
 		if(!do_after(user, break_time, target = target))
 			return FALSE
-
+		user.say(",w Cede...")
 		if(!chest)
 			return FALSE
 
@@ -90,7 +88,7 @@
 
 	if(!do_after(user, tear_time, target = target))
 		return FALSE
-
+	user.say(",w --et pars Magni Operis Eius eris!")
 	user.playsound_local(user, 'sound/magic/swap.ogg', 50, FALSE)
 	playsound(get_turf(target), 'sound/combat/brutal_impalement.ogg', 100, TRUE)
 
