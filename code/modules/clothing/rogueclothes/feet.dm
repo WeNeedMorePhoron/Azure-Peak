@@ -23,7 +23,7 @@
 /obj/item/clothing/shoes/roguetown/get_mechanics_examine(mob/user)
 	.=..()
 	if(bootknife)
-		.+= span_info("This footwear can hold a tossblade or laborer's knife. Left click it with one to sheathe it.")
+		.+= span_info("This footwear can hold a tossblade, laborer's knife, rotfang, or profane dagger. Left click it with one to sheathe it.")
 		.+= span_info("Right click to draw a sheathed weapon.")
 
 /obj/item/clothing/shoes/roguetown/boots
