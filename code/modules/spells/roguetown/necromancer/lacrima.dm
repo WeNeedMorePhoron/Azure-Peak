@@ -94,19 +94,19 @@
 	user.playsound_local(user, 'sound/magic/swap.ogg', 50, FALSE)
 	playsound(get_turf(target), 'sound/combat/brutal_impalement.ogg', 100, TRUE)
 
-	if(HAS_TRAIT(target, TRAIT_UNFORGIVABLE))
+	if(HAS_TRAIT(target, TRAIT_UNFORGIVABLE)) //Oh boy, you're going to have a NASTY surprise in there
 		to_chat(user, span_userdanger("Your hand finds nothing but an unnatural violet-ochre flame within [target], burning at your hand and soul!"))
 		user.visible_message(span_artery("[user] recoils from [target]'s ribcage, as unholy violet-ochre flames flicker out and engulf them!"))
 		user.emote("superagony")
 		if(!HAS_TRAIT(user, TRAIT_NOMOOD))
 			user.freak_out()
 		playsound(user, 'sound/misc/lava_death.ogg', 100, TRUE)
-		user.adjust_fire_stacks(20, /datum/status_effect/fire_handler/fire_stacks/vheslyn)
+		user.adjust_fire_stacks(20, /datum/status_effect/fire_handler/fire_stacks/vheslyn) //YOU PUT YOUR FUCKING HAND IN THE DEMONIC HUSK YOU DUMBASS
 		user.ignite_mob()
 		user.adjustFireLoss(60)
 		user.Knockdown(20)
 		user.Jitter(20)
-		user.Stun(5)
+		user.Stun(5) //ITS GOING TO HURT, A LOT
 		return FALSE
 
 	target.emote("superagony")
@@ -150,7 +150,7 @@
 /datum/stressevent/torn_lux
 	desc = span_boldred("MY LUX IS TORN ASUNDER!! My heartbeats feel erratic and hollow, as if my body wills to rot from inside out.")
 	stressadd = 10
-	timer = 10 MINUTES
+	timer = 5 MINUTES
 
 /datum/stressevent/torn_lux_aasimar
 	desc = span_boldred("MY LUX IS TORN ASUNDER!! I feel my body crumbling from within! The very divine essence of what I am-- I am failing to keep it together!")
