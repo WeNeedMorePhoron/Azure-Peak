@@ -1591,7 +1591,7 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 	if(!do_after(user, 1 SECONDS))
 		return
 	playsound(user.loc, 'sound/magic/swap.ogg', 25, TRUE, -2)
-	if(findtext(lowertext(name), "ruined"))
+	if(findtext(LOWER_TEXT(name), "ruined"))
 		to_chat(user, span_warning("[src] crumbles into ash in your hands."))
 		new /obj/item/ash(get_turf(src))
 		qdel(src)
