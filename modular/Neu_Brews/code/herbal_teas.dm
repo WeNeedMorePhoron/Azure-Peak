@@ -1,6 +1,6 @@
 /datum/reagent/consumable/brew/bogtea
 	name = "Bog Tea"
-	description = "Before the bog guard was dissolved, this was their unoffical drink of choice. Doesn't get you high"
+	description = "Before the bog guard was dissolved, this was their unofficial drink of choice. Doesn't addle the mind"
 	color = "#addfad"
 	taste_description = "resinous herbaceousness"
 
@@ -15,7 +15,7 @@
 
 /datum/reagent/consumable/brew/wormwoodtea
 	name = "Wormwood Tea"
-	description = "Usually this is used as an intense bittering agent. Why would you drink this pure?"
+	description = "Usually this is used as an intense bittering herb. Why would you drink this pure?"
 	color = "#2f4f4f"
 	taste_description = "extreme bitterness"
 
@@ -74,7 +74,7 @@
 	description = "The drink of choice of the Celestial Academy, reputed to recover magical fatigue. Everyone knows they just like the pretty, deep blue colour."
 	reagent_state = LIQUID
 	color = "#000080"
-	taste_description = "tingling electricity"
+	taste_description = "tingling lightning"
 	overdose_threshold = 0
 	metabolization_rate = REAGENTS_METABOLISM
 
@@ -91,10 +91,10 @@
 	brew_mend(M, 0.1, 0.1)
 
 /datum/reagent/consumable/brew/ashtea
-	name = "Ashtray Tea"
-	description = "This is like zig butts steeped in hot water. Yummy."
+	name = "Ash Tea"
+	description = "This is like zig ends steeped in hot water. Yummy."
 	color = "#4b5320"
-	taste_description = "zig roaches"
+	taste_description = "zig stubs"
 
 /datum/reagent/consumable/brew/ashtea/on_mob_life(mob/living/carbon/M)
 	. = ..()
@@ -128,6 +128,6 @@
 	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_SOUTH_IMPERIAL|CUISINE_NORTHERN|CUISINE_ETRUSCAN
 	quality = DRINK_NICE
 	name = "Chamomile Tea"
-	description = "9 out of 10 barber-surgeons prescribe this for tooth aches. The last one just pulls it out."
+	description = "Nine barber-surgeons in ten prescribe this for tooth aches. The tenth just pulls it out."
 	color = "#b8860b"
 	taste_description = "herbaceous grassiness"

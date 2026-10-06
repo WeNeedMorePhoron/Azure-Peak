@@ -49,9 +49,9 @@
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/blend/schorle
 	name = "Apfelschorle Preparation"
-	desc = "The Celestial Academy of Grenzelhoft is host to a large number of apple trees. In a dogged attempt to make students stop making it all to alcoholic cider, an alternative way was found to give juice its sparkling quality. This is what came out and summers have become so much nicer."
+	desc = "The Celestial Academy of Grenzelhoft is host to a large number of apple trees. In a dogged attempt to make students stop making it all into alcoholic cider, an alternative way was found to give juice its sparkling quality. This is what came out and summers have become so much nicer."
 	icon_state = "schorle"
-	tastes = list("electrifying fruitiness" = 1)
+	tastes = list("prickling fruitiness" = 1)
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/blend/baothablend
 	name = "Void Blend"
@@ -61,7 +61,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/blend/forgottenlove
 	name = "The Sisters Blend"
-	desc = "An union of love and pain. Eorans and Baothans both fear this brew, for it promises the impossible. Or does it? "
+	desc = "A union of love and pain. Eorans and Baothans both fear this brew, for it promises the impossible. Or does it? "
 	icon_state = "forgottenlove"
 	tastes = list("bitter, incomplete nostalgia" = 1)
 
@@ -73,25 +73,25 @@
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/blend/volfmilk
 	name = "Vargmjölk syrup"
-	desc = "A sticky, sugary granulate of chopped, dried and thickened blend of berries, predominantly the humble raspberry. Gronnites drink this in the cold nites of their homeland, to stay hardy and fend off the cold."
+	desc = "A sticky, sugary grit of chopped, dried and thickened blend of berries, predominantly the humble raspberry. Gronnites drink this in the cold nites of their homeland, to stay hardy and fend off the cold."
 	icon_state = "volfmilk"
 	tastes = list("syrupy fruitiness" = 1)
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/blend/frukkte
-	name = "Fruktte granules"
+	name = "Fruktte grains"
 	desc = "Fjallites carve glacier ice to cool down in their surprisingly hot summers and prepare Fruktte - dried and chopped berries, which are then cooked down to a thick syrup, which is diluted with melting ice. Invigorating and fresh."
 	icon_state = "fruktte"
 	tastes = list("syrupy fruitiness" = 1)
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/blend/barleytea
 	name = "Prepared barley"
-	desc = "Toasted grains of barley mixed with clippings of artemisia, as bittering agents. Hammerhold dwarves swear by beers and ales, but they too recognize that sickness isn’t the time for drinking. So they simply made a non-alcoholic substitute."
+	desc = "Toasted grains of barley mixed with clippings of artemisia, as bittering herbs. Hammerhold dwarves swear by beers and ales, but they too recognize that sickness isn’t the time for drinking. So they simply made a substitute that keeps a dwarf sober."
 	icon_state = "barleytea"
 	tastes = list("astringent graininess" = 1)
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/blend/kvass
 	name = "Kvass Mixture"
-	desc = "Originally just a way to extend the shelf life of bread a little bit more, Kvass has become quite popular as summer (when cold) and winter (when warm) drink in Aavnr, making it synonymous with the steppes."
+	desc = "Originally just a way to keep bread from going stale a little bit longer, Kvass has become quite popular as summer (when cold) and winter (when warm) drink in Aavnr, making it synonymous with the steppes."
 	icon_state = "kvass"
 	tastes = list("fruity breadiness" = 1)
 

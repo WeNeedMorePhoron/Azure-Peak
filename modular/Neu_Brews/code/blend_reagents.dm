@@ -168,7 +168,7 @@ You see the sky from a pit and a palace both."))
 	cuisine = CUISINE_NORTH_IMPERIAL
 	quality = DRINK_GOOD
 	name = "Barley Tea"
-	description = "Reality is a state of mind caused by the chronic lack of alcohol in the humours. This won't fix it, but at least it whets the tongue, lad."
+	description = "Reality is an affliction caused by the chronic lack of alcohol in the humours. This won't fix it, but at least it whets the tongue, lad."
 	color = "#e08d3c"
 	taste_description = "toasty bitterness"
 
