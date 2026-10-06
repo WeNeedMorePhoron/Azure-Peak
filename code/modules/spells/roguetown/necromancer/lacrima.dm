@@ -143,7 +143,7 @@
 	record_round_statistic(STATS_TORTURES)
 
 	if(!target.mind)
-		target.gib()
+		target.dust(drop_items = TRUE)
 
 	return TRUE
 
