@@ -88315,14 +88315,14 @@
 /area/rogue/indoors/town/manor/grim)
 "kJW" = (
 /obj/structure/table/wood/poor,
+/obj/item/roguebin/water{
+	pixel_x = 3;
+	pixel_y = 18
+	},
 /obj/item/natural/cloth,
 /obj/item/needle{
 	pixel_x = -8;
 	pixel_y = 5
-	},
-/obj/item/roguebin/water{
-	pixel_x = 3;
-	pixel_y = 18
 	},
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/town/garrison/grim)
@@ -182535,18 +182535,10 @@
 /area/rogue/under/cave/scarymaze)
 "wcB" = (
 /obj/structure/closet/crate/chest,
-/obj/item/natural/bundle/cloth{
-	amount = 8
-	},
-/obj/item/natural/bundle/cloth{
-	amount = 8
-	},
-/obj/item/natural/bundle/cloth{
-	amount = 8
-	},
-/obj/item/natural/bundle/cloth{
-	amount = 8
-	},
+/obj/item/natural/bundle/cloth/bandage/full,
+/obj/item/natural/bundle/cloth/bandage/full,
+/obj/item/natural/bundle/cloth/bandage/full,
+/obj/item/natural/bundle/cloth/bandage/full,
 /obj/item/needle/thorn,
 /obj/item/needle/thorn,
 /obj/item/needle/thorn,
@@ -200433,6 +200425,13 @@
 /obj/effect/decal/mossy,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/mountains/decap/banditcamp)
+"ykY" = (
+/obj/machinery/gear_painter{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/town/garrison/grim)
 "ykZ" = (
 /obj/machinery/light/rogue/hearth,
 /turf/open/floor/rogue/cobble,
@@ -270950,12 +270949,12 @@ nZF
 nZF
 nZF
 nZF
+jfo
+jfo
+jfo
+jfo
 nZF
-nZF
-nZF
-eBO
-eBO
-eBO
+rkQ
 eBO
 frK
 kit
@@ -271332,14 +271331,14 @@ nZF
 nZF
 nZF
 nZF
-nZF
-nZF
-eBO
-eBO
-eBO
-eBO
-eBO
-eBO
+jfo
+ase
+fXL
+jfo
+gVn
+frK
+kit
+frK
 frK
 kit
 kit
@@ -271714,15 +271713,15 @@ nZF
 nZF
 nZF
 nZF
-nZF
-nZF
-nZF
-eBO
-eBO
-eBO
-eBO
-eBO
-frK
+jfo
+tXW
+uzX
+uZw
+etW
+kit
+kit
+kit
+kit
 kit
 kit
 eBO
@@ -272096,14 +272095,14 @@ nZF
 nZF
 nZF
 nZF
-nZF
-nZF
-nZF
-eBO
-eBO
-eBO
-eBO
-eBO
+jfo
+jfo
+jfo
+jfo
+gVn
+kit
+kit
+kit
 eBO
 frK
 kit
@@ -272483,9 +272482,9 @@ nZF
 nZF
 nZF
 eBO
-eBO
-eBO
-eBO
+rkQ
+uZO
+kit
 eBO
 eBO
 kit
@@ -272866,8 +272865,8 @@ nZF
 nZF
 eBO
 eBO
-eBO
-eBO
+kit
+kit
 eBO
 eBO
 eBO
@@ -273247,9 +273246,9 @@ nZF
 nZF
 nZF
 nZF
-eBO
-eBO
-eBO
+kit
+kit
+kit
 eBO
 eBO
 eBO
@@ -273624,15 +273623,15 @@ nZF
 nZF
 nZF
 nZF
-jfo
-jfo
-jfo
-jfo
 nZF
 nZF
-eBO
-eBO
-eBO
+nZF
+nZF
+nZF
+nZF
+kit
+kit
+kit
 eBO
 eBO
 eBO
@@ -274006,15 +274005,15 @@ nZF
 nZF
 nZF
 nZF
-jfo
-ase
-fXL
-jfo
-gVn
+nZF
+nZF
+nZF
+nZF
+nZF
 nZF
 kit
 kit
-eBO
+kit
 eBO
 eBO
 eBO
@@ -274388,11 +274387,11 @@ nZF
 nZF
 nZF
 nZF
-jfo
-tXW
-uzX
-uZw
-etW
+nZF
+nZF
+nZF
+nZF
+nZF
 kit
 kit
 kit
@@ -274770,12 +274769,12 @@ nZF
 nZF
 nZF
 nZF
-jfo
-jfo
-jfo
-jfo
-gVn
-uZO
+nZF
+nZF
+nZF
+nZF
+nZF
+kit
 kit
 rkQ
 kit
@@ -391096,7 +391095,7 @@ eGg
 eGg
 eGg
 ugw
-eGg
+ykY
 eGg
 rjc
 avb
