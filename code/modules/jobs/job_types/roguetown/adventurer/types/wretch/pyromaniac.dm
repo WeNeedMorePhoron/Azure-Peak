@@ -40,16 +40,16 @@
 /datum/outfit/job/roguetown/wretch/pyromaniac/pre_equip(mob/living/carbon/human/H)
 	ADD_TRAIT(H, TRAIT_BOMBER_EXPERT, ROUNDSTART_TRAIT) // to prevent us from lighting up in flames, oughghhh
 	head = /obj/item/clothing/head/roguetown/roguehood/shalal/hijab/pyro // this is practically the sheriff helmet but a hijab, mostly for the new drip really without making them eat shit to any knife swinging peasant going for the head
-	mask = /obj/item/clothing/mask/rogue/facemask/steel/confessor/lensed // huff puff, huff puff...
+	mask = /obj/item/clothing/mask/rogue/facemask/steel/confessor/pyro // huff puff, huff puff...
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/full
 	pants = /obj/item/clothing/under/roguetown/brigandinelegs
 	cloak = /obj/item/clothing/cloak/bandolier
-	armor = /obj/item/clothing/suit/roguetown/armor/brigandine
+	armor = /obj/item/clothing/suit/roguetown/armor/brigandine/pyro
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/iron
 	belt = 	/obj/item/storage/backpack/rogue/satchel/beltpack
 	gloves = /obj/item/clothing/gloves/roguetown/plate/iron
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
-	wrists = /obj/item/clothing/wrists/roguetown/bracers/bronze
+	wrists = /obj/item/rogueweapon/scabbard/sheath
 	backl = /obj/item/twstrap/bombstrap/firebomb
 	backpack_contents = list(
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,

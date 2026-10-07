@@ -147,7 +147,7 @@
 	desc = "A headscarf anointed in cursed soot and drenched in the blood of infernals. The foul mixture has seeped deep into its fibers, leaving behind a strange, smoldering quality that only those with a true fondness for fire can endure."
 	slot_flags = ITEM_SLOT_HEAD
 	max_integrity = 350 // 50 less dura for better visibility
-	armor = ARMOR_BRIGANDINE
+	armor = ARMOR_INSULATED_LEATHER
 	item_state = "hijab"
 	icon_state = "hijab"
 	naledicolor = FALSE
