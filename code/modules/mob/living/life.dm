@@ -181,7 +181,7 @@
 	var/obj/item/organ/lungs/lung = getorganslot(ORGAN_SLOT_LUNGS)
 	if(!lung || (lung.organ_flags & ORGAN_FAILING))
 		adjustOxyLoss(5)
-		emote("gasp")
+		emote("choke")
 		return FALSE
 	return TRUE
 
