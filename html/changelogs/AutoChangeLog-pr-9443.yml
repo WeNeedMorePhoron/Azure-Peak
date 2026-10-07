@@ -1,4 +1,0 @@
-author: "KatTheFox"
-delete-after: True
-changes:
-  - bugfix: "Confessions now actually work; you (the person confessing i.e. the heretic) can sign them, and then optionally you (the inquisition probably) can pair an indexer for an increase in marque reward"
