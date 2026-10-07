@@ -1281,6 +1281,7 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	tastes = list("Mild, nutty kernels with caramelized savouriness" = 1)
 	foodtype = GRAIN | VEGETABLES
+	dish_type = DISH_BREAD | DISH_VEGETABLE
 
 /obj/item/reagent_containers/food/snacks/rogue/bulgur/carrot
 	name = "carrot'd bulgur"
@@ -1289,6 +1290,7 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	tastes = list("Mild, nutty kernels with soft, vegetal sweetness" = 1)
 	foodtype = GRAIN | VEGETABLES
+	dish_type = DISH_BREAD | DISH_VEGETABLE
 
 /obj/item/reagent_containers/food/snacks/rogue/bulgur/meal
 	name = "bulgur meal"
@@ -1299,6 +1301,7 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	faretype = FARE_FINE
 	foodtype = GRAIN | VEGETABLES
+	dish_type = DISH_BREAD | DISH_VEGETABLE
 
 /obj/item/reagent_containers/food/snacks/rogue/markook
 	cuisine = CUISINE_NALEDI
@@ -1345,6 +1348,7 @@
 	rotprocess = SHELFLIFE_EXTREME
 	eat_effect = /datum/status_effect/buff/mealbuff
 	foodtype = GRAIN | MEAT
+	dish_type = DISH_BREAD | DISH_MEAT
 
 // Mince cabbage dürüm
 /obj/item/reagent_containers/food/snacks/rogue/durum_mince_cabbage
@@ -1360,6 +1364,7 @@
 	rotprocess = SHELFLIFE_EXTREME
 	eat_effect = /datum/status_effect/buff/mealbuff
 	foodtype = GRAIN | MEAT | VEGETABLES
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_MEAT
 
 // Bean mince dürüm
 /obj/item/reagent_containers/food/snacks/rogue/durum_beans_mince
@@ -1375,6 +1380,7 @@
 	rotprocess = SHELFLIFE_EXTREME
 	eat_effect = /datum/status_effect/buff/mealbuff
 	foodtype = GRAIN | MEAT | VEGETABLES
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_MEAT
 
 // Cheese bean dürüm
 /obj/item/reagent_containers/food/snacks/rogue/durum_cheese_beans
@@ -1390,3 +1396,4 @@
 	rotprocess = null
 	eat_effect = /datum/status_effect/buff/greatmealbuff
 	foodtype = GRAIN | DAIRY | VEGETABLES
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY
