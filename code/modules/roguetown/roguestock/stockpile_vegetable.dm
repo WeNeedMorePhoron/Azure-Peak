@@ -193,7 +193,7 @@
 	stockpile_limit = 50
 	category = "Vegetable"
 
-/datum/roguestock/stockpile/rocknut
+/datum/roguestock/stockpile/lentils
 	name = "Lentils"
 	desc = "Multicolored nutty lentils from Naledi."
 	item_type = /obj/item/reagent_containers/food/snacks/grown/lentils
