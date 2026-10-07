@@ -393,8 +393,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			message_range += 10
 			Zs_all = TRUE
 
-	var/area/speaker_area = get_area(src)
-
 	// AZURE EDIT: thaumaturgical loudness (from orisons)
 	if (has_status_effect(/datum/status_effect/thaumaturgy))
 		spans |= SPAN_REALLYBIG
