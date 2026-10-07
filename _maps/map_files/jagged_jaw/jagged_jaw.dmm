@@ -11349,9 +11349,6 @@
 /turf/open/floor/rogue/concrete,
 /area/rogue/outdoors/mountains/decap/stepbelow)
 "brI" = (
-/obj/structure/curtain/black{
-	pixel_x = 32
-	},
 /obj/structure/table/wood/long_table/right,
 /obj/effect/decal/edge{
 	color = "#3f3f3f";
@@ -149898,9 +149895,6 @@
 /turf/open/floor/rogue/carpet/lord/center,
 /area/rogue/under/cave/licharena/grim)
 "slc" = (
-/obj/structure/curtain/black{
-	pixel_x = 32
-	},
 /obj/structure/chair/bench/coucha/r,
 /turf/open/floor/rogue/carpet,
 /area/rogue/indoors/town/manor/grim)
@@ -170270,12 +170264,6 @@
 /obj/structure/table/wood/large_table/north_east,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/steward)
-"uFb" = (
-/obj/structure/curtain/black{
-	pixel_x = 32
-	},
-/turf/open/floor/rogue/carpet,
-/area/rogue/indoors/town/manor/grim)
 "uFe" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f";
@@ -640849,10 +640837,10 @@ jGh
 oYB
 qGL
 slc
-uFb
-uFb
-uFb
-uFb
+iZD
+iZD
+iZD
+iZD
 brI
 qGL
 ugq
@@ -641230,12 +641218,12 @@ jGh
 jGh
 gOw
 qGL
-ksZ
-ksZ
-ksZ
-ksZ
-ksZ
-ksZ
+ktr
+ktr
+ktr
+ktr
+ktr
+ktr
 qGL
 kTz
 wOa
