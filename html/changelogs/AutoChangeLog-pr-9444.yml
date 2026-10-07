@@ -1,0 +1,6 @@
+author: "Ollanius"
+delete-after: True
+changes:
+  - bugfix: "Anointed spears no longer have an errant typo in the .dmis, allowing for their wielded sprite to properly render."
+  - bugfix: "Kaltzbegers, when used for an Arming Sword's reskin, no longer vanish when two-handed."
+  - code_imp: "Note - for donor reskins (and not just full-on different weapons), the variable still checks for a '...1' at the end for a wielded sprite. Even if it's based on a weapon that already autogenerates a wielded sprite based on a single instance, not including a second icon with the aformentioned '...1' will cause it to freak out."
