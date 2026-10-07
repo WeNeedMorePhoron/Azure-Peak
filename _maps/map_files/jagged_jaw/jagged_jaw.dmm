@@ -183077,12 +183077,6 @@
 	},
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/cave/grim)
-"web" = (
-/obj/structure/curtain/red{
-	pixel_x = 32
-	},
-/turf/open/floor/rogue/blocks/stonered/tiny,
-/area/rogue/indoors/town/grim)
 "wec" = (
 /obj/structure/bed/rogue/shit,
 /mob/living/carbon/human/species/goblin/npc,
@@ -496468,7 +496462,7 @@ hNc
 pXy
 nuD
 udv
-web
+jyW
 pHY
 rss
 nqw
@@ -496850,7 +496844,7 @@ hNc
 oBY
 nuD
 nuD
-bcH
+iOF
 mDI
 aTh
 nuD
