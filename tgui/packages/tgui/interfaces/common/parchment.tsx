@@ -290,29 +290,26 @@ export const PriceTag = (props: {
         </span>
       )}
       <span style={{ color: hasStrike ? SEAL_GREEN : 'inherit' }}>{price}</span>
-      {hasSurcharge && (
-        <span
-          style={{
-            color: SEAL_RED,
-            fontSize: FONT_BODY,
-            marginLeft: '2px',
-          }}
-        >
-          +{surcharge}
-        </span>
-      )}
-      {hasTariff && (
-        <span
-          style={{
-            color: SEAL_AMBER,
-            fontSize: FONT_BODY,
-            marginLeft: '2px',
-          }}
-        >
-          +{tariff}
-        </span>
-      )}
       <span style={{ color: INK_SOFT, fontSize: FONT_SMALL }}>m</span>
+      {(hasSurcharge || hasTariff) && (
+        <span
+          style={{ color: INK_SOFT, fontSize: FONT_SMALL, marginLeft: '3px' }}
+        >
+          (incl.
+          {hasSurcharge && (
+            <span style={{ color: SEAL_RED, marginLeft: '2px' }}>
+              {surcharge}
+            </span>
+          )}
+          {hasSurcharge && hasTariff && ' +'}
+          {hasTariff && (
+            <span style={{ color: SEAL_AMBER, marginLeft: '2px' }}>
+              {tariff}
+            </span>
+          )}
+          )
+        </span>
+      )}
     </div>
   );
 };

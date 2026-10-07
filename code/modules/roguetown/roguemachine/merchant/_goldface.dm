@@ -757,11 +757,8 @@
 				return TRUE
 			if(is_public && locked)
 				return TRUE
-			var/has_stipend = HAS_TRAIT(H, TRAIT_ROYAL_SUBSIDY)
 			var/cost = compute_pack_price(PA, H)
-			var/tax_amt = has_stipend ? 0 : compute_pack_tax(PA)
-			if(has_stipend)
-				cost -= compute_pack_tax(PA)
+			var/tax_amt = HAS_TRAIT(H, TRAIT_ROYAL_SUBSIDY) ? 0 : compute_pack_tax(PA)
 			if(budget < cost)
 				say("Not enough!")
 				return TRUE
