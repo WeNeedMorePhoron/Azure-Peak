@@ -292,6 +292,7 @@
 	if(istype(I, /obj/item/clothing/mask/rogue/spectacles/inq))
 		to_chat(user, span_info("These lenses won't fit in this mask."))
 		return
+	return ..()
 
 /obj/item/clothing/mask/rogue/facemask/steel/confessor
 	name = "strange mask"
