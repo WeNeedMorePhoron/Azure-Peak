@@ -289,10 +289,9 @@
 	block2add = FOV_DEFAULT //similar to the malpractitioner's mask, you get full vision for the sake of drip. You do not, however, gain the full integrity of the confessor's mask
 
 /obj/item/clothing/mask/rogue/facemask/steel/confessor/pyro/attackby(obj/item/I, mob/user, params)
-    if(istype(I, /obj/item/clothing/mask/rogue/spectacles/inq))
-        to_chat(user, span_info("These lenses won't fit in this mask."))
-    else
-        return(..())
+	if(istype(I, /obj/item/clothing/mask/rogue/spectacles/inq))
+		to_chat(user, span_info("These lenses won't fit in this mask."))
+		return
 
 /obj/item/clothing/mask/rogue/facemask/steel/confessor
 	name = "strange mask"
