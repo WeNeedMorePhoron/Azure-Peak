@@ -53732,8 +53732,9 @@
 	color = "#3f3f3f";
 	dir = 1
 	},
-/obj/item/candle/candlestick/silver/single/lit{
-	pixel_x = -6;
+/obj/structure/fermentation_keg/water{
+	icon_state = "barrel_tapless_ready";
+	pixel_x = -4;
 	pixel_y = 10
 	},
 /turf/open/floor/rogue/concrete,
