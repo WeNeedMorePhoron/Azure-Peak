@@ -4829,4 +4829,4 @@ As Excaliber."
 	beyond the hands of wandering zealots and priests."
 	icon_state = "radiantgoldmask"
 	icon = 'icons/clothing/donor_clothes.dmi'
-	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi' a
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
