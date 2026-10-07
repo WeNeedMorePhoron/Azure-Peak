@@ -382,7 +382,7 @@
 #define TRAIT_DUST_DELETE_GEAR "Dust Delete Gear"
 #define TRAIT_SECONDLIFE "Second Life"
 
-//Abyssorcult
+//Abyssorcult --
 #define TRAIT_INK_AFFINITY "Paint Affinity"
 #define TRAIT_BLEED_PAINT "Paint Blood"
 
