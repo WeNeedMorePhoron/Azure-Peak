@@ -17,8 +17,8 @@
 	var/exploding = FALSE
 	var/prob2fail = 5
 	var/PVE_damage = 75
-	var/spawn_shard = TRUE
 	var/tripcrit = 0
+	var/spawn_shard = TRUE
 	grid_width = 32
 	grid_height = 64
 	var/mob/thrower
@@ -284,24 +284,33 @@
 	dropshrink = 0.5
 	grid_width = 32
 	grid_height = 64
-	var/obj/item/bomb/b_type = /obj/item/bomb
+	var/b_type = /obj/item/bomb
 	var/list/obj/item/tripwire/wire_trigger = list()
 	var/mob/setter
 
 /obj/item/bomb/tripbomb/Initialize(mapload)
-	..()
-	icon_state = b_type.icon_state
-
-/obj/item/bomb/tripbomb/Destroy()
-	if(wire_trigger.len)
-		for(var/obj/item/tripwire/wire in wire_trigger)
-			QDEL_NULL(wire)
-	return ..()
+	. = ..()
+	var/obj/item/bomb/B = new b_type
+	icon_state = B.icon_state
+	qdel(B)
 
 /obj/item/bomb/tripbomb/light()
 	if(QDELETED(src))
 		return
-	var/obj/item/bomb/bomb = new b_type(loc)
+
+	var/atom/detonation = new b_type(loc)
+
+	if(istype(detonation, /obj/item/impact_grenade))
+		var/obj/item/impact_grenade/grenade = detonation
+		grenade.thrower = setter
+		for(var/obj/item/tripwire/wire in wire_trigger)
+			QDEL_NULL(wire)
+		wire_trigger.Cut()
+		qdel(src)
+		grenade.explodes()
+		return
+
+	var/obj/item/bomb/bomb = detonation
 	bomb.fuze = HAS_TRAIT(setter, TRAIT_BOMBER_EXPERT) ? 0.25 SECONDS : 1 SECONDS
 	bomb.prob2fail = prob2fail
 	bomb.PVE_damage = PVE_damage + 100
@@ -480,8 +489,10 @@
 	var/prob2fail = 1
 	var/PVE_damage = 160
 	var/tripcrit = 0
+	var/spawn_shard = FALSE
 	grid_width = 32
 	grid_height = 64
+	var/mob/thrower
 
 /obj/item/tntstick/spark_act()
 	var/mob/living/bomber_owner
@@ -667,8 +678,10 @@
 	var/prob2fail = 1
 	var/PVE_damage = 300
 	var/tripcrit = 0
+	var/spawn_shard = FALSE
 	grid_width = 256
 	grid_height = 256
+	var/mob/thrower
 
 //admin only mega bomb, should never be made craftable
 /obj/item/satchel_bomb/mega
@@ -880,9 +893,10 @@
 	throw_speed = 1
 	var/PVE_damage = 160
 	var/tripcrit = 0
-	var/mob/thrower
+	var/spawn_shard = TRUE
 	grid_width = 32
 	grid_height = 32
+	var/mob/thrower
 
 /obj/item/impact_grenade/Initialize(mapload)
 	. = ..()
