@@ -222,6 +222,10 @@
 	if(!istype(I, /obj/item/natural/fibers) && !istype(I, /obj/item/natural/bundle/fibers))
 		return
 
+	if(has_tripwire(get_turf(user)))
+		to_chat(user, span_warning("There is already a trap here."))
+		return
+
 	I.visible_message(span_warning("[user] begins to prepare [src].."),
 		span_notice("I begin to set-up [src] with [I]."))
 
@@ -612,6 +616,10 @@
 	if(!istype(I, /obj/item/natural/fibers) && !istype(I, /obj/item/natural/bundle/fibers))
 		return
 
+	if(has_tripwire(get_turf(user)))
+		to_chat(user, span_warning("There is already a trap here."))
+		return
+
 	I.visible_message(span_warning("[user] begins to prepare [src].."),
 		span_notice("I begin to set-up [src] with [I]."))
 
@@ -834,6 +842,10 @@
 	if(!istype(I, /obj/item/natural/fibers) && !istype(I, /obj/item/natural/bundle/fibers))
 		return
 
+	if(has_tripwire(get_turf(user)))
+		to_chat(user, span_warning("There is already a trap here."))
+		return
+
 	I.visible_message(span_warning("[user] begins to prepare [src].."),
 		span_notice("I begin to set-up [src] with [I]."))
 
@@ -929,6 +941,10 @@
 	..()
 
 	if(!istype(I, /obj/item/natural/fibers) && !istype(I, /obj/item/natural/bundle/fibers))
+		return
+
+	if(has_tripwire(get_turf(user)))
+		to_chat(user, span_warning("There is already a trap here."))
 		return
 
 	I.visible_message(span_warning("[user] begins to prepare [src].."),
@@ -1177,6 +1193,14 @@
 		hit_any = TRUE
 
 	return hit_any
+
+/proc/has_tripwire(turf/T)
+	if(!T)
+		return FALSE
+	for(var/obj/item/tripwire/W in T)
+		if(!QDELETED(W))
+			return TRUE
+	return FALSE
 
 #undef MT_BOMB_HIT
 #undef BOMB_HIT_IMMUNITY_DURATION
