@@ -1,0 +1,4 @@
+author: "Ollanius"
+delete-after: True
+changes:
+  - bugfix: "Kaskaras, ngombes, and other Arming Sword-specifics should NOW properly render when two-handed. My bad."
