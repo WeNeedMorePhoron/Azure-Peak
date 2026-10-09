@@ -613,7 +613,7 @@
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				l_hand = /obj/item/rogueweapon/sword/long/broadsword/steel
 			if("Greatshield")
-				if(ispath(r_hand, /obj/item/rogueweapon/handclaw) || ispath(r_hand, /obj/item/rogueweapon/katar) || ispath(r_hand, /obj/item/rogueweapon/knuckledusters))
+				if(ispath(r_hand, /obj/item/rogueweapon/handclaw) || ispath(r_hand, /obj/item/rogueweapon/katar))
 					backr = /obj/item/rogueweapon/shield/tower/metal
 				else
 					l_hand = /obj/item/rogueweapon/shield/tower/metal
