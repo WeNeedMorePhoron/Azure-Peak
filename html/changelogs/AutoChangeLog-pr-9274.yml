@@ -1,0 +1,4 @@
+author: "FeniaFox"
+delete-after: True
+changes:
+  - rscadd: "Added a new virtue 'Handily Prepared'. Gives novice skill in over a dozen crafting/repair/utility skills if you lack it, and adds some basic stone tools/thorn needle/whetstone to your stash. Does not raise any skill caps or do anything not replaceable with some grinding."
