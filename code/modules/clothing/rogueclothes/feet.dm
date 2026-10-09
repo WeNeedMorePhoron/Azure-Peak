@@ -842,6 +842,7 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/courtphys.dmi'
 	detail_tag = "_detail"
 	detail_color = CLOTHING_RED
+	bootknife = TRUE
 
 /obj/item/clothing/shoes/courtphysician/female/Initialize(mapload)
 	. = ..()
