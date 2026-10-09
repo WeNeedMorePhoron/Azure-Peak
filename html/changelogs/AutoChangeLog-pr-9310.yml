@@ -1,0 +1,8 @@
+author: "Quinalion"
+delete-after: True
+changes:
+  - rscadd: "Silver knuckles can now be blessed while remaining clothing items."
+  - balance: "Blessed knuckles now properly account for Psy and Ten damage multipliers."
+  - balance: "Blessed knuckles now apply the appropriate type of Sunder on hit."
+  - rscdel: "Removed weapon variants of silver knuckles and their morphing functionality."
+  - image: "Made minor sprite tweaks to silver knuckles."
