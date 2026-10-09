@@ -227,7 +227,7 @@
 
 /datum/loadout_item/turban
 	name = "Turban"
-	path = /obj/item/clothing/head/roguetown/veiled/loudmouth
+	path = /obj/item/clothing/head/roguetown/turban
 	sort_category = "Hats"
 
 /datum/loadout_item/duelisthat
