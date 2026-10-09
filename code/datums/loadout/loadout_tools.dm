@@ -8,7 +8,7 @@
 /datum/loadout_item/fine_parasol
 	name = "Fine Parasol"
 	path = /obj/item/rogueweapon/mace/parasol/noble
-	triumph_cost = 3
+	triumph_cost = 2
 	sort_category = "Tools"
 
 /datum/loadout_item/cloth
@@ -32,19 +32,19 @@
 /datum/loadout_item/needle
 	name = "Sewing Needle"
 	path = /obj/item/needle/thorn
-	triumph_cost = 3
+	triumph_cost = 1
 	sort_category = "Tools"
 
 /datum/loadout_item/whetstone
 	name = "Whetstone"
 	path = /obj/item/natural/whetstone
-	triumph_cost = 3
+	triumph_cost = 2
 	sort_category = "Tools"
 
 /datum/loadout_item/hammer
 	name = "Wood Mallet"
 	path = /obj/item/rogueweapon/hammer/wood
-	triumph_cost = 3
+	triumph_cost = 2
 	sort_category = "Tools"
 
 /datum/loadout_item/axe
@@ -56,7 +56,7 @@
 /datum/loadout_item/knife
 	name = "Stone Knife"
 	path = /obj/item/rogueweapon/huntingknife/stoneknife
-	triumph_cost = 3
+	triumph_cost = 2
 	sort_category = "Tools"
 
 /datum/loadout_item/hoe
