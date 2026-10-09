@@ -154,7 +154,6 @@
 	path = /obj/item/flowercrown/rosa/dyecrown
 	sort_category = "Hats"
 
-
 /datum/loadout_item/salvia_crown
 	name = "Salvia Crown"
 	path = /obj/item/flowercrown/salvia
