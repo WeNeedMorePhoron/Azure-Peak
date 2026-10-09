@@ -1,0 +1,4 @@
+author: "Ollanius"
+delete-after: True
+changes:
+  - bugfix: "It should now be possible to take a Turban in the Loadout menu, instead of being given a Loudmouth's Veil."
