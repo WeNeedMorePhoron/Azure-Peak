@@ -36,8 +36,8 @@
 	var/blast_radius = 2
 	var/impact_delay = 2 SECONDS
 	var/structural_damage = 600
-	var/mob_damage = 110
-	displayed_damage = 110
+	var/mob_damage = SPELL_DMG(110)
+	displayed_damage = SPELL_DMG(110)
 	var/curtain_life = 10 SECONDS
 
 /datum/action/cooldown/spell/fire_strike/cast(atom/cast_on)
@@ -80,7 +80,7 @@
 			if(spell_guard_check(L, TRUE))
 				continue
 			if(istype(caster) && ishuman(L))
-				if(arcyne_strike(caster, L, null, mob_damage, BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Fire Strike", damage_type = BURN, skip_animation = TRUE) == ARCYNE_STRIKE_WARDED)
+				if(arcyne_strike(caster, L, null, mob_damage, BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Fire Strike", damage_type = BURN, skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
 				L.adjustFireLoss(mob_damage)

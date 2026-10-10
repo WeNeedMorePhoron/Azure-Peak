@@ -35,8 +35,8 @@
 	var/blast_radius = 2
 	var/impact_delay = 2 SECONDS
 	var/structural_damage = 1000
-	var/head_damage = 150
-	displayed_damage = 150
+	var/head_damage = SPELL_DMG(150)
+	displayed_damage = SPELL_DMG(150)
 
 /datum/action/cooldown/spell/grenzel_meteor/cast(atom/cast_on)
 	. = ..()
@@ -80,7 +80,7 @@
 				L.visible_message(span_warning("[L] endures the meteor strike!"))
 				continue
 			if(istype(caster) && ishuman(L))
-				if(arcyne_strike(caster, L, null, head_damage, BODY_ZONE_HEAD, BCLASS_BLUNT, spell_name = "Meteor Strike", damage_type = BRUTE, skip_animation = TRUE, exact_zone = TRUE) == ARCYNE_STRIKE_WARDED)
+				if(arcyne_strike(caster, L, null, head_damage, BODY_ZONE_HEAD, BCLASS_BLUNT, spell_name = "Meteor Strike", damage_type = BRUTE, skip_animation = TRUE, exact_zone = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
 				L.adjustBruteLoss(head_damage)

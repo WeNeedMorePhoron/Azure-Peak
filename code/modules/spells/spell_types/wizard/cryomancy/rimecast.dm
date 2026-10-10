@@ -79,7 +79,7 @@
 	name = "ice lance"
 	expose_caster_on_deflect = TRUE
 	icon_state = "u_laser"
-	damage = 90
+	damage = SPELL_DMG(90)
 	damage_type = BURN
 	woundclass = BCLASS_BURN
 	flag = "fire"
@@ -87,6 +87,7 @@
 	speed = MAGE_PROJ_MEDIUM
 	movement_type = UNSTOPPABLE
 	nodamage = FALSE
+	intdamfactor = SPELL_INTDAM(1)
 	/// How many mob targets have been pierced
 	var/hits = 0
 	/// Max mob targets before the lance shatters
@@ -132,10 +133,11 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "wipe"
 	speed = MAGE_PROJ_VERY_SLOW
-	damage = 90
+	damage = SPELL_DMG(90)
 	damage_type = BURN
 	woundclass = BCLASS_BURN
 	nodamage = FALSE
+	intdamfactor = SPELL_INTDAM(1)
 	flag = "fire"
 	arcshot = TRUE
 	hitsound = 'sound/blank.ogg'
@@ -186,7 +188,7 @@
 				if(arcyne_strike(caster, L, null, aoe_damage, BODY_ZONE_CHEST, \
 					BCLASS_BURN, spell_name = "Ice Burst (Shatter)", \
 					allow_shield_check = TRUE, damage_type = BURN, \
-					skip_animation = TRUE) == ARCYNE_STRIKE_WARDED)
+					skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 				apply_frost_stack(L, 1)
 				new /obj/effect/temp_visual/spell_impact(get_turf(L), GLOW_COLOR_ICE, SPELL_IMPACT_MEDIUM)

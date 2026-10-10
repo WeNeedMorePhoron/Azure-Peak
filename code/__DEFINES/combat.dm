@@ -435,6 +435,15 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define BLUNT_DEFAULT_INT_DAMAGEFACTOR 1.6 // Universal blunt intent integrity damage factor. Replaces Roguepen
 #define SPELL_BLUNT_INT_DAMAGEFACTOR 1.3 // Blunt integrity damage factor for spell projectiles
 #define PUNCH_INT_DAMAGEFACTOR 1.2 // Reduced integrity damage for unarmed punches cuz they're really fast
+
+// Per Mage 3.1 decision - we want ARMOR damage of mage to largely stay the same, whereas post-armor damage is reduced slightly, such that it favors grouping with martial or using melee tools like knives or staff to finish them off, but does not completely prevent you from doing so.
+// Applied at compile time. Simplemobs take the same reduced damage.
+#define SPELL_DAMAGE_GENERAL_MODIFIER 0.8
+#define SPELL_DAMAGE_INTEGRITY_MODIFIER (1 / SPELL_DAMAGE_GENERAL_MODIFIER)
+#define SPELL_DMG(x) ((x) * SPELL_DAMAGE_GENERAL_MODIFIER)
+#define SPELL_INTDAM(x) ((x) * SPELL_DAMAGE_INTEGRITY_MODIFIER)
+/// Add as the last arg of a mage arcyne_strike() call so armor integrity damage stays unscaled.
+#define SPELL_STRIKE_SCALING intdamage_mult = SPELL_DAMAGE_INTEGRITY_MODIFIER
 // Integrity & Sharpness Value
 #define INTEG_PARRY_DECAY			1	//Default integrity decay on parry.
 #define INTEG_PARRY_DECAY_NOSHARP	5	//Integrity decay on parry for weapons with no sharpness OR for off-hand parries.

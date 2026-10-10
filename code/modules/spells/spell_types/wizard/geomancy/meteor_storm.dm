@@ -42,8 +42,8 @@
 
 	var/direct_damage = 120 // If you get hit direct you deserve it
 	var/splash_damage = 40
-	displayed_damage = 120
-	var/fragment_damage = 15
+	displayed_damage = SPELL_DMG(120)
+	var/fragment_damage = SPELL_DMG(15)
 	var/impact_count = 12
 
 /datum/action/cooldown/spell/meteor_strike/cast(atom/cast_on)
@@ -117,12 +117,12 @@
 		if(spell_guard_check(L, TRUE))
 			L.visible_message(span_warning("[L] endures the boulder strike!"))
 			continue
-		var/actual_damage = direct_damage
+		var/actual_damage = SPELL_DMG(direct_damage)
 		if(istype(caster) && ishuman(L))
 			if(arcyne_strike(caster, L, null, actual_damage, pick(random_zones), \
 				BCLASS_BLUNT, spell_name = "Meteor Strike", \
 				damage_type = BRUTE, \
-				skip_animation = TRUE) == ARCYNE_STRIKE_WARDED)
+				skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 				continue
 		else
 			L.adjustBruteLoss(actual_damage)
@@ -137,12 +137,12 @@
 				continue
 			if(spell_guard_check(L, TRUE))
 				continue
-			var/actual_damage = splash_damage
+			var/actual_damage = SPELL_DMG(splash_damage)
 			if(istype(caster) && ishuman(L))
 				if(arcyne_strike(caster, L, null, actual_damage, pick(random_zones), \
 					BCLASS_BLUNT, spell_name = "Meteor Strike", \
 					damage_type = BRUTE, \
-					skip_animation = TRUE) == ARCYNE_STRIKE_WARDED)
+					skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
 				L.adjustBruteLoss(actual_damage)

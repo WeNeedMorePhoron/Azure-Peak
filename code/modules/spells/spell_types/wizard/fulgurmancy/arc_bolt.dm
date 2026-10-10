@@ -86,7 +86,8 @@
 	hitscan = TRUE
 	movement_type = UNSTOPPABLE
 	light_color = LIGHT_COLOR_WHITE
-	damage = 60
+	damage = SPELL_DMG(60)
+	intdamfactor = SPELL_INTDAM(1)
 	max_range = MAGE_LONG_PROJ_RANGE
 	damage_type = BURN
 	woundclass = BCLASS_BURN
@@ -100,12 +101,12 @@
 
 /obj/projectile/magic/arc_bolt/single
 	name = "focused bolt"
-	damage = 60
+	damage = SPELL_DMG(60)
 	arcs = FALSE
 
 /obj/projectile/magic/arc_bolt/single/arc
 	name = "arced bolt"
-	damage = 45
+	damage = SPELL_DMG(45)
 	arcshot = TRUE
 
 
@@ -177,7 +178,7 @@
 	if(istype(caster) && ishuman(L))
 		if(arcyne_strike(caster, L, null, actual_damage, def_zone, BCLASS_BURN, \
 			spell_name = "Arc Bolt", damage_type = BURN, \
-			skip_animation = TRUE) == ARCYNE_STRIKE_WARDED)
+			skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 			return
 	else
 		L.electrocute_act(actual_damage, src, 1, SHOCK_NOSTUN)

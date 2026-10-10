@@ -340,7 +340,7 @@
 	if(!istype(caster))
 		caster = null
 	var/zone = summon.zone_selected || BODY_ZONE_CHEST
-	var/damage = round(120 * scale)
+	var/damage = round(SPELL_DMG(120) * scale)
 	var/curtain_life = (scale >= 1) ? 8 SECONDS : 3 SECONDS
 	new /obj/effect/temp_visual/explosion(epicenter)
 	new /obj/effect/temp_visual/fire_pillar(epicenter)
@@ -356,7 +356,7 @@
 			if(victim.guard_deflect_spell("Overloaded", TRUE, caster, punish_caster = FALSE))
 				continue
 			if(caster && !QDELETED(caster))
-				if(arcyne_strike(caster, victim, null, damage, zone, BCLASS_BURN, spell_name = "Overloaded", damage_type = BURN, skip_animation = TRUE) == ARCYNE_STRIKE_WARDED)
+				if(arcyne_strike(caster, victim, null, damage, zone, BCLASS_BURN, spell_name = "Overloaded", damage_type = BURN, skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
 				victim.adjustFireLoss(damage)

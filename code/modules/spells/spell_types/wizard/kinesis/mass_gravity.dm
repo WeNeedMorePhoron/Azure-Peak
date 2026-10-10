@@ -36,9 +36,9 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
 	// Less damage than single target
-	var/crush_damage = 40
-	var/resisted_damage = 10
-	displayed_damage = 40
+	var/crush_damage = SPELL_DMG(40)
+	var/resisted_damage = SPELL_DMG(10)
+	displayed_damage = SPELL_DMG(40)
 	var/knockdown_time = 5
 	var/offbalance_time = 10
 	var/str_threshold = 15
@@ -93,7 +93,7 @@
 			if(L.STASTR <= str_threshold)
 				if(arcyne_strike(owner, L, null, crush_damage, target_zone, BCLASS_BLUNT, \
 					spell_name = "Mass Gravity", damage_type = BRUTE, \
-					skip_animation = TRUE) == ARCYNE_STRIKE_WARDED)
+					skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 				if(!adapted)
 					L.Knockdown(knockdown_time)
@@ -104,7 +104,7 @@
 			else
 				if(arcyne_strike(owner, L, null, resisted_damage, target_zone, BCLASS_BLUNT, \
 					spell_name = "Mass Gravity", damage_type = BRUTE, \
-					skip_animation = TRUE) == ARCYNE_STRIKE_WARDED)
+					skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 				if(!adapted)
 					L.OffBalance(offbalance_time)

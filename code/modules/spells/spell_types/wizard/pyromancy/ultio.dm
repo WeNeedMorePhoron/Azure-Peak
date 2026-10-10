@@ -45,9 +45,9 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
 	var/impact_delay = TELEGRAPH_SKILLSHOT
-	var/strike_damage = 65
+	var/strike_damage = SPELL_DMG(65)
 	var/scorch_stacks = 2
-	displayed_damage = 65
+	displayed_damage = SPELL_DMG(65)
 
 /datum/action/cooldown/spell/ultio/cast(atom/cast_on)
 	. = ..()
@@ -88,7 +88,7 @@
 			L.visible_message(span_warning("[L] shrugs off the flames!"))
 			continue
 		if(istype(caster) && ishuman(L))
-			if(arcyne_strike(caster, L, null, strike_damage, def_zone, BCLASS_BURN, spell_name = "Ultio", damage_type = BURN, skip_animation = TRUE) == ARCYNE_STRIKE_WARDED)
+			if(arcyne_strike(caster, L, null, strike_damage, def_zone, BCLASS_BURN, spell_name = "Ultio", damage_type = BURN, skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 				continue
 		else
 			L.adjustFireLoss(strike_damage)

@@ -42,7 +42,8 @@
 	light_color = "#f8af07"
 	light_outer_range = 2
 	speed = MAGE_PROJ_VERY_SLOW
-	damage = SPITFIRE_DAMAGE
+	damage = SPELL_DMG(SPITFIRE_DAMAGE)
+	intdamfactor = SPELL_INTDAM(1)
 	damage_type = BURN
 	woundclass = BCLASS_BURN
 	nodamage = FALSE
@@ -51,7 +52,7 @@
 
 /obj/projectile/magic/spitfire/arc
 	name = "arced spitfire"
-	damage = 38
+	damage = SPELL_DMG(38)
 	arcshot = TRUE
 
 /obj/projectile/magic/spitfire/on_hit(target, blocked = FALSE)

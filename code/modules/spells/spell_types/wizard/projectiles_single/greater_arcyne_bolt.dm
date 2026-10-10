@@ -42,11 +42,11 @@
 	icon_state = "arcyne_bolt"
 	guard_deflectable = TRUE
 	expose_caster_on_deflect = TRUE
-	damage = 54
+	damage = SPELL_DMG(54)
 	damage_type = BRUTE
 	flag = "blunt"
 	woundclass = BCLASS_BLUNT
-	intdamfactor = 1
+	intdamfactor = SPELL_INTDAM(1)
 	nodamage = FALSE
 	speed = MAGE_PROJ_FAST
 	max_range = MAGE_LONG_PROJ_RANGE
@@ -55,7 +55,7 @@
 
 /obj/projectile/magic/greater_arcyne_bolt/arc
 	name = "arced greater arcyne bolt"
-	damage = 41
+	damage = SPELL_DMG(41)
 	arcshot = TRUE
 
 /obj/projectile/magic/greater_arcyne_bolt/on_hit(target)

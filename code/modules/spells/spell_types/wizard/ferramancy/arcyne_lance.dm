@@ -43,10 +43,11 @@
 	icon_state = "air_blade_stab"
 	guard_deflectable = TRUE
 	expose_caster_on_deflect = TRUE
-	damage = 66
+	damage = SPELL_DMG(66)
 	damage_type = BRUTE
 	woundclass = BCLASS_STAB
 	nodamage = FALSE
+	intdamfactor = SPELL_INTDAM(1)
 	speed = MAGE_PROJ_MEDIUM
 	armor_penetration = PEN_LIGHT
 	movement_type = UNSTOPPABLE
@@ -60,7 +61,7 @@
 
 /obj/projectile/magic/arcyne_lance/arc
 	name = "arced arcyne lance"
-	damage = 50
+	damage = SPELL_DMG(50)
 	arcshot = TRUE
 	max_hits = 1 // Arced version does not pierce
 
