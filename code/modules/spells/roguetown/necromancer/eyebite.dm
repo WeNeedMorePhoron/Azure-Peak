@@ -29,5 +29,5 @@
 		return TRUE
 	target.apply_status_effect(STATUS_EFFECT_BLINDED)
 	target.visible_message(span_info("A loud crunching sound has come from [target]!"), span_userdanger("I feel arcane teeth biting into my eyes!"))
-	target.adjustBruteLoss(30)
+	target.adjustBruteLoss(SPELL_DMG(30))
 	return TRUE

@@ -41,7 +41,8 @@
 	impact_type = null
 	hitscan = TRUE
 	movement_type = UNSTOPPABLE
-	damage = 80
+	damage = SPELL_DMG(80)
+	intdamfactor = SPELL_INTDAM(1)
 	damage_type = BURN
 	nodamage = FALSE
 	speed = 0.3
