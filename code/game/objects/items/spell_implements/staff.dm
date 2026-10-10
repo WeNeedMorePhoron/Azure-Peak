@@ -16,7 +16,107 @@
 	wdefense_wbonus = 5 // 80% vs one-skill-up matchup. 60% vs two-skill-up matchup. (Rare)
 	max_integrity = 200
 	special = /datum/special_intent/quarterstaff_sweep
-	sellprice = 34
+	sellprice = 12
+	implement_upgradable = TRUE
+	var/gem_socketable = TRUE
+	var/obj/item/socketed_gem
+
+/obj/item/rogueweapon/woodstaff/implement/proc/gem_icon_state_for(obj/item/gem)
+	var/static/list/gem_icon_states = list(
+		/obj/item/roguegem/yellow = "topazstaff",
+		/obj/item/roguegem/amethyst = "amethyststaff",
+		/obj/item/roguegem/green = "emeraldstaff",
+		/obj/item/roguegem/ruby = "rubystaff",
+		/obj/item/roguegem/blue = "quartzstaff",
+		/obj/item/roguegem/violet = "sapphirestaff",
+		/obj/item/roguegem/diamond = "diamondstaff",
+		/obj/item/riddleofsteel = "riddlestaff",
+	)
+	for(var/gem_type in gem_icon_states)
+		if(istype(gem, gem_type))
+			return gem_icon_states[gem_type]
+
+/obj/item/rogueweapon/woodstaff/implement/proc/can_socket_gem()
+	if(!gem_socketable)
+		return FALSE
+	return initial(icon_state) in list("topazstaff", "amethyststaff", "emeraldstaff", "rubystaff", "quartzstaff", "sapphirestaff", "diamondstaff", "riddlestaff")
+
+/obj/item/rogueweapon/woodstaff/implement/attackby(obj/item/I, mob/living/user, params)
+	if(!istype(I, /obj/item/roguegem) && !istype(I, /obj/item/riddleofsteel))
+		return ..()
+	if(!can_socket_gem())
+		to_chat(user, span_warning("[src] won't take a gem!"))
+		return TRUE
+	var/new_state = gem_icon_state_for(I)
+	if(!new_state)
+		to_chat(user, span_warning("[I] doesn't seem to fit [src]."))
+		return TRUE
+	if(!user.transferItemToLoc(I, src))
+		return TRUE
+	var/obj/item/old_gem = socketed_gem
+	socketed_gem = I
+	if(old_gem)
+		old_gem.forceMove(drop_location())
+		user.put_in_hands(old_gem)
+	set_gem_icon(new_state, user)
+	to_chat(user, span_notice("I set [I] into [src][old_gem ? ", prying [old_gem] loose" : ""]."))
+	return TRUE
+
+/obj/item/rogueweapon/woodstaff/implement/rmb_self(mob/user, keybind = FALSE)
+	if(!socketed_gem || keybind || user.cmode)
+		return ..()
+	var/obj/item/old_gem = socketed_gem
+	socketed_gem = null
+	old_gem.forceMove(drop_location())
+	user.put_in_hands(old_gem)
+	set_gem_icon(initial(icon_state), user)
+	to_chat(user, span_notice("I pry [old_gem] out of [src]."))
+
+/obj/item/rogueweapon/woodstaff/implement/proc/set_gem_icon(new_state, mob/user)
+	icon_state = new_state
+	update_icon()
+	if(ismob(loc))
+		var/mob/M = loc
+		M.update_inv_hands()
+		M.update_inv_back()
+
+/obj/item/rogueweapon/woodstaff/implement/examine(mob/user)
+	. = ..()
+	if(implement_refund)
+		. += span_notice("When held while casting, this implement leaves behind Residual Focus, returning [round(implement_refund * 100)]% of the spell's resource cost as energy over 20 seconds.")
+	if(socketed_gem)
+		. += span_info("[socketed_gem] is set into it. Right-click it in hand to pry the gem loose.")
+	else if(can_socket_gem())
+		. += span_info("Gems are cosmetic on a staff.")
+
+/obj/item/rogueweapon/woodstaff/implement/obj_destruction(damage_flag)
+	if(socketed_gem)
+		socketed_gem.forceMove(drop_location())
+		socketed_gem = null
+	return ..()
+
+/obj/item/rogueweapon/woodstaff/implement/Exited(atom/movable/gone, atom/newLoc)
+	. = ..()
+	if(gone == socketed_gem)
+		socketed_gem = null
+
+/obj/item/rogueweapon/woodstaff/implement/implement_tier_type(tier)
+	switch(tier)
+		if(IMPLEMENT_TIER_LESSER)
+			return /obj/item/rogueweapon/woodstaff/implement
+		if(IMPLEMENT_TIER_GREATER)
+			return /obj/item/rogueweapon/woodstaff/implement/greater
+		if(IMPLEMENT_TIER_GRAND)
+			return /obj/item/rogueweapon/woodstaff/implement/grand
+
+/obj/item/rogueweapon/woodstaff/implement/transfer_implement_state(obj/item/rogueweapon/morphed, mob/user)
+	. = ..()
+	if(!socketed_gem)
+		return
+	var/obj/item/gem = socketed_gem
+	socketed_gem = null
+	gem.forceMove(get_turf(user))
+	user?.put_in_hands(gem)
 
 /obj/item/rogueweapon/woodstaff/implement/amethyst
 	icon_state = "amethyststaff"
@@ -29,7 +129,7 @@
 	implement_tier = IMPLEMENT_TIER_GREATER
 	implement_refund = IMPLEMENT_REFUND_GREATER
 	max_integrity = 250
-	sellprice = 42
+	sellprice = 25
 
 /obj/item/rogueweapon/woodstaff/implement/greater/ruby
 	icon_state = "rubystaff"
@@ -48,15 +148,10 @@
 	implement_tier = IMPLEMENT_TIER_GRAND
 	implement_refund = IMPLEMENT_REFUND_GRAND
 	max_integrity = 280
-	sellprice = 121
+	sellprice = 50
 
 /obj/item/rogueweapon/woodstaff/implement/grand/riddle
 	icon_state = "riddlestaff"
-
-/obj/item/rogueweapon/woodstaff/implement/examine(mob/user)
-	. = ..()
-	if(implement_refund)
-		. += span_notice("When held while casting, this implement leaves behind Residual Focus, returning [round(implement_refund * 100)]% of the spell's resource cost as energy over 20 seconds.")
 
 
 /datum/intent/magos_electrocute
@@ -108,13 +203,7 @@
 /obj/item/rogueweapon/woodstaff/implement/greater/blacksteel
 	base_implement_name = "blacksteel staff"
 	name = "blacksteel staff"
-	desc = "A fine wood staff reinforced with blacksteel rivets and furnishings, carried by War-Magos who graduated from the Celestial Academy of Magos. Placed atop it is a less efficient though equally beautiful alchemical Dorpel. Perhaps its power can be enhanced by a gemerald?"
-	icon_state = "blacksteelstaff"
-
-/obj/item/rogueweapon/woodstaff/implement/grand/blacksteel
-	base_implement_name = "refined blacksteel staff"
-	name = "refined blacksteel staff"
-	desc = "A fine wood staff reinforced with blacksteel rivets and furnishings, carried by War-Magos who graduated from the Celestial Academy of Magos. Perched atop it is a beautiful Dorpel that shimmers with magical energies."
+	desc = "A fine wood staff reinforced with blacksteel rivets and furnishings, carried by War-Magos who graduated from the Celestial Academy of Magos. Perched atop it is a beautiful alchemical Dorpel. Its focus can be improved further with a runic tincture."
 	icon_state = "blacksteelstaff"
 
 /obj/item/rogueweapon/woodstaff/implement/grand/naledi

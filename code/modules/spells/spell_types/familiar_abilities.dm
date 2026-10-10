@@ -339,12 +339,16 @@
 	base_implement_name = "\improper Bound Staff" // will become "Bound Staff of Frost" etc
 	desc = "A mage's staff crowned with the spirit-gem of a familiar. The gem captures excess energy dissipated into the air when a spell is cast, giving a generous share of it back to the wielder."
 	icon_state = "sapphirestaff"
+	gem_socketable = FALSE
+	implement_upgradable = FALSE
 
 /obj/item/rogueweapon/woodstaff/implement/greater/infernal
 	name = "\improper Staff of the Daemonbinder"
 	base_implement_name = "\improper Infernal Staff" // "Infernal Staff of Flame" etc
 	desc = "A mage's staff that shimmers with eternal malice. It is perpetually warm to the touch; holding it inspires an urge to unleash one's most powerful magic. Merely a touch from it is enough to spark flame. It captures excess energy dissipated into the air when a spell is cast, giving a generous share of it back to the wielder."
 	icon_state = "rubystaff"
+	gem_socketable = FALSE
+	implement_upgradable = FALSE
 	var/sparkcd = 0
 
 /obj/item/rogueweapon/woodstaff/implement/greater/infernal/afterattack(atom/movable/A, mob/user, proximity)
