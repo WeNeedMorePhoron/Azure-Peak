@@ -2,6 +2,10 @@
 	name = "staff bash"
 	damfactor = 1
 	reach = 1
+	intent_intdamage_factor = 1
+
+/datum/intent/spear/bash/staff/onehand
+	damfactor = NONBLUNT_BLUNT_DAMFACTOR
 
 /datum/intent/spear/bash/ranged/quarterstaff
 	damfactor = 1
