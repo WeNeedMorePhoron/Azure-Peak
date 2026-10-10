@@ -41,6 +41,7 @@
 	bigboy = TRUE
 	gripsprite = TRUE
 	associated_skill = /datum/skill/combat/staves
+	is_implement = TRUE
 	special = /datum/special_intent/quarterstaff_sweep
 	anvilrepair = /datum/skill/craft/carpentry
 	resistance_flags = FLAMMABLE
@@ -70,6 +71,7 @@
 	icon_state = "aries"
 	icon = 'icons/roguetown/weapons/polearms64.dmi'
 	associated_skill = /datum/skill/magic/holy
+	is_implement = FALSE
 	sellprice = 240
 	pixel_y = -22
 	pixel_x = -22
@@ -233,6 +235,7 @@
 	gripped_intents = list(/datum/intent/spear/bash/ranged/quarterstaff, /datum/intent/spear/thrust/quarterstaff, /datum/intent/mace/smash/wood/ranged)
 	icon_state = "quarterstaff"
 	associated_skill = /datum/skill/combat/staves
+	is_implement = FALSE
 	max_integrity = 150
 	wdefense = 5
 	wdefense_wbonus = 5	// 90% in a same-skill matchup, 80% in a one-skill-below matchup.

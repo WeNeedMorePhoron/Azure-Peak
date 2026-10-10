@@ -24,6 +24,8 @@
 	var/implement_tier = 0
 	/// Fraction (0..1) of a spell's resource cost returned by the arcyne refund buff when this item is held.
 	var/implement_refund = 0
+	/// Whether it is exempt from the in hand cast penalty
+	var/is_implement = FALSE
 	COOLDOWN_DECLARE(attunement_cd)
 
 /obj/item/rogueweapon/proc/attune_implement(spell_color, spell_name)

@@ -9,6 +9,7 @@
 	anvilrepair = null
 	smeltresult = null
 	associated_skill = /datum/skill/combat/arcyne
+	is_implement = TRUE
 
 /obj/item/rogueweapon/sword/rapier/ferramancy
 	name = "arcyne rapier"
@@ -19,6 +20,7 @@
 	anvilrepair = null
 	smeltresult = null
 	associated_skill = /datum/skill/combat/arcyne
+	is_implement = TRUE
 
 /obj/item/rogueweapon/greatsword/ferramancy
 	name = "arcyne greatsword"
@@ -29,6 +31,7 @@
 	anvilrepair = null
 	smeltresult = null
 	associated_skill = /datum/skill/combat/arcyne
+	is_implement = TRUE
 
 /obj/item/rogueweapon/greataxe/steel/doublehead/ferramancy
 	name = "arcyne greataxe"
@@ -39,6 +42,7 @@
 	anvilrepair = null
 	smeltresult = null
 	associated_skill = /datum/skill/combat/arcyne
+	is_implement = TRUE
 
 /obj/item/rogueweapon/halberd/ferramancy
 	name = "arcyne halberd"
@@ -49,3 +53,4 @@
 	anvilrepair = null
 	smeltresult = null
 	associated_skill = /datum/skill/combat/arcyne
+	is_implement = TRUE
