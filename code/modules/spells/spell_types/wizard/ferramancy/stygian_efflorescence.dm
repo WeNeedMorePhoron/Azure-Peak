@@ -32,7 +32,7 @@
 	charge_required = TRUE
 	weapon_cast_penalized = TRUE // Use it with an arcyne armament noob 
 	charge_time = CHARGETIME_MINOR
-	charge_swingdelay_type = SWINGDELAY_CANCEL
+	charge_swingdelay_type = SWINGDELAY_PENALTY
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_MEDIUM
 	charge_sound = 'sound/magic/charging.ogg'

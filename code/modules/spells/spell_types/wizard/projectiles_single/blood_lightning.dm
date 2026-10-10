@@ -19,7 +19,7 @@
 	charge_required = TRUE
 	weapon_cast_penalized = TRUE
 	charge_time = 2.5 SECONDS
-	charge_swingdelay_type = SWINGDELAY_CANCEL
+	charge_swingdelay_type = SWINGDELAY_PENALTY
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_HEAVY
 	charge_sound = 'sound/magic/charging.ogg'

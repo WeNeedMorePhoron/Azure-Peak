@@ -17,7 +17,7 @@
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
-	charge_swingdelay_type = SWINGDELAY_CANCEL
+	charge_swingdelay_type = SWINGDELAY_PENALTY
 	weapon_cast_penalized = TRUE
 	charge_time = CHARGETIME_MINOR
 	hold_drain = 1

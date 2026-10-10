@@ -28,7 +28,7 @@
 	charge_time = CHARGETIME_POKE
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
-	charge_swingdelay_type = SWINGDELAY_PENALTY
+	charge_swingdelay_type = SWINGDELAY_NORMAL
 	charge_sound = 'sound/magic/charging.ogg'
 	cooldown_time = 6.5 SECONDS
 	attunement_school = ASPECT_NAME_FULGURMANCY
