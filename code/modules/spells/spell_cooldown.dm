@@ -737,9 +737,9 @@
 			return FALSE
 
 	var/mob/living/living_owner = owner
-	if(istype(living_owner) && living_owner.has_status_effect(/datum/status_effect/debuff/cast_disrupted))
+	if(istype(living_owner) && living_owner.has_status_effect(/datum/status_effect/debuff/clickcd))
 		if(feedback)
-			owner.balloon_alert(owner, "Too exposed to focus!")
+			owner.balloon_alert(owner, "I can't act yet!")
 		return FALSE
 
 	if(!(spell_requirements & SPELL_CASTABLE_WHILE_MOUNTED) && owner.client && owner.buckled && isliving(owner.buckled))

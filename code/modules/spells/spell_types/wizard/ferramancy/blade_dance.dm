@@ -128,7 +128,7 @@
 		qdel(src)
 		return
 
-	if(caster.IsKnockdown() || caster.IsStun() || caster.IsParalyzed() || caster.has_status_effect(/datum/status_effect/debuff/cast_disrupted))
+	if(caster.IsKnockdown() || caster.IsStun() || caster.IsParalyzed() || caster.has_status_effect(/datum/status_effect/debuff/exposed))
 		caster.visible_message(span_boldwarning("[caster]'s storm of blades scatters!"), span_warning("My blade dance is broken!"))
 		qdel(src)
 		return
