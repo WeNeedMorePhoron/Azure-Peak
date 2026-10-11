@@ -355,7 +355,6 @@
 		/datum/action/cooldown/spell/raise_deadite,
 		/datum/action/cooldown/spell/tame_undead,
 		/datum/action/cooldown/spell/convert_heretic,
-		/datum/action/cooldown/spell/gravemark,
 		/datum/action/cooldown/spell/lacrima,
 	)
 	choice_spells = list(
@@ -375,7 +374,6 @@
 		/datum/action/cooldown/spell/raise_deadite,
 		/datum/action/cooldown/spell/tame_undead,
 		/datum/action/cooldown/spell/convert_heretic,
-		/datum/action/cooldown/spell/gravemark,
 		/datum/action/cooldown/spell/lacrima,
 		/datum/action/cooldown/spell/minion_mark,
 		/datum/action/cooldown/spell/conjure_projection,

@@ -3283,7 +3283,6 @@
 #include "code\modules\spells\roguetown\necromancer\bone_chill.dm"
 #include "code\modules\spells\roguetown\necromancer\bone_mend.dm"
 #include "code\modules\spells\roguetown\necromancer\covert_the_downtrodden.dm"
-#include "code\modules\spells\roguetown\necromancer\gravemark.dm"
 #include "code\modules\spells\roguetown\necromancer\lacrima.dm"
 #include "code\modules\spells\roguetown\necromancer\ray_of_sickness.dm"
 #include "code\modules\spells\roguetown\necromancer\tame_undead.dm"
