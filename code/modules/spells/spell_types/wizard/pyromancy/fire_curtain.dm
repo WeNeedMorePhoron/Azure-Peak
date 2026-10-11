@@ -1,7 +1,7 @@
 #define CURTAIN_TICK_DAMAGE 50
 #define CURTAIN_SCORCH_PER_TICK 2
 #define CURTAIN_THROWN_BURN_COOLDOWN (2 SECONDS)
-#define CURTAIN_THROWN_GRACE (1 SECONDS)
+#define CURTAIN_THROWN_GRACE (2 SECONDS)
 #define CURTAIN_BURN_KEY "curtain_burn"
 #define CURTAIN_GRACE_KEY "curtain_grace"
 
@@ -50,7 +50,7 @@
 
 /datum/action/cooldown/spell/fire_curtain/get_spell_statistics(mob/living/user)
 	var/list/stats = ..()
-	stats += span_info("Damage: [SPELL_DMG(CURTAIN_TICK_DAMAGE)] burn every [DisplayTimeText(SSobj.wait)] if standing, once per second if moving. Lasts [DisplayTimeText(curtain_life)].")
+	stats += span_info("Damage: [SPELL_DMG(CURTAIN_TICK_DAMAGE)] burn per tile entered, once per second per tile. Lasts [DisplayTimeText(curtain_life)].")
 	stats += span_info("Scorched: [CURTAIN_SCORCH_PER_TICK] stacks per burn")
 	return stats
 
@@ -135,6 +135,7 @@
 	var/lifetime = 10 SECONDS
 	var/tick_damage = SPELL_DMG(CURTAIN_TICK_DAMAGE)
 	var/burn_cooldown = 1 SECONDS
+	var/list/burn_times
 	var/datum/weakref/caster_ref
 	var/aim_zone
 
@@ -156,14 +157,17 @@
 	. = ..()
 	if(isliving(AM))
 		var/mob/living/L = AM
-		burn_occupant(L, !!L.throwing)
+		burn_occupant(L, is_displaced(L))
 
 /obj/effect/curtain_fire/process(seconds_per_tick)
 	var/turf/T = get_turf(src)
 	if(!isturf(T))
 		return
 	for(var/mob/living/L in T)
-		burn_occupant(L, !!L.throwing)
+		burn_occupant(L, is_displaced(L))
+
+/obj/effect/curtain_fire/proc/is_displaced(mob/living/L)
+	return !!(L.throwing || L.pulledby)
 
 /obj/effect/curtain_fire/proc/burn_occupant(mob/living/L, involuntary = FALSE)
 	if(HAS_TRAIT(L, TRAIT_NOFIRE))
@@ -171,9 +175,14 @@
 	// Grace timer for those who were involuntarily thrown into the fire curtain so that it doesn't instaproc charred in involuntary situation
 	if(L.mob_timers[CURTAIN_GRACE_KEY] && world.time < L.mob_timers[CURTAIN_GRACE_KEY])
 		return
-	if(L.mob_timers[CURTAIN_BURN_KEY] && world.time < L.mob_timers[CURTAIN_BURN_KEY])
+	var/mob_key = REF(L)
+	if(involuntary)
+		if(L.mob_timers[CURTAIN_BURN_KEY] && world.time < L.mob_timers[CURTAIN_BURN_KEY])
+			return
+	else if(LAZYACCESS(burn_times, mob_key) && world.time < burn_times[mob_key])
 		return
-	L.mob_timers[CURTAIN_BURN_KEY] = world.time + (involuntary ? CURTAIN_THROWN_BURN_COOLDOWN : burn_cooldown)
+	L.mob_timers[CURTAIN_BURN_KEY] = world.time + CURTAIN_THROWN_BURN_COOLDOWN
+	LAZYSET(burn_times, mob_key, world.time + burn_cooldown)
 	if(involuntary)
 		L.mob_timers[CURTAIN_GRACE_KEY] = world.time + CURTAIN_THROWN_GRACE
 	var/hit_zone = aim_zone || BODY_ZONE_CHEST
