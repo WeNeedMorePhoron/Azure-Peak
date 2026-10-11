@@ -1,21 +1,23 @@
-/datum/action/cooldown/spell/augment_buff/augment_defense
-	name = "Augment Defense"
-	desc = "Uses arcyne energy to restore an ally's defenses, clearing away any vulnerability or exposure they may have suffered. Cannot be cast on yourself."
+/datum/action/cooldown/spell/augment_buff/restore_defense
+	name = "Restore Defense"
+	desc = "Uses arcyne energy to restore an ally's defenses, clearing away any exposure, vulnerability or feint they may have suffered. Cannot be cast on yourself."
 	button_icon = 'icons/mob/actions/mage_augmentation.dmi'
 	button_icon_state = "stoneskin"
 
 	self_cast_possible = FALSE
 
-	primary_resource_cost = 5
+	primary_resource_cost = SPELLCOST_CANTRIP
 
 	invocations = list("Resta!")
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = FALSE
 
-	cooldown_time = 22.5 SECONDS
+	cooldown_time = 30 SECONDS
 
-/datum/action/cooldown/spell/augment_buff/augment_defense/cast(atom/cast_on)
+	point_cost = 1
+
+/datum/action/cooldown/spell/augment_buff/restore_defense/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/carbon/human/caster = owner
 	if(!istype(caster))

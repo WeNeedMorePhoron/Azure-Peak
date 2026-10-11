@@ -102,6 +102,7 @@
 		/datum/action/cooldown/spell/augment_buff/surge,
 		/datum/action/cooldown/spell/augment_buff/precognition,
 		/datum/action/cooldown/spell/augment_buff/grasp,
+		/datum/action/cooldown/spell/augment_buff/restore_defense,
 		// 1-cost utility filler
 		/datum/action/cooldown/spell/light,
 		/datum/action/cooldown/spell/mending,
