@@ -319,3 +319,50 @@
 			/datum/action/cooldown/spell/conjure_summon/champion = /datum/action/cooldown/spell/conjure_summon/champion/doppelsoldner,
 		),
 	)
+
+/datum/magic_aspect/necromancy
+	name = "Necromancy"
+	latin_name = "Maior Aspectus Mortis"
+	desc = "Zizo! Mistress of Progress! Grants me power over the mortal coils! Zizo! Mistress of Undeath! Grants me the power to bind lyfe unto the dead! Zizo! Mistress of Magick! Grants me power unbound to smite the unworthy!"
+	aspect_type = ASPECT_MAJOR
+	attuned_name = ASPECT_NAME_NECROMANCY
+	school_color = GLOW_COLOR_ZIZO
+	class_locked = TRUE
+	// No one is hearing these chants by design but better safe than sorry
+	binding_chants = list(
+		"Invoco mortem perpetuam!", // I invoke everlasting death!
+		"I call upon the dead that rest beneath, rise!",
+		"Mors, in me ligare!", // Death, be bound into me!
+	)
+	unbinding_chants = list(
+		"Solvo mortem vinctam!", // I release the bound death!
+		"I return the dead I have bound, rest.",
+		"Mors, a me discede!", // Death, depart from me!
+	)
+	fixed_spells = list(
+		/datum/action/cooldown/spell/minion_order/conjurer,
+		/datum/action/cooldown/spell/command_word/fray,
+		/datum/action/cooldown/spell/command_word/harry,
+		/datum/action/cooldown/spell/command_word/quicken,
+		/datum/action/cooldown/spell/command_word/beckon,
+		/datum/action/cooldown/spell/minion_mark,
+		/datum/action/cooldown/spell/conjure_recall,
+		/datum/action/cooldown/spell/conjure_dismiss,
+		/datum/action/cooldown/spell/conjure_projection,
+	)
+	choice_spells = list(
+		/datum/action/cooldown/spell/conjure_summon/undead/champion,
+		/datum/action/cooldown/spell/conjure_summon/undead/horde,
+	)
+	spell_order = list(
+		/datum/action/cooldown/spell/minion_order/conjurer,
+		/datum/action/cooldown/spell/command_word/fray,
+		/datum/action/cooldown/spell/command_word/harry,
+		/datum/action/cooldown/spell/command_word/quicken,
+		/datum/action/cooldown/spell/command_word/beckon,
+		ASPECT_CHOICE,
+		/datum/action/cooldown/spell/minion_mark,
+		/datum/action/cooldown/spell/conjure_projection,
+		/datum/action/cooldown/spell/conjure_recall,
+		/datum/action/cooldown/spell/conjure_dismiss,
+	)
