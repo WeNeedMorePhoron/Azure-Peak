@@ -91,7 +91,7 @@
 			if(arcyne_strike(caster, L, null, strike_damage, def_zone, BCLASS_BURN, spell_name = "Ultio", damage_type = BURN, skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 				continue
 		else
-			L.adjustFireLoss(strike_damage)
+			L.adjustFireLoss(SPELL_DMG_VS(L, strike_damage))
 		apply_scorch_stack(L, scorch_stacks, def_zone)
 
 /obj/effect/temp_visual/telegraph/wall/fire/ultio

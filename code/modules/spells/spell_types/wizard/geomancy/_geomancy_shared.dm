@@ -32,6 +32,7 @@
 	guard_deflectable = TRUE
 	expose_caster_on_deflect = TRUE
 	intdamfactor = SPELL_INTDAM(SPELL_BLUNT_INT_DAMAGEFACTOR)
+	spell_damage_scaled = TRUE
 	object_damage_multiplier = 2
 	hitsound = 'sound/combat/hits/onstone/wallhit.ogg'
 	ricochets_max = 2

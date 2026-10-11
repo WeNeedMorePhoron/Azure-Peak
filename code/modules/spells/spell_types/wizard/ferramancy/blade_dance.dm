@@ -157,7 +157,7 @@
 					allow_shield_check = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
-				L.adjustBruteLoss(tick_damage)
+				L.adjustBruteLoss(SPELL_DMG_VS(L, tick_damage))
 			new /obj/effect/temp_visual/spell_impact(get_turf(L), GLOW_COLOR_METAL, SPELL_IMPACT_MEDIUM)
 
 #undef BLADE_DANCE_RADIUS

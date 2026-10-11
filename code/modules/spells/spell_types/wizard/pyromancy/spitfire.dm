@@ -44,6 +44,7 @@
 	speed = MAGE_PROJ_VERY_SLOW
 	damage = SPELL_DMG(SPITFIRE_DAMAGE)
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	damage_type = BURN
 	woundclass = BCLASS_BURN
 	nodamage = FALSE

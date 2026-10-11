@@ -150,7 +150,7 @@
 					skip_animation = TRUE, skip_message = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
-				L.adjustFireLoss(actual_damage)
+				L.adjustFireLoss(SPELL_DMG_VS(L, actual_damage))
 			new /obj/effect/temp_visual/spell_impact(get_turf(L), GLOW_COLOR_ICE, SPELL_IMPACT_MEDIUM)
 
 /obj/effect/temp_visual/frozen_mist_tile

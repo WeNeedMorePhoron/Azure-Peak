@@ -88,6 +88,7 @@
 	movement_type = UNSTOPPABLE
 	nodamage = FALSE
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	/// How many mob targets have been pierced
 	var/hits = 0
 	/// Max mob targets before the lance shatters
@@ -138,6 +139,7 @@
 	woundclass = BCLASS_BURN
 	nodamage = FALSE
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	flag = "fire"
 	arcshot = TRUE
 	hitsound = 'sound/blank.ogg'

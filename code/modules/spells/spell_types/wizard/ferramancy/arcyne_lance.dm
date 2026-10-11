@@ -48,6 +48,7 @@
 	woundclass = BCLASS_STAB
 	nodamage = FALSE
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	speed = MAGE_PROJ_MEDIUM
 	armor_penetration = PEN_LIGHT
 	movement_type = UNSTOPPABLE

@@ -83,7 +83,7 @@
 				if(arcyne_strike(caster, L, null, mob_damage, BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Fire Strike", damage_type = BURN, skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
-				L.adjustFireLoss(mob_damage)
+				L.adjustFireLoss(SPELL_DMG_VS(L, mob_damage))
 			apply_scorch_stack(L, 2)
 			L.Knockdown(3)
 

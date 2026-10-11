@@ -57,7 +57,7 @@
 		carbon_target = target
 		if(target_zone == BODY_ZONE_HEAD && !carbon_target.get_bodypart(BODY_ZONE_HEAD))
 			target_zone = BODY_ZONE_CHEST
-	target.apply_damage(SPELL_DMG(SCORCH_BURN_DAMAGE), BURN, target_zone, 0)
+	target.apply_damage(SPELL_DMG_VS(target, SPELL_DMG(SCORCH_BURN_DAMAGE)), BURN, target_zone, 0)
 	if(carbon_target)
 		var/obj/item/bodypart/affecting = carbon_target.get_bodypart(check_zone(target_zone))
 		if(affecting)

@@ -65,6 +65,7 @@
 	expose_caster_on_deflect = TRUE
 	damage = SPELL_DMG(40)
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	flag = "slash"
 	woundclass = BCLASS_CUT
 	nodamage = FALSE

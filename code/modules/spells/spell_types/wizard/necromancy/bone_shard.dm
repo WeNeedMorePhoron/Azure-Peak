@@ -41,6 +41,7 @@
 	flag = "piercing"
 	woundclass = BCLASS_STAB
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	speed = MAGE_PROJ_FAST
 	embed_chance = 0
 	hitsound = 'sound/combat/fracture/fracturedry (1).ogg'

@@ -356,7 +356,7 @@
 				if(arcyne_strike(caster, victim, null, damage, zone, BCLASS_BURN, spell_name = "Overloaded", damage_type = BURN, skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
-				victim.adjustFireLoss(damage)
+				victim.adjustFireLoss(SPELL_DMG_VS(victim, damage))
 			apply_scorch_stack(victim, 2, zone)
 			victim.apply_status_effect(/datum/status_effect/debuff/exposed, 4 SECONDS)
 	summon.death()

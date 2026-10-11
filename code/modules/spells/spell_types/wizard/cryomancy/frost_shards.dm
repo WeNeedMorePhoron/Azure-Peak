@@ -62,6 +62,7 @@
 	speed = MAGE_PROJ_FAST
 	nodamage = FALSE
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	var/reduced_damage = SPELL_DMG(9)
 	var/repeat_hit = FALSE
 

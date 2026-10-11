@@ -325,7 +325,7 @@
 			spell_name = "Ramstam", damage_type = BRUTE, skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 			return
 	else
-		L.adjustBruteLoss(barrel_damage)
+		L.adjustBruteLoss(SPELL_DMG_VS(L, barrel_damage))
 	new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
 	var/knockdir = pick(turn(dir, 90), turn(dir, -90))
 	L.safe_throw_at(get_ranged_target_turf(L, knockdir, knock_dist), knock_dist, 1, H, force = MOVE_FORCE_STRONG)

@@ -177,7 +177,7 @@
 					skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
-				L.adjustBruteLoss(damage)
+				L.adjustBruteLoss(SPELL_DMG_VS(L, damage))
 				SEND_SIGNAL(L, COMSIG_ATOM_WAS_ATTACKED, caster, damage)
 			L.apply_status_effect(/datum/status_effect/debuff/exposed, expose_dur)
 			var/push_dir = get_dir(origin, L) || beam_dir

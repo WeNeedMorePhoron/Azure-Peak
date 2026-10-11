@@ -136,6 +136,7 @@
 	guard_deflectable = TRUE
 	expose_caster_on_deflect = TRUE
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	ricochets_max = 5
 	ricochet_chance = 100
 	ricochet_auto_aim_angle = 40

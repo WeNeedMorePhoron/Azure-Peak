@@ -659,9 +659,9 @@
 // nerfed damage down to one-fifth the original value - still fucks up simples though
 /obj/effect/obeliskbeam/drakeling/damage(mob/living/hit_mob)
 	if(issimple(hit_mob))
-		hit_mob.apply_damage(damage = SPELL_DMG(10), damagetype = BURN)
+		hit_mob.apply_damage(damage = SPELL_DMG_VS(hit_mob, SPELL_DMG(10)), damagetype = BURN)
 	else
-		hit_mob.apply_damage(damage = SPELL_DMG(3), damagetype = BURN)
+		hit_mob.apply_damage(damage = SPELL_DMG_VS(hit_mob, SPELL_DMG(3)), damagetype = BURN)
 	to_chat(hit_mob, span_danger("You're damaged by [src]!"))
 
 /obj/effect/proc_holder/spell/invoked/fire_obelisk_beam/drakeling/cast(list/targets, mob/living/carbon/human/species/familiar/void/user)
@@ -689,9 +689,9 @@
 			new_obeliskbeam.assign_creator(user)
 			for(var/mob/living/hit_mob in affected_turf.contents)
 				if(issimple(hit_mob))
-					hit_mob.apply_damage(damage = SPELL_DMG(15), damagetype = BURN)
+					hit_mob.apply_damage(damage = SPELL_DMG_VS(hit_mob, SPELL_DMG(15)), damagetype = BURN)
 				else
-					hit_mob.apply_damage(damage = SPELL_DMG(5), damagetype = BURN) // this is literally one-fifth of the normal abberant beam you will not be fragging with this
+					hit_mob.apply_damage(damage = SPELL_DMG_VS(hit_mob, SPELL_DMG(5)), damagetype = BURN) // this is literally one-fifth of the normal abberant beam you will not be fragging with this
 				to_chat(hit_mob, span_userdanger("You're blasted by [user]'s aberrant beam!"))
 		if(!length(user.beam_parts))
 			return FALSE

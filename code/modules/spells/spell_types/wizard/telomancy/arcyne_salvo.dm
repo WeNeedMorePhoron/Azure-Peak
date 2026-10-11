@@ -62,6 +62,7 @@
 	guard_deflectable = TRUE
 	expose_caster_on_deflect = TRUE
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	hitsound = 'sound/combat/hits/blunt/shovel_hit2.ogg'
 	ricochets_max = 2
 	ricochet_chance = 100

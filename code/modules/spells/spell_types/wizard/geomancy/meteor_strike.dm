@@ -83,6 +83,6 @@
 				if(arcyne_strike(caster, L, null, head_damage, BODY_ZONE_HEAD, BCLASS_BLUNT, spell_name = "Meteor Strike", damage_type = BRUTE, skip_animation = TRUE, exact_zone = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
-				L.adjustBruteLoss(head_damage)
+				L.adjustBruteLoss(SPELL_DMG_VS(L, head_damage))
 			L.Knockdown(3)
 			new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)

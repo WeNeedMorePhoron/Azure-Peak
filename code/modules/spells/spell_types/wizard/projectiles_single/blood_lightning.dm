@@ -43,6 +43,7 @@
 	movement_type = UNSTOPPABLE
 	damage = SPELL_DMG(80)
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	damage_type = BURN
 	nodamage = FALSE
 	speed = 0.3

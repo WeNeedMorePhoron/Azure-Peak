@@ -47,6 +47,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	damage = SPELL_DMG(60)
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	damage_type = BURN
 	nodamage = FALSE
 	speed = 0.3

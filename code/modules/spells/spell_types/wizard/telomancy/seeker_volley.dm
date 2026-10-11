@@ -60,6 +60,7 @@
 	guard_deflectable = TRUE
 	expose_caster_on_deflect = TRUE
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	hitsound = 'sound/combat/hits/blunt/shovel_hit2.ogg'
 	homing_turn_speed = 35
 	homing_inaccuracy_max = 12

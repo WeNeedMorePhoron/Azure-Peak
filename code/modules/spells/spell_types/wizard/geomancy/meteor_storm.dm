@@ -125,7 +125,7 @@
 				skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 				continue
 		else
-			L.adjustBruteLoss(actual_damage)
+			L.adjustBruteLoss(SPELL_DMG_VS(L, actual_damage))
 		L.Knockdown(3)
 		new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
 	// Splash damage on adjacent tiles
@@ -145,7 +145,7 @@
 					skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
-				L.adjustBruteLoss(actual_damage)
+				L.adjustBruteLoss(SPELL_DMG_VS(L, actual_damage))
 	// Spawn gravel fragments
 	spawn_fragments(T)
 

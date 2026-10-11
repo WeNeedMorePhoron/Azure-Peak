@@ -51,6 +51,7 @@
 	woundclass = BCLASS_STAB
 	nodamage = FALSE
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	speed = 0.3
 	flag = "piercing"
 	hitsound = 'sound/magic/obeliskbeam.ogg'

@@ -57,6 +57,7 @@
 	exp_fire = 0
 	damage = SPELL_DMG(FIREBALL_DAMAGE)
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	damage_type = BURN
 	woundclass = BCLASS_BURN
 	nodamage = FALSE
@@ -257,7 +258,7 @@
 				if(arcyne_strike(caster, L, null, damage, aim_zone || BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Pillar of Flame", damage_type = BURN, skip_animation = TRUE, exact_zone = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
-				L.adjustFireLoss(damage)
+				L.adjustFireLoss(SPELL_DMG_VS(L, damage))
 			apply_scorch_stack(L, 2)
 			L.apply_status_effect(/datum/status_effect/debuff/vulnerable, WYRMFIRE_VULNERABLE_DURATION)
 
@@ -463,7 +464,7 @@
 				if(arcyne_strike(caster, L, null, blast_damage, BODY_ZONE_CHEST, BCLASS_BURN, spell_name = "Pyroclasm", damage_type = BURN, skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
-				L.adjustFireLoss(blast_damage)
+				L.adjustFireLoss(SPELL_DMG_VS(L, blast_damage))
 			apply_scorch_stack(L, 3)
 		for(var/obj/structure/damaged in T)
 			if(!istype(damaged, /obj/structure/flora/newbranch))

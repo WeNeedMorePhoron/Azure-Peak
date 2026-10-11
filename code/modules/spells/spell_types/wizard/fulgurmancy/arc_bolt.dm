@@ -88,6 +88,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	damage = SPELL_DMG(60)
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	max_range = MAGE_LONG_PROJ_RANGE
 	damage_type = BURN
 	woundclass = BCLASS_BURN

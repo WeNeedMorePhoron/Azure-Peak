@@ -87,7 +87,7 @@
 					skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 					continue
 			else
-				L.adjustBruteLoss(damage)
+				L.adjustBruteLoss(SPELL_DMG_VS(L, damage))
 				SEND_SIGNAL(L, COMSIG_ATOM_WAS_ATTACKED, caster, damage)
 			var/push_dir = get_dir(epicenter, L) || pick(GLOB.cardinals)
 			L.safe_throw_at(get_ranged_target_turf(L, push_dir, push_dist), push_dist, 1, caster, force = MOVE_FORCE_STRONG)

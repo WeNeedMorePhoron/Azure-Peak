@@ -107,7 +107,7 @@
 	playsound(src, 'sound/spellbooks/crystal.ogg', 80, TRUE)
 	new /obj/effect/temp_visual/telegraph/ice(get_turf(src))
 	L.Slowdown(4)
-	L.adjustFireLoss(SPELL_DMG(10))
+	L.adjustFireLoss(SPELL_DMG_VS(L, SPELL_DMG(10)))
 	apply_frost_stack(L, 4)
 
 /obj/structure/rune_ward/damage
@@ -127,7 +127,7 @@
 			BCLASS_STAB, armor_penetration = PEN_HEAVY, spell_name = "Force Rune", \
 			damage_type = BRUTE, skip_animation = TRUE, SPELL_STRIKE_SCALING)
 	else
-		L.adjustBruteLoss(rune_damage)
+		L.adjustBruteLoss(SPELL_DMG_VS(L, rune_damage))
 
 /obj/structure/rune_ward/alarm
 	name = "alarm rune"

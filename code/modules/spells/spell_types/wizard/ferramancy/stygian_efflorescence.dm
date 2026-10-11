@@ -68,6 +68,7 @@
 	damage = SPELL_DMG(34)
 	damage_type = BRUTE
 	intdamfactor = SPELL_INTDAM(1)
+	spell_damage_scaled = TRUE
 	woundclass = BCLASS_STAB
 	armor_penetration = PEN_LIGHT
 	speed = MAGE_PROJ_VERY_SLOW

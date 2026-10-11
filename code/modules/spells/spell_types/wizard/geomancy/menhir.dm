@@ -155,7 +155,7 @@
 			spell_name = name, damage_type = BRUTE, skip_animation = TRUE, SPELL_STRIKE_SCALING) == ARCYNE_STRIKE_WARDED)
 			return
 	else
-		L.adjustBruteLoss(dmg)
+		L.adjustBruteLoss(SPELL_DMG_VS(L, dmg))
 	new /obj/effect/temp_visual/spell_impact(get_turf(L), spell_color, spell_impact_intensity)
 
 /datum/action/cooldown/spell/menhir/proc/fragment_burst(turf/T, mob/living/carbon/human/H)
@@ -183,6 +183,7 @@
 	woundclass = BCLASS_BLUNT
 	flag = "blunt"
 	intdamfactor = SPELL_INTDAM(SPELL_BLUNT_INT_DAMAGEFACTOR)
+	spell_damage_scaled = TRUE
 	range = SPELL_RANGE_PROJECTILE
 	speed = 3.5
 	guard_deflectable = TRUE
