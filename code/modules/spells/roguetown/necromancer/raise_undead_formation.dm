@@ -116,9 +116,3 @@
 		apply_mob_lifespan(S, owner, spawn_lifespan)
 
 	return TRUE
-
-/datum/action/cooldown/spell/raise_undead_formation/necromancer
-	cabal_affine = TRUE
-	is_summoned = TRUE
-	cooldown_time = 40 SECONDS
-	to_spawn = 3
