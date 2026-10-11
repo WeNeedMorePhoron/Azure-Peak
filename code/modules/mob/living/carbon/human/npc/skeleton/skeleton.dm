@@ -279,6 +279,7 @@ GLOBAL_LIST_INIT(skeleton_aggro, list(
 /mob/living/carbon/human/species/skeleton/conjured/undead/after_creation()
 	..()
 	job = undead_job
+	faction |= FACTION_CABAL
 
 /mob/living/carbon/human/species/skeleton/conjured/undead/equip_loadout()
 	if(ispath(loadout, /datum/outfit))
