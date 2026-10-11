@@ -74,7 +74,9 @@
 	to_chat(user, span_notice("I pry [old_gem] out of [src]."))
 
 /obj/item/rogueweapon/woodstaff/implement/proc/set_gem_icon(new_state, mob/user)
+	override_state = (new_state == initial(icon_state)) ? null : new_state
 	icon_state = new_state
+	update_transform()
 	update_icon()
 	if(ismob(loc))
 		var/mob/M = loc
