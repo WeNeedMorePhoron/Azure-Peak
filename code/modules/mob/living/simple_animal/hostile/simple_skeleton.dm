@@ -42,11 +42,25 @@
 	move_base_delay = MOVEMENT_DELAY_SPD_10
 	melee_cooldown = SKELETON_ATTACK_SPEED
 
-/mob/living/simple_animal/hostile/rogue/skeleton/Initialize(mapload)
+/mob/living/simple_animal/hostile/rogue/skeleton/Initialize(mapload, mob/user)
 	. = ..()
 	AddComponent(/datum/component/ai_aggro_system)
 	ADD_TRAIT(src, TRAIT_SILVER_WEAK, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
+
+	if(user)
+		if(user.mind && user.mind.current)
+			summoner = user.mind.current.real_name
+		else
+			summoner = user.name
+
+	if(user && user.mind && user.mind.current)
+		faction = user.mind.current.faction.Copy()
+		faction += "[user.mind.current.real_name]_faction"
+		var/datum/antagonist/lich/lich_antag = user.mind.has_antag_datum(/datum/antagonist/lich)
+		if(lich_antag && user.real_name)
+			faction += FACTION_UNDEAD
+			faction += "[user.real_name]_faction"
 
 /mob/living/simple_animal/hostile/rogue/skeleton/axe
 	name = "Skeleton"

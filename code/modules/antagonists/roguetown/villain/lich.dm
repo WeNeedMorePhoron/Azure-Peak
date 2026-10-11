@@ -197,6 +197,8 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/remotebomb)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/lich_announce)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/zizo/bestowcant/lich)
+		// Infinite Skeletons will be kept for Lich, they're a major antag
+		H.mind.AddSpell(new /datum/action/cooldown/spell/raise_undead_formation)
 		// This is probably a bad idea, but let's live a little.
 		H.mind.AddSpell(new /datum/action/cooldown/spell/summon_terrorhog)
 	H.ambushable = FALSE
