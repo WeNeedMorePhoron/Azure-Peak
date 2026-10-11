@@ -3285,7 +3285,6 @@
 #include "code\modules\spells\roguetown\necromancer\covert_the_downtrodden.dm"
 #include "code\modules\spells\roguetown\necromancer\gravemark.dm"
 #include "code\modules\spells\roguetown\necromancer\lacrima.dm"
-#include "code\modules\spells\roguetown\necromancer\raise_undead_formation.dm"
 #include "code\modules\spells\roguetown\necromancer\ray_of_sickness.dm"
 #include "code\modules\spells\roguetown\necromancer\tame_undead.dm"
 #include "code\modules\spells\spell_types\_telegraphed_strike.dm"
