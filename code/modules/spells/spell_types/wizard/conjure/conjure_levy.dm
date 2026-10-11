@@ -7,6 +7,7 @@
 	max_summons = 3
 	summons_per_cast = 3
 	recoil_severity = CONJURE_RECOIL_PARTIAL
+	overload_power = 1/3
 	modes = list(
 		list("name" = "Maciejowski", "tag" = "MAC", "loadout" = "maciejowski", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurgite, plebs!"),
 		list("name" = "Bogbark Club", "tag" = "CLB", "loadout" = "club", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurgite, plebs!"),

@@ -302,11 +302,8 @@
 	return TRUE
 
 /datum/action/cooldown/spell/command_word/proc/overload_scale(mob/living/summon)
-	if(istype(summon, /mob/living/carbon/human/species/skeleton/conjured/undead/horde))
-		return 1/3
-	if(istype(summon, /mob/living/simple_animal/hostile/retaliate/rogue/primordial))
-		return 0.5
-	return 1
+	var/datum/component/conjured_minion/minion = summon.GetComponent(/datum/component/conjured_minion)
+	return minion ? minion.overload_power : 1
 
 /datum/action/cooldown/spell/command_word/proc/pick_overload_summon(list/summons, atom/cast_on)
 	if(isliving(cast_on) && (cast_on in summons))

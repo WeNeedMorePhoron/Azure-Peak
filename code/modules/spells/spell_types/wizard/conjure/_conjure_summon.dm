@@ -61,6 +61,7 @@
 	var/summon_noun = "servant"
 	var/recoil_severity = CONJURE_RECOIL_FULL
 	var/recoil_stamina_only = FALSE
+	var/overload_power = 1
 	var/reclaim_recoil = TRUE
 	var/reclaim_recoil_threshold = 0.25
 
@@ -179,7 +180,7 @@
 	for(var/mob/living/summoned in all_summoned)
 		conjured_mobs += summoned
 		RegisterSignal(summoned, COMSIG_QDELETING, PROC_REF(remove_conjure))
-		summoned.AddComponent(/datum/component/conjured_minion, user, recoil_severity, recoil_stamina_only)
+		summoned.AddComponent(/datum/component/conjured_minion, user, recoil_severity, recoil_stamina_only, overload_power)
 		var/turf/landing = get_turf(summoned)
 		landing?.zFall(summoned)
 	return TRUE

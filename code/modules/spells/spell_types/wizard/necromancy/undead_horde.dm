@@ -6,6 +6,7 @@
 	summon_noun = "skeleton"
 	max_summons = 3
 	summons_per_cast = 3
+	overload_power = 1/3
 	undead_type = /mob/living/carbon/human/species/skeleton/conjured/undead/horde
 	modes = list(
 		list("name" = "Khopesh & Shield", "tag" = "KHP", "loadout" = /datum/outfit/job/roguetown/undead_horde/khopesh, "color" = GLOW_COLOR_ZIZO, "invocation" = "Evoca skeletos!"),

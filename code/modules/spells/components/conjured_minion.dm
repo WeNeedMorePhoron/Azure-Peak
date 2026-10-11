@@ -4,6 +4,7 @@
 	var/datum/weakref/summoner_ref
 	var/recoil_severity = CONJURE_RECOIL_FULL
 	var/recoil_stamina_only = FALSE
+	var/overload_power = 1
 	var/dismissing = FALSE
 	var/leash_range = 12
 	var/next_leash_message = 0
@@ -12,7 +13,7 @@
 	var/untether_max = 10
 	var/tether_timer
 
-/datum/component/conjured_minion/Initialize(mob/living/summoner, severity = CONJURE_RECOIL_FULL, stamina_only = FALSE)
+/datum/component/conjured_minion/Initialize(mob/living/summoner, severity = CONJURE_RECOIL_FULL, stamina_only = FALSE, overload = 1)
 	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
 	var/mob/living/minion = parent
@@ -20,6 +21,7 @@
 	summoner_ref = WEAKREF(summoner)
 	recoil_severity = severity
 	recoil_stamina_only = stamina_only
+	overload_power = overload
 	if(isliving(summoner))
 		summoner.add_summoned_minion(parent)
 	ADD_TRAIT(parent, TRAIT_CONJURED_SUMMON, REF(src))
