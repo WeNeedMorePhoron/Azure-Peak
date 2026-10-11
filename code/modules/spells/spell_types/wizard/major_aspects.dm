@@ -16,7 +16,7 @@
 	unbinding_chants = list(
 		"Solvo flammam vinctam!",
 		"I becalm the flame that dwells within, rest.",
-		"Ignis, a me discedere!",
+		"Ignis, a me discede!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/telegraphed_strike/dragons_breath,
@@ -65,7 +65,7 @@
 	unbinding_chants = list(
 		"Solvo glaciem vinctam!",
 		"I release the chill that grips my veins, thaw.",
-		"Glacies, a me discedere!",
+		"Glacies, a me discede!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/frost_bolt,
@@ -104,7 +104,7 @@
 	unbinding_chants = list(
 		"Solvo tempestatem vinctam!",
 		"I quiet the storm that rages within, be still.",
-		"Fulmen, a me discedere!",
+		"Fulmen, a me discede!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/arc_bolt,
@@ -137,7 +137,7 @@
 	unbinding_chants = list(
 		"Solvo terram vinctam!",
 		"I relinquish the stone that fortifies me, crumble.",
-		"Terra, a me discedere!",
+		"Terra, a me discede!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/gravel_blast,
@@ -174,7 +174,7 @@
 	unbinding_chants = list(
 		"Solvo vim vinctam!",
 		"I unshackle the force that moves through me, disperse.",
-		"Vis, a me discedere!",
+		"Vis, a me discede!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/basic_offensive,
@@ -206,7 +206,7 @@
 	unbinding_chants = list(
 		"Solvo telum vinctum!",
 		"I release the mark I had chosen, go free.",
-		"Telum, a me discedere!",
+		"Telum, a me discede!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/projectile/arcyne_volley,
@@ -280,7 +280,7 @@
 	unbinding_chants = list(
 		"Solvo vocationem vinctam!",
 		"I dismiss the servant I have called, return whence you came.",
-		"Vocatio, a me discedere!",
+		"Vocatio, a me discede!",
 	)
 	fixed_spells = list(
 		/datum/action/cooldown/spell/minion_order/conjurer,
