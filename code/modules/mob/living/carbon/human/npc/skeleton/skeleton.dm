@@ -280,6 +280,9 @@ GLOBAL_LIST_INIT(skeleton_aggro, list(
 	..()
 	job = undead_job
 	faction |= FACTION_CABAL
+	var/mob/living/master = summoner_ref?.resolve()
+	if(master && (FACTION_UNDEAD in master.faction))
+		faction |= FACTION_UNDEAD
 
 /mob/living/carbon/human/species/skeleton/conjured/undead/equip_loadout()
 	if(ispath(loadout, /datum/outfit))
