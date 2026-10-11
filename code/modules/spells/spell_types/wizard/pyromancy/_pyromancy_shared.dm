@@ -1,6 +1,5 @@
 #define SCORCH_OVERLAY_COLOR rgb(255, 138, 61)
 #define SCORCH_BURN_DAMAGE 60
-#define SCORCH_SEW_RATE 1.5
 
 /obj/effect/temp_visual/scorch_flash
 	icon = 'icons/mob/OnFire.dmi'
@@ -64,9 +63,7 @@
 			var/datum/wound/dynamic/burn/burn_wound = affecting.has_wound(/datum/wound/dynamic/burn)
 			if(!burn_wound)
 				burn_wound = affecting.add_wound(/datum/wound/dynamic/burn)
-			if(burn_wound)
-				burn_wound.upgrade(SPELL_DMG(SCORCH_BURN_DAMAGE), 0, FALSE)
-				burn_wound.sew_threshold += SPELL_DMG(SCORCH_BURN_DAMAGE) * SCORCH_SEW_RATE
+			burn_wound?.upgrade(SPELL_DMG(SCORCH_BURN_DAMAGE), 0, FALSE)
 	var/hit_zone_name = parse_zone(target_zone)
 	target.balloon_alert_to_viewers("<font color='#ff4a2a'>CHARRED!</font>")
 	target.visible_message(
@@ -197,4 +194,3 @@
 
 #undef SCORCH_OVERLAY_COLOR
 #undef SCORCH_BURN_DAMAGE
-#undef SCORCH_SEW_RATE
