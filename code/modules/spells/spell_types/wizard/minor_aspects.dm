@@ -97,6 +97,24 @@
 		/datum/action/cooldown/spell/augment_buff/restore_defense,
 	)
 
+/datum/magic_aspect/battlewardry
+	name = "Battlewardry"
+	latin_name = "Minor Aspectus Bellitutelae"
+	desc = "Battlewardry is a second-order magical school. Most other schools channel destruction - battlewardry specializes in the prevention of destruction. Battlewardens use a modified, tactical form of ward traps to punish the reckless, inscribing a single fragile rune where the fighting is thickest."
+	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_WARD
+	binding_chants = list(
+		"I raise the wards of war, protect!",
+		"Bellitutela, mihi adesse!",
+	)
+	unbinding_chants = list(
+		"I lower the wards I have raised, rest.",
+		"Bellitutela, me relinquere!",
+	)
+	fixed_spells = list(
+		/datum/action/cooldown/spell/battle_ward,
+	)
+
 /datum/magic_aspect/augmentation
 	name = "Augmentation"
 	latin_name = "Minor Aspectus Augmenti"

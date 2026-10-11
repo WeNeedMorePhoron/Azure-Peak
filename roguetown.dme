@@ -3406,6 +3406,7 @@
 #include "code\modules\spells\spell_types\wizard\augmentation\restore_defense.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\second_chance.dm"
 #include "code\modules\spells\spell_types\wizard\augmentation\surge.dm"
+#include "code\modules\spells\spell_types\wizard\battlewardry\battle_ward.dm"
 #include "code\modules\spells\spell_types\wizard\conjure\_conjure_summon.dm"
 #include "code\modules\spells\spell_types\wizard\conjure\arcyne_forge.dm"
 #include "code\modules\spells\spell_types\wizard\conjure\command_word.dm"
