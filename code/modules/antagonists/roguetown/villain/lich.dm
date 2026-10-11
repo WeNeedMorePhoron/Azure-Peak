@@ -211,7 +211,6 @@
 		// This is probably a bad idea, but let's live a little.
 		H.mind.AddSpell(new /datum/action/cooldown/spell/summon_terrorhog)
 		// Consistancy as they're basically a ruler in the hierarchy above Necromancers
-		H.mind.AddSpell(new /datum/action/cooldown/spell/eyebite)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/lacrima)
 	H.ambushable = FALSE
 	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/other/lich]
