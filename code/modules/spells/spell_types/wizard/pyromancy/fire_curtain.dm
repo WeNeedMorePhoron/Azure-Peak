@@ -9,7 +9,7 @@
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Fire Curtain"
 	desc = "Conjure a 5x3 curtain of flame at a target location, perpendicular to your facing. \
-	After a 2-second telegraph, the fire erupts. Burning for 10 seconds. \
+	After a 3-second telegraph, the fire erupts. Burning for 10 seconds. \
 	The fire does not block movement but will burn anything that passes through or stands in it, \
 	applying two scorched stacks per burn. You are not immune to your own curtain.\n\
 	Fire spells apply scorched effects - at 4 scorched, an armor piercing wound is applied to the head or chest: whichever you are aiming at, and randomly if aiming elsewhere."
@@ -46,7 +46,7 @@
 	var/curtain_width = 5
 	var/curtain_depth = 3
 	var/curtain_life = 10 SECONDS
-	var/telegraph_time = 2 SECONDS
+	var/telegraph_time = 3 SECONDS
 
 /datum/action/cooldown/spell/fire_curtain/get_spell_statistics(mob/living/user)
 	var/list/stats = ..()
@@ -119,7 +119,7 @@
 
 /obj/effect/temp_visual/telegraph/wall/fire
 	light_color = GLOW_COLOR_FIRE
-	duration = 2 SECONDS
+	duration = 3 SECONDS
 
 /obj/effect/curtain_fire
 	name = "wall of flame"
