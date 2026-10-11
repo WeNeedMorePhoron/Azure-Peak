@@ -122,7 +122,7 @@
 /datum/action/cooldown/spell/conjure_summon/get_spell_statistics(mob/living/user)
 	var/list/stats = ..()
 	if(length(modes))
-		stats += span_info("Mode (toggle with Shift+G): [modes[current_mode]["name"]]. You may maintain [max_summons] [summon_noun][max_summons > 1 ? "s" : ""] at a time; recasting at capacity [summon_replace_mode == CONJURE_SUMMON_SINGLES ? "unbind the oldest summon to make room" : "re-summons"][reclaim_recoil ? ", reclaiming a wounded summon recoils upon you" : ""]. Losing one to death recoils violently upon you. Dismiss Conjuration will charge a partial recoil the more hurt the summon is.")
+		stats += span_info("Mode (toggle with Shift+G): [modes[current_mode]["name"]]. You may maintain [max_summons] [summon_noun][max_summons > 1 ? "s" : ""] at a time; recasting at capacity [summon_replace_mode == CONJURE_SUMMON_SINGLES ? "unbind the oldest summon to make room" : "re-summons"][reclaim_recoil ? ", reclaiming a wounded summon recoils upon you" : ""].[recoil_severity == CONJURE_RECOIL_LIGHT ? "" : " Losing one to death recoils violently upon you. Dismiss Conjuration will charge a partial recoil the more hurt the summon is."]")
 	return stats
 
 /datum/action/cooldown/spell/conjure_summon/can_cast_spell(feedback = TRUE)
