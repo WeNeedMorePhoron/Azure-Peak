@@ -223,3 +223,27 @@
 	fixed_spells = list(
 		/datum/action/cooldown/spell/wither,
 	)
+
+/datum/magic_aspect/lesser_necromancy
+	name = "Lesser Necromancy"
+	latin_name = "Minor Aspectus Mortis"
+	desc = "Her lesser works, taught to the beginning necromancer."
+	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_ZIZO
+	class_locked = TRUE
+	binding_chants = list(
+		"Let the dead heed my call.",
+		"Mors, mihi adesse!",
+	)
+	unbinding_chants = list(
+		"I let the dead return to rest.",
+		"Mors, me relinquere!",
+	)
+	fixed_spells = list(
+		/datum/action/cooldown/spell/bonechill,
+		/datum/action/cooldown/spell/bonemend,
+		/datum/action/cooldown/spell/raise_deadite,
+		/datum/action/cooldown/spell/tame_undead,
+		/datum/action/cooldown/spell/convert_heretic,
+		/datum/action/cooldown/spell/lacrima,
+	)
