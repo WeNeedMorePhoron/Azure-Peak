@@ -340,6 +340,7 @@
 		"Mors, a me discede!", // Death, depart from me!
 	)
 	fixed_spells = list(
+		/datum/action/cooldown/spell/projectile/bone_shard,
 		/datum/action/cooldown/spell/minion_order/conjurer,
 		/datum/action/cooldown/spell/command_word/fray,
 		/datum/action/cooldown/spell/command_word/harry,
@@ -349,7 +350,6 @@
 		/datum/action/cooldown/spell/conjure_recall,
 		/datum/action/cooldown/spell/conjure_dismiss,
 		/datum/action/cooldown/spell/conjure_projection,
-		/datum/action/cooldown/spell/projectile/bone_shard,
 		/datum/action/cooldown/spell/bonechill,
 		/datum/action/cooldown/spell/bonemend,
 		/datum/action/cooldown/spell/raise_deadite,
@@ -363,13 +363,13 @@
 		/datum/action/cooldown/spell/conjure_summon/undead/horde,
 	)
 	spell_order = list(
+		/datum/action/cooldown/spell/projectile/bone_shard,
 		/datum/action/cooldown/spell/minion_order/conjurer,
 		/datum/action/cooldown/spell/command_word/fray,
 		/datum/action/cooldown/spell/command_word/harry,
 		/datum/action/cooldown/spell/command_word/quicken,
 		/datum/action/cooldown/spell/command_word/beckon,
 		ASPECT_CHOICE,
-		/datum/action/cooldown/spell/projectile/bone_shard,
 		/datum/action/cooldown/spell/bonechill,
 		/datum/action/cooldown/spell/bonemend,
 		/datum/action/cooldown/spell/raise_deadite,
