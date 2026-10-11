@@ -316,6 +316,6 @@
 	)
 	variants = list(
 		"gefechtsgelehrter" = list(
-			/datum/action/cooldown/spell/conjure_summon/champion = /datum/action/cooldown/spell/conjure_summon/doppelsoldner,
+			/datum/action/cooldown/spell/conjure_summon/champion = /datum/action/cooldown/spell/conjure_summon/champion/doppelsoldner,
 		),
 	)
