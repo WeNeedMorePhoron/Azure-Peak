@@ -73,8 +73,8 @@
 		/datum/action/cooldown/spell/conjure_arcyne_ward/crystalhide,
 	)
 
-/datum/magic_aspect/lesser_augmentation
-	name = "Lesser Augmentation"
+/datum/magic_aspect/augmentation
+	name = "Augmentation"
 	latin_name = "Minor Aspectus Augmenti"
 	desc = "Scholars debate whether Augmentation is a first, second, or even third-order school. Its adherents consider themselves third-order - \
 	with the honor of imitating the divine by augmenting the boundless potential of the humen form. Its spells are focused on enhancing the body, \
