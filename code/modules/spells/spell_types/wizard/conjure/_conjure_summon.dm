@@ -253,10 +253,10 @@
 	var/list/base_stats
 	var/base_duration
 	if(severity == CONJURE_RECOIL_FULL)
-		base_stats = list(STATKEY_STR = -4, STATKEY_SPD = -4, STATKEY_CON = -4, STATKEY_WIL = -4, STATKEY_PER = -3, STATKEY_INT = -3)
-		base_duration = 3 MINUTES
+		base_stats = list(STATKEY_STR = -3, STATKEY_SPD = -2, STATKEY_CON = -3, STATKEY_PER = -2, STATKEY_INT = -2)
+		base_duration = 90 SECONDS
 	else
-		base_stats = list(STATKEY_STR = -2, STATKEY_CON = -2, STATKEY_WIL = -2)
+		base_stats = list(STATKEY_STR = -2, STATKEY_CON = -2)
 		base_duration = 45 SECONDS
 
 	if(block)
