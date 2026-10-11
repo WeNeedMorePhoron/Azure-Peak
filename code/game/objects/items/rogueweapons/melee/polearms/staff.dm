@@ -3,6 +3,7 @@
 	damfactor = 1
 	reach = 1
 	intent_intdamage_factor = 1
+	clickcd = CLICK_CD_CHARGED
 
 /datum/intent/spear/bash/staff/onehand
 	damfactor = NONBLUNT_BLUNT_DAMFACTOR

@@ -7,11 +7,12 @@
 	implement_tier = IMPLEMENT_TIER_LESSER
 	implement_refund = IMPLEMENT_REFUND_LESSER
 	resistance_flags = FIRE_PROOF
-	// Mage 3 ran an experiment with having staff have higher force to encourage them to engage in melee but it shifted too much power away to the point that mage melee was becoming a viable, if not expected DPS contributor, thus skewing mage power balance. So we are going back to it mostly being a defensive and finisher tool, and also separating it from Quarterstaff by making the refund only attaches to mage staff.
+	// Mage 3 ran an experiment with having staff have higher force to encourage them to engage in melee but it shifted too much power away to the point that mage melee was becoming a viable, if not expected DPS contributor, thus skewing mage power balance. So, to make it a finisher tool, we are gonna increase the clickCD such that it doesn't become a decent DPS machine, and that upgrading staff improves your melee prowess and integrity modifier. The intention is that it is used to tap someone after magic finish their armor off.
 	possible_item_intents = list(/datum/intent/spear/bash/staff/onehand)
 	gripped_intents = list(/datum/intent/spear/bash/staff, /datum/intent/mace/smash/wood)
 	force = 10
-	force_wielded = 10
+	force_wielded = 20
+	intdamage_factor = 1.2
 	wdefense = 5
 	wdefense_wbonus = 5 // 80% vs one-skill-up matchup. 60% vs two-skill-up matchup. (Rare)
 	max_integrity = 200
@@ -128,6 +129,8 @@
 	icon_state = "emeraldstaff"
 	implement_tier = IMPLEMENT_TIER_GREATER
 	implement_refund = IMPLEMENT_REFUND_GREATER
+	force_wielded = 22
+	intdamage_factor = 1.4
 	max_integrity = 250
 	sellprice = 25
 
@@ -147,6 +150,8 @@
 	icon_state = "diamondstaff"
 	implement_tier = IMPLEMENT_TIER_GRAND
 	implement_refund = IMPLEMENT_REFUND_GRAND
+	force_wielded = 25
+	intdamage_factor = 1.6
 	max_integrity = 280
 	sellprice = 50
 
