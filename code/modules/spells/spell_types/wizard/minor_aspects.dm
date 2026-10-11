@@ -73,6 +73,30 @@
 		/datum/action/cooldown/spell/conjure_arcyne_ward/crystalhide,
 	)
 
+/datum/magic_aspect/allowardry
+	name = "Allowardry"
+	latin_name = "Minor Aspectus Allotutelae"
+	desc = "Allowardry is a second-order magical school. Most other schools channel destruction - allowardry specializes in the prevention of destruction. Allowardens lays their wards on top of their allies to protect them. Their specialization also allows them to lay down runes on the ground to protect allies or hold ground."
+	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_WARD
+	binding_chants = list(
+		"Let me clad my allies in an armor of arcyne.",
+		"Allotutela, mihi adesse!",
+	)
+	unbinding_chants = list(
+		"I lift the wards I have clad upon others.",
+		"Allotutela, me relinquere!",
+	)
+	fixed_spells = list(
+		/datum/action/cooldown/spell/bestow_ward,
+	)
+	pointbuy_budget = 2
+	pointbuy_spells = list(
+		/datum/action/cooldown/spell/arrow_ward,
+		/datum/action/cooldown/spell/touch/rune_ward,
+		/datum/action/cooldown/spell/augment_buff/restore_defense,
+	)
+
 /datum/magic_aspect/augmentation
 	name = "Augmentation"
 	latin_name = "Minor Aspectus Augmenti"
