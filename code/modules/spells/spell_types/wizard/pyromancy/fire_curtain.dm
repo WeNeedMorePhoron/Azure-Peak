@@ -8,8 +8,8 @@
 /datum/action/cooldown/spell/fire_curtain
 	button_icon = 'icons/mob/actions/mage_pyromancy.dmi'
 	name = "Fire Curtain"
-	desc = "Conjure a 5x2 curtain of flame at a target location, perpendicular to your facing. \
-	After a 3-second telegraph, the fire erupts. Burning for 10 seconds. \
+	desc = "Conjure a 5x3 curtain of flame at a target location, perpendicular to your facing. \
+	After a 2-second telegraph, the fire erupts. Burning for 10 seconds. \
 	The fire does not block movement but will burn anything that passes through or stands in it, \
 	applying two scorched stacks per burn. You are not immune to your own curtain.\n\
 	Fire spells apply scorched effects - at 4 scorched, an armor piercing wound is applied to the head or chest: whichever you are aiming at, and randomly if aiming elsewhere."
@@ -44,13 +44,13 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
 	var/curtain_width = 5
-	var/curtain_depth = 2
+	var/curtain_depth = 3
 	var/curtain_life = 10 SECONDS
-	var/telegraph_time = 3 SECONDS
+	var/telegraph_time = 2 SECONDS
 
 /datum/action/cooldown/spell/fire_curtain/get_spell_statistics(mob/living/user)
 	var/list/stats = ..()
-	stats += span_info("Damage: [SPELL_DMG(CURTAIN_TICK_DAMAGE)] burn per second (up to [DisplayTimeText(curtain_life)] in the flames)")
+	stats += span_info("Damage: [SPELL_DMG(CURTAIN_TICK_DAMAGE)] burn every [DisplayTimeText(SSobj.wait)] if standing, once per second if moving. Lasts [DisplayTimeText(curtain_life)].")
 	stats += span_info("Scorched: [CURTAIN_SCORCH_PER_TICK] stacks per burn")
 	return stats
 
@@ -119,7 +119,7 @@
 
 /obj/effect/temp_visual/telegraph/wall/fire
 	light_color = GLOW_COLOR_FIRE
-	duration = 3 SECONDS
+	duration = 2 SECONDS
 
 /obj/effect/curtain_fire
 	name = "wall of flame"
@@ -135,7 +135,6 @@
 	var/lifetime = 10 SECONDS
 	var/tick_damage = SPELL_DMG(CURTAIN_TICK_DAMAGE)
 	var/burn_cooldown = 1 SECONDS
-	var/list/burn_times
 	var/datum/weakref/caster_ref
 	var/aim_zone
 
@@ -172,14 +171,9 @@
 	// Grace timer for those who were involuntarily thrown into the fire curtain so that it doesn't instaproc charred in involuntary situation
 	if(L.mob_timers[CURTAIN_GRACE_KEY] && world.time < L.mob_timers[CURTAIN_GRACE_KEY])
 		return
-	var/mob_key = REF(L)
-	if(involuntary)
-		if(L.mob_timers[CURTAIN_BURN_KEY] && world.time < L.mob_timers[CURTAIN_BURN_KEY])
-			return
-	else if(LAZYACCESS(burn_times, mob_key) && world.time < burn_times[mob_key])
+	if(L.mob_timers[CURTAIN_BURN_KEY] && world.time < L.mob_timers[CURTAIN_BURN_KEY])
 		return
-	L.mob_timers[CURTAIN_BURN_KEY] = world.time + CURTAIN_THROWN_BURN_COOLDOWN
-	LAZYSET(burn_times, mob_key, world.time + burn_cooldown)
+	L.mob_timers[CURTAIN_BURN_KEY] = world.time + (involuntary ? CURTAIN_THROWN_BURN_COOLDOWN : burn_cooldown)
 	if(involuntary)
 		L.mob_timers[CURTAIN_GRACE_KEY] = world.time + CURTAIN_THROWN_GRACE
 	var/hit_zone = aim_zone || BODY_ZONE_CHEST
