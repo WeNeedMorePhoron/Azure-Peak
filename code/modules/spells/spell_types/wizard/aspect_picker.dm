@@ -230,13 +230,26 @@
 	if(!length(whitelist))
 		return all_paths
 	var/list/out = whitelist.Copy()
+	out |= locked_aspects & all_paths
 	for(var/datum/magic_aspect/A in attuned)
 		out |= A.type
 	return out
 
+/datum/aspect_picker/proc/can_attune_aspect(path)
+	var/datum/magic_aspect/A = GLOB.magic_aspect_singletons[path]
+	if(!A)
+		return FALSE
+	if((path in locked_aspects) || owner?.mind?.has_aspect(path))
+		return TRUE
+	if(A.class_locked && !(allowed_majors && (path in allowed_majors)) && !(allowed_minors && (path in allowed_minors)))
+		return FALSE
+	return A.can_select(owner)
+
 /datum/aspect_picker/proc/build_aspect_list(list/aspect_paths)
 	var/list/result = list()
 	for(var/path in aspect_paths)
+		if(!can_attune_aspect(path))
+			continue
 		var/datum/magic_aspect/A = GLOB.magic_aspect_singletons[path]
 		var/list/entry = list()
 		entry["path"] = "[path]"
@@ -322,6 +335,9 @@
 				return
 			// Don't re-select something already live or staged
 			if(owner.mind.has_aspect(path))
+				return
+			if(!can_attune_aspect(path))
+				to_chat(owner, span_warning("My discipline does not permit that aspect."))
 				return
 			// Determine if major or minor
 			var/datum/magic_aspect/temp = GLOB.magic_aspect_singletons[path]
