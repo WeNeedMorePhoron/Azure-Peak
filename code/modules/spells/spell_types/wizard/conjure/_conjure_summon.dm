@@ -32,6 +32,8 @@
 
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_CONJURE
+	secondary_resource_type = SPELL_COST_ENERGY
+	secondary_resource_cost = 300
 
 	invocation_type = INVOCATION_SHOUT
 
@@ -57,7 +59,6 @@
 	var/current_mode = 1
 	var/list/modes = list()
 	var/summon_noun = "servant"
-	var/recoil_energy_floor = 200
 	var/recoil_severity = CONJURE_RECOIL_FULL
 	var/recoil_stamina_only = FALSE
 	var/reclaim_recoil = TRUE
@@ -178,7 +179,7 @@
 	for(var/mob/living/summoned in all_summoned)
 		conjured_mobs += summoned
 		RegisterSignal(summoned, COMSIG_QDELETING, PROC_REF(remove_conjure))
-		summoned.AddComponent(/datum/component/conjured_minion, user, recoil_energy_floor, recoil_severity, recoil_stamina_only)
+		summoned.AddComponent(/datum/component/conjured_minion, user, recoil_severity, recoil_stamina_only)
 		var/turf/landing = get_turf(summoned)
 		landing?.zFall(summoned)
 	return TRUE
@@ -212,7 +213,7 @@
 	if(scale <= 0)
 		to_chat(user, span_notice("My [summon_noun][count > 1 ? "s unravel" : " unravels"] painlessly."))
 		return
-	apply_conjure_recoil(user, recoil_energy_floor, recoil_severity, clamp(scale, 0, 1), FALSE, recoil_stamina_only)
+	apply_conjure_recoil(user, recoil_severity, clamp(scale, 0, 1), FALSE, recoil_stamina_only)
 
 /datum/action/cooldown/spell/conjure_summon/proc/dismiss_summons(list/mobs)
 	for(var/mob/living/M in mobs)
@@ -232,7 +233,7 @@
 		fraction += length(missing) * CONJURE_LIMB_LOSS_WEIGHT
 	return clamp(fraction, 0, 1)
 
-/proc/apply_conjure_recoil(mob/living/summoner, energy_floor = 200, severity = CONJURE_RECOIL_FULL, scale = 1, block = TRUE, stamina_only = FALSE)
+/proc/apply_conjure_recoil(mob/living/summoner, severity = CONJURE_RECOIL_FULL, scale = 1, block = TRUE, stamina_only = FALSE)
 	if(!istype(summoner))
 		return
 	scale = clamp(scale, 0, 1)
@@ -246,9 +247,6 @@
 	if(severity == CONJURE_RECOIL_LIGHT)
 		to_chat(summoner, span_warning("A jolt of pain stings me as my conjured servant falls."))
 		return
-
-	if(summoner.energy > energy_floor)
-		summoner.energy = max(energy_floor, summoner.energy - (summoner.energy - energy_floor) * scale)
 
 	var/list/base_stats
 	var/base_duration

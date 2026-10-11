@@ -376,7 +376,6 @@
 	summons_per_cast = 1
 	summon_replace_mode = CONJURE_SUMMON_SINGLES
 
-	recoil_energy_floor = 500
 	recoil_severity = CONJURE_RECOIL_PARTIAL
 	reclaim_recoil = TRUE
 

@@ -6,7 +6,6 @@
 	summon_noun = "levyman"
 	max_summons = 3
 	summons_per_cast = 3
-	recoil_energy_floor = 700
 	recoil_severity = CONJURE_RECOIL_PARTIAL
 	modes = list(
 		list("name" = "Maciejowski", "tag" = "MAC", "loadout" = "maciejowski", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurgite, plebs!"),

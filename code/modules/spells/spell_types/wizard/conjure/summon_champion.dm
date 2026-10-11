@@ -6,7 +6,6 @@
 	button_icon_state = "primetriangle"
 	invocations = list("Exsurge, miles!")
 	summon_noun = "champion"
-	recoil_energy_floor = 500
 	modes = list(
 		list("name" = "Sword & Shield", "tag" = "SWD", "loadout" = "swordsman", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurge, miles!"),
 		list("name" = "Bow", "tag" = "BOW", "loadout" = "archer", "color" = "#cfe8ff", "invocation" = "Exsurge, sagittarius!"),
