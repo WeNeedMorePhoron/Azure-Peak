@@ -297,10 +297,10 @@
 		/datum/action/cooldown/spell/conjure_summon/primordial,
 		/datum/action/cooldown/spell/conjure_summon/champion,
 		/datum/action/cooldown/spell/conjure_summon/attacker,
-		/datum/action/cooldown/spell/conjure_summon/peasant_swarm,
+		/datum/action/cooldown/spell/conjure_summon/levy,
 	)
 	mastery_choice_spells = list(
-		/datum/action/cooldown/spell/conjure_summon/peasant_swarm,
+		/datum/action/cooldown/spell/conjure_summon/levy,
 	)
 	spell_order = list(
 		/datum/action/cooldown/spell/minion_order/conjurer,

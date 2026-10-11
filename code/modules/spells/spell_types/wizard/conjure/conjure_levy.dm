@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure_summon/peasant_swarm
+/datum/action/cooldown/spell/conjure_summon/levy
 	name = "Conjure Levy"
 	desc = "Call forth a levy of three bound peasants, armed with the improvised tools of the field. Toggle their arms with Shift+G: Maciejowski, Bogbark Club, Militia Spear, Militia Scythe, Militia Flail, or Militia War Axe. Each one killed gives a partial recoil."
 	button_icon_state = "primetriangle"
@@ -17,7 +17,7 @@
 		list("name" = "Militia War Axe", "tag" = "AXE", "loadout" = "woodcutter", "color" = GLOW_COLOR_ARCANE, "invocation" = "Exsurgite, plebs!"),
 	)
 
-/datum/action/cooldown/spell/conjure_summon/peasant_swarm/spawn_summon(turf/T, mob/living/user)
+/datum/action/cooldown/spell/conjure_summon/levy/spawn_summon(turf/T, mob/living/user)
 	var/turf/dest = T
 	var/list/open = list()
 	for(var/turf/open/candidate in range(1, T))
