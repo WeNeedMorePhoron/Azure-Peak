@@ -8,6 +8,12 @@
 /datum/intent/spear/bash/staff/onehand
 	damfactor = NONBLUNT_BLUNT_DAMFACTOR
 
+/datum/intent/spear/bash/woodstaff
+	intent_intdamage_factor = 1
+
+/datum/intent/spear/bash/ranged/woodstaff
+	intent_intdamage_factor = 1
+
 /datum/intent/spear/bash/ranged/quarterstaff
 	damfactor = 1
 
@@ -22,8 +28,8 @@
 /obj/item/rogueweapon/woodstaff
 	force = 10
 	force_wielded = 15
-	possible_item_intents = list(SPEAR_BASH)
-	gripped_intents = list(/datum/intent/spear/bash/ranged, /datum/intent/mace/smash/wood/ranged)
+	possible_item_intents = list(/datum/intent/spear/bash/woodstaff)
+	gripped_intents = list(/datum/intent/spear/bash/ranged/woodstaff, /datum/intent/mace/smash/wood/ranged)
 	name = "wooden staff"
 	desc = "A solid dependable walking stick that allows one to traverse rough terrain with ease, keep the weight off an \
 	injured leg, or reliably fend off incoming blows. Perfect for beggars, pilgrims, and mages."
