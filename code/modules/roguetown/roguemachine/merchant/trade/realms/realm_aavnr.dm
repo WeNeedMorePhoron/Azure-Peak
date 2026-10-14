@@ -98,7 +98,7 @@
 		"Finest hides and fur from Aavnr! Saiga sausages and cheese!",
 
 		"Send an acolyte when we anchor! \
-		I took on a Freifechter who kept preaching about Psydon to my passenger and crew \
+		I took on a Freifechter who kept preaching about Psydon to my passengers and crew \
 		until a fight broke out between them. He held off eight of them with blows to the hands-and-feet until a bolt ran through his guts. \
 		Now I've got four whiskey barrels with bodies in them. MAKE HASTE!",
 
