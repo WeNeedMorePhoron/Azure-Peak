@@ -480,11 +480,29 @@
 	flags_inv = null
 
 /obj/item/clothing/head/roguetown/helmet/bascinet/pigface/burgeonet
-	name = "gothic burgeonet"
+	name = "gothic burgonet"
 	desc = "A magnificent steel helmet, and the newest of the venerable armet's lineage. The intricate fluting serves as a clear sign of its \
 	Grenzelhoftian heritage; ornate, but not obnoxiously so."
 	item_state = "burgeonet"
 	icon_state = "burgeonet"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+
+/obj/item/clothing/head/roguetown/helmet/sallet/burgeonet
+	name = "gothic burgonet"
+	desc = "A magnificent steel helmet, unburdening to one's guise. The intricate fluting serves as a clear sign of its \
+	Grenzelhoftian heritage; ornate, but not obnoxiously so."
+	item_state = "burgeonet_t"
+	icon_state = "burgeonet_t"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+
+/obj/item/clothing/head/roguetown/helmet/sallet/visored/gothic
+	name = "gothic sallet"
+	desc = "An ornate steel sallet, and the most modern design of its kind. These helms are commonly worn by Grenzelhoft's knights, and \
+	feature a much more aggressive shape and longer tail than sallets common of munition arms."
+	item_state = "gsallet"
+	icon_state = "gsallet"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 
@@ -569,6 +587,15 @@
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted/ornate/donator_gothic
 	name = "gothic cuirass"
 	desc = "A magnificent ornate cuirass, assembled by an Azurian mastersmith. The intricate fluting and interlocked plates are clear \
+	signs of its Grenzelhoftian heritage; expensive, but second-to-none when it comes to what truly matters in life."
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	item_state = "gpsycuirass"
+	icon_state = "gpsycuirass"
+
+/obj/item/clothing/suit/roguetown/armor/plate/fluted/donator_gothic_ornate
+	name = "gothic half-plate"
+	desc = "A magnificent ornate set of half-plated steel armor, assembled by an Azurian mastersmith. The intricate fluting and interlocked plates are clear \
 	signs of its Grenzelhoftian heritage; expensive, but second-to-none when it comes to what truly matters in life."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
@@ -761,6 +788,42 @@
 	desc = "A pair of interlocked steel plate arm harnesses, composed of pauldrons, rerebraces, couters, and vambraces - all snugly latched around the limb and secured to one another thanks to a series of leather straps, metal aglets, and sliding rivets. The engineering is so meticulous that flexibility of the limb is hardly impeded."
 	item_state = "armharness"
 	icon_state = "armharness"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+
+/obj/item/clothing/wrists/roguetown/bracers/iron/armharness
+	name = "iron plate arm harness"
+	desc = "A pair of interlocked iron plate arm harnesses, composed of pauldrons, rerebraces, couters, and vambraces - all snugly latched around the limb and secured to one another thanks to a series of leather straps, metal aglets, and sliding rivets. The engineering is so meticulous that flexibility of the limb is hardly impeded."
+	item_state = "iarmharness"
+	icon_state = "iarmharness"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+
+/obj/item/clothing/wrists/roguetown/bracers/bronze/armharness
+	name = "bronze plate arm harness"
+	desc = "A pair of interlocked bronze plate arm harnesses, composed of pauldrons, rerebraces, couters, and vambraces - all snugly latched around the limb and secured to one another thanks to a series of leather straps, metal aglets, and sliding rivets. The engineering is so meticulous that flexibility of the limb is hardly impeded."
+	item_state = "barmharness"
+	icon_state = "barmharness"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+
+/obj/item/clothing/wrists/roguetown/bracers/aalloy/armharness
+	name = "decrepit plate arm harness"
+	desc = "A frayed pair of interlocked bronze plate arm harnesses, composed of pauldrons, rerebraces, couters, and vambraces - all snugly latched around the limb and secured to one another thanks to a series of leather straps, metal aglets, and sliding rivets. The engineering is so meticulous that flexibility of the limb is hardly impeded."
+	item_state = "aarmharness"
+	icon_state = "aarmharness"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+
+/obj/item/clothing/wrists/roguetown/bracers/paalloy/armharness
+	name = "ancient plate arm harness"
+	desc = "A polished pair of interlocked gilbranze plate arm harnesses, composed of pauldrons, rerebraces, couters, and vambraces - all snugly latched around the limb and secured to one another thanks to a series of leather straps, metal aglets, and sliding rivets. The engineering is so meticulous that flexibility of the limb is hardly impeded."
+	item_state = "aarmharness"
+	icon_state = "aarmharness"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
@@ -1491,6 +1554,7 @@
 	icon_state = "donatorspear"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	bigboy = TRUE
+	color = null
 
 /obj/item/rogueweapon/mace/goden/steel/donator_elegant
 	name = "elegant grand mace"
@@ -1536,6 +1600,13 @@
 	name = "elegant greatflail"
 	desc = "An elegant greatflail for an elegant wielder."
 	icon_state = "donatorgreatflail"
+	icon = 'icons/obj/items/donor_weapons_64.dmi'
+	bigboy = TRUE
+
+/obj/item/rogueweapon/contraption/linker/mace/big/steel/donator_elegant
+	name = "elegant wrench"
+	desc = "An elegant wrench for an elegant artificer."
+	icon_state = "donatorwrench"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	bigboy = TRUE
 
@@ -2191,6 +2262,15 @@ As Excaliber."
 	worn_y_dimension = 64
 	bloody_icon = 'icons/effects/blood64.dmi'
 
+/obj/item/clothing/head/roguetown/helmet/bascinet/pigface/hounskull/dakken/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_AVANTYNE)
+
+/obj/item/clothing/head/roguetown/helmet/heavy/knight/armet/dakken/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_AVANTYNE)
+
+/obj/item/clothing/head/roguetown/helmet/heavy/barbute/visor/dakken/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_AVANTYNE)
+
 /obj/item/rogueweapon/sword/dakken_sword
 	name = "avantyne-threaded sword"
 	desc = "'Threads of dark metal wind through what was formerly a simple steel blade. Cracks and chips are filled in as the weapon of war is reshaped into a symbol of faith.'"
@@ -2198,12 +2278,18 @@ As Excaliber."
 	icon_state = "alloybsword_32"
 	sheathe_icon = "alloybsword"
 
+/obj/item/rogueweapon/sword/dakken_sword/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_AVANTYNE)
+
 /obj/item/rogueweapon/sword/long/dakken_longsword
 	name = "avantyne-threaded longsword"
 	desc = "'Threads of dark metal wind through what was formerly a simple steel blade. Cracks and chips are filled in as the weapon of war is reshaped into a symbol of faith.'"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	icon_state = "alloyblongsword"
 	sheathe_icon = "alloybsword"
+
+/obj/item/rogueweapon/sword/long/dakken_longsword/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_AVANTYNE)
 
 /obj/item/rogueweapon/spear/boar/frei/pike/stinketh
 	name = "Kindness of Ravens Standard"
@@ -3249,6 +3335,10 @@ As Excaliber."
 	icon_state = "celestialstaffsun"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 
+/obj/item/rogueweapon/woodstaff/implement/greater/blacksteel/donator_rhynn/glow
+	icon_state = "celestialstaffglow"
+	icon = 'icons/obj/items/donor_weapons_64.dmi'
+
 /obj/item/rogueweapon/woodstaff/implement/grand/blacksteel/donator_rhynn
 	base_implement_name = "refined celestial staff"
 	name = "refined celestial staff"
@@ -3268,6 +3358,10 @@ As Excaliber."
 
 /obj/item/rogueweapon/woodstaff/implement/grand/blacksteel/donator_rhynn/solar
 	icon_state = "celestialstaffsun"
+	icon = 'icons/obj/items/donor_weapons_64.dmi'
+
+/obj/item/rogueweapon/woodstaff/implement/grand/blacksteel/donator_rhynn/glow
+	icon_state = "celestialstaffglow"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 
 /obj/item/clothing/cloak/donator_rhynn
@@ -4209,7 +4303,7 @@ As Excaliber."
 /obj/item/rogueweapon/example/lagomorphica_delirante
 	name = "Delirante"
 	desc = "A slightly curved sword of Ranesheni origin, designed for cleaving bone and flesh alike to inflict punishment. A representation of the true nature of the blade: violence, combat, and \
-	war. To draw it is to act in the name of the Justiciar, if one can convince themselves of that."
+	war. To draw it is to act in the name of the Justicar, if one can convince themselves of that."
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	icon_state = "lago_zestycleaver"
 	sheathe_icon = "lago_zestycleaver"
@@ -4449,7 +4543,7 @@ As Excaliber."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
-	allowed_sex = list(MALE) //Character-specific.
+	allowed_sex = list(MALE, FEMALE) //Character-specific. Female sprites might not be form-fitting.
 	detail_color = CLOTHING_RED
 	detail_tag = "_detail"
 
@@ -4513,14 +4607,18 @@ As Excaliber."
 		add_overlay(pic)
 
 /obj/item/rogueweapon/spear/lance/donator_naman
-	name = "noble lance"
-	desc = "'I've got nothing against Heaven, but I'm right here if you want someone to thank.'"
+	name = "Abendrot"
+	desc = "A beautiful lance,  originally gifted to its wielder - alongside a matching sabre - upon their ascendance into knighthood. Beneath \
+	the polished spearhead is a crimson clamp, hued like the dusken skies; and along it, an engraving of silvered elvish runes.. <br>'Abendrot, \
+	the Crimson Sunset.'"
 	icon_state = "naman_lance"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 
 /obj/item/rogueweapon/sword/sabre/donator_naman
-	name = "noble sabre"
-	desc = "'One miracle after another has made this possible. Now it's time for one more!'"
+	name = "Sieglinde"
+	desc = "A beautiful sabre, originally gifted to its wielder - alongside a matching lance - upon their ascendance into knighthood. It, too, has \
+	been designed to better excel at unmounted combat; namely, with a golden knuckleguard that fully defends one's hand. Along the blade's root \
+	is an engraving of silvered elvish runes.. </br>'Sieglinde, the Thunderblade.'"
 	icon_state = "naman_sabre"
 	sheathe_icon = "naman_sabre"
 	icon = 'icons/obj/items/donor_weapons.dmi'
@@ -4739,3 +4837,19 @@ As Excaliber."
 	icon_state = "radiantgoldmask"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+
+// CYNTHIA
+/obj/item/rogueweapon/example/forgefiend_wrench
+	name = "forgefiend wrench"
+	desc = "Created through means of alloying known only to some families of the Hammerholdian Guild of Craft, the Sun-Scorched Brass of this massive tool seems to resonate vacantly with the user - loosening and tightening with ease, when the going gets tough.<br><i>Now, in a fancy-red handlebar, for the added price of custom fitting!</i>"
+	icon_state = "cynthiawrench"
+	icon = 'icons/obj/items/donor_weapons_64.dmi'
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
+	bigboy = TRUE
+// LIMETEASE
+/obj/item/rogueweapon/sword/long/ap/yoshi_estoc
+	name = "Dénouement"
+	desc = "A peculiar take on the more traditional Azurian estoc, fastened to it's crossguard are two small bells and held in place by purple and green tassles.  It's blade is wrapped in cloth, a more personalised addition by the wielder rather than the smith. The bells jingle with every graceful chassé the wielder performs in the dance of lyfe and death.          The curtain call is nigh but the show must go on! Dance for the Gods! Make thy foe bleed and roll the die, their tyme is nigh."
+	icon_state = "yoshi_estoc"
+	icon = 'icons/obj/items/donor_weapons_64.dmi'

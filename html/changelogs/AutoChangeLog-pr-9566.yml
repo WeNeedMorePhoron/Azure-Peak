@@ -1,0 +1,4 @@
+author: "KatTheFox"
+delete-after: True
+changes:
+  - rscadd: "'Aquaphile' trait, which lets you sleep underwater. Does NOT let you breathe underwater itself. Given to Abyssorite clerics, or selectable as a quirk."

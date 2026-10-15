@@ -1,0 +1,4 @@
+author: "KatTheFox"
+delete-after: True
+changes:
+  - bugfix: "Familiars and skeletons are no longer cursed to hear looping lobby music forever."

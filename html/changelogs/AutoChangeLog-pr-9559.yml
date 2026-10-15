@@ -1,0 +1,4 @@
+author: "WeNeedMorePhoron"
+delete-after: True
+changes:
+  - rscadd: "Increased ambush budget by 50%. Ambush aggro should spread out properly between players in sight of NPCs, and regional cooldown on ambush has been reduced from 5 minutes to 3 minutes."

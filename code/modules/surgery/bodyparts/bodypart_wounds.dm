@@ -110,10 +110,9 @@
 /obj/item/bodypart/proc/get_bleed_rate()
 	var/bleed_rate = bleeding
 	if(bandage && !HAS_BLOOD_DNA(bandage))
-		process_bandage(bleed_rate)
 		var/obj/item/natural/cloth/cloth = bandage
 		bleed_rate *= cloth.bandage_effectiveness
-		if(bleed_rate <= 1) //if the bleeding is below this after being bandaged, bleeding stops completely, but the bandage still takes damage
+		if(bleed_rate <= 1) //if the bleeding is below this after being bandaged, bleeding stops completely
 			return 0
 		return bleed_rate
 	/*
@@ -795,7 +794,7 @@
 			returned_flags |= SURGERY_CLAMPED
 	if(has_wound(/datum/wound/dislocation))
 		returned_flags |= SURGERY_DISLOCATED
-	if(has_wound(/datum/wound/fracture))
+	if(has_wound(/datum/wound/fracture) || isooze(owner))
 		returned_flags |= SURGERY_BROKEN
 	if(has_wound(/datum/wound/slash/vein))
 		returned_flags |= SURGERY_CUTVEIN

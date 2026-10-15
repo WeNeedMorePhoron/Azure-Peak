@@ -1,0 +1,4 @@
+author: "radarseas"
+delete-after: True
+changes:
+  - bugfix: "'you can only cast this on living beings' no longer shows up to everyone around the spell caster but to the caster themselves. - It shows in span warning like most other spells now when failing for consistancy sake."
