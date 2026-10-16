@@ -136,13 +136,7 @@
 			if(SStreasury.is_poll_tax_charter_exempt(H, poll_category))
 				. += span_smallnotice("Poll tax ([pretty]): exempt by Charter")
 			else
-				var/rate = SStreasury.get_poll_tax_rate_for(H, poll_category)
-				if(rate > 0)
-					. += span_smallnotice("Poll tax ([pretty]): [rate]m/day")
-				else if(rate < 0)
-					. += span_smallnotice("Poll tax ([pretty]): [-rate]m/day subsidy")
-				else
-					. += span_smallnotice("Poll tax ([pretty]): none")
+				. += span_smallnotice("Poll tax class: [pretty]")
 
 
 /obj/structure/roguemachine/atm/proc/drill(obj/structure/roguemachine/atm)

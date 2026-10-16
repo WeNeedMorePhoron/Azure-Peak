@@ -28,9 +28,8 @@ export type ActiveLoan = {
 };
 
 export type PollTax = {
-  rate: number;
   exempt: boolean;
-  advance_days_held: number;
+  owed: number;
 };
 
 export type FundBalance = {
@@ -69,11 +68,6 @@ export type PatronRoster = {
   patrons: Patron[];
 };
 
-export type PollTaxStatic = {
-  max_advance_days: number;
-  fallback_rate: number;
-};
-
 export type PollTaxUser = {
   category: string;
   category_label: string;
@@ -94,7 +88,6 @@ export type Data = {
   max_issuance_day: number;
   active_loan: ActiveLoan | null;
   poll_tax: PollTax;
-  poll_tax_static: PollTaxStatic;
   poll_tax_user: PollTaxUser;
   fund_balances: Record<string, FundBalance>;
   institutional_loans: LedgerLoan[];

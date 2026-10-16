@@ -6,14 +6,10 @@ import { Window } from '../layouts';
 import {
   FONT_BODY,
   INK,
-  INK_FAINT,
   INK_SOFT,
   inkButtonStyle,
   pageStyle,
   rulerStyle,
-  SEAL_AMBER,
-  SEAL_GREEN,
-  SEAL_RED,
   SEAL_RED_SOFT,
   SERIF,
   sectionHeaderStyle,
@@ -24,37 +20,10 @@ type CategoryRate = {
   rate: number;
 };
 
-type PollTaxRate = {
-  category: string;
-  label: string;
-  rate: number;
-};
-
-type PollCategoryProjection = {
-  category: string;
-  rate: number;
-  heads: number;
-  taxable: number;
-  per_tick: number;
-};
-
-type PollProjection = {
-  income: number;
-  subsidy: number;
-  net: number;
-  headcount: number;
-  by_category: PollCategoryProjection[];
-};
-
 type Data = {
   categoryRates: CategoryRate[];
-  pollTaxRates: PollTaxRate[];
-  pollTaxMax: number;
-  pollTaxMin: number;
   concordatFloor: number;
   levyCooldown: boolean;
-  pollCooldown: boolean;
-  pollProjection: PollProjection;
 };
 
 const rowStyle: React.CSSProperties = {
@@ -71,82 +40,9 @@ const labelStyle: React.CSSProperties = {
   color: INK,
 };
 
-const PollProjectionPanel = (props: { projection: PollProjection }) => {
-  const { projection } = props;
-  const net = projection.net;
-  const netColor = net > 0 ? SEAL_GREEN : net < 0 ? SEAL_RED : INK_SOFT;
-  const netLabel =
-    net > 0 ? `+${net}m / dawn` : net < 0 ? `${net}m / dawn` : '0m / dawn';
-  return (
-    <div
-      style={{
-        background: 'rgba(200,170,100,0.12)',
-        border: `1px solid ${INK_FAINT}`,
-        padding: '6px 10px',
-        marginBottom: '10px',
-        fontSize: FONT_BODY,
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginBottom: '4px',
-        }}
-      >
-        <span style={{ color: INK_SOFT, letterSpacing: '1px' }}>
-          Expected each dawn
-        </span>
-        <span style={{ color: netColor, fontWeight: 'bold' }}>{netLabel}</span>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          gap: '12px',
-          fontSize: FONT_BODY,
-          color: INK_SOFT,
-          marginBottom: '4px',
-        }}
-      >
-        <span>
-          Income:{' '}
-          <span style={{ color: SEAL_AMBER, fontWeight: 'bold' }}>
-            {projection.income}m
-          </span>
-        </span>
-        <span>
-          Subsidy:{' '}
-          <span style={{ color: SEAL_RED_SOFT, fontWeight: 'bold' }}>
-            -{projection.subsidy}m
-          </span>
-        </span>
-        <span style={{ color: INK_FAINT, marginLeft: 'auto' }}>
-          {projection.headcount} head{projection.headcount === 1 ? '' : 's'}
-        </span>
-      </div>
-      <div
-        style={{
-          fontSize: FONT_BODY,
-          color: INK_SOFT,
-        }}
-      >
-        This multiplies each rate by the number of people in that class. It does
-        not count what they can actually pay.
-      </div>
-    </div>
-  );
-};
-
 export const TaxSetter = (props: any, context: any) => {
   const { act, data } = useBackend<Data>();
   const levyCooldown = !!data.levyCooldown;
-  const pollCooldown = !!data.pollCooldown;
-  const cooldownText =
-    levyCooldown && pollCooldown
-      ? 'You changed the levies and the poll tax today. Try again tomorrow.'
-      : levyCooldown
-        ? 'You changed the levies today. Try again tomorrow.'
-        : 'You changed the poll tax today. Try again tomorrow.';
 
   const [rates, setRates] = useState<Record<string, number>>(() => {
     if (!data.categoryRates) return {};
@@ -155,19 +51,8 @@ export const TaxSetter = (props: any, context: any) => {
     );
   });
 
-  const [pollRates, setPollRates] = useState<Record<string, number>>(() => {
-    if (!data.pollTaxRates) return {};
-    return Object.fromEntries(
-      data.pollTaxRates.map((c) => [c.category, c.rate]),
-    );
-  });
-
   const updateRate = (category: string, newRate: number) => {
     setRates((prev) => ({ ...prev, [category]: newRate }));
-  };
-
-  const updatePollRate = (category: string, newRate: number) => {
-    setPollRates((prev) => ({ ...prev, [category]: newRate }));
   };
 
   const payload = Object.entries(rates).map(([category, rate]) => ({
@@ -175,17 +60,8 @@ export const TaxSetter = (props: any, context: any) => {
     rate,
   }));
 
-  const pollPayload = Object.entries(pollRates).map(([category, rate]) => ({
-    category,
-    rate,
-  }));
-
-  const pollMax = data.pollTaxMax ?? 50;
-  const pollMin = data.pollTaxMin ?? 0;
-  const projection = data.pollProjection;
-
   return (
-    <Window width={760} height={640} title="Tax Roll" theme="parchment">
+    <Window width={380} height={480} title="Tax Roll" theme="parchment">
       <Window.Content scrollable>
         <div style={pageStyle}>
           <div
@@ -196,10 +72,10 @@ export const TaxSetter = (props: any, context: any) => {
               marginBottom: '10px',
             }}
           >
-            You can change the levies and the poll tax once per day each.
+            You can change the levies once per day.
           </div>
 
-          {(levyCooldown || pollCooldown) && (
+          {levyCooldown && (
             <div
               style={{
                 background: 'rgba(140,60,30,0.12)',
@@ -212,111 +88,50 @@ export const TaxSetter = (props: any, context: any) => {
                 marginBottom: '10px',
               }}
             >
-              {cooldownText}
+              You changed the levies today. Try again tomorrow.
             </div>
           )}
 
+          <div style={sectionHeaderStyle}>Crown Levies</div>
           <div
             style={{
-              display: 'flex',
-              gap: '18px',
-              alignItems: 'flex-start',
+              fontSize: FONT_BODY,
+              color: INK_SOFT,
+              marginBottom: '8px',
             }}
           >
-            {/* Left column: Crown Levies */}
-            <div style={{ flex: '0 0 300px' }}>
-              <div style={sectionHeaderStyle}>Crown Levies</div>
-              <div
-                style={{
-                  fontSize: FONT_BODY,
-                  color: INK_SOFT,
-                  marginBottom: '8px',
-                }}
-              >
-                The Crown takes this share of contract rewards, head bounties,
-                imports, exports and recovered spoils. While the Concordat of
-                Zenitstadt is in force, no levy can go below{' '}
-                {data.concordatFloor}%.
-              </div>
-              {data.categoryRates?.map((c) => (
-                <div key={c.category} style={rowStyle}>
-                  <span style={labelStyle}>{c.category}</span>
-                  <NumberInput
-                    step={1}
-                    minValue={0}
-                    maxValue={100}
-                    unit="%"
-                    value={rates[c.category] ?? c.rate}
-                    onChange={(v: number) => updateRate(c.category, v)}
-                  />
-                </div>
-              ))}
-              <hr style={rulerStyle} />
-              <div style={{ textAlign: 'center' }}>
-                <button
-                  disabled={levyCooldown}
-                  style={{
-                    ...inkButtonStyle({ disabled: levyCooldown }),
-                    padding: '5px 24px',
-                    fontSize: FONT_BODY,
-                  }}
-                  onClick={() =>
-                    !levyCooldown &&
-                    act('set_rates', { categoryRates: payload })
-                  }
-                >
-                  Set Levies
-                </button>
-              </div>
+            The Crown takes this share of contract rewards, head bounties,
+            imports, exports and recovered spoils. While the Concordat of
+            Zenitstadt is in force, no levy can go below {data.concordatFloor}%.
+          </div>
+          {data.categoryRates?.map((c) => (
+            <div key={c.category} style={rowStyle}>
+              <span style={labelStyle}>{c.category}</span>
+              <NumberInput
+                step={1}
+                minValue={0}
+                maxValue={100}
+                unit="%"
+                value={rates[c.category] ?? c.rate}
+                onChange={(v: number) => updateRate(c.category, v)}
+              />
             </div>
-
-            {/* Right column: Poll Tax */}
-            <div style={{ flex: '1 1 auto', minWidth: 0 }}>
-              <div style={sectionHeaderStyle}>Poll Tax</div>
-              <div
-                style={{
-                  fontSize: FONT_BODY,
-                  color: INK_SOFT,
-                  marginBottom: '8px',
-                }}
-              >
-                Each class pays this rate every dawn, up to {pollMax}m. A
-                negative rate, down to {pollMin}m, is a subsidy the Treasury
-                pays them instead. A Charter that exempts a class from the poll
-                tax does not block a subsidy.
-              </div>
-              {projection && <PollProjectionPanel projection={projection} />}
-              {data.pollTaxRates?.map((c) => (
-                <div key={c.category} style={rowStyle}>
-                  <span style={labelStyle}>{c.label}</span>
-                  <NumberInput
-                    step={1}
-                    minValue={pollMin}
-                    maxValue={pollMax}
-                    unit="m"
-                    value={pollRates[c.category] ?? c.rate}
-                    onChange={(v: number) => updatePollRate(c.category, v)}
-                  />
-                </div>
-              ))}
-              <hr style={rulerStyle} />
-              <div style={{ textAlign: 'center' }}>
-                <button
-                  disabled={pollCooldown}
-                  style={{
-                    ...inkButtonStyle({ disabled: pollCooldown }),
-                    padding: '5px 24px',
-                    fontSize: FONT_BODY,
-                  }}
-                  onClick={() =>
-                    !pollCooldown &&
-                    act('set_poll_rates', { pollTaxRates: pollPayload })
-                  }
-                >
-                  Set Poll Taxes
-                </button>
-              </div>
-            </div>
+          ))}
+          <hr style={rulerStyle} />
+          <div style={{ textAlign: 'center' }}>
+            <button
+              disabled={levyCooldown}
+              style={{
+                ...inkButtonStyle({ disabled: levyCooldown }),
+                padding: '5px 24px',
+                fontSize: FONT_BODY,
+              }}
+              onClick={() =>
+                !levyCooldown && act('set_rates', { categoryRates: payload })
+              }
+            >
+              Set Levies
+            </button>
           </div>
         </div>
       </Window.Content>

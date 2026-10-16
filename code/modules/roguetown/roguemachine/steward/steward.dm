@@ -843,38 +843,6 @@
 				contents += "</tr>"
 			contents += "</table><br>"
 
-			// Poll Tax Rates (two columns: category | m/day)
-			contents += "<b>POLL TAX RATES (daily)</b>"
-			contents += "<table width='100%' cellspacing='0' cellpadding='2'>"
-			var/datum/decree/golden = SStreasury.get_decree(DECREE_GOLDEN_BULL)
-			var/golden_active = golden?.active
-			var/datum/decree/covenant = SStreasury.get_decree(DECREE_NOC_PESTRA_COVENANT)
-			var/covenant_active = covenant?.active
-			var/datum/decree/merc_charter = SStreasury.get_decree(DECREE_GUILD_CHARTER_OF_ARMS)
-			var/merc_charter_active = merc_charter?.active
-			var/list/poll_entries = list()
-			for(var/pcat in SStreasury.poll_tax_rates)
-				var/rate = SStreasury.poll_tax_rates[pcat]
-				var/pretty = SStreasury.get_poll_tax_category_pretty_name(pcat)
-				var/rate_display = "[rate]m"
-				if(pcat == POLL_TAX_CAT_BURGHER && golden_active && rate > GOLDEN_BULL_POLL_CAP)
-					rate_display = "<font color='#e07b39'>[GOLDEN_BULL_POLL_CAP]m</font> (raw [rate]m, capped)"
-				else if(pcat == POLL_TAX_CAT_MERCENARY && merc_charter_active && rate > GUILD_CHARTER_OF_ARMS_POLL_CAP)
-					rate_display = "<font color='#e07b39'>[GUILD_CHARTER_OF_ARMS_POLL_CAP]m</font> (raw [rate]m, capped)"
-				poll_entries += "<td>[pretty]</td><td align='right'>[rate_display]</td>"
-			for(var/i = 1, i <= length(poll_entries), i += 2)
-				contents += "<tr>"
-				contents += poll_entries[i]
-				if(i + 1 <= length(poll_entries))
-					contents += poll_entries[i + 1]
-				else
-					contents += "<td></td><td></td>"
-				contents += "</tr>"
-			contents += "</table>"
-			if(covenant_active)
-				contents += "<i><font color='#e07b39'>The Covenant of Noc & Pestra is in force. University and Apothecary staff pay no more than [NOC_PESTRA_POLL_CAP]m a day in poll tax.</font></i><br>"
-			contents += "<br>"
-
 			// Charters (two-column)
 			contents += "<b>CHARTERS</b>"
 			contents += "<table width='100%' cellspacing='0' cellpadding='2'>"
@@ -899,9 +867,9 @@
 			contents += "<b><font color='#e07b39'>DEBT &amp; LOANS</font></b>"
 			contents += "<table width='100%' cellspacing='0' cellpadding='2'>"
 			contents += "<tr><td>Accounts in Arrears</td><td align='right'><font color='#e07b39'>[snap["in_arrears"]]</font></td>"
-			contents += "<td>Accounts in Advance</td><td align='right'>[snap["in_advance"]]</td></tr>"
-			contents += "<tr><td>Default Debtors</td><td align='right'><font color='#d9534f'>[snap["debtor_count"]]</font></td>"
-			contents += "<td>Loans Outstanding</td><td align='right'>[snap["loans_outstanding"]] ([snap["loan_exposure"]]m)</td></tr>"
+			contents += "<td>Default Debtors</td><td align='right'><font color='#d9534f'>[snap["debtor_count"]]</font></td></tr>"
+			contents += "<tr><td>Loans Outstanding</td><td align='right'>[snap["loans_outstanding"]] ([snap["loan_exposure"]]m)</td>"
+			contents += "<td></td><td></td></tr>"
 			contents += "</table><br>"
 
 			// Contracts (three-column: Issued / Taken / Completed, by issuing authority)

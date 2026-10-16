@@ -63,27 +63,14 @@
 		for the Crown to raise revenue. It is a daily tax levied on each subject with
 		a bank account. It drains from their balance automatically. Rates are set by
 		the Steward or the Throne. Charters may exempt or cap certain categories of
-		subject while they are in force. Poll taxes are capped at
-		[POLL_TAX_MAX_RATE]m/day. They can be set as low as a subsidy of
-		-[POLL_TAX_MAX_SUBSIDY]m/day.</p>
+		subject while they are in force.</p>
 
-		<p>Unpaid poll tax accumulates arrears. After [POLL_TAX_DEBT_DAYS_TO_DEBTOR]
-		day(s) of arrears, the subject is marked <b>destitute</b>. Poll tax arrears do
+		<p>Unpaid poll tax accumulates arrears, and the subject is marked
+		<b>destitute</b>. Poll tax arrears do
 		not authorise killing or attacking on sight, and they do not override ERP
 		protection rules. The Crown imposes poll tax on its own. The subject has not
 		consented to being attacked or killed over it. Treat arrears as a roleplay
 		opportunity to recover or forgive the debt.</p>
-
-		<h3>Subsidy</h3>
-		<p>A category's rate may be set as far as <b>-[POLL_TAX_MAX_SUBSIDY]m/day</b>.
-		A negative rate is a <b>Crown subsidy</b>: each day, the Treasury pays that
-		mammon to every subject of the category. This includes classes a Charter
-		protects.</p>
-
-		<p>The tax setter shows the projected daily income or subsidy cost and the net
-		flow for the current head count. The Steward can see the budget impact before
-		committing. The projection is the rate × eligible head count. It doesn't
-		account for people who can't or won't pay.</p>
 
 		<p>Meister deposits are not taxed.</p>
 		</div>
@@ -500,7 +487,6 @@
 			<li><b>Defense Authority</b> - a bracket vote setting the Alderman's daily defense warrant, denominated in Pledge. Brackets: [jointext(ASSEMBLY_DEFENSE_BRACKETS, "p, ")]p.</li>
 			<li><b>Recall</b> - removes a sitting Alderman. Passes on [ASSEMBLY_RECALL_THRESHOLD_PCT]% YAE of cast weight.</li>
 			<li><b>Censure</b> - bars a subject from holding office or wielding warrants for the rest of the round. Passes on [ASSEMBLY_CENSURE_THRESHOLD_PCT]% YAE of cast weight.</li>
-			<li><b>Poll Tax</b> - suspended pending reform.</li>
 		</ul>
 		<p>Recall and censure require at least [ASSEMBLY_REMOVAL_MOB_FLOOR] distinct
 		YAE voters casting a combined [ASSEMBLY_REMOVAL_WEIGHT_FLOOR / 2] weight.

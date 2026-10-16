@@ -25,8 +25,6 @@ Yeven under the seal of %RULER_NAME%, %RULER% of this yeer, who shall be remembe
 	SStreasury.tax_rates[TAX_CATEGORY_IMPORT_TARIFF] = 0
 	SStreasury.tax_rates[TAX_CATEGORY_EXPORT_DUTY] = 0
 	// Fines stay at their configured rate - the Crown can still punish.
-	for(var/category in SStreasury.poll_tax_rates)
-		SStreasury.poll_tax_rates[category] = 0
 
 /datum/decree/magna_carta/broadcast_state_change()
 	if(!active)
