@@ -23,18 +23,12 @@ Yeven under the seal of the Crown."}
 		return current_cap
 	return min(current_cap, GOLDEN_BULL_BURGHER_CAP)
 
-/// Per-stroke mammon ceiling for Bull-protected subjects. Combined with the realm's
-/// one-fine-per-day rule this becomes an effective daily cap.
-/datum/decree/golden_bull/apply_daily_fine_cap(mob/living/payer, current_remaining)
+/datum/decree/golden_bull/apply_charge_cap(mob/living/payer, charge_category, current)
 	if(!is_protected_by_bull(payer))
-		return current_remaining
-	return min(current_remaining, GOLDEN_BULL_DAILY_FINE_CAP)
-
-/// Cap the Burgher poll-tax daily charge at GOLDEN_BULL_POLL_CAP.
-/datum/decree/golden_bull/apply_poll_tax_cap(mob/living/payer, poll_category, current_rate)
-	if(poll_category != POLL_TAX_CAT_BURGHER)
-		return current_rate
-	return min(current_rate, GOLDEN_BULL_POLL_CAP)
+		return current
+	if(charge_category == TAX_CATEGORY_POLL_LEVY && SStreasury.get_poll_tax_category(payer) != POLL_TAX_CAT_BURGHER)
+		return current
+	return min(current, CHARGE_CAP_CHARTER)
 
 /// Returns TRUE if the payer is currently shielded by the Golden Bull.
 /datum/decree/golden_bull/proc/is_protected_by_bull(mob/living/payer)

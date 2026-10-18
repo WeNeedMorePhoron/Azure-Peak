@@ -16,6 +16,7 @@
 #define TAX_CATEGORY_EXPORT_DUTY "export duty"
 #define TAX_CATEGORY_RECOVERED_SPOILS "recovered spoils"
 #define TAX_CATEGORY_FINE "fine"
+#define TAX_CATEGORY_POLL_LEVY "poll levy"
 
 #define GENERIC_RATE_CAP 0.75
 #define STOCKPILE_CROWN_PURCHASE_FLOOR_DEFAULT 1000
@@ -75,7 +76,6 @@
 	"Knight", \
 )
 
-// Poll Tax categories - flat per-head daily levy by civic class.
 #define POLL_TAX_CAT_NOBLE "poll_noble"
 #define POLL_TAX_CAT_CLERGY "poll_clergy"
 #define POLL_TAX_CAT_INQUISITION "poll_inquisition"
@@ -87,6 +87,20 @@
 #define POLL_TAX_CAT_ADVENTURER "poll_adventurer"
 #define POLL_TAX_CAT_MERCENARY "poll_mercenary"
 #define POLL_TAX_CAT_PEASANT "poll_peasant"
+
+#define POLL_LEVY_CLASS_ORDER list( \
+	POLL_TAX_CAT_NOBLE, \
+	POLL_TAX_CAT_CLERGY, \
+	POLL_TAX_CAT_INQUISITION, \
+	POLL_TAX_CAT_COURTIER, \
+	POLL_TAX_CAT_GARRISON, \
+	POLL_TAX_CAT_GUILDS, \
+	POLL_TAX_CAT_MERCHANT, \
+	POLL_TAX_CAT_BURGHER, \
+	POLL_TAX_CAT_ADVENTURER, \
+	POLL_TAX_CAT_MERCENARY, \
+	POLL_TAX_CAT_PEASANT, \
+)
 
 // Minus principal in circulation (They are meant to issue loans at roundstart)
 #define CHURCH_RESERVE_FLOOR 1000
@@ -114,9 +128,15 @@
 
 #define PATRONAGE_WRIT_COOLDOWN (30 SECONDS)
 
-#define GOLDEN_BULL_POLL_CAP 20
-#define NOC_PESTRA_POLL_CAP 10
-#define GUILD_CHARTER_OF_ARMS_POLL_CAP 15
+#define CHARGE_CAP_FLAT 100
+#define CHARGE_CAP_CHARTER 50
+
+#define POLL_LEVY_FIRST_DAY 2
+#define POLL_LEVY_MAX_PER_ROUND 2
+#define POLL_LEVY_MIN_GAP_DAYS 1
+#define POLL_LEVY_REASON_MIN 50
+#define POLL_LEVY_REASON_MAX 300
+
 #define GUILD_CHARTER_OF_ARMS_PLEDGE_BONUS 100
 #define RESIDENCY_PRINT_COOLDOWN (1 MINUTES)
 

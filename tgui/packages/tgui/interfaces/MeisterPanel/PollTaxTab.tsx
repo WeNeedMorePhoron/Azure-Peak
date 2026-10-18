@@ -21,9 +21,9 @@ export const PollTaxTab = ({ data }: TabProps) => {
         </div>
       </div>
       <div style={fieldRowStyle}>
-        <div style={fieldLabelStyle}>Standing</div>
+        <div style={fieldLabelStyle}>Status</div>
         <div style={fieldValueStyle}>
-          {tax.exempt ? 'Exempt by Charter' : 'Liable to levy'}
+          {tax.exempt ? 'Exempt by Charter' : 'Pays levies'}
         </div>
       </div>
       <div style={fieldRowStyle}>

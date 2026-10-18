@@ -85,7 +85,6 @@
 					record_round_statistic(STATS_MAMMONS_DEPOSITED, P.get_real_price())
 				qdel(P)
 				playsound(src, 'sound/misc/coininsert.ogg', 100, FALSE, -1)
-				SStreasury.clear_poll_tax_debt(H)
 				return
 
 		if(istype(P, /obj/item/coveter))
@@ -133,7 +132,7 @@
 		var/poll_category = SStreasury.get_poll_tax_category(H)
 		if(poll_category)
 			var/pretty = SStreasury.get_poll_tax_category_pretty_name(poll_category)
-			if(SStreasury.is_poll_tax_charter_exempt(H, poll_category))
+			if(SStreasury.is_tax_exempt(H, TAX_CATEGORY_POLL_LEVY))
 				. += span_smallnotice("Poll tax ([pretty]): exempt by Charter")
 			else
 				. += span_smallnotice("Poll tax class: [pretty]")

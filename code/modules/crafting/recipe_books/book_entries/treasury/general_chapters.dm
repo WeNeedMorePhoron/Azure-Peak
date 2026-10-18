@@ -23,12 +23,12 @@
 			levy.</li> <li><b>The Otavan Accords</b> - The Inquisition pays no tax and no
 			levy.</li> <li><b>The Golden Bull of Kingsfield</b> - burghers are capped at
 			[GOLDEN_BULL_BURGHER_CAP * 100]% of balance per levy or fine. Each fine is
-			capped at [GOLDEN_BULL_DAILY_FINE_CAP]m.</li> <li><b>The Covenant of Noc and
+			capped at [CHARGE_CAP_CHARTER]m.</li> <li><b>The Covenant of Noc and
 			Pestra</b> - University members, Apothecary and Head Physician are limited to
-			the lightest poll tax of [NOC_PESTRA_POLL_CAP]m. They also get a minimum wage
+			the lightest poll tax of [CHARGE_CAP_CHARTER]m. They also get a minimum wage
 			from the Crown's payroll.</li> <li><b>The Guild Charter of Arms</b> - Guild
-			mercenaries are capped at [GUILD_CHARTER_OF_ARMS_POLL_CAP]m of poll tax per
-			day. While the Charter is in force, they remit
+			mercenaries are capped at [CHARGE_CAP_CHARTER]m of poll tax per
+			levy. While the Charter is in force, they remit
 			[GUILD_CHARTER_OF_ARMS_PLEDGE_BONUS]m daily to the Burgher Pledge.</li>
 			<li><b>The Indenture of War</b> - Retinue and Garrison members get a minimum
 			salary while this is in force.</li>
@@ -59,16 +59,14 @@
 			via the Navigator's balloon.</li>
 		</ul>
 
-		<h3>Poll Tax</h3> <p>Poll tax is one of the most powerful and most hated ways
-		for the Crown to raise revenue. It is a daily tax levied on each subject with
-		a bank account. It drains from their balance automatically. Rates are set by
-		the Steward or the Throne. Charters may exempt or cap certain categories of
-		subject while they are in force.</p>
+		<h3>Poll Levy</h3> <p>Poll levy is one of the most powerful and most hated ways
+		for the Crown to raise revenue. It is a one-off levy levied on every subject with a bank account, with any amount not met becoming arrears. It drains from their balance automatically and is levied by class. Charters may exempt or cap certain categories of
+		subject while they are in force. Levy can be enacted twice in a week, no earlier than the first dae of the week. Steward can only enact a levy once, while Duke can enact a second levy. A reason must be supplied.</p>
 
-		<p>Unpaid poll tax accumulates arrears, and the subject is marked
-		<b>destitute</b>. Poll tax arrears do
+		<p>Unpaid poll levy accumulates arrears, and the subject is marked
+		<b>destitute</b>. Poll levy arrears do
 		not authorise killing or attacking on sight, and they do not override ERP
-		protection rules. The Crown imposes poll tax on its own. The subject has not
+		protection rules, since it is imposed unilaterally the subject has not
 		consented to being attacked or killed over it. Treat arrears as a roleplay
 		opportunity to recover or forgive the debt.</p>
 
@@ -87,8 +85,8 @@
 		<ul>
 			<li>Subjects protected by a Charter cannot be fined.</li> <li>Golden Bull
 			subjects: maximum [GOLDEN_BULL_BURGHER_CAP * 100]% of balance per stroke and
-			at most [GOLDEN_BULL_DAILY_FINE_CAP]m.</li> <li>All others: maximum
-			[GENERIC_RATE_CAP * 100]% of balance per stroke.</li> <li><b>One fine per
+			at most [CHARGE_CAP_CHARTER]m.</li> <li>All others: maximum
+			[GENERIC_RATE_CAP * 100]% of balance per stroke and at most [CHARGE_CAP_FLAT]m.</li> <li><b>One fine per
 			subject per day.</b></li>
 		</ul>
 

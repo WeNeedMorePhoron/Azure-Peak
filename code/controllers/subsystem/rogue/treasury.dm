@@ -92,7 +92,7 @@ SUBSYSTEM_DEF(treasury)
 	var/list/loans = list()
 	var/loan_max_issuance_day = 5
 	var/list/poll_tax_owed = list()
-	var/list/poll_tax_debt_days = list()
+	var/list/poll_levies = list()
 	var/levy_rates_changed_day = -1
 	/// Steward-settable floor. Stockpile refuses purchases when Crown's Purse would drop below this.
 	var/stockpile_purchase_floor = STOCKPILE_CROWN_PURCHASE_FLOOR_DEFAULT
@@ -262,6 +262,8 @@ SUBSYSTEM_DEF(treasury)
 	bank_accounts[owner] = account
 	if(initial_deposit > 0)
 		mint(account, initial_deposit, "Initial endowment")
+	if(length(poll_levies))
+		addtimer(CALLBACK(src, PROC_REF(apply_past_poll_levies), owner), 5 SECONDS)
 	return TRUE
 
 /datum/controller/subsystem/treasury/proc/get_max_fine_for(mob/living/target)
@@ -284,10 +286,10 @@ SUBSYSTEM_DEF(treasury)
 	if(has_been_fined_today(payer))
 		return 0
 	var/datum/fund/account = get_account(payer)
-	var/remaining = account ? account.balance : 0
+	var/remaining = min(account ? account.balance : 0, CHARGE_CAP_FLAT)
 	for(var/id in decrees)
 		var/datum/decree/D = decrees[id]
-		remaining = D.apply_daily_fine_cap(payer, remaining)
+		remaining = D.apply_charge_cap(payer, TAX_CATEGORY_FINE, remaining)
 	return remaining
 
 /datum/controller/subsystem/treasury/proc/has_been_fined_today(mob/living/payer)
@@ -593,7 +595,6 @@ SUBSYSTEM_DEF(treasury)
 	noble_incomes -= person
 	bank_accounts -= person
 	poll_tax_owed -= person
-	poll_tax_debt_days -= person
 	return TRUE
 
 /datum/controller/subsystem/treasury/proc/apply_rate_adjustments(list/adjustments, good_announcement_text, bad_announcement_text)
@@ -694,18 +695,19 @@ SUBSYSTEM_DEF(treasury)
 		return POLL_TAX_CAT_PEASANT
 	return null
 
-/datum/controller/subsystem/treasury/proc/is_poll_tax_charter_exempt(mob/living/H, category)
+/datum/controller/subsystem/treasury/proc/get_poll_levy_exempting_charter(category)
+	var/decree_id
 	switch(category)
 		if(POLL_TAX_CAT_NOBLE)
-			var/datum/decree/GW = get_decree(DECREE_GREAT_WRIT)
-			return GW?.active
+			decree_id = DECREE_GREAT_WRIT
 		if(POLL_TAX_CAT_CLERGY)
-			var/datum/decree/ZC = get_decree(DECREE_ZENITSTADT_CONCORDAT)
-			return ZC?.active
+			decree_id = DECREE_ZENITSTADT_CONCORDAT
 		if(POLL_TAX_CAT_INQUISITION)
-			var/datum/decree/OA = get_decree(DECREE_OTAVAN_ACCORDS)
-			return OA?.active
-	return FALSE
+			decree_id = DECREE_OTAVAN_ACCORDS
+	if(!decree_id)
+		return null
+	var/datum/decree/D = get_decree(decree_id)
+	return D?.active ? D.name : null
 
 /datum/controller/subsystem/treasury/proc/get_poll_tax_category_pretty_name(category)
 	switch(category)
@@ -780,11 +782,9 @@ SUBSYSTEM_DEF(treasury)
 			out |= job
 	return out
 
-/// Clears arrears. Use remove_person for full purge.
 /datum/controller/subsystem/treasury/proc/clear_poll_tax_debt(mob/living/H)
 	if(!H)
 		return
 	poll_tax_owed -= H
-	poll_tax_debt_days -= H
 	if(HAS_TRAIT(H, TRAIT_ARREARS))
 		REMOVE_TRAIT(H, TRAIT_ARREARS, TRAIT_GENERIC)

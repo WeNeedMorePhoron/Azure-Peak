@@ -250,7 +250,7 @@
 			return
 		var/list/in_arrears = list()
 		for(var/mob/living/carbon/human/H in GLOB.human_list)
-			if(SStreasury.poll_tax_owed[H] || SStreasury.poll_tax_debt_days[H] || HAS_TRAIT(H, TRAIT_ARREARS))
+			if(SStreasury.poll_tax_owed[H] || HAS_TRAIT(H, TRAIT_ARREARS))
 				in_arrears["[H.real_name]"] = H
 		if(!length(in_arrears))
 			say("No one owes poll tax.")
@@ -264,10 +264,9 @@
 		if(!target)
 			return
 		var/was_owed = SStreasury.poll_tax_owed[target] || 0
-		var/was_overdue = SStreasury.poll_tax_debt_days[target] || 0
 		SStreasury.clear_poll_tax_debt(target)
 		say("[target.real_name]'s poll tax arrears have been cleared.")
-		log_game("POLL TAX CLEARED: [key_name(usr)] cleared [was_owed]m poll tax arrears on [key_name(target)] ([was_overdue] day\s overdue)")
+		log_game("POLL TAX CLEARED: [key_name(usr)] cleared [was_owed]m poll tax arrears on [key_name(target)]")
 		to_chat(target, span_notice("The Stewardry has cleared my poll tax arrears."))
 	if(href_list["payroll"])
 		var/list/L = list(GLOB.noble_positions) + list(GLOB.retinue_positions) + list(GLOB.garrison_positions) + list(GLOB.courtier_positions) + list(GLOB.church_positions) + list(GLOB.burgher_positions) + list(GLOB.atc_positions) + list(GLOB.peasant_positions) + list(GLOB.sidefolk_positions) + list(GLOB.inquisition_positions)
@@ -660,14 +659,13 @@
 				var/fine_label = max_fine > 0 ? "FINE (Max [max_fine]m)" : "FINE (exempt)"
 				var/fine_long_label = max_fine > 0 ? "Fine Account (Max [max_fine]m)" : "Fine Account (exempt)"
 				var/poll_owed = SStreasury.poll_tax_owed[A] || 0
-				var/overdue_days = SStreasury.poll_tax_debt_days[A] || 0
 				var/a_is_debtor = HAS_TRAIT(A, TRAIT_DEBTOR)
 				var/debt_tag = ""
 				if(a_is_debtor)
 					var/owed_str = poll_owed > 0 ? ", owes [poll_owed]m" : ""
 					debt_tag = " <font color='#d9534f'>\[DEBTOR[owed_str]\]</font>"
 				else if(poll_owed > 0)
-					debt_tag = " <font color='#e07b39'>\[ARREARS: [poll_owed]m, [overdue_days] day[overdue_days == 1 ? "" : "s"]\]</font>"
+					debt_tag = " <font color='#e07b39'>\[ARREARS: [poll_owed]m\]</font>"
 				if(compact)
 					if(ishuman(A))
 						var/mob/living/carbon/human/tmp = A
@@ -718,14 +716,13 @@
 				contents += "<b>Poll Tax Debtors / Arrears ([length(debt_rows)]):</b><BR>"
 				for(var/mob/living/carbon/human/A in debt_rows)
 					var/poll_owed = SStreasury.poll_tax_owed[A] || 0
-					var/overdue_days = SStreasury.poll_tax_debt_days[A] || 0
 					var/is_debtor = HAS_TRAIT(A, TRAIT_DEBTOR_CROWN)
 					var/balance = SStreasury.get_balance(A)
 					if(is_debtor)
 						var/owed_str = poll_owed > 0 ? ", owes [poll_owed]m" : ""
 						contents += "<font color='#d9534f'><b>[A.real_name]</b> \[DEBTOR[owed_str]\]</font> - balance: [balance]m"
 					else
-						contents += "<font color='#e07b39'><b>[A.real_name]</b> \[ARREARS: [poll_owed]m, [overdue_days] day[overdue_days == 1 ? "" : "s"]\]</font> - balance: [balance]m"
+						contents += "<font color='#e07b39'><b>[A.real_name]</b> \[ARREARS: [poll_owed]m\]</font> - balance: [balance]m"
 					contents += "<BR>"
 				contents += "<BR>"
 			else

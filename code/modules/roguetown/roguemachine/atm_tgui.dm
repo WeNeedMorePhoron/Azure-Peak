@@ -100,7 +100,7 @@
 		data["active_loan"] = null
 
 	var/poll_category = SStreasury.get_poll_tax_category(H)
-	var/poll_exempt = poll_category ? SStreasury.is_poll_tax_charter_exempt(H, poll_category) : FALSE
+	var/poll_exempt = poll_category ? SStreasury.is_tax_exempt(H, TAX_CATEGORY_POLL_LEVY) : FALSE
 	data["poll_tax"] = list(
 		"exempt" = poll_exempt ? TRUE : FALSE,
 		"owed" = SStreasury.poll_tax_owed[H] || 0,

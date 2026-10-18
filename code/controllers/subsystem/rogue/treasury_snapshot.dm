@@ -85,8 +85,7 @@
 				continue
 
 		var/owed = poll_tax_owed[owner] || 0
-		var/overdue = poll_tax_debt_days[owner] || 0
-		var/exempt = category ? is_poll_tax_charter_exempt(owner, category) : FALSE
+		var/exempt = category ? is_tax_exempt(owner, TAX_CATEGORY_POLL_LEVY) : FALSE
 		var/is_debtor = HAS_TRAIT(owner, TRAIT_DEBTOR)
 
 		if(status_filter && status_filter != "all")
@@ -124,7 +123,6 @@
 			"category_name" = category ? get_poll_tax_category_pretty_name(category) : "None",
 			"exempt" = exempt,
 			"owed" = owed,
-			"overdue" = overdue,
 			"balance" = account.balance,
 			"on_person" = on_person,
 			"has_loan" = has_loan,

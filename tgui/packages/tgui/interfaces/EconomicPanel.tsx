@@ -83,7 +83,6 @@ type PlayerRow = {
   category_name: string;
   exempt: BooleanLike;
   owed: number;
-  overdue: number;
   balance: number;
   on_person: number;
   has_loan: BooleanLike;
@@ -1377,7 +1376,6 @@ export const EconomicPanel = () => {
                         <Table.Cell>Category</Table.Cell>
                         <Table.Cell>Balance</Table.Cell>
                         <Table.Cell>Owed</Table.Cell>
-                        <Table.Cell>Overdue</Table.Cell>
                         <Table.Cell>Flags</Table.Cell>
                         <Table.Cell>&nbsp;</Table.Cell>
                       </Table.Row>
@@ -1399,7 +1397,6 @@ export const EconomicPanel = () => {
                             <Table.Cell>{p.category_name}</Table.Cell>
                             <Table.Cell>{p.balance}m</Table.Cell>
                             <Table.Cell>{p.owed}m</Table.Cell>
-                            <Table.Cell>{p.overdue}</Table.Cell>
                             <Table.Cell>
                               {p.exempt ? 'E ' : ''}
                               {p.is_debtor ? 'D ' : ''}
@@ -1455,7 +1452,7 @@ export const EconomicPanel = () => {
                     {selected.on_person}m
                   </LabeledList.Item>
                   <LabeledList.Item label="Arrears">
-                    {selected.owed}m over {selected.overdue} day(s)
+                    {selected.owed}m
                   </LabeledList.Item>
                   <LabeledList.Item label="Debtor Flag">
                     {selected.is_debtor ? 'YES' : 'no'}
