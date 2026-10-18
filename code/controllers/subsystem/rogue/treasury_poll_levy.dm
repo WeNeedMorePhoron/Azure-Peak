@@ -157,12 +157,12 @@
 	log_game("POLL LEVY: [key_name(user)] ([authority]) levied [jointext(log_parts, ", ")]; raised [levy["raised"]]m, [levy["arrears"]]m in arrears. Reason: [reason]")
 	return TRUE
 
-/datum/controller/subsystem/treasury/proc/apply_past_poll_levies(mob/living/owner)
+/datum/controller/subsystem/treasury/proc/apply_past_poll_levies(mob/living/owner, announce = TRUE)
 	if(QDELETED(owner))
-		return
+		return null
 	var/datum/fund/account = get_account(owner)
 	if(!account)
-		return
+		return null
 	var/paid_total = 0
 	var/owed_total = 0
 	for(var/list/levy as anything in poll_levies)
@@ -174,13 +174,16 @@
 		paid_total += result[1]
 		owed_total += result[2]
 	if(paid_total <= 0 && owed_total <= 0)
-		return
-	var/list/parts = list("New account created.")
+		return null
+	var/list/parts = list()
 	if(paid_total > 0)
 		parts += "[paid_total]m was drawn for the standing poll levy."
 	if(owed_total > 0)
 		parts += "You owe the Crown [owed_total]m in poll arrears. Please pay your dues hastily."
-	send_ooc_note("<b>MEISTER:</b> [jointext(parts, " ")]", name = owner.real_name)
+	var/summary = jointext(parts, " ")
+	if(announce)
+		send_ooc_note("<b>MEISTER:</b> New account created. [summary]", name = owner.real_name)
+	return summary
 
 /datum/controller/subsystem/treasury/proc/collect_poll_levy_arrears(mob/living/owner)
 	if(QDELETED(owner))

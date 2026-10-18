@@ -277,7 +277,7 @@ SUBSYSTEM_DEF(treasury)
 			return TRUE
 	return FALSE
 
-/datum/controller/subsystem/treasury/proc/create_bank_account(mob/living/owner, initial_deposit)
+/datum/controller/subsystem/treasury/proc/create_bank_account(mob/living/owner, initial_deposit, defer_levies = TRUE)
 	if(!owner)
 		return
 	if(has_account(owner))
@@ -288,7 +288,7 @@ SUBSYSTEM_DEF(treasury)
 	bank_accounts[owner] = account
 	if(initial_deposit > 0)
 		mint(account, initial_deposit, "Initial endowment", null, LEDGER_CITIZEN_COIN_IN)
-	if(length(poll_levies))
+	if(defer_levies && length(poll_levies))
 		addtimer(CALLBACK(src, PROC_REF(apply_past_poll_levies), owner), 5 SECONDS)
 	return TRUE
 

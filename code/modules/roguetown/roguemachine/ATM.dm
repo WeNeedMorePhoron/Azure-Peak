@@ -50,13 +50,14 @@
 		if(H.show_redflash())
 			H.flash_fullscreen("redflash3")
 		playsound(H, 'sound/combat/hits/bladed/genstab (1).ogg', 100, FALSE, -1)
-		SStreasury.create_bank_account(H)
+		SStreasury.create_bank_account(H, defer_levies = FALSE)
 		if(H.mind)
 			var/datum/job/target_job = SSjob.GetJob(H.mind.assigned_role)
 			if(target_job && target_job.noble_income)
 				SStreasury.noble_incomes[H] = target_job.noble_income
+		var/levy_summary = SStreasury.apply_past_poll_levies(H, announce = FALSE)
 		spawn(5)
-			say("New account created.")
+			say(levy_summary ? "New account created. [levy_summary]" : "New account created.")
 			playsound(src, 'sound/misc/machinetalk.ogg', 100, FALSE, -1)
 		return
 	open_meister_tgui(H)
