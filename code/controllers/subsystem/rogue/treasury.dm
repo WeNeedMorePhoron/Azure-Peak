@@ -74,6 +74,21 @@ SUBSYSTEM_DEF(treasury)
 	var/atc_loan_arrears_consumed = FALSE
 	var/atc_loans_drawn_this_round = 0
 	var/list/ledger = list()
+	/// Double-entry chart of accounts: account id -> /datum/ledger_account. Built lazily.
+	var/list/chart_of_accounts = list()
+	var/ledger_entry_seq = 0
+	/// Cash that has entered / left the Crown purse through ordinary receipts and payments, taken from the books
+	/// (financing and opening entries are left out). Feeds the Economic Chronicle.
+	var/purse_inflow_total = 0
+	var/purse_outflow_total = 0
+	/// Funds that live outside bank_accounts (e.g. escrow holds) but must reconcile to the books.
+	var/list/auxiliary_funds = list()
+	/// Account totals at the close of each day: day -> list(account id -> list(debits, credits)).
+	var/list/day_snapshots = list()
+	var/ledger_closed_day = -1
+	/// Crown revenue/expense balances and purse at the last Steward's morning report, so the next one can show what changed.
+	var/list/last_report_ledger = null
+	var/last_report_balance = null
 	var/list/noble_incomes = list()
 	var/list/decrees = list()
 	var/list/stockpile_datums = list()
@@ -122,12 +137,17 @@ SUBSYSTEM_DEF(treasury)
 	var/roundstart_pop = get_active_player_count()
 	var/seed = STOCKPILE_CROWN_PURCHASE_FLOOR_DEFAULT + rand(500, 1500) + (roundstart_pop * CROWN_PURSE_SEED_PER_PLAYER)
 	royal_custom_threshold = ROYAL_CUSTOM_VOLUME_BASE + (roundstart_pop * ROYAL_CUSTOM_VOLUME_PER_POP)
+	init_chart_of_accounts()
 	discretionary_fund = new("Treasury", null, seed, CURRENCY_MAMMON)
+	discretionary_fund.ledger_book = LEDGER_BOOK_CROWN
 	burgher_pledge_fund = new("Burgher Pledge", null, BURGHER_PLEDGE_BASE_REFILL * BURGHER_PLEDGE_ROUNDSTART_MULTIPLIER, CURRENCY_BURGHER_PLEDGE)
+	burgher_pledge_fund.ledger_book = LEDGER_BOOK_PLEDGE
 	church_fund = new("Church Fund", null, CHURCH_FUND_SEED, CURRENCY_MAMMON)
 	merchant_fund = new("Merchant Fund", null, MERCHANT_FUND_SEED, CURRENCY_MAMMON)
 	bathhouse_fund = new("Bathhouse Fund", null, BATHHOUSE_FUND_SEED, CURRENCY_MAMMON)
 	innkeeper_fund = new("Tavern Earnings", null, INNKEEPER_FUND_SEED, CURRENCY_MAMMON)
+	for(var/datum/fund/seeded as anything in list(discretionary_fund, burgher_pledge_fund, church_fund, merchant_fund, bathhouse_fund, innkeeper_fund))
+		post_opening_balance(seeded)
 	force_set_round_statistic(STATS_STARTING_TREASURY, discretionary_fund.balance)
 	record_round_statistic(STATS_PLEDGE_GENERATED, burgher_pledge_fund.balance)
 	record_round_statistic(STATS_RUMOR_POINTS_GENERATED, rumor_points)
@@ -139,6 +159,7 @@ SUBSYSTEM_DEF(treasury)
 		if(D.trade_good_id)
 			stockpile_by_trade_good[D.trade_good_id] = D
 	autoset_stockpile_limits()
+	revalue_stockpile_inventory(opening = TRUE)
 	return ..()
 
 /datum/controller/subsystem/treasury/proc/autoset_stockpile_limits()
@@ -174,13 +195,18 @@ SUBSYSTEM_DEF(treasury)
 
 		auto_export()
 
+	if(ledger_closed_day < GLOB.dayspassed - 1)
+		// Value the stockpile before the totals are frozen so the day closes with it included.
+		revalue_stockpile_inventory()
+		close_books_through(GLOB.dayspassed - 1)
+
 /datum/controller/subsystem/treasury/proc/tick_rural_tax()
 	if(!discretionary_fund)
 		return
 	var/rural_tax_amount = get_rural_tax_amount()
 	if(rural_tax_amount <= 0)
 		return
-	mint(discretionary_fund, rural_tax_amount, "Rural Subsidy")
+	mint(discretionary_fund, rural_tax_amount, "Rural Subsidy", null, LEDGER_CROWN_REV_RURAL)
 	record_round_statistic(STATS_RURAL_TAXES_COLLECTED, rural_tax_amount)
 	total_rural_tax += rural_tax_amount
 
@@ -261,7 +287,7 @@ SUBSYSTEM_DEF(treasury)
 	var/datum/fund/account = new(owner.real_name, owner, 0, CURRENCY_MAMMON)
 	bank_accounts[owner] = account
 	if(initial_deposit > 0)
-		mint(account, initial_deposit, "Initial endowment")
+		mint(account, initial_deposit, "Initial endowment", null, LEDGER_CITIZEN_COIN_IN)
 	if(length(poll_levies))
 		addtimer(CALLBACK(src, PROC_REF(apply_past_poll_levies), owner), 5 SECONDS)
 	return TRUE
@@ -320,9 +346,9 @@ SUBSYSTEM_DEF(treasury)
 	var/datum/fund/account = get_account(target)
 	if(!account)
 		return FALSE
-	return mint(account, amt, "Savings")
+	return mint(account, amt, "Savings", null, LEDGER_CITIZEN_ESTATE)
 
-/datum/controller/subsystem/treasury/proc/give_money_account(amt, target, source, mint_new = FALSE, mint_label, is_salary = FALSE)
+/datum/controller/subsystem/treasury/proc/give_money_account(amt, target, source, mint_new = FALSE, mint_label, is_salary = FALSE, expense_acct, income_acct)
 	if(!amt)
 		return
 	if(!target)
@@ -337,10 +363,13 @@ SUBSYSTEM_DEF(treasury)
 		return FALSE
 	if(amt > 0)
 		if(mint_new)
-			if(!mint(account, amt, source, mint_label))
+			if(!mint(account, amt, source, mint_label, income_acct))
 				return FALSE
 		else
-			if(!transfer(discretionary_fund, account, amt, source))
+			// Callers that know what the Crown is paying for classify it; the default is a salary or a grant.
+			var/payer_acct = expense_acct || (is_salary ? LEDGER_CROWN_EXP_WAGES : LEDGER_CROWN_EXP_GRANTS)
+			var/payee_acct = income_acct || (is_salary ? LEDGER_CITIZEN_WAGES : null)
+			if(!transfer(discretionary_fund, account, amt, source, payer_acct, payee_acct))
 				return FALSE
 		record_round_statistic(STATS_DIRECT_TREASURY_TRANSFERS, amt)
 		if(!mint_new)
@@ -375,7 +404,7 @@ SUBSYSTEM_DEF(treasury)
 			else
 				send_ooc_note("<b>MEISTER:</b> Error: There is nothing left to fine them.", name = target_name)
 			return FALSE
-		if(!transfer(account, discretionary_fund, fine_amt, "[TAX_CATEGORY_FINE] ([source])"))
+		if(!transfer(account, discretionary_fund, fine_amt, "[TAX_CATEGORY_FINE] ([source])", LEDGER_CITIZEN_TAXES, LEDGER_CROWN_REV_FINES))
 			send_ooc_note("<b>MEISTER:</b> Error: They don't have enough in their account to pay the fine.", name = target_name)
 			return FALSE
 		record_round_statistic(STATS_FINES_INCOME, fine_amt)
@@ -394,7 +423,7 @@ SUBSYSTEM_DEF(treasury)
 	var/datum/fund/account = get_account(character)
 	if(!account)
 		return FALSE
-	mint(account, amt, "Meister deposit by [character.real_name]")
+	mint(account, amt, "Meister deposit by [character.real_name]", null, LEDGER_CITIZEN_COIN_IN)
 	return list(amt, 0)
 
 /datum/controller/subsystem/treasury/proc/withdraw_money_account(amt, target)
@@ -410,7 +439,7 @@ SUBSYSTEM_DEF(treasury)
 	if(account.balance < amt)
 		send_ooc_note("<b>MEISTER:</b> Error: You don't have enough in your account for that withdrawal.", name = target_name)
 		return
-	if(!burn(account, amt, "Meister withdrawal by [target_name]"))
+	if(!burn(account, amt, "Meister withdrawal by [target_name]", LEDGER_CITIZEN_COIN_OUT))
 		return
 	return TRUE
 
@@ -427,7 +456,7 @@ SUBSYSTEM_DEF(treasury)
 		return FALSE
 	var/source = recipient.job == "Merchant" ? "Azurian Trading Company" : "Noble Estate"
 	var/payout = is_starter ? amount + ESTATE_STARTER_BONUS : amount
-	if(!mint(account, payout, source))
+	if(!mint(account, payout, source, null, LEDGER_CITIZEN_ESTATE))
 		return FALSE
 	record_round_statistic(STATS_NOBLE_INCOME_TOTAL, payout)
 	total_noble_income += payout
@@ -514,10 +543,10 @@ SUBSYSTEM_DEF(treasury)
 	var/ceiling = (refill + guild_bonus) * BURGHER_PLEDGE_CLAWBACK_MULTIPLIER
 	if(burgher_pledge_fund.balance > ceiling)
 		var/surplus = burgher_pledge_fund.balance - ceiling
-		burn(burgher_pledge_fund, surplus, "Burgher Pledge clawback")
-	mint(burgher_pledge_fund, refill, "Burgher Pledge replenishment")
+		burn(burgher_pledge_fund, surplus, "Burgher Pledge clawback", ledger_acct(LEDGER_BOOK_PLEDGE, LEDGER_KEY_GRANTS))
+	mint(burgher_pledge_fund, refill, "Burgher Pledge replenishment", null, ledger_acct(LEDGER_BOOK_PLEDGE, LEDGER_KEY_GRANTS))
 	if(guild_bonus > 0)
-		mint(burgher_pledge_fund, guild_bonus, "Guild of Arms tribute (Charter of Arms)")
+		mint(burgher_pledge_fund, guild_bonus, "Guild of Arms tribute (Charter of Arms)", null, ledger_acct(LEDGER_BOOK_PLEDGE, LEDGER_KEY_GRANTS))
 	record_round_statistic(STATS_PLEDGE_GENERATED, refill + guild_bonus)
 
 /datum/controller/subsystem/treasury/proc/do_export(datum/roguestock/D, silent = FALSE)
@@ -528,7 +557,7 @@ SUBSYSTEM_DEF(treasury)
 	record_material_flow(MATERIAL_FLOW_OUT, MATERIAL_SOURCE_LOCAL_EXPORT, D.item_type, D.importexport_amt, amt)
 	dirty_market_view()
 
-	mint(discretionary_fund, amt, "exported [D.name]")
+	mint(discretionary_fund, amt, "exported [D.name]", null, LEDGER_CROWN_REV_EXPORT_SALES)
 	SStreasury.total_export += amt
 	economic_output += amt
 	record_round_statistic(STATS_STOCKPILE_EXPORTS_VALUE, amt)
@@ -592,6 +621,7 @@ SUBSYSTEM_DEF(treasury)
 	return list("revenue" = total_revenue, "units" = total_units, "lines" = lines)
 
 /datum/controller/subsystem/treasury/proc/remove_person(mob/living/person)
+	retire_fund(bank_accounts[person])
 	noble_incomes -= person
 	bank_accounts -= person
 	poll_levy_owed -= person
@@ -661,7 +691,7 @@ SUBSYSTEM_DEF(treasury)
 /datum/controller/subsystem/treasury/proc/withdraw_money_treasury(amt, target)
 	if(!amt)
 		return FALSE
-	if(!burn(discretionary_fund, amt, "withdrawn by [target]"))
+	if(!burn(discretionary_fund, amt, "withdrawn by [target]", LEDGER_CROWN_EXP_WITHDRAWALS))
 		return FALSE
 	record_treasury_expense(TREASURY_FLOW_WITHDRAWAL, ismob(target) ? treasury_role_of(target) : "Unknown", amt)
 	return TRUE
