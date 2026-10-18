@@ -624,6 +624,7 @@ SUBSYSTEM_DEF(treasury)
 	retire_fund(bank_accounts[person])
 	noble_incomes -= person
 	bank_accounts -= person
+	write_off_poll_tax_receivable(poll_levy_owed[person] || 0, "Poll levy arrears written off (departed)")
 	poll_levy_owed -= person
 	return TRUE
 
@@ -817,6 +818,7 @@ SUBSYSTEM_DEF(treasury)
 		return
 	if(poll_levy_owed[H])
 		record_round_statistic(STATS_POLL_LEVY_ARREARS_FORGIVEN, poll_levy_owed[H])
+		write_off_poll_tax_receivable(poll_levy_owed[H], "Poll levy arrears cleared")
 	poll_levy_owed -= H
 	if(HAS_TRAIT(H, TRAIT_ARREARS))
 		REMOVE_TRAIT(H, TRAIT_ARREARS, TRAIT_GENERIC)

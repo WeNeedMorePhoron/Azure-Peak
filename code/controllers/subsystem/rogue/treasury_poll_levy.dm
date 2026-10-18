@@ -65,13 +65,14 @@
 	if(due <= 0)
 		return null
 	var/paid = min(due, max(account.balance, 0))
-	if(paid > 0 && !transfer(account, discretionary_fund, paid, "Poll levy ([get_poll_levy_category_pretty_name(category)])"))
+	if(paid > 0 && !transfer(account, discretionary_fund, paid, "Poll levy ([get_poll_levy_category_pretty_name(category)])", LEDGER_CITIZEN_TAXES, LEDGER_CROWN_REV_POLL_TAX))
 		paid = 0
 	if(paid > 0)
 		record_poll_levy_by_category(category, paid)
 	var/owed = due - paid
 	if(owed > 0)
 		poll_levy_owed[owner] = (poll_levy_owed[owner] || 0) + owed
+		accrue_poll_tax_receivable(owed, category)
 		record_round_statistic(STATS_POLL_LEVY_ARREARS, owed)
 		ADD_TRAIT(owner, TRAIT_ARREARS, TRAIT_GENERIC)
 		to_chat(owner, span_danger("<b>POLL LEVY:</b> [paid]m taken from your account. You owe the Crown [owed]m in arrears."))
