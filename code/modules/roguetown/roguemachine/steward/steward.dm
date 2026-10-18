@@ -771,7 +771,7 @@
 			contents += "<table width='100%' cellspacing='0' cellpadding='2'>"
 			contents += "<tr><td>Rural Tax</td><td align='right'><font color='#5cb85c'>[SStreasury.total_rural_tax]m</font></td>"
 			contents += "<td>Fines</td><td align='right'><font color='#5cb85c'>[GLOB.azure_round_stats[STATS_FINES_INCOME]]m</font></td></tr>"
-			contents += "<tr><td>Poll Tax</td><td align='right'><font color='#5cb85c'>[GLOB.azure_round_stats[STATS_POLL_TAX_COLLECTED]]m</font></td>"
+			contents += "<tr><td>Poll Tax</td><td align='right'><font color='#5cb85c'>[GLOB.azure_round_stats[STATS_POLL_LEVY_COLLECTED]]m</font></td>"
 			contents += "<td>Deposit Tax</td><td align='right'><font color='#5cb85c'>[SStreasury.total_deposit_tax]m</font></td></tr>"
 			contents += "<tr><td>Contract Levy</td><td align='right'><font color='#5cb85c'>[GLOB.azure_round_stats[STATS_REVENUE_CONTRACT_LEVY]]m</font></td>"
 			contents += "<td>Headeater Levy</td><td align='right'><font color='#5cb85c'>[GLOB.azure_round_stats[STATS_REVENUE_HEADEATER_LEVY]]m</font></td></tr>"
@@ -787,7 +787,7 @@
 			var/exempt_import = GLOB.azure_round_stats[STATS_EXEMPTED_IMPORT_TARIFF]
 			var/exempt_export = GLOB.azure_round_stats[STATS_EXEMPTED_EXPORT_DUTY]
 			var/exempt_fine = GLOB.azure_round_stats[STATS_EXEMPTED_FINE]
-			var/exempt_poll = GLOB.azure_round_stats[STATS_EXEMPTED_POLL_TAX]
+			var/exempt_poll = GLOB.azure_round_stats[STATS_EXEMPTED_POLL_LEVY]
 			var/exempt_total = exempt_contract + exempt_headeater + exempt_import + exempt_export + exempt_fine + exempt_poll
 			contents += "<b><font color='#8f7a5a'>FORGONE REVENUE (tax exempted)</font></b>"
 			contents += "<table width='100%' cellspacing='0' cellpadding='2'>"

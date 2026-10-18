@@ -26,7 +26,7 @@ const TaxationColumn = (props: { t: TreasurySnapshot }) => {
       <table style={twoColTable}>
         <tbody>
           <Row label="Rural Taxes Collected" value={t.rural_taxes} />
-          <Row label="Poll Tax Collected" value={t.poll.total} />
+          <Row label="Poll Levy Collected" value={t.poll.total} />
         </tbody>
       </table>
       <Tally
@@ -42,6 +42,13 @@ const TaxationColumn = (props: { t: TreasurySnapshot }) => {
           { label: 'Adventurer', value: t.poll.adventurer },
           { label: 'Mercenary', value: t.poll.mercenary },
           { label: 'Peasant', value: t.poll.peasant },
+        ]}
+      />
+      <Tally
+        items={[
+          { label: 'Levies Raised', value: t.poll.levies },
+          { label: 'Arrears Incurred', value: t.poll.arrears },
+          { label: 'Arrears Forgiven', value: t.poll.forgiven },
         ]}
       />
       <table style={twoColTable}>
@@ -110,7 +117,7 @@ const NotCollectedColumn = (props: { t: TreasurySnapshot }) => {
           { label: 'Import', value: t.exempt.import },
           { label: 'Export', value: t.exempt.export },
           { label: 'Fines', value: t.exempt.fines },
-          { label: 'Poll Tax', value: t.exempt.poll_tax },
+          { label: 'Poll Levy', value: t.exempt.poll_levy },
         ]}
       />
       <table style={twoColTable}>

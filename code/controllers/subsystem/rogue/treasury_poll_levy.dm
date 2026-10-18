@@ -72,6 +72,7 @@
 	var/owed = due - paid
 	if(owed > 0)
 		poll_tax_owed[owner] = (poll_tax_owed[owner] || 0) + owed
+		record_round_statistic(STATS_POLL_LEVY_ARREARS, owed)
 		ADD_TRAIT(owner, TRAIT_ARREARS, TRAIT_GENERIC)
 		to_chat(owner, span_danger("<b>POLL LEVY:</b> [paid]m taken from your account. You owe the Crown [owed]m in arrears."))
 	else
@@ -115,6 +116,7 @@
 		"charged" = list(),
 	)
 	poll_levies += list(levy)
+	record_round_statistic(STATS_POLL_LEVIES_ENACTED, 1)
 
 	for(var/key in bank_accounts)
 		var/datum/fund/account = bank_accounts[key]
@@ -129,8 +131,14 @@
 	var/announcer = authority == "duke" ? "The gracious [SSticker.rulertype]" : "The righteous Steward"
 	lines += "[announcer] has enacted a poll levy of:"
 	for(var/category in POLL_LEVY_CLASS_ORDER)
-		if(amounts[category])
-			lines += "- [get_poll_tax_category_pretty_name(category)]: [amounts[category]]m / head"
+		if(!amounts[category])
+			continue
+		var/list/caps = get_poll_levy_class_caps(category)
+		var/shown = min(amounts[category], caps["cap"])
+		var/line = "- [get_poll_tax_category_pretty_name(category)]: [shown]m / head"
+		if(caps["partial"] && shown > CHARGE_CAP_CHARTER)
+			line += " ([CHARGE_CAP_CHARTER]m for [caps["partial"]])"
+		lines += line
 	lines += ""
 	lines += "For reasons of:"
 	lines += html_encode(reason)
@@ -139,7 +147,7 @@
 	if(levy["arrears"] > 0)
 		tally += " The levy has incurred [levy["arrears"]]m in arrears."
 	lines += tally
-	priority_announce(jointext(lines, "<br>"), "POLL LEVY", pick('sound/misc/royal_decree.ogg', 'sound/misc/royal_decree2.ogg'), "Captain", strip_html = FALSE)
+	priority_announce(jointext(lines, "<br>"), "POLL LEVY", pick('sound/misc/royal_decree.ogg', 'sound/misc/royal_decree2.ogg'), "Captain", user, strip_html = FALSE)
 
 	var/list/log_parts = list()
 	for(var/category in amounts)
@@ -164,18 +172,27 @@
 	switch(category)
 		if(POLL_TAX_CAT_BURGHER)
 			covers[DECREE_GOLDEN_BULL] = null
-			covers[DECREE_NOC_PESTRA_COVENANT] = "Head Physician, Apothecary and Magicians Associate only"
+			covers[DECREE_NOC_PESTRA_COVENANT] = "Head Physician, Apothecary and Magicians Associate"
 		if(POLL_TAX_CAT_COURTIER)
-			covers[DECREE_NOC_PESTRA_COVENANT] = "University staff only"
+			covers[DECREE_NOC_PESTRA_COVENANT] = "University staff"
 		if(POLL_TAX_CAT_MERCENARY)
 			covers[DECREE_GUILD_CHARTER_OF_ARMS] = null
-	var/list/out = list()
+	var/cap = CHARGE_CAP_FLAT
+	var/partial
+	var/list/charters = list()
 	for(var/id in covers)
 		var/datum/decree/D = get_decree(id)
 		if(!D?.active)
 			continue
-		out += covers[id] ? "[D.name] - [covers[id]]" : D.name
-	return out
+		if(covers[id])
+			partial = covers[id]
+			charters += "[D.name] - [covers[id]] only"
+		else
+			cap = min(cap, CHARGE_CAP_CHARTER)
+			charters += D.name
+	if(cap <= CHARGE_CAP_CHARTER)
+		partial = null
+	return list("cap" = cap, "partial" = partial, "charters" = charters)
 
 /datum/controller/subsystem/treasury/proc/get_poll_levy_ui_data(mob/living/user)
 	var/list/heads = list()
@@ -193,7 +210,7 @@
 			"label" = get_poll_tax_category_pretty_name(category),
 			"exempt_charter" = get_poll_levy_exempting_charter(category),
 			"heads" = heads[category] || 0,
-			"cap_charters" = get_poll_levy_class_caps(category),
+			"cap_charters" = get_poll_levy_class_caps(category)["charters"],
 		))
 	return list(
 		"authority" = get_poll_levy_authority(user),

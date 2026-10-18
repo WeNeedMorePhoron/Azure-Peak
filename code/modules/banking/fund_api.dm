@@ -338,4 +338,4 @@
 		if(TAX_CATEGORY_FINE)
 			record_round_statistic(STATS_EXEMPTED_FINE, amount)
 		if(TAX_CATEGORY_POLL_LEVY)
-			record_round_statistic(STATS_EXEMPTED_POLL_TAX, amount)
+			record_round_statistic(STATS_EXEMPTED_POLL_LEVY, amount)
