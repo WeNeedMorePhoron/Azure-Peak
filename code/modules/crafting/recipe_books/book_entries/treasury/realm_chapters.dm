@@ -160,7 +160,8 @@
 		</ul>
 		<p>Where <code>import_ref = base × event_mod</code> and <code>export_ref =
 		import_ref × [(1 - IMPORT_EXPORT_SPREAD) * 100]%</code>. At small base prices
-		the 1m margin sets the buy price. At larger prices the [IMPORT_EXPORT_SPREAD * 100]% cut takes over and the Crown's margin grows with the price. Regional
+		the buy price is <code>export_ref - 1m</code>. At larger prices it is
+		<code>[(1 - IMPORT_EXPORT_SPREAD) * 100]% × export_ref</code>, so the Crown's margin grows with the price. Regional
 		shortages, blockades and route congestion only affect imports and exports.
 		They do not change stockpile prices. The Steward can set prices by hand when
 		needed.</p>
@@ -451,9 +452,9 @@
 		issued by a fellowship of [BLOCKADE_FELLOWSHIP_REQUIREMENT] or more.</p>
 
 		<h3>The Floor and Banditry Debt</h3> <p>Banditry alone won't take the Treasury
-		below <b>[BANDITRY_DEBT_FLOOR]m</b>. Anything beyond that becomes <b>banditry
-		debt</b>, which skims everything paid into the Treasury (stockpile earnings,
-		taxes, levies, fines, loan repayments) until paid.</p>
+		below <b>[BANDITRY_DEBT_FLOOR]m</b>. Anything beyond that is recorded as
+		<b>banditry debt</b>. Until it is paid, a share of everything paid into the Treasury
+		(stockpile earnings, taxes, levies, fines, loan repayments) is taken against it.</p>
 
 		<h3>What You Can Do</h3> <p>Issue defense contracts and Blockade Scrolls against
 		Dangerous and Bleak regions. Use levy exemption as bait. The retinue and

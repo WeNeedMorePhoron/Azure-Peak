@@ -232,7 +232,7 @@
 			This opens room for more sales while it's in port.</li>
 			<li>Seafood, pottery and carved goods also clear [MARKET_POOL_PASSIVE_DRAIN * 100]% of their capacity every
 			[DisplayTimeText(MARKET_POOL_PASSIVE_DRAIN_INTERVAL)], so towners can still sell something when no ship is in port.</li>
-			<li>A full warehouse refuses further intake. The Navigator sends the goods back with a \"market is choked\" message.</li>
+			<li>When a warehouse is full, the Navigator sends the goods back with a \"market is choked\" message.</li>
 			<li>The Black Market runs in parallel. It has [MARKET_BM_POOL_FRACTION * 100]% of the capacity, flat prices (no demand mechanic), and clears
 			[MARKET_BM_DAILY_SATURATION_REGEN * 100]% of its capacity each day.</li>
 		</ul>
