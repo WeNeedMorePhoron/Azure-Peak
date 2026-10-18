@@ -59,16 +59,22 @@
 			via the Navigator's balloon.</li>
 		</ul>
 
-		<h3>Poll Levy</h3> <p>Poll levy is one of the most powerful and most hated ways
-		for the Crown to raise revenue. It is a one-off levy levied on every subject with a bank account, with any amount not met becoming arrears. It drains from their balance automatically and is levied by class. Charters may exempt or cap certain categories of
-		subject while they are in force. Levy can be enacted twice in a week, no earlier than the first dae of the week. Steward can only enact a levy once, while Duke can enact a second levy. A reason must be supplied.</p>
-
-		<p>Unpaid poll levy accumulates arrears, and the subject is marked
-		<b>destitute</b>. Poll levy arrears do
-		not authorise killing or attacking on sight, and they do not override ERP
-		protection rules, since it is imposed unilaterally the subject has not
-		consented to being attacked or killed over it. Treat arrears as a roleplay
-		opportunity to recover or forgive the debt.</p>
+		<h3>Poll Levy</h3>
+		<p>A one-off charge per head, set by class. Every subject with a bank account is charged at
+		once. Late joiners are charged when they open an account.</p>
+		<ul>
+			<li>Raised by the Grand Duke, the Regent or the Steward. The Steward may raise one levy per
+			week, and only while no Grand Duke or Regent is present.</li>
+			<li>At most [POLL_LEVY_MAX_PER_ROUND] levies per week, none before day [POLL_LEVY_FIRST_DAY],
+			and at most one per day. A reason of at least [POLL_LEVY_REASON_MIN] characters is announced
+			with it.</li>
+			<li>Maximum [CHARGE_CAP_FLAT]m per head. Charters may cap a class at [CHARGE_CAP_CHARTER]m or
+			exempt it outright. No levies while the Magna Carta is in force.</li>
+			<li>Whatever a subject cannot pay becomes <b>arrears</b>. Arrears are drawn from the account whenever someone deposit in it and at dawn every day. The subject is marked <b>destitute</b> until
+			the debt is settled or forgiven.</li>
+		</ul>
+		<p>Arrears are not grounds for attacking or killing anyone and do not override ERP protection.
+		Recover or forgive the debt through play.</p>
 
 		<p>Meister deposits are not taxed.</p>
 		</div>

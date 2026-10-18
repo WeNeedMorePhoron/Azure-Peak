@@ -376,6 +376,8 @@ SUBSYSTEM_DEF(treasury)
 			record_treasury_payout(usr, istype(target, /mob/living) ? target : null, amt, is_salary)
 		send_ooc_note(source ? "<b>MEISTER:</b> You received [amt]m. ([source])" : "<b>MEISTER:</b> You received [amt]m.", name = target_name)
 		log_game("CROWN GRANT: [usr ? key_name(usr) : "system"] granted [amt]m to [istype(target, /mob/living) ? key_name(target) : target_name] via [source || "unknown"]")
+		if(isliving(target))
+			collect_poll_levy_arrears(target)
 	else
 		if(SSgamemode?.roundvoteend)
 			send_ooc_note("<b>MEISTER:</b> Error: The round is ending. No further fines may be levied.", name = target_name)
@@ -424,6 +426,7 @@ SUBSYSTEM_DEF(treasury)
 	if(!account)
 		return FALSE
 	mint(account, amt, "Meister deposit by [character.real_name]", null, LEDGER_CITIZEN_COIN_IN)
+	collect_poll_levy_arrears(character)
 	return list(amt, 0)
 
 /datum/controller/subsystem/treasury/proc/withdraw_money_account(amt, target)

@@ -50,6 +50,7 @@ const TaxationColumn = (props: { t: TreasurySnapshot }) => {
           { label: 'Levies Raised', value: t.poll.levies },
           { label: 'Arrears Incurred', value: t.poll.arrears },
           { label: 'Arrears Forgiven', value: t.poll.forgiven },
+          { label: 'Arrears Recovered', value: t.poll.recovered },
         ]}
       />
       <table style={twoColTable}>

@@ -97,6 +97,7 @@
 #define STATS_POLL_LEVIES_ENACTED "poll_levies_enacted"
 #define STATS_POLL_LEVY_ARREARS "poll_levy_arrears"
 #define STATS_POLL_LEVY_ARREARS_FORGIVEN "poll_levy_arrears_forgiven"
+#define STATS_POLL_LEVY_ARREARS_RECOVERED "poll_levy_arrears_recovered"
 // Crown's Purse revenue breakdown by tax category (mammon actually collected by the Crown).
 #define STATS_REVENUE_CONTRACT_LEVY "revenue_contract_levy"
 #define STATS_REVENUE_HEADEATER_LEVY "revenue_headeater_levy"

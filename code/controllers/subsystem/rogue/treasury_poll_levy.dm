@@ -43,7 +43,7 @@
 		due = D.apply_charge_cap(payer, TAX_CATEGORY_POLL_LEVY, due)
 	return max(due, 0)
 
-/datum/controller/subsystem/treasury/proc/charge_poll_levy(mob/living/owner, datum/fund/account, list/levy)
+/datum/controller/subsystem/treasury/proc/charge_poll_levy(mob/living/owner, datum/fund/account, list/levy, quiet = FALSE)
 	if(!owner || !account)
 		return null
 	if(owner.real_name in levy["charged"])
@@ -75,8 +75,9 @@
 		accrue_poll_levy_receivable(owed, category)
 		record_round_statistic(STATS_POLL_LEVY_ARREARS, owed)
 		ADD_TRAIT(owner, TRAIT_ARREARS, TRAIT_GENERIC)
-		to_chat(owner, span_danger("<b>POLL LEVY:</b> [paid]m taken from your account. You owe the Crown [owed]m in arrears."))
-	else
+		if(!quiet)
+			to_chat(owner, span_danger("<b>POLL LEVY:</b> [paid]m taken from your account. You owe the Crown [owed]m in arrears."))
+	else if(!quiet)
 		to_chat(owner, span_notice("<b>POLL LEVY:</b> [paid]m taken from your account."))
 	return list(paid, owed)
 
@@ -162,11 +163,54 @@
 	var/datum/fund/account = get_account(owner)
 	if(!account)
 		return
+	var/paid_total = 0
+	var/owed_total = 0
 	for(var/list/levy as anything in poll_levies)
-		var/list/result = charge_poll_levy(owner, account, levy)
-		if(result)
-			levy["raised"] += result[1]
-			levy["arrears"] += result[2]
+		var/list/result = charge_poll_levy(owner, account, levy, quiet = TRUE)
+		if(!result)
+			continue
+		levy["raised"] += result[1]
+		levy["arrears"] += result[2]
+		paid_total += result[1]
+		owed_total += result[2]
+	if(paid_total <= 0 && owed_total <= 0)
+		return
+	var/list/parts = list("New account created.")
+	if(paid_total > 0)
+		parts += "[paid_total]m was drawn for the standing poll levy."
+	if(owed_total > 0)
+		parts += "You owe the Crown [owed_total]m in poll arrears. Please pay your dues hastily."
+	send_ooc_note("<b>MEISTER:</b> [jointext(parts, " ")]", name = owner.real_name)
+
+/datum/controller/subsystem/treasury/proc/collect_poll_levy_arrears(mob/living/owner)
+	if(QDELETED(owner))
+		return 0
+	var/owed = poll_levy_owed[owner] || 0
+	if(owed <= 0)
+		return 0
+	var/datum/fund/account = get_account(owner)
+	if(!account || account.balance <= 0)
+		return 0
+	var/paid = min(owed, account.balance)
+	if(!transfer(account, discretionary_fund, paid, "Poll levy arrears", LEDGER_CITIZEN_TAXES, LEDGER_CROWN_POLL_RECEIVABLE))
+		return 0
+	record_poll_levy_by_category(get_poll_levy_category(owner), paid)
+	record_round_statistic(STATS_POLL_LEVY_ARREARS_RECOVERED, paid)
+	var/remaining = owed - paid
+	if(remaining > 0)
+		poll_levy_owed[owner] = remaining
+		to_chat(owner, span_danger("<b>POLL LEVY:</b> [paid]m taken from your account toward your arrears. You still owe the Crown [remaining]m."))
+	else
+		poll_levy_owed -= owner
+		if(HAS_TRAIT(owner, TRAIT_ARREARS))
+			REMOVE_TRAIT(owner, TRAIT_ARREARS, TRAIT_GENERIC)
+		to_chat(owner, span_notice("<b>POLL LEVY:</b> [paid]m taken from your account. Your arrears are settled."))
+	log_game("POLL LEVY ARREARS: [key_name(owner)] paid [paid]m, [remaining]m remaining")
+	return paid
+
+/datum/controller/subsystem/treasury/proc/tick_poll_levy_arrears()
+	for(var/mob/living/owner as anything in poll_levy_owed.Copy())
+		collect_poll_levy_arrears(owner)
 
 /datum/controller/subsystem/treasury/proc/get_poll_levy_class_caps(category)
 	var/list/covers = list()

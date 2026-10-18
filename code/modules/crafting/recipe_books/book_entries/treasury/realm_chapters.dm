@@ -563,7 +563,7 @@
 		<h3>Poll Levy</h3>
 		<ul>
 			<li>A levy is counted as earned when it is enacted, whether or not the subject can pay it.</li>
-			<li>What is not collected is carried as a <b>receivable</b> against the subject.</li>
+			<li>What is not collected is carried as a <b>receivable</b> against the subject. It is drawn from their account whenever someone deposits in it and at dawn every day.</li>
 			<li>Arrears that are forgiven (by the Steward, by an admin, or because the subject has
 			left for good) are <b>written off</b> as an expense, "Poll Levy Written Off."</li>
 		</ul>

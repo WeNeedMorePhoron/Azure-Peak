@@ -107,6 +107,7 @@
 	out += chronicle_kv("	Levies raised", "[GLOB.azure_round_stats[STATS_POLL_LEVIES_ENACTED]]")
 	out += chronicle_kv("	Arrears incurred", "[GLOB.azure_round_stats[STATS_POLL_LEVY_ARREARS]]")
 	out += chronicle_kv("	Arrears forgiven", "[GLOB.azure_round_stats[STATS_POLL_LEVY_ARREARS_FORGIVEN]]")
+	out += chronicle_kv("	Arrears recovered", "[GLOB.azure_round_stats[STATS_POLL_LEVY_ARREARS_RECOVERED]]")
 	out += chronicle_kv("Taxes evaded", "[GLOB.azure_round_stats[STATS_TAXES_EVADED]]")
 	var/exempt_total = GLOB.azure_round_stats[STATS_EXEMPTED_CONTRACT_LEVY] + GLOB.azure_round_stats[STATS_EXEMPTED_HEADEATER_LEVY] + GLOB.azure_round_stats[STATS_EXEMPTED_IMPORT_TARIFF] + GLOB.azure_round_stats[STATS_EXEMPTED_EXPORT_DUTY] + GLOB.azure_round_stats[STATS_EXEMPTED_FINE] + GLOB.azure_round_stats[STATS_EXEMPTED_POLL_LEVY]
 	out += chronicle_kv("Forgone revenue (exemptions)", "[exempt_total]")

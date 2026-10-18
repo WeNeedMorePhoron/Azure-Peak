@@ -154,6 +154,7 @@ GLOBAL_DATUM(economic_chronicle, /datum/economic_chronicle)
 		"levies" = GLOB.azure_round_stats[STATS_POLL_LEVIES_ENACTED] || 0,
 		"arrears" = GLOB.azure_round_stats[STATS_POLL_LEVY_ARREARS] || 0,
 		"forgiven" = GLOB.azure_round_stats[STATS_POLL_LEVY_ARREARS_FORGIVEN] || 0,
+		"recovered" = GLOB.azure_round_stats[STATS_POLL_LEVY_ARREARS_RECOVERED] || 0,
 	)
 	var/contract_levy = GLOB.azure_round_stats[STATS_REVENUE_CONTRACT_LEVY] || 0
 	var/headeater_levy = GLOB.azure_round_stats[STATS_REVENUE_HEADEATER_LEVY] || 0

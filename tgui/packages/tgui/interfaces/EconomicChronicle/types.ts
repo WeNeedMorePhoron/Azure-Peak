@@ -15,6 +15,7 @@ export type PollSnapshot = {
   levies: number;
   arrears: number;
   forgiven: number;
+  recovered: number;
 };
 
 export type RoyalSnapshot = {
