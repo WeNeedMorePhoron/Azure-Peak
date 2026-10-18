@@ -868,7 +868,7 @@ export const EconomicPanel = () => {
             </Stack.Item>
           )}
 
-          {tab === 'solvency' && (
+          {tab === 'dashboard' && (
             <Stack.Item>
               <Section title="Tick Actions">
                 <Stack wrap>
@@ -917,7 +917,7 @@ export const EconomicPanel = () => {
             </Stack.Item>
           )}
 
-          {tab === 'solvency' && (
+          {tab === 'dashboard' && (
             <Stack.Item>
               <Section title="Simulated Population (economy pop scaling)">
                 <Box mb={1} color="label">
