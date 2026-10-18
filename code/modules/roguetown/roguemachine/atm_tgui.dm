@@ -40,10 +40,10 @@
 	var/mob/living/carbon/human/H = user
 	var/list/data = list()
 	data["max_issuance_day"] = SStreasury.loan_max_issuance_day
-	var/poll_category = istype(H) ? SStreasury.get_poll_tax_category(H) : null
-	data["poll_tax_user"] = list(
+	var/poll_category = istype(H) ? SStreasury.get_poll_levy_category(H) : null
+	data["poll_levy_user"] = list(
 		"category" = poll_category || "",
-		"category_label" = poll_category ? SStreasury.get_poll_tax_category_pretty_name(poll_category) : "",
+		"category_label" = poll_category ? SStreasury.get_poll_levy_category_pretty_name(poll_category) : "",
 	)
 	var/list/funds = list()
 	var/list/patron_rosters_static = list()
@@ -99,11 +99,11 @@
 	else
 		data["active_loan"] = null
 
-	var/poll_category = SStreasury.get_poll_tax_category(H)
+	var/poll_category = SStreasury.get_poll_levy_category(H)
 	var/poll_exempt = poll_category ? SStreasury.is_tax_exempt(H, TAX_CATEGORY_POLL_LEVY) : FALSE
-	data["poll_tax"] = list(
+	data["poll_levy"] = list(
 		"exempt" = poll_exempt ? TRUE : FALSE,
-		"owed" = SStreasury.poll_tax_owed[H] || 0,
+		"owed" = SStreasury.poll_levy_owed[H] || 0,
 	)
 
 	var/has_any_institutional_access = FALSE

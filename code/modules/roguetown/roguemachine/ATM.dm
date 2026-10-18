@@ -129,9 +129,9 @@
 		. += span_smallnotice("Under the Concordat of Zenitstadt, the Church of Azuria takes [round(CONCORDAT_TITHE_RATE * 100)]% of every taxed payment out of the Crown's share.")
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/poll_category = SStreasury.get_poll_tax_category(H)
+		var/poll_category = SStreasury.get_poll_levy_category(H)
 		if(poll_category)
-			var/pretty = SStreasury.get_poll_tax_category_pretty_name(poll_category)
+			var/pretty = SStreasury.get_poll_levy_category_pretty_name(poll_category)
 			if(SStreasury.is_tax_exempt(H, TAX_CATEGORY_POLL_LEVY))
 				. += span_smallnotice("Poll tax ([pretty]): exempt by Charter")
 			else

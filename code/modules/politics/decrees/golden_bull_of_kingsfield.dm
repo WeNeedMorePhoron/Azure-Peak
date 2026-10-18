@@ -26,7 +26,7 @@ Yeven under the seal of the Crown."}
 /datum/decree/golden_bull/apply_charge_cap(mob/living/payer, charge_category, current)
 	if(!is_protected_by_bull(payer))
 		return current
-	if(charge_category == TAX_CATEGORY_POLL_LEVY && SStreasury.get_poll_tax_category(payer) != POLL_TAX_CAT_BURGHER)
+	if(charge_category == TAX_CATEGORY_POLL_LEVY && SStreasury.get_poll_levy_category(payer) != POLL_LEVY_CAT_BURGHER)
 		return current
 	return min(current, CHARGE_CAP_CHARTER)
 

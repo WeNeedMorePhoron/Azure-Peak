@@ -7,9 +7,9 @@ import {
 } from '../common/parchment';
 import type { TabProps } from './types';
 
-export const PollTaxTab = ({ data }: TabProps) => {
-  const tax = data.poll_tax;
-  const taxUser = data.poll_tax_user;
+export const PollLevyTab = ({ data }: TabProps) => {
+  const tax = data.poll_levy;
+  const taxUser = data.poll_levy_user;
 
   return (
     <div style={cardStyle}>

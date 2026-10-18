@@ -48,7 +48,7 @@
 		return null
 	if(owner.real_name in levy["charged"])
 		return null
-	var/category = get_poll_tax_category(owner)
+	var/category = get_poll_levy_category(owner)
 	if(!category)
 		return null
 	var/list/amounts = levy["amounts"]
@@ -65,13 +65,13 @@
 	if(due <= 0)
 		return null
 	var/paid = min(due, max(account.balance, 0))
-	if(paid > 0 && !transfer(account, discretionary_fund, paid, "Poll levy ([get_poll_tax_category_pretty_name(category)])"))
+	if(paid > 0 && !transfer(account, discretionary_fund, paid, "Poll levy ([get_poll_levy_category_pretty_name(category)])"))
 		paid = 0
 	if(paid > 0)
-		record_poll_tax_by_category(category, paid)
+		record_poll_levy_by_category(category, paid)
 	var/owed = due - paid
 	if(owed > 0)
-		poll_tax_owed[owner] = (poll_tax_owed[owner] || 0) + owed
+		poll_levy_owed[owner] = (poll_levy_owed[owner] || 0) + owed
 		record_round_statistic(STATS_POLL_LEVY_ARREARS, owed)
 		ADD_TRAIT(owner, TRAIT_ARREARS, TRAIT_GENERIC)
 		to_chat(owner, span_danger("<b>POLL LEVY:</b> [paid]m taken from your account. You owe the Crown [owed]m in arrears."))
@@ -135,7 +135,7 @@
 			continue
 		var/list/caps = get_poll_levy_class_caps(category)
 		var/shown = min(amounts[category], caps["cap"])
-		var/line = "- [get_poll_tax_category_pretty_name(category)]: [shown]m / head"
+		var/line = "- [get_poll_levy_category_pretty_name(category)]: [shown]m / head"
 		if(caps["partial"] && shown > CHARGE_CAP_CHARTER)
 			line += " ([CHARGE_CAP_CHARTER]m for [caps["partial"]])"
 		lines += line
@@ -151,7 +151,7 @@
 
 	var/list/log_parts = list()
 	for(var/category in amounts)
-		log_parts += "[get_poll_tax_category_pretty_name(category)] [amounts[category]]m"
+		log_parts += "[get_poll_levy_category_pretty_name(category)] [amounts[category]]m"
 	log_game("POLL LEVY: [key_name(user)] ([authority]) levied [jointext(log_parts, ", ")]; raised [levy["raised"]]m, [levy["arrears"]]m in arrears. Reason: [reason]")
 	return TRUE
 
@@ -170,12 +170,12 @@
 /datum/controller/subsystem/treasury/proc/get_poll_levy_class_caps(category)
 	var/list/covers = list()
 	switch(category)
-		if(POLL_TAX_CAT_BURGHER)
+		if(POLL_LEVY_CAT_BURGHER)
 			covers[DECREE_GOLDEN_BULL] = null
 			covers[DECREE_NOC_PESTRA_COVENANT] = "Head Physician, Apothecary and Magicians Associate"
-		if(POLL_TAX_CAT_COURTIER)
+		if(POLL_LEVY_CAT_COURTIER)
 			covers[DECREE_NOC_PESTRA_COVENANT] = "University staff"
-		if(POLL_TAX_CAT_MERCENARY)
+		if(POLL_LEVY_CAT_MERCENARY)
 			covers[DECREE_GUILD_CHARTER_OF_ARMS] = null
 	var/cap = CHARGE_CAP_FLAT
 	var/partial
@@ -200,14 +200,14 @@
 		var/datum/fund/account = bank_accounts[key]
 		if(!account || account.currency != CURRENCY_MAMMON)
 			continue
-		var/category = get_poll_tax_category(account.get_owner())
+		var/category = get_poll_levy_category(account.get_owner())
 		if(category)
 			heads[category] = (heads[category] || 0) + 1
 	var/list/classes = list()
 	for(var/category in POLL_LEVY_CLASS_ORDER)
 		classes += list(list(
 			"category" = category,
-			"label" = get_poll_tax_category_pretty_name(category),
+			"label" = get_poll_levy_category_pretty_name(category),
 			"exempt_charter" = get_poll_levy_exempting_charter(category),
 			"heads" = heads[category] || 0,
 			"cap_charters" = get_poll_levy_class_caps(category)["charters"],

@@ -241,16 +241,16 @@
 		if(forgiven)
 			SStreasury.loans -= forgiven
 			qdel(forgiven)
-		SStreasury.clear_poll_tax_debt(target)
+		SStreasury.clear_poll_levy_debt(target)
 		say("[target.real_name]'s debtor mark has been cleared and all Crown loans have been forgiven.")
 		log_game("DEBT FORGIVEN: [key_name(usr)] cleared debtor mark on [key_name(target)][loan_amt ? " (wrote off [loan_amt]m loan)" : ""]")
 		to_chat(target, span_notice("The Stewardry has cleared the defaulter mark from my name. My Crown debts are forgiven."))
-	if(href_list["clearpolltax"])
+	if(href_list["clearpolllevy"])
 		if(!usr.canUseTopic(src, BE_CLOSE) || locked)
 			return
 		var/list/in_arrears = list()
 		for(var/mob/living/carbon/human/H in GLOB.human_list)
-			if(SStreasury.poll_tax_owed[H] || HAS_TRAIT(H, TRAIT_ARREARS))
+			if(SStreasury.poll_levy_owed[H] || HAS_TRAIT(H, TRAIT_ARREARS))
 				in_arrears["[H.real_name]"] = H
 		if(!length(in_arrears))
 			say("No one owes poll tax.")
@@ -263,8 +263,8 @@
 		var/mob/living/carbon/human/target = in_arrears[pick]
 		if(!target)
 			return
-		var/was_owed = SStreasury.poll_tax_owed[target] || 0
-		SStreasury.clear_poll_tax_debt(target)
+		var/was_owed = SStreasury.poll_levy_owed[target] || 0
+		SStreasury.clear_poll_levy_debt(target)
 		say("[target.real_name]'s poll tax arrears have been cleared.")
 		log_game("POLL TAX CLEARED: [key_name(usr)] cleared [was_owed]m poll tax arrears on [key_name(target)]")
 		to_chat(target, span_notice("The Stewardry has cleared my poll tax arrears."))
@@ -642,7 +642,7 @@
 			var/list/priority_accounts = list() // debtors or in arrears
 			var/list/normal_accounts = list()
 			for(var/mob/living/carbon/human/A in SStreasury.bank_accounts)
-				var/owed = SStreasury.poll_tax_owed[A] || 0
+				var/owed = SStreasury.poll_levy_owed[A] || 0
 				var/is_debtor = HAS_TRAIT(A, TRAIT_DEBTOR)
 				if(is_debtor || owed > 0)
 					priority_accounts += A
@@ -658,7 +658,7 @@
 				var/wage_status_long = A_suspended ? "Reinstate Wages" : "Suspend Wages"
 				var/fine_label = max_fine > 0 ? "FINE (Max [max_fine]m)" : "FINE (exempt)"
 				var/fine_long_label = max_fine > 0 ? "Fine Account (Max [max_fine]m)" : "Fine Account (exempt)"
-				var/poll_owed = SStreasury.poll_tax_owed[A] || 0
+				var/poll_owed = SStreasury.poll_levy_owed[A] || 0
 				var/a_is_debtor = HAS_TRAIT(A, TRAIT_DEBTOR)
 				var/debt_tag = ""
 				if(a_is_debtor)
@@ -705,17 +705,17 @@
 				contents += "<BR>"
 			else
 				contents += "<i>No active loans.</i><BR><BR>"
-			// ── Poll Tax Arrears & Debtors ────────────────────────────────────
+			// ── Poll Levy Arrears & Debtors ────────────────────────────────────
 			var/list/debt_rows = list()
 			for(var/mob/living/carbon/human/A in SStreasury.bank_accounts)
-				var/poll_owed = SStreasury.poll_tax_owed[A] || 0
+				var/poll_owed = SStreasury.poll_levy_owed[A] || 0
 				var/is_debtor = HAS_TRAIT(A, TRAIT_DEBTOR)
 				if(poll_owed > 0 || is_debtor)
 					debt_rows += A
 			if(length(debt_rows))
 				contents += "<b>Poll Tax Debtors / Arrears ([length(debt_rows)]):</b><BR>"
 				for(var/mob/living/carbon/human/A in debt_rows)
-					var/poll_owed = SStreasury.poll_tax_owed[A] || 0
+					var/poll_owed = SStreasury.poll_levy_owed[A] || 0
 					var/is_debtor = HAS_TRAIT(A, TRAIT_DEBTOR_CROWN)
 					var/balance = SStreasury.get_balance(A)
 					if(is_debtor)
@@ -729,7 +729,7 @@
 				contents += "<i>No poll tax arrears.</i><BR><BR>"
 			contents += "<a href='?src=\ref[src];clearloandebtor=1'>\[Clear Defaulter Mark\]</a><BR>"
 			contents += "<font color='gray'><i>(Forgives their loan and poll tax arrears and removes the defaulter mark.)</i></font><BR>"
-			contents += "<a href='?src=\ref[src];clearpolltax=1'>\[Clear Poll Tax Obligation\]</a><BR>"
+			contents += "<a href='?src=\ref[src];clearpolllevy=1'>\[Clear Poll Tax Obligation\]</a><BR>"
 			contents += "<font color='gray'><i>(Wipes a subject's poll tax arrears.)</i></font><BR>"
 		if(TAB_IMPORT)
 			contents += "<a href='?src=\ref[src];switchtab=[TAB_MAIN]'>\[Return\]</a>"

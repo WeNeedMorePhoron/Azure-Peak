@@ -15,7 +15,7 @@
 		var/mob/living/owner = account.get_owner()
 		if(!owner)
 			continue
-		if(poll_tax_owed[owner])
+		if(poll_levy_owed[owner])
 			in_arrears++
 		if(HAS_TRAIT(owner, TRAIT_DEBTOR))
 			debtor_count++
@@ -79,12 +79,12 @@
 		if(!owner)
 			continue
 
-		var/category = get_poll_tax_category(owner)
+		var/category = get_poll_levy_category(owner)
 		if(category_filter && category_filter != "all")
 			if(category != category_filter)
 				continue
 
-		var/owed = poll_tax_owed[owner] || 0
+		var/owed = poll_levy_owed[owner] || 0
 		var/exempt = category ? is_tax_exempt(owner, TAX_CATEGORY_POLL_LEVY) : FALSE
 		var/is_debtor = HAS_TRAIT(owner, TRAIT_DEBTOR)
 
@@ -120,7 +120,7 @@
 			"name" = owner.real_name,
 			"job" = owner.job,
 			"category" = category,
-			"category_name" = category ? get_poll_tax_category_pretty_name(category) : "None",
+			"category_name" = category ? get_poll_levy_category_pretty_name(category) : "None",
 			"exempt" = exempt,
 			"owed" = owed,
 			"balance" = account.balance,

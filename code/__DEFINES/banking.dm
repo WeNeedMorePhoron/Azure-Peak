@@ -76,30 +76,30 @@
 	"Knight", \
 )
 
-#define POLL_TAX_CAT_NOBLE "poll_noble"
-#define POLL_TAX_CAT_CLERGY "poll_clergy"
-#define POLL_TAX_CAT_INQUISITION "poll_inquisition"
-#define POLL_TAX_CAT_COURTIER "poll_courtier"
-#define POLL_TAX_CAT_GARRISON "poll_garrison"
-#define POLL_TAX_CAT_GUILDS "poll_guilds"
-#define POLL_TAX_CAT_MERCHANT "poll_merchant"
-#define POLL_TAX_CAT_BURGHER "poll_burgher"
-#define POLL_TAX_CAT_ADVENTURER "poll_adventurer"
-#define POLL_TAX_CAT_MERCENARY "poll_mercenary"
-#define POLL_TAX_CAT_PEASANT "poll_peasant"
+#define POLL_LEVY_CAT_NOBLE "poll_noble"
+#define POLL_LEVY_CAT_CLERGY "poll_clergy"
+#define POLL_LEVY_CAT_INQUISITION "poll_inquisition"
+#define POLL_LEVY_CAT_COURTIER "poll_courtier"
+#define POLL_LEVY_CAT_GARRISON "poll_garrison"
+#define POLL_LEVY_CAT_GUILDS "poll_guilds"
+#define POLL_LEVY_CAT_MERCHANT "poll_merchant"
+#define POLL_LEVY_CAT_BURGHER "poll_burgher"
+#define POLL_LEVY_CAT_ADVENTURER "poll_adventurer"
+#define POLL_LEVY_CAT_MERCENARY "poll_mercenary"
+#define POLL_LEVY_CAT_PEASANT "poll_peasant"
 
 #define POLL_LEVY_CLASS_ORDER list( \
-	POLL_TAX_CAT_NOBLE, \
-	POLL_TAX_CAT_CLERGY, \
-	POLL_TAX_CAT_INQUISITION, \
-	POLL_TAX_CAT_COURTIER, \
-	POLL_TAX_CAT_GARRISON, \
-	POLL_TAX_CAT_GUILDS, \
-	POLL_TAX_CAT_MERCHANT, \
-	POLL_TAX_CAT_BURGHER, \
-	POLL_TAX_CAT_ADVENTURER, \
-	POLL_TAX_CAT_MERCENARY, \
-	POLL_TAX_CAT_PEASANT, \
+	POLL_LEVY_CAT_NOBLE, \
+	POLL_LEVY_CAT_CLERGY, \
+	POLL_LEVY_CAT_INQUISITION, \
+	POLL_LEVY_CAT_COURTIER, \
+	POLL_LEVY_CAT_GARRISON, \
+	POLL_LEVY_CAT_GUILDS, \
+	POLL_LEVY_CAT_MERCHANT, \
+	POLL_LEVY_CAT_BURGHER, \
+	POLL_LEVY_CAT_ADVENTURER, \
+	POLL_LEVY_CAT_MERCENARY, \
+	POLL_LEVY_CAT_PEASANT, \
 )
 
 // Minus principal in circulation (They are meant to issue loans at roundstart)

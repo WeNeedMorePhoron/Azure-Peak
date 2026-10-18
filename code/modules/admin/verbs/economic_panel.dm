@@ -45,17 +45,17 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 		"filter_options" = list(
 			"categories" = list(
 				"all",
-				POLL_TAX_CAT_NOBLE,
-				POLL_TAX_CAT_CLERGY,
-				POLL_TAX_CAT_INQUISITION,
-				POLL_TAX_CAT_COURTIER,
-				POLL_TAX_CAT_GARRISON,
-				POLL_TAX_CAT_GUILDS,
-				POLL_TAX_CAT_MERCHANT,
-				POLL_TAX_CAT_BURGHER,
-				POLL_TAX_CAT_ADVENTURER,
-				POLL_TAX_CAT_MERCENARY,
-				POLL_TAX_CAT_PEASANT,
+				POLL_LEVY_CAT_NOBLE,
+				POLL_LEVY_CAT_CLERGY,
+				POLL_LEVY_CAT_INQUISITION,
+				POLL_LEVY_CAT_COURTIER,
+				POLL_LEVY_CAT_GARRISON,
+				POLL_LEVY_CAT_GUILDS,
+				POLL_LEVY_CAT_MERCHANT,
+				POLL_LEVY_CAT_BURGHER,
+				POLL_LEVY_CAT_ADVENTURER,
+				POLL_LEVY_CAT_MERCENARY,
+				POLL_LEVY_CAT_PEASANT,
 			),
 			"statuses" = list("all", "arrears", "debtor", "low_balance", "exempt"),
 		),
@@ -441,7 +441,7 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 			var/mob/living/target = locate(params["ref"])
 			if(!istype(target))
 				return TRUE
-			SStreasury.clear_poll_tax_debt(target)
+			SStreasury.clear_poll_levy_debt(target)
 			admin_log_fiscal("cleared poll-tax debt for [key_name(target)]", "Clear Poll Debt")
 			return TRUE
 		if("player_toggle_debtor")
@@ -623,7 +623,7 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 				var/mob/living/target = locate(entry["ref"])
 				if(!istype(target))
 					continue
-				SStreasury.clear_poll_tax_debt(target)
+				SStreasury.clear_poll_levy_debt(target)
 				count++
 			admin_log_fiscal("bulk-cleared poll-tax debt for [count] players (filter cat=[filter_category] status=[filter_status])", "Bulk Clear Debt")
 			return TRUE

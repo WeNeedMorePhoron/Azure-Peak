@@ -91,7 +91,7 @@ SUBSYSTEM_DEF(treasury)
 	var/initial_payment_done = FALSE
 	var/list/loans = list()
 	var/loan_max_issuance_day = 5
-	var/list/poll_tax_owed = list()
+	var/list/poll_levy_owed = list()
 	var/list/poll_levies = list()
 	var/levy_rates_changed_day = -1
 	/// Steward-settable floor. Stockpile refuses purchases when Crown's Purse would drop below this.
@@ -594,7 +594,7 @@ SUBSYSTEM_DEF(treasury)
 /datum/controller/subsystem/treasury/proc/remove_person(mob/living/person)
 	noble_incomes -= person
 	bank_accounts -= person
-	poll_tax_owed -= person
+	poll_levy_owed -= person
 	return TRUE
 
 /datum/controller/subsystem/treasury/proc/apply_rate_adjustments(list/adjustments, good_announcement_text, bad_announcement_text)
@@ -666,101 +666,101 @@ SUBSYSTEM_DEF(treasury)
 	record_treasury_expense(TREASURY_FLOW_WITHDRAWAL, ismob(target) ? treasury_role_of(target) : "Unknown", amt)
 	return TRUE
 
-/datum/controller/subsystem/treasury/proc/get_poll_tax_category(mob/living/H)
+/datum/controller/subsystem/treasury/proc/get_poll_levy_category(mob/living/H)
 	if(!H)
 		return null
 	if(HAS_TRAIT(H, TRAIT_OUTLAW) || HAS_TRAIT(H, TRAIT_ROYAL_SUBSIDY))
 		return null
 	if(HAS_TRAIT(H, TRAIT_NOBLE) || (H.job in GLOB.noble_positions))
-		return POLL_TAX_CAT_NOBLE
+		return POLL_LEVY_CAT_NOBLE
 	if(H.job in GLOB.inquisition_positions)
-		return POLL_TAX_CAT_INQUISITION
+		return POLL_LEVY_CAT_INQUISITION
 	if((H.job in GLOB.church_positions) || HAS_TRAIT(H, TRAIT_AGENT_CHURCH))
-		return POLL_TAX_CAT_CLERGY
+		return POLL_LEVY_CAT_CLERGY
 	if((H.job in GLOB.courtier_positions) || H.job == "Court Agent")
-		return POLL_TAX_CAT_COURTIER
+		return POLL_LEVY_CAT_COURTIER
 	if((H.job in GLOB.garrison_positions) || H.job == "Squire")
-		return POLL_TAX_CAT_GARRISON
+		return POLL_LEVY_CAT_GARRISON
 	if(H.job in list("Guildmaster", "Guildsman", "Tailor"))
-		return POLL_TAX_CAT_GUILDS
+		return POLL_LEVY_CAT_GUILDS
 	if(H.job == "Merchant")
-		return POLL_TAX_CAT_MERCHANT
+		return POLL_LEVY_CAT_MERCHANT
 	if((H.job in list("Innkeeper", "Head Physician", "Apothecary", "Bathmaster", "Magicians Associate")) || HAS_TRAIT(H, TRAIT_RESIDENT))
-		return POLL_TAX_CAT_BURGHER
+		return POLL_LEVY_CAT_BURGHER
 	if(H.job in GLOB.wanderer_positions)
-		return POLL_TAX_CAT_ADVENTURER
+		return POLL_LEVY_CAT_ADVENTURER
 	if(H.job == "Mercenary")
-		return POLL_TAX_CAT_MERCENARY
+		return POLL_LEVY_CAT_MERCENARY
 	if((H.job in GLOB.peasant_positions) || (H.job in GLOB.sidefolk_positions) || (H.job == "Shophand"))
-		return POLL_TAX_CAT_PEASANT
+		return POLL_LEVY_CAT_PEASANT
 	return null
 
 /datum/controller/subsystem/treasury/proc/get_poll_levy_exempting_charter(category)
 	var/decree_id
 	switch(category)
-		if(POLL_TAX_CAT_NOBLE)
+		if(POLL_LEVY_CAT_NOBLE)
 			decree_id = DECREE_GREAT_WRIT
-		if(POLL_TAX_CAT_CLERGY)
+		if(POLL_LEVY_CAT_CLERGY)
 			decree_id = DECREE_ZENITSTADT_CONCORDAT
-		if(POLL_TAX_CAT_INQUISITION)
+		if(POLL_LEVY_CAT_INQUISITION)
 			decree_id = DECREE_OTAVAN_ACCORDS
 	if(!decree_id)
 		return null
 	var/datum/decree/D = get_decree(decree_id)
 	return D?.active ? D.name : null
 
-/datum/controller/subsystem/treasury/proc/get_poll_tax_category_pretty_name(category)
+/datum/controller/subsystem/treasury/proc/get_poll_levy_category_pretty_name(category)
 	switch(category)
-		if(POLL_TAX_CAT_NOBLE)
+		if(POLL_LEVY_CAT_NOBLE)
 			return "Noble"
-		if(POLL_TAX_CAT_CLERGY)
+		if(POLL_LEVY_CAT_CLERGY)
 			return "Clergy"
-		if(POLL_TAX_CAT_INQUISITION)
+		if(POLL_LEVY_CAT_INQUISITION)
 			return "Inquisition"
-		if(POLL_TAX_CAT_COURTIER)
+		if(POLL_LEVY_CAT_COURTIER)
 			return "Courtier"
-		if(POLL_TAX_CAT_GARRISON)
+		if(POLL_LEVY_CAT_GARRISON)
 			return "Garrison"
-		if(POLL_TAX_CAT_GUILDS)
+		if(POLL_LEVY_CAT_GUILDS)
 			return "Guilds"
-		if(POLL_TAX_CAT_MERCHANT)
+		if(POLL_LEVY_CAT_MERCHANT)
 			return "Merchant"
-		if(POLL_TAX_CAT_BURGHER)
+		if(POLL_LEVY_CAT_BURGHER)
 			return "Burgher"
-		if(POLL_TAX_CAT_ADVENTURER)
+		if(POLL_LEVY_CAT_ADVENTURER)
 			return "Adventurer"
-		if(POLL_TAX_CAT_MERCENARY)
+		if(POLL_LEVY_CAT_MERCENARY)
 			return "Mercenary"
-		if(POLL_TAX_CAT_PEASANT)
+		if(POLL_LEVY_CAT_PEASANT)
 			return "Peasant"
 	return capitalize(category)
 
-/datum/controller/subsystem/treasury/proc/record_poll_tax_by_category(category, amount)
+/datum/controller/subsystem/treasury/proc/record_poll_levy_by_category(category, amount)
 	if(!category || amount <= 0)
 		return
 	record_round_statistic(STATS_POLL_LEVY_COLLECTED, amount)
 	switch(category)
-		if(POLL_TAX_CAT_NOBLE)
+		if(POLL_LEVY_CAT_NOBLE)
 			record_round_statistic(STATS_POLL_LEVY_NOBLE, amount)
-		if(POLL_TAX_CAT_CLERGY)
+		if(POLL_LEVY_CAT_CLERGY)
 			record_round_statistic(STATS_POLL_LEVY_CLERGY, amount)
-		if(POLL_TAX_CAT_INQUISITION)
+		if(POLL_LEVY_CAT_INQUISITION)
 			record_round_statistic(STATS_POLL_LEVY_INQUISITION, amount)
-		if(POLL_TAX_CAT_COURTIER)
+		if(POLL_LEVY_CAT_COURTIER)
 			record_round_statistic(STATS_POLL_LEVY_COURTIER, amount)
-		if(POLL_TAX_CAT_GARRISON)
+		if(POLL_LEVY_CAT_GARRISON)
 			record_round_statistic(STATS_POLL_LEVY_GARRISON, amount)
-		if(POLL_TAX_CAT_GUILDS)
+		if(POLL_LEVY_CAT_GUILDS)
 			record_round_statistic(STATS_POLL_LEVY_GUILDS, amount)
-		if(POLL_TAX_CAT_MERCHANT)
+		if(POLL_LEVY_CAT_MERCHANT)
 			record_round_statistic(STATS_POLL_LEVY_MERCHANT, amount)
-		if(POLL_TAX_CAT_BURGHER)
+		if(POLL_LEVY_CAT_BURGHER)
 			record_round_statistic(STATS_POLL_LEVY_BURGHER, amount)
-		if(POLL_TAX_CAT_ADVENTURER)
+		if(POLL_LEVY_CAT_ADVENTURER)
 			record_round_statistic(STATS_POLL_LEVY_ADVENTURER, amount)
-		if(POLL_TAX_CAT_MERCENARY)
+		if(POLL_LEVY_CAT_MERCENARY)
 			record_round_statistic(STATS_POLL_LEVY_MERCENARY, amount)
-		if(POLL_TAX_CAT_PEASANT)
+		if(POLL_LEVY_CAT_PEASANT)
 			record_round_statistic(STATS_POLL_LEVY_PEASANT, amount)
 
 /datum/controller/subsystem/treasury/proc/get_wage_floor(job_title)
@@ -782,11 +782,11 @@ SUBSYSTEM_DEF(treasury)
 			out |= job
 	return out
 
-/datum/controller/subsystem/treasury/proc/clear_poll_tax_debt(mob/living/H)
+/datum/controller/subsystem/treasury/proc/clear_poll_levy_debt(mob/living/H)
 	if(!H)
 		return
-	if(poll_tax_owed[H])
-		record_round_statistic(STATS_POLL_LEVY_ARREARS_FORGIVEN, poll_tax_owed[H])
-	poll_tax_owed -= H
+	if(poll_levy_owed[H])
+		record_round_statistic(STATS_POLL_LEVY_ARREARS_FORGIVEN, poll_levy_owed[H])
+	poll_levy_owed -= H
 	if(HAS_TRAIT(H, TRAIT_ARREARS))
 		REMOVE_TRAIT(H, TRAIT_ARREARS, TRAIT_GENERIC)
