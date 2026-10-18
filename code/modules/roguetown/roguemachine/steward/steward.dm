@@ -254,9 +254,9 @@
 			if(SStreasury.poll_levy_owed[H] || HAS_TRAIT(H, TRAIT_ARREARS))
 				in_arrears["[H.real_name]"] = H
 		if(!length(in_arrears))
-			say("No one owes poll tax.")
+			say("No one owes poll levy.")
 			return
-		var/pick = input(usr, "Clear poll tax arrears for which subject?", src) as null|anything in in_arrears
+		var/pick = input(usr, "Clear poll levy arrears for which subject?", src) as null|anything in in_arrears
 		if(!pick)
 			return
 		if(!usr.canUseTopic(src, BE_CLOSE) || locked)
@@ -266,9 +266,9 @@
 			return
 		var/was_owed = SStreasury.poll_levy_owed[target] || 0
 		SStreasury.clear_poll_levy_debt(target)
-		say("[target.real_name]'s poll tax arrears have been cleared.")
-		log_game("POLL TAX CLEARED: [key_name(usr)] cleared [was_owed]m poll tax arrears on [key_name(target)]")
-		to_chat(target, span_notice("The Stewardry has cleared my poll tax arrears."))
+		say("[target.real_name]'s poll levy arrears have been cleared.")
+		log_game("POLL LEVY CLEARED: [key_name(usr)] cleared [was_owed]m poll levy arrears on [key_name(target)]")
+		to_chat(target, span_notice("The Stewardry has cleared my poll levy arrears."))
 	if(href_list["payroll"])
 		var/list/L = list(GLOB.noble_positions) + list(GLOB.retinue_positions) + list(GLOB.garrison_positions) + list(GLOB.courtier_positions) + list(GLOB.church_positions) + list(GLOB.burgher_positions) + list(GLOB.atc_positions) + list(GLOB.peasant_positions) + list(GLOB.sidefolk_positions) + list(GLOB.inquisition_positions)
 		var/list/things = list()
@@ -714,7 +714,7 @@
 				if(poll_owed > 0 || is_debtor)
 					debt_rows += A
 			if(length(debt_rows))
-				contents += "<b>Poll Tax Debtors / Arrears ([length(debt_rows)]):</b><BR>"
+				contents += "<b>Poll Levy Debtors / Arrears ([length(debt_rows)]):</b><BR>"
 				for(var/mob/living/carbon/human/A in debt_rows)
 					var/poll_owed = SStreasury.poll_levy_owed[A] || 0
 					var/is_debtor = HAS_TRAIT(A, TRAIT_DEBTOR_CROWN)
@@ -727,11 +727,11 @@
 					contents += "<BR>"
 				contents += "<BR>"
 			else
-				contents += "<i>No poll tax arrears.</i><BR><BR>"
+				contents += "<i>No poll levy arrears.</i><BR><BR>"
 			contents += "<a href='?src=\ref[src];clearloandebtor=1'>\[Clear Defaulter Mark\]</a><BR>"
-			contents += "<font color='gray'><i>(Forgives their loan and poll tax arrears and removes the defaulter mark.)</i></font><BR>"
-			contents += "<a href='?src=\ref[src];clearpolllevy=1'>\[Clear Poll Tax Obligation\]</a><BR>"
-			contents += "<font color='gray'><i>(Wipes a subject's poll tax arrears.)</i></font><BR>"
+			contents += "<font color='gray'><i>(Forgives their loan and poll levy arrears and removes the defaulter mark.)</i></font><BR>"
+			contents += "<a href='?src=\ref[src];clearpolllevy=1'>\[Clear Poll Levy Obligation\]</a><BR>"
+			contents += "<font color='gray'><i>(Wipes a subject's poll levy arrears.)</i></font><BR>"
 		if(TAB_IMPORT)
 			contents += "<a href='?src=\ref[src];switchtab=[TAB_MAIN]'>\[Return\]</a>"
 			contents += " <a href='?src=\ref[src];compact=1'>\[Compact: [compact? "ENABLED" : "DISABLED"]\]</a><BR>"
@@ -772,7 +772,7 @@
 			contents += "<table width='100%' cellspacing='0' cellpadding='2'>"
 			contents += "<tr><td>Rural Tax</td><td align='right'><font color='#5cb85c'>[SStreasury.total_rural_tax]m</font></td>"
 			contents += "<td>Fines</td><td align='right'><font color='#5cb85c'>[GLOB.azure_round_stats[STATS_FINES_INCOME]]m</font></td></tr>"
-			contents += "<tr><td>Poll Tax</td><td align='right'><font color='#5cb85c'>[GLOB.azure_round_stats[STATS_POLL_LEVY_COLLECTED]]m</font></td>"
+			contents += "<tr><td>Poll Levy</td><td align='right'><font color='#5cb85c'>[GLOB.azure_round_stats[STATS_POLL_LEVY_COLLECTED]]m</font></td>"
 			contents += "<td>Deposit Tax</td><td align='right'><font color='#5cb85c'>[SStreasury.total_deposit_tax]m</font></td></tr>"
 			contents += "<tr><td>Contract Levy</td><td align='right'><font color='#5cb85c'>[GLOB.azure_round_stats[STATS_REVENUE_CONTRACT_LEVY]]m</font></td>"
 			contents += "<td>Headeater Levy</td><td align='right'><font color='#5cb85c'>[GLOB.azure_round_stats[STATS_REVENUE_HEADEATER_LEVY]]m</font></td></tr>"
@@ -797,7 +797,7 @@
 			contents += "<tr><td>Import Tariff</td><td align='right'><font color='#8f7a5a'>[exempt_import]m</font></td>"
 			contents += "<td>Export Duty</td><td align='right'><font color='#8f7a5a'>[exempt_export]m</font></td></tr>"
 			contents += "<tr><td>Fines Waived</td><td align='right'><font color='#8f7a5a'>[exempt_fine]m</font></td>"
-			contents += "<td>Poll Tax</td><td align='right'><font color='#8f7a5a'>[exempt_poll]m</font></td></tr>"
+			contents += "<td>Poll Levy</td><td align='right'><font color='#8f7a5a'>[exempt_poll]m</font></td></tr>"
 			contents += "<tr><td><b>Total Forgone</b></td><td align='right'><b><font color='#8f7a5a'>[exempt_total]m</font></b></td>"
 			contents += "<td></td><td></td></tr>"
 			contents += "</table>"

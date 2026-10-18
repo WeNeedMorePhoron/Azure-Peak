@@ -25,9 +25,9 @@
 			[GOLDEN_BULL_BURGHER_CAP * 100]% of balance per levy or fine. Each fine is
 			capped at [CHARGE_CAP_CHARTER]m.</li> <li><b>The Covenant of Noc and
 			Pestra</b> - University members, Apothecary and Head Physician are limited to
-			the lightest poll tax of [CHARGE_CAP_CHARTER]m. They also get a minimum wage
+			the lightest poll levy of [CHARGE_CAP_CHARTER]m. They also get a minimum wage
 			from the Crown's payroll.</li> <li><b>The Guild Charter of Arms</b> - Guild
-			mercenaries are capped at [CHARGE_CAP_CHARTER]m of poll tax per
+			mercenaries are capped at [CHARGE_CAP_CHARTER]m per poll
 			levy. While the Charter is in force, they remit
 			[GUILD_CHARTER_OF_ARMS_PLEDGE_BONUS]m daily to the Burgher Pledge.</li>
 			<li><b>The Indenture of War</b> - Retinue and Garrison members get a minimum
@@ -200,7 +200,7 @@
 		<p>Both legal and illegal ways to dodge taxes exist.</p>
 
 		<p><b>Legal Evasion</b>: Subjects without a bank account are inherently immune
-		to poll taxes. Avoiding Contract Levy requires membership in a class exempt
+		to poll levies. Avoiding Contract Levy requires membership in a class exempt
 		from tax - nobles, church members, or holders of Church Benefactor status
 		(granted by the Bishop). The Church itself is not expected to adventure
 		without IC reason. Benefactor status is the practical channel. Tax immunity

@@ -133,9 +133,9 @@
 		if(poll_category)
 			var/pretty = SStreasury.get_poll_levy_category_pretty_name(poll_category)
 			if(SStreasury.is_tax_exempt(H, TAX_CATEGORY_POLL_LEVY))
-				. += span_smallnotice("Poll tax ([pretty]): exempt by Charter")
+				. += span_smallnotice("Poll levy ([pretty]): exempt by Charter")
 			else
-				. += span_smallnotice("Poll tax class: [pretty]")
+				. += span_smallnotice("Poll levy class: [pretty]")
 
 
 /obj/structure/roguemachine/atm/proc/drill(obj/structure/roguemachine/atm)

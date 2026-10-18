@@ -387,7 +387,7 @@
 
 		<h3>What the Steward Still Has</h3>
 		<ul>
-			<li><b>Tax authority</b>: poll tax, contract levy, headeater levy, import
+			<li><b>Tax authority</b>: poll levy, contract levy, headeater levy, import
 			tariff, export duty. All may be set up to the cap. The Golden Bull still
 			limits burghers.</li> <li><b>Fine authority</b>: subject to the usual rule of
 			one fine per day and the Golden Bull cap on burghers.</li> <li><b>Burgher
@@ -481,16 +481,15 @@
 		<h3>Accounts</h3>
 		<ul>
 			<li><b>Assets</b> - what the Crown holds or is owed: the Crown Purse, Loans Receivable,
-			Poll Tax Receivable, Interest Receivable and the Stockpile Inventory.</li>
+			Poll Levy Receivable, Interest Receivable and the Stockpile Inventory.</li>
 			<li><b>Liabilities</b> - what the Crown owes: the ATC loan (if applicable),
-			the Burghers' arrears advance, sequestration debt, brigand debt, and poll tax received
-			in advance.</li>
+			the Burghers' arrears advance, sequestration debt and brigand debt.</li>
 			<li><b>Equity</b> - opening capital, and grants and adjustments (what is left when debts
 			are cleared by decree rather than paid).</li>
-			<li><b>Revenue</b> - each tax and levy, poll tax, export sales, standing orders, the
+			<li><b>Revenue</b> - each tax and levy, export sales, standing orders, the
 			rural subsidy, fines, quality premiums and interest.</li>
-			<li><b>Expenses</b> - wages, imports, stockpile purchases, contracts, brigand losses, poll
-			subsidy, tithe, loan losses and so on.</li>
+			<li><b>Expenses</b> - wages, imports, stockpile purchases, contracts, brigand losses,
+			tithe, loan losses and so on.</li>
 			<li><b>Unclassified</b> - the catch-all. Coin nobody has named lands here, so a large
 			balance means something is not being labeled.</li>
 		</ul>
@@ -539,9 +538,8 @@
 			<li>The Crown Purse against the coin actually in the purse.</li>
 			<li>The Crown's debt accounts against the treasury debt, and Brigand Debt against
 			banditry debt.</li>
-			<li>Poll Tax Receivable against the arrears owed, Poll Tax Received in Advance against
-			what has been prepaid, and Interest Receivable against the interest accrued on open
-			loans.</li>
+			<li>Poll Levy Receivable against the arrears owed, and Interest Receivable against the
+			interest accrued on open loans.</li>
 			<li>Total debits against total credits.</li>
 		</ul>
 
@@ -562,15 +560,12 @@
 		<p>The books recognize some things when they are earned, not when coin changes hands.</p>
 		</div>
 
-		<h3>Poll Tax</h3>
+		<h3>Poll Levy</h3>
 		<ul>
-			<li>Each day's tax is counted as earned whether or not the subject can pay it.</li>
-			<li>What is not collected is carried as a <b>receivable</b>. When they pay later, the payment
-			clears the receivable first, and only the current day's tax counts as new revenue.</li>
+			<li>A levy is counted as earned when it is enacted, whether or not the subject can pay it.</li>
+			<li>What is not collected is carried as a <b>receivable</b> against the subject.</li>
 			<li>Arrears that are forgiven (by the Steward, by an admin, or because the subject has
-			left for good) are <b>written off</b> as an expense, "Poll Tax Written Off."</li>
-			<li>Tax paid in advance is held as a liability, <b>Poll Tax Received in Advance</b>, and
-			released into revenue one day at a time as the days pass.</li>
+			left for good) are <b>written off</b> as an expense, "Poll Levy Written Off."</li>
 		</ul>
 
 		<h3>Loan Interest</h3>

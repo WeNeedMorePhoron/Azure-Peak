@@ -74,7 +74,7 @@
 		for(var/owner in poll_levy_owed)
 			arrears_total += poll_levy_owed[owner]
 		var/datum/ledger_account/poll_rec = chart_of_accounts[LEDGER_CROWN_POLL_RECEIVABLE]
-		rows += list(ledger_recon_row("Poll Tax Receivable vs arrears owed", poll_rec.get_balance(), arrears_total))
+		rows += list(ledger_recon_row("Poll Levy Receivable vs arrears owed", poll_rec.get_balance(), arrears_total))
 
 		var/interest_total = 0
 		for(var/datum/loan/L as anything in loans)
@@ -445,8 +445,8 @@
 			"collected" = A.get_balance(),
 			"exempted" = spec[3] ? (GLOB.azure_round_stats[spec[3]] || 0) : 0,
 		))
-	var/datum/ledger_account/poll = chart_of_accounts[LEDGER_CROWN_REV_POLL_TAX]
-	tax_rows += list(list("name" = "Poll Tax", "rate_pct" = null, "collected" = poll.get_balance(), "exempted" = GLOB.azure_round_stats[STATS_EXEMPTED_POLL_LEVY] || 0))
+	var/datum/ledger_account/poll = chart_of_accounts[LEDGER_CROWN_REV_POLL_LEVY]
+	tax_rows += list(list("name" = "Poll Levy", "rate_pct" = null, "collected" = poll.get_balance(), "exempted" = GLOB.azure_round_stats[STATS_EXEMPTED_POLL_LEVY] || 0))
 
 	return list(
 		"loans" = loan_rows,

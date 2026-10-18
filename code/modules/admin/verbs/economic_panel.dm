@@ -442,7 +442,7 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 			if(!istype(target))
 				return TRUE
 			SStreasury.clear_poll_levy_debt(target)
-			admin_log_fiscal("cleared poll-tax debt for [key_name(target)]", "Clear Poll Debt")
+			admin_log_fiscal("cleared poll-levy debt for [key_name(target)]", "Clear Poll Debt")
 			return TRUE
 		if("player_toggle_debtor")
 			var/mob/living/target = locate(params["ref"])
@@ -626,7 +626,7 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 					continue
 				SStreasury.clear_poll_levy_debt(target)
 				count++
-			admin_log_fiscal("bulk-cleared poll-tax debt for [count] players (filter cat=[filter_category] status=[filter_status])", "Bulk Clear Debt")
+			admin_log_fiscal("bulk-cleared poll-levy debt for [count] players (filter cat=[filter_category] status=[filter_status])", "Bulk Clear Debt")
 			return TRUE
 		if("spawn_trade_ship")
 			if(!SSmerchant_trade)

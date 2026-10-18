@@ -1469,7 +1469,7 @@ export const EconomicPanel = () => {
                         act('player_clear_debt', { ref: selected.ref })
                       }
                     >
-                      Clear poll-tax arrears
+                      Clear poll-levy arrears
                     </Button.Confirm>
                   </Stack.Item>
                   <Stack.Item>

@@ -69,7 +69,7 @@ export const MeisterPanel = () => {
               style={tabStyle(tab === 'polllevy')}
               onClick={() => setTab('polllevy')}
             >
-              Poll Tax
+              Poll Levy
             </div>
             <div
               style={tabStyle(tab === 'ledger')}

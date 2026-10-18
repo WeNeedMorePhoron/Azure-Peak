@@ -13,7 +13,7 @@ export const PollLevyTab = ({ data }: TabProps) => {
 
   return (
     <div style={cardStyle}>
-      <div style={sectionHeaderStyle}>Poll Tax</div>
+      <div style={sectionHeaderStyle}>Poll Levy</div>
       <div style={fieldRowStyle}>
         <div style={fieldLabelStyle}>Class</div>
         <div style={fieldValueStyle}>

@@ -385,7 +385,7 @@ export const SubsidiaryPanel = (props: { sub?: Subsidiary }) => {
         />
       ))}
 
-      <div style={sectionHeaderStyle}>Poll Tax Receivable</div>
+      <div style={sectionHeaderStyle}>Poll Levy Receivable</div>
       <TableRow
         header
         widths={[null, null, '70px']}

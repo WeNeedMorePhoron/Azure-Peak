@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(ledger_class_order, list(
 
 	// Crown assets
 	add_ledger_account(LEDGER_CROWN_INVENTORY, "Stockpile Inventory", LEDGER_BOOK_CROWN, LEDGER_CLASS_ASSET)
-	add_ledger_account(LEDGER_CROWN_POLL_RECEIVABLE, "Poll Tax Receivable", LEDGER_BOOK_CROWN, LEDGER_CLASS_ASSET)
+	add_ledger_account(LEDGER_CROWN_POLL_RECEIVABLE, "Poll Levy Receivable", LEDGER_BOOK_CROWN, LEDGER_CLASS_ASSET)
 	add_ledger_account(LEDGER_CROWN_INTEREST_RECEIVABLE, "Interest Receivable", LEDGER_BOOK_CROWN, LEDGER_CLASS_ASSET)
 	// Crown liabilities
 	add_ledger_account(LEDGER_CROWN_ARREARS_ADVANCE, "Burghers' Arrears Advance", LEDGER_BOOK_CROWN, LEDGER_CLASS_LIABILITY)
@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(ledger_class_order, list(
 	add_ledger_account(LEDGER_CROWN_REV_EXPORT_DUTY, "Export Duty", LEDGER_BOOK_CROWN, LEDGER_CLASS_REVENUE)
 	add_ledger_account(LEDGER_CROWN_REV_SPOILS, "Recovered Spoils", LEDGER_BOOK_CROWN, LEDGER_CLASS_REVENUE)
 	add_ledger_account(LEDGER_CROWN_REV_FINES, "Fines", LEDGER_BOOK_CROWN, LEDGER_CLASS_REVENUE)
-	add_ledger_account(LEDGER_CROWN_REV_POLL_TAX, "Poll Tax", LEDGER_BOOK_CROWN, LEDGER_CLASS_REVENUE)
+	add_ledger_account(LEDGER_CROWN_REV_POLL_LEVY, "Poll Levy", LEDGER_BOOK_CROWN, LEDGER_CLASS_REVENUE)
 	add_ledger_account(LEDGER_CROWN_REV_EXPORT_SALES, "Export Sales", LEDGER_BOOK_CROWN, LEDGER_CLASS_REVENUE)
 	add_ledger_account(LEDGER_CROWN_REV_STANDING_ORDERS, "Standing Order Sales", LEDGER_BOOK_CROWN, LEDGER_CLASS_REVENUE)
 	add_ledger_account(LEDGER_CROWN_REV_STOCKPILE_SALES, "Stockpile Sales", LEDGER_BOOK_CROWN, LEDGER_CLASS_REVENUE)
@@ -123,7 +123,6 @@ GLOBAL_LIST_INIT(ledger_class_order, list(
 	// Crown expenses
 	add_ledger_account(LEDGER_CROWN_EXP_WAGES, "Wages", LEDGER_BOOK_CROWN, LEDGER_CLASS_EXPENSE)
 	add_ledger_account(LEDGER_CROWN_EXP_IMPORTS, "Imports & Purchases", LEDGER_BOOK_CROWN, LEDGER_CLASS_EXPENSE)
-	add_ledger_account(LEDGER_CROWN_EXP_POLL_SUBSIDY, "Poll Subsidy", LEDGER_BOOK_CROWN, LEDGER_CLASS_EXPENSE)
 	add_ledger_account(LEDGER_CROWN_EXP_BANDITRY, "Brigand Losses", LEDGER_BOOK_CROWN, LEDGER_CLASS_EXPENSE)
 	add_ledger_account(LEDGER_CROWN_EXP_CONTRACTS, "Contract Outlay", LEDGER_BOOK_CROWN, LEDGER_CLASS_EXPENSE)
 	add_ledger_account(LEDGER_CROWN_EXP_TITHE, "Church Tithe", LEDGER_BOOK_CROWN, LEDGER_CLASS_EXPENSE)
@@ -134,7 +133,7 @@ GLOBAL_LIST_INIT(ledger_class_order, list(
 	add_ledger_account(LEDGER_CROWN_EXP_LOAN_LOSS, "Loan Losses", LEDGER_BOOK_CROWN, LEDGER_CLASS_EXPENSE)
 	add_ledger_account(LEDGER_CROWN_EXP_STOCKPILE, "Stockpile Purchases", LEDGER_BOOK_CROWN, LEDGER_CLASS_EXPENSE)
 	add_ledger_account(LEDGER_CROWN_EXP_INVENTORY_ADJ, "Stock Count Variance", LEDGER_BOOK_CROWN, LEDGER_CLASS_EXPENSE)
-	add_ledger_account(LEDGER_CROWN_EXP_POLL_WRITEOFF, "Poll Tax Written Off", LEDGER_BOOK_CROWN, LEDGER_CLASS_EXPENSE)
+	add_ledger_account(LEDGER_CROWN_EXP_POLL_WRITEOFF, "Poll Levy Written Off", LEDGER_BOOK_CROWN, LEDGER_CLASS_EXPENSE)
 	// Citizens
 	add_ledger_account(LEDGER_CITIZEN_COIN_IN, "Coin Deposited at the Meister", LEDGER_BOOK_CITIZENS, LEDGER_CLASS_REVENUE)
 	add_ledger_account(LEDGER_CITIZEN_COIN_OUT, "Coin Withdrawn from the Meister", LEDGER_BOOK_CITIZENS, LEDGER_CLASS_EXPENSE)
@@ -449,28 +448,17 @@ GLOBAL_LIST_INIT(ledger_class_order, list(
 		list(LEDGER_CROWN_INTEREST_INC, 0, delta),
 	), null, discretionary_fund)
 
-/// Counter-accounts for a poll tax receipt: the part covering earlier arrears clears the
-/// receivable, the rest is revenue for today.
-/datum/controller/subsystem/treasury/proc/poll_tax_receipt_counters(received, arrears_before)
-	var/against_arrears = min(received, max(0, arrears_before))
-	var/list/counters = list()
-	if(against_arrears > 0)
-		counters[LEDGER_CROWN_POLL_RECEIVABLE] = against_arrears
-	if(received - against_arrears > 0)
-		counters[LEDGER_CROWN_REV_POLL_TAX] = received - against_arrears
-	return counters
-
-/// Poll tax earned for the day but not collected: revenue now, a receivable until paid or written off.
-/datum/controller/subsystem/treasury/proc/accrue_poll_tax_receivable(amount, category)
+/// Poll levy charged but not collected: revenue now, a receivable until written off.
+/datum/controller/subsystem/treasury/proc/accrue_poll_levy_receivable(amount, category)
 	if(amount <= 0)
 		return
-	post_ledger_entry("accrual", "Poll tax accrued, unpaid ([category])", list(
+	post_ledger_entry("accrual", "Poll levy accrued, unpaid ([category])", list(
 		list(LEDGER_CROWN_POLL_RECEIVABLE, amount, 0),
-		list(LEDGER_CROWN_REV_POLL_TAX, 0, amount),
+		list(LEDGER_CROWN_REV_POLL_LEVY, 0, amount),
 	), null, discretionary_fund)
 
-/// Poll tax arrears that will never be collected.
-/datum/controller/subsystem/treasury/proc/write_off_poll_tax_receivable(amount, reason = "Poll tax arrears written off")
+/// Poll levy arrears that will never be collected.
+/datum/controller/subsystem/treasury/proc/write_off_poll_levy_receivable(amount, reason = "Poll levy arrears written off")
 	if(amount <= 0)
 		return
 	post_ledger_entry("writeoff", reason, list(
