@@ -24,7 +24,7 @@
 			levy.</li> <li><b>The Golden Bull of Kingsfield</b> - burghers are capped at
 			[GOLDEN_BULL_BURGHER_CAP * 100]% of balance per levy or fine. Each fine is
 			capped at [CHARGE_CAP_CHARTER]m.</li> <li><b>The Covenant of Noc and
-			Pestra</b> - University members, Apothecary and Head Physician are limited to
+			Pestra</b> - Scholars (University members, Apothecary and Head Physician) are limited to
 			the lightest poll levy of [CHARGE_CAP_CHARTER]m. They also get a minimum wage
 			from the Crown's payroll.</li> <li><b>The Guild Charter of Arms</b> - Guild
 			mercenaries are capped at [CHARGE_CAP_CHARTER]m per poll

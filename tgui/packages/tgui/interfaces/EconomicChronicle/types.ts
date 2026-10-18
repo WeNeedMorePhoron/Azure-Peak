@@ -8,6 +8,7 @@ export type PollSnapshot = {
   guilds: number;
   merchant: number;
   burgher: number;
+  scholar: number;
   adventurer: number;
   mercenary: number;
   peasant: number;

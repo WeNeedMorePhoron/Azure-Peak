@@ -708,6 +708,8 @@ SUBSYSTEM_DEF(treasury)
 		return POLL_LEVY_CAT_INQUISITION
 	if((H.job in GLOB.church_positions) || HAS_TRAIT(H, TRAIT_AGENT_CHURCH))
 		return POLL_LEVY_CAT_CLERGY
+	if(H.job in POLL_LEVY_SCHOLAR_JOBS)
+		return POLL_LEVY_CAT_SCHOLAR
 	if((H.job in GLOB.courtier_positions) || H.job == "Court Agent")
 		return POLL_LEVY_CAT_COURTIER
 	if((H.job in GLOB.garrison_positions) || H.job == "Squire")
@@ -716,7 +718,7 @@ SUBSYSTEM_DEF(treasury)
 		return POLL_LEVY_CAT_GUILDS
 	if(H.job == "Merchant")
 		return POLL_LEVY_CAT_MERCHANT
-	if((H.job in list("Innkeeper", "Head Physician", "Apothecary", "Bathmaster", "Magicians Associate")) || HAS_TRAIT(H, TRAIT_RESIDENT))
+	if((H.job in list("Innkeeper", "Bathmaster")) || HAS_TRAIT(H, TRAIT_RESIDENT))
 		return POLL_LEVY_CAT_BURGHER
 	if(H.job in GLOB.wanderer_positions)
 		return POLL_LEVY_CAT_ADVENTURER
@@ -758,6 +760,8 @@ SUBSYSTEM_DEF(treasury)
 			return "Merchant"
 		if(POLL_LEVY_CAT_BURGHER)
 			return "Burgher"
+		if(POLL_LEVY_CAT_SCHOLAR)
+			return "Scholar"
 		if(POLL_LEVY_CAT_ADVENTURER)
 			return "Adventurer"
 		if(POLL_LEVY_CAT_MERCENARY)
@@ -787,6 +791,8 @@ SUBSYSTEM_DEF(treasury)
 			record_round_statistic(STATS_POLL_LEVY_MERCHANT, amount)
 		if(POLL_LEVY_CAT_BURGHER)
 			record_round_statistic(STATS_POLL_LEVY_BURGHER, amount)
+		if(POLL_LEVY_CAT_SCHOLAR)
+			record_round_statistic(STATS_POLL_LEVY_SCHOLAR, amount)
 		if(POLL_LEVY_CAT_ADVENTURER)
 			record_round_statistic(STATS_POLL_LEVY_ADVENTURER, amount)
 		if(POLL_LEVY_CAT_MERCENARY)

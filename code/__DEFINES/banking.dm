@@ -84,6 +84,7 @@
 #define POLL_LEVY_CAT_GUILDS "poll_guilds"
 #define POLL_LEVY_CAT_MERCHANT "poll_merchant"
 #define POLL_LEVY_CAT_BURGHER "poll_burgher"
+#define POLL_LEVY_CAT_SCHOLAR "poll_scholar"
 #define POLL_LEVY_CAT_ADVENTURER "poll_adventurer"
 #define POLL_LEVY_CAT_MERCENARY "poll_mercenary"
 #define POLL_LEVY_CAT_PEASANT "poll_peasant"
@@ -97,10 +98,13 @@
 	POLL_LEVY_CAT_GUILDS, \
 	POLL_LEVY_CAT_MERCHANT, \
 	POLL_LEVY_CAT_BURGHER, \
+	POLL_LEVY_CAT_SCHOLAR, \
 	POLL_LEVY_CAT_ADVENTURER, \
 	POLL_LEVY_CAT_MERCENARY, \
 	POLL_LEVY_CAT_PEASANT, \
 )
+
+#define POLL_LEVY_SCHOLAR_JOBS list("Court Magician", "Archivist", "Magicians Associate", "Head Physician", "Apothecary")
 
 // Minus principal in circulation (They are meant to issue loans at roundstart)
 #define CHURCH_RESERVE_FLOOR 1000

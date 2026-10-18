@@ -228,6 +228,7 @@ const CATEGORY_LABELS: Record<string, string> = {
   poll_guilds: 'Guilds',
   poll_merchant: 'Merchant',
   poll_burgher: 'Burgher',
+  poll_scholar: 'Scholar',
   poll_adventurer: 'Adventurer',
   poll_mercenary: 'Mercenary',
   poll_peasant: 'Peasant',

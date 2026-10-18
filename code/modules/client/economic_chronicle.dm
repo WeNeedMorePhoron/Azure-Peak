@@ -147,6 +147,7 @@ GLOBAL_DATUM(economic_chronicle, /datum/economic_chronicle)
 		"guilds" = GLOB.azure_round_stats[STATS_POLL_LEVY_GUILDS] || 0,
 		"merchant" = GLOB.azure_round_stats[STATS_POLL_LEVY_MERCHANT] || 0,
 		"burgher" = GLOB.azure_round_stats[STATS_POLL_LEVY_BURGHER] || 0,
+		"scholar" = GLOB.azure_round_stats[STATS_POLL_LEVY_SCHOLAR] || 0,
 		"adventurer" = GLOB.azure_round_stats[STATS_POLL_LEVY_ADVENTURER] || 0,
 		"mercenary" = GLOB.azure_round_stats[STATS_POLL_LEVY_MERCENARY] || 0,
 		"peasant" = GLOB.azure_round_stats[STATS_POLL_LEVY_PEASANT] || 0,

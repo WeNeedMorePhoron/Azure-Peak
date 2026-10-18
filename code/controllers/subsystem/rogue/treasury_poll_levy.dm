@@ -173,9 +173,8 @@
 	switch(category)
 		if(POLL_LEVY_CAT_BURGHER)
 			covers[DECREE_GOLDEN_BULL] = null
-			covers[DECREE_NOC_PESTRA_COVENANT] = "Head Physician, Apothecary and Magicians Associate"
-		if(POLL_LEVY_CAT_COURTIER)
-			covers[DECREE_NOC_PESTRA_COVENANT] = "University staff"
+		if(POLL_LEVY_CAT_SCHOLAR)
+			covers[DECREE_NOC_PESTRA_COVENANT] = null
 		if(POLL_LEVY_CAT_MERCENARY)
 			covers[DECREE_GUILD_CHARTER_OF_ARMS] = null
 	var/cap = CHARGE_CAP_FLAT

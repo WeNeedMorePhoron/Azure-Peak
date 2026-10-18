@@ -90,6 +90,7 @@
 #define STATS_POLL_LEVY_GUILDS "poll_levy_guilds"
 #define STATS_POLL_LEVY_MERCHANT "poll_levy_merchant"
 #define STATS_POLL_LEVY_BURGHER "poll_levy_burgher"
+#define STATS_POLL_LEVY_SCHOLAR "poll_levy_scholar"
 #define STATS_POLL_LEVY_ADVENTURER "poll_levy_adventurer"
 #define STATS_POLL_LEVY_MERCENARY "poll_levy_mercenary"
 #define STATS_POLL_LEVY_PEASANT "poll_levy_peasant"

@@ -39,6 +39,7 @@ const TaxationColumn = (props: { t: TreasurySnapshot }) => {
           { label: 'Guilds', value: t.poll.guilds },
           { label: 'Merchant', value: t.poll.merchant },
           { label: 'Burgher', value: t.poll.burgher },
+          { label: 'Scholar', value: t.poll.scholar },
           { label: 'Adventurer', value: t.poll.adventurer },
           { label: 'Mercenary', value: t.poll.mercenary },
           { label: 'Peasant', value: t.poll.peasant },
