@@ -47,7 +47,7 @@
 /datum/book_entry/treasury_general/levies/inner_book_html(mob/user)
 	return {"
 		<div>
-		<p>Rates on Taxation and Levies are set by the Steward using the "Adjust Taxes" verb. This can be done even with a Grand Duke or Regent in place. Any conflict from both parties trying to set rates is an IC issue to resolve. The Grand Duke or Regent may also adjust tax rates at the throne by saying "Set Taxes". The poll tax and the levies can each be changed once per day. Whoever sets them first locks the other out until the next day.</p>
+		<p>Rates on Taxation and Levies are set by the Steward using the "Adjust Taxes" verb. This can be done even with a Grand Duke or Regent in place. Any conflict from both parties trying to set rates is an IC issue to resolve. The Grand Duke or Regent may also adjust tax rates at the throne by saying "Set Taxes". Whoever sets them first locks the other out until the next day.</p>
 		</div>
 
 		<h3>Transaction Levies</h3>
