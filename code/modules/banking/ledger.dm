@@ -452,7 +452,7 @@ GLOBAL_LIST_INIT(ledger_class_order, list(
 /datum/controller/subsystem/treasury/proc/accrue_poll_levy_receivable(amount, category)
 	if(amount <= 0)
 		return
-	post_ledger_entry("accrual", "Poll levy accrued, unpaid ([category])", list(
+	post_ledger_entry("accrual", "Poll levy accrued, unpaid ([get_poll_levy_category_pretty_name(category)])", list(
 		list(LEDGER_CROWN_POLL_RECEIVABLE, amount, 0),
 		list(LEDGER_CROWN_REV_POLL_LEVY, 0, amount),
 	), null, discretionary_fund)
