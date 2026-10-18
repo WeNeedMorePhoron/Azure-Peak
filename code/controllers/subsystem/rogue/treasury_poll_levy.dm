@@ -205,12 +205,14 @@
 			heads[category] = (heads[category] || 0) + 1
 	var/list/classes = list()
 	for(var/category in POLL_LEVY_CLASS_ORDER)
+		var/list/caps = get_poll_levy_class_caps(category)
 		classes += list(list(
 			"category" = category,
 			"label" = get_poll_levy_category_pretty_name(category),
 			"exempt_charter" = get_poll_levy_exempting_charter(category),
 			"heads" = heads[category] || 0,
-			"cap_charters" = get_poll_levy_class_caps(category)["charters"],
+			"cap" = caps["cap"],
+			"cap_charters" = caps["charters"],
 		))
 	return list(
 		"authority" = get_poll_levy_authority(user),
@@ -218,5 +220,4 @@
 		"levies_used" = length(poll_levies),
 		"levies_max" = POLL_LEVY_MAX_PER_ROUND,
 		"classes" = classes,
-		"charter_cap" = CHARGE_CAP_CHARTER,
 	)

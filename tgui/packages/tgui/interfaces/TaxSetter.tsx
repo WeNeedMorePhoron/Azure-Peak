@@ -28,6 +28,7 @@ type PollLevyClass = {
   label: string;
   exempt_charter: string | null;
   heads: number;
+  cap: number;
   cap_charters: string[];
 };
 
@@ -37,7 +38,6 @@ type PollLevy = {
   levies_used: number;
   levies_max: number;
   classes: PollLevyClass[];
-  charter_cap: number;
 };
 
 type Data = {
@@ -116,12 +116,12 @@ const PollLevyPanel = (props: {
           <span style={labelStyle}>
             {c.label}{' '}
             <span style={{ color: INK_FAINT }}>({c.heads})</span>
-            {c.cap_charters.length > 0 && (
+            {c.cap < levyMax && (
               <span
                 title={c.cap_charters.join('\n')}
                 style={{ color: SEAL_AMBER, marginLeft: '6px' }}
               >
-                (MAX {levy.charter_cap}m)
+                (MAX {c.cap}m)
               </span>
             )}
           </span>
@@ -136,12 +136,13 @@ const PollLevyPanel = (props: {
             <NumberInput
               step={1}
               minValue={0}
-              maxValue={levyMax}
+              maxValue={c.cap}
               unit="m"
               disabled={blocked}
               value={amounts[c.category] || 0}
               onChange={(v: number) => {
-                setAmounts((prev) => ({ ...prev, [c.category]: v }));
+                const clamped = Math.max(0, Math.min(v, c.cap));
+                setAmounts((prev) => ({ ...prev, [c.category]: clamped }));
                 setConfirming(false);
               }}
             />
