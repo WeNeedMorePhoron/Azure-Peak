@@ -47,7 +47,6 @@
 #define LEDGER_CROWN_POLL_RECEIVABLE "crown_poll_receivable"
 #define LEDGER_CROWN_INTEREST_RECEIVABLE "crown_interest_receivable"
 // --- Crown book: liabilities ---
-#define LEDGER_CROWN_POLL_DEFERRED "crown_poll_deferred"
 #define LEDGER_CROWN_ARREARS_ADVANCE "crown_arrears_advance"
 #define LEDGER_CROWN_ATC_LOAN "crown_atc_loan"
 #define LEDGER_CROWN_SEQUESTRATION_DEBT "crown_sequestration_debt"

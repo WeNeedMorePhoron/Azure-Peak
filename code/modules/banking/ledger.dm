@@ -100,7 +100,6 @@ GLOBAL_LIST_INIT(ledger_class_order, list(
 	add_ledger_account(LEDGER_CROWN_POLL_RECEIVABLE, "Poll Tax Receivable", LEDGER_BOOK_CROWN, LEDGER_CLASS_ASSET)
 	add_ledger_account(LEDGER_CROWN_INTEREST_RECEIVABLE, "Interest Receivable", LEDGER_BOOK_CROWN, LEDGER_CLASS_ASSET)
 	// Crown liabilities
-	add_ledger_account(LEDGER_CROWN_POLL_DEFERRED, "Poll Tax Received in Advance", LEDGER_BOOK_CROWN, LEDGER_CLASS_LIABILITY)
 	add_ledger_account(LEDGER_CROWN_ARREARS_ADVANCE, "Burghers' Arrears Advance", LEDGER_BOOK_CROWN, LEDGER_CLASS_LIABILITY)
 	add_ledger_account(LEDGER_CROWN_ATC_LOAN, "ATC Emergency Loan", LEDGER_BOOK_CROWN, LEDGER_CLASS_LIABILITY)
 	add_ledger_account(LEDGER_CROWN_SEQUESTRATION_DEBT, "Sequestration Debt (ATC)", LEDGER_BOOK_CROWN, LEDGER_CLASS_LIABILITY)
@@ -478,23 +477,6 @@ GLOBAL_LIST_INIT(ledger_class_order, list(
 		list(LEDGER_CROWN_EXP_POLL_WRITEOFF, amount, 0),
 		list(LEDGER_CROWN_POLL_RECEIVABLE, 0, amount),
 	), null, discretionary_fund)
-
-/// Recognises one day (or, with `all`, everything left) of a head's prepaid poll tax as earned.
-/datum/controller/subsystem/treasury/proc/release_poll_tax_advance(mob/living/H, days_before, all = FALSE)
-	var/held = poll_tax_advance_value[H] || 0
-	if(held <= 0)
-		poll_tax_advance_value -= H
-		return
-	var/release = (all || days_before <= 1) ? held : (held / days_before)
-	release = min(release, held)
-	post_ledger_entry("accrual", "Poll tax advance earned", list(
-		list(LEDGER_CROWN_POLL_DEFERRED, release, 0),
-		list(LEDGER_CROWN_REV_POLL_TAX, 0, release),
-	), null, discretionary_fund)
-	if(held - release < 0.001)
-		poll_tax_advance_value -= H
-	else
-		poll_tax_advance_value[H] = held - release
 
 /// Value of the goods on hand at the Crown's current buy-in prices.
 /datum/controller/subsystem/treasury/proc/get_stockpile_valuation()
