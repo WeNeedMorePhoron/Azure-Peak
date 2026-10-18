@@ -457,8 +457,8 @@
 
 		<h3>What You Can Do</h3> <p>Issue defense contracts and Blockade Scrolls against
 		Dangerous and Bleak regions. Use levy exemption as bait. The retinue and
-		garrison can also clear regions directly. As regional threat falls, so does
-		the dawn drain. Banditry debt only shrinks as new income is earned and
+		garrison can also clear regions directly. The banditry drains fall with the
+		region's threat. Banditry debt only shrinks as new income is earned and
 		skimmed. The hoards can be reclaimed by clearing a Blockade or with a Hoard
 		Recovery scroll.</p>
 		</div>
@@ -490,14 +490,14 @@
 			rural subsidy, fines, quality premiums and interest.</li>
 			<li><b>Expenses</b> - wages, imports, stockpile purchases, contracts, brigand losses,
 			tithe, loan losses and so on.</li>
-			<li><b>Unclassified</b> - the catch-all. Coin nobody has named lands here, so a large
-			balance means something is not being labeled.</li>
+			<li><b>Unclassified</b> - the catch-all. Coin that was not classified goes here. A large
+			balance means entries are not being labeled.</li>
 		</ul>
 
 		<h3>The Journal</h3>
 		<p>A numbered list of entries, newest first. Each shows who paid whom, the reason, the amount,
 		and the accounts debited and credited beneath. Small identical entries in quick succession are
-		merged into one with a count, such as (x3). "By" shows who set an entry in motion. "System"
+		merged into one with a count, such as (x3). "By" shows who caused the entry. "System"
 		marks a bookkeeping adjustment such as an accrual, a stock count or a bankruptcy move. Where
 		one side of an entry has no fund, such as a tax receipt, wages or imports, it is named after
 		the account on the other side. "The Realm" is used only when there is nothing better to call
@@ -524,7 +524,7 @@
 		day begins at dawn, with "today" showing everything happening since then.</p>
 
 		<h3>Balance Sheet</h3>
-		<p>The Balance Sheet incidcates what the Crown holds, set against what it owes and what is left over.
+		<p>The Balance Sheet indicates what the Crown holds, set against what it owes and what is left over.
 		Assets equal liabilities, plus equity, plus the surplus. Anything left over is shown as Unclassified.</p>
 
 		<h3>Subsidiary</h3>
@@ -584,7 +584,7 @@
 			<li>The goods on hand are counted as an asset, the <b>Stockpile Inventory</b>, valued at
 			the Crown's current buying price per unit. The count is taken at dawn and whenever the
 			Ledger is opened or refreshed.</li>
-			<li>Each count moves the asset up or down to match the shelves, and the difference goes to
+			<li>Each count moves the asset up or down to match the stock on hand, and the difference goes to
 			<b>Stock Count Variance</b>. When goods are exported the stock falls, and the variance
 			charges the cost of what left, alongside the Export Sales revenue. The charge appears at
 			the next count, not at the moment of sale.</li>

@@ -209,7 +209,7 @@
 		to poll levies. Avoiding Contract Levy requires membership in a class exempt
 		from tax - nobles, church members, or holders of Church Benefactor status
 		(granted by the Bishop). The Church itself is not expected to adventure
-		without IC reason. Benefactor status is the practical channel. Tax immunity
+		without IC reason. Benefactor status is the usual route. Tax immunity
 		does not apply to indirect taxes like import tariffs or export duties.</p>
 
 		<p><b>Illegal Evasion</b>: The Merchant can stop paying taxes by toggling the
@@ -257,8 +257,8 @@
 			to a chosen holder directly.</li> <li><b>Lucrative</b> - a
 			[round((RUMOR_LUCRATIVE_MULT - 1) * 100)]% premium on both point cost and
 			holder payout. It costs [RUMOR_LUCRATIVE_MULT]x the base points and pays
-			[RUMOR_LUCRATIVE_MULT]x the base reward. Use it to sweeten the pot for a job
-			that needs holders or earn more profit when there is a lack of holders.</li>
+			[RUMOR_LUCRATIVE_MULT]x the base reward. Use it to sweeten the rewards for a job
+			that needs someone to be taken or earn more when there is not many demands for contracts.</li>
 		</ul>
 
 		<p>One rumor of a given type, region, and destination may be composed per day.
@@ -338,8 +338,8 @@
 		[QUEST_POOL_REGEN_INTERVAL / 600] minutes. Each time, up to
 		[QUEST_KILL_REGEN_PER_TICK] new kill contracts are posted in the regions that
 		need them most. Evergreen contracts (Retrieval, Courier) top up independently
-		to a flat target in each region. The pool starts full at roundstart so there
-		is always a healthy spread of work available.</p>
+		to a flat target in each region. The pool starts full at roundstart so work
+		is available from the start.</p>
 
 		<p>Each region has its own kill target scaled to the number of active people.
 		The pool routes new kill contracts to whichever region is furthest below its
@@ -586,10 +586,9 @@
 		Bathmaster's Zadcote may scry through the bonded zad on a Zadcage. Scrying
 		draws from a small <b>scrying fund</b> kept by the Zadcote itself. Feed coins
 		of any denomination directly into the Zadcote to add to the fund. Each scry
-		deducts [ZAD_VOYEUR_COST_MAMMON] mammon. The Zadcage holder feels arcane
-		energy stir, and the cage glows blue while the scrying is active. The view
-		lasts [DisplayTimeText(ZAD_VOYEUR_DURATION)]. That is long enough to confirm
-		the holder is safe or to make trouble. The Steward and Crown have no scrying
+		deducts [ZAD_VOYEUR_COST_MAMMON] mammon. The Zadcage holder is warned that the
+		zad is being used, and the cage glows blue while the scrying is active. The view
+		lasts [DisplayTimeText(ZAD_VOYEUR_DURATION)]. The Steward and Crown have no scrying
 		access through Zadcotes. They must rely on the Court Mage's scrying.</p>
 
 		<h3>Spare zadcages & zads</h3> <p>Spare Zadcages cost
