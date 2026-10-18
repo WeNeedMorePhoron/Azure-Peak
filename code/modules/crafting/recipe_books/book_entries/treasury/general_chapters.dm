@@ -400,7 +400,7 @@
 		clicking the Ledger while holding the scroll. Retrieval items must be dropped on
 		the marked tile in front of the Ledger. On payout:</p>
 		<ul>
-			<li>The Crown's <b>Contract Levy</b> takes its tax cut (Levy Exempt contracts
+			<li>The Crown's <b>Contract Levy</b> is deducted (Levy Exempt contracts
 			skip this).</li> <li>The Guild takes a <b>[round(GUILD_REFERRAL_FEE_PCT * 100)]% referral fee</b> off the gross and remits it to the active
 			Innkeeper.</li> <li>The remainder is paid to the holder's account.</li>
 		</ul>

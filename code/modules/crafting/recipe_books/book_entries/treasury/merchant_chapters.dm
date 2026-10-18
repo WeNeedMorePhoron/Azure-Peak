@@ -66,7 +66,7 @@
 		<h3>Tax Collection</h3>
 		<ul>
 			<li>Crown duty goes to the Treasury. A share goes to the Church for the
-			Concordat tithe if it is in force.</li> <li>Merchant's levy remits to the
+			Concordat tithe if it is in force.</li> <li>The Merchant's levy goes to the
 			Merchant's Fund, held in a secure Jawbank.</li>
 		</ul>
 		</div>

@@ -145,9 +145,9 @@
 
 	var/list/deductions = list()
 	if(tax_amt > 0)
-		deductions += "[tax_amt] mammon to the Contract Levy"
+		deductions += "[tax_amt] mammon of contract levy"
 	if(guild_fee_paid > 0)
-		deductions += "[guild_fee_paid] mammon to the Guild's cut"
+		deductions += "[guild_fee_paid] mammon for the Guild's cut"
 	var/deductions_clause = length(deductions) ? ", less [english_list(deductions)]" : ""
 	var/deposit_clause = deposit_return > 0 ? " The deposit of [deposit_return] mammon is also returned." : ""
 	switch(mode)
