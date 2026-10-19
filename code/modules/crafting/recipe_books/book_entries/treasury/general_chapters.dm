@@ -61,7 +61,7 @@
 
 		<h3>Poll Levy</h3>
 		<p>A one-off charge per head, set by class. Every subject with a bank account is charged at
-		once. Late joiners are charged when they open an account.</p>
+		once. Anyone already in game without an account will be charged when they open an account. Those who arrives after the round starts will not owe anything.</p>
 		<ul>
 			<li>Raised by the Grand Duke, the Regent or the Steward. The Steward may raise one levy per
 			week, and only while no Grand Duke or Regent is present.</li>

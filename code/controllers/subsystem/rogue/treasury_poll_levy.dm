@@ -157,6 +157,12 @@
 	log_game("POLL LEVY: [key_name(user)] ([authority]) levied [jointext(log_parts, ", ")]; raised [levy["raised"]]m, [levy["arrears"]]m in arrears. Reason: [reason]")
 	return TRUE
 
+/datum/controller/subsystem/treasury/proc/waive_past_poll_levies(mob/living/arrival)
+	if(!arrival)
+		return
+	for(var/list/levy as anything in poll_levies)
+		levy["charged"] |= arrival.real_name
+
 /datum/controller/subsystem/treasury/proc/apply_past_poll_levies(mob/living/owner, announce = TRUE)
 	if(QDELETED(owner))
 		return null
