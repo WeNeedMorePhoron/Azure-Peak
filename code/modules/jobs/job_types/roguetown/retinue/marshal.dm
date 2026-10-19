@@ -5,6 +5,7 @@
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
+
 	allowed_sexes = list(MALE, FEMALE)
 	forbidden_races = list(RACES_CONSTRUCT RACES_DESPISED RACES_OOZE)
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
@@ -25,8 +26,8 @@
 	cmode_music = 'sound/music/combat_knight.ogg'
 	advclass_cat_rolls = list (CTAG_MARSHAL = 20)
 
-	job_traits = list(TRAIT_NOBLE, TRAIT_HEAVYARMOR, TRAIT_PERFECT_TRACKER, TRAIT_EXPERT_HUNTER)
-	vice_restrictions = list(/datum/charflaw/mute, /datum/charflaw/unintelligible, /datum/charflaw/wanted) //Needs to use the throat - sometimes
+	job_traits = list(TRAIT_NOBLE, TRAIT_STEELHEARTED, TRAIT_GUARDSMAN, TRAIT_EXPERT_HUNTER)
+	vice_restrictions = list(/datum/charflaw/mute, /datum/charflaw/unintelligible) //Needs to use the throat - sometimes
 	job_subclasses = list(
 		/datum/advclass/marshal/classic,
 		/datum/advclass/marshal/kcommander
@@ -37,17 +38,15 @@
 
 /datum/outfit/job/roguetown/marshal/pre_equip(mob/living/carbon/human/H)
 	..()
-	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
-	pants = /obj/item/clothing/under/roguetown/tights/black
-	shoes = /obj/item/clothing/shoes/roguetown/boots/nobleboot
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/lord/heavy
+	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 	backl = /obj/item/storage/backpack/rogue/satchel
-	gloves = /obj/item/clothing/gloves/roguetown/angle
-	wrists = /obj/item/clothing/wrists/roguetown/bracers
 	id = /obj/item/scomstone/garrison
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1,
 		/obj/item/rogueweapon/scabbard/sheath/noble = 1,
-		/obj/item/signal_horn = 1,
+		/obj/item/storage/belt/rogue/pouch/coins/rich = 1,
+		/obj/item/book/rogue/law = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 1,
 		)
 	add_verb(H, /mob/proc/haltyell)
@@ -60,43 +59,53 @@
 		H.mind.AddSpell(new /datum/action/cooldown/spell/order/onfeet)
 
 /datum/advclass/marshal/classic
-	name = "Marshal"
+	name = "Constable"
 	tutorial = "You've spent your daes in the courts and garrisons of the city. You've studied the law tome from back to front and enforce your word with the iron hand of justice, and the iron mace in your hands. More men have spent days rotting in the dungeon than that Knight Commander could ever have claimed, and every person in the realm respects your authority in matters of law and order."
 	outfit = /datum/outfit/job/roguetown/marshal/classic
 
-	category_tags = list(CTAG_MARSHAL)
+	category_tags = list(CTAG_MARSHAL) //11 statweight, the better sergeant
 	subclass_stats = list(
+		STATKEY_STR = 2,
+		STATKEY_PER = 2,
 		STATKEY_INT = 3,
-		STATKEY_PER = 3,
-		STATKEY_LCK = 2,
-		STATKEY_CON = 1,
+		STATKEY_CON = 3,
 		STATKEY_WIL = 1,
-		STATKEY_SPD = 1,
-		STATKEY_STR = 1,
+		STATKEY_SPD = -1,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/maces = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/tracking = SKILL_LEVEL_EXPERT,
-		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/axes = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/shields = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/crossbows = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/bows = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/crossbows = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/riding = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/tracking = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/hunting = SKILL_LEVEL_APPRENTICE,
+	)
+	subclass_virtues = list(
+		/datum/virtue/utility/tracker
 	)
 
 /datum/outfit/job/roguetown/marshal/classic/pre_equip(mob/living/carbon/human/H)
 	armor = /obj/item/clothing/suit/roguetown/armor/brigandine/retinue
 	cloak = /obj/item/clothing/cloak/tabard/stabard/surcoat/bailiff
-	backr = /obj/item/rogueweapon/mace/cudgel/justice
+	pants = /obj/item/clothing/under/roguetown/chainlegs
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/armharness
+	backr = /obj/item/rogueweapon/mace/cudgel/flanged/justice
 	belt = /obj/item/storage/belt/rogue/leather/plaquegold
-	beltr = /obj/item/storage/belt/rogue/pouch/coins/rich
+	beltr = /obj/item/rogueweapon/shield/buckler
 	beltl = /obj/item/storage/keyring/marshal
 	head = /obj/item/clothing/head/roguetown/chaperon/noble/bailiff
+	neck = /obj/item/clothing/neck/roguetown/bevor
+	r_hand = /obj/item/clothing/head/roguetown/helmet/sallet/visored
+
 
 /datum/advclass/marshal/kcommander
 	name = "Knight Commander"
@@ -104,37 +113,44 @@
 	outfit = /datum/outfit/job/roguetown/marshal/kcommander
 
 	category_tags = list(CTAG_MARSHAL)
-	subclass_stats = list(
-		STATKEY_INT = 3,
-		STATKEY_PER = 3,
-		STATKEY_LCK = 2,
+	subclass_stats = list( //11 statweight, mounted knight stats
+		STATKEY_STR = 2,
+		STATKEY_PER = 2,
+		STATKEY_INT = 2,
 		STATKEY_CON = 1,
-		STATKEY_WIL = 1,
-		STATKEY_SPD = 1,
-		STATKEY_STR = 1,
+		STATKEY_WIL = 2,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/tracking = SKILL_LEVEL_EXPERT,
-		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/polearms = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/shields = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/bows = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/crossbows = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/crossbows = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/riding = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/tracking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/hunting = SKILL_LEVEL_APPRENTICE,
+	)
+	subclass_virtues = list(
+		/datum/virtue/utility/riding
 	)
 
 /datum/outfit/job/roguetown/marshal/kcommander/pre_equip(mob/living/carbon/human/H)
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/scale/marshal
+	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
+	wrists = /obj/item/clothing/wrists/roguetown/bracers
 	backr = /obj/item/rogueweapon/sword/long/oathkeeper
 	belt = /obj/item/storage/belt/rogue/leather
-	beltr = /obj/item/storage/belt/rogue/pouch/coins/rich
+	beltr = /obj/item/rogueweapon/scabbard/sword/noble
 	beltl = /obj/item/storage/keyring/marshal
-	l_hand = /obj/item/rogueweapon/scabbard/sword/noble
+	head = /obj/item/clothing/head/roguetown/helmet/heavy/barbute/visor
+	neck = /obj/item/clothing/neck/roguetown/gorget/steel
 
 /mob/living/carbon/human/proc/request_law()
 	set name = "Request Law"
@@ -253,3 +269,31 @@
 
 	emote("haltyell")
 	stamina_add(rand(5,15))
+			
+
+/obj/projectile/magic/frost_shard/on_hit(target, blocked = FALSE)
+	. = ..()
+	if(ismob(target))
+		var/mob/M = target
+		if(M.anti_magic_check())
+			visible_message(span_warning("[src] fizzles on contact with \the [target]!"))
+			playsound(get_turf(target), 'sound/magic/magic_nulled.ogg', 100)
+			qdel(src)
+			return BULLET_ACT_BLOCK
+		if(isliving(target) && !repeat_hit && !out_of_effective_range() && blocked < 100)
+			var/mob/living/L = target
+			if(L.on_fire)
+				L.adjust_fire_stacks(-1)
+				L.visible_message(span_warning("The frost dampens the flames on [L]!"))
+			apply_frost_stack(L)
+			playsound(get_turf(L), pick('sound/combat/fracture/fracturedry (1).ogg', 'sound/combat/fracture/fracturedry (2).ogg', 'sound/combat/fracture/fracturedry (3).ogg'), 80, TRUE)
+			new /obj/effect/temp_visual/snap_freeze(get_turf(L))
+	else if(isobj(target))
+		var/obj/O = target
+		O.extinguish()
+		var/turf/target_turf = get_turf(target)
+		var/obj/effect/hotspot/hotspot = (locate(/obj/effect/hotspot) in target_turf)
+		if(hotspot)
+			new /obj/effect/temp_visual/small_smoke(target_turf)
+			qdel(hotspot)
+	qdel(src)
