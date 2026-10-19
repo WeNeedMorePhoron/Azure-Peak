@@ -95,8 +95,9 @@ GLOBAL_LIST_EMPTY(last_words)
 
 
 /mob/living/death(gibbed, nocutscene = FALSE)
-	var/was_dead_before = stat == DEAD
-	if(blood_toll_bucket && !was_dead_before && !mind?.assigned_role && !client)
+	if(stat == DEAD)
+		return FALSE
+	if(blood_toll_bucket && !mind?.assigned_role && !client)
 		record_round_statistic(blood_toll_bucket)
 	set_stat(DEAD)
 	unset_machine()
@@ -110,7 +111,7 @@ GLOBAL_LIST_EMPTY(last_words)
 //	if(mind)
 //		mind.store_memory("Time of death: [tod]", 0)
 	GLOB.alive_mob_list -= src
-	if(!gibbed && !was_dead_before)
+	if(!gibbed)
 		GLOB.dead_mob_list += src
 
 //	stop_all_loops()
@@ -166,7 +167,7 @@ GLOBAL_LIST_EMPTY(last_words)
 		LoadComponent(rot_type)
 
 	clear_typing_indicator()
-	if(HAS_TRAIT(src, TRAIT_UNFORGIVABLE && !was_dead_before)) //Vheslynites explode violently upon death out of pure spite and malice.
+	if(HAS_TRAIT(src, TRAIT_UNFORGIVABLE)) //Vheslynites explode violently upon death out of pure spite and malice.
 		src.flash_fullscreen("redflash3")
 		src.visible_message(span_danger("[src] explodes violently as they are unmade in hellfyre!"))
 		//Handle our mood debuffs for being witnessed within 7 tiles - left this codenote not indented as ETERNAL SHAME because my dumbass got this TM'd first without remembering to indent it, AAAAAA.
