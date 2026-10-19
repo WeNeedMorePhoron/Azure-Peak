@@ -59,7 +59,7 @@
 		target.emote("breathgasp")
 		target.Jitter(100)
 	else if(was_zombie.has_turned)
-		target.death(nocutscene = TRUE)
+		target.death(nocutscene = TRUE, suicide = TRUE)
 	target.mind.remove_antag_datum(/datum/antagonist/zombie)
 
 	if (!HAS_TRAIT(target, TRAIT_IWASUNZOMBIFIED) && user?.ckey)

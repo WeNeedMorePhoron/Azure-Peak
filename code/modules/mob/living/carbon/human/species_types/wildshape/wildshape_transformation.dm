@@ -1,6 +1,6 @@
 #define TRAIT_SOURCE_WILDSHAPE "wildshape_transform"
 
-/mob/living/carbon/human/species/wildshape/death(gibbed, nocutscene = FALSE)
+/mob/living/carbon/human/species/wildshape/death(gibbed, nocutscene = FALSE, suicide)
 	if(untransform_on_death)
 		wildshape_untransform(TRUE, gibbed)
 	else
@@ -18,7 +18,7 @@
 		allowed_types = list(/obj/item/rogueweapon/woodstaff,
 											/obj/item/storage/belt
 											)
-	
+
 	drop_all_held_items() //Drop what were in your hands
 
 	for(var/obj/item/I in src)
@@ -86,14 +86,14 @@
 	if(woundlist.len)
 		for(var/datum/wound/wound in woundlist)
 			if (istype(wound, /datum/wound/dismemberment))
-				continue				
+				continue
 			var/target_zone = wound.bodypart_owner.body_zone
 			if (target_zone == BODY_ZONE_TAUR)
 				target_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-			
+
 			var/bleedrate = wound.bleed_rate
 			var/obj/item/bodypart/w_bp = W.get_bodypart(target_zone)
-			
+
 			wound.apply_to_bodypart(w_bp, silent = TRUE, crit_message = FALSE)
 			wound.set_bleed_rate(bleedrate) // restore bleed rate, since apply_to_bodypart resets it.
 
@@ -125,7 +125,7 @@
 	ADD_TRAIT(src, TRAIT_NOSLEEP, TRAIT_SOURCE_WILDSHAPE)
 	ADD_TRAIT(src, TRAIT_NOBREATH, TRAIT_SOURCE_WILDSHAPE)
 	ADD_TRAIT(src, TRAIT_NOPAIN, TRAIT_SOURCE_WILDSHAPE)
-	ADD_TRAIT(src, TRAIT_TOXIMMUNE, TRAIT_SOURCE_WILDSHAPE)	
+	ADD_TRAIT(src, TRAIT_TOXIMMUNE, TRAIT_SOURCE_WILDSHAPE)
 	ADD_TRAIT(src, TRAIT_NOHUNGER, TRAIT_SOURCE_WILDSHAPE)
 	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_SOURCE_WILDSHAPE)
 	ADD_TRAIT(src, TRAIT_PACIFISM, TRAIT_SOURCE_WILDSHAPE) // just an extra layer of protection in case something will go wrong
@@ -179,10 +179,10 @@
 	if(woundlist.len)
 		for(var/datum/wound/wound in woundlist)
 			var/target_zone = wound.bodypart_owner.body_zone
-			
+
 			var/bleedrate = wound.bleed_rate
 			var/obj/item/bodypart/w_bp = W.get_bodypart(target_zone)
-			
+
 			wound.apply_to_bodypart(w_bp, silent = TRUE, crit_message = FALSE)
 			wound.set_bleed_rate(bleedrate)
 

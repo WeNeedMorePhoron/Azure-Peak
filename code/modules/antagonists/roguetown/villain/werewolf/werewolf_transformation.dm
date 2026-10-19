@@ -59,7 +59,7 @@
 				to_chat(H, span_warning("Daylight shines around me... the curse begins to fade."))
 
 
-/mob/living/carbon/human/species/werewolf/death(gibbed, nocutscene = FALSE)
+/mob/living/carbon/human/species/werewolf/death(gibbed, nocutscene = FALSE, suicide)
 	werewolf_untransform(TRUE, gibbed)
 
 /mob/living/carbon/human/proc/werewolf_transform()

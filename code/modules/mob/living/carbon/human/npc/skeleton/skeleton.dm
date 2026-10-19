@@ -183,7 +183,7 @@ GLOBAL_LIST_INIT(skeleton_aggro, list(
 /mob/living/carbon/human/species/skeleton/no_equipment
 	var/datum/weakref/crystal
 
-/mob/living/carbon/human/species/skeleton/no_equipment/death(gibbed, nocutscene = FALSE)
+/mob/living/carbon/human/species/skeleton/no_equipment/death(gibbed, nocutscene = FALSE, suicide)
 	..()
 	var/obj/item/necro_relics/necro_crystal/active_crystal = crystal?.resolve()
 	if(active_crystal)
@@ -212,7 +212,7 @@ GLOBAL_LIST_INIT(skeleton_aggro, list(
 	release_conjured_gear()
 	return ..()
 
-/mob/living/carbon/human/species/skeleton/conjured/death(gibbed, nocutscene = FALSE)
+/mob/living/carbon/human/species/skeleton/conjured/death(gibbed, nocutscene = FALSE, suicide)
 	. = ..()
 	if(!gibbed)
 		dust(FALSE, FALSE, TRUE)
