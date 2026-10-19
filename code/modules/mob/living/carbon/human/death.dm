@@ -27,7 +27,7 @@
 			if(HAS_TRAIT(L, TRAIT_BLIND))
 				. -= L
 
-/mob/living/carbon/human/death(gibbed, nocutscene = FALSE, suicide, suicide)
+/mob/living/carbon/human/death(gibbed, nocutscene = FALSE, suicide)
 	if(stat == DEAD)
 		return
 	if(QDELETED(src) || !loc)
