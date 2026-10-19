@@ -60,7 +60,7 @@
 
 /datum/advclass/marshal/classic
 	name = "Constable"
-	tutorial = "You've spent your daes in the courts and garrisons of the city. You've studied the law tome from back to front and enforce your word with the iron hand of justice, and the iron mace in your hands. More men have spent days rotting in the dungeon than that Knight Commander could ever have claimed, and every person in the realm respects your authority in matters of law and order."
+	tutorial = "You spent your daes as a lawmaker, a sleuth and as a part of the garrison in the city. You've studied the law tomes from back to front and understand that they're merely guidelines that should be followed, but not directly to the letter. Thus, you've made it so that your words espouse true justice with a silver tongue and an iron hand. You've collected facts and reviewed evidence so that the warmongers in court don't get their uncivilized, outdated way for an execution a dae, and most of the realm respects your authority in matters of crimes and punishment."
 	outfit = /datum/outfit/job/roguetown/marshal/classic
 
 	category_tags = list(CTAG_MARSHAL) //11 statweight, the better sergeant
@@ -109,7 +109,7 @@
 
 /datum/advclass/marshal/kcommander
 	name = "Knight Commander"
-	tutorial = "You spent your daes as a dutiful knight in the service of the crown. Earning your accolades through military tactics and victories, you're reknown for your warfaring. Now retired from your days afield, you enforce the same iron law you once practiced at war in your home. You run the garrison, knights and the town's laws with a military strictness, and no-one can claim you are weaker on crime than any of those weak Marshals."
+	tutorial = "You spent your daes as a dutiful knight, maybe even the best, in the service of the crown. Earning your accolades through military tactics and victories, you're renowned for your leadership in battle. Now retired from your time at war, you enforce the same iron laws once practiced in bloodied fields, now behind stone walls. You run the garrison, retinue, and town's laws with a militarized strictness; no doubt, any constable would see you as an overbearing warmonger... but the times necessitate such."
 	outfit = /datum/outfit/job/roguetown/marshal/kcommander
 
 	category_tags = list(CTAG_MARSHAL)
