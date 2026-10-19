@@ -677,16 +677,21 @@
 				W.pixel_y = initial(W.pixel_y) + CLAMP(pixel_y + text2num(click_params["icon-y"]) - 16, pixel_y + -(world.icon_size/2), pixel_y + world.icon_size/2)
 				return 1
 
-
-
 /obj/structure/rack/rogue
 	icon = 'icons/roguetown/misc/structure.dmi'
 	icon_state = "rack"
 	climbable = TRUE
 	climb_offset = 10
+	drag_slowdown = 5
+	var/stakeable = TRUE
 
 /obj/structure/rack/rogue/deconstruct(disassembled = TRUE)
 	qdel(src)
+
+/obj/structure/rack/rogue/get_mechanics_examine(mob/user)
+	. = ..()
+	if(stakeable)
+		. += span_info("Left click the rack with a stake on combat mode to toggle anchoring.")
 
 /obj/structure/rack/rogue/shelf
 	icon = 'icons/roguetown/misc/structure.dmi'
@@ -714,6 +719,7 @@
 /obj/structure/rack/rogue/shelf/notdense // makes the wall mounted one less weird in a way, got downside of offset when loaded again tho
 	density = FALSE
 	pixel_y = 24
+	stakeable = FALSE
 
 // Necessary to avoid a critical bug with disappearing weapons.
 /obj/structure/rack/rogue/attackby(obj/item/W, mob/user, params)
@@ -728,6 +734,18 @@
 				return 1
 	else
 		. = ..()
+
+	if(stakeable)
+		if(istype(W, /obj/item/grown/log/tree/stake))
+			if(anchored)
+				anchored = FALSE
+				to_chat(user, span_warning("[src] can now be moved."))
+			else
+				anchored = TRUE
+				to_chat(user, span_warning("You anchor [src]."))
+			playsound(src,pick('sound/foley/woodclimb.ogg'), 100, TRUE)
+			return
+		..()
 
 
 /obj/structure/table/optable
