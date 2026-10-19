@@ -64,6 +64,7 @@
 	outfit = /datum/outfit/job/roguetown/marshal/classic
 
 	category_tags = list(CTAG_MARSHAL) //11 statweight, the better sergeant
+	traits_applied = list(TRAIT_MEDIUMARMOR)
 	subclass_stats = list(
 		STATKEY_STR = 2,
 		STATKEY_PER = 2,
@@ -113,6 +114,7 @@
 	outfit = /datum/outfit/job/roguetown/marshal/kcommander
 
 	category_tags = list(CTAG_MARSHAL)
+	traits_applied = list(TRAIT_HEAVYARMOR)
 	subclass_stats = list( //11 statweight, mounted knight stats
 		STATKEY_STR = 2,
 		STATKEY_PER = 2,
