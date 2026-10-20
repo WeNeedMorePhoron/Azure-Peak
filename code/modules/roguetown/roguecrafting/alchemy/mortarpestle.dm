@@ -61,25 +61,29 @@
 		return
 	var/list/juiced = list()
 	var/list/ground = list()
+	var/too_full = FALSE
 	for(var/obj/item/item as anything in to_grind.Copy())
-		if(reagents.holder_full())
-			to_chat(user, span_warning("[src] is full!"))
-			break
-		if(item.juice_results) //prioritize juicing
+		var/list/results = item.juice_results || item.grind_results //prioritize juicing
+		if(!length(results))
+			continue
+		if(reagents.total_volume + counterlist_sum(results) > reagents.maximum_volume)
+			too_full = TRUE
+			continue
+		if(item.juice_results)
 			item.on_juice()
-			reagents.add_reagent_list(item.juice_results)
 			juiced += item.name
-			qdel(item)
-		else if(length(item.grind_results))
+		else
 			item.on_grind()
-			reagents.add_reagent_list(item.grind_results)
 			ground += item.name
-			qdel(item)
+		reagents.add_reagent_list(results)
+		qdel(item)
 	if(length(juiced))
 		to_chat(user, span_notice("I juice [english_list(juiced)] into a fine liquid."))
 	if(length(ground))
 		to_chat(user, span_notice("I break [english_list(ground)] into powder."))
-	if(!length(juiced) && !length(ground) && !reagents.holder_full())
+	if(too_full)
+		to_chat(user, span_warning("[src] is too full!"))
+	else if(!length(juiced) && !length(ground))
 		to_chat(user, "<span class='warning'>You don't think that will work!</span>")
 
 /obj/item/reagent_containers/glass/mortar/attackby(obj/item/I, mob/living/carbon/human/user)
