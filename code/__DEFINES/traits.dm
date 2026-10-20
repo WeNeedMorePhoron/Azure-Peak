@@ -70,6 +70,7 @@
 #define TRAIT_IWASREVIVED "iwasrevived" //prevents PQ gain from reviving the same person twice
 #define TRAIT_IWASUNZOMBIFIED "iwasunzombified" //prevents PQ gain from curing a zombie twice
 #define TRAIT_IWASHAUNTED "iwashaunted" //prevents spawning a haunt from a decapitated body twice
+#define TRAIT_IWASROTCURED "iwasrotcured" // used to stop rotcuring zombies from interacting with TRAIT_DEATHSIGHT
 
 //used for a far-travel zone I am uncertain we even have anymore/ever to begin with
 #define TRAIT_CAVEDWELLER "Cave Dweller"

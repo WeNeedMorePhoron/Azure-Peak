@@ -196,7 +196,7 @@ GLOBAL_LIST_EMPTY(last_words)
 		return TRUE
 
 	if(client && !contract_spawned && !gibbed)
-		if(!(mind.has_antag_datum(/datum/antagonist/skeleton)) || HAS_TRAIT(src, TRAIT_SECONDLIFE))
+		if(!(mind.has_antag_datum(/datum/antagonist/skeleton)) || HAS_TRAIT(src, TRAIT_SECONDLIFE) || HAS_TRAIT(src, TRAIT_IWASROTCURED))
 			for(var/mob/living/player in GLOB.player_list)
 				if(player.stat == DEAD || isbrain(player))
 					continue
