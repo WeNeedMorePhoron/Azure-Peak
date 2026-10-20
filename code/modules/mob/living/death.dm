@@ -196,13 +196,12 @@ GLOBAL_LIST_EMPTY(last_words)
 		return TRUE
 
 	if(client && !contract_spawned && !gibbed)
-		if(!mind?.has_antag_datum(/datum/antagonist/skeleton) && !HAS_TRAIT(src, TRAIT_SECONDLIFE) && !HAS_TRAIT(src, TRAIT_IWASROTCURED))
+		if(!mind?.has_antag_datum(/datum/antagonist/skeleton) && !HAS_TRAIT(src, TRAIT_SECONDLIFE) && !HAS_TRAIT(src, TRAIT_IWASROTCURED) && !HAS_TRAIT(src, TRAIT_UNFORGIVABLE))
 			for(var/mob/living/player in GLOB.player_list)
-				if(player.stat == DEAD || isbrain(player))
+				if(player.stat == DEAD)
 					continue
 				if(!HAS_TRAIT(player, TRAIT_DEATHSIGHT))
 					continue
-
 				var/locale = prepare_deathsight_message(player)
 				if(player.patron?.type == /datum/patron/divine/necra)
 					to_chat(player, span_warning("Veiled whispers herald the Undermaiden's attention towards [locale]."))
