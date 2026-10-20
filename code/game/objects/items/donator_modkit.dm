@@ -266,8 +266,10 @@
 /obj/item/enchantingkit/gothicsallet
 	name = "'Gothic Sallet' morphing elixir"
 	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Steel Visored Sallet."
-	target_items = list(/obj/item/clothing/head/roguetown/helmet/sallet/visored)
-	result_item = /obj/item/clothing/head/roguetown/helmet/sallet/visored/gothic
+	target_items = list(
+		/obj/item/clothing/head/roguetown/helmet/sallet/visored			= /obj/item/clothing/head/roguetown/helmet/sallet/visored/gothic
+		)
+	result_item = null
 	exact_type = TRUE
 	custom_name = TRUE
 
