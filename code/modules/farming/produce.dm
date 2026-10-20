@@ -160,7 +160,7 @@
 	slot_flags = ITEM_SLOT_HEAD
 	worn_x_dimension = 64
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
-	juice_results = list(/datum/reagent/consumable/juice/apple = 5)
+	juice_results = list(/datum/reagent/consumable/juice/apple = JUICE_YIELD)
 	worn_y_dimension = 64
 	rotprocess = SHELFLIFE_SHORT
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/fruit/apple_sliced
@@ -235,7 +235,7 @@
 	icon_state = "pear"
 	tastes = list("pear" = 1)
 	splat_color = "#D2B48C"
-	juice_results = list(/datum/reagent/consumable/juice/pear = 5)
+	juice_results = list(/datum/reagent/consumable/juice/pear = JUICE_YIELD)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/lemon
 	name = "lemon"
@@ -244,7 +244,7 @@
 	icon_state = "lemon"
 	tastes = list("lemon" = 1)
 	splat_color = "#FFFF00"
-	juice_results = list(/datum/reagent/consumable/juice/lemon = 5)
+	juice_results = list(/datum/reagent/consumable/juice/lemon = JUICE_YIELD)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/lime
 	name = "lime"
@@ -253,7 +253,7 @@
 	icon_state = "lime"
 	tastes = list("lime" = 1)
 	splat_color = "#00FF00"
-	juice_results = list(/datum/reagent/consumable/juice/lime = 5)
+	juice_results = list(/datum/reagent/consumable/juice/lime = JUICE_YIELD)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/lime/Initialize(mapload)
 	. = ..()
@@ -274,7 +274,7 @@
 	icon_state = "tangerine"
 	tastes = list("tangerine" = 1)
 	splat_color = "#FFA500"
-	juice_results = list(/datum/reagent/consumable/juice/orange = 5)
+	juice_results = list(/datum/reagent/consumable/juice/orange = JUICE_YIELD)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/tangerine_sugared
 	cuisine = CUISINE_RANESHENI
@@ -287,7 +287,7 @@
 	tastes = list("overpoweringly sweet" = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	eat_effect = /datum/status_effect/buff/sweet
-	juice_results = list(/datum/reagent/consumable/juice/orange = 5)
+	juice_results = list(/datum/reagent/consumable/juice/orange = JUICE_YIELD)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/plum
 	name = "plum"
@@ -296,7 +296,7 @@
 	icon_state = "plum"
 	tastes = list("plum" = 1)
 	splat_color = "#8B008B"
-	juice_results = list(/datum/reagent/consumable/juice/plum = 5)
+	juice_results = list(/datum/reagent/consumable/juice/plum = JUICE_YIELD)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/strawberry
 	name = "strawberry"
@@ -305,7 +305,7 @@
 	icon_state = "strawberry"
 	tastes = list("strawberry" = 1)
 	splat_color = "#9A1B00"
-	juice_results = list(/datum/reagent/consumable/juice/strawberry = 5)
+	juice_results = list(/datum/reagent/consumable/juice/strawberry = JUICE_YIELD)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/strawberry/Initialize(mapload)
 	. = ..()
@@ -325,7 +325,7 @@
 	icon_state = "blackberry"
 	tastes = list("blackberry" = 1)
 	splat_color = "#272C3F"
-	juice_results = list(/datum/reagent/consumable/juice/blackberry = 5)
+	juice_results = list(/datum/reagent/consumable/juice/blackberry = JUICE_YIELD)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/blackberry/Initialize(mapload)
 	. = ..()
@@ -349,7 +349,7 @@
 	tastes = list("overpoweringly sweet" = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	eat_effect = /datum/status_effect/buff/sweet
-	juice_results = list(/datum/reagent/consumable/juice/blackberry = 5)
+	juice_results = list(/datum/reagent/consumable/juice/blackberry = JUICE_YIELD)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/raspberry
 	name = "raspberry"
@@ -358,7 +358,7 @@
 	icon_state = "raspberry"
 	tastes = list("raspberry" = 1)
 	splat_color = "#A01600"
-	juice_results = list(/datum/reagent/consumable/juice/raspberry = 5)
+	juice_results = list(/datum/reagent/consumable/juice/raspberry = JUICE_YIELD)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/tomato
 	name = "tomato"
@@ -370,7 +370,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/grown/fruit/tomato_sliced
 	slices_num = 1
 	mill_result = /obj/item/reagent_containers/food/snacks/grown/fruit/tomato_sauce
-	juice_results = list(/datum/reagent/consumable/juice/tomato = 5)
+	juice_results = list(/datum/reagent/consumable/juice/tomato = JUICE_YIELD)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/tomato_sliced
 	name = "split tomato"
@@ -381,7 +381,7 @@
 	tastes = list("to" = 1, "mato" = 1)
 	splat_color = "#CD5320"
 	mill_result = /obj/item/reagent_containers/food/snacks/grown/fruit/tomato_sauce
-	juice_results = list(/datum/reagent/consumable/juice/tomato = 5)
+	juice_results = list(/datum/reagent/consumable/juice/tomato = JUICE_YIELD)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/tomato_sauce
 	name = "tomato sauce"
@@ -406,7 +406,7 @@
 	dropshrink = 0.75
 	var/color_index = "good"
 	rotprocess = SHELFLIFE_SHORT
-	juice_results = list(/datum/reagent/consumable/juice/jackberry = 5)
+	juice_results = list(/datum/reagent/consumable/juice/jackberry = JUICE_YIELD)
 
 /obj/item/reagent_containers/food/snacks/grown/berries/rogue/examine(mob/user)
 	. = ..()
