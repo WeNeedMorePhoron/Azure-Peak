@@ -1,6 +1,6 @@
 /datum/language/swarmer
 	name = "Swarmer"
-	desc = "" 
+	desc = ""
 	speech_verb = "tones"
 	ask_verb = "tones inquisitively"
 	exclaim_verb = "tones loudly"
