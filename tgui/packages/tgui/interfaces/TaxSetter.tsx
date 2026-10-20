@@ -37,6 +37,7 @@ type PollLevy = {
   blocked_reason: string | null;
   levies_used: number;
   levies_max: number;
+  min_balance: number;
   classes: PollLevyClass[];
 };
 
@@ -109,7 +110,9 @@ const PollLevyPanel = (props: {
       <div style={noteStyle}>
         Levies raised this week: {levy.levies_used} / {levy.levies_max}
       </div>
-      <div style={noteStyle}>Maximum: {levyMax}m per head.</div>
+      <div style={noteStyle}>
+        Maximum: {levyMax}m per head. Min. Bal: {levy.min_balance}m.
+      </div>
       {blocked && <div style={bannerStyle}>{levy.blocked_reason}</div>}
       {levy.classes.map((c) => (
         <div key={c.category} style={rowStyle}>

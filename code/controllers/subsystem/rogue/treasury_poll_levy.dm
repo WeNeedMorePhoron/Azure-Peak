@@ -64,7 +64,7 @@
 		record_tax_exemption(TAX_CATEGORY_POLL_LEVY, base - due)
 	if(due <= 0)
 		return null
-	var/paid = min(due, max(account.balance, 0))
+	var/paid = min(due, max(account.balance - POLL_LEVY_PROTECTED_BALANCE, 0))
 	if(paid > 0 && !transfer(account, discretionary_fund, paid, "Poll levy ([get_poll_levy_category_pretty_name(category)])", LEDGER_CITIZEN_TAXES, LEDGER_CROWN_REV_POLL_LEVY))
 		paid = 0
 	if(paid > 0)
@@ -198,9 +198,9 @@
 	if(owed <= 0)
 		return 0
 	var/datum/fund/account = get_account(owner)
-	if(!account || account.balance <= 0)
+	if(!account || account.balance <= POLL_LEVY_PROTECTED_BALANCE)
 		return 0
-	var/paid = min(owed, account.balance)
+	var/paid = min(owed, account.balance - POLL_LEVY_PROTECTED_BALANCE)
 	if(!transfer(account, discretionary_fund, paid, "Poll levy arrears", LEDGER_CITIZEN_TAXES, LEDGER_CROWN_POLL_RECEIVABLE))
 		return 0
 	record_poll_levy_by_category(get_poll_levy_category(owner), paid)
@@ -272,5 +272,6 @@
 		"blocked_reason" = get_poll_levy_block_reason(user),
 		"levies_used" = length(poll_levies),
 		"levies_max" = POLL_LEVY_MAX_PER_ROUND,
+		"min_balance" = POLL_LEVY_PROTECTED_BALANCE,
 		"classes" = classes,
 	)
