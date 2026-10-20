@@ -27,7 +27,11 @@
 			if(HAS_TRAIT(L, TRAIT_BLIND))
 				. -= L
 
+<<<<<<< HEAD
 /mob/living/carbon/human/death(gibbed, nocutscene = FALSE, suicide)
+=======
+/mob/living/carbon/human/death(gibbed, nocutscene = FALSE)
+>>>>>>> parent of 12ee50ef77 (fuck me)
 	if(stat == DEAD)
 		return
 	if(QDELETED(src) || !loc)

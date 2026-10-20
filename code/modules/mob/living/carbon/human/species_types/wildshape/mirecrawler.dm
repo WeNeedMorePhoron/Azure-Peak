@@ -5,7 +5,7 @@
 	ambushable = FALSE
 	skin_armor = new /obj/item/clothing/suit/roguetown/armor/skin_armor/spider_skin
 
-/mob/living/carbon/human/species/wildshape/mirecrawler/death(gibbed, nocutscene = FALSE, suicide)
+/mob/living/carbon/human/species/wildshape/mirecrawler/death(gibbed, nocutscene = FALSE)
 	wildshape_untransform(TRUE, gibbed)
 
 /mob/living/carbon/human/species/wildshape/mirecrawler/gain_inherent_skills()

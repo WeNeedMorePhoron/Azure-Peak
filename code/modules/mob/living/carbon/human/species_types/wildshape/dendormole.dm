@@ -5,7 +5,7 @@
 	ambushable = FALSE
 	skin_armor = new /obj/item/clothing/suit/roguetown/armor/skin_armor/moss_skin
 
-/mob/living/carbon/human/species/wildshape/dendormole/death(gibbed, nocutscene = FALSE, suicide)
+/mob/living/carbon/human/species/wildshape/dendormole/death(gibbed, nocutscene = FALSE)
 	wildshape_untransform(TRUE, gibbed)
 
 //BUCKLING

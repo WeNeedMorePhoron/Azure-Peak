@@ -1,7 +1,6 @@
-/mob/living/carbon/death(gibbed, nocutscene = FALSE, suicide = FALSE)
+/mob/living/carbon/death(gibbed, nocutscene = FALSE)
 	if(stat == DEAD)
 		return
-
 	stop_looking()
 
 	silent = FALSE
@@ -14,51 +13,6 @@
 
 	for(var/datum/brain_trauma/BT as anything in get_traumas())
 		BT.on_death()
-
-	if(client && !contract_spawned && !suicide) // Deathsight code here, remade a little smarter than before. Assisted suicide will help us not blare out when someone's being rot-cured.
-		if(!gibbed && !mind?.has_antag_datum(/datum/antagonist/zombie) && !mind?.has_antag_datum(/datum/antagonist/skeleton) && !HAS_TRAIT(src, TRAIT_SECONDLIFE) && !HAS_TRAIT(src, TRAIT_UNFORGIVABLE))
-			for(var/mob/living/player in GLOB.player_list)
-				if(player.stat == DEAD || isbrain(player))
-					continue
-				if(!HAS_TRAIT(player, TRAIT_DEATHSIGHT))
-					continue
-				var/locale = prepare_deathsight_message(player)
-				if(istype(player.patron, /datum/patron/divine/necra))
-					to_chat(player, span_warning("Veiled whispers herald the Undermaiden's attention towards [locale]."))
-				else
-					to_chat(player, span_warning("I feel the faint passage of disjointed lyfe essence as it flees [locale]."))
-
-/mob/living/carbon/proc/prepare_deathsight_message(mob/observer)
-	var/area/A = get_area(src)
-	if(!A || !A.deathsight_message)
-		if(A)
-			log_game("Deathsight: area [A.type] has no deathsight_message set. Death occurred at [AREACOORD(src)].")
-		return generate_relative_deathsight(observer) // area is misconfigured; give the watcher a rough bearing instead of a broken message
-	return A.deathsight_message
-
-/mob/living/carbon/proc/generate_relative_deathsight(mob/observer)
-	var/turf/death_turf = get_turf(src)
-	var/turf/observer_turf = get_turf(observer)
-	if(!death_turf || !observer_turf)
-		return "an unknown locale, wreathed in enigmatic fog" // fallback if we can't find the area
-
-	var/list/parts = list()
-	var/paces = round(get_dist(observer_turf, death_turf), 20) // nearest 20 paces, so the bearing stays imprecise
-	var/dir_text = dir2text(get_dir(observer_turf, death_turf))
-	if(paces <= 0)
-		parts += "somewhere close at hand"
-	else if(dir_text)
-		parts += "roughly [paces] paces to the [dir_text]"
-	else
-		parts += "roughly [paces] paces away"
-
-	var/zdiff = death_turf.z - observer_turf.z
-	if(zdiff > 0)
-		parts += "[zdiff] level\s above me"
-	else if(zdiff < 0)
-		parts += "[abs(zdiff)] level\s below me"
-
-	return jointext(parts, ", ")
 
 /mob/living/carbon/dust(just_ash, drop_items, force)
 	if(drop_items)

@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 	def_intent_change(INTENT_PARRY)
 
 
-/mob/living/carbon/human/species/human/northern/deranged_knight/death(gibbed, nocutscene, suicide)
+/mob/living/carbon/human/species/human/northern/deranged_knight/death(gibbed, nocutscene)
 	if(preset == "matthios")
 		if(prob(95))
 			say("Matthios, I have failed you...", forced = TRUE, npc_speech = TRUE)
