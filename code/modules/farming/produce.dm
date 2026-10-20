@@ -160,6 +160,7 @@
 	slot_flags = ITEM_SLOT_HEAD
 	worn_x_dimension = 64
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
+	juice_results = list(/datum/reagent/consumable/juice/apple = 5)
 	worn_y_dimension = 64
 	rotprocess = SHELFLIFE_SHORT
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/fruit/apple_sliced
