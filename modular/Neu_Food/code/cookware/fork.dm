@@ -13,7 +13,6 @@
 	thrown_bclass = BCLASS_STAB
 	possible_item_intents = list(/datum/intent/use, /datum/intent/dagger/thrust/cutlery)
 	swingsound = list('sound/combat/wooshes/bladed/wooshsmall (1).ogg','sound/combat/wooshes/bladed/wooshsmall (2).ogg','sound/combat/wooshes/bladed/wooshsmall (3).ogg')
-	secondary_skills = list(/datum/skill/craft/cooking = 0.6)
 
 /obj/item/kitchen/fork/get_mechanics_examine(mob/user)
 	. = ..()

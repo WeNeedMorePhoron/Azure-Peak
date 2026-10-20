@@ -12,7 +12,6 @@
 	thrown_bclass = BCLASS_STAB
 	flags_1 = CONDUCT_1
 	possible_item_intents = list(/datum/intent/use, /datum/intent/dagger/thrust/cutlery)
-	secondary_skills = list(/datum/skill/craft/cooking = 0.6)
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/kitchen/spoon/get_mechanics_examine(mob/user)
