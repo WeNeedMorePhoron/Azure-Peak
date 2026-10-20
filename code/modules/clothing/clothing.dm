@@ -65,7 +65,6 @@
 	var/throw_on_break = FALSE
 	/// Whitelist of armour that can be worn underneath something despite restrictions. Should be a small list, only.
 	var/list/underlayers
-	var/adjusted_open = FALSE
 
 /obj/item
 	var/blocking_behavior
@@ -116,7 +115,7 @@
 	adjusted_inv_value |= (flags_inv & flag)
 
 /obj/item/clothing/proc/adjust_inv_flags(base)
-	if(!adjusted_inv_mask || adjusted_open)
+	if(!adjusted_inv_mask)
 		return base
 	return (base & ~adjusted_inv_mask) | (adjusted_inv_value & adjusted_inv_mask)
 

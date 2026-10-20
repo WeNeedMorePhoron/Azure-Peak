@@ -61,26 +61,23 @@
 //We force it closed to make sure we can't equip an opened item if one IS on the ground somehow.
 /datum/component/adjustable_clothing/proc/on_equip(datum/source, mob/user, slot)
 	var/obj/item/clothing/C = parent
-	if(!ishuman(user))
+	if(!ishuman(C.loc))
 		return
 	toggle_closed(C, forced = TRUE)
-	update_inv(user)
-	var/mob/living/carbon/human/H = user
+	var/mob/living/carbon/human/H = C.loc
 	H.update_fov_angles()
 
 //We force it closed to make sure an opened item cannot be dropped.
 //In both of these cases it's to prevent fringe bugs with coverage.
 /datum/component/adjustable_clothing/proc/on_drop(datum/source, mob/user)
 	var/obj/item/clothing/C = parent
-	toggle_closed(C, forced = TRUE)
-	if(!ishuman(user))
+	if(!ishuman(C.loc))
 		return
-	update_inv(user)
-	var/mob/living/carbon/human/H = user
+	toggle_closed(C, forced = TRUE)
+	var/mob/living/carbon/human/H = C.loc
 	H.update_fov_angles()
 
 /datum/component/adjustable_clothing/proc/toggle_open(obj/item/clothing/C, forced = FALSE)
-	C.adjusted_open = TRUE
 	if(!forced)	//We skip this if we're equipping or dropping the item to prevent coverage glitches.
 		if(!(C.body_parts_covered_dynamic == C.body_parts_covered))	//Our coverage does not match.
 			flags_removed = (C.body_parts_covered - C.body_parts_covered_dynamic)	//We store the difference.
@@ -95,7 +92,6 @@
 	toggled_open = TRUE
 
 /datum/component/adjustable_clothing/proc/toggle_closed(obj/item/clothing/C, forced = FALSE)
-	C.adjusted_open = FALSE
 	if(!forced)
 		if(!(C.body_parts_covered_dynamic == flags_open))
 			flags_removed = flags_open - C.body_parts_covered_dynamic
@@ -110,14 +106,29 @@
 	toggled_open = FALSE
 
 /datum/component/adjustable_clothing/proc/update_inv(mob/living/carbon/human/H)
+	if(update_flags & (UPD_HEAD|UPD_MASK|UPD_NECK))
+		H.update_inv_head()
+		H.update_inv_wear_mask()
+		H.update_inv_neck()
+		return
+	if(update_flags & (UPD_HEAD|UPD_MASK))
+		H.update_inv_head()
+		H.update_inv_wear_mask()
+		return
+	if(update_flags & (UPD_MASK|UPD_NECK))
+		H.update_inv_wear_mask()
+		H.update_inv_neck()
+		return
 	if(update_flags & UPD_HEAD)
 		H.update_inv_head()
-	if(update_flags & UPD_MASK)
-		H.update_inv_wear_mask()
+		return
 	if(update_flags & UPD_NECK)
 		H.update_inv_neck()
+		return
+	if(update_flags & UPD_MASK)
+		H.update_inv_wear_mask()
+		return
 	if(update_flags & UPD_CHEST)
 		H.update_inv_shirt()
 		H.update_inv_armor()
-	H.update_hair()
-	H.update_body_parts(TRUE)
+		return
