@@ -458,7 +458,7 @@
 	icon_state = "berries"
 	tastes = list("berry" = 1)
 	list_reagents = list(/datum/reagent/berrypoison = 5, /datum/reagent/consumable/nutriment = 3, /datum/reagent/water = 5)
-	grind_results = list(/datum/reagent/berrypoison = 5)
+	juice_results = list(/datum/reagent/berrypoison = 5, /datum/reagent/consumable/juice/jackberry = JUICE_YIELD)
 	color_index = "bad"
 
 /obj/item/reagent_containers/food/snacks/grown/berries/rogue/poison/Initialize(mapload)
