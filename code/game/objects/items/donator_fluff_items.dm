@@ -2683,16 +2683,16 @@ As Excaliber."
 	armor = ARMOR_PLATE
 
 /obj/item/clothing/shoes/roguetown/boots/tabi/hardened
-    name = "hardened tabis"
-    color = null
-    sewrepair = TRUE
-    armor = ARMOR_LEATHER
-    max_integrity = ARMOR_INT_SIDE_HARDLEATHER
+	name = "hardened tabis"
+	color = null
+	sewrepair = TRUE
+	armor = ARMOR_LEATHER
+	max_integrity = ARMOR_INT_SIDE_HARDLEATHER
 
 /obj/item/clothing/shoes/roguetown/boots/tabi/hardened/ComponentInitialize()
     . = ..()
-    AddComponent(/datum/component/armour_filtering/positive, TRAIT_FENCERDEXTERITY)
-    AddComponent(/datum/component/armour_filtering/positive, TRAIT_HONORBOUND)
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_FENCERDEXTERITY)
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_HONORBOUND)
 
 //MAGI1138
 /obj/item/clothing/cloak/magi1138
