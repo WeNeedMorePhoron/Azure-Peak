@@ -34,3 +34,4 @@
 #define STEW_TEMPERATURE 374
 
 #define JUICE_YIELD 25
+#define MORTAR_MAX_ITEMS 4
