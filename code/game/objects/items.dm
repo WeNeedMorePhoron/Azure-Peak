@@ -147,7 +147,18 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/list/secondary_skills
 
 	var/list/possible_item_intents = list(/datum/intent/use)
-	var/saved_intent_index = 1 // Stores the last selected intent index when item is dropped
+	#define UNWIELDED_INTENT 0
+	#define WIELDED_INTENT 1
+	#define ALTGRIP_ONE_INTENT 2
+	#define ALTGRIP_TWO_INTENT 3
+	#define ALTGRIP_THREE_INTENT 4
+	var/alist/saved_intents = alist(
+		UNWIELDED_INTENT = 1,
+		WIELDED_INTENT = 1,
+		ALTGRIP_ONE_INTENT = 1,
+		ALTGRIP_TWO_INTENT = 1,
+		ALTGRIP_THREE_INTENT = 1,
+	) // Stores the last selected intent index when item is dropped
 
 	var/bigboy = FALSE //used to center screen_loc when in hand
 	var/wielded = FALSE
