@@ -975,11 +975,11 @@
 	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of some Leather Boots, Hardened \
 	Leather Boots, Psydonic Leather Boots, or Inquisitorial Boots."
 	target_items = list(
-    /obj/item/clothing/shoes/roguetown/boots/otavan/inqboots		=	/obj/item/clothing/shoes/roguetown/boots/tabi/otavan/inqboots,
-    /obj/item/clothing/shoes/roguetown/boots/psydonboots			=	/obj/item/clothing/shoes/roguetown/boots/tabi/otavan,
-    /obj/item/clothing/shoes/roguetown/boots/leather/reinforced		=	/obj/item/clothing/shoes/roguetown/boots/tabi/hardened,
-    /obj/item/clothing/shoes/roguetown/boots/leather				=	/obj/item/clothing/shoes/roguetown/boots/tabi,
-    /obj/item/clothing/shoes/roguetown/boots						=	/obj/item/clothing/shoes/roguetown/boots/tabi
+	/obj/item/clothing/shoes/roguetown/boots/otavan/inqboots		=	/obj/item/clothing/shoes/roguetown/boots/tabi/otavan/inqboots,
+	/obj/item/clothing/shoes/roguetown/boots/psydonboots			=	/obj/item/clothing/shoes/roguetown/boots/tabi/otavan,
+	/obj/item/clothing/shoes/roguetown/boots/leather/reinforced		=	/obj/item/clothing/shoes/roguetown/boots/tabi/hardened,
+	/obj/item/clothing/shoes/roguetown/boots/leather				=	/obj/item/clothing/shoes/roguetown/boots/tabi,
+	/obj/item/clothing/shoes/roguetown/boots						=	/obj/item/clothing/shoes/roguetown/boots/tabi
 	)
 	result_item = null
 	exact_type = TRUE
