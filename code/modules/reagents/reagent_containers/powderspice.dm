@@ -468,6 +468,7 @@
 	sellprice = 23
 
 /obj/item/reagent_containers/food/snacks/skysugarslab
+	dish_type = DISH_MEAT
 	name = "skysugar slab"
 	desc = "A crystalline brick that radiates with an almost-ethereal hue, yet to be broken up at an alchemical lab. They call \
 	it 'luchtblauw' in Old Azurian; alchemically purified starsugar, to a ninth-of-a-hundreth dram. Born of a Pestran heresy, this \
