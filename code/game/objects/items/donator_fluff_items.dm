@@ -4863,7 +4863,7 @@ As Excaliber."
 // LIMETEASE
 /obj/item/clothing/cloak/poncho/guidress
 	name = "Kazengun Silken Lounge Jacket"
-	desc = "A fine silken jacket from the shores of Kazegun, although calling this garment a "jacket" is a stretch. Typically worn by courtesans or those of ill-repute. The long sleaves give an air of elegance while the low-cut in front bring the viewer's eyes to the wearer's more delicate "assets"."
+	desc = "A fine silken jacket from the shores of Kazegun, although calling this garment a jacket is a stretch. Typically worn by courtesans or those of ill-repute. The long sleaves give an air of elegance while the low-cut in front bring the viewer's eyes to the wearer's more delicate 'assets'."
 	icon_state = "guidress"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
