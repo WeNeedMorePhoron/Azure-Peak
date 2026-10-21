@@ -64,7 +64,7 @@
 		once. Anyone already in game without an account will be charged when they open an account. Those who arrives after the round starts will not owe anything.</p>
 		<ul>
 			<li>Raised by the Grand Duke, the Regent or the Steward. The Steward may raise one levy per
-			week, and only while no Grand Duke or Regent is present.</li>
+			week, even with a Grand Duke or Regent in place.</li>
 			<li>At most [POLL_LEVY_MAX_PER_ROUND] levies per week, none before day [POLL_LEVY_FIRST_DAY],
 			and at most one per day. A reason of at least [POLL_LEVY_REASON_MIN] characters is announced
 			with it.</li>

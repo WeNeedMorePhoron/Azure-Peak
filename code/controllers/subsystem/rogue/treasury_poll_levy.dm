@@ -1,9 +1,3 @@
-/datum/controller/subsystem/treasury/proc/poll_levy_duke_present()
-	for(var/mob/living/M in list(SSticker.rulermob, SSticker.regentmob))
-		if(!QDELETED(M) && M.stat != DEAD)
-			return TRUE
-	return FALSE
-
 /datum/controller/subsystem/treasury/proc/get_poll_levy_authority(mob/living/user)
 	if(!user)
 		return null
@@ -17,8 +11,6 @@
 	var/authority = get_poll_levy_authority(user)
 	if(!authority)
 		return "Only the [SSticker.rulertype] or the Steward can levy."
-	if(authority == "steward" && poll_levy_duke_present())
-		return "The [SSticker.rulertype] is present. Only they can levy."
 	var/datum/decree/magna_carta = get_decree(DECREE_MAGNA_CARTA)
 	if(magna_carta?.active)
 		return "No levies while the Magna Carta is in force."
