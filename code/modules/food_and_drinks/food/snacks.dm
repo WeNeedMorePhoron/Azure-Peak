@@ -340,7 +340,7 @@ All foods are distributed among various categories. Use common sense.
 		if((dish_type & DISH_MEAT) && HAS_TRAIT(human_eater, TRAIT_NISTEAN))
 			eater.add_stress(/datum/stressevent/nistean)
 
-		if(HAS_TRAIT(human_eater, TRAIT_VEGAN) && (dish_type & (DISH_MEAT | DISH_EGG | DISH_DAIRY | DISH_POULTRY | DISH_SEAFOOD)))
+		if(HAS_TRAIT(human_eater, TRAIT_VEGAN) && (dish_type & (DISH_MEAT | DISH_EGG | DISH_DAIRY | DISH_POULTRY | DISH_SEAFOOD | DISH_HONEY)))
 			eater.add_stress(/datum/stressevent/vegan)
 
 	if(eat_effect && apply_effect && bitecount >= bitesize)
@@ -683,14 +683,13 @@ All foods are distributed among various categories. Use common sense.
 	slice.create_reagents(slice.volume)
 	reagents.trans_to(slice,reagents_per_slice)
 	slice.filling_color = filling_color
+	slice.dish_type |= dish_type // slices of meat pie are still meat, etc.
 	slice.name = slice_name ? slice_name : slice.name
 	slice.update_snack_overlays(src)
 //	if(name != initial(name))
 //		slice.name = "slice of [name]"
 //	if(desc != initial(desc))
 //		slice.desc = ""
-//	if(foodtype != initial(foodtype))
-//		slice.foodtype = foodtype //if something happens that overrode our food type, make sure the slice carries that over
 
 /obj/item/reagent_containers/food/snacks/proc/generate_trash(atom/location)
 	if(trash)
@@ -807,6 +806,6 @@ All foods are distributed among various categories. Use common sense.
 	icon_state = "badrecipe"
 	list_reagents = list(/datum/reagent/toxin/bad_food = 30)
 	filling_color = "#8B4513"
-	foodtype = GROSS
+	food_quality = GROSS
 	burntime = 0
 	cooktime = 0

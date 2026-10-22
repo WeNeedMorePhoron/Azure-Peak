@@ -19,11 +19,11 @@
 	path = /obj/item/alch/rosa/azure
 
 /datum/loadout_item/donator/universal/ilamellard
-	name = "Gift - Iron Lamellar Armor decoration"
+	name = "Gift - Iron Lamellar Armor Ddecoration"
 	path = /obj/item/clothing/suit/roguetown/shirt/ilamellar
 
 /datum/loadout_item/donator/universal/blamellard
-	name = "Gift - Bronze Lamellar Armor decoration"
+	name = "Gift - Bronze Lamellar Armor Decoration"
 	path = /obj/item/clothing/suit/roguetown/shirt/blamellar
 
 /datum/loadout_item/donator/universal/azurosa_seeds
@@ -129,6 +129,10 @@
 /datum/loadout_item/donator/universal/armor_gothic_burgeonet
 	name = "Gift - Kit, Gothic Burgeonet"
 	path = /obj/item/enchantingkit/gothicburgeonet
+
+/datum/loadout_item/donator/universal/armor_gothic_ornate
+	name = "Gift - Kit, Gothic Fluted Armor"
+	path = /obj/item/enchantingkit/gothicornatecuirass
 
 /datum/loadout_item/donator/universal/armor_gothic_psydonic
 	name = "Gift - Kit, Gothic Psydonic Cuirass"
