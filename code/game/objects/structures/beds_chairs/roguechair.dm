@@ -56,7 +56,7 @@
 	if(occupied)
 		to_chat(user, span_warning("Someone is already hiding under [src]!"))
 		return
-	if(!do_after(user, sneaktime, src))
+	if(!do_after(user, sneaktime, target = src))
 		return
 	user.forceMove(src)
 	occupied = TRUE
@@ -446,7 +446,7 @@
 	if(occupied)
 		to_chat(user, span_warning("Someone is already hiding under [src]!"))
 		return
-	if(!do_after(user, sneaktime, src))
+	if(!do_after(user, sneaktime, target = src))
 		return
 	user.forceMove(src)
 	occupied = TRUE
