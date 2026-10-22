@@ -225,6 +225,20 @@
 /datum/book_entry/treasury_general/innkeeper
 	name = "08. The Innkeeper and the Guild"
 
+/datum/book_entry/treasury_general/innkeeper/proc/rumor_cost_lines()
+	var/list/types_by_cost = list()
+	for(var/qtype in GLOB.quest_prototypes)
+		var/datum/quest/proto = GLOB.quest_prototypes[qtype]
+		if(proto.rumor_cost > 0)
+			LAZYADD(types_by_cost["[proto.rumor_cost]"], qtype)
+	var/list/costs = list()
+	for(var/cost in types_by_cost)
+		costs += text2num(cost)
+	sortTim(costs, GLOBAL_PROC_REF(cmp_numeric_asc))
+	. = ""
+	for(var/cost in costs)
+		. += "<li><b>[english_list(types_by_cost["[cost]"])]</b> - [cost] points each.</li>"
+
 /datum/book_entry/treasury_general/innkeeper/inner_book_html(mob/user)
 	return {"
 		<div>
@@ -241,11 +255,7 @@
 
 		<p>Each rumor type has a fixed point cost:</p>
 		<ul>
-			<li><b>Retrieval, Courier, Easy Kill</b> -
-			[GLOB.rumor_point_costs[QUEST_RETRIEVAL]] points each.</li> <li><b>Clearout,
-			Recovery</b> - [GLOB.rumor_point_costs[QUEST_CLEAR_OUT]] points each.</li>
-			<li><b>Raid, Bounty</b> - [GLOB.rumor_point_costs[QUEST_RAID]] points
-			each.</li>
+			[rumor_cost_lines()]
 		</ul>
 
 		<h3>Composing a Rumor</h3>
@@ -364,12 +374,16 @@
 		</ul>
 
 		<h3>Withdrawal</h3>
-		<p>Tavern staff may withdraw a rumor from the Issued tab of the Ledger. Anyone
-		who can issue defense contracts may withdraw those and blockade scrolls there. A
-		contract can be withdrawn at once while no one has taken it up. Once it is
-		taken, its holder has [QUEST_ISSUER_CANCEL_WINDOW / 600] minutes before it can
-		be withdrawn. It cannot be withdrawn once the contract has begun. The full
-		cost and deposit are returned. A Request's daily slot is not restored.</p>
+		<p>You can withdraw a contracts you posted at Your Postings at the bottom of the Ledger. Anyone
+		may withdraw a contract they posted themselves. Tavern staff may also withdraw any rumor, and anyone who can issue defense contracts may withdraw those and
+		blockade scrolls. A contract can be withdrawn instantly if no one has taken it
+		up. Once it is taken, its holder has [MIN_TIME_BEFORE_CANCEL_TAKEN_QUEST / 600]
+		minutes before it can be withdrawn. It cannot be withdrawn once the contract has
+		begun. [REFUND_ON_NOT_TAKEN * 100]% of the cost and the holder's deposit are
+		returned. If a contract fails, [REFUND_ON_FAILURE * 100]% of its cost is
+		returned to whoever paid for it. If its holder abandons it,
+		[REFUND_ON_NOT_TAKEN * 100]% is returned before the work begins and
+		[REFUND_ON_FAILURE * 100]% after. A Request's daily slot is not restored.</p>
 
 		<h3>Signing and Active Cap</h3> <p>Each person may hold up to
 		[QUEST_MAX_ACTIVE_PER_PLAYER] active contracts at a time. Some jobs override
@@ -392,7 +406,7 @@
 		<p>Most contracts require a small deposit on signing, scaled by difficulty:
 		<b>[QUEST_DEPOSIT_EASY]m</b> (Easy), <b>[QUEST_DEPOSIT_MEDIUM]m</b> (Medium),
 		<b>[QUEST_DEPOSIT_HARD]m</b> (Hard). The deposit is returned on completion and
-		lost if you abandon the contract. It is not taxed.</p>
+		lost if you abandon or fail the contract. It is not taxed.</p>
 
 		<h3>Abandonment</h3>
 		<p>A held contract may be abandoned at the Ledger. You lose the deposit.</p>
@@ -410,12 +424,20 @@
 		of the standard cut. See <i>The Innkeeper and the Guild</i>.</p>
 
 		<h3>Hunt Timer</h3> <p>Active kill contracts carry a hunt timer of
-		[QUEST_KILL_HUNT_TIMER / 600] minutes, with warnings at
-		[DisplayTimeText(QUEST_KILL_HUNT_TIMER - QUEST_KILL_HUNT_WARN_2M)] and
-		[DisplayTimeText(QUEST_KILL_HUNT_TIMER - QUEST_KILL_HUNT_WARN_30S)] left. If
+		[QUEST_KILL_HUNT_TIMER / (1 MINUTES)] minutes, with warnings at
+		[DisplayTimeText(QUEST_KILL_HUNT_WARN_EARLY)] and
+		[DisplayTimeText(QUEST_KILL_HUNT_WARN_FINAL)] left. If
 		the timer runs out, the scroll crumbles and any live wave mobs despawn. This
 		starts when the mobs in question spawn at the target location. Blockade Scrolls
 		use a longer timer for each wave. See <i>Defense and Blockades</i>.</p>
+
+		<p>Recovery contracts have  a delivery timer of
+		[QUEST_RECOVERY_DELIVERY_TIMER / (1 MINUTES)] minutes once every guardian is
+		slain. If the parcel is not delivered in time, the scroll crumbles and the parcel is lost with the contract refunded.</p>
+
+		<p>Notorious Bounties are shorter, at [NOTORIOUS_BOUNTY_HUNT_TIMER / (1 MINUTES)] minutes. They also
+		end early if the whole hunting party is dead or down. When the timer runs out or the party falls,
+		fallen hunters near the outlaw's ground are revived.</p>
 		</div>
 	"}
 
