@@ -36031,8 +36031,9 @@
 /area/rogue/under/cave/water_temple/one)
 "erA" = (
 /obj/structure/fluff/alch,
-/obj/item/natural/ash,
-/obj/item/natural/ash,
+/obj/item/natural/bundle/ash{
+	amount = 2
+	},
 /obj/machinery/light/rogue/candle{
 	pixel_y = -32
 	},
@@ -147716,10 +147717,9 @@
 /area/rogue/indoors/town/grim)
 "rTF" = (
 /obj/structure/closet/crate/chest/crate,
-/obj/item/natural/ash,
-/obj/item/natural/ash,
-/obj/item/natural/ash,
-/obj/item/natural/ash,
+/obj/item/natural/bundle/ash{
+	amount = 4
+	},
 /obj/structure/fluff/walldeco/med4{
 	pixel_x = 32
 	},
@@ -159509,8 +159509,9 @@
 /area/rogue/indoors/town/grim)
 "tnf" = (
 /obj/machinery/light/rogue/candle/floorcandle,
-/obj/item/natural/ash,
-/obj/item/natural/ash,
+/obj/item/natural/bundle/ash{
+	amount = 2
+	},
 /obj/structure/table/wood/large_table/north,
 /turf/open/floor/rogue/tile/brownbrick/browner,
 /area/rogue/indoors/shelter)
@@ -171359,8 +171360,9 @@
 /turf/open/water/cleanshallow/deep,
 /area/rogue/outdoors/woods/grim/northeast/wardenscheckpoint)
 "uGD" = (
-/obj/item/natural/ash,
-/obj/item/natural/ash,
+/obj/item/natural/bundle/ash{
+	amount = 2
+	},
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/under/cave/grimspyre/depths/ancientforge)
 "uGF" = (

@@ -32183,11 +32183,9 @@
 /area/rogue/outdoors/mountains)
 "fBL" = (
 /obj/structure/closet/crate/chest/neu,
-/obj/item/natural/ash,
-/obj/item/natural/ash,
-/obj/item/natural/ash,
-/obj/item/natural/ash,
-/obj/item/natural/ash,
+/obj/item/natural/bundle/ash{
+	amount = 5
+	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/magician)
 "fBP" = (
