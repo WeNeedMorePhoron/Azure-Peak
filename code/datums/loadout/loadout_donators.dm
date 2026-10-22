@@ -1386,6 +1386,11 @@
 	ckeywhitelist = list("guimontag", "limetease")
 
 /datum/loadout_item/donator/ulqbelt
-	name = "Donator Item - Potionkeeper's belt"
+	name = "Donator Item - Potionkeeper's Belt"
 	path = /obj/item/storage/belt/rogue/leather/ulqbelt
-	ckeywhitelist = list("limetease", "seraphlemonade")
+	ckeywhitelist = list("seraphlemonade")
+
+/datum/loadout_item/donator/ulqsusbelt
+	name = "Donator Item - Potionkeeper's Messy Belt"
+	path = /obj/item/storage/belt/rogue/leather/ulqsusbelt
+	ckeywhitelist = list("seraphlemonade")

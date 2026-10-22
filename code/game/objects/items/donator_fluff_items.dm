@@ -4924,3 +4924,11 @@ As Excaliber."
 	icon_state = "ulqbelt"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+
+// LIMETEASE
+/obj/item/storage/belt/rogue/leather/ulqsusbelt
+	name = "Messy Belt of the Potionkeeper"
+	desc = "Gronnic leather adorned with a golden volf-esque symbol, this belt carries heavy sloshing waste that exudes a freeky feeling."
+	icon_state = "ulqsusbelt"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
