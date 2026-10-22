@@ -124,7 +124,7 @@
 			if(!.)
 				return
 
-	if(istype(attacking_item, /obj/item/storage/roguebag) && attacking_item.contents.len)
+	if(istype(attacking_item, /obj/item/storage/roguebag) && length(attacking_item.held_contents()))
 		if(actively_smelting)
 			to_chat(user, span_warning("\The [src] is currently smelting. Wait for it to finish."))
 			return TRUE
@@ -133,21 +133,18 @@
 			return TRUE
 		var/added_any = FALSE
 		var/list/bag_items = list()
-		for(var/obj/item/I in attacking_item.held_contents())
-			bag_items += I
+		bag_items += attacking_item.held_contents()
 		for(var/obj/item/bagged_item in bag_items)
 			if(!bagged_item.smeltresult)
 				continue
 			if(length(contained_items) >= max_contained_items)
 				break
-			if(!SEND_SIGNAL(attacking_item, COMSIG_TRY_STORAGE_TAKE, bagged_item, get_turf(src), TRUE))
+			if(!attacking_item.release_held(bagged_item, get_turf(src)))
 				continue
 			var/count_before = length(contained_items)
 			add_item(bagged_item, user)
 			if(length(contained_items) > count_before)
 				added_any = TRUE
-			else
-				SEND_SIGNAL(attacking_item, COMSIG_TRY_STORAGE_INSERT, bagged_item, null, TRUE, TRUE)
 		if(added_any)
 			to_chat(user, span_info("I dump all the smeltables inside [attacking_item] into [src]."))
 		else
