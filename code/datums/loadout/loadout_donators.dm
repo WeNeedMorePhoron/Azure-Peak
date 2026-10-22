@@ -1380,3 +1380,8 @@
 	name = "Donator Item - Gilded Dress"
 	path = /obj/item/clothing/cloak/poncho/guidress
 	ckeywhitelist = list("guimontag", "limetease")
+
+/datum/loadout_item/donator/ulqbelt
+	name = "Donator Item - Potionkeeper's belt"
+	path = /obj/item/storage/belt/rogue/leather/ulqbelt
+	ckeywhitelist = list("limetease", "seraphlemonade")

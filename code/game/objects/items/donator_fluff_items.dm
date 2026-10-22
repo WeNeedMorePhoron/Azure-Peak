@@ -4884,3 +4884,11 @@ As Excaliber."
 			boobed_detail = FALSE
 
 		H.update_inv_wear_suit()
+
+// LIMETEASE
+/obj/item/storage/belt/rogue/leather/ulqbelt
+	name = "Belt of the Potionkeeper"
+	desc = "Gronnic leather adorned with a golden volf-esque symbol, this belt carries heavy sloshing potions that radiate a terrible feeling."
+	icon_state = "ulqbelt"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
