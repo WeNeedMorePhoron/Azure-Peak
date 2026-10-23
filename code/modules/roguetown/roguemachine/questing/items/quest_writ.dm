@@ -82,6 +82,9 @@ GLOBAL_LIST_EMPTY(quest_scrolls)
 	if(Q.quest_giver_name && Q.quest_giver_name == user.real_name && !Q.issuer_may_claim && !SSquestpool.debug_mode)
 		to_chat(user, span_warning("You can't take a contract you issued."))
 		return FALSE
+	if(!SStreasury.has_account(user))
+		to_chat(user, span_warning("You have no bank account. Register with a Meister first."))
+		return FALSE
 	Q.lock_fellowship(user)
 	if(!Q.materialized)
 		var/obj/effect/landmark/quest_spawner/landmark = Q.pending_landmark_ref?.resolve()
