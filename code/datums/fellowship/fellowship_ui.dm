@@ -31,10 +31,12 @@
 		ui.send_full_update()
 
 /datum/fellowship_ui/ui_data(mob/user)
-	// Everything the panel cares about is static and pushed on change. ui_data only carries
-	// the server clock so the client can render countdowns for invite expiry without the
-	// server refreshing every tick.
-	return list("server_time" = world.time)
+	var/datum/fellowship/F = holder.current_fellowship
+	return list(
+		"server_time" = world.time,
+		"payout_mode" = F?.payout_mode,
+		"debug_local" = !!holder.client?.is_localhost(),
+	)
 
 /datum/fellowship_ui/ui_static_data(mob/user)
 	var/list/data = list()
@@ -63,8 +65,6 @@
 		))
 	data["members"] = member_data
 	data["total_summons"] = F.count_summons()
-	data["payout_mode"] = F.payout_mode
-	data["debug_local"] = !!holder.client?.is_localhost()
 	var/list/invite_data = list()
 	for(var/invitee_name in F.pending_invites)
 		var/list/entry = F.pending_invites[invitee_name]
@@ -171,7 +171,9 @@
 		F.notify_members("Contract rewards will now be split evenly among fellowship members.")
 	else
 		F.notify_members("Contract rewards will now go to whoever turns the contract in.")
-	update_static_data(holder)
+	for(var/mob/living/M in F.get_members())
+		if(M != holder)
+			refresh_fellowship_ui_for(M)
 	return TRUE
 
 /datum/fellowship_ui/proc/handle_leave()
