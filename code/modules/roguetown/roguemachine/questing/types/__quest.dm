@@ -69,12 +69,13 @@ GLOBAL_LIST_INIT(quest_prototypes, build_quest_prototypes())
 	var/faction_id
 	var/datum/quest_faction/faction
 	var/required_fellowship_size = 0
-	var/band_threat_rate = 0
-	var/band_reward_rate = 0
-	var/list/band_roster
-	var/band_extras = 0
-	var/band_threat_mult = 1
-	var/band_reward_mult = 1
+	var/fellowship_threat_rate = 0
+	var/fellowship_reward_rate = 0
+	var/list/fellowship_roster
+	var/fellowship_extras = 0
+	var/fellowship_threat_mult = 1
+	var/fellowship_reward_mult = 1
+	var/fellowship_split_payout = FALSE
 	var/turf/reward_origin_turf
 	var/turf/reward_target_turf
 	var/issuer_may_claim = FALSE
@@ -386,36 +387,60 @@ GLOBAL_LIST_INIT(quest_prototypes, build_quest_prototypes())
 			return FALSE
 	return TRUE
 
-/datum/quest/proc/count_band_extras(mob/living/user)
+/datum/quest/proc/count_fellowship_extras(mob/living/user)
 	var/datum/fellowship/F = user?.current_fellowship
-	var/size = F ? min(length(F.get_members()), QUEST_BAND_SCALE_MAX) : 1
+	var/size = F ? min(length(F.get_members()), QUEST_FELLOWSHIP_SCALE_MAX) : 1
 	return max(0, size - max(1, required_fellowship_size))
 
-/datum/quest/proc/lock_band(mob/living/user)
-	if(band_roster)
+/datum/quest/proc/lock_fellowship(mob/living/user)
+	if(fellowship_roster)
 		return
-	band_roster = list()
+	fellowship_roster = list()
 	var/datum/fellowship/F = user?.current_fellowship
 	var/list/members = F ? F.get_members() : list(user)
 	for(var/mob/living/M as anything in members)
-		if(length(band_roster) >= QUEST_BAND_SCALE_MAX)
+		if(length(fellowship_roster) >= QUEST_FELLOWSHIP_SCALE_MAX)
 			break
-		band_roster += WEAKREF(M)
-	band_extras = count_band_extras(user)
-	if(!band_extras || (!band_threat_rate && !band_reward_rate))
+		fellowship_roster += WEAKREF(M)
+	fellowship_split_payout = F?.payout_mode == FELLOWSHIP_PAYOUT_SPLIT
+	fellowship_extras = count_fellowship_extras(user)
+	if(!fellowship_extras || (!fellowship_threat_rate && !fellowship_reward_rate))
 		return
-	band_threat_mult = 1 + band_threat_rate * band_extras
-	band_reward_mult = 1 + band_reward_rate * band_extras
-	reward_amount = round(calculate_reward(reward_origin_turf, reward_target_turf) * band_reward_mult)
+	fellowship_threat_mult = 1 + fellowship_threat_rate * fellowship_extras
+	fellowship_reward_mult = 1 + fellowship_reward_rate * fellowship_extras
+	reward_amount = round(calculate_reward(reward_origin_turf, reward_target_turf) * fellowship_reward_mult)
 
-/datum/quest/proc/project_band_reward(mob/living/user)
-	var/extras = count_band_extras(user)
-	if(!extras || (!band_threat_rate && !band_reward_rate))
+/datum/quest/proc/fellowship_shares(amount, mob/living/fallback)
+	. = list()
+	if(!fellowship_split_payout || length(fellowship_roster) < 2)
+		if(fallback)
+			.[fallback] = amount
+		return
+	var/list/payees = list()
+	for(var/datum/weakref/W as anything in fellowship_roster)
+		var/mob/living/M = W.resolve()
+		if(M && SStreasury.has_account(M))
+			payees |= M
+	if(!length(payees))
+		if(fallback)
+			.[fallback] = amount
+		return
+	var/share = FLOOR(amount / length(fellowship_roster), 1)
+	var/remainder = amount
+	for(var/mob/living/M as anything in payees)
+		.[M] = share
+		remainder -= share
+	var/mob/living/sink = (fallback in payees) ? fallback : payees[1]
+	.[sink] += remainder
+
+/datum/quest/proc/project_fellowship_reward(mob/living/user)
+	var/extras = count_fellowship_extras(user)
+	if(!extras || (!fellowship_threat_rate && !fellowship_reward_rate))
 		return reward_amount
-	var/saved_mult = band_threat_mult
-	band_threat_mult = 1 + band_threat_rate * extras
-	. = round(calculate_reward(reward_origin_turf, reward_target_turf) * (1 + band_reward_rate * extras))
-	band_threat_mult = saved_mult
+	var/saved_mult = fellowship_threat_mult
+	fellowship_threat_mult = 1 + fellowship_threat_rate * extras
+	. = round(calculate_reward(reward_origin_turf, reward_target_turf) * (1 + fellowship_reward_rate * extras))
+	fellowship_threat_mult = saved_mult
 
 /datum/quest/proc/claim_failure_reason(mob/living/user)
 	if(required_fellowship_size > 0)
@@ -436,8 +461,8 @@ GLOBAL_LIST_INIT(quest_prototypes, build_quest_prototypes())
 	record_contract_signer(src, user.ckey)
 
 /datum/quest/proc/get_party_size()
-	if(band_roster)
-		return length(band_roster)
+	if(fellowship_roster)
+		return length(fellowship_roster)
 	var/mob/living/bearer = quest_receiver_reference?.resolve()
 	if(!istype(bearer) || !bearer.current_fellowship)
 		return 1

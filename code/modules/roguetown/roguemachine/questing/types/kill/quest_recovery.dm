@@ -91,8 +91,8 @@ GLOBAL_LIST_INIT(quest_recovery_shipments, list(
 	)
 	tp_budget = QUEST_TP_BUDGET_RECOVERY
 	threat_bands_cleared = QUEST_BANDS_RECOVERY
-	band_threat_rate = QUEST_BAND_THREAT_PER_EXTRA_MEDIUM
-	band_reward_rate = QUEST_BAND_REWARD_PER_EXTRA
+	fellowship_threat_rate = QUEST_FELLOWSHIP_THREAT_PER_EXTRA_MEDIUM
+	fellowship_reward_rate = QUEST_FELLOWSHIP_REWARD_PER_EXTRA
 	kills_count_progress = FALSE
 	takes_destination = TRUE
 	var/shipment_name

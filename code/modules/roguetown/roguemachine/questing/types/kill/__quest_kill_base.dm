@@ -313,7 +313,7 @@
 	var/list/result = list()
 	if(!faction || !length(faction.mob_types) || tp_budget <= 0)
 		return result
-	var/budget = round(tp_budget * band_threat_mult)
+	var/budget = round(tp_budget * fellowship_threat_mult)
 	var/list/candidates = compose_candidates()
 	if(!length(candidates))
 		return result
@@ -341,8 +341,8 @@
 		if(!picked)
 			break
 		result += picked
-	if(band_extras && band_threat_mult > 1)
-		var/floor_count = min(estimate_mob_count() + band_extras, QUEST_KILL_MAX_MOBS)
+	if(fellowship_extras && fellowship_threat_mult > 1)
+		var/floor_count = min(estimate_mob_count() + fellowship_extras, QUEST_KILL_MAX_MOBS)
 		while(length(result) < floor_count)
 			result += pickweight(candidates)
 	return result
@@ -351,4 +351,4 @@
 	if(total_spawned_tp > 0)
 		return total_spawned_tp * QUEST_KILL_THREAT_MULT
 	// Preview-time estimate: assume we'll spend the full budget.
-	return round(tp_budget * band_threat_mult) * QUEST_KILL_THREAT_MULT
+	return round(tp_budget * fellowship_threat_mult) * QUEST_KILL_THREAT_MULT

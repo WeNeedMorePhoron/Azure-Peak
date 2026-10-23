@@ -108,8 +108,14 @@
 
 	completed_quest.record_completion_stats(base_reward)
 
-	var/tax_amt = completed_quest.pay_reward(benef_account, beneficiary, base_reward, "contract reward - [src.name]", src.name)
-	var/guild_fee_paid = pay_innkeeper_referral_fees(benef_account, completed_quest, base_reward)
+	var/tax_amt = 0
+	var/guild_fee_paid = 0
+	var/list/shares = completed_quest.fellowship_shares(base_reward, beneficiary)
+	for(var/mob/living/payee as anything in shares)
+		var/datum/fund/payee_account = SStreasury.get_account(payee)
+		tax_amt += completed_quest.pay_reward(payee_account, payee, shares[payee], "contract reward - [src.name]", src.name)
+		guild_fee_paid += pay_innkeeper_referral_fees(payee_account, completed_quest, shares[payee])
+	var/split_ways = length(shares) > 1 ? length(shares) : 0
 	var/take_home = base_reward - tax_amt - guild_fee_paid
 	SSquestpool.record_completion(user, completed_quest, take_home, tax_amt)
 	qdel(completed_quest)
@@ -122,6 +128,9 @@
 		deductions += "[guild_fee_paid] mammon for the Guild's cut"
 	var/deductions_clause = length(deductions) ? ", less [english_list(deductions)]" : ""
 	var/deposit_clause = deposit_return > 0 ? " The deposit of [deposit_return] mammon is also returned." : ""
+	if(split_ways)
+		say("The reward of [base_reward] mammon has been split [split_ways] ways among [holder_name]'s fellowship[deductions_clause].[deposit_clause]")
+		return
 	switch(mode)
 		if(QUEST_TURNIN_OFFICIAL)
 			say("On behalf of [holder_name], a reward of [base_reward] mammon has been credited to their account[deductions_clause].[deposit_clause]")

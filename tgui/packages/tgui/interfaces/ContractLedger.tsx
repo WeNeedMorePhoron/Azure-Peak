@@ -20,8 +20,8 @@ type Contract = {
   difficulty: string;
   reward: number;
   projected_reward: number;
-  band_threat_rate: number;
-  band_reward_rate: number;
+  fellowship_threat_rate: number;
+  fellowship_reward_rate: number;
   deposit: number;
   area: string;
   region: string;
@@ -578,13 +578,13 @@ const ContractCard = (props: { contract: Contract }) => {
           )}
         </span>
       </div>
-      {c.band_reward_rate > 0 && (
+      {c.fellowship_reward_rate > 0 && (
         <div className="ContractLedger__CardRow">
           <span className="ContractLedger__CardLabel">Per extra fellow</span>
           <span className="ContractLedger__CardValue">
-            +{formatRatioPct(c.band_reward_rate)} pay
-            {c.band_threat_rate > 0 &&
-              `, +${formatRatioPct(c.band_threat_rate)} foes`}
+            +{formatRatioPct(c.fellowship_reward_rate)} pay
+            {c.fellowship_threat_rate > 0 &&
+              `, +${formatRatioPct(c.fellowship_threat_rate)} foes`}
           </span>
         </div>
       )}

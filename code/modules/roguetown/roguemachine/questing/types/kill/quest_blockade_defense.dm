@@ -10,8 +10,8 @@
 	tp_budget = BLOCKADE_WAVE_BASE_TP
 	threat_bands_cleared = QUEST_BANDS_BLOCKADE
 	required_fellowship_size = 0
-	band_threat_rate = QUEST_BAND_THREAT_PER_EXTRA_BLOCKADE
-	band_reward_rate = QUEST_BAND_REWARD_PER_EXTRA_BLOCKADE
+	fellowship_threat_rate = QUEST_FELLOWSHIP_THREAT_PER_EXTRA_BLOCKADE
+	fellowship_reward_rate = QUEST_FELLOWSHIP_REWARD_PER_EXTRA_BLOCKADE
 
 	var/current_wave = 0
 	var/wave_timer_id
@@ -104,12 +104,12 @@
 /datum/quest/kill/blockade_defense/calculate_reward(turf/origin_turf, turf/target_turf)
 	return reward_amount
 
-/datum/quest/kill/blockade_defense/lock_band(mob/living/user)
+/datum/quest/kill/blockade_defense/lock_fellowship(mob/living/user)
 	return
 
-/datum/quest/kill/blockade_defense/count_band_extras(mob/living/user)
+/datum/quest/kill/blockade_defense/count_fellowship_extras(mob/living/user)
 	var/datum/fellowship/F = user?.current_fellowship
-	var/size = F ? min(length(F.get_members()), QUEST_BAND_SCALE_MAX) : 1
+	var/size = F ? min(length(F.get_members()), QUEST_FELLOWSHIP_SCALE_MAX) : 1
 	return max(0, size - BLOCKADE_FELLOWSHIP_REQUIREMENT)
 
 /datum/quest/kill/blockade_defense/materialize(obj/effect/landmark/quest_spawner/landmark)
@@ -140,9 +140,9 @@
 	spawn_wave(1)
 
 /datum/quest/kill/blockade_defense/proc/lock_defenders(obj/effect/landmark/quest_spawner/landmark)
-	if(band_roster)
+	if(fellowship_roster)
 		return
-	band_roster = list()
+	fellowship_roster = list()
 	var/list/present = list()
 	var/mob/living/bearer = quest_receiver_reference?.resolve()
 	if(bearer)
@@ -155,13 +155,14 @@
 			if(L.client && L.stat != DEAD)
 				present |= L
 	for(var/mob/living/M as anything in present)
-		if(length(band_roster) >= QUEST_BAND_SCALE_MAX)
+		if(length(fellowship_roster) >= QUEST_FELLOWSHIP_SCALE_MAX)
 			break
-		band_roster += WEAKREF(M)
-	band_extras = max(0, length(band_roster) - BLOCKADE_FELLOWSHIP_REQUIREMENT)
-	band_threat_mult = 1 + band_threat_rate * band_extras
-	band_reward_mult = 1 + band_reward_rate * band_extras
-	reward_amount = round(reward_amount * band_reward_mult)
+		fellowship_roster += WEAKREF(M)
+	fellowship_split_payout = bearer?.current_fellowship?.payout_mode == FELLOWSHIP_PAYOUT_SPLIT
+	fellowship_extras = max(0, length(fellowship_roster) - BLOCKADE_FELLOWSHIP_REQUIREMENT)
+	fellowship_threat_mult = 1 + fellowship_threat_rate * fellowship_extras
+	fellowship_reward_mult = 1 + fellowship_reward_rate * fellowship_extras
+	reward_amount = round(reward_amount * fellowship_reward_mult)
 
 /datum/quest/kill/blockade_defense/proc/wave_tp_budget(wave_num)
 	var/mult = (wave_num < BLOCKADE_TOTAL_WAVES) ? BLOCKADE_EARLY_WAVE_TP_MULT : 1
@@ -401,15 +402,23 @@
 	var/tax_amt = 0
 	var/paid = 0
 	if(payout > 0)
-		if(lead && SStreasury.has_account(lead))
-			var/datum/fund/lead_account = SStreasury.get_account(lead)
-			tax_amt = pay_reward(lead_account, lead, payout, "Blockade defense reward ([quest_giver_name || "Crown"] -> [lead.real_name])", "Blockade defense")
-			paid = payout - tax_amt
-			record_round_statistic(STATS_BLOCKADE_REWARDS_PAID, payout)
-			announce_to_bearer("The final wave breaks. Your reward has been paid to your account. Gross: [payout]m. Tax: [tax_amt]m. Net: [payout - tax_amt]m.")
-		else
+		var/list/shares = fellowship_shares(payout, lead)
+		if(!length(shares))
 			SStreasury.mint(SStreasury.discretionary_fund, payout, "Blockade defense reward (unbanked holder)", null, LEDGER_CROWN_REV_BLOCKADE)
-			announce_to_bearer("The final wave breaks. You have no bank account. Your share went to the Treasury.")
+		for(var/mob/living/payee as anything in shares)
+			var/share = shares[payee]
+			if(!SStreasury.has_account(payee))
+				SStreasury.mint(SStreasury.discretionary_fund, share, "Blockade defense reward (unbanked holder)", null, LEDGER_CROWN_REV_BLOCKADE)
+				announce_to_bearer("The final wave breaks. You have no bank account. Your share went to the Treasury.")
+				continue
+			var/share_tax = pay_reward(SStreasury.get_account(payee), payee, share, "Blockade defense reward ([quest_giver_name || "Crown"] -> [payee.real_name])", "Blockade defense")
+			tax_amt += share_tax
+			paid += share - share_tax
+			if(fellowship_split_payout)
+				to_chat(payee, span_notice("The final wave breaks. Your share of the reward has been paid to your account. Gross: [share]m. Tax: [share_tax]m. Net: [share - share_tax]m."))
+			else
+				announce_to_bearer("The final wave breaks. Your reward has been paid to your account. Gross: [share]m. Tax: [share_tax]m. Net: [share - share_tax]m.")
+		record_round_statistic(STATS_BLOCKADE_REWARDS_PAID, payout)
 	else
 		announce_to_bearer("The final wave breaks. A Request carries no reward.")
 	SSquestpool.record_completion(lead, src, paid, tax_amt)

@@ -412,7 +412,7 @@ SUBSYSTEM_DEF(questpool)
 		return FALSE
 	if(!Q.can_claim(user))
 		return FALSE
-	Q.lock_band(user)
+	Q.lock_fellowship(user)
 	var/obj/effect/landmark/quest_spawner/landmark = resolve_or_repick_landmark(Q)
 	if(!landmark)
 		log_event("claim_failed", "no landmark available for [Q.quest_difficulty] [Q.quest_type]")

@@ -134,9 +134,9 @@
 	data["hoard_recovery_hoard_min"] = HOARD_RECOVERY_HOARD_MINIMUM
 	data["townie_gate_minutes"] = CONTRACT_TOWNIE_GATE_TIME / (1 MINUTES)
 	data["blockade_defender_min"] = BLOCKADE_FELLOWSHIP_REQUIREMENT
-	data["blockade_defender_max"] = QUEST_BAND_SCALE_MAX
-	data["blockade_extra_defender_pct"] = round(QUEST_BAND_REWARD_PER_EXTRA_BLOCKADE * 100)
-	data["blockade_extra_threat_pct"] = round(QUEST_BAND_THREAT_PER_EXTRA_BLOCKADE * 100)
+	data["blockade_defender_max"] = QUEST_FELLOWSHIP_SCALE_MAX
+	data["blockade_extra_defender_pct"] = round(QUEST_FELLOWSHIP_REWARD_PER_EXTRA_BLOCKADE * 100)
+	data["blockade_extra_threat_pct"] = round(QUEST_FELLOWSHIP_THREAT_PER_EXTRA_BLOCKADE * 100)
 	data["towner_crown_cost_mult"] = TOWNER_POSTING_CROWN_COST_MULT
 	data["fellowship_bonus_pair"] = QUEST_ACTIVE_FELLOWSHIP_BONUS_PAIR
 	data["fellowship_bonus_band"] = QUEST_ACTIVE_FELLOWSHIP_BONUS_BAND
@@ -306,9 +306,9 @@ GLOBAL_LIST_INIT(contract_proxy_officials, list(
 			"type" = Q.quest_type,
 			"difficulty" = Q.quest_difficulty,
 			"reward" = Q.reward_amount,
-			"projected_reward" = Q.project_band_reward(user),
-			"band_threat_rate" = Q.band_threat_rate,
-			"band_reward_rate" = Q.band_reward_rate,
+			"projected_reward" = Q.project_fellowship_reward(user),
+			"fellowship_threat_rate" = Q.fellowship_threat_rate,
+			"fellowship_reward_rate" = Q.fellowship_reward_rate,
 			"deposit" = Q.deposit_amount,
 			"area" = Q.target_spawn_area,
 			"region" = Q.region,

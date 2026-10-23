@@ -63,6 +63,7 @@
 		))
 	data["members"] = member_data
 	data["total_summons"] = F.count_summons()
+	data["payout_mode"] = F.payout_mode
 	var/list/invite_data = list()
 	for(var/invitee_name in F.pending_invites)
 		var/list/entry = F.pending_invites[invitee_name]
@@ -114,6 +115,8 @@
 			return handle_rescind(params)
 		if("accept_invite")
 			return handle_accept(params)
+		if("payout_mode")
+			return handle_payout_mode()
 
 /datum/fellowship_ui/proc/handle_create(list/params)
 	if(holder.current_fellowship)
@@ -135,6 +138,18 @@
 		return TRUE
 	new /datum/fellowship(holder, candidate)
 	to_chat(holder, span_notice("You have founded the fellowship '[candidate]'."))
+	return TRUE
+
+/datum/fellowship_ui/proc/handle_payout_mode()
+	var/datum/fellowship/F = holder.current_fellowship
+	if(!F || !F.is_leader(holder))
+		return TRUE
+	F.payout_mode = (F.payout_mode == FELLOWSHIP_PAYOUT_SPLIT) ? FELLOWSHIP_PAYOUT_LEADER : FELLOWSHIP_PAYOUT_SPLIT
+	if(F.payout_mode == FELLOWSHIP_PAYOUT_SPLIT)
+		F.notify_members("Contract rewards will now be split evenly among fellowship members.")
+	else
+		F.notify_members("Contract rewards will now go to whoever turns the contract in.")
+	update_static_data(holder)
 	return TRUE
 
 /datum/fellowship_ui/proc/handle_leave()
