@@ -425,12 +425,13 @@ GLOBAL_LIST_INIT(quest_prototypes, build_quest_prototypes())
 			.[fallback] = amount
 		return
 	var/share = FLOOR(amount / length(fellowship_roster), 1)
-	var/remainder = amount
 	for(var/mob/living/M as anything in payees)
 		.[M] = share
-		remainder -= share
-	var/mob/living/sink = (fallback in payees) ? fallback : payees[1]
-	.[sink] += remainder
+
+/datum/quest/proc/fellowship_leftover_sink(list/shares, mob/living/fallback)
+	if(fallback in shares)
+		return fallback
+	return length(shares) ? shares[1] : null
 
 /datum/quest/proc/project_fellowship_objective(mob/living/user)
 	return get_objective_text()

@@ -403,21 +403,31 @@
 	var/paid = 0
 	if(payout > 0)
 		var/list/shares = fellowship_shares(payout, lead)
-		if(!length(shares))
-			SStreasury.mint(SStreasury.discretionary_fund, payout, "Blockade defense reward (unbanked holder)", null, LEDGER_CROWN_REV_BLOCKADE)
+		var/share_memo = fellowship_split_payout ? "Blockade Reward (Split)" : "Blockade defense reward ([quest_giver_name || "Crown"] -> [lead ? lead.real_name : "unknown"])"
+		var/paid_out = 0
 		for(var/mob/living/payee as anything in shares)
 			var/share = shares[payee]
 			if(!SStreasury.has_account(payee))
-				SStreasury.mint(SStreasury.discretionary_fund, share, "Blockade defense reward (unbanked holder)", null, LEDGER_CROWN_REV_BLOCKADE)
-				announce_to_bearer("The final wave breaks. You have no bank account. Your share went to the Treasury.")
 				continue
-			var/share_tax = pay_reward(SStreasury.get_account(payee), payee, share, "Blockade defense reward ([quest_giver_name || "Crown"] -> [payee.real_name])", "Blockade defense")
+			var/share_tax = pay_reward(SStreasury.get_account(payee), payee, share, share_memo, "Blockade defense")
 			tax_amt += share_tax
 			paid += share - share_tax
+			paid_out += share
 			if(fellowship_split_payout)
 				to_chat(payee, span_notice("The final wave breaks. Your share of the reward has been paid to your account. Gross: [share]m. Tax: [share_tax]m. Net: [share - share_tax]m."))
 			else
 				announce_to_bearer("The final wave breaks. Your reward has been paid to your account. Gross: [share]m. Tax: [share_tax]m. Net: [share - share_tax]m.")
+		var/leftover = payout - paid_out
+		var/mob/living/sink = fellowship_leftover_sink(shares, lead)
+		if(leftover > 0)
+			if(sink && SStreasury.has_account(sink))
+				var/leftover_tax = pay_reward(SStreasury.get_account(sink), sink, leftover, "Blockade Reward (No account leftover)", "Blockade defense")
+				tax_amt += leftover_tax
+				paid += leftover - leftover_tax
+				to_chat(sink, span_notice("[leftover]m of the reward belonged to fellows without an account. It has been deposited into yours. Tax: [leftover_tax]m."))
+			else
+				SStreasury.mint(SStreasury.discretionary_fund, leftover, "Blockade defense reward (unbanked holder)", null, LEDGER_CROWN_REV_BLOCKADE)
+				announce_to_bearer("The final wave breaks. You have no bank account. Your share went to the Treasury.")
 		record_round_statistic(STATS_BLOCKADE_REWARDS_PAID, payout)
 	else
 		announce_to_bearer("The final wave breaks. A Request carries no reward.")
