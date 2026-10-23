@@ -49,7 +49,7 @@
 #define STANDING_ORDER_POP_SCALE_PER_PLAYER 0
 #define STANDING_ORDER_POP_SCALE_MAX 3.0
 
-#define STANDING_ORDER_BASE_BONUS 1.0
+#define STANDING_ORDER_BASE_BONUS 1.5
 
 // Scarcity bonus: boosts order PAYOUT (never required quantity) below reference pop, ramping
 // linearly up to +MAX_BONUS at pop 0. Crown income only, no player-side cut.
