@@ -312,7 +312,7 @@ GLOBAL_LIST_INIT(contract_proxy_officials, list(
 			"deposit" = Q.deposit_amount,
 			"area" = Q.target_spawn_area,
 			"region" = Q.region,
-			"objective" = Q.get_objective_text(),
+			"objective" = Q.project_fellowship_objective(user),
 			"threat_bands" = threat_bands,
 			"levy_exempt" = Q.levy_exempt,
 			"guild_cut_rate" = Q.guild_cut_rate,

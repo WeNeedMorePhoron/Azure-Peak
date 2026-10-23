@@ -1,7 +1,7 @@
 /datum/quest/kill/incursion
 	quest_type = QUEST_INCURSION
 	chronicle_order = QUEST_CHRONICLE_ORDER_INCURSION
-	quest_difficulty = QUEST_DIFFICULTY_HARD
+	quest_difficulty = QUEST_DIFFICULTY_INCURSION
 	pool_kind = QUEST_POOL_KILL
 	pool_weight = QUEST_POOL_WEIGHT_INCURSION
 	rumor_cost = RUMOR_COST_MAJOR
@@ -43,10 +43,10 @@
 	return "Break an incursion of [faction.name_plural]"
 
 /datum/quest/kill/incursion/get_objective_text()
-	var/wave_label = second_wave_sent ? "Second wave" : "First wave"
-	if(!faction)
-		return "[wave_label]: [objective_verb] ~[progress_required] [initial(target_mob_type.name)]. Reinforcements will arrive in [DisplayTimeText(QUEST_INCURSION_INTERMISSION)]."
-	return "[wave_label]: [objective_verb] ~[progress_required] [faction.name_plural]. A group of [faction.group_word] will arrive in [DisplayTimeText(QUEST_INCURSION_INTERMISSION)]."
+	var/plural = faction ? faction.name_plural : initial(target_mob_type.name)
+	if(second_wave_sent)
+		return "Second wave: [objective_verb] ~[progress_required] [plural]."
+	return "First wave: [objective_verb] ~[progress_required] [plural]. A second wave of [plural] will arrive [DisplayTimeText(QUEST_INCURSION_INTERMISSION)] after."
 
 /datum/quest/kill/incursion/proc/second_wave_budget()
 	var/datum/threat_region/TR = SSregionthreat.get_region(region)

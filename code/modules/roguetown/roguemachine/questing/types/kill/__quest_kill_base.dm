@@ -190,6 +190,16 @@
 		return "[objective_verb] ~[progress_required] [initial(target_mob_type.name)]."
 	return "[objective_verb] ~[progress_required] [faction.name_plural]."
 
+/datum/quest/kill/project_fellowship_objective(mob/living/user)
+	var/extras = count_fellowship_extras(user)
+	if(!extras || !fellowship_threat_rate || !kills_count_progress)
+		return get_objective_text()
+	var/saved_required = progress_required
+	var/scaled = estimate_mob_count(round(tp_budget * (1 + fellowship_threat_rate * extras)))
+	progress_required = min(max(scaled, estimate_mob_count() + extras), QUEST_KILL_MAX_MOBS)
+	. = get_objective_text()
+	progress_required = saved_required
+
 /datum/quest/kill/materialize(obj/effect/landmark/quest_spawner/landmark)
 	if(!landmark)
 		return FALSE

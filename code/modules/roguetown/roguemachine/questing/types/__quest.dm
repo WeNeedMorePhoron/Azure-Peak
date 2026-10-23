@@ -3,6 +3,7 @@ GLOBAL_LIST_INIT(quest_difficulty_terms, list(
 	QUEST_DIFFICULTY_MEDIUM = list("bonus" = QUEST_DIFFICULTY_BONUS_MEDIUM, "deposit" = QUEST_DEPOSIT_MEDIUM, "icon" = "scroll_quest_mid"),
 	QUEST_DIFFICULTY_HARD = list("bonus" = QUEST_DIFFICULTY_BONUS_HARD, "deposit" = QUEST_DEPOSIT_HARD, "icon" = "scroll_quest_high"),
 	QUEST_DIFFICULTY_NOTORIOUS = list("bonus" = QUEST_DIFFICULTY_BONUS_NOTORIOUS, "deposit" = QUEST_DEPOSIT_NOTORIOUS, "icon" = "scroll_quest_notorious"),
+	QUEST_DIFFICULTY_INCURSION = list("bonus" = QUEST_DIFFICULTY_BONUS_INCURSION, "deposit" = QUEST_DEPOSIT_INCURSION, "icon" = "scroll_quest_high"),
 ))
 
 GLOBAL_LIST_INIT(quest_prototypes, build_quest_prototypes())
@@ -412,16 +413,14 @@ GLOBAL_LIST_INIT(quest_prototypes, build_quest_prototypes())
 
 /datum/quest/proc/fellowship_shares(amount, mob/living/fallback)
 	. = list()
-	if(!fellowship_split_payout || length(fellowship_roster) < 2)
-		if(fallback)
-			.[fallback] = amount
-		return
 	var/list/payees = list()
 	for(var/datum/weakref/W as anything in fellowship_roster)
 		var/mob/living/M = W.resolve()
 		if(M && SStreasury.has_account(M))
 			payees |= M
-	if(!length(payees))
+	if(fallback && !SStreasury.has_account(fallback) && length(payees))
+		fallback = payees[1]
+	if(!fellowship_split_payout || length(fellowship_roster) < 2 || !length(payees))
 		if(fallback)
 			.[fallback] = amount
 		return
@@ -432,6 +431,9 @@ GLOBAL_LIST_INIT(quest_prototypes, build_quest_prototypes())
 		remainder -= share
 	var/mob/living/sink = (fallback in payees) ? fallback : payees[1]
 	.[sink] += remainder
+
+/datum/quest/proc/project_fellowship_objective(mob/living/user)
+	return get_objective_text()
 
 /datum/quest/proc/project_fellowship_reward(mob/living/user)
 	var/extras = count_fellowship_extras(user)

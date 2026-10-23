@@ -64,6 +64,7 @@
 	data["members"] = member_data
 	data["total_summons"] = F.count_summons()
 	data["payout_mode"] = F.payout_mode
+	data["debug_local"] = !!holder.client?.is_localhost()
 	var/list/invite_data = list()
 	for(var/invitee_name in F.pending_invites)
 		var/list/entry = F.pending_invites[invitee_name]
@@ -117,6 +118,8 @@
 			return handle_accept(params)
 		if("payout_mode")
 			return handle_payout_mode()
+		if("debug_invite")
+			return handle_debug_invite()
 
 /datum/fellowship_ui/proc/handle_create(list/params)
 	if(holder.current_fellowship)
@@ -138,6 +141,25 @@
 		return TRUE
 	new /datum/fellowship(holder, candidate)
 	to_chat(holder, span_notice("You have founded the fellowship '[candidate]'."))
+	return TRUE
+
+/datum/fellowship_ui/proc/handle_debug_invite()
+	var/datum/fellowship/F = holder.current_fellowship
+	if(!F || !F.is_leader(holder) || !holder.client?.is_localhost())
+		return TRUE
+	var/list/candidates = list()
+	for(var/mob/living/carbon/human/H in GLOB.human_list)
+		if(H == holder || H.stat == DEAD || H.current_fellowship)
+			continue
+		candidates["[H.real_name] ([H.ckey || "npc"])"] = H
+	if(!length(candidates))
+		to_chat(holder, span_warning("No one is available to force in."))
+		return TRUE
+	var/choice = tgui_input_list(holder, "Force whom into the fellowship?", "Fellowship (debug)", candidates)
+	var/mob/living/target = candidates[choice]
+	if(!target)
+		return TRUE
+	F.add_member(target)
 	return TRUE
 
 /datum/fellowship_ui/proc/handle_payout_mode()

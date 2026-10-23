@@ -110,7 +110,7 @@ type ContractLedgerData = {
 const ALL_REGIONS = 'All';
 const ALL_DIFFICULTIES = 'All';
 const STANDING_FILTER = 'Standing';
-const DIFFICULTIES = ['Easy', 'Medium', 'Hard', 'Notorious'];
+const DIFFICULTIES = ['Easy', 'Medium', 'Hard', 'Incursion', 'Notorious'];
 const FILTER_BUTTONS = [ALL_DIFFICULTIES, STANDING_FILTER, ...DIFFICULTIES];
 
 type LedgerMode =
@@ -147,6 +147,8 @@ const difficultyPinClass = (difficulty: string) => {
       return 'ContractLedger__Pin ContractLedger__Pin--medium';
     case 'Hard':
       return 'ContractLedger__Pin ContractLedger__Pin--hard';
+    case 'Incursion':
+      return 'ContractLedger__Pin ContractLedger__Pin--incursion';
     case 'Notorious':
       return 'ContractLedger__Pin ContractLedger__Pin--notorious';
     default:
@@ -708,7 +710,7 @@ const ActiveStrip = (props: {
   const fellowshipNote =
     fellowshipBonus > 0
       ? `+${fellowshipBonus} from leading your fellowship`
-      : 'Form a fellowship for more contract slots.';
+      : 'Form a fellowship for more benefits.';
   return (
     <div className="ContractLedger__ActiveStrip">
       <div className="ContractLedger__ActiveStripHeader">
@@ -759,10 +761,14 @@ const ActiveStrip = (props: {
               {data.fellowship_bonus_pair} more with two members,{' '}
               {data.fellowship_bonus_band} more with three or more.
             </div>
-            <div>
+            <div style={{ marginBottom: '6px' }}>
               Fellowship members can turn in each other&apos;s contracts. The
               reward goes to whoever turns it in. Their levy exemption applies
               if they have one.
+            </div>
+            <div>
+              Threat is increased for each additional fellow, but rewards scale
+              up even more.
             </div>
           </div>
         </Dialog>
