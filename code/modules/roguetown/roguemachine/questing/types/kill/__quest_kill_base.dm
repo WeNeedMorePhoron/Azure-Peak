@@ -14,14 +14,18 @@
 	var/hunt_timer_label = "Quarry slips away in"
 	var/hunt_warn_text = "before your targets scatter"
 	var/hunt_timeout_text = "<b>Your targets have scattered.</b> The scroll crumbles to ash in your hand."
+	var/leash_tick_id
+	var/list/leash_strayed_since = list()
 
 /datum/quest/kill/Destroy()
 	clear_hunt_timers()
+	stop_leash_tick()
 	return ..()
 
 /datum/quest/kill/mark_complete()
 	..()
 	clear_hunt_timers()
+	stop_leash_tick()
 	if(threat_bands_cleared <= 0 || !region)
 		return
 	var/datum/threat_region/TR = SSregionthreat.get_region(region)
@@ -33,6 +37,7 @@
 /datum/quest/kill/on_first_pop()
 	if(hunt_timer_id || complete)
 		return
+	start_leash_tick()
 	start_hunt_timer(hunt_duration)
 	announce_to_bearer("<b>The hunt has begun.</b> You have [DisplayTimeText(hunt_duration)] to kill them before they scatter and the contract fails.")
 
@@ -69,6 +74,7 @@
 		return
 	clear_hunt_timers()
 	failed = TRUE
+	stop_leash_tick()
 	record_contract_stat(src, CONTRACT_STAT_FAILED)
 	announce_to_bearer(message)
 	SSquestpool.refund_closed_posting(src, QUEST_ISSUE_STATUS_FAILED, REFUND_ON_FAILURE, "Failed posting refund", "failed")
@@ -91,9 +97,68 @@
 		var/mob/living/M = A
 		if(M.stat == DEAD)
 			continue
+		var/datum/component/quest_object/kill/kill_component = M.GetComponent(/datum/component/quest_object/kill)
+		if(kill_component)
+			kill_component.counted = TRUE
 		if(M.client)
 			M.ghostize(FALSE)
 		qdel(M)
+
+/datum/quest/kill/proc/start_leash_tick()
+	if(leash_tick_id)
+		return
+	leash_tick_id = addtimer(CALLBACK(src, PROC_REF(leash_tick)), QUEST_GUARDIAN_LEASH_TICK, TIMER_STOPPABLE | TIMER_LOOP)
+
+/datum/quest/kill/proc/stop_leash_tick()
+	if(leash_tick_id)
+		deltimer(leash_tick_id)
+		leash_tick_id = null
+	leash_strayed_since.Cut()
+
+/datum/quest/kill/proc/leash_tick()
+	if(complete || failed)
+		stop_leash_tick()
+		return
+	var/obj/effect/landmark/quest_spawner/landmark = pending_landmark_ref?.resolve()
+	var/turf/home = get_turf(landmark)
+	if(!home)
+		return
+	for(var/datum/weakref/W in tracked_atoms)
+		var/mob/living/M = W.resolve()
+		if(!istype(M) || M.stat == DEAD || M.client)
+			leash_strayed_since -= W
+			continue
+		var/turf/T = get_turf(M)
+		if(T && T.z == home.z && get_dist(T, home) <= QUEST_GUARDIAN_LEASH_RANGE)
+			leash_strayed_since -= W
+			continue
+		if(!leash_strayed_since[W])
+			leash_strayed_since[W] = world.time
+			continue
+		if(world.time - leash_strayed_since[W] < QUEST_GUARDIAN_LEASH_GRACE)
+			continue
+		if(player_watching(T))
+			continue
+		leash_strayed_since -= W
+		return_guardian_home(M, landmark)
+
+/datum/quest/kill/proc/player_watching(turf/T)
+	if(!T)
+		return FALSE
+	for(var/mob/living/L in GLOB.player_list)
+		if(L.stat == DEAD)
+			continue
+		var/turf/LT = get_turf(L)
+		if(LT && LT.z == T.z && get_dist(LT, T) <= QUEST_GUARDIAN_LEASH_WATCH_RANGE)
+			return TRUE
+	return FALSE
+
+/datum/quest/kill/proc/return_guardian_home(mob/living/M, obj/effect/landmark/quest_spawner/landmark)
+	var/turf/dest = landmark.get_safe_spawn_turf() || get_turf(landmark)
+	M.forceMove(dest)
+	if(M.ai_controller)
+		M.ai_controller.CancelActions()
+		M.ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
 
 /datum/quest/kill/proc/any_guardians_alive()
 	for(var/datum/weakref/W in tracked_atoms)

@@ -37,6 +37,7 @@ GLOBAL_LIST_EMPTY(quest_scrolls)
 	armor = ARMOR_INDESTRUCTIBLE
 	var/base_icon_state = "scroll_quest"
 	var/datum/quest/assigned_quest
+	var/claim_in_progress = FALSE
 	var/last_compass_direction = ""
 	var/last_z_level_hint = ""
 	var/last_whisper = 0
@@ -70,6 +71,13 @@ GLOBAL_LIST_EMPTY(quest_scrolls)
 		target_whisper()
 
 /obj/item/quest_writ/proc/try_hand_claim(mob/user)
+	if(claim_in_progress)
+		return FALSE
+	claim_in_progress = TRUE
+	. = do_hand_claim(user)
+	claim_in_progress = FALSE
+
+/obj/item/quest_writ/proc/do_hand_claim(mob/user)
 	var/datum/quest/Q = assigned_quest
 	if(Q.quest_giver_name && Q.quest_giver_name == user.real_name && !Q.issuer_may_claim && !SSquestpool.debug_mode)
 		to_chat(user, span_warning("You can't take a contract you issued."))
