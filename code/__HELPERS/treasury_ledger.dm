@@ -2,7 +2,6 @@
 #define TREASURY_FLOW_WITHDRAWAL "Direct Withdrawal"
 #define TREASURY_FLOW_UNAUTHORIZED "Unauthorized Withdrawal"
 #define TREASURY_FLOW_TRANSFER "Treasury Transfer"
-#define TREASURY_FLOW_STIPEND "Starting Stipend"
 #define TREASURY_FLOW_STOCKPILE "Stockpile Purchases"
 #define TREASURY_FLOW_IMPORT "Crown Import"
 #define TREASURY_FLOW_AUTOIMPORT "Autoimport"
@@ -19,7 +18,6 @@ GLOBAL_LIST_INIT(treasury_flow_order, list(
 	TREASURY_FLOW_WITHDRAWAL,
 	TREASURY_FLOW_UNAUTHORIZED,
 	TREASURY_FLOW_TRANSFER,
-	TREASURY_FLOW_STIPEND,
 	TREASURY_FLOW_STOCKPILE,
 	TREASURY_FLOW_IMPORT,
 	TREASURY_FLOW_AUTOIMPORT,
@@ -48,6 +46,16 @@ GLOBAL_LIST_EMPTY(treasury_expense_ledger)
 		for(var/role in by_role)
 			total += by_role[role]
 	return total
+
+/proc/treasury_flow_total(mechanism)
+	var/total = 0
+	var/list/by_role = GLOB.treasury_expense_ledger[mechanism]
+	for(var/role in by_role)
+		total += by_role[role]
+	return total
+
+/proc/crown_import_spending()
+	return treasury_flow_total(TREASURY_FLOW_IMPORT) + treasury_flow_total(TREASURY_FLOW_AUTOIMPORT) + treasury_flow_total(TREASURY_FLOW_SUBSIDY)
 
 /proc/cmp_treasury_role_desc(list/a, list/b)
 	return b["amount"] - a["amount"]
