@@ -39,7 +39,7 @@
 	. += span_info("The <b>Innkeeper and their tavern staff</b> (Cook, Tapster) may compose rumor contracts here. They spend Rumor Points to seed contracts across the realm.")
 	. += span_info("The <b>[english_list(GLOB.crown_authority_roles)]</b> can issue defense scrolls here. Scrolls are paid from the Burgher Pledge or the Treasury. A scroll can also go out as an unpaid Request. If the Pledge runs short, the Treasury can make up the difference. A Regent ruling in the Grand Duke's absence can issue scrolls while they rule.")
 	. += span_info("You can <b>withdraw</b> any contract or scroll you posted from Your Postings at any time while no one has taken it. Once someone takes it, you must wait [MIN_TIME_BEFORE_CANCEL_TAKEN_QUEST / (1 MINUTES)] minutes. You can't withdraw it once the work has begun. Withdrawing refunds [REFUND_ON_NOT_TAKEN * 100]% of the cost, and so does a posting that lapses untaken. If a contract fails, [REFUND_ON_FAILURE * 100]% is refunded automatically. If its holder abandons it, you get [REFUND_ON_NOT_TAKEN * 100]% back before the work begins and [REFUND_ON_FAILURE * 100]% after.")
-	. += span_info("Some <b>townsfolk</b> can post contracts of their own and pay for them with their own money, up to [TOWNER_MAX_ACTIVE_POSTINGS] at a time. They can pin them to the Ledger or hand them over in person. The <b>[english_list(GLOB.crown_authority_roles)]</b> can post any of them. The Treasury pays [TOWNER_POSTING_CROWN_COST_MULT] times the price. Only the poster can open what is recovered.")
+	. += span_info("Some <b>townsfolk</b> can post contracts of their own and pay for them with their own money, up to [TOWNER_MAX_ACTIVE_POSTINGS] at a time. They can pin them to the Ledger or hand them over in person. The <b>[english_list(GLOB.crown_authority_roles)]</b> can post any of them. The Treasury pays [TOWNER_POSTING_CROWN_COST_MULT] times the price. The <b>[english_list(GLOB.atc_positions)]</b> can post any of them from the ATC's treasury at [TOWNER_POSTING_COMPANY_COST_MULT] times the price. Only the poster can open what is recovered.")
 	. += span_info("Your <b>fellowship</b> can turn in contracts you hold if you fall in battle. The reward goes to whoever turns it in. Their levy exemption applies if they have one.")
 	. += span_info("A <b>fellowship of [BLOCKADE_FELLOWSHIP_REQUIREMENT] or more</b> can put up a stake of <b>[HOARD_RECOVERY_PLEDGE] mammon</b> to call for a <b>Hoard Recovery</b> in a region whose brigand hoard has reached <b>[HOARD_RECOVERY_HOARD_MINIMUM] mammon</b>. It pays the usual blockade reward. The Crown taxes the recovered hoard as <b>Recovered Spoils</b>. Crown officials can also issue a hoard recovery scroll like any other defense scroll.")
 	. += span_info("A ghost may take up a <b>Notorious Bounty</b> and play the outlaw fighting against you. Its reward then rises by <b>[NOTORIOUS_BOUNTY_PLAYER_BONUS] mammon</b>. If no one answers, it rises by <b>[NOTORIOUS_BOUNTY_NPC_BONUS]</b>.")
@@ -187,6 +187,8 @@
 	if("towner" in dynamic_roles)
 		data["towner_postings"] = build_towner_posting_listing(user)
 		data["towner_purse_balance"] = SStreasury?.discretionary_fund?.balance || 0
+		data["towner_company_balance"] = SStreasury?.merchant_fund?.balance || 0
+		data["towner_company_cost_mult"] = TOWNER_POSTING_COMPANY_COST_MULT
 		data["towner_active_postings"] = count_active_towner_postings(user)
 		data["towner_max_postings"] = TOWNER_MAX_ACTIVE_POSTINGS
 	return data
