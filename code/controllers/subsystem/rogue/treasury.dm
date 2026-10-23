@@ -348,7 +348,7 @@ SUBSYSTEM_DEF(treasury)
 		return FALSE
 	return mint(account, amt, "Savings", null, LEDGER_CITIZEN_ESTATE)
 
-/datum/controller/subsystem/treasury/proc/give_money_account(amt, target, source, mint_new = FALSE, mint_label, is_salary = FALSE, expense_acct, income_acct)
+/datum/controller/subsystem/treasury/proc/give_money_account(amt, target, source, mint_new = FALSE, mint_label, is_salary = FALSE, expense_acct, income_acct, flow)
 	if(!amt)
 		return
 	if(!target)
@@ -371,9 +371,10 @@ SUBSYSTEM_DEF(treasury)
 			var/payee_acct = income_acct || (is_salary ? LEDGER_CITIZEN_WAGES : null)
 			if(!transfer(discretionary_fund, account, amt, source, payer_acct, payee_acct))
 				return FALSE
-		record_round_statistic(STATS_DIRECT_TREASURY_TRANSFERS, amt)
 		if(!mint_new)
-			record_treasury_payout(usr, istype(target, /mob/living) ? target : null, amt, is_salary)
+			if(!is_salary && !flow)
+				record_round_statistic(STATS_DIRECT_TREASURY_TRANSFERS, amt)
+			record_treasury_payout(usr, istype(target, /mob/living) ? target : null, amt, is_salary, flow)
 		send_ooc_note(source ? "<b>MEISTER:</b> You received [amt]m. ([source])" : "<b>MEISTER:</b> You received [amt]m.", name = target_name)
 		log_game("CROWN GRANT: [usr ? key_name(usr) : "system"] granted [amt]m to [istype(target, /mob/living) ? key_name(target) : target_name] via [source || "unknown"]")
 		if(isliving(target))

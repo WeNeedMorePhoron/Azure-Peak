@@ -2,7 +2,11 @@
 #define TREASURY_FLOW_WITHDRAWAL "Direct Withdrawal"
 #define TREASURY_FLOW_UNAUTHORIZED "Unauthorized Withdrawal"
 #define TREASURY_FLOW_TRANSFER "Treasury Transfer"
+#define TREASURY_FLOW_STIPEND "Starting Stipend"
+#define TREASURY_FLOW_STOCKPILE "Stockpile Purchases"
 #define TREASURY_FLOW_IMPORT "Crown Import"
+#define TREASURY_FLOW_AUTOIMPORT "Autoimport"
+#define TREASURY_FLOW_SUBSIDY "Royal Subsidy"
 #define TREASURY_FLOW_CONTRACT "Contract Commissions"
 #define TREASURY_FLOW_TITHE "Church Tithe"
 #define TREASURY_FLOW_BANDITRY "Banditry Losses"
@@ -15,7 +19,11 @@ GLOBAL_LIST_INIT(treasury_flow_order, list(
 	TREASURY_FLOW_WITHDRAWAL,
 	TREASURY_FLOW_UNAUTHORIZED,
 	TREASURY_FLOW_TRANSFER,
+	TREASURY_FLOW_STIPEND,
+	TREASURY_FLOW_STOCKPILE,
 	TREASURY_FLOW_IMPORT,
+	TREASURY_FLOW_AUTOIMPORT,
+	TREASURY_FLOW_SUBSIDY,
 	TREASURY_FLOW_CONTRACT,
 	TREASURY_FLOW_TITHE,
 	TREASURY_FLOW_BANDITRY,
@@ -55,12 +63,15 @@ GLOBAL_LIST_EMPTY(treasury_expense_ledger)
 		GLOB.treasury_expense_ledger[mechanism] = bucket
 	bucket[role] = (bucket[role] || 0) + amount
 
-/proc/record_treasury_payout(mob/actor, mob/recipient, amount, is_salary = FALSE)
+/proc/record_treasury_payout(mob/actor, mob/recipient, amount, is_salary = FALSE, flow)
 	if(amount <= 0)
 		return
 	var/role = treasury_role_of(recipient)
 	if(is_salary)
 		record_treasury_expense(TREASURY_FLOW_SALARY, role, amount)
+		return
+	if(flow)
+		record_treasury_expense(flow, role, amount)
 		return
 	if(actor && actor == recipient)
 		record_treasury_expense(has_fiscal_authority(actor) ? TREASURY_FLOW_WITHDRAWAL : TREASURY_FLOW_UNAUTHORIZED, role, amount)

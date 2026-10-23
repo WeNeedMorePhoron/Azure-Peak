@@ -917,7 +917,6 @@ SUBSYSTEM_DEF(economy)
 		SStreasury.burn(SStreasury.discretionary_fund, total_cost, "[import_label]: [quantity] [tg.name] from [region.name][actor_suffix]", LEDGER_CROWN_EXP_IMPORTS)
 	else
 		SStreasury.burn(SStreasury.discretionary_fund, total_cost, "[import_label]: [tg.name] from [region.name][actor_suffix]", LEDGER_CROWN_EXP_IMPORTS)
-	record_treasury_expense(TREASURY_FLOW_IMPORT, user ? treasury_role_of(user) : "Automatic", total_cost)
 
 	region.produces_today[good_id] = produces_today - quantity
 	var/datum/roguestock/stockpile_entry = find_stockpile_by_trade_good(good_id)

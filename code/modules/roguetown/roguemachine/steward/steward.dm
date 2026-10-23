@@ -484,6 +484,7 @@
 		return
 	var/spent = SSeconomy.manual_import(user, region_id, good_id, quantity)
 	if(spent > 0)
+		record_treasury_expense(TREASURY_FLOW_IMPORT, treasury_role_of(user), spent)
 		if(is_alderman_acting)
 			SScity_assembly.consume_trade(spent, user, "import [quantity] [tg.name] from [region.name]")
 		say("Azure Peak imports [quantity] [tg.name] from [region.name] for [spent] mammon.")
