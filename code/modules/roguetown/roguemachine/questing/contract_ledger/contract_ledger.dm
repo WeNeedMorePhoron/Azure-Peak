@@ -133,9 +133,10 @@
 	data["hoard_recovery_fellowship_min"] = BLOCKADE_FELLOWSHIP_REQUIREMENT
 	data["hoard_recovery_hoard_min"] = HOARD_RECOVERY_HOARD_MINIMUM
 	data["townie_gate_minutes"] = CONTRACT_TOWNIE_GATE_TIME / (1 MINUTES)
-	data["blockade_defender_min"] = BLOCKADE_DEFENDER_SCALE_MIN
-	data["blockade_defender_max"] = BLOCKADE_DEFENDER_SCALE_MAX
-	data["blockade_extra_defender_pct"] = round(BLOCKADE_REWARD_PER_EXTRA_DEFENDER * 100)
+	data["blockade_defender_min"] = BLOCKADE_FELLOWSHIP_REQUIREMENT
+	data["blockade_defender_max"] = QUEST_BAND_SCALE_MAX
+	data["blockade_extra_defender_pct"] = round(QUEST_BAND_REWARD_PER_EXTRA_BLOCKADE * 100)
+	data["blockade_extra_threat_pct"] = round(QUEST_BAND_THREAT_PER_EXTRA_BLOCKADE * 100)
 	data["towner_crown_cost_mult"] = TOWNER_POSTING_CROWN_COST_MULT
 	data["fellowship_bonus_pair"] = QUEST_ACTIVE_FELLOWSHIP_BONUS_PAIR
 	data["fellowship_bonus_band"] = QUEST_ACTIVE_FELLOWSHIP_BONUS_BAND

@@ -436,6 +436,8 @@ GLOBAL_LIST_INIT(quest_prototypes, build_quest_prototypes())
 	record_contract_signer(src, user.ckey)
 
 /datum/quest/proc/get_party_size()
+	if(band_roster)
+		return length(band_roster)
 	var/mob/living/bearer = quest_receiver_reference?.resolve()
 	if(!istype(bearer) || !bearer.current_fellowship)
 		return 1
