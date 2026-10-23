@@ -5,7 +5,7 @@
 	pool_kind = QUEST_POOL_KILL
 	pool_weight = QUEST_POOL_WEIGHT_INCURSION
 	rumor_cost = RUMOR_COST_MAJOR
-	defense_cost = BURGHER_PLEDGE_COST_MAJOR
+	defense_cost = BURGHER_PLEDGE_COST_INCURSION
 	eligible_regions = list(
 		THREAT_REGION_AZURE_GROVE,
 		THREAT_REGION_TERRORBOG,
