@@ -125,7 +125,7 @@
 	var/mob/living/L = user
 	var/datum/fellowship/F = istype(L) ? L.current_fellowship : null
 	data["user_fellowship_size"] = F ? length(F.get_members()) : 0
-	data["pool"] = build_pool_listing()
+	data["pool"] = build_pool_listing(user)
 	data["active"] = build_active_listing(user)
 	data["regions"] = build_region_listing()
 	data["hoard_recovery_regions"] = build_hoard_recovery_region_listing()
@@ -291,7 +291,7 @@ GLOBAL_LIST_INIT(contract_proxy_officials, list(
 	to_chat(user, span_notice("Recovery scroll issued for [TR.region_name]."))
 	SSquestpool.log_event("hoard_recovery_request", "[user.real_name] called a hoard recovery on [TR.region_name] (hoard [TR.banditry_hoard], pledge [HOARD_RECOVERY_PLEDGE])")
 
-/obj/structure/roguemachine/contractledger/proc/build_pool_listing()
+/obj/structure/roguemachine/contractledger/proc/build_pool_listing(mob/living/user)
 	var/list/listing = list()
 	for(var/datum/quest/Q as anything in SSquestpool.pool)
 		var/threat_bands = 0
@@ -305,6 +305,9 @@ GLOBAL_LIST_INIT(contract_proxy_officials, list(
 			"type" = Q.quest_type,
 			"difficulty" = Q.quest_difficulty,
 			"reward" = Q.reward_amount,
+			"projected_reward" = Q.project_band_reward(user),
+			"band_threat_rate" = Q.band_threat_rate,
+			"band_reward_rate" = Q.band_reward_rate,
 			"deposit" = Q.deposit_amount,
 			"area" = Q.target_spawn_area,
 			"region" = Q.region,

@@ -69,6 +69,14 @@ GLOBAL_LIST_INIT(quest_prototypes, build_quest_prototypes())
 	var/faction_id
 	var/datum/quest_faction/faction
 	var/required_fellowship_size = 0
+	var/band_threat_rate = 0
+	var/band_reward_rate = 0
+	var/list/band_roster
+	var/band_extras = 0
+	var/band_threat_mult = 1
+	var/band_reward_mult = 1
+	var/turf/reward_origin_turf
+	var/turf/reward_target_turf
 	var/issuer_may_claim = FALSE
 	var/levy_exempt = FALSE
 	var/guild_cut_rate = GUILD_REFERRAL_FEE_PCT
@@ -377,6 +385,37 @@ GLOBAL_LIST_INIT(quest_prototypes, build_quest_prototypes())
 		if(length(F.get_members()) < required_fellowship_size)
 			return FALSE
 	return TRUE
+
+/datum/quest/proc/count_band_extras(mob/living/user)
+	var/datum/fellowship/F = user?.current_fellowship
+	var/size = F ? min(length(F.get_members()), QUEST_BAND_SCALE_MAX) : 1
+	return max(0, size - max(1, required_fellowship_size))
+
+/datum/quest/proc/lock_band(mob/living/user)
+	if(band_roster)
+		return
+	band_roster = list()
+	var/datum/fellowship/F = user?.current_fellowship
+	var/list/members = F ? F.get_members() : list(user)
+	for(var/mob/living/M as anything in members)
+		if(length(band_roster) >= QUEST_BAND_SCALE_MAX)
+			break
+		band_roster += WEAKREF(M)
+	band_extras = count_band_extras(user)
+	if(!band_extras || (!band_threat_rate && !band_reward_rate))
+		return
+	band_threat_mult = 1 + band_threat_rate * band_extras
+	band_reward_mult = 1 + band_reward_rate * band_extras
+	reward_amount = round(calculate_reward(reward_origin_turf, reward_target_turf) * band_reward_mult)
+
+/datum/quest/proc/project_band_reward(mob/living/user)
+	var/extras = count_band_extras(user)
+	if(!extras || (!band_threat_rate && !band_reward_rate))
+		return reward_amount
+	var/saved_mult = band_threat_mult
+	band_threat_mult = 1 + band_threat_rate * extras
+	. = round(calculate_reward(reward_origin_turf, reward_target_turf) * (1 + band_reward_rate * extras))
+	band_threat_mult = saved_mult
 
 /datum/quest/proc/claim_failure_reason(mob/living/user)
 	if(required_fellowship_size > 0)

@@ -19,6 +19,9 @@ type Contract = {
   type: string;
   difficulty: string;
   reward: number;
+  projected_reward: number;
+  band_threat_rate: number;
+  band_reward_rate: number;
   deposit: number;
   area: string;
   region: string;
@@ -497,6 +500,7 @@ const ContractCard = (props: { contract: Contract }) => {
     cantAfford ||
     fellowshipShort;
   const exemptList = (data.townie_contract_gate_exempt_jobs || []).join(', ');
+  const payout = c.projected_reward ?? c.reward;
   const title = noAccount
     ? 'No bank account. Register with a Meister first.'
     : gateRemaining > 0
@@ -565,14 +569,31 @@ const ContractCard = (props: { contract: Contract }) => {
       )}
       <div className="ContractLedger__CardRow">
         <span className="ContractLedger__CardLabel">Reward</span>
-        <span className="ContractLedger__CardValue">{c.reward}</span>
+        <span className="ContractLedger__CardValue">
+          {payout}
+          {payout !== c.reward && (
+            <span style={{ color: '#8a7a5a', marginLeft: '0.4em' }}>
+              ({c.reward} base)
+            </span>
+          )}
+        </span>
       </div>
+      {c.band_reward_rate > 0 && (
+        <div className="ContractLedger__CardRow">
+          <span className="ContractLedger__CardLabel">Per extra fellow</span>
+          <span className="ContractLedger__CardValue">
+            +{formatRatioPct(c.band_reward_rate)} pay
+            {c.band_threat_rate > 0 &&
+              `, +${formatRatioPct(c.band_threat_rate)} foes`}
+          </span>
+        </div>
+      )}
       {(() => {
         const levyRate = c.levy_exempt ? 0 : data.tax_rate;
         const guildRate = c.guild_cut_rate || 0;
-        const levy = Math.round(c.reward * levyRate);
-        const guild = Math.round(c.reward * guildRate);
-        const purse = c.reward - levy - guild;
+        const levy = Math.round(payout * levyRate);
+        const guild = Math.round(payout * guildRate);
+        const purse = payout - levy - guild;
         return (
           <>
             {!c.levy_exempt && data.tax_rate > 0 && (

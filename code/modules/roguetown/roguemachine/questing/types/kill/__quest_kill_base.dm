@@ -250,8 +250,8 @@
 /datum/quest/kill/fits_region(datum/threat_region/TR)
 	return !!pick_region_faction_for(TR)
 
-/datum/quest/kill/proc/estimate_mob_count()
-	if(!faction || !length(faction.mob_types) || tp_budget <= 0)
+/datum/quest/kill/proc/estimate_mob_count(budget = tp_budget)
+	if(!faction || !length(faction.mob_types) || budget <= 0)
 		return 1
 	var/total_weight = 0
 	var/weighted_tp = 0
@@ -264,7 +264,7 @@
 		return 1
 	var/avg_tp = weighted_tp / total_weight
 	// Match compose_warband's min/max so the preview count and the actual spawn agree.
-	return clamp(round(tp_budget / avg_tp), min_mobs, QUEST_KILL_MAX_MOBS)
+	return clamp(round(budget / avg_tp), min_mobs, QUEST_KILL_MAX_MOBS)
 
 /proc/initial_threat_point(mob_path)
 	var/mob/living/M = mob_path
@@ -313,7 +313,7 @@
 	var/list/result = list()
 	if(!faction || !length(faction.mob_types) || tp_budget <= 0)
 		return result
-	var/budget = tp_budget
+	var/budget = round(tp_budget * band_threat_mult)
 	var/list/candidates = compose_candidates()
 	if(!length(candidates))
 		return result
@@ -341,10 +341,14 @@
 		if(!picked)
 			break
 		result += picked
+	if(band_extras && band_threat_mult > 1)
+		var/floor_count = min(estimate_mob_count() + band_extras, QUEST_KILL_MAX_MOBS)
+		while(length(result) < floor_count)
+			result += pickweight(candidates)
 	return result
 
 /datum/quest/kill/get_additional_reward(turf/origin_turf, turf/target_turf)
 	if(total_spawned_tp > 0)
 		return total_spawned_tp * QUEST_KILL_THREAT_MULT
 	// Preview-time estimate: assume we'll spend the full budget.
-	return tp_budget * QUEST_KILL_THREAT_MULT
+	return round(tp_budget * band_threat_mult) * QUEST_KILL_THREAT_MULT

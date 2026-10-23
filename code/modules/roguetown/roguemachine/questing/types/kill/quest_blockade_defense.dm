@@ -10,6 +10,7 @@
 	tp_budget = BLOCKADE_WAVE_BASE_TP
 	threat_bands_cleared = QUEST_BANDS_BLOCKADE
 	required_fellowship_size = 0
+	band_reward_rate = QUEST_BAND_REWARD_PER_EXTRA
 
 	var/current_wave = 0
 	var/wave_timer_id
@@ -102,6 +103,9 @@
 
 /datum/quest/kill/blockade_defense/calculate_reward(turf/origin_turf, turf/target_turf)
 	return reward_amount
+
+/datum/quest/kill/blockade_defense/lock_band(mob/living/user)
+	return
 
 /datum/quest/kill/blockade_defense/materialize(obj/effect/landmark/quest_spawner/landmark)
 	if(!landmark)
