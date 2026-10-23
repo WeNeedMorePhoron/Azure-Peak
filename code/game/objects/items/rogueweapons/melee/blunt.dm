@@ -51,8 +51,12 @@
 // Do not call handle_knockback like in knockback cuz that means it will hardstun.
 
 /datum/intent/mace/smash/prewarning()
-	if(mastermob)
-		playsound(mastermob, pick('sound/combat/wooshes/blunt/wooshhuge (2).ogg'), 100, FALSE)
+	if(!mastermob || mastermob.next_move > world.time)
+		return
+	if(last_prewarning_sound > world.time)
+		return
+	last_prewarning_sound = world.time + clickcd
+	playsound(mastermob, pick('sound/combat/wooshes/blunt/wooshhuge (2).ogg'), 100, FALSE)
 
 /datum/intent/mace/smash/lesser
 	name = "one-handed smash" //Exclusive to Warhammers, and other mace-styled bludgeons that can only be wielded in one hand.
@@ -589,19 +593,12 @@
 	smeltresult = /obj/item/ingot/copper
 	wdefense = 2
 
-/obj/item/rogueweapon/mace/cudgel/justice
+/obj/item/rogueweapon/mace/cudgel/flanged/justice
 	name = "\"Justice\""
 	desc = "The icon of the right of office of the Marshal. While mostly ceremonial in design, it serves its purpose in dishing out some much needed justice."
 	force = 30
 	icon_state = "justice"
-	possible_item_intents = list(/datum/intent/mace/strike, /datum/intent/mace/smash, /datum/intent/effect/daze, /datum/intent/mace/strike/dislocate)
-	smeltresult = /obj/item/ingot/steel
-	wlength = WLENGTH_SHORT
-	w_class = WEIGHT_CLASS_NORMAL
-	wbalance = WBALANCE_SWIFT
-	resistance_flags = FIRE_PROOF
-	minstr = 7
-	wdefense = 5
+	wdefense = 6
 
 /obj/item/rogueweapon/mace/cudgel/justice/getonmobprop(tag)
 	. = ..()
