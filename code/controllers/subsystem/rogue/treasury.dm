@@ -108,6 +108,7 @@ SUBSYSTEM_DEF(treasury)
 	var/loan_max_issuance_day = 5
 	var/list/poll_levy_owed = list()
 	var/list/poll_levies = list()
+	var/list/poll_levy_grace_until = list()
 	var/levy_rates_changed_day = -1
 	/// Steward-settable floor. Stockpile refuses purchases when Crown's Purse would drop below this.
 	var/stockpile_purchase_floor = STOCKPILE_CROWN_PURCHASE_FLOOR_DEFAULT
@@ -630,6 +631,7 @@ SUBSYSTEM_DEF(treasury)
 	bank_accounts -= person
 	write_off_poll_levy_receivable(poll_levy_owed[person] || 0, "Poll levy arrears written off (departed)")
 	poll_levy_owed -= person
+	poll_levy_grace_until -= person
 	return TRUE
 
 /datum/controller/subsystem/treasury/proc/apply_rate_adjustments(list/adjustments, good_announcement_text, bad_announcement_text)
