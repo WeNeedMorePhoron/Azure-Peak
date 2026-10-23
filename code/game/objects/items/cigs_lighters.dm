@@ -766,7 +766,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			packeditem = 1
 			if(G.list_reagents?.len)
 				reagents.add_reagent_list(G.list_reagents)
-				reagents.add_reagent(/datum/reagent/ozium, 5)
+				reagents.add_reagent(/datum/reagent/ozium, 5) // arbitrary extra amount so it still processes w/ current smoketime
 			qdel(O)
 		else
 			to_chat(user, span_warning("It is already packed!"))
