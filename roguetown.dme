@@ -3163,6 +3163,7 @@
 #include "code\modules\roguetown\roguemachine\questing\types\kill\quest_blockade_defense.dm"
 #include "code\modules\roguetown\roguemachine\questing\types\kill\quest_bounty.dm"
 #include "code\modules\roguetown\roguemachine\questing\types\kill\quest_clearout.dm"
+#include "code\modules\roguetown\roguemachine\questing\types\kill\quest_incursion.dm"
 #include "code\modules\roguetown\roguemachine\questing\types\kill\quest_kill_easy.dm"
 #include "code\modules\roguetown\roguemachine\questing\types\kill\quest_notorious_bounty.dm"
 #include "code\modules\roguetown\roguemachine\questing\types\kill\quest_raid.dm"
