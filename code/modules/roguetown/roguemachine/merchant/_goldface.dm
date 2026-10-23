@@ -39,6 +39,7 @@
 	var/value_record_key = STATS_GOLDFACE_VALUE_SPENT
 	// True to make sure it bypass all taxes no matter what
 	var/bypass_tax = FALSE
+	var/blockade_surcharge = TRUE
 	var/list/categories = list(
 		"Alcohols",
 		"Apparel",
@@ -152,6 +153,7 @@
 	icon_state = "vheslie"
 	lockid = "Vheslie"
 	profit_id = list("Bathmaster") //Hilarious (not you can unlock this)
+	blockade_surcharge = FALSE
 	categories = list(
 		"Apparel (Ascendant Amulets)", //Wretch Exclusive Supplies
 		"Illicit Medical Supplies",
