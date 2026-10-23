@@ -36,6 +36,7 @@ type FellowshipData = {
   fellowship_name?: string;
   is_leader?: BooleanLike;
   payout_mode?: string;
+  debug_local?: BooleanLike;
   leader_name?: string | null;
   leader_present?: BooleanLike;
   members?: Member[];
@@ -223,13 +224,25 @@ const FellowshipView = () => {
           <Section
             title="Invitations"
             buttons={
-              <Button
-                icon="user-plus"
-                disabled={members.length >= (data.max_members || 6)}
-                onClick={() => act('invite')}
-              >
-                Invite Nearby
-              </Button>
+              <>
+                {!!data.debug_local && (
+                  <Button
+                    icon="bug"
+                    color="purple"
+                    disabled={members.length >= (data.max_members || 6)}
+                    onClick={() => act('debug_invite')}
+                  >
+                    Force Invite
+                  </Button>
+                )}
+                <Button
+                  icon="user-plus"
+                  disabled={members.length >= (data.max_members || 6)}
+                  onClick={() => act('invite')}
+                >
+                  Invite Nearby
+                </Button>
+              </>
             }
           >
             {outgoing.length === 0 ? (
