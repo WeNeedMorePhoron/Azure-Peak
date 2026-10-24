@@ -110,7 +110,7 @@
 	affected.Paralyze(15)
 	shake_camera(affected, 2, 2)
 	playsound(affected, 'sound/health/burning.ogg', 60, TRUE)
-	if(iscarbon(owner) && owner.mind && (!HAS_TRAIT(affected, TRAIT_BREADY) || !HAS_TRAIT(affected, TRAIT_INFINITE_ENERGY) || !HAS_TRAIT(affected, TRAIT_INFINITE_STAMINA)))
+	if(iscarbon(owner) && owner.mind)
 		affected.apply_status_effect(/datum/status_effect/debuff/critwounded) //apply critically wounded - more energy in cmode cost. Until fixed.
 
 /datum/wound/charring/sew_wound()

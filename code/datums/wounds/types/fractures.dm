@@ -83,7 +83,7 @@
 		affected.emote(gain_emote, TRUE)
 	affected.Slowdown(20)
 	shake_camera(affected, 2, 2)
-	if(iscarbon(affected) && owner.mind && (!HAS_TRAIT(affected, TRAIT_BREADY) || !HAS_TRAIT(affected, TRAIT_INFINITE_ENERGY) || !HAS_TRAIT(affected, TRAIT_INFINITE_STAMINA)))
+	if(iscarbon(owner) && owner.mind)
 		affected.apply_status_effect(/datum/status_effect/debuff/critwounded) //apply critically wounded - more energy in cmode cost. Until fixed.
 
 /datum/wound/fracture/proc/set_bone()
