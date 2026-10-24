@@ -1395,27 +1395,27 @@
 	path = /obj/item/storage/belt/rogue/leather/ulqsusbelt
 	ckeywhitelist = list("seraphlemonade")
 
-//Obsidian weapons
-/datum/loadout_item/donator/universal/obsidian_sickle
-	name = "Elixir - Obsidian sickle (sword)"
-	path = /obj/item/enchantingkit/weapon/obsidian_sickle
+// Solar Dominion Items
+/datum/loadout_item/donator/universal/dominion_sword
+	name = "Elixir - Dominion Sword"
+	path = /obj/item/enchantingkit/weapon/dominion_sword
 
-/datum/loadout_item/donator/universal/obsidian_knife
-	name = "Elixir - Obsidian knife"
-	path = /obj/item/enchantingkit/weapon/obsidian_knife
+/datum/loadout_item/donator/universal/dominion_knife
+	name = "Elixir - Dominion Knife"
+	path = /obj/item/enchantingkit/weapon/dominion_knife
 
-/datum/loadout_item/donator/universal/obsidian_greatsword
-	name = "Elixir - Obsidian greatsword"
-	path = /obj/item/enchantingkit/weapon/obsidian_greatsword
+/datum/loadout_item/donator/universal/dominion_greatsword
+	name = "Elixir - Dominion Greatsword"
+	path = /obj/item/enchantingkit/weapon/dominion_greatsword
 
-/datum/loadout_item/donator/universal/obsidian_shotel
-	name = "Elixir - Obsidian shotel"
-	path = /obj/item/enchantingkit/weapon/obsidian_shotel
+/datum/loadout_item/donator/universal/dominion_shotel
+	name = "Elixir - Dominion Shotel"
+	path = /obj/item/enchantingkit/weapon/dominion_shotel
 
 /datum/loadout_item/donator/universal/dominion_shield
-	name = "Elixir - Dominion shield"
+	name = "Elixir - Dominion Shield"
 	path = /obj/item/enchantingkit/weapon/dominion_shield
 
-/datum/loadout_item/donator/universal/donor_stone
-	name = "Elixir - Stone gauntlets"
-	path = /obj/item/enchantingkit/stone_gauntlets
+/datum/loadout_item/donator/universal/dominion_cestus
+	name = "Elixir - Dominion Cestus"
+	path = /obj/item/enchantingkit/dominion_cestus
