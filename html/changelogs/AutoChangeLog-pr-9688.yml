@@ -1,9 +1,0 @@
-author: "Quinalion"
-delete-after: True
-changes:
-  - image: "Ported Ducal Pike and Freifechter Lancer Pike sprites from Ratwood."
-  - qol: "The Ducal Pike can now be equipped directly in the back slot and uses the Freifechter Lancer Pike's two pike intents."
-  - balance: "Set the Ducal Pike's throwforce to 25."
-  - image: "Updated Ducal polearm banners to feature both colors of the Ducal scheme."
-  - qol: "Weapons with detail tags can now have their detail and alternative detail colors changed at the Dye Station."
-  - image: "Updated the Ssangsudo sprite to support banner wrapping."
