@@ -5087,3 +5087,29 @@ As Excaliber."
 /obj/item/clothing/gloves/roguetown/plate/donor_stone/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/stone_gauntlet_cycle)
+
+/obj/item/clothing/gloves/roguetown/bandages/weighted/donor_stone
+	name = "dominion cestus"
+	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	icon_state = "stone_gauntlets"
+	detail_tag = "_detail"
+	detail_color = "#b32d70"
+
+/obj/item/clothing/gloves/roguetown/bandages/weighted/donor_stone/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/stone_gauntlet_cycle)
+
+/obj/item/clothing/gloves/roguetown/bandages/pugilist/donor_stone
+	name = "dominion cestus"
+	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	icon_state = "stone_gauntlets"
+	detail_tag = "_detail"
+	detail_color = "#b32d70"
+
+/obj/item/clothing/gloves/roguetown/bandages/pugilist/donor_stone/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/stone_gauntlet_cycle)

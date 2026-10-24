@@ -1819,16 +1819,18 @@
 
 /obj/item/enchantingkit/stone_gauntlets
 	name = "'Stone Gauntlet' morphing elixir"
-	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of Leather Gloves, Chain Gauntlets, \
-	Plate Gauntlets, Steel Knuckles, Bronze Knuckles, Iron Knuckles, Silver Knuckles, or Blacksteel Knuckles."
+	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of Weighted Bandages, Pugilistic Bandages, \
+	Leather Gloves, Chain Gauntlets, Plate Gauntlets, Steel Knuckles, Bronze Knuckles, Iron Knuckles, Silver Knuckles, or Blacksteel Knuckles."
 	target_items = list(
-		/obj/item/clothing/gloves/roguetown/leather					= /obj/item/clothing/gloves/roguetown/leather/donor_stone,
-		/obj/item/clothing/gloves/roguetown/chain					= /obj/item/clothing/gloves/roguetown/chain/donor_stone,
-		/obj/item/clothing/gloves/roguetown/plate					= /obj/item/clothing/gloves/roguetown/plate/donor_stone,
-		/obj/item/clothing/gloves/roguetown/knuckles				= /obj/item/clothing/gloves/roguetown/knuckles/donor_stone,
-		/obj/item/clothing/gloves/roguetown/knuckles/bronze			= /obj/item/clothing/gloves/roguetown/knuckles/bronze/donor_stone,
-		/obj/item/clothing/gloves/roguetown/knuckles/iron			= /obj/item/clothing/gloves/roguetown/knuckles/iron/donor_stone,
-		/obj/item/clothing/gloves/roguetown/knuckles/silver			= /obj/item/clothing/gloves/roguetown/knuckles/silver/donor_stone,
-		/obj/item/clothing/gloves/roguetown/knuckles/blacksteel		= /obj/item/clothing/gloves/roguetown/knuckles/blacksteel/donor_stone
+		/obj/item/clothing/gloves/roguetown/bandages/weighted					= /obj/item/clothing/gloves/roguetown/bandages/weighted/donor_stone,
+		/obj/item/clothing/gloves/roguetown/bandages/pugilist					= /obj/item/clothing/gloves/roguetown/bandages/pugilist/donor_stone,
+		/obj/item/clothing/gloves/roguetown/leather							= /obj/item/clothing/gloves/roguetown/leather/donor_stone,
+		/obj/item/clothing/gloves/roguetown/chain								= /obj/item/clothing/gloves/roguetown/chain/donor_stone,
+		/obj/item/clothing/gloves/roguetown/plate								= /obj/item/clothing/gloves/roguetown/plate/donor_stone,
+		/obj/item/clothing/gloves/roguetown/knuckles							= /obj/item/clothing/gloves/roguetown/knuckles/donor_stone,
+		/obj/item/clothing/gloves/roguetown/knuckles/bronze					= /obj/item/clothing/gloves/roguetown/knuckles/bronze/donor_stone,
+		/obj/item/clothing/gloves/roguetown/knuckles/iron						= /obj/item/clothing/gloves/roguetown/knuckles/iron/donor_stone,
+		/obj/item/clothing/gloves/roguetown/knuckles/silver					= /obj/item/clothing/gloves/roguetown/knuckles/silver/donor_stone,
+		/obj/item/clothing/gloves/roguetown/knuckles/blacksteel				= /obj/item/clothing/gloves/roguetown/knuckles/blacksteel/donor_stone
 	)
 	result_item = null
