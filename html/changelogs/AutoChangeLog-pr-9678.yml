@@ -1,0 +1,4 @@
+author: "WeNeedMorePhoron"
+delete-after: True
+changes:
+  - rscadd: "Contract Ledger has been added to the Merchant's shop on Dun World and Pilgrim"
