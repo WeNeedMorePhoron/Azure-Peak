@@ -4935,8 +4935,8 @@ As Excaliber."
 
 // Stone gauntlets
 /obj/item/clothing/gloves/roguetown/knuckles/donor_stone
-	name = "stone gauntlets"
-	desc = "A sun-elven curiosity, carved from dark stone. The heavy gauntlets have been worked smooth by generations of hands."
+	name = "dominion cestus"
+	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
 	icon_state = "stone_gauntlets"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
@@ -4998,8 +4998,8 @@ As Excaliber."
 	source.update_inv_gloves()
 
 /obj/item/clothing/gloves/roguetown/knuckles/bronze/donor_stone
-	name = "stone gauntlets"
-	desc = "A sun-elven curiosity, carved from dark stone. The heavy gauntlets have been worked smooth by generations of hands."
+	name = "dominion cestus"
+	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	icon_state = "stone_gauntlets"
@@ -5011,8 +5011,8 @@ As Excaliber."
 	AddComponent(/datum/component/stone_gauntlet_cycle)
 
 /obj/item/clothing/gloves/roguetown/knuckles/iron/donor_stone
-	name = "stone gauntlets"
-	desc = "A sun-elven curiosity, carved from dark stone. The heavy gauntlets have been worked smooth by generations of hands."
+	name = "dominion cestus"
+	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	icon_state = "stone_gauntlets"
@@ -5024,8 +5024,8 @@ As Excaliber."
 	AddComponent(/datum/component/stone_gauntlet_cycle)
 
 /obj/item/clothing/gloves/roguetown/knuckles/silver/donor_stone
-	name = "stone gauntlets"
-	desc = "A sun-elven curiosity, carved from dark stone. The heavy gauntlets have been worked smooth by generations of hands."
+	name = "dominion cestus"
+	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	icon_state = "stone_gauntlets"
@@ -5037,8 +5037,8 @@ As Excaliber."
 	AddComponent(/datum/component/stone_gauntlet_cycle)
 
 /obj/item/clothing/gloves/roguetown/knuckles/blacksteel/donor_stone
-	name = "stone gauntlets"
-	desc = "A sun-elven curiosity, carved from dark stone. The heavy gauntlets have been worked smooth by generations of hands."
+	name = "dominion cestus"
+	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	icon_state = "stone_gauntlets"
@@ -5050,8 +5050,8 @@ As Excaliber."
 	AddComponent(/datum/component/stone_gauntlet_cycle)
 
 /obj/item/clothing/gloves/roguetown/leather/donor_stone
-	name = "stone gauntlets"
-	desc = "A sun-elven curiosity, carved from dark stone. The heavy gauntlets have been worked smooth by generations of hands."
+	name = "dominion cestus"
+	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	icon_state = "stone_gauntlets"
@@ -5063,8 +5063,8 @@ As Excaliber."
 	AddComponent(/datum/component/stone_gauntlet_cycle)
 
 /obj/item/clothing/gloves/roguetown/chain/donor_stone
-	name = "stone gauntlets"
-	desc = "A sun-elven curiosity, carved from dark stone. The heavy gauntlets have been worked smooth by generations of hands."
+	name = "dominion cestus"
+	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	icon_state = "stone_gauntlets"
@@ -5076,8 +5076,8 @@ As Excaliber."
 	AddComponent(/datum/component/stone_gauntlet_cycle)
 
 /obj/item/clothing/gloves/roguetown/plate/donor_stone
-	name = "stone gauntlets"
-	desc = "A sun-elven curiosity, carved from dark stone. The heavy gauntlets have been worked smooth by generations of hands."
+	name = "dominion cestus"
+	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	icon_state = "stone_gauntlets"

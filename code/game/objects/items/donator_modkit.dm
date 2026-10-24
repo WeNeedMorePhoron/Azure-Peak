@@ -1760,16 +1760,13 @@
 // Obsidian items
 /obj/item/enchantingkit/weapon/obsidian_sickle
 	name = "'Dominion sickle' morphing elixir"
-	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Falchion, a Longsword, a Silver Longsword, \
-	a Arming Sword, a Silver Sword, a Kriegmesser, or a Broadsword."
+	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Falchion, a Falx, an Arming Sword, or a Silver Sword."
 	target_items = list(
 		/obj/item/rogueweapon/sword/short/falchion,
-		/obj/item/rogueweapon/sword/long,
-		/obj/item/rogueweapon/sword/long/silver,
+		/obj/item/rogueweapon/sword/falx,
 		/obj/item/rogueweapon/sword,
-		/obj/item/rogueweapon/sword/silver,
-		/obj/item/rogueweapon/sword/long/kriegmesser,
-		/obj/item/rogueweapon/sword/long/broadsword
+		/obj/item/rogueweapon/sword/iron,
+		/obj/item/rogueweapon/sword/silver
 	)
 	result_item = /obj/item/rogueweapon/example/obsidian_sickle
 

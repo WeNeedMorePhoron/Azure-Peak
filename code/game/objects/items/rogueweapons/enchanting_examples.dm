@@ -95,4 +95,3 @@
 	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Amaranth wood with a swirling grain, fashioned into a rounded triangle with a geometer's precision."
 	icon_state = "dominion_shield"
 	icon = 'icons/obj/items/donor_weapons.dmi'
-	bigboy = TRUE
