@@ -1817,6 +1817,7 @@
 	)
 	result_item = /obj/item/rogueweapon/example/dominion_shield
 
+// Stone gauntlets
 /obj/item/enchantingkit/stone_gauntlets
 	name = "'Stone Gauntlet' morphing elixir"
 	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of Weighted Bandages, Pugilistic Bandages, \
