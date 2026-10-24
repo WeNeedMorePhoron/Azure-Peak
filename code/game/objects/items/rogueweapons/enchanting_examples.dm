@@ -88,6 +88,7 @@
 	icon_state = "dominion_shotel"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	bigboy = TRUE
+	gripsprite = FALSE
 
 // Solar Dominion Shield
 /obj/item/rogueweapon/example/dominion_shield
