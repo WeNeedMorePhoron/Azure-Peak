@@ -91,7 +91,7 @@
 
 // Solar Dominion Shield
 /obj/item/rogueweapon/example/dominion_shield
-	name = "Dominion heater shield"
+	name = "Dominion shield"
 	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Amaranth wood with a swirling grain, fashioned into a rounded triangle with a geometer's precision."
 	icon_state = "dominion_shield"
 	icon = 'icons/obj/items/donor_weapons.dmi'
