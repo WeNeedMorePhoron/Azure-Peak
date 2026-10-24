@@ -1,0 +1,4 @@
+author: "borneblood"
+delete-after: True
+changes:
+  - balance: "Explosions use the new fire tiles instead of the legacy fire tiles now."
