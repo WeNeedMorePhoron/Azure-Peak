@@ -59,39 +59,39 @@
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	bigboy = TRUE
 
-//Obsidian sickle
-/obj/item/rogueweapon/example/obsidian_sickle
-	name = "Dominion Sickle"
+// Solar Dominion Sword
+/obj/item/rogueweapon/example/dominion_sword
+	name = "Dominion sword"
 	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
-	icon_state = "obby_sickle"
+	icon_state = "dominion_sword"
 	icon = 'icons/obj/items/donor_weapons.dmi'
 
-//Obsidian knife
-/obj/item/rogueweapon/example/obsidian_knife
-	name = "Dominion Knife"
+// Solar Dominion Knife
+/obj/item/rogueweapon/example/dominion_knife
+	name = "Dominion knife"
 	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
-	icon_state = "obby_knife"
+	icon_state = "dominion_knife"
 	icon = 'icons/obj/items/donor_weapons.dmi'
 
-//Obsidian greatsword
-/obj/item/rogueweapon/example/obsidian_greatsword
+// Solar Dominion Greatsword
+/obj/item/rogueweapon/example/dominion_greatsword
 	name = "Dominion greatsword"
 	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
-	icon_state = "obby_gsword"
+	icon_state = "dominion_greatsword"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	bigboy = TRUE
 
-//Obsidian shotel
-/obj/item/rogueweapon/example/obsidian_shotel
+// Solar Dominion Shotel
+/obj/item/rogueweapon/example/dominion_shotel
 	name = "Dominion shotel"
 	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Intricately carved from dark onyxa and imbued with the strength of steel through arcyne craft."
-	icon_state = "obby_shotel"
+	icon_state = "dominion_shotel"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	bigboy = TRUE
 
-//Dominion shield
+// Solar Dominion Shield
 /obj/item/rogueweapon/example/dominion_shield
-	name = "Dominion heater shield"
+	name = "Dominion shield"
 	desc = "A sun-elven treasure, likely seized amid the rebellions in Raneshen. Amaranth wood with a swirling grain, fashioned into a rounded triangle with a geometer's precision."
 	icon_state = "dominion_shield"
 	icon = 'icons/obj/items/donor_weapons.dmi'
