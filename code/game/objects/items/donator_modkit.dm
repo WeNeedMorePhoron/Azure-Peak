@@ -115,6 +115,9 @@
 	TI.righthand_file = RI::righthand_file
 	TI.sheathe_icon = RI::sheathe_icon ? RI::sheathe_icon : TI.sheathe_icon
 	TI.bigboy = RI::bigboy
+	TI.gripsprite = RI::gripsprite
+	if(!TI.gripsprite)
+		TI.override_state = null
 	TI.examine_highlight_severity = RI::examine_highlight_severity
 	TI.examine_highlight_desc = RI::examine_highlight_desc
 	TI.twirly = RI::twirly

@@ -88,6 +88,7 @@
 	icon_state = "obby_shotel"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	bigboy = TRUE
+	gripsprite = FALSE
 
 //Dominion shield
 /obj/item/rogueweapon/example/dominion_shield
