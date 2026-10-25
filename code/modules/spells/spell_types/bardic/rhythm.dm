@@ -55,7 +55,7 @@
 	click_to_activate = FALSE
 	self_cast_possible = TRUE
 
-	primary_resource_type = SPELL_COST_STAMINA
+	primary_resource_type = SPELL_COST_ENERGY
 	primary_resource_cost = RHYTHM_ACTIVATION_COST
 
 	charge_required = FALSE
