@@ -1736,6 +1736,7 @@
 /obj/item/clothing/suit/roguetown/shirt/dress/silkdress/steward/donator_fregian_mage
 	name = "violet silk gown"
 	desc = "A gown of deep plum silk, seamed in silver thread, with a slate yoke rising to a high collar."
+	icon_state = "raina_dress"
 	item_state = "raina_dress"
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
