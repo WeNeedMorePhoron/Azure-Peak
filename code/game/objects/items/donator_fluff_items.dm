@@ -2122,7 +2122,98 @@
 	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 
+//DasFox - Black Oak Ranger
+/obj/item/clothing/suit/roguetown/armor/plate/elven_plate/dasfox_ranger
+	name = "ranger's woadmaille bodysleeve"
+	desc = "A bodysleeve seen among some of the members of the Black Oaks. This one is made of exceptionally lightweight maillerings, molded together \
+	by the Woad Keepers and Smiths of the Black Oak Enclaves."
+	icon_state = "dasfox_elfmaille"
+	item_state = "dasfox_elfmaille"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+	allowed_sex = list(FEMALE)
 
+/obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/dasfox_ranger
+	name = "ranger's maille bodysleeve"
+	desc = "A bodysleeve seen among some of the members of the Black Oaks. This one is made of exceptionally lightweight maillerings, molded together \
+	by the Woad Keepers and Smiths of the Black Oak Enclaves."
+	icon_state = "dasfox_elfmaille"
+	item_state = "dasfox_elfmaille"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+	allowed_sex = list(FEMALE)
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/dasfox_ranger
+	name = "ranger's undersuit"
+	desc = "A bodysleeve seen among some members of the Black Oaks. This one is made of exceptionally well-padded fabrics with a silken lining."
+	icon_state = "dasfox_elfgamb"
+	item_state = "dasfox_elfgamb"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+	color = null
+	shiftable = FALSE
+	allowed_sex = list(FEMALE)
+
+/obj/item/clothing/gloves/roguetown/elven_gloves/dasfox_ranger
+	name = "ranger's woadwoven demigaunts"
+	desc = "A pair of woven demigaunts seen among some of the members of the Black Oaks. Woadwoven leather is fitted to the form, to keep glancing \
+	blows away from the hands."
+	icon_state = "dasfox_elfbracers"
+	item_state = "dasfox_elfbracers"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+	allowed_sex = list(FEMALE)
+
+/obj/item/clothing/gloves/roguetown/angle/dasfox_ranger
+	name = "ranger's woadwoven demigaunts"
+	desc = "A pair of woven demigaunts seen among some of the members of the Black Oaks. Woadwoven leather is fitted to the form, to keep glancing \
+	blows away from the hands."
+	icon_state = "dasfox_elfbracers"
+	item_state = "dasfox_elfbracers"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+	color = null
+	allowed_sex = list(FEMALE)
+
+/obj/item/clothing/shoes/roguetown/boots/elven_boots/dasfox_ranger
+	name = "ranger's woadwoven stirruped schynbalds"
+	desc = "A stirruped, soleless pair of woven schynbalds seen among some of the members of the Black Oaks. Woadwoven leather is fitted to the form, \
+	to keep glancing blows away from the lower legs and feet. And for keeping your feet to the ground."
+	icon_state = "dasfox_elfboots"
+	item_state = "dasfox_elfboots"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	allowed_sex = list(FEMALE)
+
+/obj/item/clothing/shoes/roguetown/boots/leather/reinforced/dasfox_ranger
+	name = "ranger's woadwoven stirruped schynbalds"
+	desc = "A stirruped, soleless pair of woven schynbalds seen among some of the members of the Black Oaks. Woadwoven leather is fitted to the form, \
+	to keep glancing blows away from the lower legs and feet. And for keeping your feet to the ground."
+	icon_state = "dasfox_elfboots"
+	item_state = "dasfox_elfboots"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	color = null
+	allowed_sex = list(FEMALE)
+
+/obj/item/clothing/cloak/dasfox_ranger
+	name = "\improper Black Oak ranger's mantle"
+	desc = "A mantle with a draping tabard, seen among a few less cloak-inclined members of the Black Oaks. A fur collar with a colorful scarf marks it \
+	as belonging to a ranger, while the fabric drape bears the typical Black Oak greens to be cinched together by a neat leather belt."
+	icon_state = "dasfox_elftabard"
+	item_state = "dasfox_elftabard"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+	alternate_worn_layer = TABARD_LAYER
+	slot_flags = ITEM_SLOT_CLOAK
+	body_parts_covered = CHEST|GROIN
+	allowed_sex = list(FEMALE)
 
 //IamCrystalClear
 /obj/item/clothing/mask/rogue/iamcrystalclear

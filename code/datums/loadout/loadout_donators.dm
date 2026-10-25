@@ -635,6 +635,26 @@
 	name = "Donator Item - Tyesca's scabbard"
 	path = /obj/item/rogueweapon/scabbard/sword/tyesca
 
+/datum/loadout_item/donator/dasfox/ranger_woadsleeve
+	name = "Donator Kit - Ranger's Woadmaille Bodysleeve"
+	path = /obj/item/enchantingkit/dasfox_ranger_woadsleeve
+
+/datum/loadout_item/donator/dasfox/ranger_undersuit
+	name = "Donator Kit - Ranger's Undersuit"
+	path = /obj/item/enchantingkit/dasfox_ranger_undersuit
+
+/datum/loadout_item/donator/dasfox/ranger_demigaunts
+	name = "Donator Kit - Ranger's Woadwoven Demigaunts"
+	path = /obj/item/enchantingkit/dasfox_ranger_demigaunts
+
+/datum/loadout_item/donator/dasfox/ranger_schynbalds
+	name = "Donator Kit - Ranger's Woadwoven Stirruped Schynbalds"
+	path = /obj/item/enchantingkit/dasfox_ranger_schynbalds
+
+/datum/loadout_item/donator/dasfox/ranger_mantle
+	name = "Donator Item - Black Oak Ranger's Mantle"
+	path = /obj/item/clothing/cloak/dasfox_ranger
+
 /datum/loadout_item/donator/ryan
 	name = "Donator Item - Western Estates Caparison"
 	path = /obj/item/caparison/ryan
