@@ -1105,21 +1105,6 @@
 	path = /obj/item/enchantingkit/hellpossum_apostle_wingsallet
 	ckeywhitelist = list("dasfox", "purplepineapple", "bigfoot02", "ryan180602", "oddbomber3768", "yeeteryieter")
 
-/datum/loadout_item/donator/hellpossum_grandmaster_armor
-	name = "Donator Kit - Grandmaster's Armor, Robed"
-	path = /obj/item/enchantingkit/hellpossum_grandmaster_armor
-	ckeywhitelist = list("dasfox")
-
-/datum/loadout_item/donator/hellpossum_grandmaster_helm
-	name = "Donator Kit - Grandmaster's Burgeonet"
-	path = /obj/item/enchantingkit/hellpossum_grandmaster_helm
-	ckeywhitelist = list("dasfox")
-
-/datum/loadout_item/donator/hellpossum_grandmaster_helm_habit
-	name = "Donator Kit - Grandmaster's Burgeonet, Habited"
-	path = /obj/item/enchantingkit/hellpossum_grandmaster_habit
-	ckeywhitelist = list("dasfox")
-
 /datum/loadout_item/donator/rosy/birdmask
 	name = "Donator Kit - Beaked Mask"
 	path = /obj/item/enchantingkit/rosy/birdmask
