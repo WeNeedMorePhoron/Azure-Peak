@@ -46,6 +46,20 @@
 		//passively heal even wounds with no passive healing
 		heal_wounds(1)
 
+	// PSYDONITE REGEN -- Heals passively from both wounds and damage. Reduces the pain from your wounds over time. Damage cannot be healed during combat. Properly gates Constructs, Deadites, Werewolves and NoRegen from going through this, and also prevents healing while disabled, which was a missing old behavior.
+	if(!stat && HAS_TRAIT(src, TRAIT_PSYDONITE) && !HAS_TRAIT(src, TRAIT_PARALYSIS) && !HAS_TRAIT(src, TRAIT_NOREGEN) && !HAS_TRAIT(src, TRAIT_IRONMAN) && !HAS_TRAIT(src, TRAIT_DEADITE) && !HAS_TRAIT(src, TRAIT_LYCANRESILENCE))
+		handle_wounds()
+		if(!(in_combat_until > world.time) || !cmode)
+			heal_overall_damage(0.3, 0.3) // We're in for the long game here.
+		for(var/datum/wound/wound as anything in wounds)
+			if(istype(wound, /datum/wound/slash/incision) || wound.severity > WOUND_SEVERITY_SEVERE) // Also this, prevents healing arteries and other lethal injuries. It's been unnerfed in the psydon changes for some reason, so bringing it back.
+				continue
+			wound.heal_wound(0.4) // 40% of the heal happens naturally.
+			if(wound.woundpain)
+				wound.woundpain = max(0, wound.woundpain - 0.3) // ENDURE! Over time it will make the wound hurt less.
+			if(!isdullahan(src) && blood_volume >= BLOOD_VOLUME_SURVIVE)
+				wound.heal_wound(0.6) // 60% only if you have enough blood to keep on swinging, and/or is not a Revenant.
+
 	// REGEN RESTRICTIONS -- Starving, or being on fire/silverfired.
 	var/noregen = nutrition < NUTRITION_LEVEL_STARVING - 75 || has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder) || has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed)
 
