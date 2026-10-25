@@ -1732,13 +1732,12 @@
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
 
-//Lucine's donator item - dress
+//Lucine's donator item - violet silk gown
 /obj/item/clothing/suit/roguetown/shirt/dress/silkdress/steward/donator_fregian_mage
 	name = "violet silk gown"
-	desc = "A gown of deep plum silk, seamed in silver thread, with a slate yoke rising to a high collar.
-	icon_state = "raina_dress"
+	desc = "A gown of deep plum silk, seamed in silver thread, with a slate yoke rising to a high collar."
 	item_state = "raina_dress"
-	icon = 'icons/clothing/raina_dress.dmi'
+	icon = 'icons/clothing/donor_clothes.dmi'
 	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
 	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
 
