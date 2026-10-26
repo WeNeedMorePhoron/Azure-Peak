@@ -182,7 +182,6 @@
 
 	category_tags = list(CTAG_GUILDSMEN)
 	traits_applied = list(TRAIT_HOMESTEAD_EXPERT) // They get extra virtue for dipping into lumberjacking
-	subclass_spells = list(/obj/effect/proc_holder/spell/self/run_for_it)
 	subclass_stats = list(
 		STATKEY_INT = 2,
 		STATKEY_WIL = 2,

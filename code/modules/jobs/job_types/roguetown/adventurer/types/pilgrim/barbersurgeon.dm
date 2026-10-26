@@ -6,7 +6,6 @@
 	
 	outfit = /datum/outfit/job/roguetown/adventurer/doctor
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
-	subclass_spells = list(/obj/effect/proc_holder/spell/self/run_for_it)
 	traits_applied = list(TRAIT_EMPATH, TRAIT_NOSTINK, TRAIT_MEDICINE_EXPERT, TRAIT_ALCHEMY_EXPERT)
 	cmode_music = 'sound/music/combat_physician.ogg'
 	subclass_stats = list(

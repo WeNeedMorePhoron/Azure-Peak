@@ -33,7 +33,7 @@
 		/datum/advclass/apothecary
 	)
 	has_subprefs = FALSE // only one subclass
-	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice, /obj/effect/proc_holder/spell/self/run_for_it)
+	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice)
 
 /datum/advclass/apothecary
 	name = "Apothecary"
