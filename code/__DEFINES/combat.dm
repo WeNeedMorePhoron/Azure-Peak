@@ -469,6 +469,13 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 /// Damage multiplier of silver weapons against mobs with TRAIT_SIMPLE_WOUNDS
 #define SILVER_SIMPLEMOB_DAM_MULT 3
 
+/// Anti-Beast Modifier tiers. Multiplies damage dealt to simple animals by weapons and projectiles.
+#define ANTIBEAST_DEFAULT 1.5 // For arrows and such
+#define ANTIBEAST_GREATER 2 // For bolts / crossbow
+#define ANTIBEAST_SUPERIOR 3 // Stakers
+#define ANTIBEAST_EXCEPTIONAL 5 // Holy?
+#define ANTIBEAST_SUPREME 6 // Silver
+
 #define PROJ_PARRY_TIMER	0.65 SECONDS	//The time after an attack (swinging in the air counts) when a thrown item would be deflected at a higher chance.
 
 /* COMBAT DEFINES for NON ARMOR VALUES */

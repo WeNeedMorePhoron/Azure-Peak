@@ -259,7 +259,7 @@
 	if(istype(src, /mob/living/simple_animal))
 		var/mob/living/simple_animal/weakpoint_target = src
 		actual_damage *= weakpoint_target.weakpoint_damage_mod(def_zone)
-		actual_damage *= P.npc_simple_damage_mult
+		actual_damage *= P.antibeast_factor
 		if(P.spell_damage_scaled)
 			actual_damage /= SPELL_DAMAGE_GENERAL_MODIFIER
 	var/nodmg = FALSE
@@ -339,7 +339,10 @@
 			var/armor = run_armor_check(zone, damage_flag, "", "", armor_penetration = I.armor_penetration, damage = I.throwforce, used_weapon = I)
 			next_attack_msg.Cut()
 			var/nodmg = FALSE
-			if(!apply_damage(I.throwforce, I.damtype, zone, armor))
+			var/throw_damage = I.throwforce
+			if(isanimal(src))
+				throw_damage *= I.antibeast_factor
+			if(!apply_damage(throw_damage, I.damtype, zone, armor))
 				nodmg = TRUE
 				next_attack_msg += VISMSG_ARMOR_BLOCKED
 			if(!nodmg)
