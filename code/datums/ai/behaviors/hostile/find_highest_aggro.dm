@@ -93,7 +93,7 @@
 	for(var/mob/living/pot_target in potential_targets)
 		if(QDELETED(pot_target) || pot_target.stat == DEAD)
 			continue
-		if(isanimal(living_mob) && HAS_TRAIT(pot_target, TRAIT_RUN_FOR_IT))
+		if(HAS_TRAIT(pot_target, TRAIT_RUN_FOR_IT))
 			continue
 		if(!targetting_datum.can_attack(living_mob, pot_target))
 			var/datum/ai_controller/ally_controller = pot_target.ai_controller

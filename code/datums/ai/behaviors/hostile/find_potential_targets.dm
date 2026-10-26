@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(target_interested_atoms, typecacheof(list(/mob)))
 		if(living_target.stat == DEAD)
 			filtered_targets -= living_target
 			continue
-		if(isanimal(living_mob) && HAS_TRAIT(living_target, TRAIT_RUN_FOR_IT))
+		if(HAS_TRAIT(living_target, TRAIT_RUN_FOR_IT))
 			filtered_targets -= living_target
 			continue
 		if(!living_target.rogue_sneaking)
