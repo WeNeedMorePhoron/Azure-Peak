@@ -313,7 +313,9 @@
 	return 0
 
 /mob/living/proc/check_projectile_wounding(obj/projectile/P, def_zone)
-	return simple_woundcritroll(P.woundclass, P.damage, null, def_zone, crit_message = TRUE, ranged = TRUE, penfactor = P.armor_penetration)
+	var/mob/living/shooter = P.firer
+	var/part_mult = (istype(shooter) && shooter.is_monster_hunting(src)) ? MONSTER_HUNTER_RANGED_PART_MULT : 1
+	return simple_woundcritroll(P.woundclass, P.damage * P.antibeast_factor, null, def_zone, crit_message = TRUE, ranged = TRUE, penfactor = P.armor_penetration, part_mult = part_mult)
 
 /mob/living/proc/check_projectile_embed(obj/projectile/P, def_zone)
 	// Disable embeds on simples, allowing it to override on complex.
