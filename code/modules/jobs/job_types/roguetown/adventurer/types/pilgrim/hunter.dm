@@ -5,7 +5,7 @@
 	forbidden_races = list(RACES_DESPISED)
 
 	outfit = /datum/outfit/job/roguetown/adventurer/hunter
-	traits_applied = list(TRAIT_OUTDOORSMAN, TRAIT_SURVIVAL_EXPERT, TRAIT_MASTERFUL_HUNTER)
+	traits_applied = list(TRAIT_OUTDOORSMAN, TRAIT_SURVIVAL_EXPERT, TRAIT_MASTERFUL_HUNTER, TRAIT_MONSTER_HUNTER)
 	townie_contract_gate_exempt = TRUE
 	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
 
@@ -46,7 +46,7 @@
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
 	armor = /obj/item/clothing/suit/roguetown/shirt/tunic/green //Can wear this as a cloak too
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/light
-	pants = /obj/item/clothing/under/roguetown/tights/green
+	pants = /obj/item/clothing/under/roguetown/trou/leather
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	backl = /obj/item/storage/backpack/rogue/backpack
 	belt = /obj/item/storage/belt/rogue/leather
@@ -84,7 +84,7 @@
 	name = "Spear-Hunter"
 	tutorial = "You are a close-range hunter. With your spear you hunt the fauna of the glade, skinning what you kill and cooking any meat left over. The job is dangerous but important in the circulation of clothing and light armor."
 	outfit = /datum/outfit/job/roguetown/adventurer/hunter_spear
-	traits_applied = list(TRAIT_OUTDOORSMAN, TRAIT_SURVIVAL_EXPERT, TRAIT_MASTERFUL_HUNTER)
+	traits_applied = list(TRAIT_OUTDOORSMAN, TRAIT_SURVIVAL_EXPERT, TRAIT_MASTERFUL_HUNTER, TRAIT_MONSTER_HUNTER)
 	townie_contract_gate_exempt = TRUE
 	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
 	subclass_stats = list(
