@@ -583,6 +583,8 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			energy_add(5)
 	//Healing while sleeping in a bed
 	if(IsSleeping())
+		if(HAS_TRAIT(src, TRAIT_DEATHLESS) || HAS_TRAIT(src, TRAIT_ZOMBIE_IMMUNE) || HAS_TRAIT(src, TRAIT_PSYDONITE)) // To prevent a softlock involving blood loss.
+			blood_volume = min(blood_volume + (BLOOD_VOLUME_NORMAL * 0.001), BLOOD_VOLUME_BAD)
 		if(HAS_TRAIT(src, TRAIT_NOREGEN) || HAS_TRAIT(src, TRAIT_IRONMAN))
 			return
 		var/sleepy_mod = 0.5
