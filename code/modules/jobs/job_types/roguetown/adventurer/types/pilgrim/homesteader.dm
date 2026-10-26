@@ -14,6 +14,7 @@
 		// No hunting, as it's a specialty skill.
 	)
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
+	subclass_spells = list(/obj/effect/proc_holder/spell/self/run_for_it)
 	adaptive_name = TRUE
 	subclass_stats = list(
 		STATKEY_INT = 3,	//This guy's here to grind = baby.
