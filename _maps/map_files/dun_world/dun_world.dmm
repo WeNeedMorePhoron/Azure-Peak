@@ -5455,7 +5455,7 @@
 	layer = 2.8;
 	pixel_x = 8
 	},
-/obj/structure/table/wood/folding,
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/outdoors/rtfield/eora)
 "aXE" = (
@@ -8842,10 +8842,10 @@
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/town)
 "bAY" = (
-/obj/structure/table/wood/folding,
 /obj/effect/decal/mossy{
 	dir = 4
 	},
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/grass,
 /area/rogue/outdoors/rtfield/eora)
 "bBc" = (
@@ -20992,7 +20992,7 @@
 /turf/open/floor/rogue/ruinedwood/herringbone,
 /area/rogue/indoors/town/manor)
 "dEP" = (
-/obj/structure/table/wood/folding,
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/outdoors/town)
 "dES" = (
@@ -49081,7 +49081,7 @@
 /turf/open/floor/rogue/hay,
 /area/rogue/indoors/town)
 "irp" = (
-/obj/structure/table/wood/folding,
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/grass,
 /area/rogue/indoors/inq)
 "irr" = (
@@ -55245,9 +55245,9 @@
 /turf/open/floor/carpet/red,
 /area/rogue/indoors/shelter)
 "jsG" = (
-/obj/structure/table/wood/folding,
 /obj/item/rogueweapon/huntingknife,
 /obj/effect/decal/cleanable/blood/gibs,
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/woods/northwest)
 "jsP" = (
@@ -56850,13 +56850,13 @@
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/under/cave)
 "jFO" = (
-/obj/structure/table/wood/folding,
 /obj/item/candle/yellow{
 	pixel_y = 6
 	},
 /obj/effect/decal/carpet/kover_darkred{
 	pixel_y = 6
 	},
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/herringbone,
 /area/rogue/indoors/inq/basement)
 "jFP" = (
@@ -78375,7 +78375,7 @@
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/town)
 "nke" = (
-/obj/structure/table/wood/folding,
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/carpet/royalblack,
 /area/rogue/outdoors/town)
 "nkf" = (
@@ -92772,10 +92772,10 @@
 	pixel_y = 44;
 	pixel_x = 6
 	},
-/obj/structure/table/wood/folding,
 /obj/item/candle/skull/lit{
 	pixel_y = 8
 	},
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/town/bath)
 "pDL" = (
@@ -97399,11 +97399,11 @@
 /area/rogue/outdoors/mountains/decap)
 "qqG" = (
 /obj/structure/fluff/walldeco/church/line,
-/obj/structure/table/wood/folding,
 /obj/item/reagent_containers/glass/cup/silver/small{
 	pixel_x = 3;
 	pixel_y = 7
 	},
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/ruinedwood/herringbone,
 /area/rogue/outdoors/beach)
 "qqK" = (
@@ -104984,10 +104984,10 @@
 /area/rogue/outdoors/rtfield)
 "rEz" = (
 /obj/structure/fluff/railing/border/north,
-/obj/structure/table/wood/folding,
 /obj/item/candle/gold/lit{
 	pixel_y = 5
 	},
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/tile,
 /area/rogue/indoors/town/church/basement)
 "rEF" = (
@@ -114505,7 +114505,7 @@
 	layer = 2.7;
 	pixel_y = 7
 	},
-/obj/structure/table/wood/folding,
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/outdoors/rtfield/eora)
 "tgJ" = (
@@ -122177,12 +122177,12 @@
 /area/rogue/indoors/town/pestra_sanctum)
 "uuR" = (
 /obj/structure/fluff/railing/corner/south_west,
-/obj/structure/table/wood/folding,
 /obj/item/reagent_containers/glass/bottle/rogue/beer/blackgoat{
 	pixel_x = -1;
 	pixel_y = 10
 	},
 /obj/machinery/light/rogue/candle,
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/church/chapel)
 "uva" = (
@@ -126880,8 +126880,8 @@
 /turf/open/floor/rogue/twig,
 /area/rogue/druidsgrove)
 "vkY" = (
-/obj/structure/table/wood/folding,
 /obj/effect/decal/carpet,
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/outdoors/town)
 "vla" = (
@@ -135109,10 +135109,10 @@
 /turf/closed/wall/mineral/rogue/stone/window/blue_moss,
 /area/rogue/outdoors/mountains/decap/gunduzirak)
 "wEY" = (
-/obj/structure/table/wood/folding,
 /obj/item/reagent_containers/glass/cup/skull{
 	pixel_y = 4
 	},
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/physician)
 "wFb" = (
@@ -138826,12 +138826,12 @@
 /turf/open/floor/rogue/tile,
 /area/rogue/indoors/town/magician)
 "xmc" = (
-/obj/structure/table/wood/folding,
 /obj/item/cooking/platter/silver,
 /obj/item/candle/silver/lit{
 	pixel_y = 7;
 	pixel_x = 2
 	},
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/twig,
 /area/rogue/outdoors/mountains)
 "xme" = (
@@ -144405,11 +144405,11 @@
 /area/rogue/outdoors/town)
 "yhu" = (
 /obj/structure/fluff/railing/border/north,
-/obj/structure/table/wood/folding,
 /obj/item/roguecoin/copper{
 	pixel_x = 3;
 	pixel_y = 2
 	},
+/obj/structure/table/wood/decorativefolding,
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/outdoors/beach)
 "yhv" = (
