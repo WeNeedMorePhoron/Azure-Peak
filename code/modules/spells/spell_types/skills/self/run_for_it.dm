@@ -72,11 +72,17 @@
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_RUN_FOR_IT, id)
 	REMOVE_TRAIT(owner, TRAIT_KNEESTINGER_IMMUNITY, id)
-	UnregisterSignal(owner, COMSIG_MOB_ITEM_ATTACK)
+	UnregisterSignal(owner, list(COMSIG_MOB_ITEM_ATTACK, COMSIG_MOB_FIRED_GUN, COMSIG_MOB_THROW, COMSIG_MOB_CAST_SPELL, COMSIG_MOB_ATTACK_HAND))
 	to_chat(owner, span_warning("I catch my breath."))
 
 /datum/status_effect/buff/run_for_it/proc/on_attack(datum/source)
 	SIGNAL_HANDLER
+	qdel(src)
+
+/datum/status_effect/buff/run_for_it/proc/on_attack_hand(mob/living/source)
+	SIGNAL_HANDLER
+	if(source.used_intent?.type == INTENT_HELP)
+		return
 	qdel(src)
 
 #undef RUN_FOR_IT_COOLDOWN
