@@ -22,6 +22,8 @@
 	clothes_req = FALSE
 	invocations = list("turns tail and runs for it!")
 	invocation_type = "emote"
+	// Running away on solid floor, by pfranzen
+	sound = 'sound/combat/run_for_it.ogg'
 
 /obj/effect/proc_holder/spell/self/run_for_it/cast(list/targets, mob/user = usr)
 	. = ..()
