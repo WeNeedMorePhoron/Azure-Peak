@@ -11,6 +11,8 @@
 /obj/effect/proc_holder/spell/self/run_for_it
 	name = "Run For It!"
 	desc = "The Azurian wilds are dangerous, and those who walk them often enough know the greatest strategy for survival: Run! And don't step on any weird bushes or kneestingers. Briefly resets the aggro of all nearby simple animals on you and grants a burst of speed, but reduces your perception, intelligence and strength. You will not trigger ambushes, maneaters or kneestingers. Attacking ends it early."
+	action_icon = 'icons/mob/actions/dendormiracles.dmi'
+	overlay_icon = 'icons/mob/actions/dendormiracles.dmi'
 	overlay_state = "tamebeast"
 	releasedrain = 0
 	chargedrain = 0
