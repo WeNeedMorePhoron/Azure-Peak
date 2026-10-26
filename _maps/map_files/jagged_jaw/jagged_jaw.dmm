@@ -42797,7 +42797,9 @@
 /turf/open/floor/rogue/ruinedwood/turned,
 /area/rogue/outdoors/town/roofs/grim)
 "fgt" = (
-/obj/structure/roguemachine/atm,
+/obj/structure/roguemachine/atm{
+	location_tag = "Apothecary"
+	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/physician)
 "fgw" = (
@@ -115647,7 +115649,9 @@
 /turf/open/floor/rogue/tile/brownbrick/browner,
 /area/rogue/outdoors/town/roofs/grim)
 "nYz" = (
-/obj/structure/roguemachine/atm,
+/obj/structure/roguemachine/atm{
+	location_tag = "Church - Garden"
+	},
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/outdoors/town/grim)
 "nYB" = (
