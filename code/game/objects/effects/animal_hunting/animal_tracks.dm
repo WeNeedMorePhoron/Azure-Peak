@@ -130,8 +130,8 @@
 	. = ..()
 	layer = HIGH_LANDMARK_LAYER
 	// Add some visual variety
-	pixel_x = rand(-8, 8)
-	pixel_y = rand(-8, 8)
+	pixel_x = rand(-6, 6)
+	pixel_y = rand(-6, 6)
 
 /obj/effect/hunting_track/Destroy()
 	clear_party_images()
