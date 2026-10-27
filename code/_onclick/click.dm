@@ -471,49 +471,56 @@
 	return TRUE
 
 /mob/living/proc/process_dualwield(obj/item/attack_weapon)
-	if(!HAS_TRAIT(src, TRAIT_DUALWIELDER))
-		return
-
 	if(dualwield_processing)
-		return
+		return FALSE
+
+	dualwield_processing = TRUE
 
 	var/obj/item/mainhand = get_active_held_item()
 	var/obj/item/offhand = get_inactive_held_item()
 
 	// Weapon attack validation
 	if(attack_weapon)
-		if(!offhand)
-			return
-
-		if(attack_weapon == offhand)
-			return
+		if(!offhand || attack_weapon == offhand)
+			dualwield_processing = FALSE
+			return FALSE
 
 		if(check_arm_grabbed(get_inactive_hand_index()))
-			return
+			dualwield_processing = FALSE
+			return FALSE
 
 		if(!can_dualwield(attack_weapon, offhand))
-			return
+			dualwield_processing = FALSE
+			return FALSE
 
 	// Unarmed validation
-	else
-		if(mainhand || offhand)
-			return
+	else if(mainhand || offhand || get_skill_level(/datum/skill/combat/unarmed) < SKILL_LEVEL_JOURNEYMAN)
+
+		if(check_arm_grabbed(get_inactive_hand_index()))
+			dualwield_processing = FALSE
+			return FALSE
+
+		dualwield_processing = FALSE
+		return FALSE
 
 	// Combo timeout
 	if(world.time > dualwield_resets_in)
 		dualwield_attack_count = 0
-		dualwield_finisher = FALSE
-
-	dualwield_resets_in = world.time + 3 SECONDS
+		balloon_alert(src, "<font color='#ffbfbf'>COMBO BREAKER!</font>")
+	dualwield_resets_in = world.time + 2 SECONDS
 
 	if(dualwield_finisher)
 		dualwield_finisher = FALSE
-		return swap_hand()
+		if(attack_weapon)
+			swap_hand()
+		dualwield_processing = FALSE
+		return TRUE
 
 	// Build combo
 	dualwield_attack_count++
+	balloon_alert(src, "<font color='#ffbfbf'>[dualwield_attack_count]-Hit!</font>")
 
-	if(dualwield_attack_count >= 3)
+	if(dualwield_attack_count >= 4)
 		dualwield_attack_count = 0
 		dualwield_finisher = TRUE
 
@@ -521,28 +528,50 @@
 	if(attack_weapon)
 		swap_hand()
 
+	dualwield_processing = FALSE
+
 /mob/living/proc/fire_dualwield_paired(atom/A, params)
-	if(dualwield_processing)
+	if(dualwield_processing || QDELETED(src) || QDELETED(A))
 		return
-	if(QDELETED(src) || QDELETED(A))
-		return
+
 	dualwield_processing = TRUE
+
 	if(stamina_add(3))
-		balloon_alert_to_viewers("<font color='#bb2b2b'>Dual Hit!!</font>")
-		to_chat(src, "<font color='#ffc400'>I strike twice!</font>")
-		to_chat(A, "<font color='#ffc400'>I am hit twice!</font>")
-		if(a_intent)
-			used_intent = a_intent
-		dualwield_twoswing = TRUE
 		var/obj/item/paired_weapon = get_active_held_item()
 		if(paired_weapon)
+			balloon_alert_to_viewers("<font color='#bb2b2b'>Dual Hit!!</font>")
+			to_chat(src, "<font color='#ffc400'>I strike twice!</font>")
+			to_chat(A, "<font color='#ffc400'>I am hit twice!</font>")
+			sleep(2)
+			if(a_intent)
+				used_intent = a_intent
 			paired_weapon.melee_attack_chain(src, A, params)
+			src.do_attack_animation_simple(A, ATTACK_EFFECT_DISARM)
 		else
-			UnarmedAttack(A, TRUE, params)
-		dualwield_twoswing = FALSE
+			var/obj/item/gloves_item = get_item_by_slot(SLOT_GLOVES)
+			if(istype(gloves_item, /obj/item/clothing/gloves/roguetown/knuckles))
+				balloon_alert_to_viewers("<font color='#bb2b2b'>Demolish!!</font>")
+				to_chat(src, "<font color='#ffc400'>I unleash a devastating blow!</font>")
+				to_chat(A, "<font color='#ffc400'>I am struck by a devastating blow!</font>")
+				sleep(2)
+				arcyne_strike(src, A, null, 12, zone_selected, BCLASS_BLUNT, spell_name = "Demolish")
+				src.do_attack_animation_simple(A, ATTACK_EFFECT_PUNCH)
+			else
+				balloon_alert_to_viewers("<font color='#bb2b2b'>Flurry of Blows!!</font>")
+				to_chat(src, "<font color='#ffc400'>I unleash a flurry of blows!</font>")
+				to_chat(A, "<font color='#ffc400'>I am struck by a flurry of blows!</font>")
+				for(var/i in 1 to 3)
+					if(QDELETED(src) || QDELETED(A))
+						break
+					arcyne_strike(src, A, null, 4, zone_selected, BCLASS_BLUNT, spell_name = "Flurry of Blows")
+					src.do_attack_animation_simple(A, ATTACK_EFFECT_PUNCH)
+					if(i < 3)
+						sleep(3)
+
 	playsound_local(A, 'sound/combat/polearm_woosh.ogg', 75, FALSE, 0, 3)
 	playsound_local(A, 'sound/combat/rend_hit.ogg', 75, FALSE, 0, 3)
 	dualwield_processing = FALSE
+	dualwield_finisher = FALSE
 
 //Branching path for Adjacent clicks with or without items
 //DOES NOT ACTUALLY KNOW IF YOU'RE ADJACENT, DO NOT CALL ON IT'S OWN
