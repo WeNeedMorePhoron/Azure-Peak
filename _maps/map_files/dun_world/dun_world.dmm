@@ -8734,7 +8734,9 @@
 /obj/item/rogueore/iron,
 /obj/item/rogueore/iron,
 /obj/item/rogueore/iron,
-/obj/structure/roguemachine/atm,
+/obj/structure/roguemachine/atm{
+	location_tag = "Guild - Forge"
+	},
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/town/dwarfin)
 "bzY" = (
@@ -52033,7 +52035,9 @@
 /turf/closed/wall/mineral/rogue/craftstone,
 /area/rogue/indoors/town/pestra_sanctum)
 "iQQ" = (
-/obj/structure/roguemachine/atm,
+/obj/structure/roguemachine/atm{
+	location_tag = "Tailor"
+	},
 /obj/machinery/light/rogue/candle/l,
 /turf/open/floor/carpet/red,
 /area/rogue/indoors/town/dwarfin)
@@ -76285,7 +76289,9 @@
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/under/cave/scarymaze)
 "mQy" = (
-/obj/structure/roguemachine/atm,
+/obj/structure/roguemachine/atm{
+	location_tag = "Church of the Ten"
+	},
 /turf/open/floor/rogue/churchrough,
 /area/rogue/indoors/town/church/chapel)
 "mQB" = (
@@ -93682,7 +93688,9 @@
 /obj/effect/spawner/lootdrop/roguetown/dungeon/money,
 /obj/effect/spawner/lootdrop/random_gem,
 /obj/effect/spawner/lootdrop/roguetown/dungeon/money,
-/obj/structure/roguemachine/atm,
+/obj/structure/roguemachine/atm{
+	location_tag = "Guild - Guildmaster"
+	},
 /obj/effect/spawner/lootdrop/roguetown/dungeon/money,
 /turf/open/floor/rogue/carpet,
 /area/rogue/indoors/town/dwarfin)
@@ -120347,6 +120355,12 @@
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak,
 /turf/open/floor/rogue/tile/bfloorz,
 /area/rogue/under/cave/taricheamanor)
+"ufd" = (
+/obj/structure/roguemachine/atm{
+	location_tag = "Guild - Lobby"
+	},
+/turf/closed/wall/mineral/rogue/stone/window,
+/area/rogue/indoors/town/dwarfin)
 "ufe" = (
 /obj/structure/closet/crate/roguecloset/inn/chest,
 /obj/effect/spawner/lootdrop/roguetown/sewers,
@@ -125823,7 +125837,9 @@
 /obj/structure/stairs/stone/d{
 	dir = 1
 	},
-/obj/structure/roguemachine/atm,
+/obj/structure/roguemachine/atm{
+	location_tag = "Northern Gate"
+	},
 /turf/open/floor/rogue/cobble/mossy,
 /area/rogue/outdoors/town)
 "vbb" = (
@@ -305860,7 +305876,7 @@ nXK
 smL
 smL
 smL
-rjH
+ufd
 smL
 smL
 xvq
