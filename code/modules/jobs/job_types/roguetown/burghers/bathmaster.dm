@@ -38,6 +38,7 @@
 	subclass_languages = list(/datum/language/thievescant)
 	subclass_stats = list(
 		STATKEY_WIL = 1,
+		STATKEY_STR = 1,
 		STATKEY_CON = 1,
 		STATKEY_INT = 1
 	)
