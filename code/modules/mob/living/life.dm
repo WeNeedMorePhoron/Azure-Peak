@@ -60,9 +60,9 @@
 				if(!stemmed)
 					bleeding = TRUE
 			wound.heal_wound(0.4) // 40% of the heal happens naturally.
-			if(!isdullahan(src))
-				wound.heal_wound(0.6) // The rest % only if you are not a Revenant.
-				heal_psydonite(0.2, 0.2) // Heals damage over time, but you must be wounded for this to happen, and also not a Revenant.
+			if(HAS_TRAIT(src, TRAIT_DEATHLESS))
+				wound.heal_wound(0.6) // The other bulk of the effects, only if you are not Deathless.
+				heal_psydonite(0.1, 0.1)
 		if(!(in_combat_until > world.time) && !cmode && !bleeding)
 			heal_psydonite(0.2, 0.2) // Heals damage over time, but you must be completely out of trouble to proc.
 

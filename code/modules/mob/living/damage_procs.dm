@@ -294,9 +294,9 @@
 
 // heal MANY bodyparts, in random order, scaling from the damage. EXCLUSIVE FOR PSYDONITES.
 /mob/living/proc/heal_psydonite(brute = 0, burn = 0, stamina = 0, required_status, updating_health = TRUE)
-	brute += getBruteLoss() * 0.03
-	burn += getFireLoss() * 0.03
-	stamina += getStaminaLoss() * 0.03
+	brute += getBruteLoss() * 0.015
+	burn += getFireLoss() * 0.015
+	stamina += getStaminaLoss() * 0.015
 	adjustBruteLoss(-brute, FALSE)
 	adjustFireLoss(-burn, FALSE)
 	adjustStaminaLoss(-stamina, FALSE)
