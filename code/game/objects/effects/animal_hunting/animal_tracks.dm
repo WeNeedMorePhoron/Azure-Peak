@@ -479,29 +479,37 @@
 		if(!L || L.stat == DEAD || L == leader)
 			continue
 		valid_hunters += L
+
+	// Solo hunter - flat 25% chance, still respecting the category's bonus cap
 	if(!valid_hunters.len)
+		if(hunt_category.bonus_animal_amount >= 1 && prob(25))
+			spawn_bonus_phantom(T)
+			return 1
 		return 0
 
 	var/group_bonus = valid_hunters.len * 10 // Flat 10% per person
-	var/list/nearby_turfs = list()
-	for(var/dir in GLOB.alldirs)
-		var/turf/neighbor = get_step(T, dir)
-		if(validate_turf(neighbor))
-			nearby_turfs += neighbor
 
 	for(var/mob/living/hunter in valid_hunters)
 		if(spawned_count >= hunt_category.bonus_animal_amount)
 			break
 		var/skill = hunter.get_skill_level(/datum/skill/misc/hunting)
-		var/success_chance = clamp(((skill + 1) * 20) + group_bonus, 0, 100)
+		var/success_chance = clamp(((skill + 1) * 20) + group_bonus, 25, 100)
 		if(prob(success_chance))
-			var/turf/spawn_turf = (nearby_turfs.len) ? pick(nearby_turfs) : T
-			var/bonus_type = pickweight(hunt_category.animals)
-			var/mob/living/example_mob = bonus_type
-			var/chosen_rot = initial(example_mob.rot_type) ? /datum/component/rot/simple/hunt : null
-			new /obj/effect/temp_visual/hunting_phantom(spawn_turf, bonus_type, chosen_rot)
+			spawn_bonus_phantom(T)
 			spawned_count++
 	return spawned_count
+
+/obj/effect/hunting_track/proc/spawn_bonus_phantom(turf/T)
+	var/list/nearby_turfs = list()
+	for(var/dir in GLOB.alldirs)
+		var/turf/neighbor = get_step(T, dir)
+		if(validate_turf(neighbor))
+			nearby_turfs += neighbor
+	var/turf/spawn_turf = (nearby_turfs.len) ? pick(nearby_turfs) : T
+	var/bonus_type = pickweight(hunt_category.animals)
+	var/mob/living/example_mob = bonus_type
+	var/chosen_rot = initial(example_mob.rot_type) ? /datum/component/rot/simple/hunt : null
+	new /obj/effect/temp_visual/hunting_phantom(spawn_turf, bonus_type, chosen_rot)
 
 /obj/effect/hunting_track/proc/clear_party_images()
 	if(!party_images.len)
