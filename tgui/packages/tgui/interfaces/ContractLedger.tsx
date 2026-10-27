@@ -22,6 +22,7 @@ type Contract = {
   projected_reward: number;
   fellowship_threat_rate: number;
   fellowship_reward_rate: number;
+  fellowship_group_bonus: number;
   deposit: number;
   area: string;
   region: string;
@@ -580,6 +581,14 @@ const ContractCard = (props: { contract: Contract }) => {
           )}
         </span>
       </div>
+      {c.fellowship_group_bonus > 0 && (
+        <div className="ContractLedger__CardRow">
+          <span className="ContractLedger__CardLabel">Group bonus</span>
+          <span className="ContractLedger__CardValue">
+            +{formatRatioPct(c.fellowship_group_bonus)} pay
+          </span>
+        </div>
+      )}
       {c.fellowship_reward_rate > 0 && (
         <div className="ContractLedger__CardRow">
           <span className="ContractLedger__CardLabel">Per extra fellow</span>

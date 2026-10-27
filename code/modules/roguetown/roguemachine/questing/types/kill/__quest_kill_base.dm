@@ -258,7 +258,7 @@
 	return TRUE
 
 /datum/quest/kill/fits_region(datum/threat_region/TR)
-	return !!pick_region_faction_for(TR)
+	return ..() && !!pick_region_faction_for(TR)
 
 /datum/quest/kill/proc/estimate_mob_count(budget = tp_budget)
 	if(!faction || !length(faction.mob_types) || budget <= 0)
@@ -359,6 +359,11 @@
 
 /datum/quest/kill/get_additional_reward(turf/origin_turf, turf/target_turf)
 	if(total_spawned_tp > 0)
-		return total_spawned_tp * QUEST_KILL_THREAT_MULT
+		return total_spawned_tp * threat_pay_mult()
 	// Preview-time estimate: assume we'll spend the full budget.
-	return round(tp_budget * fellowship_threat_mult) * QUEST_KILL_THREAT_MULT
+	return round(tp_budget * fellowship_threat_mult) * threat_pay_mult()
+
+/datum/quest/kill/proc/threat_pay_mult()
+	if(!fellowship_reward_rate)
+		return QUEST_KILL_THREAT_MULT
+	return get_difficulty_term("threat_pay_mult") || QUEST_KILL_THREAT_MULT
