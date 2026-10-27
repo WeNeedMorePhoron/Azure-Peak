@@ -118193,7 +118193,6 @@
 /area/rogue/outdoors/town)
 "tMw" = (
 /obj/structure/mineral_door/wood/deadbolt{
-	locked = 1;
 	dir = 8
 	},
 /turf/open/floor/rogue/concrete,
