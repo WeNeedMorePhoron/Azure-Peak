@@ -340,6 +340,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	..()
 	l_hand = /obj/item/rogueweapon/lordscepter
 	//assigned per subclass to prevent duplication glitches with items
+	beltl =	/obj/item/rogueweapon/scabbard/sheath/royal // too many items otherwise.
 	backr = /obj/item/storage/backpack/rogue/satchel/black
 	backpack_contents = list(
 		/obj/item/storage/keyring/lord = 1,
@@ -347,7 +348,8 @@ GLOBAL_LIST_EMPTY(lord_titles)
 		/obj/item/rogueweapon/huntingknife/idagger/steel/decorated = 1,
 		/obj/item/blueprint/mace_mushroom = 1,
 		/obj/item/hunting_map/white_stag = 1,
-		/obj/item/rogueweapon/scabbard/sheath/royal = 1
+		/obj/item/rogueweapon/spellbook/greater = 1,
+		/obj/item/chalk = 1
 	)
 
 /**
