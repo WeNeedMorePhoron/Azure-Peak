@@ -2,7 +2,7 @@
 	quest_type = QUEST_TOWNER_CHEESEMAKER_CARAVAN
 	parcel_label = "recovered cheesemaking supplies"
 	posting_label = "A Cheesemaker's Caravan"
-	posting_blurb = "Beasts have hounded a cheesemaker's caravan. Hire hands to secure the caravan and bring them home."
+	posting_blurb = "A cheesemaker's caravan was ambushed. Hire hands to secure the caravan and bring them home."
 	postable_advclasses = list(
 		/datum/advclass/cheesemaker,
 		/datum/advclass/cook,
