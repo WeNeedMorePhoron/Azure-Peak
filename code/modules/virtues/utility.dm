@@ -137,6 +137,7 @@
 #undef NOTABLE_SHREWD
 
 #define SOCIALITE_BEAUTIFUL "Beautiful Trait"
+#define SOCIALITE_MASSAGE "Massage Ability"
 #define SOCIALITE_NUTCRACKER "Nutcracker Trait"
 #define SOCIALITE_EMPATH "Empath Trait"
 #define SOCIALITE_PERFORMER "Performer Trait"
@@ -150,6 +151,7 @@
 	choice_costs = list(0, 0, 0, 2, 4)
 	extra_choices = list(
 	SOCIALITE_BEAUTIFUL,
+	SOCIALITE_MASSAGE,
 	SOCIALITE_NUTCRACKER,
 	SOCIALITE_EMPATH,
 	SOCIALITE_PERFORMER,
@@ -200,6 +202,9 @@
 				ADD_TRAIT(recipient, TRAIT_EMPATH, TRAIT_VIRTUE)
 			if(SOCIALITE_PERFORMER)
 				recipient.adjust_skillrank_up_to(/datum/skill/misc/music, SKILL_LEVEL_EXPERT, silent = TRUE)
+			if(SOCIALITE_MASSAGE)
+				if(recipient.mind)
+					recipient.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/massage)
 			else
 				recipient.mind.special_items[choice] = extra_choices[choice]
 
@@ -207,6 +212,7 @@
 #undef SOCIALITE_NUTCRACKER
 #undef SOCIALITE_EMPATH
 #undef SOCIALITE_PERFORMER
+#undef SOCIALITE_MASSAGE
 
 /datum/virtue/utility/failed_squire
 	name = "Failed Squire"
