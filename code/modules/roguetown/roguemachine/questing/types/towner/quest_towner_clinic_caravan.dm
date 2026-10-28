@@ -21,11 +21,6 @@
 		THREAT_REGION_MOUNT_DECAP,
 		THREAT_REGION_AZUREAN_COAST,
 	)
-	eligible_factions = list(
-		QUEST_FACTION_HIGHWAYMAN,
-		QUEST_FACTION_MOUNT_REAVER,
-		QUEST_FACTION_BLEAKISLE_REAVER,
-	)
 	varieties = list(
 		"potions" = list(
 			"label" = "Medical Supplies",

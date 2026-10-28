@@ -44,7 +44,6 @@ GLOBAL_LIST_INIT(towner_posting_tiers, list(
 	)
 	eligible_regions = list()
 	var/list/postable_advclasses = list()
-	var/list/eligible_factions = list()
 	var/list/tier_tp_budgets = list(
 		TOWNER_POSTING_TIER_MEDIUM = list(TOWNER_CARAVAN_TP_BUDGET_MEDIUM),
 		TOWNER_POSTING_TIER_HARD = list(TOWNER_CARAVAN_TP_BUDGET_HARD),
@@ -103,9 +102,6 @@ GLOBAL_LIST_INIT(towner_posting_tiers, list(
 
 /datum/quest/kill/recovery/towner/proc/get_tier_flat_bonus()
 	return get_towner_tier_term(posting_tier, "flat_bonus") || 0
-
-/datum/quest/kill/recovery/towner/faction_fits(datum/quest_faction/F)
-	return (F.id in eligible_factions)
 
 /datum/quest/kill/recovery/towner/build_bundle()
 	var/variety = effective_variety()

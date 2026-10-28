@@ -11,12 +11,8 @@
 	)
 	eligible_regions = list(
 		THREAT_REGION_AZURE_GROVE,
+		THREAT_REGION_AZUREAN_COAST,
 		THREAT_REGION_MOUNT_DECAP,
-	)
-	eligible_factions = list(
-		QUEST_FACTION_GREAT_BEAST,
-		QUEST_FACTION_WILD_BEAST,
-		QUEST_FACTION_MINOTAUR,
 	)
 	varieties = list(
 		"cheesemaker" = list(

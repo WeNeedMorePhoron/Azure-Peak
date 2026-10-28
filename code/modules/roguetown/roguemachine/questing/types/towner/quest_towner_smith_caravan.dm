@@ -16,11 +16,6 @@
 		THREAT_REGION_AZURE_GROVE,
 		THREAT_REGION_AZUREAN_COAST,
 	)
-	eligible_factions = list(
-		QUEST_FACTION_HIGHWAYMAN,
-		QUEST_FACTION_MOUNT_REAVER,
-		QUEST_FACTION_BLEAKISLE_REAVER,
-	)
 	varieties = list(
 		"iron" = list(
 			"label" = "Iron & Steel",

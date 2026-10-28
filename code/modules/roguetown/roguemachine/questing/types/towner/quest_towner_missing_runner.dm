@@ -23,11 +23,6 @@
 		THREAT_REGION_AZURE_GROVE,
 		THREAT_REGION_AZUREAN_COAST,
 	)
-	eligible_factions = list(
-		QUEST_FACTION_HIGHWAYMAN,
-		QUEST_FACTION_ORC,
-		QUEST_FACTION_FOREST_GOBLIN,
-	)
 	bundle_pools = list(
 		"spirits" = list(
 			/obj/item/reagent_containers/glass/bottle/rogue/beer/jagdtrunk,

@@ -18,11 +18,6 @@
 		THREAT_REGION_AZURE_GROVE,
 		THREAT_REGION_AZUREAN_COAST,
 	)
-	eligible_factions = list(
-		QUEST_FACTION_HIGHWAYMAN,
-		QUEST_FACTION_SEA_GOBLIN,
-		QUEST_FACTION_GRONNMAN,
-	)
 	varieties = list(
 		"leathers" = list(
 			"label" = "Hides & Furs",

@@ -24,11 +24,6 @@
 		THREAT_REGION_AZURE_GROVE,
 		THREAT_REGION_TERRORBOG,
 	)
-	eligible_factions = list(
-		QUEST_FACTION_HIGHWAYMAN,
-		QUEST_FACTION_BOGMAN,
-		QUEST_FACTION_BOG_DEADITE,
-	)
 	varieties = list(
 		"food" = list(
 			"label" = "Raw Foodstuffs",
