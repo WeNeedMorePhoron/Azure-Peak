@@ -504,9 +504,11 @@
 		return FALSE
 
 	// Combo timeout
-	if(world.time > dualwield_resets_in)
+	if(world.time > dualwield_resets_in && dualwield_attack_count)
 		dualwield_attack_count = 0
 		balloon_alert(src, "<font color='#ffbfbf'>COMBO BREAKER!</font>")
+	else if(world.time > dualwield_resets_in)
+		dualwield_attack_count = 0
 	dualwield_resets_in = world.time + 3 SECONDS
 
 	if(dualwield_finisher)
@@ -546,26 +548,30 @@
 			if(a_intent)
 				used_intent = a_intent
 			paired_weapon.melee_attack_chain(src, A, params)
-			src.do_attack_animation_simple(A, ATTACK_EFFECT_DISARM)
+			src.do_attack_animation_at(A, ATTACK_EFFECT_DISARM)
 		else
 			var/obj/item/gloves_item = get_item_by_slot(SLOT_GLOVES)
 			if(istype(gloves_item, /obj/item/clothing/gloves/roguetown/knuckles))
 				balloon_alert_to_viewers("<font color='#bb2b2b'>Demolish!!</font>")
-				to_chat(src, "<font color='#ffc400'>I unleash a devastating blow!</font>")
-				to_chat(A, "<font color='#ffc400'>I am struck by a devastating blow!</font>")
-				sleep(2)
-				arcyne_strike(src, A, null, 12, zone_selected, BCLASS_BLUNT, spell_name = "Demolish")
-				src.do_attack_animation_simple(A, ATTACK_EFFECT_PUNCH)
+				to_chat(src, "<font color='#ffc400'>I unleash a devastating rush!</font>")
+				to_chat(A, "<font color='#ffc400'>I am struck by a devastating rush!</font>")
+				for(var/i in 1 to 2)
+					if(QDELETED(src) || QDELETED(A))
+						break
+					arcyne_strike(src, A, null, 8, zone_selected, BCLASS_BLUNT, spell_name = "Demolish")
+					src.do_attack_animation_at(A, ATTACK_EFFECT_PUNCH)
+					if(i < 2)
+						sleep(3)
 			else
 				balloon_alert_to_viewers("<font color='#bb2b2b'>Flurry of Blows!!</font>")
 				to_chat(src, "<font color='#ffc400'>I unleash a flurry of blows!</font>")
 				to_chat(A, "<font color='#ffc400'>I am struck by a flurry of blows!</font>")
-				for(var/i in 1 to 3)
+				for(var/i in 1 to 4)
 					if(QDELETED(src) || QDELETED(A))
 						break
 					arcyne_strike(src, A, null, 4, zone_selected, BCLASS_BLUNT, spell_name = "Flurry of Blows")
-					src.do_attack_animation_simple(A, ATTACK_EFFECT_PUNCH)
-					if(i < 3)
+					src.do_attack_animation_at(A, ATTACK_EFFECT_PUNCH)
+					if(i < 4)
 						sleep(3)
 
 	playsound_local(A, 'sound/combat/polearm_woosh.ogg', 75, FALSE, 0, 3)
