@@ -2083,7 +2083,7 @@
 	duration = 30 MINUTES
 
 /atom/movable/screen/alert/status_effect/buff/middling_massage
-	name = "Middling Massage"
+	name = "Decent Massage"
 	desc = "That massage worked the tension out of my muscles!"
 	icon_state = "buff"
 
