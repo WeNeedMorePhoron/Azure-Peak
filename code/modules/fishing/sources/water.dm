@@ -69,7 +69,7 @@
 		/obj/item/reagent_containers/food/snacks/fish/angler = 5 MINUTES,
 	)
 	fish_source_flags = FISH_SOURCE_FLAG_EXPLOSIVE_MALUS
-	associated_safe_turfs = list(/turf/open/water/ocean/abyss)
+	associated_safe_turfs = list(/turf/open/water/ocean/abyssal)
 	fishing_difficulty = FISHING_DEFAULT_DIFFICULTY + 15
 
 /datum/fish_source/swamp
@@ -137,7 +137,7 @@
 		/obj/item/reagent_containers/food/snacks/fish/eel = 4 MINUTES,
 	)
 	fish_source_flags = FISH_SOURCE_FLAG_EXPLOSIVE_MALUS
-	associated_safe_turfs = list(/turf/open/water/clean)
+	associated_safe_turfs = list(/turf/open/water/cleanshallow)
 	fishing_difficulty = FISHING_DEFAULT_DIFFICULTY + 5
 
 /datum/fish_source/river
@@ -176,7 +176,7 @@
 		/obj/item/reagent_containers/food/snacks/rotten/egg = 1,
 		/obj/item/reagent_containers/food/snacks/rotten/mince = 1,
 		/obj/item/natural/fibers = 2,
-		/obj/item/clothing/shoes/boots/leather = 1,
+		/obj/item/clothing/shoes/roguetown/boots/leather = 1,
 		/obj/item/reagent_containers/food/snacks/fish/eel = 1,
 		/obj/item/reagent_containers/food/snacks/
 	)
@@ -190,7 +190,7 @@
 		/obj/item/reagent_containers/food/snacks/rotten/egg = 2,
 		/obj/item/reagent_containers/food/snacks/rotten/mince = 2,
 		/obj/item/natural/fibers = 3,
-		/obj/item/clothing/shoes/boots/leather = 1,
+		/obj/item/clothing/shoes/roguetown/boots/leather = 1,
 		/obj/item/reagent_containers/food/snacks/fish/eel = 1,
 	)
 	fish_count_regen = list(
@@ -203,7 +203,7 @@
 		/obj/item/reagent_containers/food/snacks/rotten/egg = 15 MINUTES,
 		/obj/item/reagent_containers/food/snacks/rotten/mince = 12 MINUTES,
 		/obj/item/natural/fibers = 5 MINUTES,
-		/obj/item/clothing/shoes/boots/leather = 45 MINUTES,
+		/obj/item/clothing/shoes/roguetown/boots/leather = 45 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/eel = 60 MINUTES,
 	)
 	fish_source_flags = FISH_SOURCE_FLAG_EXPLOSIVE_MALUS

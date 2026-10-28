@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(fish_compatible_fluid_types, list(
 	slice_bclass = BCLASS_CHOP
 	faretype = FARE_IMPOVERISHED //incase someone decides to eat raw fish
 	nutrition = RAWMEAT_NUTRITION
-	slice_path = /obj/item/reagent_containers/food/snacks/meat/mince/fish
+	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/fish
 	eat_effect = /datum/status_effect/debuff/uncookedfood
 	fishloot = list(/obj/item/reagent_containers/food/snacks/fish/carp = 2)
 	item_weight = 300 GRAMS //idk about this one chief I'll come back
@@ -364,7 +364,7 @@ GLOBAL_LIST_INIT(fish_compatible_fluid_types, list(
 	return ..()
 
 /*
-/obj/item/reagent_containers/food/snacks/fish/attackby(obj/item/item, mob/living/user, list/modifiers, list/attack_modifiers)
+/obj/item/reagent_containers/food/snacks/fish/attackby(obj/item/item, mob/living/user, params)
 	if(!istype(item, /obj/item/reagent_containers/cup/fish_feed))
 		return ..()
 	if(!item.reagents.total_volume)
@@ -1252,10 +1252,10 @@ GLOBAL_LIST_INIT(fish_compatible_fluid_types, list(
 
 /*	.................   Chocolate Fish   ................... */
 
-/obj/item/reagent_containers/food/snacks/fryfish/carp/attackby(obj/item/I, mob/living/user, list/modifiers)
+/obj/item/reagent_containers/food/snacks/fryfish/carp/attackby(obj/item/I, mob/living/user, params)
 	..()
 	if(user.mind)
-		short_cooktime = (50 - ((GET_MOB_SKILL_VALUE(user, /datum/attribute/skill/craft/cooking))*0.8))
+		short_cooktime = (50 - ((GET_MOB_SKILL_VALUE(user, /datum/skill/craft/cooking))*0.8))
 	var/found_table = locate(/obj/structure/table) in (loc)
 	if(isturf(loc)&& (found_table))
 		if(istype(I, /obj/item/reagent_containers/food/snacks/chocolate))
@@ -1265,7 +1265,7 @@ GLOBAL_LIST_INIT(fish_compatible_fluid_types, list(
 				new /obj/item/reagent_containers/food/snacks/chocolate_carp(loc)
 				qdel(I)
 				qdel(src)
-				user.mind.add_sleep_experience(/datum/attribute/skill/craft/cooking/confectionery, (GET_MOB_ATTRIBUTE_VALUE(user, STAT_INTELLIGENCE)*0.5))
+				user.mind.add_sleep_experience(/datum/skill/craft/cooking/confectionery, (GET_MOB_ATTRIBUTE_VALUE(user, STAT_INTELLIGENCE)*0.5))
 
 /obj/item/reagent_containers/food/snacks/chocolate_carp
 	name = "le carp au chocolat"

@@ -1,6 +1,6 @@
 /obj/item/fishingrod
 	force = 12
-	possible_item_intents = list(ROD_AUTO, ROD_CAST, POLEARM_BASH)
+	possible_item_intents = list(ROD_AUTO, ROD_CAST, SPEAR_BASH)
 	name = "fishing rod"
 	desc = ""
 	icon_state = "rod1"
@@ -101,13 +101,13 @@
 	icon_state = "auto"
 	no_attack = TRUE
 
-/obj/item/fishingrod/attack_self(mob/user, list/modifiers)
+/obj/item/fishingrod/attack_self(mob/user)
 	if(user.doing())
 		user.stop_all_doing()
 	else
 		..()
 
-/obj/item/fishingrod/attackby(obj/item/I, mob/user, list/modifiers)
+/obj/item/fishingrod/attackby(obj/item/I, mob/user, params)
 	if(baited && reel && hook && line)
 		return ..()
 
@@ -267,7 +267,7 @@
 		return
 
 	playsound(src, SFX_REEL, 50, vary = FALSE)
-	var/time = (0.8 - round(GET_MOB_SKILL_VALUE(user, /datum/attribute/skill/labor/fishing) * 0.004, 0.1)) SECONDS * bait_speed_mult
+	var/time = (0.8 - round(GET_MOB_SKILL_VALUE(user, /datum/skill/labor/fishing) * 0.004, 0.1)) SECONDS * bait_speed_mult
 	if(!do_after(user, time, currently_hooked, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_TARGET_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(fishing_line_check))))
 		return
 	// nothing after this point should sleep (fingers crossed)
@@ -277,7 +277,7 @@
 		return
 
 	//About thirty minutes of non-stop reeling to get from zero to master... not worth it but hey, you do what you do.
-	user.mind?.add_sleep_experience(/datum/attribute/skill/labor/fishing, time * 0.13 * experience_multiplier)
+	user.mind?.add_sleep_experience(/datum/skill/labor/fishing, time * 0.13 * experience_multiplier)
 
 	//Try to move it 'till it's under the user's feet, then try to pick it up
 	var/requires_vertical = (loc.z > currently_hooked.z)
@@ -341,7 +341,7 @@
 	user = user || loc
 	if (!isliving(user) || !user.mind || !user.is_holding(src))
 		return
-	. += round(GET_MOB_SKILL_VALUE(user, /datum/attribute/skill/labor/fishing) * 0.03)
+	. += round(GET_MOB_SKILL_VALUE(user, /datum/skill/labor/fishing) * 0.03)
 	return max(., 1)
 
 /obj/item/fishingrod/dropped(mob/user, silent)
@@ -371,7 +371,7 @@
 		qdel(source)
 		return BEAM_CANCEL_DRAW
 
-/obj/item/fishingrod/afterattack(obj/target, mob/user, proximity_flag, list/modifiers)
+/obj/item/fishingrod/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!check_allowed_items(target,target_self=1) \
 	|| (user.used_intent.type != ROD_CAST && user.used_intent.type != ROD_AUTO) \
 	|| user.doing() \

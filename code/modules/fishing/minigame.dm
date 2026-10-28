@@ -167,8 +167,8 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 			special_effects |= FISHING_MINIGAME_RULE_KILL
 
 	//Finish the minigame faster at higher skill. The value modifiers for fishing are negative values btw.
-	completion_loss += GET_MOB_SKILL_SPEED_MOD(user, /datum/attribute/skill/labor/fishing)
-	completion_gain -= GET_MOB_SKILL_SPEED_MOD(user, /datum/attribute/skill/labor/fishing)
+	completion_loss += GET_MOB_SKILL_SPEED_MOD(user, /datum/skill/labor/fishing)
+	completion_gain -= GET_MOB_SKILL_SPEED_MOD(user, /datum/skill/labor/fishing)
 	// Floor so high skill can never make completion_loss zero or negative (minigame must remain losable)
 	completion_loss = max(1, completion_loss)
 
@@ -363,13 +363,13 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 		// This means a hard fish is worth more than an easy one regardless of how long it took,
 		// and winning gives the full difficulty bonus rather than penalising a clean fast win.
 		var/base_xp = (difficulty * 1.5) + (seconds_spent * 0.8)
-		var/extra_exp_malus = (GET_MOB_SKILL_VALUE(user, /datum/attribute/skill/labor/fishing) - difficulty) * 0.1
+		var/extra_exp_malus = (GET_MOB_SKILL_VALUE(user, /datum/skill/labor/fishing) - difficulty) * 0.1
 		if(extra_exp_malus > 0)
 			experience_multiplier /= (1 + extra_exp_malus * EXPERIENCE_MALUS_MULT)
 		if(auto_handling)
 			experience_multiplier *= 0.5
 		experience_multiplier *= used_rod.experience_multiplier
-		user.mind.add_sleep_experience(/datum/attribute/skill/labor/fishing, round(base_xp * experience_multiplier))
+		user.mind.add_sleep_experience(/datum/skill/labor/fishing, round(base_xp * experience_multiplier))
 
 	if(!win)
 		SEND_SIGNAL(user, COMSIG_MOB_COMPLETE_FISHING, src, FALSE)

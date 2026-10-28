@@ -419,6 +419,7 @@
 
 ///From /obj/item/fish/interact_with_atom_secondary, sent to the target: (fish)
 #define COMSIG_FISH_RELEASED_INTO "fish_released_into"
+#define COMSIG_FISH_CAUGHT "fish_caught"
 
 ///From /datum/fishing_challenge/New: (datum/fishing_challenge/challenge)
 #define COMSIG_ROD_BEGIN_FISHING "rod_begin_fishing"
