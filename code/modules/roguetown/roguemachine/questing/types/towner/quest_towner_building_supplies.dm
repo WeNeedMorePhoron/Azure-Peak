@@ -44,6 +44,15 @@
 					list("path" = /obj/item/ingot/iron, "min" = 4, "max" = 8, "noun" = "iron ingots"),
 					list("path" = /obj/item/rogueore/coal, "min" = 4, "max" = 8, "noun" = "coal"),
 				),
+				TOWNER_POSTING_TIER_PERILOUS = list(
+					list("path" = /obj/item/grown/log/tree/small, "min" = 32, "max" = 38, "noun" = "wood"),
+					list("path" = /obj/item/natural/wood/plank, "min" = 32, "max" = 38, "noun" = "planks"),
+					list("path" = /obj/item/natural/stone, "min" = 48, "max" = 56, "noun" = "stone"),
+					list("path" = /obj/item/natural/stoneblock, "min" = 32, "max" = 38, "noun" = "stone blocks"),
+					list("path" = /obj/item/construction/nail, "min" = 10, "max" = 16, "noun" = "nails"),
+					list("path" = /obj/item/ingot/iron, "min" = 7, "max" = 12, "noun" = "iron ingots"),
+					list("path" = /obj/item/rogueore/coal, "min" = 7, "max" = 12, "noun" = "coal"),
+				),
 			),
 		),
 	)

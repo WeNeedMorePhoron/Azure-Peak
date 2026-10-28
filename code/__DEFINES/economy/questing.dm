@@ -50,9 +50,11 @@
 
 #define TOWNER_POSTING_TIER_MEDIUM "medium"
 #define TOWNER_POSTING_TIER_HARD "hard"
+#define TOWNER_POSTING_TIER_PERILOUS "perilous"
 
 #define TOWNER_POSTING_COST_MEDIUM 100
 #define TOWNER_POSTING_COST_HARD 200
+#define TOWNER_POSTING_COST_PERILOUS 350
 
 #define TOWNER_POSTING_CROWN_COST_MULT 2
 #define TOWNER_POSTING_COMPANY_COST_MULT 1.5
@@ -63,8 +65,9 @@
 
 #define TOWNER_MAX_ACTIVE_POSTINGS 5
 
-#define TOWNER_REWARD_CAP_MEDIUM 300
-#define TOWNER_REWARD_CAP_HARD 500
+#define TOWNER_REWARD_CAP_MEDIUM 350
+#define TOWNER_REWARD_CAP_HARD 600
+#define TOWNER_REWARD_CAP_PERILOUS 1500
 
 #define TOWNER_CARAVAN_TP_BUDGET_MEDIUM 80
 #define TOWNER_CARAVAN_TP_BUDGET_HARD 150
@@ -72,9 +75,14 @@
 #define TOWNER_OREVEIN_TP_BUDGET_MEDIUM 80
 #define TOWNER_OREVEIN_TP_BUDGET_HARD 150
 
-// Flat sweetener layered on combat & distance pay. Easy postings get none; shared by both types.
+// Perilous fights exactly like an Incursion, shared by every towner type.
+#define TOWNER_PERILOUS_TP_BUDGET_FIRST QUEST_TP_BUDGET_INCURSION_FIRST
+#define TOWNER_PERILOUS_TP_BUDGET_SECOND QUEST_TP_BUDGET_INCURSION_SECOND
+
+// Flat sweetener layered on combat & distance pay, shared by every towner type.
 #define TOWNER_FLAT_BONUS_MEDIUM 50
 #define TOWNER_FLAT_BONUS_HARD 100
+#define TOWNER_FLAT_BONUS_PERILOUS 250
 
 #define QUEST_POOL_KILL "kill"
 #define QUEST_POOL_EVERGREEN "evergreen"

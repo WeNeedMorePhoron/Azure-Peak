@@ -34,6 +34,11 @@
 					list("path" = /obj/item/ingot/iron, "min" = 18, "max" = 24, "noun" = "iron"),
 					list("path" = /obj/item/ingot/steel, "min" = 10, "max" = 14, "noun" = "steel"),
 				),
+				TOWNER_POSTING_TIER_PERILOUS = list(
+					list("path" = /obj/item/ingot/iron, "min" = 28, "max" = 36, "noun" = "iron"),
+					list("path" = /obj/item/ingot/steel, "min" = 16, "max" = 20, "noun" = "steel"),
+					list("path" = /obj/item/ingot/blacksteel, "min" = 1, "max" = 1, "noun" = "blacksteel", "prob" = 40),
+				),
 			),
 		),
 		"bronze" = list(
@@ -46,6 +51,9 @@
 				TOWNER_POSTING_TIER_HARD = list(
 					list("path" = /obj/item/ingot/bronze, "min" = 14, "max" = 16, "noun" = "bronze"),
 				),
+				TOWNER_POSTING_TIER_PERILOUS = list(
+					list("path" = /obj/item/ingot/bronze, "min" = 22, "max" = 26, "noun" = "bronze"),
+				),
 			),
 		),
 		"bullion" = list(
@@ -57,6 +65,9 @@
 				),
 				TOWNER_POSTING_TIER_HARD = list(
 					list("path" = /obj/item/ingot/gold, "min" = 6, "max" = 7, "noun" = "gold"),
+				),
+				TOWNER_POSTING_TIER_PERILOUS = list(
+					list("path" = /obj/item/ingot/gold, "min" = 9, "max" = 11, "noun" = "gold"),
 				),
 			),
 		),

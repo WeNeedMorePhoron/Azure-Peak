@@ -83,6 +83,13 @@
 					list("path" = /obj/item/reagent_containers/powder/starsugar, "min" = 4, "max" = 6, "noun" = "starsugar"),
 					list("path" = /obj/item/reagent_containers/powder/herozium, "min" = 3, "max" = 5, "noun" = "herozium"),
 				),
+				TOWNER_POSTING_TIER_PERILOUS = list(
+					list("path" = /obj/item/reagent_containers/powder/moondust_purest, "min" = 5, "max" = 7, "noun" = "pure moondust"),
+					list("path" = /obj/item/reagent_containers/powder/ozium, "min" = 8, "max" = 10, "noun" = "ozium"),
+					list("path" = /obj/item/reagent_containers/powder/spice, "min" = 6, "max" = 9, "noun" = "spice"),
+					list("path" = /obj/item/reagent_containers/powder/starsugar, "min" = 6, "max" = 9, "noun" = "starsugar"),
+					list("path" = /obj/item/reagent_containers/powder/herozium, "min" = 5, "max" = 7, "noun" = "herozium"),
+				),
 			),
 		),
 		"booze" = list(
@@ -95,6 +102,10 @@
 				TOWNER_POSTING_TIER_HARD = list(
 					list("pool" = "spirits", "min" = 12, "max" = 20, "noun" = "assorted bottles"),
 					list("pool" = "fine_spirits", "min" = 1, "max" = 2, "noun" = "fine vintages"),
+				),
+				TOWNER_POSTING_TIER_PERILOUS = list(
+					list("pool" = "spirits", "min" = 18, "max" = 26, "noun" = "assorted bottles"),
+					list("pool" = "fine_spirits", "min" = 3, "max" = 4, "noun" = "fine vintages"),
 				),
 			),
 		),

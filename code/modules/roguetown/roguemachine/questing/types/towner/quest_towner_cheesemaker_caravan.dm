@@ -34,6 +34,12 @@
 					list("path" = /obj/item/reagent_containers/food/snacks/butter, "min" = 5, "max" = 8, "noun" = "butter"),
 					list("path" = /obj/item/reagent_containers/food/snacks/rogue/foodbase/cheesewheel, "min" = 1, "max" = 2, "noun" = "cheese wheels"),
 				),
+				TOWNER_POSTING_TIER_PERILOUS = list(
+					list("path" = /obj/item/reagent_containers/powder/salt, "min" = 32, "max" = 38, "noun" = "salt"),
+					list("path" = /obj/item/reagent_containers/glass/bottle/waterskin/milk, "min" = 8, "max" = 12, "noun" = "skins of milk"),
+					list("path" = /obj/item/reagent_containers/food/snacks/butter, "min" = 8, "max" = 12, "noun" = "butter"),
+					list("path" = /obj/item/reagent_containers/food/snacks/rogue/foodbase/cheesewheel, "min" = 2, "max" = 4, "noun" = "cheese wheels"),
+				),
 			),
 		),
 	)

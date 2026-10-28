@@ -77,6 +77,10 @@
 					list("path" = /obj/item/clothing/ring/diamond, "min" = 1, "max" = 1, "noun" = "valuable heirloom ring"),
 					list("path" = /obj/item/roguestatue/gold, "min" = 1, "max" = 2, "noun" = "golden statuettes"),
 				),
+				TOWNER_POSTING_TIER_PERILOUS = list(
+					list("path" = /obj/item/clothing/ring/diamondbs, "min" = 1, "max" = 1, "noun" = "blacksteel heirloom ring"),
+					list("path" = /obj/item/roguestatue/gold, "min" = 2, "max" = 3, "noun" = "golden statuettes"),
+				),
 			),
 		),
 		"gems" = list(
@@ -95,6 +99,13 @@
 					list("path" = /obj/item/roguegem/violet, "min" = 0, "max" = 2, "noun" = "saffira"),
 					list("path" = /obj/item/roguegem/green, "min" = 0, "max" = 3, "noun" = "gemerald"),
 				),
+				TOWNER_POSTING_TIER_PERILOUS = list(
+					list("path" = /obj/item/roguegem/diamond, "min" = 1, "max" = 2, "noun" = "dorpel"),
+					list("path" = /obj/item/roguegem/jade, "min" = 1, "max" = 2, "noun" = "jade"),
+					list("path" = /obj/item/roguegem/violet, "min" = 1, "max" = 2, "noun" = "saffira"),
+					list("path" = /obj/item/roguegem/green, "min" = 1, "max" = 3, "noun" = "gemerald"),
+					list("path" = /obj/item/roguegem/blood_diamond, "min" = 1, "max" = 1, "noun" = "glut", "prob" = 30),
+				),
 			),
 		),
 		"coin" = list(
@@ -108,6 +119,10 @@
 					list("path" = /obj/item/roguecoin/gold/aspirantpile, "min" = 1, "max" = 1, "noun" = "gold pile"),
 					list("path" = /obj/item/roguecoin/silver/pile, "min" = 1, "max" = 1, "noun" = "silver pile"),
 				),
+				TOWNER_POSTING_TIER_PERILOUS = list(
+					list("path" = /obj/item/roguecoin/gold/aspirantpile, "min" = 1, "max" = 1, "noun" = "gold pile"),
+					list("path" = /obj/item/roguecoin/gold/pile, "min" = 1, "max" = 1, "noun" = "loose gold"),
+				),
 			),
 		),
 		"evidence" = list(
@@ -118,6 +133,9 @@
 					list("path" = /obj/item/paper/scroll/fake_evidence, "min" = 1, "max" = 1, "noun" = "document"),
 				),
 				TOWNER_POSTING_TIER_HARD = list(
+					list("path" = /obj/item/paper/scroll/fake_evidence, "min" = 1, "max" = 1, "noun" = "document"),
+				),
+				TOWNER_POSTING_TIER_PERILOUS = list(
 					list("path" = /obj/item/paper/scroll/fake_evidence, "min" = 1, "max" = 1, "noun" = "document"),
 				),
 			),
