@@ -507,7 +507,7 @@
 	if(world.time > dualwield_resets_in)
 		dualwield_attack_count = 0
 		balloon_alert(src, "<font color='#ffbfbf'>COMBO BREAKER!</font>")
-	dualwield_resets_in = world.time + 2 SECONDS
+	dualwield_resets_in = world.time + 3 SECONDS
 
 	if(dualwield_finisher)
 		dualwield_finisher = FALSE
@@ -520,7 +520,7 @@
 	dualwield_attack_count++
 	balloon_alert(src, "<font color='#ffbfbf'>[dualwield_attack_count]-Hit!</font>")
 
-	if(dualwield_attack_count >= 4)
+	if(dualwield_attack_count >= 3)
 		dualwield_attack_count = 0
 		dualwield_finisher = TRUE
 
