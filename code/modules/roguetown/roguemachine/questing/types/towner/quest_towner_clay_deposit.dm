@@ -12,12 +12,14 @@
 	)
 	eligible_regions = list(
 		THREAT_REGION_AZURE_GROVE,
+		THREAT_REGION_AZUREAN_COAST,
 		THREAT_REGION_UNDERDARK,
 	)
 	eligible_factions = list(
 		QUEST_FACTION_HIGHWAYMAN,
 		QUEST_FACTION_SEA_GOBLIN,
 		QUEST_FACTION_GRONNMAN,
+		QUEST_FACTION_MOON_GOBLIN,
 	)
 	varieties = list(
 		"clay" = list(
