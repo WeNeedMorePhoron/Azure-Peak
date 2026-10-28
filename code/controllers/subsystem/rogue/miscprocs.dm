@@ -254,6 +254,51 @@ GLOBAL_LIST_EMPTY(miracle_tiers)
 	to_chat(src, "I will see [HAS_TRAIT(src, TRAIT_COMBAT_AWARE) ? "more" : "less"] combat information now.")
 
 
+//Suicide prayer for deathless characters.
+/datum/emote/living/praysuicide
+	key = "praysuicide"
+	key_third_person = "utters their last words"
+	message = ""
+	emote_type = EMOTE_AUDIBLE
+	stat_allowed = list(CONSCIOUS, UNCONSCIOUS)
+	show_runechat = FALSE
+	emote_type = EMOTE_VISIBLE
+	restraint_check = FALSE
+
+/mob/living/carbon/human/proc/praysuicide()
+	set name = "Suicidal Prayer"
+	set category = "RoleUnique.Virtue"
+	emote("praysuicide", intentional = TRUE)
+
+/datum/emote/living/praysuicide/run_emote(mob/user, params, type_override, intentional)
+	if(!user)
+		return FALSE
+
+	var/mob/living/L = user
+	var/lastmsg = params
+	if(!lastmsg)
+		lastmsg = input("Whisper your final words:", "Last Words") as text|null
+	if(!lastmsg)
+		return FALSE
+
+	to_chat(L, span_danger("I pray to my patron for my death... and I am heard."))
+	L.whisper(lastmsg)
+
+	L.visible_message(span_warning("[L]'s body begins to shake violently!"))
+	L.Jitter(5 SECONDS)
+	shake_camera(L, 30, 1)
+	if(QDELETED(L) || L.stat == DEAD)
+		return FALSE
+	L.emote("scream", forced = TRUE)
+	sleep(30)
+
+	if(QDELETED(L) || L.stat == DEAD)
+		return FALSE
+	L.suicide_log()
+	L.visible_message(span_danger("[L] suddenly collapses, dead!"))
+	L.death()
+	return TRUE
+
 /mob/living/carbon/human/proc/toggle_descriptors()
 	set name = "Toggle Anonimity"
 	set category = "RoleUnique.Virtue"
