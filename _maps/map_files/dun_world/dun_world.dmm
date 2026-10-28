@@ -131133,10 +131133,7 @@
 /area/rogue/under/cave/taricheamanor)
 "vXi" = (
 /obj/structure/table/wood/poor,
-/obj/item/candle/skull/lit{
-	pixel_y = 6;
-	pixel_x = 4
-	},
+/obj/item/candle/skull/lit,
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/town/garrison)
 "vXk" = (
@@ -131313,11 +131310,7 @@
 "vZu" = (
 /obj/structure/table/wood/poor,
 /obj/machinery/light/rogue/torchholder/c,
-/obj/item/rope{
-	pixel_x = -8;
-	pixel_y = 11
-	},
-/obj/item/rope,
+/obj/item/needle/thorn,
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/town/garrison)
 "vZz" = (
@@ -303450,7 +303443,7 @@ rnn
 cYZ
 pWT
 pLh
-cDX
+phl
 jdu
 jdu
 jdu
@@ -309782,12 +309775,12 @@ pWT
 pLh
 phl
 pLh
-cDX
 gyu
 cDX
-cDX
+gyu
 gyu
 cDX
+gyu
 phl
 phl
 phl
@@ -310235,8 +310228,8 @@ njB
 phl
 phl
 pLh
-jtR
 lKo
+jtR
 pqo
 lKo
 phl
@@ -310686,12 +310679,12 @@ pWT
 pWT
 njB
 phl
-cDX
 gyu
 cDX
-cDX
+gyu
 gyu
 cDX
+gyu
 phl
 phl
 phl
