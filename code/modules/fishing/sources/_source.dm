@@ -48,9 +48,6 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	///If set, this overrides the upper and lower bounds of how long you should wait during the waiting phase of the minigame.
 	var/list/wait_time_range
 
-	/// Mindless mobs that can fish will never pull up items on this list
-	var/static/list/profound_fisher_blacklist = list()
-
 	///List of multipliers used to make fishes more common compared to everything else depending on bait quality, indexed from best to worst.
 	var/static/weight_result_multiplier = list(
 		TRAIT_GREAT_QUALITY_BAIT = 9,
@@ -241,12 +238,6 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 /// Returns a fish instance or another special value which we use for dispensing a reward later.
 /datum/fish_source/proc/roll_reward(obj/item/fishingrod/rod, mob/fisherman, atom/location)
 	return pickweight(get_modified_fish_table(rod, fisherman, location)) || FISHING_DUD
-
-/// Version of roll_reward() that blacklists objects that shouldn't be caught by ai-controlled mobs.
-/datum/fish_source/proc/roll_mindless_reward(obj/item/fishingrod/rod, mob/fisherman, atom/location)
-	var/list/final_table = get_modified_fish_table(rod, fisherman, location)
-	final_table -= profound_fisher_blacklist
-	return pickweight(final_table) || FISHING_DUD
 
 /**
  * Used to register signals or add traits and the such right after conditions have been cleared

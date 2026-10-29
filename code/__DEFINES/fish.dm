@@ -190,10 +190,6 @@
 /// Sent to the fisherman when the reward is dispensed: (reward)
 #define COMSIG_FISH_SOURCE_REWARD_DISPENSED "fish_source_reward_dispensed"
 
-/// Called when an ai-controlled mob interacts with the fishing spot
-#define COMSIG_NPC_FISHING "npc_fishing"
-	#define NPC_FISHING_SPOT 1
-
 /// Sent by the target of the fishing rod cast
 #define COMSIG_FISHING_ROD_CAST "fishing_rod_cast"
 	#define FISHING_ROD_CAST_HANDLED (1 << 0)
