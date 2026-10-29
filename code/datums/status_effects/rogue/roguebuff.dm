@@ -2076,6 +2076,17 @@
 	desc = "Gazing Noc helps me think."
 	icon_state = "buff"
 
+// Middling massage is given by masseurs without TRAIT_GOOD_MASSEUR. Placebo effect basically.
+/datum/status_effect/buff/middling_massage
+	id = "middlingmassage"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/middling_massage
+	duration = 30 MINUTES
+
+/atom/movable/screen/alert/status_effect/buff/middling_massage
+	name = "Decent Massage"
+	desc = "That massage worked the tension out of my muscles!"
+	icon_state = "buff"
+
 /datum/status_effect/buff/massage
 	id = "massage"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/massage
@@ -2084,7 +2095,7 @@
 
 /atom/movable/screen/alert/status_effect/buff/massage
 	name = "Massage"
-	desc = "My muscles feel relaxed"
+	desc = "My muscles feel relaxed!"
 	icon_state = "buff"
 
 /datum/status_effect/buff/goodmassage
@@ -2095,7 +2106,7 @@
 
 /atom/movable/screen/alert/status_effect/buff/goodmassage
 	name = "Good Massage"
-	desc = "My muscles feel relaxed and better than before"
+	desc = "My muscles feel relaxed and better than before!"
 	icon_state = "buff"
 
 /datum/status_effect/buff/greatmassage
