@@ -248,14 +248,14 @@ T1 Enchantments below here*/
 	else
 		to_chat(user, span_notice("You don't think [O] will take to the enchantment. Best not to waste the ink."))
 
-/obj/item/enchantmentscroll/superior/thievery
+/obj/item/enchantmentscroll/superior/lockpicking
 	name = "runic tincture of nimble fingers"
 	desc = "A vial of quicksilver ink, imbued with an enchantment of nimble fingers."
-	component = /datum/magic_item/superior/thievery
+	component = /datum/magic_item/superior/lockpicking
 	apply_to_pretty = "Can be applied to gloves or a ring."
 	effects_pretty = "Increases the bearer's skill in lockpicking."
 
-/obj/item/enchantmentscroll/superior/thievery/attack_obj(obj/item/O, mob/living/user)
+/obj/item/enchantmentscroll/superior/lockpicking/attack_obj(obj/item/O, mob/living/user)
 	if(!..())
 		return
 	if(istype(O,/obj/item/clothing/gloves)||istype(O,/obj/item/clothing/ring))
