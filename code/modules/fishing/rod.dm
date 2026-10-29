@@ -1,6 +1,6 @@
 /obj/item/fishingrod
 	force = 12
-	possible_item_intents = list(ROD_AUTO, ROD_CAST, SPEAR_BASH)
+	possible_item_intents = list(ROD_CAST, ROD_AUTO, SPEAR_BASH)
 	name = "fishing rod"
 	desc = "Made from weathered wood and coarse twine. The tool of the battle against the dark waters below."
 	icon_state = "rod"
@@ -188,6 +188,13 @@
 		user.put_in_hands(totake)
 		to_chat(user, "<span class='notice'>I take [totake] off of [src].</span>")
 		vand_update_appearance(UPDATE_OVERLAYS)
+
+/obj/item/fishingrod/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("All fishing rods need a hook to be able to fish. A line and a bobber or sinker are optional but help. Bait is optional, but it increases the chance of catching a fish.")
+	. += span_info("Left-click on a water tile to cast the line. If a fish bites, click again to reel it in. This will start a minigame.")
+	. += span_info("Overlap the green bar with the fish until the progress bar fills up. Hold down left click to lift the green bar, release to let it sink.")
+	. += span_info("Auto reel will reel automatically but less efficiently. Once the progress bar fills, the fish will be caught automatically. You may have to bait the hook again if you use consumable baits.")
 
 /obj/item/fishingrod/examine(mob/user)
 	. = ..()
@@ -509,6 +516,7 @@
 	icon_state = "hook_projectile"
 	damage = 0
 	range = 5
+	can_hit_turfs = TRUE
 
 	var/obj/item/fishingrod/owner
 	var/datum/beam/our_line
