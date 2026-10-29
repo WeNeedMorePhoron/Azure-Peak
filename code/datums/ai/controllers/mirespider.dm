@@ -29,9 +29,13 @@
 
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/aggro_find_target,
-		/datum/ai_planning_subtree/basic_ranged_attack_subtree/mirespider_lurker,
+		/datum/ai_planning_subtree/attack_obstacle_in_path,
+		/datum/ai_planning_subtree/basic_melee_attack_subtree/opportunistic,
+		/datum/ai_planning_subtree/basic_ranged_attack_subtree/opportunistic/mirespider_lurker,
 		/datum/ai_planning_subtree/find_cocoon_target,
-		/datum/ai_planning_subtree/cocoon_target
+		/datum/ai_planning_subtree/cocoon_target,
+		/datum/ai_planning_subtree/basic_melee_attack_subtree,
+		/datum/ai_planning_subtree/simple_self_recovery,
 	)
 
 /datum/ai_controller/mirespider_paralytic
@@ -113,29 +117,25 @@
 
 	return AI_BEHAVIOR_DELAY
 
-/datum/ai_planning_subtree/basic_ranged_attack_subtree/mirespider_lurker
-	ranged_attack_behavior = /datum/ai_behavior/basic_ranged_attack
+/datum/ai_planning_subtree/basic_ranged_attack_subtree/opportunistic/mirespider_lurker
 
-/datum/ai_planning_subtree/basic_ranged_attack_subtree/mirespider_lurker/SelectBehaviors(datum/ai_controller/controller, delta_time)
-	. = ..()
+/datum/ai_planning_subtree/basic_ranged_attack_subtree/opportunistic/mirespider_lurker/SelectBehaviors(datum/ai_controller/controller, delta_time)
 	var/atom/target = controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
 	if(QDELETED(target))
 		return
 
 	if(isliving(target))
-		var/mob/living/carbon/L = target
-		if(L)
-			if(L.stat || L.getBruteLoss() > 500)
-				controller.set_blackboard_key(BB_BASIC_MOB_COCOON_TARGET, L)
-				controller.queue_behavior(/datum/ai_behavior/cocoon_target, BB_BASIC_MOB_COCOON_TARGET)
-				return SUBTREE_RETURN_FINISH_PLANNING
+		var/mob/living/L = target
+		if(L.stat || L.getBruteLoss() > 500)
+			controller.set_blackboard_key(BB_BASIC_MOB_COCOON_TARGET, L)
+			controller.queue_behavior(/datum/ai_behavior/cocoon_target, BB_BASIC_MOB_COCOON_TARGET)
+			return SUBTREE_RETURN_FINISH_PLANNING
 
 	var/mob/living/simple_animal/hostile/rogue/mirespider_lurker/lurker = controller.pawn
-	if (lurker)
+	if(istype(lurker))
 		lurker.clear_followers_if_any()
 
-	controller.queue_behavior(ranged_attack_behavior, BB_BASIC_MOB_CURRENT_TARGET, BB_TARGETTING_DATUM, BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION)
-	return SUBTREE_RETURN_FINISH_PLANNING
+	return ..()
 
 /datum/ai_behavior/cocoon_target
 	behavior_flags = AI_BEHAVIOR_REQUIRE_REACH | AI_BEHAVIOR_REQUIRE_MOVEMENT
