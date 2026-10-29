@@ -16,8 +16,24 @@ PROCESSING_SUBSYSTEM_DEF(fishing)
 	///A list of fish types with list of turfs where they can happily hop around without dying as assoc value
 	var/list/fish_safe_turfs_by_type = list()
 
-/datum/controller/subsystem/processing/fishing/Initialize()
-	..()
+/datum/controller/subsystem/processing/fishing/fire(resumed = 0)
+	if (!resumed)
+		currentrun = processing.Copy()
+	//cache for sanic speed (lists are references anyways)
+	var/list/current_run = currentrun
+
+	while(current_run.len)
+		var/datum/thing = current_run[current_run.len]
+		current_run.len--
+		if(QDELETED(thing))
+			processing -= thing
+		else if(thing.process(wait * 0.1) == PROCESS_KILL)
+			// fully stop so that a future START_PROCESSING will work
+			STOP_PROCESSING(src, thing)
+		if (MC_TICK_CHECK)
+			return
+
+/datum/controller/subsystem/processing/fishing/Initialize(start_timeofday)
 	cached_fish_icons = list()
 	cached_unknown_fish_icons = list()
 	fish_properties = list()
@@ -46,27 +62,6 @@ PROCESSING_SUBSYSTEM_DEF(fishing)
 		properties[FISH_PROPERTIES_FAV_BAIT] = fish.favorite_bait.Copy()
 		properties[FISH_PROPERTIES_BAD_BAIT] = fish.disliked_bait.Copy()
 		properties[FISH_PROPERTIES_TRAITS] = fish.fish_traits.Copy()
-
-		var/beauty_score = "???"
-		switch(fish.beauty)
-			if(-INFINITY to FISH_BEAUTY_DISGUSTING)
-				beauty_score = "OH HELL NAW!"
-			if(FISH_BEAUTY_DISGUSTING to FISH_BEAUTY_UGLY)
-				beauty_score = "☆☆☆☆☆"
-			if(FISH_BEAUTY_UGLY to FISH_BEAUTY_BAD)
-				beauty_score = "★☆☆☆☆"
-			if(FISH_BEAUTY_BAD to FISH_BEAUTY_NULL)
-				beauty_score = "★★☆☆☆"
-			if(FISH_BEAUTY_NULL to FISH_BEAUTY_GENERIC)
-				beauty_score = "★★★☆☆"
-			if(FISH_BEAUTY_GENERIC to FISH_BEAUTY_GOOD)
-				beauty_score = "★★★★☆"
-			if(FISH_BEAUTY_GOOD to FISH_BEAUTY_GREAT)
-				beauty_score = "★★★★★"
-			if(FISH_BEAUTY_GREAT to INFINITY)
-				beauty_score = "★★★★★★"
-
-		properties[FISH_PROPERTIES_BEAUTY_SCORE] = beauty_score
 
 		var/fish_id
 		if(fish.fish_id_redirect_path)
