@@ -3772,7 +3772,6 @@
 #include "modular\Neu_Brews\code\recipes\blend_recipes.dm"
 #include "modular\Neu_Brews\code\recipes\pot_recipes.dm"
 #include "modular\Neu_Farming\code\eggs.dm"
-#include "modular\Neu_Food\cooking_helpers.dm"
 #include "modular\Neu_Food\code\NeuFood.dm"
 #include "modular\Neu_Food\code\cooked\cooked_baked.dm"
 #include "modular\Neu_Food\code\cooked\cooked_boiled.dm"
