@@ -31,19 +31,19 @@
 	 */
 	var/list/disliked_bait = list()
 
-	/// Size in centimeters. Null until update_size_and_weight is called. Number of fillets and w_class scale with it.
+	/// Size in hands. Null until update_size_and_weight is called. Number of fillets and w_class scale with it.
 	var/size
-	/// Average size for this fish type in centimeters. Will be used as gaussian distribution with 20% deviation for fishing, bought fish are always standard size
-	var/average_size = 50
+	/// Average size for this fish type in hands. Will be used as gaussian distribution with 20% deviation for fishing, bought fish are always standard size
+	var/average_size = 5
 	/// Temporarily stores the new size of the fish from randomize_size_and_weight() to be used by update_size_weight() later, so that it can be deferred.
 	var/temp_size
 	/// The maximum size this fish can reach, calculated the first time update_size_and_weight() is called.
 	var/maximum_size
 
-	/// Weight in grams. Null until update_size_and_weight is called.
+	/// Weight in pounds. Null until update_size_and_weight is called.
 	var/weight
-	/// Average weight for this fish type in grams
-	var/average_weight = 1000
+	/// Average weight for this fish type in pounds
+	var/average_weight = 2
 	/// Temporarily stores the new weight of the fish from randomize_size_and_weight() to be used by update_size_weight() later, so that it can be deferred.
 	var/temp_weight
 	/// The maximum weight this fish can reach, calculated the first time update_size_and_weight() is called.
@@ -69,9 +69,9 @@
  */
 /obj/item/reagent_containers/food/snacks/fish/proc/randomize_size_and_weight(base_size = average_size, base_weight = average_weight, deviation = weight_size_deviation, update = TRUE)
 	var/size_deviation = 0.4 * base_size
-	temp_size = round(clamp(gaussian(base_size, size_deviation), average_size * 1/MAX_FISH_DEVIATION_COEFF, average_size * MAX_FISH_DEVIATION_COEFF))
+	temp_size = round(clamp(gaussian(base_size, size_deviation), average_size * 1/MAX_FISH_DEVIATION_COEFF, average_size * MAX_FISH_DEVIATION_COEFF), FISH_MEASURE_PRECISION)
 	var/weight_deviation = 0.4 * base_weight
-	temp_weight = round(clamp(gaussian(base_weight, weight_deviation), average_weight * 1/MAX_FISH_DEVIATION_COEFF, average_weight * MAX_FISH_DEVIATION_COEFF))
+	temp_weight = round(clamp(gaussian(base_weight, weight_deviation), average_weight * 1/MAX_FISH_DEVIATION_COEFF, average_weight * MAX_FISH_DEVIATION_COEFF), FISH_MEASURE_PRECISION)
 	set_max_size_and_weight(temp_size, temp_weight, force = TRUE)
 	if(update)
 		update_size_and_weight(temp_size, temp_weight)
@@ -123,6 +123,12 @@
 	weight = new_weight
 
 	slices_num = max(round(size / average_size * initial(slices_num), 1), 1)
+
+/obj/item/reagent_containers/food/snacks/fish/examine(mob/user)
+	. = ..()
+	if(!size)
+		return
+	. += span_notice("It is [size] hands long and weighs some [weight] pounds.")
 
 /obj/item/reagent_containers/food/snacks/fish/proc/apply_traits()
 	var/list/potential_spontaneous_traits = GLOB.spontaneous_fish_traits[type]
