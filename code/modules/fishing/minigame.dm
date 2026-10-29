@@ -564,13 +564,14 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 
 	phase = MINIGAME_PHASE
 	deltimer(next_phase_timer)
-	if((FISHING_MINIGAME_RULE_KILL in special_effects) && ispath(reward_path,/obj/item/reagent_containers/food/snacks/fish))
+	if((FISHING_MINIGAME_RULE_KILL in special_effects) && (ispath(reward_path,/obj/item/reagent_containers/food/snacks/fish) || is_fish_instance))
 		var/obj/item/reagent_containers/food/snacks/fish/fish = reward_path
 		var/wait_time = ((initial(fish.max_integrity) * (1 - initial(fish.integrity_failure))) / FISH_DAMAGE_PER_SECOND) SECONDS
 		addtimer(CALLBACK(src, PROC_REF(win_anyway)), wait_time, TIMER_DELETE_ME)
 	else if(ismovable(reward_path))
 		var/atom/movable/reward = reward_path
-		RegisterSignal(reward, COMSIG_MOVABLE_MOVED, PROC_REF(on_reward_removed))
+		if(!fish_source.generated_fish_pool?[reward])
+			RegisterSignal(reward, COMSIG_MOVABLE_MOVED, PROC_REF(on_reward_removed))
 		if(is_fish_instance)
 			RegisterSignal(reward, COMSIG_FISH_STATUS_CHANGED, PROC_REF(on_fish_death))
 	start_time = world.time
