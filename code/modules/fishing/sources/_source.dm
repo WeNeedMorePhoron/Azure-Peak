@@ -12,14 +12,9 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 
 /proc/generate_specific_fish_icons()
 	var/list/return_list = zebra_typecacheof(list(
-		/obj/effect/decal/remains = FISH_ICON_BONE,
-		/obj/item/coin = FISH_ICON_COIN,
 		/obj/item/reagent_containers/food/snacks/fish = FISH_ICON_DEF,
 	))
 
-	return_list[FISHING_RANDOM_SEED] = FISH_ICON_SEED
-	return_list[FISHING_RANDOM_ORGAN] = FISH_ICON_ORGAN
-	return_list[FISHING_VENDING_CHUCK] = FISH_ICON_COIN
 	return return_list
 
 /**
@@ -46,9 +41,6 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	var/catalog_description
 	/// Background image name from /datum/asset/simple/fishing_minigame
 	var/background = "background_default"
-	var/fish_source_flags = NONE
-	/// If FISH_SOURCE_FLAG_EXPLOSIVE_MALUS is set, this will track of how much we're "exhausting" the system by bombing it repeatedly.
-	var/explosive_fishing_score = 0
 	///When linked to a fishing portal, this will be the icon_state of this option in the radial menu
 	var/radial_state = "default"
 	///When selected by the fishing portal, this will be the icon_state of the overlay shown on the machine.
@@ -95,8 +87,6 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 			fish_count_regen[path] = 30 MINUTES
 
 /datum/fish_source/Destroy()
-	if(explosive_fishing_score)
-		STOP_PROCESSING(SSprocessing, src)
 	cleanup_generated_fish()
 	return ..()
 
@@ -156,7 +146,7 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 
 	// Difficulty modifier added by the fisher's skill level
 	if(!(challenge.special_effects & FISHING_MINIGAME_RULE_NO_EXP))
-		var/skill_level = GET_MOB_SKILL_VALUE_OLD(fisherman, /datum/skill/labor/fishing)
+		var/skill_level = fisherman.get_skill_level(/datum/skill/labor/fishing)
 
 		switch(skill_level)
 			if(0)
@@ -358,7 +348,7 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	return reward
 
 /// Returns the fish table, with the unavailable items from fish_counts removed.
-/datum/fish_source/proc/get_fish_table(atom/location, from_explosion = FALSE)
+/datum/fish_source/proc/get_fish_table(atom/location)
 	var/list/table = fish_table.Copy()
 	for(var/result in table)
 		if(!isnull(fish_counts[result]) && fish_counts[result] <= 0)
@@ -471,19 +461,17 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 
 ///returns true if this fishing spot has fish that are shown in the catalog.
 /datum/fish_source/proc/has_known_fishes(atom/location)
-	var/show_anyway = fish_source_flags & FISH_SOURCE_FLAG_IGNORE_HIDDEN_ON_CATALOG
 	for(var/reward in get_fish_table(location))
 		if(!ispath(reward, /obj/item/reagent_containers/food/snacks/fish))
 			continue
 		var/obj/item/reagent_containers/food/snacks/fish/prototype = reward
-		if(!show_anyway && initial(prototype.fish_flags) & FISH_FLAG_SHOW_IN_CATALOG)
+		if(initial(prototype.fish_flags) & FISH_FLAG_SHOW_IN_CATALOG)
 			return TRUE
 	return FALSE
 
 ///Add a string with the names of catchable fishes to the examine text.
 /datum/fish_source/proc/get_catchable_fish_names(mob/user, atom/location, list/examine_text)
 	var/list/known_fishes = list()
-	var/show_anyway = fish_source_flags & FISH_SOURCE_FLAG_IGNORE_HIDDEN_ON_CATALOG
 
 	var/obj/item/fishingrod/rod = user.get_active_held_item()
 	var/list/final_table
@@ -503,7 +491,7 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 			continue
 
 		var/obj/item/reagent_containers/food/snacks/fish/prototype = reward
-		if(!show_anyway && !(initial(prototype.fish_flags) & FISH_FLAG_SHOW_IN_CATALOG))
+		if(!(initial(prototype.fish_flags) & FISH_FLAG_SHOW_IN_CATALOG))
 			continue
 
 		if(rod)
@@ -547,58 +535,3 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	if(rod)
 		info = span_tooltip("In bold are fish you're more likely to catch with the current setup. The opposite is true for the smaller font", info)
 	examine_text += span_info("[info]: [english_list(known_fishes)].")
-
-///How much the explosive_fishing_score impacts explosive fishing. The higher the value, the stronger the malus for repeated calls
-#define EXPLOSIVE_FISHING_MALUS_EXPONENT 0.55
-///How much the explosive_fishing_score is reduced each second.
-#define EXPLOSIVE_FISHING_RECOVERY_RATE 0.18
-
-/datum/fish_source/proc/spawn_reward_from_explosion(atom/location, severity)
-	SIGNAL_HANDLER
-	if(fish_source_flags & FISH_SOURCE_FLAG_EXPLOSIVE_NONE)
-		return
-	var/multiplier = 1
-	if(fish_source_flags & FISH_SOURCE_FLAG_EXPLOSIVE_MALUS)
-		if(explosive_fishing_score <= 0)
-			explosive_fishing_score = 1
-			START_PROCESSING(SSprocessing, src)
-		else
-			explosive_fishing_score++
-			multiplier = explosive_fishing_score**-EXPLOSIVE_FISHING_MALUS_EXPONENT
-	for(var/i in 1 to (severity + 2))
-		if(!prob((100 + 100 * severity)/i * multiplier))
-			continue
-		var/reward_loot = pickweight(get_fish_table(location, from_explosion = TRUE))
-		var/atom/spawn_location = isturf(location) ? location : location.drop_location()
-		var/atom/movable/reward = simple_dispense_reward(reward_loot, spawn_location, location)
-		if(isnull(reward))
-			continue
-		if(isfish(reward))
-			var/obj/item/reagent_containers/food/snacks/fish/fish = reward
-			fish.set_status(FISH_DEAD, silent = TRUE)
-		if(isitem(reward))
-			reward.pixel_x = rand(-9, 9)
-			reward.pixel_y = rand(-9, 9)
-		if(severity >= EXPLODE_DEVASTATE)
-			reward.ex_act(EXPLODE_LIGHT)
-
-/datum/fish_source/process(seconds_per_tick)
-	explosive_fishing_score -= EXPLOSIVE_FISHING_RECOVERY_RATE * seconds_per_tick
-	if(explosive_fishing_score <= 0)
-		STOP_PROCESSING(SSprocessing, src)
-		explosive_fishing_score = 0
-
-#undef EXPLOSIVE_FISHING_MALUS_EXPONENT
-#undef EXPLOSIVE_FISHING_RECOVERY_RATE
-
-///Called when releasing a fish in a fishing spot with the TRAIT_CATCH_AND_RELEASE trait.
-/datum/fish_source/proc/readd_fish(atom/location, obj/item/reagent_containers/food/snacks/fish/fish, mob/living/releaser)
-	var/fish_path = fish.type
-	//don't do anything if the fish is dead, not native to this fish source or has no limited amount.
-	if(fish.status == FISH_DEAD || isnull(fish_table[fish_path]) || isnull(fish_counts[fish_path]))
-		return
-	//If this fish population isn't recovering from recent losses, we just increase it.
-	if(!LAZYACCESS(currently_on_regen, fish_path))
-		fish_counts[fish_path] += 1
-	else
-		regen_count(fish_path)

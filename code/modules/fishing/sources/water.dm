@@ -19,7 +19,6 @@
 		/obj/item/reagent_containers/food/snacks/fish/angler = 30 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/clownfish = 20 MINUTES,
 	)
-	fish_source_flags = FISH_SOURCE_FLAG_EXPLOSIVE_MALUS
 	associated_safe_turfs = list(/turf/open/water)
 	fishing_difficulty = FISHING_DEFAULT_DIFFICULTY + 12
 
@@ -42,7 +41,6 @@
 		/obj/item/reagent_containers/food/snacks/fish/shrimp = 3 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/angler = 32 MINUTES,
 	)
-	fish_source_flags = FISH_SOURCE_FLAG_EXPLOSIVE_MALUS
 	associated_safe_turfs = list(/turf/open/water/ocean)
 	fishing_difficulty = FISHING_DEFAULT_DIFFICULTY + 15
 
@@ -68,7 +66,6 @@
 		/obj/item/reagent_containers/food/snacks/fish/shrimp = 6 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/angler = 5 MINUTES,
 	)
-	fish_source_flags = FISH_SOURCE_FLAG_EXPLOSIVE_MALUS
 	associated_safe_turfs = list(/turf/open/water/ocean/abyssal)
 	fishing_difficulty = FISHING_DEFAULT_DIFFICULTY + 15
 
@@ -91,7 +88,6 @@
 		/obj/item/reagent_containers/food/snacks/fish/carp = 4 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/shrimp = 8 MINUTES,
 	)
-	fish_source_flags = FISH_SOURCE_FLAG_EXPLOSIVE_MALUS
 	associated_safe_turfs = list(/turf/open/water/swamp)
 	fishing_difficulty = FISHING_DEFAULT_DIFFICULTY + 10
 
@@ -116,7 +112,6 @@
 		/obj/item/reagent_containers/food/snacks/fish/shrimp = 7 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/angler = 25 MINUTES,
 	)
-	fish_source_flags = FISH_SOURCE_FLAG_EXPLOSIVE_MALUS
 	associated_safe_turfs = list(/turf/open/water/swamp/deep)
 	fishing_difficulty = FISHING_DEFAULT_DIFFICULTY + 20
 
@@ -136,7 +131,6 @@
 		/obj/item/reagent_containers/food/snacks/fish/carp = 2 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/eel = 4 MINUTES,
 	)
-	fish_source_flags = FISH_SOURCE_FLAG_EXPLOSIVE_MALUS
 	associated_safe_turfs = list(/turf/open/water/cleanshallow)
 	fishing_difficulty = FISHING_DEFAULT_DIFFICULTY + 5
 
@@ -158,7 +152,6 @@
 		/obj/item/reagent_containers/food/snacks/fish/eel = 4 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/angler = 30 MINUTES,
 	)
-	fish_source_flags = FISH_SOURCE_FLAG_EXPLOSIVE_MALUS
 	associated_safe_turfs = list(/turf/open/water/river)
 	fishing_difficulty = FISHING_DEFAULT_DIFFICULTY + 12
 
@@ -178,7 +171,6 @@
 		/obj/item/natural/fibers = 2,
 		/obj/item/clothing/shoes/roguetown/boots/leather = 1,
 		/obj/item/reagent_containers/food/snacks/fish/eel = 1,
-		/obj/item/reagent_containers/food/snacks/
 	)
 	fish_counts = list(
 		/obj/item/coin/copper = 5,
@@ -206,6 +198,5 @@
 		/obj/item/clothing/shoes/roguetown/boots/leather = 45 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/eel = 60 MINUTES,
 	)
-	fish_source_flags = FISH_SOURCE_FLAG_EXPLOSIVE_MALUS
 	associated_safe_turfs = list(/turf/open/water/sewer) // adjust to your sewer turf type
 	fishing_difficulty = FISHING_DEFAULT_DIFFICULTY + 5
