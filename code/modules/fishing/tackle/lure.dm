@@ -17,16 +17,6 @@
 			catch_multiplier *= 0.5
 	return catch_multiplier
 
-/obj/effect/spawner/map_spawner/random_lure
-	lootmin = 3
-	lootmax = 5
-
-/obj/effect/spawner/map_spawner/random_lure/Initialize(mapload)
-	spawned = subtypesof(/obj/item/fishing/lure)
-	for(var/path in spawned)
-		spawned[path] = 1
-	. = ..()
-
 /obj/item/fishing/lure
 	name = "fishing lure"
 	desc = "It's just that, a plastic piece of fishing equipment, yet fish yearn with every last molecule of their bodies to take a bite of it."
@@ -35,7 +25,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	grid_width = 32
 	grid_height = 32
-	item_weight = 54 GRAMS
 	/**
 	 * A list with two keys delimiting the spinning interval in which a mouse click has to be pressed while fishing.
 	 * This is passed down to the fishing rod, and then to the lure during the minigame.
@@ -66,7 +55,7 @@
 /obj/item/fishing/lure/examine(mob/user)
 	. = ..()
 	. += span_info("It has to be spun with a frequency of [spin_frequency[1] * 0.1] to [spin_frequency[2] * 0.1] seconds while fishing.")
-	if(HAS_MIND_TRAIT(user, TRAIT_EXAMINE_FISHING_SPOT))
+	if(HAS_TRAIT(user, TRAIT_EXAMINE_FISHING_SPOT))
 		. += span_tinynotice("Thanks to your experience, you can examine it again to get a list of fish you can catch with it.")
 
 ///Check if the fish is in the list of catchable fish for this fishing lure. Return value is a multiplier.
@@ -153,7 +142,7 @@
 
 	// Bonus for freshwater fish (preferred target)
 	var/fluid_type = fish.required_fluid_type
-	if(fluid_type == FISH_FLUID_FRESHWATER || fluid_type == FISH_FLUID_ANADROMOUS || fluid_type == FISH_FLUID_ANY_WATER)
+	if(fluid_type == FISH_FLUID_FRESHWATER || fluid_type == FISH_FLUID_ANY_WATER)
 		multiplier *= 1.5
 
 	// Slight penalty for picky/vegan/nocturnal but still catchable
@@ -187,77 +176,6 @@
 	else
 		// Mild penalty for non-picky fish
 		multiplier *= 0.6
-
-	return multiplier
-
-/obj/item/fishing/lure/led
-	name = "\improper glowing fishing lure"
-	desc = "A heavy, waterproof and fish-looking magical stick, specialized to catch only nocturnal and deep-dwelling fish."
-	icon_state = "led"
-	spin_frequency = list(3 SECONDS, 3.8 SECONDS)
-
-/obj/item/fishing/lure/led/Initialize(mapload)
-	. = ..()
-	update_appearance(UPDATE_OVERLAYS)
-
-/obj/item/fishing/lure/led/update_overlays()
-	. = ..()
-	. += emissive_appearance(icon, "led_emissive", src)
-
-/obj/item/fishing/lure/led/on_fishingrod_slotted(obj/item/fishingrod/rod, slot)
-	. = ..()
-	ADD_TRAIT(rod, TRAIT_ROD_IGNORE_ENVIRONMENT, type)
-
-/obj/item/fishing/lure/led/on_fishingrod_unslotted(obj/item/fishingrod/rod, slot)
-	. = ..()
-	REMOVE_TRAIT(rod, TRAIT_ROD_IGNORE_ENVIRONMENT, type)
-
-/obj/item/fishing/lure/led/is_catchable_fish(obj/item/reagent_containers/food/snacks/fish/fish, list/fish_properties)
-	return TRUE
-
-/obj/item/fishing/lure/led/check_bait(obj/item/reagent_containers/food/snacks/fish/fish)
-	var/multiplier = ..()
-	if(multiplier <= 0)
-		return multiplier
-
-	if(length(list(/datum/fish_trait/nocturnal, /datum/fish_trait/heavy) & fish.fish_traits))
-		multiplier *= 1.8
-	else
-		multiplier *= 0.7
-
-	return multiplier
-
-/obj/item/fishing/lure/lucky_coin
-	name = "\improper Maneki-Coin lure"
-	desc = "A faux-gold lure. Catches the attention of fishies that love shinies. Not nearly tasty-looking enough for anything else."
-	icon_state = "lucky_coin"
-	spin_frequency = list(1.5 SECONDS, 2.7 SECONDS)
-
-/obj/item/fishing/lure/lucky_coin/on_fishingrod_slotted(obj/item/fishingrod/rod, slot)
-	. = ..()
-	ADD_TRAIT(rod, TRAIT_ROD_ATTRACT_SHINY_LOVERS, REF(src))
-
-/obj/item/fishing/lure/lucky_coin/on_fishingrod_unslotted(obj/item/fishingrod/rod, slot)
-	. = ..()
-	REMOVE_TRAIT(rod, TRAIT_ROD_ATTRACT_SHINY_LOVERS, REF(src))
-
-/obj/item/fishing/lure/lucky_coin/is_catchable_fish(obj/item/reagent_containers/food/snacks/fish/fish, list/fish_properties)
-	// Can catch most fish
-	if(fish.size > fish.average_size * 1.7)
-		return FALSE
-	return TRUE
-
-/obj/item/fishing/lure/lucky_coin/check_bait(obj/item/reagent_containers/food/snacks/fish/fish)
-	var/multiplier = ..()
-	if(multiplier <= 0)
-		return multiplier
-
-	// Big bonus for shiny lovers (main target)
-	if(/datum/fish_trait/shiny_lover in fish.fish_traits)
-		multiplier *= 2
-	else
-		// Penalty for non-shiny lovers
-		multiplier *= 0.5
 
 	return multiplier
 
@@ -357,7 +275,7 @@
 
 	var/is_predator = (/datum/fish_trait/predator in fish.fish_traits)
 	var/fluid_type = fish.required_fluid_type
-	var/is_freshwater = (fluid_type == FISH_FLUID_FRESHWATER || fluid_type == FISH_FLUID_ANADROMOUS || fluid_type == FISH_FLUID_ANY_WATER)
+	var/is_freshwater = (fluid_type == FISH_FLUID_FRESHWATER || fluid_type == FISH_FLUID_ANY_WATER)
 
 	if(is_predator && is_freshwater)
 		multiplier *= 1.8
@@ -387,7 +305,7 @@
 	// Big bonus for saltwater predators (main target)
 	var/is_predator = (/datum/fish_trait/predator in fish.fish_traits)
 	var/fluid_type = fish.required_fluid_type
-	var/is_saltwater = (fluid_type == FISH_FLUID_SALTWATER || fluid_type == FISH_FLUID_ANADROMOUS || fluid_type == FISH_FLUID_ANY_WATER)
+	var/is_saltwater = (fluid_type == FISH_FLUID_SALTWATER || fluid_type == FISH_FLUID_ANY_WATER)
 
 	if(is_predator && is_saltwater)
 		multiplier *= 1.8
@@ -528,16 +446,6 @@
 	consumable = TRUE
 	/// Chance to catch a special variant fish
 	var/special_catch_chance = 20
-
-/obj/item/fishing/lure/deluxe/on_fishingrod_slotted(datum/source, obj/item/fishingrod/rod, slot)
-	. = ..()
-	ADD_TRAIT(rod, TRAIT_ROD_IGNORE_ENVIRONMENT, type)
-	rod.spin_frequency = spin_frequency
-
-/obj/item/fishing/lure/deluxe/on_fishingrod_unslotted(datum/source, obj/item/fishingrod/rod, slot)
-	. = ..()
-	REMOVE_TRAIT(rod, TRAIT_ROD_IGNORE_ENVIRONMENT, type)
-	rod.spin_frequency = null
 
 /obj/item/fishing/lure/deluxe/is_catchable_fish(obj/item/reagent_containers/food/snacks/fish/fish, list/fish_properties)
 	return TRUE

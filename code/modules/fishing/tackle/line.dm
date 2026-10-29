@@ -6,7 +6,6 @@
 	var/fishing_line_traits
 	/// Color of the fishing line
 	var/line_color = COLOR_GRAY
-	item_weight = 66 GRAMS
 
 /obj/item/fishing/line/bobber
 	name = "wooden bobber"

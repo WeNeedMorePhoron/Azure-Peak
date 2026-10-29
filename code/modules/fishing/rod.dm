@@ -450,18 +450,18 @@
 	var/line_color = line?.line_color || default_line_color
 	/// Line part by the rod.
 	if(reel_overlay)
-		var/mutable_appearance/reel_appearance = mutable_appearance(icon, reel_overlay)
+		var/mutable_appearance/reel_appearance = mutable_appearance('icons/obj/fishing.dmi', reel_overlay)
 		reel_appearance.appearance_flags = RESET_COLOR|KEEP_APART
 		reel_appearance.color = line_color
 		. += reel_appearance
 
 	// Line & hook is also visible when only bait is equipped but it uses default appearances then
 	if(hook || baited)
-		var/mutable_appearance/line_overlay = mutable_appearance(icon, "line_overlay")
+		var/mutable_appearance/line_overlay = mutable_appearance('icons/obj/fishing.dmi', "line_overlay")
 		line_overlay.appearance_flags = RESET_COLOR|KEEP_APART
 		line_overlay.color = line_color
 		. += line_overlay
-		. += hook?.rod_overlay_icon_state || "hook_overlay"
+		. += mutable_appearance('icons/obj/fishing.dmi', hook?.rod_overlay_icon_state || "hook_overlay")
 
 	if(!baited)
 		return

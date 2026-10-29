@@ -1,6 +1,5 @@
 /obj/item/fishing/hook
 	attachtype = "hook"
-	item_weight = 45 GRAMS
 	/// A bitfield of traits that this fishing hook has, checked by fish traits and the minigame
 	var/fishing_hook_traits
 	/// icon state added to main rod icon when this hook is equipped
@@ -26,8 +25,6 @@
 
 ///Check if tha target can be caught by the hook
 /obj/item/fishing/hook/proc/can_be_hooked(atom/target)
-	if(ishuman(target))
-		return istriton(target)
 	return isitem(target)
 
 ///Any special effect when hooking a target that's not managed by the fishing rod.
