@@ -2,17 +2,16 @@
 	force = 12
 	possible_item_intents = list(ROD_AUTO, ROD_CAST, SPEAR_BASH)
 	name = "fishing rod"
-	desc = ""
-	icon_state = "rod1"
+	desc = "Made from weathered wood and coarse twine. The tool of the battle against the dark waters below."
+	icon_state = "rod"
 	icon = 'icons/roguetown/weapons/tools.dmi'
 	sharpness = IS_BLUNT
-	wlength = 33
+	wlength = WLENGTH_NORMAL
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_HIP
 	w_class = WEIGHT_CLASS_BULKY
 
 	grid_height = 96
 	grid_width = 32
-	item_weight = 350 GRAMS
 
 	///the bait we have on the hook
 	var/obj/item/baited = null
@@ -102,7 +101,7 @@
 	no_attack = TRUE
 
 /obj/item/fishingrod/attack_self(mob/user)
-	if(user.doing())
+	if(user.doing)
 		user.stop_all_doing()
 	else
 		..()
@@ -155,11 +154,11 @@
 					to_chat(user, "<span class='notice'>I add [I] to [src]...</span>")
 	update_appearance(UPDATE_OVERLAYS)
 
-/obj/item/fishingrod/attack_hand_secondary(mob/user, list/modifiers)
+/obj/item/fishingrod/attack_right(mob/user)
 	. = ..()
-	if(. == SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN)
+	if(.)
 		return
-	. = SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
+	. = TRUE
 	var/attacheditems = list()
 	if(baited)
 		attacheditems += baited
@@ -217,10 +216,6 @@
 			if("onbelt")
 				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
 
-#define FISHRARITYWEIGHTS list("com" = 70, "rare" = 20, "ultra" = 9, "gold" = 1)
-#define FISHSIZEWEIGHTS list("tiny" = 4, "small" = 4, "normal" = 4, "large" = 2, "prize" = 1)
-
-
 /obj/item/fishingrod/proc/reason_we_cant_fish(datum/fish_source/target_fish_source)
 	return hook?.reason_we_cant_fish(target_fish_source)
 
@@ -249,7 +244,7 @@
 					kill_fish = FALSE
 					break
 			if(kill_fish)
-				fish.set_status(FISH_DEAD, silent = TRUE)
+				fish.deconstruct()
 		record_round_statistic(STATS_FISH_CAUGHT)
 		record_featured_stat(FEATURED_STATS_FISHERS, user)
 
@@ -263,12 +258,12 @@
 		reel(user)
 
 /obj/item/fishingrod/proc/reel(mob/user)
-	if(DOING_INTERACTION_WITH_TARGET(user, currently_hooked))
+	if(user.doing)
 		return
 
-	playsound(src, SFX_REEL, 50, vary = FALSE)
-	var/time = (0.8 - round(GET_MOB_SKILL_VALUE(user, /datum/skill/labor/fishing) * 0.004, 0.1)) SECONDS * bait_speed_mult
-	if(!do_after(user, time, currently_hooked, timed_action_flags = IGNORE_USER_LOC_CHANGE|IGNORE_TARGET_LOC_CHANGE, extra_checks = CALLBACK(src, PROC_REF(fishing_line_check))))
+	playsound(src, pick('sound/items/reel/reel1.ogg', 'sound/items/reel/reel2.ogg', 'sound/items/reel/reel3.ogg', 'sound/items/reel/reel4.ogg', 'sound/items/reel/reel5.ogg'), 50, FALSE)
+	var/time = (0.8 - round(user.get_skill_level(/datum/skill/labor/fishing) * 0.04, 0.1)) SECONDS * bait_speed_mult
+	if(!do_after(user, time, target = currently_hooked, extra_checks = CALLBACK(src, PROC_REF(fishing_line_check)), allow_movement = TRUE))
 		return
 	// nothing after this point should sleep (fingers crossed)
 
@@ -287,28 +282,25 @@
 		var/turf/old_loc = get_turf(currently_hooked)
 		step_towards(item, our_turf)
 		if((old_loc == get_turf(item)) && requires_vertical)
-			ADD_TRAIT(item, TRAIT_MOVE_FLYING, type) //Otherwise they instantly fall back in
-			item.movement_type |= FLYING
+			item.movement_type |= FLYING //Otherwise they instantly fall back in
 			item.forceMove(GET_TURF_ABOVE(old_loc))
 			step_towards(item, our_turf)
 		if(item.loc == user.loc && (item.interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP))
 			user.put_in_inactive_hand(item)
 			QDEL_NULL(fishing_line)
-		REMOVE_TRAIT(item, TRAIT_MOVE_FLYING, type)
-		if(!HAS_TRAIT(item, TRAIT_MOVE_FLYING))
-			item.movement_type &= ~FLYING
+		item.movement_type &= ~FLYING
 	//Not an item, so just delete the line if it's adjacent to the user.
 	else if(get_dist(currently_hooked,our_turf) > 1)
 		var/atom/movable/cached_currently_hooked = currently_hooked
 		var/turf/old_loc = get_turf(cached_currently_hooked)
 		step_towards(cached_currently_hooked, our_turf)
 		if((old_loc == get_turf(cached_currently_hooked)) && requires_vertical)
-			ADD_TRAIT(cached_currently_hooked, TRAIT_MOVE_FLYING, type) //Otherwise they instantly fall back in
+			cached_currently_hooked.movement_type |= FLYING //Otherwise they instantly fall back in
 			cached_currently_hooked.forceMove(GET_TURF_ABOVE(old_loc))
 			step_towards(cached_currently_hooked, our_turf)
+			cached_currently_hooked.movement_type &= ~FLYING
 		if(get_dist(cached_currently_hooked, our_turf) <= 1)
 			QDEL_NULL(fishing_line)
-		REMOVE_TRAIT(cached_currently_hooked, TRAIT_MOVE_FLYING, type)
 	else
 		QDEL_NULL(fishing_line)
 
@@ -341,7 +333,7 @@
 	user = user || loc
 	if (!isliving(user) || !user.mind || !user.is_holding(src))
 		return
-	. += round(GET_MOB_SKILL_VALUE(user, /datum/skill/labor/fishing) * 0.03)
+	. += round(user.get_skill_level(/datum/skill/labor/fishing) * 0.3)
 	return max(., 1)
 
 /obj/item/fishingrod/dropped(mob/user, silent)
@@ -374,7 +366,7 @@
 /obj/item/fishingrod/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!check_allowed_items(target,target_self=1) \
 	|| (user.used_intent.type != ROD_CAST && user.used_intent.type != ROD_AUTO) \
-	|| user.doing() \
+	|| user.doing \
 	|| !isliving(user) \
 	|| !user.loc
 	)
@@ -418,7 +410,7 @@
 	cast_projectile.original = target
 	cast_projectile.fired_from = src
 	cast_projectile.firer = user
-	cast_projectile.impacted = list(WEAKREF(user) = TRUE)
+	cast_projectile.permutated = list(user)
 	cast_projectile.preparePixelProjectile(target, user)
 	cast_projectile.fire()
 
@@ -458,13 +450,15 @@
 	var/line_color = line?.line_color || default_line_color
 	/// Line part by the rod.
 	if(reel_overlay)
-		var/mutable_appearance/reel_appearance = mutable_appearance(icon, reel_overlay, appearance_flags = RESET_COLOR|KEEP_APART)
+		var/mutable_appearance/reel_appearance = mutable_appearance(icon, reel_overlay)
+		reel_appearance.appearance_flags = RESET_COLOR|KEEP_APART
 		reel_appearance.color = line_color
 		. += reel_appearance
 
 	// Line & hook is also visible when only bait is equipped but it uses default appearances then
 	if(hook || baited)
-		var/mutable_appearance/line_overlay = mutable_appearance(icon, "line_overlay", appearance_flags = RESET_COLOR|KEEP_APART)
+		var/mutable_appearance/line_overlay = mutable_appearance(icon, "line_overlay")
+		line_overlay.appearance_flags = RESET_COLOR|KEEP_APART
 		line_overlay.color = line_color
 		. += line_overlay
 		. += hook?.rod_overlay_icon_state || "hook_overlay"
@@ -486,13 +480,28 @@
 
 /obj/item/fishingrod/fisher/Initialize(mapload, ...)
 	. = ..()
-	icon_state = "rod[rand(1,3)]"
 	reel = new /obj/item/fishing/reel/silk(src)
 	hook = new /obj/item/fishing/hook/iron(src)
 	line = new /obj/item/fishing/line/bobber(src)
 
+/obj/item/fishingrod/bronze
+	name = "bronze fishing rod"
+	desc = "A tool of religious importance, used by wide-brimmed priests who offer wriggling sacrifices to the endless waves beneath."
+	icon_state = "bronzerod"
+	max_integrity = 200
 
+/obj/item/fishingrod/blacksteel
+	name = "blacksteel fishing rod"
+	desc = "G'morning! Nice dae for fishin', ain't it? Hu-hah!"
+	icon_state = "blacksteelrod"
+	max_integrity = 333
 
+/obj/item/fishingrod/aalloy
+	name = "decrepit fishing rod"
+	desc = "The Comet Syon's impact drowned the world, long ago. The waves've long since receded, but His greatest works remain shrouded far beneath the sea."
+	icon_state = "arod"
+	color = "#bb9696"
+	sellprice = 15
 
 /obj/projectile/fishing_cast
 	name = "fishing hook"
@@ -500,7 +509,6 @@
 	icon_state = "hook_projectile"
 	damage = 0
 	range = 5
-	can_hit_turfs = TRUE
 
 	var/obj/item/fishingrod/owner
 	var/datum/beam/our_line
@@ -512,7 +520,7 @@
 	if(!QDELETED(src))
 		our_line = owner.create_fishing_line(src, firer)
 
-/obj/projectile/fishing_cast/on_hit(atom/target, blocked = 0, pierce_hit)
+/obj/projectile/fishing_cast/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(blocked < 100)
 		QDEL_NULL(our_line) //we need to delete the old beam datum, otherwise it won't let you fish.
@@ -584,6 +592,3 @@
 
 	override_origin_pixel_x += origin.pixel_x
 	override_origin_pixel_y += origin.pixel_y
-
-#undef FISHRARITYWEIGHTS
-#undef FISHSIZEWEIGHTS

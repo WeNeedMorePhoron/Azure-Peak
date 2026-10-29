@@ -70,6 +70,8 @@
 			name = "common [initial(name)]"
 	if(!dead)
 		START_PROCESSING(SSobj, src)
+	apply_traits()
+	update_size_and_weight()
 
 /obj/item/reagent_containers/food/snacks/fish/attack_hand(mob/user)
 	if(isliving(user))

@@ -464,7 +464,7 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 
 /datum/fishing_challenge/proc/on_fish_death(obj/item/reagent_containers/food/snacks/fish/source)
 	SIGNAL_HANDLER
-	if(source.status == FISH_DEAD)
+	if(source.dead)
 		win_anyway()
 
 /datum/fishing_challenge/proc/win_anyway()

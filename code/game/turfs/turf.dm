@@ -902,7 +902,6 @@
 /turf/proc/add_lazy_fishing(fish_source_path)
 	RegisterSignal(src, COMSIG_FISHING_ROD_CAST, PROC_REF(add_fishing_spot_comp))
 	RegisterSignal(src, COMSIG_NPC_FISHING, PROC_REF(on_npc_fishing))
-	RegisterSignal(src, COMSIG_FISH_RELEASED_INTO, PROC_REF(on_fish_release_into))
 	RegisterSignal(src, COMSIG_TURF_CHANGE, PROC_REF(remove_lazy_fishing))
 	ADD_TRAIT(src, TRAIT_FISHING_SPOT, INNATE_TRAIT)
 	fish_source = fish_source_path
@@ -912,7 +911,6 @@
 	UnregisterSignal(src, list(
 		COMSIG_FISHING_ROD_CAST,
 		COMSIG_NPC_FISHING,
-		COMSIG_FISH_RELEASED_INTO,
 		COMSIG_TURF_CHANGE,
 	))
 	REMOVE_TRAIT(src, TRAIT_FISHING_SPOT, INNATE_TRAIT)
@@ -927,7 +925,3 @@
 /turf/proc/on_npc_fishing(datum/source, list/fish_spot_container)
 	SIGNAL_HANDLER
 	fish_spot_container[NPC_FISHING_SPOT] = GLOB.preset_fish_sources[fish_source]
-
-/turf/proc/on_fish_release_into(datum/source, obj/item/reagent_containers/food/snacks/fish/fish, mob/living/releaser)
-	SIGNAL_HANDLER
-	GLOB.preset_fish_sources[fish_source].readd_fish(src, fish, releaser)
