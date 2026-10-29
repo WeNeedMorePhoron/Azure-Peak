@@ -649,6 +649,7 @@
 	slowdown = 3
 	wash_in = TRUE
 	water_reagent = /datum/reagent/water/gross
+	fishing_datum = /datum/fish_source/river/murk
 
 /turf/open/water/river/flow/murk/Initialize(mapload)
 	. = ..()
@@ -803,6 +804,7 @@
 	slowdown = 8
 	swim_skill = TRUE
 	wash_in = FALSE
+	fishing_datum = /datum/fish_source/ocean/abyssal
 
 /turf/open/water/pond
 	name = "pond"
@@ -816,6 +818,7 @@
 	wash_in = TRUE
 	water_reagent = /datum/reagent/water/gross
 	freeze_type = /turf/open/floor/rogue/frozen_water/deep
+	fishing_datum = /datum/fish_source/pond
 
 /turf/open/water/river/flow/murk/deep
 	name = "deep murk river"
