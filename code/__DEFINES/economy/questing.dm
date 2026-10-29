@@ -103,8 +103,6 @@
 
 // Multipliers applied to the base TP for kill request rewards
 #define QUEST_KILL_THREAT_MULT 1.0
-#define QUEST_KILL_THREAT_MULT_EASY 0.95
-#define QUEST_KILL_THREAT_MULT_MEDIUM 0.88
 // Bounty's main target is further multiplied
 #define QUEST_BOUNTY_THREAT_MULT 1
 // 2x the threat point value is ideal
@@ -144,15 +142,15 @@
 #define QUEST_REWARD_GLOBAL_MULT 1
 
 // Flat reward base
-#define QUEST_REWARD_BASE_FLAT 5
+#define QUEST_REWARD_BASE_FLAT 10
 #define QUEST_REWARD_BASE_FETCH 15
-#define QUEST_REWARD_BASE_RECOVERY 15
+#define QUEST_REWARD_BASE_RECOVERY 25
 
 // Flat bonus layered on by difficulty, on top of the base + tp/distance reward.
 #define QUEST_DIFFICULTY_BONUS_EASY 0
 #define QUEST_DIFFICULTY_BONUS_MEDIUM 0
-#define QUEST_DIFFICULTY_BONUS_HARD 10
-#define QUEST_DIFFICULTY_BONUS_NOTORIOUS 40
+#define QUEST_DIFFICULTY_BONUS_HARD 25
+#define QUEST_DIFFICULTY_BONUS_NOTORIOUS 75
 #define QUEST_DIFFICULTY_BONUS_INCURSION 10
 
 #define QUEST_DEPOSIT_EASY 5
