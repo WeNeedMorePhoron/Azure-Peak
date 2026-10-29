@@ -163,7 +163,7 @@ GLOBAL_LIST_INIT(towner_posting_tiers, list(
 	return TRUE
 
 /datum/quest/kill/recovery/towner/get_additional_reward(turf/origin_turf, turf/target_turf)
-	return ..() + get_tier_flat_bonus() + unsent_wave_tp() * threat_pay_mult()
+	return ..() + get_tier_flat_bonus() + unsent_wave_tp() * QUEST_KILL_THREAT_MULT
 
 /datum/quest/kill/recovery/towner/on_guardian_killed()
 	if(current_wave >= length(wave_budgets))
