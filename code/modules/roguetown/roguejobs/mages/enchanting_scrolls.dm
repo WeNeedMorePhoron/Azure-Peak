@@ -250,7 +250,7 @@ T1 Enchantments below here*/
 
 /obj/item/enchantmentscroll/superior/thievery
 	name = "runic tincture of nimble fingers"
-	desc = "A vial of quicksilver ink, imbued with an enchantment of thievery."
+	desc = "A vial of quicksilver ink, imbued with an enchantment of nimble fingers."
 	component = /datum/magic_item/superior/thievery
 	apply_to_pretty = "Can be applied to gloves or a ring."
 	effects_pretty = "Increases the bearer's skill in lockpicking."
