@@ -128,7 +128,9 @@
 	. = ..()
 	if(!size)
 		return
-	. += span_notice("It is [size] hands long and weighs some [weight] pounds.")
+	var/length_text = size < 1 ? "[round(size * FISH_INCHES_PER_HAND, 0.5)] inches" : "[round(size, 0.1)] hands"
+	var/weight_text = weight < 1 ? "[round(weight * FISH_OUNCES_PER_POUND, 0.5)] ounces" : "[round(weight, 0.1)] pounds"
+	. += span_notice("It is [length_text] long and weighs some [weight_text].")
 
 /obj/item/reagent_containers/food/snacks/fish/proc/apply_traits()
 	var/list/potential_spontaneous_traits = GLOB.spontaneous_fish_traits[type]

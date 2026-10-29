@@ -113,6 +113,18 @@
 	name = "salmon"
 	desc = "A lonesome, horrific creacher of the freshwaters, searching for a mate. It makes for good eating."
 	icon_state = "salmon"
+	fish_id = "salmon"
+	average_size = 7
+	average_weight = 8
+	required_fluid_type = FISH_FLUID_FRESHWATER
+	fishing_difficulty_modifier = 10
+	fish_movement_type = /datum/fish_movement/accelerando
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	sellprice = 15
@@ -125,6 +137,18 @@
 	name = "plaice"
 	desc = "A popular flatfish for eating. Found on tables of noblefolk and peasantry alike."
 	icon_state = "plaice"
+	fish_id = "plaice"
+	average_size = 4
+	average_weight = 2
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fish_movement_type = /datum/fish_movement/slow
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/camouflage)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	sellprice = 15
@@ -136,6 +160,19 @@
 	name = "mudskipper"
 	desc = "A furtive creacher, it hides in murky waters to keep its grotesque visage secreted away."
 	icon_state = "mudskipper"
+	fish_id = "mudskipper"
+	average_size = 1.5
+	average_weight = 0.1
+	required_fluid_type = FISH_FLUID_FRESHWATER
+	fishing_difficulty_modifier = -5
+	fish_movement_type = /datum/fish_movement/choppy
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/camouflage)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	sellprice = 5
@@ -147,6 +184,18 @@
 	name = "seabass"
 	desc = "I didn't see a bass."
 	icon_state = "seabass"
+	fish_id = "bass"
+	average_size = 6
+	average_weight = 6
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = 5
+	fish_movement_type = /datum/fish_movement/zippy
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	sellprice = 10
@@ -158,6 +207,18 @@
 	name = "sunny"
 	desc = "A pitiful beast, clinging to Astrata's light as if it would make it stronger. Little does it know that it needs faith for such miracles."
 	icon_state = "sunny"
+	fish_id = "sunny"
+	average_size = 1.5
+	average_weight = 0.3
+	required_fluid_type = FISH_FLUID_FRESHWATER
+	fishing_difficulty_modifier = -5
+	fish_movement_type = /datum/fish_movement/zippy
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_BREAD,
+		),
+	)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	sellprice = 3
@@ -170,6 +231,18 @@
 	desc = "A mudraking creacher of the river-depths, barely fit for food."
 	faretype = FARE_IMPOVERISHED
 	icon_state = "carp"
+	fish_id = "carp"
+	average_size = 6
+	average_weight = 8
+	required_fluid_type = FISH_FLUID_FRESHWATER
+	fishing_difficulty_modifier = 5
+	fish_movement_type = /datum/fish_movement/choppy
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_BREAD,
+		),
+	)
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/carp
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/carp
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
@@ -178,6 +251,19 @@
 	name = "clownfish"
 	desc = "This fish brings vibrant hues to the dark world of Azure Peak."
 	icon_state = "clownfish"
+	fish_id = "clownfish"
+	average_size = 1
+	average_weight = 0.06
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = 5
+	fish_movement_type = /datum/fish_movement/zippy
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/camouflage, /datum/fish_trait/picky_eater)
 	faretype = FARE_NEUTRAL
 	sellprice = 40
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/clownfish
@@ -189,6 +275,19 @@
 	desc = "A menacing abyssal predator."
 	faretype = FARE_NEUTRAL
 	icon_state = "angler"
+	fish_id = "angler"
+	average_size = 8
+	average_weight = 20
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = 15
+	fish_movement_type = /datum/fish_movement/plunger
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/heavy, /datum/fish_trait/nocturnal, /datum/fish_trait/carnivore, /datum/fish_trait/bioluminescent)
 	sellprice = 15
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/angler
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/angler
@@ -198,6 +297,18 @@
 	name = "eel"
 	desc = "A sinuous eel that slithers through the dark waters."
 	icon_state = "eel"
+	fish_id = "eel"
+	average_size = 8
+	average_weight = 2
+	required_fluid_type = FISH_FLUID_FRESHWATER
+	fishing_difficulty_modifier = 10
+	fish_movement_type = /datum/fish_movement/zippy
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
 	faretype = FARE_NEUTRAL
 	sellprice = 5
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/eel
@@ -208,6 +319,18 @@
 	name = "sole"
 	desc = "An ugly flatfish, slimy and with both eyes on one side of its head. Nothing to do with feet."
 	icon_state = "sole"
+	fish_id = "sole"
+	average_size = 3
+	average_weight = 1
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fish_movement_type = /datum/fish_movement/slow
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/camouflage)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	sellprice = 5
@@ -219,6 +342,19 @@
 	name = "cod"
 	desc = "A cod, wow! Cod you hand me another piece of bait?"
 	icon_state = "cod"
+	fish_id = "cod"
+	average_size = 8
+	average_weight = 12
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = 5
+	fish_movement_type = /datum/fish_movement/choppy
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/heavy)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/cod
@@ -229,6 +365,19 @@
 	name = "abyssal eel"
 	desc = "Pick me up pick me up pick me up pick me up pick me up pick me up!"
 	icon_state = "creepy_eel"
+	fish_id = "creepy_eel"
+	average_size = 10
+	average_weight = 5
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = 15
+	fish_movement_type = /datum/fish_movement/zippy
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/nocturnal, /datum/fish_trait/deep_dweller)
 	faretype = FARE_IMPOVERISHED
 	no_rarity_sprite = TRUE
 	var/was_i_picked_up = FALSE
@@ -245,6 +394,19 @@
 	name = "brain squid"
 	desc = "It makes me feel strange..."
 	icon_state = "creepy_squid"
+	fish_id = "creepy_squid"
+	average_size = 5
+	average_weight = 4
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = 15
+	fish_movement_type = /datum/fish_movement/plunger
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/nocturnal, /datum/fish_trait/deep_dweller)
 	faretype = FARE_IMPOVERISHED
 	no_rarity_sprite = TRUE
 	dropshrink = 0
@@ -275,6 +437,19 @@
 	name = "iridescent reaver"
 	desc = "Its scales refract light in a strange, unsettling manner."
 	icon_state = "creepy_shark"
+	fish_id = "creepy_shark"
+	average_size = 15
+	average_weight = 40
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = 25
+	fish_movement_type = /datum/fish_movement/accelerando
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/heavy, /datum/fish_trait/carnivore, /datum/fish_trait/deep_dweller)
 	faretype = FARE_IMPOVERISHED
 	no_rarity_sprite = TRUE
 	dropshrink = 0
@@ -324,6 +499,18 @@
 	name = "black-headed salmon"
 	desc = "Black-Headed Salmon is an ocean fish found in open salt waters, recognizable by its dark head and lighter body. It is fully edible and prized for its firm, tasty meat, and the dark coloration likely helps it blend in when hunting near the surface."
 	icon_state = "salmon_black"
+	fish_id = "salmon_black_headed"
+	average_size = 8
+	average_weight = 10
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = 10
+	fish_movement_type = /datum/fish_movement/accelerando
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/fish/salmon
@@ -336,6 +523,18 @@
 	name = "flounder"
 	desc = "Flounder is a flat ocean fish living in open salt waters, well adapted to life along the seabed. It is fully edible and known for its mild, tender meat, and an interesting fact is that both of its eyes are located on one side of the body, helping it stay hidden while lying flat on the ocean floor."
 	icon_state = "flounder"
+	fish_id = "flounder"
+	average_size = 3
+	average_weight = 1
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fish_movement_type = /datum/fish_movement/slow
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/camouflage)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/flounder
@@ -347,6 +546,19 @@
 	name = "swamp shrimp"
 	icon_state = "swamp_shrimp"
 	desc = "Swamp \"Shrimp\" is a small crustacean found in murky swamp waters, adapted to survive in dirty, low-oxygen water."
+	fish_id = "swamp_shrimp"
+	average_size = 0.4
+	average_weight = 0.01
+	required_fluid_type = FISH_FLUID_FRESHWATER
+	fishing_difficulty_modifier = -5
+	fish_movement_type = /datum/fish_movement/slow
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_VEGETABLE,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/vegan)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_shrimp
@@ -358,6 +570,19 @@
 	name = "swamp mother"
 	icon_state = "swamp_mother"
 	desc = "Swamp Mother is a large swamp-dwelling creature found in murky waters."
+	fish_id = "swamp_mother"
+	average_size = 12
+	average_weight = 30
+	required_fluid_type = FISH_FLUID_FRESHWATER
+	fishing_difficulty_modifier = 15
+	fish_movement_type = /datum/fish_movement/plunger
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/heavy)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_mother
@@ -369,6 +594,19 @@
 	name = "black bass"
 	icon_state = "black_bass"
 	desc = "Black Bass is a freshwater fish found in clean rivers and lakes, known for its strength and aggressive behavior. It is fully edible and popular for its firm meat, and a fun fact is that black bass are notorious for fighting hard even when caught on light tackle."
+	fish_id = "black_bass"
+	average_size = 5
+	average_weight = 4
+	required_fluid_type = FISH_FLUID_FRESHWATER
+	fishing_difficulty_modifier = 10
+	fish_movement_type = /datum/fish_movement/zippy
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/carnivore)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/black_bass
@@ -380,6 +618,19 @@
 	name = "zizo abberation"
 	icon_state = "zizo_abberation"
 	desc = "Zizo Aberration is a cave-dwelling creature found in murky underground waters. It is edible, but widely nicknamed the “Zizo creature” due to its disgusting behavior, it viciously bites any hand that comes into contact with it, whether in water or out."
+	fish_id = "zizo_abberation"
+	average_size = 4
+	average_weight = 3
+	required_fluid_type = FISH_FLUID_FRESHWATER
+	fishing_difficulty_modifier = 15
+	fish_movement_type = /datum/fish_movement/choppy
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/nocturnal, /datum/fish_trait/carnivore)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/zizo_abberation
@@ -391,6 +642,19 @@
 	name = "sturgeon"
 	icon_state = "sturgeon"
 	desc = "Sturgeon is a large freshwater fish found in clean rivers and waterfalls, known for its ancient appearance and heavy armor-like scales. It is fully edible and highly valued, and an interesting fact is that sturgeons have existed for over 200 million years, making them true living fossils."
+	fish_id = "sturgeon"
+	average_size = 10
+	average_weight = 60
+	required_fluid_type = FISH_FLUID_FRESHWATER
+	fishing_difficulty_modifier = 15
+	fish_movement_type = /datum/fish_movement/plunger
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/heavy, /datum/fish_trait/prehistoric)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
@@ -402,6 +666,18 @@
 	name = "mackerel"
 	icon_state = "mackerel"
 	desc = "Mackerel is a fast-moving ocean fish found in open salt waters. It is fully edible, rich in oils and flavor, and known for its speed, mackerel can swim so fast it must keep moving to breathe properly."
+	fish_id = "mackerel"
+	average_size = 4
+	average_weight = 1.5
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = 5
+	fish_movement_type = /datum/fish_movement/zippy
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/mackerel
@@ -413,6 +689,19 @@
 	name = "beaksnapper"
 	icon_state = "beaksnapper"
 	desc = "Beaksnapper is a colorful ocean fish found in salt waters, named for its strong, beak-like mouth. It is edible and prized for its firm meat, and fun fact: its snapping bite is strong enough to crush small shells, making it a clever little predator."
+	fish_id = "beaksnapper"
+	average_size = 4
+	average_weight = 3
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = 5
+	fish_movement_type = /datum/fish_movement/choppy
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/carnivore)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/beaksnapper

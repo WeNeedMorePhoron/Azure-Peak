@@ -4,6 +4,17 @@
 	name = "crab"
 	desc = "A defensive shellfish that's a real hassle to crack open, they taste great when made into cakes with butterdough slice."
 	icon_state = "crab"
+	fish_id = "crab"
+	average_size = 2
+	average_weight = 1
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fish_movement_type = /datum/fish_movement/choppy
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
 	sellprice = 10
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/crab
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/crab
@@ -18,6 +29,13 @@
 	name = "clam"
 	desc = "A beastye built by Abyssor in the image of a knight. Hard shell, squishy interior."
 	icon_state = "clam"
+	fish_id = "clam"
+	average_size = 0.8
+	average_weight = 0.2
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = -10
+	fish_movement_type = /datum/fish_movement/slow
+	fish_traits = list(/datum/fish_trait/vegan)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	sellprice = 15
@@ -29,6 +47,19 @@
 	name = "lobster"
 	desc = "A hard-shelled cretin, barely fit for eating."
 	icon_state = "lobster"
+	fish_id = "lobster"
+	average_size = 4
+	average_weight = 3
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = 5
+	fish_movement_type = /datum/fish_movement/slow
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/heavy)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	sellprice = 5
@@ -41,6 +72,19 @@
 	name = "shrimp"
 	desc = "A tiny shellfish, little bigger than your thumb. Often nicknamed butterflies of the sea."
 	icon_state = "shrimp"
+	fish_id = "shrimp"
+	average_size = 0.5
+	average_weight = 0.01
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = -5
+	fish_movement_type = /datum/fish_movement/slow
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_VEGETABLE,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/vegan)
 	sellprice = 5
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/shrimp
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/shrimp
@@ -50,6 +94,13 @@
 	name = "oyster"
 	desc = "A stubborn shellfish that MIGHT hide a prize within, can be opened with a knife to reveal the flesh within."
 	icon_state = "oyster"
+	fish_id = "oyster"
+	average_size = 0.8
+	average_weight = 0.2
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = -10
+	fish_movement_type = /datum/fish_movement/slow
+	fish_traits = list(/datum/fish_trait/vegan)
 	sellprice = 5
 	var/closed
 	var/obj/item/pearl

@@ -91,7 +91,10 @@
 #define FISH_SIZE_BULKY_MAX 12
 
 ///Size and weight are rolled to this precision.
-#define FISH_MEASURE_PRECISION 0.1
+#define FISH_MEASURE_PRECISION 0.01
+///Inches to a hand and ounces to a pound, for examine below one unit.
+#define FISH_INCHES_PER_HAND 4
+#define FISH_OUNCES_PER_POUND 16
 
 ///The coefficient for maximum weight/size divergence relative to the averages.
 #define MAX_FISH_DEVIATION_COEFF 2.5
