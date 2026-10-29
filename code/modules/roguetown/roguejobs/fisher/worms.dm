@@ -2,6 +2,7 @@
 	var/baitpenalty = 100 // Using this as bait will incurr a penalty to fishing chance. 100 makes it useless as bait. Lower values are better, but Never make it past 10.
 	var/baitresilience = 0 // How resilient bait is. Decreases by 2 for every catch, decreases by 1 when used by a master or better. Bait cannot be consumed whilst it has resilience left.
 	var/isbait = FALSE	// Is the item in question bait to be used?
+	var/bait_flag = NONE
 	var/list/fishingMods = null
 
 /obj/item/natural/worms

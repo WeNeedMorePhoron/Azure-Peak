@@ -405,7 +405,7 @@
 	icon = 'icons/roguetown/items/fishing.dmi'
 	spin_frequency = list(2 SECONDS, 3 SECONDS)
 	consumable = TRUE
-	bait_flag = MEAT
+	bait_flag = DISH_MEAT
 
 /obj/item/fishing/lure/meat/is_catchable_fish(obj/item/reagent_containers/food/snacks/fish/fish, list/fish_properties)
 	if(/datum/fish_trait/vegan in fish.fish_traits)
@@ -433,7 +433,7 @@
 	icon = 'icons/roguetown/items/food.dmi'
 	spin_frequency = list(2 SECONDS, 3 SECONDS)
 	consumable = TRUE
-	bait_flag = GRAIN
+	bait_flag = DISH_BREAD
 
 /obj/item/fishing/lure/dough/is_catchable_fish(obj/item/reagent_containers/food/snacks/fish/fish, list/fish_properties)
 	if(/datum/fish_trait/predator in fish.fish_traits)
@@ -464,7 +464,7 @@
 	icon = 'icons/roguetown/items/fishing.dmi'
 	spin_frequency = list(2 SECONDS, 3 SECONDS)
 	consumable = TRUE
-	bait_flag = GRAIN | MEAT
+	bait_flag = DISH_BREAD | DISH_MEAT
 
 /obj/item/fishing/lure/gray/check_bait(obj/item/reagent_containers/food/snacks/fish/fish)
 	var/multiplier = ..()
@@ -488,7 +488,7 @@
 	icon_state = "speckledbait"
 	spin_frequency = list(2.5 SECONDS, 3.5 SECONDS)
 	consumable = TRUE
-	bait_flag = GRAIN | MEAT | FRUIT
+	bait_flag = DISH_BREAD | DISH_MEAT | DISH_FRUIT
 
 /obj/item/fishing/lure/speckled/is_catchable_fish(obj/item/reagent_containers/food/snacks/fish/fish, list/fish_properties)
 	// Catches most things, excluding tiny fish

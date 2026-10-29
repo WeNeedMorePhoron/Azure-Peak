@@ -21,13 +21,13 @@
 
 	/**
 	 * Bait identifiers that make catching this fish easier and more likely
-	 * Bait identifiers: Path | Trait | list("Type"="Foodtype","Value"= Food Type Flag like [MEAT])
+	 * Bait identifiers: Path | Trait | list("Type"="Foodtype","Value"= dish_type flag like [DISH_MEAT])
 	 */
 	var/list/favorite_bait = list()
 
 	/**
 	 * Bait identifiers that make catching this fish harder and less likely
-	 * Bait identifiers: Path | Trait | list("Type"="Foodtype","Value"= Food Type Flag like [MEAT])
+	 * Bait identifiers: Path | Trait | list("Type"="Foodtype","Value"= dish_type flag like [DISH_MEAT])
 	 */
 	var/list/disliked_bait = list()
 
