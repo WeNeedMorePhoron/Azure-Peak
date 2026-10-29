@@ -255,13 +255,13 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	float.spin_ready = FALSE
 	addtimer(CALLBACK(src, PROC_REF(set_lure_ready)), float.spin_frequency[1], TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_DELETE_ME)
 	addtimer(CALLBACK(src, PROC_REF(missed_lure)), float.spin_frequency[2], TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_DELETE_ME)
-	float.update_appearance(UPDATE_OVERLAYS)
+	float.vand_update_appearance(UPDATE_OVERLAYS)
 
 /datum/fishing_challenge/proc/set_lure_ready()
 	if(phase != WAIT_PHASE)
 		return
 	float.spin_ready = TRUE
-	float.update_appearance(UPDATE_OVERLAYS)
+	float.vand_update_appearance(UPDATE_OVERLAYS)
 	if(special_effects & FISHING_MINIGAME_AUTOREEL)
 		addtimer(CALLBACK(src, PROC_REF(auto_spin)), 0.2 SECONDS)
 
@@ -269,7 +269,7 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	if(phase != WAIT_PHASE || !float.spin_ready)
 		return
 	float.spin_ready = FALSE
-	float.update_appearance(UPDATE_OVERLAYS)
+	float.vand_update_appearance(UPDATE_OVERLAYS)
 	set_lure_timers()
 	send_alert("spun")
 
@@ -428,7 +428,7 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	next_phase_timer = addtimer(CALLBACK(src, PROC_REF(start_baiting_phase)), BITING_TIME_WINDOW, TIMER_STOPPABLE|TIMER_DELETE_ME)
 	///If we're using a lure, we want the float to show a little green light during the minigame phase and not a red one.
 	float.spin_ready = TRUE
-	float.update_appearance(UPDATE_OVERLAYS)
+	float.vand_update_appearance(UPDATE_OVERLAYS)
 
 /// Float bobs a bit harder mid-biting-window
 /datum/fishing_challenge/proc/escalate_float_animation()
@@ -847,14 +847,14 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 /atom/movable/screen/hud_bait/Initialize(mapload, datum/hud/hud_owner, datum/fishing_challenge/challenge)
 	. = ..()
 	if(!challenge || challenge.bait_pixel_height == MINIGAME_BAIT_HEIGHT)
-		update_appearance(UPDATE_OVERLAYS)
+		vand_update_appearance(UPDATE_OVERLAYS)
 		return
 
 	adjust_to_difficulty(challenge)
 
 /atom/movable/screen/hud_bait/proc/adjust_to_difficulty(datum/fishing_challenge/challenge)
 	cur_height = challenge.bait_pixel_height
-	update_appearance(UPDATE_OVERLAYS)
+	vand_update_appearance(UPDATE_OVERLAYS)
 
 /atom/movable/screen/hud_bait/update_overlays()
 	. = ..()
@@ -909,7 +909,8 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	if(ismovable(spot)) // we want the float and therefore the fishing line to stay connected with the fishing spot.
 		RegisterSignal(spot, COMSIG_MOVABLE_MOVED, PROC_REF(follow_movable))
 	SET_BASE_PIXEL(spot.pixel_x, spot.pixel_y)
-	SET_BASE_VISUAL_PIXEL(spot.pixel_w, spot.pixel_z)
+	pixel_w = spot.pixel_w
+	pixel_z = spot.pixel_z
 	// early return for spots with a plane lower than this. the floor plane is topdown and we don't want to inherit their layers.
 	if(spot.plane < plane)
 		return
@@ -931,7 +932,7 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	var/mutable_appearance/overlay = mutable_appearance(icon, "lure_light")
 	overlay.color = spin_ready ? COLOR_GREEN : COLOR_RED
 	. += overlay
-	. += emissive_appearance(icon, "lure_light_emissive", src, alpha = src.alpha)
+	. += emissive_appearance(icon, "lure_light_emissive", alpha = src.alpha)
 
 #undef WAIT_PHASE
 #undef BITING_PHASE

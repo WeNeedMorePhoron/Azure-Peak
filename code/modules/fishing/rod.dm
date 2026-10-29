@@ -152,7 +152,7 @@
 					I.forceMove(src)
 					reel = I
 					to_chat(user, "<span class='notice'>I add [I] to [src]...</span>")
-	update_appearance(UPDATE_OVERLAYS)
+	vand_update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/fishingrod/attack_right(mob/user)
 	. = ..()
@@ -187,7 +187,7 @@
 			line = null
 		user.put_in_hands(totake)
 		to_chat(user, "<span class='notice'>I take [totake] off of [src].</span>")
-		update_appearance(UPDATE_OVERLAYS)
+		vand_update_appearance(UPDATE_OVERLAYS)
 
 /obj/item/fishingrod/examine(mob/user)
 	. = ..()
@@ -250,7 +250,7 @@
 
 	qdel(baited)
 	baited = null
-	update_appearance()
+	vand_update_appearance()
 
 
 /obj/item/fishingrod/interact(mob/user)

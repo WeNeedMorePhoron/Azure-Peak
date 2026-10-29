@@ -100,7 +100,7 @@
 	visuals.plane = beam_plane
 	if(invisibility)
 		visuals.invisibility = invisibility
-	visuals.update_appearance()
+	visuals.vand_update_appearance()
 	Draw()
 	RegisterSignals(origin, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(redrawing))
 	RegisterSignals(target, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(redrawing))
