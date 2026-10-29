@@ -86,7 +86,7 @@
 		to_chat(user, span_notice("I feel mundane once more"))
 
 /datum/magic_item/superior/lockpicking
-	name = "fast fingers"
+	name = "lockpicking"
 	description = "It looks like it fits just right"
 	glow_color = "#483D8B"
 	var/active_item = FALSE
