@@ -25,6 +25,9 @@
 	bullet_sizzle = TRUE
 	bullet_bounce_sound = null //needs a splashing sound one day.
 	smooth = SMOOTH_MORE
+	// cardinal_smooth()/roguesmooth() only ever reads cardinal adjacency bits - see the same note
+	// on /turf/open/floor/rogue.
+	smooth_diag = FALSE
 	canSmoothWith = list(/turf/closed/mineral,/turf/closed/wall/mineral/rogue, /turf/open/floor/rogue)
 	footstep = null
 	barefootstep = null
@@ -43,12 +46,39 @@
 	var/swim_skill = FALSE
 	nomouseover = FALSE
 	var/swimdir = FALSE
+	/// Ice turf SSseason lays over this one in Mid/Late Winter. Still freshwater is the
+	/// default - lakes, the slack water off a river - so plain /turf/open/water freezes.
+	/// Anything that shouldn't (moving water, salt water, interiors, flavor turfs) nulls
+	/// this out on its own subtype below, and null also means "never tracked at all".
+	var/freeze_type = /turf/open/floor/rogue/frozen_water
 
-/turf/open/water/Initialize()
-	.  = ..()
+/turf/open/water/Initialize(mapload)
+	.	= ..()
 	water_overlay = new(src)
 	water_top_overlay = new(src)
 	update_icon()
+	if(freeze_type)
+		// Deliberately no runtime catch-up here, unlike /turf/open/floor/rogue/grass. Most
+		// water that appears mid-round in winter appears *because* ice broke or was cut open,
+		// and re-freezing it on the spot would close the hole the moment it was made. Tracked
+		// only, so the next season change picks it up.
+		GLOB.seasonal_water_turfs |= src
+
+/// Lays this turf's ice on top, pushing our own type onto baseturfs so thaw() (a ScrapeAway())
+/// can restore the exact subtype (swamp vs swamp/deep, pond vs cleanshallow) without a lookup
+/// table. Returns the new ice turf, or null if we can't or shouldn't freeze.
+///
+/turf/open/water/proc/freeze_over()
+	if(!freeze_type)
+		return null
+	var/list/water_stack = length(baseturfs) ? baseturfs.Copy() : list(baseturfs)
+	water_stack += type
+	var/turf/open/floor/rogue/frozen_water/F = PlaceOnTop(null, freeze_type, CHANGETURF_INHERIT_AIR)
+	if(!istype(F))
+		return null
+	F.baseturfs = water_stack
+	F.seasonal_freeze = TRUE
+	return F
 
 /turf/open/water/update_icon()
 	if(water_overlay)
@@ -63,9 +93,8 @@
 	if(isliving(AM) && !AM.throwing)
 		var/mob/living/user = AM
 		if(isliving(user) && !user.is_floor_hazard_immune())
-			for(var/obj/structure/S in src)
-				if(S.obj_flags & BLOCK_Z_OUT_DOWN)
-					return
+			if(platform_atom_count > 0)
+				return
 			if(water_overlay)
 				if((get_dir(src, newloc) == SOUTH))
 					water_overlay.layer = BELOW_MOB_LAYER
@@ -124,9 +153,8 @@
 	if(!swimmer.check_armor_skill())
 		. += UNSKILLED_ARMOR_PENALTY
 	if(.) // this check is expensive so we only run it if we do expect to use stamina
-		for(var/obj/structure/S in src)
-			if(S.obj_flags & BLOCK_Z_OUT_DOWN)
-				return 0
+		if(platform_atom_count > 0)
+			return 0
 		for(var/D in GLOB.cardinals) //adjacent to a floor to hold onto
 			if(istype(get_step(src, D), /turf/open/floor))
 				return 0
@@ -137,15 +165,23 @@
 	/// Mobs will heavily avoid pathing through this turf if their stamina is too low.
 	var/const/LOW_STAM_PENALTY = 7 // only go through this if we'd have to go offscreen otherwise
 	. = ..()
-	if(isliving(traverser) && !HAS_TRAIT(traverser, TRAIT_INFINITE_STAMINA))
-		var/mob/living/living_traverser = traverser
-		var/remaining_stamina = (living_traverser.max_stamina - living_traverser.stamina)
-		if(remaining_stamina < get_stamina_drain(living_traverser, travel_dir)) // not enough stamina reserved to cross
-			. += LOW_STAM_PENALTY // really want to avoid this unless we don't have any better options
+	if(isliving(traverser) && is_swim_exhausting(traverser, travel_dir))
+		. += LOW_STAM_PENALTY // really want to avoid this unless we don't have any better options
+
+/turf/open/water/proc/is_swim_exhausting(mob/living/swimmer, travel_dir)
+	var/const/STAM_RESERVE_TILES = 3 // enough left over to swim back out
+	if(HAS_TRAIT(swimmer, TRAIT_INFINITE_STAMINA))
+		return FALSE
+	var/remaining_stamina = swimmer.max_stamina - swimmer.stamina
+	return remaining_stamina < get_stamina_drain(swimmer, travel_dir) * STAM_RESERVE_TILES
 
 /turf/open/water/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum, damage_flag = "blunt")
 	..()
 	playsound(src, pick('sound/foley/water_land1.ogg','sound/foley/water_land2.ogg','sound/foley/water_land3.ogg'), 100, FALSE)
+	if(isobj(AM))
+		var/obj/O = AM
+		if(O.extinguishable)
+			O.extinguish()
 
 
 /turf/open/water/cardinal_smooth(adjacencies)
@@ -164,9 +200,8 @@
 
 /turf/open/water/Entered(atom/movable/AM, atom/oldLoc)
 	. = ..()
-	for(var/obj/structure/S in src)
-		if(S.obj_flags & BLOCK_Z_OUT_DOWN)
-			return
+	if(platform_atom_count > 0)
+		return
 	if(istype(AM, /obj/item/reagent_containers/food/snacks/fish))
 		var/obj/item/reagent_containers/food/snacks/fish/F = AM
 		if (F.sinkable)
@@ -180,6 +215,7 @@
 			L.visible_message(span_warning("[L] spasms violently upon touching the water!"), span_danger("The water... it burns me!"))
 			L.adjustFireLoss(25)
 			return
+
 		if (istype(src,/turf/open/water/bloody))
 			L.add_mob_blood(L)
 
@@ -246,12 +282,24 @@
 				if(wash_in)
 					wash_atom(user, CLEAN_STRONG)
 					user.remove_stress(/datum/stressevent/sewertouched)
+					user.remove_stress(/datum/stressevent/unlanded_noble_bloody_equipment)
 				playsound(user, pick(wash), 100, FALSE)
-				if(istype(src,/turf/open/water/sewer) || istype(src,/turf/open/water/swamp) || istype(src, /turf/open/water/sewer))
-					if (istype(src, /turf/open/water/sewer))
+				if(istype(src,/turf/open/water/sewer) || istype(src,/turf/open/water/swamp))
+					if (istype(src, /turf/open/water/sewer) || (istype(src, /turf/open/water/swamp) && HAS_TRAIT(user, TRAIT_NOBLE_UNLANDED)))
 						user.add_stress(/datum/stressevent/sewertouched)
 					if (!HAS_TRAIT(L,TRAIT_LEECHIMMUNE) && !HAS_TRAIT(L,TRAIT_BOGWALKER)) // cleaning yourself in nasty water is a wonderful way to get leeches.
 						if (prob(20)) // 1 in 5 chance of getting leeched if you wash up in gross water.
+
+							if(HAS_TRAIT(L, TRAIT_LEECHRESIST))
+								var/avoid_chance = 20
+								avoid_chance += (L.STASPD - 10) * 10
+								avoid_chance += (L.STALUC - 10) * 5
+								avoid_chance = clamp(avoid_chance, 0, 100)
+								if(prob(avoid_chance))
+									return
+								else
+									to_chat(L, span_notice("Ouch! I am being sucked off!!"))
+
 							var/list/zones = list(BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_NECK, BODY_ZONE_HEAD)
 							var/zone = pick(zones)
 							var/obj/item/bodypart/BP = L.get_bodypart(zone)
@@ -311,19 +359,12 @@
 	return
 
 /turf/open/water/Destroy()
+	GLOB.seasonal_water_turfs -= src
 	. = ..()
 	if(water_overlay)
 		QDEL_NULL(water_overlay)
 	if(water_top_overlay)
 		QDEL_NULL(water_top_overlay)
-
-/turf/open/water/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum, damage_flag = "blunt")
-	if(!isobj(AM))
-		return
-	var/obj/O = AM
-	if(!O.extinguishable)
-		return
-	O.extinguish()
 
 /turf/open/water/get_slowdown(mob/user)
 	var/returned = slowdown
@@ -339,7 +380,7 @@
 			returned -= 1
 	return max(returned, 0.5)
 
-//turf/open/water/Initialize()
+//turf/open/water/Initialize(mapload)
 //	dir = pick(NORTH,SOUTH,WEST,EAST)
 //	. = ..()
 
@@ -353,9 +394,10 @@
 	water_color = "#FFFFFF"
 	slowdown = 3
 	water_reagent = /datum/reagent/water/bathwater
+	freeze_type = null // indoors, and the point of it is that it's warm
 
-/turf/open/water/bath/Initialize()
-	.  = ..()
+/turf/open/water/bath/Initialize(mapload)
+	.	= ..()
 	icon_state = "bathtile"
 
 /turf/open/water/sewer
@@ -368,11 +410,12 @@
 	slowdown = 3
 	wash_in = FALSE
 	water_reagent = /datum/reagent/water/gross/sewage
+	freeze_type = null // enclosed, and warmer than anything above ground
 
-/turf/open/water/sewer/Initialize()
+/turf/open/water/sewer/Initialize(mapload)
 	icon_state = "paving"
 	water_color = pick("#705a43","#697043")
-	.  = ..()
+	.	= ..()
 
 /turf/open/water/swamp
 	name = "murk"
@@ -384,6 +427,7 @@
 	slowdown = 3
 	wash_in = TRUE
 	water_reagent = /datum/reagent/water/gross
+	freeze_type = /turf/open/floor/rogue/frozen_water/mire
 
 /turf/open/water/bloody
 	name = "blood"
@@ -395,18 +439,19 @@
 	slowdown = 3
 	wash_in = FALSE
 	water_reagent = /datum/reagent/blood/shitty
+	freeze_type = null // set dressing, not weather-driven
 
-/turf/open/water/swamp/Initialize()
+/turf/open/water/swamp/Initialize(mapload)
 	icon_state = "dirt"
 	dir = pick(GLOB.cardinals)
 	water_color = pick("#705a43")
-	.  = ..()
+	.	= ..()
 
-/turf/open/water/bloody/Initialize()
+/turf/open/water/bloody/Initialize(mapload)
 	icon_state = "dirt"
 	dir = pick(GLOB.cardinals)
 	water_color = pick("#880808")
-	.  = ..()
+	.	= ..()
 
 
 
@@ -433,6 +478,17 @@
 				return
 			if(C.blood_volume <= 0)
 				return
+
+			if(HAS_TRAIT(C, TRAIT_LEECHRESIST))
+				var/avoid_chance = 20
+				avoid_chance += (C.STASPD - 10) * 10
+				avoid_chance += (C.STALUC - 10) * 5
+				avoid_chance = clamp(avoid_chance, 0, 100)
+				if(prob(avoid_chance))
+					return
+				else
+					to_chat(C, span_notice("Ouch! I am being sucked off!!"))
+
 			var/list/zonee = list(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_CHEST)
 			for(var/i = 0, i <= zonee.len, i++)
 				var/zone = pick(zonee)
@@ -453,13 +509,14 @@
 	water_color = "#705a43"
 	slowdown = 5
 	swim_skill = TRUE
+	freeze_type = /turf/open/floor/rogue/frozen_water/mire/deep
 
 /turf/open/water/swamp/deep/Entered(atom/movable/AM, atom/oldLoc)
 	. = ..()
 	if(!oldLoc)
 		return .
 
-	if(HAS_TRAIT(AM, TRAIT_LEECHIMMUNE) ||  HAS_TRAIT(AM, TRAIT_BOGWALKER))
+	if(HAS_TRAIT(AM, TRAIT_LEECHIMMUNE) ||	HAS_TRAIT(AM, TRAIT_BOGWALKER))
 		return .
 
 	if(isliving(AM) && !AM.throwing)
@@ -479,6 +536,16 @@
 
 			if(C.blood_volume <= 0)
 				return .
+
+			if(HAS_TRAIT(C, TRAIT_LEECHRESIST))
+				var/avoid_chance = 20
+				avoid_chance += (C.STASPD - 10) * 10
+				avoid_chance += (C.STALUC - 10) * 5
+				avoid_chance = clamp(avoid_chance, 0, 100)
+				if(prob(avoid_chance))
+					return
+				else
+					to_chat(C, span_notice("Ouch! I am being sucked off!!"))
 
 			var/list/zonee = list(BODY_ZONE_CHEST, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM)
 			for(var/i = 1; i <= zonee.len; i++)
@@ -503,10 +570,26 @@
 	wash_in = TRUE
 	water_reagent = /datum/reagent/water
 
-/turf/open/water/cleanshallow/Initialize()
+/turf/open/water/cleanshallow/Initialize(mapload)
 	icon_state = "rock"
 	dir = pick(GLOB.cardinals)
-	.  = ..()
+	.	= ..()
+
+/turf/open/water/cleanshallow/deep
+	name = "deep water"
+	desc = "Clear and deep water, beautiful but dangerous should you not know how to swim."
+	icon = 'icons/turf/roguefloor.dmi'
+	icon_state = "rockw4"
+	water_level = 3
+	slowdown = 5
+	swim_skill = TRUE
+	water_color = "#5d7e84"
+
+/turf/open/water/cleanshallow/deep/Initialize(mapload)
+	. = ..()
+	icon_state = "rock"
+	water_color = "#5d7e84"
+	update_icon()
 
 /turf/open/water/river
 	name = "river"
@@ -518,9 +601,89 @@
 	wash_in = TRUE
 	swim_skill = TRUE
 	swimdir = TRUE
+	freeze_type = null // moving water; freezing it would also stall the SSrivers conveyor
 
 /turf/open/water/river/flow
 	icon_state = "rockwd2"
+
+/turf/open/water/river/flow/deep
+	name = "deep river"
+	desc = "A deep and flowing river of crystal clear water."
+	icon_state = "rockwd"
+	water_level = 3
+	slowdown = 5
+	swim_skill = TRUE
+	water_color = "#5a7a80"
+
+/turf/open/water/river/flow/deep/Initialize(mapload)
+	. = ..()
+	icon_state = "rock"
+	update_icon()
+
+/turf/open/water/river/flow/deep/west
+	dir = 8
+
+/turf/open/water/river/flow/deep/east
+	dir = 4
+
+/turf/open/water/river/flow/deep/north
+	dir = 1
+
+/turf/open/water/river/flow/murk
+	name = "murk river"
+	desc = "A foul river of weeds and algae."
+	icon_state = "dirtwd2"
+	water_level = 2
+	water_color = "#705a43"
+	slowdown = 3
+	wash_in = TRUE
+	water_reagent = /datum/reagent/water/gross
+
+/turf/open/water/river/flow/murk/Initialize(mapload)
+	. = ..()
+	icon_state = "rock"
+	update_icon()
+
+/turf/open/water/river/flow/murk/Entered(atom/movable/AM, atom/oldLoc)
+	. = ..()
+	if(!oldLoc)
+		return
+	if(HAS_TRAIT(AM, TRAIT_LEECHIMMUNE) || HAS_TRAIT(AM, TRAIT_BOGWALKER))
+		return
+	if(isliving(AM) && !AM.throwing)
+		if(ishuman(AM))
+			var/mob/living/carbon/human/C = AM
+			if(istype(C.buckled, /obj/vehicle/ridden) || isliving(C.buckled))
+				return
+			var/chance = 3
+			if(C.m_intent == MOVE_INTENT_RUN)
+				chance = 6
+			if(C.m_intent == MOVE_INTENT_SNEAK)
+				chance = 1
+			if(!prob(chance))
+				return
+			if(C.blood_volume <= 0)
+				return
+			if(HAS_TRAIT(C, TRAIT_LEECHRESIST))
+				var/avoid_chance = 20
+				avoid_chance += (C.STASPD - 10) * 10
+				avoid_chance += (C.STALUC - 10) * 5
+				avoid_chance = clamp(avoid_chance, 0, 100)
+				if(prob(avoid_chance))
+					return
+				else
+					to_chat(C, span_notice("Ouch! I am being sucked off!!"))
+			var/list/zonee = list(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_CHEST)
+			for(var/i = 1; i <= zonee.len; i++)
+				var/zone = pick(zonee)
+				var/obj/item/bodypart/BP = C.get_bodypart(zone)
+				if(!BP)
+					continue
+				if(BP.skeletonized)
+					continue
+				var/obj/item/natural/worms/leech/I = new(C)
+				BP.add_embedded_object(I, silent = TRUE)
+				return .
 
 /turf/open/water/river/flow/west
 	dir = 8
@@ -541,13 +704,14 @@
 		water_top_overlay.icon_state = "rivertop"
 		water_top_overlay.dir = dir
 
-/turf/open/water/river/Initialize()
+/turf/open/water/river/Initialize(mapload)
 	icon_state = "rock"
-	.  = ..()
+	.	= ..()
 
 /turf/open/water/river/Entered(atom/movable/AM, atom/oldLoc)
 	. = ..()
-	START_PROCESSING(SSrivers, src)
+	if(platform_atom_count <= 0)
+		START_PROCESSING(SSrivers, src)
 
 /turf/open/water/river/get_heuristic_slowdown(mob/traverser, travel_dir)
 	var/const/UPSTREAM_PENALTY = 4
@@ -556,9 +720,8 @@
 	. = ..()
 	if(traverser.is_floor_hazard_immune())
 		return
-	for(var/obj/structure/S in src)
-		if(S.obj_flags & BLOCK_Z_OUT_DOWN)
-			return
+	if(platform_atom_count > 0)
+		return
 	if(travel_dir == dir) // downriver
 		. += DOWNSTREAM_BONUS // faster!
 	else if(travel_dir == GLOB.reverse_dir[dir]) // upriver
@@ -567,16 +730,18 @@
 		. += SIDESTREAM_PENALTY // sidestream walking isn't free, bro
 
 /turf/open/water/river/proc/process_river()
+	if(platform_atom_count > 0)
+		STOP_PROCESSING(SSrivers, src)
+		return
 	var/found_movable = FALSE
 	for(var/atom/movable/A in contents)
-		found_movable = TRUE
-		for(var/obj/structure/S in src)
-			if(S.obj_flags & BLOCK_Z_OUT_DOWN)
-				return
-		if((A.loc == src))
-			A.ConveyorMove(dir)
+		if(!A.anchored)
+			found_movable = TRUE
+			if((A.loc == src))
+				A.ConveyorMove(dir)
 
-	if(found_movable)
+	// stop processing once there's nothing left to move
+	if(!found_movable)
 		STOP_PROCESSING(SSrivers, src)
 		return
 
@@ -599,6 +764,7 @@
 	swim_skill = TRUE
 	wash_in = TRUE
 	water_reagent = /datum/reagent/water/salty
+	freeze_type = null // salt water, and tidal - subtypes inherit the exemption
 
 /turf/open/water/ocean/deep
 	name = "salt water"
@@ -611,6 +777,20 @@
 	swim_skill = TRUE
 	wash_in = TRUE
 
+/turf/open/water/ocean/deep/dark
+	water_color = "#000211"
+
+/turf/open/water/ocean/abyssal
+	name = "darkwater"
+	desc = "Water from another realm, it's impossibly deep, like everything below the surface isn't fully within this plane."
+	icon_state = "water"
+	icon = 'icons/turf/roguefloor.dmi'
+	water_level = 3
+	water_color = "#000211"
+	slowdown = 8
+	swim_skill = TRUE
+	wash_in = FALSE
+
 /turf/open/water/pond
 	name = "pond"
 	desc = "Still and alarmingly idyllic water. Covered in concerning overgrowth of duckweed."
@@ -622,3 +802,38 @@
 	swim_skill = TRUE
 	wash_in = TRUE
 	water_reagent = /datum/reagent/water/gross
+	freeze_type = /turf/open/floor/rogue/frozen_water/deep
+
+/turf/open/water/river/flow/murk/deep
+	name = "deep murk river"
+	desc = "A deep and foul river of weeds and algae."
+	icon_state = "dirtwd"
+	water_level = 3
+	water_color = "#705a43"
+	slowdown = 5
+	swim_skill = TRUE
+	wash_in = TRUE
+	water_reagent = /datum/reagent/water/gross
+
+/turf/open/water/river/flow/murk/deep/Initialize(mapload)
+	. = ..()
+	icon_state = "rock"
+	update_icon()
+
+/turf/open/water/river/flow/murk/west
+	dir = 8
+
+/turf/open/water/river/flow/murk/east
+	dir = 4
+
+/turf/open/water/river/flow/murk/north
+	dir = 1
+
+/turf/open/water/river/flow/murk/deep/west
+	dir = 8
+
+/turf/open/water/river/flow/murk/deep/east
+	dir = 4
+
+/turf/open/water/river/flow/murk/deep/north
+	dir = 1

@@ -41,10 +41,13 @@
 		if(anchored)
 			var/skill_level = max(user.get_skill_level(/datum/skill/craft/tanning))
 			var/work_time = (120 - (skill_level * 15))
-			var/pieces_to_spawn = rand(1, min(skill_level + 1, 6)) //Random number from 1 to skill level
+			var/pieces_to_spawn = (1 + skill_level)//Always spawn 1, up to 7
 			var/sound_played = FALSE
 			to_chat(user, span_warning("I begin scraping the hide's skin..."))
 			if(!do_after(user, work_time, target = user))
+				return
+			if(!hide)
+				to_chat(user, span_warning("There is no hide on the rack anymore."))
 				return
 			playsound(src,pick('sound/items/book_open.ogg','sound/items/book_page.ogg'), 100, FALSE)
 			QDEL_NULL(hide)
@@ -80,7 +83,7 @@
 	if(istype(I, /obj/item/grown/log/tree/stake))
 		if(anchored)
 			anchored = FALSE
-			to_chat(user, span_warning("The [src] can now be moved."))
+			to_chat(user, span_warning("[src] can now be moved."))
 		else
 			anchored = TRUE
 			to_chat(user, span_warning("You anchor [src]."))

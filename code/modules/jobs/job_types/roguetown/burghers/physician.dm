@@ -34,6 +34,7 @@
 	job_subclasses = list(
 		/datum/advclass/physician
 	)
+	has_subprefs = FALSE // only one subclass
 	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice)
 
 /datum/advclass/physician
@@ -70,6 +71,7 @@
 		/datum/skill/craft/sewing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/medicine = SKILL_LEVEL_LEGENDARY,
 	)
+	tempo_capable = FALSE
 
 /datum/outfit/job/roguetown/physician
 	job_bitflag = BITFLAG_ROYALTY
@@ -103,14 +105,14 @@
 		shirt = /obj/item/clothing/suit/roguetown/shirt/courtphysician/female
 		gloves = /obj/item/clothing/gloves/roguetown/courtphysician/female
 		pants = /obj/item/clothing/under/roguetown/skirt/courtphysician
-		shoes = /obj/item/clothing/shoes/courtphysician/female
+		shoes = /obj/item/clothing/shoes/roguetown/courtphysician/female
 	else
 		head = /obj/item/clothing/head/roguetown/courtphysician
 		armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/jacket/courtphysician
 		shirt = /obj/item/clothing/suit/roguetown/shirt/courtphysician
 		gloves = /obj/item/clothing/gloves/roguetown/courtphysician
 		pants = /obj/item/clothing/under/roguetown/trou/leather/courtphysician
-		shoes = /obj/item/clothing/shoes/courtphysician
+		shoes = /obj/item/clothing/shoes/roguetown/courtphysician
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
 	if(H.mind)

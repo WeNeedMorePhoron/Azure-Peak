@@ -16,7 +16,7 @@
 	max_pq = null
 	allowed_patrons = list(/datum/patron/inhumen/graggar)
 
-	obsfuscated_job = TRUE
+	obfuscated_job = TRUE
 
 	advclass_cat_rolls = list(CTAG_GNOLL = 20)
 	PQ_boost_divider = 10
@@ -36,15 +36,18 @@
 		/datum/virtue/utility/bronzelimbs, //They should feel pain in their limbs given their state
 		/datum/virtue/movement/acrobatic, //This should be given to them when they are actually after a Hunted
 		/datum/virtue/utility/woodwalker, //This should be given to them when they are actually after a Hunted
-		/datum/virtue/combat/crossbowman,	//Absolutely not on a class like this
-		/datum/virtue/combat/bowman
 		)
+	quirk_restrictions = list(/datum/quirk/noble)
 	job_subclasses = list(
 		/datum/advclass/gnoll/berserker,
 		/datum/advclass/gnoll/knight,
 		/datum/advclass/gnoll/templar,
 		/datum/advclass/gnoll/shaman,
 	)
+	vice_restrictions = list(/datum/charflaw/hunted, /datum/charflaw/targeted)
+
+/datum/advclass/gnoll
+	tempo_capable = FALSE
 
 /datum/job/roguetown/gnoll/special_job_check(mob/dead/new_player/player)
 	if(is_storyteller_soft_antag_blocked())
@@ -65,6 +68,7 @@
 			var/datum/antagonist/new_antag = new /datum/antagonist/gnoll()
 			H.mind.add_antag_datum(new_antag)
 			add_verb(H, /mob/living/carbon/human/proc/gnoll_inspect_skin)
+			add_verb(H, /mob/living/carbon/human/proc/gnoll_toggle_pelt_repair)
 
 /datum/outfit/job/roguetown/gnoll/proc/don_pelt(mob/living/carbon/human/H)
 	if(H.mind)
@@ -76,6 +80,7 @@
 		H.regenerate_icons()
 		H.AddSpell(new /obj/effect/proc_holder/spell/self/claws/gnoll)
 		H.AddSpell(new /obj/effect/proc_holder/spell/self/howl/gnoll)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/gnoll/consume)
 		H.AddComponent(/datum/component/gnoll_combat_tracker)
 
 		var/obj/effect/proc_holder/spell/invoked/gnoll_sniff/F = new()
@@ -94,17 +99,21 @@
 		else
 			to_chat(H, span_bignotice("Isolated from my pack, I am likely a lone soul this week. I should especially avoid getting killed, and look for my pack next week."))
 		to_chat(H, span_bignotice("Graggar is patient, and values good strategy. I mustn't be hasty, especially if my marks prove difficult to isolate.\n Perhaps there is merit in forging alliances, or setting up camp."))
-		spawn(50)
-			var/name_choice = alert(H, "What name do you want?", "MY NAME IS [H.real_name]", "Pick New Name", "Random Gnoll Name", "Keep Current Name")
-			switch(name_choice)
-				if("Pick New Name")
-					H.choose_name_popup("GNOLL")
-					to_chat(H, span_notice("Your name is now [H.real_name]."))
-				if("Random Gnoll Name")
-					H.real_name = "[pick(GLOB.wolf_prefixes)] [pick(GLOB.wolf_suffixes)]"
-					to_chat(H, span_notice("Your name is now [H.real_name]."))
-				if("Keep Current Name")
-					to_chat(H, span_notice("You keep your name as [H.real_name]."))
+
+/// Population-scaled gnoll count for a scaling mode, capped at the mode's maximum (DYNAMIC 3, FLAT 2, SINGLE 1,
+/// NONE 0). Scales with population like wretch slots (+1 per 10 players above 40), just clamped lower.
+/proc/gnoll_scaled_slots(mode)
+	var/max_slots = 0
+	switch(mode)
+		if(GNOLL_SCALING_DYNAMIC)
+			max_slots = 3
+		if(GNOLL_SCALING_FLAT)
+			max_slots = 2
+		if(GNOLL_SCALING_SINGLE)
+			max_slots = 1
+	if(max_slots <= 0)
+		return 0
+	return SSgamemode.storyteller_scale_slots(max_slots)
 
 /proc/gnollslot_calc()
 	var/list/result = list()
@@ -114,14 +123,8 @@
 	if(SSgamemode.current_storyteller?.preferred_gnoll_mode == GNOLL_SCALING_NONE)
 		result["final_slots"] = 0
 		return result
-	var/slots = 1
-	if(SSgnoll_scaling)
-		switch(SSgnoll_scaling.get_gnoll_scaling())
-			if(GNOLL_SCALING_FLAT)
-				slots = 2
-			if(GNOLL_SCALING_DYNAMIC)
-				slots = 3
-	result["final_slots"] = slots
+	var/mode = SSgnoll_scaling ? SSgnoll_scaling.get_gnoll_scaling() : GNOLL_SCALING_SINGLE
+	result["final_slots"] = gnoll_scaled_slots(mode)
 	return result
 
 /proc/gnollslot_update()
@@ -129,6 +132,11 @@
 	if(!gnoll_job)
 		return
 	if(gnoll_job.admin_slot_override)
+		return
+	var/admin_slot = !SSgamemode.allow_vote ? SSgamemode.admin_slots["Gnoll"] : null
+	if(!isnull(admin_slot))
+		gnoll_job.total_positions = max(gnoll_job.current_positions, max(0, admin_slot))
+		gnoll_job.spawn_positions = max(gnoll_job.current_positions, max(0, admin_slot))
 		return
 	var/list/scaling = gnollslot_calc()
 	var/slots = max(0, scaling["final_slots"])
@@ -139,8 +147,25 @@
 	set name = "Inspect Pelt"
 	set category = "RoleUnique.Gnoll"
 	set desc = "Examine your gnoll skin armor"
-	if(!istype(skin_armor, /obj/item/clothing/suit/roguetown/armor/regenerating/skin/gnoll_armor))
+	if(!istype(skin_armor, /obj/item/clothing/suit/roguetown/armor/vampiric/gnoll))
 		to_chat(src, span_warning("You don't have any gnoll skin armor to inspect!"))
 		return
-	var/obj/item/clothing/suit/roguetown/armor/regenerating/skin/gnoll_armor/GA = skin_armor
+	var/obj/item/clothing/suit/roguetown/armor/vampiric/gnoll/GA = skin_armor
 	GA.Topic(null, list("inspect" = "1"), src)
+
+/mob/living/carbon/human/proc/gnoll_toggle_pelt_repair()
+	set name = "Toggle Pelt Repair From Shards"
+	set category = "RoleUnique.Gnoll"
+	set desc = "Toggle whether vampiric shard consumption repairs your skin armor."
+
+	var/datum/component/vampiric_striker/vamp_comp = GetComponent(/datum/component/vampiric_striker)
+	if(!vamp_comp)
+		to_chat(src, span_warning("You don't possess the ability required to attune your pelt!"))
+		return
+
+	vamp_comp.repairs_enabled = !vamp_comp.repairs_enabled
+
+	if(vamp_comp.repairs_enabled)
+		to_chat(src, span_notice("Armor shards will now repair your pelt."))
+	else
+		to_chat(src, span_warning("Armor shards will no longer repair your pelt. Warning, this prevents gaining buffs from picking up shards."))

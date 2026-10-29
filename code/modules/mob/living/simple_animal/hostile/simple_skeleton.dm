@@ -28,28 +28,38 @@
 	attack_verb_continuous = "hacks"
 	attack_verb_simple = "hack"
 	attack_sound = 'sound/blank.ogg'
-	canparry = TRUE
 	d_intent = INTENT_PARRY
-	defprob = 50
 	speak_emote = list("grunts")
 	loot = list(/obj/item/natural/bone,	/obj/item/natural/bone, /obj/item/natural/bone,	/obj/item/skull)
 	faction = list(FACTION_UNDEAD)
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	del_on_death = TRUE
-	var/start_take_damage = FALSE
-	var/damage_check
 	var/wither = 2.5
-	var/newcolor = rgb(207, 135, 255) //used for livetime code.
 
 	can_have_ai = FALSE //disable native ai
 	AIStatus = AI_OFF
 	ai_controller = /datum/ai_controller/simple_skeleton
-	melee_cooldown = SKELETON_ATTACK_SPEED
+	move_base_delay = MOVEMENT_DELAY_SPD_10
 
-/mob/living/simple_animal/hostile/rogue/skeleton/Initialize(mapload, mob/user, cabal_affine, is_summoned)
+/mob/living/simple_animal/hostile/rogue/skeleton/Initialize(mapload, mob/user)
 	. = ..()
 	AddComponent(/datum/component/ai_aggro_system)
 	ADD_TRAIT(src, TRAIT_SILVER_WEAK, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
+
+	if(user)
+		if(user.mind && user.mind.current)
+			summoner = user.mind.current.real_name
+		else
+			summoner = user.name
+
+	if(user && user.mind && user.mind.current)
+		faction = user.mind.current.faction.Copy()
+		faction += "[user.mind.current.real_name]_faction"
+		var/datum/antagonist/lich/lich_antag = user.mind.has_antag_datum(/datum/antagonist/lich)
+		if(lich_antag && user.real_name)
+			faction += FACTION_UNDEAD
+			faction += "[user.real_name]_faction"
 
 /mob/living/simple_animal/hostile/rogue/skeleton/axe
 	name = "Skeleton"
@@ -70,6 +80,7 @@
 	attack_sound = 'sound/foley/pierce.ogg'
 	loot = list(/obj/item/natural/bone,	/obj/item/natural/bone, /obj/item/natural/bone,	/obj/item/rogueweapon/spear, /obj/item/skull)
 	ai_controller = /datum/ai_controller/skeleton_spear
+	move_base_delay = MOVEMENT_DELAY_SPD_10
 
 /mob/living/simple_animal/hostile/rogue/skeleton/guard
 	name = "Skeleton"
@@ -106,6 +117,7 @@
 			/obj/item/ammo_casing/caseless/rogue/arrow/iron,
 			)
 	ai_controller = /datum/ai_controller/skeleton_ranged
+	move_base_delay = MOVEMENT_DELAY_SPD_3
 
 /mob/living/simple_animal/hostile/rogue/skeleton/get_sound(input)
 	switch(input)
@@ -118,43 +130,11 @@
 		if("idle")
 			return pick('sound/vo/mobs/skel/skeleton_idle (1).ogg','sound/vo/mobs/skel/skeleton_idle (2).ogg','sound/vo/mobs/skel/skeleton_idle (3).ogg')
 
-/mob/living/simple_animal/hostile/rogue/skeleton/Initialize(mapload, mob/user, cabal_affine = FALSE, is_summoned = FALSE)
-	. = ..()
-
-	if(user)
-		if(user.mind && user.mind.current)
-			summoner = user.mind.current.real_name
-		else
-			summoner = user.name
-
-	if(is_summoned || cabal_affine)
-		faction = list(FACTION_CABAL)
-
-	if(user && user.mind && user.mind.current)
-		faction = user.mind.current.faction.Copy()
-		faction += "[user.mind.current.real_name]_faction"
-		var/datum/antagonist/lich/lich_antag = user.mind.has_antag_datum(/datum/antagonist/lich)
-		if(lich_antag && user.real_name)
-			faction += FACTION_UNDEAD
-			faction += "[user.real_name]_faction"
-
-	damage_check = world.time
-
-	if(is_summoned)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/rogue/skeleton, deathtime), TRUE), 1 MINUTES)
-
-/mob/living/simple_animal/hostile/rogue/skeleton/proc/deathtime()
-	src.add_atom_colour(newcolor, ADMIN_COLOUR_PRIORITY)
-	start_take_damage = TRUE
-
 /mob/living/simple_animal/hostile/rogue/skeleton/Life(mob/user)
 	. = ..()
 	if(!target)
 		if(prob(60))
 			emote(pick("idle"), TRUE)
-	if(start_take_damage == TRUE)
-		if(world.time > damage_check + 5 SECONDS)
-			src.adjustFireLoss(8) //+- one minute for 100 HP (any skeleton) and two minute for guard skeleton (200 HP)
 
 /mob/living/simple_animal/hostile/rogue/skeleton/taunted(mob/user)
 	emote("aggro")
@@ -220,38 +200,13 @@
 
 /mob/living/simple_animal/hostile/rogue/skeleton/axe/event
 	ai_controller = /datum/ai_controller/simple_skeleton/event
+	move_base_delay = MOVEMENT_DELAY_SPD_10
 /mob/living/simple_animal/hostile/rogue/skeleton/spear/event
 	ai_controller = /datum/ai_controller/skeleton_spear/event
+	move_base_delay = MOVEMENT_DELAY_SPD_10
 /mob/living/simple_animal/hostile/rogue/skeleton/guard/event
 	ai_controller = /datum/ai_controller/simple_skeleton/event
+	move_base_delay = MOVEMENT_DELAY_SPD_10
 /mob/living/simple_animal/hostile/rogue/skeleton/bow/event
 	ai_controller = /datum/ai_controller/skeleton_ranged/event
-
-/mob/living/simple_animal/hostile/rogue/skeleton/axe/Initialize(mapload, mob/user, cabal_affine = FALSE, is_summoned = FALSE)
-    . = ..(mapload, user, cabal_affine, is_summoned)
-
-/mob/living/simple_animal/hostile/rogue/skeleton/spear/Initialize(mapload, mob/user, cabal_affine = FALSE, is_summoned = FALSE)
-    . = ..(mapload, user, cabal_affine, is_summoned)
-
-/mob/living/simple_animal/hostile/rogue/skeleton/guard/Initialize(mapload, mob/user, cabal_affine = FALSE, is_summoned = FALSE)
-    . = ..(mapload, user, cabal_affine, is_summoned)
-
-/mob/living/simple_animal/hostile/rogue/skeleton/bow/Initialize(mapload, mob/user, cabal_affine = FALSE, is_summoned = FALSE)
-    . = ..(mapload, user, cabal_affine, is_summoned)
-
-/mob/living/simple_animal/hostile/rogue/skeleton/Destroy()
-	for(var/mob/living/M in viewers(10, src))
-		var/datum/ai_controller/controller = M.ai_controller
-		if(!controller)
-			continue
-		var/needs_cleanup = FALSE
-		if(controller.blackboard[BB_HIGHEST_THREAT_MOB] == src)
-			controller.clear_blackboard_key(BB_HIGHEST_THREAT_MOB)
-			needs_cleanup = TRUE
-		if(controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET] == src)
-			controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
-			needs_cleanup = TRUE
-		if(needs_cleanup)
-			controller.CancelActions()
-
-	return ..()
+	move_base_delay = MOVEMENT_DELAY_SPD_3

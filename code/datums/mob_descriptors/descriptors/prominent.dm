@@ -20,6 +20,9 @@
 	var/datum/custom_descriptor_entry/entry = described.custom_descriptors[custom_index]
 	return entry.content_text
 
+/datum/mob_descriptor/prominent/custom/get_examine_description(mob/living/described)
+	return LOWER_TEXT(get_description(described))
+
 /datum/mob_descriptor/prominent/custom/get_pre_string(mob/living/described)
 	var/datum/custom_descriptor_entry/entry = described.custom_descriptors[custom_index]
 	switch(entry.prefix_type)
@@ -55,6 +58,14 @@
 /datum/mob_descriptor/prominent/custom/two
 	name = "Custom #2"
 	custom_index = 2
+
+/datum/mob_descriptor/prominent/custom/three
+	name = "Custom #3"
+	custom_index = 3
+
+/datum/mob_descriptor/prominent/custom/four
+	name = "Custom #4"
+	custom_index = 4
 
 /datum/mob_descriptor/prominent/hunched_over
 	name = "Hunched Over"

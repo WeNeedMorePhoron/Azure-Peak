@@ -15,7 +15,9 @@ import { starsIfIlliterate } from './util';
 
 const LockedView = (props: { motto: string; canRead: boolean }) => (
   <div style={pageStyle}>
-    <div style={titleStyle}>{starsIfIlliterate(props.motto, props.canRead)}</div>
+    <div style={titleStyle}>
+      {starsIfIlliterate(props.motto, props.canRead)}
+    </div>
     <div style={rulerStyle} />
     <div
       style={{
@@ -25,7 +27,7 @@ const LockedView = (props: { motto: string; canRead: boolean }) => (
         color: INK_SOFT,
       }}
     >
-      It is locked. Of course.
+      It is locked.
     </div>
   </div>
 );

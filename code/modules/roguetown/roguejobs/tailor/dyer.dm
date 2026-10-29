@@ -1,8 +1,5 @@
-var/global/list/pridelist = list(
-	"Rainbow" = "#fcfcfc"
-)
-
-var/list/used_colors
+GLOBAL_LIST_INIT(pridelist, list("Rainbow" = "#fcfcfc"))
+GLOBAL_LIST_EMPTY(used_colors)
 
 // DYE BIN
 
@@ -19,6 +16,7 @@ var/list/used_colors
 	var/activecolor_altdetail = "#FFFFFF"
 	var/list/allowed_types = list(
 			/obj/item/clothing,
+			/obj/item/rogueweapon,
 			/obj/item/storage,
 			/obj/item/bedroll,
 			/obj/item/flowercrown,
@@ -31,13 +29,30 @@ var/list/used_colors
 			/obj/item/reagent_containers/glass/cup/claycup,
 			/obj/item/reagent_containers/glass/bottle/claybottle,
 			/obj/item/roguestatue/clay,
-			/obj/item/roguestatue/glass
+			/obj/item/roguestatue/glass,
+			/obj/item/natural/clay/porcelain,
+			/obj/item/clothing/neck/roguetown/carved/porcelainamulet,
+			/obj/item/clothing/ring/porcelain,
+			/obj/item/clothing/head/roguetown/circlet/carvedgem/porcelain,
+			/obj/item/reagent_containers/glass/cup/carved/porcelainfancy,
+			/obj/item/reagent_containers/glass/cup/carved/porcelain,
+			/obj/item/reagent_containers/glass/bowl/carved/porcelain,
+			/obj/item/kitchen/spoon/carved/porcelain,
+			/obj/item/kitchen/fork/carved/porcelain,
+			/obj/item/cooking/platter/carved/porcelain,
+			/obj/item/reagent_containers/glass/bucket/pot/porcelain,
+			/obj/item/reagent_containers/glass/bottle/claytallbaked,
+			/obj/item/reagent_containers/glass/bottle/clayfootbaked,
+			/obj/item/reagent_containers/glass/bottle/claybamanabaked,
+			/obj/item/reagent_containers/glass/bottle/clayamphorabaked,
+			/obj/item/reagent_containers/glass/bottle/clayskinnybaked,
+			/obj/item/reagent_containers/glass/carafe/porcelain
 			)
 
-/obj/machinery/gear_painter/Initialize()
+/obj/machinery/gear_painter/Initialize(mapload)
 	..()
-	used_colors += COLOR_MAP
-	used_colors += pridelist
+	GLOB.used_colors |= COLOR_MAP
+	GLOB.used_colors |= GLOB.pridelist
 
 /obj/machinery/gear_painter/Destroy()
 	if(inserted)
@@ -45,10 +60,15 @@ var/list/used_colors
 	return ..()
 
 /obj/machinery/gear_painter/attackby(obj/item/I, mob/living/user)
+	if(istype(I, /obj/item/rogueweapon) && user.cmode)
+		return ..()
 	if(inserted)
 		to_chat(user, span_warning("Something is already inside!"))
 		return ..()
 	if(!is_type_in_list(I, allowed_types))
+		to_chat(user, span_warning("[I] cannot be dyed!"))
+		return ..()
+	if(istype(I, /obj/item/rogueweapon) && !I.detail_tag)
 		to_chat(user, span_warning("[I] cannot be dyed!"))
 		return ..()
 	if(!user.transferItemToLoc(I, src))
@@ -76,7 +96,7 @@ var/list/used_colors
 		colors_to_pick["Primary Keep Color"] = GLOB.lordprimary
 	if(GLOB.lordsecondary)
 		colors_to_pick["Secondary Keep Color"] = GLOB.lordsecondary
-	colors_to_pick += used_colors.Copy()
+	colors_to_pick += GLOB.used_colors.Copy()
 	var/picked = input(user, "Choose your dye:", "Dyes", null) as null|anything in colors_to_pick
 	if(!picked)
 		return null
@@ -95,6 +115,7 @@ var/list/used_colors
 		return
 
 	var/obj/item/inserted_item = inserted
+	var/is_weapon = istype(inserted_item, /obj/item/rogueweapon)
 
 	// == Preview system ==
 	dat += "<div style='text-align:center;'>"
@@ -103,7 +124,8 @@ var/list/used_colors
 	var/obj/item/preview_item = inserted_item
 	var/icon/preview_icon = new /icon()
 	preview_icon.Insert(new /icon(preview_item.icon, preview_item.icon_state), "", SOUTH, 0)
-	preview_icon.Blend(activecolor, ICON_MULTIPLY)
+	if(!is_weapon)
+		preview_icon.Blend(activecolor, ICON_MULTIPLY)
 
 	// Apply detail overlay if exists
 	if(preview_item.detail_tag && preview_item.detail_color)
@@ -182,10 +204,11 @@ var/list/used_colors
 
 	dat += "Item inserted: [inserted]<BR><BR>"
 
-	dat += "Color: <font color='[activecolor]'>&#10070;</font> "
-	dat += "<A href='?src=\ref[src];select=1'>Select new color.</A><BR>"
-	dat += "<A href='?src=\ref[src];paint_primary=1'>Apply new color</A> | "
-	dat += "<A href='?src=\ref[src];clear_primary=1'>Remove paintjob</A><BR>"
+	if(!is_weapon)
+		dat += "Color: <font color='[activecolor]'>&#10070;</font> "
+		dat += "<A href='?src=\ref[src];select=1'>Select new color.</A><BR>"
+		dat += "<A href='?src=\ref[src];paint_primary=1'>Apply new color</A> | "
+		dat += "<A href='?src=\ref[src];clear_primary=1'>Remove paintjob</A><BR>"
 
 	if(inserted_item.detail_color)
 		dat += "Detail Color: <font color='[activecolor_detail]'>&#10070;</font> "
@@ -218,6 +241,8 @@ var/list/used_colors
 		return
 
 	if(href_list["select"])
+		if(istype(inserted, /obj/item/rogueweapon))
+			return
 		var/c = pick_dye(usr, activecolor, "Primary Dye")
 		if(!c) return
 		activecolor = c
@@ -236,7 +261,7 @@ var/list/used_colors
 		interact(usr)
 
 	if(href_list["paint_primary"])
-		if(!inserted)
+		if(!inserted || istype(inserted, /obj/item/rogueweapon))
 			return
 		var/obj/item/inserted_item = inserted
 		inserted.add_atom_colour(activecolor, FIXED_COLOUR_PRIORITY)
@@ -267,7 +292,7 @@ var/list/used_colors
 		interact(usr)
 
 	if(href_list["clear_primary"])
-		if(!inserted)
+		if(!inserted || istype(inserted, /obj/item/rogueweapon))
 			return
 		var/obj/item/inserted_item = inserted
 		inserted.remove_atom_colour(FIXED_COLOUR_PRIORITY)
@@ -344,7 +369,7 @@ var/list/used_colors
 	var/choice_mode = alert(user, "Input Choice", "Brush Dye", "Color Wheel", "Color Preset")
 	if(choice_mode == "Color Preset")
 		var/list/presets = COLOR_MAP
-		presets += pridelist
+		presets += GLOB.pridelist
 
 		var/picked = input(user, "Choose your dye:", "Dyes", null) as null|anything in presets
 		if(!picked)
@@ -358,6 +383,54 @@ var/list/used_colors
 		dye = hexdye
 
 	update_icon()
+
+/obj/item/dye_brush/pre_attack(atom/A, mob/living/user, params)
+	if(..())
+		return TRUE
+	var/obj/item/target = A
+	if(!istype(target) || target.glazed || !target.icon)
+		return FALSE
+
+	var/static/list/glaze_finishes = list(
+		"Clear glaze" = "glazed",
+		"Kintsugi glaze" = "shattergold",
+		"Lakkarian glaze" = "naled"
+	)
+
+	var/list/choices = list()
+	for(var/finish in glaze_finishes)
+		if(icon_exists(target.icon, "[target.icon_state]_[glaze_finishes[finish]]"))
+			choices += finish
+	if(!length(choices))
+		return FALSE
+
+	if(target.reagents && target.reagents.total_volume)
+		to_chat(user, span_notice("I can't glaze [target] while it has liquid in it."))
+		return TRUE
+
+	var/choice = choices[1]
+	if(length(choices) > 1)
+		choice = tgui_input_list(user, "Which finish shall I glaze [target] with?", "Glazing", choices)
+	if(!choice)
+		return TRUE
+
+	if(QDELETED(target) || target.glazed || !in_range(target, user))
+		return TRUE
+
+	if(!do_after(user, 3 SECONDS, target = target))
+		return TRUE
+	if(target.glazed)
+		return TRUE
+
+	target.glazed = TRUE
+	target.glaze_suffix = glaze_finishes[choice]
+	target.glaze_bonus_flat = rand(5, 15)
+	target.icon_state = "[target.icon_state]_[target.glaze_suffix]"
+	target.update_icon()
+	playsound(loc, "sound/foley/scrubbing[pick(1,2)].ogg", 60, TRUE)
+	user.visible_message(span_notice("[user] glazes [target]."), \
+		span_notice("I glaze [target] with [LOWER_TEXT(choice)]."))
+	return TRUE
 
 /obj/item/dye_brush/attack_turf(turf/T, mob/living/user)
 	if(!iswallturf(T))
@@ -404,4 +477,3 @@ var/list/used_colors
 		return
 	dye = null
 	update_icon()
-

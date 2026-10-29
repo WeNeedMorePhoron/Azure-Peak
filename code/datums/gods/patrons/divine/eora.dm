@@ -2,15 +2,15 @@
 	name = "Eora"
 	domain = "Goddess of Love, Life and Beauty"
 	desc = "Baotha's fairer half, made from blind, unconditional love. She is without a shred of hate in her heart and taught mankind that true love that even transcends Necra's grasp."
-	worshippers = "Lovers, the romantically inclined, and Doting Grandparents"
+	worshippers = "Lovers, the Romantically Inclined, and Doting Grandparents"
 	mob_traits = list(TRAIT_EMPATH, TRAIT_EXTEROCEPTION, TRAIT_MARRIAGE_CAPABLE)
 	miracles = list(/datum/action/cooldown/spell/touch/orison					= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/eora_blessing			= CLERIC_T0,
-					/datum/action/cooldown/spell/miracle/heal 					= CLERIC_T1,
+					/datum/action/cooldown/spell/miracle/heal					= CLERIC_T1,
 					/datum/action/cooldown/spell/miracle/bloodmiracle			= CLERIC_T1,
-					/obj/effect/proc_holder/spell/invoked/bless_food            = CLERIC_T1,
+					/obj/effect/proc_holder/spell/invoked/bless_food			= CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/bud					= CLERIC_T1,
-					/datum/action/cooldown/spell/summon_bed						= CLERIC_T1,
+					/datum/action/cooldown/spell/summon_bed/eora				= CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/heartweave			= CLERIC_T2,
 					/obj/effect/proc_holder/spell/invoked/eoracurse				= CLERIC_T3,
 					/obj/effect/proc_holder/spell/invoked/pomegranate			= CLERIC_T4,
@@ -24,7 +24,10 @@
 	traits_tier = list(TRAIT_EORAN_CALM = CLERIC_T0, TRAIT_EORAN_SERENE = CLERIC_T2)
 	storyteller = /datum/storyteller/eora
 	titles = list(
-		"Mother" // have seen people call her this, or variants like 'Great Mother', ic. she doesn't really get titles though
+		"Mother", // have seen people call her this, or variants like 'Great Mother', ic. she doesn't really get titles though
+		"Eori",
+		"Heart", // e.g. "heart-mother"
+		"Love" // e.g. "lady of love"
 	)
 
 // Near a psycross, by an eoran sacred tree, inside the church, at the eoran shrine, holding poppy flowers, or has pacifism trait
@@ -57,12 +60,12 @@
 	return FALSE
 
 /datum/patron/divine/eora/on_lesser_heal(
-    mob/living/user,
-    mob/living/target,
-    message_out,
-    message_self,
-    conditional_buff,
-    situational_bonus
+	mob/living/user,
+	mob/living/target,
+	message_out,
+	message_self,
+	conditional_buff,
+	situational_bonus
 )
 	*message_out = span_info("An emanance of love blossoms around [target]!")
 	*message_self = span_notice("I'm filled with the restorative warmth of love!")

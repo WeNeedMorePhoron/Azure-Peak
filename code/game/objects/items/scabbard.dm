@@ -42,6 +42,8 @@
 	var/sheathe_sound = 'sound/foley/equip/scabbard_holster.ogg'
 	/// If true, this weapon's examine highlights (see `get_examine_highlight_status()`) will not reveal the weapon stored in it.
 	var/hides_weapon = TRUE
+	// Prevent special scabbards from being stripped
+	var/cant_strip = FALSE
 
 /obj/item/rogueweapon/scabbard/get_mechanics_examine(mob/user)
 	. = ..()
@@ -50,7 +52,7 @@
 	. += span_info("Middle click to transform it into a strap, which allows for a weapon to be openly carried without any delays to drawing or sheathing.")
 	. += span_info("Straps cannot be transformed back into scabbards or sheaths.")
 
-/obj/item/rogueweapon/scabbard/Initialize()
+/obj/item/rogueweapon/scabbard/Initialize(mapload)
 	. = ..()
 
 	hol_comp = GetComponent(/datum/component/holster)
@@ -166,7 +168,7 @@
 
 
 //////////////////////
-//	DAGGER SHEATHS  //
+//	DAGGER SHEATHS	//
 //////////////////////
 
 /obj/item/rogueweapon/scabbard/sheath
@@ -188,7 +190,8 @@
 
 	invalid_blades = list(
 		/obj/item/rogueweapon/huntingknife/idagger/stake,
-		/obj/item/rogueweapon/huntingknife/idagger/silver/stake)
+		/obj/item/rogueweapon/huntingknife/idagger/steel/silver/stake,
+		)
 
 /obj/item/rogueweapon/scabbard/sheath/getonmobprop(tag)
 	..()
@@ -406,7 +409,7 @@
 	resistance_flags = null
 
 ///////////////////////
-//	SWORD SCABBARDS  //
+//	SWORD SCABBARDS	//
 ///////////////////////
 
 /obj/item/rogueweapon/scabbard/sword
@@ -428,6 +431,8 @@
 	max_integrity = 750
 
 /obj/item/rogueweapon/scabbard/sword/MiddleClick(mob/user)
+	if(cant_strip)
+		return FALSE
 	if(hol_comp.sheathed)
 		to_chat(user, span_notice("There's something inside!"))
 		return
@@ -537,6 +542,7 @@
 	wdefense = 4
 	max_integrity = 75
 	resistance_flags = null
+	cant_strip = TRUE
 
 /obj/item/rogueweapon/scabbard/sword/royal
 	name = "gold-decorated scabbard"
@@ -549,6 +555,7 @@
 	wdefense = 6
 	max_integrity = 150
 	resistance_flags = null
+	cant_strip = TRUE
 
 //
 
@@ -567,6 +574,7 @@
 	anvilrepair = /datum/skill/craft/carpentry
 	wdefense = 8
 	special = /datum/special_intent/limbguard
+	cant_strip = TRUE
 
 	max_integrity = 200
 
@@ -576,7 +584,6 @@
 
 	valid_blade = /obj/item/rogueweapon/sword/long/kriegmesser/ssangsudo
 	can_parry = FALSE
-	sewrepair = TRUE
 	special = null
 	max_integrity = 0
 
@@ -613,14 +620,16 @@
 	desc = "A simple lacquered sheath, for shorter eastern-styled blades."
 	icon_state = "kazscabdagger"
 	item_state = "kazscabdagger"
-	valid_blade = /obj/item/rogueweapon/huntingknife/idagger/steel/kazengun
 	associated_skill = /datum/skill/combat/knives
-	possible_item_intents = list(SHIELD_BASH, SHIELD_BLOCK)
+	possible_item_intents = list(SHIELD_BASH, SHIELD_SMASH)
 	can_parry = TRUE
 	sewrepair = FALSE
 	anvilrepair = /datum/skill/craft/carpentry
-	wdefense = 4
+	wdefense = 6
 	max_integrity = 220
+	valid_blades = list(
+		/obj/item/rogueweapon/huntingknife/idagger/steel/kazengun,
+		/obj/item/rogueweapon/huntingknife/idagger/blacksteel/kazengun)
 
 
 /obj/item/rogueweapon/scabbard/sheath/courtphysician
@@ -630,6 +639,7 @@
 	item_state = "doccanesheath"
 	valid_blade = /obj/item/rogueweapon/sword/rapier/courtphysician
 	sellprice = 45
+	cant_strip = TRUE
 
 /obj/item/rogueweapon/scabbard/sheath/courtphysician/getonmobprop(tag)
 	. = ..()
@@ -696,6 +706,7 @@
 	valid_blade = /obj/item/rogueweapon/sword/rapier/hand
 	implement_tier = IMPLEMENT_TIER_GREATER
 	implement_refund = IMPLEMENT_REFUND_GREATER
+	is_implement = TRUE
 	sellprice = 100
 
 /obj/item/rogueweapon/scabbard/sheath/courtphysician/hand/ComponentInitialize()
@@ -728,7 +739,7 @@
 
 	equip_delay_self = 5 SECONDS
 	unequip_delay_self = 5 SECONDS
-	strip_delay = 2 SECONDS
+	strip_delay = STRIP_DELAY_FAST
 	sheathe_time = 2 SECONDS
 
 	max_integrity = 0

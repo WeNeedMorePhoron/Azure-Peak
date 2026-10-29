@@ -1,5 +1,6 @@
 // -------------- FAT -----------------
 /obj/item/reagent_containers/food/snacks/fat
+	dish_type = DISH_MEAT
 	icon = 'modular/Neu_Food/icons/others/fat.dmi'
 	name = "fat"
 	desc = "A lump of animal fat, fit for oiling and sausage-stuffing."
@@ -33,7 +34,7 @@
 	if(!isliving(M) || (M != user))
 		return ..()
 
-	user.visible_message("[user] starts to oil up [M]", "You start to oil up [M]")
+	user.visible_message(span_info("[user] starts to oil up [M]."), span_info("You start to oil up [M]."))
 	if(!do_after(user, 5 SECONDS, M))
 		return
 	M.apply_status_effect(/datum/status_effect/buff/oiled)
@@ -44,6 +45,7 @@
 
 // TALLOW is used as an intermediate crafting ingredient for other recipes.
 /obj/item/reagent_containers/food/snacks/tallow
+	dish_type = DISH_MEAT
 	name = "tallow"
 	desc = "Fatty tissue is harvested from slain creachurs and rendered of its membraneous sinew to produce a hard shelf-stable \
 	grease."
@@ -58,7 +60,7 @@
 	dropshrink = 0.75
 	var/wax_pigment = "white" //Default pigment for tallow, can be changed by mixing with other reagents
 
-/obj/item/reagent_containers/food/snacks/tallow/Initialize()
+/obj/item/reagent_containers/food/snacks/tallow/Initialize(mapload)
 	. = ..()
 	var/static/list/slapcraft_recipe_list = list(
 		/datum/crafting_recipe/roguetown/survival/soap,
@@ -110,8 +112,8 @@
 /obj/item/reagent_containers/food/snacks/tallow/green
 	name = "greentallow"
 	desc = "Fatty tissue is harvested from slain creachurs and rendered of its membraneous sinew to produce a hard shelf-stable \
-    grease. To satisfy the bean-counters of Azuria, it has been infused with ground tea leaves, creating a sickly green hue \
-    synonymous with coin and corruption. It's the smell of a balanced ledger and dried tea."
+	grease. To satisfy the bean-counters of Azuria, it has been infused with ground tea leaves, creating a sickly green hue \
+	synonymous with coin and corruption. It's the smell of a balanced ledger and dried tea."
 	icon_state = "greentallow"
 	tastes = list("grease" = 1, "oil" = 1, "regret" = 1, "bitterness" = 1,)
 	wax_pigment = "green"
@@ -128,12 +130,12 @@
 					success = TRUE
 					IND.fullreset(user)
 				else
-					return	
+					return
 				if(success)
 					changefood(/obj/item/reagent_containers/food/snacks/tallow/red, user)
-	if(istype(I, /obj/item/ash))
+	if(is_ash_item(I))
 		if(alert(user, "STAIN THE TALLOW?", "IT'S JUST ASH", "YES", "NO") != "NO")
 			changefood(/obj/item/reagent_containers/food/snacks/tallow/black, user)
-			qdel(I)
+			consume_ash_unit(I)
 		else
 			return

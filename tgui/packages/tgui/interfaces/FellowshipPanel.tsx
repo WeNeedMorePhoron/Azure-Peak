@@ -35,9 +35,12 @@ type FellowshipData = {
   // In fellowship
   fellowship_name?: string;
   is_leader?: BooleanLike;
+  payout_mode?: string;
+  debug_local?: BooleanLike;
   leader_name?: string | null;
   leader_present?: BooleanLike;
   members?: Member[];
+  total_summons?: number;
   outgoing_invites?: OutgoingInvite[];
 };
 
@@ -84,6 +87,10 @@ const NoFellowshipView = () => {
               </Button>
             </Stack.Item>
           </Stack>
+          <div style={{ marginTop: '6px', opacity: 0.8 }}>
+            Fellowship members can turn in each other&apos;s contracts at the
+            Grand Contract Ledger, and leaders gain extra contract slots.
+          </div>
         </Section>
       </Stack.Item>
       <Stack.Item grow>
@@ -127,6 +134,7 @@ const FellowshipView = () => {
   const members = data.members || [];
   const outgoing = data.outgoing_invites || [];
   const isLeader = !!data.is_leader;
+  const split = data.payout_mode === 'split';
   return (
     <Stack vertical fill>
       <Stack.Item>
@@ -134,22 +142,22 @@ const FellowshipView = () => {
           <Stack>
             <Stack.Item grow>
               {data.leader_present ? (
-                <>Led by <b>{data.leader_name}</b></>
+                <>
+                  Led by <b>{data.leader_name}</b>
+                </>
               ) : (
                 <i>Leaderless (the founder is gone).</i>
               )}
               <br />
               <span style={{ opacity: 0.7 }}>
                 {members.length} / {data.max_members} members
+                {!!data.total_summons &&
+                  ` · ${data.total_summons} summon${data.total_summons === 1 ? '' : 's'}`}
               </span>
             </Stack.Item>
             <Stack.Item>
               {isLeader ? (
-                <Button
-                  icon="ban"
-                  color="bad"
-                  onClick={() => act('disband')}
-                >
+                <Button icon="ban" color="bad" onClick={() => act('disband')}>
                   Disband
                 </Button>
               ) : (
@@ -163,6 +171,26 @@ const FellowshipView = () => {
               )}
             </Stack.Item>
           </Stack>
+        </Section>
+      </Stack.Item>
+      <Stack.Item>
+        <Section
+          title="Shared Contracts"
+          buttons={
+            <Button
+              icon={split ? 'users' : 'user'}
+              disabled={!isLeader}
+              onClick={() => act('payout_mode')}
+            >
+              {split ? 'Split evenly' : 'Whoever turns in'}
+            </Button>
+          }
+        >
+          Any member may turn in a fellow&apos;s completed contract at the Grand
+          Contract Ledger, even if the holder has fallen.{' '}
+          {split
+            ? 'The reward is split evenly among everyone who was in the fellowship when the contract was signed.'
+            : 'The reward is credited to whoever hands it in.'}
         </Section>
       </Stack.Item>
       <Stack.Item grow>
@@ -196,13 +224,25 @@ const FellowshipView = () => {
           <Section
             title="Invitations"
             buttons={
-              <Button
-                icon="user-plus"
-                disabled={members.length >= (data.max_members || 6)}
-                onClick={() => act('invite')}
-              >
-                Invite Nearby
-              </Button>
+              <>
+                {!!data.debug_local && (
+                  <Button
+                    icon="bug"
+                    color="purple"
+                    disabled={members.length >= (data.max_members || 6)}
+                    onClick={() => act('debug_invite')}
+                  >
+                    Force Invite
+                  </Button>
+                )}
+                <Button
+                  icon="user-plus"
+                  disabled={members.length >= (data.max_members || 6)}
+                  onClick={() => act('invite')}
+                >
+                  Invite Nearby
+                </Button>
+              </>
             }
           >
             {outgoing.length === 0 ? (
@@ -215,7 +255,8 @@ const FellowshipView = () => {
                       {inv.name}
                       <span style={{ opacity: 0.6 }}>
                         {' '}
-                        &middot; {secondsLeft(inv.expires_at, data.server_time)}s left
+                        &middot; {secondsLeft(inv.expires_at, data.server_time)}
+                        s left
                       </span>
                     </Table.Cell>
                     <Table.Cell collapsing>

@@ -37,7 +37,7 @@
 
 /datum/supply_pack/rogue/merc_weapons/grenzelstaff
 	name = "Grenzelhoftian Blacksteel Staff"
-	cost = 140
+	cost = 80
 	contains = list(/obj/item/rogueweapon/woodstaff/implement/greater/blacksteel)
 
 /datum/supply_pack/rogue/merc_weapons/glaive

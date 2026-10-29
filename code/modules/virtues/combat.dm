@@ -1,30 +1,31 @@
 /datum/virtue/combat/magical_potential
 	name = "Arcyne Potential"
 	desc = "I am talented in the Arcyne arts, expanding my capacity for magic. I have become more intelligent from its studies. Other effects depends on what training I chose to focus on at a later age."
-	custom_text = "Classes that has a combat trait (Medium / Heavy Armor Training, Dodge Expert or Critical Resistance) get only prestidigitation. Everyone else get +3 utility points and Arcyne Training if they don't have any Arcyne."
+	ui_fa_icon = "hand-sparkles"
+	custom_text = "Grants prestidigitation and arcyne trait if not already present. Also grants utility points: mages and non-mage classes with no combat traits (Medium / Heavy Armor Training, Dodge Expert, Critical Resistance, Thick Blooded, Painless or Enduring) get 4, nonmages with combat traits get 1."
 	added_skills = list(list(/datum/skill/magic/arcane, 1, 6), list(/datum/skill/misc/reading, 1, 6))
 
 /datum/virtue/combat/magical_potential/apply_to_human(mob/living/carbon/human/recipient)
 	if (!recipient.get_skill_level(/datum/skill/magic/arcane))
 		if (!recipient.mind?.has_spell(/datum/action/cooldown/spell/touch/prestidigitation))
 			recipient.mind?.AddSpell(new /datum/action/cooldown/spell/touch/prestidigitation)
-		if (!HAS_TRAIT(recipient, TRAIT_MEDIUMARMOR) && !HAS_TRAIT(recipient, TRAIT_HEAVYARMOR) && !HAS_TRAIT(recipient, TRAIT_DODGEEXPERT) && !HAS_TRAIT(recipient, TRAIT_CRITICAL_RESISTANCE))
-			ADD_TRAIT(recipient, TRAIT_ARCYNE, TRAIT_GENERIC)
-			add_arcyne_potential_utilities(recipient, 3)
+		ADD_TRAIT(recipient, TRAIT_ARCYNE, TRAIT_GENERIC)
+		add_arcyne_potential_utilities(recipient, (!HAS_TRAIT(recipient, TRAIT_MEDIUMARMOR) && !HAS_TRAIT(recipient, TRAIT_HEAVYARMOR) && !HAS_TRAIT(recipient, TRAIT_DODGEEXPERT) && !HAS_TRAIT(recipient, TRAIT_CRITICAL_RESISTANCE) && !HAS_TRAIT(recipient, TRAIT_BLOOD_RESISTANCE) && !HAS_TRAIT(recipient, TRAIT_NOPAIN) && !HAS_TRAIT(recipient, TRAIT_NOPAINSTUN)) ? 4 : 1)
 	else
-		add_arcyne_potential_utilities(recipient, 3)
+		add_arcyne_potential_utilities(recipient, 4)
 
 /datum/virtue/combat/magical_potential/proc/add_arcyne_potential_utilities(mob/living/carbon/human/recipient, amount)
 	if(!recipient.mind)
 		return
 	if(!LAZYLEN(recipient.mind.mage_aspect_config))
-		recipient.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 0))
+		recipient.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 0), grant_attunement = FALSE)
 	recipient.mind.mage_aspect_config["utilities"] += amount
 	recipient.mind.check_learnspell()
-	
+
 /datum/virtue/combat/devotee
 	name = "Devotee"
 	desc = "Though not officially of the Church, my relationship with my chosen Patron is strong enough to grant me the most minor of their blessings. I've also kept a psycross of my deity."
+	ui_fa_icon = "person-praying"
 
 	custom_text = "You gain access to T0 miracles of your patron. As a non-combat role you also receive a minor passive devotion gain. If you already have access to Miracles, you get slightly increased passive devotion gain."
 
@@ -36,10 +37,7 @@
 	if (!recipient.devotion)
 		// Only give non-devotionists orison... and T0 for some reason (Bad ideas are fun!)
 		var/datum/devotion/new_faith = new /datum/devotion(recipient, recipient.patron)
-		if (!HAS_TRAIT(recipient, TRAIT_MEDIUMARMOR) && !HAS_TRAIT(recipient, TRAIT_HEAVYARMOR) && !HAS_TRAIT(recipient, TRAIT_DODGEEXPERT) && !HAS_TRAIT(recipient, TRAIT_CRITICAL_RESISTANCE))
-			new_faith.grant_miracles(recipient, cleric_tier = CLERIC_T0, passive_gain = CLERIC_REGEN_DEVOTEE, devotion_limit = (CLERIC_REQ_1 - 10)) // Passive devotion regen only for non-combat classes
-		else
-			new_faith.grant_miracles(recipient, cleric_tier = CLERIC_T0, passive_gain = FALSE, devotion_limit = (CLERIC_REQ_1 - 20))	//Capped to T0 miracles.
+		new_faith.grant_miracles(recipient, cleric_tier = CLERIC_T0, passive_gain = CLERIC_REGEN_DEVOTEE, devotion_limit = (CLERIC_REQ_1 - 10))
 	else
 		// for devotionists, give them an amount of passive devo gain.
 		var/datum/devotion/our_faith = recipient.devotion
@@ -56,7 +54,7 @@
 			recipient.mind?.special_items["Amulet of Necra"] = /obj/item/clothing/neck/roguetown/psicross/necra
 		if(/datum/patron/divine/pestra)
 			recipient.mind?.special_items["Amulet of Pestra"] = /obj/item/clothing/neck/roguetown/psicross/pestra
-		if(/datum/patron/divine/eora) 
+		if(/datum/patron/divine/eora)
 			recipient.mind?.special_items["Amulet of Eora"] = /obj/item/clothing/neck/roguetown/psicross/eora
 		if(/datum/patron/divine/noc)
 			recipient.mind?.special_items["Amulet of Noc"] = /obj/item/clothing/neck/roguetown/psicross/noc
@@ -92,6 +90,7 @@
 /datum/virtue/combat/combat_virtue
 	name = "Trained & Ready"
 	desc = "There are many facets of lyfe that can end it. I've taken to learning some of them, and kept the tools for them close."
+	ui_fa_icon = "shield"
 	max_choices = 5
 	choice_costs = list(0, 0, 0, 2, 4, 4)
 	extra_choices = list(
@@ -104,17 +103,24 @@
 		"Mace Skill (JMAN)" = /datum/skill/combat/maces,
 		"Polearm Skill (JMAN)" = /datum/skill/combat/polearms,
 		"Staves Skill (JMAN)" = /datum/skill/combat/staves,
-		"Stashed Messer" = list(/obj/item/rogueweapon/sword/short/messer/iron/virtue),
-		"Stashed Parrying Dagger" = list(/obj/item/rogueweapon/huntingknife/idagger/virtue),
+		"Bow Skill (JMAN)" = /datum/skill/combat/bows, // this is JMAN now cause of ansari's changes making having PER mandatory, should be fine I hope? nerf later if it isn't
+		"Crossbow Skill (JMAN)" = /datum/skill/combat/crossbows, // ditto also crossbows fucking suck at any level below expert D:
+		"Stashed Dueling Messer" = list(/obj/item/rogueweapon/sword/short/messer/iron/virtue),
 		"Stashed Arming Sword" = list(/obj/item/rogueweapon/sword/iron),
-		"Stashed Quarterstaff" = list(/obj/item/rogueweapon/woodstaff/quarterstaff/iron),
-		"Stashed Sling" = list(/obj/item/gun/ballistic/revolver/grenadelauncher/sling, /obj/item/quiver/sling/iron),
-		"Stashed Spear (& Strap)" = list(/obj/item/rogueweapon/spear, /obj/item/rogueweapon/scabbard/gwstrap),
-		"Stashed Mace" = list(/obj/item/rogueweapon/mace),
-		"Stashed Katar" = list(/obj/item/rogueweapon/katar/bronze),
-		"Stashed Knuckles" = list(/obj/item/clothing/gloves/roguetown/knuckles/bronze),
+		"Stashed Parrying Dagger" = list(/obj/item/rogueweapon/huntingknife/idagger/virtue),
 		"Stashed Axe" = list(/obj/item/rogueweapon/stoneaxe/woodcut),
-		"Stashed Whip" = list(/obj/item/rogueweapon/whip)
+		"Stashed Spear (& Strap)" = list(/obj/item/rogueweapon/spear, /obj/item/rogueweapon/scabbard/gwstrap),
+		"Stashed Quarterstaff" = list(/obj/item/rogueweapon/woodstaff/quarterstaff/iron),
+		"Stashed Mace" = list(/obj/item/rogueweapon/mace),
+		"Stashed Knuckles" = list(/obj/item/clothing/gloves/roguetown/knuckles/bronze),
+		"Stashed Katar" = list(/obj/item/rogueweapon/katar/bronze),
+		"Stashed Whip" = list(/obj/item/rogueweapon/whip),
+		"Stashed Sling" = list(/obj/item/gun/ballistic/revolver/grenadelauncher/sling, /obj/item/quiver/sling/iron),
+		// the idea is that, unlike the sling, you'll need to toast your triumphs to get your ammo in too, technically increasing the cost and not making this so free, or you can bite the bullet and not have other jman skills of course
+		"Stashed Bow" = list(/obj/item/gun/ballistic/revolver/grenadelauncher/bow), // the snazzier one!
+		"Stashed Quiver" = list(/obj/item/quiver/arrows), // pls insert 1 more dosh
+		"Stashed Crossbow" = list(/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/iron), // the weaker one!
+		"Stashed Bolts" = list(/obj/item/quiver/bolt/standard), // pls insert 1 more dosh
 	)
 
 /datum/virtue/combat/combat_virtue/apply_to_human(mob/living/carbon/human/recipient)
@@ -129,38 +135,10 @@
 					var/obj/item/I = stuff
 					recipient.mind?.special_items[capitalize(I::name)] = I
 
-/datum/virtue/combat/bowman
-	name = "Toxophilite"
-	desc = "I've had an interest in archery from a young age, and I always keep a spare bow and quiver around."
-	custom_text = "+1 to Bows, Up to Legendary, Minimum Apprentice"
-	added_stashed_items = list("Recurve Bow" = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve,
-								"Quiver (Arrows)" = /obj/item/quiver/arrows
-	)
-
-/datum/virtue/combat/bowman/apply_to_human(mob/living/carbon/human/recipient)
-	if(recipient.get_skill_level(/datum/skill/combat/bows) < SKILL_LEVEL_APPRENTICE)
-		recipient.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_APPRENTICE, silent = TRUE)
-	else
-		added_skills = list(list(/datum/skill/combat/bows, 1, 6))
-
-
-/datum/virtue/combat/crossbowman
-	name = "Marksman"
-	desc = "Warfare is changing, and the crossbow is the next pedestal. I have always been ahead of the curve, as compared to my peers."
-	custom_text = "+1 to Crossbows, Up to Legendary, Minimum Apprentice"
-	added_stashed_items = list(
-		"Quiver (Bolts)" = /obj/item/quiver/bolt/standard
-	)
-
-/datum/virtue/combat/crossbowman/apply_to_human(mob/living/carbon/human/recipient)
-	if(recipient.get_skill_level(/datum/skill/combat/crossbows) < SKILL_LEVEL_APPRENTICE)
-		recipient.adjust_skillrank_up_to(/datum/skill/combat/crossbows, SKILL_LEVEL_APPRENTICE, silent = TRUE)
-	else
-		added_skills = list(list(/datum/skill/combat/crossbows, 1, 6))
-
 /datum/virtue/combat/guarded
 	name = "Guarded"
 	desc = "I have long kept my true capabilities and vices a secret. Sometimes being deceptively weak can save one's lyfe."
+	ui_fa_icon = "user-secret"
 	custom_text = "Obfuscates information about you from all sorts of effects, including patron abilities & passives, combat information, Assess and other virtues."
 	added_traits = list(TRAIT_DECEIVING_MEEKNESS)
 
@@ -171,32 +149,51 @@
 	add_verb(recipient, /mob/living/carbon/human/proc/toggle_guarded)
 
 
-/datum/virtue/combat/rotcured
+/datum/virtue/combat/second_chance
 	name = "Rotcured"
-	desc = "I was once afflicted with the accursed rot, and was cured. It has left me changed: my limbs are weaker, but I feel no pain and have no need to breathe..."
-	custom_text = "Unlocks the 'Rotten' option in skin tone selection, if applicable."
-	// below is functionally equivalent to dying and being resurrected via astrata T4 - yep, this is what it gives you.
-	added_traits = list(TRAIT_EASYDISMEMBER, TRAIT_NOPAIN, TRAIT_NOPAINSTUN, TRAIT_NOBREATH, TRAIT_DEATHLESS, TRAIT_TOXIMMUNE, TRAIT_ZOMBIE_IMMUNE, TRAIT_ROTMAN, TRAIT_SILVER_WEAK)
+	desc = "I was once afflicted with the accursed rot, and was cured. It has left me changed: my limbs are weaker, but I feel no pain and have no need to breathe."
+	custom_text = "Grants Easy Dismember, Painless, Breathless, Deathless, Poison Immune, Deadite Immune and Silver Weakness. You can also eat brains, you don't suffer nausea, and your heart does not beat."
+	ui_fa_icon = "biohazard"
+	restricted = TRUE
+	races = list(/datum/species/construct/metal, /datum/species/gnoll)
 
-/datum/virtue/combat/pallid
-	name = "Pallid"
-	desc = "I was once afflicted with vampirism, and was cured. It has left me changed: silver burns my flesh, and the open sky fills me with unease. Yet I draw no breath, and my eyes pierce the darkness. Lingering traces of the curse that once claimed me."
-	custom_text = "Grants darkvision, no need to breathe, and deadite immunity. Silver weapons will set you alight. Being outdoors causes stress."
-	added_traits = list(TRAIT_PALLID, TRAIT_DARKVISION, TRAIT_NOBREATH, TRAIT_ZOMBIE_IMMUNE, TRAIT_SILVER_WEAK)
+/datum/virtue/combat/second_chance/apply_to_human(mob/living/carbon/human/recipient)
+	spawn(80)
+		if(QDELETED(src) || QDELETED(recipient))
+			return
+
+		if(recipient.mind.has_antag_datum(/datum/antagonist/skeleton) || recipient.mind.has_antag_datum(/datum/antagonist/lich) || recipient.mind.has_antag_datum(/datum/antagonist/vampire) || recipient.mind.has_antag_datum(/datum/antagonist/vampire/lord) || recipient.mind.has_antag_datum(/datum/antagonist/werewolf) || recipient.mind.has_antag_datum(/datum/antagonist/zombie))
+			to_chat(recipient, "Rotcured cannot be applied to your role, so it has been removed.")
+			QDEL_NULL(src)
+			return
+
+		ADD_TRAIT(recipient, TRAIT_ROTMAN, TRAIT_VIRTUE)
+		ADD_TRAIT(recipient, TRAIT_EASYDISMEMBER, TRAIT_VIRTUE)
+		ADD_TRAIT(recipient, TRAIT_NOPAIN, TRAIT_VIRTUE)
+		ADD_TRAIT(recipient, TRAIT_NOBREATH, TRAIT_VIRTUE)
+		ADD_TRAIT(recipient, TRAIT_DEATHLESS, TRAIT_VIRTUE)
+		ADD_TRAIT(recipient, TRAIT_TOXIMMUNE, TRAIT_VIRTUE)
+		ADD_TRAIT(recipient, TRAIT_ZOMBIE_IMMUNE, TRAIT_VIRTUE)
+		ADD_TRAIT(recipient, TRAIT_SILVER_WEAK, TRAIT_VIRTUE)
+		to_chat(recipient, "You are no longer a rotting corpse, at least not a dying one.")
 
 /datum/virtue/combat/dualwielder
 	name = "Dual Wielder"
-	desc = "Whether it was by the Naledi scholars, Etruscan privateers or even the Kazengan senseis. I've been graced with the knowledge of how to wield two weapons at once."
+	desc = "A weapon in each hand, a threat from every angle. Through solitary practice or under the tutelage of masters, I've honed my skill in wielding two weapons at once."
+	custom_text = "You can perform these attacks unarmed as well, though their finishers work a little differently. Journeyman proficiency or higher is still required. Being knocked down or leaving combat mode will reset your combo."
+	ui_fa_icon = "2"
 	added_traits = list(TRAIT_DUALWIELDER)
 
 /datum/virtue/combat/sharp
 	name = "Sentinel of Wits"
 	desc = "Whether it's by having an annoying sibling that kept prodding me with a stick, or years of study and observation, I've become adept at both parrying and dodging stronger opponents, by learning their moves and studying them."
+	ui_fa_icon = "user-ninja"
 	added_traits = list(TRAIT_SENTINELOFWITS)
 
 /datum/virtue/combat/combat_aware
 	name = "Combat Aware"
 	desc = "The opponent's flick of their wrist. The sound of maille snapping. The desperate breath as the opponent's stamina wanes. All of this is made more clear to you through intuition or experience."
+	ui_fa_icon = "eye-o"
 	custom_text = "Shows a lot more combat information via floating text. Has a toggle."
 	added_traits = list(TRAIT_COMBAT_AWARE)
 

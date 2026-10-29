@@ -12,7 +12,7 @@
 	var/open = TRUE
 	var/obj/item/rogueweapon/sword/long/heirloom
 
-/obj/structure/fireaxecabinet/Initialize()
+/obj/structure/fireaxecabinet/Initialize(mapload)
 	. = ..()
 	heirloom = new /obj/item/rogueweapon/sword/long/heirloom
 	update_icon()
@@ -91,9 +91,6 @@
 		update_icon()
 		return
 
-/obj/structure/fireaxecabinet/attack_paw(mob/living/user)
-	return attack_hand(user)
-
 /obj/structure/fireaxecabinet/attack_tk(mob/user)
 	if(locked)
 		to_chat(user, "<span class='warning'>The [name] won't budge!</span>")
@@ -146,11 +143,11 @@
 	desc = "A fitting resting place for a Psydonian sword etched and scratched by endurance long past."
 	icon = 'icons/obj/wallmounts.dmi'
 	icon_state = "fireaxe"
-	heirloom = /obj/item/rogueweapon/greatsword/bsword/psy/unforgotten/
+	heirloom = /obj/item/rogueweapon/sword/long/broadsword/silver/psy/forgotten/unforgotten
 
-/obj/structure/fireaxecabinet/unforgotten/Initialize()
+/obj/structure/fireaxecabinet/unforgotten/Initialize(mapload)
 	. = ..()
-	heirloom = new /obj/item/rogueweapon/greatsword/bsword/psy/unforgotten
+	heirloom = new /obj/item/rogueweapon/sword/long/broadsword/silver/psy/forgotten/unforgotten
 	desc = heirloom.desc
 	update_icon()
 
@@ -167,8 +164,8 @@
 				return
 
 	else if(open || obj_broken)
-		if(istype(I, /obj/item/rogueweapon/greatsword/bsword/psy/unforgotten/) && !heirloom)
-			var/obj/item/rogueweapon/greatsword/bsword/psy/unforgotten/F = I
+		if(istype(I, /obj/item/rogueweapon/sword/long/broadsword/silver/psy/forgotten/unforgotten/) && !heirloom)
+			var/obj/item/rogueweapon/sword/long/broadsword/silver/psy/forgotten/unforgotten/F = I
 			if(F.wielded)
 				to_chat(user, "<span class='warning'>Unwield the [F.name] first.</span>")
 				return

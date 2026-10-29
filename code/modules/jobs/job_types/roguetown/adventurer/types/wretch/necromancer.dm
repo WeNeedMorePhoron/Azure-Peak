@@ -2,7 +2,7 @@
 	name = "Necromancer"
 	tutorial = "You have been ostracized and hunted by society for your dark magics and perversion of lyfe; your speciality is gaining power through what you raise."
 	allowed_sexes = list(MALE, FEMALE)
-	
+
 	outfit = /datum/outfit/job/roguetown/wretch/necromancer
 	cmode_music = 'sound/music/combat_heretic.ogg'
 	class_select_category = CLASS_CAT_MAGE
@@ -16,11 +16,12 @@
 		STATKEY_WIL = 1
 	)
 	age_mod = /datum/class_age_mod/wretch/rogue_mage
-	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 4, "post_aspect_spells" = list(/datum/action/cooldown/spell/message, /datum/action/cooldown/spell/mindlink), "ward" = TRUE)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 3, "utilities" = 5, "locked_aspects" = list(/datum/magic_aspect/lesser_necromancy), "unlocked_aspects" = list(/datum/magic_aspect/necromancy), "post_aspect_spells" = list(/datum/action/cooldown/spell/message, /datum/action/cooldown/spell/mindlink, /obj/effect/proc_holder/spell/invoked/diagnose/secular/zizo), "ward" = TRUE)
 	//VS rogue mage, weaker combat skills + less alchemy (works with the living less often) to make up for their minions doing the work for them.
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/staves = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/arcyne = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_MASTER,
@@ -28,15 +29,15 @@
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/sneaking = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/riding = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_EXPERT, //For lux extractions/revivals (Higher than rogue mage by 2 levels).
 		/datum/skill/magic/arcane = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/alchemy = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
 	)
 	subclass_stashed_items = list(
-        "Sewing Kit" =  /obj/item/repair_kit,
-    )
+		"Sewing Kit" =	/obj/item/repair_kit,
+		"Stashed Funds" = /obj/item/roguecoin/silver/pile/wretchpile,
+	)
 
 /datum/outfit/job/roguetown/wretch/necromancer/pre_equip(mob/living/carbon/human/H)
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
@@ -44,7 +45,7 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
 	backl = /obj/item/storage/backpack/rogue/satchel/black
 	backpack_contents = list(
-		/obj/item/book/spellbook = 1,
+		/obj/item/rogueweapon/spellbook/greater = 1,
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 		/obj/item/flashlight/flare/torch/lantern/prelit = 1,
 		/obj/item/necro_relics/necro_crystal = 1,
@@ -52,21 +53,10 @@
 		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot = 1,
 		/obj/item/chalk = 1,
 		)
-	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
+	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/wizard]
 	if(H.mind)
 		backr = choose_implement(H, "greater")
 		H.set_patron(/datum/patron/inhumen/zizo)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/eyebite)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/bonechill)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/bonemend)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/minion_order)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/gravemark)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/raise_undead_formation/necromancer)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/raise_undead_guard/necromancer)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/convert_heretic/arcyne)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/lacrima)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/tame_undead)
-		H.mind.AddSpell(new /datum/action/cooldown/spell/raise_deadite)
 		wretch_select_bounty(H)
 	H.grant_language(/datum/language/undead)
 

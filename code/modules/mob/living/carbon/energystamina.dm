@@ -7,7 +7,7 @@
 				delay = 13
 			if("night", "dusk")
 				delay = 16
-	if(world.time > last_fatigued + delay) //regen fatigue 
+	if(world.time > last_fatigued + delay) //regen fatigue
 		var/added = energy / max_energy
 		added = round(-10 + (added * - 40))
 		if(src.climbing) // no stam regen while climbing guh
@@ -29,8 +29,10 @@
 /mob/living/proc/update_energy()
 	calculate_energy()
 	if(cmode)
-		if(!HAS_TRAIT(src, TRAIT_BREADY))
-			energy_add(-2)
+		if(!HAS_TRAIT(src, TRAIT_BREADY) || !HAS_TRAIT(src, TRAIT_INFINITE_ENERGY))
+			energy_add(-1)
+			if(HAS_TRAIT(src, TRAIT_HIGHER_CMODE_DRAIN))
+				energy_add(-2) //(total of -3 per cycle)
 	if(HAS_TRAIT(src, TRAIT_INFINITE_ENERGY))
 		energy = max_energy
 	if(HAS_TRAIT(src, TRAIT_BREADY))
@@ -53,7 +55,7 @@
 		return TRUE
 	if(HAS_TRAIT(src, TRAIT_INFINITE_ENERGY))
 		return TRUE
-	if(m_intent == MOVE_INTENT_RUN && (mobility_flags & MOBILITY_STAND))
+	if(added < 0 && m_intent == MOVE_INTENT_RUN && (mobility_flags & MOBILITY_STAND))
 		if(isnull(buckled))
 			mind && mind.add_sleep_experience(/datum/skill/misc/athletics, (STAINT*0.02))
 	energy += added
@@ -104,8 +106,11 @@
 		return TRUE
 
 	var/true_added = added
-	if(HAS_TRAIT(src, TRAIT_FORTITUDE))
-		added = added * 0.5
+	if(added > 0)
+		if(HAS_TRAIT(src, TRAIT_MOMENTUM_RIDER))
+			added = added * 0.5
+		else if(HAS_TRAIT(src, TRAIT_FORTITUDE))
+			added = added * 0.85
 
 	if(added < 0 && HAS_TRAIT(src, TRAIT_FROZEN_STAMINA))
 		added = 0
@@ -199,6 +204,8 @@
 /mob/living/carbon/proc/heart_attack()
 	if(HAS_TRAIT(src, TRAIT_INFINITE_STAMINA))
 		return
+	if(HAS_TRAIT(src, TRAIT_RALLIED))
+		return
 	if(!heart_attacking)
 		heart_attacking = TRUE
 		shake_camera(src, 1, 3)
@@ -218,6 +225,8 @@
 			return
 	if(HAS_TRAIT(src, TRAIT_NOMOOD))
 		return
+	if(HAS_TRAIT(src, TRAIT_RALLIED))
+		return
 	mob_timers["freakout"] = world.time
 	shake_camera(src, 1, 3)
 	flash_fullscreen("stressflash")
@@ -234,6 +243,35 @@
 				continue
 			animate(whole_screen, transform = newmatrix, time = 1, easing = QUAD_EASING)
 			animate(transform = -newmatrix, time = 30, easing = QUAD_EASING)
+
+/mob/living/carbon/proc/freak_out_targeted(mob/target)
+	if(mob_timers["freakout"])
+		if(world.time < mob_timers["freakout"] + 10 SECONDS)
+			flash_fullscreen("stressflash")
+			return
+	if(HAS_TRAIT(src, TRAIT_NOMOOD))
+		return
+	if(HAS_TRAIT(src, TRAIT_RALLIED))
+		return
+	mob_timers["freakout"] = world.time
+	shake_camera(src, 1, 3)
+	flash_fullscreen("stressflash")
+	changeNext_move(CLICK_CD_EXHAUSTED)
+	add_stress(/datum/stressevent/freakout)
+	emote("fatigue", forced = TRUE)
+	if(hud_used)
+		var/turf/T = get_turf(target)
+		var/target_x = (loc.x - T.x) * 32
+		var/target_y = (loc.y - T.y) * 32
+		var/matrix/skew = matrix(target_x, target_y, MATRIX_TRANSLATE)
+		skew.Scale(2.5)
+		var/matrix/newmatrix = skew
+		for(var/C in hud_used.plane_masters)
+			var/atom/movable/screen/plane_master/whole_screen = hud_used.plane_masters[C]
+			if(whole_screen.plane == HUD_PLANE)
+				continue
+			animate(whole_screen, transform = newmatrix, time = 3, easing = QUAD_EASING)
+			animate(transform = -newmatrix, time = 40, easing = QUAD_EASING)
 
 /mob/living/proc/stamina_reset()
 	stamina = 0

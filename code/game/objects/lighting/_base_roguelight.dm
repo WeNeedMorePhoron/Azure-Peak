@@ -15,7 +15,7 @@
 	var/roundstart_forbid = FALSE
 	var/refueling = FALSE
 
-/obj/machinery/light/rogue/Initialize()
+/obj/machinery/light/rogue/Initialize(mapload)
 	if(soundloop)
 		soundloop = new soundloop(src, FALSE)
 		soundloop.start()
@@ -84,6 +84,9 @@
 	GLOB.fires_list -= src
 	. = ..()
 
+/obj/machinery/light/rogue/proc/on_ignited()
+	return
+
 /obj/machinery/light/rogue/fire_act(added, maxstacks)
 	if(!on && ((fueluse > 0) || (initial(fueluse) == 0)))
 		playsound(src.loc, 'sound/items/firelight.ogg', 100)
@@ -93,6 +96,7 @@
 		if(soundloop)
 			soundloop.start()
 		addtimer(CALLBACK(src, PROC_REF(trigger_weather)), rand(5,20))
+		on_ignited()
 		return TRUE
 
 /obj/proc/trigger_weather()
@@ -101,10 +105,23 @@
 			var/turf/T = loc
 			T.trigger_weather(src)
 
+/obj/machinery/light/rogue/CanAStarPass(ID, to_dir, atom/movable/caller)
+	if(on && crossfire && isliving(caller))
+		var/mob/living/crosser = caller
+		if(!(crosser.movement_type & (FLYING|FLOATING)) && !HAS_TRAIT(crosser, TRAIT_NOFIRE))
+			return FALSE
+	return ..()
+
 /obj/machinery/light/rogue/Crossed(atom/movable/AM, oldLoc)
 	..()
 	if(crossfire)
 		if(on)
+			if(isliving(AM))
+				var/mob/living/L = AM
+				if(L.is_jumping)
+					return
+				if(L.movement_type & (FLYING|FLOATING))
+					return
 			AM.fire_act(1,5)
 
 /obj/machinery/light/rogue/spark_act()
@@ -123,7 +140,7 @@
 					qdel(W)
 				return TRUE
 		if(istype(W, /obj/item/reagent_containers/food/snacks))
-			if(istype(W, /obj/item/reagent_containers/food/snacks/egg))
+			if(istype(W, /obj/item/reagent_containers/food/snacks/rogue/egg))
 				to_chat(user, "<span class='warning'>I wouldn't be able to cook this over the fire...</span>")
 				return FALSE
 			var/obj/item/A = user.get_inactive_held_item()
@@ -236,3 +253,9 @@
 	if(!can_damage)
 		return
 	. = ..()
+
+/obj/machinery/light/rogue/broken_sparks(start_only = FALSE)
+	return
+
+/obj/machinery/light/rogue/break_light_tube(skip_sound_and_sparks = 0)
+	return ..(TRUE)

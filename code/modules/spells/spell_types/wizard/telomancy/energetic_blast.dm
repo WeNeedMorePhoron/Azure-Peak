@@ -21,7 +21,8 @@
 	charge_required = TRUE
 	weapon_cast_penalized = TRUE
 	charge_time = 1 SECONDS
-	charge_drain = 1
+	charge_swingdelay_type = SWINGDELAY_PENALTY
+	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
 	cooldown_time = 10 SECONDS
@@ -33,7 +34,8 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
 	var/line_length = 4
-	var/blast_damage = 55
+	var/blast_damage = SPELL_DMG(55)
+	displayed_damage = SPELL_DMG(55)
 	var/push_dist = 3
 
 /datum/action/cooldown/spell/energetic_blast/cast(atom/cast_on)
@@ -83,8 +85,8 @@
 			var/damage_dealt = arcyne_strike(H, victim, null, blast_damage, BODY_ZONE_CHEST, \
 				BCLASS_BLUNT, spell_name = "Energetic Blast", \
 				allow_shield_check = TRUE, damage_type = BRUTE, \
-				skip_animation = TRUE)
-			if(!damage_dealt)
+				skip_animation = TRUE, SPELL_STRIKE_SCALING)
+			if(damage_dealt <= 0)
 				blocked = TRUE
 			new /obj/effect/temp_visual/spell_impact(get_turf(victim), spell_color, spell_impact_intensity)
 			already_hit += victim

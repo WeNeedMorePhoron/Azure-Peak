@@ -30,7 +30,7 @@
 	. += span_info("Certain types of bait attract certain kinds of creechers. Sweeter treats allure calmer creechers, while meatier treats allure harsher creechers.")
 	. += span_info("More bait can be crafted by combining sacks with jackberries, raw meat, and more.")
 
-/obj/item/bait/Initialize()
+/obj/item/bait/Initialize(mapload)
 	. = ..()
 	check_counter = world.time
 
@@ -117,13 +117,24 @@
 	icon_state = "baitp"
 	attracted_types = list(/mob/living/simple_animal/hostile/retaliate/rogue/goat = 10,
 							/mob/living/simple_animal/hostile/retaliate/rogue/goatmale = 10,
-							/mob/living/simple_animal/hostile/retaliate/rogue/mudcrab/cabbit = 50, 	// Rabbits love sweet things
+							/mob/living/simple_animal/hostile/retaliate/rogue/mudcrab/cabbit = 50,	// Rabbits love sweet things
 							/mob/living/simple_animal/hostile/retaliate/rogue/saiga = 10,
 							/mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigabuck = 10,
 							/mob/living/simple_animal/hostile/retaliate/rogue/fox = 30,				//Scavenger, so lower chance
 							/mob/living/simple_animal/hostile/retaliate/rogue/bigrat = 30,			//Scavenger, so lower chance
 							/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 10)			//Predator, doesn't eat berries but attacted to prey
 
+/obj/item/bait/stockbait
+	name = "bag of stockbait"
+	desc = "Bait infused with verdant essence. Smells like petrichor and fresh-cut grass..."
+	icon_state = "bait"
+	attracted_types = list(/mob/living/simple_animal/hostile/retaliate/rogue/goat = 25,
+							/mob/living/simple_animal/hostile/retaliate/rogue/goatmale = 25,
+							/mob/living/simple_animal/hostile/retaliate/rogue/chicken = 20,
+							/mob/living/simple_animal/hostile/retaliate/rogue/cow = 5,
+							/mob/living/simple_animal/hostile/retaliate/rogue/bull = 5,
+							/mob/living/simple_animal/hostile/retaliate/rogue/swine = 15,
+							/mob/living/simple_animal/hostile/retaliate/rogue/swine/hog = 15)
 
 /obj/item/bait/bloody
 	name = "bag of bloodbait"
@@ -131,8 +142,9 @@
 	icon_state = "baitb"
 	attracted_types = list(/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 50,
 							/mob/living/simple_animal/hostile/retaliate/rogue/mole = 10,
-							/mob/living/simple_animal/hostile/retaliate/rogue/fox = 50,	
+							/mob/living/simple_animal/hostile/retaliate/rogue/fox = 50,
 							/mob/living/simple_animal/hostile/retaliate/rogue/bobcat = 50,		//Annoying bastards
+							/mob/living/simple_animal/hostile/retaliate/rogue/wolf/dire = 10,
 							/mob/living/simple_animal/hostile/retaliate/rogue/direbear = 10,
 							/mob/living/simple_animal/hostile/retaliate/rogue/troll/bog = 5)			//RUH-ROH
 

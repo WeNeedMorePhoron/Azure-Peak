@@ -31,6 +31,9 @@
 	)
 	spells = list()
 
+/datum/advclass/guildsman
+	tempo_capable = FALSE
+
 /datum/advclass/guildsman/blacksmith
 	name = "Guild Blacksmith"
 	tutorial = "You've studied for many yils under quite a number of master smiths. Whether it's cookware or tools of war, you're unmatched at the art of bending metal to your will."
@@ -108,7 +111,7 @@
 	But your true calling is the creation and enchantment of magical items, alongside feats of engineering, creating mechanical and magical wonders whose art of creation has been passed down\
 	from a certain elven Artificer..."
 	outfit = /datum/outfit/job/roguetown/guildsman/artificer
-	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 2, "utilities" = 4, "locked_aspects" = list(/datum/magic_aspect/battlewardry, /datum/magic_aspect/artifice), "post_aspect_spells" = list(/obj/effect/proc_holder/spell/invoked/takeapprentice), "ward" = TRUE)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 5, "locked_aspects" = list(/datum/magic_aspect/artifice, /datum/magic_aspect/allowardry), "post_aspect_spells" = list(/obj/effect/proc_holder/spell/invoked/takeapprentice), "ward" = TRUE)
 
 	category_tags = list(CTAG_GUILDSMEN)
 	traits_applied = list(TRAIT_ARCYNE, TRAIT_ALCHEMY_EXPERT)
@@ -162,11 +165,10 @@
 						/obj/item/recipe_book/engineering = 1,
 						/obj/item/recipe_book/ceramics = 1,
 						/obj/item/recipe_book/builder = 1,
-						/obj/item/recipe_book/survival = 1,
 						/obj/item/clothing/mask/rogue/spectacles/golden = 1, //putting them in the bag because bad eye sight virtue strips these
-						/obj/item/contraption/linker = 1,
+						/obj/item/rogueweapon/contraption/linker = 1,
 						/obj/item/mini_flagpole/artificer = 1,
-						/obj/item/book/spellbook = 1,
+						/obj/item/rogueweapon/spellbook = 1,
 						)
 	// Not a real mage, no free spell point. Take Arcyne Potential if you want it.
 	if(H.mind)
@@ -232,7 +234,6 @@
 						/obj/item/dye_brush = 1,
 						/obj/item/recipe_book/engineering = 1,
 						/obj/item/recipe_book/builder = 1,
-						/obj/item/recipe_book/survival = 1,
 						/obj/item/roguekey/crafterguild = 1,
 						/obj/item/mini_flagpole/blacksmith = 1,
 						/obj/item/mini_flagpole/artificer = 1,

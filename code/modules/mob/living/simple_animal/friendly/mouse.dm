@@ -28,7 +28,7 @@
 	var/body_color //brown, gray and white, leave blank for random
 	gold_core_spawnable = FRIENDLY_SPAWN
 
-/mob/living/simple_animal/mouse/Initialize()
+/mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/blank.ogg'=1), 100)
 	if(!body_color)
@@ -93,6 +93,7 @@
 	gold_core_spawnable = NO_SPAWN
 
 /obj/item/reagent_containers/food/snacks/deadmouse
+	dish_type = DISH_MEAT
 	name = "dead mouse"
 	desc = ""
 	icon = 'icons/mob/animal.dmi'
@@ -100,7 +101,8 @@
 	bitesize = 3
 	eatverb = "devour"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
-	foodtype = GROSS | MEAT | RAW
+	food_quality = GROSS
+	eat_effect = /datum/status_effect/debuff/uncookedfood
 	grind_results = list(/datum/reagent/blood = 20, /datum/reagent/liquidgibs = 5)
 
 /obj/item/reagent_containers/food/snacks/deadmouse/examine(mob/user)

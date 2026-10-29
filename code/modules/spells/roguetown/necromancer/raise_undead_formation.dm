@@ -4,6 +4,8 @@
 	background_icon = 'icons/mob/actions/zizomiracles.dmi'
 	button_icon = 'icons/mob/actions/zizomiracles.dmi'
 	button_icon_state = "skeleton_formation"
+
+	spell_color = GLOW_COLOR_ZIZO
 	cast_range = 7
 	sound = 'sound/magic/magnet.ogg'
 	primary_resource_cost = 40
@@ -16,9 +18,6 @@
 	zizo_spell = TRUE
 	invocation_type = INVOCATION_SHOUT
 	invocations = list("Evoca skeletos!")
-	var/miracle = FALSE
-	var/cabal_affine = FALSE
-	var/is_summoned = FALSE
 	var/to_spawn = 4
 	var/spawn_lifespan
 
@@ -67,19 +66,14 @@
 			if(71 to 100)
 				skeleton_type = /mob/living/simple_animal/hostile/rogue/skeleton/guard
 
-		var/mob/living/simple_animal/hostile/rogue/skeleton/S = new skeleton_type(spawn_turf, owner, cabal_affine)
+		var/mob/living/simple_animal/hostile/rogue/skeleton/S = new skeleton_type(spawn_turf, owner)
+
+		for(var/obj/item/I as anything in S.loot)
+			if(ispath(I, /obj/item) && I::smeltresult)
+				S.loot -= I // previously, people could infinitely farm iron gear to sell/scrap off of their own skellies
 
 		if(!S)
 			continue
-
-		if(miracle)
-			var/holyLV = owner.get_skill_level(/datum/skill/magic/holy)
-			var/bonus = max(0, holyLV - 1) * 2
-
-			S.STASTR += bonus
-			S.STASPD += round(bonus / 2)
-			S.maxHealth += bonus * 50
-			S.health = S.maxHealth
 
 		var/aggro_range = 8
 
@@ -90,6 +84,8 @@
 				continue
 			if(M.mind)
 				continue
+			if(!M.ai_controller)
+				continue
 			if(M.faction_check_mob(S))
 				continue
 			if(M.faction_check_mob(owner))
@@ -99,16 +95,12 @@
 			M.ai_controller.set_blackboard_key(BB_HIGHEST_THREAT_MOB, S)
 
 			var/datum/component/ai_aggro_system/aggro = M.GetComponent(/datum/component/ai_aggro_system)
-			
+
 			if(aggro)
-				aggro.add_threat_to_mob(S, 100)
+				aggro.add_threat_to_mob(S, 1000)
+				aggro.add_threat_to_mob(owner, -1000)
+
 
 		apply_mob_lifespan(S, owner, spawn_lifespan)
 
 	return TRUE
-
-/datum/action/cooldown/spell/raise_undead_formation/necromancer
-	cabal_affine = TRUE
-	is_summoned = TRUE
-	cooldown_time = 40 SECONDS
-	to_spawn = 3

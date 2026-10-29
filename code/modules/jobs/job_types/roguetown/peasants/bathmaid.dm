@@ -25,7 +25,7 @@
 	round_contrib_points = 2
 	advjob_examine = TRUE
 	cmode_music = 'sound/music/cmode/towner/combat_towner.ogg'
-	job_traits = list(TRAIT_EMPATH, TRAIT_GOODLOVER, TRAIT_HOMESTEAD_EXPERT)
+	job_traits = list(TRAIT_EMPATH, TRAIT_GOODLOVER, TRAIT_HOMESTEAD_EXPERT, TRAIT_GOOD_MASSEUR)
 	job_subclasses = list(
 		/datum/advclass/bathworker,
 		/datum/advclass/bathworker/harlot,
@@ -41,7 +41,7 @@
 	tutorial = "A fresh initiate, most would decry the humble bath maid as a desperate fool tempting others into bedsheets for money--only sometimes, you say! You work underneath your betters in the communal bathhouse, keeping it and the guests in turn as tidy as they please. Wash laundry, tend mild wounds, and deftly wash your patrons with soap, for this is your craft."
 	outfit = /datum/outfit/job/roguetown/bathworker/attendant
 	category_tags = list(CTAG_BATHWORKER)
-	traits_applied = list(TRAIT_NUTCRACKER, TRAIT_CICERONE)
+	traits_applied = list(TRAIT_NUTCRACKER, TRAIT_CICERONE, TRAIT_GOOD_MASSEUR)
 	subclass_stats = list(
 		STATKEY_CON = 3,
 		STATKEY_WIL = 2,
@@ -55,7 +55,6 @@
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/music = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/whipsflails = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/knives = SKILL_LEVEL_NOVICE,
@@ -80,7 +79,7 @@
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt
 		armor = /obj/item/clothing/suit/roguetown/shirt/dress/gen/sexy/random
 		pants = /obj/item/clothing/under/roguetown/skirt/brown
-		belt =	/obj/item/storage/belt/rogue/leather/cloth/lady
+		belt =	/obj/item/storage/belt/rogue/leather/cloth/upgraded/lady
 	else
 		belt = /obj/item/storage/belt/rogue/leather
 		pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/shorts
@@ -95,7 +94,7 @@
 	outfit = /datum/outfit/job/bathworkerghtmaiden/harlot
 	category_tags = list(CTAG_BATHWORKER)
 
-	traits_applied = list(TRAIT_LIGHT_STEP, TRAIT_NUTCRACKER)
+	traits_applied = list(TRAIT_LIGHT_STEP, TRAIT_NUTCRACKER, TRAIT_GOOD_MASSEUR)
 	subclass_stats = list(
 		STATKEY_PER = 2,
 		STATKEY_WIL = 2,
@@ -111,7 +110,6 @@
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/music = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/whipsflails = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
@@ -143,7 +141,7 @@
 		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/gen/sexy/random
 		armor = /obj/item/clothing/suit/roguetown/armor/corset
 		pants = /obj/item/clothing/under/roguetown/skirt/brown
-		belt =	/obj/item/storage/belt/rogue/leather/cloth/lady
+		belt =	/obj/item/storage/belt/rogue/leather/cloth/upgraded/lady
 	else
 		belt = /obj/item/storage/belt/rogue/leather
 		pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/shorts
@@ -157,7 +155,7 @@
 	tutorial = "Overcoming mind games, deceit and competition, you came into your own as one of the bathhouse's most prized moneymakers and socialites. Dressed in lavish gifts left behind by your patrons, not just anyone can have you. Under the matron, you do most of the social heavylifting and provide entertainment of all forms - behind a heavy price tag. "
 	outfit = /datum/outfit/job/roguetown/bathworker/courtesan
 	category_tags = list(CTAG_BATHWORKER)
-	traits_applied = list(TRAIT_KEENEARS, TRAIT_BEAUTIFUL)
+	traits_applied = list(TRAIT_KEENEARS, TRAIT_BEAUTIFUL, TRAIT_GOOD_MASSEUR)
 	subclass_stats = list(
 		STATKEY_SPD = 3,
 		STATKEY_WIL = 2,
@@ -173,7 +171,6 @@
 		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/riding = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 	)
@@ -204,13 +201,13 @@
 	backpack_contents = list(
 		/obj/item/reagent_containers/powder/moondust = 2,
 		/obj/item/reagent_containers/glass/bottle/rogue/wine = 1,
-		/obj/item/toy/cards/deck = 1,
+		/obj/item/deck/playing_cards = 1,
 		/obj/item/mini_flagpole/bathhouse,
 	)
 	if(should_wear_femme_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/shirt/dress/silkydress/random
 		shirt = /obj/item/clothing/suit/roguetown/armor/corset
-		belt = /obj/item/storage/belt/rogue/leather/cloth/lady
+		belt = /obj/item/storage/belt/rogue/leather/cloth/upgraded/lady
 		shoes = /obj/item/clothing/shoes/roguetown/anklets
 	else
 		shirt = /obj/item/clothing/suit/roguetown/shirt/tunic/random
@@ -247,17 +244,3 @@
 			if("Shamisen")
 				backr = /obj/item/rogue/instrument/shamisen
 		SStreasury.grant_savings(ECONOMIC_UPPER_CLASS, H)
-
-/obj/item/soap/bath
-	name = "herbal soap"
-	desc = "A soap made from various herbs"
-	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "soap"
-	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	w_class = WEIGHT_CLASS_TINY
-	item_flags = NOBLUDGEON
-
-/obj/item/bath/soap/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/slippery, 80)

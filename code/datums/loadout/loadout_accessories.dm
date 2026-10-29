@@ -19,6 +19,11 @@
 	path = /obj/item/clothing/mask/rogue/spectacles
 	sort_category = "Accessories"
 
+/datum/loadout_item/thinspectacles
+	name = "Thin Spectacles"
+	path = /obj/item/clothing/mask/rogue/spectacles/thin
+	sort_category = "Accessories"
+
 /datum/loadout_item/fingerless
 	name = "Fingerless Gloves"
 	path = /obj/item/clothing/gloves/roguetown/fingerless
@@ -40,9 +45,19 @@
 	sort_category = "Accessories"
 	cost = 2
 
+/datum/loadout_item/beltshawl
+	name = "Belt Shawl"
+	path = /obj/item/storage/belt/rogue/leather/beltshawl
+	sort_category = "Accessories"
+
 /datum/loadout_item/ragmask
 	name = "Rag Mask"
 	path = /obj/item/clothing/mask/rogue/ragmask
+	sort_category = "Accessories"
+
+/datum/loadout_item/flimsy_visor
+	name = "Helmetless Visor"
+	path = /obj/item/clothing/mask/rogue/facemask/steel/visor/flimsy
 	sort_category = "Accessories"
 
 /datum/loadout_item/halfmask
@@ -110,7 +125,7 @@
 	name= "Face Veil"
 	path = /obj/item/clothing/mask/rogue/faceveil
 	sort_category = "Accessories"
-	
+
 /datum/loadout_item/cursed_collar
 	name = "Cursed Collar"
 	path = /obj/item/clothing/neck/roguetown/gorget/cursed_collar
@@ -119,6 +134,11 @@
 /datum/loadout_item/woolencollar
 	name = "Woolen Collar"
 	path = /obj/item/clothing/neck/roguetown/collar/woolen
+	sort_category = "Accessories"
+
+/datum/loadout_item/furcollar
+	name = "Fur Collar"
+	path = /obj/item/clothing/neck/roguetown/collar/fur
 	sort_category = "Accessories"
 
 /datum/loadout_item/cloth_blindfold
@@ -151,6 +171,11 @@
 	path = /obj/item/storage/belt/rogue/leather/battleskirt/breechcloth/blackbelt
 	sort_category = "Accessories"
 
+/datum/loadout_item/clothloincloth
+	name = "Belt with Loincloth"
+	path = /obj/item/storage/belt/rogue/leather/battleskirt/loincloth
+	sort_category = "Accessories"
+
 /datum/loadout_item/doublebelt
 	name = "Paired Slim Belts"
 	path = /obj/item/storage/belt/rogue/leather/double
@@ -164,6 +189,11 @@
 /datum/loadout_item/blackbelt
 	name = "Black Belt"
 	path = /obj/item/storage/belt/rogue/leather/black
+	sort_category = "Accessories"
+
+/datum/loadout_item/suspenders
+	name = "Suspenders"
+	path = /obj/item/storage/belt/rogue/leather/suspenders
 	sort_category = "Accessories"
 
 /datum/loadout_item/chaperon
@@ -209,4 +239,14 @@
 /datum/loadout_item/weatheredmask
 	name = "Weathered Xylixian Mask"
 	path = /obj/item/clothing/mask/rogue/xylixmask/weathered
+	sort_category = "Accessories"
+
+/datum/loadout_item/carapacedmask
+	name = "Ceramic Mask"
+	path = /obj/item/clothing/mask/rogue/xylixmask/ceramic
+	sort_category = "Accessories"
+
+/datum/loadout_item/belthooks
+	name = "Belt Hooks"
+	path = /obj/item/storage/belt/rogue/leather/belthooks
 	sort_category = "Accessories"

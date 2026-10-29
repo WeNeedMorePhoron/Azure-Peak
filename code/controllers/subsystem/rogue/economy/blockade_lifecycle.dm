@@ -17,7 +17,7 @@
 		return null
 	return pickweight(eligible)
 
-/datum/controller/subsystem/economy/proc/roll_blockade()
+/datum/controller/subsystem/economy/proc/roll_blockade(replenish = FALSE)
 	var/list/candidates = list()
 	for(var/region_id in GLOB.economic_regions)
 		var/datum/economic_region/ER = GLOB.economic_regions[region_id]
@@ -25,12 +25,16 @@
 			continue
 		if(ER.is_region_blockaded)
 			continue
+		if(replenish && !ER.blockade_replenish_eligible)
+			continue
 		if(ER.day_last_cleared >= 0 && (GLOB.dayspassed - ER.day_last_cleared) < BLOCKADE_RECLEAR_COOLDOWN)
 			continue
 		var/datum/threat_region/TR = SSregionthreat.get_region(ER.threat_region_id)
 		if(!TR)
 			continue
 		if(!pick_blockade_faction_for(TR))
+			continue
+		if(!SSquestpool.has_landmark_for_region(ER.threat_region_id))
 			continue
 		candidates += region_id
 	if(!length(candidates))
@@ -48,6 +52,8 @@
 	if(!ER)
 		return null
 	if(find_blockade_for_region(region_id))
+		return null
+	if(!SSquestpool.has_landmark_for_region(ER.threat_region_id))
 		return null
 
 	var/datum/blockade/B = new()
@@ -89,15 +95,28 @@
 		if(!roll_blockade())
 			break
 
+/datum/controller/subsystem/economy/proc/tick_blockade_replenish()
+	if(GLOB.dayspassed < BLOCKADE_REPLENISH_FIRST_DAY || GLOB.dayspassed > BLOCKADE_REPLENISH_LAST_DAY)
+		return
+	if(length(GLOB.active_blockades) >= BLOCKADE_REPLENISH_FLOOR)
+		return
+	var/budget = clamp(BLOCKADE_REPLENISH_BUDGET_BASE + round(get_effective_player_count() * BLOCKADE_REPLENISH_BUDGET_PER_PLAYER), BLOCKADE_REPLENISH_BUDGET_BASE, BLOCKADE_REPLENISH_BUDGET_MAX)
+	if(blockade_replenish_spent >= budget)
+		return
+	if(!prob(BLOCKADE_REPLENISH_DAILY_CHANCE))
+		return
+	if(roll_blockade(replenish = TRUE))
+		blockade_replenish_spent++
+
 /datum/controller/subsystem/economy/proc/announce_blockade_start(datum/blockade/B)
 	var/datum/economic_region/ER = B.get_region()
 	var/datum/quest_faction/F = B.get_faction()
 	if(!ER || !F)
 		return
-	scom_announce("<font color='#c44'>BLOCKADE: The trade road to [ER.name] is cut — a [F.group_word] of [F.name_plural] has fallen upon it. The Crown awaits a defense commission.</font>")
+	scom_announce("<font color='#c44'>BLOCKADE: A [F.group_word] of [F.name_plural] has cut the trade road to [ER.name].</font>")
 
 /datum/controller/subsystem/economy/proc/announce_blockade_cleared(datum/blockade/B)
 	var/datum/economic_region/ER = B.get_region()
 	if(!ER)
 		return
-	scom_announce("<font color='#5cb85c'>The road to [ER.name] is open once more — the blockade has been broken.</font>")
+	scom_announce("<font color='#5cb85c'>The blockade on the road to [ER.name] has been broken.</font>")

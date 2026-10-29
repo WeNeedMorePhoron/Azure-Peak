@@ -1,5 +1,5 @@
 //////////////////
-//  TRIUMPHS !  //
+//	TRIUMPHS !	//
 //////////////////
 
 // Dongwaiver / Ollanius, here.
@@ -9,11 +9,26 @@
 // Alive characters automatically gain +1 TRI at the start of each day, and can comfortably maintain a passive increase of +6 TRI. That is to say, players have a 'soft' safety-spending net of 6 TRI at any given time.
 // If an item's value exceeds thirty mammons, make sure to add it to the STOCKPILE's blastlist in 'bounties.dm'. This helps to curtail people solely taking these trinkets to wordlessly pawn off for extra coinage.
 
+// While most reskins should be -3 TRI, it's reasonable to make them -1 TRI if the cosmetic change is relatively minor (like swapping out the crossguard on a sword, or simply changing a helmet's palette.)
+
 // Remember that these costs are done on a 'per-round' basis, that all items can still be permenantly lost when withdrawn, and that they should - above all else - encourage people to roll with TRI-rewarding mechanics.
 // When pricing, try to keep the costs to a formula of 1 / 3 / 5 / 7 / 9. Formulas of 2 / 4 / 6 / 8 / 10 can work too, but should be rarer.
 // Above all else? Have fun! If you have any questions, let me know.
 
 // -1 TRI
+
+/datum/loadout_item/shirt/ilamellar
+	name = "Gift - Iron Lamellar Armor decoration"
+	path = /obj/item/clothing/suit/roguetown/shirt/ilamellar
+	triumph_cost = 1
+	sort_category = "Triumphs"
+
+/datum/loadout_item/shirt/blamellar
+	name = "Gift - Bronze Lamellar Armor decoration"
+	path = /obj/item/clothing/suit/roguetown/shirt/blamellar
+	triumph_cost = 1
+	sort_category = "Triumphs"
+
 /datum/loadout_item/psicross/noc/bronze
 	name = "Bronze Amulet of Noc"
 	path = /obj/item/clothing/neck/roguetown/psicross/noc/bronze
@@ -82,8 +97,8 @@
 	sort_category = "Triumphs"
 
 /datum/loadout_item/triumph_winterdress
-	name = "Winter Dress"
-	path = /obj/item/clothing/suit/roguetown/armor/armordress/winterdress/triumph
+	name = "Thin Winter Dress"
+	path = /obj/item/clothing/suit/roguetown/shirt/tunic/thinwinterdress/triumph
 	triumph_cost = 3
 	sort_category = "Triumphs"
 
@@ -117,10 +132,22 @@
 	triumph_cost = 3
 	sort_category = "Triumphs"
 
+/datum/loadout_item/triumph_ornatesilkdress
+	name = "Ornate Silk Dress"
+	path = /obj/item/clothing/suit/roguetown/shirt/dress/silkdress/steward
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
 // -5 TRI
 /datum/loadout_item/triumph_shortsatchel
 	name = "Short Satchel"
 	path = /obj/item/storage/backpack/rogue/satchel/short
+	triumph_cost = 5
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_blackshortsatchel
+	name = "Short Satchel, Black"
+	path = /obj/item/storage/backpack/rogue/satchel/short/black
 	triumph_cost = 5
 	sort_category = "Triumphs"
 
@@ -145,6 +172,18 @@
 /datum/loadout_item/triumph_bedroll
 	name = "Bedroll"
 	path = /obj/item/bedroll
+	triumph_cost = 5
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_metalrepairkit
+	name = "Repair Kit, Metal"
+	path = /obj/item/repair_kit/metal/bad
+	triumph_cost = 5
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_clothrepairkit
+	name = "Repair Kit, Cloth"
+	path = /obj/item/repair_kit/bad
 	triumph_cost = 5
 	sort_category = "Triumphs"
 
@@ -347,8 +386,14 @@
 	triumph_cost = 7
 	sort_category = "Triumphs"
 
+/datum/loadout_item/triumph_plaquegoldenbeltfancy
+	name = "Belt of Plaque, Golden, Fancy"
+	path = /obj/item/storage/belt/rogue/leather/plaquegold/noble
+	triumph_cost = 7
+	sort_category = "Triumphs"
+
 //////////////////
-//  RESKINS  !  //
+//	RESKINS	!	//
 //////////////////
 //Variants of the Donator Reskin item, specifically unlocked through Triumphs.
 
@@ -356,6 +401,24 @@
 	name = "Triumph Kit - Valorian Steel Armor"
 	path = /obj/item/enchantingkit/triumph_armorkit
 	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_armorkit_slimmedsteel
+	name = "Triumph Kit - Slimfitted Steel Armor"
+	path = /obj/item/enchantingkit/triumph_armorkit_slimmedsteel
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_armorkit_slimmedsteel
+	name = "Triumph Kit - Brigandine with Plate"
+	path = /obj/item/enchantingkit/triumph_armorkit_heavybrig
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_armorkit_sabatons
+	name = "Triumph Kit - Foot Plates"
+	path = /obj/item/enchantingkit/sabatons
+	triumph_cost = 1
 	sort_category = "Triumphs"
 
 /datum/loadout_item/triumph_armorkit_drow
@@ -490,8 +553,117 @@
 	triumph_cost = 3
 	sort_category = "Triumphs"
 
+/datum/loadout_item/triumph_armorkit_valorianiron
+	name = "Triumph Kit - Valorian Iron Armor"
+	path = /obj/item/enchantingkit/triumph_armorkit_iron
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_weaponkit_classicleathers
+	name = "Triumph Kit - Classic Leather Armor"
+	path = /obj/item/enchantingkit/triumph_armorkit_classicleather
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_armorkit_pleather
+	name = "Triumph Kit - Padded Leather Armor"
+	path = /obj/item/enchantingkit/triumph_armorkit_pleather
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_weaponkit_classicironbreastplate
+	name = "Triumph Kit - Aged Iron Breastplate"
+	path = /obj/item/enchantingkit/triumph_armorkit_classiciron
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_transmutekit_armorkinis
+	name = "Transmutation Kit - Armorkinis"
+	path = /obj/item/enchantingkit/triumph_transmutekit_armorkinis
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_armorkit_valoriansteelhelm
+	name = "Triumph Kit - Valorian Steel Helmet"
+	path = /obj/item/enchantingkit/triumph_armorkit_oldhelmets
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_armorkit_valorianironhelm
+	name = "Triumph Kit - Valorian Iron Helmet"
+	path = /obj/item/enchantingkit/triumph_armorkit_ironoldhelmets
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_armorkit_agedskullcap
+	name = "Triumph Kit - Aged Skull Cap"
+	path = /obj/item/enchantingkit/triumph_armorkit_agedskullcap
+	triumph_cost = 1
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_weaponkit_classicdaggers
+	name = "Triumph Kit - Classic Daggers"
+	path = /obj/item/enchantingkit/triumph_weaponkit_classicdaggers
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_weaponkit_psyswords
+	name = "Triumph Kit - Slimguarded Psydonic Longsword"
+	path = /obj/item/enchantingkit/triumph_weaponkit_psyswords
+	triumph_cost = 1
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_weaponkit_clasiscbeakhelm
+	name = "Triumph Kit - Valorian Beak Helmet"
+	path = /obj/item/enchantingkit/triumph_armorkit_classicbeakhelm
+	triumph_cost = 1
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_weaponkit_classicpsymace
+	name = "Triumph Kit - Classic Psydonic Handmace"
+	path = /obj/item/enchantingkit/triumph_weaponkit_psymace
+	triumph_cost = 1
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_weaponkit_khanda
+	name = "Triumph Kit - Khanda"
+	path = /obj/item/enchantingkit/triumph_weaponkit_khanda
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_weaponkit_urumi
+	name = "Triumph Kit - Urumi"
+	path = /obj/item/enchantingkit/triumph_weaponkit_urumi
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_weaponkit_pata
+	name = "Triumph Kit - Pata"
+	path = /obj/item/enchantingkit/triumph_weaponkit_pata
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_armorkit_rockhillarmet
+	name = "Triumph Kit - Knight-Errant's Armet"
+	path = /obj/item/enchantingkit/donator_rockhillarmet
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_armorkit_rockhillmaille
+	name = "Triumph Kit - Jacketed Plate-and-Maille"
+	path = /obj/item/enchantingkit/donator_rockhillmaille
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_armorkit_platearmharness
+	name = "Triumph Kit - Plate Arm Harnesses"
+	path = /obj/item/enchantingkit/donator_universal_armharness
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+
 //////////////////
-//  PERFUMES !  //
+//	PERFUMES !	//
 //////////////////
 
 /datum/loadout_item/triumph_perfume_lavender
@@ -571,4 +743,34 @@
 	desc = "A man thinks he's done, drinks a mouthful of this. Five minutes later he's back in the race."
 	path = /obj/item/reagent_containers/glass/bottle/alchemical/fermented_crab
 	triumph_cost = 5
+	sort_category = "Triumphs"
+
+/datum/loadout_item/greatplumestandalone
+	name = "Standalone Decoration, Greatplume"
+	path = /obj/item/clothing/head/roguetown/decoration/greatplume
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/featherplumestandalone
+	name = "Standalone Decoration, Featherplume"
+	path = /obj/item/clothing/head/roguetown/decoration/featherplume
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/crestplumestandalone
+	name = "Standalone Decoration, Crestplume"
+	path = /obj/item/clothing/head/roguetown/decoration/crestplume
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/shoulderguardstandalone
+	name = "Standalone Decoration, Shoulderguard"
+	path = /obj/item/clothing/cloak/tabard/stabard/donator_shoulderguard
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/orlestandalone
+	name = "Standalone Decoration, Orle"
+	path = /obj/item/clothing/head/roguetown/decoration/orle/donator_dyeable
+	triumph_cost = 3
 	sort_category = "Triumphs"

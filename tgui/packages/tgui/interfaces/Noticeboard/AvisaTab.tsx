@@ -17,7 +17,7 @@ import { HarborSection } from './AvisaSections/HarborSection';
 import { MarketSection } from './AvisaSections/MarketSection';
 import { ScoutsSection } from './AvisaSections/ScoutsSection';
 import { TradeOrdersSection } from './AvisaSections/TradeOrdersSection';
-import { type TabProps } from './types';
+import type { TabProps } from './types';
 
 type AvisaSection =
   | 'charters'
@@ -36,22 +36,15 @@ type SectionMeta = {
 
 const SECTIONS: SectionMeta[] = [
   {
-    key: 'charters',
-    label: 'Charters',
-    blurb:
-      "The standing edicts of the Crown - their force, their suspension, and the year of their sealing.",
-  },
-  {
     key: 'trade_orders',
     label: 'Trade Orders',
-    blurb:
-      "Demands of the realm's merchants and stockpiles, awaiting fulfillment.",
+    blurb: "What the realm's merchants and stockpiles still need.",
   },
   {
     key: 'harbor',
     label: 'Harbor',
     blurb:
-      'Foreign vessels at the pier - their bulk demands and cultural wares brought ashore.',
+      'Foreign ships at the pier: what they want in bulk and the wares they brought ashore.',
   },
   {
     key: 'market',
@@ -72,12 +65,17 @@ const SECTIONS: SectionMeta[] = [
   {
     key: 'assembly',
     label: 'Assembly',
-    blurb: 'Petitions, summons, and the standing business of the City Assembly.',
+    blurb: 'The business of the City Assembly.',
+  },
+  {
+    key: 'charters',
+    label: 'Charters',
+    blurb: "The Crown's standing edicts and whether each is in force.",
   },
 ];
 
 export const AvisaTab = ({ data, act }: TabProps) => {
-  const [section, setSection] = useState<AvisaSection>('charters');
+  const [section, setSection] = useState<AvisaSection>('trade_orders');
   const active = SECTIONS.find((s) => s.key === section) ?? SECTIONS[0];
 
   return (
@@ -91,9 +89,7 @@ export const AvisaTab = ({ data, act }: TabProps) => {
       >
         The Azurian Avisa
       </div>
-      <div style={subtitleStyle}>
-        Tidings, edicts, and trade of the realm
-      </div>
+      <div style={subtitleStyle}>Tidings, edicts, and trade of the realm</div>
       <hr style={rulerStyle} />
 
       <div style={subTabBarStyle}>
@@ -150,7 +146,7 @@ const AssemblySection = ({ act }: { act: TabProps['act'] }) => (
         marginBottom: 12,
       }}
     >
-      The Assembly chamber stands ready for petition and vote.
+      Raise petitions and vote in the Assembly.
     </div>
     <button
       type="button"

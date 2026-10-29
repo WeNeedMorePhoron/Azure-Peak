@@ -19,7 +19,7 @@
 	scent_description = "memories of a former triumph"
 
 /datum/reagent/buff/tri/on_mob_life(mob/living/carbon/M)
-	if(volume >= 10)  //Ensures that, no matter what, you can only buff one person from one vial.
+	if(volume >= 10)	//Ensures that, no matter what, you can only buff one person from one vial.
 		M.apply_status_effect(/datum/status_effect/buff/alch/tripot)
 	return ..()
 
@@ -144,7 +144,7 @@
 
 /obj/item/clothing/head/roguetown/grenzelhofthat/triumph
 	name = "grenzelhoft tellerbarret"
-	desc = "The latest in sixteenth-century fashionwear, stitched by the finest tailors in Grenzelhoft. </br>I can fit this onto a sallet, Etruscan bascinet, or Blacksteel armet for added protection."
+	desc = "The latest in sixteenth-century fashionwear, stitched by the finest tailors in Grenzelhoft. </br>I can fit this onto a sallet, Etruscan bascinet, or Blacksteel armet for added protection. Alternatively, I can nestle it onto my helmet's cosmetic inventory."
 	max_integrity = ARMOR_INT_HELMET_CLOTH
 	icon_state = "grenzelhat"
 	item_state = "grenzelhat"
@@ -153,9 +153,9 @@
 	detail_tag = "_detail"
 	altdetail_tag = "_detailalt"
 	dynamic_hair_suffix = ""
-	armor = ARMOR_PADDED_BAD
+	armor = null
 	resistance_flags = FLAMMABLE
-	color = "#262927"
+	color = "#007fff"
 	detail_color = "#FFFFFF"
 	altdetail_color = "#007fff"
 
@@ -171,6 +171,10 @@
 		if(loc == user && ishuman(user))
 			var/mob/living/carbon/H = user
 			H.update_inv_head()
+
+/obj/item/clothing/head/roguetown/grenzelhofthat/triumph/Initialize(mapload)
+	. = ..()
+	update_icon()
 
 /obj/item/clothing/head/roguetown/grenzelhofthat/triumph/update_icon()
 	cut_overlays()

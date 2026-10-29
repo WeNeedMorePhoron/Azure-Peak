@@ -12,6 +12,9 @@
 	// Can this skill be randomly chosen when the player is sleeping? Restricted to Level 2.
 	var/randomable_dream_xp = TRUE
 
+	// Can this skill be trained through sleep/dreams at all? Skills gated to a granting profession (e.g. Arcyne Armament) set this FALSE.
+	var/learnable_in_sleep = TRUE
+
 	var/max_skillbook_level = 6
 
 	// Name for the expert level of this skill on Homesteader
@@ -39,6 +42,8 @@
 	// Malum worshippers (with TRAIT_FORGEBLESSED) spend fewer dream points on craft skills
 	if(user && HAS_TRAIT(user, TRAIT_FORGEBLESSED) && (istype(src, /datum/skill/craft) || (istype(src, /datum/skill/craft/sewing))))
 		cost = max(1, FLOOR(cost * 0.5, 1)) // 50% reduction, minimum cost of 1
+	else if(HAS_TRAIT(user, TRAIT_TRAINED_SMITH) && (istype(src, /datum/skill/craft/armorsmithing) || istype(src, /datum/skill/craft/engineering) || istype(src, /datum/skill/craft/weaponsmithing) || istype(src, /datum/skill/craft/blacksmithing)))
+		cost = max(1, FLOOR(cost * 0.5, 1)) // ditto for metalworkers, specifically for metalworking skills
 	else if(user && HAS_TRAIT(user, TRAIT_JACKOFALLTRADES))
 		cost = max(1, FLOOR(cost * 0.5, 1)) // Ditto for Homesteader towners
 	return cost

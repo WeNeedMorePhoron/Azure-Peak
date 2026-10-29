@@ -14,20 +14,23 @@
 	give_bank_account = 20
 	min_pq = 1
 	max_pq = null
-	bypass_lastclass = TRUE
 	round_contrib_points = 3
 	cmode_music = 'sound/music/cmode/nobility/combat_spymaster.ogg'
 
-	job_traits = list(TRAIT_SEEPRICES, 
-		TRAIT_CICERONE, 
+	job_traits = list(
+		TRAIT_SEEPRICES,
+		TRAIT_CICERONE,
 		TRAIT_NUTCRACKER,
-		TRAIT_GOODLOVER, 
-		TRAIT_HOMESTEAD_EXPERT)
+		TRAIT_GOODLOVER,
+		TRAIT_HOMESTEAD_EXPERT,
+		TRAIT_GOOD_MASSEUR
+	)
 
 	advclass_cat_rolls = list(CTAG_BATHMOM = 2)
 	job_subclasses = list(
 		/datum/advclass/bathmaster
 	)
+	has_subprefs = FALSE // only one subclass
 
 
 /datum/advclass/bathmaster
@@ -37,10 +40,10 @@
 	category_tags = list(CTAG_BATHMOM)
 	subclass_languages = list(/datum/language/thievescant)
 	subclass_stats = list(
-		STATKEY_WIL = 2,
+		STATKEY_WIL = 1,
 		STATKEY_STR = 1,
 		STATKEY_CON = 1,
-		STATKEY_INT = -1
+		STATKEY_INT = 1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
@@ -51,13 +54,13 @@
 		/datum/skill/misc/lockpicking = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
 	)
+	tempo_capable = FALSE
 
 /datum/outfit/job/roguetown/bathmaster/basic/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -81,7 +84,7 @@
 
 	if(should_wear_masc_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/armor/leather/vest/sailor/nightman
-		H.dna.species.soundpack_m = new /datum/voicepack/male/zeth()
+		H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/zeth]
 	else if(should_wear_femme_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/armor/armordress/alt
 	if(H.mind)

@@ -158,17 +158,22 @@
 /datum/stressevent/parablood
 	timer = 15 SECONDS
 	stressadd = 3
-	desc = span_red("There is far too much blood here! Iron stings my nostrils!")
+	desc = span_red("There is all so much blood - I'm bound to be next!")
 
 /datum/stressevent/parastr
 	timer = 2 MINUTES
 	stressadd = 2
-	desc = span_red("That beast there is stronger than I, and could quite easily kill me...")
+	desc = span_red("That person there is stronger than I, and could quite easily kill me...")
 
 /datum/stressevent/paratalk
 	timer = 2 MINUTES
 	stressadd = 2
 	desc = span_red("They are plotting against me in evil tongues...")
+
+/datum/stressevent/parawhisper
+	timer = 2 MINUTES
+	stressadd = 2
+	desc = span_red("I can just barely hear them whispering, surely it's about me..!")
 
 /datum/stressevent/crowd
 	timer = 2 MINUTES
@@ -179,6 +184,10 @@
 	timer = 5 MINUTES
 	stressadd = 5
 	desc = span_red("<u>They</u> are here.")
+
+/datum/stressevent/sundercritted
+	stressadd = 5 //Its literally killing you, sire.
+	desc = span_boldred("I CAN FEEL MY SOUL TEARING APART FROM BLESSED FLAMES, I NEED TO GET AWAY!")
 
 /datum/stressevent/nocrowd
 	timer = 2 MINUTES
@@ -299,6 +308,37 @@
 	desc = span_red("Eating such a meal without a table? How churlish!")
 	timer = 2 MINUTES
 
+// 'unlanded noble' penalties, harsher to enforce the archetype
+/datum/stressevent/unlanded_noble_shitty_equipment
+	stressadd = 1
+	desc = span_red("Such poor-quality equipment reflects poorly on me...!")
+	timer = 999 MINUTES // removed via code
+
+/datum/stressevent/unlanded_noble_bloody_equipment
+	stressadd = 1
+	desc = span_red("I should have better hygeine than this...")
+	timer = 999 MINUTES // removed via code
+
+/datum/stressevent/unlanded_noble_poor_sleep
+	stressadd = 1
+	desc = span_red("I can't get any decent sleep in such uncomfortable conditions...")
+	timer = 999 MINUTES // removed via code
+
+/datum/stressevent/unlanded_noble_scandal_in_the_making
+	stressadd = 1
+	desc = span_red("This was unwise... what if others find out?")
+	timer = 5 MINUTES // removed via code
+
+/datum/stressevent/nistean
+	stressadd = 2
+	desc = span_red("That dish had meat in it...")
+	timer = 2 MINUTES
+
+/datum/stressevent/vegan
+	stressadd = 2
+	desc = span_red("That dish was made from the living...") // how the fuck do you generalize "i fucked up my vegan diet"
+	timer = 2 MINUTES
+
 /datum/stressevent/graggar_culling_unfinished
 	stressadd = 1
 	desc = span_red("I must eat my opponent's heart before they eat MINE!")
@@ -325,7 +365,7 @@
 	desc = span_red("Putrid stinking water!")
 
 /datum/stressevent/unseemly
-	stressadd = 3
+	stressadd = 0
 	desc = span_red("Their face is unbearable!")
 	timer = 3 MINUTES
 
@@ -413,11 +453,6 @@
 	stressadd = 3
 	desc = span_red("Where is their head? What is that flame?!")
 	timer = 5 MINUTES
-
-/datum/stressevent/hunted // When a hunted character sees someone in a mask
-	timer = 2 MINUTES
-	stressadd = 3
-	desc = span_boldred("I can't see their face! Have they found me? Is this the end?")
 
 /datum/stressevent/profane // When a non-assassin touches a profane dagger
 	timer = 3 MINUTES
@@ -509,10 +544,35 @@
 	stressadd = 1
 	desc = list(span_red("Eugh, this brew just doesn't sit right with me.."), span_red("Something about that brew tastes a little funky.."))
 
-/datum/stressevent/pallid_outdoors
+/datum/stressevent/agoraphobia
 	timer = 2 MINUTES
 	stressadd = 3
-	desc = span_red("I long for the shelter of wall and roofs. The sun and moon are too bright for me to bear!")
+	desc = span_red("I long for the shelter of walls and roofs. The open sky is too much for me to bear!")
+
+/datum/stressevent/claustrophobia
+	timer = 2 MINUTES
+	stressadd = 3
+	desc = span_red("The walls are pressing in on me. I need to get out under the open sky!")
+
+/datum/stressevent/heliophobia
+	timer = 2 MINUTES
+	stressadd = 3
+	desc = span_red("The sun glares down at me. I need to get out of its light!")
+
+/datum/stressevent/selenophobia
+	timer = 2 MINUTES
+	stressadd = 3
+	desc = span_red("The moon watches me. I need to get out of its light!")
+
+/datum/stressevent/sun_sensitivity_dark
+	timer = 2 MINUTES
+	stressadd = 3
+	desc = span_red("<b><i>The sunlight burns my eyes! It's too bright outside!</b></i>")
+
+/datum/stressevent/lesser_sun_sensitivity
+	timer = 2 MINUTES
+	stressadd = 1
+	desc = span_red("I'm shielded from the the sunlight, but still! It's too bright outside!") // always a hater, aren't ya?! shame on u, astrata shames u
 
 /datum/stressevent/water_splashed_noble
 	timer = 30 SECONDS
@@ -528,3 +588,24 @@
 	stressadd = 3
 	desc = span_boldred("<B>I've barely escaped death's grasp!</B>")
 	timer = 15 MINUTES
+
+/datum/stressevent/mimic_jumpscare
+	timer = 30 SECONDS
+	stressadd = 6
+	desc = list(span_boldred("TEETH?!"), span_boldred("IT'S ALIVE!!"), span_boldred("NO, NO, NO!!"), span_boldred("GET BACK!!"), span_boldred("MONSTER!!"), span_boldred("IT MOVED!!"), span_boldred("DON'T TOUCH THE CHEST!!"), span_boldred("IT'S NOT A CHEST!!"), span_boldred("CARKIN', A MIMIC!!"), span_boldred("I'M NEVER OPENING A CHEST AGAIN!!"))
+
+/// The gods are alive and watching you now, idk what you expected going to the church for
+/datum/stressevent/blessed_evil
+	timer = 15 MINUTES
+	stressadd = 2
+	desc = span_artery("I feel a judgmental presence watching over me with disgust. I don't like this.")
+
+/datum/stressevent/remorse
+	timer = 5 MINUTES
+	stressadd = 3
+	desc = list(span_artery("I struck someone who never meant me harm."), span_artery("I can't stop thinking about the blow I dealt to someone defenseless."), span_artery("My conscience weighs heavily after attacking one who refused violence."), span_artery("I regret raising my hand against someone who would never have raised theirs against me."), span_artery("The look of fear instead of hatred lingers in my thoughts."), span_artery("I feel ashamed for harming someone who chose peace."), span_artery("I could have walked away. Instead, I chose violence."), span_artery("The guilt of attacking a helpless soul gnaws at me."), span_artery("I keep replaying the moment I struck someone who would not fight back."), span_artery("My heart grows heavier with every thought of the defenseless person I attacked."))
+
+/datum/stressevent/remorse_evil
+	timer = 5 MINUTES
+	stressadd = 1
+	desc = list(span_artery("Even I found no satisfaction in striking someone so meek."), span_artery("They denied me the thrill of a real fight."), span_artery("Their refusal to resist leaves a bitter taste."), span_artery("There was no struggle... only acceptance. That's insane."), span_artery("I expected fear, hatred, anything... but not acceptance."), span_artery("A defenseless victim is hardly worth remembering, yet the thought lingers."), span_artery("Why won't the image of their helplessness leave my mind?"))

@@ -11,6 +11,7 @@
 /mob/proc/get_skill_level(skill)
 	return ensure_skills().get_skill_level(skill)
 
+/// You almost certainly do not want to call this proc directly, as it will bypass the sleep levelling system and can bypass trait caps as well. Use the global proc add_sleep_experience instead, which does respect both of those systems.
 /mob/proc/adjust_experience(skill, amt, silent=FALSE, check_apprentice=TRUE)
 	return ensure_skills().adjust_experience(skill, amt, silent, check_apprentice)
 
@@ -29,6 +30,25 @@
 /mob/proc/print_levels()
 	return ensure_skills().print_levels(src)
 
+/mob/living/carbon/human/proc/update_adaptive_name()
+	if(!adaptive_name)
+		return
+	if(adaptive_name_title)
+		advjob = adaptive_name_title
+		return
+
+	var/list/jobnames = list()
+	for(var/skillt in SSskills.all_skills)
+		var/datum/skill/sk = GetSkillRef(skillt)
+		var/title = initial(sk.expert_name)
+		if(!title)
+			continue
+		if(get_skill_level(sk.type) >= SKILL_LEVEL_EXPERT)
+			jobnames.Add(title)
+	if(!length(jobnames))
+		return
+	advjob = jointext(jobnames, "-")
+
 /mob/proc/get_mentor()
 	return ensure_skills().mentor
 
@@ -40,6 +60,27 @@
 
 /mob/proc/set_apprentice(mob/living/carbon/human/A)
 	ensure_skills().my_apprentice = A
+
+/mob/proc/get_knight_lord()
+	return ensure_skills().knight_lord
+
+/mob/proc/set_knight_lord(mob/living/carbon/human/M)
+	ensure_skills().knight_lord = M
+
+/mob/proc/get_squire()
+	return ensure_skills().my_squire
+
+/mob/proc/set_squire(mob/living/carbon/human/S)
+	ensure_skills().my_squire = S
+
+// TRUE if src can read empath-only reveals on target. Anyone with TRAIT_EMPATH gets the global
+// version; a Knight gets it for free against their own bonded protégé and nobody else.
+/mob/proc/has_empath_for(mob/target)
+	if(HAS_TRAIT(src, TRAIT_EMPATH))
+		return TRUE
+	if(target && get_squire() == target)
+		return TRUE
+	return FALSE
 
 /datum/skill_holder
 	///our current host
@@ -54,6 +95,18 @@
 	// This is used by the Take Apprentice spell.
 	var/mob/living/carbon/human/mentor = null
 	var/mob/living/carbon/human/my_apprentice = null
+	// Knight-Squire protégé bond. Independent of the trade-skill apprentice system above; a Squire
+	// may simultaneously be someone's trade apprentice and a Knight's protégé.
+	var/mob/living/carbon/human/knight_lord = null
+	var/mob/living/carbon/human/my_squire = null
+	/// Last crafting recipe attempted by this holder
+	var/datum/crafting_recipe/last_recipe = null
+	/// Current pseudorandomized craft chance float
+	var/pseudo_craft_chance = 0
+	/// Counter of low skill failures. Reset upon failure, if higher than 10, can cause crafting failures.
+	var/craft_failure_count = 0
+	/// Counter of how many times a failure has causes materials to be wasted. Used to enforce a pity mechanic where failing becomes less likely the higher this number is.
+	var/craft_waste_count = 0
 
 /datum/skill_holder/New()
 	. = ..()
@@ -226,22 +279,7 @@
 	if(ishuman(current))
 		var/mob/living/carbon/human/H = current
 		if(H.adaptive_name)
-			var/str
-			var/list/jobnames = list()
-			for(var/skillt in SSskills.all_skills)
-				var/datum/skill/sk = GetSkillRef(skillt)
-				if(current.get_skill_level(sk.type) >= SKILL_LEVEL_EXPERT)
-					jobnames.Add(initial(sk.expert_name))
-			if(length(jobnames))
-				if(length(jobnames) == 1)
-					current.advjob = jobnames[1]
-				else
-					for(var/i in 1 to length(jobnames))
-						if(i == 1)
-							str += "[jobnames[i]]"
-						else
-							str += "-[jobnames[i]]"
-					current.advjob = str
+			H.update_adaptive_name()
 
 /datum/skill_holder/proc/get_skill_speed_modifier(skill)
 	var/datum/skill/S = GetSkillRef(skill)
@@ -330,9 +368,9 @@
 
 		// Progress column
 		var/progress_col
-		if(is_capped)
+		if(is_capped || (HAS_TRAIT(current, TRAIT_COMBAT_JMAN) && skill_level == SKILL_LEVEL_JOURNEYMAN))
 			progress_col = "<b style='color: #cc3333;'>CAPPED</b>"
-		else if(is_legendary)
+		else if(is_legendary || (HAS_TRAIT(current, TRAIT_NOSHIELDS) && istype(i, /datum/skill/combat/shields)))
 			progress_col = "<span style='color: #555555;'>---</span>"
 		else
 			var/percent = 0
@@ -375,3 +413,7 @@
 		var/datum/stressevent/event = stressors[event_type]
 		bonus += event.quality_modifier
 	return bonus
+
+/datum/skill_holder/proc/reset_pseudo_chance()
+	pseudo_craft_chance = 0
+	last_recipe = null

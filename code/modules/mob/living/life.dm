@@ -12,7 +12,7 @@
 	if((movement_type & FLYING) && !(movement_type & FLOATING))	//TODO: Better floating
 		float(on = TRUE)
 
-	if (client)
+	if(client)
 		var/turf/T = get_turf(src)
 		if(!T)
 			var/msg = "[ADMIN_LOOKUPFLW(src)] was found to have no .loc with an attached client, if the cause is unknown it would be wise to ask how this was accomplished."
@@ -21,24 +21,24 @@
 			log_game("[key_name(src)] was found to have no .loc with an attached client.")
 
 		// This is a temporary error tracker to make sure we've caught everything
-		else if (registered_z != T.z)
+		else if(registered_z != T.z)
 #ifdef TESTING
 			message_admins("[ADMIN_LOOKUPFLW(src)] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z]. If you could ask them how that happened and notify coderbus, it would be appreciated.")
 #endif
 			log_game("Z-TRACKING: [src] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z].")
 			update_z(T.z)
-	else if (registered_z)
+	else if(registered_z)
 		log_game("Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
 		update_z(null)
 
-	if (notransform)
+	if(notransform)
 		return
 	if(!loc)
 		return
 
-	//Breathing, if applicable - CURRENTLY NOT IMPLEMENTED
-	//handle_breathing(times_fired)
+	handle_breathing()
 
+	// SIMPLE WOUNDS
 	if(HAS_TRAIT(src, TRAIT_SIMPLE_WOUNDS))
 		handle_wounds()
 		handle_embedded_objects()
@@ -46,33 +46,62 @@
 		//passively heal even wounds with no passive healing
 		heal_wounds(1)
 
-	/// ENDVRE AS HE DOES.
-	if(!stat && HAS_TRAIT(src, TRAIT_PSYDONITE) && !HAS_TRAIT(src, TRAIT_PARALYSIS))
-		handle_wounds()
-		//passively heal wounds, when you're in trouble..
-		if(blood_volume > BLOOD_VOLUME_SURVIVE)
-			for(var/datum/wound/wound as anything in get_wounds())
-				if(wound?.severity <= WOUND_SEVERITY_MODERATE)
-					if(!istype(wound, /datum/wound/slash/incision))
-						wound.heal_wound(0.4)
+	// PSYDONITE REGEN -- Passively heals wounds and damage. Damage cannot be healed in combat or while bleeding.
+	// Blocks Constructs, Deadites, Werewolves, NoRegen and disabled users.
+	if(!stat && (HAS_TRAIT(src, TRAIT_PSYDONITE) && blood_volume >= BLOOD_VOLUME_SURVIVE && !HAS_TRAIT(src, TRAIT_PARALYSIS) && !HAS_TRAIT(src, TRAIT_NOREGEN) && !HAS_TRAIT(src, TRAIT_IRONMAN) && !HAS_TRAIT(src, TRAIT_DEADITE) && !HAS_TRAIT(src, TRAIT_LYCANRESILENCE)))
+		var/list/wCount = src.get_wounds()
+		var/bleeding = FALSE
+		for(var/datum/wound/wound as anything in wCount)
+			if(istype(wound, /datum/wound/slash/incision) || wound.severity > WOUND_SEVERITY_SEVERE) // Also this, prevents healing arteries and other lethal injuries. It's been unnerfed in the psydon changes for some reason, so bringing it back.
+				continue
+			if(wound.bleed_rate)
+				var/obj/item/bodypart/BP = wound.bodypart_owner
+				var/stemmed = BP && length(BP.grabbedby)
+				if(!stemmed)
+					bleeding = TRUE
+			wound.heal_wound(0.4) // 40% of the heal happens naturally.
+			if(HAS_TRAIT(src, TRAIT_DEATHLESS))
+				wound.heal_wound(0.6) // The other bulk of the effects, only if you are not Deathless.
+				heal_psydonite(0.1, 0.1)
+		if(!(in_combat_until > world.time) && !cmode && !bleeding)
+			heal_psydonite(0.2, 0.2) // Heals damage over time, but you must be completely out of trouble to proc.
 
-	if(!stat && HAS_TRAIT(src, TRAIT_LYCANRESILENCE) && !HAS_TRAIT(src, TRAIT_PARALYSIS))
-		if(src.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder) || src.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed))
-			return
+	if(!stat && HAS_TRAIT(src, TRAIT_PSYDONIAN_GRIT) && !HAS_TRAIT(src, TRAIT_PARALYSIS) && !HAS_TRAIT(src, TRAIT_NOREGEN) && !HAS_TRAIT(src, TRAIT_IRONMAN) && !HAS_TRAIT(src, TRAIT_DEADITE) && !HAS_TRAIT(src, TRAIT_LYCANRESILENCE))
+		var/in_combat = in_combat_until > world.time
+		if(!in_combat && !cmode)
+			var/list/wCount = src.get_wounds()
+			for(var/datum/wound/wound as anything in wCount)
+				if(wound.woundpain)
+					wound.woundpain = max(0, wound.woundpain - 0.2) // ENDURE! Over time it will make the wound hurt less.
+
+	// REGEN RESTRICTIONS -- Starving, or being on fire/silverfired.
+	var/noregen = nutrition < NUTRITION_LEVEL_STARVING - 75 || has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder) || has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed)
+
+	// LYCAN RESILIENCE -- This had a nasty return which was causing an awful glitch. Don't use return on Life(), pls.
+	if(!stat && HAS_TRAIT(src, TRAIT_LYCANRESILENCE) && !HAS_TRAIT(src, TRAIT_PARALYSIS) && !noregen)
 		handle_wounds()
 		if(blood_volume > BLOOD_VOLUME_SURVIVE)
 			for(var/datum/wound/wound as anything in get_wounds())
 				if(!istype(wound, /datum/wound/slash/incision))
 					wound.heal_wound(3)
 
-	if(blood_volume <= BLOOD_VOLUME_SURVIVE && stat)
+	// DEADITE REGEN -- Same as above, but a victim of copypasta. Don't use return on Life(), pls.
+	if(!stat && HAS_TRAIT(src, TRAIT_DEADITE))
+		var/deadite_on_fire = has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder) || has_status_effect(/datum/status_effect/fire_handler/fire_stacks) || has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed)
+		if(!deadite_on_fire)
+			handle_wounds()
+			heal_overall_damage(3, 2)
+			for(var/datum/wound/wound as anything in get_wounds())
+				wound.heal_wound(0.5)
+
+	if(blood_volume <= BLOOD_VOLUME_BAD && stat)
 		handle_passive_blood()
 
-	if (QDELETED(src)) // diseases can qdel the mob via transformations
+	if(QDELETED(src)) // diseases can qdel the mob via transformations
 		return
 
 	handle_environment()
-	
+
 	//Random events (vomiting etc)
 	handle_random_events()
 
@@ -125,10 +154,23 @@
 				return
 			if(istype(drownrelay.loc, /turf/open/water))
 				handle_inwater(drownrelay.loc, extinguish = FALSE, force_drown = TRUE)
-			if(istype(loc, /turf/open/water)) // Extinguish ourselves if our body is in water.	
+			if(istype(loc, /turf/open/water)) // Extinguish ourselves if our body is in water.
 				extinguish_mob()
 			return
 	. =..()
+
+/mob/living/proc/handle_breathing()
+	return TRUE
+
+/mob/living/carbon/handle_breathing()
+	if(HAS_TRAIT(src, TRAIT_NOBREATH))
+		return TRUE
+	var/obj/item/organ/lungs/lung = getorganslot(ORGAN_SLOT_LUNGS)
+	if(!lung || (lung.organ_flags & ORGAN_FAILING))
+		adjustOxyLoss(5)
+		emote("choke")
+		return FALSE
+	return TRUE
 
 /mob/living/proc/DeadLife()
 	set invisibility = 0
@@ -145,23 +187,7 @@
 		handle_inwater(loc)
 
 /mob/living/proc/handle_random_events()
-	//random painstun
-	if(!stat && !HAS_TRAIT(src, TRAIT_NOPAINSTUN))
-		if(world.time > mob_timers["painstun"] + 600)
-			if(getBruteLoss() + getFireLoss() >= (STAWIL * 10))
-				var/probby = 53 - (STAWIL * 2)
-				if(!(mobility_flags & MOBILITY_STAND))
-					probby = probby - 20
-				if(prob(probby))
-					mob_timers["painstun"] = world.time
-					Immobilize(10)
-					emote("painscream")
-					visible_message(span_warning("[src] freezes in pain!"),
-								span_warning("I'm frozen in pain!"))
-					sleep(10)
-					Stun(110)
-					Knockdown(110)
-					drop_all_held_items()
+	return
 
 /mob/living/proc/handle_environment()
 	return
@@ -185,7 +211,7 @@
 			continue
 
 		if(prob(embedded.embedding.embedded_pain_chance))
-			if(embedded.is_silver && HAS_TRAIT(src, TRAIT_SILVER_WEAK) && !has_status_effect(STATUS_EFFECT_ANTIMAGIC))
+			if((embedded.is_silver || (embedded.is_even_lesser_silver && is_npc(src))) && HAS_TRAIT(src, TRAIT_SILVER_WEAK) && !has_status_effect(STATUS_EFFECT_ANTIMAGIC))
 				var/datum/component/silverbless/psyblessed = embedded.GetComponent(/datum/component/silverbless)
 				adjust_fire_stacks(1, psyblessed?.is_blessed ? /datum/status_effect/fire_handler/fire_stacks/sunder/blessed : /datum/status_effect/fire_handler/fire_stacks/sunder)
 			to_chat(src, span_danger("[embedded] in me hurts!"))

@@ -148,3 +148,21 @@
 
 /datum/mob_descriptor/chitin/fine
 	name = "Fine Chitin"
+
+/datum/mob_descriptor/skin/custom
+	suffix = "skin"
+	var/custom_index
+
+/datum/mob_descriptor/skin/custom/can_describe(mob/living/described)
+	return length(described.custom_descriptors) >= custom_index
+
+/datum/mob_descriptor/skin/custom/get_description(mob/living/described)
+	var/datum/custom_descriptor_entry/entry = described.custom_descriptors[custom_index]
+	return entry.content_text
+
+/datum/mob_descriptor/skin/custom/get_examine_description(mob/living/described)
+	return LOWER_TEXT(get_description(described))
+
+/datum/mob_descriptor/skin/custom/eight
+	name = "Custom Skin"
+	custom_index = 8

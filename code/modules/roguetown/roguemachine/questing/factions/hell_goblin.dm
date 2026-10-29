@@ -7,7 +7,12 @@
 	can_blockade = FALSE
 	category = FACTION_CAT_GOBLINOID
 	mob_types = list(
-		/mob/living/carbon/human/species/goblin/npc/ambush/hell = 55,
+		/mob/living/carbon/human/species/goblin/npc/ambush/hell = 39,
+		/mob/living/carbon/human/species/goblin/npc/archer/hell = 9, // ~30% ranged/special mix
+		/mob/living/carbon/human/species/goblin/npc/slinger/hell = 4,
+		/mob/living/carbon/human/species/goblin/npc/bomber/hell = 4,
+		/mob/living/carbon/human/species/goblin/npc/large/hell = 5,
+		/mob/living/carbon/human/species/hobgoblin/npc/ambush = 12,
 		/mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp = 15,
 		/mob/living/simple_animal/hostile/retaliate/rogue/infernal/hellhound = 12,
 		/mob/living/simple_animal/hostile/retaliate/rogue/minotaur = 10,
@@ -20,6 +25,6 @@
 	boss_title_templates = list(
 		"%N the Watchful",
 		"%N of the Ember",
-		"%N the Cinder-eyed",
+		"%N the Cinder Eye",
 	)
 	boss_name_file = "strings/rt/names/other/devilm.txt"

@@ -7,7 +7,6 @@
 		/obj/item/natural/bone = 3,
 		/obj/item/natural/fibers = 1,
 		)
-	sellprice = 10
 	verbage_simple = "craft"
 	verbage = "crafted"
 	craftdiff = 0
@@ -33,7 +32,6 @@
 		/obj/item/natural/hide = 1,
 		/obj/item/natural/bone = 2,
 		)
-	sellprice = 12
 	tools = list(/obj/item/needle)
 	skillcraft = /datum/skill/craft/sewing
 	verbage_simple = "sew"
@@ -49,7 +47,6 @@
 		/obj/item/natural/hide = 1,
 		/obj/item/natural/fibers = 1,
 		)
-	sellprice = 6
 	tools = list(/obj/item/needle)
 	skillcraft = /datum/skill/craft/sewing
 	verbage_simple = "sew"
@@ -160,6 +157,20 @@
 	verbage_simple = "arranged"
 	verbage = "arranges"
 
+/datum/crafting_recipe/roguetown/survival/bouquet_fyritius
+	name = "fyritius bouquet"
+	display_category = ITEM_CAT_GARMENT_COMMON
+	category = "Clothes"
+	result = /obj/item/bouquet/fyritius
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/grown/rogue/fyritius = 4,
+		/obj/item/natural/fibers = 2,
+		/obj/item/paper/scroll = 1,
+		)
+	craftdiff = 0
+	verbage_simple = "arranged"
+	verbage = "arranges"
+
 /datum/crafting_recipe/roguetown/survival/flowercrown_rosa
 	name = "rosa crown"
 	display_category = ITEM_CAT_GARMENT_COMMON
@@ -225,6 +236,19 @@
 	verbage_simple = "tied"
 	verbage = "ties"
 
+/datum/crafting_recipe/roguetown/survival/flowercrown_fyritius
+	name = "fyritius crown"
+	display_category = ITEM_CAT_GARMENT_COMMON
+	category = "Clothes"
+	result = /obj/item/flowercrown/fyritius
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/grown/rogue/fyritius = 4,
+		/obj/item/natural/fibers = 2,
+		)
+	craftdiff = 0
+	verbage_simple = "tied"
+	verbage = "ties"
+
 /datum/crafting_recipe/roguetown/survival/flowercrown_briar
 	name = "briar thorn crown"
 	display_category = ITEM_CAT_GARMENT_COMMON
@@ -250,6 +274,33 @@
 	craftdiff = 0
 	verbage_simple = "tied"
 	verbage = "ties"
+
+/datum/crafting_recipe/roguetown/survival/flowercrown_rosa_thorns
+	name = "rosa crown with thorns"
+	display_category = ITEM_CAT_GARMENT_COMMON
+	category = "Clothes"
+	result = /obj/item/flowercrown/rosa/thorns
+	reqs = list(
+		/obj/item/natural/fibers = 2,
+		/obj/item/natural/thorn = 2,
+		/obj/item/alch/rosa = 3,
+		)
+	craftdiff = 0
+	verbage_simple = "tied"
+	verbage = "ties"
+
+/datum/crafting_recipe/roguetown/survival/flowercrown_rosa_gray
+	name = "gray flower crown"
+	display_category = ITEM_CAT_GARMENT_COMMON
+	category = "Clothes"
+	result = /obj/item/flowercrown/rosa/dyecrown
+	reqs = list(
+		/obj/item/natural/fibers = 2
+		)
+	craftdiff = 0
+	verbage_simple = "tied"
+	verbage = "ties"
+
 
 // Amulet
 /datum/crafting_recipe/roguetown/survival/pearlcross

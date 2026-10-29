@@ -21,7 +21,7 @@
 		STATKEY_CON = -2,
 	)
 
-	subclass_mage_aspects = list("mastery" = TRUE, "major" = 1, "minor" = 3, "utilities" = 9, "ward" = TRUE)
+	subclass_mage_aspects = list("mastery" = TRUE, "major" = 1, "minor" = 3, "utilities" = 13, "ward" = TRUE)
 
 	subclass_skills = list(
 	/datum/skill/misc/reading = SKILL_LEVEL_LEGENDARY,
@@ -29,7 +29,8 @@
 	/datum/skill/magic/arcane = SKILL_LEVEL_EXPERT,
 	/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
 	/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
-	/datum/skill/combat/staves = SKILL_LEVEL_JOURNEYMAN,
+	/datum/skill/combat/staves = SKILL_LEVEL_EXPERT,
+	/datum/skill/combat/arcyne = SKILL_LEVEL_EXPERT,
 	/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,
 	/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,
 	/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
@@ -56,8 +57,8 @@
 	backpack_contents = list(
 		/obj/item/reagent_containers/glass/bottle/rogue/poison = 1,
 		/obj/item/recipe_book/alchemy = 1,
-		/obj/item/book/spellbook = 1,
-		/obj/item/rogueweapon/huntingknife/idagger/silver/arcyne = 1,
+		/obj/item/rogueweapon/spellbook/greater = 1,
+		/obj/item/rogueweapon/huntingknife/idagger/steel/silver/arcyne = 1,
 		/obj/item/scrying = 1,
 		/obj/item/chalk = 1,
 		)
@@ -71,4 +72,4 @@
 		cloak = null
 		head = /obj/item/clothing/head/roguetown/wizhat
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe/wizard
-		H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
+		H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/wizard]
