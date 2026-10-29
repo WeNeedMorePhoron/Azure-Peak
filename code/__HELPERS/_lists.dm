@@ -289,6 +289,7 @@
 
 	for(var/cached_path in .)
 		if (isnull(.[cached_path]))
+			. -= cached_path
 
 //Empties the list by setting the length to 0. Hopefully the elements get garbage collected
 /proc/clearlist(list/list)

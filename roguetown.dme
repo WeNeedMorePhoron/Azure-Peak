@@ -2121,7 +2121,6 @@
 #include "code\modules\farming\trash.dm"
 #include "code\modules\farming\wild_plant.dm"
 #include "code\modules\fishing\fish.dm"
-#include "code\modules\fishing\fish_hud.dm"
 #include "code\modules\fishing\fish_movement.dm"
 #include "code\modules\fishing\fishing_spot.dm"
 #include "code\modules\fishing\minigame.dm"
