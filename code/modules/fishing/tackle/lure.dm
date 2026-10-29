@@ -187,7 +187,7 @@
 
 /obj/item/fishing/lure/algae/is_catchable_fish(obj/item/reagent_containers/food/snacks/fish/fish, list/fish_properties)
 	// Can catch most fish, excluding extreme predators
-	if(/datum/fish_trait/predator in fish.fish_traits)
+	if(/datum/fish_trait/carnivore in fish.fish_traits)
 		return FALSE
 	return TRUE
 
@@ -232,31 +232,6 @@
 
 	return multiplier
 
-/obj/item/fishing/lure/buzzbait
-	name = "\improper Electric-Buzz lure"
-	desc = "A metallic, colored clanker attached to a series of cables that somehow attract shock-worthy fish."
-	icon_state = "buzzbait"
-	spin_frequency = list(0.8 SECONDS, 1.7 SECONDS)
-
-/obj/item/fishing/lure/buzzbait/is_catchable_fish(obj/item/reagent_containers/food/snacks/fish/fish, list/fish_properties)
-	// Can catch anything not extreme
-	if(fish.size > fish.average_size * 1.7)
-		return FALSE
-	return TRUE
-
-/obj/item/fishing/lure/buzzbait/check_bait(obj/item/reagent_containers/food/snacks/fish/fish)
-	var/multiplier = ..()
-	if(multiplier <= 0)
-		return multiplier
-
-	// Big bonus for electric fish (main target)
-	if(HAS_TRAIT(fish, TRAIT_FISH_ELECTROGENESIS))
-		multiplier *= 2
-	else
-		// Still decent for others due to vibrations
-		multiplier *= 0.7
-	return multiplier
-
 /obj/item/fishing/lure/spinnerbait
 	name = "spinnerbait lure"
 	desc = "A spinny, vulnerable lure, great for attracting freshwater predators, though omnivores won't be interested in it."
@@ -273,7 +248,7 @@
 	if(multiplier <= 0)
 		return multiplier
 
-	var/is_predator = (/datum/fish_trait/predator in fish.fish_traits)
+	var/is_predator = (/datum/fish_trait/carnivore in fish.fish_traits)
 	var/fluid_type = fish.required_fluid_type
 	var/is_freshwater = (fluid_type == FISH_FLUID_FRESHWATER || fluid_type == FISH_FLUID_ANY_WATER)
 
@@ -303,7 +278,7 @@
 		return multiplier
 
 	// Big bonus for saltwater predators (main target)
-	var/is_predator = (/datum/fish_trait/predator in fish.fish_traits)
+	var/is_predator = (/datum/fish_trait/carnivore in fish.fish_traits)
 	var/fluid_type = fish.required_fluid_type
 	var/is_saltwater = (fluid_type == FISH_FLUID_SALTWATER || fluid_type == FISH_FLUID_ANY_WATER)
 
@@ -338,7 +313,7 @@
 	if(istype(fish, /obj/item/reagent_containers/food/snacks/fish/eel))
 		multiplier *= 1.5
 
-	if(/datum/fish_trait/predator in fish.fish_traits)
+	if(/datum/fish_trait/carnivore in fish.fish_traits)
 		multiplier *= 1.3
 
 	return multiplier
@@ -354,7 +329,7 @@
 	bait_flag = DISH_BREAD
 
 /obj/item/fishing/lure/dough/is_catchable_fish(obj/item/reagent_containers/food/snacks/fish/fish, list/fish_properties)
-	if(/datum/fish_trait/predator in fish.fish_traits)
+	if(/datum/fish_trait/carnivore in fish.fish_traits)
 		return FALSE
 	return TRUE
 
