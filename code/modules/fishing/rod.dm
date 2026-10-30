@@ -487,7 +487,7 @@
 
 /obj/item/fishingrod/fisher/Initialize(mapload, ...)
 	. = ..()
-	reel = new /obj/item/fishing/reel/silk(src)
+	reel = new /obj/item/fishing/reel/leather(src)
 	hook = new /obj/item/fishing/hook/iron(src)
 	line = new /obj/item/fishing/line/bobber(src)
 

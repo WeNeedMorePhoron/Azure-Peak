@@ -17,7 +17,6 @@
 		/obj/item/natural/hide = 1,
 		/obj/item/natural/fibers = 1,
 		)
-	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/fishing/reel_silk
 	name = "silk fishing line"

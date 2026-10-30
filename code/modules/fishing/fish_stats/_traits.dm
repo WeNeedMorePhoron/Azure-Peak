@@ -66,7 +66,6 @@ GLOBAL_LIST_INIT(spontaneous_fish_traits, populate_spontaneous_fish_traits())
 
 /datum/fish_trait/wary/difficulty_mod(obj/item/fishingrod/rod, mob/fisherman)
 	. = ..()
-	// Wary fish require transparent line or they're harder
 	if(!rod.line || !(rod.line.fishing_line_traits & FISHING_LINE_CLOAKED))
 		.[ADDITIVE_FISHING_MOD] += FISH_TRAIT_MINOR_DIFFICULTY_BOOST
 
@@ -105,7 +104,17 @@ GLOBAL_LIST_INIT(spontaneous_fish_traits, populate_spontaneous_fish_traits())
 	name = "Demersal"
 	catalog_description = "This fish tends to stay near the waterbed."
 
+/datum/fish_trait/heavy/proc/has_sinker(obj/item/fishingrod/rod)
+	return rod.line && (rod.line.fishing_line_traits & FISHING_LINE_SINKER)
+
+/datum/fish_trait/heavy/catch_weight_mod(obj/item/fishingrod/rod, mob/fisherman, atom/location, obj/item/reagent_containers/food/snacks/fish/fish_type)
+	. = ..()
+	if(has_sinker(rod))
+		.[MULTIPLICATIVE_FISHING_MOD] *= FISHING_SINKER_DEMERSAL_MULT
+
 /datum/fish_trait/heavy/minigame_mod(obj/item/fishingrod/rod, mob/fisherman, datum/fishing_challenge/minigame)
+	if(has_sinker(rod))
+		return
 	minigame.mover.fish_idle_velocity -= 10
 
 /datum/fish_trait/carnivore

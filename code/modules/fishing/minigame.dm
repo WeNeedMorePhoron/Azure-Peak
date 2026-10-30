@@ -165,6 +165,17 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 			completion_loss -= 2
 		if(rod.hook.fishing_hook_traits & FISHING_HOOK_KILL)
 			special_effects |= FISHING_MINIGAME_RULE_KILL
+	if(rod.line && (rod.line.fishing_line_traits & FISHING_LINE_BOBBER))
+		gravity_velocity *= FISHING_BOBBER_GRAVITY_MULT
+	if(rod.reel)
+		var/obj/item/fishing/reel/reel = rod.reel
+		if(reel.fishing_reel_traits & FISHING_REEL_FRAYED)
+			completion_loss += FISHING_REEL_FRAYED_LOSS
+		if(reel.fishing_reel_traits & FISHING_REEL_SMOOTH)
+			completion_loss += FISHING_REEL_SMOOTH_LOSS
+		if(reel.fishing_reel_traits & FISHING_REEL_BLESSED)
+			completion_loss += FISHING_REEL_BLESSED_LOSS
+			completion_gain += FISHING_REEL_BLESSED_GAIN
 
 	//Finish the minigame faster at higher skill. The value modifiers for fishing are negative values btw.
 	completion_loss += user.get_skill_speed_modifier(/datum/skill/labor/fishing)

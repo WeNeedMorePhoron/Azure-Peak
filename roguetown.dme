@@ -1999,6 +1999,8 @@
 #include "code\modules\crafting\recipe_books\book_entries\cooking\book_entry_doughs.dm"
 #include "code\modules\crafting\recipe_books\book_entries\cooking\book_entry_pies.dm"
 #include "code\modules\crafting\recipe_books\book_entries\cooking\cuisine_chapters.dm"
+#include "code\modules\crafting\recipe_books\book_entries\fishing\fishing_chapters.dm"
+#include "code\modules\crafting\recipe_books\book_entries\fishing\fishing_waters.dm"
 #include "code\modules\crafting\recipe_books\book_entries\mage\mage_basic.dm"
 #include "code\modules\crafting\recipe_books\book_entries\miracles\miracle_compendium.dm"
 #include "code\modules\crafting\recipe_books\book_entries\treasury\general_chapters.dm"

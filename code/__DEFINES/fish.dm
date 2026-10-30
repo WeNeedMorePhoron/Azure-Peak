@@ -51,10 +51,26 @@
 #define FISHING_LINE_STIFF (1 << 2)
 ///Skip the biting phase and go straight to the fishing phase.
 #define FISHING_LINE_AUTOREEL (1 << 3)
-///if fishing in "deep water" gives a bonus
+///Demersal fish stop drifting to the bottom of the bar and bite more often.
 #define FISHING_LINE_SINKER (1 << 4)
-///if fishing in "shallow water" gives a bonus
+///The bait sinks slower during the minigame.
 #define FISHING_LINE_BOBBER (1 << 5)
+
+/// Tier of fishing line. Leather is default and not a trait here.
+#define FISHING_REEL_FRAYED (1 << 0)
+#define FISHING_REEL_SMOOTH (1 << 1)
+#define FISHING_REEL_BLESSED (1 << 2)
+
+// Fishing line tier effects. Added to the minigame's completion loss (per second off the fish) and gain (per second on it).
+#define FISHING_REEL_FRAYED_LOSS 1
+#define FISHING_REEL_SMOOTH_LOSS -1
+#define FISHING_REEL_BLESSED_LOSS -1
+#define FISHING_REEL_BLESSED_GAIN 1
+
+///Multiplier on the bait's sink speed with a bobber on the line.
+#define FISHING_BOBBER_GRAVITY_MULT 0.75
+///Multiplier on the catch weight of demersal fish with a sinker on the line.
+#define FISHING_SINKER_DEMERSAL_MULT 1.5
 
 ///Keeps the bait from falling from gravity, instead allowing the player to move the bait down with right click.
 #define FISHING_MINIGAME_RULE_BIDIRECTIONAL (1 << 0)
