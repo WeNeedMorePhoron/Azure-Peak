@@ -48,7 +48,7 @@
 
 		<h3>Trivia</h3>
 		<ul>
-			<li>Cautious Fishers are less likely to accidentally catch a hostile mob.</li>
+			<li>Expert Fishers have an easier time landing a catch, can tell the stock of a body of water is by looking at it, are warned when it runs low, and get a moment's notice before something hostile surfaces.</li>
 		</ul>
 		</div>
 	"}

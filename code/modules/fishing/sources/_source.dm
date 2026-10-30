@@ -85,12 +85,15 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 
 	/// Pool of generated fish instances for this roll (fish instance -> original path)
 	var/list/obj/item/reagent_containers/food/snacks/fish/generated_fish_pool
+	/// fish_counts as they were at creation, so stock can be read as a share of full.
+	var/list/full_counts
 
 /datum/fish_source/New()
 	if(!SSfishing.initialized && associated_safe_turfs) //This is only needed during world init
 		associated_safe_turfs = typecacheof(associated_safe_turfs)
 		if(safe_turfs_blacklist)
 			associated_safe_turfs -= typecacheof(safe_turfs_blacklist)
+	full_counts = fish_counts.Copy()
 	for(var/path in fish_counts)
 		if(!(path in fish_table))
 			stack_trace("path [path] found in the 'fish_counts' list but not in the 'fish_table'")
@@ -111,6 +114,28 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 /// Whether this result is limited and currently out of stock.
 /datum/fish_source/proc/is_exhausted(path)
 	return is_limited(path) && fish_counts[path] <= 0
+
+/datum/fish_source/proc/prized_stock_ratio()
+	var/full = 0
+	var/left = 0
+	for(var/path in fish_counts)
+		if(!ispath(path, /obj/item/reagent_containers/food/snacks/fish) || !is_limited(path))
+			continue
+		full += full_counts[path]
+		left += max(fish_counts[path], 0)
+	if(!full)
+		return null
+	return left / full
+
+/datum/fish_source/proc/stock_description()
+	var/ratio = prized_stock_ratio()
+	if(isnull(ratio))
+		return "There is nothing prized to be had here."
+	if(ratio >= FISHING_STOCK_TEEMING_RATIO)
+		return "These waters are teeming with prized fishes."
+	if(ratio >= FISHING_STOCK_LOW_RATIO)
+		return "These waters have been fished nearly bare."
+	return "These waters are fished out."
 
 /datum/fish_source/Destroy()
 	cleanup_generated_fish()
@@ -202,7 +227,6 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 /datum/fish_source/proc/calculate_difficulty(result, obj/item/fishingrod/rod, mob/fisherman)
 	. = fishing_difficulty
 
-	// Difficulty modifier added by having the Settler quirk
 	if(HAS_TRAIT(fisherman, TRAIT_EXPERT_FISHER))
 		. += EXPERT_FISHER_DIFFICULTY_MOD
 
@@ -317,6 +341,12 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 
 /// Gives out the reward if possible.
 /datum/fish_source/proc/dispense_reward(reward_path, mob/fisherman, atom/fishing_spot, datum/fishing_challenge/challenge)
+	if(ispath(reward_path, /mob/living) && HAS_TRAIT(fisherman, TRAIT_EXPERT_FISHER))
+		fisherman.balloon_alert(fisherman, "UH OH!")
+		to_chat(fisherman, span_warning("Something is wrong with this catch. I should get back!"))
+		playsound(fisherman, 'sound/misc/notice (2).ogg', 60)
+		addtimer(CALLBACK(src, PROC_REF(simple_dispense_reward), reward_path, get_turf(fisherman), fishing_spot), FISHING_HOSTILE_WARNING_DELAY)
+		return
 	var/atom/movable/reward = simple_dispense_reward(reward_path, get_turf(fisherman), fishing_spot)
 	if(!reward) //balloon alert instead
 		fisherman.balloon_alert(fisherman, pick(duds))
@@ -435,8 +465,6 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 
 		// Handle living mobs
 		if(ispath(result, /mob/living))
-			if(HAS_TRAIT(fisherman, TRAIT_CAUTIOUS_FISHER) && prob(CAUTIOUS_FISHER_MOB_AVOID_CHANCE))
-				continue
 			if(bait && (HAS_TRAIT(bait, TRAIT_GOOD_QUALITY_BAIT) || HAS_TRAIT(bait, TRAIT_GREAT_QUALITY_BAIT)))
 				weight = round(weight * result_multiplier, 1)
 				if(weight > 0)

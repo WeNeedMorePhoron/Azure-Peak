@@ -33,7 +33,7 @@
 ///If the fish source has fishes that are shown in the
 /datum/component/fishing_spot/proc/on_examined(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER
-	if(!HAS_TRAIT(user, TRAIT_EXAMINE_FISHING_SPOT) || !fish_source.has_known_fishes(source))
+	if(!HAS_TRAIT(user, TRAIT_EXPERT_FISHER) || !fish_source.has_known_fishes(source))
 		return
 
 	examine_text += span_tinynoticeital("This is a fishing spot. You can look again to list its fishes...")
@@ -52,6 +52,10 @@
 		return COMPONENT_NO_AFTERATTACK
 	// In case the fishing source has anything else to do before beginning to fish.
 	fish_source.on_start_fishing(rod, user, parent)
+	if(HAS_TRAIT(user, TRAIT_EXPERT_FISHER))
+		var/ratio = fish_source.prized_stock_ratio()
+		if(!isnull(ratio) && ratio < FISHING_STOCK_LOW_RATIO)
+			to_chat(user, span_smallred("This body of water seems depleted of good fishes, maybe I should fish elsewhere."))
 	var/datum/fishing_challenge/challenge = new(src, rod, user, automated)
 	fish_source.pre_challenge_started(rod, user, challenge)
 	challenge.start(user)

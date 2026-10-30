@@ -20,9 +20,6 @@
 #define FAV_BAIT_DIFFICULTY_MOD -5
 /// Difficulty modifier when bait is fish's disliked
 #define DISLIKED_BAIT_DIFFICULTY_MOD 15
-/// Difficulty modifier when our fisherman has the trait TRAIT_EXPERT_FISHER
-#define EXPERT_FISHER_DIFFICULTY_MOD -5
-
 #define FISH_TRAIT_MINOR_DIFFICULTY_BOOST 5
 
 #define ADDITIVE_FISHING_MOD "additive"
@@ -61,6 +58,10 @@
 
 // The fish's quality, size, rarity, and sellprice is linked tightly together. Rarity is read off the catch's size against its species average. Bought and placed fish are average, so common.
 // Each fish produce a base amount of fillet, which is multiplied by its size and value.
+#define FISH_RARITY_COMMON 0
+#define FISH_RARITY_RARE 1
+#define FISH_RARITY_ULTRA 2
+#define FISH_RARITY_LEGENDARY 3
 #define FISH_RARITY_RARE_RATIO 1.3
 #define FISH_RARITY_ULTRA_RATIO 1.7
 #define FISH_RARITY_LEGENDARY_RATIO 2.1
@@ -223,8 +224,11 @@
 ///We multiply the weight of fish inside the loot table by this value if we are goofy enough to fish without a bait.
 #define FISH_WEIGHT_MULT_WITHOUT_BAIT 0.15
 
-/// Chance, per cast, that a TRAIT_CAUTIOUS_FISHER leaves a hostile mob out of the table.
-#define CAUTIOUS_FISHER_MOB_AVOID_CHANCE 75
+// Expert Fishers find the minigame a little easier, read a water's prized stock on examine, are told on cast when it runs low, and get a warning and a moment before a hostile catch surfaces.
+#define EXPERT_FISHER_DIFFICULTY_MOD -5
+#define FISHING_STOCK_TEEMING_RATIO 0.75
+#define FISHING_STOCK_LOW_RATIO 0.35
+#define FISHING_HOSTILE_WARNING_DELAY (5 SECONDS)
 
 // Make cages slower so that fishing manually is competitive
 /// Seconds between a baited fishing cage's catches at no skill and at legendary skill.
@@ -268,10 +272,6 @@
  */
 ///Trait given to turfs or objects that can be fished from
 #define TRAIT_FISHING_SPOT "fishing_spot"
-///This trait gets you a list of fishes that can be caught when examining a fishing spot.
-#define TRAIT_EXAMINE_FISHING_SPOT "examine_fishing_spot"
-
-#define TRAIT_EXPERT_FISHER "Expert Fisherman"
 
 // Aquarium related signals
 

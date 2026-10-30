@@ -68,6 +68,17 @@
 		// only, so the next season change picks it up.
 		GLOB.seasonal_water_turfs |= src
 
+/turf/open/water/examine(mob/user)
+	. = ..()
+	if(isnull(fishing_datum))
+		return
+	var/datum/fish_source/preset = GLOB.preset_fish_sources[fishing_datum]
+	if(preset.catalog_description)
+		. += span_info("This looks like [lowertext(preset.catalog_description)].")
+	if(HAS_TRAIT(user, TRAIT_EXPERT_FISHER))
+		var/datum/fish_source/source = get_fish_source()
+		. += span_info(source.stock_description())
+
 /// Lays this turf's ice on top, pushing our own type onto baseturfs so thaw() (a ScrapeAway())
 /// can restore the exact subtype (swamp vs swamp/deep, pond vs cleanshallow) without a lookup
 /// table. Returns the new ice turf, or null if we can't or shouldn't freeze.

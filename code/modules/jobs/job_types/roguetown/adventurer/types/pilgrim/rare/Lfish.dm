@@ -7,7 +7,7 @@
 	forbidden_races = list(RACES_DESPISED)
 
 	outfit = /datum/outfit/job/roguetown/adventurer/fishermaster
-	traits_applied = list(TRAIT_CAUTIOUS_FISHER, TRAIT_HOMESTEAD_EXPERT)
+	traits_applied = list(TRAIT_EXPERT_FISHER, TRAIT_HOMESTEAD_EXPERT)
 
 	maximum_possible_slots = 1
 	pickprob = 5

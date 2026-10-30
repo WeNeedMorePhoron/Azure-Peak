@@ -55,7 +55,7 @@
 /obj/item/fishing/lure/examine(mob/user)
 	. = ..()
 	. += span_info("It has to be spun with a frequency of [spin_frequency[1] * 0.1] to [spin_frequency[2] * 0.1] seconds while fishing.")
-	if(HAS_TRAIT(user, TRAIT_EXAMINE_FISHING_SPOT))
+	if(HAS_TRAIT(user, TRAIT_EXPERT_FISHER))
 		. += span_tinynotice("Thanks to your experience, you can examine it again to get a list of fish you can catch with it.")
 
 ///Check if the fish is in the list of catchable fish for this fishing lure. Return value is a multiplier.
