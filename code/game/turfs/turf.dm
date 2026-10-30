@@ -919,3 +919,10 @@
 	var/datum/component/fishing_spot/spot = source.AddComponent(/datum/component/fishing_spot, GLOB.preset_fish_sources[fish_source])
 	remove_lazy_fishing()
 	return spot.handle_cast(arglist(args))
+
+/// The fish source this turf draws from, whether still lazy or already a fishing spot component. Null for unfishable turfs.
+/turf/proc/get_fish_source()
+	if(fish_source)
+		return GLOB.preset_fish_sources[fish_source]
+	var/datum/component/fishing_spot/spot = GetComponent(/datum/component/fishing_spot)
+	return spot?.fish_source

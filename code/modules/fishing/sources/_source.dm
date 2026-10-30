@@ -239,6 +239,19 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 /datum/fish_source/proc/roll_reward(obj/item/fishingrod/rod, mob/fisherman, atom/location)
 	return pickweight(get_modified_fish_table(rod, fisherman, location)) || FISHING_DUD
 
+/// Rolls the table for catches made without a rod, weighted as if it is baitless. Used for things like spears to avoid it overpowering baited rod with minigame. Returns a path or FISHING_DUD.
+/datum/fish_source/proc/roll_simple_reward(atom/location)
+	var/list/table = get_fish_table(location)
+	for(var/result in table)
+		if(!ispath(result, /obj/item/reagent_containers/food/snacks/fish))
+			continue
+		var/weight = round(table[result] * FISH_WEIGHT_MULT_WITHOUT_BAIT, 1)
+		if(weight > 0)
+			table[result] = weight
+		else
+			table -= result
+	return pickweight(table) || FISHING_DUD
+
 /**
  * Used to register signals or add traits and the such right after conditions have been cleared
  * and before the minigame starts.
