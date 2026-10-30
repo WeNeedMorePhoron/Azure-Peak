@@ -14,7 +14,6 @@
 		return COMPONENT_INCOMPATIBLE
 	fish_source.on_fishing_spot_init(src)
 	RegisterSignal(parent, COMSIG_FISHING_ROD_CAST, PROC_REF(handle_cast))
-	RegisterSignal(parent, COMSIG_ATOM_EXAMINE, PROC_REF(on_examined))
 	ADD_TRAIT(parent, TRAIT_FISHING_SPOT, REF(src))
 
 /datum/component/fishing_spot/Destroy()
@@ -29,14 +28,6 @@
 	if(try_start_fishing(rod,user,automated))
 		return FISHING_ROD_CAST_HANDLED
 	return NONE
-
-///If the fish source has fishes that are shown in the
-/datum/component/fishing_spot/proc/on_examined(datum/source, mob/user, list/examine_text)
-	SIGNAL_HANDLER
-	if(!HAS_TRAIT(user, TRAIT_EXPERT_FISHER) || !fish_source.has_known_fishes(source))
-		return
-
-	examine_text += span_tinynoticeital("This is a fishing spot. You can look again to list its fishes...")
 
 /datum/component/fishing_spot/proc/try_start_fishing(obj/item/possibly_rod, mob/user, automated)
 	SIGNAL_HANDLER

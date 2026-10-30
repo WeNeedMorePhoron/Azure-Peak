@@ -586,21 +586,21 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 			rodless_weights[reward] = weight
 			rod_weights[reward] = final_weight
 		else
-			known_fishes += initial(prototype.name)
+			known_fishes += capitalize(initial(prototype.name))
 
 	if(rod)
 		for(var/reward in rodless_weights)
 			var/percent_weight = rodless_weights[reward] / total_weight
 			var/percent_rod_weight = rod_weights[reward] / total_rod_weight
 			var/obj/item/reagent_containers/food/snacks/fish/prototype = reward
-			var/init_name = initial(prototype.name)
+			var/init_name = capitalize(initial(prototype.name))
 			var/ratio = percent_rod_weight ? percent_weight/percent_rod_weight : INFINITY
-			if(ratio < 0.9)
+			if(ratio < 0.3)
+				init_name = span_bold("<u>[init_name]</u>")
+			else if(ratio < 0.9)
 				init_name = span_bold(init_name)
-				if(ratio < 0.3)
-					init_name = "<u>[init_name]</u>"
 			else if(ratio > 1.1)
-				init_name = span_small(init_name)
+				init_name = span_italics(init_name)
 			known_fishes += init_name
 
 		// Clean up the fish pool after examination
@@ -609,8 +609,6 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	if(!length(known_fishes))
 		return
 
-	var/info = "You can catch the following fish here"
-
+	examine_text += span_info("Fish in these waters: [english_list(known_fishes)].")
 	if(rod)
-		info = span_tooltip("In bold are fish you're more likely to catch with the current setup. The opposite is true for the smaller font", info)
-	examine_text += span_info("[info]: [english_list(known_fishes)].")
+		examine_text += span_tinynoticeital("Bold are likelier with my current rig, underlined far likelier, italics unlikely.")

@@ -58,6 +58,21 @@
 	if(HAS_TRAIT(user, TRAIT_EXPERT_FISHER))
 		. += span_tinynotice("Thanks to your experience, you can examine it again to get a list of fish you can catch with it.")
 
+/obj/item/fishing/lure/examine_more(mob/user)
+	. = ..()
+	if(!HAS_TRAIT(user, TRAIT_EXPERT_FISHER))
+		return
+
+	var/list/known_fishes = list()
+	for(var/obj/item/reagent_containers/food/snacks/fish/fish_type as anything in SSfishing.lure_catchables[type])
+		if(initial(fish_type.fish_flags) & FISH_FLAG_SHOW_IN_CATALOG)
+			known_fishes += capitalize(initial(fish_type.name))
+
+	if(!length(known_fishes))
+		return
+
+	. += span_info("Fish this bait can catch: [english_list(known_fishes)].")
+
 ///Check if the fish is in the list of catchable fish for this fishing lure. Return value is a multiplier.
 /obj/item/fishing/lure/check_bait(obj/item/reagent_containers/food/snacks/fish/fish)
 	var/multiplier = 0

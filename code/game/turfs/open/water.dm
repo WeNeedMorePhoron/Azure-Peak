@@ -78,6 +78,15 @@
 	if(HAS_TRAIT(user, TRAIT_EXPERT_FISHER))
 		var/datum/fish_source/source = get_fish_source()
 		. += span_info(source.stock_description())
+		if(source.has_known_fishes(src))
+			. += span_tinynoticeital("This is a fishing spot. You can look again to list its fishes...")
+
+/turf/open/water/examine_more(mob/user)
+	. = ..()
+	if(isnull(fishing_datum) || !HAS_TRAIT(user, TRAIT_EXPERT_FISHER))
+		return
+	var/datum/fish_source/source = get_fish_source()
+	source.get_catchable_fish_names(user, src, .)
 
 /// Lays this turf's ice on top, pushing our own type onto baseturfs so thaw() (a ScrapeAway())
 /// can restore the exact subtype (swamp vs swamp/deep, pond vs cleanshallow) without a lookup
