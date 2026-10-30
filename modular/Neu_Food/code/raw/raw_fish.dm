@@ -17,7 +17,7 @@
 	slices_num = 2
 	slice_bclass = BCLASS_CHOP
 	chopping_sound = TRUE
-	var/rarity_rank = 0
+	var/rarity_rank = FISH_RARITY_COMMON
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/fish
 	eat_effect = /datum/status_effect/debuff/uncookedfood
@@ -60,22 +60,22 @@
 	var/label = "common"
 	var/suffix = "com"
 	var/mult = 1
-	rarity_rank = 0
+	rarity_rank = FISH_RARITY_COMMON
 	if(ratio >= FISH_RARITY_LEGENDARY_RATIO)
 		label = "legendary"
 		suffix = "gold"
 		mult = FISH_RARITY_LEGENDARY_PRICE_MULT
-		rarity_rank = 3
+		rarity_rank = FISH_RARITY_LEGENDARY
 	else if(ratio >= FISH_RARITY_ULTRA_RATIO)
 		label = "ultra-rare"
 		suffix = "ultra"
 		mult = FISH_RARITY_ULTRA_PRICE_MULT
-		rarity_rank = 2
+		rarity_rank = FISH_RARITY_ULTRA
 	else if(ratio >= FISH_RARITY_RARE_RATIO)
 		label = "rare"
 		suffix = "rare"
 		mult = FISH_RARITY_RARE_PRICE_MULT
-		rarity_rank = 1
+		rarity_rank = FISH_RARITY_RARE
 	name = "[label] [initial(name)]"
 	sellprice = initial(sellprice) * mult * price_mult
 	if(!no_rarity_sprite)

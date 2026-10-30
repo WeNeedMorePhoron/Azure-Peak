@@ -112,30 +112,32 @@
 
 /obj/item/reagent_containers/food/snacks/fish/oyster/Initialize(mapload)
 	. = ..()
+	closed = TRUE
+
+// Pearl distribution is based on rarity. This helper make it roll when it is opened after its rarity is settled after fishing minigame
+/obj/item/reagent_containers/food/snacks/fish/oyster/proc/roll_pearl()
 	var/pearl_weight
-	switch(name) //checks the rarity of the oyster via the name
-		if("legendary oyster")
-			pearl_weight = pickweight(list("bpearl" = 200, "pearl" =15, "nopearl"=15)) //specific weights should be modified due to balance later
-		if("ultra-rare oyster")
+	switch(rarity_rank)
+		if(FISH_RARITY_LEGENDARY)
+			pearl_weight = pickweight(list("bpearl" = 200, "pearl" =15, "nopearl"=15))
+		if(FISH_RARITY_ULTRA)
 			pearl_weight = pickweight(list("bpearl" = 60, "pearl" =120, "nopearl"=35))
-		if("rare oyster")
+		if(FISH_RARITY_RARE)
 			pearl_weight = pickweight(list("bpearl" = 40, "pearl" =80, "nopearl"=150))
-		if("common oyster")
+		else
 			pearl_weight = pickweight(list("bpearl" = 10, "pearl" =40, "nopearl"=200))
 	switch(pearl_weight)
-		if("nopearl")
-			pearl = null
 		if("pearl")
 			pearl = new /obj/item/pearl(src)
 		if("bpearl")
 			pearl = new /obj/item/pearl/blue(src)
-	closed = TRUE
 
 /obj/item/reagent_containers/food/snacks/fish/oyster/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/rogueweapon/huntingknife))
 		if(closed)
 			user.visible_message("<span class='notice'>[user] opens the oyster with the knife.</span>")
 			closed = FALSE
+			roll_pearl()
 			icon_state = "[icon_state]_open"
 			update_icon()
 		else
