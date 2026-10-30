@@ -59,13 +59,12 @@
 
 
 /obj/item/fishing/hook/wooden
-	name = "wooden fishing hook"
-	desc = "A fishing hook consisting of a small piece of wood, carved to points on both ends. More likely to fall out. Struggles with larger specimens."
+	name = "wooden gorge hook"
+	desc = "A fishing hook consisting of a small piece of wood, carved to points on both end. A simple fishing hook, more likely to fall out. Struggles with larger specimens."
 	icon_state = "gorgehook"
-	rod_overlay_icon_state = "hook_wooden_overlay"
 
 /obj/item/fishing/hook/wooden/get_hook_bonus_additive(fish_type)
-	return -1 // hookmod = -1
+	return FISHING_HOOK_WOODEN_ADDITIVE
 
 /obj/item/fishing/hook/wooden/get_hook_bonus_multiplicative(fish_type)
 	var/multiplier = ..()
@@ -75,13 +74,10 @@
 
 	var/size_ratio = get_fish_size_ratio(fish_type)
 
-	// Penalties for larger-than-average fish
-	// 100-130% of average: 0.75x
-	// 130%+ of average: 0.5x
-	if(size_ratio >= 1.3)
-		multiplier *= 0.5
-	else if(size_ratio >= 1.0)
-		multiplier *= 0.75
+	if(size_ratio >= FISHING_HOOK_WOODEN_HUGE_RATIO)
+		multiplier *= FISHING_HOOK_WOODEN_HUGE_MULT
+	else if(size_ratio >= FISHING_HOOK_WOODEN_LARGE_RATIO)
+		multiplier *= FISHING_HOOK_WOODEN_LARGE_MULT
 
 	return multiplier
 
@@ -89,22 +85,20 @@
 	name = "thorn fishing hook"
 	desc = "A fishing hook carved out of a thorn. Effective, but fragile, the barbs kill the fish, but prevent it from ever getting away."
 	icon_state = "thornhook"
-	rod_overlay_icon_state = "hook_thorn_overlay"
 	fishing_hook_traits = FISHING_HOOK_NO_ESCAPE|FISHING_HOOK_KILL
 
 /obj/item/fishing/hook/iron
 	name = "iron fishing hook"
-	desc = "An iron fishing hook. Reliable."
+	desc = "An iron fishing hook. Reliable and weighted, making the bait less likely to bounce off the water bottom."
 	icon_state = "ironhook"
 	fishing_hook_traits = FISHING_HOOK_WEIGHTED
 	rod_overlay_icon_state = "hook_weighted_overlay"
 
 /obj/item/fishing/hook/deluxe
-	name = "wooden lure"
-	desc = "A small wooden lure, painted to look like a small fish. Scares off smaller specimens but attracts larger ones."
+	name = "carved minnow hook"
+	desc = "An elaborate hook in the shape of a minnow with two carved hook on either end. Scares off smaller fishes but attracts larger and more valuable one."
 	icon_state = "deluxehook"
 	fishing_hook_traits = FISHING_HOOK_BIDIRECTIONAL
-	rod_overlay_icon_state = "hook_deluxe_overlay"
 
 /obj/item/fishing/hook/deluxe/get_hook_bonus_multiplicative(fish_type)
 	var/multiplier = ..()
@@ -114,20 +108,13 @@
 
 	var/size_ratio = get_fish_size_ratio(fish_type)
 
-	// Penalties for smaller-than-average, bonuses for larger
-	// <60% of average: 0.25x (severe penalty for runts)
-	// 60-80% of average: 0.5x (penalty for small)
-	// 80-100% of average: 0.75x (mild penalty for below average)
-	// 100-130% of average: 1.0x (neutral)
-	// 130%+ of average: 1.5x (bonus for big specimens)
-
-	if(size_ratio < 0.6)
-		multiplier *= 0.25
-	else if(size_ratio < 0.8)
-		multiplier *= 0.5
-	else if(size_ratio < 1.0)
-		multiplier *= 0.75
-	else if(size_ratio >= 1.3)
-		multiplier *= 1.5
+	if(size_ratio < FISHING_HOOK_MINNOW_RUNT_RATIO)
+		multiplier *= FISHING_HOOK_MINNOW_RUNT_MULT
+	else if(size_ratio < FISHING_HOOK_MINNOW_SMALL_RATIO)
+		multiplier *= FISHING_HOOK_MINNOW_SMALL_MULT
+	else if(size_ratio < FISHING_HOOK_MINNOW_BELOW_RATIO)
+		multiplier *= FISHING_HOOK_MINNOW_BELOW_MULT
+	else if(size_ratio >= FISHING_HOOK_MINNOW_BIG_RATIO)
+		multiplier *= FISHING_HOOK_MINNOW_BIG_MULT
 
 	return multiplier

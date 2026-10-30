@@ -38,28 +38,20 @@
 #define FISHING_HOOK_BIDIRECTIONAL (1 << 1)
 ///Prevents the user from losing the game by letting the fish get away.
 #define FISHING_HOOK_NO_ESCAPE (1 << 2)
-///Limits the completion loss of the minigame when the fsh is not on the bait area.
-#define FISHING_HOOK_ENSNARE (1 << 3)
-///Automatically kills the fish after a while, at the cost of killing it.
-#define FISHING_HOOK_KILL (1 << 4)
+///The minigame ends in a win on its own after a while, for half the experience.
+#define FISHING_HOOK_KILL (1 << 3)
 
-///Reduces the difficulty of the minigame
-#define FISHING_LINE_CLOAKED (1 << 0)
-/// Much like FISHING_HOOK_ENSNARE but for the fishing line.
-#define FISHING_LINE_BOUNCY (1 << 1)
-/// The sorta opposite of FISHING_LINE_BOUNCY. It makes it slower to gain completion and faster to lose it.
-#define FISHING_LINE_STIFF (1 << 2)
-///Skip the biting phase and go straight to the fishing phase.
-#define FISHING_LINE_AUTOREEL (1 << 3)
 ///Demersal fish stop drifting to the bottom of the bar and bite more often.
-#define FISHING_LINE_SINKER (1 << 4)
+#define FISHING_LINE_SINKER (1 << 0)
 ///The bait sinks slower during the minigame.
-#define FISHING_LINE_BOBBER (1 << 5)
+#define FISHING_LINE_BOBBER (1 << 1)
 
 /// Tier of fishing line. Leather is default and not a trait here.
 #define FISHING_REEL_FRAYED (1 << 0)
 #define FISHING_REEL_SMOOTH (1 << 1)
 #define FISHING_REEL_BLESSED (1 << 2)
+/// Thin enough that wary fish do not notice it. Silk and deluxe.
+#define FISHING_REEL_THIN (1 << 3)
 
 // Fishing line tier effects. Added to the minigame's completion loss (per second off the fish) and gain (per second on it).
 #define FISHING_REEL_FRAYED_LOSS 1
@@ -72,13 +64,60 @@
 #define FISHING_ROD_BRONZE_DIFFICULTY -3
 #define FISHING_ROD_BLACKSTEEL_DIFFICULTY -5
 #define FISHING_ROD_BLACKSTEEL_BAIT_HEIGHT 1.15
-#define FISHING_ROD_DECREPIT_DIFFICULTY -8
-#define FISHING_ROD_DECREPIT_BAIT_HEIGHT 1.3
+#define FISHING_ROD_ANCIENT_DIFFICULTY -8
+#define FISHING_ROD_ANCIENT_BAIT_HEIGHT 1.3
 
-///Multiplier on the bait's sink speed with a bobber on the line.
+// Wooden Hooks make it harder to catch larger fishes
+#define FISHING_HOOK_WOODEN_ADDITIVE -1
+#define FISHING_HOOK_WOODEN_LARGE_RATIO 1
+#define FISHING_HOOK_WOODEN_LARGE_MULT 0.75
+#define FISHING_HOOK_WOODEN_HUGE_RATIO 1.3
+#define FISHING_HOOK_WOODEN_HUGE_MULT 0.5
+
+// Iron hook makes the bait recoils way less
+#define FISHING_HOOK_IRON_BOUNCE 0.1
+
+// Carved minnow hook shuns small fishes and favours big ones
+#define FISHING_HOOK_MINNOW_RUNT_RATIO 0.6
+#define FISHING_HOOK_MINNOW_RUNT_MULT 0.25
+#define FISHING_HOOK_MINNOW_SMALL_RATIO 0.8
+#define FISHING_HOOK_MINNOW_SMALL_MULT 0.5
+#define FISHING_HOOK_MINNOW_BELOW_RATIO 1
+#define FISHING_HOOK_MINNOW_BELOW_MULT 0.75
+#define FISHING_HOOK_MINNOW_BIG_RATIO 1.3
+#define FISHING_HOOK_MINNOW_BIG_MULT 1.5
+
+// Having any bobber / sinker improves the progress bar
+#define FISHING_LINE_ANY_GAIN 1
+// Bobber makes the bait sink slower
 #define FISHING_BOBBER_GRAVITY_MULT 0.75
-///Multiplier on the catch weight of demersal fish with a sinker on the line.
+// Sinker makes demersal fishes bite more often
 #define FISHING_SINKER_DEMERSAL_MULT 1.5
+
+// Baits gives additional catchable weight to fish it can catch and additional weight to those that have it as a favorite
+#define FISHING_LURE_CATCHABLE_WEIGHT 5
+#define FISHING_LURE_FAVOURITE_WEIGHT 10
+
+// Red
+#define FISHING_BAIT_RED_EEL_MULT 1.5
+#define FISHING_BAIT_RED_CARNIVORE_MULT 1.3
+
+// Dough
+#define FISHING_BAIT_DOUGH_CARP_MULT 1.5
+#define FISHING_BAIT_DOUGH_SHRIMP_MULT 1.4
+#define FISHING_BAIT_DOUGH_HERBIVORE_MULT 1.3
+
+// Gray
+#define FISHING_BAIT_GRAY_COMMON_MULT 1.3
+
+// Speckled
+#define FISHING_BAIT_SPECKLED_SPECIAL_MULT 1.6
+#define FISHING_BAIT_SPECKLED_COMMON_MULT 1.4
+#define FISHING_BAIT_SPECKLED_SMALL_MULT 0.7
+
+// Enchanted
+#define FISHING_BAIT_ENCHANTED_CHANCE 20
+#define FISHING_BAIT_ENCHANTED_MULT 1.5
 
 ///Keeps the bait from falling from gravity, instead allowing the player to move the bait down with right click.
 #define FISHING_MINIGAME_RULE_BIDIRECTIONAL (1 << 0)
@@ -90,15 +129,11 @@
 #define FISHING_MINIGAME_RULE_NO_EXP (1 << 3)
 ///If enabled, the minigame will occasionally screw around and invert the velocity of the bait
 #define FISHING_MINIGAME_RULE_ANTIGRAV (1 << 4)
-///Will filp the minigame hud for the duration of the effect
-#define FISHING_MINIGAME_RULE_FLIP (1 << 5)
-///Skip the biting phase and go straight to the minigame, avoiding the penalty for having slow reflexes.
-#define FISHING_MINIGAME_AUTOREEL (1 << 6)
 ///The fish will fade in and out at intervals
 #define FISHING_MINIGAME_RULE_CAMO (1 << 7)
 
 ///all the effects that are active and will last for a few seconds before triggering a cooldown
-#define FISHING_MINIGAME_ACTIVE_EFFECTS (FISHING_MINIGAME_RULE_ANTIGRAV|FISHING_MINIGAME_RULE_FLIP|FISHING_MINIGAME_RULE_CAMO)
+#define FISHING_MINIGAME_ACTIVE_EFFECTS (FISHING_MINIGAME_RULE_ANTIGRAV|FISHING_MINIGAME_RULE_CAMO)
 
 /// The default additive value for fishing hook catch weight modifiers.
 #define FISHING_DEFAULT_HOOK_BONUS_ADDITIVE 0

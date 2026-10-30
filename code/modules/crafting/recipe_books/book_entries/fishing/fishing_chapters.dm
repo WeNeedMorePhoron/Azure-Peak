@@ -23,7 +23,7 @@
 		</ul>
 		<p>Certain fishes are herbivorous or carnivorous, they are more likely to bite onto types of bait they like. Carnivorous bait includes worms, grubs, leeches and leech ticks. Herbivorous bait includes fresh vegetables and fruit.</p>
 		<p>Picky fishes will not bite onto passable bait at all unless it is one of their favourites. Every fish also has favourite baits that make it easier to catch, and disliked baits that make it harder.</p>
-		<p>Certain fishes are also wary, and a cloaked line helps you catch them.</p>
+		<p>Certain fishes are also wary, and a thin fishing line, silk or better, helps you catch them.</p>
 
 		<h3>Sources and Stocks</h3>
 		<p>Fishing sources are counted per region and water type. For example, murky water and deep water have different distributions of fishes, and the north coast and south coast deepwater share different pools. Moving around semi frequently is a good idea to maximize the value of your catches.</p>

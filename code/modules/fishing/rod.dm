@@ -457,18 +457,18 @@
 	var/line_color = line?.line_color || default_line_color
 	/// Line part by the rod.
 	if(reel_overlay)
-		var/mutable_appearance/reel_appearance = mutable_appearance('icons/obj/fishing.dmi', reel_overlay)
+		var/mutable_appearance/reel_appearance = mutable_appearance('icons/roguetown/items/fishing.dmi', reel_overlay)
 		reel_appearance.appearance_flags = RESET_COLOR|KEEP_APART
 		reel_appearance.color = line_color
 		. += reel_appearance
 
 	// Line & hook is also visible when only bait is equipped but it uses default appearances then
 	if(hook || baited)
-		var/mutable_appearance/line_overlay = mutable_appearance('icons/obj/fishing.dmi', "line_overlay")
+		var/mutable_appearance/line_overlay = mutable_appearance('icons/roguetown/items/fishing.dmi', "line_overlay")
 		line_overlay.appearance_flags = RESET_COLOR|KEEP_APART
 		line_overlay.color = line_color
 		. += line_overlay
-		. += mutable_appearance('icons/obj/fishing.dmi', hook?.rod_overlay_icon_state || "hook_overlay")
+		. += mutable_appearance('icons/roguetown/items/fishing.dmi', hook?.rod_overlay_icon_state || "hook_overlay")
 
 	if(!baited)
 		return
@@ -507,18 +507,18 @@
 	bait_height_mult = FISHING_ROD_BLACKSTEEL_BAIT_HEIGHT
 
 /obj/item/fishingrod/aalloy
-	name = "decrepit fishing rod"
+	name = "ancient fishing rod"
 	desc = "The Comet Syon's impact drowned the world, long ago. The waves've long since receded, but His greatest works remain shrouded far beneath the sea."
 	icon_state = "arod"
 	color = "#bb9696"
 	sellprice = 15
-	difficulty_modifier = FISHING_ROD_DECREPIT_DIFFICULTY
-	bait_height_mult = FISHING_ROD_DECREPIT_BAIT_HEIGHT
+	difficulty_modifier = FISHING_ROD_ANCIENT_DIFFICULTY
+	bait_height_mult = FISHING_ROD_ANCIENT_BAIT_HEIGHT
 
 /obj/projectile/fishing_cast
 	name = "fishing hook"
-	icon = 'icons/obj/fishing.dmi'
-	icon_state = "hook_projectile"
+	icon = 'icons/roguetown/items/fishing.dmi'
+	icon_state = "ironhook"
 	damage = 0
 	range = 5
 	can_hit_turfs = TRUE

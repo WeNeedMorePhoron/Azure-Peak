@@ -212,7 +212,7 @@
 	contains = list(/obj/item/fishing/reel/deluxe)
 
 /datum/supply_pack/rogue/tools/fishinglure
-	name = "Wooden Lure"
+	name = "Carved Minnow Hook"
 	cost = 25
 	contains = list(/obj/item/fishing/hook/deluxe)
 

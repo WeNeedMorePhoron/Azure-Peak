@@ -1,42 +1,12 @@
 ///A global list of singleton fish traits by their paths
 GLOBAL_LIST_INIT(fish_traits, init_subtypes_w_path_keys(/datum/fish_trait, list()))
 
-/**
- * A nested list of fish types and traits that they can spontaneously manifest with associated probabilities
- * e.g. list(/obj/item/fish = list(/datum/fish_trait = 100), etc...)
- */
-GLOBAL_LIST_INIT(spontaneous_fish_traits, populate_spontaneous_fish_traits())
-
-/proc/populate_spontaneous_fish_traits()
-	var/list/list = list()
-	for(var/trait_path in GLOB.fish_traits)
-		var/datum/fish_trait/trait = GLOB.fish_traits[trait_path]
-		if(isnull(trait.spontaneous_manifest_types))
-			continue
-		var/list/trait_typecache = zebra_typecacheof(trait.spontaneous_manifest_types) - /obj/item/reagent_containers/food/snacks/fish
-		for(var/fish_type in trait_typecache)
-			var/trait_prob = trait_typecache[fish_type]
-			if(!trait_prob)
-				continue
-			LAZYSET(list[fish_type], trait_path, trait_typecache[fish_type])
-	return list
-
 /datum/fish_trait
 	var/name = "Unnamed Trait"
 	/// Description of the trait in the fishing catalog and scanner
 	var/catalog_description = "Uh uh, someone has forgotten to set description to this trait. Yikes!"
 	///A list of traits fish cannot have in conjunction with this trait.
 	var/list/incompatible_traits
-	/// A list of fish types and traits that they can spontaneously manifest with associated probabilities
-	var/list/spontaneous_manifest_types = list(
-		/obj/item/reagent_containers/food/snacks/fish/carp = 3,
-		/obj/item/reagent_containers/food/snacks/fish/clownfish = 3,
-		/obj/item/reagent_containers/food/snacks/fish/angler = 3,
-		/obj/item/reagent_containers/food/snacks/fish/eel = 3,
-		/obj/item/reagent_containers/food/snacks/fish/shrimp = 3,
-	)
-	/// An optional whitelist of fish that can get this trait
-	var/list/fish_whitelist
 	/// Depending on the value, fish with trait will be reported as more or less difficult in the catalog.
 	var/added_difficulty = 0
 
@@ -62,11 +32,12 @@ GLOBAL_LIST_INIT(spontaneous_fish_traits, populate_spontaneous_fish_traits())
 
 /datum/fish_trait/wary
 	name = "Wary"
-	catalog_description = "This fish will avoid visible fish lines, cloaked line recommended."
+	catalog_description = "This fish will avoid visible fishing lines. A thin line is recommended."
 
 /datum/fish_trait/wary/difficulty_mod(obj/item/fishingrod/rod, mob/fisherman)
 	. = ..()
-	if(!rod.line || !(rod.line.fishing_line_traits & FISHING_LINE_CLOAKED))
+	var/obj/item/fishing/reel/reel = rod.reel
+	if(!reel || !(reel.fishing_reel_traits & FISHING_REEL_THIN))
 		.[ADDITIVE_FISHING_MOD] += FISH_TRAIT_MINOR_DIFFICULTY_BOOST
 
 /datum/fish_trait/picky_eater
@@ -173,10 +144,6 @@ GLOBAL_LIST_INIT(spontaneous_fish_traits, populate_spontaneous_fish_traits())
 	name = "Camouflage"
 	catalog_description = "This fish possess the ability to blend with its surroundings."
 	added_difficulty = 5
-	spontaneous_manifest_types = list(
-		/obj/item/reagent_containers/food/snacks/fish/clownfish = 15,
-		/obj/item/reagent_containers/food/snacks/fish/eel = 8,
-	)
 
 /datum/fish_trait/camouflage/minigame_mod(obj/item/fishingrod/rod, mob/fisherman, datum/fishing_challenge/minigame)
 	minigame.special_effects |= FISHING_MINIGAME_RULE_CAMO

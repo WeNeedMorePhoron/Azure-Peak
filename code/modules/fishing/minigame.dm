@@ -146,23 +146,14 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 
 	/// Enable special parameters
 	if(rod.line)
-		completion_gain += 1 // Any fishing line will provide a small boost by default
-		if(rod.line.fishing_line_traits & FISHING_LINE_BOUNCY)
-			completion_loss -= 2
-		if(rod.line.fishing_line_traits & FISHING_LINE_STIFF)
-			completion_loss += 1
-			completion_gain -= 1
-		if(rod.line.fishing_line_traits & FISHING_LINE_AUTOREEL)
-			special_effects |= FISHING_MINIGAME_AUTOREEL
+		completion_gain += FISHING_LINE_ANY_GAIN
 	if(rod.hook)
 		if(rod.hook.fishing_hook_traits & FISHING_HOOK_WEIGHTED)
-			bait_bounce_mult = 0.1
+			bait_bounce_mult = FISHING_HOOK_IRON_BOUNCE
 		if(rod.hook.fishing_hook_traits & FISHING_HOOK_BIDIRECTIONAL)
 			special_effects |= FISHING_MINIGAME_RULE_BIDIRECTIONAL
 		if(rod.hook.fishing_hook_traits & FISHING_HOOK_NO_ESCAPE)
 			special_effects |= FISHING_MINIGAME_RULE_NO_ESCAPE
-		if(rod.hook.fishing_hook_traits & FISHING_HOOK_ENSNARE)
-			completion_loss -= 2
 		if(rod.hook.fishing_hook_traits & FISHING_HOOK_KILL)
 			special_effects |= FISHING_MINIGAME_RULE_KILL
 	if(rod.line && (rod.line.fishing_line_traits & FISHING_LINE_BOBBER))
@@ -273,16 +264,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 		return
 	float.spin_ready = TRUE
 	float.vand_update_appearance(UPDATE_OVERLAYS)
-	if(special_effects & FISHING_MINIGAME_AUTOREEL)
-		addtimer(CALLBACK(src, PROC_REF(auto_spin)), 0.2 SECONDS)
-
-/datum/fishing_challenge/proc/auto_spin()
-	if(phase != WAIT_PHASE || !float.spin_ready)
-		return
-	float.spin_ready = FALSE
-	float.vand_update_appearance(UPDATE_OVERLAYS)
-	set_lure_timers()
-	send_alert("spun")
 
 /datum/fishing_challenge/proc/missed_lure()
 	if(phase != WAIT_PHASE)
@@ -408,8 +389,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	else
 		deltimer(next_phase_timer)
 		wait_time = rand(wait_time_range[1], wait_time_range[2])
-		if(special_effects & FISHING_MINIGAME_AUTOREEL && wait_time >= 15 SECONDS)
-			wait_time = max(wait_time - 7.5 SECONDS, 15 SECONDS)
 	phase = WAIT_PHASE
 	//Bobbing animation
 	animate(float, pixel_z = 1, time = 1 SECONDS, loop = -1, flags = ANIMATION_RELATIVE)
@@ -433,8 +412,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	animate(pixel_z = -4, time = 0.6 SECONDS, flags = ANIMATION_RELATIVE)
 	addtimer(CALLBACK(src, PROC_REF(escalate_float_animation)), 1 SECONDS, TIMER_DELETE_ME)
 	addtimer(CALLBACK(src, PROC_REF(peak_float_animation)), 2 SECONDS, TIMER_DELETE_ME)
-	if(special_effects & FISHING_MINIGAME_AUTOREEL)
-		addtimer(CALLBACK(src, PROC_REF(automatically_start_minigame)), 0.2 SECONDS)
 	// Setup next phase
 	next_phase_timer = addtimer(CALLBACK(src, PROC_REF(start_baiting_phase)), BITING_TIME_WINDOW, TIMER_STOPPABLE|TIMER_DELETE_ME)
 	///If we're using a lure, we want the float to show a little green light during the minigame phase and not a red one.
@@ -455,10 +432,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	animate(float, pixel_z = 9, time = 0.25 SECONDS, loop = -1, flags = ANIMATION_RELATIVE)
 	animate(pixel_z = -9, time = 0.25 SECONDS, flags = ANIMATION_RELATIVE)
 	send_alert("now!")
-
-/datum/fishing_challenge/proc/automatically_start_minigame()
-	if(phase == BITING_PHASE)
-		start_minigame_phase(auto_reel = TRUE)
 
 ///The damage dealt per second to the fish when FISHING_MINIGAME_RULE_KILL is active.
 #define FISH_DAMAGE_PER_SECOND 2
@@ -484,12 +457,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	//winning by timeout / fish death shouldn't give as much experience.
 	experience_multiplier *= 0.5
 	complete(TRUE)
-
-/datum/fishing_challenge/proc/hurt_fish(datum/source, obj/item/reagent_containers/food/snacks/fish/reward)
-	SIGNAL_HANDLER
-	if(istype(reward))
-		var/damage = CEILING((world.time - start_time)/10 * FISH_DAMAGE_PER_SECOND, 1)
-		reward.damage_fish(damage)
 
 /datum/fishing_challenge/proc/get_difficulty()
 	var/list/difficulty_holder = list(0)
@@ -665,11 +632,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 				fishing_hud.icon_state = "background_antigrav"
 				SEND_SOUND(user, sound('sound/effects/arcade_jump.ogg', volume = 50))
 				COOLDOWN_START(src, active_effect_cd, rand(6, 9) SECONDS)
-			if(FISHING_MINIGAME_RULE_FLIP)
-				fishing_hud.icon_state = "background_flip"
-				fishing_hud.transform = fishing_hud.transform.Scale(1, -1)
-				SEND_SOUND(user, sound('sound/effects/boing.ogg'))
-				COOLDOWN_START(src, active_effect_cd, rand(5, 6) SECONDS)
 			if(FISHING_MINIGAME_RULE_CAMO)
 				fishing_hud.icon_state = "background_camo"
 				SEND_SOUND(user, sound('sound/effects/nightmare_poof.ogg', volume = 15))
@@ -684,9 +646,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 			inverted_sound.frequency = -1
 			SEND_SOUND(user, inverted_sound)
 			COOLDOWN_START(src, active_effect_cd, rand(10, 13) SECONDS)
-		if(FISHING_MINIGAME_RULE_FLIP)
-			fishing_hud.transform = fishing_hud.transform.Scale(1, -1)
-			COOLDOWN_START(src, active_effect_cd, rand(8, 12) SECONDS)
 		if(FISHING_MINIGAME_RULE_CAMO)
 			COOLDOWN_START(src, active_effect_cd, rand(9, 16) SECONDS)
 			SEND_SOUND(user, sound('sound/effects/nightmare_reappear.ogg', volume = 15))
@@ -766,14 +725,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 
 	if(current_active_effect == FISHING_MINIGAME_RULE_ANTIGRAV)
 		velocity_change = -velocity_change
-
-	if(reeling_state == REELING_STATE_IDLE && (special_effects & FISHING_MINIGAME_AUTOREEL))
-		var/bait_center = bait_position + bait_height / 2
-		var/auto_adjustment = reeling_velocity * 0.2
-		if(fish_position > bait_center)
-			velocity_change += auto_adjustment
-		else
-			velocity_change -= auto_adjustment
 
 	/**
 	 * Pull the brake on the velocity if the current velocity and the acceleration
@@ -903,7 +854,7 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 /// The visual that appears over the fishing spot
 /obj/effect/fishing_float
 	name = "float"
-	icon = 'icons/obj/fishing.dmi'
+	icon = 'icons/roguetown/items/fishing.dmi'
 	icon_state = "float"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	/**

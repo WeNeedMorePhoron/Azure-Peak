@@ -133,15 +133,6 @@
 	. += span_notice("It is [length_text] long and weighs some [weight_text].")
 
 /obj/item/reagent_containers/food/snacks/fish/proc/apply_traits()
-	var/list/potential_spontaneous_traits = GLOB.spontaneous_fish_traits[type]
-	for(var/trait_type in potential_spontaneous_traits)
-		if(!prob(potential_spontaneous_traits[trait_type]))
-			continue
-		var/datum/fish_trait/trait = GLOB.fish_traits[trait_type]
-		if(length(fish_traits & trait.incompatible_traits))
-			continue
-		fish_traits |= trait_type
-
 	for(var/fish_trait_type in fish_traits)
 		var/datum/fish_trait/trait = GLOB.fish_traits[fish_trait_type]
 		trait.apply_to_fish(src)
@@ -160,12 +151,6 @@
 			return ..()
 
 	return TRUE
-
-///Used to damage this fish while it's still alive. Prevents the fish from taking damage beyond the integrity_failure threshold
-/obj/item/reagent_containers/food/snacks/fish/proc/damage_fish(amount)
-	if(dead || amount <= 0)
-		return
-	take_damage(min(amount, obj_integrity - max_integrity * integrity_failure), sound_effect = FALSE, armor_penetration = 100)
 
 /// fish dies when its integrity reaches 50%
 /obj/item/reagent_containers/food/snacks/fish/obj_break(damage_flag)

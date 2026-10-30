@@ -32,7 +32,7 @@
 	var/list/summary_csv = list("source,bait,fish_pct,dud_pct,junk_pct,mob_pct,fish_out_pct,mammon_per_hour,mammon_per_catch")
 	var/list/catches_csv = list("source,bait,catch,count")
 	var/html = "<style>table{border-collapse:collapse;font-size:12px}th,td{border:1px solid #666;padding:3px 6px;text-align:right}td:first-child,th:first-child,td.l{text-align:left}tr.src td{background:#333;color:#fff;font-weight:bold}</style>"
-	html += "<p>[casts] casts over [FISHING_YIELD_HOURS] h per bait tier, every catch landed, no Cautious Fisher. Light and sky checks read your current turf. Prices are base sellprice; the rarity roll adds about 18% on average.</p>"
+	html += "<p>[casts] casts over [FISHING_YIELD_HOURS] h per bait tier, every catch landed, no Cautious Fisher. Prices are base sellprice; the rarity roll adds about 18% on average.</p>"
 	html += "<table><tr><th>Bait</th><th>Fish</th><th>Dud</th><th>Junk</th><th>Mobs</th><th>Casts with a fish out</th><th>Mammon/h</th><th>Mammon/catch</th><th class='l'>Catches</th></tr>"
 
 	for(var/datum/fish_source/source in sources)
@@ -124,7 +124,7 @@
 				sim.fish_counts[path] += 1
 				due.Cut(1, 2)
 		for(var/path in sim.fish_counts)
-			if(sim.fish_counts[path] <= 0 && ispath(path, /obj/item/reagent_containers/food/snacks/fish))
+			if(sim.is_exhausted(path) && ispath(path, /obj/item/reagent_containers/food/snacks/fish))
 				stats["fish_out"] += 1
 				break
 
@@ -133,7 +133,7 @@
 		if(path == FISHING_DUD)
 			stats["duds"] += 1
 			continue
-		if(!isnull(sim.fish_counts[path]))
+		if(sim.is_limited(path))
 			sim.fish_counts[path] -= 1
 			var/list/due = regen_due[path]
 			if(!due)

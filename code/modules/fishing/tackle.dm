@@ -25,10 +25,10 @@
 	name = "silk fishing line"
 	desc = "A fishing line made out of woven silk. Strong and thin, it's a common choice among seasoned fisherman."
 	icon_state = "silkreel"
-	fishing_reel_traits = FISHING_REEL_SMOOTH
+	fishing_reel_traits = FISHING_REEL_SMOOTH | FISHING_REEL_THIN
 
 /obj/item/fishing/reel/deluxe
 	name = "deluxe fishing line"
 	desc = "Extremely sought after by seasoned fisherman, this fishing line was blessed by Abyssorites in their underwater temples. A perfect fishing line that makes catching fishes much easier, if not for the cost."
 	icon_state = "deluxereel"
-	fishing_reel_traits = FISHING_REEL_BLESSED
+	fishing_reel_traits = FISHING_REEL_BLESSED | FISHING_REEL_THIN

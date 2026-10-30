@@ -576,6 +576,17 @@
 /obj/item/fishingrod/crafted
 	difficulty_modifier = FISHING_ROD_CRAFTED_DIFFICULTY
 
+/datum/crafting_recipe/roguetown/survival/rodbronze
+	name = "fishing rod, bronze"
+	display_category = ITEM_CAT_TOOLS_SUNDRIES
+	category = "Tools"
+	result = /obj/item/fishingrod/bronze
+	reqs = list(
+		/obj/item/grown/log/tree/small = 1,
+		/obj/item/natural/fibers = 2,
+		/obj/item/ingot/bronze = 1,
+		)
+
 /datum/crafting_recipe/roguetown/survival/rodblacksteel
 	name = "fishing rod, blacksteel"
 	display_category = ITEM_CAT_TOOLS_SUNDRIES
