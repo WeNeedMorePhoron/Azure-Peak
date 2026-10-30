@@ -58,6 +58,15 @@
 
 // The fish's quality, size, rarity, and sellprice is linked tightly together. Rarity is read off the catch's size against its species average. Bought and placed fish are average, so common.
 // Each fish produce a base amount of fillet, which is multiplied by its size and value.
+// Fish price ladder.
+#define FISH_PRICE_BAIT 3
+#define FISH_PRICE_COMMON 5
+#define FISH_PRICE_FAIR 8
+#define FISH_PRICE_GOOD 10
+#define FISH_PRICE_FINE 15
+#define FISH_PRICE_RARE 20
+#define FISH_PRICE_PRIZED 40
+
 #define FISH_RARITY_COMMON 0
 #define FISH_RARITY_RARE 1
 #define FISH_RARITY_ULTRA 2

@@ -12,7 +12,7 @@
 	var/no_rarity_sprite = FALSE // Whether this fish has rarity based sprites. If not, don't change icon states
 	var/sinkable = TRUE
 	max_integrity = 50
-	sellprice = 10
+	sellprice = FISH_PRICE_GOOD
 	dropshrink = 0.6
 	slices_num = 2
 	slice_bclass = BCLASS_CHOP
@@ -135,7 +135,7 @@
 	)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
-	sellprice = 15
+	sellprice = FISH_PRICE_FINE
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/fish/salmon
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/salmon
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/salmon
@@ -159,7 +159,7 @@
 	fish_traits = list(/datum/fish_trait/camouflage)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
-	sellprice = 15
+	sellprice = FISH_PRICE_FINE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/plaice
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/plaice
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
@@ -183,7 +183,7 @@
 	fish_traits = list(/datum/fish_trait/camouflage)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
-	sellprice = 5
+	sellprice = FISH_PRICE_COMMON
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/mudskipper
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/mudskipper
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
@@ -206,7 +206,7 @@
 	)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
-	sellprice = 10
+	sellprice = FISH_PRICE_GOOD
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/bass
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/bass
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
@@ -229,7 +229,7 @@
 	)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
-	sellprice = 3
+	sellprice = FISH_PRICE_BAIT
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sunny
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sunny
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
@@ -276,7 +276,7 @@
 	)
 	fish_traits = list(/datum/fish_trait/camouflage, /datum/fish_trait/picky_eater)
 	faretype = FARE_NEUTRAL
-	sellprice = 40
+	sellprice = FISH_PRICE_PRIZED
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/clownfish
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/clownfish
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
@@ -300,7 +300,7 @@
 		/obj/item/fishing/bait/speckled,
 	)
 	fish_traits = list(/datum/fish_trait/heavy, /datum/fish_trait/carnivore)
-	sellprice = 15
+	sellprice = FISH_PRICE_FINE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/angler
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/angler
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
@@ -324,7 +324,7 @@
 		/obj/item/fishing/bait/gray,
 	)
 	faretype = FARE_NEUTRAL
-	sellprice = 5
+	sellprice = FISH_PRICE_COMMON
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/eel
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/eel
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
@@ -347,7 +347,7 @@
 	fish_traits = list(/datum/fish_trait/camouflage)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
-	sellprice = 5
+	sellprice = FISH_PRICE_COMMON
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sole
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sole
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
@@ -532,7 +532,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/salmon/black_headed
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/salmon/black_headed
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
-	sellprice = 17
+	sellprice = FISH_PRICE_RARE
 
 /obj/item/reagent_containers/food/snacks/fish/flounder
 	name = "flounder"
@@ -555,7 +555,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/flounder
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/flounder
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
-	sellprice = 5
+	sellprice = FISH_PRICE_COMMON
 
 /obj/item/reagent_containers/food/snacks/fish/swamp_shrimp
 	name = "swamp shrimp"
@@ -579,7 +579,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_shrimp
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_shrimp
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
-	sellprice = 5
+	sellprice = FISH_PRICE_COMMON
 
 /obj/item/reagent_containers/food/snacks/fish/swamp_mother
 	name = "swamp mother"
@@ -604,7 +604,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_mother
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_mother
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
-	sellprice = 15
+	sellprice = FISH_PRICE_FINE
 
 /obj/item/reagent_containers/food/snacks/fish/black_bass
 	name = "black bass"
@@ -628,7 +628,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/black_bass
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/black_bass
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
-	sellprice = 7
+	sellprice = FISH_PRICE_FAIR
 
 /obj/item/reagent_containers/food/snacks/fish/zizo_abberation
 	name = "zizo abberation"
@@ -653,7 +653,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/zizo_abberation
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/zizo_abberation
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
-	sellprice = 20
+	sellprice = FISH_PRICE_RARE
 
 /obj/item/reagent_containers/food/snacks/fish/sturgeon
 	name = "sturgeon"
@@ -677,7 +677,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
-	sellprice = 15
+	sellprice = FISH_PRICE_PRIZED
 
 /obj/item/reagent_containers/food/snacks/fish/mackerel
 	name = "mackerel"
@@ -700,7 +700,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/mackerel
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/mackerel
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
-	sellprice = 5
+	sellprice = FISH_PRICE_COMMON
 
 /obj/item/reagent_containers/food/snacks/fish/beaksnapper
 	name = "beaksnapper"
@@ -724,4 +724,4 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/beaksnapper
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/beaksnapper
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
-	sellprice = 15
+	sellprice = FISH_PRICE_FINE

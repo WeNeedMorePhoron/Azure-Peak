@@ -15,7 +15,7 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
-	sellprice = 10
+	sellprice = FISH_PRICE_GOOD
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/crab
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/crab
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/crab
@@ -38,7 +38,7 @@
 	fish_traits = list(/datum/fish_trait/vegan)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
-	sellprice = 15
+	sellprice = FISH_PRICE_FINE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/clam
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/clam
 	cooked_smell = /datum/pollutant/food/fried_shellfish
@@ -62,7 +62,7 @@
 	fish_traits = list(/datum/fish_trait/heavy)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
-	sellprice = 15
+	sellprice = FISH_PRICE_FINE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/lobster
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/lobster
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish
@@ -87,7 +87,7 @@
 		/obj/item/fishing/bait/gray,
 	)
 	fish_traits = list(/datum/fish_trait/vegan)
-	sellprice = 8
+	sellprice = FISH_PRICE_FAIR
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/shrimp
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/shrimp
 	cooked_smell = /datum/pollutant/food/fried_shellfish
@@ -103,7 +103,7 @@
 	fishing_difficulty_modifier = -10
 	fish_movement_type = /datum/fish_movement/slow
 	fish_traits = list(/datum/fish_trait/vegan)
-	sellprice = 5
+	sellprice = FISH_PRICE_COMMON
 	var/closed
 	var/obj/item/pearl
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish
