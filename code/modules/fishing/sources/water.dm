@@ -14,7 +14,7 @@
 		/obj/item/reagent_containers/food/snacks/fish/sunny = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/carp = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/eel = FISH_STOCK_UNLIMITED,
-		/obj/item/reagent_containers/food/snacks/fish/black_bass = 4,
+		/obj/item/reagent_containers/food/snacks/fish/black_bass = 15,
 	)
 	fish_count_regen = list(
 		/obj/item/reagent_containers/food/snacks/fish/black_bass = 5 MINUTES,
@@ -37,7 +37,7 @@
 		/obj/item/reagent_containers/food/snacks/fish/sunny = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/carp = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/eel = FISH_STOCK_UNLIMITED,
-		/obj/item/reagent_containers/food/snacks/fish/black_bass = 4,
+		/obj/item/reagent_containers/food/snacks/fish/black_bass = 15,
 	)
 	fish_count_regen = list(
 		/obj/item/reagent_containers/food/snacks/fish/black_bass = 5 MINUTES,
@@ -60,7 +60,7 @@
 		/obj/item/reagent_containers/food/snacks/fish/sunny = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/black_bass = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/carp = FISH_STOCK_UNLIMITED,
-		/obj/item/reagent_containers/food/snacks/fish/salmon = 3,
+		/obj/item/reagent_containers/food/snacks/fish/salmon = 12,
 	)
 	fish_count_regen = list(
 		/obj/item/reagent_containers/food/snacks/fish/salmon = 8 MINUTES,
@@ -93,7 +93,7 @@
 		/obj/item/reagent_containers/food/snacks/fish/carp = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/eel = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/black_bass = FISH_STOCK_UNLIMITED,
-		/obj/item/reagent_containers/food/snacks/fish/salmon = 4,
+		/obj/item/reagent_containers/food/snacks/fish/salmon = 15,
 		/obj/item/reagent_containers/food/snacks/fish/sturgeon = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/wine = 1,
 		/obj/item/clothing/ring/gold = 1,
@@ -156,7 +156,7 @@
 	fish_counts = list(
 		/obj/item/reagent_containers/food/snacks/fish/mudskipper = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/swamp_shrimp = FISH_STOCK_UNLIMITED,
-		/obj/item/reagent_containers/food/snacks/fish/swamp_mother = 2,
+		/obj/item/reagent_containers/food/snacks/fish/swamp_mother = 8,
 		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 1,
 		/obj/item/clothing/ring/gold = 1,
 	)
@@ -184,7 +184,7 @@
 	fish_counts = list(
 		/obj/item/reagent_containers/food/snacks/fish/mudskipper = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/swamp_shrimp = FISH_STOCK_UNLIMITED,
-		/obj/item/reagent_containers/food/snacks/fish/swamp_mother = 3,
+		/obj/item/reagent_containers/food/snacks/fish/swamp_mother = 10,
 		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 2,
 		/obj/item/clothing/ring/gold = 1,
 		/mob/living/simple_animal/hostile/rogue/deepone/hound = 1,
@@ -233,9 +233,9 @@
 		/obj/item/reagent_containers/food/snacks/fish/bass = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/flounder = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/mackerel = FISH_STOCK_UNLIMITED,
-		/obj/item/reagent_containers/food/snacks/fish/beaksnapper = 3,
-		/obj/item/reagent_containers/food/snacks/fish/plaice = 3,
-		/obj/item/reagent_containers/food/snacks/fish/lobster = 3,
+		/obj/item/reagent_containers/food/snacks/fish/beaksnapper = 12,
+		/obj/item/reagent_containers/food/snacks/fish/plaice = 12,
+		/obj/item/reagent_containers/food/snacks/fish/lobster = 12,
 		/obj/item/reagent_containers/food/snacks/fish/angler = 1,
 		/obj/item/reagent_containers/food/snacks/fish/salmon/black_headed = 1,
 		/obj/item/reagent_containers/food/snacks/fish/clownfish = 1,
@@ -298,7 +298,7 @@
 		/obj/item/reagent_containers/food/snacks/fish/cod = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/bass = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/sole = FISH_STOCK_UNLIMITED,
-		/obj/item/reagent_containers/food/snacks/fish/lobster = 4,
+		/obj/item/reagent_containers/food/snacks/fish/lobster = 15,
 		/obj/item/reagent_containers/food/snacks/fish/clownfish = 2,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_squid = 1,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_eel = 1,

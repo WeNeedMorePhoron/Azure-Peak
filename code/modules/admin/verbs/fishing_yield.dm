@@ -15,6 +15,11 @@
 		"basic" = /obj/item/natural/worms,
 		"good" = /obj/item/natural/worms/grubs,
 		"great" = /obj/item/reagent_containers/food/snacks/eoran_aril/cerulean,
+		"red" = /obj/item/fishing/lure/meat,
+		"dough" = /obj/item/fishing/lure/dough,
+		"gray" = /obj/item/fishing/lure/gray,
+		"speckled" = /obj/item/fishing/lure/speckled,
+		"enchanted" = /obj/item/fishing/lure/deluxe,
 	)
 	var/mob/fisherman = mob
 	var/turf/location = get_turf(fisherman)
@@ -32,7 +37,7 @@
 	var/list/summary_csv = list("source,bait,fish_pct,dud_pct,junk_pct,mob_pct,fish_out_pct,mammon_per_hour,mammon_per_catch")
 	var/list/catches_csv = list("source,bait,catch,count")
 	var/html = "<style>table{border-collapse:collapse;font-size:12px}th,td{border:1px solid #666;padding:3px 6px;text-align:right}td:first-child,th:first-child,td.l{text-align:left}tr.src td{background:#333;color:#fff;font-weight:bold}</style>"
-	html += "<p>[casts] casts over [FISHING_YIELD_HOURS] h per bait tier, every catch landed, no Cautious Fisher. Prices are base sellprice; the rarity roll adds about 18% on average.</p>"
+	html += "<p>[casts] casts over [FISHING_YIELD_HOURS] h per bait, every catch landed, no fisher trait, no region change. Live bait tiers first, then the five rolled baits. Prices are base sellprice; the rarity roll adds about 18% on average.</p>"
 	html += "<table><tr><th>Bait</th><th>Fish</th><th>Dud</th><th>Junk</th><th>Mobs</th><th>Casts with a fish out</th><th>Mammon/h</th><th>Mammon/catch</th><th class='l'>Catches</th></tr>"
 
 	for(var/datum/fish_source/source in sources)

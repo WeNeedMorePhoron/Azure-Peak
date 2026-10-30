@@ -163,6 +163,10 @@
 	baitresilience = 4
 	isbait = TRUE
 
+/obj/item/reagent_containers/food/snacks/eoran_aril/cerulean/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_OMNI_BAIT, INNATE_TRAIT)
+
 /obj/item/reagent_containers/food/snacks/eoran_aril/fractal
 	name = "fractal aril"
 	desc = "A geometrically perfect seed that hurts to look at."

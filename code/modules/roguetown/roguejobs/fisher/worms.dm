@@ -1,7 +1,7 @@
 /obj/item
 	// Quality of the bait, used to determien the fishing pool distribution
 	var/bait_quality
-	/// Cage catches this bait survives before it is used up.
+	/// Catches this bait survives, on the rod or in the cage, before it is used up. Zero and one both mean a single catch.
 	var/baitresilience = 0
 	var/isbait = FALSE	// Is the item in question bait to be used?
 	var/bait_flag = NONE
