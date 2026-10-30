@@ -252,6 +252,15 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 			table -= result
 	return pickweight(table) || FISHING_DUD
 
+/// Roll only fish and creatures, for miracle compulsion. Returns a path or FISHING_DUD.
+/datum/fish_source/proc/roll_compelled_reward(atom/location)
+	var/list/table = get_fish_table(location)
+	for(var/result in table)
+		if(result == FISHING_DUD || ispath(result, /obj/item/reagent_containers/food/snacks/fish) || ispath(result, /mob/living))
+			continue
+		table -= result
+	return pickweight(table) || FISHING_DUD
+
 /**
  * Used to register signals or add traits and the such right after conditions have been cleared
  * and before the minigame starts.

@@ -20,15 +20,6 @@
 	miracle = TRUE
 	devotion_cost = 10
 	var/channeling
-	//Horrendous carry-over from fishing code
-	var/list/fishingMods = list(
-		"commonFishingMod" = 0.8,
-		"rareFishingMod" = 1,
-		"treasureFishingMod" = 0,
-		"trashFishingMod" = 0,
-		"dangerFishingMod" = 0.1,
-		"ceruleanFishingMod" = 0 // 1 on cerulean aril, 0 on everything else
-	)
 
 /proc/abyssor_fish_arc(atom/movable/AF, turf/T, mob/user)
 	var/turf/user_turf = get_turf(user)
@@ -144,8 +135,9 @@
 		revert_cast()
 		return FALSE
 
-	var/A = getfishingloot(user, fishingMods.Copy(), T, 0.5)
-	if(!A)
+	var/datum/fish_source/source = T.get_fish_source()
+	var/A = source ? source.roll_compelled_reward(T) : FISHING_DUD
+	if(A == FISHING_DUD)
 //		to_chat(user, "FAIL: no loot roll")
 		to_chat(user, span_warning("The waters remain still."))
 		channeling = FALSE
@@ -154,7 +146,7 @@
 
 //	to_chat(user, "First pull success: [A]")
 
-	var/atom/movable/AF = new A(T)
+	var/atom/movable/AF = source.simple_dispense_reward(A, T, T)
 	if(!AF)
 //		to_chat(user, "FAIL: spawn failed")
 		channeling = FALSE
@@ -206,15 +198,15 @@
 
 //		to_chat(user, "do_after success")
 
-		var/A2 = getfishingloot(user, fishingMods.Copy(), T, 0.5)
-		if(!A2)
+		var/A2 = source.roll_compelled_reward(T)
+		if(A2 == FISHING_DUD)
 //			to_chat(user, "BREAK: no loot roll")
 			to_chat(user, span_warning("The waters remain still."))
 			break
 
 //		to_chat(user, "Loop pull success: [A2]")
 
-		var/atom/movable/AF2 = new A2(T)
+		var/atom/movable/AF2 = source.simple_dispense_reward(A2, T, T)
 		if(!AF2)
 //			to_chat(user, "BREAK: spawn failed")
 			break
