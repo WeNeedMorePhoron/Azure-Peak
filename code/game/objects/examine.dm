@@ -141,7 +141,8 @@
 			baitquality = "good"
 		else if(HAS_TRAIT(src, TRAIT_BASIC_QUALITY_BAIT))
 			baitquality = "passable"
-		. += span_info("It is \a [baitquality] bait for fish.")
+		var/catches = max(1, baitresilience)
+		. += span_info("It is \a [baitquality] bait for fish. This bait will last [catches] [catches == 1 ? "catch" : "catches"].")
 
 	for(var/datum/examine_effect/E in examine_effects)
 		E.trigger(user)
