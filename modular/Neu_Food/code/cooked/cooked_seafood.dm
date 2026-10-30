@@ -174,3 +174,8 @@
 	name = "beaksnapper"
 	icon_state = "beaksnapper"
 	faretype = FARE_FINE
+
+/obj/item/reagent_containers/food/snacks/rogue/fryfish/swordfish
+	name = "cooked swordfish"
+	icon_state = "swordfishcooked"
+	faretype = FARE_FINE

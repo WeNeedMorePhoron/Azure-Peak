@@ -75,6 +75,9 @@
 #define FISH_FILLETS_HUGE 6
 #define FISH_FILLETS_GIANT 8
 
+// Swordfish doubles as a dagger
+#define SWORDFISH_FORCE 12
+
 #define FISH_RARITY_COMMON 0
 #define FISH_RARITY_RARE 1
 #define FISH_RARITY_ULTRA 2

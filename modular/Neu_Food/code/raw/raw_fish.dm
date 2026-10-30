@@ -757,3 +757,38 @@
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/beaksnapper
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
 	sellprice = FISH_PRICE_FINE
+
+/obj/item/reagent_containers/food/snacks/fish/swordfish
+	name = "swordfish"
+	desc = "It is said that Abyssor created the swordfish in Ravox's image, and gave it a very long sword on its nose which it uses to joust and hunt the other fishes of the sea. They are found in small numbers in the open ocean, and a shoal of swordfish is said to be a sign of ill omen and great misfortune, for Abyssor's rage is sure to arrive soon after. Their flesh is sometimes orange-ish and very firm, and they are large enough to be grilled as steaks."
+	icon_state = "swordfish"
+	fish_id = "swordfish"
+	average_size = 30
+	average_weight = 200
+	required_fluid_type = FISH_FLUID_SALTWATER
+	fishing_difficulty_modifier = 25
+	fish_movement_type = /datum/fish_movement/accelerando
+	force = SWORDFISH_FORCE
+	dropshrink = 0.8
+	possible_item_intents = list(DAGGER_THRUST, /datum/intent/food)
+	associated_skill = /datum/skill/combat/knives
+	favorite_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_MEAT,
+		),
+	)
+	disliked_bait = list(
+		list(
+			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
+			FISH_BAIT_VALUE = DISH_VEGETABLE,
+		),
+	)
+	fish_traits = list(/datum/fish_trait/carnivore)
+	faretype = FARE_FINE
+	slices_num = FISH_FILLETS_GIANT
+	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swordfish
+	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swordfish
+	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
+	cooked_smell = /datum/pollutant/food/baked_swordfish
+	sellprice = FISH_PRICE_PRIZED
