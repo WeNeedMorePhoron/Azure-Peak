@@ -6,7 +6,7 @@
 	dropshrink = 0.8
 	icon = 'icons/roguetown/items/surgery.dmi'
 	icon_state = "leech"
-	baitpenalty = 0
+	bait_quality = TRAIT_GOOD_QUALITY_BAIT
 	baitresilience = 3
 
 	embedding = list(

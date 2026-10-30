@@ -159,7 +159,7 @@
 	desc = "A deep blue seed that smells of the ocean."
 	icon_state = "cerulean"
 	effect_desc = "Excellent fishing bait that attracts treasure."
-	baitpenalty = 5
+	bait_quality = TRAIT_GREAT_QUALITY_BAIT
 	baitresilience = 4
 	isbait = TRUE
 

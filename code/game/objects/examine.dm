@@ -133,6 +133,16 @@
 		var/heresy_tooltip = get_examine_highlight_explanation(severity)
 		. += span_info(SPAN_TOOLTIP_DANGEROUS_HTML(heresy_tooltip, heresy_desc))
 
+	if(isbait)
+		var/baitquality = "poor"
+		if(HAS_TRAIT(src, TRAIT_GREAT_QUALITY_BAIT))
+			baitquality = "excellent"
+		else if(HAS_TRAIT(src, TRAIT_GOOD_QUALITY_BAIT))
+			baitquality = "good"
+		else if(HAS_TRAIT(src, TRAIT_BASIC_QUALITY_BAIT))
+			baitquality = "passable"
+		. += span_info("It is \a [baitquality] bait for fish.")
+
 	for(var/datum/examine_effect/E in examine_effects)
 		E.trigger(user)
 

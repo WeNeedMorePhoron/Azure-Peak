@@ -1,6 +1,8 @@
 /obj/item
-	var/baitpenalty = 100 // Using this as bait will incurr a penalty to fishing chance. 100 makes it useless as bait. Lower values are better, but Never make it past 10.
-	var/baitresilience = 0 // How resilient bait is. Decreases by 2 for every catch, decreases by 1 when used by a master or better. Bait cannot be consumed whilst it has resilience left.
+	// Quality of the bait, used to determien the fishing pool distribution
+	var/bait_quality
+	/// Cage catches this bait survives before it is used up.
+	var/baitresilience = 0
 	var/isbait = FALSE	// Is the item in question bait to be used?
 	var/bait_flag = NONE
 
@@ -9,7 +11,7 @@
 	desc = "The favorite bait of the courageous fishermen who venture these dark waters."
 	icon_state = "worm1"
 	throwforce = 10
-	baitpenalty = 10
+	bait_quality = TRAIT_BASIC_QUALITY_BAIT
 	isbait = TRUE
 	color = "#985544"
 	w_class = WEIGHT_CLASS_TINY
@@ -25,7 +27,7 @@
 /obj/item/natural/worms/grubs
 	name = "grub"
 	desc = "Bait for the desperate, or the daring."
-	baitpenalty = 5
+	bait_quality = TRAIT_GOOD_QUALITY_BAIT
 	isbait = TRUE
 	color = null
 	baitresilience = 2

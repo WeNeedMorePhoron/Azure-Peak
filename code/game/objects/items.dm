@@ -326,6 +326,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		pixel_x = rand(-5,5)
 		pixel_y = rand(-5,5)
 
+	if(bait_quality)
+		ADD_TRAIT(src, bait_quality, INNATE_TRAIT)
+
 	if(grid_width <= 0)
 		grid_width = (w_class * world.icon_size)
 	if(grid_height <= 0)

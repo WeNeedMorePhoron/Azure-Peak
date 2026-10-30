@@ -6,7 +6,7 @@
 	// Don't lower the size, they'll make effective throwing weapons otherwise.
 	w_class = WEIGHT_CLASS_NORMAL
 	isbait = TRUE
-	baitpenalty = 5
+	bait_quality = TRAIT_GOOD_QUALITY_BAIT
 	baitresilience = 5
 	dropshrink = 0.85
 
@@ -17,7 +17,7 @@
 	desc = "This leechtick has feasted on lux and digested it. A crazy person might use this for revival..."
 	sellprice = 40
 	isbait = TRUE
-	baitpenalty = 0
+	bait_quality = TRAIT_GREAT_QUALITY_BAIT
 	baitresilience = 10
 
 /obj/item/leechtick/afterattack(atom/target, mob/user, proximity_flag, click_parameters)

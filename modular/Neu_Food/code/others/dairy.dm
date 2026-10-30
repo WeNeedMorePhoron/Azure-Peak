@@ -295,7 +295,7 @@
 	slices_num = null
 	slice_path = null
 	become_rot_type = null
-	baitpenalty = 10
+	bait_quality = TRAIT_BASIC_QUALITY_BAIT
 	isbait = TRUE
 
 /obj/item/reagent_containers/food/snacks/rogue/cheddarslice/aged
@@ -306,6 +306,7 @@
 	faretype = FARE_FINE
 	become_rot_type = null
 	rotprocess = null
+	bait_quality = TRAIT_GOOD_QUALITY_BAIT
 
 // -------------- FROSTING -----------------
 /obj/item/reagent_containers/food/snacks/rogue/frosting
