@@ -80,7 +80,9 @@
 #define FISHING_FAIR_CATCH_RATIO 0.45
 #define FISHING_CLEAN_CATCH_SIZE_MULT 1.3
 #define FISHING_POOR_CATCH_SIZE_MULT 0.8
-#define FISHING_CLEAN_CATCH_COLOR "#ffd700"
+#define FISHING_CLEAN_CATCH_COLOR "#ffe14a"
+// Brighten the catch color because the pixels are dark
+#define FISHING_CATCH_BAND_BRIGHTNESS 1.8
 #define FISHING_FAIR_CATCH_COLOR "#5fbf5f"
 #define FISHING_POOR_CATCH_COLOR "#d04040"
 

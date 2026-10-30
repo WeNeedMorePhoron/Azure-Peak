@@ -623,11 +623,11 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 		return
 	switch(catch_band)
 		if(CATCH_BAND_CLEAN)
-			fishing_hud.hud_completion.color = color_matrix_recolor(FISHING_CLEAN_CATCH_COLOR)
+			fishing_hud.hud_completion.color = color_matrix_recolor(FISHING_CLEAN_CATCH_COLOR, FISHING_CATCH_BAND_BRIGHTNESS)
 		if(CATCH_BAND_FAIR)
-			fishing_hud.hud_completion.color = color_matrix_recolor(FISHING_FAIR_CATCH_COLOR)
+			fishing_hud.hud_completion.color = color_matrix_recolor(FISHING_FAIR_CATCH_COLOR, FISHING_CATCH_BAND_BRIGHTNESS)
 		else
-			fishing_hud.hud_completion.color = color_matrix_recolor(FISHING_POOR_CATCH_COLOR)
+			fishing_hud.hud_completion.color = color_matrix_recolor(FISHING_POOR_CATCH_COLOR, FISHING_CATCH_BAND_BRIGHTNESS)
 
 /datum/fishing_challenge/proc/apply_catch_quality(obj/item/reagent_containers/food/snacks/fish/fish)
 	switch(catch_band)

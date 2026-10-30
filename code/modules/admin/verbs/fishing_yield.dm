@@ -1,6 +1,8 @@
 #define FISHING_YIELD_CASTS_PER_HOUR 120
 #define FISHING_YIELD_HOURS 1
 #define FISHING_YIELD_RODLESS_ROLLS 1000
+/// Time lost walking to a fresh region once the current one reads as fished out.
+#define FISHING_YIELD_WALK_TIME (2 MINUTES)
 #define FISHING_YIELD_SUMMARY_PATH "data/fishing_yield_summary.csv"
 #define FISHING_YIELD_CATCHES_PATH "data/fishing_yield_catches.csv"
 
@@ -34,23 +36,24 @@
 		if(length(source.fish_table))
 			sources += source
 
-	var/list/summary_csv = list("source,bait,fish_pct,dud_pct,junk_pct,mob_pct,fish_out_pct,mammon_per_hour,mammon_per_catch")
+	var/list/summary_csv = list("source,bait,casts,fish_pct,dud_pct,junk_pct,mob_pct,regions,baits_used,rare,ultra,legendary,mammon_per_hour,mammon_per_catch")
 	var/list/catches_csv = list("source,bait,catch,count")
 	var/html = "<style>table{border-collapse:collapse;font-size:12px}th,td{border:1px solid #666;padding:3px 6px;text-align:right}td:first-child,th:first-child,td.l{text-align:left}tr.src td{background:#333;color:#fff;font-weight:bold}</style>"
-	html += "<p>[casts] casts over [FISHING_YIELD_HOURS] h per bait, every catch landed, no fisher trait, no region change. Live bait tiers first, then the five rolled baits. Prices are base sellprice; rarity now follows size and adds roughly a third on average over a normal roll, more for clean catches.</p>"
-	html += "<table><tr><th>Bait</th><th>Fish</th><th>Dud</th><th>Junk</th><th>Mobs</th><th>Casts with a fish out</th><th>Mammon/h</th><th>Mammon/catch</th><th class='l'>Catches</th></tr>"
+	html += "<p>One cast every [3600 / FISHING_YIELD_CASTS_PER_HOUR] seconds for [FISHING_YIELD_HOURS] h per bait, every catch landed as a fair catch, no fisher trait. The fisher walks to a fresh region when the water reads as fished out, losing [FISHING_YIELD_WALK_TIME / 600] minutes each time. Baits are used up as in play. Rarity is rolled from size as in play; prices include rarity and the royal fish bonus.</p>"
+	html += "<table><tr><th>Bait</th><th>Casts</th><th>Fish</th><th>Dud</th><th>Junk</th><th>Mobs</th><th>Regions</th><th>Baits used</th><th>Rare / ultra / legendary</th><th>Mammon/h</th><th>Mammon/catch</th><th class='l'>Catches</th></tr>"
 
 	for(var/datum/fish_source/source in sources)
 		var/source_name = source.catalog_description || "[source.type]"
-		html += "<tr class='src'><td colspan=9>[source_name]</td></tr>"
+		html += "<tr class='src'><td colspan=12>[source_name]</td></tr>"
 		for(var/bait_name in baits)
 			var/obj/item/fishingrod/fisher/rod = new
 			var/bait_path = baits[bait_name]
 			if(bait_path)
 				rod.baited = new bait_path(rod)
-			var/list/stats = fishing_yield_simulate(source, rod, fisherman, location, casts, interval)
+			var/list/stats = fishing_yield_simulate(source, rod, fisherman, location, casts * interval, interval)
 			qdel(rod)
-			var/pct = 100 / casts
+			var/made = stats["casts"]
+			var/pct = made ? 100 / made : 0
 			var/caught = stats["fish"] + stats["junk"] + stats["mobs"]
 			var/mammon_h = round(stats["mammon"] / FISHING_YIELD_HOURS, 0.1)
 			var/mammon_c = caught ? round(stats["mammon"] / caught, 0.1) : 0
@@ -59,8 +62,9 @@
 			for(var/path in tally)
 				catch_lines += "[fishing_yield_name(path)] [tally[path]]"
 				catches_csv += "[source_name],[bait_name],[fishing_yield_name(path)],[tally[path]]"
-			html += "<tr><td>[bait_name]</td><td>[round(stats["fish"] * pct)]%</td><td>[round(stats["duds"] * pct)]%</td><td>[round(stats["junk"] * pct)]%</td><td>[round(stats["mobs"] * pct)]%</td><td>[round(stats["fish_out"] * pct)]%</td><td>[mammon_h]</td><td>[mammon_c]</td><td class='l'>[catch_lines.Join(", ")]</td></tr>"
-			summary_csv += "[source_name],[bait_name],[round(stats["fish"] * pct)],[round(stats["duds"] * pct)],[round(stats["junk"] * pct)],[round(stats["mobs"] * pct)],[round(stats["fish_out"] * pct)],[mammon_h],[mammon_c]"
+			var/rarities = "[stats["rare"]] / [stats["ultra"]] / [stats["legendary"]]"
+			html += "<tr><td>[bait_name]</td><td>[made]</td><td>[round(stats["fish"] * pct)]%</td><td>[round(stats["duds"] * pct)]%</td><td>[round(stats["junk"] * pct)]%</td><td>[round(stats["mobs"] * pct)]%</td><td>[stats["regions"]]</td><td>[stats["baits"]]</td><td>[rarities]</td><td>[mammon_h]</td><td>[mammon_c]</td><td class='l'>[catch_lines.Join(", ")]</td></tr>"
+			summary_csv += "[source_name],[bait_name],[made],[round(stats["fish"] * pct)],[round(stats["duds"] * pct)],[round(stats["junk"] * pct)],[round(stats["mobs"] * pct)],[stats["regions"]],[stats["baits"]],[stats["rare"]],[stats["ultra"]],[stats["legendary"]],[mammon_h],[mammon_c]"
 	html += "</table>"
 
 	html += "<h3>Rodless rolls ([FISHING_YIELD_RODLESS_ROLLS] per source, no depletion)</h3>"
@@ -70,8 +74,8 @@
 		var/list/spear = fishing_yield_rodless(source, location, TRUE)
 		var/list/compel = fishing_yield_rodless(source, location, FALSE)
 		html += "<tr><td>[source_name]</td><td>[spear["fish"]]%</td><td>[spear["mobs"]]%</td><td>[spear["mammon"]]</td><td>[compel["fish"]]%</td><td>[compel["mobs"]]%</td><td>[compel["mammon"]]</td></tr>"
-		summary_csv += "[source_name],spear,[spear["fish"]],,,[spear["mobs"]],,,[spear["mammon"]]"
-		summary_csv += "[source_name],compulsion,[compel["fish"]],,,[compel["mobs"]],,,[compel["mammon"]]"
+		summary_csv += "[source_name],spear,,[spear["fish"]],,,[spear["mobs"]],,,,,,,[spear["mammon"]]"
+		summary_csv += "[source_name],compulsion,,[compel["fish"]],,,[compel["mobs"]],,,,,,,[compel["mammon"]]"
 	html += "</table>"
 
 	var/datum/fish_source/cage = GLOB.preset_fish_sources[/datum/fish_source/cage]
@@ -79,8 +83,8 @@
 	var/cage_slow = round(cage_value * 3600 / FISHING_CAGE_CATCH_TIME_SLOWEST, 0.1)
 	var/cage_fast = round(cage_value * 3600 / FISHING_CAGE_CATCH_TIME_FASTEST, 0.1)
 	html += "<p>Cage: [cage_value] mammon per catch, [cage_slow]/h unskilled to [cage_fast]/h legendary, one bait resilience per catch.</p>"
-	summary_csv += "cage,unskilled,,,,,,[cage_slow],[cage_value]"
-	summary_csv += "cage,legendary,,,,,,[cage_fast],[cage_value]"
+	summary_csv += "cage,unskilled,,,,,,,,,,,[cage_slow],[cage_value]"
+	summary_csv += "cage,legendary,,,,,,,,,,,[cage_fast],[cage_value]"
 
 	var/datum/browser/popup = new(mob, "fishing_yield", "Fishing Yield", 1200, 800)
 	popup.set_content(html)
@@ -97,6 +101,31 @@
 	var/obj/item/item = path
 	return initial(item.sellprice)
 
+/// Rolls a size against the species average the way a fair catch does and returns the rarity rank it would land.
+/proc/fishing_yield_roll_rarity()
+	var/ratio = clamp(gaussian(1, 0.4), 1 / MAX_FISH_DEVIATION_COEFF, MAX_FISH_DEVIATION_COEFF)
+	if(ratio >= FISH_RARITY_LEGENDARY_RATIO)
+		return FISH_RARITY_LEGENDARY
+	if(ratio >= FISH_RARITY_ULTRA_RATIO)
+		return FISH_RARITY_ULTRA
+	if(ratio >= FISH_RARITY_RARE_RATIO)
+		return FISH_RARITY_RARE
+	return FISH_RARITY_COMMON
+
+/// What a fish of this species and rarity sells for, royal bonus included.
+/proc/fishing_yield_fish_price(path, rarity)
+	var/price = fishing_yield_price(path)
+	switch(rarity)
+		if(FISH_RARITY_LEGENDARY)
+			price *= FISH_RARITY_LEGENDARY_PRICE_MULT
+		if(FISH_RARITY_ULTRA)
+			price *= FISH_RARITY_ULTRA_PRICE_MULT
+		if(FISH_RARITY_RARE)
+			price *= FISH_RARITY_RARE_PRICE_MULT
+	if(/datum/fish_trait/prehistoric in SSfishing.fish_properties[path][FISH_PROPERTIES_TRAITS])
+		price *= FISH_ROYAL_PRICE_MULT
+	return price
+
 /proc/fishing_yield_name(path)
 	if(path == FISHING_DUD)
 		return "dud"
@@ -112,26 +141,25 @@
 		value += table[result] * fishing_yield_price(result)
 	return total ? round(value / total, 0.1) : 0
 
-/// Walks a session of casts against a throwaway copy of the source, with counts and chained regen on a virtual clock.
-/proc/fishing_yield_simulate(datum/fish_source/preset, obj/item/fishingrod/rod, mob/fisherman, atom/location, casts, interval)
+/// Walks a session against throwaway copies of the source on a virtual clock: counts deplete and regen in chains, the fisher moves to a fresh region when the water reads as fished out, baits are spent as in play, and every fish rolls a size for its rarity.
+/proc/fishing_yield_simulate(datum/fish_source/preset, obj/item/fishingrod/rod, mob/fisherman, atom/location, session_time, interval)
 	var/source_type = preset.type
 	var/datum/fish_source/sim = new source_type
 	var/list/regen_due = list()
 	var/list/tally = list()
-	var/list/stats = list("fish" = 0, "duds" = 0, "junk" = 0, "mobs" = 0, "fish_out" = 0, "mammon" = 0)
+	var/list/stats = list("casts" = 0, "fish" = 0, "duds" = 0, "junk" = 0, "mobs" = 0, "regions" = 1, "baits" = 0, "rare" = 0, "ultra" = 0, "legendary" = 0, "mammon" = 0)
 	var/now = 0
+	var/bait_life = rod.baited ? max(1, rod.baited.baitresilience) : 0
+	var/bait_left = bait_life
 
-	for(var/i in 1 to casts)
+	while(now + interval <= session_time)
 		now += interval
+		stats["casts"] += 1
 		for(var/path in regen_due)
 			var/list/due = regen_due[path]
 			while(length(due) && due[1] <= now)
 				sim.fish_counts[path] += 1
 				due.Cut(1, 2)
-		for(var/path in sim.fish_counts)
-			if(sim.is_exhausted(path) && ispath(path, /obj/item/reagent_containers/food/snacks/fish))
-				stats["fish_out"] += 1
-				break
 
 		var/result = pickweight(sim.get_modified_fish_table(rod, fisherman, location)) || FISHING_DUD
 		var/path = sim.get_fish_path(result)
@@ -146,14 +174,38 @@
 				regen_due[path] = due
 			var/start = length(due) ? due[length(due)] : now
 			due += start + sim.fish_count_regen[path]
-		if(ispath(path, /obj/item/reagent_containers/food/snacks/fish))
+		var/is_fish = ispath(path, /obj/item/reagent_containers/food/snacks/fish)
+		if(is_fish)
 			stats["fish"] += 1
+			var/rarity = fishing_yield_roll_rarity()
+			switch(rarity)
+				if(FISH_RARITY_RARE)
+					stats["rare"] += 1
+				if(FISH_RARITY_ULTRA)
+					stats["ultra"] += 1
+				if(FISH_RARITY_LEGENDARY)
+					stats["legendary"] += 1
+			stats["mammon"] += fishing_yield_fish_price(path, rarity)
 		else if(ispath(path, /mob/living))
 			stats["mobs"] += 1
 		else
 			stats["junk"] += 1
+			stats["mammon"] += fishing_yield_price(path)
 		tally[path] += 1
-		stats["mammon"] += fishing_yield_price(path)
+		if(bait_life && (is_fish || ispath(path, /mob/living)))
+			bait_left--
+			if(bait_left <= 0)
+				stats["baits"] += 1
+				bait_left = bait_life
+
+		var/ratio = sim.prized_stock_ratio()
+		if(!isnull(ratio) && ratio < FISHING_STOCK_LOW_RATIO)
+			sim.cleanup_generated_fish()
+			qdel(sim)
+			sim = new source_type
+			regen_due = list()
+			stats["regions"] += 1
+			now += FISHING_YIELD_WALK_TIME
 
 	sim.cleanup_generated_fish()
 	qdel(sim)
@@ -178,5 +230,6 @@
 #undef FISHING_YIELD_CASTS_PER_HOUR
 #undef FISHING_YIELD_HOURS
 #undef FISHING_YIELD_RODLESS_ROLLS
+#undef FISHING_YIELD_WALK_TIME
 #undef FISHING_YIELD_SUMMARY_PATH
 #undef FISHING_YIELD_CATCHES_PATH
