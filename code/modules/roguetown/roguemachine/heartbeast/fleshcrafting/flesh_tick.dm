@@ -7,15 +7,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	isbait = TRUE
 	baitpenalty = 5
-	fishingMods=list(
-		"commonFishingMod" = 0.8,
-		"rareFishingMod" = 1.2,
-		"treasureFishingMod" = 0.5,
-		"trashFishingMod" = 1,
-		"dangerFishingMod" = 1.1,
-		"ceruleanFishingMod" = 0, // 1 on cerulean aril, 0 on everything else
-		"cheeseFishingMod" = 0 // Just for the funny gimmick of a chance for rats and rouses.
-	)
 	baitresilience = 5
 	dropshrink = 0.85
 
@@ -27,15 +18,6 @@
 	sellprice = 40
 	isbait = TRUE
 	baitpenalty = 0
-	fishingMods=list(
-		"commonFishingMod" = 0.65,
-		"rareFishingMod" = 1.35,
-		"treasureFishingMod" = 0.5,
-		"trashFishingMod" = 0.9,
-		"dangerFishingMod" = 1,
-		"ceruleanFishingMod" = 0, // 1 on cerulean aril, 0 on everything else
-		"cheeseFishingMod" = 0 // Just for the funny gimmick of a chance for rats and rouses.
-	)
 	baitresilience = 10
 
 /obj/item/leechtick/afterattack(atom/target, mob/user, proximity_flag, click_parameters)

@@ -7,15 +7,6 @@
 	icon = 'icons/roguetown/items/surgery.dmi'
 	icon_state = "leech"
 	baitpenalty = 0
-	fishingMods=list(
-		"commonFishingMod" = 0.7,
-		"rareFishingMod" = 1.3,
-		"treasureFishingMod" = 1,
-		"trashFishingMod" = 1,
-		"dangerFishingMod" = 1.1,
-		"ceruleanFishingMod" = 0, // 1 on cerulean aril, 0 on everything else
-		"cheeseFishingMod" = 0 // Just for the funny gimmick of a chance for rats and rouses.
-	)
 	baitresilience = 3
 
 	embedding = list(
