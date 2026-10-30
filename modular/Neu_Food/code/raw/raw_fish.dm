@@ -657,12 +657,12 @@
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
 	sellprice = FISH_PRICE_FAIR
 
-/obj/item/reagent_containers/food/snacks/fish/zizo_abberation
-	name = "zizo abberation"
+/obj/item/reagent_containers/food/snacks/fish/murkfang
+	name = "murkfang"
 	fish_flags = NONE
-	icon_state = "zizo_abberation"
-	desc = "Zizo Aberration is a cave-dwelling creature found in murky underground waters. It is edible, but widely nicknamed the “Zizo creature” due to its disgusting behavior, it viciously bites any hand that comes into contact with it, whether in water or out."
-	fish_id = "zizo_abberation"
+	icon_state = "murkfang"
+	desc = "A terrifying fish with bloodied teeth, purple skin and red eyes. It is surprisingly edible. It viciously bites anything that comes into contact with it, in or out of water. Inhabitants of the Terrorbog call it 'Zizo's Creechur' for its behavior. Usually cooked and eaten on the spot, because people will seldom buy it."
+	fish_id = "murkfang"
 	average_size = 4
 	average_weight = 3
 	required_fluid_type = FISH_FLUID_FRESHWATER
@@ -678,8 +678,8 @@
 	faretype = FARE_NEUTRAL
 	slices_num = FISH_FILLETS_MEDIUM
 	no_rarity_sprite = TRUE
-	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/zizo_abberation
-	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/zizo_abberation
+	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/murkfang
+	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/murkfang
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
 	sellprice = FISH_PRICE_RARE
 

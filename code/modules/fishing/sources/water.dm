@@ -120,7 +120,7 @@
 		/obj/item/reagent_containers/food/snacks/fish/carp = 8,
 		/obj/item/reagent_containers/food/snacks/fish/mudskipper = 6,
 		/obj/item/reagent_containers/food/snacks/fish/swamp_shrimp = 3,
-		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 1,
+		/obj/item/reagent_containers/food/snacks/fish/murkfang = 1,
 		/obj/item/natural/worms/leech = 3,
 		/obj/item/reagent_containers/food/snacks/smallrat = 1,
 		/obj/item/natural/cloth = 2,
@@ -131,10 +131,10 @@
 		/obj/item/reagent_containers/food/snacks/fish/carp = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/mudskipper = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/swamp_shrimp = FISH_STOCK_UNLIMITED,
-		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 1,
+		/obj/item/reagent_containers/food/snacks/fish/murkfang = 1,
 	)
 	fish_count_regen = list(
-		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 30 MINUTES,
+		/obj/item/reagent_containers/food/snacks/fish/murkfang = 30 MINUTES,
 	)
 	associated_safe_turfs = list(/turf/open/water/river/flow/murk)
 	fishing_difficulty = FISHING_DEFAULT_DIFFICULTY + 10
@@ -147,7 +147,7 @@
 		/obj/item/reagent_containers/food/snacks/fish/mudskipper = 12,
 		/obj/item/reagent_containers/food/snacks/fish/swamp_shrimp = 4,
 		/obj/item/reagent_containers/food/snacks/fish/swamp_mother = 2,
-		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 1,
+		/obj/item/reagent_containers/food/snacks/fish/murkfang = 1,
 		/obj/item/clothing/ring/gold = 1,
 		/obj/item/natural/worms/leech = 3,
 		/obj/item/reagent_containers/food/snacks/smallrat = 1,
@@ -157,12 +157,12 @@
 		/obj/item/reagent_containers/food/snacks/fish/mudskipper = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/swamp_shrimp = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/swamp_mother = 8,
-		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 1,
+		/obj/item/reagent_containers/food/snacks/fish/murkfang = 1,
 		/obj/item/clothing/ring/gold = 1,
 	)
 	fish_count_regen = list(
 		/obj/item/reagent_containers/food/snacks/fish/swamp_mother = 15 MINUTES,
-		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 30 MINUTES,
+		/obj/item/reagent_containers/food/snacks/fish/murkfang = 30 MINUTES,
 		/obj/item/clothing/ring/gold = 60 MINUTES,
 	)
 	associated_safe_turfs = list(/turf/open/water/swamp)
@@ -175,7 +175,7 @@
 		/obj/item/reagent_containers/food/snacks/fish/mudskipper = 8,
 		/obj/item/reagent_containers/food/snacks/fish/swamp_shrimp = 3,
 		/obj/item/reagent_containers/food/snacks/fish/swamp_mother = 3,
-		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 2,
+		/obj/item/reagent_containers/food/snacks/fish/murkfang = 2,
 		/obj/item/clothing/ring/gold = 1,
 		/obj/item/natural/worms/leech = 2,
 		/mob/living/simple_animal/hostile/retaliate/rogue/mudcrab = 1,
@@ -185,13 +185,13 @@
 		/obj/item/reagent_containers/food/snacks/fish/mudskipper = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/swamp_shrimp = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/swamp_mother = 10,
-		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 2,
+		/obj/item/reagent_containers/food/snacks/fish/murkfang = 2,
 		/obj/item/clothing/ring/gold = 1,
 		/mob/living/simple_animal/hostile/rogue/deepone/hound = 1,
 	)
 	fish_count_regen = list(
 		/obj/item/reagent_containers/food/snacks/fish/swamp_mother = 10 MINUTES,
-		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 20 MINUTES,
+		/obj/item/reagent_containers/food/snacks/fish/murkfang = 20 MINUTES,
 		/obj/item/clothing/ring/gold = 60 MINUTES,
 		/mob/living/simple_animal/hostile/rogue/deepone/hound = 60 MINUTES,
 	)
@@ -362,7 +362,7 @@
 		/obj/item/reagent_containers/food/snacks/fish/swamp_mother = 1,
 		/obj/item/reagent_containers/food/snacks/fish/clownfish = 1,
 		/obj/item/reagent_containers/food/snacks/fish/salmon/black_headed = 1,
-		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 1,
+		/obj/item/reagent_containers/food/snacks/fish/murkfang = 1,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_squid = 1,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_eel = 1,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_shark = 1,
@@ -406,7 +406,7 @@
 		/obj/item/reagent_containers/food/snacks/fish/swamp_mother = 1,
 		/obj/item/reagent_containers/food/snacks/fish/clownfish = 2,
 		/obj/item/reagent_containers/food/snacks/fish/salmon/black_headed = 1,
-		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 1,
+		/obj/item/reagent_containers/food/snacks/fish/murkfang = 1,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_squid = 1,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_eel = 1,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_shark = 1,
@@ -427,7 +427,7 @@
 		/obj/item/reagent_containers/food/snacks/fish/swamp_mother = 20 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/clownfish = 10 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/salmon/black_headed = 15 MINUTES,
-		/obj/item/reagent_containers/food/snacks/fish/zizo_abberation = 20 MINUTES,
+		/obj/item/reagent_containers/food/snacks/fish/murkfang = 20 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_squid = 20 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_eel = 30 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_shark = 30 MINUTES,

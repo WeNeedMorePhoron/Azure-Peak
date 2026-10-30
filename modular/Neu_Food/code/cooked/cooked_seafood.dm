@@ -154,9 +154,9 @@
 	icon_state = "black_bass"
 	faretype = FARE_NEUTRAL
 
-/obj/item/reagent_containers/food/snacks/rogue/fryfish/zizo_abberation
-	name = "zizo abberation"
-	icon_state = "zizo_abberation"
+/obj/item/reagent_containers/food/snacks/rogue/fryfish/murkfang
+	name = "cooked murkfang"
+	icon_state = "murkfang"
 	faretype = FARE_NEUTRAL
 
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
