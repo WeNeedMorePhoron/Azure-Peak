@@ -13,6 +13,10 @@
 	warming = 5 MINUTES
 	dropshrink = 0.6
 
+/obj/item/reagent_containers/food/snacks/rogue/fryfish/initialize_slice(obj/item/reagent_containers/food/snacks/slice, reagents_per_slice)
+	. = ..()
+	slice.faretype = faretype
+
 /obj/item/reagent_containers/food/snacks/rogue/smokefish
 	name = "smoked fish"
 	desc = "Heavens and seas met to bring you this smoked, aquatic treat."
@@ -162,7 +166,7 @@
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
 	name = "sturgeon"
 	icon_state = "sturgeon"
-	faretype = FARE_FINE
+	faretype = FARE_LAVISH
 
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/mackerel
 	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_SOUTHEASTERN

@@ -60,6 +60,21 @@
 	slice.name = "[initial(name)] filet"
 	slice.faretype = faretype
 
+/obj/item/reagent_containers/food/snacks/fish/initialize_cooked_food(obj/item/reagent_containers/food/snacks/S, cooking_efficiency = 1)
+	. = ..()
+	if(S.type != cooked_type && S.type != fried_type)
+		return
+	S.slices_num = slices_num
+	S.slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/fish/fried
+	S.slice_bclass = slice_bclass
+	S.slice_name = "fried [initial(name)] filet"
+	var/target = FISH_COOKED_NUTRIMENT_PER_FILLET * slices_num
+	var/current = S.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)
+	if(target > current)
+		S.reagents.add_reagent(/datum/reagent/consumable/nutriment, target - current, S.tastes)
+	else if(target < current)
+		S.reagents.remove_reagent(/datum/reagent/consumable/nutriment, current - target)
+
 /obj/item/reagent_containers/food/snacks/fish/proc/update_rarity()
 	var/ratio = size / average_size
 	var/label = "common"

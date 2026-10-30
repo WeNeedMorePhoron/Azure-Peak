@@ -74,6 +74,8 @@
 #define FISH_FILLETS_LARGE 4
 #define FISH_FILLETS_HUGE 6
 #define FISH_FILLETS_GIANT 8
+// A whole cooked fish feeds this much per fillet it would have chopped into
+#define FISH_COOKED_NUTRIMENT_PER_FILLET 5
 
 // Swordfish doubles as a dagger
 #define SWORDFISH_FORCE 12
