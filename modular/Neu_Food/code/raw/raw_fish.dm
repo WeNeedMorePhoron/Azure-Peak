@@ -242,6 +242,8 @@
 			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
 			FISH_BAIT_VALUE = DISH_BREAD,
 		),
+		/obj/item/fishing/lure/dough,
+		/obj/item/fishing/lure/gray,
 	)
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/carp
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/carp
@@ -262,6 +264,7 @@
 			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
+		/obj/item/fishing/lure/speckled,
 	)
 	fish_traits = list(/datum/fish_trait/camouflage, /datum/fish_trait/picky_eater)
 	faretype = FARE_NEUTRAL
@@ -286,6 +289,7 @@
 			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
+		/obj/item/fishing/lure/speckled,
 	)
 	fish_traits = list(/datum/fish_trait/heavy, /datum/fish_trait/carnivore)
 	sellprice = 15
@@ -308,6 +312,8 @@
 			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
+		/obj/item/fishing/lure/meat,
+		/obj/item/fishing/lure/gray,
 	)
 	faretype = FARE_NEUTRAL
 	sellprice = 5

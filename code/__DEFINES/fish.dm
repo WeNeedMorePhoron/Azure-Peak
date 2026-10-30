@@ -94,25 +94,17 @@
 // Sinker makes demersal fishes bite more often
 #define FISHING_SINKER_DEMERSAL_MULT 1.5
 
-// Baits gives additional catchable weight to fish it can catch and additional weight to those that have it as a favorite
+// Baits gives additional catchable weight to fish it can catch and additional weight to those that have it as a favorite. Which fish favour which bait is on the fish, in raw_fish.dm.
 #define FISHING_LURE_CATCHABLE_WEIGHT 5
 #define FISHING_LURE_FAVOURITE_WEIGHT 10
 
 // Red
-#define FISHING_BAIT_RED_EEL_MULT 1.5
 #define FISHING_BAIT_RED_CARNIVORE_MULT 1.3
 
 // Dough
-#define FISHING_BAIT_DOUGH_CARP_MULT 1.5
-#define FISHING_BAIT_DOUGH_SHRIMP_MULT 1.4
 #define FISHING_BAIT_DOUGH_HERBIVORE_MULT 1.3
 
-// Gray
-#define FISHING_BAIT_GRAY_COMMON_MULT 1.3
-
 // Speckled
-#define FISHING_BAIT_SPECKLED_SPECIAL_MULT 1.6
-#define FISHING_BAIT_SPECKLED_COMMON_MULT 1.4
 #define FISHING_BAIT_SPECKLED_SMALL_MULT 0.7
 
 // Enchanted

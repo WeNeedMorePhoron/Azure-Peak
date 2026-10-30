@@ -63,7 +63,7 @@
 	var/multiplier = 0
 	var/is_instance = istype(fish)
 	var/list/fish_properties = SSfishing.fish_properties[is_instance ? fish.type : fish]
-	if(is_type_in_list(/obj/item/fishing/lure, fish_properties[FISH_PROPERTIES_FAV_BAIT]))
+	if(is_type_in_list(src, fish_properties[FISH_PROPERTIES_FAV_BAIT]))
 		multiplier += FISHING_LURE_FAVOURITE_WEIGHT
 	if(is_instance)
 		if(is_catchable_fish(fish, fish_properties))
@@ -91,9 +91,6 @@
 	if(multiplier <= 0)
 		return multiplier
 
-	if(istype(fish, /obj/item/reagent_containers/food/snacks/fish/eel))
-		multiplier *= FISHING_BAIT_RED_EEL_MULT
-
 	if(/datum/fish_trait/carnivore in fish.fish_traits)
 		multiplier *= FISHING_BAIT_RED_CARNIVORE_MULT
 
@@ -119,11 +116,6 @@
 	if(multiplier <= 0)
 		return multiplier
 
-	if(istype(fish, /obj/item/reagent_containers/food/snacks/fish/carp))
-		multiplier *= FISHING_BAIT_DOUGH_CARP_MULT
-	if(istype(fish, /obj/item/reagent_containers/food/snacks/fish/shrimp))
-		multiplier *= FISHING_BAIT_DOUGH_SHRIMP_MULT
-
 	if(/datum/fish_trait/vegan in fish.fish_traits)
 		multiplier *= FISHING_BAIT_DOUGH_HERBIVORE_MULT
 
@@ -137,20 +129,6 @@
 	spin_frequency = list(2 SECONDS, 3 SECONDS)
 	consumable = TRUE
 	bait_flag = DISH_BREAD | DISH_MEAT
-
-/obj/item/fishing/lure/gray/check_bait(obj/item/reagent_containers/food/snacks/fish/fish)
-	var/multiplier = ..()
-	if(multiplier <= 0)
-		return 1
-
-	if(istype(fish, /obj/item/reagent_containers/food/snacks/fish/carp))
-		multiplier *= FISHING_BAIT_GRAY_COMMON_MULT
-	if(istype(fish, /obj/item/reagent_containers/food/snacks/fish/eel))
-		multiplier *= FISHING_BAIT_GRAY_COMMON_MULT
-	if(istype(fish, /obj/item/reagent_containers/food/snacks/fish/shrimp))
-		multiplier *= FISHING_BAIT_GRAY_COMMON_MULT
-
-	return multiplier
 
 /obj/item/fishing/lure/speckled
 	name = "speckled bait"
@@ -171,16 +149,6 @@
 	var/multiplier = ..()
 	if(multiplier <= 0)
 		return multiplier
-
-	if(istype(fish, /obj/item/reagent_containers/food/snacks/fish/angler))
-		multiplier *= FISHING_BAIT_SPECKLED_SPECIAL_MULT
-	if(istype(fish, /obj/item/reagent_containers/food/snacks/fish/clownfish))
-		multiplier *= FISHING_BAIT_SPECKLED_SPECIAL_MULT
-
-	if(istype(fish, /obj/item/reagent_containers/food/snacks/fish/carp))
-		multiplier *= FISHING_BAIT_SPECKLED_COMMON_MULT
-	if(istype(fish, /obj/item/reagent_containers/food/snacks/fish/eel))
-		multiplier *= FISHING_BAIT_SPECKLED_COMMON_MULT
 
 	if(fish.size < fish.average_size * 0.9)
 		multiplier *= FISHING_BAIT_SPECKLED_SMALL_MULT
