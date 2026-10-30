@@ -401,11 +401,14 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 		weight += rod.hook.get_hook_bonus_additive(result)
 
 		// Handle living mobs
-		if(ispath(result, /mob/living) && bait && (HAS_TRAIT(bait, TRAIT_GOOD_QUALITY_BAIT) || HAS_TRAIT(bait, TRAIT_GREAT_QUALITY_BAIT)))
-			weight = round(weight * result_multiplier, 1)
-			if(weight > 0)
-				final_table[result] = weight
-			continue
+		if(ispath(result, /mob/living))
+			if(HAS_TRAIT(fisherman, TRAIT_CAUTIOUS_FISHER) && prob(CAUTIOUS_FISHER_MOB_AVOID_CHANCE))
+				continue
+			if(bait && (HAS_TRAIT(bait, TRAIT_GOOD_QUALITY_BAIT) || HAS_TRAIT(bait, TRAIT_GREAT_QUALITY_BAIT)))
+				weight = round(weight * result_multiplier, 1)
+				if(weight > 0)
+					final_table[result] = weight
+				continue
 
 		// Handle fish - generate instance for property-based filtering
 		if(ispath(result, /obj/item/reagent_containers/food/snacks/fish))

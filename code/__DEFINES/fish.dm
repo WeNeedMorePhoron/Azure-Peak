@@ -128,6 +128,9 @@
 ///We multiply the weight of fish inside the loot table by this value if we are goofy enough to fish without a bait.
 #define FISH_WEIGHT_MULT_WITHOUT_BAIT 0.15
 
+/// Chance, per cast, that a TRAIT_CAUTIOUS_FISHER leaves a hostile mob out of the table.
+#define CAUTIOUS_FISHER_MOB_AVOID_CHANCE 75
+
 // Make cages slower so that fishing manually is competitive
 /// Seconds between a baited fishing cage's catches at no skill and at legendary skill.
 #define FISHING_CAGE_CATCH_TIME_SLOWEST 90
