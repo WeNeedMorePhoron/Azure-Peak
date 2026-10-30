@@ -115,11 +115,12 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 /datum/fish_source/proc/is_exhausted(path)
 	return is_limited(path) && fish_counts[path] <= 0
 
+/// Share of the prized fish stock still in the water, 0 to 1. Null when the water has no prized fish. Fish with a stock of one are left out, or a water would read as fished out the moment its one sturgeon is taken.
 /datum/fish_source/proc/prized_stock_ratio()
 	var/full = 0
 	var/left = 0
 	for(var/path in fish_counts)
-		if(!ispath(path, /obj/item/reagent_containers/food/snacks/fish) || !is_limited(path))
+		if(!ispath(path, /obj/item/reagent_containers/food/snacks/fish) || !is_limited(path) || full_counts[path] <= 1)
 			continue
 		full += full_counts[path]
 		left += max(fish_counts[path], 0)
@@ -614,4 +615,4 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 
 	examine_text += span_info("Fish in these waters: [english_list(known_fishes)].")
 	if(rod)
-		examine_text += span_tinynoticeital("Bold are likelier with my current rig, underlined far likelier, italics unlikely.")
+		examine_text += span_tinynoticeital("Bolded are likelier to catch with my current setup, underlined far likelier, italics unlikely.")
