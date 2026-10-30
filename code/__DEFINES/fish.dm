@@ -128,6 +128,11 @@
 ///We multiply the weight of fish inside the loot table by this value if we are goofy enough to fish without a bait.
 #define FISH_WEIGHT_MULT_WITHOUT_BAIT 0.15
 
+// Make cages slower so that fishing manually is competitive
+/// Seconds between a baited fishing cage's catches at no skill and at legendary skill.
+#define FISHING_CAGE_CATCH_TIME_SLOWEST 90
+#define FISHING_CAGE_CATCH_TIME_FASTEST 45
+
 /**
  * Flag for fish sources. It makes large explosions less efficient at spawning fish.
  * Meant for lazy fishing spots that cover multiple turfs (rivers, oceans etc.)

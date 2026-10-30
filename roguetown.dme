@@ -2128,6 +2128,7 @@
 #include "code\modules\fishing\tackle.dm"
 #include "code\modules\fishing\fish_stats\_traits.dm"
 #include "code\modules\fishing\sources\_source.dm"
+#include "code\modules\fishing\sources\cage.dm"
 #include "code\modules\fishing\sources\water.dm"
 #include "code\modules\fishing\tackle\hook.dm"
 #include "code\modules\fishing\tackle\line.dm"
