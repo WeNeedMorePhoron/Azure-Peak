@@ -15,6 +15,7 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
+	faretype = FARE_NEUTRAL
 	sellprice = FISH_PRICE_GOOD
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/crab
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/crab
@@ -36,7 +37,7 @@
 	fishing_difficulty_modifier = -10
 	fish_movement_type = /datum/fish_movement/slow
 	fish_traits = list(/datum/fish_trait/vegan)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_FINE
 	no_rarity_sprite = TRUE
 	sellprice = FISH_PRICE_FINE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/clam
@@ -60,7 +61,7 @@
 		),
 	)
 	fish_traits = list(/datum/fish_trait/heavy)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_FINE
 	no_rarity_sprite = TRUE
 	sellprice = FISH_PRICE_FINE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/lobster
@@ -103,6 +104,7 @@
 	fishing_difficulty_modifier = -10
 	fish_movement_type = /datum/fish_movement/slow
 	fish_traits = list(/datum/fish_trait/vegan)
+	faretype = FARE_POOR
 	sellprice = FISH_PRICE_COMMON
 	var/closed
 	var/obj/item/pearl
