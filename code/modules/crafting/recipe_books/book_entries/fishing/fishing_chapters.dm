@@ -32,7 +32,7 @@
 		<ul>
 			<li><b>Rods</b> From worst to best: Crafted, Plain, Bronze, Blacksteel rod, and one type found in ruins. A better rod makes the minigame easier, and the two best widen the catch window.</li>
 			<li><b>Fishing lines</b>, from worst to best: twine, leather, silk, deluxe. Twine loses progress faster. Leather is the standard. Silk loses progress slower and will not alert wary fishes. Deluxe also progress faster on top of silk's advantage.</li>
-			<li><b>Hooks</b>: The wooden gorge hook is easy to acquire and struggles with larger fish. The thorn hook never lets a fish escape, and guarantee a catch if you take too long, but halve your XP gain. The iron hook is the standard and keep the bait from bouncing off the bottom. The carved minnow hook, the best hook, scares off small fish and attracts large ones, and lets you move the green bar both up and down.</li>
+			<li><b>Hooks</b>: The wooden gorge fishing hook is easy to acquire and struggles with larger fish. The thorn hook never lets a fish escape, and guarantee a catch if you take too long, but halve your XP gain. The iron hook is the standard and keep the bait from bouncing off the bottom. The carved minnow hook, the best hook, scares off small fish and attracts large ones, and lets you move the green bar both up and down.</li>
 			<li><b>Bobber and sinker</b>: Having either of them make you progress faster. The bobber makes the bait sink slower. The sinker brings up bottom dwelling fish.</li>
 			<li><b>Rolled baits</b>: Red bait for eels and meat eaters, doughy bait for carp, shrimp and plant eaters, gray bait for a bit of everything, speckled bait for odd and valuable fishes, and enchanted bait draws special fishes.</li>
 		</ul>

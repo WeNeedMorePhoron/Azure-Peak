@@ -43,7 +43,7 @@
 		)
 
 /datum/crafting_recipe/roguetown/survival/fishing/hook_wooden
-	name = "wooden gorge hook"
+	name = "wooden gorge fishing hook"
 	result = /obj/item/fishing/hook/wooden
 	reqs = list(
 		/obj/item/grown/log/tree/stick = 2,

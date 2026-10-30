@@ -59,7 +59,7 @@
 
 
 /obj/item/fishing/hook/wooden
-	name = "wooden gorge hook"
+	name = "wooden gorge fishing hook"
 	desc = "A fishing hook consisting of a small piece of wood, carved to points on both end. A simple fishing hook, more likely to fall out. Struggles with larger specimens."
 	icon_state = "gorgehook"
 

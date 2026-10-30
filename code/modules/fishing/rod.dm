@@ -86,6 +86,7 @@
 
 /datum/intent/cast
 	name = "cast"
+	desc = "Cast the line into water to fish. Left-click again when the float dips to start reeling in the fish."
 	chargetime = 0
 	noaa = TRUE
 	misscost = 0
@@ -94,6 +95,7 @@
 
 /datum/intent/auto
 	name = "auto reel"
+	desc = "Cast the line into water to fish. You will automatically reel in the fish. Slower than reeling by hand, and it cannot land prized fish."
 	chargetime = 0
 	noaa = TRUE
 	misscost = 0
@@ -491,6 +493,12 @@
 	reel = new /obj/item/fishing/reel/leather(src)
 	hook = new /obj/item/fishing/hook/iron(src)
 	line = new /obj/item/fishing/line/bobber(src)
+
+/obj/item/fishingrod/hooked
+
+/obj/item/fishingrod/hooked/Initialize(mapload, ...)
+	. = ..()
+	hook = new /obj/item/fishing/hook/wooden(src)
 
 /obj/item/fishingrod/bronze
 	name = "bronze fishing rod"
