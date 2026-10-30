@@ -686,7 +686,7 @@
 /obj/item/reagent_containers/food/snacks/fish/sturgeon
 	name = "sturgeon"
 	icon_state = "sturgeon"
-	desc = "The sturgeon is a massive freshwater fish, known for its many scales, which alone of all fishes are said to grow turned towards the head. It is said that PSYDON created the sturgeons, in the image of a warrior, and planted them in the many rivers of the world, so that a true warrior can eat them as food. Nowadays, sturgeon are very hard to find in the rivers of Azuria, for surely our ancestors have eaten all of them. It is the most noble of all fish, with abundant, delicious and clean flesh. In the yil 1414, the Sturgeon was declared a royal fish, and it is said that all sturgeon that land in Azuria are the property of the Grand Duke. But enforcement is evidently quite spotty."
+	desc = "The sturgeon is a massive freshwater fish, known for its many scales, which alone of all fishes are said to grow turned towards the head. In the older daes, a sturgeon was brought to the Grand Duke's table by servants crowned with Calendula or Azurosa, with a piper walking before it. Nowadays, sturgeon are very hard to find in the rivers of Azuria, for surely our ancestors have eaten all of them. It is the most noble of all fish, with abundant, delicious and clean flesh. In the yil 1414, the sturgeon was declared a royal fish, and it is said that all sturgeon that land in Azuria are the property of the Grand Duke. But enforcement is evidently quite spotty."
 	fish_id = "sturgeon"
 	average_size = 10
 	average_weight = 60
