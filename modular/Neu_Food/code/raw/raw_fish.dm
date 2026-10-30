@@ -678,7 +678,8 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
-	sellprice = FISH_PRICE_PRIZED
+	// Sturgeon has Royal Fish multiplier so it get insane.
+	sellprice = FISH_PRICE_RARE
 
 /obj/item/reagent_containers/food/snacks/fish/mackerel
 	name = "mackerel"
