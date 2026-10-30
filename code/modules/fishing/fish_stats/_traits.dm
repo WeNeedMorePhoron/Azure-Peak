@@ -173,8 +173,8 @@ GLOBAL_LIST_INIT(spontaneous_fish_traits, populate_spontaneous_fish_traits())
 	minigame.special_effects |= FISHING_MINIGAME_RULE_CAMO
 
 /datum/fish_trait/prehistoric
-	name = "Living Fossil"
-	catalog_description = "An ancient species thought extinct. Extremely rare and valuable."
+	name = "Royal Fish"
+	catalog_description = "An extremely rare fish extirpated from most of Azuria's range. Extremely valuable, and succulent."
 	added_difficulty = 25
 
 /datum/fish_trait/prehistoric/apply_to_fish(obj/item/reagent_containers/food/snacks/fish/fish)

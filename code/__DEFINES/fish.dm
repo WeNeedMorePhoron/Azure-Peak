@@ -125,7 +125,7 @@
 #define FISH_BAIT_VALUE "Value"
 #define FISH_BAIT_AMOUNT "Amount"
 
-/// Stock value in a fish source's fish_counts for a fish that never runs out. Every fish in a fish_table must appear in fish_counts, with this or a real count.
+// -1 is used to denote a fish that never runs out in a fish source's fish counts. All fish table must have a count or this
 #define FISH_STOCK_UNLIMITED -1
 
 ///We multiply the weight of fish inside the loot table by this value if we are goofy enough to fish without a bait.

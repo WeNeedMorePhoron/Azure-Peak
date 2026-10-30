@@ -363,6 +363,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/creepy_eel
 	name = "abyssal eel"
+	fish_flags = NONE // Abyssor fishs are hidden
 	desc = "Pick me up pick me up pick me up pick me up pick me up pick me up!"
 	icon_state = "creepy_eel"
 	fish_id = "creepy_eel"
@@ -391,6 +392,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/creepy_squid
 	name = "brain squid"
+	fish_flags = NONE // Abyssor fishs are hidden
 	desc = "It makes me feel strange..."
 	icon_state = "creepy_squid"
 	fish_id = "creepy_squid"
@@ -433,6 +435,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/creepy_shark
 	name = "iridescent reaver"
+	fish_flags = NONE // Abyssor fishs are hidden
 	desc = "Its scales refract light in a strange, unsettling manner."
 	icon_state = "creepy_shark"
 	fish_id = "creepy_shark"
@@ -566,6 +569,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/swamp_mother
 	name = "swamp mother"
+	fish_flags = NONE
 	icon_state = "swamp_mother"
 	desc = "Swamp Mother is a large swamp-dwelling creature found in murky waters."
 	fish_id = "swamp_mother"
@@ -614,6 +618,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/zizo_abberation
 	name = "zizo abberation"
+	fish_flags = NONE
 	icon_state = "zizo_abberation"
 	desc = "Zizo Aberration is a cave-dwelling creature found in murky underground waters. It is edible, but widely nicknamed the “Zizo creature” due to its disgusting behavior, it viciously bites any hand that comes into contact with it, whether in water or out."
 	fish_id = "zizo_abberation"

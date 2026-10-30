@@ -3,7 +3,9 @@
 	category = null
 
 /datum/book_entry/fishing/basics
-	name = "01. Introduction and Basic Mechanics"
+	name = "Introduction and Basic Mechanics"
+	category = "Guide"
+	book_priority = 100
 
 /datum/book_entry/fishing/basics/inner_book_html(mob/user)
 	return {"
