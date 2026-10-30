@@ -255,6 +255,8 @@
 		record_round_statistic(STATS_FISH_CAUGHT)
 		record_featured_stat(FEATURED_STATS_FISHERS, user)
 
+	if(!prob(FISHING_BAIT_SPEND_CHANCE_BASE - user.get_skill_level(/datum/skill/labor/fishing) * FISHING_BAIT_SPEND_CHANCE_PER_SKILL))
+		return
 	if(baited.baitresilience > 1)
 		baited.baitresilience--
 		return

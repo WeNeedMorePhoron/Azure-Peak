@@ -164,6 +164,10 @@
 #define FISHING_BAIT_CATCHABLE_WEIGHT 5
 #define FISHING_BAIT_FAVOURITE_WEIGHT 10
 
+// Each catch spends one point of bait resilience only on a failed roll. Expected catches per bait = max(1, resilience) * 100 / spend chance.
+#define FISHING_BAIT_SPEND_CHANCE_BASE 80
+#define FISHING_BAIT_SPEND_CHANCE_PER_SKILL 10
+
 // Red
 #define FISHING_BAIT_RED_CARNIVORE_MULT 1.3
 
