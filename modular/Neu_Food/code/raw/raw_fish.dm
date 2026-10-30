@@ -238,6 +238,7 @@
 	name = "carp"
 	desc = "A mudraking creacher of the river-depths, barely fit for food."
 	faretype = FARE_IMPOVERISHED
+	sellprice = FISH_PRICE_COMMON
 	icon_state = "carp"
 	fish_id = "carp"
 	average_size = 6

@@ -271,11 +271,11 @@
 	catalog_description = "Deep Ocean"
 	fish_table = list(
 		FISHING_DUD = 6,
-		/obj/item/reagent_containers/food/snacks/fish/plaice = 6,
-		/obj/item/reagent_containers/food/snacks/fish/angler = 6,
-		/obj/item/reagent_containers/food/snacks/fish/cod = 4,
-		/obj/item/reagent_containers/food/snacks/fish/bass = 4,
-		/obj/item/reagent_containers/food/snacks/fish/sole = 2,
+		/obj/item/reagent_containers/food/snacks/fish/cod = 8,
+		/obj/item/reagent_containers/food/snacks/fish/bass = 8,
+		/obj/item/reagent_containers/food/snacks/fish/sole = 6,
+		/obj/item/reagent_containers/food/snacks/fish/plaice = 2,
+		/obj/item/reagent_containers/food/snacks/fish/angler = 2,
 		/obj/item/reagent_containers/food/snacks/fish/lobster = 2,
 		/obj/item/reagent_containers/food/snacks/fish/clownfish = 1,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_squid = 1,
@@ -293,11 +293,11 @@
 		/mob/living/carbon/human/species/goblin/npc/sea = 1,
 	)
 	fish_counts = list(
-		/obj/item/reagent_containers/food/snacks/fish/plaice = FISH_STOCK_UNLIMITED,
-		/obj/item/reagent_containers/food/snacks/fish/angler = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/cod = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/bass = FISH_STOCK_UNLIMITED,
 		/obj/item/reagent_containers/food/snacks/fish/sole = FISH_STOCK_UNLIMITED,
+		/obj/item/reagent_containers/food/snacks/fish/plaice = 12,
+		/obj/item/reagent_containers/food/snacks/fish/angler = 10,
 		/obj/item/reagent_containers/food/snacks/fish/lobster = 15,
 		/obj/item/reagent_containers/food/snacks/fish/clownfish = 2,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_squid = 1,
@@ -314,6 +314,8 @@
 		/mob/living/carbon/human/species/goblin/npc/sea = 1,
 	)
 	fish_count_regen = list(
+		/obj/item/reagent_containers/food/snacks/fish/plaice = 6 MINUTES,
+		/obj/item/reagent_containers/food/snacks/fish/angler = 8 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/lobster = 5 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/clownfish = 10 MINUTES,
 		/obj/item/reagent_containers/food/snacks/fish/creepy_squid = 30 MINUTES,
