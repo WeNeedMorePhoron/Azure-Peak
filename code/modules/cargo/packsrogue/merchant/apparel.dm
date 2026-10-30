@@ -174,6 +174,11 @@
 	cost = 13
 	contains = list(/obj/item/storage/meatbag)
 
+/datum/supply_pack/rogue/apparel/creel
+	name = "Fisherman's Creel"
+	cost = 13
+	contains = list(/obj/item/storage/meatbag/creel)
+
 /datum/supply_pack/rogue/apparel/magebag
 	name = "Scholar's Pouch"
 	cost = 13
