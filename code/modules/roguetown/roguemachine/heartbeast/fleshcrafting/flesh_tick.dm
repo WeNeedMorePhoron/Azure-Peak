@@ -20,7 +20,7 @@
 	isbait = TRUE
 	bait_quality = TRAIT_GREAT_QUALITY_BAIT
 	bait_flag = DISH_MEAT
-	baitresilience = 10
+	baitresilience = 6
 
 /obj/item/leechtick/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()

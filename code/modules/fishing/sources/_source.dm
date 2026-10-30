@@ -347,12 +347,15 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 		playsound(fisherman, 'sound/misc/notice (2).ogg', 60)
 		addtimer(CALLBACK(src, PROC_REF(simple_dispense_reward), reward_path, get_turf(fisherman), fishing_spot), FISHING_HOSTILE_WARNING_DELAY)
 		return
+	var/count_key = get_fish_path(reward_path)
 	var/atom/movable/reward = simple_dispense_reward(reward_path, get_turf(fisherman), fishing_spot)
 	if(!reward) //balloon alert instead
 		fisherman.balloon_alert(fisherman, pick(duds))
 		return
 	if(isfish(reward) && challenge)
 		challenge.apply_catch_quality(reward)
+	if(isfish(reward) && is_exhausted(count_key))
+		to_chat(fisherman, span_smallred("That was the last [initial(reward.name)] in these waters for a while."))
 	if(isitem(reward)) //Try to put it in hand
 		INVOKE_ASYNC(fisherman, TYPE_PROC_REF(/mob, put_in_hands), reward)
 	else if(istype(reward, /obj/effect/spawner)) // Do not attempt to forceMove() a spawner. It will break things, and the spawned item should already be at the mob's turf by now.

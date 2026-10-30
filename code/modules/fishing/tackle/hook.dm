@@ -83,7 +83,7 @@
 
 /obj/item/fishing/hook/thorn
 	name = "thorn fishing hook"
-	desc = "A fishing hook carved out of a thorn. Effective, but fragile, the barbs kill the fish, but prevent it from ever getting away."
+	desc = "A fishing hook carved out of a thorn. The barbs kill the fish, but prevent it from ever getting away."
 	icon_state = "thornhook"
 	fishing_hook_traits = FISHING_HOOK_NO_ESCAPE|FISHING_HOOK_KILL
 

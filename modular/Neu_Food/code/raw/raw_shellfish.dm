@@ -62,7 +62,7 @@
 	fish_traits = list(/datum/fish_trait/heavy)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
-	sellprice = 5
+	sellprice = 15
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/lobster
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/lobster
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish
@@ -87,7 +87,7 @@
 		/obj/item/fishing/bait/gray,
 	)
 	fish_traits = list(/datum/fish_trait/vegan)
-	sellprice = 5
+	sellprice = 8
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/shrimp
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/shrimp
 	cooked_smell = /datum/pollutant/food/fried_shellfish

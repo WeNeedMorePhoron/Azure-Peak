@@ -677,7 +677,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
-	sellprice = 5
+	sellprice = 15
 
 /obj/item/reagent_containers/food/snacks/fish/mackerel
 	name = "mackerel"

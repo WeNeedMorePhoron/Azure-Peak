@@ -1,4 +1,3 @@
-/// Checks if the bait is liked by the fish type or not. Returns a multiplier that affects the chance of catching it.
 /obj/item/proc/check_bait(obj/item/reagent_containers/food/snacks/fish/fish)
 	if(HAS_TRAIT(src, TRAIT_OMNI_BAIT))
 		return 1
@@ -177,6 +176,7 @@
 	icon_state = "deluxebait"
 	spin_frequency = list(2 SECONDS, 3.5 SECONDS)
 	consumable = TRUE
+	bait_quality = TRAIT_GREAT_QUALITY_BAIT
 
 /obj/item/fishing/bait/deluxe/is_catchable_fish(obj/item/reagent_containers/food/snacks/fish/fish, list/fish_properties)
 	return TRUE
