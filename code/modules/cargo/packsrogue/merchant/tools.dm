@@ -179,6 +179,54 @@
 					/obj/item/natural/worms/leech,
 				)
 
+/datum/supply_pack/rogue/tools/fishingrod
+	name = "Fishing Rod"
+	cost = 10
+	contains = list(/obj/item/fishingrod)
+
+/datum/supply_pack/rogue/tools/fishinghooks
+	name = "Iron Fishing Hooks (x3)"
+	cost = 10
+	contains = list(
+					/obj/item/fishing/hook/iron,
+					/obj/item/fishing/hook/iron,
+					/obj/item/fishing/hook/iron,
+				)
+
+/datum/supply_pack/rogue/tools/fishingline
+	name = "Silk Fishing Line"
+	cost = 15
+	contains = list(/obj/item/fishing/reel/silk)
+
+/datum/supply_pack/rogue/tools/fishingfloats
+	name = "Bobber and Sinker"
+	cost = 5
+	contains = list(
+					/obj/item/fishing/line/bobber,
+					/obj/item/fishing/line/sinker,
+				)
+
+/datum/supply_pack/rogue/tools/fishinglinedeluxe
+	name = "Deluxe Fishing Line"
+	cost = 25
+	contains = list(/obj/item/fishing/reel/deluxe)
+
+/datum/supply_pack/rogue/tools/fishinglure
+	name = "Wooden Lure"
+	cost = 25
+	contains = list(/obj/item/fishing/hook/deluxe)
+
+/datum/supply_pack/rogue/tools/baitenchanted
+	name = "Enchanted Bait (x5)"
+	cost = 20
+	contains = list(
+					/obj/item/fishing/lure/deluxe,
+					/obj/item/fishing/lure/deluxe,
+					/obj/item/fishing/lure/deluxe,
+					/obj/item/fishing/lure/deluxe,
+					/obj/item/fishing/lure/deluxe,
+				)
+
 
 /datum/supply_pack/rogue/tools/bottl
 	name = "Glass Bottles"
