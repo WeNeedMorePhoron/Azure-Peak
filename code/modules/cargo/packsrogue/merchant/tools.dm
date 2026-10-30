@@ -195,7 +195,7 @@
 
 /datum/supply_pack/rogue/tools/fishingline
 	name = "Silk Fishing Line"
-	cost = 15
+	cost = 30
 	contains = list(/obj/item/fishing/reel/silk)
 
 /datum/supply_pack/rogue/tools/fishingfloats
@@ -208,12 +208,12 @@
 
 /datum/supply_pack/rogue/tools/fishinglinedeluxe
 	name = "Deluxe Fishing Line"
-	cost = 25
+	cost = 100
 	contains = list(/obj/item/fishing/reel/deluxe)
 
 /datum/supply_pack/rogue/tools/fishinglure
 	name = "Carved Minnow Hook"
-	cost = 25
+	cost = 100
 	contains = list(/obj/item/fishing/hook/deluxe)
 
 /datum/supply_pack/rogue/tools/baitenchanted

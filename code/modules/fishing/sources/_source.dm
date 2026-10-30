@@ -315,7 +315,7 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	challenge.used_rod.on_reward_caught(reward, user)
 	cleanup_generated_fish() // Clean up remaining fish pool after dispensing
 
-/// Gives out the reward if possible. The catch's size is settled before it is named to the fisher.
+/// Gives out the reward if possible.
 /datum/fish_source/proc/dispense_reward(reward_path, mob/fisherman, atom/fishing_spot, datum/fishing_challenge/challenge)
 	var/atom/movable/reward = simple_dispense_reward(reward_path, get_turf(fisherman), fishing_spot)
 	if(!reward) //balloon alert instead
