@@ -110,8 +110,8 @@
 	if(baited && reel && hook && line)
 		return ..()
 
-	if(istype(I, /obj/item/fishing/lure) || istype(I, /obj/item/natural/worms) || istype(I, /obj/item/natural/bundle/worms) || istype(I, /obj/item/fishing/lure) || istype(I, /obj/item/reagent_containers/food/snacks))
-		if(istype(I, /obj/item/fishing/lure) || istype(I, /obj/item/natural/worms) || istype(I, /obj/item/fishing/lure))
+	if(istype(I, /obj/item/fishing/bait) || istype(I, /obj/item/natural/worms) || istype(I, /obj/item/natural/bundle/worms) || istype(I, /obj/item/reagent_containers/food/snacks))
+		if(istype(I, /obj/item/fishing/bait) || istype(I, /obj/item/natural/worms))
 			if(!baited)
 				I.forceMove(src)
 				baited = I

@@ -17,11 +17,11 @@
 		"basic" = /obj/item/natural/worms,
 		"good" = /obj/item/natural/worms/grubs,
 		"great" = /obj/item/reagent_containers/food/snacks/eoran_aril/cerulean,
-		"red" = /obj/item/fishing/lure/meat,
-		"dough" = /obj/item/fishing/lure/dough,
-		"gray" = /obj/item/fishing/lure/gray,
-		"speckled" = /obj/item/fishing/lure/speckled,
-		"enchanted" = /obj/item/fishing/lure/deluxe,
+		"red" = /obj/item/fishing/bait/meat,
+		"dough" = /obj/item/fishing/bait/dough,
+		"gray" = /obj/item/fishing/bait/gray,
+		"speckled" = /obj/item/fishing/bait/speckled,
+		"enchanted" = /obj/item/fishing/bait/deluxe,
 	)
 	var/mob/fisherman = mob
 	var/turf/location = get_turf(fisherman)

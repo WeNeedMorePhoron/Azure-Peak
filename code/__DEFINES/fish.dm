@@ -139,8 +139,8 @@
 #define FISHING_SINKER_DEMERSAL_MULT 1.5
 
 // Baits gives additional catchable weight to fish it can catch and additional weight to those that have it as a favorite. Which fish favour which bait is on the fish, in raw_fish.dm.
-#define FISHING_LURE_CATCHABLE_WEIGHT 5
-#define FISHING_LURE_FAVOURITE_WEIGHT 10
+#define FISHING_BAIT_CATCHABLE_WEIGHT 5
+#define FISHING_BAIT_FAVOURITE_WEIGHT 10
 
 // Red
 #define FISHING_BAIT_RED_CARNIVORE_MULT 1.3

@@ -60,12 +60,12 @@
 /datum/crafting_recipe/roguetown/survival/fishing/bait_red
 	name = "red bait (x6)"
 	result = list(
-		/obj/item/fishing/lure/meat,
-		/obj/item/fishing/lure/meat,
-		/obj/item/fishing/lure/meat,
-		/obj/item/fishing/lure/meat,
-		/obj/item/fishing/lure/meat,
-		/obj/item/fishing/lure/meat,
+		/obj/item/fishing/bait/meat,
+		/obj/item/fishing/bait/meat,
+		/obj/item/fishing/bait/meat,
+		/obj/item/fishing/bait/meat,
+		/obj/item/fishing/bait/meat,
+		/obj/item/fishing/bait/meat,
 		)
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/rogue/meat/mince/fish = 2,
@@ -74,9 +74,9 @@
 /datum/crafting_recipe/roguetown/survival/fishing/bait_dough
 	name = "doughy bait (x3)"
 	result = list(
-		/obj/item/fishing/lure/dough,
-		/obj/item/fishing/lure/dough,
-		/obj/item/fishing/lure/dough,
+		/obj/item/fishing/bait/dough,
+		/obj/item/fishing/bait/dough,
+		/obj/item/fishing/bait/dough,
 		)
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/rogue/doughslice = 1,
@@ -85,11 +85,11 @@
 /datum/crafting_recipe/roguetown/survival/fishing/bait_gray
 	name = "gray bait (x5)"
 	result = list(
-		/obj/item/fishing/lure/gray,
-		/obj/item/fishing/lure/gray,
-		/obj/item/fishing/lure/gray,
-		/obj/item/fishing/lure/gray,
-		/obj/item/fishing/lure/gray,
+		/obj/item/fishing/bait/gray,
+		/obj/item/fishing/bait/gray,
+		/obj/item/fishing/bait/gray,
+		/obj/item/fishing/bait/gray,
+		/obj/item/fishing/bait/gray,
 		)
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/rogue/meat/mince/fish = 1,
@@ -100,9 +100,9 @@
 /datum/crafting_recipe/roguetown/survival/fishing/bait_speckled
 	name = "speckled bait (x3)"
 	result = list(
-		/obj/item/fishing/lure/speckled,
-		/obj/item/fishing/lure/speckled,
-		/obj/item/fishing/lure/speckled,
+		/obj/item/fishing/bait/speckled,
+		/obj/item/fishing/bait/speckled,
+		/obj/item/fishing/bait/speckled,
 		)
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/rogue/meat/mince/fish = 1,

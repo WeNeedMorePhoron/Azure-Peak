@@ -220,11 +220,11 @@
 	name = "Enchanted Bait (x5)"
 	cost = 20
 	contains = list(
-					/obj/item/fishing/lure/deluxe,
-					/obj/item/fishing/lure/deluxe,
-					/obj/item/fishing/lure/deluxe,
-					/obj/item/fishing/lure/deluxe,
-					/obj/item/fishing/lure/deluxe,
+					/obj/item/fishing/bait/deluxe,
+					/obj/item/fishing/bait/deluxe,
+					/obj/item/fishing/bait/deluxe,
+					/obj/item/fishing/bait/deluxe,
+					/obj/item/fishing/bait/deluxe,
 				)
 
 

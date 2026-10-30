@@ -11,8 +11,8 @@ PROCESSING_SUBSYSTEM_DEF(fishing)
 	var/list/catchable_fish
 	///Cached fish properties so we don't have to initalize fish every time
 	var/list/fish_properties
-	///A cache of fish that can be caught by each type of fishing lure
-	var/list/lure_catchables
+	///A cache of fish that can be caught by each type of rolled bait
+	var/list/bait_catchables
 	///A list of fish types with list of turfs where they can happily hop around without dying as assoc value
 	var/list/fish_safe_turfs_by_type = list()
 
@@ -82,15 +82,15 @@ PROCESSING_SUBSYSTEM_DEF(fishing)
 			continue
 		catchable_fish[fish_id] = fish.type
 
-	///init the list of things lures can catch
-	lure_catchables = list()
-	for(var/lure_type in subtypesof(/obj/item/fishing/lure))
-		var/obj/item/fishing/lure/lure = new lure_type
-		lure_catchables[lure_type] = list()
+	///init the list of things rolled baits can catch
+	bait_catchables = list()
+	for(var/bait_type in subtypesof(/obj/item/fishing/bait))
+		var/obj/item/fishing/bait/bait = new bait_type
+		bait_catchables[bait_type] = list()
 		for(var/obj/item/reagent_containers/food/snacks/fish/fish as anything in spawned_fish)
-			if(lure.is_catchable_fish(fish, fish_properties[fish.type]))
-				lure_catchables[lure_type] += fish.type
-		qdel(lure)
+			if(bait.is_catchable_fish(fish, fish_properties[fish.type]))
+				bait_catchables[bait_type] += fish.type
+		qdel(bait)
 
 	QDEL_LIST(spawned_fish)
 

@@ -83,8 +83,8 @@
 			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
 			FISH_BAIT_VALUE = DISH_VEGETABLE,
 		),
-		/obj/item/fishing/lure/dough,
-		/obj/item/fishing/lure/gray,
+		/obj/item/fishing/bait/dough,
+		/obj/item/fishing/bait/gray,
 	)
 	fish_traits = list(/datum/fish_trait/vegan)
 	sellprice = 5

@@ -57,7 +57,7 @@
 		beltl = /obj/item/storage/meatbag/creel
 		backpack_contents = list(
 							/obj/item/natural/worms = 2,
-							/obj/item/fishing/lure/dough = 2,
+							/obj/item/fishing/bait/dough = 2,
 							/obj/item/flint = 1,
 							/obj/item/rogueweapon/shovel/small = 1,
 							/obj/item/flashlight/flare/torch = 1,
@@ -77,7 +77,7 @@
 		beltl = /obj/item/storage/meatbag/creel
 		backpack_contents = list(
 							/obj/item/natural/worms = 2,
-							/obj/item/fishing/lure/dough = 2,
+							/obj/item/fishing/bait/dough = 2,
 							/obj/item/flint = 1,
 							/obj/item/rogueweapon/shovel/small = 1,
 							/obj/item/flashlight/flare/torch = 1,
