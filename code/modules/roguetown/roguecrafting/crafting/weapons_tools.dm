@@ -574,6 +574,7 @@
 		)
 
 /obj/item/fishingrod/crafted
+	difficulty_modifier = FISHING_ROD_CRAFTED_DIFFICULTY
 
 /datum/crafting_recipe/roguetown/survival/rodblacksteel
 	name = "fishing rod, blacksteel"

@@ -67,6 +67,14 @@
 #define FISHING_REEL_BLESSED_LOSS -1
 #define FISHING_REEL_BLESSED_GAIN 1
 
+// Fishing rod tier effects. Difficulty is added to the minigame difficulty; bait height scales the catch window on the bar. The plain rod is the baseline.
+#define FISHING_ROD_CRAFTED_DIFFICULTY 5
+#define FISHING_ROD_BRONZE_DIFFICULTY -3
+#define FISHING_ROD_BLACKSTEEL_DIFFICULTY -5
+#define FISHING_ROD_BLACKSTEEL_BAIT_HEIGHT 1.15
+#define FISHING_ROD_DECREPIT_DIFFICULTY -8
+#define FISHING_ROD_DECREPIT_BAIT_HEIGHT 1.3
+
 ///Multiplier on the bait's sink speed with a bobber on the line.
 #define FISHING_BOBBER_GRAVITY_MULT 0.75
 ///Multiplier on the catch weight of demersal fish with a sinker on the line.

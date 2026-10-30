@@ -496,12 +496,15 @@
 	desc = "A tool of religious importance, used by wide-brimmed priests who offer wriggling sacrifices to the endless waves beneath."
 	icon_state = "bronzerod"
 	max_integrity = 200
+	difficulty_modifier = FISHING_ROD_BRONZE_DIFFICULTY
 
 /obj/item/fishingrod/blacksteel
 	name = "blacksteel fishing rod"
 	desc = "G'morning! Nice dae for fishin', ain't it? Hu-hah!"
 	icon_state = "blacksteelrod"
 	max_integrity = 333
+	difficulty_modifier = FISHING_ROD_BLACKSTEEL_DIFFICULTY
+	bait_height_mult = FISHING_ROD_BLACKSTEEL_BAIT_HEIGHT
 
 /obj/item/fishingrod/aalloy
 	name = "decrepit fishing rod"
@@ -509,6 +512,8 @@
 	icon_state = "arod"
 	color = "#bb9696"
 	sellprice = 15
+	difficulty_modifier = FISHING_ROD_DECREPIT_DIFFICULTY
+	bait_height_mult = FISHING_ROD_DECREPIT_BAIT_HEIGHT
 
 /obj/projectile/fishing_cast
 	name = "fishing hook"
