@@ -7,6 +7,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	isbait = TRUE
 	bait_quality = TRAIT_GOOD_QUALITY_BAIT
+	bait_flag = DISH_MEAT
 	baitresilience = 5
 	dropshrink = 0.85
 
@@ -18,6 +19,7 @@
 	sellprice = 40
 	isbait = TRUE
 	bait_quality = TRAIT_GREAT_QUALITY_BAIT
+	bait_flag = DISH_MEAT
 	baitresilience = 10
 
 /obj/item/leechtick/afterattack(atom/target, mob/user, proximity_flag, click_parameters)

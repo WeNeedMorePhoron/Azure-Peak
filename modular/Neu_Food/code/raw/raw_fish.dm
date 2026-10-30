@@ -287,7 +287,7 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
-	fish_traits = list(/datum/fish_trait/heavy, /datum/fish_trait/nocturnal, /datum/fish_trait/carnivore, /datum/fish_trait/bioluminescent)
+	fish_traits = list(/datum/fish_trait/heavy, /datum/fish_trait/carnivore)
 	sellprice = 15
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/angler
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/angler
@@ -377,7 +377,6 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
-	fish_traits = list(/datum/fish_trait/nocturnal, /datum/fish_trait/deep_dweller)
 	faretype = FARE_IMPOVERISHED
 	no_rarity_sprite = TRUE
 	var/was_i_picked_up = FALSE
@@ -406,7 +405,6 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
-	fish_traits = list(/datum/fish_trait/nocturnal, /datum/fish_trait/deep_dweller)
 	faretype = FARE_IMPOVERISHED
 	no_rarity_sprite = TRUE
 	dropshrink = 0
@@ -449,7 +447,7 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
-	fish_traits = list(/datum/fish_trait/heavy, /datum/fish_trait/carnivore, /datum/fish_trait/deep_dweller)
+	fish_traits = list(/datum/fish_trait/heavy, /datum/fish_trait/carnivore)
 	faretype = FARE_IMPOVERISHED
 	no_rarity_sprite = TRUE
 	dropshrink = 0
@@ -630,7 +628,7 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
-	fish_traits = list(/datum/fish_trait/nocturnal, /datum/fish_trait/carnivore)
+	fish_traits = list(/datum/fish_trait/carnivore)
 	faretype = FARE_NEUTRAL
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/zizo_abberation

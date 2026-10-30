@@ -10,3 +10,10 @@
 		/obj/item/roguegem/oyster = 2,
 		/obj/item/reagent_containers/food/snacks/smallrat = 1,
 	)
+	fish_counts = list(
+		/obj/item/reagent_containers/food/snacks/fish/oyster = FISH_STOCK_UNLIMITED,
+		/obj/item/reagent_containers/food/snacks/fish/shrimp = FISH_STOCK_UNLIMITED,
+		/obj/item/reagent_containers/food/snacks/fish/lobster = FISH_STOCK_UNLIMITED,
+		/obj/item/reagent_containers/food/snacks/fish/crab = FISH_STOCK_UNLIMITED,
+		/obj/item/reagent_containers/food/snacks/fish/clam = FISH_STOCK_UNLIMITED,
+	)

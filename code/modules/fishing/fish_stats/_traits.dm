@@ -46,6 +46,7 @@ GLOBAL_LIST_INIT(spontaneous_fish_traits, populate_spontaneous_fish_traits())
 	return list(ADDITIVE_FISHING_MOD = 0, MULTIPLICATIVE_FISHING_MOD = 1)
 
 /// Catch weight table modifier from this mod, needs to return a list with two values
+// When initially ported, fishes had nocturnal and day dwelling traits, but since we have our day WAY shorter than night, it is not really worth it to implement these traits, especially because the rare fishes are overwhelmingly night fishes.
 /datum/fish_trait/proc/catch_weight_mod(obj/item/fishingrod/rod, mob/fisherman, atom/location, obj/item/reagent_containers/food/snacks/fish/fish_type)
 	SHOULD_CALL_PARENT(TRUE)
 	return list(ADDITIVE_FISHING_MOD = 0, MULTIPLICATIVE_FISHING_MOD = 1)
@@ -98,17 +99,6 @@ GLOBAL_LIST_INIT(spontaneous_fish_traits, populate_spontaneous_fish_traits())
 			return
 
 	if(!HAS_TRAIT(rod.baited, TRAIT_GOOD_QUALITY_BAIT) && !HAS_TRAIT(rod.baited, TRAIT_GREAT_QUALITY_BAIT))
-		.[MULTIPLICATIVE_FISHING_MOD] = 0
-
-/datum/fish_trait/nocturnal
-	name = "Nocturnal"
-	catalog_description = "This fish avoids bright lights, fishing and storing in darkness recommended."
-
-/datum/fish_trait/nocturnal/catch_weight_mod(obj/item/fishingrod/rod, mob/fisherman, atom/location, obj/item/reagent_containers/food/snacks/fish/fish_type)
-	. = ..()
-	var/turf/turf = get_turf(location)
-	var/light_amount = turf?.get_lumcount()
-	if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD)
 		.[MULTIPLICATIVE_FISHING_MOD] = 0
 
 /datum/fish_trait/heavy
@@ -191,18 +181,6 @@ GLOBAL_LIST_INIT(spontaneous_fish_traits, populate_spontaneous_fish_traits())
 	. = ..()
 	fish.sellprice *= 5
 
-/datum/fish_trait/deep_dweller
-	name = "Deep Dweller"
-	catalog_description = "This fish lives in the deepest waters and suffers in shallow light."
-
-/datum/fish_trait/deep_dweller/catch_weight_mod(obj/item/fishingrod/rod, mob/fisherman, atom/location, obj/item/reagent_containers/food/snacks/fish/fish_type)
-	. = ..()
-	var/turf/targeted = location
-	if(!targeted.can_see_sky()) // Covered/deep water
-		.[MULTIPLICATIVE_FISHING_MOD] *= 2
-	else
-		.[MULTIPLICATIVE_FISHING_MOD] *= 0.2
-
 /datum/fish_trait/venomous
 	name = "Venomous"
 	catalog_description = "This fish secretes toxins. Can poison other fish and handlers."
@@ -225,22 +203,3 @@ GLOBAL_LIST_INIT(spontaneous_fish_traits, populate_spontaneous_fish_traits())
 	var/treasure_type = pick(/obj/item/roguecoin/copper, /obj/item/roguecoin/silver, /obj/item/roguecoin/gold)
 	new treasure_type(get_turf(source))
 	source.visible_message(span_notice("Something shiny falls out of [source]!"))
-
-/datum/fish_trait/bioluminescent
-	name = "Bioluminescent"
-	catalog_description = "This fish emits a natural glow in dark waters. Easier to spot at night."
-	incompatible_traits = list(/datum/fish_trait/nocturnal, /datum/fish_trait/camouflage)
-	added_difficulty = -3
-
-/datum/fish_trait/bioluminescent/catch_weight_mod(obj/item/fishingrod/rod, mob/fisherman, atom/location, obj/item/reagent_containers/food/snacks/fish/fish_type)
-	. = ..()
-	var/turf/turf = get_turf(location)
-	var/light_amount = turf?.get_lumcount()
-	// Easier to find in darkness
-	if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
-		.[MULTIPLICATIVE_FISHING_MOD] *= 1.5
-
-/datum/fish_trait/bioluminescent/apply_to_fish(obj/item/reagent_containers/food/snacks/fish/fish)
-	. = ..()
-	fish.set_light_range(2)
-	fish.set_light_color(COLOR_CYAN)

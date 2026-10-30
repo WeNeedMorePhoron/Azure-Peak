@@ -12,6 +12,7 @@
 	icon_state = "worm1"
 	throwforce = 10
 	bait_quality = TRAIT_BASIC_QUALITY_BAIT
+	bait_flag = DISH_MEAT
 	isbait = TRUE
 	color = "#985544"
 	w_class = WEIGHT_CLASS_TINY

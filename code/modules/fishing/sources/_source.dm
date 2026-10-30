@@ -71,6 +71,12 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 		TRAIT_GOOD_QUALITY_BAIT = 0.55,
 		TRAIT_BASIC_QUALITY_BAIT = 0.4,
 	)
+	///Extra multiplier on the weight of valuable (prized) fish by bait quality.
+	var/static/prized_pull_multiplier = list(
+		TRAIT_GREAT_QUALITY_BAIT = 4,
+		TRAIT_GOOD_QUALITY_BAIT = 2,
+		TRAIT_BASIC_QUALITY_BAIT = 1,
+	)
 
 	//If set, fish types native to this source won't die if left on these turfs.
 	var/list/associated_safe_turfs
@@ -88,11 +94,23 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	for(var/path in fish_counts)
 		if(!(path in fish_table))
 			stack_trace("path [path] found in the 'fish_counts' list but not in the 'fish_table'")
+	for(var/path in fish_table)
+		if(ispath(path, /obj/item/reagent_containers/food/snacks/fish) && isnull(fish_counts[path]))
+			stack_trace("fish [path] in the 'fish_table' of [type] has no stock in 'fish_counts'; use FISH_STOCK_UNLIMITED for common fish")
 	if(wait_time_range && length(wait_time_range) != 2)
 		stack_trace("wait_time_range for [type] is set but has length different than two")
 	for(var/path in fish_counts) //we give anything unique an auto 30 min regen, that way if the round is extended you still get content.
-		if (!(path in fish_count_regen))
+		if (is_limited(path) && !(path in fish_count_regen))
 			fish_count_regen[path] = 30 MINUTES
+
+/// Whether this result has a real stock that depletes. False for unlisted results and FISH_STOCK_UNLIMITED.
+/datum/fish_source/proc/is_limited(path)
+	var/stock = fish_counts[path]
+	return !isnull(stock) && stock != FISH_STOCK_UNLIMITED
+
+/// Whether this result is limited and currently out of stock.
+/datum/fish_source/proc/is_exhausted(path)
+	return is_limited(path) && fish_counts[path] <= 0
 
 /datum/fish_source/Destroy()
 	cleanup_generated_fish()
@@ -320,7 +338,7 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 
 	var/count_key = get_fish_path(reward_path)
 
-	if(!isnull(fish_counts[count_key])) // This is limited count result
+	if(is_limited(count_key))
 		//Somehow, we're trying to spawn an expended reward.
 		if(fish_counts[count_key] <= 0)
 			return null
@@ -375,7 +393,7 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 /datum/fish_source/proc/get_fish_table(atom/location)
 	var/list/table = fish_table.Copy()
 	for(var/result in table)
-		if(!isnull(fish_counts[result]) && fish_counts[result] <= 0)
+		if(is_exhausted(result))
 			table -= result
 	return table
 
@@ -389,6 +407,8 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	var/leveling_exponent = 0
 	///Multiplier used to make fishes more common compared to everything else.
 	var/result_multiplier = 1
+	///Multiplier on counted fish only.
+	var/prized_multiplier = 1
 
 	var/list/base_table = get_fish_table(location)
 	var/list/final_table = list()
@@ -398,6 +418,7 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 			if(HAS_TRAIT(bait, trait))
 				result_multiplier = weight_result_multiplier[trait]
 				leveling_exponent = weight_leveling_exponents[trait]
+				prized_multiplier = prized_pull_multiplier[trait]
 				break
 
 	if(HAS_TRAIT(rod, TRAIT_ROD_REMOVE_FISHING_DUD))
@@ -429,6 +450,8 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 
 			if(bait)
 				weight = round(weight * result_multiplier, 1)
+				if(is_limited(result))
+					weight = round(weight * prized_multiplier, 1)
 				var/mult = bait.check_bait(fish)
 				weight = round(weight * mult, 1)
 				if(mult > 1 && HAS_TRAIT(bait, TRAIT_BAIT_ALLOW_FISHING_DUD))

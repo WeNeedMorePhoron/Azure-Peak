@@ -145,8 +145,8 @@
 	if(fluid_type == FISH_FLUID_FRESHWATER || fluid_type == FISH_FLUID_ANY_WATER)
 		multiplier *= 1.5
 
-	// Slight penalty for picky/vegan/nocturnal but still catchable
-	if(length(list(/datum/fish_trait/vegan, /datum/fish_trait/picky_eater, /datum/fish_trait/nocturnal) & fish.fish_traits))
+	// Slight penalty for picky/vegan but still catchable
+	if(length(list(/datum/fish_trait/vegan, /datum/fish_trait/picky_eater) & fish.fish_traits))
 		multiplier *= 0.8
 
 	return multiplier
