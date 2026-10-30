@@ -67,6 +67,14 @@
 #define FISH_PRICE_RARE 20
 #define FISH_PRICE_PRIZED 40
 
+// Fillets a fish of average size chops into. Scales with the size of the actual catch.
+#define FISH_FILLETS_TINY 1
+#define FISH_FILLETS_SMALL 2
+#define FISH_FILLETS_MEDIUM 3
+#define FISH_FILLETS_LARGE 4
+#define FISH_FILLETS_HUGE 6
+#define FISH_FILLETS_GIANT 8
+
 #define FISH_RARITY_COMMON 0
 #define FISH_RARITY_RARE 1
 #define FISH_RARITY_ULTRA 2

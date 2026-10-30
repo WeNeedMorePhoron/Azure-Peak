@@ -14,7 +14,7 @@
 	max_integrity = 50
 	sellprice = FISH_PRICE_GOOD
 	dropshrink = 0.6
-	slices_num = 2
+	slices_num = FISH_FILLETS_SMALL
 	slice_bclass = BCLASS_CHOP
 	chopping_sound = TRUE
 	var/rarity_rank = FISH_RARITY_COMMON
@@ -54,6 +54,11 @@
 		START_PROCESSING(SSobj, src)
 	apply_traits()
 	update_size_and_weight()
+
+/obj/item/reagent_containers/food/snacks/fish/initialize_slice(obj/item/reagent_containers/food/snacks/slice, reagents_per_slice)
+	. = ..()
+	slice.name = "[initial(name)] filet"
+	slice.faretype = faretype
 
 /obj/item/reagent_containers/food/snacks/fish/proc/update_rarity()
 	var/ratio = size / average_size
@@ -133,7 +138,8 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_FINE
+	slices_num = FISH_FILLETS_LARGE
 	no_rarity_sprite = TRUE
 	sellprice = FISH_PRICE_FINE
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/fish/salmon
@@ -157,7 +163,8 @@
 		),
 	)
 	fish_traits = list(/datum/fish_trait/camouflage)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_FINE
+	slices_num = FISH_FILLETS_MEDIUM
 	no_rarity_sprite = TRUE
 	sellprice = FISH_PRICE_FINE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/plaice
@@ -181,7 +188,8 @@
 		),
 	)
 	fish_traits = list(/datum/fish_trait/camouflage)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_POOR
+	slices_num = FISH_FILLETS_TINY
 	no_rarity_sprite = TRUE
 	sellprice = FISH_PRICE_COMMON
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/mudskipper
@@ -205,6 +213,7 @@
 		),
 	)
 	faretype = FARE_NEUTRAL
+	slices_num = FISH_FILLETS_MEDIUM
 	no_rarity_sprite = TRUE
 	sellprice = FISH_PRICE_GOOD
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/bass
@@ -227,7 +236,8 @@
 			FISH_BAIT_VALUE = DISH_BREAD,
 		),
 	)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_POOR
+	slices_num = FISH_FILLETS_TINY
 	no_rarity_sprite = TRUE
 	sellprice = FISH_PRICE_BAIT
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sunny
@@ -238,6 +248,7 @@
 	name = "carp"
 	desc = "A mudraking creacher of the river-depths, barely fit for food."
 	faretype = FARE_IMPOVERISHED
+	slices_num = FISH_FILLETS_SMALL
 	sellprice = FISH_PRICE_COMMON
 	icon_state = "carp"
 	fish_id = "carp"
@@ -276,7 +287,8 @@
 		/obj/item/fishing/bait/speckled,
 	)
 	fish_traits = list(/datum/fish_trait/camouflage, /datum/fish_trait/picky_eater)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_FINE
+	slices_num = FISH_FILLETS_TINY
 	sellprice = FISH_PRICE_PRIZED
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/clownfish
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/clownfish
@@ -285,7 +297,8 @@
 /obj/item/reagent_containers/food/snacks/fish/angler
 	name = "anglerfish"
 	desc = "A menacing abyssal predator."
-	faretype = FARE_NEUTRAL
+	faretype = FARE_FINE
+	slices_num = FISH_FILLETS_LARGE
 	icon_state = "angler"
 	fish_id = "angler"
 	average_size = 8
@@ -324,7 +337,8 @@
 		/obj/item/fishing/bait/meat,
 		/obj/item/fishing/bait/gray,
 	)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_POOR
+	slices_num = FISH_FILLETS_SMALL
 	sellprice = FISH_PRICE_COMMON
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/eel
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/eel
@@ -346,7 +360,8 @@
 		),
 	)
 	fish_traits = list(/datum/fish_trait/camouflage)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_POOR
+	slices_num = FISH_FILLETS_SMALL
 	no_rarity_sprite = TRUE
 	sellprice = FISH_PRICE_COMMON
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sole
@@ -371,6 +386,7 @@
 	)
 	fish_traits = list(/datum/fish_trait/heavy)
 	faretype = FARE_NEUTRAL
+	slices_num = FISH_FILLETS_LARGE
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/cod
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/cod
@@ -527,7 +543,8 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_FINE
+	slices_num = FISH_FILLETS_LARGE
 	no_rarity_sprite = TRUE
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/fish/salmon
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/salmon/black_headed
@@ -551,7 +568,8 @@
 		),
 	)
 	fish_traits = list(/datum/fish_trait/camouflage)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_POOR
+	slices_num = FISH_FILLETS_SMALL
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/flounder
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/flounder
@@ -575,7 +593,8 @@
 		),
 	)
 	fish_traits = list(/datum/fish_trait/vegan)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_POOR
+	slices_num = FISH_FILLETS_TINY
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_shrimp
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_shrimp
@@ -600,7 +619,8 @@
 		),
 	)
 	fish_traits = list(/datum/fish_trait/heavy)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_FINE
+	slices_num = FISH_FILLETS_HUGE
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_mother
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/swamp_mother
@@ -625,6 +645,7 @@
 	)
 	fish_traits = list(/datum/fish_trait/carnivore)
 	faretype = FARE_NEUTRAL
+	slices_num = FISH_FILLETS_MEDIUM
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/black_bass
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/black_bass
@@ -649,7 +670,8 @@
 		),
 	)
 	fish_traits = list(/datum/fish_trait/carnivore)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_FINE
+	slices_num = FISH_FILLETS_MEDIUM
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/zizo_abberation
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/zizo_abberation
@@ -673,7 +695,8 @@
 		),
 	)
 	fish_traits = list(/datum/fish_trait/heavy, /datum/fish_trait/prehistoric)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_FINE
+	slices_num = FISH_FILLETS_GIANT
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
@@ -697,7 +720,8 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_POOR
+	slices_num = FISH_FILLETS_SMALL
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/mackerel
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/mackerel
@@ -721,7 +745,8 @@
 		),
 	)
 	fish_traits = list(/datum/fish_trait/carnivore)
-	faretype = FARE_NEUTRAL
+	faretype = FARE_FINE
+	slices_num = FISH_FILLETS_MEDIUM
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/beaksnapper
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/beaksnapper
