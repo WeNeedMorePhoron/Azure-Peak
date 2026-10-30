@@ -916,13 +916,13 @@
 
 /turf/proc/add_fishing_spot_comp(datum/source, obj/item/fishingrod/rod, mob/user, automated)
 	SIGNAL_HANDLER
-	var/datum/component/fishing_spot/spot = source.AddComponent(/datum/component/fishing_spot, GLOB.preset_fish_sources[fish_source])
+	var/datum/component/fishing_spot/spot = source.AddComponent(/datum/component/fishing_spot, get_regional_fish_source(fish_source, get_area(src)))
 	remove_lazy_fishing()
 	return spot.handle_cast(arglist(args))
 
 /// The fish source this turf draws from, whether still lazy or already a fishing spot component. Null for unfishable turfs.
 /turf/proc/get_fish_source()
 	if(fish_source)
-		return GLOB.preset_fish_sources[fish_source]
+		return get_regional_fish_source(fish_source, get_area(src))
 	var/datum/component/fishing_spot/spot = GetComponent(/datum/component/fishing_spot)
 	return spot?.fish_source

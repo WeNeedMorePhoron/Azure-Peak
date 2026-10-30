@@ -1,5 +1,16 @@
 GLOBAL_LIST_INIT_TYPED(preset_fish_sources, /datum/fish_source, init_subtypes_w_path_keys(/datum/fish_source, list()))
 
+// Each region on the map have a regional fish sources, so that fishers are encouraged to move region once the local fish population is depleted, instead of the global per water tile type pool being depleted like the original, so we can account for multiple fishers.
+GLOBAL_LIST_EMPTY(regional_fish_sources)
+
+/proc/get_regional_fish_source(source_path, area/region)
+	var/key = "[source_path]-[region?.type]"
+	var/datum/fish_source/source = GLOB.regional_fish_sources[key]
+	if(!source)
+		source = new source_path
+		GLOB.regional_fish_sources[key] = source
+	return source
+
 /**
  * When adding new fishable rewards to a table/counts, you can specify an icon to show in place of the
  * generic fish icon in the minigame UI should the user have the TRAIT_REVEAL_FISH trait, by adding it to
