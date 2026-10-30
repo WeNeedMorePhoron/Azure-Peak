@@ -96,7 +96,7 @@
 
 /obj/item/fishing/hook/deluxe
 	name = "carved minnow hook"
-	desc = "An elaborate hook in the shape of a minnow with two carved hook on either end. Scares off smaller fishes but attracts larger and more valuable one."
+	desc = "An elaborate hook in the shape of a minnow with two carved hook on either end. Scares off smaller fishes but attracts larger and more valuable one. It is designed to stay put in the water column, allowing a fisherman to manipulate it precisely to catch a fish."
 	icon_state = "deluxehook"
 	fishing_hook_traits = FISHING_HOOK_BIDIRECTIONAL
 

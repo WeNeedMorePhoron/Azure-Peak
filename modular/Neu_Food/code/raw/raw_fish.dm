@@ -50,28 +50,36 @@
 
 /obj/item/reagent_containers/food/snacks/fish/Initialize(mapload)
 	. = ..()
-	var/rarity = pickweight(list("gold" = 1, "ultra" = 40, "rare"= 50, "com"= 900))
-	if(!no_rarity_sprite)
-		icon_state = "[initial(icon_state)][rarity]"
-	switch(rarity)
-		if("gold")
-			sellprice = sellprice * 10
-			name = "legendary [initial(name)]"
-			rarity_rank = 3
-		if("ultra")
-			sellprice = sellprice * 4
-			name = "ultra-rare [initial(name)]"
-			rarity_rank = 2
-		if("rare")
-			sellprice = sellprice * 2
-			name = "rare [initial(name)]"
-			rarity_rank = 1
-		if("com")
-			name = "common [initial(name)]"
 	if(!dead)
 		START_PROCESSING(SSobj, src)
 	apply_traits()
 	update_size_and_weight()
+
+/obj/item/reagent_containers/food/snacks/fish/proc/update_rarity()
+	var/ratio = size / average_size
+	var/label = "common"
+	var/suffix = "com"
+	var/mult = 1
+	rarity_rank = 0
+	if(ratio >= FISH_RARITY_LEGENDARY_RATIO)
+		label = "legendary"
+		suffix = "gold"
+		mult = FISH_RARITY_LEGENDARY_PRICE_MULT
+		rarity_rank = 3
+	else if(ratio >= FISH_RARITY_ULTRA_RATIO)
+		label = "ultra-rare"
+		suffix = "ultra"
+		mult = FISH_RARITY_ULTRA_PRICE_MULT
+		rarity_rank = 2
+	else if(ratio >= FISH_RARITY_RARE_RATIO)
+		label = "rare"
+		suffix = "rare"
+		mult = FISH_RARITY_RARE_PRICE_MULT
+		rarity_rank = 1
+	name = "[label] [initial(name)]"
+	sellprice = initial(sellprice) * mult * price_mult
+	if(!no_rarity_sprite)
+		icon_state = "[initial(icon_state)][suffix]"
 
 /obj/item/reagent_containers/food/snacks/fish/attack_hand(mob/user)
 	if(isliving(user))

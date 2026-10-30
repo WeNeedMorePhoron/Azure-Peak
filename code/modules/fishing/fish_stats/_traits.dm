@@ -155,7 +155,7 @@ GLOBAL_LIST_INIT(fish_traits, init_subtypes_w_path_keys(/datum/fish_trait, list(
 
 /datum/fish_trait/prehistoric/apply_to_fish(obj/item/reagent_containers/food/snacks/fish/fish)
 	. = ..()
-	fish.sellprice *= 5
+	fish.price_mult *= FISH_ROYAL_PRICE_MULT
 
 /datum/fish_trait/venomous
 	name = "Venomous"

@@ -5,7 +5,7 @@
 	tutorial = "You are a Master Fisher, you cast your rod with might, and are able to pull fish larger than Eoras Bosom."
 	allowed_sexes = list(MALE, FEMALE)
 	forbidden_races = list(RACES_DESPISED)
-	
+
 	outfit = /datum/outfit/job/roguetown/adventurer/fishermaster
 	traits_applied = list(TRAIT_CAUTIOUS_FISHER, TRAIT_HOMESTEAD_EXPERT)
 
@@ -63,6 +63,7 @@
 		beltl = /obj/item/flint
 		backpack_contents = list(
 							/obj/item/natural/worms = 2,
+							/obj/item/fishing/lure/dough = 2,
 							/obj/item/rogueweapon/shovel/small=1,
 							/obj/item/flashlight/flare/torch = 1,
 							)
@@ -79,6 +80,7 @@
 		beltl = /obj/item/rogueweapon/huntingknife
 		backpack_contents = list(
 			/obj/item/natural/worms = 2,
+			/obj/item/fishing/lure/dough = 2,
 			/obj/item/rogueweapon/shovel/small=1,
 			/obj/item/rogueweapon/scabbard/sheath = 1
 			)

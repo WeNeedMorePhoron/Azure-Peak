@@ -59,6 +59,47 @@
 #define FISHING_REEL_BLESSED_LOSS -1
 #define FISHING_REEL_BLESSED_GAIN 1
 
+// The fish's quality, size, rarity, and sellprice is linked tightly together. Rarity is read off the catch's size against its species average. Bought and placed fish are average, so common.
+// Each fish produce a base amount of fillet, which is multiplied by its size and value.
+#define FISH_RARITY_RARE_RATIO 1.3
+#define FISH_RARITY_ULTRA_RATIO 1.7
+#define FISH_RARITY_LEGENDARY_RATIO 2.1
+#define FISH_RARITY_RARE_PRICE_MULT 2
+#define FISH_RARITY_ULTRA_PRICE_MULT 4
+#define FISH_RARITY_LEGENDARY_PRICE_MULT 10
+#define FISH_ROYAL_PRICE_MULT 5
+
+// Being good at the fishing minigame improves the quality of your catch. While auto-reeling will never catch prized fish and is less responsive.
+// By keeping the window on the fish for long enough, your catch will be a "great" catch and colored gold, which improves the fish.
+// A "fair" catch is colored green and does nothing, while a poor catch lowers the quality.
+#define CATCH_BAND_POOR 0
+#define CATCH_BAND_FAIR 1
+#define CATCH_BAND_CLEAN 2
+#define FISHING_CLEAN_CATCH_RATIO 0.75
+#define FISHING_FAIR_CATCH_RATIO 0.45
+#define FISHING_CLEAN_CATCH_SIZE_MULT 1.3
+#define FISHING_POOR_CATCH_SIZE_MULT 0.8
+#define FISHING_CLEAN_CATCH_COLOR "#ffd700"
+#define FISHING_FAIR_CATCH_COLOR "#5fbf5f"
+#define FISHING_POOR_CATCH_COLOR "#d04040"
+
+/// How many seconds of grace you have before the catch quality starts to decay.
+#define FISHING_CATCH_BAND_GRACE 5
+
+// Auto Reel is slower and cannot catch priced fish.
+#define FISHING_AUTO_REEL_SPEED_MULT 0.75
+
+// How long you have to land a fish before it gets away.
+// Difficulty is the sum of the water, the fish, your rod, your bait, the fish's traits and your skill. A sunny in still water is around 25, an anglerfish in the deep ocean around 45, a river sturgeon over 60. The thorn hook ignores the clock.
+#define FISHING_MINIGAME_EASY_TIME (50 SECONDS)
+#define FISHING_MINIGAME_HARD_TIME (15 SECONDS)
+#define FISHING_MINIGAME_HARD_DIFFICULTY 75
+
+// When the fight starts the fisher is told how hard it will be, so they learn what the clock means. Hardness runs from 0 (easiest) to 1 (the hard difficulty above).
+#define FISHING_FIGHT_EASY_HARDNESS 0.25
+#define FISHING_FIGHT_FAIR_HARDNESS 0.5
+#define FISHING_FIGHT_HARD_HARDNESS 0.75
+
 // Fishing rod tier effects. Difficulty is added to the minigame difficulty; bait height scales the catch window on the bar. The plain rod is the baseline.
 #define FISHING_ROD_CRAFTED_DIFFICULTY 5
 #define FISHING_ROD_BRONZE_DIFFICULTY -3

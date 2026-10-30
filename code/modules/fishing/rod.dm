@@ -191,10 +191,8 @@
 
 /obj/item/fishingrod/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_info("All fishing rods need a hook to be able to fish. A line and a bobber or sinker are optional but help. Bait is optional, but it increases the chance of catching a fish.")
-	. += span_info("Left-click on a water tile to cast the line. If a fish bites, click again to reel it in. This will start a minigame.")
-	. += span_info("Overlap the green bar with the fish until the progress bar fills up. Hold down left click to lift the green bar, release to let it sink.")
-	. += span_info("Auto reel will reel automatically but less efficiently. Once the progress bar fills, the fish will be caught automatically. You may have to bait the hook again if you use consumable baits.")
+	. += span_info("Needs a fishing line and a hook. Bait helps. Left-click water to cast, left-click again when the float dips, right-click or use the rod in hand to pull the line back in.")
+	. += span_info("Hold left-click to lift the green bar, release to let it sink, and keep it on the fish until the progress bar fills. With a carved minnow hook the bar stays put and right-click lowers it. Gold means you are doing well, red means you are not.")
 
 /obj/item/fishingrod/examine(mob/user)
 	. = ..()

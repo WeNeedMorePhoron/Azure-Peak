@@ -51,6 +51,8 @@
 
 	///The general deviation from the average weight and size this fish has in the wild
 	var/weight_size_deviation = 0.2
+	/// Price multiplier from traits, applied on top of the rarity multiplier whenever the price is recalculated.
+	var/price_mult = 1
 
 	/**
 	 * An identifier for this fish used to track progress for fish caught between rounds in
@@ -123,6 +125,7 @@
 	weight = new_weight
 
 	slices_num = max(round(size / average_size * initial(slices_num), 1), 1)
+	update_rarity()
 
 /obj/item/reagent_containers/food/snacks/fish/examine(mob/user)
 	. = ..()
@@ -131,6 +134,13 @@
 	var/length_text = size < 1 ? "[round(size * FISH_INCHES_PER_HAND, 0.5)] inches" : "[round(size, 0.1)] hands"
 	var/weight_text = weight < 1 ? "[round(weight * FISH_OUNCES_PER_POUND, 0.5)] ounces" : "[round(weight, 0.1)] pounds"
 	. += span_notice("It is [length_text] long and weighs some [weight_text].")
+	var/fillet_text = "It can be chopped into [slices_num] [slices_num == 1 ? "fillet" : "fillets"]"
+	var/extra = slices_num - initial(slices_num)
+	if(extra > 0)
+		fillet_text += ", [extra] more than the usual due to its rarity"
+	else if(extra < 0)
+		fillet_text += ", [-extra] fewer than the usual"
+	. += span_notice("[fillet_text].")
 
 /obj/item/reagent_containers/food/snacks/fish/proc/apply_traits()
 	for(var/fish_trait_type in fish_traits)

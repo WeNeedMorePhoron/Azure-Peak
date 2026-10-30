@@ -124,6 +124,15 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	///this is basically our "idle variable"
 	var/auto_handling = FALSE
 
+	/// Seconds the minigame has run
+	var/fight_time = 0
+	/// Seconds of those the bait spent on the fish
+	var/on_fish_time = 0
+	/// CATCH_BAND_* judged from the two above. This sets the progress bar tint and the roll for the catch's quality. Starts as clean (Highest tier) and decays.
+	var/catch_band = CATCH_BAND_CLEAN
+	/// Timer that lets the fish go when the minigame runs too long
+	var/minigame_timer
+
 /datum/fishing_challenge/New(datum/component/fishing_spot/comp, obj/item/fishingrod/rod, mob/user, _auto_handling)
 	src.user = user
 	used_rod = rod
@@ -176,6 +185,9 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 
 	reeling_velocity *= rod.bait_speed_mult
 	max_bait_velocity *= rod.bait_speed_mult
+	if(auto_handling)
+		reeling_velocity *= FISHING_AUTO_REEL_SPEED_MULT
+		max_bait_velocity *= FISHING_AUTO_REEL_SPEED_MULT
 	completion_gain *= rod.completion_speed_mult
 	bait_bounce_mult *= rod.bounciness_mult
 	deceleration_mult *= rod.deceleration_mult
@@ -303,6 +315,12 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	//You need to be actively holding on the fishing rod to use it.
 	if(source.get_active_held_item() != used_rod)
 		return
+	//Clicking the rod itself is handled by the rod, which pulls the line in.
+	if(target == used_rod)
+		return
+	if(LAZYACCESS(modifiers, RIGHT_CLICK) && phase != MINIGAME_PHASE)
+		INVOKE_ASYNC(src, PROC_REF(stop_fishing), used_rod, source)
+		return COMSIG_MOB_CANCEL_CLICKON
 	if(phase == WAIT_PHASE)
 		if(world.time < last_baiting_click + 0.25 SECONDS)
 			return COMSIG_MOB_CANCEL_CLICKON //Don't punish players if they accidentally double clicked.
@@ -345,6 +363,7 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	if(completed)
 		return
 	deltimer(next_phase_timer)
+	deltimer(minigame_timer)
 	completed = TRUE
 	if(phase == MINIGAME_PHASE)
 		remove_minigame_hud()
@@ -500,6 +519,11 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 
 	var/is_fish_instance = isfish(reward_path)
 
+	if(auto_handling && (ispath(reward_path, /obj/item/reagent_containers/food/snacks/fish) || is_fish_instance) && fish_source.is_limited(fish_source.get_fish_path(reward_path)))
+		user.balloon_alert(user, "too strong for the auto reel!")
+		complete(FALSE)
+		return
+
 	/// Fish minigame properties
 	if(ispath(reward_path,/obj/item/reagent_containers/food/snacks/fish) || is_fish_instance)
 		var/obj/item/reagent_containers/food/snacks/fish/fish = reward_path
@@ -553,6 +577,64 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 		if(is_fish_instance)
 			RegisterSignal(reward, COMSIG_FISH_STATUS_CHANGED, PROC_REF(on_fish_death))
 	start_time = world.time
+	fight_time = FISHING_CATCH_BAND_GRACE
+	on_fish_time = FISHING_CATCH_BAND_GRACE
+	apply_band_tint()
+	var/hardness = clamp((difficulty - FISHING_DEFAULT_DIFFICULTY) / (FISHING_MINIGAME_HARD_DIFFICULTY - FISHING_DEFAULT_DIFFICULTY), 0, 1)
+	announce_hardness(hardness)
+	if(!(special_effects & FISHING_MINIGAME_RULE_NO_ESCAPE))
+		var/time_limit = LERP(FISHING_MINIGAME_EASY_TIME, FISHING_MINIGAME_HARD_TIME, hardness)
+		minigame_timer = addtimer(CALLBACK(src, PROC_REF(out_of_time)), time_limit, TIMER_STOPPABLE|TIMER_DELETE_ME)
+
+/// Tells the fisher how hard the fight will be.
+/datum/fishing_challenge/proc/announce_hardness(hardness)
+	var/line
+	if(hardness < FISHING_FIGHT_EASY_HARDNESS)
+		line = "This is gonna be easy!"
+	else if(hardness < FISHING_FIGHT_FAIR_HARDNESS)
+		line = "A fair fight."
+	else if(hardness < FISHING_FIGHT_HARD_HARDNESS)
+		line = "This is gonna be a difficult catch."
+	else
+		line = "This one will fight for its life!"
+	user.balloon_alert(user, lowertext(line))
+	to_chat(user, span_notice(line))
+
+/datum/fishing_challenge/proc/out_of_time()
+	if(completed || phase != MINIGAME_PHASE)
+		return
+	user.balloon_alert(user, "it got away!")
+	complete(FALSE)
+
+/datum/fishing_challenge/proc/update_catch_band()
+	var/ratio = on_fish_time / fight_time
+	var/band = CATCH_BAND_POOR
+	if(ratio >= FISHING_CLEAN_CATCH_RATIO)
+		band = CATCH_BAND_CLEAN
+	else if(ratio >= FISHING_FAIR_CATCH_RATIO)
+		band = CATCH_BAND_FAIR
+	if(band == catch_band)
+		return
+	catch_band = band
+	apply_band_tint()
+
+/datum/fishing_challenge/proc/apply_band_tint()
+	if(QDELETED(fishing_hud))
+		return
+	switch(catch_band)
+		if(CATCH_BAND_CLEAN)
+			fishing_hud.hud_completion.color = color_matrix_recolor(FISHING_CLEAN_CATCH_COLOR)
+		if(CATCH_BAND_FAIR)
+			fishing_hud.hud_completion.color = color_matrix_recolor(FISHING_FAIR_CATCH_COLOR)
+		else
+			fishing_hud.hud_completion.color = color_matrix_recolor(FISHING_POOR_CATCH_COLOR)
+
+/datum/fishing_challenge/proc/apply_catch_quality(obj/item/reagent_containers/food/snacks/fish/fish)
+	switch(catch_band)
+		if(CATCH_BAND_CLEAN)
+			fish.randomize_size_and_weight(fish.average_size * FISHING_CLEAN_CATCH_SIZE_MULT, fish.average_weight * FISHING_CLEAN_CATCH_SIZE_MULT)
+		if(CATCH_BAND_POOR)
+			fish.randomize_size_and_weight(fish.average_size * FISHING_POOR_CATCH_SIZE_MULT, fish.average_weight * FISHING_POOR_CATCH_SIZE_MULT)
 
 ///Throws a stack with prefixed text.
 /datum/fishing_challenge/proc/get_stack_trace(init_text)
@@ -745,6 +827,10 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 		bait_velocity += velocity_change
 
 	//check that the fish area is still intersecting the bait now that it has moved
+	fight_time += seconds_per_tick
+	if(fish_on_bait)
+		on_fish_time += seconds_per_tick
+	update_catch_band()
 	if(fish_on_bait)
 		completion += completion_gain * seconds_per_tick
 		if(completion >= 100)

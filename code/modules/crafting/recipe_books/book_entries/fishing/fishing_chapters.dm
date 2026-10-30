@@ -11,8 +11,9 @@
 	return {"
 		<div>
 		<h3>How to Fish</h3>
-		<p>To fish, cast with a fishing rod that is equipped with a hook, a fishing line and preferably a piece of bait on a body of water. Once the bobber moves, you can left click to start the fishing minigame.</p>
+		<p>To fish, cast with a fishing rod that is equipped with a hook, a fishing line and preferably a piece of bait on a body of water. Once the bobber moves, you can left click to start the fishing minigame. Right click to pull the line back in.</p>
 		<p>Not using any bait greatly reduces the chance of fishing anything worthy.</p>
+		<p>Keep the green bar on the fish to progress. The progress bar turns gold when you are doing well, becoming green if you are doing average, and red when you do poorly. A golden catch gives you a bigger fish. Harder fishes give you less time. Auto reel adjusts slower and cannot land prized fish.</p>
 
 		<h3>Bait, Tackles and Tools</h3>
 		<p>There are two types of baits.</p>
@@ -31,7 +32,7 @@
 		<ul>
 			<li><b>Rods</b> From worst to best: Crafted, Plain, Bronze, Blacksteel rod, and one type found in ruins. A better rod makes the minigame easier, and the two best widen the catch window.</li>
 			<li><b>Fishing lines</b>, from worst to best: twine, leather, silk, deluxe. Twine loses progress faster. Leather is the standard. Silk loses progress slower and will not alert wary fishes. Deluxe also progress faster on top of silk's advantage.</li>
-			<li><b>Hooks</b>: The wooden gorge hook is easy to acquire and struggles with larger fish. The thorn hook never lets a fish escape, and guarantee a catch if you take too long, but halve your XP gain. The iron hook is the standard and keep the bait from bouncing off the bottom. The carved minnow hook, the best hook, scares off small fish and attracts large ones.</li>
+			<li><b>Hooks</b>: The wooden gorge hook is easy to acquire and struggles with larger fish. The thorn hook never lets a fish escape, and guarantee a catch if you take too long, but halve your XP gain. The iron hook is the standard and keep the bait from bouncing off the bottom. The carved minnow hook, the best hook, scares off small fish and attracts large ones, and lets you move the green bar both up and down.</li>
 			<li><b>Bobber and sinker</b>: Having either of them make you progress faster. The bobber makes the bait sink slower. The sinker brings up bottom dwelling fish.</li>
 			<li><b>Rolled baits</b>: Red bait for eels and meat eaters, doughy bait for carp, shrimp and plant eaters, gray bait for a bit of everything, speckled bait for odd and valuable fishes, and enchanted bait draws special fishes.</li>
 		</ul>

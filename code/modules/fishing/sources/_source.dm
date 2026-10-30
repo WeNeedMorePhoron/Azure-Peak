@@ -310,23 +310,26 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	if(!success)
 		cleanup_generated_fish() // Clean up fish pool on failure
 		return
-	var/atom/movable/reward = dispense_reward(challenge.reward_path, user, challenge.location, challenge.used_rod)
+	var/atom/movable/reward = dispense_reward(challenge.reward_path, user, challenge.location, challenge)
 	SEND_SIGNAL(challenge.used_rod, COMSIG_FISHING_ROD_CAUGHT_FISH, reward, user)
 	challenge.used_rod.on_reward_caught(reward, user)
 	cleanup_generated_fish() // Clean up remaining fish pool after dispensing
 
-/// Gives out the reward if possible
-/datum/fish_source/proc/dispense_reward(reward_path, mob/fisherman, atom/fishing_spot, obj/item/fishingrod/rod)
+/// Gives out the reward if possible. The catch's size is settled before it is named to the fisher.
+/datum/fish_source/proc/dispense_reward(reward_path, mob/fisherman, atom/fishing_spot, datum/fishing_challenge/challenge)
 	var/atom/movable/reward = simple_dispense_reward(reward_path, get_turf(fisherman), fishing_spot)
 	if(!reward) //balloon alert instead
 		fisherman.balloon_alert(fisherman, pick(duds))
 		return
+	if(isfish(reward) && challenge)
+		challenge.apply_catch_quality(reward)
 	if(isitem(reward)) //Try to put it in hand
 		INVOKE_ASYNC(fisherman, TYPE_PROC_REF(/mob, put_in_hands), reward)
 	else if(istype(reward, /obj/effect/spawner)) // Do not attempt to forceMove() a spawner. It will break things, and the spawned item should already be at the mob's turf by now.
 		fisherman.balloon_alert(fisherman, "caught something!")
 		return
 	fisherman.balloon_alert(fisherman, "caught [reward]!")
+	to_chat(fisherman, span_notice("I caught \a [reward]."))
 	return reward
 
 ///Simplified version of dispense_reward that doesn't need a fisherman.
