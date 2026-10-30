@@ -32,7 +32,7 @@
 	name = "cooked carp"
 	desc = "A charred and crisped carp. With a mild flavor and firm texture. Fit for the poor."
 	icon_state = "carpcooked"
-	faretype = FARE_IMPOVERISHED
+	faretype = FARE_POOR
 
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/clownfish
 	name = "cooked clownfish"
@@ -157,7 +157,7 @@
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/zizo_abberation
 	name = "zizo abberation"
 	icon_state = "zizo_abberation"
-	faretype = FARE_FINE
+	faretype = FARE_NEUTRAL
 
 /obj/item/reagent_containers/food/snacks/rogue/fryfish/sturgeon
 	name = "sturgeon"

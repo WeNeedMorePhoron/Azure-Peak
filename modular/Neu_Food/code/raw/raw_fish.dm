@@ -124,7 +124,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/salmon
 	name = "salmon"
-	desc = "A lonesome, horrific creacher of the freshwaters, searching for a mate. It makes for good eating."
+	desc = "The king of freshwater fish. They swim up rivers, pass weirs and traps and all kinds of obstacles, so they may lay their spawn, which is said to occur in the month of Xylix, and then swim out to the sea before winter. Any who are left behind are barely fit for eating, but those who make it to the sea are delicious and in abundance. A popular delicacy in Daftsmarch and Hagenstead, where many of their rivers are home to them. Up north in Rockhill and Rosawood, trout which are similar to them are more common."
 	icon_state = "salmon"
 	fish_id = "salmon"
 	average_size = 7
@@ -149,7 +149,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/plaice
 	name = "plaice"
-	desc = "A popular flatfish for eating. Found on tables of noblefolk and peasantry alike."
+	desc = "A popular flatfish, they come from the seas of Bleakisles, where they are found in utter abundance, though they are scarcer in Azurian waters. It is delicious, with a subtle and sweet taste, and is a common dish for commoners and nobles alike. Plaice caught here are sold as far as Heartfelt in the west of Azuria."
 	icon_state = "plaice"
 	fish_id = "plaice"
 	average_size = 4
@@ -162,7 +162,7 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
-	fish_traits = list(/datum/fish_trait/camouflage)
+	fish_traits = list(/datum/fish_trait/camouflage, /datum/fish_trait/heavy)
 	faretype = FARE_FINE
 	slices_num = FISH_FILLETS_MEDIUM
 	no_rarity_sprite = TRUE
@@ -173,7 +173,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/mudskipper
 	name = "mudskipper"
-	desc = "A furtive creacher, it hides in murky waters to keep its grotesque visage secreted away."
+	desc = "A furtive creechur, born of the mud. It hides in murky waters to keep its grotesque visage secreted away, and emerges when the spiders have left to pounce on insects and others floating on the water. They are not popular due to their appearance and occasionally fishy taste, but are surprisingly delicious for a fish accessible to the poor."
 	icon_state = "mudskipper"
 	fish_id = "mudskipper"
 	average_size = 1.5
@@ -198,7 +198,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/bass
 	name = "seabass"
-	desc = "I didn't see a bass."
+	desc = "A sea bass. Dense, with rich and flaky meat, often found on a burgher's table. It is a popular fish, but a commoner who is not a fisherman may not get to taste it more than a few times in their life. They have white, soft and buttery meat, and are best cooked by frying, preferably done by a properly trained cook in a noble's household. Bass caught in the river are the most prized, but there's barely any of them to be found, so they settle for sea bass instead."
 	icon_state = "seabass"
 	fish_id = "bass"
 	average_size = 6
@@ -222,7 +222,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/sunny
 	name = "sunny"
-	desc = "A pitiful beast, clinging to Astrata's light as if it would make it stronger. Little does it know that it needs faith for such miracles."
+	desc = "A pitiful beast, clinging to Astrata's light as if it would make it stronger. Little does it know that it needs faith for such miracles. A tiny fish that loves to live in ponds, and with a pleasant and sweet taste. Suitable for usage as a bait."
 	icon_state = "sunny"
 	fish_id = "sunny"
 	average_size = 1.5
@@ -240,14 +240,18 @@
 	slices_num = FISH_FILLETS_TINY
 	no_rarity_sprite = TRUE
 	sellprice = FISH_PRICE_BAIT
+	isbait = TRUE
+	bait_quality = TRAIT_BASIC_QUALITY_BAIT
+	bait_flag = DISH_MEAT
+	baitresilience = 1
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sunny
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/sunny
 	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/smokefish
 
 /obj/item/reagent_containers/food/snacks/fish/carp
 	name = "carp"
-	desc = "A mudraking creacher of the river-depths, barely fit for food."
-	faretype = FARE_IMPOVERISHED
+	desc = "A mudraking creacher of the river depths. It is kept in ponds and lakes for its meat, and is a very common fish for commoners to eat. It is said to be the Queen of Rivers, and has a subtle, but muddy taste."
+	faretype = FARE_POOR
 	slices_num = FISH_FILLETS_SMALL
 	sellprice = FISH_PRICE_COMMON
 	icon_state = "carp"
@@ -271,7 +275,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/clownfish
 	name = "clownfish"
-	desc = "This fish brings vibrant hues to the dark world of Azure Peak."
+	desc = "A fish of vibrant hue and distinctive markings, said to brighten up one's dae just by looking at it. It is a popular pet, kept in bowls and ponds, and hard to find. The meat is frankly mediocre, but eating it is said to bring good luck."
 	icon_state = "clownfish"
 	fish_id = "clownfish"
 	average_size = 1
@@ -296,7 +300,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/angler
 	name = "anglerfish"
-	desc = "A menacing abyssal predator."
+	desc = "A menacing abyssal creature with a massive head. They are said to be a relative of the frog, and have grown a great lure to draw lesser fishes to their doom. They yield a lot of meat, which is succulent and dense around the tail."
 	faretype = FARE_FINE
 	slices_num = FISH_FILLETS_LARGE
 	icon_state = "angler"
@@ -321,7 +325,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/eel
 	name = "eel"
-	desc = "A sinuous eel that slithers through the dark waters."
+	desc = "Eel for breakfast, eel for lunch, eel for dinner. So says the Kingsfielder. Much of south Azuria was once swampland drained to make way for farmland, and eels can be found everywhere and anywhere. It is the most common type of meat on a peasant's plate, and quite delicious too, with a rich and oily taste. It is also said to be an aphrodisiac. No wonder then, that the humen of Azuria outnumber the elves of the north, who partake in more wholesome fishes, fried in lard and served with potatoes."
 	icon_state = "eel"
 	fish_id = "eel"
 	average_size = 8
@@ -346,7 +350,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/sole
 	name = "sole"
-	desc = "An ugly flatfish, slimy and with both eyes on one side of its head. Nothing to do with feet."
+	desc = "An ugly flatfish, slimy and with both eyes on one side of its head. Yet just like the plaice, its flesh is sweet and tender and it can be caught in abundance. Best served fried with a light butter, a slice of Etruscan lemon, and a bit of herbs."
 	icon_state = "sole"
 	fish_id = "sole"
 	average_size = 3
@@ -359,7 +363,7 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
-	fish_traits = list(/datum/fish_trait/camouflage)
+	fish_traits = list(/datum/fish_trait/camouflage, /datum/fish_trait/heavy)
 	faretype = FARE_POOR
 	slices_num = FISH_FILLETS_SMALL
 	no_rarity_sprite = TRUE
@@ -370,7 +374,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/cod
 	name = "cod"
-	desc = "A cod, wow! Cod you hand me another piece of bait?"
+	desc = "A fish found in abundance in the northern shore of Azuria, and by fishermen who venture north of the Bleakisles to the colder water of the northern sea. It is very popular amongst the Rossan, and harder to find in the south, where they are fried and served with pesto as 'Elf Fish'."
 	icon_state = "cod"
 	fish_id = "cod"
 	average_size = 8
@@ -387,6 +391,7 @@
 	fish_traits = list(/datum/fish_trait/heavy)
 	faretype = FARE_NEUTRAL
 	slices_num = FISH_FILLETS_LARGE
+	sellprice = FISH_PRICE_GOOD
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/cod
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/cod
@@ -529,7 +534,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/salmon/black_headed
 	name = "black-headed salmon"
-	desc = "Black-Headed Salmon is an ocean fish found in open salt waters, recognizable by its dark head and lighter body. It is fully edible and prized for its firm, tasty meat, and the dark coloration likely helps it blend in when hunting near the surface."
+	desc = "The black-headed salmon is a relative of the common salmonne, and it is said that one out of ten salmon that spawn in the rivers of Azuria will be destined to become a black-headed salmon, should they survive their perilous journey down river and back to their spawning grounds. It is found mostly in open salt waters, and has oilier and more flavorful meat than its common cousin."
 	icon_state = "salmon_black"
 	fish_id = "salmon_black_headed"
 	average_size = 8
@@ -554,7 +559,7 @@
 
 /obj/item/reagent_containers/food/snacks/fish/flounder
 	name = "flounder"
-	desc = "Flounder is a flat ocean fish living in open salt waters, well adapted to life along the seabed. It is fully edible and known for its mild, tender meat, and an interesting fact is that both of its eyes are located on one side of the body, helping it stay hidden while lying flat on the ocean floor."
+	desc = "The flounder is a flatfish much like the plaice and sole, and has strange eyes that grow on one side of the body. They are said to spend most of their lyfe lazily lounging about on the bottom of the sea, eating any creechurs that crawl up to them."
 	icon_state = "flounder"
 	fish_id = "flounder"
 	average_size = 3
@@ -567,7 +572,7 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
-	fish_traits = list(/datum/fish_trait/camouflage)
+	fish_traits = list(/datum/fish_trait/camouflage, /datum/fish_trait/heavy)
 	faretype = FARE_POOR
 	slices_num = FISH_FILLETS_SMALL
 	no_rarity_sprite = TRUE
@@ -579,7 +584,7 @@
 /obj/item/reagent_containers/food/snacks/fish/swamp_shrimp
 	name = "swamp shrimp"
 	icon_state = "swamp_shrimp"
-	desc = "Swamp \"Shrimp\" is a small crustacean found in murky swamp waters, adapted to survive in dirty, low-oxygen water."
+	desc = "The swamp shrimp is a relative of the common shrimp, adapted to survive in the dirty and murky water of the Terrorbog. Scholars say that while common shrimps are birthed from Abyssor's breath, giving lyfe and food to every creechur of the sea, swamp shrimps are birthed from the putrid remnants of the swamp and emerge from the mud every spring."
 	fish_id = "swamp_shrimp"
 	average_size = 0.4
 	average_weight = 0.01
@@ -605,7 +610,7 @@
 	name = "swamp mother"
 	fish_flags = NONE
 	icon_state = "swamp_mother"
-	desc = "Swamp Mother is a large swamp-dwelling creature found in murky waters."
+	desc = "The swamp mother is a massive, swamp-dwelling creechur with strange, red eyes. It is not known how such a large fish survives in the deadly swamps of the Terrorbog. Some say it digs deep holes into the mud, and ambushes any spiderlings that venture into its territory. How fortunate it is then, that you have caught one and can eat it yourself!"
 	fish_id = "swamp_mother"
 	average_size = 12
 	average_weight = 30
@@ -618,7 +623,7 @@
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
 	)
-	fish_traits = list(/datum/fish_trait/heavy)
+	fish_traits = list(/datum/fish_trait/heavy, /datum/fish_trait/carnivore)
 	faretype = FARE_FINE
 	slices_num = FISH_FILLETS_HUGE
 	no_rarity_sprite = TRUE
@@ -630,7 +635,7 @@
 /obj/item/reagent_containers/food/snacks/fish/black_bass
 	name = "black bass"
 	icon_state = "black_bass"
-	desc = "Black Bass is a freshwater fish found in clean rivers and lakes, known for its strength and aggressive behavior. It is fully edible and popular for its firm meat, and a fun fact is that black bass are notorious for fighting hard even when caught on light tackle."
+	desc = "The black bass. They call it the lion of the rivers. Unlike its far more common sea bass cousin, it is known for its strength and how aggressive it is. It is said that the Azurians and the Taricheans before them have eaten all of the basses in the rivers, save for the noble and powerful black bass which is said to have dragged many a fisherman to their doom. But the meat of a black bass is firm, as delicious as they are hard to fight."
 	fish_id = "black_bass"
 	average_size = 5
 	average_weight = 4
@@ -670,7 +675,7 @@
 		),
 	)
 	fish_traits = list(/datum/fish_trait/carnivore)
-	faretype = FARE_FINE
+	faretype = FARE_NEUTRAL
 	slices_num = FISH_FILLETS_MEDIUM
 	no_rarity_sprite = TRUE
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/zizo_abberation
@@ -681,7 +686,7 @@
 /obj/item/reagent_containers/food/snacks/fish/sturgeon
 	name = "sturgeon"
 	icon_state = "sturgeon"
-	desc = "Sturgeon is a large freshwater fish found in clean rivers and waterfalls, known for its ancient appearance and heavy armor-like scales. It is fully edible and highly valued, and an interesting fact is that sturgeons have existed for over 200 million years, making them true living fossils."
+	desc = "The sturgeon is a massive freshwater fish, known for its many scales, which alone of all fishes are said to grow turned towards the head. It is said that PSYDON created the sturgeons, in the image of a warrior, and planted them in the many rivers of the world, so that a true warrior can eat them as food. Nowadays, sturgeon are very hard to find in the rivers of Azuria, for surely our ancestors have eaten all of them. It is the most noble of all fish, with abundant, delicious and clean flesh. In the yil 1414, the Sturgeon was declared a royal fish, and it is said that all sturgeon that land in Azuria are the property of the Grand Duke. But enforcement is evidently quite spotty."
 	fish_id = "sturgeon"
 	average_size = 10
 	average_weight = 60
@@ -707,7 +712,7 @@
 /obj/item/reagent_containers/food/snacks/fish/mackerel
 	name = "mackerel"
 	icon_state = "mackerel"
-	desc = "Mackerel is a fast-moving ocean fish found in open salt waters. It is fully edible, rich in oils and flavor, and known for its speed, mackerel can swim so fast it must keep moving to breathe properly."
+	desc = "The mackerel is a fish that is coloured like sulphur when in water, and they come in shoals in the ocean. They move fast, and are rich in oil and flavor, but quite bony. The Azurian Cookbook 'Forme of Ranesheni Curry' says that mackerels are best served after being deboned, and cooked in a spiced sauce. Commoners settle for just roasting it with a good amount of salt."
 	fish_id = "mackerel"
 	average_size = 4
 	average_weight = 1.5
@@ -731,7 +736,7 @@
 /obj/item/reagent_containers/food/snacks/fish/beaksnapper
 	name = "beaksnapper"
 	icon_state = "beaksnapper"
-	desc = "Beaksnapper is a colorful ocean fish found in salt waters, named for its strong, beak-like mouth. It is edible and prized for its firm meat, and fun fact: its snapping bite is strong enough to crush small shells, making it a clever little predator."
+	desc = "The beaksnapper is a colorful ocean fish, said to do battle with crabs and lobsters of the depths to crush their shells and reach the delicate flesh within. It has snapped many a fisherman's fingers and lines."
 	fish_id = "beaksnapper"
 	average_size = 4
 	average_weight = 3
