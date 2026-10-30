@@ -108,7 +108,7 @@
 
 /datum/runeritual/enchanting/lockpicking
 	name = "Lockpicking"
-	desc = "Better lockpicks!"
+	desc = "Better lockpicking!"
 	blacklisted = FALSE
 	tier = 2
 	required_atoms = list(/obj/item/rogueore/cinnabar = 1, /obj/item/reagent_containers/glass/bottle/alchemical = 1, /obj/item/magic/infernal/fang = 2)
