@@ -20,8 +20,7 @@
 					list("path" = /obj/item/fishing/reel/silk, "min" = 1, "max" = 1, "noun" = "silk reel"),
 					list("path" = /obj/item/fishing/line/bobber, "min" = 1, "max" = 1, "noun" = "bobber"),
 					list("path" = /obj/item/fishing/line/sinker, "min" = 1, "max" = 1, "noun" = "sinker"),
-					list("pool" = "rolled baits", "min" = 4, "max" = 6, "noun" = "rolled baits"),
-					list("path" = /obj/item/leechtick_bloated, "min" = 2, "max" = 3, "noun" = "bloated ticks"),
+					list("pool" = "rolled baits", "min" = 6, "max" = 9, "noun" = "rolled baits"),
 				),
 				TOWNER_POSTING_TIER_HARD = list(
 					list("path" = /obj/item/fishing/reel/deluxe, "min" = 1, "max" = 1, "noun" = "deluxe reel"),
@@ -39,14 +38,12 @@
 			"parcel_label" = "recovered bait stores",
 			"tiers" = list(
 				TOWNER_POSTING_TIER_MEDIUM = list(
-					list("pool" = "rolled baits", "min" = 8, "max" = 12, "noun" = "rolled baits"),
-					list("path" = /obj/item/leechtick_bloated, "min" = 3, "max" = 5, "noun" = "bloated ticks"),
+					list("pool" = "rolled baits", "min" = 11, "max" = 17, "noun" = "rolled baits"),
 					list("path" = /obj/item/natural/worms/grubs, "min" = 4, "max" = 6, "noun" = "grubs"),
 				),
 				TOWNER_POSTING_TIER_HARD = list(
-					list("pool" = "rolled baits", "min" = 12, "max" = 16, "noun" = "rolled baits"),
+					list("pool" = "rolled baits", "min" = 16, "max" = 22, "noun" = "rolled baits"),
 					list("path" = /obj/item/fishing/bait/deluxe, "min" = 4, "max" = 6, "noun" = "enchanted baits"),
-					list("path" = /obj/item/leechtick_bloated, "min" = 4, "max" = 6, "noun" = "bloated ticks"),
 				),
 			),
 		),
