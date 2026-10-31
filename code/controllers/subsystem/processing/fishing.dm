@@ -1,7 +1,8 @@
 /// subsystem for the fishing minigame processing.
 PROCESSING_SUBSYSTEM_DEF(fishing)
 	name = "Fishing"
-	flags = SS_BACKGROUND
+	flags = SS_POST_FIRE_TIMING
+	priority = FIRE_PRIORITY_FISHING
 	wait = 0.05 SECONDS // If you raise it to 0.1 SECONDS, you better also modify [datum/fish_movement/move_fish()]
 	///A list of cached fish icons
 	var/list/cached_fish_icons
