@@ -227,6 +227,66 @@
 					/obj/item/fishing/bait/deluxe,
 				)
 
+/datum/supply_pack/rogue/tools/baitred
+	name = "Red Bait (x6)"
+	cost = 6
+	contains = list(
+					/obj/item/fishing/bait/meat,
+					/obj/item/fishing/bait/meat,
+					/obj/item/fishing/bait/meat,
+					/obj/item/fishing/bait/meat,
+					/obj/item/fishing/bait/meat,
+					/obj/item/fishing/bait/meat,
+				)
+
+/datum/supply_pack/rogue/tools/baitdough
+	name = "Doughy Bait (x6)"
+	cost = 6
+	contains = list(
+					/obj/item/fishing/bait/dough,
+					/obj/item/fishing/bait/dough,
+					/obj/item/fishing/bait/dough,
+					/obj/item/fishing/bait/dough,
+					/obj/item/fishing/bait/dough,
+					/obj/item/fishing/bait/dough,
+				)
+
+/datum/supply_pack/rogue/tools/baitgray
+	name = "Gray Bait (x6)"
+	cost = 10
+	contains = list(
+					/obj/item/fishing/bait/gray,
+					/obj/item/fishing/bait/gray,
+					/obj/item/fishing/bait/gray,
+					/obj/item/fishing/bait/gray,
+					/obj/item/fishing/bait/gray,
+					/obj/item/fishing/bait/gray,
+				)
+
+/datum/supply_pack/rogue/tools/baitspeckled
+	name = "Speckled Bait (x6)"
+	cost = 18
+	contains = list(
+					/obj/item/fishing/bait/speckled,
+					/obj/item/fishing/bait/speckled,
+					/obj/item/fishing/bait/speckled,
+					/obj/item/fishing/bait/speckled,
+					/obj/item/fishing/bait/speckled,
+					/obj/item/fishing/bait/speckled,
+				)
+
+/datum/supply_pack/rogue/tools/baitshell
+	name = "Shell Bait (x6)"
+	cost = 12
+	contains = list(
+					/obj/item/fishing/bait/shell,
+					/obj/item/fishing/bait/shell,
+					/obj/item/fishing/bait/shell,
+					/obj/item/fishing/bait/shell,
+					/obj/item/fishing/bait/shell,
+					/obj/item/fishing/bait/shell,
+				)
+
 
 /datum/supply_pack/rogue/tools/bottl
 	name = "Glass Bottles"

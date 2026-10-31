@@ -73,8 +73,11 @@
 		)
 
 /datum/crafting_recipe/roguetown/survival/fishing/bait_dough
-	name = "doughy bait (x3)"
+	name = "doughy bait (x6)"
 	result = list(
+		/obj/item/fishing/bait/dough,
+		/obj/item/fishing/bait/dough,
+		/obj/item/fishing/bait/dough,
 		/obj/item/fishing/bait/dough,
 		/obj/item/fishing/bait/dough,
 		/obj/item/fishing/bait/dough,
@@ -84,8 +87,9 @@
 		)
 
 /datum/crafting_recipe/roguetown/survival/fishing/bait_gray
-	name = "gray bait (x5)"
+	name = "gray bait (x6)"
 	result = list(
+		/obj/item/fishing/bait/gray,
 		/obj/item/fishing/bait/gray,
 		/obj/item/fishing/bait/gray,
 		/obj/item/fishing/bait/gray,
@@ -99,8 +103,11 @@
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/survival/fishing/bait_speckled
-	name = "speckled bait (x3)"
+	name = "speckled bait (x6)"
 	result = list(
+		/obj/item/fishing/bait/speckled,
+		/obj/item/fishing/bait/speckled,
+		/obj/item/fishing/bait/speckled,
 		/obj/item/fishing/bait/speckled,
 		/obj/item/fishing/bait/speckled,
 		/obj/item/fishing/bait/speckled,
