@@ -401,6 +401,7 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 #undef EXPERIENCE_MALUS_MULT
 
 /datum/fishing_challenge/proc/start_baiting_phase(penalty = FALSE)
+	fish_source?.release_generated_fish(reward_path)
 	reward_path = null //In case we missed the biting phase, set the path back to null
 	var/wait_time
 	last_baiting_click = world.time

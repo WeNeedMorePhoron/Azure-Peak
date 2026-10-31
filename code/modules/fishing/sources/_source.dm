@@ -151,6 +151,13 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 			qdel(fish)
 	generated_fish_pool = null
 
+/datum/fish_source/proc/release_generated_fish(fish)
+	if(!generated_fish_pool?[fish])
+		return
+	generated_fish_pool -= fish
+	if(!QDELETED(fish))
+		qdel(fish)
+
 /// Generates a randomized fish instance from a path for filtering/checking
 /datum/fish_source/proc/generate_fish_instance(fish_path)
 	if(!ispath(fish_path, /obj/item/reagent_containers/food/snacks/fish))
@@ -236,6 +243,7 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 
 	// If it's a fish instance from our pool, use it directly
 	var/obj/item/reagent_containers/food/snacks/fish/caught_fish
+	var/temporary_fish = FALSE
 	if(isfish(result) && generated_fish_pool?[result])
 		caught_fish = result
 	else if(!ispath(result, /obj/item/reagent_containers/food/snacks/fish))
@@ -246,6 +254,7 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 		caught_fish = generate_fish_instance(result)
 		if(!caught_fish)
 			return
+		temporary_fish = TRUE
 
 	var/result_path = get_fish_path(result)
 
@@ -280,6 +289,9 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	. += additive_mod
 	. *= multiplicative_mod
 
+	if(temporary_fish)
+		release_generated_fish(caught_fish)
+
 
 ///Comsig proc from the fishing minigame for 'roll_reward'
 /datum/fish_source/proc/roll_reward_minigame(datum/source, obj/item/fishingrod/rod, mob/fisherman, atom/location, list/rewards)
@@ -289,7 +301,12 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 
 /// Returns a fish instance or another special value which we use for dispensing a reward later.
 /datum/fish_source/proc/roll_reward(obj/item/fishingrod/rod, mob/fisherman, atom/location)
-	return pickweight(get_modified_fish_table(rod, fisherman, location)) || FISHING_DUD
+	var/list/table = get_modified_fish_table(rod, fisherman, location)
+	var/result = pickweight(table) || FISHING_DUD
+	for(var/candidate in table)
+		if(candidate != result && isfish(candidate))
+			release_generated_fish(candidate)
+	return result
 
 /// Rolls the table for catches made without a rod, weighted as if it is baitless. Used for things like spears to avoid it overpowering baited rod with minigame. Returns a path or FISHING_DUD.
 /datum/fish_source/proc/roll_simple_reward(atom/location)
@@ -333,12 +350,12 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	SHOULD_CALL_PARENT(TRUE)
 	UnregisterSignal(user, COMSIG_MOB_COMPLETE_FISHING)
 	if(!success)
-		cleanup_generated_fish() // Clean up fish pool on failure
+		release_generated_fish(challenge.reward_path)
 		return
 	var/atom/movable/reward = dispense_reward(challenge.reward_path, user, challenge.location, challenge)
 	SEND_SIGNAL(challenge.used_rod, COMSIG_FISHING_ROD_CAUGHT_FISH, reward, user)
 	challenge.used_rod.on_reward_caught(reward, user)
-	cleanup_generated_fish() // Clean up remaining fish pool after dispensing
+	release_generated_fish(challenge.reward_path)
 
 /// Gives out the reward if possible.
 /datum/fish_source/proc/dispense_reward(reward_path, mob/fisherman, atom/fishing_spot, datum/fishing_challenge/challenge)
@@ -438,9 +455,6 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 
 /// Builds a fish weights table modified by bait/rod/user properties
 /datum/fish_source/proc/get_modified_fish_table(obj/item/fishingrod/rod, mob/fisherman, atom/location)
-	// Clean up any previous fish pool
-	cleanup_generated_fish()
-
 	var/obj/item/bait = rod.baited
 	///An exponent used to level out the table weight differences between fish depending on bait quality.
 	var/leveling_exponent = 0
@@ -466,10 +480,11 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	// Generate fish instances and build the weighted table
 	for(var/result in base_table)
 		var/weight = base_table[result]
+		var/obj/item/reagent_containers/food/snacks/fish/fish = generate_fish_instance(result)
 
 		// Apply hook bonuses first
-		weight *= rod.hook.get_hook_bonus_multiplicative(result)
-		weight += rod.hook.get_hook_bonus_additive(result)
+		weight *= rod.hook.get_hook_bonus_multiplicative(fish || result)
+		weight += rod.hook.get_hook_bonus_additive(fish || result)
 
 		// Handle living mobs
 		if(ispath(result, /mob/living))
@@ -479,12 +494,7 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 					final_table[result] = weight
 				continue
 
-		// Handle fish - generate instance for property-based filtering
-		if(ispath(result, /obj/item/reagent_containers/food/snacks/fish))
-			var/obj/item/reagent_containers/food/snacks/fish/fish = generate_fish_instance(result)
-			if(!fish)
-				continue
-
+		if(fish)
 			if(bait)
 				weight = round(weight * result_multiplier, 1)
 				if(is_limited(result))
@@ -502,6 +512,8 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 			if(weight > 0)
 				// Use the fish instance as the key instead of the path
 				final_table[fish] = weight
+			else
+				release_generated_fish(fish)
 		else
 			// Non-fish items
 			if(weight > 0)
@@ -611,8 +623,9 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 				init_name = span_italics(init_name)
 			known_fishes += init_name
 
-		// Clean up the fish pool after examination
-		cleanup_generated_fish()
+		for(var/candidate in final_table)
+			if(isfish(candidate))
+				release_generated_fish(candidate)
 
 	if(!length(known_fishes))
 		return
