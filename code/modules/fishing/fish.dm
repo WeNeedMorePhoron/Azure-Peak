@@ -31,7 +31,7 @@
 	 */
 	var/list/disliked_bait = list()
 
-	/// Size in hands. Null until update_size_and_weight is called. Number of fillets and w_class scale with it.
+	/// Size in hands. Null until update_size_and_weight is called. Number of fillets scale with it.
 	var/size
 	/// Average size for this fish type in hands. Will be used as gaussian distribution with 20% deviation for fishing, bought fish are always standard size
 	var/average_size = 5
@@ -77,7 +77,6 @@
 	set_max_size_and_weight(temp_size, temp_weight, force = TRUE)
 	if(update)
 		update_size_and_weight(temp_size, temp_weight)
-
 	var/size_ratio = temp_size / average_size
 	var/weight_ratio = temp_weight / average_weight
 
@@ -95,6 +94,7 @@
 	base_transform.Scale(visual_scale)
 	transform = base_transform
 
+
 ///Set the maximum size and weight a fish can reach from base size and weight args.
 ///Always updates if called from randomize_size_and_weight (force = TRUE), otherwise only sets if uninitialized.
 /obj/item/reagent_containers/food/snacks/fish/proc/set_max_size_and_weight(base_size, base_weight, force = FALSE)
@@ -109,18 +109,6 @@
 		set_max_size_and_weight(new_size, new_weight)
 
 	size = new_size
-
-	switch(size)
-		if(0 to FISH_SIZE_TINY_MAX)
-			w_class = WEIGHT_CLASS_TINY
-		if(FISH_SIZE_TINY_MAX to FISH_SIZE_SMALL_MAX)
-			w_class = WEIGHT_CLASS_SMALL
-		if(FISH_SIZE_SMALL_MAX to FISH_SIZE_NORMAL_MAX)
-			w_class = WEIGHT_CLASS_NORMAL
-		if(FISH_SIZE_NORMAL_MAX to FISH_SIZE_BULKY_MAX)
-			w_class = WEIGHT_CLASS_BULKY
-		if(FISH_SIZE_BULKY_MAX to INFINITY)
-			w_class = WEIGHT_CLASS_HUGE
 
 	weight = new_weight
 

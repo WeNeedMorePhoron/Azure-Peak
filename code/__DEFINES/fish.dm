@@ -210,12 +210,6 @@
 //Fish icon defines, used by fishing minigame
 #define FISH_ICON_DEF "fish"
 
-///Fish size thresholds for w_class, in hands.
-#define FISH_SIZE_TINY_MAX 3
-#define FISH_SIZE_SMALL_MAX 5
-#define FISH_SIZE_NORMAL_MAX 8
-#define FISH_SIZE_BULKY_MAX 12
-
 ///Size and weight are rolled to this precision.
 #define FISH_MEASURE_PRECISION 0.01
 ///Inches to a hand and ounces to a pound, for examine below one unit.
