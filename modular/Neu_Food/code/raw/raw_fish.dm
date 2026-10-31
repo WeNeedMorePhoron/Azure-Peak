@@ -788,7 +788,7 @@
 	force = SWORDFISH_FORCE
 	armor_penetration = PEN_LIGHT // By the light of the ten, we should have a little bit of whimsy in our codebase. Just a lil
 	thrown_bclass = BCLASS_STAB
-	embedding = list("embedded_pain_multiplier" = 2, "embed_chance" = 25, "embedded_fail_chance" = 20)
+	embedding = list("embedded_pain_multiplier" = 2, "embed_chance" = 25)
 	thrown_damage_flag = "piercing"
 	// By jot do not give this an actual combat skills or I will cry
 	throwforce = 20
