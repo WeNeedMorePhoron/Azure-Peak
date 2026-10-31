@@ -325,7 +325,9 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 /datum/fish_source/proc/roll_compelled_reward(atom/location)
 	var/list/table = get_fish_table(location)
 	for(var/result in table)
-		if(result == FISHING_DUD || ispath(result, /obj/item/reagent_containers/food/snacks/fish) || ispath(result, /mob/living))
+		if(result == FISHING_DUD)
+			continue
+		if((ispath(result, /obj/item/reagent_containers/food/snacks/fish) || ispath(result, /mob/living)) && !is_limited(result))
 			continue
 		table -= result
 	return pickweight(table) || FISHING_DUD

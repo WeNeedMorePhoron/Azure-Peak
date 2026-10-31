@@ -2,6 +2,10 @@
 // T0 - Aquatic Compulsion - Target a water tile to compel a fish towards you. //
 /////////////////////////////////////////////////////////////////////////////////
 
+#define COMPULSION_BASE_DELAY 15
+#define COMPULSION_MIN_DELAY 10
+#define COMPULSION_MAX_DELAY 15
+
 /obj/effect/proc_holder/spell/invoked/aquatic_compulsion
 	name = "Aquatic Compulsion"
 	desc = "Compel a random fish to leap out from targeted water tile and towards you. Standing still may yield you continuously, as long as your Devotion and stamina holds. Costs will increase over time."
@@ -122,7 +126,7 @@
 
 	channeling = TRUE
 	var/streak = 0
-	var/delay = clamp(((10 - miracleskill) + streak), 5, 10)
+	var/delay = clamp(((COMPULSION_BASE_DELAY - miracleskill) + streak), COMPULSION_MIN_DELAY, COMPULSION_MAX_DELAY)
 
 //	to_chat(user, "Initial delay: [delay]")
 
@@ -189,7 +193,7 @@
 		if(!user || !user.client)
 			break // me when I gib myself and crash the server, on god
 
-		delay = clamp(((10 - miracleskill) + streak), 5, 10)
+		delay = clamp(((COMPULSION_BASE_DELAY - miracleskill) + streak), COMPULSION_MIN_DELAY, COMPULSION_MAX_DELAY)
 //		to_chat(user, "Loop start | streak=[streak] delay=[delay] devotion=[H.devotion?.devotion]")
 
 		if(!H || !H.devotion || H.devotion.devotion < devotion_cost)
@@ -249,6 +253,10 @@
 
 	channeling = FALSE
 	return TRUE
+
+#undef COMPULSION_BASE_DELAY
+#undef COMPULSION_MIN_DELAY
+#undef COMPULSION_MAX_DELAY
 
 ////////////////////////////////////////////////////////////////////
 // T0 - Second Wind - Stands the character up, if they can stand. //
