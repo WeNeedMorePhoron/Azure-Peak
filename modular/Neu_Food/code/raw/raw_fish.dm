@@ -45,9 +45,6 @@
 	attack_verb = list("schmacked", "wallops", "pork-chops", "thwacks")
 	hitsound = list('modular/Neu_Food/sound/meatslap.ogg', 'sound/misc/mat/sex_clap/slow/SexSlap34.ogg', 'sound/misc/bonk.ogg')
 
-/obj/item/reagent_containers/food/snacks/fish/dead
-	dead = TRUE
-
 /obj/item/reagent_containers/food/snacks/fish/Initialize(mapload)
 	. = ..()
 	if(!dead)
