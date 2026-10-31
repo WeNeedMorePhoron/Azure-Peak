@@ -151,7 +151,7 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 			qdel(fish)
 	generated_fish_pool = null
 
-/datum/fish_source/proc/release_generated_fish(fish)
+/datum/fish_source/proc/release_generated_fish(obj/item/reagent_containers/food/snacks/fish/fish)
 	if(!generated_fish_pool?[fish])
 		return
 	generated_fish_pool -= fish
