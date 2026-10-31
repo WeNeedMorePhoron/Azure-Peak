@@ -2,6 +2,7 @@
 	abstract_type = /datum/crafting_recipe/roguetown/survival/fishing
 	display_category = ITEM_CAT_TOOLS_SUNDRIES
 	category = "Tools"
+	skillcraft = /datum/skill/labor/fishing
 
 /datum/crafting_recipe/roguetown/survival/fishing/reel_twine
 	name = "twine fishing line"
