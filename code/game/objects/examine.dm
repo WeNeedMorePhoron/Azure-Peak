@@ -134,17 +134,21 @@
 		. += span_info(SPAN_TOOLTIP_DANGEROUS_HTML(heresy_tooltip, heresy_desc))
 
 	if(isbait)
-		var/baitquality = "poor"
+		var/baitquality
 		if(HAS_TRAIT(src, TRAIT_GREAT_QUALITY_BAIT))
 			baitquality = "excellent"
 		else if(HAS_TRAIT(src, TRAIT_GOOD_QUALITY_BAIT))
 			baitquality = "good"
 		else if(HAS_TRAIT(src, TRAIT_BASIC_QUALITY_BAIT))
 			baitquality = "passable"
-		var/catches = expected_bait_catches(user)
-		. +=span_info("It is \a [baitquality] bait for fish. In my hands, this bait will last about [catches] [catches == 1 ? "catch" : "catches"].")
+		var/quality_text = baitquality ? "It is \a [baitquality] bait for fish." : "It is bait for fish."
+		if(HAS_TRAIT(src, TRAIT_BAIT_UNCONSUMABLE))
+			. += span_info("[quality_text] It is never used up.")
+		else
+			var/catches = expected_bait_catches(user)
+			. += span_info("[quality_text] In my hands, this bait will last about [catches] [catches == 1 ? "catch" : "catches"].")
 		if(HAS_TRAIT(user, TRAIT_EXPERT_FISHER))
-			. += span_tinynotice("Thanks to your experience, you can examine it again to see which fish favour it.")
+			. += span_tinynotice("Thanks to your experience, you can examine it again to see what it catches.")
 
 	for(var/datum/examine_effect/E in examine_effects)
 		E.trigger(user)

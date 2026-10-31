@@ -116,31 +116,23 @@
 	if(baited && reel && hook && line)
 		return ..()
 
-	if(istype(I, /obj/item/fishing/bait) || istype(I, /obj/item/natural/worms) || istype(I, /obj/item/natural/bundle/worms) || istype(I, /obj/item/reagent_containers/food/snacks))
-		if(istype(I, /obj/item/fishing/bait) || istype(I, /obj/item/natural/worms))
-			if(!baited)
-				I.forceMove(src)
-				baited = I
-				user.visible_message("<span class='notice'>[user] hooks something to [src].</span>", "<span class='notice'>I hook [I] to [src].</span>")
-				playsound(src, 'sound/foley/pierce.ogg', 50, FALSE)
-		else if(istype(I, /obj/item/natural/bundle/worms))
-			if(!baited)
-				var/obj/item/natural/bundle/worms/W = I
-				baited = new W.stacktype(src)
-				W.amount--
-				if(W.amount == 1)
-					new W.stacktype(get_turf(user))
-					qdel(W)
-				user.visible_message("<span class='notice'>[user] hooks something to [src].</span>", "<span class='notice'>I hook [W.stacktype] to [src].</span>")
-				playsound(src, 'sound/foley/pierce.ogg', 50, FALSE)
-		else
-			if(!baited)
-				I.forceMove(src)
-				baited = I
-				user.visible_message("<span class='notice'>[user] hooks something to the line.</span>", "<span class='notice'>I hook [I] to my line.</span>")
-				playsound(src, 'sound/foley/pierce.ogg', 50, FALSE)
-
-	else if(istype(I, /obj/item/fishing)) //bait has a null attachtype and is accounted for in the previous check so i don't have to worry about it
+	if(I.isbait)
+		if(!baited)
+			I.forceMove(src)
+			baited = I
+			user.visible_message("<span class='notice'>[user] hooks something to [src].</span>", "<span class='notice'>I hook [I] to [src].</span>")
+			playsound(src, 'sound/foley/pierce.ogg', 50, FALSE)
+	else if(istype(I, /obj/item/natural/bundle/worms))
+		if(!baited)
+			var/obj/item/natural/bundle/worms/W = I
+			baited = new W.stacktype(src)
+			W.amount--
+			if(W.amount == 1)
+				new W.stacktype(get_turf(user))
+				qdel(W)
+			user.visible_message("<span class='notice'>[user] hooks something to [src].</span>", "<span class='notice'>I hook [W.stacktype] to [src].</span>")
+			playsound(src, 'sound/foley/pierce.ogg', 50, FALSE)
+	else if(istype(I, /obj/item/fishing))
 		var/obj/item/fishing/T = I
 		switch(T.attachtype)
 			if("line")

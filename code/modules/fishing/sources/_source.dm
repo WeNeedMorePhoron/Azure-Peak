@@ -378,7 +378,6 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	SEND_SIGNAL(src, COMSIG_FISH_SOURCE_REWARD_DISPENSED, reward)
 	return reward
 
-/// Takes one of a limited reward out of the water and starts its regen. FALSE when there are none left to take.
 /datum/fish_source/proc/spend_reward_count(reward_path)
 	var/count_key = get_fish_path(reward_path)
 	if(!is_limited(count_key))

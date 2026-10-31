@@ -24,6 +24,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	grid_width = 32
 	grid_height = 32
+	isbait = TRUE
 	/**
 	 * A list with two keys delimiting the spinning interval in which a mouse click has to be pressed while fishing.
 	 * This is passed down to the fishing rod, and then to the float during the minigame.
@@ -54,13 +55,6 @@
 /obj/item/fishing/bait/examine(mob/user)
 	. = ..()
 	. += span_info("It has to be spun with a frequency of [spin_frequency[1] * 0.1] to [spin_frequency[2] * 0.1] seconds while fishing.")
-	if(consumable)
-		var/catches = expected_bait_catches(user)
-		. += span_info("In my hands, this bait will last about [catches] [catches == 1 ? "catch" : "catches"].")
-	else
-		. += span_info("This bait is never used up.")
-	if(HAS_TRAIT(user, TRAIT_EXPERT_FISHER))
-		. += span_tinynotice("Thanks to your experience, you can examine it again to get a list of fish you can catch with it.")
 
 /obj/item/fishing/bait/examine_more(mob/user)
 	. = ..()
