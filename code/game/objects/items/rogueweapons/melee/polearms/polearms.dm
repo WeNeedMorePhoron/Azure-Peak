@@ -388,7 +388,8 @@
 						playsound(src.loc, 'sound/items/fishing_plouf.ogg', 100, TRUE)
 						if(!do_after(user,ow, target = target))
 							if(ispath(A, /mob/living))
-								new /obj/effect/temp_visual/hunting_phantom(target, A, /datum/component/rot/simple/hunt, 2 SECONDS)
+								if(source.spend_reward_count(A))
+									new /obj/effect/temp_visual/hunting_phantom(target, A, /datum/component/rot/simple/hunt, 2 SECONDS)
 								user.mind.add_sleep_experience(/datum/skill/labor/fishing, fisherman.STAINT*2)
 							else
 								source.simple_dispense_reward(A, user.loc, water)

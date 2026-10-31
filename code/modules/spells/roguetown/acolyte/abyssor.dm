@@ -146,8 +146,15 @@
 
 //	to_chat(user, "First pull success: [A]")
 
-	var/atom/movable/AF = source.simple_dispense_reward(A, T, T)
-	if(!AF)
+	var/atom/movable/AF
+	if(ispath(A, /mob/living))
+		if(!source.spend_reward_count(A))
+			channeling = FALSE
+			revert_cast()
+			return FALSE
+	else
+		AF = source.simple_dispense_reward(A, T, T)
+	if(!AF && !ispath(A, /mob/living))
 //		to_chat(user, "FAIL: spawn failed")
 		channeling = FALSE
 		revert_cast()
@@ -206,8 +213,13 @@
 
 //		to_chat(user, "Loop pull success: [A2]")
 
-		var/atom/movable/AF2 = source.simple_dispense_reward(A2, T, T)
-		if(!AF2)
+		var/atom/movable/AF2
+		if(ispath(A2, /mob/living))
+			if(!source.spend_reward_count(A2))
+				break
+		else
+			AF2 = source.simple_dispense_reward(A2, T, T)
+		if(!AF2 && !ispath(A2, /mob/living))
 //			to_chat(user, "BREAK: spawn failed")
 			break
 

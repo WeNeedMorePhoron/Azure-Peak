@@ -371,22 +371,27 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 	if(isnull(reward_path))
 		return null
 
-	var/count_key = get_fish_path(reward_path)
-
-	if(is_limited(count_key))
-		//Somehow, we're trying to spawn an expended reward.
-		if(fish_counts[count_key] <= 0)
-			return null
-		fish_counts[count_key] -= 1
-		var/regen_time = fish_count_regen?[count_key]
-		if(regen_time)
-			LAZYADDASSOC(currently_on_regen, count_key, 1)
-			if(currently_on_regen[count_key] == 1)
-				addtimer(CALLBACK(src, PROC_REF(regen_count), count_key), regen_time)
+	if(!spend_reward_count(reward_path))
+		return null
 
 	var/atom/movable/reward = spawn_reward(reward_path, spawn_location, fishing_spot)
 	SEND_SIGNAL(src, COMSIG_FISH_SOURCE_REWARD_DISPENSED, reward)
 	return reward
+
+/// Takes one of a limited reward out of the water and starts its regen. FALSE when there are none left to take.
+/datum/fish_source/proc/spend_reward_count(reward_path)
+	var/count_key = get_fish_path(reward_path)
+	if(!is_limited(count_key))
+		return TRUE
+	if(fish_counts[count_key] <= 0)
+		return FALSE
+	fish_counts[count_key] -= 1
+	var/regen_time = fish_count_regen?[count_key]
+	if(regen_time)
+		LAZYADDASSOC(currently_on_regen, count_key, 1)
+		if(currently_on_regen[count_key] == 1)
+			addtimer(CALLBACK(src, PROC_REF(regen_count), count_key), regen_time)
+	return TRUE
 
 /datum/fish_source/proc/regen_count(reward_path)
 	if(!LAZYACCESS(currently_on_regen, reward_path))
