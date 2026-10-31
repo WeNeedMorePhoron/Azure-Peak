@@ -21,6 +21,10 @@
 	var/obj/item/fishing/hook/hook
 	var/obj/item/fishing/line/line //this last one isnt needed to fish
 
+	var/starting_reel = /obj/item/fishing/reel/twine
+	var/starting_hook = /obj/item/fishing/hook/wooden
+	var/starting_line = /obj/item/fishing/line/bobber
+
 	/// How far can you cast this
 	var/cast_range = 7
 	/// Fishing minigame difficulty modifier (additive)
@@ -488,19 +492,22 @@
 /obj/item/fishingrod/proc/get_frame(datum/fishing_challenge/challenge)
 	return mutable_appearance('icons/hud/fishing_hud.dmi', frame_state)
 
-/obj/item/fishingrod/fisher
-
-/obj/item/fishingrod/fisher/Initialize(mapload, ...)
+/obj/item/fishingrod/Initialize(mapload, ...)
 	. = ..()
-	reel = new /obj/item/fishing/reel/leather(src)
-	hook = new /obj/item/fishing/hook/iron(src)
-	line = new /obj/item/fishing/line/bobber(src)
+	if(starting_reel)
+		reel = new starting_reel(src)
+	if(starting_hook)
+		hook = new starting_hook(src)
+	if(starting_line)
+		line = new starting_line(src)
+
+/obj/item/fishingrod/fisher
+	starting_reel = /obj/item/fishing/reel/leather
+	starting_hook = /obj/item/fishing/hook/iron
 
 /obj/item/fishingrod/hooked
-
-/obj/item/fishingrod/hooked/Initialize(mapload, ...)
-	. = ..()
-	hook = new /obj/item/fishing/hook/wooden(src)
+	starting_reel = null
+	starting_line = null
 
 /obj/item/fishingrod/bronze
 	name = "bronze fishing rod"

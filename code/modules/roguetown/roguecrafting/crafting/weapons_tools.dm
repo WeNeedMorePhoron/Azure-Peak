@@ -575,6 +575,9 @@
 
 /obj/item/fishingrod/crafted
 	difficulty_modifier = FISHING_ROD_CRAFTED_DIFFICULTY
+	starting_reel = null
+	starting_hook = null
+	starting_line = null
 
 /datum/crafting_recipe/roguetown/survival/rodbronze
 	name = "fishing rod, bronze"
