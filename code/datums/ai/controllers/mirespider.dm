@@ -73,7 +73,6 @@
 
 	else if (following)	// If we're following someone
 		var/mob/target = following.ai_controller?.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
-		following.add_follower(pawn)
 
 		// If the follow target has a target or is dead, stop following
 		if (target || following.stat == DEAD)
@@ -126,10 +125,6 @@
 			controller.set_blackboard_key(BB_BASIC_MOB_COCOON_TARGET, L)
 			controller.queue_behavior(/datum/ai_behavior/cocoon_target, BB_BASIC_MOB_COCOON_TARGET)
 			return SUBTREE_RETURN_FINISH_PLANNING
-
-	var/mob/living/simple_animal/hostile/rogue/mirespider_lurker/lurker = controller.pawn
-	if(istype(lurker))
-		lurker.clear_followers_if_any()
 
 	return ..()
 

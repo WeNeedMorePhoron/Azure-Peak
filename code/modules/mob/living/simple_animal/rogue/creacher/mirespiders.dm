@@ -164,8 +164,6 @@
 	ranged_cooldown_time = 100
 	check_friendly_fire = 1
 
-	var/list/mob/living/simple_animal/hostile/retaliate/rogue/mirespider/followers = list()
-
 /mob/living/simple_animal/hostile/rogue/mirespider_lurker/mushroom
 	icon = 'icons/mob/mirespider_shroom.dmi'
 	desc = "While recognizable as a mire lurker, this specimen appears to suffer a gigantic \
@@ -218,22 +216,6 @@
 
 /datum/intent/simple/bite/mirespider_lurker
 	clickcd = MIRESPIDER_LURKER_ATTACK_SPEED
-
-/mob/living/simple_animal/hostile/rogue/mirespider_lurker/proc/add_follower(mob/living/simple_animal/hostile/retaliate/rogue/mirespider)
-	if (!(mirespider in followers))
-		followers += mirespider
-
-/mob/living/simple_animal/hostile/rogue/mirespider_lurker/proc/clear_followers_if_any()
-	if (!followers || !length(followers))
-		return
-
-	for (var/mob/living/simple_animal/hostile/retaliate/rogue/mirespider/follower in followers)
-		follower.ai_controller.clear_blackboard_key(BB_FOLLOW_TARGET)
-		follower.ai_controller.clear_blackboard_key(BB_TRAVEL_DESTINATION)
-		follower.ai_controller.clear_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET)
-		follower.ai_controller.clear_blackboard_key(BB_BASIC_MOB_RETALIATE_LIST)
-		follower.ai_controller.CancelActions()
-	followers.Cut()
 
 /mob/living/simple_animal/hostile/rogue/mirespider_paralytic
 	anatomy_type = /datum/anatomy/spider/mirespider
