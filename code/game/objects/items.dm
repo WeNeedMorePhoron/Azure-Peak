@@ -1843,6 +1843,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		sellprice = max(1, round(sellprice * ITEM_QUALITY_MULT(tier)))
 	return tier
 
+/obj/item/proc/get_stockpile_quality_mult()
+	if(!has_item_quality)
+		return 1
+	return ITEM_QUALITY_MULT(item_quality)
+
 /obj/item/proc/mark_as_looted()
 	if(looted)
 		return

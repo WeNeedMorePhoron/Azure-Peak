@@ -89,8 +89,8 @@
 #define FISH_RARITY_LEGENDARY_RATIO 2.1
 #define FISH_RARITY_RARE_PRICE_MULT 2
 #define FISH_RARITY_ULTRA_PRICE_MULT 4
-#define FISH_RARITY_LEGENDARY_PRICE_MULT 10
-#define FISH_ROYAL_PRICE_MULT 5
+#define FISH_RARITY_LEGENDARY_PRICE_MULT 7
+#define FISH_ROYAL_PRICE_MULT 3
 
 // Being good at the fishing minigame improves the quality of your catch. While auto-reeling will never catch prized fish and is less responsive.
 // By keeping the window on the fish for long enough, your catch will be a "great" catch and colored gold, which improves the fish.

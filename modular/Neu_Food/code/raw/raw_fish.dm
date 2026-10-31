@@ -101,6 +101,11 @@
 	if(!no_rarity_sprite)
 		icon_state = "[initial(icon_state)][suffix]"
 
+/obj/item/reagent_containers/food/snacks/fish/get_stockpile_quality_mult()
+	if(!initial(sellprice))
+		return 1
+	return sellprice / initial(sellprice)
+
 /obj/item/reagent_containers/food/snacks/fish/attack_hand(mob/user)
 	if(isliving(user))
 		var/mob/living/L = user
