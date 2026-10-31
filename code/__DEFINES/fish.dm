@@ -218,6 +218,9 @@
 
 ///The coefficient for maximum weight/size divergence relative to the averages.
 #define MAX_FISH_DEVIATION_COEFF 2.5
+// Weight of a fish now follows its length.
+#define FISH_WEIGHT_LENGTH_POWER 3
+#define FISH_WEIGHT_JITTER 0.1
 
 //IF YOU ADD ANY NEW FLAG, ADD IT TO THE RESPECTIVE BITFIELD in _globalvars/bitfields.dm TOO!
 

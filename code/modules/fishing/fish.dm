@@ -72,8 +72,9 @@
 /obj/item/reagent_containers/food/snacks/fish/proc/randomize_size_and_weight(base_size = average_size, base_weight = average_weight, deviation = weight_size_deviation, update = TRUE)
 	var/size_deviation = 0.4 * base_size
 	temp_size = round(clamp(gaussian(base_size, size_deviation), average_size * 1/MAX_FISH_DEVIATION_COEFF, average_size * MAX_FISH_DEVIATION_COEFF), FISH_MEASURE_PRECISION)
-	var/weight_deviation = 0.4 * base_weight
-	temp_weight = round(clamp(gaussian(base_weight, weight_deviation), average_weight * 1/MAX_FISH_DEVIATION_COEFF, average_weight * MAX_FISH_DEVIATION_COEFF), FISH_MEASURE_PRECISION)
+	var/expected_weight = base_weight * ((temp_size / base_size) ** FISH_WEIGHT_LENGTH_POWER)
+	var/weight_deviation = FISH_WEIGHT_JITTER * expected_weight
+	temp_weight = round(max(gaussian(expected_weight, weight_deviation), FISH_MEASURE_PRECISION), FISH_MEASURE_PRECISION)
 	set_max_size_and_weight(temp_size, temp_weight, force = TRUE)
 	if(update)
 		update_size_and_weight(temp_size, temp_weight)
