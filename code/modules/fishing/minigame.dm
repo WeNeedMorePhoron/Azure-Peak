@@ -141,7 +141,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	used_rod = rod
 	location = comp.parent
 	float = new(get_turf(location), location)
-	float.spin_frequency = rod.spin_frequency
 	RegisterSignal(location, COMSIG_QDELETING, PROC_REF(on_spot_gone))
 	RegisterSignal(comp, COMSIG_QDELETING, PROC_REF(on_spot_gone))
 	register_reward_signals(comp.fish_source)
@@ -149,8 +148,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	background = comp.fish_source.background
 	if(comp.fish_source.wait_time_range)
 		wait_time_range = comp.fish_source.wait_time_range
-	if(float.spin_frequency) //Using a fishing lure narrows the range a bit, for better or worse.
-		wait_time_range = list(wait_time_range[1] + 8 SECONDS, wait_time_range[2] - 8 SECONDS)
 	SEND_SIGNAL(user, COMSIG_MOB_BEGIN_FISHING, src)
 	SEND_SIGNAL(rod, COMSIG_ROD_BEGIN_FISHING, src)
 	GLOB.fishing_challenges_by_user[user] = src
@@ -267,25 +264,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	to_chat(user, span_notice("You start fishing..."))
 	playsound(location, 'sound/effects/splash.ogg', 100)
 
-///Set the timers for lure that need to be spun at intervals.
-/datum/fishing_challenge/proc/set_lure_timers()
-	float.spin_ready = FALSE
-	addtimer(CALLBACK(src, PROC_REF(set_lure_ready)), float.spin_frequency[1], TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_DELETE_ME)
-	addtimer(CALLBACK(src, PROC_REF(missed_lure)), float.spin_frequency[2], TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_DELETE_ME)
-	float.vand_update_appearance(UPDATE_OVERLAYS)
-
-/datum/fishing_challenge/proc/set_lure_ready()
-	if(phase != WAIT_PHASE)
-		return
-	float.spin_ready = TRUE
-	float.vand_update_appearance(UPDATE_OVERLAYS)
-
-/datum/fishing_challenge/proc/missed_lure()
-	if(phase != WAIT_PHASE)
-		return
-	send_alert("miss!")
-	start_baiting_phase(TRUE) //Add in another 3 to 5 seconds for not spinning the lure.
-
 /datum/fishing_challenge/proc/on_line_deleted(datum/source)
 	SIGNAL_HANDLER
 	fishing_line = null
@@ -327,18 +305,8 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	if(phase == WAIT_PHASE)
 		if(world.time < last_baiting_click + 0.25 SECONDS)
 			return COMSIG_MOB_CANCEL_CLICKON //Don't punish players if they accidentally double clicked.
-		if(float.spin_frequency)
-			if(!float.spin_ready)
-				send_alert("too early!")
-				start_baiting_phase(TRUE) //Add in another 3 to 5 seconds for that blunder.
-			else
-				send_alert("spun")
-				last_baiting_click = world.time
-			float.spin_ready = FALSE
-			set_lure_timers()
-		else
-			send_alert("miss!")
-			start_baiting_phase(TRUE) //Add in another 3 to 5 seconds for that blunder.
+		send_alert("miss!")
+		start_baiting_phase(TRUE) //Add in another 3 to 5 seconds for that blunder.
 	else if(phase == BITING_PHASE)
 		start_minigame_phase()
 	return COMSIG_MOB_CANCEL_CLICKON
@@ -417,8 +385,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	animate(float, pixel_z = 1, time = 1 SECONDS, loop = -1, flags = ANIMATION_RELATIVE)
 	animate(pixel_z = -1, time = 1 SECONDS, flags = ANIMATION_RELATIVE)
 	next_phase_timer = addtimer(CALLBACK(src, PROC_REF(start_biting_phase)), wait_time, TIMER_STOPPABLE|TIMER_DELETE_ME)
-	if(float.spin_frequency)
-		set_lure_timers()
 
 /datum/fishing_challenge/proc/start_biting_phase()
 	phase = BITING_PHASE
@@ -437,9 +403,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	addtimer(CALLBACK(src, PROC_REF(peak_float_animation)), 2 SECONDS, TIMER_DELETE_ME)
 	// Setup next phase
 	next_phase_timer = addtimer(CALLBACK(src, PROC_REF(start_baiting_phase)), BITING_TIME_WINDOW, TIMER_STOPPABLE|TIMER_DELETE_ME)
-	///If we're using a lure, we want the float to show a little green light during the minigame phase and not a red one.
-	float.spin_ready = TRUE
-	float.vand_update_appearance(UPDATE_OVERLAYS)
 
 /// Float bobs a bit harder mid-biting-window
 /datum/fishing_challenge/proc/escalate_float_animation()
@@ -968,13 +931,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 	icon = 'icons/roguetown/items/fishing.dmi'
 	icon_state = "float"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	/**
-	 * A list with two keys delimiting the spinning interval in which a mouse click has to be pressed while fishing.
-	 * If set, an emissive overlay will be added, colored green when the lure is ready to be spun, otherwise red.
-	 */
-	var/list/spin_frequency
-	///Is the bait ready to be spun?
-	var/spin_ready = FALSE
 
 /obj/effect/fishing_float/Initialize(mapload, atom/spot)
 	. = ..()
@@ -998,15 +954,6 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 
 	set_glide_size(source.glide_size)
 	forceMove(source.loc)
-
-/obj/effect/fishing_float/update_overlays()
-	. = ..()
-	if(!spin_frequency)
-		return
-	var/mutable_appearance/overlay = mutable_appearance(icon, "lure_light")
-	overlay.color = spin_ready ? COLOR_GREEN : COLOR_RED
-	. += overlay
-	. += emissive_appearance(icon, "lure_light_emissive", alpha = src.alpha)
 
 #undef WAIT_PHASE
 #undef BITING_PHASE

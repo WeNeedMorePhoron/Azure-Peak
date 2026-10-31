@@ -25,11 +25,6 @@
 	grid_width = 32
 	grid_height = 32
 	isbait = TRUE
-	/**
-	 * A list with two keys delimiting the spinning interval in which a mouse click has to be pressed while fishing.
-	 * This is passed down to the fishing rod, and then to the float during the minigame.
-	 */
-	var/spin_frequency = list(2 SECONDS, 3 SECONDS)
 	var/consumable = FALSE
 
 /obj/item/fishing/bait/Initialize(mapload)
@@ -37,24 +32,10 @@
 	add_traits(list(TRAIT_FISHING_BAIT, TRAIT_BAIT_ALLOW_FISHING_DUD, TRAIT_OMNI_BAIT), INNATE_TRAIT)
 	if(!consumable)
 		ADD_TRAIT(src, TRAIT_BAIT_UNCONSUMABLE, INNATE_TRAIT)
-	RegisterSignal(src, COMSIG_ITEM_FISHING_ROD_SLOTTED, PROC_REF(on_fishingrod_slotted))
-	RegisterSignal(src, COMSIG_ITEM_FISHING_ROD_UNSLOTTED, PROC_REF(on_fishingrod_unslotted))
-
-/obj/item/fishing/bait/proc/on_fishingrod_slotted(datum/source, obj/item/fishingrod/rod, slot)
-	SIGNAL_HANDLER
-	rod.spin_frequency = spin_frequency
-
-/obj/item/fishing/bait/proc/on_fishingrod_unslotted(datum/source, obj/item/fishingrod/rod, slot)
-	SIGNAL_HANDLER
-	rod.spin_frequency = null
 
 ///Called for every fish subtype by the fishing subsystem when initializing, to populate the list of fish that can be caught with this bait.
 /obj/item/fishing/bait/proc/is_catchable_fish(obj/item/reagent_containers/food/snacks/fish/fish, list/fish_properties)
 	return TRUE
-
-/obj/item/fishing/bait/examine(mob/user)
-	. = ..()
-	. += span_info("It has to be spun with a frequency of [spin_frequency[1] * 0.1] to [spin_frequency[2] * 0.1] seconds while fishing.")
 
 /obj/item/fishing/bait/examine_more(mob/user)
 	. = ..()
@@ -90,7 +71,6 @@
 	desc = "A small amount of meat, rolled into a ball. Tends to attract eels."
 	icon_state = "meatbait"
 	icon = 'icons/roguetown/items/fishing.dmi'
-	spin_frequency = list(2 SECONDS, 3 SECONDS)
 	consumable = TRUE
 	bait_flag = DISH_MEAT
 
@@ -115,7 +95,6 @@
 	icon = 'icons/roguetown/items/food.dmi'
 	icon_state = "doughslice"
 	icon = 'icons/roguetown/items/food.dmi'
-	spin_frequency = list(2 SECONDS, 3 SECONDS)
 	consumable = TRUE
 	bait_flag = DISH_BREAD
 
@@ -139,7 +118,6 @@
 	desc = "A small amount of dough and meat, rolled into a ball. Attracts a little bit of everything."
 	icon_state = "mixedbait"
 	icon = 'icons/roguetown/items/fishing.dmi'
-	spin_frequency = list(2 SECONDS, 3 SECONDS)
 	consumable = TRUE
 	bait_flag = DISH_BREAD | DISH_MEAT
 
@@ -148,7 +126,6 @@
 	desc = "A complex blend of meat, flour, and berries rolled into a ball. Its smell scares off smaller fish."
 	icon = 'icons/roguetown/items/fishing.dmi'
 	icon_state = "speckledbait"
-	spin_frequency = list(2.5 SECONDS, 3.5 SECONDS)
 	consumable = TRUE
 	bait_flag = DISH_BREAD | DISH_MEAT | DISH_FRUIT
 
@@ -173,7 +150,6 @@
 	desc = "A ball of unknown ingredients, formulated by Abyssorian priests. Rarely catches something truly special."
 	icon = 'icons/roguetown/items/fishing.dmi'
 	icon_state = "deluxebait"
-	spin_frequency = list(2 SECONDS, 3.5 SECONDS)
 	consumable = TRUE
 	bait_quality = TRAIT_GREAT_QUALITY_BAIT
 

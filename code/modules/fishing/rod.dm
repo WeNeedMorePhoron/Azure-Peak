@@ -57,12 +57,6 @@
 	/// Icon state of the frame overlay this rod uses for the minigame
 	var/frame_state = "frame_wood"
 
-	/**
-	 * A list with two keys delimiting the spinning interval in which a mouse click has to be pressed while fishing.
-	 * Inherited from baits, passed down to the minigame lure.
-	 */
-	var/list/spin_frequency
-
 	///Prevents spamming the line casting, without affecting the player's click cooldown.
 	COOLDOWN_DECLARE(casting_cd)
 
