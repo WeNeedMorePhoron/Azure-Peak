@@ -189,6 +189,10 @@
 #define FISHING_BAIT_ENCHANTED_CHANCE 20
 #define FISHING_BAIT_ENCHANTED_MULT 1.5
 
+// Abyssorite ritual turns this much baits into enchanted baits, for a cup of ale
+#define FISHING_ENCHANT_RITE_BAITS 18
+#define FISHING_ENCHANT_RITE_ALE 25
+
 ///Keeps the bait from falling from gravity, instead allowing the player to move the bait down with right click.
 #define FISHING_MINIGAME_RULE_BIDIRECTIONAL (1 << 0)
 ///Prevents the player from losing the minigame when the completion reaches 0

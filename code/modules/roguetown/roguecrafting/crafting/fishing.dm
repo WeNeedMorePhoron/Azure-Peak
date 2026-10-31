@@ -83,7 +83,7 @@
 		/obj/item/fishing/bait/dough,
 		)
 	reqs = list(
-		/obj/item/reagent_containers/food/snacks/rogue/doughslice = 1,
+		/obj/item/reagent_containers/food/snacks/rogue/dough = 1,
 		)
 
 /datum/crafting_recipe/roguetown/survival/fishing/bait_gray

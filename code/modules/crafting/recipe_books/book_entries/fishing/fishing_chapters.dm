@@ -35,6 +35,7 @@
 			<li><b>Hooks</b>: The wooden gorge fishing hook is easy to acquire and struggles with larger fish. The thorn hook never lets a fish escape, and guarantee a catch if you take too long, but halve your XP gain. The iron hook is the standard and keep the bait from bouncing off the bottom. The carved minnow hook, the best hook, scares off small fish and attracts large ones, and lets you move the green bar both up and down.</li>
 			<li><b>Bobber and sinker</b>: Having either of them make you progress faster. The bobber makes the bait sink slower. The sinker brings up bottom dwelling fish.</li>
 			<li><b>Rolled baits</b>: Red bait for eels and meat eaters, doughy bait for carp, shrimp and plant eaters, shell bait for shellfishes, gray bait for a bit of everything, speckled bait for odd and valuable fishes, and enchanted bait draws special fishes.</li>
+			<li><b>Enchanted bait</b>: Enchanted baits can be blessed by Abyssorite clerics [FISHING_ENCHANT_RITE_BAITS] at a time, for a small offering of a cup of ale (or beer, or similar).</li>
 		</ul>
 
 		<h3>Sources and Stocks</h3>
