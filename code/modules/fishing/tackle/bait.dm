@@ -26,6 +26,7 @@
 	grid_height = 32
 	isbait = TRUE
 	var/consumable = FALSE
+	var/weighted = FALSE
 
 /obj/item/fishing/bait/Initialize(mapload)
 	. = ..()
@@ -142,6 +143,26 @@
 
 	if(fish.size < fish.average_size * 0.9)
 		multiplier *= FISHING_BAIT_SPECKLED_SMALL_MULT
+
+	return multiplier
+
+/obj/item/fishing/bait/shell
+	name = "shell bait"
+	desc = "Fish mince mixed with a crushed oyster's shell, used to lure shell-fishes of the bottom out of their dwelling. It is weighted to sink to the bottom."
+	icon = 'icons/roguetown/items/fishing.dmi'
+	icon_state = "mixedbait"
+	color = "#cfc6ad"
+	consumable = TRUE
+	weighted = TRUE
+	bait_flag = DISH_MEAT
+
+/obj/item/fishing/bait/shell/check_bait(obj/item/reagent_containers/food/snacks/fish/fish)
+	var/multiplier = ..()
+	if(multiplier <= 0)
+		return multiplier
+
+	if(/datum/fish_trait/heavy in fish.fish_traits)
+		multiplier *= FISHING_BAIT_SHELL_DEMERSAL_MULT
 
 	return multiplier
 

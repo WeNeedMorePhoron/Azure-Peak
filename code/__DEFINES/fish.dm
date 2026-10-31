@@ -182,6 +182,9 @@
 // Speckled
 #define FISHING_BAIT_SPECKLED_SMALL_MULT 0.7
 
+// Shell Bait: So that it targets bottom dwellers more
+#define FISHING_BAIT_SHELL_DEMERSAL_MULT 1.3
+
 // Enchanted
 #define FISHING_BAIT_ENCHANTED_CHANCE 20
 #define FISHING_BAIT_ENCHANTED_MULT 1.5
@@ -209,6 +212,9 @@
 
 //Fish icon defines, used by fishing minigame
 #define FISH_ICON_DEF "fish"
+#define FISH_ICON_HOSTILE "hostile"
+#define FISH_ICON_CRAB "crab"
+#define FISH_ICON_GEM "gem"
 
 ///Size and weight are rolled to this precision.
 #define FISH_MEASURE_PRECISION 0.01

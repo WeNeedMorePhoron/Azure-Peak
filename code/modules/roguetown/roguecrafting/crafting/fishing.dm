@@ -111,3 +111,19 @@
 		/obj/item/reagent_containers/food/snacks/grown/berries/rogue = 1,
 		)
 	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/survival/fishing/bait_shell
+	name = "shell bait (x6)"
+	result = list(
+		/obj/item/fishing/bait/shell,
+		/obj/item/fishing/bait/shell,
+		/obj/item/fishing/bait/shell,
+		/obj/item/fishing/bait/shell,
+		/obj/item/fishing/bait/shell,
+		/obj/item/fishing/bait/shell,
+		)
+	reqs = list(
+		/obj/item/oystershell = 1,
+		/obj/item/reagent_containers/food/snacks/rogue/meat/mince/fish = 1,
+		)
+

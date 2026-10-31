@@ -76,7 +76,10 @@ GLOBAL_LIST_INIT(fish_traits, init_subtypes_w_path_keys(/datum/fish_trait, list(
 	catalog_description = "This fish tends to stay near the waterbed."
 
 /datum/fish_trait/heavy/proc/has_sinker(obj/item/fishingrod/rod)
-	return rod.line && (rod.line.fishing_line_traits & FISHING_LINE_SINKER)
+	if(rod.line && (rod.line.fishing_line_traits & FISHING_LINE_SINKER))
+		return TRUE
+	var/obj/item/fishing/bait/rolled = rod.baited
+	return istype(rolled) && rolled.weighted
 
 /datum/fish_trait/heavy/catch_weight_mod(obj/item/fishingrod/rod, mob/fisherman, atom/location, obj/item/reagent_containers/food/snacks/fish/fish_type)
 	. = ..()

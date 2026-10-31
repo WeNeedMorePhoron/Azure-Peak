@@ -10,11 +10,13 @@
 	average_weight = 1
 	required_fluid_type = FISH_FLUID_SALTWATER
 	fish_movement_type = /datum/fish_movement/choppy
+	fish_traits = list(/datum/fish_trait/heavy)
 	favorite_bait = list(
 		list(
 			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
+		/obj/item/fishing/bait/shell,
 	)
 	faretype = FARE_NEUTRAL
 	sellprice = FISH_PRICE_GOOD
@@ -37,7 +39,7 @@
 	required_fluid_type = FISH_FLUID_SALTWATER
 	fishing_difficulty_modifier = -10
 	fish_movement_type = /datum/fish_movement/slow
-	fish_traits = list(/datum/fish_trait/vegan)
+	fish_traits = list(/datum/fish_trait/vegan, /datum/fish_trait/heavy)
 	faretype = FARE_FINE
 	no_rarity_sprite = TRUE
 	sellprice = FISH_PRICE_FINE
@@ -60,6 +62,7 @@
 			FISH_BAIT_TYPE = FISH_BAIT_FOODTYPE,
 			FISH_BAIT_VALUE = DISH_MEAT,
 		),
+		/obj/item/fishing/bait/shell,
 	)
 	fish_traits = list(/datum/fish_trait/heavy)
 	faretype = FARE_FINE
@@ -87,8 +90,8 @@
 		),
 		/obj/item/fishing/bait/dough,
 		/obj/item/fishing/bait/gray,
+		/obj/item/fishing/bait/shell,
 	)
-	fish_traits = list(/datum/fish_trait/vegan)
 	sellprice = FISH_PRICE_FAIR
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/shrimp
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/fryfish/shrimp
@@ -104,7 +107,7 @@
 	required_fluid_type = FISH_FLUID_SALTWATER
 	fishing_difficulty_modifier = -10
 	fish_movement_type = /datum/fish_movement/slow
-	fish_traits = list(/datum/fish_trait/vegan)
+	fish_traits = list(/datum/fish_trait/vegan, /datum/fish_trait/heavy)
 	faretype = FARE_POOR
 	sellprice = FISH_PRICE_COMMON
 	var/closed

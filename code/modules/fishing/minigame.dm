@@ -485,6 +485,11 @@ GLOBAL_LIST_EMPTY(fishing_challenges_by_user)
 		completion -= MAX_FISH_COMPLETION_MALUS * (difficulty * 0.01)
 
 	var/is_fish_instance = isfish(reward_path)
+	var/icon_key = reward_path
+	if(is_fish_instance)
+		var/obj/item/reagent_containers/food/snacks/fish/caught = reward_path
+		icon_key = caught.type
+	fish_icon = GLOB.specific_fish_icons[icon_key] || FISH_ICON_DEF
 
 	if(auto_handling && (ispath(reward_path, /obj/item/reagent_containers/food/snacks/fish) || is_fish_instance) && fish_source.is_limited(fish_source.get_fish_path(reward_path)))
 		user.balloon_alert(user, "too strong for the auto reel!")

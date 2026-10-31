@@ -24,6 +24,10 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 /proc/generate_specific_fish_icons()
 	var/list/return_list = zebra_typecacheof(list(
 		/obj/item/reagent_containers/food/snacks/fish = FISH_ICON_DEF,
+		/obj/item/reagent_containers/food/snacks/fish/crab = FISH_ICON_CRAB,
+		/obj/item/reagent_containers/food/snacks/fish/lobster = FISH_ICON_CRAB,
+		/obj/item/roguegem/oyster = FISH_ICON_GEM,
+		/mob/living = FISH_ICON_HOSTILE,
 	))
 
 	return return_list
