@@ -78,7 +78,7 @@
 #define FISH_COOKED_NUTRIMENT_PER_FILLET 5
 
 // Swordfish doubles as a dagger
-#define SWORDFISH_FORCE 12
+#define SWORDFISH_FORCE 14
 
 #define FISH_RARITY_COMMON 0
 #define FISH_RARITY_RARE 1

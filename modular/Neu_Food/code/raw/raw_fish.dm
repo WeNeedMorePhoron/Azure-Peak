@@ -786,6 +786,12 @@
 	fishing_difficulty_modifier = 25
 	fish_movement_type = /datum/fish_movement/accelerando
 	force = SWORDFISH_FORCE
+	armor_penetration = PEN_LIGHT // By the light of the ten, we should have a little bit of whimsy in our codebase. Just a lil
+	thrown_bclass = BCLASS_STAB
+	embedding = list("embedded_pain_multiplier" = 2, "embed_chance" = 25, "embedded_fail_chance" = 20)
+	thrown_damage_flag = "piercing"
+	// By jot do not give this an actual combat skills or I will cry
+	throwforce = 20
 	dropshrink = 0.8
 	possible_item_intents = list(DAGGER_THRUST, /datum/intent/food)
 	associated_skill = /datum/skill/combat/knives
