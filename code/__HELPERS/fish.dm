@@ -12,6 +12,6 @@
 			else
 				return bait.bait_flag & special_identifier[FISH_BAIT_VALUE]
 		if(FISH_BAIT_REAGENT)
-			return bait.reagents?.has_reagent(special_identifier[FISH_BAIT_VALUE], special_identifier[FISH_BAIT_AMOUNT], check_subtypes = TRUE)
+			return bait.reagents?.has_reagent(special_identifier[FISH_BAIT_VALUE], special_identifier[FISH_BAIT_AMOUNT])
 		else
 			CRASH("Unknown bait identifier in fish favourite/disliked list")
