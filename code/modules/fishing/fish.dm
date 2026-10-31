@@ -85,16 +85,21 @@
 	// Use average of size and weight ratios for balanced scaling
 	var/scale_ratio = (size_ratio + weight_ratio) / 2
 
-	// Clamp between 0.5x and 2.0x for reasonable visual range
-	// A tiny fish (0.5x average) = 0.75 scale
-	// A normal fish (1.0x average) = 1.0 scale
-	// A huge fish (2.0x average) = 1.5 scale
-	var/visual_scale = clamp(0.5 + (scale_ratio * 0.5), 0.5, 2.0)
+	var/visual_scale = clamp(0.5 + (scale_ratio * 0.5), 0.5, FISH_MAX_VISUAL_SCALE)
 
 	base_transform = matrix()
 	base_transform.Scale(visual_scale)
-	transform = base_transform
+	update_transform()
 
+
+/obj/item/reagent_containers/food/snacks/fish/update_transform()
+	. = ..()
+	if(!base_transform || !isturf(loc))
+		return
+	var/matrix/M = matrix(base_transform)
+	if(dropshrink)
+		M.Scale(dropshrink, dropshrink)
+	transform = M
 
 ///Set the maximum size and weight a fish can reach from base size and weight args.
 ///Always updates if called from randomize_size_and_weight (force = TRUE), otherwise only sets if uninitialized.

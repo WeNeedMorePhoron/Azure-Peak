@@ -433,6 +433,7 @@ GLOBAL_LIST_INIT(specific_fish_icons, generate_specific_fish_icons())
 		// Remove from pool so it doesn't get cleaned up
 		generated_fish_pool -= fish
 		fish.forceMove(spawn_location)
+		fish.update_transform()
 		return fish
 
 	if(ismovable(reward_path))

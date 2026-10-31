@@ -221,6 +221,7 @@
 // Weight of a fish now follows its length.
 #define FISH_WEIGHT_LENGTH_POWER 3
 #define FISH_WEIGHT_JITTER 0.1
+#define FISH_MAX_VISUAL_SCALE 1.5
 
 //IF YOU ADD ANY NEW FLAG, ADD IT TO THE RESPECTIVE BITFIELD in _globalvars/bitfields.dm TOO!
 
