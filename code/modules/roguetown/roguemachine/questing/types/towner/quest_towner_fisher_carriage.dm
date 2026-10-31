@@ -36,6 +36,7 @@
 		"bait stores" = list(
 			"label" = "Bait Stores",
 			"blurb" = "A week's worth of baits and worms.",
+			"parcel_label" = "recovered bait stores",
 			"tiers" = list(
 				TOWNER_POSTING_TIER_MEDIUM = list(
 					list("pool" = "rolled baits", "min" = 8, "max" = 12, "noun" = "rolled baits"),
