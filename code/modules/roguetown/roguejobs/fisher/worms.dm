@@ -6,6 +6,10 @@
 	var/isbait = FALSE	// Is the item in question bait to be used?
 	var/bait_flag = NONE
 
+/obj/item/proc/expected_bait_catches(mob/user)
+	var/spend_chance = FISHING_BAIT_SPEND_CHANCE_BASE - user.get_skill_level(/datum/skill/labor/fishing) * FISHING_BAIT_SPEND_CHANCE_PER_SKILL
+	return round(max(1, baitresilience) * 100 / spend_chance, 0.1)
+
 /obj/item/natural/worms
 	name = "worm"
 	desc = "The favorite bait of the courageous fishermen who venture these dark waters."

@@ -141,9 +141,8 @@
 			baitquality = "good"
 		else if(HAS_TRAIT(src, TRAIT_BASIC_QUALITY_BAIT))
 			baitquality = "passable"
-		var/spend_chance = FISHING_BAIT_SPEND_CHANCE_BASE - user.get_skill_level(/datum/skill/labor/fishing) * FISHING_BAIT_SPEND_CHANCE_PER_SKILL
-		var/catches = round(max(1, baitresilience) * 100 / spend_chance, 0.1)
-		. += span_info("It is \a [baitquality] bait for fish. In my hands, this bait will last about [catches] [catches == 1 ? "catch" : "catches"].")
+		var/catches = expected_bait_catches(user)
+		. +=span_info("It is \a [baitquality] bait for fish. In my hands, this bait will last about [catches] [catches == 1 ? "catch" : "catches"].")
 
 	for(var/datum/examine_effect/E in examine_effects)
 		E.trigger(user)

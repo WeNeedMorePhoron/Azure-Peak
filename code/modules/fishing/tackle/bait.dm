@@ -53,7 +53,12 @@
 
 /obj/item/fishing/bait/examine(mob/user)
 	. = ..()
-	. += span_info("It has to be spun with a frequency of [spin_frequency[1] * 0.1] to [spin_frequency[2] * 0.1] seconds while fishing. It is used up on a catch.")
+	. += span_info("It has to be spun with a frequency of [spin_frequency[1] * 0.1] to [spin_frequency[2] * 0.1] seconds while fishing.")
+	if(consumable)
+		var/catches = expected_bait_catches(user)
+		. += span_info("In my hands, this bait will last about [catches] [catches == 1 ? "catch" : "catches"].")
+	else
+		. += span_info("This bait is never used up.")
 	if(HAS_TRAIT(user, TRAIT_EXPERT_FISHER))
 		. += span_tinynotice("Thanks to your experience, you can examine it again to get a list of fish you can catch with it.")
 
