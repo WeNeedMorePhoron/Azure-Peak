@@ -65,6 +65,7 @@
 		var/actor_suffix = user ? " by [user.real_name]" : ""
 		SStreasury.log_fund_entry(new /datum/treasury_entry(null, SStreasury.discretionary_fund, SStreasury.discretionary_fund, 0, "Subsidy Withdraw: [D.name][actor_suffix]"))
 	var/obj/item/I = new D.item_type(parent_structure.loc)
+	I.crown_sealed = TRUE
 	if(food_stipend)
 		to_chat(user, span_info("[parent_structure] chitters and squeaks. Your food stipend pays from the Treasury."))
 	if(!user.put_in_hands(I))
@@ -117,6 +118,7 @@
 		SStreasury.mint(SStreasury.discretionary_fund, surcharge, "Royal Custom: direct import of [D.name]", null, LEDGER_CROWN_REV_STOCKPILE_SALES)
 		record_round_statistic(STATS_STOCKPILE_REVENUE, surcharge)
 	var/obj/item/I = new D.item_type(parent_structure.loc)
+	I.crown_sealed = TRUE
 	if(!user.put_in_hands(I))
 		I.forceMove(get_turf(user))
 	playsound(parent_structure.loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)

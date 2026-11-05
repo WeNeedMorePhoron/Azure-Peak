@@ -214,6 +214,11 @@
 			say("No account found for [H]. Submit your fingers to a Meister for inspection.")
 		return
 
+	if(I.crown_sealed)
+		if(message)
+			say("Marked as Crown property. It will not go into the Stockpile.")
+		return
+
 	// Pre-check: Crown's Purse must be solvent enough to pay. Below the Steward-set floor,
 	// the Crown refuses purchases entirely - goods stay in the farmer's hands.
 	var/treasury_balance = SStreasury.discretionary_fund?.balance || 0

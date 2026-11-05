@@ -88,13 +88,19 @@
 			else
 				. += span_info("[quality_data["text"]].")
 
-	var/list/seals = list()
+	var/list/marks = list()
+	var/list/refusers = list()
 	if(atc_sealed)
-		seals += "ATC seal"
+		marks += "ATC stock"
 	if(unmintable)
-		seals += "town-property stamp"
-	if(length(seals))
-		. += span_info("Marked with [english_list(seals)] - the navigator will not take it.")
+		marks += "Town property"
+	if(length(marks))
+		refusers += "Navigator"
+	if(crown_sealed)
+		marks += "Crown property"
+		refusers += "Stockpile"
+	if(length(marks))
+		. += span_info("Marked as [marks.Join(" / ")]. It will not go into the [english_list(refusers, and_text = " or the ")].")
 	else if(was_crafted)
 		. += span_info("It appears to be crafted by the hand of a local artisan.")
 	else if(is_carved)
