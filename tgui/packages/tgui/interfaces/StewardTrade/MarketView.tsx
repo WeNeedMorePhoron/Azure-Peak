@@ -499,15 +499,29 @@ const flagPillStyle = (active: boolean): React.CSSProperties => ({
 });
 
 const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
-  const { act } = useBackend<Data>();
+  const { act, data } = useBackend<Data>();
   const { row, aldermanActing } = props;
   const goodId = row.good_id;
+  const goodName = data.good_catalog[goodId]?.name ?? goodId;
+  const cannotSell = aldermanActing || !!row.never_supplied || row.stock <= 0;
   const autoexportDisabled = !!row.autoexport_disabled;
   const blockTitle =
     "As Alderman, you can't change this.";
   const stripStyleEffective: React.CSSProperties = aldermanActing
     ? { ...stripStyle, opacity: 0.55, textDecoration: 'line-through' }
     : stripStyle;
+
+  const sellToMarket = () => {
+    if (cannotSell) return;
+    const raw = window.prompt(
+      `Sell how many ${goodName} to the market? Royal stock: ${row.stock}.`,
+      '1',
+    );
+    if (raw === null) return;
+    const n = parseInt(raw, 10);
+    if (Number.isNaN(n) || n <= 0) return;
+    act('sell_to_market', { good_id: goodId, quantity: n });
+  };
 
   return (
     <div
@@ -528,6 +542,21 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
         Sell:{' '}
         <span style={stripValueStyle}>{formatMammon(row.market_sell)}m</span>
       </span>
+      <button
+        type="button"
+        style={inkButtonStyle({ color: SEAL_GREEN, disabled: cannotSell })}
+        disabled={cannotSell}
+        onClick={sellToMarket}
+        title={
+          aldermanActing
+            ? blockTitle
+            : row.never_supplied
+              ? 'The market does not take this good.'
+              : `Sell royal stock to the market. The first sells for ${formatMammon(row.market_sell)}m, and the price falls as the market fills.`
+        }
+      >
+        Sell to Market
+      </button>
       <span style={{ flex: 1 }} />
       <button
         type="button"
