@@ -77,7 +77,7 @@
 		var/list/shortage = R.get_shortage_progress()
 		var/export_unit_price = 0
 		if(R.importexport_amt > 0)
-			export_unit_price = round(R.get_export_price() / R.importexport_amt)
+			export_unit_price = round(R.get_export_price() / R.importexport_amt, STOCKPILE_PRICE_STEP)
 		rows += list(list(
 			"ref" = "\ref[R]",
 			"name" = R.name,

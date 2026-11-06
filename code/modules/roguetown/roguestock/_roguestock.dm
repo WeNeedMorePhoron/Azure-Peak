@@ -218,7 +218,7 @@
 	if(trade_good_id && SSeconomy)
 		var/list/best = SSeconomy.get_best_export_region(trade_good_id)
 		if(best && best["unit_price"])
-			return round(best["unit_price"] * importexport_amt)
+			return round(best["unit_price"] * importexport_amt, STOCKPILE_PRICE_STEP)
 	return payout_price * importexport_amt
 
 /datum/roguestock/proc/get_import_price()

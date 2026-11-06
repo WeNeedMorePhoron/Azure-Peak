@@ -43,7 +43,7 @@
 	var/starting_index = max(0, daily_pace - produces_today)
 	var/unit_cost = SSeconomy.compute_import_unit_price(D.trade_good_id, region, starting_index + 1)
 	var/margin = (SStreasury.royal_custom_active && SStreasury.royal_custom_unlocked) ? SStreasury.royal_custom_margin : ROYAL_CUSTOM_DEFAULT_MARGIN
-	var/price = max(1, round(unit_cost * (100 + margin) / 100))
+	var/price = stockpile_price(unit_cost * (100 + margin) / 100)
 	return list("region" = region, "unit_cost" = unit_cost, "price" = price)
 
 /datum/withdraw_tab/proc/direct_import_price(datum/roguestock/D)
@@ -75,9 +75,7 @@
 		budget = max(0, round(budget - (total_price - from_owed), STOCKPILE_OWED_PRECISION))
 		if(from_owed > 0)
 			SStreasury.set_stockpile_owed(user, owed - from_owed)
-		var/minted = SStreasury.settle_stockpile_receipt(total_price)
-		if(minted > 0)
-			SStreasury.mint(SStreasury.discretionary_fund, minted, "Stockpile withdrawal", null, LEDGER_CROWN_REV_STOCKPILE_SALES)
+		SStreasury.mint_fractional(SStreasury.discretionary_fund, total_price, "Stockpile withdrawal", null, LEDGER_CROWN_REV_STOCKPILE_SALES)
 		record_round_statistic(STATS_STOCKPILE_REVENUE, total_price)
 	else
 		var/actor_suffix = user ? " by [user.real_name]" : ""
@@ -103,7 +101,7 @@
 	var/datum/economic_region/region = quote["region"]
 	var/unit_cost = quote["unit_cost"]
 	var/price = quote["price"]
-	var/surcharge = max(0, price - unit_cost)
+	var/surcharge = max(0, round(price - unit_cost, STOCKPILE_PRICE_STEP))
 	var/food_stipend = HAS_TRAIT(user, TRAIT_ROYAL_SUBSIDY)
 	var/using_stipend = food_stipend && price > budget
 	if(using_stipend)
@@ -128,11 +126,11 @@
 	SStreasury.dirty_market_view()
 	var/chartered = SStreasury.royal_custom_active && SStreasury.royal_custom_unlocked
 	if(!using_stipend)
-		SStreasury.mint(SStreasury.discretionary_fund, unit_cost, "Direct import reimbursement: [D.name] from [region.name]", null, LEDGER_CROWN_REV_STOCKPILE_SALES)
+		SStreasury.mint_fractional(SStreasury.discretionary_fund, unit_cost, "Direct import reimbursement: [D.name] from [region.name]", null, LEDGER_CROWN_REV_STOCKPILE_SALES)
 	record_round_statistic(STATS_STOCKPILE_DIRECT_IMPORTS, price)
 	record_material_flow(MATERIAL_FLOW_IN, MATERIAL_SOURCE_LOCAL_IMPORT, D.item_type, 1, price)
 	if(!using_stipend && chartered && surcharge > 0)
-		SStreasury.mint(SStreasury.discretionary_fund, surcharge, "Royal Custom: direct import of [D.name]", null, LEDGER_CROWN_REV_STOCKPILE_SALES)
+		SStreasury.mint_fractional(SStreasury.discretionary_fund, surcharge, "Royal Custom: direct import of [D.name]", null, LEDGER_CROWN_REV_STOCKPILE_SALES)
 		record_round_statistic(STATS_STOCKPILE_REVENUE, surcharge)
 	var/obj/item/I = new D.item_type(parent_structure.loc)
 	if(!user.put_in_hands(I))

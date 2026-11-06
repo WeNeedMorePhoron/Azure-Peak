@@ -466,7 +466,7 @@
 
 	SStreasury.cached_market_rows = market_rows
 	SStreasury.cached_region_rows = region_rows
-	SStreasury.cached_total_arbitrage_potential = round(total_arbitrage_potential, 1)
+	SStreasury.cached_total_arbitrage_potential = round(total_arbitrage_potential, STOCKPILE_PRICE_STEP)
 	SStreasury.market_view_dirty = FALSE
 
 /obj/structure/roguemachine/steward/proc/build_market_import_regions(good_id)

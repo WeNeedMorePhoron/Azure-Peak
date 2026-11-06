@@ -461,7 +461,7 @@ SUBSYSTEM_DEF(economy)
 	var/overshoot = max(0, (unit_index - daily_pace) / daily_pace)
 	var/blockade_mult = region.is_region_blockaded ? BLOCKADE_IMPORT_MULT : 1.0
 	var/unit_price = tg.base_price * (1 + overshoot * TRADE_ESCALATION_SLOPE) * tg.global_price_mod * blockade_mult
-	return max(1, round(unit_price))
+	return stockpile_price(unit_price)
 
 /datum/controller/subsystem/economy/proc/compute_export_unit_price(good_id, datum/economic_region/region, unit_index)
 	var/datum/trade_good/tg = GLOB.trade_goods[good_id]
@@ -476,7 +476,7 @@ SUBSYSTEM_DEF(economy)
 	var/oversupply_mult = 1 / (1 + overshoot * TRADE_ESCALATION_SLOPE)
 	var/blockade_mult = region.is_region_blockaded ? BLOCKADE_EXPORT_MULT : 1.0
 	var/export_price = tg.base_price * tg.global_price_mod * oversupply_mult * (1 - IMPORT_EXPORT_SPREAD) * blockade_mult
-	return max(round(export_price), tg.low_price)
+	return max(round(export_price, STOCKPILE_PRICE_STEP), tg.low_price)
 
 /datum/controller/subsystem/economy/proc/compute_good_unit_payout(datum/standing_order/order, good_id)
 	var/datum/trade_good/tg = GLOB.trade_goods[good_id]
@@ -900,6 +900,7 @@ SUBSYSTEM_DEF(economy)
 	var/total_cost = 0
 	for(var/i in 1 to quantity)
 		total_cost += compute_import_unit_price(good_id, region, starting_index + i)
+	total_cost = round(total_cost, STOCKPILE_PRICE_STEP)
 
 	if(SStreasury.discretionary_fund.balance < total_cost)
 		if(user)
@@ -914,9 +915,9 @@ SUBSYSTEM_DEF(economy)
 		import_label = user ? "Manual Import" : "Autoimport"
 
 	if(quantity > 1)
-		SStreasury.burn(SStreasury.discretionary_fund, total_cost, "[import_label]: [quantity] [tg.name] from [region.name][actor_suffix]", LEDGER_CROWN_EXP_IMPORTS)
+		SStreasury.burn_fractional(SStreasury.discretionary_fund, total_cost, "[import_label]: [quantity] [tg.name] from [region.name][actor_suffix]", LEDGER_CROWN_EXP_IMPORTS)
 	else
-		SStreasury.burn(SStreasury.discretionary_fund, total_cost, "[import_label]: [tg.name] from [region.name][actor_suffix]", LEDGER_CROWN_EXP_IMPORTS)
+		SStreasury.burn_fractional(SStreasury.discretionary_fund, total_cost, "[import_label]: [tg.name] from [region.name][actor_suffix]", LEDGER_CROWN_EXP_IMPORTS)
 
 	region.produces_today[good_id] = produces_today - quantity
 	var/datum/roguestock/stockpile_entry = find_stockpile_by_trade_good(good_id)
@@ -961,13 +962,14 @@ SUBSYSTEM_DEF(economy)
 	var/total_revenue = 0
 	for(var/i in 1 to quantity)
 		total_revenue += compute_export_unit_price(good_id, region, starting_index + i)
+	total_revenue = round(total_revenue, STOCKPILE_PRICE_STEP)
 
 	stockpile_entry.stockpile_amount -= quantity
 	region.demands_today[good_id] = demands_today - quantity
 	var/actor_suffix = user ? " by [user.real_name]" : ""
 	var/export_label = user ? "Manual Export" : "Autoexport"
 	SStreasury.dirty_market_view()
-	SStreasury.mint(SStreasury.discretionary_fund, total_revenue, "[export_label]: [quantity] [tg.name] to [region.name][actor_suffix]", null, LEDGER_CROWN_REV_EXPORT_SALES)
+	SStreasury.mint_fractional(SStreasury.discretionary_fund, total_revenue, "[export_label]: [quantity] [tg.name] to [region.name][actor_suffix]", null, LEDGER_CROWN_REV_EXPORT_SALES)
 	SStreasury.total_export += total_revenue
 	SStreasury.economic_output += total_revenue
 	// do_export records this too; every other export route (manual, mass, autoexport) lands here instead.
@@ -1020,14 +1022,14 @@ SUBSYSTEM_DEF(economy)
 
 	var/list/result = list(
 		"region_id" = best_region_id,
-		"unit_price" = round(best_price),
+		"unit_price" = round(best_price, STOCKPILE_PRICE_STEP),
 		"is_blockaded" = best_blockaded,
 		"fallback_region_id" = null,
 		"fallback_price" = null,
 	)
 	if(nominal_region_id && nominal_region_id != best_region_id)
 		result["fallback_region_id"] = nominal_region_id
-		result["fallback_price"] = round(nominal_price)
+		result["fallback_price"] = round(nominal_price, STOCKPILE_PRICE_STEP)
 	return result
 
 /datum/controller/subsystem/economy/proc/get_best_export_region(good_id, exclude_blockaded = TRUE)
@@ -1071,12 +1073,12 @@ SUBSYSTEM_DEF(economy)
 
 	var/list/result = list(
 		"region_id" = best_region_id,
-		"unit_price" = round(best_price),
+		"unit_price" = round(best_price, STOCKPILE_PRICE_STEP),
 		"is_blockaded" = best_blockaded,
 		"fallback_region_id" = null,
 		"fallback_price" = null,
 	)
 	if(nominal_region_id && nominal_region_id != best_region_id)
 		result["fallback_region_id"] = nominal_region_id
-		result["fallback_price"] = round(nominal_price)
+		result["fallback_price"] = round(nominal_price, STOCKPILE_PRICE_STEP)
 	return result

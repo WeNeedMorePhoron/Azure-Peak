@@ -401,7 +401,7 @@
 	for(var/datum/roguestock/D as anything in stockpile_datums)
 		if(D.stockpile_amount <= 0)
 			continue
-		var/line_value = round(D.stockpile_amount * D.payout_price, 1)
+		var/line_value = round(D.stockpile_amount * D.payout_price, 0.01)
 		inventory_live += line_value
 		inventory += list(list("name" = D.name, "units" = D.stockpile_amount, "unit_price" = D.payout_price, "value" = line_value))
 	sortTim(inventory, GLOBAL_PROC_REF(cmp_stockpile_value_desc))

@@ -127,7 +127,7 @@ GLOBAL_LIST_EMPTY(bulk_trade_item_types)
 		var/derived = GLOB.derived_sellprices[typepath]
 		if(derived && derived > 0)
 			TG.base_price = derived
-			TG.low_price = max(1, round(derived * 0.6))
+			TG.low_price = stockpile_price(derived * 0.6)
 			TG.high_price = derived * 2
 	if(dump_audits)
 		fdel("pricing_engine_audit.csv")

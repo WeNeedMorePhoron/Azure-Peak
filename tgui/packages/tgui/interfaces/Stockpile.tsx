@@ -323,7 +323,7 @@ export const Stockpile = () => {
             {(data.owed || 0) > 0 && (
               <span
                 style={{ color: INK_SOFT }}
-                title="Fractions of a mammon the stockpile owes you. Paid out on your next sale once they add up to a whole mammon, or spent on your next purchase."
+                title="Fractions of a mammon a stockpile owes you. Paid out once it adds up to a whole mammon or spent on your next purchase."
               >
                 Owed to you: {fmtMammon(data.owed)}m
               </span>

@@ -182,28 +182,39 @@
 /datum/controller/subsystem/treasury/proc/mint_fractional(datum/fund/to_fund, amount, reason, datum/fund/source_fund, income_acct)
 	if(!to_fund || amount <= 0)
 		return 0
-	to_fund.pending_micro += list(list(
-		"amount" = amount,
-		"source" = source_fund ? WEAKREF(source_fund) : null,
-		"reason" = reason,
-	))
-	var/total = 0
+	var/total = amount
 	for(var/list/entry as anything in to_fund.pending_micro)
 		total += entry["amount"]
-	if(total < 1)
+	total = round(total, STOCKPILE_OWED_PRECISION)
+	var/whole = floor(total)
+	if(whole < 1)
+		to_fund.pending_micro += list(list(
+			"amount" = amount,
+			"source" = source_fund ? WEAKREF(source_fund) : null,
+			"reason" = reason,
+		))
 		return 0
-	var/whole = round(total)
-	var/remainder = total - whole
-	var/contributors = length(to_fund.pending_micro)
+	var/carried = length(to_fund.pending_micro)
 	for(var/list/entry as anything in to_fund.pending_micro)
 		var/datum/weakref/source_ref = entry["source"]
 		var/datum/fund/source = source_ref?.resolve()
 		// Memo line only: the combined mint below is the posting.
 		log_fund_entry(new /datum/treasury_entry("micro", source, to_fund, entry["amount"], entry["reason"]))
 	to_fund.pending_micro = list()
+	var/remainder = round(total - whole, STOCKPILE_OWED_PRECISION)
 	if(remainder > 0)
 		to_fund.pending_micro += list(list("amount" = remainder, "source" = null, "reason" = "carryover"))
-	mint(to_fund, whole, "Small payments combined ([whole]m from [contributors] payments)", null, income_acct)
+	mint(to_fund, whole, carried ? "[reason] (with [carried] small payments carried over)" : reason, null, income_acct)
+	return whole
+
+/datum/controller/subsystem/treasury/proc/burn_fractional(datum/fund/from_fund, amount, reason, expense_acct)
+	if(!from_fund || amount <= 0)
+		return 0
+	var/total = round(from_fund.pending_burn + amount, STOCKPILE_OWED_PRECISION)
+	var/whole = floor(total)
+	from_fund.pending_burn = round(total - whole, STOCKPILE_OWED_PRECISION)
+	if(whole > 0)
+		burn(from_fund, whole, reason, expense_acct)
 	return whole
 
 /// expense_acct classifies where the money went: a ledger account id, or an assoc list of

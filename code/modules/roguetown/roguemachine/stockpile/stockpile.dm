@@ -80,7 +80,7 @@
 		var/list/shortage = R.get_shortage_progress()
 		var/export_unit_price = 0
 		if(R.importexport_amt > 0)
-			export_unit_price = round(R.get_export_price() / R.importexport_amt)
+			export_unit_price = round(R.get_export_price() / R.importexport_amt, STOCKPILE_PRICE_STEP)
 		rows += list(list(
 			"ref" = "\ref[R]",
 			"name" = R.name,
@@ -340,7 +340,7 @@
 		SStreasury.give_money_account(paid, H, "+[paid]m [reason]", expense_acct = LEDGER_CROWN_EXP_STOCKPILE, income_acct = LEDGER_CITIZEN_SALES, flow = TREASURY_FLOW_STOCKPILE)
 	var/owed = SStreasury.get_stockpile_owed(H)
 	if(notify && owed > 0)
-		to_chat(H, span_info("The stockpile owes you [owed]m more. It pays out each whole mammon as it adds up."))
+		to_chat(H, span_info("You are owed [owed]m. It will be paid once it adds to a whole mammon."))
 	record_round_statistic(STATS_STOCKPILE_EXPANSES, paid)
 	return paid
 

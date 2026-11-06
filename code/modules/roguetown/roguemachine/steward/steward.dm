@@ -414,11 +414,14 @@
 			// based on side. total uses the signed delta directly.
 			escalation_subtotal += abs(unit - base_unit_price)
 			base_subtotal += base_unit_price
+	base_subtotal = round(base_subtotal, STOCKPILE_PRICE_STEP)
+	escalation_subtotal = round(escalation_subtotal, STOCKPILE_PRICE_STEP)
 	var/total
 	if(side == "import")
 		total = base_subtotal + escalation_subtotal
 	else
 		total = base_subtotal - escalation_subtotal
+	total = round(total, STOCKPILE_PRICE_STEP)
 	var/balance = SStreasury.discretionary_fund.balance
 	var/can_afford = side == "import" ? (balance >= total) : TRUE
 	var/warrant_remaining = -1
@@ -447,7 +450,7 @@
 		"escalation_subtotal" = escalation_subtotal,
 		"total" = total,
 		"balance" = balance,
-		"balance_after" = side == "import" ? balance - total : balance + total,
+		"balance_after" = round(side == "import" ? balance - total : balance + total, STOCKPILE_PRICE_STEP),
 		"is_blockaded" = region.is_region_blockaded ? 1 : 0,
 		"is_alderman_acting" = is_alderman_acting ? 1 : 0,
 		"warrant_remaining" = warrant_remaining,

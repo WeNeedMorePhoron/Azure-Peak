@@ -471,7 +471,7 @@ GLOBAL_LIST_INIT(ledger_class_order, list(
 	var/total = 0
 	for(var/datum/roguestock/D as anything in stockpile_datums)
 		total += max(0, D.stockpile_amount) * D.payout_price
-	return round(total, 1)
+	return round(total, 0.01)
 
 /// Periodic inventory method: purchases are expensed as they happen, and this brings the asset up
 /// (or down) to what is actually in the stockpile, with the difference going to "Change in Stockpile
