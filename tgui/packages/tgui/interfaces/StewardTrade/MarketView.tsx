@@ -34,22 +34,6 @@ const promptNumber = (label: string, current: number): number | null => {
   return n;
 };
 
-const promptPrice = (label: string, current: number): number | null => {
-  const raw = window.prompt(label, String(current));
-  if (raw === null) return null;
-  const n = parseFloat(raw);
-  if (Number.isNaN(n) || n < 0) return null;
-  return Math.round(n * 10) / 10;
-};
-
-const promptMultiplier = (label: string): number | null => {
-  const raw = window.prompt(label, '1.0');
-  if (raw === null) return null;
-  const n = parseFloat(raw);
-  if (Number.isNaN(n) || n <= 0) return null;
-  return n;
-};
-
 export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
   const { act } = useBackend<Data>();
   const {
@@ -133,23 +117,10 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
             title={
               aldermanActing
                 ? aldermanBlockTitle
-                : "Sell the surplus of every autopriced good to whichever region pays most, up to what it still wants today. Goods you priced by hand are skipped."
+                : "Sell the surplus of every good to whichever region pays most, up to what it still wants today."
             }
           >
             Export Surplus
-          </button>
-          <button
-            type="button"
-            style={inkButtonStyle({ color: INK, disabled: aldermanActing })}
-            disabled={aldermanActing}
-            onClick={() => act('autoprice_all')}
-            title={
-              aldermanActing
-                ? aldermanBlockTitle
-                : 'Put every good back on automatic pricing.'
-            }
-          >
-            Autoprice All
           </button>
           <button
             type="button"
@@ -163,48 +134,6 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
             }
           >
             Autolimit All
-          </button>
-          <button
-            type="button"
-            style={inkButtonStyle({
-              color: SEAL_BLUE,
-              disabled: aldermanActing,
-            })}
-            disabled={aldermanActing}
-            onClick={() => {
-              const m = promptMultiplier(
-                'Multiply ALL buy prices. Sets each entry to manual.',
-              );
-              if (m !== null) act('multiply_all_buy', { multiplier: m });
-            }}
-            title={
-              aldermanActing
-                ? aldermanBlockTitle
-                : "Multiply all buy prices. Sets each entry to manual."
-            }
-          >
-            Buy ×
-          </button>
-          <button
-            type="button"
-            style={inkButtonStyle({
-              color: SEAL_GREEN,
-              disabled: aldermanActing,
-            })}
-            disabled={aldermanActing}
-            onClick={() => {
-              const m = promptMultiplier(
-                'Multiply ALL sell prices. Sets each entry to manual.',
-              );
-              if (m !== null) act('multiply_all_sell', { multiplier: m });
-            }}
-            title={
-              aldermanActing
-                ? aldermanBlockTitle
-                : "Multiply all sell prices. Sets each entry to manual."
-            }
-          >
-            Sell ×
           </button>
         </div>
       </div>
@@ -268,26 +197,6 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                   })}
                   disabled={aldermanActing}
                   onClick={() =>
-                    act('autoprice_category', {
-                      category: activeGroup.category,
-                    })
-                  }
-                  title={
-                    aldermanActing
-                      ? aldermanBlockTitle
-                      : `Put all ${activeGroup.label} back on automatic pricing.`
-                  }
-                >
-                  Autoprice
-                </button>
-                <button
-                  type="button"
-                  style={inkButtonStyle({
-                    color: INK,
-                    disabled: aldermanActing,
-                  })}
-                  disabled={aldermanActing}
-                  onClick={() =>
                     act('autolimit_category', {
                       category: activeGroup.category,
                     })
@@ -299,56 +208,6 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                   }
                 >
                   Autolimit
-                </button>
-                <button
-                  type="button"
-                  style={inkButtonStyle({
-                    color: SEAL_BLUE,
-                    disabled: aldermanActing,
-                  })}
-                  disabled={aldermanActing}
-                  onClick={() => {
-                    const m = promptMultiplier(
-                      `Multiply ${activeGroup.label} buy prices. Sets each to manual.`,
-                    );
-                    if (m !== null)
-                      act('multiply_category_buy', {
-                        category: activeGroup.category,
-                        multiplier: m,
-                      });
-                  }}
-                  title={
-                    aldermanActing
-                      ? aldermanBlockTitle
-                      : `Multiply ${activeGroup.label} buy prices. Sets each to manual.`
-                  }
-                >
-                  Buy ×
-                </button>
-                <button
-                  type="button"
-                  style={inkButtonStyle({
-                    color: SEAL_GREEN,
-                    disabled: aldermanActing,
-                  })}
-                  disabled={aldermanActing}
-                  onClick={() => {
-                    const m = promptMultiplier(
-                      `Multiply ${activeGroup.label} sell prices. Sets each to manual.`,
-                    );
-                    if (m !== null)
-                      act('multiply_category_sell', {
-                        category: activeGroup.category,
-                        multiplier: m,
-                      });
-                  }}
-                  title={
-                    aldermanActing
-                      ? aldermanBlockTitle
-                      : `Multiply ${activeGroup.label} sell prices. Sets each to manual.`
-                  }
-                >
-                  Sell ×
                 </button>
               </div>
               <div
@@ -783,7 +642,6 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
   const { row, aldermanActing } = props;
   const goodId = row.good_id;
   const goodName = data.good_catalog[goodId]?.name ?? goodId;
-  const isAuto = !!row.automatic_price;
   const limitAuto = !!row.automatic_limit;
   const accepting = !!row.accepting;
   const withdrawDisabled = !!row.withdraw_disabled;
@@ -799,16 +657,6 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
     ? { ...stripValueButtonStyle, cursor: 'not-allowed' }
     : stripValueButtonStyle;
 
-  const editBuy = () => {
-    if (aldermanActing) return;
-    const n = promptPrice(`Set buy price for ${goodName}`, row.buy_price);
-    if (n !== null) act('set_buy_price', { good_id: goodId, price: n });
-  };
-  const editSell = () => {
-    if (aldermanActing) return;
-    const n = promptPrice(`Set sell price for ${goodName}`, row.sell_price);
-    if (n !== null) act('set_sell_price', { good_id: goodId, price: n });
-  };
   const editLimit = () => {
     if (aldermanActing) return;
     const n = promptNumber(
@@ -825,40 +673,11 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
     >
       <span style={stripCellStyle}>
         Buy:{' '}
-        <button
-          type="button"
-          style={valueBtnStyle}
-          disabled={aldermanActing}
-          onClick={editBuy}
-        >
-          {formatMammon(row.buy_price)}m
-        </button>
-        <button
-          type="button"
-          style={flagPillStyle(isAuto)}
-          disabled={aldermanActing}
-          onClick={() => act('toggle_auto_price', { good_id: goodId })}
-          title={
-            aldermanActing
-              ? blockTitle
-              : isAuto
-                ? 'Automatic: follows the going rate.'
-                : undefined
-          }
-        >
-          {isAuto ? 'Auto' : 'Manual'}
-        </button>
+        <span style={stripValueStyle}>{formatMammon(row.buy_price)}m</span>
       </span>
       <span style={stripCellStyle}>
         Sell:{' '}
-        <button
-          type="button"
-          style={valueBtnStyle}
-          disabled={aldermanActing}
-          onClick={editSell}
-        >
-          {formatMammon(row.sell_price)}m
-        </button>
+        <span style={stripValueStyle}>{formatMammon(row.sell_price)}m</span>
       </span>
       <span style={stripCellStyle}>
         Limit:{' '}

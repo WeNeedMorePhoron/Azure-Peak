@@ -18,7 +18,6 @@
 	var/category = "Raw Materials"
 	var/trade_good_id
 	var/accept_toggle_enabled = TRUE
-	var/automatic_price = TRUE
 	var/automatic_limit = TRUE
 	var/cached_market_deposit_price = 0
 	var/cached_market_withdraw_price = 0
@@ -294,14 +293,6 @@
 	withdraw_price = prices[2]
 
 /datum/roguestock/proc/refresh_auto_price()
-	if(!automatic_price || !trade_good_id)
-		return
-	var/datum/trade_good/tg = GLOB.trade_goods[trade_good_id]
-	if(!tg)
-		return
-	compute_auto_prices(tg)
-
-/datum/roguestock/proc/snap_auto_prices()
 	if(!trade_good_id)
 		return
 	var/datum/trade_good/tg = GLOB.trade_goods[trade_good_id]

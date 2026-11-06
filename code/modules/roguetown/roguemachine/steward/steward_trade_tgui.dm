@@ -427,7 +427,6 @@
 			"sell_price" = entry.withdraw_price,
 			"market_buy_price" = entry.cached_market_deposit_price || entry.payout_price,
 			"market_sell_price" = entry.cached_market_withdraw_price || entry.withdraw_price,
-			"automatic_price" = entry.automatic_price ? TRUE : FALSE,
 			"automatic_limit" = entry.automatic_limit ? TRUE : FALSE,
 			"accepting" = entry.accept_toggle_enabled ? TRUE : FALSE,
 			"withdraw_disabled" = entry.withdraw_disabled ? TRUE : FALSE,
@@ -588,7 +587,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 	"toggle_auto_import",
 	"kill_switch_auto_import",
 	"set_auto_import_purse_floor",
-	"toggle_auto_price",
 	"toggle_auto_limit",
 	"toggle_stockpile_accept",
 	"toggle_withdraw_disabled",
@@ -599,20 +597,12 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 	"bar_autoexport_category",
 	"bar_autoexport_shortages",
 	"allow_autoexport_all",
-	"set_buy_price",
-	"set_sell_price",
 	"set_stockpile_limit",
 	"import_steward_policy",
-	"autoprice_all",
 	"autolimit_all",
-	"autoprice_category",
 	"autolimit_category",
 	"accept_category",
 	"reject_category",
-	"multiply_all_buy",
-	"multiply_all_sell",
-	"multiply_category_buy",
-	"multiply_category_sell",
 	"set_autoexport_percentage",
 	"export_surplus_all",
 	"export_surplus_category",
@@ -723,16 +713,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			SStgui.update_uis(src)
 			return TRUE
 		// ── Stockpile management. Steward-only — Aldermen see the data but can't edit. ──
-		if("toggle_auto_price")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/datum/roguestock/D = SSeconomy.find_stockpile_by_trade_good(params["good_id"])
-			if(D)
-				D.automatic_price = !D.automatic_price
-				if(D.automatic_price)
-					D.snap_auto_prices()
-			SStgui.update_uis(src)
-			return TRUE
 		if("toggle_auto_limit")
 			if(SScity_assembly?.is_alderman(usr))
 				return TRUE
@@ -771,26 +751,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 				SStreasury.dirty_market_view()
 			SStgui.update_uis(src)
 			return TRUE
-		if("set_buy_price")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/datum/roguestock/D = SSeconomy.find_stockpile_by_trade_good(params["good_id"])
-			var/price = text2num("[params["price"]]")
-			if(D && !isnull(price))
-				D.payout_price = clamp(round(price, STOCKPILE_PRICE_STEP), 0, 9999)
-				D.automatic_price = FALSE
-			SStgui.update_uis(src)
-			return TRUE
-		if("set_sell_price")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/datum/roguestock/D = SSeconomy.find_stockpile_by_trade_good(params["good_id"])
-			var/price = text2num("[params["price"]]")
-			if(D && !isnull(price))
-				D.withdraw_price = clamp(round(price, STOCKPILE_PRICE_STEP), 0, 9999)
-				D.automatic_price = FALSE
-			SStgui.update_uis(src)
-			return TRUE
 		if("set_stockpile_limit")
 			if(SScity_assembly?.is_alderman(usr))
 				return TRUE
@@ -824,36 +784,12 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			log_game("POLICY IMPORT: [key_name(usr)] imported [applied] steward policy settings ([skipped] skipped)")
 			SStgui.update_uis(src)
 			return TRUE
-		if("autoprice_all")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			for(var/datum/roguestock/stockpile/A in SStreasury.stockpile_datums)
-				A.automatic_price = TRUE
-				A.snap_auto_prices()
-			SStgui.update_uis(src)
-			return TRUE
 		if("autolimit_all")
 			if(SScity_assembly?.is_alderman(usr))
 				return TRUE
 			for(var/datum/roguestock/A in SStreasury.stockpile_datums)
 				A.automatic_limit = TRUE
 			SStreasury.autoset_stockpile_limits()
-			SStgui.update_uis(src)
-			return TRUE
-		if("autoprice_category")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/category = params["category"]
-			if(!category)
-				return TRUE
-			for(var/datum/roguestock/A in SStreasury.stockpile_datums)
-				if(!A.trade_good_id)
-					continue
-				var/datum/trade_good/tg = GLOB.trade_goods[A.trade_good_id]
-				if(!tg || tg.category != category)
-					continue
-				A.automatic_price = TRUE
-				A.snap_auto_prices()
 			SStgui.update_uis(src)
 			return TRUE
 		if("autolimit_category")
@@ -975,66 +911,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 				SStreasury.dirty_market_view()
 			SStgui.update_uis(src)
 			return TRUE
-		if("multiply_all_buy")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/mult = text2num("[params["multiplier"]]")
-			if(isnull(mult) || mult <= 0)
-				return TRUE
-			for(var/datum/roguestock/stockpile/A in SStreasury.stockpile_datums)
-				A.refresh_auto_price()
-				A.payout_price = stockpile_price(A.payout_price * mult)
-				A.automatic_price = FALSE
-			SStgui.update_uis(src)
-			return TRUE
-		if("multiply_all_sell")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/mult = text2num("[params["multiplier"]]")
-			if(isnull(mult) || mult <= 0)
-				return TRUE
-			for(var/datum/roguestock/stockpile/A in SStreasury.stockpile_datums)
-				A.refresh_auto_price()
-				A.withdraw_price = stockpile_price(A.withdraw_price * mult)
-				A.automatic_price = FALSE
-			SStgui.update_uis(src)
-			return TRUE
-		if("multiply_category_buy")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/category = params["category"]
-			var/mult = text2num("[params["multiplier"]]")
-			if(!category || isnull(mult) || mult <= 0)
-				return TRUE
-			for(var/datum/roguestock/stockpile/A in SStreasury.stockpile_datums)
-				if(!A.trade_good_id)
-					continue
-				var/datum/trade_good/tg = GLOB.trade_goods[A.trade_good_id]
-				if(!tg || tg.category != category)
-					continue
-				A.refresh_auto_price()
-				A.payout_price = stockpile_price(A.payout_price * mult)
-				A.automatic_price = FALSE
-			SStgui.update_uis(src)
-			return TRUE
-		if("multiply_category_sell")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/category = params["category"]
-			var/mult = text2num("[params["multiplier"]]")
-			if(!category || isnull(mult) || mult <= 0)
-				return TRUE
-			for(var/datum/roguestock/stockpile/A in SStreasury.stockpile_datums)
-				if(!A.trade_good_id)
-					continue
-				var/datum/trade_good/tg = GLOB.trade_goods[A.trade_good_id]
-				if(!tg || tg.category != category)
-					continue
-				A.refresh_auto_price()
-				A.withdraw_price = stockpile_price(A.withdraw_price * mult)
-				A.automatic_price = FALSE
-			SStgui.update_uis(src)
-			return TRUE
 		if("set_autoexport_percentage")
 			if(SScity_assembly?.is_alderman(usr))
 				return TRUE
@@ -1072,7 +948,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			var/total_units = 0
 			var/list/lines = list()
 			for(var/datum/roguestock/D in SStreasury.stockpile_datums)
-				if(!D.trade_good_id || !D.automatic_price || !D.importexport_amt)
+				if(!D.trade_good_id || !D.importexport_amt)
 					continue
 				if(D.autoexport_disabled)
 					continue

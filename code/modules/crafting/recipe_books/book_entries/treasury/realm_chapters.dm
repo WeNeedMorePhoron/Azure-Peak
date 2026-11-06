@@ -146,29 +146,7 @@
 			commit.</li>
 		</ul>
 
-		<h3>Stockpile Pricing, Autoprice and Autolimit</h3> <p>Each stockpiled good
-		has two prices: a <b>buy price</b> (what the Crown pays whoever deposits) and
-		a <b>sell price</b> (what the Crown charges whoever withdraws).</p> <p>On
-		<b>Autoprice</b>, prices follow the good's base price times any event
-		multiplier. Blockades are ignored.</p>
-		<ul>
-			<li><b>Sell</b> = base × event multiplier.</li> <li><b>Buy</b> =
-			[STOCKPILE_BID_RATIO * 100]% of the sell price.</li>
-		</ul>
-		<p>Since price can be in decimals, the stockpile will track fraction it owes or the seller owes. It will pay someone a full zenny they owe - or alternatively charge them the other way round. Regional
-		shortages, blockades and route congestion only affect imports and exports.
-		They do not change stockpile prices. The Steward can set prices by hand when
-		needed.</p>
-		<ul>
-			<li>The Steward may set either price by hand, which switches the entry to
-			<b>Manual</b>. Manual entries hold whatever the Steward set until they are
-			set back to Autoprice, which resets both prices at once.</li> <li>Autoexport
-			skips goods priced by hand.</li>
-			<li>The Market Scroll shows an <b>arbitrage margin</b> column for each good (sell - buy, times current stock) and an aggregate "Arbitrage potential" total at the top.</li>
-		</ul>
-
-		<h3>Stockpile Limit - Auto and Manual</h3> <p>Each stockpile entry has a daily
-		limit beyond which deposits no longer pay. Limits start in <b>Auto</b> mode at
+		<h3>Stockpile Limit - Auto and Manual</h3> <p>Limits start in <b>Auto</b> mode at
 		roundstart. The formula is <b>total daily demand across all regions x pop
 		multiplier x [STOCKPILE_AUTO_LIMIT_DAYS] days of headroom</b>. Goods with no
 		demand line (gems, treasures) get a floor of [STOCKPILE_LIMIT_MIN] units. The
@@ -177,11 +155,7 @@
 		formula.</p>
 
 		<h3>Bulk Operators</h3> <p>The Market Scroll has controls for each category
-		and for all goods: <b>Autoprice All</b> / <b>Autolimit All</b> reset modes;
-		<b>Buy ×</b> / <b>Sell ×</b> multipliers scale either side of the spread
-		across a category or globally (each multiplier flips affected entries to
-		Manual). <b>Open All</b> / <b>Close All</b> per category open or refuse
-		deposits in bulk.</p>
+		and for all goods: <b>Autolimit All</b> resets limits.</p>
 
 		<h3>Surplus Exports</h3> <p>Each stockpile entry has a daily <b>surplus
 		floor</b>: <code>floor = limit x threshold</code>. Stock above the floor is
@@ -192,16 +166,12 @@
 		it to keep more stock on hand for citizens and standing orders.</p> <p>The
 		Steward may also press <b>Export Surplus</b> on the Market Scroll (or the
 		button for one category). Once a region has no demand left, nothing more can
-		be exported there until the next dawn. Pressing it again does nothing.
-		<b>Goods priced by hand are skipped</b>. Export them row by row from the same
-		scroll.</p>
+		be exported there until the next dawn. Pressing it again does nothing.</p>
 
 		<h3>Imports and the Stockpile</h3> <p>Regional imports enter the Crown's
-		stockpile and feed standing orders and the city's economy at large. The
-		Steward may set a <b>purchase floor</b>: while the Treasury is below it, the
-		stockpile stops buying deposits.</p>
+		stockpile and feed standing orders and the city's economy at large.</p>
 
-		<p>The Alderman <b>cannot</b> alter stockpile pricing or limits. Those belong
+		<p>The Alderman <b>cannot</b> alter stockpile limits. Those belong
 		to the Steward alone.</p>
 		</div>
 	"}
