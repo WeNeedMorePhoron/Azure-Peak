@@ -16,7 +16,6 @@
 	var/importexport_amt = 10
 	var/category = "Raw Materials"
 	var/trade_good_id
-	var/automatic_limit = TRUE
 	var/cached_market_deposit_price = 0
 	var/cached_market_withdraw_price = 0
 
@@ -28,10 +27,6 @@
 			compute_auto_prices(tg)
 			recompute_market_reference_prices(tg)
 	return
-
-/datum/roguestock/proc/set_manual_limit(lim)
-	stockpile_limit = clamp(round(lim), 0, STOCKPILE_LIMIT_MANUAL_MAX)
-	automatic_limit = FALSE
 
 /datum/roguestock/proc/get_quality_settlement(obj/item/I, baseline)
 	var/list/out = list(

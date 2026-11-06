@@ -167,8 +167,6 @@ SUBSYSTEM_DEF(treasury)
 	var/effective_pop = (SSeconomy && SSeconomy.simulated_player_scalar > 0) ? SSeconomy.simulated_player_scalar : get_active_player_count()
 	var/pop_mult = min(REGION_POP_SCALE_MAX, 1.0 + (effective_pop * REGION_POP_SCALE_PER_PLAYER))
 	for(var/datum/roguestock/D as anything in stockpile_datums)
-		if(!D.automatic_limit)
-			continue
 		if(!D.trade_good_id)
 			D.stockpile_limit = max(STOCKPILE_LIMIT_MIN, D.stockpile_limit)
 			continue
@@ -180,7 +178,6 @@ SUBSYSTEM_DEF(treasury)
 			D.stockpile_limit = max(STOCKPILE_LIMIT_MIN, D.stockpile_limit)
 			continue
 		D.stockpile_limit = clamp(ceil(total_demand * pop_mult * STOCKPILE_AUTO_LIMIT_DAYS), STOCKPILE_LIMIT_MIN, STOCKPILE_LIMIT_MAX)
-		D.automatic_limit = TRUE
 
 /datum/controller/subsystem/treasury/fire(resumed = 0)
 	if(world.time > next_treasury_check)

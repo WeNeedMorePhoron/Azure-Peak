@@ -26,14 +26,6 @@ type Side = 'import' | 'export';
 
 type OnTrade = (req: { side: Side; regionId: string; goodId: string }) => void;
 
-const promptNumber = (label: string, current: number): number | null => {
-  const raw = window.prompt(label, String(current));
-  if (raw === null) return null;
-  const n = parseInt(raw, 10);
-  if (Number.isNaN(n) || n < 0) return null;
-  return n;
-};
-
 export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
   const { act } = useBackend<Data>();
   const {
@@ -122,19 +114,6 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
           >
             Export Surplus
           </button>
-          <button
-            type="button"
-            style={inkButtonStyle({ color: INK, disabled: aldermanActing })}
-            disabled={aldermanActing}
-            onClick={() => act('autolimit_all')}
-            title={
-              aldermanActing
-                ? aldermanBlockTitle
-                : `Recompute every stockpile limit from ${props.data.auto_limit_days} days of total demand.`
-            }
-          >
-            Autolimit All
-          </button>
         </div>
       </div>
       {market_rows.length === 0 ? (
@@ -188,26 +167,6 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                   }
                 >
                   Export Surplus
-                </button>
-                <button
-                  type="button"
-                  style={inkButtonStyle({
-                    color: INK,
-                    disabled: aldermanActing,
-                  })}
-                  disabled={aldermanActing}
-                  onClick={() =>
-                    act('autolimit_category', {
-                      category: activeGroup.category,
-                    })
-                  }
-                  title={
-                    aldermanActing
-                      ? aldermanBlockTitle
-                      : `Set all ${activeGroup.label} limits back to automatic.`
-                  }
-                >
-                  Autolimit
                 </button>
               </div>
               <div
@@ -539,17 +498,6 @@ const stripValueStyle: React.CSSProperties = {
   fontWeight: 'bold',
 };
 
-const stripValueButtonStyle: React.CSSProperties = {
-  ...stripValueStyle,
-  background: 'transparent',
-  border: 'none',
-  padding: '0 2px',
-  cursor: 'pointer',
-  textDecoration: 'underline dotted',
-  fontFamily: 'inherit',
-  fontSize: FONT_BODY,
-};
-
 const flagPillStyle = (active: boolean): React.CSSProperties => ({
   fontSize: FONT_BODY,
   padding: '0 4px',
@@ -562,11 +510,9 @@ const flagPillStyle = (active: boolean): React.CSSProperties => ({
 });
 
 const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
-  const { act, data } = useBackend<Data>();
+  const { act } = useBackend<Data>();
   const { row, aldermanActing } = props;
   const goodId = row.good_id;
-  const goodName = data.good_catalog[goodId]?.name ?? goodId;
-  const limitAuto = !!row.automatic_limit;
   const autoexportDisabled = !!row.autoexport_disabled;
   const margin = row.margin_per_unit;
   const potential = row.arbitrage_potential;
@@ -575,18 +521,6 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
   const stripStyleEffective: React.CSSProperties = aldermanActing
     ? { ...stripStyle, opacity: 0.55, textDecoration: 'line-through' }
     : stripStyle;
-  const valueBtnStyle: React.CSSProperties = aldermanActing
-    ? { ...stripValueButtonStyle, cursor: 'not-allowed' }
-    : stripValueButtonStyle;
-
-  const editLimit = () => {
-    if (aldermanActing) return;
-    const n = promptNumber(
-      `Set stockpile limit for ${goodName}`,
-      row.stock_limit,
-    );
-    if (n !== null) act('set_stockpile_limit', { good_id: goodId, limit: n });
-  };
 
   return (
     <div
@@ -602,30 +536,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
         <span style={stripValueStyle}>{formatMammon(row.sell_price)}m</span>
       </span>
       <span style={stripCellStyle}>
-        Limit:{' '}
-        <button
-          type="button"
-          style={valueBtnStyle}
-          disabled={aldermanActing}
-          onClick={editLimit}
-        >
-          {row.stock_limit}
-        </button>
-        <button
-          type="button"
-          style={flagPillStyle(limitAuto)}
-          disabled={aldermanActing}
-          onClick={() => act('toggle_auto_limit', { good_id: goodId })}
-          title={
-            aldermanActing
-              ? blockTitle
-              : limitAuto
-                ? `Automatic: ${data.auto_limit_days} days of demand, more when the town is livelier.`
-                : undefined
-          }
-        >
-          {limitAuto ? 'Auto' : 'Manual'}
-        </button>
+        Limit: <span style={stripValueStyle}>{row.stock_limit}</span>
       </span>
       {margin > 0 && (
         <span style={{ ...stripCellStyle, color: SEAL_AMBER }}>

@@ -183,7 +183,6 @@ export type LedgerPage = {
 
 export type StaticData = {
   order_pool_cap: number;
-  auto_limit_days: number;
   quality_payouts: { label: string; pct: number }[];
   good_catalog: Record<string, GoodCatalogEntry>;
   region_catalog: Record<string, RegionCatalogEntry>;
@@ -264,7 +263,6 @@ export type MarketRow = {
   sell_price: number;
   market_buy_price: number;
   market_sell_price: number;
-  automatic_limit: BooleanLike;
   autoexport_disabled: BooleanLike;
   margin_per_unit: number;
   arbitrage_potential: number;

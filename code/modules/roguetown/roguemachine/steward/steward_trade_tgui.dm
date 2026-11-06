@@ -55,7 +55,6 @@
 /obj/structure/roguemachine/steward/ui_static_data(mob/user)
 	var/list/data = list()
 	data["order_pool_cap"] = STANDING_ORDERS_POOL_CAP
-	data["auto_limit_days"] = STOCKPILE_AUTO_LIMIT_DAYS
 	data["quality_payouts"] = list(
 		list("label" = "worn", "pct" = round(ITEM_QUALITY_MULT_WORN * 100)),
 		list("label" = "ruined", "pct" = round(ITEM_QUALITY_MULT_RUINED * 100)),
@@ -427,7 +426,6 @@
 			"sell_price" = entry.withdraw_price,
 			"market_buy_price" = entry.cached_market_deposit_price || entry.payout_price,
 			"market_sell_price" = entry.cached_market_withdraw_price || entry.withdraw_price,
-			"automatic_limit" = entry.automatic_limit ? TRUE : FALSE,
 			"autoexport_disabled" = entry.autoexport_disabled ? TRUE : FALSE,
 			"margin_per_unit" = margin_per_unit,
 			"arbitrage_potential" = arbitrage_potential,
@@ -585,16 +583,12 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 	"toggle_auto_import",
 	"kill_switch_auto_import",
 	"set_auto_import_purse_floor",
-	"toggle_auto_limit",
 	"toggle_autoexport_disabled",
 	"allow_autoexport_category",
 	"bar_autoexport_category",
 	"bar_autoexport_shortages",
 	"allow_autoexport_all",
-	"set_stockpile_limit",
 	"import_steward_policy",
-	"autolimit_all",
-	"autolimit_category",
 	"set_autoexport_percentage",
 	"export_surplus_all",
 	"export_surplus_category",
@@ -705,39 +699,10 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			SStgui.update_uis(src)
 			return TRUE
 		// ── Stockpile management. Steward-only — Aldermen see the data but can't edit. ──
-		if("toggle_auto_limit")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/datum/roguestock/D = SSeconomy.find_stockpile_by_trade_good(params["good_id"])
-			if(D)
-				D.automatic_limit = !D.automatic_limit
-				if(D.automatic_limit)
-					// Recompute this one entry from the auto formula.
-					var/effective_pop = (SSeconomy && SSeconomy.simulated_player_scalar > 0) ? SSeconomy.simulated_player_scalar : get_active_player_count()
-					var/pop_mult = min(REGION_POP_SCALE_MAX, 1.0 + (effective_pop * REGION_POP_SCALE_PER_PLAYER))
-					var/total_demand = 0
-					for(var/region_id in GLOB.economic_regions)
-						var/datum/economic_region/region = GLOB.economic_regions[region_id]
-						total_demand += region.demands[D.trade_good_id] || 0
-					if(total_demand > 0)
-						D.stockpile_limit = max(STOCKPILE_LIMIT_MIN, ceil(total_demand * pop_mult * STOCKPILE_AUTO_LIMIT_DAYS))
-					else
-						D.stockpile_limit = max(STOCKPILE_LIMIT_MIN, D.stockpile_limit)
-			SStgui.update_uis(src)
-			return TRUE
-		if("set_stockpile_limit")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/datum/roguestock/D = SSeconomy.find_stockpile_by_trade_good(params["good_id"])
-			var/lim = text2num("[params["limit"]]")
-			if(D && !isnull(lim))
-				D.set_manual_limit(lim)
-			SStgui.update_uis(src)
-			return TRUE
 		if("export_steward_policy")
 			if(SScity_assembly?.is_alderman(usr))
 				return TRUE
-			tgui_input_text(usr, "Copy the text here and save it locally. You can paste it into Import Policy in later rounds to keep your custom settings, including: Handset limits, autoexport bars, autoimport list, essential opt-outs, surplus threshold and purse floor. Autolimits or prices are not stored.", "Export Policy", SStreasury.export_steward_policy(), max_length = STEWARD_POLICY_IMPORT_MAX_LEN, multiline = TRUE, encode = FALSE, width = STEWARD_POLICY_WINDOW_WIDTH, height = STEWARD_POLICY_WINDOW_HEIGHT)
+			tgui_input_text(usr, "Copy the text here and save it locally. You can paste it into Import Policy in later rounds to keep your custom settings, including: autoexport bars, autoimport list, essential opt-outs, surplus threshold and purse floor.", "Export Policy", SStreasury.export_steward_policy(), max_length = STEWARD_POLICY_IMPORT_MAX_LEN, multiline = TRUE, encode = FALSE, width = STEWARD_POLICY_WINDOW_WIDTH, height = STEWARD_POLICY_WINDOW_HEIGHT)
 			return TRUE
 		if("import_steward_policy")
 			if(SScity_assembly?.is_alderman(usr))
@@ -756,30 +721,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 				skipped_text = " Skipped [skipped] unknown [skipped == 1 ? "entry" : "entries"]."
 			to_chat(usr, span_notice("Applied [applied] setting\s.[skipped_text]"))
 			log_game("POLICY IMPORT: [key_name(usr)] imported [applied] steward policy settings ([skipped] skipped)")
-			SStgui.update_uis(src)
-			return TRUE
-		if("autolimit_all")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			for(var/datum/roguestock/A in SStreasury.stockpile_datums)
-				A.automatic_limit = TRUE
-			SStreasury.autoset_stockpile_limits()
-			SStgui.update_uis(src)
-			return TRUE
-		if("autolimit_category")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/category = params["category"]
-			if(!category)
-				return TRUE
-			for(var/datum/roguestock/A in SStreasury.stockpile_datums)
-				if(!A.trade_good_id)
-					continue
-				var/datum/trade_good/tg = GLOB.trade_goods[A.trade_good_id]
-				if(!tg || tg.category != category)
-					continue
-				A.automatic_limit = TRUE
-			SStreasury.autoset_stockpile_limits()
 			SStgui.update_uis(src)
 			return TRUE
 		if("allow_autoexport_category", "bar_autoexport_category")

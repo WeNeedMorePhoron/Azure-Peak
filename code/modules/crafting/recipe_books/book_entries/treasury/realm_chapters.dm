@@ -146,16 +146,9 @@
 			commit.</li>
 		</ul>
 
-		<h3>Stockpile Limit - Auto and Manual</h3> <p>Limits start in <b>Auto</b> mode at
-		roundstart. The formula is <b>total daily demand across all regions x pop
+		<h3>Stockpile Limit</h3> <p>The formula is <b>total daily demand across all regions x pop
 		multiplier x [STOCKPILE_AUTO_LIMIT_DAYS] days of headroom</b>. Goods with no
-		demand line (gems, treasures) get a floor of [STOCKPILE_LIMIT_MIN] units. The
-		Steward may override by setting a limit by hand, which flips the entry to
-		<b>Manual</b>. <b>Autolimit All</b> resets every entry back to the
-		formula.</p>
-
-		<h3>Bulk Operators</h3> <p>The Market Scroll has controls for each category
-		and for all goods: <b>Autolimit All</b> resets limits.</p>
+		demand line (gems, treasures) get a floor of [STOCKPILE_LIMIT_MIN] units.</p>
 
 		<h3>Surplus Exports</h3> <p>Each stockpile entry has a daily <b>surplus
 		floor</b>: <code>floor = limit x threshold</code>. Stock above the floor is
@@ -170,9 +163,6 @@
 
 		<h3>Imports and the Stockpile</h3> <p>Regional imports enter the Crown's
 		stockpile and feed standing orders and the city's economy at large.</p>
-
-		<p>The Alderman <b>cannot</b> alter stockpile limits. Those belong
-		to the Steward alone.</p>
 		</div>
 	"}
 
