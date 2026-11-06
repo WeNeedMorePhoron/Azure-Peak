@@ -420,6 +420,7 @@
 			"market_buy" = entry.market_ask(1),
 			"market_sell" = entry.market_bid(1),
 			"never_supplied" = entry.market_never_supplies ? TRUE : FALSE,
+			"sold_out" = (entry.market_stock <= 0 && !entry.market_has_supply()) ? TRUE : FALSE,
 			"event_tag" = event_tag,
 			"import_regions" = (tg.importable && producers[good_id]) ? build_market_import_regions(good_id) : list(),
 			"export_regions" = demanders[good_id] ? build_market_export_regions(good_id) : list(),
@@ -575,6 +576,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 	"trade_region_import",
 	"trade_region_export",
 	"sell_to_market",
+	"buy_from_market",
 	"toggle_auto_import",
 	"kill_switch_auto_import",
 	"set_auto_import_purse_floor",
@@ -677,6 +679,14 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			var/quantity = text2num("[params["quantity"]]")
 			if(quantity)
 				SSeconomy.sell_to_market(usr, params["good_id"], quantity)
+			SStgui.update_uis(src)
+			return TRUE
+		if("buy_from_market")
+			if(SScity_assembly?.is_alderman(usr))
+				return TRUE
+			var/quantity = text2num("[params["quantity"]]")
+			if(quantity)
+				SSeconomy.buy_from_market(usr, params["good_id"], quantity)
 			SStgui.update_uis(src)
 			return TRUE
 		if("toggle_auto_import")

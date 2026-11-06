@@ -1004,6 +1004,33 @@ SUBSYSTEM_DEF(economy)
 	to_chat(user, span_notice("Sold [quantity] [D.name] to the market for [format_mammon(revenue)]m."))
 	return revenue
 
+/datum/controller/subsystem/economy/proc/buy_from_market(mob/user, good_id, quantity)
+	var/datum/roguestock/D = find_stockpile_by_trade_good(good_id)
+	if(!D)
+		return 0
+	if(D.market_never_supplies)
+		to_chat(user, span_warning("The market does not supply [D.name]."))
+		return 0
+	D.refresh_auto_price()
+	D.get_market_target()
+	quantity = min(round(quantity), TRADE_MAX_BULK_UNITS)
+	if(!D.market_has_supply())
+		quantity = min(quantity, D.market_stock)
+	if(quantity <= 0)
+		to_chat(user, span_warning("The market is out of [D.name]."))
+		return 0
+	var/cost = D.market_ask(quantity)
+	if(!SStreasury.burn(SStreasury.discretionary_fund, cost, "Market Purchase: [quantity] [D.name] by [user.real_name]", LEDGER_CROWN_EXP_STOCKPILE))
+		to_chat(user, span_warning("The Treasury can't afford this. It has [format_mammon(SStreasury.discretionary_fund.balance)]m and needs [format_mammon(cost)]m."))
+		return 0
+	D.market_stock = max(0, D.market_stock - quantity)
+	D.royal_stock += quantity
+	D.check_glut_relief()
+	SStreasury.dirty_market_view()
+	log_game("MARKET PURCHASE by [user.ckey]: [quantity] [D.name] (cost [cost]m)")
+	to_chat(user, span_notice("Bought [quantity] [D.name] from the market for [format_mammon(cost)]m."))
+	return cost
+
 /datum/controller/subsystem/economy/proc/get_best_import_region(good_id, exclude_blockaded = TRUE)
 	var/datum/trade_good/tg = GLOB.trade_goods[good_id]
 	if(!tg || !tg.importable)

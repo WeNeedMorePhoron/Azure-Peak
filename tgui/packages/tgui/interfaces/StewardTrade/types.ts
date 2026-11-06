@@ -260,6 +260,7 @@ export type MarketRow = {
   market_buy: number;
   market_sell: number;
   never_supplied: BooleanLike;
+  sold_out: BooleanLike;
   event_tag: string;
   // Sorted: import_regions ascending by unit_price (best buy first),
   // export_regions descending (best sell first). Entry [0] is the auto-routed default.

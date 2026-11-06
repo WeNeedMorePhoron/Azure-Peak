@@ -504,6 +504,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
   const goodId = row.good_id;
   const goodName = data.good_catalog[goodId]?.name ?? goodId;
   const cannotSell = aldermanActing || !!row.never_supplied || row.stock <= 0;
+  const cannotBuy = aldermanActing || !!row.never_supplied || !!row.sold_out;
   const autoexportDisabled = !!row.autoexport_disabled;
   const blockTitle =
     "As Alderman, you can't change this.";
@@ -521,6 +522,18 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
     const n = parseInt(raw, 10);
     if (Number.isNaN(n) || n <= 0) return;
     act('sell_to_market', { good_id: goodId, quantity: n });
+  };
+
+  const buyFromMarket = () => {
+    if (cannotBuy) return;
+    const raw = window.prompt(
+      `Buy how many ${goodName} from the market? The Treasury pays.`,
+      '1',
+    );
+    if (raw === null) return;
+    const n = parseInt(raw, 10);
+    if (Number.isNaN(n) || n <= 0) return;
+    act('buy_from_market', { good_id: goodId, quantity: n });
   };
 
   return (
@@ -556,6 +569,23 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
         }
       >
         Sell to Market
+      </button>
+      <button
+        type="button"
+        style={inkButtonStyle({ color: SEAL_BLUE, disabled: cannotBuy })}
+        disabled={cannotBuy}
+        onClick={buyFromMarket}
+        title={
+          aldermanActing
+            ? blockTitle
+            : row.never_supplied
+              ? 'The market does not supply this good.'
+              : row.sold_out
+                ? 'The market is out of this good.'
+                : `Buy from the market into royal stock, paid by the Treasury. The first costs ${formatMammon(row.market_buy)}m, and the price rises as the market empties.`
+        }
+      >
+        Buy from Market
       </button>
       <span style={{ flex: 1 }} />
       <button
