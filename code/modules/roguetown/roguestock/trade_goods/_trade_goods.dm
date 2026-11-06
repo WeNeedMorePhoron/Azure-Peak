@@ -28,7 +28,7 @@
 /datum/trade_good/New()
 	. = ..()
 	if(isnull(low_price) && !isnull(base_price))
-		low_price = round(base_price * 0.6)
+		low_price = max(1, round(base_price * 0.6))
 	if(isnull(high_price) && !isnull(base_price))
 		high_price = base_price * 2
 

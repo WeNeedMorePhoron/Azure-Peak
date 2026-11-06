@@ -412,8 +412,8 @@
 		else if(event_tag_by_good[good_id] == ECON_EVENT_OVERSUPPLY)
 			event_tag = "GLUT"
 
-		var/margin_per_unit = max(0, entry.withdraw_price - entry.payout_price)
-		var/arbitrage_potential = margin_per_unit * entry.stockpile_amount
+		var/margin_per_unit = max(0, round(entry.withdraw_price - entry.payout_price, STOCKPILE_PRICE_STEP))
+		var/arbitrage_potential = round(margin_per_unit * entry.stockpile_amount, STOCKPILE_PRICE_STEP)
 		total_arbitrage_potential += arbitrage_potential
 
 		market_rows += list(list(
@@ -466,7 +466,7 @@
 
 	SStreasury.cached_market_rows = market_rows
 	SStreasury.cached_region_rows = region_rows
-	SStreasury.cached_total_arbitrage_potential = total_arbitrage_potential
+	SStreasury.cached_total_arbitrage_potential = round(total_arbitrage_potential, 1)
 	SStreasury.market_view_dirty = FALSE
 
 /obj/structure/roguemachine/steward/proc/build_market_import_regions(good_id)
@@ -777,7 +777,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			var/datum/roguestock/D = SSeconomy.find_stockpile_by_trade_good(params["good_id"])
 			var/price = text2num("[params["price"]]")
 			if(D && !isnull(price))
-				D.payout_price = clamp(round(price), 0, 9999)
+				D.payout_price = clamp(round(price, STOCKPILE_PRICE_STEP), 0, 9999)
 				D.automatic_price = FALSE
 			SStgui.update_uis(src)
 			return TRUE
@@ -787,7 +787,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			var/datum/roguestock/D = SSeconomy.find_stockpile_by_trade_good(params["good_id"])
 			var/price = text2num("[params["price"]]")
 			if(D && !isnull(price))
-				D.withdraw_price = clamp(round(price), 0, 9999)
+				D.withdraw_price = clamp(round(price, STOCKPILE_PRICE_STEP), 0, 9999)
 				D.automatic_price = FALSE
 			SStgui.update_uis(src)
 			return TRUE
@@ -983,7 +983,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 				return TRUE
 			for(var/datum/roguestock/stockpile/A in SStreasury.stockpile_datums)
 				A.refresh_auto_price()
-				A.payout_price = max(1, round(A.payout_price * mult))
+				A.payout_price = stockpile_price(A.payout_price * mult)
 				A.automatic_price = FALSE
 			SStgui.update_uis(src)
 			return TRUE
@@ -995,7 +995,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 				return TRUE
 			for(var/datum/roguestock/stockpile/A in SStreasury.stockpile_datums)
 				A.refresh_auto_price()
-				A.withdraw_price = max(1, round(A.withdraw_price * mult))
+				A.withdraw_price = stockpile_price(A.withdraw_price * mult)
 				A.automatic_price = FALSE
 			SStgui.update_uis(src)
 			return TRUE
@@ -1013,7 +1013,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 				if(!tg || tg.category != category)
 					continue
 				A.refresh_auto_price()
-				A.payout_price = max(1, round(A.payout_price * mult))
+				A.payout_price = stockpile_price(A.payout_price * mult)
 				A.automatic_price = FALSE
 			SStgui.update_uis(src)
 			return TRUE
@@ -1031,7 +1031,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 				if(!tg || tg.category != category)
 					continue
 				A.refresh_auto_price()
-				A.withdraw_price = max(1, round(A.withdraw_price * mult))
+				A.withdraw_price = stockpile_price(A.withdraw_price * mult)
 				A.automatic_price = FALSE
 			SStgui.update_uis(src)
 			return TRUE

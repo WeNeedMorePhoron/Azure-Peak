@@ -112,6 +112,7 @@ SUBSYSTEM_DEF(treasury)
 	var/levy_rates_changed_day = -1
 	/// Steward-settable floor. Stockpile refuses purchases when Crown's Purse would drop below this.
 	var/stockpile_purchase_floor = STOCKPILE_CROWN_PURCHASE_FLOOR_DEFAULT
+	var/stockpile_sales_remainder = 0
 	/// A feature for the Steward to unlock once the Crown's trade volume reaches 10k
 	/// Basically help automate the import, fitting in line with my idea of active trade
 	/// Converting to passive convenience later. Later on I might gate it through a
@@ -262,6 +263,29 @@ SUBSYSTEM_DEF(treasury)
 
 /datum/controller/subsystem/treasury/proc/has_account(target)
 	return !isnull(bank_accounts[target])
+
+/datum/controller/subsystem/treasury/proc/get_stockpile_owed(mob/user)
+	var/datum/fund/account = get_account(user)
+	return account ? account.stockpile_owed : 0
+
+/datum/controller/subsystem/treasury/proc/set_stockpile_owed(mob/user, amount)
+	var/datum/fund/account = get_account(user)
+	if(!account)
+		return FALSE
+	account.stockpile_owed = max(0, round(amount, STOCKPILE_OWED_PRECISION))
+	return TRUE
+
+/datum/controller/subsystem/treasury/proc/settle_stockpile_payout(mob/user, amount)
+	var/owed = round(get_stockpile_owed(user) + amount, STOCKPILE_OWED_PRECISION)
+	var/whole = floor(owed)
+	set_stockpile_owed(user, owed - whole)
+	return whole
+
+/datum/controller/subsystem/treasury/proc/settle_stockpile_receipt(amount)
+	stockpile_sales_remainder = round(stockpile_sales_remainder + amount, STOCKPILE_OWED_PRECISION)
+	var/whole = floor(stockpile_sales_remainder)
+	stockpile_sales_remainder = round(stockpile_sales_remainder - whole, STOCKPILE_OWED_PRECISION)
+	return whole
 
 /datum/controller/subsystem/treasury/proc/rename_account(mob/living/owner, new_name)
 	var/datum/fund/account = get_account(owner)

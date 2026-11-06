@@ -50,7 +50,7 @@
 		if(!derived)
 			derived = lookup_derived_subtype_price(type)
 		if(derived)
-			sellprice = derived
+			sellprice = max(1, round(derived, 1))
 			randomize_price()
 	if(worn_out)
 		return max(1, round(sellprice * WORN_SELL_MULT))

@@ -56,6 +56,7 @@
 	check_charter_unlock()
 	var/list/data = list()
 	data["budget"] = withdraw_tab.budget
+	data["owed"] = SStreasury.get_stockpile_owed(user)
 	data["compact"] = withdraw_tab.compact ? TRUE : FALSE
 	data["categories"] = categories
 	data["category"] = withdraw_tab.current_category
@@ -126,9 +127,7 @@
 			withdraw_tab.compact = !withdraw_tab.compact
 			return TRUE
 		if("refund_budget")
-			if(withdraw_tab.budget > 0)
-				budget2change(withdraw_tab.budget, usr)
-				withdraw_tab.budget = 0
+			if(withdraw_tab.refund_budget(usr))
 				playsound(loc, 'sound/misc/coindispense.ogg', 100, FALSE, -1)
 			return TRUE
 		if("direct_import")
@@ -214,11 +213,6 @@
 			say("No account found for [H]. Submit your fingers to a Meister for inspection.")
 		return
 
-	if(I.crown_sealed)
-		if(message)
-			say("Marked as Crown property. It will not go into the Stockpile.")
-		return
-
 	// Pre-check: Crown's Purse must be solvent enough to pay. Below the Steward-set floor,
 	// the Crown refuses purchases entirely - goods stay in the farmer's hands.
 	var/treasury_balance = SStreasury.discretionary_fund?.balance || 0
@@ -257,16 +251,15 @@
 				if(sound == TRUE)
 					playsound(loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)
 				R.refresh_auto_price()
-				var/amt = R.payout_price * bundle_amt
+				var/amt = round(R.payout_price * bundle_amt, STOCKPILE_PRICE_STEP)
 				if(HAS_TRAIT(H, TRAIT_ROYAL_SUBSIDY))
 					SStreasury.log_fund_entry(new /datum/treasury_entry(null, SStreasury.discretionary_fund, SStreasury.discretionary_fund, 0, "Subsidy Deposit: [R.name] by [H.real_name]"))
 					send_ooc_note("<b>MEISTER:</b> The [amt]m for your [R.name] stays in the Treasury under your food stipend.", name = H.real_name)
 					return
-				SStreasury.economic_output += amt
-				SStreasury.give_money_account(amt, H, "+[amt]m from selling [R.name]", expense_acct = LEDGER_CROWN_EXP_STOCKPILE, income_acct = LEDGER_CITIZEN_SALES, flow = TREASURY_FLOW_STOCKPILE)
+				var/paid = pay_seller(H, amt, "from selling [bundle_amt] [R.name] at [R.payout_price]m each", message)
+				SStreasury.economic_output += paid
 				if(auto_exported && message)
 					say("The [R.name] stockpile is full. The Crown shipped yours abroad. You're still paid.")
-				record_round_statistic(STATS_STOCKPILE_EXPANSES, amt)
 				return
 			continue
 		// Bloc to replace old vault mechanics
@@ -325,22 +318,31 @@
 					send_ooc_note("<b>MEISTER:</b> The [amt]m for your [R.name] stays in the Treasury under your food stipend.", name = H.real_name)
 					return
 				SStreasury.economic_output += true_value
-				var/bounty_msg = "+[amt]m from selling [R.name]"
+				var/reason = "from selling [R.name] at [amt]m"
 				if(crown_delta != 0)
-					var/seller_delta = amt - quality_baseline
+					var/seller_delta = round(amt - quality_baseline, STOCKPILE_PRICE_STEP)
 					var/seller_sign = seller_delta > 0 ? "+" : ""
 					var/crown_sign = crown_delta > 0 ? "+" : ""
-					bounty_msg = "+[amt]m from selling [R.name] (quality: you [seller_sign][seller_delta]m, Crown [crown_sign][crown_delta]m, against the usual [quality_baseline]m)"
-				SStreasury.give_money_account(amt, H, bounty_msg, expense_acct = LEDGER_CROWN_EXP_STOCKPILE, income_acct = LEDGER_CITIZEN_SALES, flow = TREASURY_FLOW_STOCKPILE)
+					reason = "from selling [R.name] at [amt]m (quality: you [seller_sign][seller_delta]m, Crown [crown_sign][crown_delta]m, against the usual [quality_baseline]m)"
+				pay_seller(H, amt, reason, message)
 				if(auto_exported && message)
 					say("The [R.name] stockpile is full. The Crown shipped yours abroad. You're still paid.")
-			record_round_statistic(STATS_STOCKPILE_EXPANSES, amt)
 			record_round_statistic(STATS_STOCKPILE_REVENUE, true_value)
 			return
 
 	// Nothing in the stockpile accepted this item
 	if(message)
 		say("[I.name] isn't accepted here.")
+
+/obj/structure/roguemachine/stockpile/proc/pay_seller(mob/H, amount, reason, notify = TRUE)
+	var/paid = SStreasury.settle_stockpile_payout(H, amount)
+	if(paid > 0)
+		SStreasury.give_money_account(paid, H, "+[paid]m [reason]", expense_acct = LEDGER_CROWN_EXP_STOCKPILE, income_acct = LEDGER_CITIZEN_SALES, flow = TREASURY_FLOW_STOCKPILE)
+	var/owed = SStreasury.get_stockpile_owed(H)
+	if(notify && owed > 0)
+		to_chat(H, span_info("The stockpile owes you [owed]m more. It pays out each whole mammon as it adds up."))
+	record_round_statistic(STATS_STOCKPILE_EXPANSES, paid)
+	return paid
 
 /obj/structure/roguemachine/stockpile/attackby(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/roguecoin/aalloy))

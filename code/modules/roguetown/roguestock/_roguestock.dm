@@ -49,7 +49,7 @@
 	var/buy_price = baseline * q_mult
 	var/loss = baseline - buy_price
 	var/seller_payout = buy_price - (loss * STOCKPILE_QUALITY_LOSS_SELLER_SHARE)
-	out["seller_payout"] = max(1, round(seller_payout))
+	out["seller_payout"] = stockpile_price(seller_payout)
 	out["crown_delta"] = round(-loss * (1 - STOCKPILE_QUALITY_LOSS_SELLER_SHARE))
 	out["q_mult"] = q_mult
 	return out
@@ -67,19 +67,23 @@
 			return FALSE
 	return TRUE
 
-/// Sell matches import exactly so auto-pricing doesn't compound shortage spikes
-/// (global_price_mod can hit 4-5x). The IMPORT_EXPORT_SPREAD baked into export_ref <
-/// import_ref is the only built-in Crown margin; stewards mark up withdraw manually
-/// if they want profit on a shortage import.
+/proc/stockpile_price(raw)
+	return max(STOCKPILE_PRICE_STEP, round(raw, STOCKPILE_PRICE_STEP))
+
+/proc/stockpile_auto_prices(datum/trade_good/tg)
+	var/unit_price = (tg.item_type && GLOB.derived_sellprices[tg.item_type]) || tg.base_price
+	var/ask = stockpile_price(unit_price * tg.global_price_mod)
+	var/bid = stockpile_price(ask * STOCKPILE_BID_RATIO)
+	if(bid >= ask)
+		bid = max(STOCKPILE_PRICE_STEP, ask - STOCKPILE_PRICE_STEP)
+	return list(bid, ask)
+
 /datum/roguestock/proc/compute_auto_prices(datum/trade_good/tg)
 	if(!tg)
 		return
-	var/unit_price = (tg.item_type && GLOB.derived_sellprices[tg.item_type]) || tg.base_price
-	var/import_ref = max(1, round(unit_price * tg.global_price_mod))
-	var/export_ref = max(1, round(unit_price * tg.global_price_mod * (1 - IMPORT_EXPORT_SPREAD)))
-	var/buy_target = min(round(export_ref * (1 - IMPORT_EXPORT_SPREAD)), export_ref - 1)
-	payout_price = max(1, buy_target)
-	withdraw_price = import_ref
+	var/list/prices = stockpile_auto_prices(tg)
+	payout_price = prices[1]
+	withdraw_price = prices[2]
 
 /datum/roguestock/proc/refresh_auto_price()
 	if(!automatic_price || !trade_good_id)
@@ -113,10 +117,9 @@
 		tg = GLOB.trade_goods[trade_good_id]
 	if(!tg)
 		return
-	var/unit_price = (tg.item_type && GLOB.derived_sellprices[tg.item_type]) || tg.base_price
-	var/export_ref = max(1, round(unit_price * tg.global_price_mod * (1 - IMPORT_EXPORT_SPREAD)))
-	cached_market_deposit_price = max(1, min(round(export_ref * (1 - IMPORT_EXPORT_SPREAD)), export_ref - 1))
-	cached_market_withdraw_price = max(1, round(unit_price * tg.global_price_mod))
+	var/list/prices = stockpile_auto_prices(tg)
+	cached_market_deposit_price = prices[1]
+	cached_market_withdraw_price = prices[2]
 
 /datum/roguestock/proc/get_market_price()
 	return get_market_deposit_price()

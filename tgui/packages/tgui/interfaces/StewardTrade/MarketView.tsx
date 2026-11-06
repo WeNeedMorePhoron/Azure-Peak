@@ -33,6 +33,14 @@ const promptNumber = (label: string, current: number): number | null => {
   return n;
 };
 
+const promptPrice = (label: string, current: number): number | null => {
+  const raw = window.prompt(label, String(current));
+  if (raw === null) return null;
+  const n = parseFloat(raw);
+  if (Number.isNaN(n) || n < 0) return null;
+  return Math.round(n * 10) / 10;
+};
+
 const promptMultiplier = (label: string): number | null => {
   const raw = window.prompt(label, '1.0');
   if (raw === null) return null;
@@ -792,12 +800,12 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
 
   const editBuy = () => {
     if (aldermanActing) return;
-    const n = promptNumber(`Set buy price for ${goodName}`, row.buy_price);
+    const n = promptPrice(`Set buy price for ${goodName}`, row.buy_price);
     if (n !== null) act('set_buy_price', { good_id: goodId, price: n });
   };
   const editSell = () => {
     if (aldermanActing) return;
-    const n = promptNumber(`Set sell price for ${goodName}`, row.sell_price);
+    const n = promptPrice(`Set sell price for ${goodName}`, row.sell_price);
     if (n !== null) act('set_sell_price', { good_id: goodId, price: n });
   };
   const editLimit = () => {
@@ -822,7 +830,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
           disabled={aldermanActing}
           onClick={editBuy}
         >
-          {row.buy_price}m
+          {Math.round(row.buy_price * 10) / 10}m
         </button>
         <button
           type="button"
@@ -848,7 +856,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
           disabled={aldermanActing}
           onClick={editSell}
         >
-          {row.sell_price}m
+          {Math.round(row.sell_price * 10) / 10}m
         </button>
       </span>
       <span style={stripCellStyle}>
@@ -879,7 +887,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
       </span>
       {margin > 0 && (
         <span style={{ ...stripCellStyle, color: SEAL_AMBER }}>
-          +{margin}m/u → {potential}m
+          +{Math.round(margin * 10) / 10}m/u → {potential}m
         </span>
       )}
       <span style={{ flex: 1 }} />

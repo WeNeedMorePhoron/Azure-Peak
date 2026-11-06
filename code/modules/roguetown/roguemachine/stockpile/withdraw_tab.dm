@@ -15,6 +15,18 @@
 	parent_structure.update_icon()
 	playsound(parent_structure.loc, 'sound/misc/coininsert.ogg', 100, TRUE, -1)
 
+/datum/withdraw_tab/proc/refund_budget(mob/user)
+	if(budget <= 0)
+		return FALSE
+	var/whole = floor(round(budget, STOCKPILE_OWED_PRECISION))
+	var/fraction = max(0, round(budget - whole, STOCKPILE_OWED_PRECISION))
+	budget = 0
+	if(whole > 0)
+		budget2change(whole, user)
+	if(fraction > 0 && !SStreasury.set_stockpile_owed(user, SStreasury.get_stockpile_owed(user) + fraction))
+		budget = fraction
+	return TRUE
+
 /datum/withdraw_tab/proc/get_direct_import_quote(datum/roguestock/D)
 	if(!D || !D.trade_good_id)
 		return null
@@ -52,20 +64,25 @@
 		parent_structure.say("Out of stock.")
 		return FALSE
 	var/food_stipend = ishuman(user) && HAS_TRAIT(user, TRAIT_ROYAL_SUBSIDY)
-	if(!food_stipend && total_price > budget)
+	var/owed = SStreasury.get_stockpile_owed(user)
+	if(!food_stipend && total_price > round(budget + owed, STOCKPILE_OWED_PRECISION))
 		parent_structure.say("You haven't put in enough mammon.")
 		return FALSE
 	D.stockpile_amount--
 	SStreasury.dirty_market_view()
 	if(!food_stipend)
-		budget -= total_price
-		SStreasury.mint(SStreasury.discretionary_fund, total_price, "Stockpile withdrawal", null, LEDGER_CROWN_REV_STOCKPILE_SALES)
+		var/from_owed = max(0, total_price - budget)
+		budget = max(0, round(budget - (total_price - from_owed), STOCKPILE_OWED_PRECISION))
+		if(from_owed > 0)
+			SStreasury.set_stockpile_owed(user, owed - from_owed)
+		var/minted = SStreasury.settle_stockpile_receipt(total_price)
+		if(minted > 0)
+			SStreasury.mint(SStreasury.discretionary_fund, minted, "Stockpile withdrawal", null, LEDGER_CROWN_REV_STOCKPILE_SALES)
 		record_round_statistic(STATS_STOCKPILE_REVENUE, total_price)
 	else
 		var/actor_suffix = user ? " by [user.real_name]" : ""
 		SStreasury.log_fund_entry(new /datum/treasury_entry(null, SStreasury.discretionary_fund, SStreasury.discretionary_fund, 0, "Subsidy Withdraw: [D.name][actor_suffix]"))
 	var/obj/item/I = new D.item_type(parent_structure.loc)
-	I.crown_sealed = TRUE
 	if(food_stipend)
 		to_chat(user, span_info("[parent_structure] chitters and squeaks. Your food stipend pays from the Treasury."))
 	if(!user.put_in_hands(I))
@@ -118,7 +135,6 @@
 		SStreasury.mint(SStreasury.discretionary_fund, surcharge, "Royal Custom: direct import of [D.name]", null, LEDGER_CROWN_REV_STOCKPILE_SALES)
 		record_round_statistic(STATS_STOCKPILE_REVENUE, surcharge)
 	var/obj/item/I = new D.item_type(parent_structure.loc)
-	I.crown_sealed = TRUE
 	if(!user.put_in_hands(I))
 		I.forceMove(get_turf(user))
 	playsound(parent_structure.loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)

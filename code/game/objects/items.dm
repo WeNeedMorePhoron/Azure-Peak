@@ -311,7 +311,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/is_important = FALSE
 	var/unmintable = FALSE
 	var/atc_sealed = FALSE
-	var/crown_sealed = FALSE
 	var/was_crafted = FALSE
 	var/is_carved = FALSE
 	/// does this item/weapon circumvent two-stage death during dismemberment? (do not add this to anything but ultra rare shit)
@@ -345,12 +344,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		max_integrity += (max_integrity * 0.11142857143)	// don't ask
 		obj_integrity = max_integrity
 
-/obj/item/proc/seals_match(obj/item/other)
-	return atc_sealed == other.atc_sealed && crown_sealed == other.crown_sealed
-
-/obj/item/proc/copy_seals(obj/item/from)
-	atc_sealed = from.atc_sealed
-	crown_sealed = from.crown_sealed
 
 /obj/item/proc/update_transform()
 	transform = null

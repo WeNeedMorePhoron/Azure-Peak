@@ -50,6 +50,7 @@ type Bounty = {
 
 type Data = {
   budget: number;
+  owed: number;
   compact: BooleanLike;
   categories: string[];
   category: string;
@@ -99,6 +100,8 @@ const CharterChip = (props: { data: Data }) => {
   );
 };
 
+const fmtMammon = (n: number) => String(Math.round(n * 10) / 10);
+
 const StockRowView = (props: {
   row: StockRow;
   data: Data;
@@ -112,7 +115,8 @@ const StockRowView = (props: {
   const canWithdraw =
     !embargoed &&
     row.amount > 0 &&
-    (row.withdraw_price <= data.budget || !!data.food_stipend);
+    (row.withdraw_price <= data.budget + (data.owed || 0) ||
+      !!data.food_stipend);
   const canImport =
     row.import_price > 0 &&
     (row.import_price <= data.budget || !!data.food_stipend);
@@ -220,11 +224,11 @@ const StockRowView = (props: {
             }}
             title={
               row.export_price > 0
-                ? `If the stockpile is full, the Crown still pays you ${row.deposit_price}m and ships your goods abroad for ${row.export_price}m each.`
+                ? `If the stockpile is full, the Crown still pays you ${fmtMammon(row.deposit_price)}m and ships your goods abroad for ${row.export_price}m each.`
                 : 'Drop these goods at the machine to sell them.'
             }
           >
-            Sell {row.deposit_price}m
+            Sell {fmtMammon(row.deposit_price)}m
           </span>
         )}
         <button
@@ -243,7 +247,7 @@ const StockRowView = (props: {
               : undefined
           }
         >
-          {embargoed ? 'Closed' : `Buy ${row.withdraw_price}m`}
+          {embargoed ? 'Closed' : `Buy ${fmtMammon(row.withdraw_price)}m`}
         </button>
         <button
           type="button"
@@ -314,8 +318,16 @@ export const Stockpile = () => {
                 fontWeight: 'bold',
               }}
             >
-              {data.budget}m
+              {fmtMammon(data.budget)}m
             </span>
+            {(data.owed || 0) > 0 && (
+              <span
+                style={{ color: INK_SOFT }}
+                title="Fractions of a mammon the stockpile owes you. Paid out on your next sale once they add up to a whole mammon, or spent on your next purchase."
+              >
+                Owed to you: {fmtMammon(data.owed)}m
+              </span>
+            )}
             {!!data.food_stipend && (
               <span style={{ color: SEAL_GREEN }}>treasury-line</span>
             )}

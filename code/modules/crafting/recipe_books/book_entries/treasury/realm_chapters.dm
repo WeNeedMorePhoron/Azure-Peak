@@ -150,17 +150,12 @@
 		has two prices: a <b>buy price</b> (what the Crown pays whoever deposits) and
 		a <b>sell price</b> (what the Crown charges whoever withdraws).</p> <p>On
 		<b>Autoprice</b>, prices follow the good's base price times any event
-		multiplier. Blockades are ignored. The Crown profits at least 1m per
-		transaction:</p>
+		multiplier. Blockades are ignored.</p>
 		<ul>
-			<li><b>Sell</b> = <code>import_ref</code>.</li> <li><b>Buy</b> = the lower of
-			<code>[1 - IMPORT_EXPORT_SPREAD] × export_ref</code> or <code>export_ref -
-			1m</code>.</li>
+			<li><b>Sell</b> = base × event multiplier.</li> <li><b>Buy</b> =
+			[STOCKPILE_BID_RATIO * 100]% of the sell price.</li>
 		</ul>
-		<p>Where <code>import_ref = base × event_mod</code> and <code>export_ref =
-		import_ref × [(1 - IMPORT_EXPORT_SPREAD) * 100]%</code>. At small base prices
-		the buy price is <code>export_ref - 1m</code>. At larger prices it is
-		<code>[(1 - IMPORT_EXPORT_SPREAD) * 100]% × export_ref</code>, so the Crown's margin grows with the price. Regional
+		<p>Since price can be in decimals, the stockpile will track fraction it owes or the seller owes. It will pay someone a full zenny they owe - or alternatively charge them the other way round. Regional
 		shortages, blockades and route congestion only affect imports and exports.
 		They do not change stockpile prices. The Steward can set prices by hand when
 		needed.</p>

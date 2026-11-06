@@ -285,7 +285,7 @@
 #define SELLPRICE_VISCERA 3
 
 // Textile / animal products
-#define SELLPRICE_FIBERS 2
+#define SELLPRICE_FIBERS 1
 #define SELLPRICE_CLOTH 3
 #define SELLPRICE_SILK 4
 #define SELLPRICE_HIDE 8

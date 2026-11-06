@@ -53,6 +53,7 @@
 /obj/structure/roguemachine/withdraw/ui_data(mob/user)
 	var/list/data = list()
 	data["budget"] = withdraw_tab.budget
+	data["owed"] = SStreasury.get_stockpile_owed(user)
 	data["compact"] = withdraw_tab.compact ? TRUE : FALSE
 	data["categories"] = withdraw_tab.categories
 	data["category"] = withdraw_tab.current_category
@@ -120,9 +121,7 @@
 			withdraw_tab.compact = !withdraw_tab.compact
 			return TRUE
 		if("refund_budget")
-			if(withdraw_tab.budget > 0)
-				budget2change(withdraw_tab.budget, usr)
-				withdraw_tab.budget = 0
+			if(withdraw_tab.refund_budget(usr))
 				playsound(loc, 'sound/misc/coindispense.ogg', 100, FALSE, -1)
 			return TRUE
 		if("direct_import")

@@ -71,6 +71,10 @@
 #define TRADE_ESCALATION_SLOPE 1.0
 #define IMPORT_EXPORT_SPREAD 0.25
 
+#define STOCKPILE_BID_RATIO 0.75
+#define STOCKPILE_PRICE_STEP 0.1
+#define STOCKPILE_OWED_PRECISION 0.01
+
 #define TRADE_MAX_BULK_UNITS 50
 
 // Blockade region are tradeable but at a punitive rate.
