@@ -344,6 +344,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		max_integrity += (max_integrity * 0.11142857143)	// don't ask
 		obj_integrity = max_integrity
 
+/obj/item/proc/seals_match(obj/item/other)
+	return atc_sealed == other.atc_sealed
+
+/obj/item/proc/copy_seals(obj/item/from)
+	atc_sealed = from.atc_sealed
 
 /obj/item/proc/update_transform()
 	transform = null
