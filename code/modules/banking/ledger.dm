@@ -430,7 +430,7 @@ GLOBAL_LIST_INIT(ledger_class_order, list(
 /// Interest earned to date under the same day-count get_remaining_due() uses.
 /datum/loan/proc/get_interest_earned()
 	var/elapsed_days = max(1, GLOB.dayspassed - issued_on_day)
-	var/owed = min(total_due, principal + FLOOR(principal * interest_rate * elapsed_days, 1))
+	var/owed = min(total_due, principal + mammon_round(principal * interest_rate * elapsed_days))
 	return max(0, owed - principal)
 
 /// Books newly earned interest on a Crown loan as income and a receivable. Other lenders' loans

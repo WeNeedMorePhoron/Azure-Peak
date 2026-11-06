@@ -322,7 +322,7 @@ GLOBAL_LIST_INIT(atc_seizure_inventory, list(
 			to_chat(applicant, span_warning("Loan refused. [blocker]"))
 		return FALSE
 	amount = clamp(round(amount), ATC_LOAN_MIN_AMOUNT, ATC_LOAN_MAX_AMOUNT)
-	var/debt_owed = round(amount * (1 + ATC_LOAN_INTEREST_RATE))
+	var/debt_owed = mammon_round(amount * (1 + ATC_LOAN_INTEREST_RATE))
 	treasury_debt += debt_owed
 	GLOB.azure_round_stats[STATS_TREASURY_DEBT_OUTSTANDING] = treasury_debt
 	atc_loans_drawn_this_round += 1
@@ -341,10 +341,10 @@ GLOBAL_LIST_INIT(atc_seizure_inventory, list(
 		loan_legs += list(list(LEDGER_CROWN_INTEREST_INC, 0, amount - debt_owed))
 	post_ledger_entry("financing", "ATC emergency loan (principal)", loan_legs, null, discretionary_fund)
 	priority_announce(
-		"The Crown has taken a loan of [amount]m from the ATC at [round(ATC_LOAN_INTEREST_RATE * 100)]% interest, and now owes [debt_owed]m.",
+		"The Crown has taken a loan of [amount]m from the ATC at [round(ATC_LOAN_INTEREST_RATE * 100)]% interest, and now owes [format_mammon(debt_owed)]m.",
 		"THE CROWN BORROWS",
 		'sound/misc/royal_decree.ogg',
 		"Captain",
 	)
-	log_game("ATC LOAN: [applicant ? key_name(applicant) : "system"] drew [amount]m principal from the Azurian Trading Company; debt of [debt_owed]m registered")
+	log_game("ATC LOAN: [applicant ? key_name(applicant) : "system"] drew [amount]m principal from the Azurian Trading Company; debt of [format_mammon(debt_owed)]m registered")
 	return TRUE

@@ -488,7 +488,7 @@ SUBSYSTEM_DEF(economy)
 		unit_mult = max(1.0, tg.global_price_mod)
 	else
 		unit_mult = 1 + STANDING_ORDER_BASE_BONUS
-	return CEILING(unit_price * unit_mult, 1)
+	return mammon_round(unit_price * unit_mult)
 
 /datum/controller/subsystem/economy/proc/compute_equipment_delivered_value(datum/standing_order/order, list/equip_avail)
 	var/total = 0
@@ -502,7 +502,7 @@ SUBSYSTEM_DEF(economy)
 			if(counted >= delivered)
 				break
 			var/qmult = I.has_item_quality ? ITEM_QUALITY_MULT(I.item_quality) : ITEM_QUALITY_MULT_STANDARD
-			total += CEILING(unit_payout * qmult, 1)
+			total += mammon_round(unit_payout * qmult)
 			counted++
 	return total
 
@@ -513,13 +513,12 @@ SUBSYSTEM_DEF(economy)
 	for(var/good_id in order.required_items)
 		total += compute_good_unit_payout(order, good_id) * order.required_items[good_id]
 	if(order.petitioned)
-		total = round(total * PETITION_TAX_MULT)
-	order.base_payout = round(total)
+		total = mammon_round(total * PETITION_TAX_MULT)
+	order.base_payout = mammon_round(total)
 	// Boosts payout (never required quantity) below reference pop - Crown income only.
 	var/scarcity_mult = clamp(1.0 + (STANDING_ORDER_SCARCITY_REFERENCE_POP - get_effective_player_count()) / STANDING_ORDER_SCARCITY_REFERENCE_POP * STANDING_ORDER_SCARCITY_MAX_BONUS, 1.0, 1.0 + STANDING_ORDER_SCARCITY_MAX_BONUS)
 	order.scarcity_bonus_pct = round((scarcity_mult - 1) * 100)
-	total = round(total * scarcity_mult)
-	return round(total)
+	return mammon_round(total * scarcity_mult)
 
 /// Payouts used to lock in at roll time and never catch up to later pop/price shifts while an
 /// order sat unfulfilled. Recompute daily so active orders stay current.
@@ -635,23 +634,23 @@ SUBSYSTEM_DEF(economy)
 			canonical_equip_value += compute_good_unit_payout(order, good_id) * entry["delivered_units"]
 		var/quality_delta = equip_delivered_value - canonical_equip_value
 		if(order.petitioned)
-			quality_delta = round(quality_delta * PETITION_TAX_MULT)
-		var/full_payout = max(0, round(order.total_payout + quality_delta))
+			quality_delta = mammon_round(quality_delta * PETITION_TAX_MULT)
+		var/full_payout = max(0, mammon_round(order.total_payout + quality_delta))
 		SStreasury.mint(SStreasury.discretionary_fund, full_payout, "Standing Order: [order.name]", null, LEDGER_CROWN_REV_STANDING_ORDERS)
 		record_round_statistic(STATS_STANDING_ORDER_REVENUE, full_payout)
 		record_round_statistic(STATS_STANDING_ORDERS_FULFILLED, 1)
 		order.is_fulfilled = TRUE
 		GLOB.standing_order_pool -= order
 		if(user)
-			to_chat(user, span_notice("Order fulfilled: [full_payout]m paid to the Treasury."))
+			to_chat(user, span_notice("Order fulfilled: [format_mammon(full_payout)]m paid to the Treasury."))
 			if(quality_delta > 0)
-				to_chat(user, span_green("Quality bonus: +[quality_delta]m for quality goods."))
+				to_chat(user, span_green("Quality bonus: +[format_mammon(quality_delta)]m for quality goods."))
 			else if(quality_delta < 0)
-				to_chat(user, span_warning("Quality penalty: [quality_delta]m for shoddy goods."))
-			log_game("STANDING ORDER FULFILLED by [user.ckey]: [order.name] (+[full_payout]m, quality_delta=[quality_delta]m)")
+				to_chat(user, span_warning("Quality penalty: [format_mammon(quality_delta)]m for shoddy goods."))
+			log_game("STANDING ORDER FULFILLED by [user.ckey]: [order.name] (+[format_mammon(full_payout)]m, quality_delta=[format_mammon(quality_delta)]m)")
 		return list("status" = "full", "payout" = full_payout, "quality_delta" = quality_delta)
 
-	var/delivered_value = order.petitioned ? round(delivered_pretax * PETITION_TAX_MULT) : delivered_pretax
+	var/delivered_value = order.petitioned ? mammon_round(delivered_pretax * PETITION_TAX_MULT) : delivered_pretax
 	var/total_value = order.total_payout
 	var/coverage = total_value > 0 ? (delivered_value / total_value) : 0
 
@@ -663,15 +662,15 @@ SUBSYSTEM_DEF(economy)
 	if(!partial)
 		return STANDING_ORDER_FULFILL_NEEDS_PARTIAL_PROMPT
 
-	var/payout = round(delivered_value * STANDING_ORDER_PARTIAL_PAYOUT_MULT)
+	var/payout = mammon_round(delivered_value * STANDING_ORDER_PARTIAL_PAYOUT_MULT)
 	var/canonical_equip_value_partial = 0
 	for(var/good_id in equip_avail)
 		var/list/entry = equip_avail[good_id]
 		canonical_equip_value_partial += compute_good_unit_payout(order, good_id) * entry["delivered_units"]
 	var/quality_delta_partial = equip_delivered_value - canonical_equip_value_partial
 	if(order.petitioned)
-		quality_delta_partial = round(quality_delta_partial * PETITION_TAX_MULT)
-	quality_delta_partial = round(quality_delta_partial * STANDING_ORDER_PARTIAL_PAYOUT_MULT)
+		quality_delta_partial = mammon_round(quality_delta_partial * PETITION_TAX_MULT)
+	quality_delta_partial = mammon_round(quality_delta_partial * STANDING_ORDER_PARTIAL_PAYOUT_MULT)
 	consume_equipment_payload(equip_avail)
 	consume_potion_payload(potion_avail)
 	consume_stockpile_payload(stock_avail)
@@ -681,12 +680,12 @@ SUBSYSTEM_DEF(economy)
 	order.is_fulfilled = TRUE
 	GLOB.standing_order_pool -= order
 	if(user)
-		to_chat(user, span_notice("Order partially fulfilled: you sent [round(coverage * 100)]% of the goods and [payout]m went to the Treasury ([round(STANDING_ORDER_PARTIAL_PAYOUT_MULT * 100)]% of their value)."))
+		to_chat(user, span_notice("Order partially fulfilled: you sent [round(coverage * 100)]% of the goods and [format_mammon(payout)]m went to the Treasury ([round(STANDING_ORDER_PARTIAL_PAYOUT_MULT * 100)]% of their value)."))
 		if(quality_delta_partial > 0)
-			to_chat(user, span_green("Quality bonus: +[quality_delta_partial]m for above-standard goods."))
+			to_chat(user, span_green("Quality bonus: +[format_mammon(quality_delta_partial)]m for above-standard goods."))
 		else if(quality_delta_partial < 0)
-			to_chat(user, span_warning("Quality penalty: [quality_delta_partial]m for shoddy goods."))
-		log_game("STANDING ORDER PARTIAL FULFILLED by [user.ckey]: [order.name] (+[payout]m, [round(coverage * 100)]% coverage, quality_delta=[quality_delta_partial]m)")
+			to_chat(user, span_warning("Quality penalty: [format_mammon(quality_delta_partial)]m for shoddy goods."))
+		log_game("STANDING ORDER PARTIAL FULFILLED by [user.ckey]: [order.name] (+[format_mammon(payout)]m, [round(coverage * 100)]% coverage, quality_delta=[format_mammon(quality_delta_partial)]m)")
 	return list("status" = "partial", "payout" = payout, "coverage_pct" = round(coverage * 100), "quality_delta" = quality_delta_partial)
 
 /datum/controller/subsystem/economy/proc/scan_equipment_availability(datum/standing_order/order, list/goods)
@@ -840,10 +839,10 @@ SUBSYSTEM_DEF(economy)
 			var/datum/trade_good/tg = GLOB.trade_goods[good_id]
 			var/short_units = entry["need_units"] - entry["delivered_units"]
 			missing_labels += "[short_units] [tg ? tg.name : good_id]"
-	var/delivered_value = order.petitioned ? round(delivered_pretax * PETITION_TAX_MULT) : delivered_pretax
+	var/delivered_value = order.petitioned ? mammon_round(delivered_pretax * PETITION_TAX_MULT) : delivered_pretax
 	var/total_value = order.total_payout
 	var/coverage = total_value > 0 ? (delivered_value / total_value) : 0
-	var/payout = round(delivered_value * STANDING_ORDER_PARTIAL_PAYOUT_MULT)
+	var/payout = mammon_round(delivered_value * STANDING_ORDER_PARTIAL_PAYOUT_MULT)
 
 	return list(
 		"coverage_pct" = round(coverage * 100),

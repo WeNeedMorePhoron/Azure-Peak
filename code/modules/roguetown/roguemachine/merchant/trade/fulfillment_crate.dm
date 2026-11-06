@@ -180,7 +180,7 @@
 	var/quality_str = ""
 	if(quality_delta != 0)
 		var/sign_str = quality_delta > 0 ? "+" : ""
-		quality_str = ", quality [sign_str][quality_delta]m"
+		quality_str = ", quality [sign_str][format_mammon(quality_delta)]m"
 	var/breakdown = "[english_list(line_summaries)]: gross [tally["total_gross"]]m, Crown [tally["total_duty"]]m, Merchant [tally["total_cut"]]m[kin_total > 0 ? ", Kinship +[kin_total]m" : ""][quality_str]"
 	SStreasury.give_money_account(tally["total_producer"], user, breakdown, mint_new = TRUE, mint_label = mint_label)
 	if(quality_delta != 0)
@@ -357,7 +357,7 @@
 		var/kin_mult = SSmerchant_trade.get_kinship_sell_mult(ship.realm_id)
 		if(kin_mult > 1)
 			var/pre_kin = gross
-			gross = round(gross * kin_mult)
+			gross = mammon_round(gross * kin_mult)
 			kin_bonus = gross - pre_kin
 	var/duty_rate = SStreasury.get_tax_rate(TAX_CATEGORY_EXPORT_DUTY)
 	var/levy_pct = SSmerchant_trade ? SSmerchant_trade.merchant_levy_percent : 0
@@ -369,7 +369,7 @@
 	var/levy_remitted = 0
 	var/total_duty = 0
 	if(duty_suspended)
-		var/evaded = round(duty_on_gross_float) + round(duty_on_levy_float)
+		var/evaded = mammon_round(duty_on_gross_float + duty_on_levy_float)
 		if(evaded > 0)
 			record_round_statistic(STATS_TAXES_EVADED, evaded)
 			duty_evaded_here += evaded
@@ -422,7 +422,7 @@
 	var/quality_str = ""
 	if(quality_delta != 0)
 		var/q_sign = quality_delta > 0 ? "+" : ""
-		quality_str = ", quality [q_sign][quality_delta]m"
+		quality_str = ", quality [q_sign][format_mammon(quality_delta)]m"
 	var/breakdown = "[qty] [good_name] for [ship.ship_name]: gross [gross]m, Crown [format_mammon(total_duty)]m, Merchant [format_mammon(levy_remitted)]m[kin_bonus > 0 ? ", Kinship +[kin_bonus]m" : ""][quality_str]"
 	if(producer_payout > 0)
 		SStreasury.give_money_account(producer_payout, user, breakdown, mint_new = TRUE, mint_label = ship ? ship.ship_name : "foreign vessels")

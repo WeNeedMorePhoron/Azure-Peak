@@ -579,7 +579,7 @@
 	contract.term_days = term
 	contract.interest_rate = rate
 	contract.principal_due_on_day = GLOB.dayspassed + term
-	contract.total_due = FLOOR(amount * (1 + (rate * term)), 1)
+	contract.total_due = mammon_round(amount * (1 + (rate * term)))
 	contract.source_fund_id = get_fund_id()
 	QDEL_IN(contract, 2 MINUTES)
 	playsound(get_turf(user), 'sound/misc/coindispense.ogg', 60, FALSE, -1)
@@ -639,7 +639,7 @@
 	contract.term_days = term
 	contract.interest_rate = rate
 	contract.principal_due_on_day = GLOB.dayspassed + term
-	contract.total_due = FLOOR(amount * (1 + (rate * term)), 1)
+	contract.total_due = mammon_round(amount * (1 + (rate * term)))
 	contract.source_fund_id = get_fund_id()
 	contract.target_fund_id = target_id
 	QDEL_IN(contract, 2 MINUTES)

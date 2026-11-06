@@ -223,7 +223,7 @@ SUBSYSTEM_DEF(treasury)
 /datum/controller/subsystem/treasury/proc/get_rural_tax_amount()
 	var/producers = get_active_producer_count()
 	var/taper = clamp(1.0 - (producers / RURAL_SUBSIDY_REFERENCE_PRODUCERS), 0.0, 1.0)
-	return RURAL_SUBSIDY_FLOOR + round((RURAL_SUBSIDY_BASE - RURAL_SUBSIDY_FLOOR) * taper)
+	return mammon_round(RURAL_SUBSIDY_FLOOR + (RURAL_SUBSIDY_BASE - RURAL_SUBSIDY_FLOOR) * taper)
 
 // Mark the cached stewardry market / region / arbitrage
 // View as needing rebuild on next read.
@@ -302,7 +302,7 @@ SUBSYSTEM_DEF(treasury)
 	if(balance <= 0)
 		return 0
 	var/cap_rate = get_rate_cap(target, TAX_CATEGORY_FINE)
-	return FLOOR(balance * cap_rate, 1)
+	return mammon_round(balance * cap_rate)
 
 /// Returns the maximum mammon that can still be fined from payer today across all active decrees.
 /// Outlaws are uncapped. Otherwise, once a subject has already been fined today, returns 0 -
@@ -397,7 +397,7 @@ SUBSYSTEM_DEF(treasury)
 		var/fine_amt = abs(amt)
 		if(fine_owner)
 			var/cap_rate = get_rate_cap(fine_owner, TAX_CATEGORY_FINE)
-			var/max_fine = FLOOR(account.balance * cap_rate, 1)
+			var/max_fine = mammon_round(account.balance * cap_rate)
 			max_fine = min(max_fine, get_daily_fine_remaining(fine_owner))
 			if(fine_amt > max_fine)
 				record_tax_exemption(TAX_CATEGORY_FINE, fine_amt - max_fine)
@@ -412,8 +412,8 @@ SUBSYSTEM_DEF(treasury)
 			send_ooc_note("<b>MEISTER:</b> Error: They don't have enough in their account to pay the fine.", name = target_name)
 			return FALSE
 		record_round_statistic(STATS_FINES_INCOME, fine_amt)
-		send_ooc_note(source ? "<b>MEISTER:</b> You were fined [fine_amt]m. ([source])" : "<b>MEISTER:</b> You were fined [fine_amt]m.", name = target_name)
-		log_game("FINE: [usr ? key_name(usr) : "system"] fined [istype(target, /mob/living) ? key_name(target) : target_name] [fine_amt]m via [source || "unknown"]")
+		send_ooc_note(source ? "<b>MEISTER:</b> You were fined [format_mammon(fine_amt)]m. ([source])" : "<b>MEISTER:</b> You were fined [format_mammon(fine_amt)]m.", name = target_name)
+		log_game("FINE: [usr ? key_name(usr) : "system"] fined [istype(target, /mob/living) ? key_name(target) : target_name] [format_mammon(fine_amt)]m via [source || "unknown"]")
 		if(fine_owner)
 			notify_fine_applied(fine_owner, fine_amt)
 
@@ -465,7 +465,7 @@ SUBSYSTEM_DEF(treasury)
 		return FALSE
 	record_round_statistic(STATS_NOBLE_INCOME_TOTAL, payout)
 	total_noble_income += payout
-	send_ooc_note("<b>MEISTER:</b> You received [payout]m. ([source])", name = recipient.real_name)
+	send_ooc_note("<b>MEISTER:</b> You received [format_mammon(payout)]m. ([source])", name = recipient.real_name)
 	return TRUE
 
 /datum/controller/subsystem/treasury/proc/distribute_estate_incomes()

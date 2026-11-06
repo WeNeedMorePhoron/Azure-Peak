@@ -21,6 +21,8 @@
 
 /obj/structure/roguemachine/withdraw/Destroy()
 	SSroguemachine.stock_machines -= src
+	if(withdraw_tab?.budget >= 1)
+		refund_pouch(withdraw_tab.budget, custom_turf = get_turf(src))
 	return ..()
 
 /obj/structure/roguemachine/withdraw/ui_state(mob/user)

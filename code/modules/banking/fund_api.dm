@@ -159,7 +159,7 @@
 	if(amount <= 0 || banditry_debt <= 0 || to_fund != discretionary_fund)
 		return amount
 	// Only a fraction skims toward debt - the rest visibly lands in the purse.
-	var/skim = min(round(amount * BANDITRY_DEBT_SKIM_RATE), banditry_debt)
+	var/skim = mammon_round(min(amount * BANDITRY_DEBT_SKIM_RATE, banditry_debt))
 	banditry_debt -= skim
 	GLOB.azure_round_stats[STATS_BANDITRY_DEBT_OUTSTANDING] = banditry_debt
 	if(skim > 0)
@@ -272,7 +272,7 @@
 	var/mob/living/owner = payer.get_owner()
 	var/base_rate = get_tax_rate(tax_category)
 	if(owner && is_tax_exempt(owner, tax_category))
-		record_tax_exemption(tax_category, FLOOR(base_amount * base_rate, 1))
+		record_tax_exemption(tax_category, mammon_round(base_amount * base_rate))
 		return 0
 	var/rate = base_rate
 	if(owner)
@@ -280,14 +280,14 @@
 	if(rate <= 0)
 		return 0
 	if(rate < base_rate)
-		record_tax_exemption(tax_category, FLOOR(base_amount * (base_rate - rate), 1))
+		record_tax_exemption(tax_category, mammon_round(base_amount * (base_rate - rate)))
 	payer.tax_debt += base_amount * rate
-	var/due = FLOOR(payer.tax_debt, 1)
+	var/due = mammon_round(payer.tax_debt)
 	if(due <= 0)
 		return 0
 	if(!transfer(payer, discretionary_fund, due, "[tax_category] ([reason])", (payer.ledger_book == LEDGER_BOOK_CITIZENS ? LEDGER_CITIZEN_TAXES : null), tax_revenue_account(tax_category)))
 		return 0
-	payer.tax_debt -= due
+	payer.tax_debt = max(0, payer.tax_debt - due)
 	apply_concordat_tithe(base_amount, tax_category, reason)
 	switch(tax_category)
 		if(TAX_CATEGORY_CONTRACT_LEVY)
@@ -330,11 +330,11 @@
 	if(!church_fund || !discretionary_fund)
 		return
 	concordat_tithe_debt += base_amount * CONCORDAT_TITHE_RATE
-	var/skim = FLOOR(concordat_tithe_debt, 1)
+	var/skim = mammon_round(concordat_tithe_debt)
 	if(skim <= 0)
 		return
 	if(transfer(discretionary_fund, church_fund, skim, "Concordat tithe ([tax_category])", LEDGER_CROWN_EXP_TITHE, LEDGER_CHURCH_TITHE_IN))
-		concordat_tithe_debt -= skim
+		concordat_tithe_debt = max(0, concordat_tithe_debt - skim)
 		record_treasury_expense(TREASURY_FLOW_TITHE, "Church", skim)
 
 /datum/controller/subsystem/treasury/proc/compute_bathhouse_tithe(base_amount, rate)
@@ -345,10 +345,10 @@
 	if(!church_fund)
 		return 0
 	bathhouse_tithe_debt += base_amount * rate
-	var/skim = FLOOR(bathhouse_tithe_debt, 1)
+	var/skim = mammon_round(bathhouse_tithe_debt)
 	if(skim <= 0)
 		return 0
-	bathhouse_tithe_debt -= skim
+	bathhouse_tithe_debt = max(0, bathhouse_tithe_debt - skim)
 	round_bathhouse_tithe_total += skim
 	return skim
 

@@ -149,8 +149,8 @@
 				var/newtax = input(usr, "How much to give [X]?", src) as null|num
 				if(!usr.canUseTopic(src, BE_CLOSE) || locked)
 					return
-				if(findtext(num2text(newtax), "."))
-					return
+				if(!isnull(newtax))
+					newtax = mammon_round(newtax)
 				if(!newtax)
 					return
 				if(newtax < 1)
@@ -176,18 +176,18 @@
 					say("You can't fine [A]. They are exempt or their account is empty.")
 					playsound(src, 'sound/misc/machineno.ogg', 100, FALSE, -1)
 					return
-				var/newtax = input(usr, "How much to fine [A]? (Maximum [max_fine]m)", src, max_fine) as null|num
+				var/newtax = input(usr, "How much to fine [A]? (Maximum [format_mammon(max_fine)]m)", src, max_fine) as null|num
 				if(!usr.canUseTopic(src, BE_CLOSE) || locked)
 					return
-				if(findtext(num2text(newtax), "."))
-					return
+				if(!isnull(newtax))
+					newtax = mammon_round(newtax)
 				if(!newtax)
 					return
 				if(newtax < 1)
 					return
 				if(newtax > max_fine)
 					newtax = max_fine
-					say("You can fine [A] at most [max_fine]m. The fine is set to [max_fine]m.")
+					say("You can fine [A] at most [format_mammon(max_fine)]m. The fine is set to [format_mammon(max_fine)]m.")
 				SStreasury.give_money_account(-newtax, A, "NERVE MASTER")
 				break
 	if(href_list["printresidency"])
@@ -287,8 +287,8 @@
 			return
 		if(!usr.canUseTopic(src, BE_CLOSE) || locked)
 			return
-		if(findtext(num2text(amount_to_pay), "."))
-			return
+		if(!isnull(amount_to_pay))
+			amount_to_pay = mammon_round(amount_to_pay)
 		for(var/mob/living/carbon/human/H in GLOB.human_list)
 			if(H.job == job_to_pay)
 				if(SStreasury.give_money_account(amount_to_pay, H, "NERVE MASTER", is_salary = TRUE))
@@ -309,8 +309,8 @@
 		var/amount_to_pay = input(usr, prompt, src, daily_payments[job_to_pay] ? daily_payments[job_to_pay] : wage_floor) as null|num
 		if(!usr.canUseTopic(src, BE_CLOSE) || locked)
 			return
-		if(findtext(num2text(amount_to_pay), "."))
-			return
+		if(!isnull(amount_to_pay))
+			amount_to_pay = mammon_round(amount_to_pay)
 		if(isnull(amount_to_pay))
 			return
 		amount_to_pay = CLAMP(amount_to_pay, 0, 999)
@@ -661,8 +661,8 @@
 				var/A_suspended = A_account?.wages_suspended ? TRUE : FALSE
 				var/wage_status_short = A_suspended ? "UNSUSPEND" : "SUSPEND"
 				var/wage_status_long = A_suspended ? "Reinstate Wages" : "Suspend Wages"
-				var/fine_label = max_fine > 0 ? "FINE (Max [max_fine]m)" : "FINE (exempt)"
-				var/fine_long_label = max_fine > 0 ? "Fine Account (Max [max_fine]m)" : "Fine Account (exempt)"
+				var/fine_label = max_fine > 0 ? "FINE (Max [format_mammon(max_fine)]m)" : "FINE (exempt)"
+				var/fine_long_label = max_fine > 0 ? "Fine Account (Max [format_mammon(max_fine)]m)" : "Fine Account (exempt)"
 				var/poll_owed = SStreasury.poll_levy_owed[A] || 0
 				var/a_is_debtor = HAS_TRAIT(A, TRAIT_DEBTOR)
 				var/debt_tag = ""

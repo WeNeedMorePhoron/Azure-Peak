@@ -423,9 +423,9 @@
 			paid += share - share_tax
 			paid_out += share
 			if(fellowship_split_payout)
-				to_chat(payee, span_notice("The final wave breaks. Your share of the reward has been paid to your account. Gross: [share]m. Tax: [share_tax]m. Net: [share - share_tax]m."))
+				to_chat(payee, span_notice("The final wave breaks. Your share of the reward has been paid to your account. Gross: [format_mammon(share)]m. Tax: [format_mammon(share_tax)]m. Net: [format_mammon(share - share_tax)]m."))
 			else
-				announce_to_bearer("The final wave breaks. Your reward has been paid to your account. Gross: [share]m. Tax: [share_tax]m. Net: [share - share_tax]m.")
+				announce_to_bearer("The final wave breaks. Your reward has been paid to your account. Gross: [format_mammon(share)]m. Tax: [format_mammon(share_tax)]m. Net: [format_mammon(share - share_tax)]m.")
 		var/leftover = payout - paid_out
 		var/mob/living/sink = fellowship_leftover_sink(shares, lead)
 		if(leftover > 0)

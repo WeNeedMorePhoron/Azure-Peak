@@ -280,12 +280,12 @@
 		var/partial_pct = 0
 		var/partial_payout_preview = 0
 		if(has_stockpile && !can_fulfill && O.total_payout > 0)
-			var/petitioned_value = O.petitioned ? round(delivered_value * PETITION_TAX_MULT) : delivered_value
+			var/petitioned_value = O.petitioned ? mammon_round(delivered_value * PETITION_TAX_MULT) : delivered_value
 			var/coverage = petitioned_value / O.total_payout
 			if(coverage >= STANDING_ORDER_PARTIAL_THRESHOLD)
 				can_partial = TRUE
 				partial_pct = round(coverage * 100)
-				partial_payout_preview = round(petitioned_value * STANDING_ORDER_PARTIAL_PAYOUT_MULT)
+				partial_payout_preview = mammon_round(petitioned_value * STANDING_ORDER_PARTIAL_PAYOUT_MULT)
 
 		orders += list(list(
 			"ref" = REF(O),

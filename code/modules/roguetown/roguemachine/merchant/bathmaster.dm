@@ -81,7 +81,7 @@
 	return round(cost)
 
 /obj/structure/roguemachine/bathvend/proc/compute_pack_tax(datum/supply_pack/PA)
-	return round(SStreasury.get_tax_rate(TAX_CATEGORY_IMPORT_TARIFF) * PA.cost)
+	return mammon_round(SStreasury.get_tax_rate(TAX_CATEGORY_IMPORT_TARIFF) * PA.cost)
 
 /obj/structure/roguemachine/bathvend/proc/serialize_pack(datum/supply_pack/PA, tariff_active)
 	var/base = round(PA.cost + PA.cost * extra_fee)

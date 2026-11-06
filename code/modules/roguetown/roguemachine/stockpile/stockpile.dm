@@ -24,6 +24,8 @@
 
 /obj/structure/roguemachine/stockpile/Destroy()
 	SSroguemachine.stock_machines -= src
+	if(withdraw_tab?.budget >= 1)
+		refund_pouch(withdraw_tab.budget, custom_turf = get_turf(src))
 	return ..()
 
 /obj/structure/roguemachine/stockpile/examine(mob/user)
