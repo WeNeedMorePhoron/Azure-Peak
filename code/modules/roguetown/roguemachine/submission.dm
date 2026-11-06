@@ -43,7 +43,7 @@
 		if(istype(I, /obj/item/natural/bundle))
 			var/obj/item/natural/bundle/B = I
 			if(B.stacktype == R.item_type)
-				R.stockpile_amount += B.amount
+				R.royal_stock += B.amount
 				SStreasury.dirty_market_view()
 				qdel(B)
 				if(sound == TRUE)
@@ -52,7 +52,7 @@
 		else if(istype(I,R.item_type))
 			if(!R.check_item(I))
 				continue
-			R.stockpile_amount += 1 //stacked logs need to check for multiple
+			R.royal_stock += 1 //stacked logs need to check for multiple
 			SStreasury.dirty_market_view()
 			qdel(I)
 			if(sound == TRUE)

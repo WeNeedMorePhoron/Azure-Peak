@@ -2,7 +2,10 @@
 	var/name = ""
 	var/desc = ""
 	var/item_type = null
-	var/stockpile_amount = 0
+	// The amount held by the royal stockpile.
+	var/royal_stock = 0
+	// The amount held by the market, used for computing market price
+	var/market_stock = 0
 	var/payout_price = 1
 	var/withdraw_price = 1
 	var/withdraw_disabled = FALSE

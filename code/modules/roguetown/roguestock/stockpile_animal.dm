@@ -4,7 +4,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/steak
 	trade_good_id = TRADE_GOOD_MEAT
 	importexport_amt = 10
-	stockpile_amount = 5
+	royal_stock = 5
 	stockpile_limit = 50
 	category = "Animal"
 
@@ -14,7 +14,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/rat
 	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
 	importexport_amt = 5
-	stockpile_amount = 0
+	royal_stock = 0
 	stockpile_limit = 20
 	category = "Animal"
 
@@ -24,7 +24,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/saiga
 	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
 	importexport_amt = 5
-	stockpile_amount = 0
+	royal_stock = 0
 	stockpile_limit = 20
 	payout_price = 8
 	withdraw_price = 16
@@ -36,7 +36,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/saiga_ribs
 	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
 	importexport_amt = 5
-	stockpile_amount = 0
+	royal_stock = 0
 	stockpile_limit = 20
 	payout_price = 8
 	withdraw_price = 16
@@ -48,7 +48,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/wolf
 	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
 	importexport_amt = 5
-	stockpile_amount = 0
+	royal_stock = 0
 	stockpile_limit = 20
 	payout_price = 2
 	withdraw_price = 4
@@ -60,7 +60,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/bear
 	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
 	importexport_amt = 5
-	stockpile_amount = 0
+	royal_stock = 0
 	stockpile_limit = 20
 	payout_price = 6
 	withdraw_price = 9
@@ -72,7 +72,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/spider
 	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
 	importexport_amt = 5
-	stockpile_amount = 0
+	royal_stock = 0
 	stockpile_limit = 20
 	category = "Animal"
 
@@ -82,7 +82,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/crab
 	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
 	importexport_amt = 5
-	stockpile_amount = 0
+	royal_stock = 0
 	stockpile_limit = 20
 	payout_price = 4
 	withdraw_price = 8
@@ -94,7 +94,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/poultry
 	trade_good_id = TRADE_GOOD_POULTRY
 	importexport_amt = 5
-	stockpile_amount = 2
+	royal_stock = 2
 	stockpile_limit = 25
 	category = "Animal"
 
@@ -104,7 +104,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit
 	trade_good_id = TRADE_GOOD_RABBIT
 	importexport_amt = 5
-	stockpile_amount = 2
+	royal_stock = 2
 	stockpile_limit = 25
 	category = "Animal"
 
@@ -113,7 +113,7 @@
 	desc = "Edible flesh harvested from swine."
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/fatty
 	trade_good_id = TRADE_GOOD_PORK
-	stockpile_amount = 2
+	royal_stock = 2
 	importexport_amt = 5
 	stockpile_limit = 25
 	category = "Animal"
@@ -138,7 +138,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/ham/boar
 	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
 	importexport_amt = 5
-	stockpile_amount = 0
+	royal_stock = 0
 	stockpile_limit = 20
 	payout_price = 8
 	withdraw_price = 16
@@ -158,7 +158,7 @@
 	desc = "Nondescript leftovers that make a good stock for soup and other things."
 	item_type = /obj/item/natural/bone
 	trade_good_id = TRADE_GOOD_BONES
-	stockpile_amount = 0
+	royal_stock = 0
 	importexport_amt = 0
 	stockpile_limit = 50
 	category = "Animal"
@@ -168,7 +168,7 @@
 	desc = "Greasy flesh from an animal."
 	item_type = /obj/item/reagent_containers/food/snacks/fat
 	trade_good_id = TRADE_GOOD_FAT
-	stockpile_amount = 10
+	royal_stock = 10
 	importexport_amt = 5
 	stockpile_limit = 50
 	category = "Animal"
@@ -187,7 +187,7 @@
 	desc = "Sweet delicious from a sweet place."
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/honey
 	trade_good_id = TRADE_GOOD_HONEY
-	stockpile_amount = 1
+	royal_stock = 1
 	importexport_amt = 5
 	stockpile_limit = 15
 	category = "Animal"
@@ -197,7 +197,7 @@
 	desc = "Egg laid by a hen."
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/egg
 	trade_good_id = TRADE_GOOD_EGG
-	stockpile_amount = 4
+	royal_stock = 4
 	importexport_amt = 5
 	stockpile_limit = 25
 	category = "Animal"
@@ -208,7 +208,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/butter
 	trade_good_id = TRADE_GOOD_BUTTER
 	importexport_amt = 5
-	stockpile_amount = 5
+	royal_stock = 5
 	stockpile_limit = 25
 	category = "Animal"
 
@@ -217,7 +217,7 @@
 	desc = "The product of milk and salt."
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/cheese
 	trade_good_id = TRADE_GOOD_CHEESE
-	stockpile_amount = 5
+	royal_stock = 5
 	importexport_amt = 5
 	stockpile_limit = 25
 	category = "Animal"

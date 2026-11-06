@@ -80,8 +80,8 @@
 	if(!stockpile_entry)
 		return
 
-	if(stockpile_entry.stockpile_amount >= AUTO_IMPORT_FLOOR)
-		today_lines += "[tg.name]: [stockpile_entry.stockpile_amount] in stock, at or above [AUTO_IMPORT_FLOOR]. No import needed."
+	if(stockpile_entry.royal_stock >= AUTO_IMPORT_FLOOR)
+		today_lines += "[tg.name]: [stockpile_entry.royal_stock] in stock, at or above [AUTO_IMPORT_FLOOR]. No import needed."
 		return
 
 	// exclude_blockaded = TRUE: the price cap implicitly skips blockaded producers (2x import

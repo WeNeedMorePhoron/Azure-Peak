@@ -84,7 +84,7 @@
 			"name" = R.name,
 			"desc" = R.desc,
 			"category" = R.category,
-			"amount" = R.stockpile_amount,
+			"amount" = R.royal_stock,
 			"limit" = R.stockpile_limit,
 			"withdraw_price" = R.withdraw_price,
 			"deposit_price" = R.payout_price,

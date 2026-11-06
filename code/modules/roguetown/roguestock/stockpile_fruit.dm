@@ -4,7 +4,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/grown/apple
 	trade_good_id = TRADE_GOOD_APPLE
 	importexport_amt = 10
-	stockpile_amount = 10
+	royal_stock = 10
 	stockpile_limit = 50
 	category = "Fruit"
 
@@ -14,7 +14,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/grown/fruit/pear
 	trade_good_id = TRADE_GOOD_PEAR
 	importexport_amt = 5
-	stockpile_amount = 5
+	royal_stock = 5
 	stockpile_limit = 25
 	category = "Fruit"
 
@@ -24,7 +24,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/grown/berries/rogue
 	trade_good_id = TRADE_GOOD_JACKSBERRY
 	importexport_amt = 10
-	stockpile_amount = 10
+	royal_stock = 10
 	stockpile_limit = 50 // Jackberries are used to mass produce raisins so higher limit
 	category = "Fruit"
 
@@ -34,7 +34,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/grown/fruit/blackberry
 	trade_good_id = TRADE_GOOD_BLACKBERRY
 	importexport_amt = 5
-	stockpile_amount = 5
+	royal_stock = 5
 	stockpile_limit = 25
 	category = "Fruit"
 
@@ -44,7 +44,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/grown/fruit/raspberry
 	trade_good_id = TRADE_GOOD_RASPBERRY
 	importexport_amt = 5
-	stockpile_amount = 5
+	royal_stock = 5
 	stockpile_limit = 25
 	category = "Fruit"
 
@@ -54,7 +54,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/grown/fruit/strawberry
 	trade_good_id = TRADE_GOOD_STRAWBERRY
 	importexport_amt = 5
-	stockpile_amount = 5
+	royal_stock = 5
 	stockpile_limit = 25
 	category = "Fruit"
 
@@ -64,7 +64,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/grown/fruit/lemon
 	trade_good_id = TRADE_GOOD_LEMON
 	importexport_amt = 5
-	stockpile_amount = 5
+	royal_stock = 5
 	stockpile_limit = 25
 	category = "Fruit"
 
@@ -74,7 +74,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/grown/fruit/lime
 	trade_good_id = TRADE_GOOD_LIME
 	importexport_amt = 5
-	stockpile_amount = 5
+	royal_stock = 5
 	stockpile_limit = 25
 	category = "Fruit"
 
@@ -84,7 +84,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/grown/fruit/tangerine
 	trade_good_id = TRADE_GOOD_TANGERINE
 	importexport_amt = 5
-	stockpile_amount = 5
+	royal_stock = 5
 	stockpile_limit = 25
 	category = "Fruit"
 
@@ -94,7 +94,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/grown/fruit/plum
 	trade_good_id = TRADE_GOOD_PLUM
 	importexport_amt = 5
-	stockpile_amount = 5
+	royal_stock = 5
 	stockpile_limit = 25
 	category = "Fruit"
 
@@ -104,7 +104,7 @@
 	item_type = /obj/item/reagent_containers/food/snacks/grown/fruit/tomato
 	trade_good_id = TRADE_GOOD_TOMATO
 	importexport_amt = 5
-	stockpile_amount = 5
+	royal_stock = 5
 	stockpile_limit = 25
 	category = "Fruit"
 
@@ -114,6 +114,6 @@
 	item_type = /obj/item/natural/shellplant/pumpkin
 	trade_good_id = TRADE_GOOD_PUMPKIN
 	importexport_amt = 5
-	stockpile_amount = 0
+	royal_stock = 0
 	stockpile_limit = 25
 	category = "Fruit"

@@ -56,14 +56,14 @@
 	if(D.withdraw_disabled && !has_fiscal_authority(user))
 		parent_structure.say("Not available.")
 		return FALSE
-	if(D.stockpile_amount <= 0)
+	if(D.royal_stock <= 0)
 		parent_structure.say("Out of stock.")
 		return FALSE
 	var/food_stipend = ishuman(user) && HAS_TRAIT(user, TRAIT_ROYAL_SUBSIDY)
 	if(!food_stipend && total_price > mammon_round(budget))
 		parent_structure.say("You haven't put in enough mammon.")
 		return FALSE
-	D.stockpile_amount--
+	D.royal_stock--
 	SStreasury.dirty_market_view()
 	if(!food_stipend)
 		budget = max(0, mammon_round(budget - total_price))
@@ -114,7 +114,7 @@
 		record_treasury_expense(TREASURY_FLOW_SUBSIDY, treasury_role_of(user), spent)
 	else
 		budget = mammon_round(budget - price)
-	D.stockpile_amount = max(0, D.stockpile_amount - 1)
+	D.royal_stock = max(0, D.royal_stock - 1)
 	SStreasury.dirty_market_view()
 	var/chartered = SStreasury.royal_custom_active && SStreasury.royal_custom_unlocked
 	if(!using_stipend)

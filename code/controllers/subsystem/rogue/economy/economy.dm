@@ -773,7 +773,7 @@ SUBSYSTEM_DEF(economy)
 	for(var/good_id in goods)
 		var/need = order.required_items[good_id]
 		var/datum/roguestock/stockpile_entry = find_stockpile_by_trade_good(good_id)
-		var/have = stockpile_entry ? stockpile_entry.stockpile_amount : 0
+		var/have = stockpile_entry ? stockpile_entry.royal_stock : 0
 		out[good_id] = list(
 			"payload" = null,
 			"delivered_units" = min(have, need),
@@ -800,7 +800,7 @@ SUBSYSTEM_DEF(economy)
 		var/delivered = entry["delivered_units"]
 		var/datum/roguestock/stockpile_entry = find_stockpile_by_trade_good(good_id)
 		if(stockpile_entry)
-			stockpile_entry.stockpile_amount -= delivered
+			stockpile_entry.royal_stock -= delivered
 			record_material_flow(MATERIAL_FLOW_OUT, MATERIAL_SOURCE_STANDING_ORDER, stockpile_entry.item_type, delivered)
 		credit_economic_event_saturation(good_id, delivered)
 	SStreasury.dirty_market_view()
@@ -921,7 +921,7 @@ SUBSYSTEM_DEF(economy)
 	region.produces_today[good_id] = produces_today - quantity
 	var/datum/roguestock/stockpile_entry = find_stockpile_by_trade_good(good_id)
 	if(stockpile_entry)
-		stockpile_entry.stockpile_amount += quantity
+		stockpile_entry.royal_stock += quantity
 	SStreasury.total_import += total_cost
 	SStreasury.economic_output += total_cost
 	SStreasury.dirty_market_view()
@@ -950,9 +950,9 @@ SUBSYSTEM_DEF(economy)
 		return 0
 
 	var/datum/roguestock/stockpile_entry = find_stockpile_by_trade_good(good_id)
-	if(!stockpile_entry || stockpile_entry.stockpile_amount < quantity)
+	if(!stockpile_entry || stockpile_entry.royal_stock < quantity)
 		if(user)
-			to_chat(user, span_warning("Not enough [tg.name] in the stockpile: you have [stockpile_entry?.stockpile_amount || 0] and need [quantity]."))
+			to_chat(user, span_warning("Not enough [tg.name] in the stockpile: you have [stockpile_entry?.royal_stock || 0] and need [quantity]."))
 		return 0
 
 	var/demands_today = region.demands_today[good_id] || 0
@@ -963,7 +963,7 @@ SUBSYSTEM_DEF(economy)
 		total_revenue += compute_export_unit_price(good_id, region, starting_index + i)
 	total_revenue = round(total_revenue, STOCKPILE_PRICE_STEP)
 
-	stockpile_entry.stockpile_amount -= quantity
+	stockpile_entry.royal_stock -= quantity
 	region.demands_today[good_id] = demands_today - quantity
 	var/actor_suffix = user ? " by [user.real_name]" : ""
 	var/export_label = user ? "Manual Export" : "Autoexport"

@@ -430,7 +430,7 @@
 		warrant_remaining = SScity_assembly.current_warrant.trade_remaining
 		warrant_ok = SScity_assembly.can_consume_trade(total)
 	var/datum/roguestock/stockpile_entry = SSeconomy.find_stockpile_by_trade_good(good_id)
-	var/stockpile_amount = stockpile_entry?.stockpile_amount || 0
+	var/royal_stock = stockpile_entry?.royal_stock || 0
 	. = list(
 		"ok" = TRUE,
 		"reason" = "",
@@ -456,8 +456,8 @@
 		"warrant_remaining" = warrant_remaining,
 		"warrant_ok" = warrant_ok ? 1 : 0,
 		"can_afford" = can_afford ? 1 : 0,
-		"stockpile_amount" = stockpile_amount,
-		"stockpile_after" = side == "import" ? stockpile_amount + quantity : max(0, stockpile_amount - quantity),
+		"stockpile_amount" = royal_stock,
+		"stockpile_after" = side == "import" ? royal_stock + quantity : max(0, royal_stock - quantity),
 	)
 
 /obj/structure/roguemachine/steward/proc/handle_trade_import(mob/user, region_id, good_id, quantity)
@@ -512,8 +512,8 @@
 		to_chat(user, span_warning("[region.name] does not demand [tg.name]."))
 		return
 	var/datum/roguestock/entry = SSeconomy.find_stockpile_by_trade_good(good_id)
-	if(!entry || entry.stockpile_amount < quantity)
-		to_chat(user, span_warning("Not enough [tg.name] in the stockpile. You have [entry?.stockpile_amount || 0] and need [quantity]."))
+	if(!entry || entry.royal_stock < quantity)
+		to_chat(user, span_warning("Not enough [tg.name] in the stockpile. You have [entry?.royal_stock || 0] and need [quantity]."))
 		return
 	var/demands_today = region.demands_today[good_id] || 0
 	var/starting_index = max(0, daily_pace - demands_today)

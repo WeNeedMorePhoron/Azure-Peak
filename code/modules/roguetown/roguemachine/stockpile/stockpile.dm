@@ -87,7 +87,7 @@
 			"name" = R.name,
 			"desc" = R.desc,
 			"category" = R.category,
-			"amount" = R.stockpile_amount,
+			"amount" = R.royal_stock,
 			"limit" = R.stockpile_limit,
 			"withdraw_price" = R.withdraw_price,
 			"deposit_price" = R.payout_price,
@@ -158,7 +158,7 @@
 		return 0
 	if(D.autoexport_disabled)
 		return 0
-	if(D.stockpile_amount < units)
+	if(D.royal_stock < units)
 		return 0
 	var/list/best = SSeconomy.get_best_export_region(D.trade_good_id)
 	if(!best || !best["region_id"])
@@ -232,12 +232,12 @@
 						say("The Treasury is too low to buy anything right now.")
 					return
 				var/bundle_amt = B.amount
-				var/full_on_arrival = (R.stockpile_amount >= R.stockpile_limit)
-				R.stockpile_amount += bundle_amt
+				var/full_on_arrival = (R.royal_stock >= R.stockpile_limit)
+				R.royal_stock += bundle_amt
 				var/auto_exported = FALSE
 				if(full_on_arrival)
 					if(try_auto_export_units(R, bundle_amt) <= 0)
-						R.stockpile_amount -= bundle_amt
+						R.royal_stock -= bundle_amt
 						if(message)
 							if(R.autoexport_disabled)
 								say("The [R.name] stockpile is full and Autoexport is off. Take it elsewhere.")
@@ -277,11 +277,11 @@
 					say("The Treasury is too low to buy anything right now.")
 				return
 			var/auto_exported = FALSE
-			var/full_on_arrival = (R.stockpile_amount >= R.stockpile_limit)
+			var/full_on_arrival = (R.royal_stock >= R.stockpile_limit)
 			if(full_on_arrival)
-				R.stockpile_amount += 1
+				R.royal_stock += 1
 				if(try_auto_export_units(R, 1) <= 0)
-					R.stockpile_amount -= 1
+					R.royal_stock -= 1
 					if(message)
 						if(R.autoexport_disabled)
 							say("The [R.name] stockpile is full and Autoexport is off. Take it elsewhere.")
@@ -306,7 +306,7 @@
 				SStreasury.burn(SStreasury.discretionary_fund, -crown_delta, "Quality penalty: [I.name] ([crown_delta]m)", LEDGER_CROWN_EXP_QUALITY)
 				record_treasury_expense(TREASURY_FLOW_MISC, "Quality Penalty", -crown_delta)
 			if(!full_on_arrival)
-				R.stockpile_amount += 1
+				R.royal_stock += 1
 			SStreasury.dirty_market_view()
 			qdel(I)
 			if(message == TRUE)

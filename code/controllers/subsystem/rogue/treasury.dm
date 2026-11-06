@@ -555,10 +555,10 @@ SUBSYSTEM_DEF(treasury)
 	record_round_statistic(STATS_PLEDGE_GENERATED, refill + guild_bonus)
 
 /datum/controller/subsystem/treasury/proc/do_export(datum/roguestock/D, silent = FALSE)
-	if(D.stockpile_amount < D.importexport_amt)
+	if(D.royal_stock < D.importexport_amt)
 		return FALSE
 	var/amt = D.get_export_price()
-	D.stockpile_amount -= D.importexport_amt
+	D.royal_stock -= D.importexport_amt
 	record_material_flow(MATERIAL_FLOW_OUT, MATERIAL_SOURCE_LOCAL_EXPORT, D.item_type, D.importexport_amt, amt)
 	dirty_market_view()
 
@@ -577,11 +577,11 @@ SUBSYSTEM_DEF(treasury)
 			continue
 		if(D.autoexport_disabled)
 			continue
-		if((autoexport_percentage * D.stockpile_limit) >= D.stockpile_amount)
+		if((autoexport_percentage * D.stockpile_limit) >= D.royal_stock)
 			continue
 		if(D.get_export_price() <= (D.payout_price * D.importexport_amt))
 			continue
-		if(D.stockpile_amount >= D.importexport_amt)
+		if(D.royal_stock >= D.importexport_amt)
 			total_value_exported += do_export(D, TRUE)
 	var/list/surplus_result = mass_export_surplus(silent = TRUE)
 	total_value_exported += surplus_result["revenue"]
@@ -602,7 +602,7 @@ SUBSYSTEM_DEF(treasury)
 		var/keep = round(autoexport_percentage * D.stockpile_limit)
 		if(is_auto_import_active(D.trade_good_id))
 			keep = max(keep, AUTO_IMPORT_FLOOR)
-		var/surplus = D.stockpile_amount - keep
+		var/surplus = D.royal_stock - keep
 		if(surplus <= 0)
 			continue
 		var/list/best = SSeconomy.get_best_export_region(D.trade_good_id)

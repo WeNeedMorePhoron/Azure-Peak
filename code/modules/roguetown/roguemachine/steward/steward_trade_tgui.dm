@@ -259,7 +259,7 @@
 			else
 				has_stockpile = TRUE
 				var/datum/roguestock/entry = SSeconomy.find_stockpile_by_trade_good(good_id)
-				have = entry ? entry.stockpile_amount : 0
+				have = entry ? entry.royal_stock : 0
 				if(have < needed)
 					can_fulfill = FALSE
 					var/datum/trade_good/tg = GLOB.trade_goods[good_id]
@@ -413,12 +413,12 @@
 			event_tag = "GLUT"
 
 		var/margin_per_unit = max(0, round(entry.withdraw_price - entry.payout_price, STOCKPILE_PRICE_STEP))
-		var/arbitrage_potential = round(margin_per_unit * entry.stockpile_amount, STOCKPILE_PRICE_STEP)
+		var/arbitrage_potential = round(margin_per_unit * entry.royal_stock, STOCKPILE_PRICE_STEP)
 		total_arbitrage_potential += arbitrage_potential
 
 		market_rows += list(list(
 			"good_id" = good_id,
-			"stock" = entry.stockpile_amount,
+			"stock" = entry.royal_stock,
 			"stock_limit" = entry.stockpile_limit,
 			"event_tag" = event_tag,
 			"import_regions" = (tg.importable && producers[good_id]) ? build_market_import_regions(good_id) : list(),
@@ -533,7 +533,7 @@
 		essentials += list(list(
 			"good_id" = good_id,
 			"active" = SStreasury.is_auto_import_active(good_id) ? TRUE : FALSE,
-			"stock" = entry ? entry.stockpile_amount : 0,
+			"stock" = entry ? entry.royal_stock : 0,
 		))
 
 	var/list/others = list()
@@ -553,7 +553,7 @@
 		others += list(list(
 			"good_id" = good_id,
 			"active" = SStreasury.is_auto_import_active(good_id) ? TRUE : FALSE,
-			"stock" = entry.stockpile_amount,
+			"stock" = entry.royal_stock,
 		))
 	var/list/history = list()
 	for(var/list/entry as anything in SStreasury.auto_import_daily_history)
@@ -1082,7 +1082,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 				var/keep = round(SStreasury.autoexport_percentage * D.stockpile_limit)
 				if(SStreasury.is_auto_import_active(D.trade_good_id))
 					keep = max(keep, AUTO_IMPORT_FLOOR)
-				var/surplus = D.stockpile_amount - keep
+				var/surplus = D.royal_stock - keep
 				if(surplus <= 0)
 					continue
 				var/list/best = SSeconomy.get_best_export_region(D.trade_good_id)
