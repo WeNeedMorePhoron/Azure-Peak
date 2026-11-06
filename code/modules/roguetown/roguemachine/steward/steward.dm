@@ -370,8 +370,7 @@
 	if(!user_can_act(user))
 		.["reason"] = "out of reach"
 		return
-	var/is_alderman_acting = alderman_has_access(user)
-	if(locked && !is_alderman_acting)
+	if(locked)
 		.["reason"] = "machine locked"
 		return
 	var/datum/economic_region/region = GLOB.economic_regions[region_id]
@@ -424,11 +423,6 @@
 	total = round(total, STOCKPILE_PRICE_STEP)
 	var/balance = SStreasury.discretionary_fund.balance
 	var/can_afford = side == "import" ? (balance >= total) : TRUE
-	var/warrant_remaining = -1
-	var/warrant_ok = TRUE
-	if(is_alderman_acting && SScity_assembly?.current_warrant)
-		warrant_remaining = SScity_assembly.current_warrant.trade_remaining
-		warrant_ok = SScity_assembly.can_consume_trade(total)
 	var/datum/roguestock/stockpile_entry = SSeconomy.find_stockpile_by_trade_good(good_id)
 	var/royal_stock = stockpile_entry?.royal_stock || 0
 	. = list(
@@ -452,9 +446,6 @@
 		"balance" = balance,
 		"balance_after" = round(side == "import" ? balance - total : balance + total, STOCKPILE_PRICE_STEP),
 		"is_blockaded" = region.is_region_blockaded ? 1 : 0,
-		"is_alderman_acting" = is_alderman_acting ? 1 : 0,
-		"warrant_remaining" = warrant_remaining,
-		"warrant_ok" = warrant_ok ? 1 : 0,
 		"can_afford" = can_afford ? 1 : 0,
 		"stockpile_amount" = royal_stock,
 		"stockpile_after" = side == "import" ? royal_stock + quantity : max(0, royal_stock - quantity),
@@ -463,8 +454,7 @@
 /obj/structure/roguemachine/steward/proc/handle_trade_import(mob/user, region_id, good_id, quantity)
 	if(!user_can_act(user))
 		return
-	var/is_alderman_acting = alderman_has_access(user)
-	if(locked && !is_alderman_acting)
+	if(locked)
 		return
 	var/datum/economic_region/region = GLOB.economic_regions[region_id]
 	var/datum/trade_good/tg = GLOB.trade_goods[good_id]
@@ -482,14 +472,9 @@
 	var/total = 0
 	for(var/i in 1 to quantity)
 		total += SSeconomy.compute_import_unit_price(good_id, region, starting_index + i)
-	if(is_alderman_acting && !SScity_assembly.can_consume_trade(total))
-		to_chat(user, span_warning("Your warrant can't cover this trade. You have [SScity_assembly.current_warrant.trade_remaining]m left today."))
-		return
 	var/spent = SSeconomy.manual_import(user, region_id, good_id, quantity)
 	if(spent > 0)
 		record_treasury_expense(TREASURY_FLOW_IMPORT, treasury_role_of(user), spent)
-		if(is_alderman_acting)
-			SScity_assembly.consume_trade(spent, user, "import [quantity] [tg.name] from [region.name]")
 		say("Azure Peak imports [quantity] [tg.name] from [region.name] for [spent] mammon.")
 		playsound(src, 'sound/misc/coininsert.ogg', 100, FALSE, -1)
 	SStgui.update_uis(src)
@@ -497,8 +482,7 @@
 /obj/structure/roguemachine/steward/proc/handle_trade_export(mob/user, region_id, good_id, quantity)
 	if(!user_can_act(user))
 		return
-	var/is_alderman_acting = alderman_has_access(user)
-	if(locked && !is_alderman_acting)
+	if(locked)
 		return
 	var/datum/economic_region/region = GLOB.economic_regions[region_id]
 	var/datum/trade_good/tg = GLOB.trade_goods[good_id]
@@ -520,13 +504,8 @@
 	var/total = 0
 	for(var/i in 1 to quantity)
 		total += SSeconomy.compute_export_unit_price(good_id, region, starting_index + i)
-	if(is_alderman_acting && !SScity_assembly.can_consume_trade(total))
-		to_chat(user, span_warning("Your warrant can't cover this trade. You have [SScity_assembly.current_warrant.trade_remaining]m left today."))
-		return
 	var/gained = SSeconomy.manual_export(user, region_id, good_id, quantity)
 	if(gained > 0)
-		if(is_alderman_acting)
-			SScity_assembly.consume_trade(gained, user, "export [quantity] [tg.name] to [region.name]")
 		say("Azure Peak exports [quantity] [tg.name] to [region.name] for [gained] mammon.")
 		playsound(src, 'sound/misc/coindispense.ogg', 60, FALSE, -1)
 	SStgui.update_uis(src)
@@ -534,7 +513,7 @@
 /obj/structure/roguemachine/steward/proc/handle_trade_region_import(mob/user, region_id)
 	if(!user_can_act(user))
 		return
-	if(locked && !alderman_has_access(user))
+	if(locked)
 		return
 	var/datum/economic_region/region = GLOB.economic_regions[region_id]
 	if(!region)
@@ -561,7 +540,7 @@
 /obj/structure/roguemachine/steward/proc/handle_trade_region_export(mob/user, region_id)
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
-	if(locked && !alderman_has_access(user))
+	if(locked)
 		return
 	var/datum/economic_region/region = GLOB.economic_regions[region_id]
 	if(!region)
@@ -612,9 +591,6 @@
 /obj/structure/roguemachine/steward/attack_hand(mob/living/user)
 	. = ..()
 	if(.)
-		return
-	if(locked && alderman_has_access(user))
-		open_trade_tgui(user)
 		return
 	if(locked)
 		to_chat(user, span_warning("It's locked."))

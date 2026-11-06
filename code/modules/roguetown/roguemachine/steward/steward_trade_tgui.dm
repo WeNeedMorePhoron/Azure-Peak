@@ -1,31 +1,13 @@
 #define LEDGER_PAGE_SIZE 50
 
 /obj/structure/roguemachine/steward/ui_state(mob/user)
-	// The sitting Alderman acts remotely from the Notice Board - they cannot physically reach the
-	// locked Stewardry. For them, swap adjacency for a conscious-and-alive check; access is gated
-	// at every action by alderman_has_access() checking trait + warrant. Everyone else needs to
-	// be standing at the Nerve Master itself.
-	if(SScity_assembly?.is_alderman(user))
-		return GLOB.conscious_state
 	return GLOB.human_adjacent_state
-
-/// The sitting Alderman's remote trade access bypasses `/atom/ui_status`'s can_interact clamp
-/// (which enforces physical adjacency and would downgrade UI_INTERACTIVE to UI_UPDATE, painting
-/// the whole window grey). Authority is already enforced by alderman_has_access() on every
-/// ui_act. Pull the status straight from state.can_use_topic without the adjacency filter.
-/obj/structure/roguemachine/steward/ui_status(mob/user, datum/ui_state/state)
-	if(SScity_assembly?.is_alderman(user))
-		. = UI_CLOSE
-		if(state)
-			. = max(., state.can_use_topic(src, user))
-		return
-	return ..()
 
 /obj/structure/roguemachine/steward/ui_interact(mob/user, datum/tgui/ui)
 	SStgui.try_update_ui(user, src, ui)
 
 /obj/structure/roguemachine/steward/proc/open_trade_tgui(mob/user)
-	if(locked && !alderman_has_access(user))
+	if(locked)
 		to_chat(user, span_warning("It's locked."))
 		return
 	var/datum/tgui/ui = SStgui.try_update_ui(user, src, null)
@@ -33,21 +15,7 @@
 		ui = new(user, src, "StewardTrade")
 		ui.open()
 
-/obj/structure/roguemachine/steward/proc/alderman_has_access(mob/user)
-	if(!user || !SScity_assembly)
-		return FALSE
-	if(!SScity_assembly.is_alderman(user))
-		return FALSE
-	if(!SScity_assembly.current_warrant)
-		return FALSE
-	return (SScity_assembly.current_warrant.trade_remaining > 0)
-
-/// Adjacency/topic check that yields to the Alderman. The Alderman acts remotely from the Notice
-/// Board and never stands at the Stewardry; every trade-path callsite should use this instead of
-/// calling canUseTopic directly. Returns TRUE if the user may proceed.
 /obj/structure/roguemachine/steward/proc/user_can_act(mob/user)
-	if(SScity_assembly?.is_alderman(user))
-		return TRUE
 	return user.canUseTopic(src, BE_CLOSE)
 
 /// Catalog data — doesn't change mid-session. Trade good names, region names/descriptions,
@@ -187,24 +155,6 @@
 	data["expected_rural_revenue"] = SStreasury?.get_rural_tax_amount() || 0
 	data["expected_wage_outlay"] = SStreasury?.get_expected_wage_outlay() || 0
 
-	// Alderman-acting view: expose the warrant so the TGUI can render it prominently. Only
-	// populated when the viewer is the sitting Alderman - the Steward doesn't need a warrant
-	// display in their own machine view.
-	data["is_alderman_acting"] = SScity_assembly?.is_alderman(user) ? TRUE : FALSE
-	if(data["is_alderman_acting"])
-		var/datum/assembly_warrant/W = SScity_assembly.current_warrant
-		if(W)
-			data["alderman_warrant"] = list(
-				"trade_cap" = W.trade_daily_cap,
-				"trade_remaining" = W.trade_remaining,
-				"defense_cap" = W.defense_daily_cap,
-				"defense_remaining" = W.defense_remaining,
-			)
-		else
-			data["alderman_warrant"] = null
-	else
-		data["alderman_warrant"] = null
-
 	var/list/blockaded = list()
 	for(var/region_id in GLOB.economic_regions)
 		var/datum/economic_region/region = GLOB.economic_regions[region_id]
@@ -336,7 +286,6 @@
 	petition_state["pledge_balance"] = SStreasury.burgher_pledge_fund?.balance || 0
 	petition_state["petitions_remaining"] = petitions_remaining
 	petition_state["is_steward_role"] = (user.job in GLOB.crown_authority_roles) ? TRUE : FALSE
-	petition_state["is_alderman_acting"] = SScity_assembly?.is_alderman(user) ? TRUE : FALSE
 	var/selected_template = petition_view[user.ckey]
 	var/list/offers = list()
 	if(selected_template && SSeconomy.petition_category_of(selected_template))
@@ -359,7 +308,7 @@
 		"state_label" = bankruptcy_state_label(SStreasury.treasury_state),
 	)
 
-	var/can_draw_loan = (user.job in GLOB.crown_authority_roles) && !SScity_assembly?.is_alderman(user)
+	var/can_draw_loan = (user.job in GLOB.crown_authority_roles)
 	data["atc_loan"] = list(
 		"available" = (can_draw_loan && SStreasury.atc_loan_available()) ? TRUE : FALSE,
 		"can_view" = can_draw_loan ? TRUE : FALSE,
@@ -593,7 +542,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 		return
 	if(!user_can_act(usr))
 		return TRUE
-	if(locked && !alderman_has_access(usr))
+	if(locked)
 		return TRUE
 	if(SStreasury.is_in_receivership() && (action in GLOB.steward_trade_sequestration_locked_actions))
 		to_chat(usr, span_warning("Trade controls are locked under sequestration. Petitions, taxes and fines still work."))
@@ -670,54 +619,40 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			SStgui.update_uis(src)
 			return TRUE
 		if("sell_to_market")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			var/quantity = text2num("[params["quantity"]]")
 			if(quantity)
 				SSeconomy.sell_to_market(usr, params["good_id"], quantity)
 			SStgui.update_uis(src)
 			return TRUE
 		if("buy_from_market")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			var/quantity = text2num("[params["quantity"]]")
 			if(quantity)
 				SSeconomy.buy_from_market(usr, params["good_id"], quantity)
 			SStgui.update_uis(src)
 			return TRUE
 		if("toggle_auto_import")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			var/good_id = params["good_id"]
 			if(good_id)
 				SStreasury.set_auto_import(good_id, !SStreasury.is_auto_import_active(good_id))
 			SStgui.update_uis(src)
 			return TRUE
 		if("kill_switch_auto_import")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			SStreasury.kill_switch_auto_import()
 			SStgui.update_uis(src)
 			return TRUE
 		if("set_auto_import_purse_floor")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			var/amount = text2num("[params["amount"]]")
 			if(!isnull(amount))
 				SStreasury.set_auto_import_purse_floor(amount)
 			SStgui.update_uis(src)
 			return TRUE
-		// ── Stockpile management. Steward-only — Aldermen see the data but can't edit. ──
+		// ── Stockpile management. Steward-only. ──
 		if("export_steward_policy")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			tgui_input_text(usr, "Copy the text here and save it locally. You can paste it into Import Policy in later rounds to keep your custom settings, including: autoexport bars, autoimport list, essential opt-outs, surplus threshold and purse floor.", "Export Policy", SStreasury.export_steward_policy(), max_length = STEWARD_POLICY_IMPORT_MAX_LEN, multiline = TRUE, encode = FALSE, width = STEWARD_POLICY_WINDOW_WIDTH, height = STEWARD_POLICY_WINDOW_HEIGHT)
 			return TRUE
 		if("import_steward_policy")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			var/blob = tgui_input_text(usr, "Import exported policies from previous round. See export policy for what are covered.", "Import Policy", max_length = STEWARD_POLICY_IMPORT_MAX_LEN, multiline = TRUE, encode = FALSE, width = STEWARD_POLICY_WINDOW_WIDTH, height = STEWARD_POLICY_WINDOW_HEIGHT)
-			if(!blob || !user_can_act(usr) || SScity_assembly?.is_alderman(usr) || SStreasury.is_in_receivership())
+			if(!blob || !user_can_act(usr) || SStreasury.is_in_receivership())
 				return TRUE
 			var/list/result = SStreasury.import_steward_policy(blob)
 			if(!result)
@@ -733,8 +668,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			SStgui.update_uis(src)
 			return TRUE
 		if("allow_autoexport_category", "bar_autoexport_category")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			var/category = params["category"]
 			if(!category)
 				return TRUE
@@ -750,8 +683,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			SStgui.update_uis(src)
 			return TRUE
 		if("bar_autoexport_shortages")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			var/barred_count = 0
 			for(var/datum/economic_event/E as anything in GLOB.active_economic_events)
 				if(E.event_type != ECON_EVENT_SHORTAGE)
@@ -770,16 +701,12 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			SStgui.update_uis(src)
 			return TRUE
 		if("allow_autoexport_all")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			for(var/datum/roguestock/A as anything in SStreasury.stockpile_datums)
 				A.autoexport_disabled = FALSE
 			SStreasury.dirty_market_view()
 			SStgui.update_uis(src)
 			return TRUE
 		if("toggle_autoexport_disabled")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			var/datum/roguestock/D = SSeconomy.find_stockpile_by_trade_good(params["good_id"])
 			if(D)
 				D.autoexport_disabled = !D.autoexport_disabled
@@ -787,8 +714,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			SStgui.update_uis(src)
 			return TRUE
 		if("set_autoexport_percentage")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			var/pct = text2num("[params["pct"]]")
 			if(isnull(pct))
 				return TRUE
@@ -797,8 +722,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			SStgui.update_uis(src)
 			return TRUE
 		if("export_surplus_all")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			var/list/result = SStreasury.mass_export_surplus(silent = FALSE)
 			var/units = result["units"]
 			var/revenue = result["revenue"]
@@ -813,8 +736,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			SStgui.update_uis(src)
 			return TRUE
 		if("export_surplus_category")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
 			var/category = params["category"]
 			if(!category)
 				return TRUE
@@ -871,9 +792,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			SStgui.update_uis(src)
 			return TRUE
 		if("petition_for_order")
-			if(SScity_assembly?.is_alderman(usr))
-				to_chat(usr, span_warning("As Alderman, you can't petition regions."))
-				return TRUE
 			if(!(usr.job in GLOB.crown_authority_roles))
 				to_chat(usr, span_warning("Only Crown officials can petition regions."))
 				return TRUE
@@ -886,9 +804,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			SStgui.update_uis(src)
 			return TRUE
 		if("take_atc_loan")
-			if(SScity_assembly?.is_alderman(usr))
-				to_chat(usr, span_warning("As Alderman, you can't take loans for the Crown."))
-				return TRUE
 			if(!(usr.job in GLOB.crown_authority_roles))
 				to_chat(usr, span_warning("Only Crown officials can take loans from the ATC."))
 				return TRUE

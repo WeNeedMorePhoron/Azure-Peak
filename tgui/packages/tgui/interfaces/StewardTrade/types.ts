@@ -333,9 +333,6 @@ export type TradeQuote = {
   balance: number;
   balance_after: number;
   is_blockaded: BooleanLike;
-  is_alderman_acting: BooleanLike;
-  warrant_remaining: number;
-  warrant_ok: BooleanLike;
   can_afford: BooleanLike;
   stockpile_amount: number;
   stockpile_after: number;

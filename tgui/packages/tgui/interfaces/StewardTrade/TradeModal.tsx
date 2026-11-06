@@ -156,12 +156,6 @@ const computeFillTarget = (quote: TradeQuote | null): number => {
       target,
       Math.floor(quote.balance / quote.base_unit_price),
     );
-    if (quote.is_alderman_acting && quote.warrant_remaining >= 0) {
-      target = Math.min(
-        target,
-        Math.floor(quote.warrant_remaining / quote.base_unit_price),
-      );
-    }
   }
   return Math.max(0, target);
 };
@@ -281,7 +275,6 @@ export const TradeModal = (props: TradeModalProps) => {
   const submitDisabled =
     !quote?.ok ||
     (isImport && !quote.can_afford) ||
-    !quote.warrant_ok ||
     shortStock;
   const submitTooltip = !quote
     ? 'Calculating...'
@@ -291,9 +284,7 @@ export const TradeModal = (props: TradeModalProps) => {
         ? `Stockpile holds only ${stockpile} unit${stockpile === 1 ? '' : 's'}.`
         : isImport && !quote.can_afford
           ? "The Treasury can't afford this trade."
-          : !quote.warrant_ok
-            ? "Your warrant can't cover this trade."
-            : '';
+          : '';
 
   const change = (delta: number) => {
     setQuantity((q) => {
@@ -556,27 +547,6 @@ export const TradeModal = (props: TradeModalProps) => {
               }}
             >
               {quote ? `${quote.stockpile_after} units` : '...'}
-            </span>
-          </div>
-          <div
-            style={{
-              ...lineStyle,
-              visibility:
-                quote?.is_alderman_acting && quote.warrant_remaining >= 0
-                  ? 'visible'
-                  : 'hidden',
-            }}
-          >
-            <span style={lineLabelStyle}>Warrant remaining</span>
-            <span
-              style={{
-                ...lineValueStyle,
-                color: quote?.warrant_ok ? SEAL_AMBER : SEAL_RED,
-              }}
-            >
-              {quote && quote.warrant_remaining >= 0
-                ? `${quote.warrant_remaining}m`
-                : '0m'}
             </span>
           </div>
         </div>
