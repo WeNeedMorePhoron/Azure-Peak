@@ -116,11 +116,7 @@ SUBSYSTEM_DEF(treasury)
 	/// A feature for the Steward to unlock once the Crown's trade volume reaches 10k
 	/// Basically help automate the import, fitting in line with my idea of active trade
 	/// Converting to passive convenience later. Later on I might gate it through a
-	/// Total trade volumes converting into multiple chooseable upgrades but for now
-	/// It just automatically unlock an upgrade with no real choice
-	var/royal_custom_unlocked = FALSE
-	var/royal_custom_active = FALSE
-	var/royal_custom_margin = ROYAL_CUSTOM_DEFAULT_MARGIN
+	/// Total trade volumes converting into multiple chooseable upgrades
 	var/royal_custom_threshold = ROYAL_CUSTOM_VOLUME_BASE
 	var/list/cached_market_rows = null
 	var/list/cached_region_rows = null

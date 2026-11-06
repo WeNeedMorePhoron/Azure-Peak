@@ -10,8 +10,7 @@
 
 /obj/structure/roguemachine/withdraw/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_info("Left-click with an open hand to open the vomitorium. Put in mammon to fund purchases, then buy or import goods from the local stockpile.")
-	. += span_info("Withdrawals are cheapest. Imports cost more to pay for shipping. While Royal Custom is in force, it goes to the Treasury instead.")
+	. += span_info("Left-click with an open hand to open the vomitorium. Put in mammon to fund purchases, then buy goods from the local stockpile.")
 	. += span_info("The vomitorium does not buy goods. Take deposits to a stockpile instead.")
 
 /obj/structure/roguemachine/withdraw/Initialize(mapload)
@@ -62,14 +61,9 @@
 	data["subsidy_remaining"] = data["food_stipend"] ? SStreasury.royal_subsidy_remaining(user) : 0
 	data["treasury_floor"] = SStreasury.stockpile_purchase_floor
 	data["below_floor"] = (SStreasury.discretionary_fund.balance < SStreasury.stockpile_purchase_floor) ? TRUE : FALSE
-	data["charter_unlocked"] = SStreasury.royal_custom_unlocked ? TRUE : FALSE
-	data["charter_active"] = SStreasury.royal_custom_active ? TRUE : FALSE
-	data["charter_margin"] = SStreasury.royal_custom_margin
-	data["charter_volume"] = SStreasury.economic_output || 0
-	data["charter_threshold"] = SStreasury.royal_custom_threshold
 	data["no_deposit"] = TRUE
 	data["title"] = "Vomitorium"
-	data["subtitle"] = "Put in mammon, then withdraw goods from the local stockpile or import from afar."
+	data["subtitle"] = "Put in mammon, then withdraw goods from the local stockpile."
 
 	var/list/rows = list()
 	for(var/datum/roguestock/stockpile/R in SStreasury.stockpile_datums)
@@ -96,7 +90,6 @@
 			"withdraw_price" = R.market_ask(1),
 			"deposit_price" = R.market_bid(1),
 			"export_price" = export_unit_price,
-			"import_price" = withdraw_tab.direct_import_price(R),
 			"event_tag" = R.get_event_label(),
 			"shortage_progress" = shortage ? shortage["progress"] : 0,
 			"shortage_target" = shortage ? shortage["target"] : 0,
@@ -129,11 +122,4 @@
 		if("refund_budget")
 			if(withdraw_tab.refund_budget(usr))
 				playsound(loc, 'sound/misc/coindispense.ogg', 100, FALSE, -1)
-			return TRUE
-		if("direct_import")
-			var/datum/roguestock/D = locate(params["ref"]) in SStreasury.stockpile_datums
-			if(!D)
-				return TRUE
-			if(withdraw_tab.do_direct_import(D, usr))
-				flick("submit_anim", src)
 			return TRUE

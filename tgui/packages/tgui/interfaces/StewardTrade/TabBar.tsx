@@ -71,12 +71,6 @@ export const TabBar = (props: {
         Petition
       </div>
       <div
-        style={tabStyle(tab === 'royal_custom')}
-        onClick={() => onSwitch('royal_custom')}
-      >
-        Royal Custom
-      </div>
-      <div
         style={tabStyle(tab === 'advanced')}
         onClick={() => onSwitch('advanced')}
       >

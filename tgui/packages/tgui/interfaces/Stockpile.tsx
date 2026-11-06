@@ -34,7 +34,6 @@ type StockRow = {
   withdraw_price: number;
   deposit_price: number;
   export_price: number;
-  import_price: number;
   royal_amount: number;
   never_supplied: BooleanLike;
   sold_out: BooleanLike;
@@ -75,11 +74,6 @@ type Data = {
   subsidy_remaining: number;
   treasury_floor: number;
   below_floor: BooleanLike;
-  charter_unlocked: BooleanLike;
-  charter_active: BooleanLike;
-  charter_margin: number;
-  charter_volume: number;
-  charter_threshold: number;
   stocks: StockRow[];
   bounties: Bounty[];
   no_deposit: BooleanLike;
@@ -88,34 +82,6 @@ type Data = {
 };
 
 type ActFn = (action: string, params?: Record<string, unknown>) => void;
-
-const CharterChip = (props: { data: Data }) => {
-  const { data } = props;
-  let label: string;
-  let color: string;
-  if (!data.charter_unlocked) {
-    label = `CHARTER ${data.charter_volume}/${data.charter_threshold}`;
-    color = INK_FAINT;
-  } else if (data.charter_active) {
-    label = `ROYAL CUSTOM ${data.charter_margin}%`;
-    color = SEAL_GREEN;
-  } else {
-    label = `ROYAL CUSTOM SUSPENDED`;
-    color = SEAL_RED;
-  }
-  return (
-    <span
-      style={{
-        color,
-        fontWeight: 'bold',
-        fontSize: FONT_BODY,
-        fontFamily: SERIF,
-      }}
-    >
-      {label}
-    </span>
-  );
-};
 
 const StockRowView = (props: {
   row: StockRow;
@@ -133,9 +99,6 @@ const StockRowView = (props: {
   const canWithdraw =
     !embargoed &&
     ((!row.sold_out && row.withdraw_price <= data.budget) || subsidyCovers);
-  const canImport =
-    row.import_price > 0 &&
-    (row.import_price <= data.budget || !!data.food_stipend);
   return (
     <div
       style={{
@@ -194,7 +157,7 @@ const StockRowView = (props: {
       </div>
       <div
         style={{
-          flex: noDeposit ? '0 0 210px' : '0 0 304px',
+          flex: noDeposit ? '0 0 96px' : '0 0 190px',
           display: 'flex',
           gap: '4px',
           justifyContent: 'flex-end',
@@ -249,28 +212,6 @@ const StockRowView = (props: {
             : row.sold_out
               ? 'Out of stock'
               : `Buy ${formatMammon(row.withdraw_price)}m`}
-        </button>
-        <button
-          type="button"
-          style={{
-            ...inkButtonStyle({ disabled: !canImport }),
-            width: '110px',
-            textAlign: 'center',
-            boxSizing: 'border-box',
-          }}
-          disabled={!canImport}
-          onClick={() => act('direct_import', { ref: row.ref })}
-          title={
-            row.import_price <= 0
-              ? 'No region has supply of this good today.'
-              : data.food_stipend && row.import_price > data.budget
-                ? 'Your food stipend pays for this import from the Treasury.'
-                : data.charter_active
-                  ? 'Order one from abroad. The markup goes to the Treasury.'
-                  : 'Order one from abroad. The markup pays for shipping.'
-          }
-        >
-          {row.import_price > 0 ? `Import ${formatMammon(row.import_price)}m` : 'NO SUPPLY'}
         </button>
       </div>
       {!compact && <MarketBar row={row} />}
@@ -351,7 +292,7 @@ export const Stockpile = () => {
           <div style={titleStyle}>{data.title || 'Town Stockpile'}</div>
           <div style={subtitleStyle}>
             {data.subtitle ||
-              'Drop goods at the machine to sell them. Put coins in to buy or import.'}
+              'Drop goods at the machine to sell them. Put coins in to buy.'}
           </div>
           <div style={rulerStyle} />
 
@@ -388,7 +329,6 @@ export const Stockpile = () => {
             {!!data.food_stipend && !!data.below_floor && (
               <span style={{ color: SEAL_RED }}>crown ledger thin</span>
             )}
-            <CharterChip data={data} />
             <div style={{ marginLeft: 'auto', display: 'flex', gap: '4px' }}>
               <button
                 type="button"

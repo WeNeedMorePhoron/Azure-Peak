@@ -875,7 +875,7 @@ SUBSYSTEM_DEF(economy)
 		return null
 	return SStreasury.stockpile_by_trade_good[good_id]
 
-/datum/controller/subsystem/economy/proc/manual_import(mob/user, region_id, good_id, quantity, stipend = FALSE)
+/datum/controller/subsystem/economy/proc/manual_import(mob/user, region_id, good_id, quantity)
 	var/datum/economic_region/region = GLOB.economic_regions[region_id]
 	if(!region)
 		return 0
@@ -907,11 +907,7 @@ SUBSYSTEM_DEF(economy)
 		return 0
 
 	var/actor_suffix = user ? " by [user.real_name]" : ""
-	var/import_label
-	if(stipend)
-		import_label = "Subsidy Import"
-	else
-		import_label = user ? "Manual Import" : "Autoimport"
+	var/import_label = user ? "Manual Import" : "Autoimport"
 
 	if(quantity > 1)
 		SStreasury.burn(SStreasury.discretionary_fund, total_cost, "[import_label]: [quantity] [tg.name] from [region.name][actor_suffix]", LEDGER_CROWN_EXP_IMPORTS)

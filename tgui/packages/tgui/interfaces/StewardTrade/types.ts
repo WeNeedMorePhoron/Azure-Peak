@@ -413,10 +413,6 @@ export type Data = StaticData & {
   petition: PetitionState;
   sequestration: SequestrationState;
   atc_loan: AtcLoanState;
-  royal_custom_unlocked: BooleanLike;
-  royal_custom_margin: number;
-  royal_custom_threshold: number;
-  royal_custom_volume: number;
 };
 
 export type TabKey =
@@ -426,5 +422,4 @@ export type TabKey =
   | 'auto_import'
   | 'petition'
   | 'ledger'
-  | 'royal_custom'
   | 'advanced';

@@ -24,7 +24,6 @@ import { MarketView } from './StewardTrade/MarketView';
 import { OrdersView } from './StewardTrade/OrdersView';
 import { PetitionView } from './StewardTrade/PetitionView';
 import { RegionsView } from './StewardTrade/RegionsView';
-import { RoyalCustomPanel } from './StewardTrade/RoyalCustomPanel';
 import { SequesteredOverlay } from './StewardTrade/SequesteredOverlay';
 import { SequestrationBanner } from './StewardTrade/SequestrationBanner';
 import { TabBar } from './StewardTrade/TabBar';
@@ -166,7 +165,6 @@ export const StewardTrade = () => {
           )}
           {tab === 'petition' && <PetitionView data={data} />}
           {tab === 'ledger' && <LedgerView data={data} />}
-          {tab === 'royal_custom' && <RoyalCustomPanel />}
           {tab === 'advanced' && (
             <SequesteredOverlay
               active={!!data.sequestration?.active}
