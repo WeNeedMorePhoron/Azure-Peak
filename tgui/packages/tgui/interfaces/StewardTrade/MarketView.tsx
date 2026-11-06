@@ -231,82 +231,6 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                   })}
                   disabled={aldermanActing}
                   onClick={() =>
-                    act('accept_category', { category: activeGroup.category })
-                  }
-                  title={
-                    aldermanActing
-                      ? aldermanBlockTitle
-                      : `Accept deposits for all ${activeGroup.label}.`
-                  }
-                >
-                  Open All
-                </button>
-                <button
-                  type="button"
-                  style={inkButtonStyle({
-                    color: SEAL_RED,
-                    disabled: aldermanActing,
-                  })}
-                  disabled={aldermanActing}
-                  onClick={() =>
-                    act('reject_category', { category: activeGroup.category })
-                  }
-                  title={
-                    aldermanActing
-                      ? aldermanBlockTitle
-                      : `Reject deposits for all ${activeGroup.label}.`
-                  }
-                >
-                  Close All
-                </button>
-                <button
-                  type="button"
-                  style={inkButtonStyle({
-                    color: SEAL_GREEN,
-                    disabled: aldermanActing,
-                  })}
-                  disabled={aldermanActing}
-                  onClick={() =>
-                    act('allow_withdraw_category', {
-                      category: activeGroup.category,
-                    })
-                  }
-                  title={
-                    aldermanActing
-                      ? aldermanBlockTitle
-                      : `Allow withdrawals for all ${activeGroup.label}.`
-                  }
-                >
-                  Withdrawals On
-                </button>
-                <button
-                  type="button"
-                  style={inkButtonStyle({
-                    color: SEAL_RED,
-                    disabled: aldermanActing,
-                  })}
-                  disabled={aldermanActing}
-                  onClick={() =>
-                    act('bar_withdraw_category', {
-                      category: activeGroup.category,
-                    })
-                  }
-                  title={
-                    aldermanActing
-                      ? aldermanBlockTitle
-                      : `Bar withdrawals for all ${activeGroup.label}.`
-                  }
-                >
-                  Withdrawals Off
-                </button>
-                <button
-                  type="button"
-                  style={inkButtonStyle({
-                    color: SEAL_GREEN,
-                    disabled: aldermanActing,
-                  })}
-                  disabled={aldermanActing}
-                  onClick={() =>
                     act('allow_autoexport_category', {
                       category: activeGroup.category,
                     })
@@ -643,8 +567,6 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
   const goodId = row.good_id;
   const goodName = data.good_catalog[goodId]?.name ?? goodId;
   const limitAuto = !!row.automatic_limit;
-  const accepting = !!row.accepting;
-  const withdrawDisabled = !!row.withdraw_disabled;
   const autoexportDisabled = !!row.autoexport_disabled;
   const margin = row.margin_per_unit;
   const potential = row.arbitrage_potential;
@@ -711,24 +633,6 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
         </span>
       )}
       <span style={{ flex: 1 }} />
-      <button
-        type="button"
-        style={flagPillStyle(accepting)}
-        disabled={aldermanActing}
-        onClick={() => act('toggle_stockpile_accept', { good_id: goodId })}
-        title={aldermanActing ? blockTitle : 'Let people deposit this good.'}
-      >
-        {accepting ? 'Accept' : 'Reject'}
-      </button>
-      <button
-        type="button"
-        style={flagPillStyle(!withdrawDisabled)}
-        disabled={aldermanActing}
-        onClick={() => act('toggle_withdraw_disabled', { good_id: goodId })}
-        title={aldermanActing ? blockTitle : 'Let people withdraw this good.'}
-      >
-        {withdrawDisabled ? 'No-W' : 'W-OK'}
-      </button>
       <button
         type="button"
         style={flagPillStyle(!autoexportDisabled)}

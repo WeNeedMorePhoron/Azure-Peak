@@ -42,8 +42,6 @@ type StockRow = {
   next_sell: PriceChange | null;
   segments: MarketSegment[];
   market_label: string;
-  withdraw_disabled: BooleanLike;
-  accept_enabled: BooleanLike;
   event_tag: string;
   shortage_progress: number;
   shortage_target: number;
@@ -74,7 +72,6 @@ type Data = {
   categories: string[];
   category: string;
   food_stipend: BooleanLike;
-  fiscal_authority: BooleanLike;
   treasury_floor: number;
   below_floor: BooleanLike;
   charter_unlocked: BooleanLike;
@@ -127,10 +124,7 @@ const StockRowView = (props: {
 }) => {
   const { row, data, act, compact } = props;
   const noDeposit = !!data.no_deposit;
-  const embargoed =
-    !!row.never_supplied || (!!row.withdraw_disabled && !data.fiscal_authority);
-  const overriding =
-    !row.never_supplied && !!row.withdraw_disabled && !!data.fiscal_authority;
+  const embargoed = !!row.never_supplied;
   const canWithdraw =
     !embargoed &&
     ((!row.sold_out && row.withdraw_price <= data.budget) ||
@@ -180,17 +174,6 @@ const StockRowView = (props: {
                 ({row.shortage_progress} / {row.shortage_target})
               </span>
             )}
-          </span>
-        )}
-        {!!row.withdraw_disabled && (
-          <span
-            style={{
-              color: SEAL_RED,
-              fontSize: FONT_BODY,
-              marginLeft: '4px',
-            }}
-          >
-            (no withdraws)
           </span>
         )}
         {!compact && row.desc && (
@@ -250,11 +233,9 @@ const StockRowView = (props: {
           disabled={!canWithdraw}
           onClick={() => act('withdraw', { ref: row.ref })}
           title={
-            overriding
-              ? 'Closed to the public. As a Crown official, you can still buy it.'
-              : row.next_buy
-                ? `The next ${row.next_buy.count} cost ${formatMammon(row.withdraw_price)}m each. After that, ${formatMammon(row.next_buy.price)}m.`
-                : 'The price will not rise further.'
+            row.next_buy
+              ? `The next ${row.next_buy.count} cost ${formatMammon(row.withdraw_price)}m each. After that, ${formatMammon(row.next_buy.price)}m.`
+              : 'The price will not rise further.'
           }
         >
           {embargoed

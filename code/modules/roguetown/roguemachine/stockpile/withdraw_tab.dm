@@ -53,7 +53,7 @@
 		return FALSE
 	D.refresh_auto_price()
 	D.get_market_target()
-	if(D.market_never_supplies || (D.withdraw_disabled && !has_fiscal_authority(user)))
+	if(D.market_never_supplies)
 		parent_structure.say("Not available.")
 		return FALSE
 	var/food_stipend = ishuman(user) && HAS_TRAIT(user, TRAIT_ROYAL_SUBSIDY) && D.royal_stock > 0

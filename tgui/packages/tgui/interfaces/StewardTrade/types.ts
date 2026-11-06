@@ -265,8 +265,6 @@ export type MarketRow = {
   market_buy_price: number;
   market_sell_price: number;
   automatic_limit: BooleanLike;
-  accepting: BooleanLike;
-  withdraw_disabled: BooleanLike;
   autoexport_disabled: BooleanLike;
   margin_per_unit: number;
   arbitrage_potential: number;

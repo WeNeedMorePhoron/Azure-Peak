@@ -61,7 +61,6 @@
 	data["compact"] = withdraw_tab.compact ? TRUE : FALSE
 	data["categories"] = categories
 	data["category"] = withdraw_tab.current_category
-	data["fiscal_authority"] = has_fiscal_authority(user) ? TRUE : FALSE
 	data["food_stipend"] = (ishuman(user) && HAS_TRAIT(user, TRAIT_ROYAL_SUBSIDY)) ? TRUE : FALSE
 	data["charter_unlocked"] = SStreasury.royal_custom_unlocked ? TRUE : FALSE
 	data["charter_active"] = SStreasury.royal_custom_active ? TRUE : FALSE
@@ -98,8 +97,6 @@
 			"deposit_price" = R.market_bid(1),
 			"export_price" = export_unit_price,
 			"import_price" = withdraw_tab.direct_import_price(R),
-			"withdraw_disabled" = R.withdraw_disabled ? TRUE : FALSE,
-			"accept_enabled" = R.accept_toggle_enabled ? TRUE : FALSE,
 			"event_tag" = R.get_event_label(),
 			"shortage_progress" = shortage ? shortage["progress"] : 0,
 			"shortage_target" = shortage ? shortage["target"] : 0,

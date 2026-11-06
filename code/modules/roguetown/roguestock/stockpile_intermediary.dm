@@ -42,7 +42,6 @@
 	importexport_amt = 5
 	stockpile_limit = 8
 	category = "Refined"
-	accept_toggle_enabled = FALSE
 
 /datum/roguestock/stockpile/silver_ingot
 	name = "Silver Ingot"
@@ -52,7 +51,6 @@
 	importexport_amt = 5
 	stockpile_limit = 8
 	category = "Refined"
-	accept_toggle_enabled = FALSE
 	market_never_supplies = TRUE
 
 /datum/roguestock/stockpile/bronze_ingot

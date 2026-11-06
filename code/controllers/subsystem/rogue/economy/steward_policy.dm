@@ -1,8 +1,6 @@
 /datum/controller/subsystem/treasury/proc/export_steward_policy()
 	var/list/limits = list()
 	var/list/autoexport_barred = list()
-	var/list/withdraw_barred = list()
-	var/list/accept_off = list()
 	for(var/datum/roguestock/D as anything in stockpile_datums)
 		if(!D.trade_good_id)
 			continue
@@ -10,10 +8,6 @@
 			limits[D.trade_good_id] = D.stockpile_limit
 		if(D.autoexport_disabled)
 			autoexport_barred += D.trade_good_id
-		if(D.withdraw_disabled)
-			withdraw_barred += D.trade_good_id
-		if(!D.accept_toggle_enabled)
-			accept_off += D.trade_good_id
 	var/list/standing = list()
 	for(var/good_id in auto_import_standing)
 		standing += good_id
@@ -24,8 +18,6 @@
 		"version" = STEWARD_POLICY_EXPORT_VERSION,
 		"limits" = limits,
 		"autoexport_barred" = autoexport_barred,
-		"withdraw_barred" = withdraw_barred,
-		"accept_off" = accept_off,
 		"auto_import_standing" = standing,
 		"auto_import_off" = auto_import_off,
 		"autoexport_percentage" = round(autoexport_percentage * 100),
@@ -38,7 +30,7 @@
 	var/list/data = safe_json_decode(blob)
 	if(!islist(data) || !isnum(data["version"]) || data["version"] > STEWARD_POLICY_EXPORT_VERSION)
 		return null
-	for(var/field in list("limits", "autoexport_barred", "withdraw_barred", "accept_off", "auto_import_standing", "auto_import_off"))
+	for(var/field in list("limits", "autoexport_barred", "auto_import_standing", "auto_import_off"))
 		var/list/entries = data[field]
 		if(!isnull(entries) && (!islist(entries) || length(entries) > length(stockpile_datums)))
 			return null
@@ -55,12 +47,6 @@
 			tally["applied"]++
 	for(var/datum/roguestock/D in import_policy_goods(data["autoexport_barred"], tally))
 		D.autoexport_disabled = TRUE
-		tally["applied"]++
-	for(var/datum/roguestock/D in import_policy_goods(data["withdraw_barred"], tally))
-		D.withdraw_disabled = TRUE
-		tally["applied"]++
-	for(var/datum/roguestock/D in import_policy_goods(data["accept_off"], tally))
-		D.accept_toggle_enabled = FALSE
 		tally["applied"]++
 	for(var/datum/roguestock/D in import_policy_goods(data["auto_import_standing"], tally))
 		set_auto_import(D.trade_good_id, TRUE)

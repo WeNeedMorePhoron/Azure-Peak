@@ -428,8 +428,6 @@
 			"market_buy_price" = entry.cached_market_deposit_price || entry.payout_price,
 			"market_sell_price" = entry.cached_market_withdraw_price || entry.withdraw_price,
 			"automatic_limit" = entry.automatic_limit ? TRUE : FALSE,
-			"accepting" = entry.accept_toggle_enabled ? TRUE : FALSE,
-			"withdraw_disabled" = entry.withdraw_disabled ? TRUE : FALSE,
 			"autoexport_disabled" = entry.autoexport_disabled ? TRUE : FALSE,
 			"margin_per_unit" = margin_per_unit,
 			"arbitrage_potential" = arbitrage_potential,
@@ -547,7 +545,7 @@
 		if(!tg || !tg.importable)
 			continue
 		var/datum/roguestock/entry = stockpile_entries[good_id]
-		if(!entry || !entry.accept_toggle_enabled)
+		if(!entry)
 			continue
 		others += list(list(
 			"good_id" = good_id,
@@ -588,11 +586,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 	"kill_switch_auto_import",
 	"set_auto_import_purse_floor",
 	"toggle_auto_limit",
-	"toggle_stockpile_accept",
-	"toggle_withdraw_disabled",
 	"toggle_autoexport_disabled",
-	"allow_withdraw_category",
-	"bar_withdraw_category",
 	"allow_autoexport_category",
 	"bar_autoexport_category",
 	"bar_autoexport_shortages",
@@ -601,8 +595,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 	"import_steward_policy",
 	"autolimit_all",
 	"autolimit_category",
-	"accept_category",
-	"reject_category",
 	"set_autoexport_percentage",
 	"export_surplus_all",
 	"export_surplus_category",
@@ -733,24 +725,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 						D.stockpile_limit = max(STOCKPILE_LIMIT_MIN, D.stockpile_limit)
 			SStgui.update_uis(src)
 			return TRUE
-		if("toggle_stockpile_accept")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/datum/roguestock/D = SSeconomy.find_stockpile_by_trade_good(params["good_id"])
-			if(D)
-				D.accept_toggle_enabled = !D.accept_toggle_enabled
-				SStreasury.dirty_market_view()
-			SStgui.update_uis(src)
-			return TRUE
-		if("toggle_withdraw_disabled")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/datum/roguestock/D = SSeconomy.find_stockpile_by_trade_good(params["good_id"])
-			if(D)
-				D.withdraw_disabled = !D.withdraw_disabled
-				SStreasury.dirty_market_view()
-			SStgui.update_uis(src)
-			return TRUE
 		if("set_stockpile_limit")
 			if(SScity_assembly?.is_alderman(usr))
 				return TRUE
@@ -763,7 +737,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 		if("export_steward_policy")
 			if(SScity_assembly?.is_alderman(usr))
 				return TRUE
-			tgui_input_text(usr, "Copy the text here and save it locally. You can paste it into Import Policy in later rounds to keep your custom settings, including: Handset limits, autoexport / withdraw bars, unaccepted goods, autoimport list, essential opt-outs, surplus threshold and purse floor. Autolimits or prices are not stored.", "Export Policy", SStreasury.export_steward_policy(), max_length = STEWARD_POLICY_IMPORT_MAX_LEN, multiline = TRUE, encode = FALSE, width = STEWARD_POLICY_WINDOW_WIDTH, height = STEWARD_POLICY_WINDOW_HEIGHT)
+			tgui_input_text(usr, "Copy the text here and save it locally. You can paste it into Import Policy in later rounds to keep your custom settings, including: Handset limits, autoexport bars, autoimport list, essential opt-outs, surplus threshold and purse floor. Autolimits or prices are not stored.", "Export Policy", SStreasury.export_steward_policy(), max_length = STEWARD_POLICY_IMPORT_MAX_LEN, multiline = TRUE, encode = FALSE, width = STEWARD_POLICY_WINDOW_WIDTH, height = STEWARD_POLICY_WINDOW_HEIGHT)
 			return TRUE
 		if("import_steward_policy")
 			if(SScity_assembly?.is_alderman(usr))
@@ -806,55 +780,6 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 					continue
 				A.automatic_limit = TRUE
 			SStreasury.autoset_stockpile_limits()
-			SStgui.update_uis(src)
-			return TRUE
-		if("accept_category")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/category = params["category"]
-			if(!category)
-				return TRUE
-			for(var/datum/roguestock/A in SStreasury.stockpile_datums)
-				if(!A.trade_good_id)
-					continue
-				var/datum/trade_good/tg = GLOB.trade_goods[A.trade_good_id]
-				if(!tg || tg.category != category)
-					continue
-				A.accept_toggle_enabled = TRUE
-			SStreasury.dirty_market_view()
-			SStgui.update_uis(src)
-			return TRUE
-		if("reject_category")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/category = params["category"]
-			if(!category)
-				return TRUE
-			for(var/datum/roguestock/A in SStreasury.stockpile_datums)
-				if(!A.trade_good_id)
-					continue
-				var/datum/trade_good/tg = GLOB.trade_goods[A.trade_good_id]
-				if(!tg || tg.category != category)
-					continue
-				A.accept_toggle_enabled = FALSE
-			SStreasury.dirty_market_view()
-			SStgui.update_uis(src)
-			return TRUE
-		if("allow_withdraw_category", "bar_withdraw_category")
-			if(SScity_assembly?.is_alderman(usr))
-				return TRUE
-			var/category = params["category"]
-			if(!category)
-				return TRUE
-			var/barred = (action == "bar_withdraw_category")
-			for(var/datum/roguestock/A in SStreasury.stockpile_datums)
-				if(!A.trade_good_id)
-					continue
-				var/datum/trade_good/tg = GLOB.trade_goods[A.trade_good_id]
-				if(!tg || tg.category != category)
-					continue
-				A.withdraw_disabled = barred
-			SStreasury.dirty_market_view()
 			SStgui.update_uis(src)
 			return TRUE
 		if("allow_autoexport_category", "bar_autoexport_category")
