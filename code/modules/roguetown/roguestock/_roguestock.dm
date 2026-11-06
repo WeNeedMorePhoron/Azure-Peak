@@ -16,8 +16,6 @@
 	var/importexport_amt = 10
 	var/category = "Raw Materials"
 	var/trade_good_id
-	var/cached_market_deposit_price = 0
-	var/cached_market_withdraw_price = 0
 
 /datum/roguestock/New()
 	..()
@@ -25,7 +23,6 @@
 		var/datum/trade_good/tg = GLOB.trade_goods[trade_good_id]
 		if(tg)
 			compute_auto_prices(tg)
-			recompute_market_reference_prices(tg)
 	return
 
 /datum/roguestock/proc/get_quality_settlement(obj/item/I, baseline)
@@ -292,67 +289,6 @@
 	if(!tg)
 		return
 	compute_auto_prices(tg)
-
-/datum/roguestock/proc/get_market_deposit_price()
-	if(!trade_good_id)
-		return payout_price
-	return cached_market_deposit_price || payout_price
-
-/datum/roguestock/proc/get_market_withdraw_price()
-	if(!trade_good_id)
-		return withdraw_price
-	return cached_market_withdraw_price || withdraw_price
-/datum/roguestock/proc/recompute_market_reference_prices(datum/trade_good/tg)
-	if(!trade_good_id)
-		return
-	if(!tg)
-		tg = GLOB.trade_goods[trade_good_id]
-	if(!tg)
-		return
-	var/list/prices = stockpile_auto_prices(tg)
-	cached_market_deposit_price = prices[1]
-	cached_market_withdraw_price = prices[2]
-
-/datum/roguestock/proc/get_market_price()
-	return get_market_deposit_price()
-
-/datum/roguestock/proc/get_market_delta_tag()
-	return get_market_delta_tag_for("deposit")
-
-/datum/roguestock/proc/get_market_delta_tag_for(side)
-	if(!trade_good_id)
-		return ""
-	var/market
-	var/active_price
-	if(side == "withdraw")
-		market = get_market_withdraw_price()
-		active_price = withdraw_price
-	else
-		market = get_market_deposit_price()
-		active_price = payout_price
-	if(market <= 0 || market == active_price)
-		return ""
-	var/delta_pct = round(((active_price - market) / market) * 100)
-	if(delta_pct == 0)
-		return ""
-	var/sign_str = delta_pct > 0 ? "+[delta_pct]" : "[delta_pct]"
-	var/label
-	var/color
-	if(side == "withdraw")
-		if(delta_pct > 0)
-			label = "markup"
-			color = "#c84"
-		else
-			label = "discount"
-			color = "#8a8"
-	else
-		if(delta_pct > 0)
-			label = "premium"
-			color = "#8a8"
-		else
-			label = "underpaid"
-			color = "#c84"
-	return " <font color='[color]'>([sign_str]% [label])</font>"
 
 /// Returns "SHORTAGE", "GLUT", or "" - the plain event label without HTML.
 /datum/roguestock/proc/get_event_label()

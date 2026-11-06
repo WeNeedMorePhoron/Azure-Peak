@@ -47,10 +47,8 @@ GLOBAL_LIST_EMPTY(active_economic_events)
 			tg.global_price_mod /= price_mod
 	refresh_affected_stockpile_caches()
 
-/// Refresh cached market reference prices and the live
-/// payout/withdraw prices on every stockpile entry whose trade good was affected by
-/// this event. Replaces the per-tick refresh_auto_price + get_market_*_price work
-/// the stewardry UI used to do for every good every tick.
+/// Refresh the live payout/withdraw prices on every stockpile entry whose trade good
+/// was affected by this event.
 /datum/economic_event/proc/refresh_affected_stockpile_caches()
 	for(var/datum/roguestock/D as anything in SStreasury.stockpile_datums)
 		if(!D.trade_good_id || !(D.trade_good_id in affected_goods))
@@ -58,7 +56,6 @@ GLOBAL_LIST_EMPTY(active_economic_events)
 		var/datum/trade_good/tg = GLOB.trade_goods[D.trade_good_id]
 		if(!tg)
 			continue
-		D.recompute_market_reference_prices(tg)
 		D.compute_auto_prices(tg)
 	SStreasury.dirty_market_view()
 

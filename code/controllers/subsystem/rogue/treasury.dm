@@ -123,7 +123,6 @@ SUBSYSTEM_DEF(treasury)
 	var/royal_custom_threshold = ROYAL_CUSTOM_VOLUME_BASE
 	var/list/cached_market_rows = null
 	var/list/cached_region_rows = null
-	var/cached_total_arbitrage_potential = 0
 	var/market_view_dirty = TRUE
 	var/list/cached_auto_import_data = null
 	var/auto_import_view_dirty = TRUE
@@ -222,7 +221,7 @@ SUBSYSTEM_DEF(treasury)
 	var/taper = clamp(1.0 - (producers / RURAL_SUBSIDY_REFERENCE_PRODUCERS), 0.0, 1.0)
 	return mammon_round(RURAL_SUBSIDY_FLOOR + (RURAL_SUBSIDY_BASE - RURAL_SUBSIDY_FLOOR) * taper)
 
-// Mark the cached stewardry market / region / arbitrage
+// Mark the cached stewardry market / region
 // View as needing rebuild on next read.
 /datum/controller/subsystem/treasury/proc/dirty_market_view()
 	market_view_dirty = TRUE

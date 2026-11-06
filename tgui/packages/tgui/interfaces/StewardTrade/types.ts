@@ -254,18 +254,17 @@ export type MarketRow = {
   good_id: string;
   stock: number;
   stock_limit: number;
+  market_stock: number;
+  market_target: number;
+  market_label: string;
+  market_buy: number;
+  market_sell: number;
   event_tag: string;
   // Sorted: import_regions ascending by unit_price (best buy first),
   // export_regions descending (best sell first). Entry [0] is the auto-routed default.
   import_regions: MarketRegionOption[];
   export_regions: MarketRegionOption[];
-  buy_price: number;
-  sell_price: number;
-  market_buy_price: number;
-  market_sell_price: number;
   autoexport_disabled: BooleanLike;
-  margin_per_unit: number;
-  arbitrage_potential: number;
 };
 
 export type RegionFlow = {
@@ -403,7 +402,6 @@ export type Data = StaticData & {
   alderman_warrant: AldermanWarrant | null;
   auto_import: AutoImportData;
   trade_quote: TradeQuote | null;
-  total_arbitrage_potential: number;
   autoexport_percentage: number;
   autoexport_barred: number;
   shortage_goods_open: number;

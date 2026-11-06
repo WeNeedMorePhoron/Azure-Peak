@@ -28,12 +28,7 @@ type OnTrade = (req: { side: Side; regionId: string; goodId: string }) => void;
 
 export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
   const { act } = useBackend<Data>();
-  const {
-    market_rows,
-    good_catalog,
-    total_arbitrage_potential,
-    autoexport_percentage,
-  } = props.data;
+  const { market_rows, good_catalog, autoexport_percentage } = props.data;
   const { onTrade } = props;
   const aldermanActing = !!props.data.is_alderman_acting;
   const aldermanBlockTitle =
@@ -64,18 +59,12 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-end',
           gap: '12px',
           marginBottom: '6px',
           fontSize: FONT_BODY,
         }}
       >
-        <div style={{ color: INK_SOFT }}>
-          Arbitrage potential:{' '}
-          <span style={{ color: SEAL_AMBER, fontWeight: 'bold' }}>
-            {formatMammon(total_arbitrage_potential)}m
-          </span>
-        </div>
         <div style={{ display: 'flex', gap: '6px' }}>
           <button
             type="button"
@@ -249,7 +238,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                           fontSize: FONT_BODY,
                         }}
                       >
-                        Stock: {row.stock}/{row.stock_limit}
+                        Royal stock: {row.stock}/{row.stock_limit}
                       </span>
                     </div>
                     <SideBlock
@@ -514,8 +503,6 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
   const { row, aldermanActing } = props;
   const goodId = row.good_id;
   const autoexportDisabled = !!row.autoexport_disabled;
-  const margin = row.margin_per_unit;
-  const potential = row.arbitrage_potential;
   const blockTitle =
     "As Alderman, you can't change this.";
   const stripStyleEffective: React.CSSProperties = aldermanActing
@@ -528,21 +515,19 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
       title={aldermanActing ? blockTitle : undefined}
     >
       <span style={stripCellStyle}>
+        Market:{' '}
+        <span style={stripValueStyle}>
+          {row.market_label} {row.market_stock}/{row.market_target}
+        </span>
+      </span>
+      <span style={stripCellStyle}>
         Buy:{' '}
-        <span style={stripValueStyle}>{formatMammon(row.buy_price)}m</span>
+        <span style={stripValueStyle}>{formatMammon(row.market_buy)}m</span>
       </span>
       <span style={stripCellStyle}>
         Sell:{' '}
-        <span style={stripValueStyle}>{formatMammon(row.sell_price)}m</span>
+        <span style={stripValueStyle}>{formatMammon(row.market_sell)}m</span>
       </span>
-      <span style={stripCellStyle}>
-        Limit: <span style={stripValueStyle}>{row.stock_limit}</span>
-      </span>
-      {margin > 0 && (
-        <span style={{ ...stripCellStyle, color: SEAL_AMBER }}>
-          +{formatMammon(margin)}m/u → {potential}m
-        </span>
-      )}
       <span style={{ flex: 1 }} />
       <button
         type="button"

@@ -315,7 +315,6 @@
 	if(SStreasury.market_view_dirty || isnull(SStreasury.cached_market_rows))
 		rebuild_market_view()
 	data["market_rows"] = SStreasury.cached_market_rows
-	data["total_arbitrage_potential"] = SStreasury.cached_total_arbitrage_potential
 	data["autoexport_percentage"] = round(SStreasury.autoexport_percentage * 100)
 	data["region_rows"] = SStreasury.cached_region_rows
 
@@ -380,7 +379,7 @@
 
 	return data
 
-/// Rebuild SStreasury's cached_market_rows + cached_region_rows + cached_total_arbitrage_potential
+/// Rebuild SStreasury's cached_market_rows + cached_region_rows
 /// from current world state and clear market_view_dirty. Heavy work (~3ms); called only when
 /// invalidated by a trade action, stockpile mutation, blockade flip, day reset, or economic
 /// event boundary. event_tag_by_good is pre-built by the ui_data caller from the small, hot
@@ -393,7 +392,6 @@
 				event_tag_by_good[gid] = E.event_type
 
 	var/list/market_rows = list()
-	var/total_arbitrage_potential = 0
 	var/list/market_stockpile_entries = SStreasury.stockpile_by_trade_good
 	var/list/producers = SSeconomy.goods_with_producers
 	var/list/demanders = SSeconomy.goods_with_demand
@@ -411,24 +409,20 @@
 		else if(event_tag_by_good[good_id] == ECON_EVENT_OVERSUPPLY)
 			event_tag = "GLUT"
 
-		var/margin_per_unit = max(0, round(entry.withdraw_price - entry.payout_price, STOCKPILE_PRICE_STEP))
-		var/arbitrage_potential = round(margin_per_unit * entry.royal_stock, STOCKPILE_PRICE_STEP)
-		total_arbitrage_potential += arbitrage_potential
-
+		entry.get_market_target()
 		market_rows += list(list(
 			"good_id" = good_id,
 			"stock" = entry.royal_stock,
 			"stock_limit" = entry.stockpile_limit,
+			"market_stock" = entry.market_stock,
+			"market_target" = entry.market_target,
+			"market_label" = market_step_label(entry.market_step(entry.market_stock)),
+			"market_buy" = entry.market_ask(1),
+			"market_sell" = entry.market_bid(1),
 			"event_tag" = event_tag,
 			"import_regions" = (tg.importable && producers[good_id]) ? build_market_import_regions(good_id) : list(),
 			"export_regions" = demanders[good_id] ? build_market_export_regions(good_id) : list(),
-			"buy_price" = entry.payout_price,
-			"sell_price" = entry.withdraw_price,
-			"market_buy_price" = entry.cached_market_deposit_price || entry.payout_price,
-			"market_sell_price" = entry.cached_market_withdraw_price || entry.withdraw_price,
 			"autoexport_disabled" = entry.autoexport_disabled ? TRUE : FALSE,
-			"margin_per_unit" = margin_per_unit,
-			"arbitrage_potential" = arbitrage_potential,
 		))
 
 	var/list/region_rows = list()
@@ -461,7 +455,6 @@
 
 	SStreasury.cached_market_rows = market_rows
 	SStreasury.cached_region_rows = region_rows
-	SStreasury.cached_total_arbitrage_potential = round(total_arbitrage_potential, STOCKPILE_PRICE_STEP)
 	SStreasury.market_view_dirty = FALSE
 
 /obj/structure/roguemachine/steward/proc/build_market_import_regions(good_id)

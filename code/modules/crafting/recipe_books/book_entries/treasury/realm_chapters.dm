@@ -543,7 +543,6 @@
 			<b>Stock Count Variance</b>. When goods are exported the stock falls, and the variance
 			charges the cost of what left, alongside the Export Sales revenue. The charge appears at
 			the next count, not at the moment of sale.</li>
-			<li>This is not the same figure as the Market tab's arbitrage potential.</li>
 		</ul>
 
 		<h3>Debts</h3>
