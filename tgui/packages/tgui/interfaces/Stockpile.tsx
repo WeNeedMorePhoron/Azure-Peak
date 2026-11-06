@@ -72,6 +72,7 @@ type Data = {
   categories: string[];
   category: string;
   food_stipend: BooleanLike;
+  subsidy_remaining: number;
   treasury_floor: number;
   below_floor: BooleanLike;
   charter_unlocked: BooleanLike;
@@ -125,10 +126,13 @@ const StockRowView = (props: {
   const { row, data, act, compact } = props;
   const noDeposit = !!data.no_deposit;
   const embargoed = !!row.never_supplied;
+  const subsidyCovers =
+    !!data.food_stipend &&
+    data.subsidy_remaining >= row.withdraw_price &&
+    (row.royal_amount > 0 || (!row.sold_out && !data.below_floor));
   const canWithdraw =
     !embargoed &&
-    ((!row.sold_out && row.withdraw_price <= data.budget) ||
-      (!!data.food_stipend && row.royal_amount > 0));
+    ((!row.sold_out && row.withdraw_price <= data.budget) || subsidyCovers);
   const canImport =
     row.import_price > 0 &&
     (row.import_price <= data.budget || !!data.food_stipend);
@@ -233,9 +237,11 @@ const StockRowView = (props: {
           disabled={!canWithdraw}
           onClick={() => act('withdraw', { ref: row.ref })}
           title={
-            row.next_buy
-              ? `The next ${row.next_buy.count} cost ${formatMammon(row.withdraw_price)}m each. After that, ${formatMammon(row.next_buy.price)}m.`
-              : 'The price will not rise further.'
+            subsidyCovers
+              ? `Your royal subsidy pays. ${formatMammon(data.subsidy_remaining)}m of it left today.`
+              : row.next_buy
+                ? `The next ${row.next_buy.count} cost ${formatMammon(row.withdraw_price)}m each. After that, ${formatMammon(row.next_buy.price)}m.`
+                : 'The price will not rise further.'
           }
         >
           {embargoed
@@ -372,9 +378,14 @@ export const Stockpile = () => {
               {formatMammon(data.budget)}m
             </span>
             {!!data.food_stipend && (
-              <span style={{ color: SEAL_GREEN }}>treasury-line</span>
+              <span
+                style={{ color: SEAL_GREEN }}
+                title={`Roles with royal subsidy purchase from the market using treasury fund, so long as there's enough fund above the treasury floor (${formatMammon(data.treasury_floor)}m) to cover the cost. Selling goods will go directly into the royal stockpile instead of the market`}
+              >
+                Royal Subsidy {formatMammon(data.subsidy_remaining)}m
+              </span>
             )}
-            {!!data.below_floor && (
+            {!!data.food_stipend && !!data.below_floor && (
               <span style={{ color: SEAL_RED }}>crown ledger thin</span>
             )}
             <CharterChip data={data} />

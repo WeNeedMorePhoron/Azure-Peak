@@ -62,6 +62,9 @@
 	data["categories"] = categories
 	data["category"] = withdraw_tab.current_category
 	data["food_stipend"] = (ishuman(user) && HAS_TRAIT(user, TRAIT_ROYAL_SUBSIDY)) ? TRUE : FALSE
+	data["subsidy_remaining"] = data["food_stipend"] ? SStreasury.royal_subsidy_remaining(user) : 0
+	data["treasury_floor"] = SStreasury.stockpile_purchase_floor
+	data["below_floor"] = (SStreasury.discretionary_fund.balance < SStreasury.stockpile_purchase_floor) ? TRUE : FALSE
 	data["charter_unlocked"] = SStreasury.royal_custom_unlocked ? TRUE : FALSE
 	data["charter_active"] = SStreasury.royal_custom_active ? TRUE : FALSE
 	data["charter_margin"] = SStreasury.royal_custom_margin

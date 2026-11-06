@@ -317,6 +317,7 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 			SStreasury.distribute_estate_incomes()
 			SStreasury.distribute_daily_payments()
 			SStreasury.tick_poll_levy_arrears()
+			SStreasury.royal_subsidy_spent = list()
 			for(var/mob/living/carbon/human/H in GLOB.human_list)
 				var/datum/charflaw/indebted/I = locate(/datum/charflaw/indebted) in H.charflaws
 				if(!I || !I.is_active)

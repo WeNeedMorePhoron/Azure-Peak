@@ -110,8 +110,9 @@ SUBSYSTEM_DEF(treasury)
 	var/list/poll_levies = list()
 	var/list/poll_levy_grace_until = list()
 	var/levy_rates_changed_day = -1
-	/// Steward-settable floor. Stockpile refuses purchases when Crown's Purse would drop below this.
+	/// Steward-settable floor. The Royal Subsidy stops paying from the Treasury when the Crown's Purse would drop below this.
 	var/stockpile_purchase_floor = STOCKPILE_CROWN_PURCHASE_FLOOR_DEFAULT
+	var/list/royal_subsidy_spent = list()
 	/// A feature for the Steward to unlock once the Crown's trade volume reaches 10k
 	/// Basically help automate the import, fitting in line with my idea of active trade
 	/// Converting to passive convenience later. Later on I might gate it through a
@@ -161,6 +162,15 @@ SUBSYSTEM_DEF(treasury)
 	autoset_stockpile_limits()
 	revalue_stockpile_inventory(opening = TRUE)
 	return ..()
+
+/datum/controller/subsystem/treasury/proc/royal_subsidy_remaining(mob/user)
+	return max(0, mammon_round(ROYAL_SUBSIDY_DAILY_ALLOWANCE - (royal_subsidy_spent["\ref[user]"] || 0)))
+
+/datum/controller/subsystem/treasury/proc/spend_royal_subsidy(mob/user, amount)
+	royal_subsidy_spent["\ref[user]"] = mammon_round((royal_subsidy_spent["\ref[user]"] || 0) + amount)
+
+/datum/controller/subsystem/treasury/proc/royal_subsidy_treasury_covers(amount)
+	return mammon_round(discretionary_fund.balance - amount) >= stockpile_purchase_floor
 
 /datum/controller/subsystem/treasury/proc/autoset_stockpile_limits()
 	var/effective_pop = (SSeconomy && SSeconomy.simulated_player_scalar > 0) ? SSeconomy.simulated_player_scalar : get_active_player_count()
