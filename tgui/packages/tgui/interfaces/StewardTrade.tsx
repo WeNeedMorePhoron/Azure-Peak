@@ -4,7 +4,6 @@ import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import {
   FONT_BODY,
-  INK,
   INK_FAINT,
   pageStyle,
   rulerStyle,
@@ -44,9 +43,6 @@ export const StewardTrade = () => {
       return () => act('ledger_close');
     }
   }, [tab, act]);
-
-  const aldermanActing = !!data.is_alderman_acting;
-  const warrant = data.alderman_warrant;
 
   return (
     <Window title="Market Scroll" width={860} height={820} theme="parchment">
@@ -90,40 +86,6 @@ export const StewardTrade = () => {
             </span>
           </div>
           <hr style={rulerStyle} />
-
-          {aldermanActing && warrant && (
-            <div
-              style={{
-                background: 'rgba(200,170,100,0.18)',
-                border: `1px solid ${SEAL_AMBER}`,
-                padding: '6px 12px',
-                marginBottom: '10px',
-                fontSize: FONT_BODY,
-                color: INK,
-              }}
-            >
-              <div
-                style={{
-                  color: SEAL_AMBER,
-                  fontWeight: 'bold',
-                  marginBottom: '2px',
-                }}
-              >
-                Alderman&apos;s Writ
-              </div>
-              <div>
-                Trade warrant:{' '}
-                <span style={{ color: SEAL_AMBER, fontWeight: 'bold' }}>
-                  {formatMammon(warrant.trade_remaining)}m
-                </span>{' '}
-                of {warrant.trade_cap}m remaining today
-              </div>
-              <div style={{ color: INK_FAINT, fontSize: FONT_BODY }}>
-                Trades beyond what your warrant allows are refused. The Treasury
-                still pays for each trade.
-              </div>
-            </div>
-          )}
 
           <SequestrationBanner sequestration={data.sequestration} />
           <ArrearsBanner sequestration={data.sequestration} />

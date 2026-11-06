@@ -32,13 +32,11 @@ export const PetitionView = (props: { data: Data }) => {
     c.templates.some((t) => t.id === selectedId),
   );
 
-  const cannotAct = !petition.is_steward_role || !!petition.is_alderman_acting;
+  const cannotAct = !petition.is_steward_role;
 
-  const cannotActReason = petition.is_alderman_acting
-    ? "As Alderman, you can't petition regions."
-    : !petition.is_steward_role
-      ? "Only Crown officials can petition regions."
-      : '';
+  const cannotActReason = !petition.is_steward_role
+    ? "Only Crown officials can petition regions."
+    : '';
 
   const select = (template: string) => act('petition_select', { template });
 

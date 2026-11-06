@@ -14,10 +14,8 @@ import {
 import type { AtcLoanState, Data } from './types';
 
 export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
-  const { act, data } = useBackend<Data>();
+  const { act } = useBackend<Data>();
   const { atc_loan } = props;
-  const aldermanActing = !!data.is_alderman_acting;
-
   const [amount, setAmount] = useState(atc_loan.min);
 
   if (!atc_loan.can_view) {
@@ -94,14 +92,7 @@ export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            opacity: aldermanActing ? 0.55 : 1,
-            textDecoration: aldermanActing ? 'line-through' : undefined,
           }}
-          title={
-            aldermanActing
-              ? "As Alderman, you can't take loans for the Crown."
-              : undefined
-          }
         >
           <span>Amount:</span>
           <NumberInput
@@ -111,7 +102,6 @@ export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
             step={50}
             stepPixelSize={4}
             width="80px"
-            disabled={aldermanActing}
             onChange={(v: number) => setAmount(v)}
           />
           <span>m</span>
@@ -119,7 +109,6 @@ export const ATCLoanBanner = (props: { atc_loan: AtcLoanState }) => {
             (owe {Math.round(amount * (1 + atc_loan.interest_pct / 100))}m)
           </span>
           <Button.Confirm
-            disabled={aldermanActing}
             onClick={() => act('take_atc_loan', { amount })}
           >
             Take Loan

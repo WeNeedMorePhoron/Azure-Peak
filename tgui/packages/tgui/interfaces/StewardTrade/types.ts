@@ -282,13 +282,6 @@ export type RegionRow = {
   demands: RegionFlow[];
 };
 
-export type AldermanWarrant = {
-  trade_cap: number;
-  trade_remaining: number;
-  defense_cap: number;
-  defense_remaining: number;
-};
-
 export type AutoImportRow = {
   good_id: string;
   active: BooleanLike;
@@ -361,7 +354,6 @@ export type PetitionState = {
   pledge_balance: number;
   petitions_remaining: number;
   is_steward_role: BooleanLike;
-  is_alderman_acting: BooleanLike;
   selected_template: string | null;
   offers: PetitionOffer[];
 };
@@ -397,8 +389,6 @@ export type Data = StaticData & {
   active_orders: Order[];
   market_rows: MarketRow[];
   region_rows: RegionRow[];
-  is_alderman_acting: BooleanLike;
-  alderman_warrant: AldermanWarrant | null;
   auto_import: AutoImportData;
   trade_quote: TradeQuote | null;
   autoexport_percentage: number;

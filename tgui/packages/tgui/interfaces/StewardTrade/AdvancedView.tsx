@@ -16,8 +16,6 @@ import type { Data } from './types';
 export const AdvancedView = (props: { data: Data }) => {
   const { act } = useBackend<Data>();
   const { data } = props;
-  const aldermanActing = !!data.is_alderman_acting;
-  const blockTitle = "As Alderman, you can't change this.";
   const barred = data.autoexport_barred;
   const shortageOpen = data.shortage_goods_open;
   return (
@@ -49,15 +47,11 @@ export const AdvancedView = (props: { data: Data }) => {
           type="button"
           style={inkButtonStyle({
             color: SEAL_RED,
-            disabled: aldermanActing || shortageOpen <= 0,
+            disabled: shortageOpen <= 0,
           })}
-          disabled={aldermanActing || shortageOpen <= 0}
+          disabled={shortageOpen <= 0}
           onClick={() => act('bar_autoexport_shortages')}
-          title={
-            aldermanActing
-              ? blockTitle
-              : 'Bar autoexport on every good currently under shortage.'
-          }
+          title="Bar autoexport on every good currently under shortage."
         >
           Bar Autoexport On Shortages ({shortageOpen})
         </button>
@@ -65,15 +59,11 @@ export const AdvancedView = (props: { data: Data }) => {
           type="button"
           style={inkButtonStyle({
             color: SEAL_GREEN,
-            disabled: aldermanActing || barred <= 0,
+            disabled: barred <= 0,
           })}
-          disabled={aldermanActing || barred <= 0}
+          disabled={barred <= 0}
           onClick={() => act('allow_autoexport_all')}
-          title={
-            aldermanActing
-              ? blockTitle
-              : 'Clear every autoexport bar.'
-          }
+          title="Clear every autoexport bar."
         >
           Allow Autoexport On All
         </button>
@@ -98,27 +88,17 @@ export const AdvancedView = (props: { data: Data }) => {
       >
         <button
           type="button"
-          style={inkButtonStyle({ color: INK, disabled: aldermanActing })}
-          disabled={aldermanActing}
+          style={inkButtonStyle({ color: INK })}
           onClick={() => act('export_steward_policy')}
-          title={
-            aldermanActing
-              ? blockTitle
-              : 'Copy the text and save it locally. You can paste it into Import Policy in later rounds to keep your custom settings.'
-          }
+          title="Copy the text and save it locally. You can paste it into Import Policy in later rounds to keep your custom settings."
         >
           Export Policy
         </button>
         <button
           type="button"
-          style={inkButtonStyle({ color: INK, disabled: aldermanActing })}
-          disabled={aldermanActing}
+          style={inkButtonStyle({ color: INK })}
           onClick={() => act('import_steward_policy')}
-          title={
-            aldermanActing
-              ? blockTitle
-              : 'Import exported policies from previous round. See export policy for what are covered.'
-          }
+          title="Import exported policies from previous round. See export policy for what are covered."
         >
           Import Policy
         </button>

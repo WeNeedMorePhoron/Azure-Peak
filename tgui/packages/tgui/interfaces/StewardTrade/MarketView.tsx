@@ -30,9 +30,6 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
   const { act } = useBackend<Data>();
   const { market_rows, good_catalog, autoexport_percentage } = props.data;
   const { onTrade } = props;
-  const aldermanActing = !!props.data.is_alderman_acting;
-  const aldermanBlockTitle =
-    "As Alderman, you can't change this.";
 
   const groups = groupByCategory(market_rows, good_catalog);
   const [activeCategory, setActiveCategory] = useState<string>(
@@ -68,11 +65,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
         <div style={{ display: 'flex', gap: '6px' }}>
           <button
             type="button"
-            style={inkButtonStyle({
-              color: SEAL_AMBER,
-              disabled: aldermanActing,
-            })}
-            disabled={aldermanActing}
+            style={inkButtonStyle({ color: SEAL_AMBER })}
             onClick={() => {
               const raw = window.prompt(
                 "Surplus threshold (0-100%). Anything above this share of a good's limit is surplus. It is sold abroad each dawn, or when you press Export Surplus, up to what the best paying region still wants. Lower means more gets sold.",
@@ -83,23 +76,14 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
               if (Number.isNaN(n) || n < 0 || n > 100) return;
               act('set_autoexport_percentage', { pct: n });
             }}
-            title={aldermanActing ? aldermanBlockTitle : undefined}
           >
             Threshold {autoexport_percentage}%
           </button>
           <button
             type="button"
-            style={inkButtonStyle({
-              color: SEAL_GREEN,
-              disabled: aldermanActing,
-            })}
-            disabled={aldermanActing}
+            style={inkButtonStyle({ color: SEAL_GREEN })}
             onClick={() => act('export_surplus_all')}
-            title={
-              aldermanActing
-                ? aldermanBlockTitle
-                : "Sell the surplus of every good to whichever region pays most, up to what it still wants today."
-            }
+            title="Sell the surplus of every good to whichever region pays most, up to what it still wants today."
           >
             Export Surplus
           </button>
@@ -139,21 +123,13 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                 <span>Actions:</span>
                 <button
                   type="button"
-                  style={inkButtonStyle({
-                    color: SEAL_GREEN,
-                    disabled: aldermanActing,
-                  })}
-                  disabled={aldermanActing}
+                  style={inkButtonStyle({ color: SEAL_GREEN })}
                   onClick={() =>
                     act('export_surplus_category', {
                       category: activeGroup.category,
                     })
                   }
-                  title={
-                    aldermanActing
-                      ? aldermanBlockTitle
-                      : `Sell ${activeGroup.label} surplus to whichever regions pay most.`
-                  }
+                  title={`Sell ${activeGroup.label} surplus to whichever regions pay most.`}
                 >
                   Export Surplus
                 </button>
@@ -173,41 +149,25 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                 <span>Permissions:</span>
                 <button
                   type="button"
-                  style={inkButtonStyle({
-                    color: SEAL_GREEN,
-                    disabled: aldermanActing,
-                  })}
-                  disabled={aldermanActing}
+                  style={inkButtonStyle({ color: SEAL_GREEN })}
                   onClick={() =>
                     act('allow_autoexport_category', {
                       category: activeGroup.category,
                     })
                   }
-                  title={
-                    aldermanActing
-                      ? aldermanBlockTitle
-                      : `Let the daily autoexport ship ${activeGroup.label} surplus abroad.`
-                  }
+                  title={`Let the daily autoexport ship ${activeGroup.label} surplus abroad.`}
                 >
                   Autoexport On
                 </button>
                 <button
                   type="button"
-                  style={inkButtonStyle({
-                    color: SEAL_RED,
-                    disabled: aldermanActing,
-                  })}
-                  disabled={aldermanActing}
+                  style={inkButtonStyle({ color: SEAL_RED })}
                   onClick={() =>
                     act('bar_autoexport_category', {
                       category: activeGroup.category,
                     })
                   }
-                  title={
-                    aldermanActing
-                      ? aldermanBlockTitle
-                      : `Stop autoexporting ${activeGroup.label} surplus.`
-                  }
+                  title={`Stop autoexporting ${activeGroup.label} surplus.`}
                 >
                   Autoexport Off
                 </button>
@@ -265,7 +225,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                       onToggle={() => toggleExpanded(`${row.good_id}-export`)}
                       onTrade={onTrade}
                     />
-                    <StockpileStrip row={row} aldermanActing={aldermanActing} />
+                    <StockpileStrip row={row} />
                   </div>
                 );
               })}
@@ -498,19 +458,14 @@ const flagPillStyle = (active: boolean): React.CSSProperties => ({
   fontFamily: 'inherit',
 });
 
-const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
+const StockpileStrip = (props: { row: MarketRow }) => {
   const { act, data } = useBackend<Data>();
-  const { row, aldermanActing } = props;
+  const { row } = props;
   const goodId = row.good_id;
   const goodName = data.good_catalog[goodId]?.name ?? goodId;
-  const cannotSell = aldermanActing || !!row.never_supplied || row.stock <= 0;
-  const cannotBuy = aldermanActing || !!row.never_supplied || !!row.sold_out;
+  const cannotSell = !!row.never_supplied || row.stock <= 0;
+  const cannotBuy = !!row.never_supplied || !!row.sold_out;
   const autoexportDisabled = !!row.autoexport_disabled;
-  const blockTitle =
-    "As Alderman, you can't change this.";
-  const stripStyleEffective: React.CSSProperties = aldermanActing
-    ? { ...stripStyle, opacity: 0.55, textDecoration: 'line-through' }
-    : stripStyle;
 
   const sellToMarket = () => {
     if (cannotSell) return;
@@ -537,10 +492,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
   };
 
   return (
-    <div
-      style={stripStyleEffective}
-      title={aldermanActing ? blockTitle : undefined}
-    >
+    <div style={stripStyle}>
       <span style={stripCellStyle}>
         Market:{' '}
         <span style={stripValueStyle}>
@@ -561,11 +513,9 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
         disabled={cannotSell}
         onClick={sellToMarket}
         title={
-          aldermanActing
-            ? blockTitle
-            : row.never_supplied
-              ? 'The market does not take this good.'
-              : `Sell royal stock to the market. The first sells for ${formatMammon(row.market_sell)}m, and the price falls as the market fills.`
+          row.never_supplied
+            ? 'The market does not take this good.'
+            : `Sell royal stock to the market. The first sells for ${formatMammon(row.market_sell)}m, and the price falls as the market fills.`
         }
       >
         Sell to Market
@@ -576,13 +526,11 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
         disabled={cannotBuy}
         onClick={buyFromMarket}
         title={
-          aldermanActing
-            ? blockTitle
-            : row.never_supplied
-              ? 'The market does not supply this good.'
-              : row.sold_out
-                ? 'The market is out of this good.'
-                : `Buy from the market into royal stock, paid by the Treasury. The first costs ${formatMammon(row.market_buy)}m, and the price rises as the market empties.`
+          row.never_supplied
+            ? 'The market does not supply this good.'
+            : row.sold_out
+              ? 'The market is out of this good.'
+              : `Buy from the market into royal stock, paid by the Treasury. The first costs ${formatMammon(row.market_buy)}m, and the price rises as the market empties.`
         }
       >
         Buy from Market
@@ -591,13 +539,8 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
       <button
         type="button"
         style={flagPillStyle(!autoexportDisabled)}
-        disabled={aldermanActing}
         onClick={() => act('toggle_autoexport_disabled', { good_id: goodId })}
-        title={
-          aldermanActing
-            ? blockTitle
-            : 'Toggle Autoexport. When off, surplus stays in the stockpile.'
-        }
+        title="Toggle Autoexport. When off, surplus stays in the stockpile."
       >
         {autoexportDisabled ? 'No-X' : 'X-OK'}
       </button>
