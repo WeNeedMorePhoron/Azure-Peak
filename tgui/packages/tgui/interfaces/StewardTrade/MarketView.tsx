@@ -20,6 +20,7 @@ import {
 } from '../common/parchment';
 import { groupByCategory } from './helpers';
 import type { Data, MarketRegionOption, MarketRow } from './types';
+import { formatMammon } from '../common/format';
 
 type Side = 'import' | 'export';
 
@@ -96,7 +97,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
         <div style={{ color: INK_SOFT }}>
           Arbitrage potential:{' '}
           <span style={{ color: SEAL_AMBER, fontWeight: 'bold' }}>
-            {total_arbitrage_potential}m
+            {formatMammon(total_arbitrage_potential)}m
           </span>
         </div>
         <div style={{ display: 'flex', gap: '6px' }}>
@@ -662,7 +663,7 @@ const RegionRow = (props: {
     >
       <span>
         {regionName} @{' '}
-        <span style={{ color: SEAL_AMBER }}>{region.unit_price}m/u</span>
+        <span style={{ color: SEAL_AMBER }}>{formatMammon(region.unit_price)}m/u</span>
         {region.capacity_total > 0 && (
           <span
             title={
@@ -830,7 +831,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
           disabled={aldermanActing}
           onClick={editBuy}
         >
-          {Math.round(row.buy_price * 10) / 10}m
+          {formatMammon(row.buy_price)}m
         </button>
         <button
           type="button"
@@ -856,7 +857,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
           disabled={aldermanActing}
           onClick={editSell}
         >
-          {Math.round(row.sell_price * 10) / 10}m
+          {formatMammon(row.sell_price)}m
         </button>
       </span>
       <span style={stripCellStyle}>
@@ -887,7 +888,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
       </span>
       {margin > 0 && (
         <span style={{ ...stripCellStyle, color: SEAL_AMBER }}>
-          +{Math.round(margin * 10) / 10}m/u → {potential}m
+          +{formatMammon(margin)}m/u → {potential}m
         </span>
       )}
       <span style={{ flex: 1 }} />

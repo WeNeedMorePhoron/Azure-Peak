@@ -904,7 +904,7 @@ SUBSYSTEM_DEF(economy)
 
 	if(SStreasury.discretionary_fund.balance < total_cost)
 		if(user)
-			to_chat(user, span_warning("The Treasury can't afford this import. It has [SStreasury.discretionary_fund.balance]m and needs [total_cost]m."))
+			to_chat(user, span_warning("The Treasury can't afford this import. It has [format_mammon(SStreasury.discretionary_fund.balance)]m and needs [format_mammon(total_cost)]m."))
 		return 0
 
 	var/actor_suffix = user ? " by [user.real_name]" : ""
@@ -915,9 +915,9 @@ SUBSYSTEM_DEF(economy)
 		import_label = user ? "Manual Import" : "Autoimport"
 
 	if(quantity > 1)
-		SStreasury.burn_fractional(SStreasury.discretionary_fund, total_cost, "[import_label]: [quantity] [tg.name] from [region.name][actor_suffix]", LEDGER_CROWN_EXP_IMPORTS)
+		SStreasury.burn(SStreasury.discretionary_fund, total_cost, "[import_label]: [quantity] [tg.name] from [region.name][actor_suffix]", LEDGER_CROWN_EXP_IMPORTS)
 	else
-		SStreasury.burn_fractional(SStreasury.discretionary_fund, total_cost, "[import_label]: [tg.name] from [region.name][actor_suffix]", LEDGER_CROWN_EXP_IMPORTS)
+		SStreasury.burn(SStreasury.discretionary_fund, total_cost, "[import_label]: [tg.name] from [region.name][actor_suffix]", LEDGER_CROWN_EXP_IMPORTS)
 
 	region.produces_today[good_id] = produces_today - quantity
 	var/datum/roguestock/stockpile_entry = find_stockpile_by_trade_good(good_id)
@@ -969,7 +969,7 @@ SUBSYSTEM_DEF(economy)
 	var/actor_suffix = user ? " by [user.real_name]" : ""
 	var/export_label = user ? "Manual Export" : "Autoexport"
 	SStreasury.dirty_market_view()
-	SStreasury.mint_fractional(SStreasury.discretionary_fund, total_revenue, "[export_label]: [quantity] [tg.name] to [region.name][actor_suffix]", null, LEDGER_CROWN_REV_EXPORT_SALES)
+	SStreasury.mint(SStreasury.discretionary_fund, total_revenue, "[export_label]: [quantity] [tg.name] to [region.name][actor_suffix]", null, LEDGER_CROWN_REV_EXPORT_SALES)
 	SStreasury.total_export += total_revenue
 	SStreasury.economic_output += total_revenue
 	// do_export records this too; every other export route (manual, mass, autoexport) lands here instead.

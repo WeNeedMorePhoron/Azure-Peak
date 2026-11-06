@@ -53,7 +53,6 @@
 /obj/structure/roguemachine/withdraw/ui_data(mob/user)
 	var/list/data = list()
 	data["budget"] = withdraw_tab.budget
-	data["owed"] = SStreasury.get_stockpile_owed(user)
 	data["compact"] = withdraw_tab.compact ? TRUE : FALSE
 	data["categories"] = withdraw_tab.categories
 	data["category"] = withdraw_tab.current_category

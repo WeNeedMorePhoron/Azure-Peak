@@ -1,3 +1,24 @@
+/proc/mammon_round(amount)
+	return round(amount, MAMMON_PRECISION)
+
+/proc/format_mammon(amount)
+	amount = mammon_round(amount)
+	var/negative = amount < 0
+	amount = abs(amount)
+	var/whole = floor(amount)
+	var/cents = round((amount - whole) * 100, 1)
+	if(cents >= 100)
+		whole += 1
+		cents = 0
+	var/text = num2text(whole, 12)
+	if(cents && cents % 10 == 0)
+		text += ".[cents / 10]"
+	else if(cents && cents < 10)
+		text += ".0[cents]"
+	else if(cents)
+		text += ".[cents]"
+	return negative ? "-[text]" : text
+
 /datum/controller/subsystem/treasury/proc/log_fund_entry(datum/treasury_entry/entry)
 	if(!entry)
 		return
@@ -166,65 +187,29 @@
 /// income_acct classifies where the money came from: a ledger account id, or an assoc list of
 /// account id -> amount for split receipts. Unclassified receipts land in the book's suspense account.
 /datum/controller/subsystem/treasury/proc/mint(datum/fund/to_fund, amount, reason, from_label, income_acct)
+	amount = mammon_round(amount)
 	if(!to_fund || amount <= 0)
 		return FALSE
 	var/list/debt_legs = list()
 	var/credited = skim_for_banditry_debt(to_fund, amount, debt_legs)
-	credited = skim_for_treasury_debt(to_fund, credited, debt_legs)
+	credited = mammon_round(skim_for_treasury_debt(to_fund, credited, debt_legs))
 	if(credited > 0)
-		to_fund.balance += credited
+		to_fund.balance = mammon_round(to_fund.balance + credited)
 	if(credited > 0 || length(debt_legs))
 		var/datum/treasury_entry/entry = new("mint", null, to_fund, credited, reason, from_label)
 		entry.legs = ledger_in_legs(to_fund, credited, amount, income_acct, debt_legs)
 		log_fund_entry(entry)
 	return TRUE
 
-/datum/controller/subsystem/treasury/proc/mint_fractional(datum/fund/to_fund, amount, reason, datum/fund/source_fund, income_acct)
-	if(!to_fund || amount <= 0)
-		return 0
-	var/total = amount
-	for(var/list/entry as anything in to_fund.pending_micro)
-		total += entry["amount"]
-	total = round(total, STOCKPILE_OWED_PRECISION)
-	var/whole = floor(total)
-	if(whole < 1)
-		to_fund.pending_micro += list(list(
-			"amount" = amount,
-			"source" = source_fund ? WEAKREF(source_fund) : null,
-			"reason" = reason,
-		))
-		return 0
-	var/carried = length(to_fund.pending_micro)
-	for(var/list/entry as anything in to_fund.pending_micro)
-		var/datum/weakref/source_ref = entry["source"]
-		var/datum/fund/source = source_ref?.resolve()
-		// Memo line only: the combined mint below is the posting.
-		log_fund_entry(new /datum/treasury_entry("micro", source, to_fund, entry["amount"], entry["reason"]))
-	to_fund.pending_micro = list()
-	var/remainder = round(total - whole, STOCKPILE_OWED_PRECISION)
-	if(remainder > 0)
-		to_fund.pending_micro += list(list("amount" = remainder, "source" = null, "reason" = "carryover"))
-	mint(to_fund, whole, carried ? "[reason] (with [carried] small payments carried over)" : reason, null, income_acct)
-	return whole
-
-/datum/controller/subsystem/treasury/proc/burn_fractional(datum/fund/from_fund, amount, reason, expense_acct)
-	if(!from_fund || amount <= 0)
-		return 0
-	var/total = round(from_fund.pending_burn + amount, STOCKPILE_OWED_PRECISION)
-	var/whole = floor(total)
-	from_fund.pending_burn = round(total - whole, STOCKPILE_OWED_PRECISION)
-	if(whole > 0)
-		burn(from_fund, whole, reason, expense_acct)
-	return whole
-
 /// expense_acct classifies where the money went: a ledger account id, or an assoc list of
 /// account id -> amount. Unclassified disbursements land in the book's suspense account.
 /datum/controller/subsystem/treasury/proc/burn(datum/fund/from_fund, amount, reason, expense_acct)
+	amount = mammon_round(amount)
 	if(!from_fund || amount <= 0)
 		return FALSE
-	if(from_fund.balance < amount)
+	if(mammon_round(from_fund.balance) < amount)
 		return FALSE
-	from_fund.balance -= amount
+	from_fund.balance = mammon_round(from_fund.balance - amount)
 	var/datum/treasury_entry/entry = new("burn", from_fund, null, amount, reason)
 	entry.legs = ledger_out_legs(from_fund, amount, expense_acct)
 	log_fund_entry(entry)
@@ -233,18 +218,19 @@
 /// expense_acct is the payer's side of the posting, income_acct the receiver's. Each side is
 /// balanced inside its own book, so a transfer between two institutions posts four legs.
 /datum/controller/subsystem/treasury/proc/transfer(datum/fund/from_fund, datum/fund/to_fund, amount, reason, expense_acct, income_acct)
+	amount = mammon_round(amount)
 	if(!from_fund || !to_fund || amount <= 0)
 		return FALSE
 	if(from_fund.currency != to_fund.currency)
 		stack_trace("Treasury transfer with mismatched currencies: [from_fund.currency] -> [to_fund.currency] ([reason])")
 		return FALSE
-	if(from_fund.balance < amount)
+	if(mammon_round(from_fund.balance) < amount)
 		return FALSE
-	from_fund.balance -= amount
+	from_fund.balance = mammon_round(from_fund.balance - amount)
 	var/list/debt_legs = list()
 	var/credited = skim_for_banditry_debt(to_fund, amount, debt_legs)
-	credited = skim_for_treasury_debt(to_fund, credited, debt_legs)
-	to_fund.balance += credited
+	credited = mammon_round(skim_for_treasury_debt(to_fund, credited, debt_legs))
+	to_fund.balance = mammon_round(to_fund.balance + credited)
 	var/datum/treasury_entry/entry = new("transfer", from_fund, to_fund, amount, reason)
 	entry.legs = ledger_out_legs(from_fund, amount, expense_acct) + ledger_in_legs(to_fund, credited, amount, income_acct, debt_legs)
 	log_fund_entry(entry)

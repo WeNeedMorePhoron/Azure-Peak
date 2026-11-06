@@ -30,6 +30,7 @@ import { SequestrationBanner } from './StewardTrade/SequestrationBanner';
 import { TabBar } from './StewardTrade/TabBar';
 import { TradeModal, type TradeModalRequest } from './StewardTrade/TradeModal';
 import type { Data, TabKey } from './StewardTrade/types';
+import { formatMammon } from './common/format';
 
 export const StewardTrade = () => {
   const { data, act } = useBackend<Data>();
@@ -56,7 +57,7 @@ export const StewardTrade = () => {
           <div style={subtitleStyle}>
             Day {data.day} &middot; Treasury:{' '}
             <span style={{ color: SEAL_AMBER, fontWeight: 'bold' }}>
-              {data.treasury}m
+              {formatMammon(data.treasury)}m
             </span>
           </div>
           <div
@@ -69,7 +70,7 @@ export const StewardTrade = () => {
           >
             At dawn:{' '}
             <span style={{ color: SEAL_AMBER }}>
-              +{data.expected_rural_revenue}m
+              +{formatMammon(data.expected_rural_revenue)}m
             </span>{' '}
             <span
               style={{ cursor: 'help' }}
@@ -79,14 +80,14 @@ export const StewardTrade = () => {
             </span>{' '}
             &middot;{' '}
             <span style={{ color: SEAL_AMBER }}>
-              -{data.expected_wage_outlay}m
+              -{formatMammon(data.expected_wage_outlay)}m
             </span>{' '}
             wages &middot; Net{' '}
             <span style={{ color: SEAL_AMBER, fontWeight: 'bold' }}>
               {data.expected_rural_revenue - data.expected_wage_outlay >= 0
                 ? '+'
                 : ''}
-              {data.expected_rural_revenue - data.expected_wage_outlay}m
+              {formatMammon(data.expected_rural_revenue - data.expected_wage_outlay)}m
             </span>
           </div>
           <hr style={rulerStyle} />
@@ -114,7 +115,7 @@ export const StewardTrade = () => {
               <div>
                 Trade warrant:{' '}
                 <span style={{ color: SEAL_AMBER, fontWeight: 'bold' }}>
-                  {warrant.trade_remaining}m
+                  {formatMammon(warrant.trade_remaining)}m
                 </span>{' '}
                 of {warrant.trade_cap}m remaining today
               </div>

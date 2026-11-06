@@ -641,7 +641,7 @@
 			contents += " <a href='?src=\ref[src];compact=1'>\[Compact: [compact? "ENABLED" : "DISABLED"]\]</a><BR>"
 			contents += "<center>Bank<BR>"
 			contents += "--------------<BR>"
-			contents += "Treasury: [SStreasury.discretionary_fund.balance]m</center><BR>"
+			contents += "Treasury: [format_mammon(SStreasury.discretionary_fund.balance)]m</center><BR>"
 			contents += "<a href='?src=\ref[src];payroll=1'>\[Pay by Class\]</a><BR><BR>"
 			// Collect all accounts, sort debtors/arrears first, then rest.
 			var/list/priority_accounts = list() // debtors or in arrears
@@ -674,9 +674,9 @@
 				if(compact)
 					if(ishuman(A))
 						var/mob/living/carbon/human/tmp = A
-						contents += "[tmp.real_name] ([job_filter(tmp.advjob, tmp.job, compact)]) - [balance]m[debt_tag]"
+						contents += "[tmp.real_name] ([job_filter(tmp.advjob, tmp.job, compact)]) - [format_mammon(balance)]m[debt_tag]"
 					else
-						contents += "[A.real_name] - [balance]m[debt_tag]"
+						contents += "[A.real_name] - [format_mammon(balance)]m[debt_tag]"
 					contents += " / <a href='?src=\ref[src];givemoney=\ref[A]'>\[PAY\]</a>"
 					if(show_fiscal_actions)
 						contents += " <a href='?src=\ref[src];fineaccount=\ref[A]'>\[[fine_label]\]</a> <a href='?src=\ref[src];togglewages=\ref[A]'>\[[wage_status_short]\]</a>"
@@ -684,9 +684,9 @@
 				else
 					if(ishuman(A))
 						var/mob/living/carbon/human/tmp = A
-						contents += "[tmp.real_name] ([job_filter(tmp.advjob, tmp.job, compact)]) - [balance]m[debt_tag]<BR>"
+						contents += "[tmp.real_name] ([job_filter(tmp.advjob, tmp.job, compact)]) - [format_mammon(balance)]m[debt_tag]<BR>"
 					else
-						contents += "[A.real_name] - [balance]m[debt_tag]<BR>"
+						contents += "[A.real_name] - [format_mammon(balance)]m[debt_tag]<BR>"
 					contents += "<a href='?src=\ref[src];givemoney=\ref[A]'>\[Give Money\]</a>"
 					if(show_fiscal_actions)
 						contents += " <a href='?src=\ref[src];fineaccount=\ref[A]'>\[[fine_long_label]\]</a> <a href='?src=\ref[src];togglewages=\ref[A]'>\[[wage_status_long]\]</a>"
@@ -695,7 +695,7 @@
 			contents += "<a href='?src=\ref[src];switchtab=[TAB_MAIN]'>\[Return\]</a><BR>"
 			contents += "<center>Debts &amp; Arrears<BR>"
 			contents += "--------------<BR>"
-			contents += "Treasury: [SStreasury.discretionary_fund.balance]m</center><BR>"
+			contents += "Treasury: [format_mammon(SStreasury.discretionary_fund.balance)]m</center><BR>"
 			// ── Active Loans ──────────────────────────────────────────────────
 			if(length(SStreasury.loans))
 				var/crown_loans = 0
@@ -725,9 +725,9 @@
 					var/balance = SStreasury.get_balance(A)
 					if(is_debtor)
 						var/owed_str = poll_owed > 0 ? ", owes [poll_owed]m" : ""
-						contents += "<font color='#d9534f'><b>[A.real_name]</b> \[DEBTOR[owed_str]\]</font> - balance: [balance]m"
+						contents += "<font color='#d9534f'><b>[A.real_name]</b> \[DEBTOR[owed_str]\]</font> - balance: [format_mammon(balance)]m"
 					else
-						contents += "<font color='#e07b39'><b>[A.real_name]</b> \[ARREARS: [poll_owed]m\]</font> - balance: [balance]m"
+						contents += "<font color='#e07b39'><b>[A.real_name]</b> \[ARREARS: [poll_owed]m\]</font> - balance: [format_mammon(balance)]m"
 					contents += "<BR>"
 				contents += "<BR>"
 			else
@@ -742,13 +742,13 @@
 			contents += "<center>Imports<BR>"
 			contents += "--------------<BR>"
 			if(compact)
-				contents += "Treasury: [SStreasury.discretionary_fund.balance]m</center><BR>"
+				contents += "Treasury: [format_mammon(SStreasury.discretionary_fund.balance)]m</center><BR>"
 				for(var/datum/crown_import/A in GLOB.crown_imports)
 					var/blockade_tag = A.is_blockaded() ? " <font color='#c44'>(BLOCKADED)</font>" : ""
 					contents += "<b>[A.name][blockade_tag]:</b>"
 					contents += " <a href='?src=\ref[src];import=\ref[A]'>\[Import [A.import_amt] ([A.get_import_price()])\]</a><BR>"
 			else
-				contents += "Treasury: [SStreasury.discretionary_fund.balance]m</center><BR>"
+				contents += "Treasury: [format_mammon(SStreasury.discretionary_fund.balance)]m</center><BR>"
 				for(var/datum/crown_import/A in GLOB.crown_imports)
 					var/blockade_tag_full = A.is_blockaded() ? " <font color='#c44'>(BLOCKADED - 2x COST)</font>" : ""
 					contents += "<b>[A.name][blockade_tag_full]</b> - <i>[A.desc]</i> "
@@ -899,7 +899,7 @@
 			contents += "<a href='?src=\ref[src];switchtab=[TAB_MAIN]'>\[Return\]</a><BR>"
 			contents += "<center>Daily Payments<BR>"
 			contents += "--------------<BR>"
-			contents += "Treasury: [SStreasury.discretionary_fund.balance]m<BR>"
+			contents += "Treasury: [format_mammon(SStreasury.discretionary_fund.balance)]m<BR>"
 			var/list/headcount_by_job = list()
 			for(var/mob/living/o as anything in SStreasury.bank_accounts)
 				if(!o || !daily_payments[o.job])

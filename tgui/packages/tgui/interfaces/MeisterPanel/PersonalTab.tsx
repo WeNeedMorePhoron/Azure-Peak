@@ -15,6 +15,7 @@ import {
   sectionHeaderStyle,
 } from '../common/parchment';
 import type { TabProps } from './types';
+import { formatMammon } from '../common/format';
 
 const DENOMS = [
   { id: 'GOLD', label: 'Gold', value: 10 },
@@ -47,7 +48,7 @@ export const PersonalTab = ({ data, act }: TabProps) => {
         <div style={fieldLabelStyle}>Balance</div>
         <div style={fieldValueStyle}>
           <span style={{ color: SEAL_AMBER, fontWeight: 'bold' }}>
-            {data.account_balance}m
+            {formatMammon(data.account_balance)}m
           </span>
         </div>
       </div>

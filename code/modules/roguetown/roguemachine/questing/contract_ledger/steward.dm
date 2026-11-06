@@ -189,11 +189,11 @@
 				return
 			topup_share = cost - max(0, source_fund.balance)
 			if(SStreasury.discretionary_fund.balance < topup_share)
-				to_chat(steward, span_warning("The Treasury can't cover the shortfall. Need [topup_share]m, have [SStreasury.discretionary_fund.balance]m."))
+				to_chat(steward, span_warning("The Treasury can't cover the shortfall. Need [topup_share]m, have [format_mammon(SStreasury.discretionary_fund.balance)]m."))
 				return
 			funding = "pledge_topup"
 		else if(source_fund.balance < cost)
-			to_chat(steward, span_warning("Insufficient [source_fund.name]. Need [cost]m, have [source_fund.balance]m."))
+			to_chat(steward, span_warning("Insufficient [source_fund.name]. Need [cost]m, have [format_mammon(source_fund.balance)]m."))
 			return
 		if(cost > topup_share)
 			draws += list(list("fund" = source_fund, "amount" = cost - topup_share))

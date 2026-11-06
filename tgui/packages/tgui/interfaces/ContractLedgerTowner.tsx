@@ -3,6 +3,7 @@ import { Button } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
+import { formatMammon } from './common/format';
 
 type Tier = 'medium' | 'hard' | 'perilous';
 type Funder = 'personal' | 'crown' | 'company';
@@ -334,9 +335,9 @@ export const TownerPostingPanel = () => {
         </span>
         <span>
           Postings: {data.towner_active_postings} / {data.towner_max_postings} |
-          Balance: {data.balance}m
-          {anyCrown && <> | Treasury: {data.towner_purse_balance ?? 0}m</>}
-          {anyCompany && <> | ATC: {data.towner_company_balance ?? 0}m</>}
+          Balance: {formatMammon(data.balance)}m
+          {anyCrown && <> | Treasury: {formatMammon(data.towner_purse_balance)}m</>}
+          {anyCompany && <> | ATC: {formatMammon(data.towner_company_balance)}m</>}
         </span>
       </div>
       <div style={blurbStyle}>

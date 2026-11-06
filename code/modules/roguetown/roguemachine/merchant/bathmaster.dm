@@ -280,8 +280,7 @@
 			return TRUE
 		if("change")
 			if(budget > 0)
-				budget2change(budget, usr)
-				budget = 0
+				budget = refund_pouch(budget, usr)
 			return TRUE
 		if("buy")
 			return handle_buy(H, params)

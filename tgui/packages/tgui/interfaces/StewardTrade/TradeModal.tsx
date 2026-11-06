@@ -19,6 +19,7 @@ import {
   SERIF,
 } from '../common/parchment';
 import type { Data, TradeQuote } from './types';
+import { formatMammon } from '../common/format';
 
 export type TradeModalRequest = {
   side: 'import' | 'export';
@@ -483,13 +484,13 @@ export const TradeModal = (props: TradeModalProps) => {
           <div style={lineStyle}>
             <span style={lineLabelStyle}>Base unit price</span>
             <span style={lineValueStyle}>
-              {quote ? `${quote.base_unit_price}m / unit` : '...'}
+              {quote ? `${formatMammon(quote.base_unit_price)}m / unit` : '...'}
             </span>
           </div>
           <div style={lineStyle}>
             <span style={lineLabelStyle}>Base subtotal</span>
             <span style={lineValueStyle}>
-              {quote ? `${quote.base_subtotal}m` : '...'}
+              {quote ? `${formatMammon(quote.base_subtotal)}m` : '...'}
             </span>
           </div>
           <div
@@ -526,7 +527,7 @@ export const TradeModal = (props: TradeModalProps) => {
             <span
               style={{ ...lineValueStyle, color: SEAL_AMBER, fontSize: '17px' }}
             >
-              {quote ? `${quote.total}m` : '...'}
+              {quote ? `${formatMammon(quote.total)}m` : '...'}
             </span>
           </div>
           <div style={lineStyle}>
@@ -543,7 +544,7 @@ export const TradeModal = (props: TradeModalProps) => {
                     : SEAL_GREEN,
               }}
             >
-              {quote ? `${quote.balance_after}m` : '...'}
+              {quote ? `${formatMammon(quote.balance_after)}m` : '...'}
             </span>
           </div>
           <div style={lineStyle}>

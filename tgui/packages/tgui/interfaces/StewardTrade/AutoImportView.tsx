@@ -20,6 +20,7 @@ import {
 } from '../common/parchment';
 import { groupByCategory } from './helpers';
 import type { AutoImportRow, Data } from './types';
+import { formatMammon } from '../common/format';
 
 export const AutoImportView = (props: { data: Data }) => {
   const { act } = useBackend<Data>();
@@ -70,7 +71,7 @@ export const AutoImportView = (props: { data: Data }) => {
             <div style={{ fontSize: FONT_BODY, color: INK_SOFT }}>
               Today&apos;s spend:{' '}
               <span style={{ color: SEAL_AMBER, fontWeight: 'bold' }}>
-                {today_spent}m
+                {formatMammon(today_spent)}m
               </span>{' '}
               &middot; Goods on autoimport:{' '}
               <span style={{ fontWeight: 'bold' }}>{activeCount}</span>
@@ -223,7 +224,7 @@ export const AutoImportView = (props: { data: Data }) => {
             >
               <span style={{ fontWeight: 'bold' }}>Day {entry.day}</span>
               <span style={{ color: SEAL_AMBER, fontWeight: 'bold' }}>
-                {entry.spent}m
+                {formatMammon(entry.spent)}m
               </span>
             </div>
             {entry.lines.length === 0 ? (

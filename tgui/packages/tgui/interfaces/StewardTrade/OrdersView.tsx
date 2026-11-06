@@ -16,6 +16,7 @@ import {
   sectionHeaderStyle,
 } from '../common/parchment';
 import type { Data, Order } from './types';
+import { formatMammon } from '../common/format';
 
 const PAIR_ACCENT = '#7a5a2f';
 
@@ -157,7 +158,7 @@ const OrderCard = (props: CardProps) => {
         {props.regionCatalog[o.region_id]?.name ?? o.region_id} &middot;{' '}
         {o.days_left}d left &middot; Payout:{' '}
         <span style={{ color: SEAL_AMBER, fontWeight: 'bold' }}>
-          {o.payout}m
+          {formatMammon(o.payout)}m
         </span>
         {o.scarcity_bonus_pct > 0 && (
           <span
@@ -301,7 +302,7 @@ const FulfillButton = (props: { order: Order; onFulfill: () => void }) => {
         title={`You have ${o.partial_pct}% of the goods. Sending them now pays ${o.partial_payout_pct}% of their value. Missing: ${o.shortfall_text}`}
         style={inkButtonStyle({ color: SEAL_AMBER })}
       >
-        Fulfill Partial - {o.partial_pct}% ({o.partial_payout_preview}m)
+        Fulfill Partial - {o.partial_pct}% ({formatMammon(o.partial_payout_preview)}m)
       </button>
     );
   }

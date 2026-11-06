@@ -721,8 +721,7 @@
 			return TRUE
 		if("change")
 			if(budget > 0)
-				budget2change(budget, usr)
-				budget = 0
+				budget = refund_pouch(budget, usr)
 			return TRUE
 		if("secrets")
 			if(!(H.job in profit_id) || is_public)
@@ -845,7 +844,7 @@
 			if(!SSmerchant_trade.consume_cultural_stock(source_ship, path))
 				to_chat(H, span_warning("That stock is no longer available."))
 				return TRUE
-			budget -= total_cost
+			budget = mammon_round(budget - total_cost)
 			record_round_statistic(value_record_key, total_cost)
 			record_round_statistic(STATS_TRADE_VALUE_IMPORTED, total_cost)
 			if(!is_tax_exempt(H))
@@ -963,26 +962,26 @@
 					gross = kin_unit * qty
 					kin_saving = pre_kin - gross
 			var/tariff_active = !is_tax_exempt(H)
-			var/tariff_float = SStreasury.get_tax_rate(TAX_CATEGORY_IMPORT_TARIFF) * gross
-			var/total_cost = gross + (tariff_active ? round(tariff_float) : 0)
+			var/tariff = mammon_round(SStreasury.get_tax_rate(TAX_CATEGORY_IMPORT_TARIFF) * gross)
+			var/total_cost = gross + (tariff_active ? tariff : 0)
 			if(budget < total_cost)
 				say("Not enough!")
 				return TRUE
 			line["qty_fulfilled"] += qty
-			budget -= total_cost
+			budget = mammon_round(budget - total_cost)
 			record_round_statistic(value_record_key, total_cost)
 			record_round_statistic(STATS_TRADE_VALUE_IMPORTED, total_cost)
 			if(tariff_active)
-				if(tariff_float > 0)
-					SStreasury.mint_fractional(SStreasury.discretionary_fund, tariff_float, "[TAX_CATEGORY_IMPORT_TARIFF] (bulk import: [TG.name] x[qty])", null, LEDGER_CROWN_REV_IMPORT_TARIFF)
+				if(tariff > 0)
+					SStreasury.mint(SStreasury.discretionary_fund, tariff, "[TAX_CATEGORY_IMPORT_TARIFF] (bulk import: [TG.name] x[qty])", null, LEDGER_CROWN_REV_IMPORT_TARIFF)
 					SStreasury.apply_concordat_tithe(gross, TAX_CATEGORY_IMPORT_TARIFF, "bulk import")
-					record_featured_stat(FEATURED_STATS_TAX_PAYERS, H, round(tariff_float))
-					record_round_statistic(STATS_TAXES_COLLECTED, round(tariff_float))
-					record_round_statistic(STATS_REVENUE_IMPORT_TARIFF, round(tariff_float))
-					tariff_collected_here += round(tariff_float)
+					record_featured_stat(FEATURED_STATS_TAX_PAYERS, H, tariff)
+					record_round_statistic(STATS_TAXES_COLLECTED, tariff)
+					record_round_statistic(STATS_REVENUE_IMPORT_TARIFF, tariff)
+					tariff_collected_here += tariff
 			else
-				record_round_statistic(STATS_TAXES_EVADED, round(tariff_float))
-				tariff_evaded_here += round(tariff_float)
+				record_round_statistic(STATS_TAXES_EVADED, tariff)
+				tariff_evaded_here += tariff
 			var/turf/T = get_turf(src)
 			record_material_flow(MATERIAL_FLOW_IN, MATERIAL_SOURCE_MERCHANT_IMPORT, TG.item_type, qty, total_cost)
 			for(var/i in 1 to qty)
@@ -991,7 +990,7 @@
 					spawned.atc_sealed = TRUE
 			source_ship.add_favor(gross)
 			playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
-			to_chat(H, span_notice("You buy [qty] [TG.name] from [source_ship.ship_name] for [total_cost]m[tariff_active && tariff_float > 0 ? " (incl. [round(tariff_float)]m import tariff)" : ""][kin_saving > 0 ? " (Kinship saved [kin_saving]m)" : ""]."))
+			to_chat(H, span_notice("You buy [qty] [TG.name] from [source_ship.ship_name] for [format_mammon(total_cost)]m[tariff_active && tariff > 0 ? " (incl. [format_mammon(tariff)]m import tariff)" : ""][kin_saving > 0 ? " (Kinship saved [kin_saving]m)" : ""]."))
 			return TRUE
 		if("set_levy")
 			if(!is_command_center || !(H.job in profit_id) || !SSmerchant_trade)

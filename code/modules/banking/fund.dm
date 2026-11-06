@@ -5,9 +5,6 @@
 	var/datum/weakref/owner_ref
 	var/created_at
 	var/tax_debt = 0
-	var/stockpile_owed = 0
-	var/list/pending_micro = list()
-	var/pending_burn = 0
 	var/wages_suspended = FALSE
 	/// Which double-entry book this fund's cash belongs to. Personal accounts and anything
 	/// unclassified fall under the Citizens control account.

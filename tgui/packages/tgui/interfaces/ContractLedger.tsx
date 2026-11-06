@@ -4,7 +4,7 @@ import type { BooleanLike } from 'tgui-core/react';
 
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { formatRatioPct } from './common/format';
+import { formatMammon, formatRatioPct } from './common/format';
 import { InnkeeperRumorPanel } from './ContractLedgerInnkeeper';
 import {
   type IssuedContract,
@@ -744,7 +744,7 @@ const ActiveStrip = (props: {
             </>
           )}
         </span>
-        <span>Balance: {props.balance} mammon</span>
+        <span>Balance: {formatMammon(props.balance)} mammon</span>
       </div>
       {showFellowshipHelp && (
         <Dialog

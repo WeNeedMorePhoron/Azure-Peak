@@ -220,7 +220,7 @@
 		if(funder == TOWNER_FUNDER_PERSONAL)
 			to_chat(poster, span_warning("You need [cost] mammon in your account to post this."))
 		else
-			to_chat(poster, span_warning("[capitalize(towner_funder_label(funder))] can't afford this. Need [cost]m, have [paying_fund.balance]m."))
+			to_chat(poster, span_warning("[capitalize(towner_funder_label(funder))] can't afford this. Need [cost]m, have [format_mammon(paying_fund.balance)]m."))
 		return
 	var/burn_reason
 	switch(funder)

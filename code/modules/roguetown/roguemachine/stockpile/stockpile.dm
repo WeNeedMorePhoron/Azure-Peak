@@ -56,7 +56,6 @@
 	check_charter_unlock()
 	var/list/data = list()
 	data["budget"] = withdraw_tab.budget
-	data["owed"] = SStreasury.get_stockpile_owed(user)
 	data["compact"] = withdraw_tab.compact ? TRUE : FALSE
 	data["categories"] = categories
 	data["category"] = withdraw_tab.current_category
@@ -256,7 +255,7 @@
 					SStreasury.log_fund_entry(new /datum/treasury_entry(null, SStreasury.discretionary_fund, SStreasury.discretionary_fund, 0, "Subsidy Deposit: [R.name] by [H.real_name]"))
 					send_ooc_note("<b>MEISTER:</b> The [amt]m for your [R.name] stays in the Treasury under your food stipend.", name = H.real_name)
 					return
-				var/paid = pay_seller(H, amt, "from selling [bundle_amt] [R.name] at [R.payout_price]m each", message)
+				var/paid = pay_seller(H, amt, "from selling [bundle_amt] [R.name] at [format_mammon(R.payout_price)]m each")
 				SStreasury.economic_output += paid
 				if(auto_exported && message)
 					say("The [R.name] stockpile is full. The Crown shipped yours abroad. You're still paid.")
@@ -324,7 +323,7 @@
 					var/seller_sign = seller_delta > 0 ? "+" : ""
 					var/crown_sign = crown_delta > 0 ? "+" : ""
 					reason = "from selling [R.name] at [amt]m (quality: you [seller_sign][seller_delta]m, Crown [crown_sign][crown_delta]m, against the usual [quality_baseline]m)"
-				pay_seller(H, amt, reason, message)
+				pay_seller(H, amt, reason)
 				if(auto_exported && message)
 					say("The [R.name] stockpile is full. The Crown shipped yours abroad. You're still paid.")
 			record_round_statistic(STATS_STOCKPILE_REVENUE, true_value)
@@ -334,15 +333,13 @@
 	if(message)
 		say("[I.name] isn't accepted here.")
 
-/obj/structure/roguemachine/stockpile/proc/pay_seller(mob/H, amount, reason, notify = TRUE)
-	var/paid = SStreasury.settle_stockpile_payout(H, amount)
-	if(paid > 0)
-		SStreasury.give_money_account(paid, H, "+[paid]m [reason]", expense_acct = LEDGER_CROWN_EXP_STOCKPILE, income_acct = LEDGER_CITIZEN_SALES, flow = TREASURY_FLOW_STOCKPILE)
-	var/owed = SStreasury.get_stockpile_owed(H)
-	if(notify && owed > 0)
-		to_chat(H, span_info("You are owed [owed]m. It will be paid once it adds to a whole mammon."))
-	record_round_statistic(STATS_STOCKPILE_EXPANSES, paid)
-	return paid
+/obj/structure/roguemachine/stockpile/proc/pay_seller(mob/H, amount, reason)
+	amount = mammon_round(amount)
+	if(amount <= 0)
+		return 0
+	SStreasury.give_money_account(amount, H, "+[format_mammon(amount)]m [reason]", expense_acct = LEDGER_CROWN_EXP_STOCKPILE, income_acct = LEDGER_CITIZEN_SALES, flow = TREASURY_FLOW_STOCKPILE)
+	record_round_statistic(STATS_STOCKPILE_EXPANSES, amount)
+	return amount
 
 /obj/structure/roguemachine/stockpile/attackby(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/roguecoin/aalloy))

@@ -76,7 +76,7 @@
 		var/mammonsinbank = SStreasury.get_balance(src)
 		var/totalvalue = mammonsonperson + mammonsinbank
 		if(totalvalue && HAS_TRAIT(user, TRAIT_GILDED_SIGHT))
-			. += span_notice("They carry [mammonsonperson] mammons, with [mammonsinbank] stored away, totaling [totalvalue].")
+			. += span_notice("They carry [mammonsonperson] mammons, with [format_mammon(mammonsinbank)] stored away, totaling [format_mammon(totalvalue)].")
 		else if(mammonsonperson && mammonsonperson >= 100)
 			. += span_notice("They carry about [mammonsonperson] mammons with them.")
 	var/obscured = check_obscured_slots()

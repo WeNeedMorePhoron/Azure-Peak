@@ -375,10 +375,12 @@
 			duty_evaded_here += evaded
 	else
 		if(duty_on_gross_float > 0)
-			duty_remitted = SStreasury.mint_fractional(SStreasury.discretionary_fund, duty_on_gross_float, "[TAX_CATEGORY_EXPORT_DUTY] (ship fulfillment)", null, LEDGER_CROWN_REV_EXPORT_DUTY)
+			duty_remitted = mammon_round(duty_on_gross_float)
+			SStreasury.mint(SStreasury.discretionary_fund, duty_remitted, "[TAX_CATEGORY_EXPORT_DUTY] (ship fulfillment)", null, LEDGER_CROWN_REV_EXPORT_DUTY)
 			SStreasury.apply_concordat_tithe(gross, TAX_CATEGORY_EXPORT_DUTY, "ship fulfillment")
 		if(duty_on_levy_float > 0)
-			levy_tax_remitted = SStreasury.mint_fractional(SStreasury.discretionary_fund, duty_on_levy_float, "[TAX_CATEGORY_EXPORT_DUTY] (levy income, ship fulfillment)", null, LEDGER_CROWN_REV_EXPORT_DUTY)
+			levy_tax_remitted = mammon_round(duty_on_levy_float)
+			SStreasury.mint(SStreasury.discretionary_fund, levy_tax_remitted, "[TAX_CATEGORY_EXPORT_DUTY] (levy income, ship fulfillment)", null, LEDGER_CROWN_REV_EXPORT_DUTY)
 			SStreasury.apply_concordat_tithe(levy_float, TAX_CATEGORY_EXPORT_DUTY, "levy income (ship fulfillment)")
 		total_duty = duty_remitted + levy_tax_remitted
 		if(total_duty > 0)
@@ -389,11 +391,12 @@
 				SSmerchant_trade.merchant_levy_taxed += levy_tax_remitted
 	var/merchant_net_float = levy_float - (duty_suspended ? 0 : duty_on_levy_float)
 	if(merchant_net_float > 0)
-		levy_remitted = SStreasury.mint_fractional(SStreasury.merchant_fund, merchant_net_float, "Merchant's levy: [qty] [good_name] -> [ship.ship_name]", null, LEDGER_MERCHANT_LEVY_IN)
+		levy_remitted = mammon_round(merchant_net_float)
+		SStreasury.mint(SStreasury.merchant_fund, levy_remitted, "Merchant's levy: [qty] [good_name] -> [ship.ship_name]", null, LEDGER_MERCHANT_LEVY_IN)
 		if(SSmerchant_trade)
 			SSmerchant_trade.merchant_levy_collected += levy_remitted
 			SSmerchant_trade.log_fund_movement("Fulfillment levy ([ship.ship_name])", levy_remitted)
-	var/producer_payout = gross - duty_remitted - round(levy_float)
+	var/producer_payout = mammon_round(gross - duty_remitted - mammon_round(levy_float))
 	if(producer_payout < 0)
 		producer_payout = 0
 	record_round_statistic(STATS_TRADE_VALUE_EXPORTED, gross)
@@ -420,7 +423,7 @@
 	if(quality_delta != 0)
 		var/q_sign = quality_delta > 0 ? "+" : ""
 		quality_str = ", quality [q_sign][quality_delta]m"
-	var/breakdown = "[qty] [good_name] for [ship.ship_name]: gross [gross]m, Crown [total_duty]m, Merchant [levy_remitted]m[kin_bonus > 0 ? ", Kinship +[kin_bonus]m" : ""][quality_str]"
+	var/breakdown = "[qty] [good_name] for [ship.ship_name]: gross [gross]m, Crown [format_mammon(total_duty)]m, Merchant [format_mammon(levy_remitted)]m[kin_bonus > 0 ? ", Kinship +[kin_bonus]m" : ""][quality_str]"
 	if(producer_payout > 0)
 		SStreasury.give_money_account(producer_payout, user, breakdown, mint_new = TRUE, mint_label = ship ? ship.ship_name : "foreign vessels")
 

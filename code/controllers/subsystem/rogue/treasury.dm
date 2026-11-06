@@ -263,23 +263,6 @@ SUBSYSTEM_DEF(treasury)
 /datum/controller/subsystem/treasury/proc/has_account(target)
 	return !isnull(bank_accounts[target])
 
-/datum/controller/subsystem/treasury/proc/get_stockpile_owed(mob/user)
-	var/datum/fund/account = get_account(user)
-	return account ? account.stockpile_owed : 0
-
-/datum/controller/subsystem/treasury/proc/set_stockpile_owed(mob/user, amount)
-	var/datum/fund/account = get_account(user)
-	if(!account)
-		return FALSE
-	account.stockpile_owed = max(0, round(amount, STOCKPILE_OWED_PRECISION))
-	return TRUE
-
-/datum/controller/subsystem/treasury/proc/settle_stockpile_payout(mob/user, amount)
-	var/owed = round(get_stockpile_owed(user) + amount, STOCKPILE_OWED_PRECISION)
-	var/whole = floor(owed)
-	set_stockpile_owed(user, owed - whole)
-	return whole
-
 /datum/controller/subsystem/treasury/proc/rename_account(mob/living/owner, new_name)
 	var/datum/fund/account = get_account(owner)
 	if(!account)
@@ -393,7 +376,7 @@ SUBSYSTEM_DEF(treasury)
 			if(!is_salary && !flow)
 				record_round_statistic(STATS_DIRECT_TREASURY_TRANSFERS, amt)
 			record_treasury_payout(usr, istype(target, /mob/living) ? target : null, amt, is_salary, flow)
-		send_ooc_note(source ? "<b>MEISTER:</b> You received [amt]m. ([source])" : "<b>MEISTER:</b> You received [amt]m.", name = target_name)
+		send_ooc_note(source ? "<b>MEISTER:</b> You received [format_mammon(amt)]m. ([source])" : "<b>MEISTER:</b> You received [format_mammon(amt)]m.", name = target_name)
 		log_game("CROWN GRANT: [usr ? key_name(usr) : "system"] granted [amt]m to [istype(target, /mob/living) ? key_name(target) : target_name] via [source || "unknown"]")
 		if(isliving(target))
 			collect_poll_levy_arrears(target)
