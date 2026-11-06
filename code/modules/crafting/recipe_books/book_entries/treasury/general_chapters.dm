@@ -506,12 +506,11 @@
 		Burgher to 2.</p>
 
 		<h3>Motions</h3>
-		<p>Six motions stand before every session. All are optional. A silent voter is
+		<p>Four motions stand before every session. All are optional. A silent voter is
 		not counted toward that motion's weight.</p>
 		<ul>
 			<li><b>Election</b> - any subject who can hold office may stand. The eligible
 			candidate with the highest weight takes the seat.</li>
-			<li><b>Trade Authority</b> - a bracket vote setting the Alderman's daily trade warrant. Brackets: [jointext(ASSEMBLY_TRADE_BRACKETS, "m, ")]m.</li>
 			<li><b>Defense Authority</b> - a bracket vote setting the Alderman's daily defense warrant, denominated in Pledge. Brackets: [jointext(ASSEMBLY_DEFENSE_BRACKETS, "p, ")]p.</li>
 			<li><b>Recall</b> - removes a sitting Alderman. Passes on [ASSEMBLY_RECALL_THRESHOLD_PCT]% YAE of cast weight.</li>
 			<li><b>Censure</b> - bars a subject from holding office or wielding warrants for the rest of the round. Passes on [ASSEMBLY_CENSURE_THRESHOLD_PCT]% YAE of cast weight.</li>
@@ -525,17 +524,14 @@
 		<p>A session is valid only if at least [ASSEMBLY_QUORUM_VOTERS] distinct voters have cast a ballot across any of its motions. Below that, the session dissolves and all caps and officers hold as they were.</p>
 
 		<h3>The Alderman</h3>
-		<p>The Alderman holds two daily authorisation ceilings:</p>
+		<p>The Alderman holds a daily authorisation ceiling:</p>
 		<ul>
-			<li><b>Trade</b> - imports and exports spend from the Treasury. The trade
-			warrant caps them each day. The Alderman accesses the Trade Scroll through
-			the Assembly noticeboard's <i>Alderman - Trade</i> button without standing at
-			the Nerve Master.</li> <li><b>Defense</b> - defense contracts and blockade
+			<li><b>Defense</b> - defense contracts and blockade
 			scrolls use the Burgher Pledge at the Contract Ledger. The defense warrant caps
 			them each day. The Alderman can't spend the Treasury on defense and may not
 			issue Requests.</li>
 		</ul>
-		<p>Both ceilings refresh at each session's resolution. Unspent authorisation does not carry over.</p>
+		<p>The ceiling refreshes at each session's resolution. Unspent authorisation does not carry over.</p>
 
 		<h3>Censure</h3>
 		<p>A censured subject cannot stand for Alderman, cannot wield a warrant they hold, and cannot be granted one. The mark lasts the round.</p>

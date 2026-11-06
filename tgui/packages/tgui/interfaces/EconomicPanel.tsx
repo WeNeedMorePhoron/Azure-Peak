@@ -144,8 +144,6 @@ type Assembly = {
   alderman_ckey?: string | null;
   history_count?: number;
   censured_count?: number;
-  trade_cap?: number;
-  trade_remaining?: number;
   defense_cap?: number;
   defense_remaining?: number;
 };
@@ -353,7 +351,6 @@ export const EconomicPanel = () => {
   const [favorAmount, setFavorAmount] = useState(500);
   const [playerMintAmount, setPlayerMintAmount] = useState(50);
   const [simPop, setSimPop] = useState(simulated_player_scalar);
-  const [assemblyTradeCap, setAssemblyTradeCap] = useState(300);
   const [assemblyDefenseCap, setAssemblyDefenseCap] = useState(500);
 
   const applyFilter = (overrides: Partial<Filter> = {}) => {
@@ -1074,10 +1071,6 @@ export const EconomicPanel = () => {
                       <LabeledList.Item label="Alderman">
                         {assembly.alderman_name || '(vacant)'}
                       </LabeledList.Item>
-                      <LabeledList.Item label="Trade Warrant">
-                        {assembly.trade_remaining ?? 0}m /{' '}
-                        {assembly.trade_cap ?? 0}m
-                      </LabeledList.Item>
                       <LabeledList.Item label="Defense Warrant">
                         {assembly.defense_remaining ?? 0}p /{' '}
                         {assembly.defense_cap ?? 0}p
@@ -1135,27 +1128,6 @@ export const EconomicPanel = () => {
                   </Stack.Item>
                 </Stack>
                 <Stack align="center" mt={1}>
-                  <Stack.Item>Trade cap:</Stack.Item>
-                  <Stack.Item>
-                    <NumberInput
-                      step={50}
-                      minValue={0}
-                      maxValue={10000}
-                      value={assemblyTradeCap}
-                      onChange={(v: number) => setAssemblyTradeCap(v)}
-                    />
-                  </Stack.Item>
-                  <Stack.Item>
-                    <Button
-                      onClick={() =>
-                        act('assembly_set_trade_cap', {
-                          amount: assemblyTradeCap,
-                        })
-                      }
-                    >
-                      Set
-                    </Button>
-                  </Stack.Item>
                   <Stack.Item>Defense cap:</Stack.Item>
                   <Stack.Item>
                     <NumberInput

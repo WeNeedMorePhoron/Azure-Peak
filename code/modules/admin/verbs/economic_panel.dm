@@ -136,8 +136,6 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 		assembly["censured_count"] = length(SScity_assembly.censured_refs)
 		var/datum/assembly_warrant/W = SScity_assembly.current_warrant
 		if(W)
-			assembly["trade_cap"] = W.trade_daily_cap
-			assembly["trade_remaining"] = W.trade_remaining
 			assembly["defense_cap"] = W.defense_daily_cap
 			assembly["defense_remaining"] = W.defense_remaining
 	data["assembly"] = assembly
@@ -520,17 +518,8 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 			return TRUE
 		if("assembly_drain_warrant")
 			if(SScity_assembly?.current_warrant)
-				SScity_assembly.current_warrant.trade_remaining = 0
 				SScity_assembly.current_warrant.defense_remaining = 0
 				admin_log_fiscal("drained Alderman warrant", "Drain Warrant")
-			return TRUE
-		if("assembly_set_trade_cap")
-			var/amt = text2num(params["amount"])
-			if(!isnum(amt) || amt < 0)
-				return TRUE
-			SScity_assembly?.current_warrant?.set_trade_cap(round(amt))
-			SScity_assembly?.current_warrant?.refresh_for_day()
-			admin_log_fiscal("set Alderman trade cap to [amt]m", "Set Trade Cap")
 			return TRUE
 		if("assembly_set_defense_cap")
 			var/amt = text2num(params["amount"])

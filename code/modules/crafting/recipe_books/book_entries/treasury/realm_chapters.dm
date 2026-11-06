@@ -19,18 +19,15 @@
 		Does not refill while the Bull is suspended.</p>
 
 		<h3>Alderman's Warrant</h3> <p>An Alderman, elected by the City Assembly,
-		gains a Defense Warrant and a Trade Warrant. Neither are actual currency. They
-		are spending ceilings against the Treasury and the Burgher Pledge:</p>
+		gains a Defense Warrant. It is not actual currency. It is a spending ceiling
+		against the Burgher Pledge:</p>
 		<ul>
-			<li><b>Trade Warrant</b> - a daily mammon ceiling against the Treasury. The
-			Alderman may import and export up to this amount each day. The monetary value
-			of both imports and exports counts against the Warrant. Coin flows to and
-			from the Treasury itself.</li> <li><b>Defense Warrant</b> - a daily Pledge
+			<li><b>Defense Warrant</b> - a daily Pledge
 			ceiling. Defense contracts issued by the Alderman burn Pledge authority up to
 			this cap. The Steward's defense contracts work the same way. The Alderman
 			can't spend the Treasury on defense and may not issue Requests.</li>
 		</ul>
-		<p>Both ceilings refresh at each session's resolution. Unspent authorisation does not carry over.</p>
+		<p>The ceiling refreshes at each session's resolution. Unspent authorisation does not carry over.</p>
 
 		<h3>Crown Authority</h3> <p>The following titles share full Crown authority.
 		They may petition regions, take a loan from the ATC, commission defense and
@@ -209,8 +206,7 @@
 		Autoimport at once, essentials included. Goods can be enabled again one at a
 		time.</p>
 
-		<p>Autoimport spends from the Treasury only. It is not part of any Alderman
-		warrant.</p>
+		<p>Autoimport spends from the Treasury only.</p>
 		</div>
 	"}
 

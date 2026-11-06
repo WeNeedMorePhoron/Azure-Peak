@@ -25,7 +25,6 @@
 
 /datum/city_assembly_panel/ui_static_data(mob/user)
 	return list(
-		"trade_brackets" = ASSEMBLY_TRADE_BRACKETS,
 		"defense_brackets" = ASSEMBLY_DEFENSE_BRACKETS,
 		"quorum_voters" = ASSEMBLY_QUORUM_VOTERS,
 		"recall_threshold_pct" = ASSEMBLY_RECALL_THRESHOLD_PCT,
@@ -50,8 +49,6 @@
 	var/datum/assembly_warrant/W = SScity_assembly?.current_warrant
 	if(W)
 		data["warrant"] = list(
-			"trade_cap" = W.trade_daily_cap,
-			"trade_remaining" = W.trade_remaining,
 			"defense_cap" = W.defense_daily_cap,
 			"defense_remaining" = W.defense_remaining,
 		)
@@ -168,21 +165,6 @@
 				var/resign_job = resigner.job
 				SScity_assembly.demote_alderman("resigned voluntarily")
 				SScity_assembly.notify_alderman_lost_ref(resign_name, resign_job, "resigned")
-			return TRUE
-		if("alderman_trade")
-			// Alderman acts from the Commons' own board, not the Stewardry's locked Nerve Master.
-			// Bypasses the physical-access problem (the Stewardry is locked against them) without
-			// bypassing the warrant cap (the Steward machine's own gate still enforces it).
-			if(!SScity_assembly.is_alderman(usr))
-				to_chat(usr, span_warning("Only the Alderman can trade from this board."))
-				return TRUE
-			if(!SScity_assembly.current_warrant || SScity_assembly.current_warrant.trade_remaining <= 0)
-				to_chat(usr, span_warning("As Alderman, you can't trade right now. The Assembly set no trade warrant, or today's warrant is spent."))
-				return TRUE
-			if(!SStreasury.steward_machine)
-				to_chat(usr, span_warning("There is no Nerve Master in the realm to trade through."))
-				return TRUE
-			SStreasury.steward_machine.open_trade_tgui(usr)
 			return TRUE
 
 /obj/structure/roguemachine/noticeboard/proc/open_assembly_tgui(mob/user)
