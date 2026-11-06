@@ -53,6 +53,7 @@
 	stockpile_limit = 8
 	category = "Refined"
 	accept_toggle_enabled = FALSE
+	market_never_supplies = TRUE
 
 /datum/roguestock/stockpile/bronze_ingot
 	name = "Bronze Ingot"

@@ -52,26 +52,28 @@
 	if(get_dist(parent_structure, user) > 1)
 		return FALSE
 	D.refresh_auto_price()
-	var/total_price = D.withdraw_price
-	if(D.withdraw_disabled && !has_fiscal_authority(user))
+	D.get_market_target()
+	if(D.market_never_supplies || (D.withdraw_disabled && !has_fiscal_authority(user)))
 		parent_structure.say("Not available.")
 		return FALSE
-	if(D.royal_stock <= 0)
-		parent_structure.say("Out of stock.")
-		return FALSE
-	var/food_stipend = ishuman(user) && HAS_TRAIT(user, TRAIT_ROYAL_SUBSIDY)
-	if(!food_stipend && total_price > mammon_round(budget))
-		parent_structure.say("You haven't put in enough mammon.")
-		return FALSE
-	D.royal_stock--
-	SStreasury.dirty_market_view()
-	if(!food_stipend)
-		budget = max(0, mammon_round(budget - total_price))
-		SStreasury.mint(SStreasury.discretionary_fund, total_price, "Stockpile withdrawal", null, LEDGER_CROWN_REV_STOCKPILE_SALES)
-		record_round_statistic(STATS_STOCKPILE_REVENUE, total_price)
-	else
+	var/food_stipend = ishuman(user) && HAS_TRAIT(user, TRAIT_ROYAL_SUBSIDY) && D.royal_stock > 0
+	if(food_stipend)
+		D.royal_stock--
 		var/actor_suffix = user ? " by [user.real_name]" : ""
 		SStreasury.log_fund_entry(new /datum/treasury_entry(null, SStreasury.discretionary_fund, SStreasury.discretionary_fund, 0, "Subsidy Withdraw: [D.name][actor_suffix]"))
+	else
+		if(D.market_stock <= 0 && !D.market_has_supply())
+			parent_structure.say("Out of stock.")
+			return FALSE
+		var/total_price = D.market_ask(1)
+		if(total_price > mammon_round(budget))
+			parent_structure.say("You haven't put in enough mammon.")
+			return FALSE
+		budget = max(0, mammon_round(budget - total_price))
+		D.market_stock = max(0, D.market_stock - 1)
+		D.check_glut_relief()
+		record_round_statistic(STATS_STOCKPILE_REVENUE, total_price)
+	SStreasury.dirty_market_view()
 	var/obj/item/I = new D.item_type(parent_structure.loc)
 	if(food_stipend)
 		to_chat(user, span_info("[parent_structure] chitters and squeaks. Your food stipend pays from the Treasury."))
@@ -83,7 +85,7 @@
 /datum/withdraw_tab/proc/do_direct_import(datum/roguestock/D, mob/user)
 	if(!D || !ishuman(user) || !parent_structure)
 		return FALSE
-	if(!D.trade_good_id)
+	if(!D.trade_good_id || D.market_never_supplies)
 		parent_structure.say("Not available.")
 		return FALSE
 	var/list/quote = get_direct_import_quote(D)

@@ -75,6 +75,40 @@
 #define STOCKPILE_PRICE_STEP 0.1
 #define MAMMON_PRECISION 0.01
 
+#define MARKET_TARGET_MIN 5
+#define MARKET_TARGET_DEFAULT 10
+
+#define MARKET_STEP_GLUT 1
+#define MARKET_STEP_OVERSTOCKED 2
+#define MARKET_STEP_ABUNDANT 3
+#define MARKET_STEP_PLENTIFUL 4
+#define MARKET_STEP_STEADY 5
+#define MARKET_STEP_LOW 6
+#define MARKET_STEP_SCARCE 7
+#define MARKET_STEP_VERY_SCARCE 8
+#define MARKET_STEP_SHORTAGE 9
+
+// Percentage compared to target that determines the stock level. For example, if the target is 10 and the stock is 20, then the ratio is 200% and the market step is OVERSTOCKED.
+#define MARKET_RATIO_OVERSTOCKED 200
+#define MARKET_RATIO_ABUNDANT 160
+#define MARKET_RATIO_PLENTIFUL 125
+#define MARKET_RATIO_STEADY 80
+#define MARKET_RATIO_LOW 65
+#define MARKET_RATIO_SCARCE 50
+
+#define MARKET_GLUT_SHOCK 300
+
+// Price multiplier based on market condition
+#define MARKET_MULT_GLUT 25
+#define MARKET_MULT_OVERSTOCKED 50
+#define MARKET_MULT_ABUNDANT 65
+#define MARKET_MULT_PLENTIFUL 80
+#define MARKET_MULT_STEADY 100
+#define MARKET_MULT_LOW 125
+#define MARKET_MULT_SCARCE 150
+#define MARKET_MULT_VERY_SCARCE 200
+#define MARKET_MULT_SHORTAGE 300
+
 #define TRADE_MAX_BULK_UNITS 50
 
 // Blockade region are tradeable but at a punitive rate.

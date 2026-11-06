@@ -35,12 +35,31 @@ type StockRow = {
   deposit_price: number;
   export_price: number;
   import_price: number;
+  royal_amount: number;
+  never_supplied: BooleanLike;
+  sold_out: BooleanLike;
+  next_buy: PriceChange | null;
+  next_sell: PriceChange | null;
+  segments: MarketSegment[];
+  market_label: string;
   withdraw_disabled: BooleanLike;
   accept_enabled: BooleanLike;
   event_tag: string;
   shortage_progress: number;
   shortage_target: number;
   shortage_affected: string;
+};
+
+type PriceChange = {
+  count: number;
+  price: number;
+};
+
+type MarketSegment = {
+  label: string;
+  from: number;
+  to: number | null;
+  price: number;
 };
 
 type Bounty = {
@@ -108,12 +127,14 @@ const StockRowView = (props: {
 }) => {
   const { row, data, act, compact } = props;
   const noDeposit = !!data.no_deposit;
-  const embargoed = !!row.withdraw_disabled && !data.fiscal_authority;
-  const overriding = !!row.withdraw_disabled && !!data.fiscal_authority;
+  const embargoed =
+    !!row.never_supplied || (!!row.withdraw_disabled && !data.fiscal_authority);
+  const overriding =
+    !row.never_supplied && !!row.withdraw_disabled && !!data.fiscal_authority;
   const canWithdraw =
     !embargoed &&
-    row.amount > 0 &&
-    (row.withdraw_price <= data.budget || !!data.food_stipend);
+    ((!row.sold_out && row.withdraw_price <= data.budget) ||
+      (!!data.food_stipend && row.royal_amount > 0));
   const canImport =
     row.import_price > 0 &&
     (row.import_price <= data.budget || !!data.food_stipend);
@@ -133,6 +154,7 @@ const StockRowView = (props: {
       <div style={{ flex: '1 1 200px', minWidth: 0 }}>
         <span style={{ color: INK, fontWeight: 'bold' }}>{row.name}</span>
         <span style={{ color: INK_SOFT, marginLeft: '6px' }}>
+          {`${row.market_label} `}
           {row.amount}/{row.limit}
         </span>
         {!!row.event_tag && (
@@ -158,17 +180,6 @@ const StockRowView = (props: {
                 ({row.shortage_progress} / {row.shortage_target})
               </span>
             )}
-          </span>
-        )}
-        {!row.accept_enabled && !noDeposit && (
-          <span
-            style={{
-              color: INK_FAINT,
-              fontSize: FONT_BODY,
-              marginLeft: '4px',
-            }}
-          >
-            (no deposits)
           </span>
         )}
         {!!row.withdraw_disabled && (
@@ -220,9 +231,9 @@ const StockRowView = (props: {
               boxSizing: 'border-box',
             }}
             title={
-              row.export_price > 0
-                ? `If the stockpile is full, the Crown still pays you ${formatMammon(row.deposit_price)}m and ships your goods abroad for ${formatMammon(row.export_price)}m each.`
-                : 'Drop these goods at the machine to sell them.'
+              row.next_sell
+                ? `The next ${row.next_sell.count} sell for ${formatMammon(row.deposit_price)}m each. After that, ${formatMammon(row.next_sell.price)}m.`
+                : 'The price will not fall further.'
             }
           >
             Sell {formatMammon(row.deposit_price)}m
@@ -241,10 +252,16 @@ const StockRowView = (props: {
           title={
             overriding
               ? 'Closed to the public. As a Crown official, you can still buy it.'
-              : undefined
+              : row.next_buy
+                ? `The next ${row.next_buy.count} cost ${formatMammon(row.withdraw_price)}m each. After that, ${formatMammon(row.next_buy.price)}m.`
+                : 'The price will not rise further.'
           }
         >
-          {embargoed ? 'Closed' : `Buy ${formatMammon(row.withdraw_price)}m`}
+          {embargoed
+            ? 'Closed'
+            : row.sold_out
+              ? 'Out of stock'
+              : `Buy ${formatMammon(row.withdraw_price)}m`}
         </button>
         <button
           type="button"
@@ -269,6 +286,62 @@ const StockRowView = (props: {
           {row.import_price > 0 ? `Import ${formatMammon(row.import_price)}m` : 'NO SUPPLY'}
         </button>
       </div>
+      {!compact && <MarketBar row={row} />}
+    </div>
+  );
+};
+
+const MarketBar = (props: { row: StockRow }) => {
+  const { row } = props;
+  const segments = row.segments || [];
+  if (!segments.length) {
+    return null;
+  }
+  const last = segments[segments.length - 1];
+  const tail = Math.max(2, Math.round(last.from * 0.25));
+  const span = last.from + tail;
+  const width = (seg: MarketSegment) =>
+    ((seg.to === null ? tail : seg.to - seg.from + 1) / span) * 100;
+  const marker = (Math.min(Math.max(row.amount, 0), span) / span) * 100;
+  return (
+    <div
+      style={{
+        flex: '1 0 100%',
+        position: 'relative',
+        display: 'flex',
+        height: '6px',
+        margin: '2px 0 4px',
+      }}
+    >
+      {segments.map((seg, i) => {
+        const current =
+          row.amount >= seg.from && (seg.to === null || row.amount <= seg.to);
+        const color =
+          i < 3 ? SEAL_RED : i === 3 ? INK_FAINT : SEAL_GREEN;
+        return (
+          <div
+            key={seg.label}
+            title={`${seg.label}: ${seg.from}${seg.to === null ? '+' : `-${seg.to}`} in stock, buy ${formatMammon(seg.price)}m`}
+            style={{
+              width: `${width(seg)}%`,
+              background: color,
+              opacity: current ? 0.9 : 0.35,
+              borderRight: `1px solid ${PARCHMENT_SHADOW}`,
+              boxSizing: 'border-box',
+            }}
+          />
+        );
+      })}
+      <div
+        style={{
+          position: 'absolute',
+          left: `${marker}%`,
+          top: '-2px',
+          width: '2px',
+          height: '10px',
+          background: INK,
+        }}
+      />
     </div>
   );
 };

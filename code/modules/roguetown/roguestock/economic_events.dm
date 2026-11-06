@@ -21,6 +21,7 @@ GLOBAL_LIST_EMPTY(active_economic_events)
 		if(tg)
 			tg.global_price_mod *= price_mod
 	refresh_affected_stockpile_caches()
+	shock_market_stock()
 	if(event_type == ECON_EVENT_SHORTAGE)
 		var/effective_pop = SSeconomy ? SSeconomy.get_effective_player_count() : get_active_player_count()
 		var/pop_mult = min(REGION_POP_SCALE_MAX, 1.0 + (effective_pop * REGION_POP_SCALE_PER_PLAYER))
@@ -73,6 +74,17 @@ GLOBAL_LIST_EMPTY(active_economic_events)
 			D.compute_auto_prices(tg)
 	SStreasury.dirty_market_view()
 
+/datum/economic_event/proc/shock_market_stock()
+	for(var/good_id in affected_goods)
+		var/datum/roguestock/D = SStreasury.stockpile_by_trade_good[good_id]
+		if(!D)
+			continue
+		if(event_type == ECON_EVENT_OVERSUPPLY)
+			D.market_stock = max(D.market_stock, CEILING(D.get_market_target() * MARKET_GLUT_SHOCK / 100, 1))
+		else if(event_type == ECON_EVENT_SHORTAGE)
+			D.market_stock = 0
+	SStreasury.dirty_market_view()
+
 /datum/economic_event/proc/end_with_relief()
 	if(relief_triggered)
 		return
@@ -81,7 +93,8 @@ GLOBAL_LIST_EMPTY(active_economic_events)
 	GLOB.active_economic_events -= src
 	if(SSeconomy)
 		SSeconomy.event_path_cooldowns[type] = GLOB.dayspassed + ECON_EVENT_REROLL_COOLDOWN_DAYS
-	record_round_statistic(STATS_SHORTAGES_ENDED, 1)
+	if(event_type == ECON_EVENT_SHORTAGE)
+		record_round_statistic(STATS_SHORTAGES_ENDED, 1)
 	var/list/diff = SSeconomy?.daily_report_diff
 	if(diff)
 		var/list/relieved = diff["events_relieved"]

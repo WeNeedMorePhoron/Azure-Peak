@@ -60,9 +60,6 @@
 	data["category"] = withdraw_tab.current_category
 	data["fiscal_authority"] = has_fiscal_authority(user) ? TRUE : FALSE
 	data["food_stipend"] = (ishuman(user) && HAS_TRAIT(user, TRAIT_ROYAL_SUBSIDY)) ? TRUE : FALSE
-	var/treasury_balance = SStreasury.discretionary_fund?.balance || 0
-	data["treasury_floor"] = SStreasury.stockpile_purchase_floor
-	data["below_floor"] = treasury_balance < SStreasury.stockpile_purchase_floor
 	data["charter_unlocked"] = SStreasury.royal_custom_unlocked ? TRUE : FALSE
 	data["charter_active"] = SStreasury.royal_custom_active ? TRUE : FALSE
 	data["charter_margin"] = SStreasury.royal_custom_margin
@@ -75,6 +72,7 @@
 	var/list/rows = list()
 	for(var/datum/roguestock/stockpile/R in SStreasury.stockpile_datums)
 		R.refresh_auto_price()
+		R.get_market_target()
 		var/list/shortage = R.get_shortage_progress()
 		var/export_unit_price = 0
 		if(R.importexport_amt > 0)
@@ -84,10 +82,17 @@
 			"name" = R.name,
 			"desc" = R.desc,
 			"category" = R.category,
-			"amount" = R.royal_stock,
-			"limit" = R.stockpile_limit,
-			"withdraw_price" = R.withdraw_price,
-			"deposit_price" = R.payout_price,
+			"amount" = R.market_stock,
+			"limit" = R.market_target,
+			"royal_amount" = R.royal_stock,
+			"never_supplied" = R.market_never_supplies ? TRUE : FALSE,
+			"sold_out" = (R.market_stock <= 0 && !R.market_has_supply()) ? TRUE : FALSE,
+			"next_buy" = R.market_next_buy_change(),
+			"next_sell" = R.market_next_sell_change(),
+			"segments" = R.market_segments(),
+			"market_label" = market_step_label(R.market_step(R.market_stock)),
+			"withdraw_price" = R.market_ask(1),
+			"deposit_price" = R.market_bid(1),
 			"export_price" = export_unit_price,
 			"import_price" = withdraw_tab.direct_import_price(R),
 			"withdraw_disabled" = R.withdraw_disabled ? TRUE : FALSE,
