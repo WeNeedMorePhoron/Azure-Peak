@@ -1,6 +1,6 @@
 /obj/structure/roguemachine/stockpile
 	name = "stockpile"
-	desc = "A magitech device connected to the trade network. Buy basic goods, crafting materials, and food here, or sell them for money."
+	desc = "A magickal device connected to the trade network of the city. You can buy and sell basic goods, crafting materials and other things here with the market of the city."
 	icon = 'icons/roguetown/misc/machines.dmi'
 	icon_state = "stockpile_vendor"
 	density = FALSE
@@ -15,7 +15,7 @@
 	. += span_info("Left-click with an open hand to see the stockpile. Put in mammon to buy goods from it.")
 	. += span_info("Left-click the machine with an item to sell it into the stockpile. You're paid into your MEISTER account. The machine won't take your goods unless you have an account.")
 	. += span_info("Right-clicking the machine will automatically load all adjacent items into the stockpile at once.")
-	. += span_info("Goods sold here go into the stockpile. Others can buy them. The Steward can also sell them abroad. The stockpile only refills when people sell to it or the Steward imports goods.")
+	. += span_info("Goods sold here go into the market or the royal stockpile. This changes the market price.")
 /obj/structure/roguemachine/stockpile/Initialize(mapload)
 	. = ..()
 	SSroguemachine.stock_machines += src
