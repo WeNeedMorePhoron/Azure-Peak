@@ -29,7 +29,6 @@
 	if(get_dist(parent_structure, user) > 1)
 		return FALSE
 	D.refresh_auto_price()
-	D.get_market_target()
 	if(D.market_never_supplies)
 		parent_structure.say("Not available.")
 		return FALSE

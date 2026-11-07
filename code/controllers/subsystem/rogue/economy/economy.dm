@@ -989,7 +989,6 @@ SUBSYSTEM_DEF(economy)
 	if(quantity <= 0)
 		return 0
 	D.refresh_auto_price()
-	D.get_market_target()
 	var/revenue = D.market_bid(quantity)
 	D.royal_stock -= quantity
 	D.market_stock += quantity
@@ -1008,7 +1007,6 @@ SUBSYSTEM_DEF(economy)
 		to_chat(user, span_warning("The market does not supply [D.name]."))
 		return 0
 	D.refresh_auto_price()
-	D.get_market_target()
 	quantity = min(round(quantity), TRADE_MAX_BULK_UNITS)
 	if(!D.market_has_supply())
 		quantity = min(quantity, D.market_stock)

@@ -66,7 +66,6 @@
 	var/list/rows = list()
 	for(var/datum/roguestock/stockpile/R in SStreasury.stockpile_datums)
 		R.refresh_auto_price()
-		R.get_market_target()
 		var/list/shortage = R.get_shortage_progress()
 		var/export_unit_price = 0
 		if(R.importexport_amt > 0)
@@ -175,7 +174,6 @@
 				continue
 			var/bundle_amt = B.amount
 			R.refresh_auto_price()
-			R.get_market_target()
 			qdel(B)
 			SStreasury.dirty_market_view()
 			if(message == TRUE)
@@ -195,7 +193,6 @@
 			if(!R.check_item(I))
 				continue
 			R.refresh_auto_price()
-			R.get_market_target()
 			var/list/settlement = R.get_quality_settlement(I, R.market_bid(1))
 			var/amt = settlement["seller_payout"]
 			var/quality_baseline = settlement["baseline"]

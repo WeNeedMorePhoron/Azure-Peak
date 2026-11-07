@@ -23,6 +23,9 @@
 		var/datum/trade_good/tg = GLOB.trade_goods[trade_good_id]
 		if(tg)
 			compute_auto_prices(tg)
+	if(!market_target)
+		market_target = compute_market_target()
+	market_stock = market_target
 	return
 
 /datum/roguestock/proc/get_quality_settlement(obj/item/I, baseline)
@@ -42,12 +45,6 @@
 	out["seller_payout"] = stockpile_price(seller_payout)
 	out["q_mult"] = q_mult
 	return out
-
-/datum/roguestock/proc/get_market_target()
-	if(!market_target)
-		market_target = compute_market_target()
-		market_stock = market_target
-	return market_target
 
 /datum/roguestock/proc/compute_market_target()
 	var/total = 0
@@ -72,7 +69,7 @@
 	return FALSE
 
 /datum/roguestock/proc/market_step(stock)
-	var/ratio = stock * 100 / get_market_target()
+	var/ratio = stock * 100 / market_target
 	if(ratio >= MARKET_RATIO_OVERSTOCKED)
 		return market_zone_step(MARKET_STEP_OVERSTOCKED)
 	if(ratio >= MARKET_RATIO_ABUNDANT)
@@ -120,7 +117,7 @@
 		var/still_glutted = FALSE
 		for(var/good_id in E.affected_goods)
 			var/datum/roguestock/D = SStreasury.stockpile_by_trade_good[good_id]
-			if(D && D.market_stock * 100 / D.get_market_target() >= MARKET_RATIO_OVERSTOCKED)
+			if(D && D.market_stock * 100 / D.market_target >= MARKET_RATIO_OVERSTOCKED)
 				still_glutted = TRUE
 				break
 		if(!still_glutted)
@@ -183,7 +180,7 @@
 	return 0
 
 /datum/roguestock/proc/market_step_min_stock(step)
-	return CEILING(market_step_ratio(step) * get_market_target() / 100, 1)
+	return CEILING(market_step_ratio(step) * market_target / 100, 1)
 
 /datum/roguestock/proc/market_step_unit_ask(step)
 	return stockpile_price(market_base_price() * market_step_multiplier(step) / 100)

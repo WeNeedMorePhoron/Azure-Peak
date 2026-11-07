@@ -354,7 +354,6 @@
 		else if(event_tag_by_good[good_id] == ECON_EVENT_OVERSUPPLY)
 			event_tag = "GLUT"
 
-		entry.get_market_target()
 		market_rows += list(list(
 			"good_id" = good_id,
 			"stock" = entry.royal_stock,
