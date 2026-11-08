@@ -16,6 +16,7 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 	/// AZURIA'S REGIONS section. The steward UI ignores it; only `description` shows there.
 	var/subtitle = ""
 	var/description = ""
+	var/list/region_types = list()
 	var/list/produces = list()
 	var/list/demands = list()
 	var/list/possible_standing_order_types = list()
@@ -37,12 +38,30 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 
 /datum/economic_region/New()
 	. = ..()
+	build_trade_lists()
 	produces_today = produces.Copy()
 	demands_today = demands.Copy()
 	produces_day_start = produces.Copy()
 	demands_day_start = demands.Copy()
 	if(!associated_marker_id)
 		associated_marker_id = "[region_id]_blockade"
+
+/datum/economic_region/proc/build_trade_lists()
+	var/list/supply = list()
+	var/list/demand = list()
+	for(var/type_path in region_types)
+		var/multiplier = region_types[type_path]
+		var/datum/region_type/region_type = new type_path()
+		add_type_volumes(supply, region_type.produces, multiplier)
+		add_type_volumes(demand, region_type.demands, multiplier)
+	for(var/good_id in supply)
+		demand -= good_id
+	produces = supply
+	demands = demand
+
+/datum/economic_region/proc/add_type_volumes(list/into, list/volumes, multiplier)
+	for(var/good_id in volumes)
+		into[good_id] = max(into[good_id] || 0, max(1, round(volumes[good_id] * multiplier, 1)))
 
 /datum/economic_region/proc/get_day_capacity(good_id, importing)
 	var/list/today = importing ? produces_today : demands_today
