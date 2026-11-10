@@ -67,6 +67,13 @@
 		TRADE_GOOD_ONION,
 	)
 
+/datum/trade_good_group/pulses
+	name = "Pulses"
+	goods = list(
+		TRADE_GOOD_BEANS,
+		TRADE_GOOD_LENTILS,
+	)
+
 /datum/trade_good_group/preserved_meats
 	name = "Preserved Meats"
 	goods = list(

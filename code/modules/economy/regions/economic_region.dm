@@ -60,6 +60,8 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 		add_type_volumes(demand, demand_sources, region_type, region_type.demands, multiplier)
 		if(length(region_type.rotating_demands))
 			rotating_types[region_type] = multiplier
+		for(var/datum/standing_order/template as anything in region_type.standing_orders)
+			possible_standing_order_types[template] = initial(template.roll_weight)
 	for(var/datum/region_type/region_type as anything in rotating_types)
 		var/list/goods = list()
 		for(var/good_id in region_type.rotating_demands)
