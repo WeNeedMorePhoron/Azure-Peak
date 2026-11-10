@@ -13,6 +13,13 @@
 #define REGION_SIZE_HUGE		2
 #define REGION_SIZE_MASSIVE		3
 
+#define REGION_SEASON_ABSENT		0
+#define REGION_SEASON_LEAN		0.5
+#define REGION_SEASON_HIGH		1.5
+#define REGION_SEASON_PEAK		2
+
+#define REGION_URBAN_DAILY_PICKS	6
+
 // ---- Supply (what a source region produces per day) ----
 #define TG_SUPPLY_LOCAL_GRAIN		10	// Kingsfield's bread basket - flagship category
 #define TG_SUPPLY_FOREIGN_GRAIN		5	// Kingsfield's oats/rice or any outlying grain producer

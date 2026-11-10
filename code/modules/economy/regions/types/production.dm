@@ -31,6 +31,14 @@
 	demands = list(
 		TRADE_GOOD_SALT = TG_DEMAND_SALT,
 	)
+	seasonal_produces = list(
+		SEASON_AUTUMN = REGION_SEASON_PEAK,
+	)
+	seasonal_demands = list(
+		SEASON_AUTUMN = list(
+			TRADE_GOOD_SALT = REGION_SEASON_PEAK,
+		),
+	)
 
 /datum/region_type/production/forestry
 	name = "Forestry"

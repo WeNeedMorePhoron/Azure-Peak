@@ -19,6 +19,9 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 	var/list/region_types = list()
 	var/list/produces = list()
 	var/list/demands = list()
+	var/list/supply_sources = list()
+	var/list/demand_sources = list()
+	var/list/rotating_demand_goods = list()
 	var/list/possible_standing_order_types = list()
 	var/associated_marker_id
 	var/is_region_blockaded = FALSE
@@ -49,19 +52,73 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 /datum/economic_region/proc/build_trade_lists()
 	var/list/supply = list()
 	var/list/demand = list()
+	var/list/rotating_types = list()
 	for(var/type_path in region_types)
 		var/multiplier = region_types[type_path]
 		var/datum/region_type/region_type = new type_path()
-		add_type_volumes(supply, region_type.produces, multiplier)
-		add_type_volumes(demand, region_type.demands, multiplier)
+		add_type_volumes(supply, supply_sources, region_type, region_type.produces, multiplier)
+		add_type_volumes(demand, demand_sources, region_type, region_type.demands, multiplier)
+		if(length(region_type.rotating_demands))
+			rotating_types[region_type] = multiplier
+	for(var/datum/region_type/region_type as anything in rotating_types)
+		var/list/goods = list()
+		for(var/good_id in region_type.rotating_demands)
+			if(supply[good_id] || demand[good_id])
+				continue
+			demand[good_id] = scaled_volume(region_type.rotating_demands[good_id], rotating_types[region_type])
+			demand_sources[good_id] = region_type
+			goods += good_id
+		rotating_demand_goods[region_type] = goods
 	for(var/good_id in supply)
 		demand -= good_id
+		demand_sources -= good_id
 	produces = supply
 	demands = demand
 
-/datum/economic_region/proc/add_type_volumes(list/into, list/volumes, multiplier)
+/datum/economic_region/proc/add_type_volumes(list/into, list/sources, datum/region_type/region_type, list/volumes, multiplier)
 	for(var/good_id in volumes)
-		into[good_id] = max(into[good_id] || 0, max(1, round(volumes[good_id] * multiplier, 1)))
+		var/volume = scaled_volume(volumes[good_id], multiplier)
+		if(volume <= (into[good_id] || 0))
+			continue
+		into[good_id] = volume
+		sources[good_id] = region_type
+
+/datum/economic_region/proc/scaled_volume(volume, multiplier)
+	return max(1, round(volume * multiplier, 1))
+
+/datum/economic_region/proc/reset_day_capacity(pop_mult, season)
+	var/list/resting = roll_rotating_demands()
+	produces_today = list()
+	produces_day_start = list()
+	demands_today = list()
+	demands_day_start = list()
+	for(var/good_id in produces)
+		var/datum/region_type/source = supply_sources[good_id]
+		var/units = day_units(produces[good_id], pop_mult, source ? source.season_multiplier(source.seasonal_produces, good_id, season) : 1)
+		produces_today[good_id] = units
+		produces_day_start[good_id] = units
+	for(var/good_id in demands)
+		var/units = 0
+		if(!(good_id in resting))
+			var/datum/region_type/source = demand_sources[good_id]
+			units = day_units(demands[good_id], pop_mult, source ? source.season_multiplier(source.seasonal_demands, good_id, season) : 1)
+		demands_today[good_id] = units
+		demands_day_start[good_id] = units
+
+/datum/economic_region/proc/roll_rotating_demands()
+	var/list/resting = list()
+	for(var/datum/region_type/region_type as anything in rotating_demand_goods)
+		var/list/pool = rotating_demand_goods[region_type]
+		pool = pool.Copy()
+		for(var/i in 1 to min(region_type.rotating_picks, length(pool)))
+			pick_n_take(pool)
+		resting += pool
+	return resting
+
+/datum/economic_region/proc/day_units(volume, pop_mult, season_mult)
+	if(season_mult <= 0)
+		return 0
+	return max(1, round(volume * pop_mult * season_mult))
 
 /datum/economic_region/proc/get_day_capacity(good_id, importing)
 	var/list/today = importing ? produces_today : demands_today

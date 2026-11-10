@@ -29,6 +29,7 @@ SUBSYSTEM_DEF(economy)
 		for(var/good_id in region.demands)
 			if(region.demands[good_id])
 				goods_with_demand[good_id] = TRUE
+	reset_region_capacities()
 	daily_report_diff = list(
 		"day" = GLOB.dayspassed,
 		"events_fired" = list(),
@@ -179,6 +180,14 @@ SUBSYSTEM_DEF(economy)
 			qdel(probe)
 		region.possible_standing_order_types = weighted
 
+/datum/controller/subsystem/economy/proc/reset_region_capacities()
+	var/pop_mult = min(REGION_POP_SCALE_MAX, 1.0 + (get_effective_player_count() * REGION_POP_SCALE_PER_PLAYER))
+	var/season = get_current_season()
+	for(var/region_id in GLOB.economic_regions)
+		var/datum/economic_region/region = GLOB.economic_regions[region_id]
+		region.reset_day_capacity(pop_mult, season)
+	SStreasury.dirty_market_view()
+
 /datum/controller/subsystem/economy/proc/daily_tick()
 	if(GLOB.dayspassed <= last_processed_day)
 		return
@@ -201,23 +210,8 @@ SUBSYSTEM_DEF(economy)
 
 	// Pop-scaled daily reset: larger rounds have proportionally more commerce.
 	var/effective_pop = get_effective_player_count()
-	var/pop_mult = min(REGION_POP_SCALE_MAX, 1.0 + (effective_pop * REGION_POP_SCALE_PER_PLAYER))
 	var/order_size_mult = min(STANDING_ORDER_POP_SCALE_MAX, 1.0 + (effective_pop * STANDING_ORDER_POP_SCALE_PER_PLAYER))
-	for(var/region_id in GLOB.economic_regions)
-		var/datum/economic_region/region = GLOB.economic_regions[region_id]
-		region.produces_today = list()
-		region.demands_today = list()
-		region.produces_day_start = list()
-		region.demands_day_start = list()
-		for(var/good_id in region.produces)
-			var/produced_units = max(1, round(region.produces[good_id] * pop_mult))
-			region.produces_today[good_id] = produced_units
-			region.produces_day_start[good_id] = produced_units
-		for(var/good_id in region.demands)
-			var/demanded_units = max(1, round(region.demands[good_id] * pop_mult))
-			region.demands_today[good_id] = demanded_units
-			region.demands_day_start[good_id] = demanded_units
-	SStreasury.dirty_market_view()
+	reset_region_capacities()
 
 	var/list/expired = list()
 	for(var/datum/standing_order/O as anything in GLOB.standing_order_pool)

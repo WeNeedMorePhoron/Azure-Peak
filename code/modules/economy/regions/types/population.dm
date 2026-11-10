@@ -39,7 +39,8 @@
 
 /datum/region_type/population/urban
 	name = "Urban"
-	demands = list(
+	rotating_picks = REGION_URBAN_DAILY_PICKS
+	rotating_demands = list(
 		TRADE_GOOD_IRON_ORE = TG_DEMAND_IRON,
 		TRADE_GOOD_COPPER_ORE = TG_DEMAND_TIN_BRONZE,
 		TRADE_GOOD_TIN_ORE = TG_DEMAND_TIN_BRONZE,
