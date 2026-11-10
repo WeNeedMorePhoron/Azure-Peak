@@ -61,8 +61,7 @@
 /datum/region_type/agriculture/herb_gardens
 	name = "Herb Gardens"
 	produces = list(
-		TRADE_GOOD_CALENDULA = TG_VOLUME_MODEST,
-		TRADE_GOOD_POPPY = TG_VOLUME_MODEST,
+		/datum/trade_good_group/herbs = TG_VOLUME_MODEST,
 	)
 	seasonal_produces = list(
 		SEASON_SUMMER = REGION_SEASON_HIGH,

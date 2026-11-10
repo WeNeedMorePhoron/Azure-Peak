@@ -38,9 +38,7 @@
 /datum/region_type/industry/curing
 	name = "Curing"
 	produces = list(
-		TRADE_GOOD_DRIED_FISH = TG_VOLUME_STANDARD,
-		TRADE_GOOD_SAUSAGE = TG_VOLUME_STANDARD,
-		TRADE_GOOD_SALUMOI = TG_VOLUME_STANDARD,
+		/datum/trade_good_group/preserved_foods = TG_VOLUME_STANDARD,
 	)
 	demands = list(
 		TRADE_GOOD_SALT = TG_VOLUME_STANDARD,
