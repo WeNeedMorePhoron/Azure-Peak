@@ -9,12 +9,15 @@
 /datum/region_type/population/garrison
 	name = "Garrison"
 	demands = list(
-		/datum/trade_good_group/base_ingots = TG_VOLUME_STANDARD,
-		/datum/trade_good_group/leathers = TG_VOLUME_MODEST,
+		/datum/trade_good_group/iron_ingots = TG_VOLUME_STANDARD,
+		/datum/trade_good_group/bronze_ingots = TG_VOLUME_STANDARD,
+		/datum/trade_good_group/hides_and_furs = TG_VOLUME_MODEST,
 		/datum/trade_good_group/staple_meats = TG_VOLUME_STANDARD,
 		/datum/trade_good_group/dairy = TG_VOLUME_STANDARD,
 		/datum/trade_good_group/root_vegetables = TG_VOLUME_MODEST,
-		/datum/trade_good_group/preserved_foods = TG_VOLUME_STANDARD,
+		/datum/trade_good_group/preserved_meats = TG_VOLUME_STANDARD,
+		TRADE_GOOD_CURED_LEATHER = TG_VOLUME_MODEST,
+		TRADE_GOOD_DRIED_FISH = TG_VOLUME_STANDARD,
 		TRADE_GOOD_OATS = TG_VOLUME_BULK,
 		TRADE_GOOD_MEAT = TG_VOLUME_BULK,
 		TRADE_GOOD_EGG = TG_VOLUME_BULK,
@@ -35,7 +38,8 @@
 		TRADE_GOOD_STONE = TG_VOLUME_STANDARD,
 		TRADE_GOOD_CLAY = TG_VOLUME_STANDARD,
 		TRADE_GOOD_WOOD = TG_VOLUME_MASS,
-		/datum/trade_good_group/leathers = TG_VOLUME_MODEST,
+		/datum/trade_good_group/hides_and_furs = TG_VOLUME_MODEST,
+		TRADE_GOOD_CURED_LEATHER = TG_VOLUME_MODEST,
 		TRADE_GOOD_FIBERS = TG_VOLUME_BULK,
 		TRADE_GOOD_GLASS_BATCH = TG_VOLUME_LOW,
 		TRADE_GOOD_SALT = TG_VOLUME_STANDARD,

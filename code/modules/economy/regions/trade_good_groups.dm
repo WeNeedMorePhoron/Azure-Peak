@@ -2,11 +2,16 @@
 	var/name
 	var/list/goods = list()
 
-/datum/trade_good_group/base_ingots
-	name = "Ingots"
+/datum/trade_good_group/iron_ingots
+	name = "Iron Ingots"
 	goods = list(
 		TRADE_GOOD_IRON_INGOT,
 		TRADE_GOOD_STEEL_INGOT,
+	)
+
+/datum/trade_good_group/bronze_ingots
+	name = "Bronze Ingots"
+	goods = list(
 		TRADE_GOOD_COPPER_INGOT,
 		TRADE_GOOD_TIN_INGOT,
 		TRADE_GOOD_BRONZE_INGOT,
@@ -20,12 +25,18 @@
 		TRADE_GOOD_GOLD_ORE,
 	)
 
-/datum/trade_good_group/leathers
-	name = "Leathers"
+/datum/trade_good_group/hides_and_furs
+	name = "Hides and Furs"
 	goods = list(
 		TRADE_GOOD_HIDE,
 		TRADE_GOOD_FUR,
-		TRADE_GOOD_CURED_LEATHER,
+	)
+
+/datum/trade_good_group/textiles
+	name = "Textiles"
+	goods = list(
+		TRADE_GOOD_FIBERS,
+		TRADE_GOOD_CLOTH,
 	)
 
 /datum/trade_good_group/staple_meats
@@ -56,10 +67,9 @@
 		TRADE_GOOD_ONION,
 	)
 
-/datum/trade_good_group/preserved_foods
-	name = "Preserved Foods"
+/datum/trade_good_group/preserved_meats
+	name = "Preserved Meats"
 	goods = list(
-		TRADE_GOOD_DRIED_FISH,
 		TRADE_GOOD_SAUSAGE,
 		TRADE_GOOD_SALUMOI,
 	)

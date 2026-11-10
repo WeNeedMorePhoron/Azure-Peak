@@ -38,7 +38,8 @@
 /datum/region_type/industry/curing
 	name = "Curing"
 	produces = list(
-		/datum/trade_good_group/preserved_foods = TG_VOLUME_STANDARD,
+		/datum/trade_good_group/preserved_meats = TG_VOLUME_STANDARD,
+		TRADE_GOOD_DRIED_FISH = TG_VOLUME_STANDARD,
 	)
 	demands = list(
 		TRADE_GOOD_SALT = TG_VOLUME_STANDARD,
@@ -60,9 +61,8 @@
 /datum/region_type/industry/shipyard
 	name = "Shipyard"
 	demands = list(
+		/datum/trade_good_group/textiles = TG_VOLUME_BULK,
 		TRADE_GOOD_WOOD = TG_VOLUME_MASS,
-		TRADE_GOOD_CLOTH = TG_VOLUME_BULK,
-		TRADE_GOOD_FIBERS = TG_VOLUME_BULK,
 		TRADE_GOOD_TALLOW = TG_VOLUME_STANDARD,
 		TRADE_GOOD_IRON_INGOT = TG_VOLUME_STANDARD,
 	)
