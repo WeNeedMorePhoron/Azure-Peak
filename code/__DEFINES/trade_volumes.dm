@@ -45,6 +45,11 @@
 #define TG_SUPPLY_REFINED_INGOTS		6	// Hagenwald's iron/steel/copper/tin ingots
 #define TG_SUPPLY_PUMPKIN			2
 #define TG_SUPPLY_DENDOR_ESSENCE		1
+#define TG_SUPPLY_FORAGE				5
+#define TG_SUPPLY_HONEY				4
+#define TG_SUPPLY_GAME				3
+#define TG_SUPPLY_PRESERVED			5
+#define TG_SUPPLY_GOLD_INGOT			3
 
 // ---- Demand (what a consuming region buys per day) ----
 // Most categories mirror supply. Some are demand-only (REFINED_INGOTS, GEM, some ESSENCE).
@@ -70,3 +75,7 @@
 #define TG_DEMAND_REFINED_INGOTS		5	// Iron/steel/copper/tin/gold/silver ingots - player-crafted
 #define TG_DEMAND_WOOD				(TG_DEMAND_CHEAP_RAW_MAT * 2)
 #define TG_DEMAND_DENDOR_ESSENCE		3
+#define TG_DEMAND_FORAGE				4
+#define TG_DEMAND_HONEY				3
+#define TG_DEMAND_PRESERVED			5
+#define TG_DEMAND_EXOTIC				3

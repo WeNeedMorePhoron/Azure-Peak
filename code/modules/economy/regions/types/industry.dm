@@ -15,7 +15,6 @@
 		TRADE_GOOD_BRONZE_INGOT = TG_SUPPLY_REFINED_INGOTS,
 		TRADE_GOOD_COPPER_INGOT = TG_SUPPLY_REFINED_INGOTS,
 		TRADE_GOOD_TIN_INGOT = TG_SUPPLY_REFINED_INGOTS,
-		TRADE_GOOD_COAL = TG_SUPPLY_IRON,
 	)
 	demands = list(
 		TRADE_GOOD_IRON_ORE = TG_DEMAND_IRON,
@@ -23,6 +22,75 @@
 		TRADE_GOOD_TIN_ORE = TG_DEMAND_TIN_BRONZE,
 		TRADE_GOOD_SILVER_ORE = TG_DEMAND_PRECIOUS_METAL,
 		TRADE_GOOD_CINNABAR = TG_DEMAND_IRON,
-		TRADE_GOOD_WOOD = TG_DEMAND_WOOD,
+		TRADE_GOOD_COAL = TG_DEMAND_CHEAP_RAW_MAT,
 		TRADE_GOOD_MEAT = TG_DEMAND_MEAT_BULK,
+	)
+
+/datum/region_type/industry/charcoal_burning
+	name = "Charcoal Burning"
+	produces = list(
+		TRADE_GOOD_COAL = TG_SUPPLY_IRON,
+	)
+	demands = list(
+		TRADE_GOOD_WOOD = TG_DEMAND_WOOD,
+	)
+
+/datum/region_type/industry/curing
+	name = "Curing"
+	produces = list(
+		TRADE_GOOD_DRIED_FISH = TG_SUPPLY_PRESERVED,
+		TRADE_GOOD_SAUSAGE = TG_SUPPLY_PRESERVED,
+		TRADE_GOOD_SALUMOI = TG_SUPPLY_PRESERVED,
+	)
+	demands = list(
+		TRADE_GOOD_SALT = TG_DEMAND_SALT,
+		TRADE_GOOD_MEAT = TG_DEMAND_MEAT_BULK,
+		TRADE_GOOD_PORK = TG_DEMAND_MEAT_STAPLE,
+		TRADE_GOOD_FISH_FILET = TG_DEMAND_FISH_BULK,
+	)
+
+/datum/region_type/industry/tannery
+	name = "Tannery"
+	produces = list(
+		TRADE_GOOD_CURED_LEATHER = TG_SUPPLY_LEATHER,
+	)
+	demands = list(
+		TRADE_GOOD_HIDE = TG_DEMAND_LEATHER,
+		TRADE_GOOD_SALT = TG_DEMAND_SALT,
+	)
+
+/datum/region_type/industry/shipyard
+	name = "Shipyard"
+	demands = list(
+		TRADE_GOOD_WOOD = TG_DEMAND_WOOD,
+		TRADE_GOOD_CLOTH = TG_DEMAND_CLOTH,
+		TRADE_GOOD_FIBERS = TG_DEMAND_CLOTH,
+		TRADE_GOOD_TALLOW = TG_DEMAND_MEAT_STAPLE,
+		TRADE_GOOD_IRON_INGOT = TG_DEMAND_REFINED_INGOTS,
+	)
+
+/datum/region_type/industry/toolworks
+	name = "Toolworks"
+	demands = list(
+		TRADE_GOOD_IRON_INGOT = TG_DEMAND_REFINED_INGOTS,
+		TRADE_GOOD_STEEL_INGOT = TG_DEMAND_REFINED_INGOTS,
+		TRADE_GOOD_COAL = TG_DEMAND_CHEAP_RAW_MAT,
+		TRADE_GOOD_WOOD = TG_DEMAND_WOOD,
+	)
+
+/datum/region_type/industry/brewery
+	name = "Brewery"
+	demands = list(
+		TRADE_GOOD_GRAIN = TG_DEMAND_LOCAL_GRAIN,
+		TRADE_GOOD_OATS = TG_DEMAND_LOCAL_GRAIN,
+		TRADE_GOOD_HONEY = TG_DEMAND_HONEY,
+	)
+
+/datum/region_type/industry/mint
+	name = "Mint"
+	produces = list(
+		TRADE_GOOD_GOLD_INGOT = TG_SUPPLY_GOLD_INGOT,
+	)
+	demands = list(
+		TRADE_GOOD_GOLD_ORE = TG_DEMAND_PRECIOUS_METAL,
 	)

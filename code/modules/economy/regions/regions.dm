@@ -7,8 +7,10 @@
 	threat_region_id = THREAT_REGION_AZURE_GROVE
 	region_types = list(
 		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
-		/datum/region_type/production/agricultural = REGION_SIZE_MEDIUM,
-		/datum/region_type/production/pastoral = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/temperate = REGION_SIZE_MEDIUM,
+		/datum/region_type/pastoral/mixed = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/aquaculture = REGION_SIZE_MEDIUM,
+		/datum/region_type/pastoral/swine = REGION_SIZE_SMALL,
 		/datum/region_type/industry/weaving = REGION_SIZE_MEDIUM,
 		/datum/region_type/population/urban = REGION_SIZE_MEDIUM,
 		/datum/region_type/population/noble_presence = REGION_SIZE_MEDIUM,
@@ -22,9 +24,15 @@
 	threat_region_id = THREAT_REGION_AZURE_GROVE
 	region_types = list(
 		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
-		/datum/region_type/production/forestry = REGION_SIZE_MEDIUM,
-		/datum/region_type/production/hunting = REGION_SIZE_MEDIUM,
+		/datum/region_type/wilds/elven_forest = REGION_SIZE_MEDIUM,
+		/datum/region_type/wilds/forest = REGION_SIZE_MEDIUM,
+		/datum/region_type/wilds/hunting = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/northern = REGION_SIZE_SMALL,
+		/datum/region_type/pastoral/swine = REGION_SIZE_MEDIUM,
+		/datum/region_type/fishery/coastal_cold = REGION_SIZE_SMALL,
 		/datum/region_type/industry/weaving = REGION_SIZE_SMALL,
+		/datum/region_type/industry/tannery = REGION_SIZE_MEDIUM,
+		/datum/region_type/industry/shipyard = REGION_SIZE_MEDIUM,
 		/datum/region_type/scarcity/iron_poor = REGION_SIZE_MEDIUM,
 		/datum/region_type/scarcity/salt_poor = REGION_SIZE_MEDIUM,
 	)
@@ -37,9 +45,10 @@
 	threat_region_id = THREAT_REGION_AZUREAN_COAST
 	region_types = list(
 		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
-		/datum/region_type/production/orchard = REGION_SIZE_MEDIUM,
-		/datum/region_type/production/herb_gardens = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/orchard = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/herb_gardens = REGION_SIZE_MEDIUM,
 		/datum/region_type/population/noble_presence = REGION_SIZE_MEDIUM,
+		/datum/region_type/industry/shipyard = REGION_SIZE_SMALL,
 	)
 
 /datum/economic_region/daftsmarch
@@ -52,7 +61,10 @@
 		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
 		/datum/region_type/mining/iron_steel = REGION_SIZE_MEDIUM,
 		/datum/region_type/mining/copper_tin = REGION_SIZE_MEDIUM,
-		/datum/region_type/mining/quarry = REGION_SIZE_MEDIUM,
+		/datum/region_type/mining/precious_veins = REGION_SIZE_MEDIUM,
+		/datum/region_type/mining/stone_quarry = REGION_SIZE_MEDIUM,
+		/datum/region_type/mining/glass_quarry = REGION_SIZE_MEDIUM,
+		/datum/region_type/mining/salt_mines = REGION_SIZE_MEDIUM,
 	)
 
 /datum/economic_region/blackholt
@@ -63,8 +75,12 @@
 	threat_region_id = THREAT_REGION_AZURE_GROVE
 	region_types = list(
 		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
-		/datum/region_type/production/swamp = REGION_SIZE_MEDIUM,
-		/datum/region_type/production/hunting = REGION_SIZE_SMALL,
+		/datum/region_type/wilds/swamp = REGION_SIZE_MEDIUM,
+		/datum/region_type/wilds/hunting = REGION_SIZE_SMALL,
+		/datum/region_type/fishery/swamp = REGION_SIZE_MEDIUM,
+		/datum/region_type/mining/clay_pits = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/temperate = REGION_SIZE_SMALL,
+		/datum/region_type/population/garrison = REGION_SIZE_SMALL,
 	)
 
 /datum/economic_region/saltwick
@@ -75,7 +91,11 @@
 	threat_region_id = THREAT_REGION_AZUREAN_COAST
 	region_types = list(
 		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
-		/datum/region_type/fishery/east_coastal = REGION_SIZE_MEDIUM,
+		/datum/region_type/fishery/coastal_temperate = REGION_SIZE_MEDIUM,
+		/datum/region_type/fishery/shellfish_beds = REGION_SIZE_SMALL,
+		/datum/region_type/mining/salt_flats = REGION_SIZE_MEDIUM,
+		/datum/region_type/industry/curing = REGION_SIZE_MEDIUM,
+		/datum/region_type/industry/brewery = REGION_SIZE_SMALL,
 	)
 
 /datum/economic_region/bleakcoast
@@ -110,6 +130,8 @@
 		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
 		/datum/region_type/population/garrison = REGION_SIZE_MEDIUM,
 		/datum/region_type/population/noble_presence = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/temperate = REGION_SIZE_MEDIUM,
+		/datum/region_type/pastoral/saiga = REGION_SIZE_MEDIUM,
 	)
 
 /datum/economic_region/hagenwald
@@ -121,4 +143,8 @@
 	region_types = list(
 		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
 		/datum/region_type/industry/refinement = REGION_SIZE_MEDIUM,
+		/datum/region_type/industry/charcoal_burning = REGION_SIZE_MEDIUM,
+		/datum/region_type/industry/toolworks = REGION_SIZE_MEDIUM,
+		/datum/region_type/industry/brewery = REGION_SIZE_SMALL,
+		/datum/region_type/industry/mint = REGION_SIZE_SMALL,
 	)
