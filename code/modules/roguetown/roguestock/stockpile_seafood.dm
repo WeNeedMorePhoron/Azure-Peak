@@ -105,3 +105,75 @@
 	importexport_amt = 10
 	stockpile_limit = 10
 	category = "Seafood"
+
+/datum/roguestock/stockpile/mudskipper
+	name = "Mudskipper"
+	desc = "Whole slab of mudskipper."
+	item_type = /obj/item/reagent_containers/food/snacks/fish/mudskipper
+	trade_good_id = TRADE_GOOD_MUDSKIPPER
+	importexport_amt = 10
+	stockpile_limit = 10
+	category = "Seafood"
+
+/datum/roguestock/stockpile/swamp_shrimp
+	name = "Swamp Shrimp"
+	desc = "A handful of whole swamp shrimp."
+	item_type = /obj/item/reagent_containers/food/snacks/fish/swamp_shrimp
+	trade_good_id = TRADE_GOOD_SWAMP_SHRIMP
+	importexport_amt = 10
+	stockpile_limit = 10
+	category = "Seafood"
+
+/datum/roguestock/stockpile/swamp_mother
+	name = "Swamp Mother"
+	desc = "Whole slab of swamp mother."
+	item_type = /obj/item/reagent_containers/food/snacks/fish/swamp_mother
+	trade_good_id = TRADE_GOOD_SWAMP_MOTHER
+	importexport_amt = 10
+	stockpile_limit = 10
+	category = "Seafood"
+
+/datum/roguestock/stockpile/eel
+	name = "Eel"
+	desc = "Whole slab of eel."
+	item_type = /obj/item/reagent_containers/food/snacks/fish/eel
+	trade_good_id = TRADE_GOOD_EEL
+	importexport_amt = 10
+	stockpile_limit = 10
+	category = "Seafood"
+
+/datum/roguestock/stockpile/black_bass
+	name = "Black Bass"
+	desc = "Whole slab of black bass."
+	item_type = /obj/item/reagent_containers/food/snacks/fish/black_bass
+	trade_good_id = TRADE_GOOD_BLACK_BASS
+	importexport_amt = 10
+	stockpile_limit = 10
+	category = "Seafood"
+
+/datum/roguestock/stockpile/flounder
+	name = "Flounder"
+	desc = "Whole slab of flounder."
+	item_type = /obj/item/reagent_containers/food/snacks/fish/flounder
+	trade_good_id = TRADE_GOOD_FLOUNDER
+	importexport_amt = 10
+	stockpile_limit = 10
+	category = "Seafood"
+
+/datum/roguestock/stockpile/mackerel
+	name = "Mackerel"
+	desc = "Whole slab of mackerel."
+	item_type = /obj/item/reagent_containers/food/snacks/fish/mackerel
+	trade_good_id = TRADE_GOOD_MACKEREL
+	importexport_amt = 10
+	stockpile_limit = 10
+	category = "Seafood"
+
+/datum/roguestock/stockpile/plaice
+	name = "Plaice"
+	desc = "Whole slab of plaice."
+	item_type = /obj/item/reagent_containers/food/snacks/fish/plaice
+	trade_good_id = TRADE_GOOD_PLAICE
+	importexport_amt = 10
+	stockpile_limit = 10
+	category = "Seafood"

@@ -70,3 +70,51 @@
 	name = "Shrimp"
 	base_price = SELLPRICE_SHRIMP
 	item_type = /obj/item/reagent_containers/food/snacks/fish/shrimp
+
+/datum/trade_good/seafood/mudskipper
+	id = TRADE_GOOD_MUDSKIPPER
+	name = "Mudskipper"
+	base_price = SELLPRICE_MUDSKIPPER
+	item_type = /obj/item/reagent_containers/food/snacks/fish/mudskipper
+
+/datum/trade_good/seafood/swamp_shrimp
+	id = TRADE_GOOD_SWAMP_SHRIMP
+	name = "Swamp Shrimp"
+	base_price = SELLPRICE_SWAMP_SHRIMP
+	item_type = /obj/item/reagent_containers/food/snacks/fish/swamp_shrimp
+
+/datum/trade_good/seafood/swamp_mother
+	id = TRADE_GOOD_SWAMP_MOTHER
+	name = "Swamp Mother"
+	base_price = SELLPRICE_SWAMP_MOTHER
+	item_type = /obj/item/reagent_containers/food/snacks/fish/swamp_mother
+
+/datum/trade_good/seafood/eel
+	id = TRADE_GOOD_EEL
+	name = "Eel"
+	base_price = SELLPRICE_EEL
+	item_type = /obj/item/reagent_containers/food/snacks/fish/eel
+
+/datum/trade_good/seafood/black_bass
+	id = TRADE_GOOD_BLACK_BASS
+	name = "Black Bass"
+	base_price = SELLPRICE_BLACK_BASS
+	item_type = /obj/item/reagent_containers/food/snacks/fish/black_bass
+
+/datum/trade_good/seafood/flounder
+	id = TRADE_GOOD_FLOUNDER
+	name = "Flounder"
+	base_price = SELLPRICE_FLOUNDER
+	item_type = /obj/item/reagent_containers/food/snacks/fish/flounder
+
+/datum/trade_good/seafood/mackerel
+	id = TRADE_GOOD_MACKEREL
+	name = "Mackerel"
+	base_price = SELLPRICE_MACKEREL
+	item_type = /obj/item/reagent_containers/food/snacks/fish/mackerel
+
+/datum/trade_good/seafood/plaice
+	id = TRADE_GOOD_PLAICE
+	name = "Plaice"
+	base_price = SELLPRICE_PLAICE
+	item_type = /obj/item/reagent_containers/food/snacks/fish/plaice
