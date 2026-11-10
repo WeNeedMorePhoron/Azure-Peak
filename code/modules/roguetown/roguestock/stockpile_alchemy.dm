@@ -30,6 +30,7 @@
 	desc = "Distilled Dendorian essence."
 	item_type = /obj/item/natural/cured/essence
 	trade_good_id = TRADE_GOOD_DENDOR_ESSENCE
+	market_target = MARKET_TARGET_RARE
 	importexport_amt = 3
 	stockpile_limit = 5
 	category = "Alchemy"

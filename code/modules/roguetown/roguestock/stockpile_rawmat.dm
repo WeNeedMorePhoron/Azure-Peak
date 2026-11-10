@@ -84,6 +84,7 @@
 	desc = "Chunks of unrefined gold."
 	item_type = /obj/item/rogueore/gold
 	trade_good_id = TRADE_GOOD_GOLD_ORE
+	market_target = MARKET_TARGET_RARE
 	royal_stock = 4
 	stockpile_limit = 50
 	importexport_amt = 10
@@ -93,6 +94,7 @@
 	desc = "Chunks of unrefined silver."
 	item_type = /obj/item/rogueore/silver
 	trade_good_id = TRADE_GOOD_SILVER_ORE
+	market_target = MARKET_TARGET_RARE
 	royal_stock = 0 // Explicitly empty - players must produce their own silver.
 	market_never_supplies = TRUE
 	stockpile_limit = 25

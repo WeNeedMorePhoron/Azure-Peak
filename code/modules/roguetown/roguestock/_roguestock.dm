@@ -52,9 +52,7 @@
 		for(var/region_id in GLOB.economic_regions)
 			var/datum/economic_region/region = GLOB.economic_regions[region_id]
 			total += (region.produces[trade_good_id] || 0) + (region.demands[trade_good_id] || 0)
-	if(!total)
-		total = MARKET_TARGET_DEFAULT
-	return max(MARKET_TARGET_MIN, total)
+	return clamp(total, MARKET_TARGET_MIN, MARKET_TARGET_MAX)
 
 /datum/roguestock/proc/market_has_supply()
 	if(!trade_good_id)

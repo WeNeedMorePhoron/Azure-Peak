@@ -39,6 +39,7 @@
 	desc = "A bar of refined gold."
 	item_type = /obj/item/ingot/gold
 	trade_good_id = TRADE_GOOD_GOLD_INGOT
+	market_target = MARKET_TARGET_RARE
 	importexport_amt = 5
 	stockpile_limit = 8
 	category = "Refined"
@@ -48,6 +49,7 @@
 	desc = "A bar of refined silver."
 	item_type = /obj/item/ingot/silver
 	trade_good_id = TRADE_GOOD_SILVER_INGOT
+	market_target = MARKET_TARGET_RARE
 	importexport_amt = 5
 	stockpile_limit = 8
 	category = "Refined"
