@@ -23,6 +23,8 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 	var/list/supply_sources = list()
 	var/list/demand_sources = list()
 	var/list/rotating_demand_goods = list()
+	var/tribute_value = 0
+	var/list/gifts = list()
 	var/list/possible_standing_order_types = list()
 	var/associated_marker_id
 	var/is_region_blockaded = FALSE
@@ -95,6 +97,7 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 
 /datum/economic_region/proc/reset_day_capacity(pop_mult, season)
 	var/list/resting = roll_rotating_demands()
+	tribute_value = round(REGION_TRIBUTE_VALUE * pop_mult)
 	produces_today = list()
 	produces_day_start = list()
 	demands_today = list()
@@ -121,6 +124,14 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 			pick_n_take(pool)
 		resting += pool
 	return resting
+
+/datum/economic_region/proc/tribute_units(good_id, value)
+	if(!produces_day_start[good_id])
+		return 0
+	var/price = SSeconomy.compute_import_unit_price(good_id, src, 1)
+	if(!price)
+		return 0
+	return round(value / price)
 
 /datum/economic_region/proc/day_units(volume, pop_mult, season_mult)
 	if(season_mult <= 0)

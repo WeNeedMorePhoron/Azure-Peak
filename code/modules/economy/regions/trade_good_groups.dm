@@ -50,6 +50,16 @@
 		TRADE_GOOD_TALLOW,
 	)
 
+/datum/trade_good_group/game_meats
+	name = "Game Meats"
+	goods = list(
+		TRADE_GOOD_VENISON,
+		TRADE_GOOD_VENISON_RIBS,
+		TRADE_GOOD_BUSHMEAT,
+		TRADE_GOOD_GREATER_BUSHMEAT,
+		TRADE_GOOD_BOAR_HAM,
+	)
+
 /datum/trade_good_group/dairy
 	name = "Dairy"
 	goods = list(

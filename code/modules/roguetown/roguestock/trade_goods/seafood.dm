@@ -35,6 +35,12 @@
 	base_price = SELLPRICE_CRAB
 	item_type = /obj/item/reagent_containers/food/snacks/fish/crab
 
+/datum/trade_good/seafood/crab_meat
+	id = TRADE_GOOD_CRAB_MEAT
+	name = "Crab Meat"
+	base_price = SELLPRICE_CRAB_MEAT
+	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/crab
+
 /datum/trade_good/seafood/bass
 	id = TRADE_GOOD_BASS
 	name = "Seabass"

@@ -12,7 +12,7 @@
 	name = "Lesser Meat"
 	desc = "Barely edible flesh harvested from rous."
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/rat
-	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
+	trade_good_id = TRADE_GOOD_LESSER_MEAT
 	importexport_amt = 5
 	royal_stock = 0
 	stockpile_limit = 20
@@ -22,55 +22,47 @@
 	name = "Venison"
 	desc = "Delicious and edible flesh harvested from saiga or deer."
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/saiga
-	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
+	trade_good_id = TRADE_GOOD_VENISON
 	importexport_amt = 5
 	royal_stock = 0
 	stockpile_limit = 20
-	payout_price = 8
-	withdraw_price = 16
 	category = "Animal"
 
 /datum/roguestock/stockpile/deerribs
 	name = "Venison Ribs"
 	desc = "Luxuriously edible flesh on-the-bone harvested from saiga."
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/saiga_ribs
-	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
+	trade_good_id = TRADE_GOOD_VENISON_RIBS
 	importexport_amt = 5
 	royal_stock = 0
 	stockpile_limit = 20
-	payout_price = 8
-	withdraw_price = 16
 	category = "Animal"
 
 /datum/roguestock/stockpile/volf
 	name = "Bushmeat"
 	desc = "Barely edible flesh harvested from volfs."
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/wolf
-	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
+	trade_good_id = TRADE_GOOD_BUSHMEAT
 	importexport_amt = 5
 	royal_stock = 0
 	stockpile_limit = 20
-	payout_price = 2
-	withdraw_price = 4
 	category = "Animal"
 
 /datum/roguestock/stockpile/bear
 	name = "Greater Bushmeat"
 	desc = "Barely edible flesh harvested from bears."
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/bear
-	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
+	trade_good_id = TRADE_GOOD_GREATER_BUSHMEAT
 	importexport_amt = 5
 	royal_stock = 0
 	stockpile_limit = 20
-	payout_price = 6
-	withdraw_price = 9
 	category = "Animal"
 
 /datum/roguestock/stockpile/spider
 	name = "Bogmeat"
 	desc = "Barely edible flesh harvested from mirelurkers."
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/spider
-	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
+	trade_good_id = TRADE_GOOD_BOGMEAT
 	importexport_amt = 5
 	royal_stock = 0
 	stockpile_limit = 20
@@ -80,12 +72,10 @@
 	name = "Crab Meat"
 	desc = "Edible flesh harvested from crabs."
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/crab
-	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
+	trade_good_id = TRADE_GOOD_CRAB_MEAT
 	importexport_amt = 5
 	royal_stock = 0
 	stockpile_limit = 20
-	payout_price = 4
-	withdraw_price = 8
 	category = "Seafood"
 
 /datum/roguestock/stockpile/poultry
@@ -136,12 +126,10 @@
 	name = "Boar Ham"
 	desc = "Delicious flesh carved from a wild boar, perfect for smoking or steaming."
 	item_type = /obj/item/reagent_containers/food/snacks/rogue/meat/ham/boar
-	trade_good_id = TRADE_GOOD_MEAT_EXOTIC
+	trade_good_id = TRADE_GOOD_BOAR_HAM
 	importexport_amt = 5
 	royal_stock = 0
 	stockpile_limit = 20
-	payout_price = 8
-	withdraw_price = 16
 	category = "Animal"
 
 /datum/roguestock/stockpile/pork_belly
