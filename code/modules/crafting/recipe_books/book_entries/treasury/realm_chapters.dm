@@ -123,7 +123,7 @@
 /datum/book_entry/treasury_realm/trade/inner_book_html(mob/user)
 	return {"
 		<div>
-		<p>The Crown trades with ten regions: Kingsfield, Rosawood, Rockhill, Daftsmarch, Blackholt, Saltwick, Hagenwald, Bleakcoast, Northfort, Heartfelt. Trade and stockpile both work through the Nerve Master's "Trade and Stockpile" interface.</p>
+		<p>The Crown trades with dozens of internal regions. Trade and stockpile both work through the Nerve Master's "Trade and Stockpile" interface.</p>
 
 		<h3>Trade Pricing</h3>
 		<ul>

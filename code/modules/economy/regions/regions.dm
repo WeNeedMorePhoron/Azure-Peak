@@ -42,12 +42,13 @@
 	region_id = TRADE_REGION_ROCKHILL
 	name = "Rockhill"
 	subtitle = "The Orchards, Vintners and Herbalists of the Ridge"
-	description = "A cluster of orchards and herb gardens to the north of Azuria, sheltered by a ridge that makes the climate there milder than it has any right to be. The many rolling hills of the county make for poor grain land but excellent orchard land. Rockhill wine and liquor are renowned throughout Azuria, and some are exported beyond. It is a quiet, quaint, agricultural county, dotted with noble estates. Rockhill apple brandy is the realm's most counterfeited drink. Every other inn from Bleakcoast to Heartfelt claims to serve it, but perhaps only a third of them actually do. The county is also known for its many country manors, with perhaps three quarters of the noble houses of the realm owning at least one in Rockhill."
+	description = "A cluster of orchards and herb gardens to the north of Azuria, sheltered by a ridge that makes the climate there milder than it has any right to be. The many rolling hills of the county make for poor grain land but excellent orchard land. Rockhill wine and liquor are renowned throughout Azuria, and some are exported beyond. It is a quiet, quaint, agricultural county, dotted with noble estates. Rockhill apple brandy is the realm's most counterfeited drink. Every other inn from Bleakisles to Heartfelt claims to serve it, but perhaps only a third of them actually do. The county is also known for its many country manors, with perhaps three quarters of the noble houses of the realm owning at least one in Rockhill."
 	subroute = /datum/trade_subroute/eastern_shores
 	region_types = list(
 		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
 		/datum/region_type/population/mariners = REGION_SIZE_SMALL,
 		/datum/region_type/agriculture/orchard = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/citrus_orchard = REGION_SIZE_SMALL,
 		/datum/region_type/agriculture/herb_gardens = REGION_SIZE_MEDIUM,
 		/datum/region_type/population/noble_presence = REGION_SIZE_MEDIUM,
 		/datum/region_type/industry/shipyard = REGION_SIZE_SMALL,
@@ -62,7 +63,6 @@
 	region_types = list(
 		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
 		/datum/region_type/mining/iron_steel = REGION_SIZE_MEDIUM,
-		/datum/region_type/mining/copper_tin = REGION_SIZE_MEDIUM,
 		/datum/region_type/mining/precious_veins = REGION_SIZE_MEDIUM,
 		/datum/region_type/mining/stone_quarry = REGION_SIZE_MEDIUM,
 		/datum/region_type/mining/glass_quarry = REGION_SIZE_MEDIUM,
@@ -101,26 +101,32 @@
 		/datum/region_type/industry/brewery = REGION_SIZE_SMALL,
 	)
 
-/datum/economic_region/bleakcoast
-	region_id = TRADE_REGION_BLEAKCOAST
-	name = "Bleakcoast"
+/datum/economic_region/bleakisles
+	region_id = TRADE_REGION_BLEAKISLES
+	name = "Bleakisles"
 	subtitle = "The Bleakisles Seamarch, Pirate Archipelago"
 	description = "Also known as the Bleakisles Seamarch. A series of rocky outcrops said to have been created when Comet Syon impacted near the Terrorbog, radiating outward and hurling the islands from the sea itself. The archipelago numbers in the hundreds and makes navigation along all but a narrow stretch of Azuria's coast treacherous. What it lacks in fertile land it makes up for in the bounty of its seas. Schools of fish swarm in the shallow, rocky bottoms and swim as far as Azuria's coast, feeding thousands. But that bounty is not for Bleakisles inhabitants to enjoy. The isles are infested with pirates, the notorious Bleakisles Reavers, who prey on any merchant or fisherman that strays too far from shore. The Duchy maintains several garrisons to keep them in check, and has, once every two generations, undertaken a harrying of the isles, burning every civilian settlement and salting it. Within a generation, the pirates always return."
 	subroute = /datum/trade_subroute/southern_shore
 	region_types = list(
 		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
 		/datum/region_type/population/garrison = REGION_SIZE_MEDIUM,
+		/datum/region_type/population/mariners = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/temperate = REGION_SIZE_MEDIUM,
+		/datum/region_type/fishery/coastal_temperate = REGION_SIZE_MEDIUM,
+		/datum/region_type/fishery/shellfish_beds = REGION_SIZE_MEDIUM,
+		/datum/region_type/mining/glass_quarry = REGION_SIZE_MEDIUM,
 	)
 
-/datum/economic_region/northfort
-	region_id = TRADE_REGION_NORTHFORT
-	name = "Northfort"
-	subtitle = "The Border Fort, Watch on the Northern Approach"
-	description = "A fortified castle at the northern approach into Azuria, the only direct overland route from the north. As economically unproductive as a fort can be, which is very. The Crown feeds it because without it, the border between Grenzelhoft and Azuria becomes negotiable."
+/datum/economic_region/northmarch
+	region_id = TRADE_REGION_NORTHMARCH
+	name = "Northmarch"
 	subroute = /datum/trade_subroute/east_bank_of_arwin
 	region_types = list(
 		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
 		/datum/region_type/population/garrison = REGION_SIZE_MEDIUM,
+		/datum/region_type/mining/copper_tin = REGION_SIZE_MEDIUM,
+		/datum/region_type/wilds/forest = REGION_SIZE_MEDIUM,
+		/datum/region_type/industry/toolworks = REGION_SIZE_MEDIUM,
 	)
 
 /datum/economic_region/heartfelt
@@ -133,6 +139,7 @@
 		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
 		/datum/region_type/population/garrison = REGION_SIZE_MEDIUM,
 		/datum/region_type/population/noble_presence = REGION_SIZE_MEDIUM,
+		/datum/region_type/population/urban = REGION_SIZE_SMALL,
 		/datum/region_type/agriculture/temperate = REGION_SIZE_MEDIUM,
 		/datum/region_type/pastoral/saiga = REGION_SIZE_MEDIUM,
 	)
@@ -150,4 +157,88 @@
 		/datum/region_type/industry/toolworks = REGION_SIZE_MEDIUM,
 		/datum/region_type/industry/brewery = REGION_SIZE_SMALL,
 		/datum/region_type/industry/mint = REGION_SIZE_SMALL,
+	)
+
+/datum/economic_region/eveswood
+	region_id = TRADE_REGION_EVESWOOD
+	name = "Eveswood"
+	subroute = /datum/trade_subroute/rossan_coast
+	region_types = list(
+		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
+		/datum/region_type/population/garrison = REGION_SIZE_SMALL,
+		/datum/region_type/population/mariners = REGION_SIZE_SMALL,
+		/datum/region_type/wilds/elven_forest = REGION_SIZE_LARGE,
+		/datum/region_type/wilds/forest = REGION_SIZE_MEDIUM,
+		/datum/region_type/pastoral/swine = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/northern = REGION_SIZE_SMALL,
+		/datum/region_type/industry/shipyard = REGION_SIZE_SMALL,
+		/datum/region_type/scarcity/iron_poor = REGION_SIZE_MEDIUM,
+	)
+
+/datum/economic_region/rhu_rosha
+	region_id = TRADE_REGION_RHU_ROSHA
+	name = "Rhu Rosha"
+	subroute = /datum/trade_subroute/rossan_coast
+	region_types = list(
+		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
+		/datum/region_type/population/mariners = REGION_SIZE_SMALL,
+		/datum/region_type/population/urban = REGION_SIZE_SMALL,
+		/datum/region_type/agriculture/northern = REGION_SIZE_MEDIUM,
+		/datum/region_type/fishery/coastal_cold = REGION_SIZE_LARGE,
+	)
+
+/datum/economic_region/south_syons
+	region_id = TRADE_REGION_SOUTH_SYONS
+	name = "South Syons"
+	subroute = /datum/trade_subroute/southern_shore
+	region_types = list(
+		/datum/region_type/population/settlement = REGION_SIZE_SMALL,
+		/datum/region_type/pastoral/mountain = REGION_SIZE_SMALL,
+	)
+
+/datum/economic_region/north_syons
+	region_id = TRADE_REGION_NORTH_SYONS
+	name = "North Syons"
+	subroute = /datum/trade_subroute/syonic_passes
+	region_types = list(
+		/datum/region_type/population/settlement = REGION_SIZE_SMALL,
+		/datum/region_type/pastoral/mountain = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/orchard = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/citrus_orchard = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/temperate = REGION_SIZE_SMALL,
+	)
+
+/datum/economic_region/dalesworth
+	region_id = TRADE_REGION_DALESWORTH
+	name = "Dalesworth"
+	subroute = /datum/trade_subroute/riverine_azuria
+	region_types = list(
+		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
+		/datum/region_type/population/urban = REGION_SIZE_SMALL,
+		/datum/region_type/population/garrison = REGION_SIZE_SMALL,
+		/datum/region_type/agriculture/temperate = REGION_SIZE_MEDIUM,
+		/datum/region_type/fishery/riverine = REGION_SIZE_MEDIUM,
+	)
+
+/datum/economic_region/avondale
+	region_id = TRADE_REGION_AVONDALE
+	name = "Avondale"
+	subroute = /datum/trade_subroute/riverine_azuria
+	region_types = list(
+		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
+		/datum/region_type/population/urban = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/temperate = REGION_SIZE_LARGE,
+		/datum/region_type/pastoral/swine = REGION_SIZE_SMALL,
+		/datum/region_type/fishery/riverine = REGION_SIZE_SMALL,
+	)
+
+/datum/economic_region/bewmarch
+	region_id = TRADE_REGION_BEWMARCH
+	name = "Bewmarch"
+	subroute = /datum/trade_subroute/east_bank_of_arwin
+	region_types = list(
+		/datum/region_type/population/settlement = REGION_SIZE_MEDIUM,
+		/datum/region_type/pastoral/mixed = REGION_SIZE_MEDIUM,
+		/datum/region_type/agriculture/orchard = REGION_SIZE_MEDIUM,
+		/datum/region_type/fishery/riverine = REGION_SIZE_MEDIUM,
 	)

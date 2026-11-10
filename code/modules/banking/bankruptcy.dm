@@ -258,7 +258,7 @@ GLOBAL_LIST_INIT(atc_seizure_inventory, list(
 	"a portrait of a forgotten ancestor, slashed by a disgruntled debtor",
 	"the Court Cupbearer's pewter inventory and the keys to it",
 	"a jeweled Lirvanic bathtub of indecent proportion",
-	"twelve casks of Bleakcoast firewine, marked for the Midwinter feast",
+	"twelve casks of Valmora Blue, marked for the Midwinter feast",
 	"a Kazengun lacquered wardrobe of indeterminate vintage",
 	"an Etruscan illuminated bestiary, warped by damp",
 	"a clutch of Heartfelt clockwork toys, ticking faintly",

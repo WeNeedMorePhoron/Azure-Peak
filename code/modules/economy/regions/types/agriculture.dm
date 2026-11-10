@@ -51,6 +51,14 @@
 		SEASON_AUTUMN = REGION_SEASON_HIGH,
 	)
 
+/datum/region_type/agriculture/citrus_orchard
+	name = "Citrus Orchards"
+	produces = list(
+		TRADE_GOOD_LEMON = TG_VOLUME_LOW,
+		TRADE_GOOD_LIME = TG_VOLUME_LOW,
+		TRADE_GOOD_TANGERINE = TG_VOLUME_LOW,
+	)
+
 /datum/region_type/agriculture/aquaculture
 	name = "Aquaculture (Coastal)"
 	produces = list(
