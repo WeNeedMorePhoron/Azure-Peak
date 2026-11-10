@@ -2021,6 +2021,7 @@
 #include "code\modules\droning\droning.dm"
 #include "code\modules\economy\regions\economic_region.dm"
 #include "code\modules\economy\regions\regions.dm"
+#include "code\modules\economy\regions\routes.dm"
 #include "code\modules\economy\regions\trade_good_groups.dm"
 #include "code\modules\economy\regions\types\_region_type.dm"
 #include "code\modules\economy\regions\types\agriculture.dm"

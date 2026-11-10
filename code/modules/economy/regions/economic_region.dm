@@ -16,6 +16,7 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 	/// AZURIA'S REGIONS section. The steward UI ignores it; only `description` shows there.
 	var/subtitle = ""
 	var/description = ""
+	var/subroute
 	var/list/region_types = list()
 	var/list/produces = list()
 	var/list/demands = list()
@@ -41,6 +42,10 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 
 /datum/economic_region/New()
 	. = ..()
+	var/datum/trade_subroute/region_subroute = subroute
+	if(region_subroute)
+		var/datum/trade_route/region_route = initial(region_subroute.route)
+		threat_region_id = initial(region_route.threat_region_id)
 	build_trade_lists()
 	produces_today = produces.Copy()
 	demands_today = demands.Copy()
