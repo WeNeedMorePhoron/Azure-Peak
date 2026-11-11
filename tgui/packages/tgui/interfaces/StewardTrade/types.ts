@@ -200,7 +200,6 @@ export type StaticData = {
   region_catalog: Record<string, RegionCatalogEntry>;
   caravan_routes: CaravanRoute[];
   caravan_capacity: number;
-  caravan_stops_max: number;
   // Only present while the user has the Ledger tab open (server gates it on ledger_view).
   ledger_page?: LedgerPage;
 };
@@ -288,47 +287,39 @@ export type RegionFlow = {
   good_id: string;
   total: number;
   today: number;
-  price: number;
-  tribute_price?: number;
 };
 
 export type RegionRow = {
   region_id: string;
   blockaded: BooleanLike;
-  tribute_value: number;
-  tribute_claimed: BooleanLike;
   produces: RegionFlow[];
   demands: RegionFlow[];
 };
 
 export type CaravanLines = Record<string, number>;
 
-export type CaravanStopDraft = {
-  region_id: string;
+export type CaravanOrder = {
+  route: string;
   buys: CaravanLines;
   sells: CaravanLines;
-  tribute: CaravanLines;
-};
-
-export type CaravanTrip = {
-  route: string;
-  stops: CaravanStopDraft[];
+  tribute: string | null;
 };
 
 export type Caravan = {
   ref: string;
   name: string;
   on_road: BooleanLike;
-  last_trip: CaravanTrip | null;
+  last_order: CaravanOrder | null;
   route_name?: string;
-  region_names?: string;
   booked_by?: string;
   returns_in?: number;
   buy_units?: number;
   sell_units?: number;
   buy_cost?: number;
   sell_revenue?: number;
-  has_tribute?: BooleanLike;
+  market_estimate?: number;
+  tribute_name?: string;
+  tribute_units?: number;
 };
 
 export type CaravanQuote = {
@@ -336,8 +327,14 @@ export type CaravanQuote = {
   ok: BooleanLike;
   error: string;
   buy_cost: number;
+  market_cost: number;
   sell_revenue: number;
-  stops: { region_id: string; buy_cost: number; sell_revenue: number }[];
+  market_estimate: number;
+  tribute_units: number;
+  royal_deliveries: CaravanLines;
+  market_deliveries: CaravanLines;
+  royal_sales: CaravanLines;
+  market_purchases: CaravanLines;
 };
 
 export type AutoImportRow = {
@@ -451,7 +448,6 @@ export type Data = StaticData & {
   trade_quote: TradeQuote | null;
   caravans: Caravan[];
   caravan_quote: CaravanQuote | null;
-  tribute_picks: Record<string, CaravanLines>;
   autoexport_percentage: number;
   autoexport_barred: number;
   shortage_goods_open: number;

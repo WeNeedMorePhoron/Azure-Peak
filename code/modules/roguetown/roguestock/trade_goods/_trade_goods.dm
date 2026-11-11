@@ -35,6 +35,12 @@
 /datum/trade_good/proc/reference_price()
 	return (item_type && GLOB.derived_sellprices[item_type]) || base_price
 
+/datum/trade_good/proc/producer_price()
+	return stockpile_price(reference_price() * REGION_PRODUCER_PRICE_MULT)
+
+/datum/trade_good/proc/demander_price()
+	return stockpile_price(reference_price() * REGION_DEMANDER_PRICE_MULT)
+
 GLOBAL_LIST_INIT(trade_goods, init_trade_goods())
 
 /proc/init_trade_goods()

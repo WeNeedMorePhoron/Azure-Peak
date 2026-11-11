@@ -58,7 +58,6 @@
 	data["region_catalog"] = region_catalog
 	data["caravan_routes"] = build_caravan_routes()
 	data["caravan_capacity"] = CARAVAN_CAPACITY
-	data["caravan_stops_max"] = CARAVAN_STOPS_MAX
 
 	var/list/petition_categories = list()
 	for(var/cat_id in GLOB.petition_categories)
@@ -171,7 +170,6 @@
 	data["trade_quote"] = last_trade_quote[user.ckey]
 	data["caravans"] = build_caravan_rows()
 	data["caravan_quote"] = last_caravan_quote[user.ckey]
-	data["tribute_picks"] = SSeconomy.last_tribute_picks
 
 	var/list/events = list()
 	for(var/datum/economic_event/E as anything in GLOB.active_economic_events)
@@ -388,8 +386,6 @@
 				"good_id" = good_id,
 				"total" = region.get_day_capacity_total(good_id, TRUE),
 				"today" = region.get_day_capacity(good_id, TRUE),
-				"price" = region.caravan_buy_price(good_id),
-				"tribute_price" = region.tribute_unit_price(good_id),
 			))
 		var/list/demands = list()
 		for(var/good_id in region.demands)
@@ -399,13 +395,10 @@
 				"good_id" = good_id,
 				"total" = region.get_day_capacity_total(good_id, FALSE),
 				"today" = region.get_day_capacity(good_id, FALSE),
-				"price" = region.caravan_sell_price(good_id),
 			))
 		region_rows += list(list(
 			"region_id" = region_id,
 			"blockaded" = region.is_region_blockaded ? TRUE : FALSE,
-			"tribute_value" = region.tribute_value,
-			"tribute_claimed" = region.tribute_claimed ? TRUE : FALSE,
 			"produces" = produces,
 			"demands" = demands,
 		))
@@ -629,7 +622,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			return TRUE
 		if("caravan_send")
 			var/datum/crown_caravan/caravan = locate(params["caravan"]) in SSeconomy.crown_caravans
-			if(SSeconomy.book_caravan_trip(usr, caravan, text2path("[params["route"]]"), SSeconomy.sanitize_caravan_orders(params["orders"])))
+			if(SSeconomy.book_caravan_trip(usr, caravan, SSeconomy.sanitize_caravan_order(params["order"])))
 				last_caravan_quote -= usr.ckey
 			SStgui.update_uis(src)
 			return TRUE

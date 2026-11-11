@@ -23,6 +23,17 @@
 	threat_region_id = THREAT_REGION_MOUNT_DECAP
 	trip_time = TRADE_ROUTE_TRIP_RIVER_AZUR
 
+/proc/get_route_name(route)
+	var/datum/trade_route/route_path = route
+	return initial(route_path.name)
+
+/proc/get_route_regions(route)
+	. = list()
+	for(var/region_id in GLOB.economic_regions)
+		var/datum/economic_region/region = GLOB.economic_regions[region_id]
+		if(get_subroute_route(region.subroute) == route)
+			. += region
+
 /datum/trade_subroute
 	var/name
 	var/route

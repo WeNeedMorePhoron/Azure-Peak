@@ -240,10 +240,12 @@
 		total += market_unit_ask(market_stock - i)
 	return mammon_round(total)
 
-/datum/roguestock/proc/market_bid(units = 1)
+/datum/roguestock/proc/market_bid(units = 1, start)
+	if(isnull(start))
+		start = market_stock
 	var/total = 0
 	for(var/i in 1 to units)
-		total += stockpile_price(market_unit_ask(market_stock + i) * STOCKPILE_BID_RATIO)
+		total += stockpile_price(market_unit_ask(start + i) * STOCKPILE_BID_RATIO)
 	return mammon_round(total)
 
 /datum/roguestock/proc/check_item(obj/item/I)

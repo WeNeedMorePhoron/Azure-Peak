@@ -20,6 +20,16 @@
 		))
 	return routes
 
+/obj/structure/roguemachine/steward/proc/caravan_order_data(list/order)
+	if(!order)
+		return null
+	return list(
+		"route" = "[order["route"]]",
+		"buys" = order["buys"],
+		"sells" = order["sells"],
+		"tribute" = order["tribute"],
+	)
+
 /obj/structure/roguemachine/steward/proc/build_caravan_rows()
 	var/list/rows = list()
 	for(var/datum/crown_caravan/caravan as anything in SSeconomy.crown_caravans)
@@ -28,35 +38,36 @@
 			"ref" = REF(caravan),
 			"name" = caravan.name,
 			"on_road" = trip ? TRUE : FALSE,
-			"last_trip" = caravan.last_route ? list("route" = "[caravan.last_route]", "stops" = caravan.last_orders) : null,
+			"last_order" = caravan_order_data(caravan.last_order),
 		)
 		if(trip)
-			row["route_name"] = trip.get_route_name()
-			row["region_names"] = trip.get_region_names()
+			var/datum/trade_good/tribute_tg = trip.tribute_good ? GLOB.trade_goods[trip.tribute_good] : null
+			row["route_name"] = get_route_name(trip.route)
 			row["booked_by"] = trip.booked_by || ""
 			row["returns_in"] = max(0, round((trip.returns_at - world.time) / 10))
 			row["buy_units"] = trip.buy_units
 			row["sell_units"] = trip.sell_units
-			row["buy_cost"] = trip.get_buy_cost()
-			row["sell_revenue"] = trip.get_sell_revenue()
-			row["has_tribute"] = trip.has_tribute() ? TRUE : FALSE
+			row["buy_cost"] = trip.get_departure_cost()
+			row["sell_revenue"] = trip.sell_revenue
+			row["market_estimate"] = SSeconomy.estimate_market_revenue(trip)
+			row["tribute_name"] = tribute_tg ? tribute_tg.name : ""
+			row["tribute_units"] = trip.tribute_units
 		rows += list(row)
 	return rows
 
 /obj/structure/roguemachine/steward/proc/build_caravan_quote(list/params)
-	var/datum/caravan_trip/trip = SSeconomy.plan_caravan_trip(text2path("[params["route"]]"), SSeconomy.sanitize_caravan_orders(params["orders"]))
-	var/list/stops = list()
-	for(var/datum/caravan_stop/stop as anything in trip.stops)
-		stops += list(list(
-			"region_id" = stop.region_id,
-			"buy_cost" = stop.buy_cost,
-			"sell_revenue" = stop.sell_revenue,
-		))
+	var/datum/caravan_trip/trip = SSeconomy.plan_caravan_trip(SSeconomy.sanitize_caravan_order(params["order"]))
 	return list(
 		"stamp" = text2num("[params["stamp"]]") || 0,
 		"ok" = trip.error ? FALSE : TRUE,
 		"error" = trip.error || "",
-		"buy_cost" = trip.get_buy_cost(),
-		"sell_revenue" = trip.get_sell_revenue(),
-		"stops" = stops,
+		"buy_cost" = trip.buy_cost,
+		"market_cost" = trip.market_cost,
+		"sell_revenue" = trip.sell_revenue,
+		"market_estimate" = trip.error ? 0 : SSeconomy.estimate_market_revenue(trip),
+		"tribute_units" = trip.tribute_units,
+		"royal_deliveries" = trip.royal_deliveries,
+		"market_deliveries" = trip.market_deliveries,
+		"royal_sales" = trip.royal_sales,
+		"market_purchases" = trip.market_purchases,
 	)
