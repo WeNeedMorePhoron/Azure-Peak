@@ -56,6 +56,9 @@
 			"description" = region.description,
 		)
 	data["region_catalog"] = region_catalog
+	data["caravan_routes"] = build_caravan_routes()
+	data["caravan_capacity"] = CARAVAN_CAPACITY
+	data["caravan_stops_max"] = CARAVAN_STOPS_MAX
 
 	var/list/petition_categories = list()
 	for(var/cat_id in GLOB.petition_categories)
@@ -166,6 +169,9 @@
 
 	// Per-user quote response for the trade modal, populated by trade_quote act.
 	data["trade_quote"] = last_trade_quote[user.ckey]
+	data["caravans"] = build_caravan_rows()
+	data["caravan_quote"] = last_caravan_quote[user.ckey]
+	data["tribute_picks"] = SSeconomy.last_tribute_picks
 
 	var/list/events = list()
 	for(var/datum/economic_event/E as anything in GLOB.active_economic_events)
@@ -378,23 +384,30 @@
 		for(var/good_id in region.produces)
 			if(!GLOB.trade_goods[good_id])
 				continue
+			var/import_index = max(0, region.produces[good_id] - (region.produces_today[good_id] || 0))
 			produces += list(list(
 				"good_id" = good_id,
 				"total" = region.get_day_capacity_total(good_id, TRUE),
 				"today" = region.get_day_capacity(good_id, TRUE),
+				"price" = SSeconomy.compute_import_unit_price(good_id, region, import_index + 1),
+				"tribute_price" = region.tribute_unit_price(good_id),
 			))
 		var/list/demands = list()
 		for(var/good_id in region.demands)
 			if(!GLOB.trade_goods[good_id])
 				continue
+			var/export_index = max(0, region.demands[good_id] - (region.demands_today[good_id] || 0))
 			demands += list(list(
 				"good_id" = good_id,
 				"total" = region.get_day_capacity_total(good_id, FALSE),
 				"today" = region.get_day_capacity(good_id, FALSE),
+				"price" = SSeconomy.compute_export_unit_price(good_id, region, export_index + 1),
 			))
 		region_rows += list(list(
 			"region_id" = region_id,
 			"blockaded" = region.is_region_blockaded ? TRUE : FALSE,
+			"tribute_value" = region.tribute_value,
+			"tribute_claimed" = region.tribute_claimed ? TRUE : FALSE,
 			"produces" = produces,
 			"demands" = demands,
 		))
@@ -533,6 +546,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 	"set_autoexport_percentage",
 	"export_surplus_all",
 	"export_surplus_category",
+	"caravan_send",
 ))
 
 /obj/structure/roguemachine/steward/ui_act(action, list/params)
@@ -607,6 +621,18 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			return TRUE
 		if("trade_quote_close")
 			last_trade_quote -= usr.ckey
+			SStgui.update_uis(src)
+			return TRUE
+		if("caravan_quote")
+			last_caravan_quote[usr.ckey] = build_caravan_quote(params)
+			return TRUE
+		if("caravan_quote_close")
+			last_caravan_quote -= usr.ckey
+			return TRUE
+		if("caravan_send")
+			var/datum/crown_caravan/caravan = locate(params["caravan"]) in SSeconomy.crown_caravans
+			if(SSeconomy.book_caravan_trip(usr, caravan, text2path("[params["route"]]"), SSeconomy.sanitize_caravan_orders(params["orders"])))
+				last_caravan_quote -= usr.ckey
 			SStgui.update_uis(src)
 			return TRUE
 		if("trade_region_import")

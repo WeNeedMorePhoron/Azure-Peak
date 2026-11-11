@@ -17,6 +17,7 @@ import { ATCLoanBanner } from './StewardTrade/ATCLoanBanner';
 import { AutoImportView } from './StewardTrade/AutoImportView';
 import { BanditryBanner } from './StewardTrade/BanditryBanner';
 import { BlockadeBanner } from './StewardTrade/BlockadeBanner';
+import { CaravansView } from './StewardTrade/CaravansView';
 import { EventsBanner } from './StewardTrade/EventsBanner';
 import { LedgerView } from './StewardTrade/LedgerView';
 import { MarketView } from './StewardTrade/MarketView';
@@ -107,6 +108,14 @@ export const StewardTrade = () => {
               label="Market & Stockpile"
             >
               <MarketView data={data} onTrade={setTradeRequest} />
+            </SequesteredOverlay>
+          )}
+          {tab === 'caravans' && (
+            <SequesteredOverlay
+              active={!!data.sequestration?.active}
+              label="Caravans"
+            >
+              <CaravansView data={data} />
             </SequesteredOverlay>
           )}
           {tab === 'regions' && (

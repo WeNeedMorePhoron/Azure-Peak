@@ -47,6 +47,12 @@ export const TabBar = (props: {
         Market
       </div>
       <div
+        style={tabStyle(tab === 'caravans')}
+        onClick={() => onSwitch('caravans')}
+      >
+        Caravans
+      </div>
+      <div
         style={tabStyle(tab === 'ledger')}
         onClick={() => onSwitch('ledger')}
       >

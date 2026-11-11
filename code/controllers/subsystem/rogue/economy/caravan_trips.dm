@@ -114,8 +114,40 @@
 		trip.error = "The Treasury can't afford this trip. It has [format_mammon(SStreasury.discretionary_fund.balance)]m and needs [format_mammon(cost)]m."
 	return trip
 
+/datum/controller/subsystem/economy/proc/sanitize_caravan_orders(list/raw)
+	var/list/orders = list()
+	if(!islist(raw))
+		return orders
+	for(var/entry in raw)
+		if(!islist(entry))
+			continue
+		var/list/order = entry
+		orders += list(list(
+			"region_id" = "[order["region_id"]]",
+			"buys" = sanitize_caravan_lines(order["buys"], CARAVAN_CAPACITY),
+			"sells" = sanitize_caravan_lines(order["sells"], CARAVAN_CAPACITY),
+			"tribute" = sanitize_caravan_lines(order["tribute"]),
+		))
+		if(length(orders) > CARAVAN_STOPS_MAX)
+			break
+	return orders
+
+/datum/controller/subsystem/economy/proc/sanitize_caravan_lines(list/raw, cap)
+	var/list/lines = list()
+	if(!islist(raw))
+		return lines
+	for(var/good_id in raw)
+		if(!istext(good_id) || !GLOB.trade_goods[good_id])
+			continue
+		var/units = round(text2num("[raw[good_id]]"))
+		if(units > 0)
+			lines[good_id] = cap ? min(units, cap) : units
+	return lines
+
 /datum/controller/subsystem/economy/proc/book_caravan_trip(mob/user, datum/crown_caravan/caravan, route, list/orders)
-	if(!caravan || caravan.trip)
+	if(!caravan)
+		return null
+	if(caravan.trip)
 		to_chat(user, span_warning("That caravan is already on the road."))
 		return null
 	var/datum/caravan_trip/trip = plan_caravan_trip(route, orders)
@@ -136,6 +168,7 @@
 			D.royal_stock -= stop.sells[good_id]
 		if(length(stop.tribute))
 			region.tribute_claimed = TRUE
+			last_tribute_picks[stop.region_id] = stop.tribute.Copy()
 	if(cost > 0)
 		SStreasury.total_import += cost
 		SStreasury.economic_output += cost
@@ -146,8 +179,11 @@
 	trip.departed_at = world.time
 	trip.returns_at = world.time + trip_time
 	caravan.trip = trip
+	caravan.last_route = route
+	caravan.last_orders = orders
 	addtimer(CALLBACK(src, PROC_REF(finish_caravan_trip), caravan), trip_time)
 	SStreasury.dirty_market_view()
+	SStreasury.steward_machine?.say("[caravan.name] sets out for [trip.get_region_names()].")
 	log_game("CARAVAN TRIP by [user ? user.ckey : "nobody"]: [caravan.name] to [trip.get_region_names()] on [trip.get_route_name()] (cost [cost]m, expected revenue [trip.get_sell_revenue()]m)")
 	return trip
 

@@ -181,11 +181,26 @@ export type LedgerPage = {
   subsidiary?: Subsidiary;
 };
 
+export type CaravanSubroute = {
+  name: string;
+  region_ids: string[];
+};
+
+export type CaravanRoute = {
+  id: string;
+  name: string;
+  trip_minutes: number;
+  subroutes: CaravanSubroute[];
+};
+
 export type StaticData = {
   order_pool_cap: number;
   quality_payouts: { label: string; pct: number }[];
   good_catalog: Record<string, GoodCatalogEntry>;
   region_catalog: Record<string, RegionCatalogEntry>;
+  caravan_routes: CaravanRoute[];
+  caravan_capacity: number;
+  caravan_stops_max: number;
   // Only present while the user has the Ledger tab open (server gates it on ledger_view).
   ledger_page?: LedgerPage;
 };
@@ -273,13 +288,56 @@ export type RegionFlow = {
   good_id: string;
   total: number;
   today: number;
+  price: number;
+  tribute_price?: number;
 };
 
 export type RegionRow = {
   region_id: string;
   blockaded: BooleanLike;
+  tribute_value: number;
+  tribute_claimed: BooleanLike;
   produces: RegionFlow[];
   demands: RegionFlow[];
+};
+
+export type CaravanLines = Record<string, number>;
+
+export type CaravanStopDraft = {
+  region_id: string;
+  buys: CaravanLines;
+  sells: CaravanLines;
+  tribute: CaravanLines;
+};
+
+export type CaravanTrip = {
+  route: string;
+  stops: CaravanStopDraft[];
+};
+
+export type Caravan = {
+  ref: string;
+  name: string;
+  on_road: BooleanLike;
+  last_trip: CaravanTrip | null;
+  route_name?: string;
+  region_names?: string;
+  booked_by?: string;
+  returns_in?: number;
+  buy_units?: number;
+  sell_units?: number;
+  buy_cost?: number;
+  sell_revenue?: number;
+  has_tribute?: BooleanLike;
+};
+
+export type CaravanQuote = {
+  stamp: number;
+  ok: BooleanLike;
+  error: string;
+  buy_cost: number;
+  sell_revenue: number;
+  stops: { region_id: string; buy_cost: number; sell_revenue: number }[];
 };
 
 export type AutoImportRow = {
@@ -391,6 +449,9 @@ export type Data = StaticData & {
   region_rows: RegionRow[];
   auto_import: AutoImportData;
   trade_quote: TradeQuote | null;
+  caravans: Caravan[];
+  caravan_quote: CaravanQuote | null;
+  tribute_picks: Record<string, CaravanLines>;
   autoexport_percentage: number;
   autoexport_barred: number;
   shortage_goods_open: number;
@@ -405,6 +466,7 @@ export type Data = StaticData & {
 export type TabKey =
   | 'orders'
   | 'market'
+  | 'caravans'
   | 'regions'
   | 'auto_import'
   | 'petition'

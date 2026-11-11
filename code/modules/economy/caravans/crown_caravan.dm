@@ -1,6 +1,8 @@
 /datum/crown_caravan
 	var/name
 	var/datum/caravan_trip/trip
+	var/last_route
+	var/list/last_orders
 
 /datum/crown_caravan/New(caravan_name)
 	. = ..()

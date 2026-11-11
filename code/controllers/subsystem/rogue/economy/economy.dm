@@ -12,6 +12,7 @@ SUBSYSTEM_DEF(economy)
 	var/list/gathering_blockades = list()
 	var/list/crown_caravans = list()
 	var/caravans_granted = 0
+	var/list/last_tribute_picks = list()
 	var/list/event_path_cooldowns = list()
 	var/list/goods_with_producers = list()
 	var/list/goods_with_demand = list()

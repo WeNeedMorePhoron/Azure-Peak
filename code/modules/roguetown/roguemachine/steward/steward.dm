@@ -26,6 +26,7 @@
 	var/list/daily_payments = list()
 	var/residency_print_cooldown = 0
 	var/list/last_trade_quote = list()
+	var/list/last_caravan_quote = list()
 	var/list/ledger_view = list()
 	var/list/petition_view = list()
 	COOLDOWN_DECLARE(fulfill_retry_cooldown)
