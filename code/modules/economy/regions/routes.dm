@@ -27,9 +27,12 @@
 	var/name
 	var/route
 
-/proc/get_subroute_threat_region(subroute)
+/proc/get_subroute_route(subroute)
 	var/datum/trade_subroute/subroute_path = subroute
-	var/datum/trade_route/route_path = initial(subroute_path.route)
+	return initial(subroute_path.route)
+
+/proc/get_subroute_threat_region(subroute)
+	var/datum/trade_route/route_path = get_subroute_route(subroute)
 	return initial(route_path.threat_region_id)
 
 /proc/get_subroute_regions(subroute)

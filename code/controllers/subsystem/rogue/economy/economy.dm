@@ -10,6 +10,8 @@ SUBSYSTEM_DEF(economy)
 	var/petitions_today = 0
 	var/blockade_replenish_spent = 0
 	var/list/gathering_blockades = list()
+	var/list/crown_caravans = list()
+	var/caravans_granted = 0
 	var/list/event_path_cooldowns = list()
 	var/list/goods_with_producers = list()
 	var/list/goods_with_demand = list()
@@ -44,6 +46,7 @@ SUBSYSTEM_DEF(economy)
 	)
 	roundstart_events()
 	roundstart_blockades()
+	SSticker.OnRoundstart(CALLBACK(src, PROC_REF(grant_crown_caravans)))
 	return ..()
 
 /datum/controller/subsystem/economy/proc/reset_region_capacities()
@@ -79,6 +82,7 @@ SUBSYSTEM_DEF(economy)
 	var/effective_pop = get_effective_player_count()
 	var/order_size_mult = min(STANDING_ORDER_POP_SCALE_MAX, 1.0 + (effective_pop * STANDING_ORDER_POP_SCALE_PER_PLAYER))
 	reset_region_capacities()
+	grant_crown_caravans()
 
 	var/list/expired = list()
 	for(var/datum/standing_order/O as anything in GLOB.standing_order_pool)
