@@ -56,16 +56,20 @@ type HoardRecoveryRegion = {
   active: BooleanLike;
 };
 
+type ScoutBlockade = {
+  writ_out: BooleanLike;
+  faction_label: string;
+  region_label: string;
+  days_active: number;
+};
+
 type ScoutRegion = {
   region_name: string;
   danger_level: string;
   danger_color: string;
   ic_descriptions: string[];
   blockaded: BooleanLike;
-  blockade_writ_out: BooleanLike;
-  blockade_faction_label: string;
-  blockade_region_label: string;
-  blockade_days_active: number;
+  blockades: ScoutBlockade[];
 };
 
 type ContractLedgerData = {
@@ -438,28 +442,30 @@ const ScoutsPanel = () => {
               </td>
               <td style={scoutCellStyle}>
                 {r.blockaded ? (
-                  <>
-                    <div style={{ color: '#8b1a1a', fontWeight: 'bold' }}>
-                      {r.blockade_faction_label || 'unknown raiders'}
-                      <span
-                        style={{
-                          marginLeft: 6,
-                          fontWeight: 'normal',
-                          color: '#7a6a4a',
-                        }}
-                      >
-                        {r.blockade_days_active}d
-                      </span>
-                    </div>
-                    {!!r.blockade_region_label && (
-                      <div style={{ color: '#7a6a4a' }}>
-                        blocking {r.blockade_region_label}
+                  r.blockades.map((b, i) => (
+                    <div key={i} style={{ marginTop: i === 0 ? 0 : 6 }}>
+                      <div style={{ color: '#8b1a1a', fontWeight: 'bold' }}>
+                        {b.faction_label || 'unknown raiders'}
+                        <span
+                          style={{
+                            marginLeft: 6,
+                            fontWeight: 'normal',
+                            color: '#7a6a4a',
+                          }}
+                        >
+                          {b.days_active}d
+                        </span>
                       </div>
-                    )}
-                    <div style={{ color: '#a06000' }}>
-                      {r.blockade_writ_out ? 'Scroll out' : 'Awaiting scroll'}
+                      {!!b.region_label && (
+                        <div style={{ color: '#7a6a4a' }}>
+                          blocking {b.region_label}
+                        </div>
+                      )}
+                      <div style={{ color: '#a06000' }}>
+                        {b.writ_out ? 'Scroll out' : 'Awaiting scroll'}
+                      </div>
                     </div>
-                  </>
+                  ))
                 ) : (
                   <span style={{ color: '#7a6a4a' }}>-</span>
                 )}

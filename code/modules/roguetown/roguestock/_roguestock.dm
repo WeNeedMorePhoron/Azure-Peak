@@ -62,7 +62,7 @@
 		return FALSE
 	for(var/region_id in GLOB.economic_regions)
 		var/datum/economic_region/region = GLOB.economic_regions[region_id]
-		if(region.produces[trade_good_id] > 0)
+		if(region.produces[trade_good_id] > 0 && !region.is_region_blockaded)
 			return TRUE
 	return FALSE
 

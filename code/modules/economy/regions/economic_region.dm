@@ -30,8 +30,6 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 	var/is_region_blockaded = FALSE
 	/// Null = this region cannot be blockaded.
 	var/threat_region_id
-	// Ensure this region won't replenish blockade. Used only for Kingsfield because Kingsfield blockade is devastating and shouldn't repeat mid round.
-	var/blockade_replenish_eligible = TRUE
 
 	var/list/produces_today = list()
 	var/list/demands_today = list()
@@ -44,10 +42,8 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 
 /datum/economic_region/New()
 	. = ..()
-	var/datum/trade_subroute/region_subroute = subroute
-	if(region_subroute)
-		var/datum/trade_route/region_route = initial(region_subroute.route)
-		threat_region_id = initial(region_route.threat_region_id)
+	if(subroute)
+		threat_region_id = get_subroute_threat_region(subroute)
 	build_trade_lists()
 	produces_today = produces.Copy()
 	demands_today = demands.Copy()
@@ -126,7 +122,7 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 	return resting
 
 /datum/economic_region/proc/tribute_units(good_id, value)
-	if(!produces_day_start[good_id])
+	if(is_region_blockaded || !produces_day_start[good_id])
 		return 0
 	var/price = SSeconomy.compute_import_unit_price(good_id, src, 1)
 	if(!price)

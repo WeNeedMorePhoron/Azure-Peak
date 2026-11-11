@@ -90,11 +90,10 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 
 	var/list/blockades = list()
 	for(var/datum/blockade/B as anything in GLOB.active_blockades)
-		var/datum/economic_region/ER = B.get_region()
 		var/datum/quest_faction/F = B.get_faction()
 		blockades += list(list(
-			"region_id" = B.region_id,
-			"region_name" = ER ? ER.name : B.region_id,
+			"subroute_id" = "[B.subroute]",
+			"subroute_name" = "[B.get_name()] ([B.get_region_names()])",
 			"threat_region" = B.threat_region_name,
 			"faction_name" = F ? F.name_plural : B.faction_id,
 			"day_started" = B.day_started,
@@ -103,17 +102,19 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 		))
 	data["blockades"] = blockades
 
-	var/list/blockade_region_options = list()
-	for(var/region_id in GLOB.economic_regions)
-		var/datum/economic_region/ER = GLOB.economic_regions[region_id]
-		if(!ER.threat_region_id)
+	var/list/blockade_subroute_options = list()
+	for(var/datum/trade_subroute/subroute as anything in subtypesof(/datum/trade_subroute))
+		var/list/region_names = list()
+		for(var/datum/economic_region/ER as anything in get_subroute_regions(subroute))
+			region_names += ER.name
+		if(!length(region_names))
 			continue
-		blockade_region_options += list(list(
-			"id" = region_id,
-			"name" = ER.name,
-			"blockaded" = ER.is_region_blockaded ? TRUE : FALSE,
+		blockade_subroute_options += list(list(
+			"id" = "[subroute]",
+			"name" = "[initial(subroute.name)] ([english_list(region_names)])",
+			"blockaded" = SSeconomy?.find_blockade_for_subroute(subroute) ? TRUE : FALSE,
 		))
-	data["blockade_region_options"] = blockade_region_options
+	data["blockade_subroute_options"] = blockade_subroute_options
 
 	var/list/blockade_faction_options = list()
 	for(var/fid in GLOB.quest_factions)
@@ -369,32 +370,29 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 				return TRUE
 			var/datum/blockade/B = SSeconomy.roll_blockade()
 			if(B)
-				var/datum/economic_region/ER = B.get_region()
-				admin_log_fiscal("rolled a blockade on [ER ? ER.name : B.region_id] ([B.faction_id])", "Fire Blockade Roll")
+				admin_log_fiscal("rolled a blockade on [B.get_name()] ([B.faction_id])", "Fire Blockade Roll")
 			else
-				to_chat(usr, span_warning("No eligible region available to blockade."))
+				to_chat(usr, span_warning("No eligible subroute available to blockade."))
 			return TRUE
 		if("place_blockade")
 			if(!SSeconomy)
 				return TRUE
-			var/region_id = params["region_id"]
-			if(!region_id || !GLOB.economic_regions[region_id])
-				to_chat(usr, span_warning("Pick a region to blockade."))
+			var/subroute = text2path(params["subroute_id"])
+			if(!ispath(subroute, /datum/trade_subroute) || !length(get_subroute_regions(subroute)))
+				to_chat(usr, span_warning("Pick a subroute to blockade."))
 				return TRUE
-			if(SSeconomy.find_blockade_for_region(region_id))
-				to_chat(usr, span_warning("That region is already blockaded."))
+			if(SSeconomy.find_blockade_for_subroute(subroute))
+				to_chat(usr, span_warning("That subroute is already blockaded."))
 				return TRUE
-			var/datum/economic_region/ER = GLOB.economic_regions[region_id]
 			var/fid = params["faction_id"]
 			if(!fid)
-				var/datum/threat_region/TR = SSregionthreat.get_region(ER.threat_region_id)
-				fid = SSeconomy.pick_blockade_faction_for(TR)
+				fid = SSeconomy.pick_blockade_faction_for(SSregionthreat.get_region(get_subroute_threat_region(subroute)))
 			if(!fid)
-				to_chat(usr, span_warning("No eligible faction for that region - pick one explicitly."))
+				to_chat(usr, span_warning("No eligible faction for that subroute - pick one explicitly."))
 				return TRUE
-			var/datum/blockade/B = SSeconomy.place_blockade(region_id, fid)
+			var/datum/blockade/B = SSeconomy.place_blockade(subroute, fid)
 			if(B)
-				admin_log_fiscal("placed a blockade on [ER.name] ([fid])", "Place Blockade")
+				admin_log_fiscal("placed a blockade on [B.get_name()] ([fid])", "Place Blockade")
 			return TRUE
 		if("clear_blockade")
 			if(!SSeconomy)
@@ -402,9 +400,9 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 			var/datum/blockade/B = locate(params["ref"]) in GLOB.active_blockades
 			if(!B)
 				return TRUE
-			var/datum/economic_region/ER = B.get_region()
+			var/blockade_name = B.get_name()
 			SSeconomy.clear_blockade(B, "admin")
-			admin_log_fiscal("force-cleared blockade on [ER ? ER.name : "unknown"]", "Clear Blockade")
+			admin_log_fiscal("force-cleared blockade on [blockade_name]", "Clear Blockade")
 			return TRUE
 		if("mint_discretionary")
 			var/amt = text2num(params["amount"])

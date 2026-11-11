@@ -108,8 +108,8 @@ type Charter = {
 };
 
 type Blockade = {
-  region_id: string;
-  region_name: string;
+  subroute_id: string;
+  subroute_name: string;
   threat_region: string;
   faction_name: string;
   day_started: number;
@@ -117,7 +117,7 @@ type Blockade = {
   ref: string;
 };
 
-type BlockadeRegionOption = {
+type BlockadeSubrouteOption = {
   id: string;
   name: string;
   blockaded: BooleanLike;
@@ -195,7 +195,7 @@ type Data = {
   effective_player_count: number;
   live_player_count: number;
   blockades: Blockade[];
-  blockade_region_options: BlockadeRegionOption[];
+  blockade_subroute_options: BlockadeSubrouteOption[];
   blockade_faction_options: BlockadeFactionOption[];
   assembly: Assembly;
   bankruptcy: Bankruptcy;
@@ -246,7 +246,7 @@ export const EconomicPanel = () => {
     effective_player_count,
     live_player_count,
     blockades,
-    blockade_region_options,
+    blockade_subroute_options,
     blockade_faction_options,
     assembly,
     bankruptcy,
@@ -268,7 +268,7 @@ export const EconomicPanel = () => {
   const [ledgerReason, setLedgerReason] = useState('');
   const [ledgerGroup, setLedgerGroup] = useState(false);
   const [ledgerPage, setLedgerPage] = useState(0);
-  const [blockadeRegion, setBlockadeRegion] = useState('');
+  const [blockadeSubroute, setBlockadeSubroute] = useState('');
   const [blockadeFaction, setBlockadeFaction] = useState('');
   const LEDGER_PAGE_SIZE = 50;
   const filteredLedger = ledger.filter((e) => {
@@ -972,16 +972,16 @@ export const EconomicPanel = () => {
                   </Stack.Item>
                   <Stack.Item>
                     <Dropdown
-                      width="11em"
-                      placeholder="Region..."
-                      selected={blockadeRegion}
-                      options={blockade_region_options.map((o) => ({
+                      width="22em"
+                      placeholder="Subroute..."
+                      selected={blockadeSubroute}
+                      options={blockade_subroute_options.map((o) => ({
                         value: o.id,
                         displayText: o.blockaded
                           ? `${o.name} (blockaded)`
                           : o.name,
                       }))}
-                      onSelected={(value) => setBlockadeRegion(value)}
+                      onSelected={(value) => setBlockadeSubroute(value)}
                     />
                   </Stack.Item>
                   <Stack.Item>
@@ -990,7 +990,7 @@ export const EconomicPanel = () => {
                       placeholder="Faction (auto)..."
                       selected={blockadeFaction}
                       options={[
-                        { value: '', displayText: 'Auto (by region)' },
+                        { value: '', displayText: 'Auto (by threat region)' },
                         ...blockade_faction_options.map((o) => ({
                           value: o.id,
                           displayText: o.name,
@@ -1001,15 +1001,15 @@ export const EconomicPanel = () => {
                   </Stack.Item>
                   <Stack.Item>
                     <Button.Confirm
-                      disabled={!blockadeRegion}
+                      disabled={!blockadeSubroute}
                       onClick={() =>
                         act('place_blockade', {
-                          region_id: blockadeRegion,
+                          subroute_id: blockadeSubroute,
                           faction_id: blockadeFaction || null,
                         })
                       }
                     >
-                      Blockade Region
+                      Blockade Subroute
                     </Button.Confirm>
                   </Stack.Item>
                 </Stack>
@@ -1020,7 +1020,7 @@ export const EconomicPanel = () => {
                 ) : (
                   <Table>
                     <Table.Row header>
-                      <Table.Cell>Region</Table.Cell>
+                      <Table.Cell>Subroute</Table.Cell>
                       <Table.Cell>Threat</Table.Cell>
                       <Table.Cell>Faction</Table.Cell>
                       <Table.Cell>Day</Table.Cell>
@@ -1029,7 +1029,7 @@ export const EconomicPanel = () => {
                     </Table.Row>
                     {blockades.map((b) => (
                       <Table.Row key={b.ref}>
-                        <Table.Cell>{b.region_name}</Table.Cell>
+                        <Table.Cell>{b.subroute_name}</Table.Cell>
                         <Table.Cell>{b.threat_region}</Table.Cell>
                         <Table.Cell>{b.faction_name}</Table.Cell>
                         <Table.Cell>D{b.day_started}</Table.Cell>

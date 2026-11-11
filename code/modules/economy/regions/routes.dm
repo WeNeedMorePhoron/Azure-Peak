@@ -27,6 +27,18 @@
 	var/name
 	var/route
 
+/proc/get_subroute_threat_region(subroute)
+	var/datum/trade_subroute/subroute_path = subroute
+	var/datum/trade_route/route_path = initial(subroute_path.route)
+	return initial(route_path.threat_region_id)
+
+/proc/get_subroute_regions(subroute)
+	. = list()
+	for(var/region_id in GLOB.economic_regions)
+		var/datum/economic_region/region = GLOB.economic_regions[region_id]
+		if(region.subroute == subroute)
+			. += region
+
 /datum/trade_subroute/rossan_coast
 	name = "Rossan Coast"
 	route = /datum/trade_route/northern_seaway

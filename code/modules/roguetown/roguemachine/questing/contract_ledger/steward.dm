@@ -20,8 +20,7 @@
 		var/datum/quest/kill/blockade_defense/Q = B.active_quest_ref?.resolve()
 		if(!istype(Q) || QDELETED(Q))
 			continue
-		var/datum/economic_region/ER = B.get_region()
-		out += ER ? ER.name : B.region_id
+		out += B.get_name()
 	for(var/datum/threat_region/TR as anything in SSregionthreat.threat_regions)
 		var/datum/quest/kill/blockade_defense/Q = TR.active_hoard_recovery_ref?.resolve()
 		if(!istype(Q) || QDELETED(Q) || Q.failed || Q.complete)
@@ -115,11 +114,9 @@
 /obj/structure/roguemachine/contractledger/proc/build_blockade_region_labels()
 	var/list/out = list()
 	for(var/datum/blockade/B as anything in GLOB.active_blockades)
-		var/datum/economic_region/ER = B.get_region()
-		if(!ER)
-			continue
 		var/datum/threat_region/TR = B.get_threat_region()
-		out[ER.name] = TR ? "[ER.name] ([TR.region_name])" : ER.name
+		var/label = "[B.get_name()]: [B.get_region_names()]"
+		out[B.get_name()] = TR ? "[label] ([TR.region_name])" : label
 	return out
 
 /obj/structure/roguemachine/contractledger/proc/commission_defense_from_tgui(mob/user, list/params)
@@ -258,12 +255,11 @@
 	var/region_name = params["region"]
 	var/datum/blockade/chosen
 	for(var/datum/blockade/B as anything in GLOB.active_blockades)
-		var/datum/economic_region/ER = B.get_region()
-		if(ER?.name == region_name)
+		if(B.get_name() == region_name)
 			chosen = B
 			break
 	if(!chosen)
-		to_chat(steward, span_warning("That region is not currently blockaded."))
+		to_chat(steward, span_warning("That road is not currently blockaded."))
 		return
 	if(chosen.has_active_scroll())
 		to_chat(steward, span_warning("A scroll is already in circulation for that blockade."))
@@ -282,7 +278,7 @@
 	var/levy_exempt = apply_commission_terms(Q, params, cost, draws, funding, is_directive, bonus_pay_level, is_alderman_acting, region_name, TRUE)
 	var/bonus_label_text = get_commission_bonus_pay_label(bonus_pay_level)
 	SSquestpool.log_event("defense_issue", "[steward.real_name] commissioned blockade defense on [region_name] (faction [Q.faction_id]) for [cost]m ([funding])[levy_exempt ? " (levy-exempt)" : ""][bonus_label_text ? " ([bonus_label_text])" : ""]")
-	scom_announce("A blockade defense scroll has been issued for [region_name][bonus_label_text ? ". It carries [bonus_label_text]" : ""].")
+	scom_announce("A blockade defense scroll has been issued for [chosen.get_region_names()][bonus_label_text ? ". It carries [bonus_label_text]" : ""].")
 	var/source_label = commission_source_label(is_directive, draws)
 	to_chat(steward, span_notice("Blockade scroll issued [source_label] and placed in your hand: <b>[Q.get_title()]</b>[levy_exempt ? " - <i>levy exempt</i>" : ""][bonus_label_text ? " - <i>[bonus_label_text]</i>" : ""]."))
 

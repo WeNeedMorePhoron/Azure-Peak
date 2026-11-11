@@ -22,16 +22,20 @@ export type Posting = {
   can_authority_remove: boolean;
 };
 
+export type ScoutBlockade = {
+  writ_out: boolean;
+  faction_label: string;
+  region_label: string;
+  days_active: number;
+};
+
 export type ScoutRegion = {
   region_name: string;
   danger_level: string;
   danger_color: string;
   ic_descriptions: string[];
   blockaded: boolean;
-  blockade_writ_out: boolean;
-  blockade_faction_label: string;
-  blockade_region_label: string;
-  blockade_days_active: number;
+  blockades: ScoutBlockade[];
 };
 
 export type TradeOrderRequirement = {

@@ -105,8 +105,9 @@
 		Completing a blockade gives a triumph reward of [BLOCKADE_CLEAR_TRIUMPHS] to all participants in the fellowship.
 		</p>
 
-		<p>Multiple blockades may exist at once. One scroll per blockade at a time.
-		Blockades are rolled only at roundstart and never spawn during the round.</p>
+		<p>A blockade block one subroute of a trade route and cuts the road to every
+		region along it. Multiple blockades may exist at once. One scroll per
+		blockade at a time.</p>
 
 		<p>A Blockade Scroll may be withdrawn from Your Postings until the first wave
 		begins. The waves begin when the holder arrives. Each wave must be broken
