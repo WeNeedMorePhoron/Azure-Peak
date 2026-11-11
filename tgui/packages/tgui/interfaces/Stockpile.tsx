@@ -77,6 +77,7 @@ type Data = {
   stocks: StockRow[];
   bounties: Bounty[];
   no_deposit: BooleanLike;
+  next_market_day_minutes: number;
   title: string;
   subtitle: string;
 };
@@ -329,6 +330,13 @@ export const Stockpile = () => {
             {!!data.food_stipend && !!data.below_floor && (
               <span style={{ color: SEAL_RED }}>crown ledger thin</span>
             )}
+            <span
+              style={{ color: INK_SOFT }}
+              title="Every dae other traders will correct the market and adjust the stocks and price toward the norm, according to regional demand and supply. This will only apply on non-blockaded region"
+            >
+              Next market dae in {data.next_market_day_minutes}{' '}
+              {data.next_market_day_minutes === 1 ? 'minute' : 'minutes'}
+            </span>
             <div style={{ marginLeft: 'auto', display: 'flex', gap: '4px' }}>
               <button
                 type="button"

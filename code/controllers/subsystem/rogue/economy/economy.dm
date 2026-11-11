@@ -99,6 +99,7 @@ SUBSYSTEM_DEF(economy)
 	recompute_active_order_payouts()
 
 	tick_blockade_replenish()
+	run_market_day()
 	tick_banditry_drain()
 
 	// Runs after events/blockades so auto-import sees the day's fresh price_mods, blockade

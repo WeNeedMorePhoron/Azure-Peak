@@ -25,6 +25,21 @@ GLOBAL_LIST_INIT(time_change_quotes, world.file2list("strings/rt/timechangequote
 /proc/station_time_timestamp(format = "hh:mm:ss", wtime)
 	return time2text(station_time(TRUE, wtime), format)
 
+/proc/seconds_until_dawn()
+	if(!SSnightshift || !SSticker)
+		return 0
+	var/current_station_time = station_time()
+	var/dawn_at = SSnightshift.nightshift_dawn_start
+	var/game_ds_until_dawn
+	if(current_station_time < dawn_at)
+		game_ds_until_dawn = dawn_at - current_station_time
+	else
+		game_ds_until_dawn = (864000 - current_station_time) + dawn_at
+	var/rate = SSticker.station_time_rate_multiplier || 1
+	if(rate <= 0)
+		rate = 1
+	return round((game_ds_until_dawn / rate) / 10)
+
 GLOBAL_VAR_INIT(tod, FALSE)
 GLOBAL_VAR_INIT(forecast, FALSE)
 GLOBAL_VAR_INIT(todoverride, FALSE)

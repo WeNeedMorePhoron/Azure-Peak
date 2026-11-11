@@ -108,19 +108,7 @@
 		return 0
 	if(SScity_assembly.first_session_resolve_at > world.time)
 		return round((SScity_assembly.first_session_resolve_at - world.time) / 10)
-	if(!SSnightshift || !SSticker)
-		return 0
-	var/current_station_time = station_time()
-	var/dawn_at = SSnightshift.nightshift_dawn_start
-	var/game_ds_until_dawn
-	if(current_station_time < dawn_at)
-		game_ds_until_dawn = dawn_at - current_station_time
-	else
-		game_ds_until_dawn = (864000 - current_station_time) + dawn_at
-	var/rate = SSticker.station_time_rate_multiplier || 1
-	if(rate <= 0)
-		rate = 1
-	return round((game_ds_until_dawn / rate) / 10)
+	return seconds_until_dawn()
 
 /datum/city_assembly_panel/proc/build_next_resolution_label()
 	if(SScity_assembly?.first_session_resolve_at > world.time)

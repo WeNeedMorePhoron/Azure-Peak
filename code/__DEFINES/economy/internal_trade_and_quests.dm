@@ -112,6 +112,9 @@
 
 #define MARKET_GLUT_SHOCK 300
 
+#define MARKET_DAY_RATE 50
+#define MARKET_DAY_FLOOR 25
+
 // Price multiplier based on market condition
 #define MARKET_MULT_GLUT 25
 #define MARKET_MULT_OVERSTOCKED 50
