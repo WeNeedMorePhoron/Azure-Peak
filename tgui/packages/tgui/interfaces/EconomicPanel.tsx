@@ -117,6 +117,13 @@ type Blockade = {
   ref: string;
 };
 
+type GatheringBlockade = {
+  subroute_id: string;
+  subroute_name: string;
+  threat_region: string;
+  faction_name: string;
+};
+
 type BlockadeSubrouteOption = {
   id: string;
   name: string;
@@ -195,6 +202,7 @@ type Data = {
   effective_player_count: number;
   live_player_count: number;
   blockades: Blockade[];
+  gathering_blockades: GatheringBlockade[];
   blockade_subroute_options: BlockadeSubrouteOption[];
   blockade_faction_options: BlockadeFactionOption[];
   assembly: Assembly;
@@ -246,6 +254,7 @@ export const EconomicPanel = () => {
     effective_player_count,
     live_player_count,
     blockades,
+    gathering_blockades,
     blockade_subroute_options,
     blockade_faction_options,
     assembly,
@@ -971,6 +980,11 @@ export const EconomicPanel = () => {
                     </Button.Confirm>
                   </Stack.Item>
                   <Stack.Item>
+                    <Button.Confirm onClick={() => act('fire_blockade_gather')}>
+                      Fire Gathering Roll
+                    </Button.Confirm>
+                  </Stack.Item>
+                  <Stack.Item>
                     <Dropdown
                       width="22em"
                       placeholder="Subroute..."
@@ -1013,6 +1027,36 @@ export const EconomicPanel = () => {
                     </Button.Confirm>
                   </Stack.Item>
                 </Stack>
+                {gathering_blockades.length > 0 && (
+                  <Box mb={1}>
+                    <Stack align="center" mb={0.5}>
+                      <Stack.Item grow bold>
+                        Gathering (strikes at the next dawn)
+                      </Stack.Item>
+                      <Stack.Item>
+                        <Button.Confirm
+                          onClick={() => act('land_gathering_blockades')}
+                        >
+                          Land Now
+                        </Button.Confirm>
+                      </Stack.Item>
+                    </Stack>
+                    <Table>
+                      <Table.Row header>
+                        <Table.Cell>Subroute</Table.Cell>
+                        <Table.Cell>Threat</Table.Cell>
+                        <Table.Cell>Faction</Table.Cell>
+                      </Table.Row>
+                      {gathering_blockades.map((g) => (
+                        <Table.Row key={g.subroute_id}>
+                          <Table.Cell>{g.subroute_name}</Table.Cell>
+                          <Table.Cell>{g.threat_region}</Table.Cell>
+                          <Table.Cell>{g.faction_name}</Table.Cell>
+                        </Table.Row>
+                      ))}
+                    </Table>
+                  </Box>
+                )}
                 {blockades.length === 0 ? (
                   <Box italic color="gray">
                     No blockades active. Trade roads run clear.

@@ -17,10 +17,10 @@
 		return null
 	return pickweight(eligible)
 
-/datum/controller/subsystem/economy/proc/roll_blockade()
+/datum/controller/subsystem/economy/proc/pick_blockade_subroute()
 	var/list/candidates = list()
 	for(var/subroute in subtypesof(/datum/trade_subroute))
-		if(find_blockade_for_subroute(subroute))
+		if(gathering_blockades[subroute] || find_blockade_for_subroute(subroute))
 			continue
 		var/list/regions = get_subroute_regions(subroute)
 		if(!length(regions))
@@ -40,11 +40,37 @@
 		candidates += subroute
 	if(!length(candidates))
 		return null
-	var/chosen = pick(candidates)
-	var/fid = pick_blockade_faction_for(SSregionthreat.get_region(get_subroute_threat_region(chosen)))
+	return pick(candidates)
+
+/datum/controller/subsystem/economy/proc/roll_blockade()
+	var/subroute = pick_blockade_subroute()
+	if(!subroute)
+		return null
+	var/fid = pick_blockade_faction_for(SSregionthreat.get_region(get_subroute_threat_region(subroute)))
 	if(!fid)
 		return null
-	return place_blockade(chosen, fid)
+	return place_blockade(subroute, fid)
+
+/datum/controller/subsystem/economy/proc/gather_blockade()
+	var/subroute = pick_blockade_subroute()
+	if(!subroute)
+		return FALSE
+	var/fid = pick_blockade_faction_for(SSregionthreat.get_region(get_subroute_threat_region(subroute)))
+	if(!fid)
+		return FALSE
+	gathering_blockades[subroute] = fid
+	var/datum/quest_faction/F = get_quest_faction(fid)
+	if(daily_report_diff)
+		var/list/gathering = daily_report_diff["blockades_gathering"]
+		gathering += "[get_subroute_name(subroute)] ([get_subroute_region_names(subroute)]) - [F ? "[F.group_word] of [F.name_plural]" : "raiders"]"
+	if(F)
+		scom_announce("<font color='#c44'>The scouts report a [F.group_word] of [F.name_plural] massing on the road to [get_subroute_region_names(subroute)]. It will be blocked at the next dawn.</font>")
+	return TRUE
+
+/datum/controller/subsystem/economy/proc/land_gathering_blockades()
+	for(var/subroute in gathering_blockades)
+		place_blockade(subroute, gathering_blockades[subroute])
+	gathering_blockades.Cut()
 
 /datum/controller/subsystem/economy/proc/place_blockade(subroute, faction_id)
 	if(find_blockade_for_subroute(subroute))
@@ -96,7 +122,9 @@
 			break
 
 /datum/controller/subsystem/economy/proc/tick_blockade_replenish()
-	if(GLOB.dayspassed < BLOCKADE_REPLENISH_FIRST_DAY || GLOB.dayspassed > BLOCKADE_REPLENISH_LAST_DAY)
+	land_gathering_blockades()
+	var/strike_day = GLOB.dayspassed + 1
+	if(strike_day < BLOCKADE_REPLENISH_FIRST_DAY || strike_day > BLOCKADE_REPLENISH_LAST_DAY)
 		return
 	if(length(GLOB.active_blockades) >= BLOCKADE_REPLENISH_FLOOR)
 		return
@@ -105,7 +133,7 @@
 		return
 	if(!prob(BLOCKADE_REPLENISH_DAILY_CHANCE))
 		return
-	if(roll_blockade())
+	if(gather_blockade())
 		blockade_replenish_spent++
 
 /datum/controller/subsystem/economy/proc/announce_blockade_start(datum/blockade/B)

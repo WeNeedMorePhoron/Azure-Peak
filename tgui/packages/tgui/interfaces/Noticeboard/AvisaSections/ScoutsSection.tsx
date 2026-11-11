@@ -139,16 +139,18 @@ const BlockadeEntry = ({
       }}
     >
       {blockade.faction_label || 'unknown raiders'}
-      <span
-        style={{
-          marginLeft: 6,
-          color: INK_SOFT,
-          fontSize: FONT_BODY,
-          fontWeight: 'normal',
-        }}
-      >
-        {blockade.days_active}d
-      </span>
+      {!blockade.gathering && (
+        <span
+          style={{
+            marginLeft: 6,
+            color: INK_SOFT,
+            fontSize: FONT_BODY,
+            fontWeight: 'normal',
+          }}
+        >
+          {blockade.days_active}d
+        </span>
+      )}
     </div>
     {!!blockade.region_label && (
       <div
@@ -158,10 +160,15 @@ const BlockadeEntry = ({
           marginTop: 1,
         }}
       >
-        blocking {blockade.region_label}
+        {blockade.gathering ? 'massing on the road to' : 'blocking'}{' '}
+        {blockade.region_label}
       </div>
     )}
-    {blockade.writ_out ? (
+    {blockade.gathering ? (
+      <div style={{ marginTop: 3 }}>
+        <span style={badgeStyle(SEAL_RED)}>STRIKES AT DAWN</span>
+      </div>
+    ) : blockade.writ_out ? (
       <div style={{ marginTop: 3 }}>
         <span style={badgeStyle(SEAL_AMBER)}>SCROLL OUT</span>
       </div>

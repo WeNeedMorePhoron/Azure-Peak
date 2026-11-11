@@ -203,10 +203,23 @@ SUBSYSTEM_DEF(regionthreat)
 				continue
 			var/datum/quest_faction/F = B.get_faction()
 			blockades += list(list(
+				"gathering" = FALSE,
 				"writ_out" = B.has_active_scroll() ? TRUE : FALSE,
 				"faction_label" = F ? "[F.group_word] of [F.name_plural]" : (B.faction_id || ""),
 				"region_label" = B.get_region_names(),
 				"days_active" = max(0, GLOB.dayspassed - B.day_started),
+			))
+		for(var/subroute in SSeconomy?.gathering_blockades)
+			if(get_subroute_threat_region(subroute) != TR.region_name)
+				continue
+			var/faction_id = SSeconomy.gathering_blockades[subroute]
+			var/datum/quest_faction/F = get_quest_faction(faction_id)
+			blockades += list(list(
+				"gathering" = TRUE,
+				"writ_out" = FALSE,
+				"faction_label" = F ? "[F.group_word] of [F.name_plural]" : (faction_id || ""),
+				"region_label" = get_subroute_region_names(subroute),
+				"days_active" = 0,
 			))
 		row["blockaded"] = length(blockades) ? TRUE : FALSE
 		row["blockades"] = blockades

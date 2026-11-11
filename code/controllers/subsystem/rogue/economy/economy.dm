@@ -9,6 +9,7 @@ SUBSYSTEM_DEF(economy)
 	var/last_petition_day = -1
 	var/petitions_today = 0
 	var/blockade_replenish_spent = 0
+	var/list/gathering_blockades = list()
 	var/list/event_path_cooldowns = list()
 	var/list/goods_with_producers = list()
 	var/list/goods_with_demand = list()
@@ -35,6 +36,7 @@ SUBSYSTEM_DEF(economy)
 		"events_expired" = list(),
 		"blockades_fired" = list(),
 		"blockades_cleared" = list(),
+		"blockades_gathering" = list(),
 		"orders_rolled" = 0,
 		"urgent_rolled" = 0,
 		"regular_orders_by_region" = list(),
@@ -65,6 +67,7 @@ SUBSYSTEM_DEF(economy)
 			"events_expired" = list(),
 			"blockades_fired" = list(),
 			"blockades_cleared" = list(),
+			"blockades_gathering" = list(),
 			"orders_rolled" = 0,
 			"urgent_rolled" = 0,
 			"regular_orders_by_region" = list(),

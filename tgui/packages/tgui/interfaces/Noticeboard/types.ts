@@ -23,6 +23,7 @@ export type Posting = {
 };
 
 export type ScoutBlockade = {
+  gathering: boolean;
   writ_out: boolean;
   faction_label: string;
   region_label: string;

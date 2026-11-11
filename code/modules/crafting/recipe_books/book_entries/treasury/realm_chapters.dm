@@ -107,7 +107,7 @@
 
 		<p>A blockade block one subroute of a trade route and cuts the road to every
 		region along it. Multiple blockades may exist at once. One scroll per
-		blockade at a time.</p>
+		blockade at a time. Mid round blockade will be announced a dae before.</p>
 
 		<p>A Blockade Scroll may be withdrawn from Your Postings until the first wave
 		begins. The waves begin when the holder arrives. Each wave must be broken

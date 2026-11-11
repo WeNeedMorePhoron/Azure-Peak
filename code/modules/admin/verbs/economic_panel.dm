@@ -102,6 +102,18 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 		))
 	data["blockades"] = blockades
 
+	var/list/gathering_blockades = list()
+	for(var/subroute in SSeconomy?.gathering_blockades)
+		var/faction_id = SSeconomy.gathering_blockades[subroute]
+		var/datum/quest_faction/F = get_quest_faction(faction_id)
+		gathering_blockades += list(list(
+			"subroute_id" = "[subroute]",
+			"subroute_name" = "[get_subroute_name(subroute)] ([get_subroute_region_names(subroute)])",
+			"threat_region" = get_subroute_threat_region(subroute),
+			"faction_name" = F ? F.name_plural : faction_id,
+		))
+	data["gathering_blockades"] = gathering_blockades
+
 	var/list/blockade_subroute_options = list()
 	for(var/datum/trade_subroute/subroute as anything in subtypesof(/datum/trade_subroute))
 		var/list/region_names = list()
@@ -373,6 +385,20 @@ GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 				admin_log_fiscal("rolled a blockade on [B.get_name()] ([B.faction_id])", "Fire Blockade Roll")
 			else
 				to_chat(usr, span_warning("No eligible subroute available to blockade."))
+			return TRUE
+		if("fire_blockade_gather")
+			if(!SSeconomy)
+				return TRUE
+			if(SSeconomy.gather_blockade())
+				admin_log_fiscal("rolled a gathering blockade for the next dawn", "Fire Gathering Roll")
+			else
+				to_chat(usr, span_warning("No eligible subroute available to blockade."))
+			return TRUE
+		if("land_gathering_blockades")
+			if(!SSeconomy || !length(SSeconomy.gathering_blockades))
+				return TRUE
+			SSeconomy.land_gathering_blockades()
+			admin_log_fiscal("landed gathering blockades early", "Land Gathering Blockades")
 			return TRUE
 		if("place_blockade")
 			if(!SSeconomy)

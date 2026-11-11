@@ -39,6 +39,16 @@
 		if(region.subroute == subroute)
 			. += region
 
+/proc/get_subroute_name(subroute)
+	var/datum/trade_subroute/subroute_path = subroute
+	return initial(subroute_path.name)
+
+/proc/get_subroute_region_names(subroute)
+	var/list/names = list()
+	for(var/datum/economic_region/region as anything in get_subroute_regions(subroute))
+		names += region.name
+	return english_list(names)
+
 /datum/trade_subroute/rossan_coast
 	name = "Rossan Coast"
 	route = /datum/trade_route/northern_seaway

@@ -12,14 +12,10 @@ GLOBAL_LIST_EMPTY(active_blockades)
 	return get_subroute_regions(subroute)
 
 /datum/blockade/proc/get_name()
-	var/datum/trade_subroute/blockaded_subroute = subroute
-	return initial(blockaded_subroute.name)
+	return get_subroute_name(subroute)
 
 /datum/blockade/proc/get_region_names()
-	var/list/names = list()
-	for(var/datum/economic_region/region as anything in get_regions())
-		names += region.name
-	return english_list(names)
+	return get_subroute_region_names(subroute)
 
 /datum/blockade/proc/get_threat_region()
 	if(!threat_region_name)

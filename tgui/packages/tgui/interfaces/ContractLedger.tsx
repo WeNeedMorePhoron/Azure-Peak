@@ -57,6 +57,7 @@ type HoardRecoveryRegion = {
 };
 
 type ScoutBlockade = {
+  gathering: BooleanLike;
   writ_out: BooleanLike;
   faction_label: string;
   region_label: string;
@@ -446,24 +447,31 @@ const ScoutsPanel = () => {
                     <div key={i} style={{ marginTop: i === 0 ? 0 : 6 }}>
                       <div style={{ color: '#8b1a1a', fontWeight: 'bold' }}>
                         {b.faction_label || 'unknown raiders'}
-                        <span
-                          style={{
-                            marginLeft: 6,
-                            fontWeight: 'normal',
-                            color: '#7a6a4a',
-                          }}
-                        >
-                          {b.days_active}d
-                        </span>
+                        {!b.gathering && (
+                          <span
+                            style={{
+                              marginLeft: 6,
+                              fontWeight: 'normal',
+                              color: '#7a6a4a',
+                            }}
+                          >
+                            {b.days_active}d
+                          </span>
+                        )}
                       </div>
                       {!!b.region_label && (
                         <div style={{ color: '#7a6a4a' }}>
-                          blocking {b.region_label}
+                          {b.gathering ? 'massing on the road to' : 'blocking'}{' '}
+                          {b.region_label}
                         </div>
                       )}
-                      <div style={{ color: '#a06000' }}>
-                        {b.writ_out ? 'Scroll out' : 'Awaiting scroll'}
-                      </div>
+                      {b.gathering ? (
+                        <div style={{ color: '#8b1a1a' }}>Strikes at dawn</div>
+                      ) : (
+                        <div style={{ color: '#a06000' }}>
+                          {b.writ_out ? 'Scroll out' : 'Awaiting scroll'}
+                        </div>
+                      )}
                     </div>
                   ))
                 ) : (

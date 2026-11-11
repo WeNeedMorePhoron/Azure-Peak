@@ -37,6 +37,7 @@
 	var/list/events_expired = diff["events_expired"]
 	var/list/blockades_fired = diff["blockades_fired"]
 	var/list/blockades_cleared = diff["blockades_cleared"]
+	var/list/blockades_gathering = diff["blockades_gathering"]
 	var/list/banditry_lines = diff["banditry_drain_lines"]
 	var/banditry_total = diff["banditry_drain_total"] || 0
 	var/banditry_burned = diff["banditry_drain_burned"] || 0
@@ -63,6 +64,11 @@
 		for(var/line in blockades_cleared)
 			body += "&nbsp;&nbsp;- [line]<br>"
 		body += "<br>"
+	if(length(blockades_gathering))
+		body += "<b>Blockades expected at the next dawn:</b><br>"
+		for(var/line in blockades_gathering)
+			body += "&nbsp;&nbsp;- [line]<br>"
+		body += "<br>"
 	if(length(events_fired))
 		body += "<b>New economic events:</b><br>"
 		for(var/line in events_fired)
@@ -87,7 +93,7 @@
 		if(urgent_rolled)
 			body += " ([urgent_rolled] urgent)"
 		body += "<br><br>"
-	if(!length(blockades_fired) && !length(blockades_cleared) && !length(events_fired) && !length(events_expired) && !orders_rolled && banditry_total <= 0 && banditry_hoard <= 0)
+	if(!length(blockades_fired) && !length(blockades_cleared) && !length(blockades_gathering) && !length(events_fired) && !length(events_expired) && !orders_rolled && banditry_total <= 0 && banditry_hoard <= 0)
 		body += "<i>The roads are quiet. No shipment was disturbed overnight.</i><br>"
 
 	body += "<hr><center><i>Use the Contract Ledger to post contracts in response.</i></center>"
