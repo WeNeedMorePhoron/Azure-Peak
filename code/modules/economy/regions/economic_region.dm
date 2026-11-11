@@ -123,10 +123,22 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 		resting += pool
 	return resting
 
+/datum/economic_region/proc/caravan_buy_price(good_id)
+	var/datum/trade_good/tg = GLOB.trade_goods[good_id]
+	if(!tg)
+		return 0
+	return stockpile_price(tg.reference_price() * REGION_PRODUCER_PRICE_MULT)
+
+/datum/economic_region/proc/caravan_sell_price(good_id)
+	var/datum/trade_good/tg = GLOB.trade_goods[good_id]
+	if(!tg)
+		return 0
+	return stockpile_price(tg.reference_price() * REGION_DEMANDER_PRICE_MULT)
+
 /datum/economic_region/proc/tribute_unit_price(good_id)
 	if(is_region_blockaded || !produces_day_start[good_id])
 		return 0
-	return SSeconomy.compute_import_unit_price(good_id, src, 1)
+	return caravan_buy_price(good_id)
 
 /datum/economic_region/proc/tribute_units(good_id, value)
 	var/price = tribute_unit_price(good_id)

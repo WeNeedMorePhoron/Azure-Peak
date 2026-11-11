@@ -82,15 +82,20 @@ const trimStop = (
 ): CaravanStopDraft => {
   const buys: CaravanLines = {};
   for (const [goodId, units] of Object.entries(asLines(stop.buys))) {
-    if (region?.produces.some((f) => f.good_id === goodId)) {
-      buys[goodId] = units;
+    const left =
+      region?.produces.find((f) => f.good_id === goodId)?.today ?? 0;
+    const take = Math.min(units, left);
+    if (take > 0) {
+      buys[goodId] = take;
     }
   }
   const sells: CaravanLines = {};
   for (const [goodId, units] of Object.entries(asLines(stop.sells))) {
-    const held = Math.min(units, stockByGood[goodId] ?? 0);
-    if (held > 0 && region?.demands.some((f) => f.good_id === goodId)) {
-      sells[goodId] = held;
+    const wanted =
+      region?.demands.find((f) => f.good_id === goodId)?.today ?? 0;
+    const take = Math.min(units, wanted, stockByGood[goodId] ?? 0);
+    if (take > 0) {
+      sells[goodId] = take;
     }
   }
   return {
@@ -248,7 +253,7 @@ const CaravanCard = (props: {
               <button
                 type="button"
                 style={inkButtonStyle({ color: SEAL_GREEN })}
-                title="Load this caravan's last trip, trimmed to today's royal stock and tribute."
+                title="Load this caravan's last trip, based on today's royal stock and tribute."
                 onClick={onPlanAgain}
               >
                 Plan again
@@ -464,7 +469,7 @@ const TripPlanner = (props: {
           color={SEAL_GREEN}
         />
         <CapacityBar
-          label="Goods home"
+          label="Goods in"
           used={homeUnits}
           capacity={data.caravan_capacity}
           color={SEAL_BLUE}
@@ -630,11 +635,11 @@ const StopPanel = (props: {
           rows={buyRows}
           lines={stop.buys}
           data={data}
-          emptyText="Sells nothing the Crown can store."
+          emptyText="Nothing to buy here."
           price={(f) => f.price}
           note={(f) => `${f.today} left`}
-          noteTitle="Supply left today. Large orders cost more per unit."
-          max={() => data.caravan_capacity}
+          noteTitle="Left to buy here today."
+          max={(f) => Math.min(data.caravan_capacity, f.today)}
           onSet={(goodId, units) => setLine('buys', goodId, units)}
         />
         <LineColumn
@@ -643,12 +648,16 @@ const StopPanel = (props: {
           rows={sellRows}
           lines={stop.sells}
           data={data}
-          emptyText="Buys nothing the Crown stores."
+          emptyText="Nothing to sell here."
           price={(f) => f.price}
-          note={(f) => `${stockByGood[f.good_id] ?? 0} held`}
-          noteTitle="Royal stock on hand. Large orders fetch less per unit."
+          note={(f) => `${f.today} wanted · ${stockByGood[f.good_id] ?? 0} held`}
+          noteTitle="Wanted here today, and held in royal stock."
           max={(f) =>
-            Math.min(data.caravan_capacity, stockByGood[f.good_id] ?? 0)
+            Math.min(
+              data.caravan_capacity,
+              f.today,
+              stockByGood[f.good_id] ?? 0,
+            )
           }
           onSet={(goodId, units) => setLine('sells', goodId, units)}
         />

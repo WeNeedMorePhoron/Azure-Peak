@@ -228,7 +228,7 @@
 	if(trade_good_id)
 		var/datum/trade_good/tg = GLOB.trade_goods[trade_good_id]
 		if(tg)
-			return (tg.item_type && GLOB.derived_sellprices[tg.item_type]) || tg.base_price
+			return tg.reference_price()
 	return withdraw_price
 
 /datum/roguestock/proc/market_unit_ask(stock)

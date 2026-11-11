@@ -384,24 +384,22 @@
 		for(var/good_id in region.produces)
 			if(!GLOB.trade_goods[good_id])
 				continue
-			var/import_index = max(0, region.produces[good_id] - (region.produces_today[good_id] || 0))
 			produces += list(list(
 				"good_id" = good_id,
 				"total" = region.get_day_capacity_total(good_id, TRUE),
 				"today" = region.get_day_capacity(good_id, TRUE),
-				"price" = SSeconomy.compute_import_unit_price(good_id, region, import_index + 1),
+				"price" = region.caravan_buy_price(good_id),
 				"tribute_price" = region.tribute_unit_price(good_id),
 			))
 		var/list/demands = list()
 		for(var/good_id in region.demands)
 			if(!GLOB.trade_goods[good_id])
 				continue
-			var/export_index = max(0, region.demands[good_id] - (region.demands_today[good_id] || 0))
 			demands += list(list(
 				"good_id" = good_id,
 				"total" = region.get_day_capacity_total(good_id, FALSE),
 				"today" = region.get_day_capacity(good_id, FALSE),
-				"price" = SSeconomy.compute_export_unit_price(good_id, region, export_index + 1),
+				"price" = region.caravan_sell_price(good_id),
 			))
 		region_rows += list(list(
 			"region_id" = region_id,

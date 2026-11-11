@@ -12,20 +12,6 @@
 	crown_caravans += caravan
 	return caravan
 
-/datum/controller/subsystem/economy/proc/quote_region_import(good_id, datum/economic_region/region, units)
-	var/starting_index = max(0, (region.produces[good_id] || 0) - (region.produces_today[good_id] || 0))
-	var/total = 0
-	for(var/i in 1 to units)
-		total += compute_import_unit_price(good_id, region, starting_index + i)
-	return round(total, STOCKPILE_PRICE_STEP)
-
-/datum/controller/subsystem/economy/proc/quote_region_export(good_id, datum/economic_region/region, units)
-	var/starting_index = max(0, (region.demands[good_id] || 0) - (region.demands_today[good_id] || 0))
-	var/total = 0
-	for(var/i in 1 to units)
-		total += compute_export_unit_price(good_id, region, starting_index + i)
-	return round(total, STOCKPILE_PRICE_STEP)
-
 /datum/controller/subsystem/economy/proc/plan_caravan_trip(route, list/orders)
 	var/datum/caravan_trip/trip = new()
 	trip.route = route
@@ -59,8 +45,12 @@
 			if(!tg?.importable || !region.produces[good_id] || !find_stockpile_by_trade_good(good_id))
 				trip.error = "[region.name] doesn't sell [tg ? tg.name : good_id]."
 				return trip
+			var/left = region.get_day_capacity(good_id, TRUE)
+			if(units > left)
+				trip.error = left ? "[region.name] has only [left] [tg.name] left today." : "[region.name] has no [tg.name] left today."
+				return trip
 			stop.buys[good_id] = units
-			stop.buy_cost += quote_region_import(good_id, region, units)
+			stop.buy_cost += mammon_round(region.caravan_buy_price(good_id) * units)
 			trip.buy_units += units
 		var/list/sells = order["sells"]
 		for(var/good_id in sells)
@@ -71,8 +61,12 @@
 			if(!tg || !region.demands[good_id])
 				trip.error = "[region.name] doesn't buy [tg ? tg.name : good_id]."
 				return trip
+			var/wanted = region.get_day_capacity(good_id, FALSE)
+			if(units > wanted)
+				trip.error = wanted ? "[region.name] wants only [wanted] more [tg.name] today." : "[region.name] wants no more [tg.name] today."
+				return trip
 			stop.sells[good_id] = units
-			stop.sell_revenue += quote_region_export(good_id, region, units)
+			stop.sell_revenue += mammon_round(region.caravan_sell_price(good_id) * units)
 			trip.sell_units += units
 			sold[good_id] += units
 		var/list/tribute = order["tribute"]
@@ -206,6 +200,6 @@
 		record_round_statistic(STATS_STOCKPILE_EXPORTS_VALUE, revenue)
 	caravan.trip = null
 	SStreasury.dirty_market_view()
-	SStreasury.steward_machine?.say("[caravan.name] is back from [trip.get_region_names()].")
+	SStreasury.steward_machine?.say("[caravan.name] returns from [trip.get_region_names()].")
 	log_game("CARAVAN RETURN: [caravan.name] from [trip.get_region_names()] (revenue [revenue]m)")
 	qdel(trip)

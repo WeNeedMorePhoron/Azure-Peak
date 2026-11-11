@@ -32,6 +32,9 @@
 	if(isnull(high_price) && !isnull(base_price))
 		high_price = base_price * 2
 
+/datum/trade_good/proc/reference_price()
+	return (item_type && GLOB.derived_sellprices[item_type]) || base_price
+
 GLOBAL_LIST_INIT(trade_goods, init_trade_goods())
 
 /proc/init_trade_goods()
