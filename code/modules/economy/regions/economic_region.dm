@@ -23,6 +23,8 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 	var/list/supply_sources = list()
 	var/list/demand_sources = list()
 	var/list/rotating_demand_goods = list()
+	var/tribute_good
+	var/tribute_claimed = FALSE
 	var/list/gifts = list()
 	var/list/possible_standing_order_types = list()
 	var/associated_marker_id
@@ -92,6 +94,7 @@ GLOBAL_LIST_INIT(economic_regions, init_economic_regions())
 
 /datum/economic_region/proc/reset_day_capacity(pop_mult, season)
 	var/list/resting = roll_rotating_demands()
+	tribute_claimed = FALSE
 	produces_today = list()
 	produces_day_start = list()
 	demands_today = list()

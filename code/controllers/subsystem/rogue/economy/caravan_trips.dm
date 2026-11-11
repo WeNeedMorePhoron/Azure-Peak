@@ -23,12 +23,6 @@
 	for(var/datum/economic_region/region as anything in regions)
 		. += region.get_day_capacity(good_id, importing)
 
-/datum/controller/subsystem/economy/proc/route_supplied_today(list/regions, good_id)
-	for(var/datum/economic_region/region as anything in regions)
-		if(region.get_day_capacity_total(good_id, TRUE) > 0)
-			return TRUE
-	return FALSE
-
 /datum/controller/subsystem/economy/proc/spend_route_capacity(list/regions, good_id, units, importing)
 	for(var/datum/economic_region/region as anything in regions)
 		if(units <= 0)
@@ -118,20 +112,21 @@
 		trip.sells[good_id] = units
 		trip.sell_units += units
 		trip.sell_revenue += mammon_round(tg.demander_price() * units)
-	var/tribute_good = order["tribute"]
-	if(tribute_good)
-		var/datum/trade_good/tg = GLOB.trade_goods[tribute_good]
-		if(route_tributes_claimed[route])
-			trip.error = "[route_name] has already given its tribute today."
+	var/datum/economic_region/tribute_region = GLOB.economic_regions[order["tribute"]]
+	if(tribute_region)
+		if(!(tribute_region in regions) || !tribute_region.tribute_good || !find_stockpile_by_trade_good(tribute_region.tribute_good))
+			trip.error = "[tribute_region.name] can't give tribute to a caravan on [route_name] today."
 			return trip
-		if(!tg.importable || !find_stockpile_by_trade_good(tribute_good) || !route_supplied_today(regions, tribute_good))
-			trip.error = "[route_name] can't give [tg.name] as tribute today."
+		if(tribute_region.tribute_claimed)
+			trip.error = "[tribute_region.name] has already given its tribute today."
 			return trip
-		var/units = round(route_tribute_value / tg.producer_price())
+		var/datum/trade_good/tg = GLOB.trade_goods[tribute_region.tribute_good]
+		var/units = round(tribute_value / tg.producer_price())
 		if(units <= 0)
-			trip.error = "[route_name]'s tribute can't cover a single [tg.name]."
+			trip.error = "[tribute_region.name]'s tribute can't cover a single [tg.name]."
 			return trip
-		trip.tribute_good = tribute_good
+		trip.tribute_region = tribute_region.region_id
+		trip.tribute_good = tribute_region.tribute_good
 		trip.tribute_units = units
 	if(trip.sell_units > CARAVAN_CAPACITY)
 		trip.error = "A caravan carries at most [CARAVAN_CAPACITY] goods out."
@@ -172,7 +167,7 @@
 	order["buys"] = sanitize_caravan_lines(raw["buys"])
 	order["sells"] = sanitize_caravan_lines(raw["sells"])
 	var/tribute = raw["tribute"]
-	if(istext(tribute) && GLOB.trade_goods[tribute])
+	if(istext(tribute) && GLOB.economic_regions[tribute])
 		order["tribute"] = tribute
 	return order
 
@@ -218,9 +213,10 @@
 		spend_route_capacity(regions, good_id, trip.buys[good_id], TRUE)
 	for(var/good_id in trip.sells)
 		spend_route_capacity(regions, good_id, trip.sells[good_id], FALSE)
-	if(trip.tribute_good)
-		route_tributes_claimed[trip.route] = TRUE
-		last_tribute_picks[trip.route] = trip.tribute_good
+	if(trip.tribute_region)
+		var/datum/economic_region/tribute_region = GLOB.economic_regions[trip.tribute_region]
+		tribute_region.tribute_claimed = TRUE
+		last_tribute_picks[trip.route] = trip.tribute_region
 	var/datum/trade_route/route_path = trip.route
 	var/trip_time = initial(route_path.trip_time)
 	trip.booked_by = user?.real_name

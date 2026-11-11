@@ -11,6 +11,7 @@
 	var/route
 	var/list/buys = list()
 	var/list/sells = list()
+	var/tribute_region
 	var/tribute_good
 	var/tribute_units = 0
 	var/buy_units = 0

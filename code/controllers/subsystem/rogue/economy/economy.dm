@@ -12,8 +12,7 @@ SUBSYSTEM_DEF(economy)
 	var/list/gathering_blockades = list()
 	var/list/crown_caravans = list()
 	var/caravans_granted = 0
-	var/route_tribute_value = 0
-	var/list/route_tributes_claimed = list()
+	var/tribute_value = 0
 	var/list/last_tribute_picks = list()
 	var/list/event_path_cooldowns = list()
 	var/list/goods_with_producers = list()
@@ -58,8 +57,7 @@ SUBSYSTEM_DEF(economy)
 	for(var/region_id in GLOB.economic_regions)
 		var/datum/economic_region/region = GLOB.economic_regions[region_id]
 		region.reset_day_capacity(pop_mult, season)
-	route_tribute_value = round(ROUTE_TRIBUTE_VALUE * pop_mult)
-	route_tributes_claimed = list()
+	tribute_value = round(REGION_TRIBUTE_VALUE * pop_mult)
 	SStreasury.dirty_market_view()
 
 /datum/controller/subsystem/economy/proc/daily_tick()
