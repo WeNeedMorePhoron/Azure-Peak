@@ -4,9 +4,8 @@
 	var/item_type = null
 	// The amount held by the royal stockpile.
 	var/royal_stock = 0
-	// The amount held by the market, used for computing market price
-	var/market_stock = 0
 	var/market_target = 0
+	var/datum/goods_group/group
 	// Only the stockpile can ever purchase these goods. The market will never supply them
 	var/market_never_supplies = FALSE
 	var/payout_price = 1
@@ -25,7 +24,6 @@
 			compute_auto_prices(tg)
 	if(!market_target)
 		market_target = compute_market_target()
-	market_stock = market_target
 	return
 
 /datum/roguestock/proc/get_quality_settlement(obj/item/I, baseline)
@@ -54,7 +52,7 @@
 			total += (region.produces[trade_good_id] || 0) + (region.demands[trade_good_id] || 0)
 	return clamp(total, MARKET_TARGET_MIN, MARKET_TARGET_MAX)
 
-/datum/roguestock/proc/market_has_supply()
+/datum/roguestock/proc/has_open_producer()
 	if(!trade_good_id)
 		return FALSE
 	var/datum/trade_good/tg = GLOB.trade_goods[trade_good_id]
@@ -66,29 +64,23 @@
 			return TRUE
 	return FALSE
 
-/datum/roguestock/proc/market_step(stock)
-	var/ratio = stock * 100 / market_target
-	if(ratio >= MARKET_RATIO_OVERSTOCKED)
-		return market_zone_step(MARKET_STEP_OVERSTOCKED)
-	if(ratio >= MARKET_RATIO_ABUNDANT)
-		return MARKET_STEP_ABUNDANT
-	if(ratio >= MARKET_RATIO_PLENTIFUL)
-		return MARKET_STEP_PLENTIFUL
-	if(ratio >= MARKET_RATIO_STEADY)
-		return MARKET_STEP_STEADY
-	if(ratio >= MARKET_RATIO_LOW)
-		return MARKET_STEP_LOW
-	if(ratio >= MARKET_RATIO_SCARCE)
-		return MARKET_STEP_SCARCE
-	return market_zone_step(MARKET_STEP_VERY_SCARCE)
+/datum/roguestock/proc/market_has_supply()
+	return group.market_has_supply()
 
-/datum/roguestock/proc/market_zone_step(step)
-	var/event = get_event_label()
-	if(step == MARKET_STEP_OVERSTOCKED && event == "GLUT")
-		return MARKET_STEP_GLUT
-	if(step == MARKET_STEP_VERY_SCARCE && event == "SHORTAGE")
-		return MARKET_STEP_SHORTAGE
-	return step
+/datum/roguestock/proc/market_weight()
+	return stockpile_price(market_base_price())
+
+/datum/roguestock/proc/market_units()
+	return max(0, round(group.market_stock / market_weight() + MARKET_VALUE_EPSILON))
+
+/datum/roguestock/proc/market_target_units()
+	return round(group.market_target / market_weight() + MARKET_VALUE_EPSILON)
+
+/datum/roguestock/proc/add_market_units(units)
+	group.market_stock = max(0, round(group.market_stock + units * market_weight(), STOCKPILE_PRICE_STEP))
+
+/datum/roguestock/proc/market_label()
+	return market_step_label(group.current_step())
 
 /proc/market_step_above(step)
 	switch(step)
@@ -115,7 +107,7 @@
 		var/still_glutted = FALSE
 		for(var/good_id in E.affected_goods)
 			var/datum/roguestock/D = SStreasury.stockpile_by_trade_good[good_id]
-			if(D && D.market_stock * 100 / D.market_target >= MARKET_RATIO_OVERSTOCKED)
+			if(D && D.group.is_overstocked())
 				still_glutted = TRUE
 				break
 		if(!still_glutted)
@@ -177,49 +169,50 @@
 			return MARKET_RATIO_SCARCE
 	return 0
 
-/datum/roguestock/proc/market_step_min_stock(step)
-	return CEILING(market_step_ratio(step) * market_target / 100, 1)
-
 /datum/roguestock/proc/market_step_unit_ask(step)
 	return stockpile_price(market_base_price() * market_step_multiplier(step) / 100)
 
 /datum/roguestock/proc/market_next_buy_change()
-	var/stock = max(0, market_stock) - 1
-	var/step = market_step(stock)
+	var/weight = market_weight()
+	var/stock = max(0, group.market_stock) - weight
+	var/step = group.market_step(stock)
 	var/price = market_unit_ask(stock)
 	var/count = 0
 	while(market_step_ratio(step) > 0)
-		count += stock - market_step_min_stock(step) + 1
-		stock = market_step_min_stock(step) - 1
-		step = market_step(stock)
+		var/units = round((stock - group.market_step_min_stock(step)) / weight + MARKET_VALUE_EPSILON) + 1
+		count += units
+		stock -= units * weight
+		step = group.market_step(stock)
 		var/next_price = market_unit_ask(stock)
 		if(next_price != price)
 			return list("count" = count, "price" = next_price)
 	return null
 
 /datum/roguestock/proc/market_next_sell_change()
-	var/stock = max(0, market_stock) + 1
-	var/step = market_step(stock)
+	var/weight = market_weight()
+	var/stock = max(0, group.market_stock) + weight
+	var/step = group.market_step(stock)
 	var/price = stockpile_price(market_unit_ask(stock) * STOCKPILE_BID_RATIO)
 	var/count = 0
 	while(market_step_above(step))
-		var/next_min = market_step_min_stock(market_step_above(step))
-		count += next_min - stock
-		stock = next_min
-		step = market_step(stock)
+		var/units = max(1, CEILING((group.market_step_min_stock(market_step_above(step)) - stock) / weight - MARKET_VALUE_EPSILON, 1))
+		count += units
+		stock += units * weight
+		step = group.market_step(stock)
 		var/next_price = stockpile_price(market_unit_ask(stock) * STOCKPILE_BID_RATIO)
 		if(next_price != price)
 			return list("count" = count, "price" = next_price)
 	return null
 
 /datum/roguestock/proc/market_segments()
+	var/weight = market_weight()
 	var/list/segments = list()
 	for(var/step = MARKET_STEP_VERY_SCARCE, step >= MARKET_STEP_OVERSTOCKED, step--)
-		var/shown = market_zone_step(step)
+		var/shown = group.market_zone_step(step)
 		segments += list(list(
 			"label" = market_step_label(shown),
-			"from" = market_step_min_stock(step),
-			"to" = step == MARKET_STEP_OVERSTOCKED ? null : market_step_min_stock(step - 1) - 1,
+			"from" = CEILING(group.market_step_min_stock(step) / weight - MARKET_VALUE_EPSILON, 1),
+			"to" = step == MARKET_STEP_OVERSTOCKED ? null : CEILING(group.market_step_min_stock(step - 1) / weight - MARKET_VALUE_EPSILON, 1) - 1,
 			"price" = market_step_unit_ask(shown),
 		))
 	return segments
@@ -232,20 +225,22 @@
 	return withdraw_price
 
 /datum/roguestock/proc/market_unit_ask(stock)
-	return stockpile_price(market_base_price() * market_step_multiplier(market_step(stock)) / 100)
+	return market_step_unit_ask(group.market_step(stock))
 
 /datum/roguestock/proc/market_ask(units = 1)
+	var/weight = market_weight()
 	var/total = 0
 	for(var/i in 1 to units)
-		total += market_unit_ask(market_stock - i)
+		total += market_unit_ask(group.market_stock - i * weight)
 	return mammon_round(total)
 
 /datum/roguestock/proc/market_bid(units = 1, start)
 	if(isnull(start))
-		start = market_stock
+		start = group.market_stock
+	var/weight = market_weight()
 	var/total = 0
 	for(var/i in 1 to units)
-		total += stockpile_price(market_unit_ask(start + i) * STOCKPILE_BID_RATIO)
+		total += stockpile_price(market_unit_ask(start + i * weight) * STOCKPILE_BID_RATIO)
 	return mammon_round(total)
 
 /datum/roguestock/proc/check_item(obj/item/I)

@@ -32,7 +32,7 @@
 	if(D.market_never_supplies)
 		parent_structure.say("Not available.")
 		return FALSE
-	var/market_open = D.market_stock > 0 || D.market_has_supply()
+	var/market_open = D.market_units() > 0 || D.market_has_supply()
 	var/total_price = D.market_ask(1)
 	var/subsidy = ishuman(user) && HAS_TRAIT(user, TRAIT_ROYAL_SUBSIDY) && SStreasury.royal_subsidy_remaining(user) >= total_price
 	var/from_royal_stock = subsidy && D.royal_stock > 0
@@ -56,7 +56,7 @@
 				return FALSE
 			budget = max(0, mammon_round(budget - total_price))
 			record_round_statistic(STATS_STOCKPILE_REVENUE, total_price)
-		D.market_stock = max(0, D.market_stock - 1)
+		D.add_market_units(-1)
 		D.check_glut_relief()
 	SStreasury.dirty_market_view()
 	var/obj/item/I = new D.item_type(parent_structure.loc)

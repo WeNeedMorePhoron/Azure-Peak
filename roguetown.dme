@@ -3246,6 +3246,7 @@
 #include "code\modules\roguetown\roguestock\blockade.dm"
 #include "code\modules\roguetown\roguestock\crown_imports.dm"
 #include "code\modules\roguetown\roguestock\economic_events.dm"
+#include "code\modules\roguetown\roguestock\goods_groups.dm"
 #include "code\modules\roguetown\roguestock\pricing_engine.dm"
 #include "code\modules\roguetown\roguestock\standing_order.dm"
 #include "code\modules\roguetown\roguestock\steward_petition.dm"

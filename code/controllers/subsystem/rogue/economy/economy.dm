@@ -860,7 +860,7 @@ SUBSYSTEM_DEF(economy)
 	D.refresh_auto_price()
 	var/revenue = D.market_bid(quantity)
 	D.royal_stock -= quantity
-	D.market_stock += quantity
+	D.add_market_units(quantity)
 	credit_economic_event_saturation(good_id, quantity)
 	SStreasury.dirty_market_view()
 	SStreasury.mint(SStreasury.discretionary_fund, revenue, "Market Sale: [quantity] [D.name] by [user.real_name]", null, LEDGER_CROWN_REV_STOCKPILE_SALES)
@@ -878,7 +878,7 @@ SUBSYSTEM_DEF(economy)
 	D.refresh_auto_price()
 	quantity = min(round(quantity), TRADE_MAX_BULK_UNITS)
 	if(!D.market_has_supply())
-		quantity = min(quantity, D.market_stock)
+		quantity = min(quantity, D.market_units())
 	if(quantity <= 0)
 		to_chat(user, span_warning("The market is out of [D.name]."))
 		return 0
@@ -886,7 +886,7 @@ SUBSYSTEM_DEF(economy)
 	if(!SStreasury.burn(SStreasury.discretionary_fund, cost, "Market Purchase: [quantity] [D.name] by [user.real_name]", LEDGER_CROWN_EXP_STOCKPILE))
 		to_chat(user, span_warning("The Treasury can't afford this. It has [format_mammon(SStreasury.discretionary_fund.balance)]m and needs [format_mammon(cost)]m."))
 		return 0
-	D.market_stock = max(0, D.market_stock - quantity)
+	D.add_market_units(-quantity)
 	D.royal_stock += quantity
 	D.check_glut_relief()
 	SStreasury.dirty_market_view()

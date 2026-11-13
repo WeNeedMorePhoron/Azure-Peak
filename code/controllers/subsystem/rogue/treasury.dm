@@ -93,6 +93,7 @@ SUBSYSTEM_DEF(treasury)
 	var/list/decrees = list()
 	var/list/stockpile_datums = list()
 	var/list/stockpile_by_trade_good = list()
+	var/list/goods_groups = list()
 	var/decree_revoke_used_day = -1
 	var/decree_restore_used_day = -1
 	var/next_treasury_check = 0
@@ -155,6 +156,7 @@ SUBSYSTEM_DEF(treasury)
 		stockpile_datums += D
 		if(D.trade_good_id)
 			stockpile_by_trade_good[D.trade_good_id] = D
+	build_goods_groups()
 	autoset_stockpile_limits()
 	revalue_stockpile_inventory(opening = TRUE)
 	return ..()

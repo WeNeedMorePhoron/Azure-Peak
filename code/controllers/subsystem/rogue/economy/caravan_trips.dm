@@ -102,8 +102,8 @@
 		var/from_royal = min(units, royal_spare(D))
 		var/from_market = units - from_royal
 		if(from_market > 0)
-			if(D.market_never_supplies || (D.market_stock < from_market && !D.market_has_supply()))
-				trip.error = "Not enough [tg.name] to sell. Royal stock has [from_royal] and the Market has [D.market_never_supplies ? 0 : max(0, D.market_stock)]."
+			if(D.market_never_supplies || (D.market_units() < from_market && !D.market_has_supply()))
+				trip.error = "Not enough [tg.name] to sell. Royal stock has [from_royal] and the Market has [D.market_never_supplies ? 0 : D.market_units()]."
 				return trip
 			trip.market_purchases[good_id] = from_market
 			trip.market_cost += D.market_ask(from_market)
@@ -144,18 +144,22 @@
 	plan_caravan_landing(trip)
 	return trip
 
-/datum/controller/subsystem/economy/proc/pending_market_deliveries(good_id, datum/caravan_trip/except)
+/datum/controller/subsystem/economy/proc/pending_market_value(datum/goods_group/G, datum/caravan_trip/except)
 	. = 0
 	for(var/datum/crown_caravan/caravan as anything in crown_caravans)
 		var/datum/caravan_trip/trip = caravan.trip
-		if(trip && trip != except)
-			. += trip.market_deliveries[good_id] || 0
+		if(!trip || trip == except)
+			continue
+		for(var/good_id in trip.market_deliveries)
+			var/datum/roguestock/D = find_stockpile_by_trade_good(good_id)
+			if(D?.group == G)
+				. += trip.market_deliveries[good_id] * D.market_weight()
 
 /datum/controller/subsystem/economy/proc/estimate_market_revenue(datum/caravan_trip/trip)
 	. = 0
 	for(var/good_id in trip.market_deliveries)
 		var/datum/roguestock/D = find_stockpile_by_trade_good(good_id)
-		. += D.market_bid(trip.market_deliveries[good_id], D.market_stock + pending_market_deliveries(good_id, trip))
+		. += D.market_bid(trip.market_deliveries[good_id], D.group.market_stock + pending_market_value(D.group, trip))
 
 /datum/controller/subsystem/economy/proc/sanitize_caravan_order(list/raw)
 	var/list/order = list("route" = null, "buys" = list(), "sells" = list(), "tribute" = null)
@@ -203,7 +207,7 @@
 		SStreasury.burn(SStreasury.discretionary_fund, trip.market_cost, "Caravan Market Purchase: [caravan.name] on [route_name]", LEDGER_CROWN_EXP_STOCKPILE)
 	for(var/good_id in trip.market_purchases)
 		var/datum/roguestock/D = find_stockpile_by_trade_good(good_id)
-		D.market_stock = max(0, D.market_stock - trip.market_purchases[good_id])
+		D.add_market_units(-trip.market_purchases[good_id])
 		D.check_glut_relief()
 	for(var/good_id in trip.royal_sales)
 		var/datum/roguestock/D = find_stockpile_by_trade_good(good_id)
@@ -244,7 +248,7 @@
 		var/datum/roguestock/D = find_stockpile_by_trade_good(good_id)
 		var/units = trip.market_deliveries[good_id]
 		market_revenue += D.market_bid(units)
-		D.market_stock += units
+		D.add_market_units(units)
 		credit_economic_event_saturation(good_id, units)
 	if(market_revenue > 0)
 		SStreasury.mint(SStreasury.discretionary_fund, market_revenue, "Caravan Market Sale: [caravan.name] from [route_name]", null, LEDGER_CROWN_REV_STOCKPILE_SALES)

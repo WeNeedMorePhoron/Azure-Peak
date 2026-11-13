@@ -64,10 +64,11 @@ GLOBAL_LIST_EMPTY(active_economic_events)
 		var/datum/roguestock/D = SStreasury.stockpile_by_trade_good[good_id]
 		if(!D)
 			continue
+		var/datum/goods_group/G = D.group
 		if(event_type == ECON_EVENT_OVERSUPPLY)
-			D.market_stock = max(D.market_stock, CEILING(D.market_target * MARKET_GLUT_SHOCK / 100, 1))
+			G.market_stock = max(G.market_stock, G.market_target * MARKET_GLUT_SHOCK / 100)
 		else if(event_type == ECON_EVENT_SHORTAGE)
-			D.market_stock = 0
+			G.market_stock = 0
 	SStreasury.dirty_market_view()
 
 /datum/economic_event/proc/end_with_relief()

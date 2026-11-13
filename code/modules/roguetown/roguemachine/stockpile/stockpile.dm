@@ -76,19 +76,19 @@
 			"name" = R.name,
 			"desc" = R.desc,
 			"category" = R.category,
-			"amount" = R.market_stock,
-			"limit" = R.market_target,
+			"amount" = R.market_units(),
+			"limit" = R.market_target_units(),
 			"royal_amount" = R.royal_stock,
 			"never_supplied" = R.market_never_supplies ? TRUE : FALSE,
-			"sold_out" = (R.market_stock <= 0 && !R.market_has_supply()) ? TRUE : FALSE,
+			"sold_out" = (R.market_units() <= 0 && !R.market_has_supply()) ? TRUE : FALSE,
 			"next_buy" = R.market_next_buy_change(),
 			"next_sell" = R.market_next_sell_change(),
 			"segments" = R.market_segments(),
-			"market_label" = market_step_label(R.market_step(R.market_stock)),
+			"market_label" = R.market_label(),
 			"withdraw_price" = R.market_ask(1),
 			"deposit_price" = R.market_bid(1),
 			"export_price" = export_unit_price,
-			"event_tag" = R.get_event_label(),
+			"event_tag" = R.group.get_event_label(),
 			"shortage_progress" = shortage ? shortage["progress"] : 0,
 			"shortage_target" = shortage ? shortage["target"] : 0,
 			"shortage_affected" = shortage ? shortage["affected"] : "",
@@ -186,7 +186,7 @@
 				deposit_to_royal_stock(R, bundle_amt, H)
 				return
 			var/amt = R.market_bid(bundle_amt)
-			R.market_stock += bundle_amt
+			R.add_market_units(bundle_amt)
 			var/paid = pay_seller(H, amt, "from selling [bundle_amt] [R.name]")
 			SStreasury.economic_output += paid
 			return
@@ -213,7 +213,7 @@
 			if(HAS_TRAIT(H, TRAIT_ROYAL_SUBSIDY))
 				deposit_to_royal_stock(R, 1, H)
 				return
-			R.market_stock += 1
+			R.add_market_units(1)
 			SStreasury.economic_output += true_value
 			var/reason = "from selling [R.name]"
 			var/seller_delta = mammon_round(amt - quality_baseline)
